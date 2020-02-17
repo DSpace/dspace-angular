@@ -39,6 +39,7 @@ import { Store } from '@ngrx/store';
 import { SubmissionState } from '../../../../../../submission/submission.reducers';
 import { ObjectCacheService } from '../../../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../../../core/data/request.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 
 @Component({
   selector: 'ds-dynamic-form-array',
@@ -70,9 +71,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
               protected submissionObjectService: SubmissionObjectDataService,
               protected zone: NgZone,
               protected formService: DynamicFormService,
-              private store: Store<SubmissionState>,
-              private objectCache: ObjectCacheService,
-              private requestService: RequestService
+              private submissionService: SubmissionService,
   ) {
     super(layoutService, validationService);
   }
@@ -185,26 +184,9 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
             }
           });
           observableCombineLatest(...updatedReorderables).pipe(
-            switchMap(() => this.refreshWorkspaceItemInCache(this.model.submissionId)),
-          ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(this.model.submissionId, [submissionObject], false)));
+          ).subscribe(() => this.submissionService.dispatchSave(this.model.submissionId));
         });
     })
-  }
-    refreshWorkspaceItemInCache(submissionId: string): Observable<SubmissionObject> {
-      return this.submissionObjectService.getHrefByID(submissionId).pipe(take(1)).pipe(
-        switchMap((href: string) => {
-          this.objectCache.remove(href);
-          this.requestService.removeByHrefSubstring(submissionId);
-          return observableCombineLatest(
-            this.objectCache.hasBySelfLinkObservable(href),
-            this.requestService.hasByHrefObservable(href)
-          ).pipe(
-            filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
-            take(1),
-            switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
-          )
-        })
-      );
   }
 
   moveSelection(event: CdkDragDrop<Relationship>) {

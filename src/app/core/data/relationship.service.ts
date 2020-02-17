@@ -410,8 +410,8 @@ export class RelationshipService extends DataService<Relationship> {
     const update$ = this.update(updatedRelationship);
 
     update$.pipe(
-      // filter((relationshipRD: RemoteData<Relationship>) => relationshipRD.state === RemoteDataState.ResponsePending),
-      // take(1),
+      filter((relationshipRD: RemoteData<Relationship>) => relationshipRD.state === RemoteDataState.ResponsePending),
+      take(1),
     ).subscribe((relationshipRD: RemoteData<Relationship>) => {
       if (relationshipRD.state === RemoteDataState.ResponsePending) {
         this.refreshRelationshipItemsInCacheByRelationship(reoRel.relationship.id);
