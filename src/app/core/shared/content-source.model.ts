@@ -16,7 +16,7 @@ export enum ContentSourceHarvestType {
 /**
  * A model class that holds information about the Content Source of a Collection
  */
-export class ContentSource implements HALResource{
+export class ContentSource implements HALResource {
   /**
    * Unique identifier, this is necessary to store the ContentSource in FieldUpdates
    * Because the ContentSource coming from the REST API doesn't have a UUID, we're using the selflink

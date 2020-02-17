@@ -12,9 +12,6 @@ import { ChangeAnalyzer } from './change-analyzer';
  */
 @Injectable()
 export class DefaultChangeAnalyzer<T extends CacheableObject> implements ChangeAnalyzer<T> {
-  constructor() {
-  }
-
   /**
    * Compare the metadata of two CacheableObject and return the differences as
    * a JsonPatch Operation Array

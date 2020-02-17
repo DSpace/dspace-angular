@@ -58,7 +58,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
     console.log('ngOnInit', this.object);
   }
 
-    /**
+  /**
    * Delete the target workspaceitem object
    */
   public confirmDiscard(content) {

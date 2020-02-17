@@ -18,6 +18,7 @@ import { RemoteData } from './remote-data';
 import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 
+/* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<ItemType> {
   protected linkPath = 'entitytypes';
 
@@ -71,3 +72,4 @@ export class ItemTypeDataService {
     return this.dataService.findAllByHref(href, findListOptions, ...linksToFollow);
   }
 }
+/* tslint:enable:max-classes-per-file */

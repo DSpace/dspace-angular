@@ -78,7 +78,6 @@ describe('RelationshipTypeService', () => {
       requestService,
       rdbService,
       null,
-      null,
       halService,
       objectCache,
       null,

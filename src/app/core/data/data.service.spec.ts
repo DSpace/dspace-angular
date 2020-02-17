@@ -19,6 +19,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 const endpoint = 'https://rest.api/core';
 
+/* tslint:disable:max-classes-per-file */
 class TestService extends DataService<any> {
 
   constructor(
@@ -39,7 +40,6 @@ class TestService extends DataService<any> {
     return observableOf(endpoint);
   }
 }
-
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
   diff(object1: Item, object2: Item): Operation[] {
     return compare((object1 as any).metadata, (object2 as any).metadata);
@@ -198,3 +198,4 @@ describe('DataService', () => {
     });
   });
 });
+/* tslint:enable:max-classes-per-file */

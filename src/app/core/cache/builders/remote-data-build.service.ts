@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
 import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import {
-  hasNoValue,
   hasValue,
   hasValueOperator,
   isEmpty,
@@ -14,7 +13,6 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
-import { GetRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
 import {
@@ -136,7 +134,7 @@ export class RemoteDataBuildService {
       getResourceLinksFromResponse(),
       switchMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs).pipe(
-          map((objs: Array<T>) => {
+          map((objs: T[]) => {
             return objs.map((obj: T) => {
               return this.build<T>(obj, ...linksToFollow);
             });

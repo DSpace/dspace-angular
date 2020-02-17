@@ -187,7 +187,7 @@ export class ObjectCacheService {
    *    The type of the objects to get
    * @return Observable<Array<T>>
    */
-  getList<T extends CacheableObject>(selfLinks: string[]): Observable<Array<T>> {
+  getList<T extends CacheableObject>(selfLinks: string[]): Observable<T[]> {
     return observableCombineLatest(
       selfLinks.map((selfLink: string) => this.getObjectBySelfLink<T>(selfLink))
     );
