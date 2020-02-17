@@ -1,20 +1,20 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchFacetOptionComponent } from './search-facet-option.component';
-import { SearchFilterConfig } from '../../../../search-filter-config.model';
-import { FilterType } from '../../../../filter-type.model';
-import { FacetValue } from '../../../../facet-value.model';
 import { FormsModule } from '@angular/forms';
-import { of as observableOf } from 'rxjs';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchServiceStub } from '../../../../../testing/search-service-stub';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { RouterStub } from '../../../../../testing/router-stub';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { By } from '@angular/platform-browser';
+import { SearchService } from '../../../../../../core/shared/search/search.service';
+import { RouterStub } from '../../../../../testing/router-stub';
+import { SearchServiceStub } from '../../../../../testing/search-service-stub';
+import { FacetValue } from '../../../../facet-value.model';
+import { FilterType } from '../../../../filter-type.model';
+import { SearchFilterConfig } from '../../../../search-filter-config.model';
+import { SearchFacetOptionComponent } from './search-facet-option.component';
 
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
@@ -47,21 +47,30 @@ describe('SearchFacetOptionComponent', () => {
     label: value2,
     value: value2,
     count: 20,
-    search: ``
+    _links: {
+      self: { href: 'selectedValue-self-link2' },
+      search: { href: `` }
+    }
   };
 
   const selectedValue: FacetValue = {
     label: value1,
     value: value1,
     count: 20,
-    search: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1},${operator}`
+    _links: {
+      self: { href: 'selectedValue-self-link1' },
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1},${operator}` }
+    }
   };
 
   const authorityValue: FacetValue = {
     label: value2,
     value: value2,
     count: 20,
-    search: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}`
+    _links: {
+      self: { href: 'authorityValue-self-link2' },
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}` }
+    }
   };
 
   const searchLink = '/search';
