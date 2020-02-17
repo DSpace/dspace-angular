@@ -1,6 +1,6 @@
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { resourceType } from '../cache/builders/build-decorators';
+import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { EXTERNAL_SOURCE_ENTRY } from './external-source-entry.resource-type';
 import { GenericConstructor } from './generic-constructor';
@@ -11,7 +11,7 @@ import { ResourceType } from './resource-type';
 /**
  * Model class for a single entry from an external source
  */
-@resourceType(ExternalSourceEntry.type)
+@typedObject
 export class ExternalSourceEntry extends ListableObject {
   static type = EXTERNAL_SOURCE_ENTRY;
 

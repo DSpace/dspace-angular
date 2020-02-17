@@ -1,6 +1,6 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, resourceType } from '../cache/builders/build-decorators';
+import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
@@ -11,7 +11,7 @@ import { COMMUNITY } from './community.resource-type';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 
-@resourceType(Community.type)
+@typedObject
 @inheritSerialization(DSpaceObject)
 export class Community extends DSpaceObject {
   static type = COMMUNITY;

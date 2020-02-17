@@ -1,5 +1,5 @@
 import { autoserialize, deserialize } from 'cerialize';
-import { resourceType } from '../../cache/builders/build-decorators';
+import { typedObject } from '../../cache/builders/build-decorators';
 import { PaginatedList } from '../../data/paginated-list';
 import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
@@ -9,7 +9,7 @@ import { ConfigObject } from './config.model';
 /**
  * Class for the configuration describing the submission
  */
-@resourceType(SubmissionDefinitionModel.type)
+@typedObject
 export class SubmissionDefinitionModel extends ConfigObject {
   static type = new ResourceType('submissiondefinition');
 

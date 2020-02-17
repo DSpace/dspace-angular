@@ -1,6 +1,6 @@
 import { autoserialize, deserialize } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { resourceType } from '../cache/builders/build-decorators';
+import { typedObject } from '../cache/builders/build-decorators';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
@@ -11,7 +11,7 @@ import { METADATA_SCHEMA } from './metadata-schema.resource-type';
 /**
  * Class that represents a metadata schema
  */
-@resourceType(MetadataSchema.type)
+@typedObject
 export class MetadataSchema extends ListableObject implements HALResource {
   static type = METADATA_SCHEMA;
 

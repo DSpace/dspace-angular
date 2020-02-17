@@ -1,5 +1,5 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
-import { resourceType } from '../cache/builders/build-decorators';
+import { typedObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { EXTERNAL_SOURCE } from './external-source.resource-type';
@@ -9,7 +9,7 @@ import { ResourceType } from './resource-type';
 /**
  * Model class for an external source
  */
-@resourceType(ExternalSource.type)
+@typedObject
 export class ExternalSource extends CacheableObject {
   static type = EXTERNAL_SOURCE;
 

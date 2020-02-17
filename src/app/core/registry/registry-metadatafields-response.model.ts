@@ -1,5 +1,5 @@
 import { autoserialize, deserialize } from 'cerialize';
-import { resourceType } from '../cache/builders/build-decorators';
+import { typedObject } from '../cache/builders/build-decorators';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { HALLink } from '../shared/hal-link.model';
@@ -10,7 +10,7 @@ import { excludeFromEquals } from '../utilities/equals.decorators';
 /**
  * Class that represents a response with a registry's metadata fields
  */
-@resourceType(RegistryMetadatafieldsResponse.type)
+@typedObject
 export class RegistryMetadatafieldsResponse {
   static type = METADATA_FIELD;
 

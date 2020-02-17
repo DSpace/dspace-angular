@@ -1,5 +1,5 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { resourceType } from '../../cache/builders/build-decorators';
+import { typedObject } from '../../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
@@ -10,7 +10,7 @@ import { ITEM_TYPE } from './item-type.resource-type';
 /**
  * Describes a type of Item
  */
-@resourceType(ItemType.type)
+@typedObject
 export class ItemType implements CacheableObject {
   static type = ITEM_TYPE;
 

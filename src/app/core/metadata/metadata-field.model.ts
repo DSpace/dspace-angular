@@ -1,7 +1,7 @@
 import { autoserialize, deserialize } from 'cerialize';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { link, resourceType } from '../cache/builders/build-decorators';
+import { link, typedObject } from '../cache/builders/build-decorators';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
@@ -13,7 +13,7 @@ import { MetadataSchema } from './metadata-schema.model';
 /**
  * Class the represents a metadata field
  */
-@resourceType(MetadataField.type)
+@typedObject
 export class MetadataField extends ListableObject implements HALResource {
   static type = METADATA_FIELD;
 

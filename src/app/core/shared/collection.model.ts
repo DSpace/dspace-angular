@@ -1,6 +1,6 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, resourceType } from '../cache/builders/build-decorators';
+import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
@@ -13,7 +13,7 @@ import { LICENSE } from './license.resource-type';
 import { ResourcePolicy } from './resource-policy.model';
 import { RESOURCE_POLICY } from './resource-policy.resource-type';
 
-@resourceType(Collection.type)
+@typedObject
 @inheritSerialization(DSpaceObject)
 export class Collection extends DSpaceObject {
   static type = COLLECTION;

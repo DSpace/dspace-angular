@@ -1,7 +1,7 @@
 import { autoserialize, autoserializeAs, deserialize, deserializeAs } from 'cerialize';
 import { hasNoValue, isUndefined } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { resourceType } from '../cache/builders/build-decorators';
+import { typedObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { DSPACE_OBJECT } from './dspace-object.resource-type';
@@ -20,7 +20,7 @@ import { ResourceType } from './resource-type';
 /**
  * An abstract model class for a DSpaceObject.
  */
-@resourceType(DSpaceObject.type)
+@typedObject
 export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …

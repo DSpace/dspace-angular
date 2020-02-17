@@ -1,6 +1,6 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, resourceType } from '../../cache/builders/build-decorators';
+import { link, typedObject } from '../../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
@@ -16,7 +16,7 @@ import { AuthTokenInfo } from './auth-token-info.model';
 /**
  * Object that represents the authenticated status of a user
  */
-@resourceType(AuthStatus.type)
+@typedObject
 export class AuthStatus implements CacheableObject {
   static type = AUTH_STATUS;
 

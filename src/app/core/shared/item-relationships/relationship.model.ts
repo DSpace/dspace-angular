@@ -1,6 +1,6 @@
 import { autoserialize, deserialize, serialize, deserializeAs } from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, resourceType } from '../../cache/builders/build-decorators';
+import { link, typedObject } from '../../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
@@ -16,7 +16,7 @@ import { RELATIONSHIP } from './relationship.resource-type';
 /**
  * Describes a Relationship between two Items
  */
-@resourceType(Relationship.type)
+@typedObject
 export class Relationship implements CacheableObject {
   static type = RELATIONSHIP;
 

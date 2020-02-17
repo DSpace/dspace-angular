@@ -1,5 +1,5 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
-import { resourceType } from '../../cache/builders/build-decorators';
+import { typedObject } from '../../cache/builders/build-decorators';
 import { ConfigObject } from './config.model';
 import { FormFieldModel } from '../../../shared/form/builder/models/form-field.model';
 import { ResourceType } from '../../shared/resource-type';
@@ -14,7 +14,7 @@ export interface FormRowModel {
 /**
  * A model class for a NormalizedObject.
  */
-@resourceType(SubmissionFormModel.type)
+@typedObject
 @inheritSerialization(ConfigObject)
 export class SubmissionFormModel extends ConfigObject {
   static type = new ResourceType('submissionform');

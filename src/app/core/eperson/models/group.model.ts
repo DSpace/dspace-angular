@@ -1,6 +1,6 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, resourceType } from '../../cache/builders/build-decorators';
+import { link, typedObject } from '../../cache/builders/build-decorators';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 
@@ -8,7 +8,7 @@ import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { GROUP } from './group.resource-type';
 
-@resourceType(Group.type)
+@typedObject
 @inheritSerialization(DSpaceObject)
 export class Group extends DSpaceObject {
   static type = GROUP;

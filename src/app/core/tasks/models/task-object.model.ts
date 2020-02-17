@@ -1,6 +1,6 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, resourceType } from '../../cache/builders/build-decorators';
+import { link, typedObject } from '../../cache/builders/build-decorators';
 
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
@@ -16,7 +16,7 @@ import { TASK_OBJECT } from './task-object.resource-type';
 /**
  * An abstract model class for a TaskObject.
  */
-@resourceType(TaskObject.type)
+@typedObject
 @inheritSerialization(DSpaceObject)
 export class TaskObject extends DSpaceObject implements CacheableObject {
   static type = TASK_OBJECT;

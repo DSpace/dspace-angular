@@ -1,5 +1,5 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { resourceType } from '../cache/builders/build-decorators';
+import { typedObject } from '../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../cache/id-to-uuid-serializer';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
@@ -11,7 +11,7 @@ import { ResourceType } from './resource-type';
 /**
  * Model class for a Bitstream Format
  */
-@resourceType(BitstreamFormat.type)
+@typedObject
 export class BitstreamFormat implements CacheableObject {
   static type = BITSTREAM_FORMAT;
 

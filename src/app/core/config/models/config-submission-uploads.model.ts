@@ -1,11 +1,11 @@
 import { autoserialize } from 'cerialize';
-import { resourceType } from '../../cache/builders/build-decorators';
+import { typedObject } from '../../cache/builders/build-decorators';
 import { ConfigObject } from './config.model';
 import { AccessConditionOption } from './config-access-condition-option.model';
 import { SubmissionFormsModel } from './config-submission-forms.model';
 import { ResourceType } from '../../shared/resource-type';
 
-@resourceType(SubmissionUploadsModel.type)
+@typedObject
 export class SubmissionUploadsModel extends ConfigObject {
   static type =  new ResourceType('submissionupload');
   /**

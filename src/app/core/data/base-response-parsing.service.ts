@@ -111,10 +111,10 @@ export abstract class BaseResponseParsingService {
   protected deserialize<ObjectDomain>(obj): any {
     const type: string = obj.type;
     if (hasValue(type)) {
-      const normObjConstructor = getClassForType(type) as GenericConstructor<ObjectDomain>;
+      const objConstructor = getClassForType(type) as GenericConstructor<ObjectDomain>;
 
-      if (hasValue(normObjConstructor)) {
-        const serializer = new this.serializerConstructor(normObjConstructor);
+      if (hasValue(objConstructor)) {
+        const serializer = new this.serializerConstructor(objConstructor);
         return serializer.deserialize(obj);
       } else {
         return null;

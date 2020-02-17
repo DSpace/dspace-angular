@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { isEmpty } from '../../shared/empty.util';
 import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { link, resourceType } from '../cache/builders/build-decorators';
+import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import { Bundle } from './bundle.model';
@@ -21,7 +21,7 @@ import { ITEM } from './item.resource-type';
 /**
  * Class representing a DSpace Item
  */
-@resourceType(Item.type)
+@typedObject
 @inheritSerialization(DSpaceObject)
 export class Item extends DSpaceObject {
   static type = ITEM;

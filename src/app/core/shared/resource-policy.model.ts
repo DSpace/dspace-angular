@@ -1,5 +1,5 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { resourceType } from '../cache/builders/build-decorators';
+import { typedObject } from '../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../cache/id-to-uuid-serializer';
 import { ActionType } from '../cache/models/action-type.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -11,7 +11,7 @@ import { ResourceType } from './resource-type';
 /**
  * Model class for a Resource Policy
  */
-@resourceType(ResourcePolicy.type)
+@typedObject
 export class ResourcePolicy implements CacheableObject {
   static type = RESOURCE_POLICY;
 

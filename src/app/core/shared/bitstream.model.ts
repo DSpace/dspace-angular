@@ -1,6 +1,6 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, resourceType } from '../cache/builders/build-decorators';
+import { link, typedObject } from '../cache/builders/build-decorators';
 import { RemoteData } from '../data/remote-data';
 import { BitstreamFormat } from './bitstream-format.model';
 import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';
@@ -9,7 +9,7 @@ import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { HALResource } from './hal-resource.model';
 
-@resourceType(Bitstream.type)
+@typedObject
 @inheritSerialization(DSpaceObject)
 export class Bitstream extends DSpaceObject implements HALResource {
   static type = BITSTREAM;

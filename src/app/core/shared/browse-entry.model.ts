@@ -1,6 +1,6 @@
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { resourceType } from '../cache/builders/build-decorators';
+import { typedObject } from '../cache/builders/build-decorators';
 import { TypedObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { BROWSE_ENTRY } from './browse-entry.resource-type';
@@ -11,7 +11,7 @@ import { ResourceType } from './resource-type';
 /**
  * Class object representing a browse entry
  */
-@resourceType(BrowseEntry.type)
+@typedObject
 export class BrowseEntry extends ListableObject implements TypedObject {
   static type = BROWSE_ENTRY;
 

@@ -1,12 +1,11 @@
 import 'reflect-metadata';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { DataService } from '../../data/data.service';
-import { PaginatedList } from '../../data/paginated-list';
 
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
-import { CacheableObject, TypedObject } from '../object-cache.reducer';
 import { ResourceType } from '../../shared/resource-type';
+import { CacheableObject, TypedObject } from '../object-cache.reducer';
 
 const resolvedLinkKey = Symbol('resolvedLink');
 
@@ -17,12 +16,10 @@ const linkMap = new Map();
 
 /**
  * Decorator function to map a ResourceType to its class
- * @param value The ResourceType to map
+ * @param target The contructor of the typed class to map
  */
-export function resourceType(value: ResourceType) {
-  return function decorator(objectConstructor: GenericConstructor<TypedObject>) {
-    typeMap.set(value.value, objectConstructor);
-  }
+export function typedObject(target: typeof TypedObject) {
+  typeMap.set(target.type.value, target);
 }
 
 /**
@@ -72,14 +69,6 @@ export function resolvedLink<T extends DataService<any>, K extends keyof T>(prov
       params
     }).apply(this, arguments);
   };
-}
-
-export function getResolvedLinkMetadata(target: any, propertyKey: string) {
-  return Reflect.getMetadata(resolvedLinkKey, target, propertyKey);
-}
-
-export function getResolvedLinks(target: any) {
-  return resolvedLinkMap.get(target);
 }
 
 export class LinkDefinition<T extends HALResource> {
