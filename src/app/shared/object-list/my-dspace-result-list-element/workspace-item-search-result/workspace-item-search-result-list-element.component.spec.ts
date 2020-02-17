@@ -3,11 +3,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { getMockLinkService } from '../../../mocks/mock-link-service';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
@@ -57,7 +59,7 @@ let linkService;
 
 describe('WorkspaceItemSearchResultListElementComponent', () => {
   beforeEach(async(() => {
-    linkService = getMockLinkService;
+    linkService = getMockLinkService();
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [WorkspaceItemSearchResultListElementComponent],
@@ -82,9 +84,12 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should init item properly', () => {
-    expect(linkService.resolveLink).toHaveBeenCalled();
-    expect(component.item$).toEqual(observableOf(item));
+  it('should init item properly', (done) => {
+    component.item$.pipe(take(1)).subscribe((i) => {
+      expect(linkService.resolveLink).toHaveBeenCalled();
+      expect(i).toBe(item);
+      done();
+    });
   });
 
   it('should have properly status', () => {

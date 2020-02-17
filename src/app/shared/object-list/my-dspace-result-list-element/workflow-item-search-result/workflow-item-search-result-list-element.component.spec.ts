@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { cold } from 'jasmine-marbles';
 
 import { of as observableOf } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { getMockLinkService } from '../../../mocks/mock-link-service';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
@@ -59,11 +60,7 @@ let linkService;
 
 describe('WorkflowItemSearchResultListElementComponent', () => {
   beforeEach(async(() => {
-    linkService = {
-      resolveLink() {
-        // mock
-      },
-    };
+    linkService = getMockLinkService();
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [WorkflowItemSearchResultListElementComponent],
@@ -88,8 +85,12 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should init item properly', () => {
-    expect(component.item$).toBeObservable(cold('a',{a: item}));
+  it('should init item properly', (done) => {
+    component.item$.pipe(take(1)).subscribe((i) => {
+      expect(linkService.resolveLink).toHaveBeenCalled();
+      expect(i).toBe(item);
+      done();
+    });
   });
 
   it('should have properly status', () => {
