@@ -169,7 +169,11 @@ describe('ConfigResponseParsingService', () => {
       totalElements: 4,
       totalPages: 1,
       currentPage: 1,
-      self: 'https://rest.api/config/submissiondefinitions/traditional/sections'
+      _links: {
+        self: {
+          href: 'https://rest.api/config/submissiondefinitions/traditional/sections'
+        },
+      },
     });
     const definitions =
       Object.assign(new SubmissionDefinitionModel(), {
@@ -180,7 +184,6 @@ describe('ConfigResponseParsingService', () => {
           sections: { href: 'https://rest.api/config/submissiondefinitions/traditional/sections' },
           self: { href: 'https://rest.api/config/submissiondefinitions/traditional' }
         },
-        self: 'https://rest.api/config/submissiondefinitions/traditional',
         sections: new PaginatedList(pageinfo, [
           Object.assign(new SubmissionSectionModel(), {
             header: 'submit.progressbar.describe.stepone',
@@ -195,7 +198,6 @@ describe('ConfigResponseParsingService', () => {
               self: { href: 'https://rest.api/config/submissionsections/traditionalpageone' },
               config: { href: 'https://rest.api/config/submissionforms/traditionalpageone' }
             },
-            self: 'https://rest.api/config/submissionsections/traditionalpageone',
           }),
           Object.assign(new SubmissionSectionModel(), {
             header: 'submit.progressbar.describe.steptwo',
@@ -210,7 +212,6 @@ describe('ConfigResponseParsingService', () => {
               self: { href: 'https://rest.api/config/submissionsections/traditionalpagetwo' },
               config: { href: 'https://rest.api/config/submissionforms/traditionalpagetwo' }
             },
-            self: 'https://rest.api/config/submissionsections/traditionalpagetwo',
           }),
           Object.assign(new SubmissionSectionModel(), {
             header: 'submit.progressbar.upload',
@@ -225,7 +226,6 @@ describe('ConfigResponseParsingService', () => {
               self: { href: 'https://rest.api/config/submissionsections/upload' },
               config: { href: 'https://rest.api/config/submissionuploads/upload' }
             },
-            self: 'https://rest.api/config/submissionsections/upload',
           }),
           Object.assign(new SubmissionSectionModel(), {
             header: 'submit.progressbar.license',
@@ -239,7 +239,6 @@ describe('ConfigResponseParsingService', () => {
             _links: {
               self: { href: 'https://rest.api/config/submissionsections/license' }
             },
-            self: 'https://rest.api/config/submissionsections/license',
           })
         ])
       });

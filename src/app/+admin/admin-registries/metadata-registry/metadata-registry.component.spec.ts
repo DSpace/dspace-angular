@@ -26,13 +26,21 @@ describe('MetadataRegistryComponent', () => {
   const mockSchemasList = [
     {
       id: 1,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
+      _links: {
+        self: {
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1'
+        },
+      },
       prefix: 'dc',
       namespace: 'http://dublincore.org/documents/dcmi-terms/'
     },
     {
       id: 2,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
+      _links: {
+        self: {
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2'
+        },
+      },
       prefix: 'mock',
       namespace: 'http://dspace.org/mockschema'
     }

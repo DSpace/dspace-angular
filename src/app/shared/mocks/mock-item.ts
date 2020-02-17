@@ -12,7 +12,11 @@ export const MockBitstreamFormat1: BitstreamFormat = Object.assign(new Bitstream
     supportLevel: 0,
     internal: false,
     extensions: null,
-    self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10'
+    _links:{
+    self: {
+      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10'
+    }
+    }
 });
 
 export const MockBitstreamFormat2: BitstreamFormat = Object.assign(new BitstreamFormat(), {
@@ -22,7 +26,11 @@ export const MockBitstreamFormat2: BitstreamFormat = Object.assign(new Bitstream
     supportLevel: 0,
     internal: false,
     extensions: null,
-    self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
+    _links:{
+      self: {
+        href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
+      }
+    }
 });
 
 export const MockBitstream1: Bitstream = Object.assign(new Bitstream(),
@@ -31,7 +39,11 @@ export const MockBitstream1: Bitstream = Object.assign(new Bitstream(),
     content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
     format: observableOf(MockBitstreamFormat1),
     bundleName: 'ORIGINAL',
-    self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
+    _links:{
+      self: {
+        href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713'
+      }
+    },
     id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
     uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
     type: 'bitstream',
@@ -50,7 +62,6 @@ export const MockBitstream2: Bitstream = Object.assign(new Bitstream(), {
   content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content',
   format: observableOf(MockBitstreamFormat2),
   bundleName: 'ORIGINAL',
-  self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28',
   id: '99b00f3c-1cc6-4689-8158-91965bee6b28',
   uuid: '99b00f3c-1cc6-4689-8158-91965bee6b28',
   type: 'bitstream',
@@ -81,7 +92,11 @@ export const MockItem: Item = Object.assign(new Item(), {
     {
       name: 'ORIGINAL',
       bitstreams: observableOf(Object.assign({
-        self: 'dspace-angular://aggregated/object/1507836003548',
+        _links: {
+          self: {
+            href: 'dspace-angular://aggregated/object/1507836003548',
+          }
+        },
         requestPending: false,
         responsePending: false,
         isSuccessful: true,
@@ -110,7 +125,11 @@ export const MockItem: Item = Object.assign(new Item(), {
       }))
     }
   ])),
-  self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+  _links:{
+    self: {
+      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
+    }
+  },
   id: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   uuid: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   type: 'item',
@@ -215,7 +234,11 @@ export const MockItem: Item = Object.assign(new Item(), {
     ]
   },
   owningCollection: observableOf({
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
+      _links: {
+        self: {
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb'
+        }
+      },
       requestPending: false,
       responsePending: false,
       isSuccessful: true,

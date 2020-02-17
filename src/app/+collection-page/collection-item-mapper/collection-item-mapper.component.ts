@@ -155,7 +155,7 @@ export class CollectionItemMapperComponent implements OnInit {
       map((collectionRD: RemoteData<Collection>) => collectionRD.payload),
       switchMap((collection: Collection) =>
         observableCombineLatest(ids.map((id: string) =>
-          remove ? this.itemDataService.removeMappingFromCollection(id, collection.id) : this.itemDataService.mapToCollection(id, collection.self)
+          remove ? this.itemDataService.removeMappingFromCollection(id, collection.id) : this.itemDataService.mapToCollection(id, collection._links.self.href)
         ))
       )
     );
