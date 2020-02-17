@@ -1,4 +1,4 @@
-import { autoserialize, deserialize } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { PaginatedList } from '../../data/paginated-list';
 import { HALLink } from '../../shared/hal-link.model';
@@ -10,6 +10,7 @@ import { ConfigObject } from './config.model';
  * Class for the configuration describing the submission
  */
 @typedObject
+@inheritSerialization(ConfigObject)
 export class SubmissionDefinitionModel extends ConfigObject {
   static type = new ResourceType('submissiondefinition');
 

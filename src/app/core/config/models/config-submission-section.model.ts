@@ -1,4 +1,4 @@
-import { autoserialize, deserialize } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { SectionsType } from '../../../submission/sections/sections-type';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
@@ -14,6 +14,7 @@ export interface SubmissionSectionVisibility {
 }
 
 @typedObject
+@inheritSerialization(ConfigObject)
 export class SubmissionSectionModel extends ConfigObject {
   static type = new ResourceType('submissionsection');
 

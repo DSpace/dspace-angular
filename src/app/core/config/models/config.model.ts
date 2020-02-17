@@ -9,6 +9,7 @@ export abstract class ConfigObject implements CacheableObject {
   /**
    * The name for this configuration
    */
+  @autoserialize
   public name: string;
 
   /**

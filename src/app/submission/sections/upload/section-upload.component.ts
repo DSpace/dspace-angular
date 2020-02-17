@@ -96,7 +96,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   public configMetadataForm$: Observable<SubmissionFormsModel>;
 
   /**
-   * List of available access conditions that could be setted to files
+   * List of available access conditions that could be set to files
    */
   public availableAccessConditionOptions: AccessConditionOption[];  // List of accessConditions that an user can select
 
@@ -161,10 +161,14 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         filter((submissionObject: SubmissionObjectEntry) => isNotUndefined(submissionObject) && !submissionObject.isLoading),
         filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection),
         tap((submissionObject: SubmissionObjectEntry) => this.collectionId = submissionObject.collection),
-        flatMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection, followLink('defaultAccessConditions'))),
+        flatMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection)),
         filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
         tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = collectionRemoteData.payload.name),
-        map((collectionRemoteData: RemoteData<Collection>) => (collectionRemoteData.payload as any).defaultAccessConditions),
+        flatMap((collectionRemoteData: RemoteData<Collection>) => {
+          return this.resourcePolicyService.findByHref(
+            (collectionRemoteData.payload as any)._links.defaultAccessConditions.href
+          );
+        }),
         filter((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) =>
           defaultAccessConditionsRemoteData.hasSucceeded),
         tap((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) => {

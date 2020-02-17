@@ -54,9 +54,10 @@ describe('ObjectCacheService', () => {
   beforeEach(() => {
     init();
     store = new Store<CoreState>(undefined, undefined, undefined);
-    linkServiceStub = jasmine.createSpyObj({
-      removeResolvedLinks: {}
-    });
+    linkServiceStub = {
+      removeResolvedLinks: (a) => a
+    };
+    spyOn(linkServiceStub, 'removeResolvedLinks').and.callThrough();
     spyOn(store, 'dispatch');
     service = new ObjectCacheService(store, linkServiceStub);
 

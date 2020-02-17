@@ -197,7 +197,9 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
-      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new Collection(), mockCollection, {
+        defaultAccessConditions: createSuccessfulRemoteDataObject$(mockDefaultAccessCondition)
+      })));
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 

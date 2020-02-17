@@ -80,9 +80,9 @@ describe('DSpaceSerializer', () => {
     it('should turn a model in to a valid document', () => {
       const serializer = new DSpaceSerializer(TestModel);
       const doc = serializer.serialize(testModels[0]);
-      expect(testModels[0].id).toBe(doc.id);
-      expect(testModels[0].name).toBe(doc.name);
-      expect(testModels[0]._links).toBeUndefined();
+      expect(doc.id).toBe(testModels[0].id);
+      expect(doc.name).toBe(testModels[0].name);
+      expect(doc._links).toBeUndefined();
     });
 
   });
@@ -93,12 +93,12 @@ describe('DSpaceSerializer', () => {
       const serializer = new DSpaceSerializer(TestModel);
       const doc = serializer.serializeArray(testModels);
 
-      expect(testModels[0].id).toBe(doc[0].id);
-      expect(testModels[0].name).toBe(doc[0].name);
-      expect(testModels[0]._links).toBeUndefined();
-      expect(testModels[1].id).toBe(doc[1].id);
-      expect(testModels[1].name).toBe(doc[1].name);
-      expect(testModels[1]._links).toBeUndefined();
+      expect(doc[0].id).toBe(testModels[0].id);
+      expect(doc[0].name).toBe(testModels[0].name);
+      expect(doc[0]._links).toBeUndefined();
+      expect(doc[1].id).toBe(testModels[1].id);
+      expect(doc[1].name).toBe(testModels[1].name);
+      expect(doc[1]._links).toBeUndefined();
     });
 
   });
