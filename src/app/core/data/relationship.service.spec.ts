@@ -33,30 +33,9 @@ describe('RelationshipService', () => {
     rightwardType: 'isPublicationOfAuthor'
   });
 
-  const item = Object.assign(new Item(), {
-    id: 'publication',
-    uuid: 'publication',
-    relationships: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), relationships))),
-    _links: {
-      relationships: { href: restEndpointURL + '/publication/relationships' },
-      self: { href: restEndpointURL + '/publication' }
-    }
-  });
-
-  const relatedItem1 = Object.assign(new Item(), {
-    id: 'author1',
-    uuid: 'author1',
-    _links: {
-      self: { href: restEndpointURL + '/author1' }
-    }
-  });
-  const relatedItem2 = Object.assign(new Item(), {
-    id: 'author2',
-    uuid: 'author2',
-    _links: {
-      self: { href: restEndpointURL + '/author2' }
-    }
-  });
+  const ri1SelfLink = restEndpointURL + '/author1';
+  const ri2SelfLink = restEndpointURL + '/author2';
+  const itemSelfLink = restEndpointURL + '/publication';
 
   const relationship1 = Object.assign(new Relationship(), {
     _links: {
@@ -64,10 +43,10 @@ describe('RelationshipService', () => {
         href: relationshipsEndpointURL + '/2'
       },
       leftItem: {
-        href: relatedItem1._links.self.href
+        href: ri1SelfLink
       },
       rightItem: {
-        href: item._links.self.href
+        href: itemSelfLink
       }
     },
     id: '2',
@@ -80,18 +59,41 @@ describe('RelationshipService', () => {
         href: relationshipsEndpointURL + '/3'
       },
       leftItem: {
-        href: relatedItem2._links.self.href
+        href: ri2SelfLink
       },
       rightItem: {
-        href: item._links.self.href
-     },
+        href: itemSelfLink
+      },
     },
     id: '3',
     uuid: '3',
     relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
   });
 
-  const relationships = [relationship1, relationship2];
+  const relationships = [relationship1, relationship2];  const item = Object.assign(new Item(), {
+    id: 'publication',
+    uuid: 'publication',
+    relationships: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), relationships))),
+    _links: {
+      relationships: { href: restEndpointURL + '/publication/relationships' },
+      self: { href: itemSelfLink }
+    }
+  });
+
+  const relatedItem1 = Object.assign(new Item(), {
+    id: 'author1',
+    uuid: 'author1',
+    _links: {
+      self: { href: ri1SelfLink }
+    }
+  });
+  const relatedItem2 = Object.assign(new Item(), {
+    id: 'author2',
+    uuid: 'author2',
+    _links: {
+      self: { href: ri2SelfLink }
+    }
+  });
 
   relationship1.leftItem = getRemotedataObservable(relatedItem1);
   relationship1.rightItem = getRemotedataObservable(item);

@@ -123,7 +123,7 @@ describe('LinkService', () => {
       });
 
       it('should call getLinkDefinition with the correct model and link', () => {
-        expect(decorators.getLinkDefinition).toHaveBeenCalledWith(testModel.constructor, 'predecessor');
+        expect(decorators.getLinkDefinition).toHaveBeenCalledWith(testModel.constructor as any, 'predecessor');
       });
 
       it('should call getDataServiceFor with the correct resource type', () => {
@@ -186,8 +186,8 @@ describe('LinkService', () => {
 
   describe('removeResolvedLinks', () => {
     beforeEach(() => {
-      testModel.predecessor = 'predecessor value';
-      testModel.successor = 'successor value';
+      testModel.predecessor = 'predecessor value' as any;
+      testModel.successor = 'successor value' as any;
       spyOnFunction(decorators, 'getLinkDefinitions').and.returnValue([
         {
           resourceType: TEST_MODEL,
@@ -213,8 +213,8 @@ describe('LinkService', () => {
 
     it('should leave the original object untouched', () => {
       service.removeResolvedLinks(testModel);
-      expect(testModel.predecessor).toBe('predecessor value');
-      expect(testModel.successor).toBe('successor value');
+      expect(testModel.predecessor as any).toBe('predecessor value');
+      expect(testModel.successor as any).toBe('successor value');
     });
   });
 

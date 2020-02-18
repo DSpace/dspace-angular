@@ -91,7 +91,7 @@ describe('ObjectCacheService', () => {
 
       // due to the implementation of spyOn above, this subscribe will be synchronous
       service.getObjectBySelfLink(selfLink).pipe(first()).subscribe((o) => {
-          expect(o.self).toBe(selfLink);
+          expect(o._links.self.href).toBe(selfLink);
           // this only works if testObj is an instance of TestClass
           expect(o instanceof Item).toBeTruthy();
         }

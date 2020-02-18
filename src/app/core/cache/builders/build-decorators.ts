@@ -164,7 +164,7 @@ export const getLinkDefinition = <T extends HALResource>(source: GenericConstruc
  *
  * @param parent the parent class to inherit @link annotations from
  */
-export const inheritLinkAnnotations = (parent: any): any => {
+export function inheritLinkAnnotations(parent: any): any {
   return (child: any) => {
     const parentMap: Map<string, LinkDefinition<any>> = linkMap.get(parent) || new Map();
     const childMap: Map<string, LinkDefinition<any>> = linkMap.get(child) || new Map();
@@ -177,4 +177,4 @@ export const inheritLinkAnnotations = (parent: any): any => {
 
     linkMap.set(child, childMap);
   }
-};
+}
