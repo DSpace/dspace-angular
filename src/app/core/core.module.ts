@@ -142,6 +142,10 @@ import { NormalizedExternalSource } from './cache/models/normalized-external-sou
 import { NormalizedExternalSourceEntry } from './cache/models/normalized-external-source-entry.model';
 import { ExternalSourceService } from './data/external-source.service';
 import { LookupRelationService } from './data/lookup-relation.service';
+import { VersionDataService } from './data/version-data.service';
+import { NormalizedVersion } from './cache/models/normalized-version.model';
+import { NormalizedVersionHistory } from './cache/models/normalized-version-history.model';
+import { VersionHistoryDataService } from './data/version-history-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -257,6 +261,8 @@ const PROVIDERS = [
   RelationshipTypeService,
   ExternalSourceService,
   LookupRelationService,
+  VersionDataService,
+  VersionHistoryDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -304,7 +310,9 @@ export const normalizedModels =
     NormalizedRelationshipType,
     NormalizedItemType,
     NormalizedExternalSource,
-    NormalizedExternalSourceEntry
+    NormalizedExternalSourceEntry,
+    NormalizedVersion,
+    NormalizedVersionHistory
   ];
 
 @NgModule({
