@@ -5,6 +5,10 @@ import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import { getDataServiceFor, getLinkDefinition, getLinkDefinitions, LinkDefinition } from './build-decorators';
 
+/**
+ * A Service to handle the resolving and removing
+ * of resolved HALLinks on HALResources
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -15,13 +19,26 @@ export class LinkService {
   ) {
   }
 
-  public resolveLinks<T extends HALResource>(model: T, ...linksToFollow: Array<FollowLinkConfig<T>>) {
+  /**
+   * Resolve the given {@link FollowLinkConfig}s for the given model
+   *
+   * @param model the {@link HALResource} to resolve the links for
+   * @param linksToFollow the {@link FollowLinkConfig}s to resolve
+   */
+  public resolveLinks<T extends HALResource>(model: T, ...linksToFollow: Array<FollowLinkConfig<T>>): T {
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
       this.resolveLink(model, linkToFollow);
     });
+    return model;
   }
 
-  public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>) {
+  /**
+   * Resolve the given {@link FollowLinkConfig} for the given model
+   *
+   * @param model the {@link HALResource} to resolve the link for
+   * @param linkToFollow the {@link FollowLinkConfig} to resolve
+   */
+  public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): T {
     const matchingLinkDef = getLinkDefinition(model.constructor, linkToFollow.name);
 
     if (hasNoValue(matchingLinkDef)) {
@@ -50,10 +67,14 @@ export class LinkService {
         throw new Error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} from ${href}`);
       }
     }
+    return model;
   }
 
   /**
    * Remove any resolved links that the model may have.
+   *
+   * @param model the {@link HALResource} to remove the links from
+   * @returns a copy of the given model, without resolved links.
    */
   public removeResolvedLinks<T extends HALResource>(model: T): T {
     const result = Object.assign(new (model.constructor as GenericConstructor<T>)(), model);

@@ -21,7 +21,6 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
       }
     },
     buildSingle: (href$: string | Observable<string>) => createSuccessfulRemoteDataObject$({}),
-    build: (obj: any) => Object.create({}),
     buildList: (href$: string | Observable<string>) => {
       if (hasValue(buildList$)) {
         return buildList$;
@@ -46,7 +45,6 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
       }
     },
     buildSingle: (href$: string | Observable<string>) => createSuccessfulRemoteDataObject$({}),
-    build: (obj: any) => Object.create({}),
     buildList: (href$: string | Observable<string>) => {
       if (typeof href$ === 'string') {
         if (hasValue(buildListHrefMap$[href$])) {

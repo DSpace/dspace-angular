@@ -342,8 +342,7 @@ export class SearchService implements OnDestroy {
       switchMap((dsoRD: RemoteData<DSpaceObject>) => {
           if ((dsoRD.payload as any).type === Community.type.value) {
             const community: Community = dsoRD.payload as Community;
-            this.linkService.resolveLink(community, followLink('subcommunities'));
-            this.linkService.resolveLink(community, followLink('collections'));
+            this.linkService.resolveLinks(community, followLink('subcommunities'), followLink('collections'));
             return observableCombineLatest(community.subcommunities, community.collections).pipe(
               map(([subCommunities, collections]) => {
                 /*if this is a community, we also need to show the direct children*/

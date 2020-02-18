@@ -33,25 +33,6 @@ describe('RelationshipService', () => {
     rightwardType: 'isPublicationOfAuthor'
   });
 
-  const relationship1 = Object.assign(new Relationship(), {
-    _links: {
-      self: { href: relationshipsEndpointURL + '/2' }
-    },
-    id: '2',
-    uuid: '2',
-    relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
-  });
-  const relationship2 = Object.assign(new Relationship(), {
-    _links: {
-      self: { href: relationshipsEndpointURL + '/3' }
-    },
-    id: '3',
-    uuid: '3',
-    relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
-  });
-
-  const relationships = [relationship1, relationship2];
-
   const item = Object.assign(new Item(), {
     id: 'publication',
     uuid: 'publication',
@@ -76,6 +57,42 @@ describe('RelationshipService', () => {
       self: { href: restEndpointURL + '/author2' }
     }
   });
+
+  const relationship1 = Object.assign(new Relationship(), {
+    _links: {
+      self: {
+        href: relationshipsEndpointURL + '/2'
+      },
+      leftItem: {
+        href: relatedItem1._links.self.href
+      },
+      rightItem: {
+        href: item._links.self.href
+      }
+    },
+    id: '2',
+    uuid: '2',
+    relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
+  });
+  const relationship2 = Object.assign(new Relationship(), {
+    _links: {
+      self: {
+        href: relationshipsEndpointURL + '/3'
+      },
+      leftItem: {
+        href: relatedItem2._links.self.href
+      },
+      rightItem: {
+        href: item._links.self.href
+     },
+    },
+    id: '3',
+    uuid: '3',
+    relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
+  });
+
+  const relationships = [relationship1, relationship2];
+
   relationship1.leftItem = getRemotedataObservable(relatedItem1);
   relationship1.rightItem = getRemotedataObservable(item);
   relationship2.leftItem = getRemotedataObservable(relatedItem2);

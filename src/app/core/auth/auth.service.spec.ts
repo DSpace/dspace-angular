@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { of as observableOf } from 'rxjs';
+import { LinkService } from '../cache/builders/link.service';
 
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
@@ -38,7 +39,7 @@ describe('AuthService test', () => {
   let storage: CookieService;
   let token: AuthTokenInfo;
   let authenticatedState;
-  let rdbService;
+  let linkService;
 
   function init() {
     mockStore = jasmine.createSpyObj('store', {
@@ -58,8 +59,10 @@ describe('AuthService test', () => {
     };
     authRequest = new AuthRequestServiceStub();
     routeStub = new ActivatedRouteStub();
-    rdbService = getMockRemoteDataBuildService();
-    spyOn(rdbService, 'build').and.returnValue({authenticated: true, eperson: observableOf({payload: {}})});
+    linkService = {
+      resolveLinks: {}
+    };
+    spyOn(linkService, 'resolveLinks').and.returnValue({authenticated: true, eperson: observableOf({payload: {}})});
 
   }
 
@@ -80,7 +83,7 @@ describe('AuthService test', () => {
           { provide: RouteService, useValue: routeServiceStub },
           { provide: ActivatedRoute, useValue: routeStub },
           { provide: Store, useValue: mockStore },
-          { provide: RemoteDataBuildService, useValue: rdbService },
+          { provide: LinkService, useValue: linkService },
           CookieService,
           AuthService
         ],
@@ -143,7 +146,7 @@ describe('AuthService test', () => {
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
           { provide: RouteService, useValue: routeServiceStub },
-          { provide: RemoteDataBuildService, useValue: rdbService },
+          { provide: RemoteDataBuildService, useValue: linkService },
           CookieService,
           AuthService
         ]
@@ -156,7 +159,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, router, routeService, cookieService, store, rdbService);
+      authService = new AuthService({}, window, undefined, authReqService, router, routeService, cookieService, store, linkService);
     }));
 
     it('should return true when user is logged in', () => {
@@ -195,7 +198,7 @@ describe('AuthService test', () => {
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
           { provide: RouteService, useValue: routeServiceStub },
-          { provide: RemoteDataBuildService, useValue: rdbService },
+          { provide: RemoteDataBuildService, useValue: linkService },
           ClientCookieService,
           CookieService,
           AuthService
@@ -218,7 +221,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, router, routeService, cookieService, store, rdbService);
+      authService = new AuthService({}, window, undefined, authReqService, router, routeService, cookieService, store, linkService);
       storage = (authService as any).storage;
       routeServiceMock = TestBed.get(RouteService);
       routerStub = TestBed.get(Router);

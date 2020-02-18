@@ -446,19 +446,12 @@ export class RelationshipService extends DataService<Relationship> {
   clearRelatedCache(uuid: string): Observable<void> {
     return this.findById(uuid).pipe(
       getSucceededRemoteData(),
-      switchMap((rd: RemoteData<Relationship>) =>
-        observableCombineLatest(
-          rd.payload.leftItem.pipe(getSucceededRemoteData()),
-          rd.payload.rightItem.pipe(getSucceededRemoteData())
-        )
-      ),
-      take(1),
-      map(([leftItem, rightItem]) => {
-        this.objectCache.remove(leftItem.payload.self);
-        this.objectCache.remove(rightItem.payload.self);
-        this.requestService.removeByHrefSubstring(leftItem.payload.self);
-        this.requestService.removeByHrefSubstring(rightItem.payload.self);
-      }),
+      map((rd: RemoteData<Relationship>) => {
+        this.objectCache.remove(rd.payload._links.leftItem.href);
+        this.objectCache.remove(rd.payload._links.rightItem.href);
+        this.requestService.removeByHrefSubstring(rd.payload._links.leftItem.href);
+        this.requestService.removeByHrefSubstring(rd.payload._links.rightItem.href);
+      })
     );
   }
 }

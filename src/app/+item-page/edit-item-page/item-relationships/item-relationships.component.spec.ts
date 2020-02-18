@@ -26,6 +26,9 @@ import {
   INotification,
   Notification
 } from '../../../shared/notifications/models/notification.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { SharedModule } from '../../../shared/shared.module';
+import { RouterStub } from '../../../shared/testing/router-stub';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 
 let comp: any;

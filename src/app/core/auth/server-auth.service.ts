@@ -35,7 +35,7 @@ export class ServerAuthService extends AuthService {
 
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status) => this.rdbService.build(status, followLink<AuthStatus>('eperson'))),
+      map((status) => this.linkService.resolveLinks(status, followLink<AuthStatus>('eperson'))),
       switchMap((status: AuthStatus) => {
         if (status.authenticated) {
           return status.eperson.pipe(map((eperson) => eperson.payload));

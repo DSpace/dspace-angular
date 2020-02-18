@@ -98,7 +98,11 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
 
     this.relationshipTypes$ = this.entityType$.pipe(
       switchMap((entityType) =>
-        this.entityTypeService.getEntityTypeRelationships(entityType.id).pipe(
+        this.entityTypeService.getEntityTypeRelationships(
+          entityType.id,
+          followLink('leftType'),
+          followLink('rightType'))
+        .pipe(
           getSucceededRemoteData(),
           getRemoteDataPayload(),
           map((relationshipTypes) => relationshipTypes.page),

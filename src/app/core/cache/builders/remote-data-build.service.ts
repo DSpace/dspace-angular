@@ -80,9 +80,9 @@ export class RemoteDataBuildService {
           }
         }),
         hasValueOperator(),
-        map((obj: T) => {
-          return this.build<T>(obj, ...linksToFollow);
-        }),
+        map((obj: T) =>
+          this.linkService.resolveLinks(obj, ...linksToFollow)
+        ),
         startWith(undefined),
         distinctUntilChanged()
       );
@@ -135,9 +135,9 @@ export class RemoteDataBuildService {
       switchMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs).pipe(
           map((objs: T[]) => {
-            return objs.map((obj: T) => {
-              return this.build<T>(obj, ...linksToFollow);
-            });
+            return objs.map((obj: T) =>
+              this.linkService.resolveLinks(obj, ...linksToFollow)
+            );
           }));
       }),
       startWith([]),
@@ -164,11 +164,6 @@ export class RemoteDataBuildService {
     );
 
     return this.toRemoteDataObservable(requestEntry$, payload$);
-  }
-
-  build<T extends CacheableObject>(model: T, ...linksToFollow: Array<FollowLinkConfig<T>>): T {
-    this.linkService.resolveLinks(model, ...linksToFollow);
-    return model;
   }
 
   aggregate<T>(input: Array<Observable<RemoteData<T>>>): Observable<RemoteData<T[]>> {

@@ -3,15 +3,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs/internal/observable/of';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
+import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { getMockLinkService } from '../../../../shared/mocks/mock-link-service';
 import { SharedModule } from '../../../../shared/shared.module';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';
 
@@ -152,6 +155,8 @@ describe('EditRelationshipListComponent', () => {
       declarations: [EditRelationshipListComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: RelationshipTypeService, useValue: {} },
+        { provide: LinkService, useValue: getMockLinkService() },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

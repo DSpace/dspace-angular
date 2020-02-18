@@ -87,7 +87,7 @@ export class Item extends DSpaceObject {
    * The list of Relationships this Item has with others
    * Will be undefined unless the relationships HALLink has been resolved.
    */
-  @link(RELATIONSHIP)
+  @link(RELATIONSHIP, true)
   relationships?: Observable<RemoteData<PaginatedList<Relationship>>>;
 
   /**
