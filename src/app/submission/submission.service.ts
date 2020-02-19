@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
@@ -109,7 +109,11 @@ export class SubmissionService {
    *    observable of SubmissionObject
    */
   createSubmission(collectionId?: string): Observable<SubmissionObject> {
-    return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, null, collectionId).pipe(
+    // Ensure "projection=full" is set when creating a new submission. This ensures _embedded resources, including the
+    // associated SubmissionDefinition (required to initialize the submission form), is returned in response.
+    const params = new HttpParams().set('projection', 'full');
+    const options: HttpOptions = Object.create({params});
+    return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, options, collectionId).pipe(
       map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
       catchError(() => observableOf({} as SubmissionObject)))
   }
