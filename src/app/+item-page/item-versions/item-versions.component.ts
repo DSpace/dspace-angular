@@ -102,6 +102,7 @@ export class ItemVersionsComponent implements OnInit {
    * @param page
    */
   switchPage(page: number) {
+    this.options.currentPage = page;
     this.currentPage$.next(page);
   }
 

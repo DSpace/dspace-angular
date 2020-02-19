@@ -7,6 +7,7 @@
                      [paginationOptions]="options"
                      [pageInfoState]="versions"
                      [collectionSize]="versions?.totalElements"
+                     [disableRouteParameterUpdate]="true"
                      (pageChange)="switchPage($event)">
         <table class="table table-striped my-2">
           <thead>
