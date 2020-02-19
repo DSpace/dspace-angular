@@ -66,25 +66,6 @@ export function getDataServiceFor<T extends CacheableObject>(resourceType: Resou
   return dataServiceMap.get(resourceType.value);
 }
 
-export function resolvedLink<T extends DataService<any>, K extends keyof T>(provider: GenericConstructor<T>, methodName?: K, ...params: any[]): any {
-  return function r(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    if (!target || !propertyKey) {
-      return;
-    }
-
-    const metaDataList: string[] = resolvedLinkMap.get(target.constructor) || [];
-    if (metaDataList.indexOf(propertyKey) === -1) {
-      metaDataList.push(propertyKey);
-    }
-    resolvedLinkMap.set(target.constructor, metaDataList);
-    return Reflect.metadata(resolvedLinkKey, {
-      provider,
-      methodName,
-      params
-    }).apply(this, arguments);
-  };
-}
-
 /**
  * A class to represent the data that can be set by the @link decorator
  */
@@ -124,7 +105,7 @@ export const link = <T extends HALResource>(
       linkName = propertyName as any;
     }
 
-    targetMap.set(propertyName, {
+    targetMap.set(linkName, {
       resourceType,
       isList,
       linkName,

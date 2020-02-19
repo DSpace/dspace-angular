@@ -58,7 +58,4 @@ describe('ThumbnailComponent', () => {
       })
     });
   });
-
-;
-
 });
