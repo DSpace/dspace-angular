@@ -980,8 +980,11 @@
   "item.select.table.title": "Title",
 
 
+  "item.version.history.empty": "There are no other versions for this item yet.",
 
   "item.version.history.head": "Version History",
+
+  "item.version.history.return": "Return",
 
   "item.version.history.selected": "Selected version",
 
@@ -1154,6 +1157,8 @@
   "menu.section.edit_community": "Community",
 
   "menu.section.edit_item": "Item",
+
+  "menu.section.edit_item_version_history": "Item Version History",
 
 
 

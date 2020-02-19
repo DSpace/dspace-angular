@@ -177,6 +177,8 @@ import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynam
 import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+import { EditItemVersionHistorySelectorComponent } from './dso-selector/modal-wrappers/edit-item-version-history-selector/edit-item-version-history-selector.component';
+import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -297,6 +299,7 @@ const COMPONENTS = [
   EditCommunitySelectorComponent,
   EditCollectionSelectorComponent,
   EditItemSelectorComponent,
+  EditItemVersionHistorySelectorComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
   BrowseByComponent,
@@ -339,7 +342,8 @@ const COMPONENTS = [
   SelectableListItemControlComponent,
   ExternalSourceEntryImportModalComponent,
   ImportableListItemControlComponent,
-  ExistingMetadataListElementComponent
+  ExistingMetadataListElementComponent,
+  ItemVersionsComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -382,6 +386,7 @@ const ENTRY_COMPONENTS = [
   EditCommunitySelectorComponent,
   EditCollectionSelectorComponent,
   EditItemSelectorComponent,
+  EditItemVersionHistorySelectorComponent,
   StartsWithTextComponent,
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
@@ -402,7 +407,8 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
-  ExternalSourceEntryImportModalComponent
+  ExternalSourceEntryImportModalComponent,
+  ItemVersionsComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

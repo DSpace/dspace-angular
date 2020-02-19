@@ -18,6 +18,7 @@ import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrapp
 import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import {CreateItemParentSelectorComponent} from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { EditItemVersionHistorySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-version-history-selector/edit-item-version-history-selector.component';
 
 /**
  * Component representing the admin sidebar
@@ -211,6 +212,19 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           text: 'menu.section.edit_item',
           function: () => {
             this.modalService.open(EditItemSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+      },
+      {
+        id: 'edit_item_version_history',
+        parentID: 'edit',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.edit_item_version_history',
+          function: () => {
+            this.modalService.open(EditItemVersionHistorySelectorComponent);
           }
         } as OnClickMenuItemModel,
       },

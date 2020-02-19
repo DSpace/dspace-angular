@@ -13,6 +13,11 @@ import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.compo
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
+import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
+
+export function getItemEditVersionHistoryPath() {
+  return ITEM_EDIT_VERSION_HISTORY;
+}
 
 const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
 const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
@@ -20,6 +25,7 @@ const ITEM_EDIT_PRIVATE_PATH = 'private';
 const ITEM_EDIT_PUBLIC_PATH = 'public';
 const ITEM_EDIT_DELETE_PATH = 'delete';
 const ITEM_EDIT_MOVE_PATH = 'move';
+const ITEM_EDIT_VERSION_HISTORY = 'versionhistory';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -122,7 +128,15 @@ const ITEM_EDIT_MOVE_PATH = 'move';
         resolve: {
           item: ItemPageResolver
         }
-      }])
+      },
+      {
+        path: ITEM_EDIT_VERSION_HISTORY,
+        component: ItemVersionHistoryComponent,
+        resolve: {
+          item: ItemPageResolver
+        }
+      }
+    ])
   ],
   providers: [
     ItemPageResolver,

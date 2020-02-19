@@ -29,7 +29,6 @@ import { MetadataFieldWrapperComponent } from './field-components/metadata-field
 import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
-import { ItemVersionsComponent } from './item-versions/item-versions.component';
 
 @NgModule({
   imports: [
@@ -61,7 +60,6 @@ import { ItemVersionsComponent } from './item-versions/item-versions.component';
     RelatedEntitiesSearchComponent,
     TabbedRelatedEntitiesSearchComponent,
     AbstractIncrementalListComponent,
-    ItemVersionsComponent
   ],
   exports: [
     ItemComponent,

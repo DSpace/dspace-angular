@@ -1,0 +1,6 @@
+<div class="container" *ngVar="(itemRD$ | async)?.payload as item">
+  <ds-item-versions *ngIf="item" [item]="item" [displayWhenEmpty]="true"></ds-item-versions>
+  <a class="btn btn-outline-primary" [routerLink]="['/items/' + item?.id]">
+    {{"item.version.history.return" | translate}}
+  </a>
+</div>

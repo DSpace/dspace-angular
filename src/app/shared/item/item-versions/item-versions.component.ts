@@ -1,17 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
-import { Version } from '../../core/shared/version.model';
-import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
+import { Version } from '../../../core/shared/version.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Observable } from 'rxjs/internal/Observable';
-import { VersionHistory } from '../../core/shared/version-history.model';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
+import { VersionHistory } from '../../../core/shared/version-history.model';
+import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
+import { AlertType } from '../../alert/aletr-type';
 
 @Component({
   selector: 'ds-item-versions',
@@ -25,6 +26,19 @@ export class ItemVersionsComponent implements OnInit {
    * The item to display a version history for
    */
   @Input() item: Item;
+
+  /**
+   * An option to display the list of versions, even when there aren't any.
+   * Instead of the table, an alert will be displayed, notifying the user there are no other versions present
+   * for the current item.
+   */
+  @Input() displayWhenEmpty = false;
+
+  /**
+   * The AlertType enumeration
+   * @type {AlertType}
+   */
+  AlertTypeEnum = AlertType;
 
   /**
    * The item's version
