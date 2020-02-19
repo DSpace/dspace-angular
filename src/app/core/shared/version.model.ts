@@ -7,6 +7,7 @@ import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs/internal/Observable';
 import { VersionHistory } from './version-history.model';
+import { EPerson } from '../eperson/models/eperson.model';
 
 /**
  * Class representing a DSpace Version
@@ -51,6 +52,12 @@ export class Version extends ListableObject implements CacheableObject {
    */
   @excludeFromEquals
   item: Observable<RemoteData<Item>>;
+
+  /**
+   * The e-person who created this version
+   */
+  @excludeFromEquals
+  eperson: Observable<RemoteData<EPerson>>;
 
   /**
    * Method that returns as which type of object this object should be rendered

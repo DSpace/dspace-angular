@@ -14,6 +14,7 @@ import { Bundle } from './bundle.model';
 import { GenericConstructor } from './generic-constructor';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
+import { Version } from './version.model';
 
 /**
  * Class representing a DSpace Item
@@ -66,6 +67,11 @@ export class Item extends DSpaceObject {
   bundles: Observable<RemoteData<PaginatedList<Bundle>>>;
 
   relationships: Observable<RemoteData<PaginatedList<Relationship>>>;
+
+  /**
+   * The version this item represents in its history
+   */
+  version: Observable<RemoteData<Version>>;
 
   /**
    * Retrieves the thumbnail of this item

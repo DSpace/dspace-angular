@@ -6,6 +6,7 @@ import { mapsTo, relationship } from '../builders/build-decorators';
 import { Collection } from '../../shared/collection.model';
 import { Relationship } from '../../shared/item-relationships/relationship.model';
 import { Bundle } from '../../shared/bundle.model';
+import { Version } from '../../shared/version.model';
 
 /**
  * Normalized model class for a DSpace Item
@@ -68,5 +69,12 @@ export class NormalizedItem extends NormalizedDSpaceObject<Item> {
   @deserialize
   @relationship(Relationship, true)
   relationships: string[];
+
+  /**
+   * The version this item represents in its history
+   */
+  @deserialize
+  @relationship(Version, false)
+  version: string;
 
 }

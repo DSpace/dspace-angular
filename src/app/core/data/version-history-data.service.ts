@@ -11,12 +11,21 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindListOptions } from './request.models';
+import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { RemoteData } from './remote-data';
+import { PaginatedList } from './paginated-list';
+import { Version } from '../shared/version.model';
+import { map, switchMap, take } from 'rxjs/operators';
 
+/**
+ * Service responsible for handling requests related to the VersionHistory object
+ */
 @Injectable()
 export class VersionHistoryDataService extends DataService<VersionHistory> {
   protected linkPath = 'versionhistories';
+  protected versionsEndpoint = 'versions';
 
   constructor(
     protected requestService: RequestService,
@@ -36,5 +45,34 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
    */
   getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
+  }
+
+  /**
+   * Get the versions endpoint for a version history
+   * @param versionHistoryId
+   */
+  getVersionsEndpoint(versionHistoryId: number): Observable<string> {
+    return this.getBrowseEndpoint().pipe(
+      switchMap((href: string) => this.halService.getEndpoint(this.versionsEndpoint, `${href}/${versionHistoryId}`))
+    );
+  }
+
+  /**
+   * Get a version history's versions using paginated search options
+   * @param versionHistoryId  The version history's ID
+   * @param searchOptions     The search options to use
+   */
+  getVersions(versionHistoryId: number, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Version>>> {
+    const hrefObs = this.getVersionsEndpoint(versionHistoryId).pipe(
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+    );
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.configure(request);
+    });
+
+    return this.rdbService.buildList<Version>(hrefObs);
   }
 }

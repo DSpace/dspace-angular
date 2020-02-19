@@ -1,0 +1,44 @@
+<div *ngVar="(versionsRD$ | async)?.payload as versions">
+  <div *ngVar="(versionRD$ | async)?.payload as itemVersion">
+    <div *ngIf="versions?.page?.length > 0">
+      <h2>{{"item.version.history.head" | translate}}</h2>
+      <ds-pagination [hideGear]="true"
+                     [hidePagerWhenSinglePage]="true"
+                     [paginationOptions]="options"
+                     [pageInfoState]="versions"
+                     [collectionSize]="versions?.totalElements"
+                     (pageChange)="switchPage($event)">
+        <table class="table table-striped my-2">
+          <thead>
+            <tr>
+              <th scope="col">{{"item.version.history.table.version" | translate}}</th>
+              <th scope="col">{{"item.version.history.table.item" | translate}}</th>
+              <th scope="col" *ngIf="(hasEpersons$ | async)">{{"item.version.history.table.editor" | translate}}</th>
+              <th scope="col">{{"item.version.history.table.date" | translate}}</th>
+              <th scope="col">{{"item.version.history.table.summary" | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let version of versions?.page">
+              <td>{{version?.version}}</td>
+              <td>
+              <span *ngVar="(version?.item | async)?.payload as item">
+                <a *ngIf="item" [routerLink]="['/items', item?.id]">{{item?.handle}}</a>
+                <span *ngIf="version?.id === itemVersion?.id">*</span>
+              </span>
+              </td>
+              <td *ngIf="(hasEpersons$ | async)">
+              <span *ngVar="(version?.eperson | async)?.payload as eperson">
+                <a *ngIf="eperson" [href]="'mailto:' + eperson?.email">{{eperson?.name}}</a>
+              </span>
+              </td>
+              <td>{{version?.created}}</td>
+              <td>{{version?.summary}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div>*&nbsp;{{"item.version.history.selected" | translate}}</div>
+      </ds-pagination>
+    </div>
+  </div>
+</div>

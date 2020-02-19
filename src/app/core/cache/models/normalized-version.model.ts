@@ -5,6 +5,7 @@ import { TypedObject } from '../object-cache.reducer';
 import { NormalizedObject } from './normalized-object.model';
 import { Item } from '../../shared/item.model';
 import { VersionHistory } from '../../shared/version-history.model';
+import { EPerson } from '../../eperson/models/eperson.model';
 
 /**
  * Normalized model class for a DSpace Version
@@ -49,4 +50,11 @@ export class NormalizedVersion extends NormalizedObject<Version> implements Type
   @deserialize
   @relationship(Item, false)
   item: string;
+
+  /**
+   * The e-person who created this version
+   */
+  @deserialize
+  @relationship(EPerson, false)
+  eperson: string;
 }

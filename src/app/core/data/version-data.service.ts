@@ -14,6 +14,9 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 
+/**
+ * Service responsible for handling requests related to the Version object
+ */
 @Injectable()
 export class VersionDataService extends DataService<Version> {
   protected linkPath = 'versions';

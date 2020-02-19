@@ -981,6 +981,22 @@
 
 
 
+  "item.version.history.head": "Version History",
+
+  "item.version.history.selected": "Selected version",
+
+  "item.version.history.table.version": "Version",
+
+  "item.version.history.table.item": "Item",
+
+  "item.version.history.table.editor": "Editor",
+
+  "item.version.history.table.date": "Date",
+
+  "item.version.history.table.summary": "Summary",
+
+
+
   "journal.listelement.badge": "Journal",
 
   "journal.page.description": "Description",
