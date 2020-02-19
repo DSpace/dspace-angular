@@ -12,7 +12,7 @@ import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
-import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipAction } from './relationship.actions';
+import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipNameVariantAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
 import { Store } from '@ngrx/store';
@@ -178,7 +178,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     const nameVariant$ = this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid);
     this.subMap[sri.indexableObject.uuid] = nameVariant$.pipe(
       skip(1),
-    ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, this.submissionId, nameVariant)))
+    ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipNameVariantAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, this.submissionId, nameVariant)))
   }
 
   /**

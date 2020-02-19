@@ -4,7 +4,7 @@ import { debounceTime, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
-import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, UpdateRelationshipAction } from './relationship.actions';
+import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, UpdateRelationshipAction, UpdateRelationshipNameVariantAction } from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
 import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
@@ -18,6 +18,7 @@ import { Store } from '@ngrx/store';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../../core/data/request.service';
 import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
+import { CommitPatchOperationsAction, JsonPatchOperationsActionTypes, PatchOperationsActions } from '../../../../../core/json-patch/json-patch-operations.actions';
 
 const DEBOUNCE_TIME = 5000;
 
@@ -91,8 +92,8 @@ export class RelationshipEffects {
    */
   @Effect({ dispatch: false }) updateNameVariantsActions$ = this.actions$
     .pipe(
-      ofType(RelationshipActionTypes.UPDATE_RELATIONSHIP),
-      map((action: UpdateRelationshipAction) => {
+      ofType(RelationshipActionTypes.UPDATE_NAME_VARIANT),
+      map((action: UpdateRelationshipNameVariantAction) => {
           const { item1, item2, relationshipType, submissionId, nameVariant } = action.payload;
           const identifier: string = this.createIdentifier(item1, item2, relationshipType);
           const inProgress = hasValue(this.debounceMap[identifier]);
@@ -108,9 +109,17 @@ export class RelationshipEffects {
       )
     );
 
+  @Effect({ dispatch: false }) updateRelationshipActions$ = this.actions$
+    .pipe(
+      ofType(RelationshipActionTypes.UPDATE_RELATIONSHIP),
+      map((action: UpdateRelationshipAction) => {
+        this.updateAfterPatchSubmissionId = action.payload.submissionId;
+      })
+    );
+
   @Effect() commitServerSyncBuffer = this.actions$
     .pipe(
-      ofType(ServerSyncBufferActionTypes.EMPTY),
+      ofType(ServerSyncBufferActionTypes.EMPTY, JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS),
       filter(() => hasValue(this.updateAfterPatchSubmissionId)),
       switchMap(() => this.refreshWorkspaceItemInCache(this.updateAfterPatchSubmissionId)),
       map((submissionObject) => new SaveSubmissionSectionFormSuccessAction(this.updateAfterPatchSubmissionId, [submissionObject], false))

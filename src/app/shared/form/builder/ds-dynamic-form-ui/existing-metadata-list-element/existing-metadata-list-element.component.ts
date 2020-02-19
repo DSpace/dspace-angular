@@ -23,7 +23,7 @@ import { SelectableListService } from '../../../../object-list/selectable-list/s
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
-import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
+import { RemoveRelationshipAction, UpdateRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
 
 // tslint:disable:max-classes-per-file
@@ -85,7 +85,14 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
  */
 export class ReorderableRelationship extends Reorderable {
 
-  constructor(public relationship: Relationship, public useLeftItem: boolean, protected relationshipService: RelationshipService, oldIndex?: number, newIndex?: number) {
+  constructor(
+    public relationship: Relationship,
+    public useLeftItem: boolean,
+    protected relationshipService: RelationshipService,
+    protected store: Store<AppState>,
+    protected submissionID: string,
+    oldIndex?: number,
+    newIndex?: number) {
     super(oldIndex, newIndex);
     this.relationship = relationship;
     this.useLeftItem = useLeftItem;
@@ -104,6 +111,7 @@ export class ReorderableRelationship extends Reorderable {
   }
 
   update(): Observable<RemoteData<Relationship>> {
+    this.store.dispatch(new UpdateRelationshipAction(this.relationship, this.submissionID))
     const updatedRelationship$ = this.relationshipService.updatePlace(this).pipe(
       getSucceededRemoteData(),
     );
@@ -147,23 +155,25 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
   }
 
   ngOnChanges() {
-    const item$ = this.reoRel.useLeftItem ?
-      this.reoRel.relationship.leftItem : this.reoRel.relationship.rightItem;
-    this.subs.push(item$.pipe(
-      getAllSucceededRemoteData(),
-      getRemoteDataPayload(),
-      filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
-    ).subscribe((item: Item) => {
-      this.relatedItem = item;
-      const relationMD: MetadataValue = this.submissionItem.firstMetadata(this.relationshipOptions.metadataField, { value: this.relatedItem.uuid });
-      if (hasValue(relationMD)) {
-        const metadataRepresentationMD: MetadataValue = this.submissionItem.firstMetadata(this.metadataFields, { authority: relationMD.authority });
-        this.metadataRepresentation = Object.assign(
-          new ItemMetadataRepresentation(metadataRepresentationMD),
-          this.relatedItem
-        )
-      }
-    }));
+    if (hasValue(this.reoRel)) {
+      const item$ = this.reoRel.useLeftItem ?
+        this.reoRel.relationship.leftItem : this.reoRel.relationship.rightItem;
+      this.subs.push(item$.pipe(
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload(),
+        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
+      ).subscribe((item: Item) => {
+        this.relatedItem = item;
+        const relationMD: MetadataValue = this.submissionItem.firstMetadata(this.relationshipOptions.metadataField, { value: this.relatedItem.uuid });
+        if (hasValue(relationMD)) {
+          const metadataRepresentationMD: MetadataValue = this.submissionItem.firstMetadata(this.metadataFields, { authority: relationMD.authority });
+          this.metadataRepresentation = Object.assign(
+            new ItemMetadataRepresentation(metadataRepresentationMD),
+            this.relatedItem
+          )
+        }
+      }));
+    }
   }
 
   /**
@@ -184,4 +194,5 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
   }
 
 }
+
 // tslint:enable:max-classes-per-file

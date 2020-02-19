@@ -40,6 +40,7 @@ import { SubmissionState } from '../../../../../../submission/submission.reducer
 import { ObjectCacheService } from '../../../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../../../core/data/request.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { AppState } from '../../../../../../app.reducer';
 
 @Component({
   selector: 'ds-dynamic-form-array',
@@ -72,6 +73,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
               protected zone: NgZone,
               protected formService: DynamicFormService,
               private submissionService: SubmissionService,
+              private store: Store<AppState>,
   ) {
     super(layoutService, validationService);
   }
@@ -87,9 +89,11 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
           getRemoteDataPayload()
         )
       )
-    ).subscribe((item) => this.submissionItem = item);
+    ).subscribe((item) => {
+      this.submissionItem = item;
+      this.updateReorderables();
+    });
 
-    this.updateReorderables();
   }
 
   private updateReorderables(): void {
@@ -123,6 +127,8 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
                           relationship,
                           leftItem.uuid !== this.submissionItem.uuid,
                           this.relationshipService,
+                          this.store,
+                          this.model.submissionId,
                           index,
                           index
                         );
