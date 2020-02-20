@@ -83,14 +83,15 @@ export abstract class DataService<T extends CacheableObject> {
    * @param linkPath The link path for the object
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected getFindAllHref(options: FindListOptions = {}, linkPath?: string): Observable<string> {
+  protected getFindAllHref(options: FindListOptions = {}, linkPath?: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
     let result$: Observable<string>;
     const args = [];
 
     result$ = this.getBrowseEndpoint(options, linkPath).pipe(distinctUntilChanged());
 
-    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args)));
+    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
   }
 
   /**
@@ -100,8 +101,9 @@ export abstract class DataService<T extends CacheableObject> {
    * @param options The [[FindListOptions]] object
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected getSearchByHref(searchMethod: string, options: FindListOptions = {}): Observable<string> {
+  protected getSearchByHref(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
     let result$: Observable<string>;
     const args = [];
 
@@ -113,7 +115,7 @@ export abstract class DataService<T extends CacheableObject> {
       })
     }
 
-    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args)));
+    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
   }
 
   /**
@@ -124,8 +126,9 @@ export abstract class DataService<T extends CacheableObject> {
    * @param extraArgs Array with additional params to combine with query string
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = []): string {
+  protected buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = [], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
 
     let args = [...extraArgs];
 
@@ -142,11 +145,51 @@ export abstract class DataService<T extends CacheableObject> {
     if (hasValue(options.startsWith)) {
       args = [...args, `startsWith=${options.startsWith}`];
     }
+    args = this.addEmbedParams(args, linksToFollow);
     if (isNotEmpty(args)) {
       return new URLCombiner(href, `?${args.join('&')}`).toString();
     } else {
       return href;
     }
+  }
+
+  /**
+   * Adds the embed options to the link for the request
+   * @param args            params for the query string
+   * @param linksToFollow   links we want to embed in query string if forwardToRest is true
+   */
+  protected addEmbedParams(args: any, linksToFollow: Array<FollowLinkConfig<T>>) {
+    if (linksToFollow !== undefined) {
+      linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
+        console.log('linksToFollow', linksToFollow)
+        if (linkToFollow.forwardToRest) {
+          const embedString = 'embed=' + String(linkToFollow.name);
+          const embedWithNestedString = this.addNestedEmbeds(embedString, linkToFollow.linksToFollow);
+          args = [...args, embedWithNestedString];
+        }
+      });
+    }
+    return args;
+  }
+
+  /**
+   * Add the nested followLinks to the embed param, recursively, separated by a /
+   * @param embedString
+   * @param linksToFollow
+   */
+  protected addNestedEmbeds(embedString: string, linksToFollow: Array<FollowLinkConfig<T>>): string {
+    let nestEmbed = embedString;
+    if (linksToFollow !== undefined) {
+      linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
+        if (linkToFollow.forwardToRest) {
+          nestEmbed = nestEmbed + '/' + String(linkToFollow.name);
+          if (linkToFollow.linksToFollow !== undefined) {
+            nestEmbed = this.addNestedEmbeds(nestEmbed, linkToFollow.linksToFollow);
+          }
+        }
+      })
+    }
+    return nestEmbed;
   }
 
   /**
@@ -223,7 +266,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
-    const requestHref = this.buildHrefFromFindOptions(href, {}, []);
+    const requestHref = this.buildHrefFromFindOptions(href, {}, [], ...linksToFollow);
     const request = new GetRequest(this.requestService.generateRequestId(), requestHref);
     if (hasValue(this.responseMsToLive)) {
       request.responseMsToLive = this.responseMsToLive;
@@ -240,7 +283,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
-    const requestHref = this.buildHrefFromFindOptions(href, findListOptions, []);
+    const requestHref = this.buildHrefFromFindOptions(href, findListOptions, [], ...linksToFollow);
     const request = new GetRequest(this.requestService.generateRequestId(), requestHref);
     if (hasValue(this.responseMsToLive)) {
       request.responseMsToLive = this.responseMsToLive;
@@ -271,7 +314,7 @@ export abstract class DataService<T extends CacheableObject> {
    */
   protected searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
 
-    const hrefObs = this.getSearchByHref(searchMethod, options);
+    const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
 
     return hrefObs.pipe(
       find((href: string) => hasValue(href)),
