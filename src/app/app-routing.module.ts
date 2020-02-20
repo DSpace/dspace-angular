@@ -3,21 +3,28 @@ import { RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
+import { Breadcrumb } from './breadcrumbs/breadcrumb/breadcrumb.model';
 
 const ITEM_MODULE_PATH = 'items';
+
 export function getItemModulePath() {
   return `/${ITEM_MODULE_PATH}`;
 }
+
 const COLLECTION_MODULE_PATH = 'collections';
+
 export function getCollectionModulePath() {
   return `/${COLLECTION_MODULE_PATH}`;
 }
+
 const COMMUNITY_MODULE_PATH = 'communities';
+
 export function getCommunityModulePath() {
   return `/${COMMUNITY_MODULE_PATH}`;
 }
 
-const  ADMIN_MODULE_PATH = 'admin';
+const ADMIN_MODULE_PATH = 'admin';
+
 export function getAdminModulePath() {
   return `/${ADMIN_MODULE_PATH}`;
 }
@@ -26,7 +33,7 @@ export function getAdminModulePath() {
   imports: [
     RouterModule.forRoot([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'home', loadChildren: './+home-page/home-page.module#HomePageModule' },
+      { path: 'home', loadChildren: './+home-page/home-page.module#HomePageModule', data: { showBreadcrumbs: false } },
       { path: 'community-list', loadChildren: './community-list-page/community-list-page.module#CommunityListPageModule' },
       { path: 'id', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
       { path: 'handle', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
@@ -34,7 +41,7 @@ export function getAdminModulePath() {
       { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
       { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
       { path: 'mydspace', loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule', canActivate: [AuthenticatedGuard] },
-      { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
+      { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule', data: { breadcrumb: new Breadcrumb('Search', '/search') } },
       { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule' },
       { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
@@ -45,7 +52,7 @@ export function getAdminModulePath() {
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ])
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
 
