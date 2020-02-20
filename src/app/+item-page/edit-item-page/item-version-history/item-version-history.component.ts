@@ -10,6 +10,9 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'ds-item-version-history',
   templateUrl: './item-version-history.component.html'
 })
+/**
+ * Component for listing and managing an item's version history
+ */
 export class ItemVersionHistoryComponent {
   /**
    * The item to display the version history for

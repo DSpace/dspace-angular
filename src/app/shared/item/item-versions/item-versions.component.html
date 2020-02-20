@@ -21,21 +21,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let version of versions?.page">
-              <td>{{version?.version}}</td>
-              <td>
-              <span *ngVar="(version?.item | async)?.payload as item">
-                <a *ngIf="item" [routerLink]="['/items', item?.id]">{{item?.handle}}</a>
-                <span *ngIf="version?.id === itemVersion?.id">*</span>
-              </span>
+            <tr *ngFor="let version of versions?.page" [id]="'version-row-' + version.id">
+              <td class="version-row-element-version">{{version?.version}}</td>
+              <td class="version-row-element-item">
+                <span *ngVar="(version?.item | async)?.payload as item">
+                  <a *ngIf="item" [routerLink]="['/items', item?.id]">{{item?.handle}}</a>
+                  <span *ngIf="version?.id === itemVersion?.id">*</span>
+                </span>
               </td>
-              <td *ngIf="(hasEpersons$ | async)">
-              <span *ngVar="(version?.eperson | async)?.payload as eperson">
-                <a *ngIf="eperson" [href]="'mailto:' + eperson?.email">{{eperson?.name}}</a>
-              </span>
+              <td *ngIf="(hasEpersons$ | async)" class="version-row-element-editor">
+                <span *ngVar="(version?.eperson | async)?.payload as eperson">
+                  <a *ngIf="eperson" [href]="'mailto:' + eperson?.email">{{eperson?.name}}</a>
+                </span>
               </td>
-              <td>{{version?.created}}</td>
-              <td>{{version?.summary}}</td>
+              <td class="version-row-element-date">{{version?.created}}</td>
+              <td class="version-row-element-summary">{{version?.summary}}</td>
             </tr>
           </tbody>
         </table>
