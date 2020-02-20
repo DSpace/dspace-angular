@@ -54,7 +54,7 @@ export class AuthStatus implements CacheableObject {
   authenticated: boolean;
 
   /**
-   * The HALLinks for this AuthStatus
+   * The {@link HALLink}s for this AuthStatus
    */
   @deserialize
   _links: {
@@ -64,7 +64,7 @@ export class AuthStatus implements CacheableObject {
 
   /**
    * The EPerson of this auth status
-   * Will be undefined unless the eperson HALLink has been resolved.
+   * Will be undefined unless the eperson {@link HALLink} has been resolved.
    */
   @link(EPERSON)
   eperson?: Observable<RemoteData<EPerson>>;

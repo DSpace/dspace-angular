@@ -86,7 +86,7 @@ export class LinkDefinition<T extends HALResource> {
  * @param resourceType the resource type of the object(s) the link retrieves
  * @param isList an optional boolean indicating whether or not it concerns a list,
  * defaults to false
- * @param linkName an optional string in case the HALLink name differs from the
+ * @param linkName an optional string in case the {@link HALLink} name differs from the
  * property name
  */
 export const link = <T extends HALResource>(

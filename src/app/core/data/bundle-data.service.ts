@@ -22,7 +22,7 @@ import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 
 /**
- * A service responsible for fetching/sending data from/to the REST API on the bundles endpoint
+ * A service to retrieve {@link Bundle}s from the REST API
  */
 @Injectable(
   {providedIn: 'root'}
@@ -43,10 +43,24 @@ export class BundleDataService extends DataService<Bundle> {
     super();
   }
 
+  /**
+   * Retrieve all {@link Bundle}s in the given {@link Item}
+   *
+   * @param item the {@link Item} the {@link Bundle}s are a part of
+   * @param options the {@link FindListOptions} for the request
+   * @param linksToFollow the {@link FollowLinkConfig}s for the request
+   */
   findAllByItem(item: Item, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<PaginatedList<Bundle>>> {
     return this.findAllByHref(item._links.bundles.href, options,  ...linksToFollow);
   }
 
+  /**
+   * Retrieve a {@link Bundle} in the given {@link Item} by name
+   *
+   * @param item the {@link Item} the {@link Bundle}s are a part of
+   * @param bundleName the name of the {@link Bundle} to retrieve
+   * @param linksToFollow the {@link FollowLinkConfig}s for the request
+   */
   // TODO should be implemented rest side
   findByItemAndName(item: Item, bundleName: string, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<Bundle>> {
     return this.findAllByItem(item, { elementsPerPage: Number.MAX_SAFE_INTEGER }, ...linksToFollow).pipe(

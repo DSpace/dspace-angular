@@ -39,7 +39,7 @@ export class ItemType implements CacheableObject {
   uuid: string;
 
   /**
-   * The HALLinks for this ItemType
+   * The {@link HALLink}s for this ItemType
    */
   @deserialize
   _links: {

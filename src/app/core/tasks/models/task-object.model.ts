@@ -40,7 +40,7 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
   action: string;
 
   /**
-   * The HALLinks for this TaskObject
+   * The {@link HALLink}s for this TaskObject
    */
   @deserialize
   _links: {
@@ -52,21 +52,21 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
 
   /**
    * The EPerson for this task
-   * Will be undefined unless the eperson HALLink has been resolved.
+   * Will be undefined unless the eperson {@link HALLink} has been resolved.
    */
   @link(EPERSON)
   eperson?: Observable<RemoteData<EPerson>>;
 
   /**
    * The Group for this task
-   * Will be undefined unless the group HALLink has been resolved.
+   * Will be undefined unless the group {@link HALLink} has been resolved.
    */
   @link(GROUP)
   group?: Observable<RemoteData<Group>>;
 
   /**
    * The WorkflowItem for this task
-   * Will be undefined unless the workflowitem HALLink has been resolved.
+   * Will be undefined unless the workflowitem {@link HALLink} has been resolved.
    */
   @link(WorkflowItem.type)
   workflowitem?: Observable<RemoteData<WorkflowItem>> | WorkflowItem;

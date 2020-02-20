@@ -49,7 +49,7 @@ export class MetadataField extends ListableObject implements HALResource {
   scopeNote: string;
 
   /**
-   * The HALLinks for this MetadataField
+   * The {@link HALLink}s for this MetadataField
    */
   @deserialize
   _links: {
@@ -59,7 +59,7 @@ export class MetadataField extends ListableObject implements HALResource {
 
   /**
    * The MetadataSchema for this MetadataField
-   * Will be undefined unless the schema HALLink has been resolved.
+   * Will be undefined unless the schema {@link HALLink} has been resolved.
    */
   // TODO the responseparsingservice assumes schemas are always embedded. This should use remotedata, and be a link instead.
   // @link(METADATA_SCHEMA)

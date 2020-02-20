@@ -2,12 +2,12 @@ import { FindListOptions } from '../../core/data/request.models';
 import { HALResource } from '../../core/shared/hal-resource.model';
 
 /**
- * A class to configure the retrieval of a HALLink
+ * A class to configure the retrieval of a {@link HALLink}
  */
 export class FollowLinkConfig<R extends HALResource> {
   /**
    * The name of the link to fetch.
-   * Can only be a HALLink of the object you're working with
+   * Can only be a {@link HALLink} of the object you're working with
    */
   name: keyof R['_links'];
 
@@ -30,7 +30,7 @@ export class FollowLinkConfig<R extends HALResource> {
  * in order to create them in a less verbose way.
  *
  * @param linkName: the name of the link to fetch.
- * Can only be a HALLink of the object you're working with
+ * Can only be a {@link HALLink} of the object you're working with
  * @param findListOptions: {@link FindListOptions} for the query,
  * allows you to resolve the link using a certain page, or sorted
  * in a certain way

@@ -23,6 +23,10 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { PaginatedList } from './paginated-list';
 
 /* tslint:disable:max-classes-per-file */
+
+/**
+ * A private DataService implementation to delegate specific methods to.
+ */
 class DataServiceImpl extends DataService<ResourcePolicy> {
   protected linkPath = 'resourcepolicies';
 
@@ -59,14 +63,32 @@ export class ResourcePolicyService {
     this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
   }
 
+  /**
+   * Returns an observable of {@link RemoteData} of a {@link ResourcePolicy}, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the {@link ResourcePolicy}
+   * @param href            The url of {@link ResourcePolicy} we want to retrieve
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
   findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<ResourcePolicy>> {
     return this.dataService.findByHref(href, ...linksToFollow);
   }
 
+  /**
+   * Returns a list of observables of {@link RemoteData} of {@link ResourcePolicy}s, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the {@link ResourcePolicy}
+   * @param href            The url of the {@link ResourcePolicy} we want to retrieve
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
   findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     return this.dataService.findAllByHref(href, findListOptions, ...linksToFollow);
   }
 
+  /**
+   * Return the defaultAccessConditions {@link ResourcePolicy} list for a given {@link Collection}
+   *
+   * @param collection the {@link Collection} to retrieve the defaultAccessConditions for
+   * @param findListOptions the {@link FindListOptions} for the request
+   */
   getDefaultAccessConditionsFor(collection: Collection, findListOptions?: FindListOptions): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     return this.dataService.findAllByHref(collection._links.defaultAccessConditions.href, findListOptions);
   }

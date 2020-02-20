@@ -26,7 +26,7 @@ export class Group extends DSpaceObject {
   public permanent: boolean;
 
   /**
-   * The HALLinks for this Group
+   * The {@link HALLink}s for this Group
    */
   @deserialize
   _links: {
@@ -36,7 +36,7 @@ export class Group extends DSpaceObject {
 
   /**
    * The list of Groups this Group is part of
-   * Will be undefined unless the groups HALLink has been resolved.
+   * Will be undefined unless the groups {@link HALLink} has been resolved.
    */
   @link(GROUP, true)
   public groups?: Observable<RemoteData<PaginatedList<Group>>>;

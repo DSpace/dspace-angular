@@ -20,7 +20,7 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject {
   hitHighlights: MetadataMap;
 
   /**
-   * The HALLinks for this SearchResult
+   * The {@link HALLink}s for this SearchResult
    */
   @deserialize
   _links: {

@@ -25,12 +25,18 @@ import { RemoteDataError } from './remote-data-error';
 import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 
+/**
+ * A service to retrieve {@link Bitstream}s from the REST API
+ */
 @Injectable({
   providedIn: 'root'
 })
 @dataService(BITSTREAM)
 export class BitstreamDataService extends DataService<Bitstream> {
 
+  /**
+   * The HAL path to the bitstream endpoint
+   */
   protected linkPath = 'bitstreams';
 
   constructor(
@@ -49,7 +55,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
   }
 
   /**
-   * Retrieves the bitstreams in a given bundle
+   * Retrieves the {@link Bitstream}s in a given bundle
    *
    * @param bundle the bundle to retrieve bitstreams from
    * @param options options for the find all request
@@ -60,9 +66,9 @@ export class BitstreamDataService extends DataService<Bitstream> {
 
   /**
    * Retrieves the thumbnail for the given item
-   * @returns {Observable<RemoteData<Bitstream>>} the first bitstream in the THUMBNAIL bundle
+   * @returns {Observable<RemoteData<{@link Bitstream}>>} the first bitstream in the THUMBNAIL bundle
    */
-  // TODO should be implemented rest side. Item should get a thumbnail link
+  // TODO should be implemented rest side. {@link Item} should get a thumbnail link
   public getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
     return this.bundleService.findByItemAndName(item, 'THUMBNAIL').pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {
@@ -89,6 +95,15 @@ export class BitstreamDataService extends DataService<Bitstream> {
     );
   }
 
+  /**
+   * Retrieve the matching thumbnail for a {@link Bitstream}.
+   *
+   * The {@link Item} is technically redundant, but is available
+   * in all current use cases, and having it simplifies this method
+   *
+   * @param item The {@link Item} the {@link Bitstream} and its thumbnail are a part of
+   * @param bitstreamInOriginal The original {@link Bitstream} to find the thumbnail for
+   */
   // TODO should be implemented rest side
   public getMatchingThumbnail(item: Item, bitstreamInOriginal: Bitstream): Observable<RemoteData<Bitstream>> {
     return this.bundleService.findByItemAndName(item, 'THUMBNAIL').pipe(
@@ -129,6 +144,17 @@ export class BitstreamDataService extends DataService<Bitstream> {
     );
   }
 
+  /**
+   * Retrieve all {@link Bitstream}s in a certain {@link Bundle}.
+   *
+   * The {@link Item} is technically redundant, but is available
+   * in all current use cases, and having it simplifies this method
+   *
+   * @param item the {@link Item} the {@link Bundle} is a part of
+   * @param bundleName the name of the {@link Bundle} we want to find {@link Bitstream}s for
+   * @param options the {@link FindListOptions} for the request
+   * @param linksToFollow the {@link FollowLinkConfig}s for the request
+   */
   public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bundleService.findByItemAndName(item, bundleName).pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {

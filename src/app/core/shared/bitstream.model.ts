@@ -33,7 +33,7 @@ export class Bitstream extends DSpaceObject implements HALResource {
   bundleName: string;
 
   /**
-   * The HALLinks for this Bitstream
+   * The {@link HALLink}s for this Bitstream
    */
   @deserialize
   _links: {
@@ -45,14 +45,14 @@ export class Bitstream extends DSpaceObject implements HALResource {
 
   /**
    * The thumbnail for this Bitstream
-   * Needs to be resolved first, but isn't available as a HALLink yet
+   * Needs to be resolved first, but isn't available as a {@link HALLink} yet
    * Use BitstreamDataService.getThumbnailFor(…) for now.
    */
   thumbnail?: Observable<RemoteData<Bitstream>>;
 
   /**
    * The BitstreamFormat of this Bitstream
-   * Will be undefined unless the format HALLink has been resolved.
+   * Will be undefined unless the format {@link HALLink} has been resolved.
    */
   @link(BITSTREAM_FORMAT)
   format?: Observable<RemoteData<BitstreamFormat>>;

@@ -43,7 +43,7 @@ export class SubmissionSectionModel extends ConfigObject {
   visibility: SubmissionSectionVisibility;
 
   /**
-   * The HALLinks for this SubmissionSectionModel
+   * The {@link HALLink}s for this SubmissionSectionModel
    */
   @deserialize
   _links: {

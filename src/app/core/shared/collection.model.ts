@@ -25,7 +25,7 @@ export class Collection extends DSpaceObject {
   handle: string;
 
   /**
-   * The HALLinks for this Collection
+   * The {@link HALLink}s for this Collection
    */
   @deserialize
   _links: {
@@ -40,21 +40,21 @@ export class Collection extends DSpaceObject {
 
   /**
    * The license for this Collection
-   * Will be undefined unless the license HALLink has been resolved.
+   * Will be undefined unless the license {@link HALLink} has been resolved.
    */
   @link(LICENSE)
   license?: Observable<RemoteData<License>>;
 
   /**
    * The logo for this Collection
-   * Will be undefined unless the logo HALLink has been resolved.
+   * Will be undefined unless the logo {@link HALLink} has been resolved.
    */
   @link(BITSTREAM)
   logo?: Observable<RemoteData<Bitstream>>;
 
   /**
    * The default access conditions for this Collection
-   * Will be undefined unless the defaultAccessConditions HALLink has been resolved.
+   * Will be undefined unless the defaultAccessConditions {@link HALLink} has been resolved.
    */
   @link(RESOURCE_POLICY, true)
   defaultAccessConditions?: Observable<RemoteData<PaginatedList<ResourcePolicy>>>;

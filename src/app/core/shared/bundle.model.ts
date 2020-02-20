@@ -10,7 +10,7 @@ export class Bundle extends DSpaceObject {
   static type = BUNDLE;
 
   /**
-   * The HALLinks for this Bundle
+   * The {@link HALLink}s for this Bundle
    */
   @deserialize
   _links: {

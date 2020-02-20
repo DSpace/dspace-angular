@@ -7,7 +7,7 @@ import { getDataServiceFor, getLinkDefinition, getLinkDefinitions, LinkDefinitio
 
 /**
  * A Service to handle the resolving and removing
- * of resolved HALLinks on HALResources
+ * of resolved {@link HALLink}s on HALResources
  */
 @Injectable({
   providedIn: 'root'

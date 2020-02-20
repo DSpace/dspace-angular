@@ -39,7 +39,7 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
 
   /**
    * The collection this submission applies to
-   * Will be undefined unless the collection HALLink has been resolved.
+   * Will be undefined unless the collection {@link HALLink} has been resolved.
    */
   @link(COLLECTION)
   collection?: Observable<RemoteData<Collection>> | Collection;
@@ -57,7 +57,7 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
   errors: SubmissionObjectError[];
 
   /**
-   * The HALLinks for this SubmissionObject
+   * The {@link HALLink}s for this SubmissionObject
    */
   @deserialize
   _links: {
@@ -74,20 +74,20 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
 
   /**
    * The submission item
-   * Will be undefined unless the item HALLink has been resolved.
+   * Will be undefined unless the item {@link HALLink} has been resolved.
    */
   @link(ITEM)
   item?: Observable<RemoteData<Item>> | Item;
   /**
    * The configuration object that define this submission
-   * Will be undefined unless the submissionDefinition HALLink has been resolved.
+   * Will be undefined unless the submissionDefinition {@link HALLink} has been resolved.
    */
   @link(SubmissionDefinitionsModel.type)
   submissionDefinition?: Observable<RemoteData<SubmissionDefinitionsModel>> | SubmissionDefinitionsModel;
 
   /**
    * The submitter for this SubmissionObject
-   * Will be undefined unless the submitter HALLink has been resolved.
+   * Will be undefined unless the submitter {@link HALLink} has been resolved.
    */
   @link(EPERSON)
   submitter?: Observable<RemoteData<EPerson>> | EPerson;

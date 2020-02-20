@@ -23,7 +23,7 @@ export class Community extends DSpaceObject {
   handle: string;
 
   /**
-   * The HALLinks for this Community
+   * The {@link HALLink}s for this Community
    */
   @deserialize
   _links: {
@@ -35,21 +35,21 @@ export class Community extends DSpaceObject {
 
   /**
    * The logo for this Community
-   * Will be undefined unless the logo HALLink has been resolved.
+   * Will be undefined unless the logo {@link HALLink} has been resolved.
    */
   @link(BITSTREAM)
   logo?: Observable<RemoteData<Bitstream>>;
 
   /**
    * The list of Collections that are direct children of this Community
-   * Will be undefined unless the collections HALLink has been resolved.
+   * Will be undefined unless the collections {@link HALLink} has been resolved.
    */
   @link(COLLECTION, true)
   collections?: Observable<RemoteData<PaginatedList<Collection>>>;
 
   /**
    * The list of Communities that are direct children of this Community
-   * Will be undefined unless the subcommunities HALLink has been resolved.
+   * Will be undefined unless the subcommunities {@link HALLink} has been resolved.
    */
   @link(COMMUNITY, true)
   subcommunities?: Observable<RemoteData<PaginatedList<Community>>>;

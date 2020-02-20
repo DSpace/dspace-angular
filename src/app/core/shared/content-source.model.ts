@@ -55,7 +55,7 @@ export class ContentSource implements HALResource {
   metadataConfigs: MetadataConfig[];
 
   /**
-   * The HALLinks for this ContentSource
+   * The {@link HALLink}s for this ContentSource
    */
   @deserialize
   _links: {

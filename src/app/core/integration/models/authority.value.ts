@@ -47,7 +47,7 @@ export class AuthorityValue extends IntegrationModel implements MetadataValueInt
   language: string;
 
   /**
-   * The HALLinks for this AuthorityValue
+   * The {@link HALLink}s for this AuthorityValue
    */
   @deserialize
   _links: {

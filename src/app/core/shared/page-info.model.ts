@@ -33,7 +33,7 @@ export class PageInfo implements HALResource {
   currentPage: number;
 
   /**
-   * The HALLinks for this PageInfo
+   * The {@link HALLink}s for this PageInfo
    */
   @deserialize
   _links: {

@@ -75,7 +75,7 @@ export class BitstreamFormat implements CacheableObject {
   id: string;
 
   /**
-   * The HALLinks for this BitstreamFormat
+   * The {@link HALLink}s for this BitstreamFormat
    */
   @deserialize
   _links: {

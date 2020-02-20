@@ -25,7 +25,7 @@ export class FacetValue implements HALResource {
   count: number;
 
   /**
-   * The HALLinks for this FacetValue
+   * The {@link HALLink}s for this FacetValue
    */
   @deserialize
   _links: {

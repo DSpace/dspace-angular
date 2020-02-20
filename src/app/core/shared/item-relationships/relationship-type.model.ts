@@ -82,7 +82,7 @@ export class RelationshipType implements CacheableObject {
   rightMinCardinality: number;
 
   /**
-   * The HALLinks for this RelationshipType
+   * The {@link HALLink}s for this RelationshipType
    */
   @deserialize
   _links: {
@@ -93,14 +93,14 @@ export class RelationshipType implements CacheableObject {
 
   /**
    * The type of Item found on the left side of this RelationshipType
-   * Will be undefined unless the leftType HALLink has been resolved.
+   * Will be undefined unless the leftType {@link HALLink} has been resolved.
    */
   @link(ITEM_TYPE)
   leftType?: Observable<RemoteData<ItemType>>;
 
   /**
    * The type of Item found on the right side of this RelationshipType
-   * Will be undefined unless the rightType HALLink has been resolved.
+   * Will be undefined unless the rightType {@link HALLink} has been resolved.
    */
   @link(ITEM_TYPE)
   rightType?: Observable<RemoteData<ItemType>>;

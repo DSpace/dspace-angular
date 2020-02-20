@@ -57,7 +57,7 @@ export class Item extends DSpaceObject {
   isWithdrawn: boolean;
 
   /**
-   * The HALLinks for this Item
+   * The {@link HALLink}s for this Item
    */
   @deserialize
   _links: {
@@ -71,21 +71,21 @@ export class Item extends DSpaceObject {
 
   /**
    * The owning Collection for this Item
-   * Will be undefined unless the owningCollection HALLink has been resolved.
+   * Will be undefined unless the owningCollection {@link HALLink} has been resolved.
    */
   @link(COLLECTION)
   owningCollection?: Observable<RemoteData<Collection>>;
 
   /**
    * The list of Bundles inside this Item
-   * Will be undefined unless the bundles HALLink has been resolved.
+   * Will be undefined unless the bundles {@link HALLink} has been resolved.
    */
   @link(BUNDLE, true)
   bundles?: Observable<RemoteData<PaginatedList<Bundle>>>;
 
   /**
    * The list of Relationships this Item has with others
-   * Will be undefined unless the relationships HALLink has been resolved.
+   * Will be undefined unless the relationships {@link HALLink} has been resolved.
    */
   @link(RELATIONSHIP, true)
   relationships?: Observable<RemoteData<PaginatedList<Relationship>>>;

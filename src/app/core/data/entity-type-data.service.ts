@@ -19,6 +19,10 @@ import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
 
 /* tslint:disable:max-classes-per-file */
+
+/**
+ * A private DataService implementation to delegate specific methods to.
+ */
 class DataServiceImpl extends DataService<ItemType> {
   protected linkPath = 'entitytypes';
 
@@ -35,9 +39,15 @@ class DataServiceImpl extends DataService<ItemType> {
   }
 }
 
+/**
+ * A service to retrieve {@link ItemType}s from the REST API.
+ */
 @Injectable()
 @dataService(ITEM_TYPE)
 export class ItemTypeDataService {
+  /**
+   * A private DataService instance to delegate specific methods to.
+   */
   private dataService: DataServiceImpl;
 
   constructor(
@@ -53,20 +63,20 @@ export class ItemTypeDataService {
   }
 
   /**
-   * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of {@link FollowLinkConfig},
-   * to automatically resolve HALLinks of the object
-   * @param href            Href of object we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
+   * Returns an observable of {@link RemoteData} of an {@link ItemType}, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the {@link ItemType}
+   * @param href            The url of {@link ItemType} we want to retrieve
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<ItemType>> {
     return this.dataService.findByHref(href, ...linksToFollow);
   }
 
   /**
-   * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list of {@link FollowLinkConfig},
-   * to automatically resolve HALLinks of the object
-   * @param id              ID of object we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
+   * Returns a list of observables of {@link RemoteData} of {@link ItemType}s, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the {@link ItemType}
+   * @param href            The url of the {@link ItemType} we want to retrieve
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findByAllHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<PaginatedList<ItemType>>> {
     return this.dataService.findAllByHref(href, findListOptions, ...linksToFollow);

@@ -10,7 +10,7 @@ export class RegistryBitstreamformatsResponse {
   page: PageInfo;
 
   /**
-   * The HALLinks for this RegistryBitstreamformatsResponse
+   * The {@link HALLink}s for this RegistryBitstreamformatsResponse
    */
   @deserialize
   _links: {

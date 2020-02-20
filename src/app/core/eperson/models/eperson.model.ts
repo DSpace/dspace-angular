@@ -71,7 +71,7 @@ export class EPerson extends DSpaceObject {
 
   /**
    * The list of Groups this EPerson is part of
-   * Will be undefined unless the groups HALLink has been resolved.
+   * Will be undefined unless the groups {@link HALLink} has been resolved.
    */
   @link(GROUP, true)
   public groups?: Observable<RemoteData<PaginatedList<Group>>>;

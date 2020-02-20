@@ -49,7 +49,7 @@ export class ResourcePolicy implements CacheableObject {
   uuid: string;
 
   /**
-   * The HALLinks for this ResourcePolicy
+   * The {@link HALLink}s for this ResourcePolicy
    */
   @deserialize
   _links: {

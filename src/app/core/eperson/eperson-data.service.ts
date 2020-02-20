@@ -13,6 +13,9 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { EPerson } from './models/eperson.model';
 import { EPERSON } from './models/eperson.resource-type';
 
+/**
+ * A service to retrieve {@link EPerson}s from the REST API
+ */
 @Injectable()
 @dataService(EPERSON)
 export class EPersonDataService extends DataService<EPerson> {

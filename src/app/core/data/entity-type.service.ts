@@ -54,7 +54,7 @@ export class EntityTypeService extends DataService<ItemType> {
   /**
    * Get the allowed relationship types for an entity type
    * @param entityTypeId
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   getEntityTypeRelationships(entityTypeId: string, ...linksToFollow: Array<FollowLinkConfig<RelationshipType>>): Observable<RemoteData<PaginatedList<RelationshipType>>> {
 

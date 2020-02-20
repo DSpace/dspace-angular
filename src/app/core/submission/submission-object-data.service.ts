@@ -28,7 +28,7 @@ export class SubmissionObjectDataService {
    * Retrieve a submission object based on its ID.
    *
    * @param id The identifier of a submission object
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findById(id: string, ...linksToFollow: Array<FollowLinkConfig<SubmissionObject>>): Observable<RemoteData<SubmissionObject>> {
     switch (this.submissionService.getSubmissionScope()) {

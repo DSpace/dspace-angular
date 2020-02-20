@@ -53,7 +53,7 @@ export class ExternalSourceEntry extends ListableObject {
   metadata: MetadataMap;
 
   /**
-   * The HALLinks for this ExternalSourceEntry
+   * The {@link HALLink}s for this ExternalSourceEntry
    */
   @deserialize
   _links: {

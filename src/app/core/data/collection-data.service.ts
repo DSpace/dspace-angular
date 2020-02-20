@@ -209,7 +209,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Fetches a list of items that are mapped to a collection
    * @param collectionId    The id of the collection
    * @param searchOptions   Search options to sort or filter out items
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   getMappedItems(collectionId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
     const requestUuid = this.requestService.generateRequestId();

@@ -66,7 +66,7 @@ export class Relationship implements CacheableObject {
   rightwardValue: string;
 
   /**
-   * The HALLinks for this Relationship
+   * The {@link HALLink}s for this Relationship
    */
   @deserialize
   _links: {
@@ -78,21 +78,21 @@ export class Relationship implements CacheableObject {
 
   /**
    * The item on the left side of this relationship
-   * Will be undefined unless the leftItem HALLink has been resolved.
+   * Will be undefined unless the leftItem {@link HALLink} has been resolved.
    */
   @link(ITEM)
   leftItem?: Observable<RemoteData<Item>>;
 
   /**
    * The item on the right side of this relationship
-   * Will be undefined unless the rightItem HALLink has been resolved.
+   * Will be undefined unless the rightItem {@link HALLink} has been resolved.
    */
   @link(ITEM)
   rightItem?: Observable<RemoteData<Item>>;
 
   /**
    * The RelationshipType for this Relationship
-   * Will be undefined unless the relationshipType HALLink has been resolved.
+   * Will be undefined unless the relationshipType {@link HALLink} has been resolved.
    */
   @link(RELATIONSHIP_TYPE)
   relationshipType?: Observable<RemoteData<RelationshipType>>;
