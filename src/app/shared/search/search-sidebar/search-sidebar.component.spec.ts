@@ -12,7 +12,7 @@ describe('SearchSidebarComponent', () => {
   // async beforeEach
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NgbCollapseModule.forRoot()],
+      imports: [TranslateModule.forRoot(), NgbCollapseModule],
       declarations: [SearchSidebarComponent],
       schemas: [NO_ERRORS_SCHEMA],
     })

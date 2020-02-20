@@ -83,7 +83,7 @@ describe('AbstractSimpleItemActionComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [MySimpleItemActionComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },

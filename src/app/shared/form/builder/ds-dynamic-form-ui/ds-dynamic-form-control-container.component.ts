@@ -29,13 +29,13 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicDatePickerModel,
+  DynamicDatePickerModel, DynamicFormComponentService,
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
-  DynamicFormControlModel, DynamicFormInstancesService,
+  DynamicFormControlModel,
   DynamicFormLayout,
-  DynamicFormLayoutService,
+  DynamicFormLayoutService, DynamicFormRelationService,
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
@@ -201,32 +201,32 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('ngbEvent') customEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   /* tslint:enable:no-output-rename */
-  @ViewChild('componentViewContainer', { read: ViewContainerRef }) componentViewContainerRef: ViewContainerRef;
+  @ViewChild('componentViewContainer', { read: ViewContainerRef, static: true}) componentViewContainerRef: ViewContainerRef;
 
   private showErrorMessagesPreviousStage: boolean;
 
   get componentType(): Type<DynamicFormControl> | null {
-    return this.layoutService.getCustomComponentType(this.model) || dsDynamicFormControlMapFn(this.model);
+    return dsDynamicFormControlMapFn(this.model);
   }
 
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
-    protected dynamicFormInstanceService: DynamicFormInstancesService,
+    protected dynamicFormComponentService: DynamicFormComponentService,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
     protected translateService: TranslateService,
+    protected relationService: DynamicFormRelationService,
     private modalService: NgbModal,
-    private relationService: RelationshipService,
+    private relationshipService: RelationshipService,
     private selectableListService: SelectableListService,
     private itemService: ItemDataService,
-    private relationshipService: RelationshipService,
     private zone: NgZone,
     private store: Store<AppState>,
     private submissionObjectService: SubmissionObjectDataService,
     private ref: ChangeDetectorRef
   ) {
 
-    super(componentFactoryResolver, layoutService, validationService, dynamicFormInstanceService);
+    super(componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
   }
 
   /**
@@ -251,7 +251,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.subs.push(item$.subscribe((item) => this.item = item));
       this.subs.push(collection$.subscribe((collection) => this.collection = collection));
       this.reorderables$ = item$.pipe(
-        switchMap((item) => this.relationService.getItemRelationshipsByLabel(item, this.model.relationship.relationshipType)
+        switchMap((item) => this.relationshipService.getItemRelationshipsByLabel(item, this.model.relationship.relationshipType)
           .pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload(),
@@ -283,7 +283,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         this.ref.detectChanges();
       }));
 
-      this.relationService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
+      this.relationshipService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
     }
