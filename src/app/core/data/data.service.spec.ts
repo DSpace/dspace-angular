@@ -177,14 +177,14 @@ describe('DataService', () => {
       });
     });
 
-    it('should not include linksToFollow with forwardToRest = false', () => {
+    it('should not include linksToFollow with shootEmbed = false', () => {
       const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
         name: 'bundles' as any,
-        forwardToRest: false,
+        shootEmbed: false,
       });
       const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
         name: 'owningCollection' as any,
-        forwardToRest: false,
+        shootEmbed: false,
       });
       const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
         name: 'templateItemOf' as any,
@@ -215,6 +215,75 @@ describe('DataService', () => {
       });
     });
   });
+
+  describe('getIDHref', () => {
+    const endpointMock = 'https://dspace7-internal.atmire.com/server/api/core/items';
+    const resourceIdMock = '003c99b4-d4fe-44b0-a945-e12182a7ca89';
+
+    it('should return endpoint', () => {
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock);
+      expect(result).toEqual(endpointMock + '/' + resourceIdMock);
+    });
+
+    it('should include single linksToFollow as embed', () => {
+      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
+        name: 'bundles' as any,
+      });
+      const expected = `${endpointMock}/${resourceIdMock}?embed=bundles`;
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock, mockFollowLinkConfig);
+      expect(result).toEqual(expected);
+    });
+
+    it('should include multiple linksToFollow as embed', () => {
+      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
+        name: 'bundles' as any,
+      });
+      const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
+        name: 'owningCollection' as any,
+      });
+      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
+        name: 'templateItemOf' as any,
+      });
+      const expected = `${endpointMock}/${resourceIdMock}?embed=bundles&embed=owningCollection&embed=templateItemOf`;
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock, mockFollowLinkConfig, mockFollowLinkConfig2, mockFollowLinkConfig3);
+      expect(result).toEqual(expected);
+    });
+
+    it('should not include linksToFollow with shootEmbed = false', () => {
+      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
+        name: 'bundles' as any,
+        shootEmbed: false,
+      });
+      const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
+        name: 'owningCollection' as any,
+        shootEmbed: false,
+      });
+      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
+        name: 'templateItemOf' as any,
+      });
+      const expected = `${endpointMock}/${resourceIdMock}?embed=templateItemOf`;
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock, mockFollowLinkConfig, mockFollowLinkConfig2, mockFollowLinkConfig3);
+      expect(result).toEqual(expected);
+    });
+
+    it('should include nested linksToFollow 3lvl', () => {
+      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
+        name: 'relationships' as any,
+      });
+      const mockFollowLinkConfig2: FollowLinkConfig<Collection> = Object.assign(new FollowLinkConfig(), {
+        name: 'itemtemplate' as any,
+        linksToFollow: mockFollowLinkConfig3,
+      });
+      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
+        name: 'owningCollection' as any,
+        linksToFollow: mockFollowLinkConfig2,
+      });
+      const expected = `${endpointMock}/${resourceIdMock}?embed=owningCollection/itemtemplate/relationships`;
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock, mockFollowLinkConfig);
+      expect(result).toEqual(expected);
+    });
+  });
+
   describe('patch', () => {
     let operations;
     let selfLink;

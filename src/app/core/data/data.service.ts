@@ -129,7 +129,6 @@ export abstract class DataService<T extends CacheableObject> {
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   protected buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = [], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
-
     let args = [...extraArgs];
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
@@ -145,7 +144,7 @@ export abstract class DataService<T extends CacheableObject> {
     if (hasValue(options.startsWith)) {
       args = [...args, `startsWith=${options.startsWith}`];
     }
-    args = this.addEmbedParams(args, linksToFollow);
+    args = this.addEmbedParams(args, ...linksToFollow);
     if (isNotEmpty(args)) {
       return new URLCombiner(href, `?${args.join('&')}`).toString();
     } else {
@@ -156,15 +155,15 @@ export abstract class DataService<T extends CacheableObject> {
   /**
    * Adds the embed options to the link for the request
    * @param args            params for the query string
-   * @param linksToFollow   links we want to embed in query string if forwardToRest is true
+   * @param linksToFollow   links we want to embed in query string if shootEmbed is true
    */
-  protected addEmbedParams(args: any, linksToFollow: Array<FollowLinkConfig<T>>) {
+  protected addEmbedParams(args: any, ...linksToFollow: Array<FollowLinkConfig<T>>) {
     if (linksToFollow !== undefined) {
-      linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
+      [...linksToFollow].forEach((linkToFollow: FollowLinkConfig<T>) => {
         console.log('linksToFollow', linksToFollow)
-        if (linkToFollow.forwardToRest) {
+        if (linkToFollow.shootEmbed) {
           const embedString = 'embed=' + String(linkToFollow.name);
-          const embedWithNestedString = this.addNestedEmbeds(embedString, linkToFollow.linksToFollow);
+          const embedWithNestedString = this.addNestedEmbeds(embedString, ...linkToFollow.linksToFollow);
           args = [...args, embedWithNestedString];
         }
       });
@@ -174,17 +173,18 @@ export abstract class DataService<T extends CacheableObject> {
 
   /**
    * Add the nested followLinks to the embed param, recursively, separated by a /
-   * @param embedString
-   * @param linksToFollow
+   * @param embedString     embedString so far (recursive)
+   * @param linksToFollow   links we want to embed in query string if shootEmbed is true
    */
-  protected addNestedEmbeds(embedString: string, linksToFollow: Array<FollowLinkConfig<T>>): string {
+  protected addNestedEmbeds(embedString: string, ...linksToFollow: Array<FollowLinkConfig<T>>): string {
     let nestEmbed = embedString;
     if (linksToFollow !== undefined) {
-      linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
-        if (linkToFollow.forwardToRest) {
+      console.log('linksToFollow addNestedEmbed', linksToFollow);
+      [...linksToFollow].forEach((linkToFollow: FollowLinkConfig<T>) => {
+        if (linkToFollow.shootEmbed) {
           nestEmbed = nestEmbed + '/' + String(linkToFollow.name);
           if (linkToFollow.linksToFollow !== undefined) {
-            nestEmbed = this.addNestedEmbeds(nestEmbed, linkToFollow.linksToFollow);
+            nestEmbed = this.addNestedEmbeds(nestEmbed, ...linkToFollow.linksToFollow);
           }
         }
       })
@@ -227,12 +227,13 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
-   * Create the HREF for a specific object based on its identifier
+   * Create the HREF for a specific object based on its identifier; with possible embed query params based on linksToFollow
    * @param endpoint The base endpoint for the type of object
    * @param resourceID The identifier for the object
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  getIDHref(endpoint, resourceID): string {
-    return `${endpoint}/${resourceID}`;
+  getIDHref(endpoint, resourceID, ...linksToFollow: Array<FollowLinkConfig<T>>): string {
+    return this.buildHrefFromFindOptions(endpoint + '/' + resourceID, {}, [], ...linksToFollow);
   }
 
   /**
@@ -242,9 +243,9 @@ export abstract class DataService<T extends CacheableObject> {
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findById(id: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
-
+    console.log('findById');
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
+      map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id), ...linksToFollow)));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)))
