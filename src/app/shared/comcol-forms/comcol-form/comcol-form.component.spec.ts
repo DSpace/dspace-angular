@@ -121,7 +121,6 @@ describe('ComColFormComponent', () => {
             }
           }
         );
-
         comp.onSubmit();
 
         expect(comp.submitForm.emit).toHaveBeenCalledWith(
@@ -317,9 +316,9 @@ describe('ComColFormComponent', () => {
     comp.formModel = [];
     comp.dso = dso;
     (comp as any).type = Community.type;
-    comp.uploaderComponent = Object.assign({
-      uploader: {}
-    });
+    comp.uploaderComponent = {uploader: {}} as any;
+
+    console.log(comp);
     (comp as any).dsoService = dsoService;
     fixture.detectChanges();
     location = (comp as any).location;

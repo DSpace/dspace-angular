@@ -125,7 +125,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
   /**
    * The FormComponent reference
    */
-  @ViewChild('formRef') public formRef: FormComponent;
+  @ViewChild('formRef', {static: false}) public formRef: FormComponent;
 
   /**
    * Initialize instance variables
@@ -334,7 +334,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
             });
 
             // Due to a bug can't dynamically change the select options, so replace the model with a new one
-            const confGroup = { relation: groupModel.relation };
+            const confGroup = { relation: groupModel.relations };
             const groupsConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG, confGroup);
             groupsConfig.options = groupOptions;
             (model.parent as DynamicFormGroupModel).group.pop();

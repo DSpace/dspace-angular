@@ -42,7 +42,7 @@ describe('AddBitstreamFormatComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [AddBitstreamFormatComponent],
       providers: [
         {provide: Router, useValue: router},
@@ -82,7 +82,7 @@ describe('AddBitstreamFormatComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
         declarations: [AddBitstreamFormatComponent],
         providers: [
           {provide: Router, useValue: router},

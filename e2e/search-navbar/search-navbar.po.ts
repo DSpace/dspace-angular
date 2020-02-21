@@ -32,5 +32,4 @@ export class ProtractorPage {
   submitByPressingEnter() {
     element(by.css('#search-navbar-container form input[name="query"]')).sendKeys(protractor.Key.ENTER);
   }
-
 }

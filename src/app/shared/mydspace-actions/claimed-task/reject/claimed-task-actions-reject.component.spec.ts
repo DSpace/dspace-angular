@@ -18,7 +18,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        NgbModule.forRoot(),
+        NgbModule,
         ReactiveFormsModule,
         TranslateModule.forRoot({
           loader: {
@@ -75,7 +75,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     expect(span).toBeDefined();
   });
 
-  it('should call openRejectModal on reject button click', fakeAsync(() => {
+  it('should call openRejectModal on reject button click', () => {
     spyOn(component.rejectForm, 'reset');
     const btn = fixture.debugElement.query(By.css('.btn-danger'));
     btn.nativeElement.click();
@@ -85,9 +85,9 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     expect(component.modalRef).toBeDefined();
 
     component.modalRef.close()
-  }));
+  });
 
-  it('should call confirmReject on form submit', fakeAsync(() => {
+  it('should call confirmReject on form submit', () => {
     spyOn(component.reject, 'emit');
 
     const btn = fixture.debugElement.query(By.css('.btn-danger'));
@@ -104,5 +104,5 @@ describe('ClaimedTaskActionsRejectComponent', () => {
       expect(component.reject.emit).toHaveBeenCalled();
     });
 
-  }));
+  });
 });

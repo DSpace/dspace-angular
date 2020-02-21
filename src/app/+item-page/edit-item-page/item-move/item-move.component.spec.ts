@@ -80,7 +80,7 @@ describe('ItemMoveComponent', () => {
   describe('ItemMoveComponent success', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+        imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
         declarations: [ItemMoveComponent],
         providers: [
           { provide: ActivatedRoute, useValue: routeStub },
@@ -138,7 +138,7 @@ describe('ItemMoveComponent', () => {
   describe('ItemMoveComponent fail', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+        imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
         declarations: [ItemMoveComponent],
         providers: [
           { provide: ActivatedRoute, useValue: routeStub },

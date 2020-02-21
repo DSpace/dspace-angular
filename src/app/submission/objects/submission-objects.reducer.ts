@@ -548,7 +548,7 @@ function startDeposit(state: SubmissionObjectState, action: DepositSubmissionAct
  * @return SubmissionObjectState
  *    the new state, with the deposit flag changed.
  */
-function endDeposit(state: SubmissionObjectState, action: DepositSubmissionSuccessAction | DepositSubmissionErrorAction): SubmissionObjectState {
+function endDeposit(state: SubmissionObjectState, action: DepositSubmissionSuccessAction | DepositSubmissionErrorAction | DepositSubmissionAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {

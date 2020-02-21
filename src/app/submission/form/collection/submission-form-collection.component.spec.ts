@@ -222,7 +222,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        NgbModule.forRoot(),
+        NgbModule,
         TranslateModule.forRoot()
       ],
       declarations: [

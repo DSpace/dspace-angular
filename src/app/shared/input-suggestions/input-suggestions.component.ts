@@ -92,7 +92,7 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   /**
    * Reference to the input field component
    */
-  @ViewChild('inputField') queryInput: ElementRef;
+  @ViewChild('inputField', {static: false}) queryInput: ElementRef;
   /**
    * Reference to the suggestion components
    */

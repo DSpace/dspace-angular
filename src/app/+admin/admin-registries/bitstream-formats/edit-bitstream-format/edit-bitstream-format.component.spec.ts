@@ -48,7 +48,7 @@ describe('EditBitstreamFormatComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [EditBitstreamFormatComponent],
       providers: [
         {provide: ActivatedRoute, useValue: routeStub},
@@ -98,7 +98,7 @@ describe('EditBitstreamFormatComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
         declarations: [EditBitstreamFormatComponent],
         providers: [
           {provide: ActivatedRoute, useValue: routeStub},

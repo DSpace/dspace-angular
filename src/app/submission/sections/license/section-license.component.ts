@@ -86,7 +86,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
   /**
    * The FormComponent reference
    */
-  @ViewChild('formRef') private formRef: FormComponent;
+  @ViewChild('formRef', {static: false}) private formRef: FormComponent;
 
   /**
    * Initialize instance variables
