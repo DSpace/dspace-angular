@@ -2,13 +2,19 @@ import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+import { DataService } from '../data/data.service';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { ChildHALResource } from '../shared/child-hal-resource.model';
 
 /**
  * The class that resolve the BreadcrumbConfig object for a route
  */
 @Injectable()
-export class DSOBreadcrumbResolver implements Resolve<BreadcrumbConfig> {
-  constructor(private breadcrumbService: DSOBreadcrumbsService) {
+export class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> implements Resolve<BreadcrumbConfig<T>> {
+  constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: DataService<T>) {
   }
 
   /**
@@ -17,10 +23,17 @@ export class DSOBreadcrumbResolver implements Resolve<BreadcrumbConfig> {
    * @param {RouterStateSnapshot} state The current RouterStateSnapshot
    * @returns BreadcrumbConfig object
    */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): BreadcrumbConfig {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<T>> {
     const uuid = route.params.id;
-    const fullPath = route.url.join('');
-    const url = fullPath.substr(0, fullPath.indexOf(uuid)) + uuid;
-    return { provider: this.breadcrumbService, key: uuid, url: url };
+    return this.dataService.findById(uuid).pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((object: T) => {
+        const fullPath = route.url.join('');
+        const url = fullPath.substr(0, fullPath.indexOf(uuid)) + uuid;
+        return { provider: this.breadcrumbService, key: object, url: url };
+      })
+    );
+
   }
 }

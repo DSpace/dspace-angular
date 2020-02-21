@@ -7,6 +7,9 @@ import { ItemPageResolver } from './item-page.resolver';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getItemModulePath } from '../app-routing.module';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
+import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
+import { LinkService } from '../core/cache/builders/link.service';
 
 export function getItemPageRoute(itemId: string) {
   return new URLCombiner(getItemModulePath(), itemId).toString();
@@ -25,14 +28,16 @@ const ITEM_EDIT_PATH = ':id/edit';
         component: ItemPageComponent,
         pathMatch: 'full',
         resolve: {
-          item: ItemPageResolver
+          item: ItemPageResolver,
+          breadcrumb: ItemBreadcrumbResolver
         }
       },
       {
         path: ':id/full',
         component: FullItemPageComponent,
         resolve: {
-          item: ItemPageResolver
+          item: ItemPageResolver,
+          breadcrumb: ItemBreadcrumbResolver
         }
       },
       {
@@ -44,6 +49,9 @@ const ITEM_EDIT_PATH = ':id/edit';
   ],
   providers: [
     ItemPageResolver,
+    ItemBreadcrumbResolver,
+    DSOBreadcrumbsService,
+    LinkService
   ]
 })
 export class ItemPageRoutingModule {

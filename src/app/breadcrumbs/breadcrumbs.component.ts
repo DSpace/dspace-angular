@@ -3,7 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 import { hasValue, isNotUndefined } from '../shared/empty.util';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { combineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest, Observable, Subscription, of as observableOf } from 'rxjs';
 import { BreadcrumbConfig } from './breadcrumb/breadcrumb-config.model';
 
 @Component({
@@ -32,22 +32,22 @@ export class BreadcrumbsComponent implements OnDestroy {
 
   resolveBreadcrumb(route: ActivatedRoute): Observable<Breadcrumb[]> {
     const data = route.snapshot.data;
+    const last: boolean = route.children.length === 0;
+
+    if (last && isNotUndefined(data.showBreadcrumbs)) {
+      this.showBreadcrumbs = data.showBreadcrumbs;
+    }
+
     if (hasValue(data) && hasValue(data.breadcrumb)) {
-      const { provider, key, url }: BreadcrumbConfig = data.breadcrumb;
-      if (route.children.length > 0) {
+      const { provider, key, url } = data.breadcrumb;
+      if (!last) {
         return combineLatest(provider.getBreadcrumbs(key, url), this.resolveBreadcrumb(route.firstChild))
           .pipe(map((crumbs) => [].concat.apply([], crumbs)));
       } else {
-        if (isNotUndefined(data.showBreadcrumbs)) {
-          this.showBreadcrumbs = data.showBreadcrumbs;
-        }
         return provider.getBreadcrumbs(key, url);
       }
     }
-    if (route.children.length > 0) {
-
-      return this.resolveBreadcrumb(route.firstChild)
-    }
+    return !last ? this.resolveBreadcrumb(route.firstChild) : observableOf([]);
   }
 
   ngOnDestroy(): void {

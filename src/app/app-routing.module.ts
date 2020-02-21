@@ -4,6 +4,13 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { Breadcrumb } from './breadcrumbs/breadcrumb/breadcrumb.model';
+import { DSpaceObject } from './core/shared/dspace-object.model';
+import { Community } from './core/shared/community.model';
+import { getCommunityPageRoute } from './+community-page/community-page-routing.module';
+import { Collection } from './core/shared/collection.model';
+import { Item } from './core/shared/item.model';
+import { getItemPageRoute } from './+item-page/item-page-routing.module';
+import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
 
 const ITEM_MODULE_PATH = 'items';
 
@@ -29,6 +36,17 @@ export function getAdminModulePath() {
   return `/${ADMIN_MODULE_PATH}`;
 }
 
+export function getDSOPath(dso: DSpaceObject): string {
+  switch ((dso as any).type) {
+    case Community.type.value:
+      return getCommunityPageRoute(dso.uuid);
+    case Collection.type.value:
+      return getCollectionPageRoute(dso.uuid);
+    case Item.type.value:
+      return getItemPageRoute(dso.uuid);
+  }
+}
+
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -41,7 +59,7 @@ export function getAdminModulePath() {
       { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
       { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
       { path: 'mydspace', loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule', canActivate: [AuthenticatedGuard] },
-      { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule', data: { breadcrumb: new Breadcrumb('Search', '/search') } },
+      { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
       { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule' },
       { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
