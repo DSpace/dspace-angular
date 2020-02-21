@@ -155,13 +155,13 @@ export abstract class DataService<T extends CacheableObject> {
   /**
    * Adds the embed options to the link for the request
    * @param args            params for the query string
-   * @param linksToFollow   links we want to embed in query string if shootEmbed is true
+   * @param linksToFollow   links we want to embed in query string if shouldEmbed is true
    */
   protected addEmbedParams(args: any, ...linksToFollow: Array<FollowLinkConfig<T>>) {
     if (linksToFollow !== undefined) {
       [...linksToFollow].forEach((linkToFollow: FollowLinkConfig<T>) => {
         console.log('linksToFollow', linksToFollow)
-        if (linkToFollow.shootEmbed) {
+        if (linkToFollow.shouldEmbed) {
           const embedString = 'embed=' + String(linkToFollow.name);
           const embedWithNestedString = this.addNestedEmbeds(embedString, ...linkToFollow.linksToFollow);
           args = [...args, embedWithNestedString];
@@ -174,14 +174,14 @@ export abstract class DataService<T extends CacheableObject> {
   /**
    * Add the nested followLinks to the embed param, recursively, separated by a /
    * @param embedString     embedString so far (recursive)
-   * @param linksToFollow   links we want to embed in query string if shootEmbed is true
+   * @param linksToFollow   links we want to embed in query string if shouldEmbed is true
    */
   protected addNestedEmbeds(embedString: string, ...linksToFollow: Array<FollowLinkConfig<T>>): string {
     let nestEmbed = embedString;
     if (linksToFollow !== undefined) {
       console.log('linksToFollow addNestedEmbed', linksToFollow);
       [...linksToFollow].forEach((linkToFollow: FollowLinkConfig<T>) => {
-        if (linkToFollow.shootEmbed) {
+        if (linkToFollow.shouldEmbed) {
           nestEmbed = nestEmbed + '/' + String(linkToFollow.name);
           if (linkToFollow.linksToFollow !== undefined) {
             nestEmbed = this.addNestedEmbeds(nestEmbed, ...linkToFollow.linksToFollow);

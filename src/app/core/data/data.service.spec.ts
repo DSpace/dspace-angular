@@ -177,14 +177,14 @@ describe('DataService', () => {
       });
     });
 
-    it('should not include linksToFollow with shootEmbed = false', () => {
+    it('should not include linksToFollow with shouldEmbed = false', () => {
       const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
         name: 'bundles' as any,
-        shootEmbed: false,
+        shouldEmbed: false,
       });
       const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
         name: 'owningCollection' as any,
-        shootEmbed: false,
+        shouldEmbed: false,
       });
       const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
         name: 'templateItemOf' as any,
@@ -249,14 +249,14 @@ describe('DataService', () => {
       expect(result).toEqual(expected);
     });
 
-    it('should not include linksToFollow with shootEmbed = false', () => {
+    it('should not include linksToFollow with shouldEmbed = false', () => {
       const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
         name: 'bundles' as any,
-        shootEmbed: false,
+        shouldEmbed: false,
       });
       const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
         name: 'owningCollection' as any,
-        shootEmbed: false,
+        shouldEmbed: false,
       });
       const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
         name: 'templateItemOf' as any,

@@ -27,7 +27,7 @@ export class FollowLinkConfig<R extends HALResource> {
   /**
    * Forward to rest which links we're following, so these can already be embedded
    */
-  shootEmbed? = true;
+  shouldEmbed? = true;
 }
 
 /**
@@ -41,19 +41,19 @@ export class FollowLinkConfig<R extends HALResource> {
  * in a certain way
  * @param linksToFollow: a list of {@link FollowLinkConfig}s to
  * use on the retrieved object.
- * @param shootEmbed: boolean to check whether to forward info on followLinks to rest,
+ * @param shouldEmbed: boolean to check whether to forward info on followLinks to rest,
  * so these can be embedded, default true
  */
 export const followLink = <R extends HALResource>(
   linkName: keyof R['_links'],
   findListOptions?: FindListOptions,
-  shootEmbed = true,
+  shouldEmbed = true,
   ...linksToFollow: Array<FollowLinkConfig<any>>
 ): FollowLinkConfig<R> => {
   return {
     name: linkName,
     findListOptions,
-    shootEmbed: shootEmbed,
+    shouldEmbed: shouldEmbed,
     linksToFollow
   }
 };
