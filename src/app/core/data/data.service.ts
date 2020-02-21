@@ -237,7 +237,6 @@ export abstract class DataService<T extends CacheableObject> {
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findById(id: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
-    console.log('findById');
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id), ...linksToFollow)));
 
