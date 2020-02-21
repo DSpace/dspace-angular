@@ -5,7 +5,7 @@ import { isEqual, isObject, transform } from 'lodash';
  * Returns passed object without specified property
  */
 export function deleteProperty(object: object, key: string): object {
-  const {[key]: deletedKey, ...otherKeys} = object;
+  const { [key]: deletedKey, ...otherKeys } = object as { [key: string]: any };
   return otherKeys;
 }
 
@@ -47,7 +47,7 @@ export function difference(object: object, base: object) {
   const changes = (o, b) => {
     return transform(o, (result, value, key) => {
       if (!isEqual(value, b[key]) && isNotEmpty(value)) {
-        const resultValue = (isObject(value) && isObject(b[key])) ? changes(value, b[key]) : value;
+        const resultValue = (isObject(value) && isObject(b[key])) ? changes(value, b[key]) : value as object;
         if (!hasOnlyEmptyProperties(resultValue)) {
           result[key] = resultValue;
         }

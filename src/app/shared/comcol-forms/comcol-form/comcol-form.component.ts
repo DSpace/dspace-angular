@@ -43,7 +43,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
   /**
    * The logo uploader component
    */
-  @ViewChild(UploaderComponent) uploaderComponent: UploaderComponent;
+  @ViewChild(UploaderComponent, {static: true}) uploaderComponent: UploaderComponent;
 
   /**
    * DSpaceObject that the form represents

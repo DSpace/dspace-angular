@@ -279,4 +279,6 @@ export type ObjectUpdatesAction
   | ReinstateObjectUpdatesAction
   | RemoveObjectUpdatesAction
   | RemoveFieldUpdateAction
-  | SelectVirtualMetadataAction;
+  | SelectVirtualMetadataAction
+  | SetEditableFieldUpdateAction
+  | SetValidFieldUpdateAction;

@@ -92,7 +92,7 @@ describe('BitstreamFormatsComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
       providers: [
         {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
@@ -214,7 +214,7 @@ describe('BitstreamFormatsComponent', () => {
         });
 
         TestBed.configureTestingModule({
-          imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+          imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
           declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
           providers: [
             {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
@@ -260,7 +260,7 @@ describe('BitstreamFormatsComponent', () => {
         });
 
         TestBed.configureTestingModule({
-          imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+          imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
           declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
           providers: [
             {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
