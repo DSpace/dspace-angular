@@ -157,17 +157,14 @@ export abstract class DataService<T extends CacheableObject> {
    * @param args            params for the query string
    * @param linksToFollow   links we want to embed in query string if shouldEmbed is true
    */
-  protected addEmbedParams(args: any, ...linksToFollow: Array<FollowLinkConfig<T>>) {
-    if (linksToFollow !== undefined) {
-      [...linksToFollow].forEach((linkToFollow: FollowLinkConfig<T>) => {
-        console.log('linksToFollow', linksToFollow)
-        if (linkToFollow.shouldEmbed) {
-          const embedString = 'embed=' + String(linkToFollow.name);
-          const embedWithNestedString = this.addNestedEmbeds(embedString, ...linkToFollow.linksToFollow);
-          args = [...args, embedWithNestedString];
-        }
-      });
-    }
+  protected addEmbedParams(args: string[], ...linksToFollow: Array<FollowLinkConfig<T>>) {
+    linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
+      if (linkToFollow !== undefined && linkToFollow.shouldEmbed) {
+        const embedString = 'embed=' + String(linkToFollow.name);
+        const embedWithNestedString = this.addNestedEmbeds(embedString, ...linkToFollow.linksToFollow);
+        args = [...args, embedWithNestedString];
+      }
+    });
     return args;
   }
 
@@ -178,17 +175,14 @@ export abstract class DataService<T extends CacheableObject> {
    */
   protected addNestedEmbeds(embedString: string, ...linksToFollow: Array<FollowLinkConfig<T>>): string {
     let nestEmbed = embedString;
-    if (linksToFollow !== undefined) {
-      console.log('linksToFollow addNestedEmbed', linksToFollow);
-      [...linksToFollow].forEach((linkToFollow: FollowLinkConfig<T>) => {
-        if (linkToFollow.shouldEmbed) {
-          nestEmbed = nestEmbed + '/' + String(linkToFollow.name);
-          if (linkToFollow.linksToFollow !== undefined) {
-            nestEmbed = this.addNestedEmbeds(nestEmbed, ...linkToFollow.linksToFollow);
-          }
+    linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
+      if (linkToFollow !== undefined && linkToFollow.shouldEmbed) {
+        nestEmbed = nestEmbed + '/' + String(linkToFollow.name);
+        if (linkToFollow.linksToFollow !== undefined) {
+          nestEmbed = this.addNestedEmbeds(nestEmbed, ...linkToFollow.linksToFollow);
         }
-      })
-    }
+      }
+    });
     return nestEmbed;
   }
 
