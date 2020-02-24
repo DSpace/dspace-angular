@@ -13,11 +13,12 @@ export enum RemoteDataState {
  */
 export class RemoteData<T> {
   constructor(
-    public requestPending?: boolean,
-    public responsePending?: boolean,
-    public isSuccessful?: boolean,
+    private requestPending?: boolean,
+    private responsePending?: boolean,
+    private isSuccessful?: boolean,
     public error?: RemoteDataError,
-    public payload?: T
+    public payload?: T,
+    public statusCode?: number,
   ) {
   }
 

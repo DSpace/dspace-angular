@@ -32,13 +32,17 @@ export class BreadcrumbsComponent implements OnDestroy {
 
   resolveBreadcrumb(route: ActivatedRoute): Observable<Breadcrumb[]> {
     const data = route.snapshot.data;
-    const last: boolean = route.children.length === 0;
+    const routeConfig = route.snapshot.routeConfig;
 
+    const last: boolean = route.children.length === 0;
     if (last && isNotUndefined(data.showBreadcrumbs)) {
       this.showBreadcrumbs = data.showBreadcrumbs;
     }
 
-    if (hasValue(data) && hasValue(data.breadcrumb)) {
+    if (
+      hasValue(data) && hasValue(data.breadcrumb) &&
+      hasValue(routeConfig) && hasValue(routeConfig.resolve) && hasValue(routeConfig.resolve.breadcrumb)
+    ) {
       const { provider, key, url } = data.breadcrumb;
       if (!last) {
         return combineLatest(provider.getBreadcrumbs(key, url), this.resolveBreadcrumb(route.firstChild))

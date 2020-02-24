@@ -14,37 +14,39 @@ import { LinkService } from '../core/cache/builders/link.service';
 export function getItemPageRoute(itemId: string) {
   return new URLCombiner(getItemModulePath(), itemId).toString();
 }
+
 export function getItemEditPath(id: string) {
-  return new URLCombiner(getItemModulePath(),ITEM_EDIT_PATH.replace(/:id/, id)).toString()
+  return new URLCombiner(getItemModulePath(), ITEM_EDIT_PATH.replace(/:id/, id)).toString()
 }
 
-const ITEM_EDIT_PATH = ':id/edit';
+const ITEM_EDIT_PATH = 'edit';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: ':id',
-        component: ItemPageComponent,
-        pathMatch: 'full',
         resolve: {
           item: ItemPageResolver,
           breadcrumb: ItemBreadcrumbResolver
-        }
-      },
-      {
-        path: ':id/full',
-        component: FullItemPageComponent,
-        resolve: {
-          item: ItemPageResolver,
-          breadcrumb: ItemBreadcrumbResolver
-        }
-      },
-      {
-        path: ITEM_EDIT_PATH,
-        loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
-        canActivate: [AuthenticatedGuard]
-      },
+        },
+        children: [
+          {
+            path: '',
+            component: ItemPageComponent,
+            pathMatch: 'full',
+          },
+          {
+            path: 'full',
+            component: FullItemPageComponent,
+          },
+          {
+            path: ITEM_EDIT_PATH,
+            loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
+            canActivate: [AuthenticatedGuard]
+          }
+        ],
+      }
     ])
   ],
   providers: [
@@ -53,6 +55,7 @@ const ITEM_EDIT_PATH = ':id/edit';
     DSOBreadcrumbsService,
     LinkService
   ]
+
 })
 export class ItemPageRoutingModule {
 

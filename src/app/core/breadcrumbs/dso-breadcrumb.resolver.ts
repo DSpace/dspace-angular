@@ -29,7 +29,7 @@ export class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> im
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       map((object: T) => {
-        const fullPath = route.url.join('');
+        const fullPath = state.url;
         const url = fullPath.substr(0, fullPath.indexOf(uuid)) + uuid;
         return { provider: this.breadcrumbService, key: object, url: url };
       })

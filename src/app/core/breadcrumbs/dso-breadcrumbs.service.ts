@@ -21,7 +21,7 @@ export class DSOBreadcrumbsService implements BreadcrumbsService<ChildHALResourc
     const crumb = new Breadcrumb(key.name, url);
     const propertyName = key.getParentLinkKey();
     return this.linkService.resolveLink(key, followLink(propertyName))[propertyName].pipe(
-      filter((childRD: RemoteData<ChildHALResource & DSpaceObject>) => childRD.isSuccessful === true && childRD.requestPending === false && childRD.responsePending === false),
+      find((childRD: RemoteData<ChildHALResource & DSpaceObject>) => childRD.hasSucceeded || childRD.statusCode === 204),
       switchMap((childRD: RemoteData<ChildHALResource & DSpaceObject>) => {
         if (hasValue(childRD.payload)) {
           const child = childRD.payload;

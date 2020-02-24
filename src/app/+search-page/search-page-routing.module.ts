@@ -9,10 +9,15 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
 
 @NgModule({
   imports: [
-    RouterModule.forChild([
-      { path: '', component: SearchPageComponent, resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { title: 'search.title', breadcrumbKey: 'Search' } },
-      { path: ':configuration', component: ConfigurationSearchPageComponent, canActivate: [ConfigurationSearchPageGuard] }
-    ])
+    RouterModule.forChild([{
+        path: '',
+        resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { title: 'search.title', breadcrumbKey: 'Search' },
+        children: [
+          { path: '', component: SearchPageComponent },
+          { path: ':configuration', component: ConfigurationSearchPageComponent, canActivate: [ConfigurationSearchPageGuard] }
+        ]
+      }]
+    )
   ],
   providers: [
     I18nBreadcrumbResolver,

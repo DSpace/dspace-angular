@@ -9,6 +9,9 @@ import { CreateCommunityPageGuard } from './create-community-page/create-communi
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getCommunityModulePath } from '../app-routing.module';
+import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
+import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
+import { LinkService } from '../core/cache/builders/link.service';
 
 export const COMMUNITY_PARENT_PARAMETER = 'parent';
 
@@ -25,42 +28,48 @@ export function getCommunityCreatePath() {
 }
 
 const COMMUNITY_CREATE_PATH = 'create';
-const COMMUNITY_EDIT_PATH = ':id/edit';
+const COMMUNITY_EDIT_PATH = 'edit';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
+        path: ':id',
+        resolve: {
+          dso: CommunityPageResolver,
+          breadcrumb: CommunityBreadcrumbResolver
+        },
+        children: [
+          {
+            path: COMMUNITY_EDIT_PATH,
+            loadChildren: './edit-community-page/edit-community-page.module#EditCommunityPageModule',
+            canActivate: [AuthenticatedGuard]
+          },
+          {
+            path: 'delete',
+            pathMatch: 'full',
+            component: DeleteCommunityPageComponent,
+            canActivate: [AuthenticatedGuard],
+          },
+          {
+            path: '',
+            component: CommunityPageComponent,
+            pathMatch: 'full',
+          }
+        ]
+      },
+      {
         path: COMMUNITY_CREATE_PATH,
         component: CreateCommunityPageComponent,
         canActivate: [AuthenticatedGuard, CreateCommunityPageGuard]
       },
-      {
-        path: COMMUNITY_EDIT_PATH,
-        loadChildren: './edit-community-page/edit-community-page.module#EditCommunityPageModule',
-        canActivate: [AuthenticatedGuard]
-      },
-      {
-        path: ':id/delete',
-        pathMatch: 'full',
-        component: DeleteCommunityPageComponent,
-        canActivate: [AuthenticatedGuard],
-        resolve: {
-          dso: CommunityPageResolver
-        }
-      },
-      {
-        path: ':id',
-        component: CommunityPageComponent,
-        pathMatch: 'full',
-        resolve: {
-          community: CommunityPageResolver
-        }
-      }
     ])
   ],
   providers: [
     CommunityPageResolver,
+    CommunityBreadcrumbResolver,
+    DSOBreadcrumbsService,
+    LinkService,
     CreateCommunityPageGuard
   ]
 })

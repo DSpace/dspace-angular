@@ -1,7 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
-import { CollectionPageResolver } from '../collection-page.resolver';
 import { CollectionMetadataComponent } from './collection-metadata/collection-metadata.component';
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
@@ -16,9 +15,6 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
       {
         path: '',
         component: EditCollectionPageComponent,
-        resolve: {
-          dso: CollectionPageResolver
-        },
         children: [
           {
             path: '',
@@ -51,9 +47,6 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
         ]
       }
     ])
-  ],
-  providers: [
-    CollectionPageResolver,
   ]
 })
 export class EditCollectionPageRoutingModule {

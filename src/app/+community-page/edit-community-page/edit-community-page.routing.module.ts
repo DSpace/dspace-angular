@@ -15,9 +15,6 @@ import { CommunityCurateComponent } from './community-curate/community-curate.co
       {
         path: '',
         component: EditCommunityPageComponent,
-        resolve: {
-          dso: CommunityPageResolver
-        },
         children: [
           {
             path: '',
@@ -46,9 +43,6 @@ import { CommunityCurateComponent } from './community-curate/community-curate.co
       }
     ])
   ],
-  providers: [
-    CommunityPageResolver,
-  ]
 })
 export class EditCommunityPageRoutingModule {
 
