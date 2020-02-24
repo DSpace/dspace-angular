@@ -7,7 +7,7 @@ import {
 } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
 import { Injectable } from '@angular/core';
-import { hasNoValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { dateToISOFormat } from '../../../shared/date.util';
 import { AuthorityValue } from '../../integration/models/authority.value';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
@@ -35,11 +35,13 @@ export class JsonPatchOperationsBuilder {
    *    A boolean representing if the value to be added is a plain text value
    */
   add(path: JsonPatchOperationPathObject, value, first = false, plain = false) {
-    this.store.dispatch(
-      new NewPatchAddOperationAction(
-        path.rootElement,
-        path.subRootElement,
-        path.path, this.prepareValue(value, plain, first)));
+    if ((typeof value === 'object' && hasValue(value.value)) || hasValue(value)) {
+      this.store.dispatch(
+        new NewPatchAddOperationAction(
+          path.rootElement,
+          path.subRootElement,
+          path.path, this.prepareValue(value, plain, first)));
+    }
   }
 
   /**

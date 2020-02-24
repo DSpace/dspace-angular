@@ -30,13 +30,13 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicDatePickerModel,
+  DynamicDatePickerModel, DynamicFormComponentService,
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
-  DynamicFormControlModel, DynamicFormInstancesService,
+  DynamicFormControlModel,
   DynamicFormLayout,
-  DynamicFormLayoutService,
+  DynamicFormLayoutService, DynamicFormRelationService,
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
@@ -73,8 +73,8 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, startWith, switchMap, find, take, tap, filter } from 'rxjs/operators';
-import { combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { map, startWith, switchMap, find, take } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -97,10 +97,8 @@ import { Relationship } from '../../../../core/shared/item-relationships/relatio
 import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { FormService } from '../../form.service';
-import { deepClone } from 'fast-json-patch';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SubmissionService } from '../../../../submission/submission.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -204,25 +202,25 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('ngbEvent') customEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   /* tslint:enable:no-output-rename */
-  @ViewChild('componentViewContainer', { read: ViewContainerRef }) componentViewContainerRef: ViewContainerRef;
+  @ViewChild('componentViewContainer', { read: ViewContainerRef, static: true }) componentViewContainerRef: ViewContainerRef;
 
   private showErrorMessagesPreviousStage: boolean;
 
   get componentType(): Type<DynamicFormControl> | null {
-    return this.layoutService.getCustomComponentType(this.model) || dsDynamicFormControlMapFn(this.model);
+    return dsDynamicFormControlMapFn(this.model);
   }
 
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
-    protected dynamicFormInstanceService: DynamicFormInstancesService,
+    protected dynamicFormComponentService: DynamicFormComponentService,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
     protected translateService: TranslateService,
+    protected relationService: DynamicFormRelationService,
     private modalService: NgbModal,
-    private relationService: RelationshipService,
+    private relationshipService: RelationshipService,
     private selectableListService: SelectableListService,
     private itemService: ItemDataService,
-    private relationshipService: RelationshipService,
     private zone: NgZone,
     private store: Store<AppState>,
     private submissionObjectService: SubmissionObjectDataService,
@@ -230,7 +228,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private formService: FormService,
     private submissionService: SubmissionService
   ) {
-    super(componentFactoryResolver, layoutService, validationService, dynamicFormInstanceService);
+    super(componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
   }
 
   /**
@@ -247,7 +245,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           .pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
-        this.relationshipValue$ = combineLatest(this.item$.pipe(take(1)), relationship$).pipe(
+        this.relationshipValue$ = observableCombineLatest(this.item$.pipe(take(1)), relationship$).pipe(
           switchMap(([item, relationship]: [Item, Relationship]) =>
             relationship.leftItem.pipe(
               getSucceededRemoteData(),
@@ -268,7 +266,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         find((list: SelectableListState) => hasNoValue(list)),
         switchMap(() => this.item$.pipe(take(1))),
         switchMap((item) => {
-          return this.relationService.getRelatedItemsByLabel(item, this.model.relationshipConfig.relationshipType).pipe(
+          return this.relationshipService.getRelatedItemsByLabel(item, this.model.relationshipConfig.relationshipType).pipe(
             getSucceededRemoteData(),
             map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((i) => Object.assign(new ItemSearchResult(), { indexableObject: i }))),
           )

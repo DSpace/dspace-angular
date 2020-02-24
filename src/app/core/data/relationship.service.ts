@@ -1,36 +1,47 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
-import { AppState, keySelector } from '../../app.reducer';
-import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
-import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
-import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
-import { SearchParam } from '../cache/models/search-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
-import { RestResponse } from '../cache/response.models';
-import { CoreState } from '../core.reducers';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
+import {
+  configureRequest,
+  getRemoteDataPayload,
+  getResponseFromEntry,
+  getSucceededRemoteData
+} from '../shared/operators';
+import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
+import { Observable } from 'rxjs/internal/Observable';
+import { RestResponse } from '../cache/response.models';
+import { Item } from '../shared/item.model';
+import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RemoteData, RemoteDataState } from './remote-data';
+import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
 import { PaginatedList } from './paginated-list';
 import { ItemDataService } from './item-data.service';
-import { Relationship } from '../shared/item-relationships/relationship.model';
-import { Item } from '../shared/item.model';
+import {
+  compareArraysUsingIds,
+  paginatedRelationsToItems,
+  relationsToItems
+} from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { DataService } from './data.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
+import { CoreState } from '../core.reducers';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { RequestService } from './request.service';
-import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../shared/metadata.models';
-import { Observable } from 'rxjs/internal/Observable';
+import { SearchParam } from '../cache/models/search-param.model';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { AppState, keySelector } from '../../app.reducer';
+import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
+import {
+  RemoveNameVariantAction,
+  SetNameVariantAction
+} from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 

@@ -66,7 +66,6 @@ import { DsDynamicFormGroupComponent } from './form/builder/ds-dynamic-form-ui/m
 import { DsDynamicFormArrayComponent } from './form/builder/ds-dynamic-form-ui/models/array-group/dynamic-form-array.component';
 import { DsDynamicRelationGroupComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker-inline/dynamic-date-picker-inline.component';
-import { SortablejsModule } from 'angular-sortablejs';
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
@@ -177,6 +176,7 @@ import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynam
 import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+import { SortablejsModule } from 'ngx-sortablejs';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here

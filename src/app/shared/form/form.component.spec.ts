@@ -141,7 +141,7 @@ describe('FormComponent test suite', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbModule.forRoot(),
+        NgbModule,
         StoreModule.forRoot({}),
         TranslateModule.forRoot()
       ],

@@ -81,7 +81,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     init();
     TestBed.configureTestingModule({
       declarations: [DsDynamicLookupRelationModalComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule.forRoot()],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {

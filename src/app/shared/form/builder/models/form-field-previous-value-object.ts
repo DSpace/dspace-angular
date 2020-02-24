@@ -14,7 +14,7 @@ export class FormFieldPreviousValueObject {
     return this._path;
   }
 
-  set path(path: any[]) {
+  set path(path: string | string[]) {
     this._path = path;
   }
 

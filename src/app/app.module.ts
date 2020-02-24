@@ -6,13 +6,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { META_REDUCERS, MetaReducer, StoreModule } from '@ngrx/store';
+import { META_REDUCERS, MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-
-import { storeFreeze } from 'ngrx-store-freeze';
 
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../config';
 import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
@@ -23,7 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { appEffects } from './app.effects';
-import { appMetaReducers, debugMetaReducers } from './app.metareducers';
+import { appMetaReducers, debugMetaReducers, universalMetaReducer } from './app.metareducers';
 import { appReducers, AppState } from './app.reducer';
 
 import { CoreModule } from './core/core.module';
@@ -51,8 +49,7 @@ export function getBase() {
 }
 
 export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppState>> {
-  const metaReducers: Array<MetaReducer<AppState>> = config.production ? appMetaReducers : [...appMetaReducers, storeFreeze];
-  return config.debug ? [...metaReducers, ...debugMetaReducers] : metaReducers;
+  return config.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
 
 const IMPORTS = [
@@ -63,11 +60,11 @@ const IMPORTS = [
   AppRoutingModule,
   CoreModule.forRoot(),
   ScrollToModule.forRoot(),
-  NgbModule.forRoot(),
+  NgbModule,
   TranslateModule.forRoot(),
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers),
-  StoreRouterConnectingModule,
+  StoreRouterConnectingModule.forRoot(),
 ];
 
 const ENTITY_IMPORTS = [
@@ -92,7 +89,7 @@ const PROVIDERS = [
     useFactory: (getBase)
   },
   {
-    provide: META_REDUCERS,
+    provide: USER_PROVIDED_META_REDUCERS,
     useFactory: getMetaReducers,
     deps: [GLOBAL_CONFIG]
   },

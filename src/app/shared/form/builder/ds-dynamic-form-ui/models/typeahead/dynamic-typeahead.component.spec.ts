@@ -70,7 +70,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
-        NgbModule.forRoot(),
+        NgbModule,
         ReactiveFormsModule,
         TranslateModule.forRoot()
       ],

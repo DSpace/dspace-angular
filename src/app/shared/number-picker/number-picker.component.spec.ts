@@ -24,7 +24,7 @@ describe('NumberPickerComponent test suite', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        NgbModule.forRoot()
+        NgbModule
       ],
       declarations: [
         NumberPickerComponent,

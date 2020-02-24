@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http'
 
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
-import { HttpObserve } from '@angular/common/http/src/client';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -14,7 +13,7 @@ export interface HttpOptions {
   body?: any;
   headers?: HttpHeaders;
   params?: HttpParams;
-  observe?: HttpObserve;
+  observe?: 'body' | 'events' | 'response';
   reportProgress?: boolean;
   responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
   withCredentials?: boolean;

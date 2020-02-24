@@ -34,7 +34,7 @@ describe('SubmissionFormFooterComponent Component', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        NgbModule.forRoot(),
+        NgbModule,
         TranslateModule.forRoot()
       ],
       declarations: [
@@ -188,7 +188,7 @@ describe('SubmissionFormFooterComponent Component', () => {
       expect(submissionServiceStub.dispatchDeposit).toHaveBeenCalledWith(submissionId);
     });
 
-    it('should call dispatchDiscard on discard confirmation', fakeAsync(() => {
+    it('should call dispatchDiscard on discard confirmation', () => {
       comp.showDepositAndDiscard = observableOf(true);
       fixture.detectChanges();
       const modalBtn = fixture.debugElement.query(By.css('.btn-danger'));
@@ -204,7 +204,7 @@ describe('SubmissionFormFooterComponent Component', () => {
       fixture.whenStable().then(() => {
         expect(submissionServiceStub.dispatchDiscard).toHaveBeenCalledWith(submissionId);
       });
-    }));
+    });
 
     it('should have deposit button disabled when submission is not valid', () => {
       comp.showDepositAndDiscard = observableOf(true);

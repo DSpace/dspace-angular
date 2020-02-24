@@ -43,7 +43,7 @@ describe('DsDatePickerComponent test suite', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        NgbModule.forRoot()
+        NgbModule
       ],
       declarations: [
         DsDatePickerComponent,
