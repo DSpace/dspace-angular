@@ -26,7 +26,7 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
   providedIn: 'root'
 })
 export class GroupDataService extends DataService<Group> {
-  protected linkPath = 'eperson/groups';
+  protected linkPath = 'groups';
   protected browseEndpoint = '';
 
   constructor(

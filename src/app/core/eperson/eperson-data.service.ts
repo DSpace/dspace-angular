@@ -20,7 +20,7 @@ import { EPERSON } from './models/eperson.resource-type';
 @dataService(EPERSON)
 export class EPersonDataService extends DataService<EPerson> {
 
-  protected linkPath: 'eperson/epersons';
+  protected linkPath: 'epersons';
 
   constructor(
     protected requestService: RequestService,
