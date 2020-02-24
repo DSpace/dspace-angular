@@ -1,23 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Item } from '../../../core/shared/item.model';
-import { RouterStub } from '../../../shared/testing/router-stub';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemMoveComponent } from './item-move.component';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { of as observableOf } from 'rxjs';
-import { FormsModule } from '@angular/forms';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../../../core/cache/response.models';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
+import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { RouterStub } from '../../../shared/testing/router-stub';
+import { ItemMoveComponent } from './item-move.component';
 
 describe('ItemMoveComponent', () => {
   let comp: ItemMoveComponent;
@@ -50,16 +50,14 @@ describe('ItemMoveComponent', () => {
     })
   };
 
-  const collection1 = Object.assign(new Collection(),{
+  const collection1 = Object.assign(new Collection(), {
     uuid: 'collection-uuid-1',
-    name: 'Test collection 1',
-    self: 'self-link-1',
+    name: 'Test collection 1'
   });
 
-  const collection2 = Object.assign(new Collection(),{
+  const collection2 = Object.assign(new Collection(), {
     uuid: 'collection-uuid-2',
-    name: 'Test collection 2',
-    self: 'self-link-2',
+    name: 'Test collection 2'
   });
 
   const mockSearchService = {
@@ -80,23 +78,20 @@ describe('ItemMoveComponent', () => {
   const notificationsServiceStub = new NotificationsServiceStub();
 
   describe('ItemMoveComponent success', () => {
-    beforeEach(async(() => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
         declarations: [ItemMoveComponent],
         providers: [
-          {provide: ActivatedRoute, useValue: routeStub},
-          {provide: Router, useValue: routerStub},
-          {provide: ItemDataService, useValue: mockItemDataService},
-          {provide: NotificationsService, useValue: notificationsServiceStub},
-          {provide: SearchService, useValue: mockSearchService},
+          { provide: ActivatedRoute, useValue: routeStub },
+          { provide: Router, useValue: routerStub },
+          { provide: ItemDataService, useValue: mockItemDataService },
+          { provide: NotificationsService, useValue: notificationsServiceStub },
+          { provide: SearchService, useValue: mockSearchService },
         ], schemas: [
           CUSTOM_ELEMENTS_SCHEMA
         ]
       }).compileComponents();
-    }));
-
-    beforeEach(() => {
       fixture = TestBed.createComponent(ItemMoveComponent);
       comp = fixture.componentInstance;
       fixture.detectChanges();
@@ -141,23 +136,20 @@ describe('ItemMoveComponent', () => {
   });
 
   describe('ItemMoveComponent fail', () => {
-    beforeEach(async(() => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
         declarations: [ItemMoveComponent],
         providers: [
-          {provide: ActivatedRoute, useValue: routeStub},
-          {provide: Router, useValue: routerStub},
-          {provide: ItemDataService, useValue: mockItemDataServiceFail},
-          {provide: NotificationsService, useValue: notificationsServiceStub},
-          {provide: SearchService, useValue: mockSearchService},
+          { provide: ActivatedRoute, useValue: routeStub },
+          { provide: Router, useValue: routerStub },
+          { provide: ItemDataService, useValue: mockItemDataServiceFail },
+          { provide: NotificationsService, useValue: notificationsServiceStub },
+          { provide: SearchService, useValue: mockSearchService },
         ], schemas: [
           CUSTOM_ELEMENTS_SCHEMA
         ]
       }).compileComponents();
-    }));
-
-    beforeEach(() => {
       fixture = TestBed.createComponent(ItemMoveComponent);
       comp = fixture.componentInstance;
       fixture.detectChanges();

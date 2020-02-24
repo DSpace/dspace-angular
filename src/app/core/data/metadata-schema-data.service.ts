@@ -1,20 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { METADATA_SCHEMA } from '../metadata/metadata-schema.resource-type';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ChangeAnalyzer } from './change-analyzer';
 
 import { DataService } from './data.service';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindListOptions } from './request.models';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { HttpClient } from '@angular/common/http';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ChangeAnalyzer } from './change-analyzer';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { RequestService } from './request.service';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<MetadataSchema> {
@@ -23,7 +22,6 @@ class DataServiceImpl extends DataService<MetadataSchema> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -33,15 +31,13 @@ class DataServiceImpl extends DataService<MetadataSchema> {
     super();
   }
 
-  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return this.halService.getEndpoint(linkPath);
-  }
 }
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
  */
 @Injectable()
+@dataService(METADATA_SCHEMA)
 export class MetadataSchemaDataService {
   private dataService: DataServiceImpl;
 
@@ -52,9 +48,8 @@ export class MetadataSchemaDataService {
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
     protected comparator: DefaultChangeAnalyzer<MetadataSchema>,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected http: HttpClient,
     protected notificationsService: NotificationsService) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, null, objectCache, halService, notificationsService, http, comparator);
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
   }
 }

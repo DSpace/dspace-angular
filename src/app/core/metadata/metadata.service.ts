@@ -1,29 +1,25 @@
-import {
-  catchError,
-  distinctUntilKeyChanged,
-  filter,
-  first,
-  map,
-  take
-} from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-
-import { RemoteData } from '../data/remote-data';
-import { Bitstream } from '../shared/bitstream.model';
-import { CacheableObject } from '../cache/object-cache.reducer';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Item } from '../shared/item.model';
+import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { BitstreamDataService } from '../data/bitstream-data.service';
+import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
+
+import { RemoteData } from '../data/remote-data';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { Bitstream } from '../shared/bitstream.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
+import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../shared/operators';
 
 @Injectable()
 export class MetadataService {
@@ -39,6 +35,8 @@ export class MetadataService {
     private translate: TranslateService,
     private meta: Meta,
     private title: Title,
+    private bitstreamDataService: BitstreamDataService,
+    private bitstreamFormatDataService: BitstreamFormatDataService,
     @Inject(GLOBAL_CONFIG) private envConfig: GlobalConfig
   ) {
     // TODO: determine what open graph meta tags are needed and whether
@@ -266,8 +264,9 @@ export class MetadataService {
   private setCitationPdfUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
-      item.getFiles()
+      this.bitstreamDataService.findAllByItemAndBundleName(item, 'ORIGINAL')
         .pipe(
+          getFirstSucceededRemoteListPayload(),
           first((files) => isNotEmpty(files)),
           catchError((error) => {
             console.debug(error.message);
@@ -275,19 +274,13 @@ export class MetadataService {
           }))
         .subscribe((bitstreams: Bitstream[]) => {
           for (const bitstream of bitstreams) {
-            bitstream.format.pipe(
-              first(),
-              catchError((error: Error) => {
-                console.debug(error.message);
-                return []
-              }),
-              map((rd: RemoteData<BitstreamFormat>) => rd.payload),
-              filter((format: BitstreamFormat) => hasValue(format)))
-              .subscribe((format: BitstreamFormat) => {
-                if (format.mimetype === 'application/pdf') {
-                  this.addMetaTag('citation_pdf_url', bitstream.content);
-                }
-              });
+            this.bitstreamFormatDataService.findByBitstream(bitstream).pipe(
+              getFirstSucceededRemoteDataPayload()
+            ).subscribe((format: BitstreamFormat) => {
+              if (format.mimetype === 'application/pdf') {
+                this.addMetaTag('citation_pdf_url', bitstream._links.content.href);
+              }
+            });
           }
         });
     }
@@ -367,7 +360,7 @@ export class MetadataService {
 
   public clearMetaTags() {
     this.tagStore.forEach((tags: MetaDefinition[], property: string) => {
-      this.meta.removeTag("property='" + property + "'");
+      this.meta.removeTag('property=\'' + property + '\'');
     });
     this.tagStore.clear();
   }

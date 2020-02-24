@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-
+import { Store } from '@ngrx/store';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -13,12 +14,28 @@ import {
   take,
   tap
 } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { getClassForType } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { SearchParam } from '../cache/models/search-param.model';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ErrorResponse, RestResponse } from '../cache/response.models';
+import { CoreState } from '../core.reducers';
+import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  configureRequest,
+  getRemoteDataPayload,
+  getResponseFromEntry,
+  getSucceededRemoteData
+} from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { ChangeAnalyzer } from './change-analyzer';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 import {
@@ -29,30 +46,13 @@ import {
   FindListRequest,
   GetRequest
 } from './request.models';
-import { RequestService } from './request.service';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { SearchParam } from '../cache/models/search-param.model';
-import { Operation } from 'fast-json-patch';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
-import { ErrorResponse, RestResponse } from '../cache/response.models';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { RequestEntry } from './request.reducer';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { ChangeAnalyzer } from './change-analyzer';
+import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
-import { getMapsToType } from '../cache/builders/build-decorators';
-import { CoreState } from '../core.reducers';
 
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
-  protected abstract dataBuildService: NormalizedObjectBuildService;
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
@@ -60,12 +60,21 @@ export abstract class DataService<T extends CacheableObject> {
   protected abstract notificationsService: NotificationsService;
   protected abstract http: HttpClient;
   protected abstract comparator: ChangeAnalyzer<T>;
+
   /**
    * Allows subclasses to reset the response cache time.
    */
   protected responseMsToLive: number;
 
-  public abstract getBrowseEndpoint(options: FindListOptions, linkPath?: string): Observable<string>
+  /**
+   * Get the endpoint for browsing
+   * @param options The [[FindListOptions]] object
+   * @param linkPath The link path for the object
+   * @returns {Observable<string>}
+   */
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath);
+  }
 
   /**
    * Create the HREF with given options object
@@ -76,12 +85,12 @@ export abstract class DataService<T extends CacheableObject> {
    *    Return an observable that emits created HREF
    */
   protected getFindAllHref(options: FindListOptions = {}, linkPath?: string): Observable<string> {
-    let result: Observable<string>;
+    let result$: Observable<string>;
     const args = [];
 
-    result = this.getBrowseEndpoint(options, linkPath).pipe(distinctUntilChanged());
+    result$ = this.getBrowseEndpoint(options, linkPath).pipe(distinctUntilChanged());
 
-    return this.buildHrefFromFindOptions(result, args, options);
+    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args)));
   }
 
   /**
@@ -93,10 +102,10 @@ export abstract class DataService<T extends CacheableObject> {
    *    Return an observable that emits created HREF
    */
   protected getSearchByHref(searchMethod: string, options: FindListOptions = {}): Observable<string> {
-    let result: Observable<string>;
+    let result$: Observable<string>;
     const args = [];
 
-    result = this.getSearchEndpoint(searchMethod);
+    result$ = this.getSearchEndpoint(searchMethod);
 
     if (hasValue(options.searchParams)) {
       options.searchParams.forEach((param: SearchParam) => {
@@ -104,45 +113,58 @@ export abstract class DataService<T extends CacheableObject> {
       })
     }
 
-    return this.buildHrefFromFindOptions(result, args, options);
+    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args)));
   }
 
   /**
    * Turn an options object into a query string and combine it with the given HREF
    *
-   * @param href$ The HREF to which the query string should be appended
-   * @param args Array with additional params to combine with query string
+   * @param href The HREF to which the query string should be appended
    * @param options The [[FindListOptions]] object
+   * @param extraArgs Array with additional params to combine with query string
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
    */
-  protected buildHrefFromFindOptions(href$: Observable<string>, args: string[], options: FindListOptions): Observable<string> {
+  protected buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = []): string {
+
+    let args = [...extraArgs];
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
-      args.push(`page=${options.currentPage - 1}`);
+      args = [...args, `page=${options.currentPage - 1}`];
     }
     if (hasValue(options.elementsPerPage)) {
-      args.push(`size=${options.elementsPerPage}`);
+      args = [...args, `size=${options.elementsPerPage}`];
     }
     if (hasValue(options.sort)) {
-      args.push(`sort=${options.sort.field},${options.sort.direction}`);
+      args = [...args, `sort=${options.sort.field},${options.sort.direction}`];
     }
     if (hasValue(options.startsWith)) {
-      args.push(`startsWith=${options.startsWith}`);
+      args = [...args, `startsWith=${options.startsWith}`];
     }
     if (isNotEmpty(args)) {
-      return href$.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
+      return new URLCombiner(href, `?${args.join('&')}`).toString();
     } else {
-      return href$;
+      return href;
     }
   }
 
-  findAll(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
-    return this.findList(this.getFindAllHref(options), options);
+  /**
+   * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
+   * info should be added to the objects
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  findAll(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
+    return this.findList(this.getFindAllHref(options), options, ...linksToFollow);
   }
 
-  protected findList(href$, options: FindListOptions) {
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on href observable,
+   * with a list of {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
+   * @param href$           Observable of href of object we want to retrieve
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  protected findList(href$, options: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<T>>) {
     href$.pipe(
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
@@ -153,7 +175,7 @@ export abstract class DataService<T extends CacheableObject> {
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildList<T>(href$) as Observable<RemoteData<PaginatedList<T>>>;
+    return this.rdbService.buildList<T>(href$, ...linksToFollow) as Observable<RemoteData<PaginatedList<T>>>;
   }
 
   /**
@@ -165,7 +187,13 @@ export abstract class DataService<T extends CacheableObject> {
     return `${endpoint}/${resourceID}`;
   }
 
-  findById(id: string): Observable<RemoteData<T>> {
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
+   * @param id              ID of object we want to retrieve
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  findById(id: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
@@ -180,16 +208,39 @@ export abstract class DataService<T extends CacheableObject> {
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildSingle<T>(hrefObs);
+    return this.rdbService.buildSingle<T>(hrefObs, ...linksToFollow);
   }
 
-  findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
-    const request = new GetRequest(this.requestService.generateRequestId(), href, null, options);
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
+   * @param href            The url of object we want to retrieve
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
+    const requestHref = this.buildHrefFromFindOptions(href, {}, []);
+    const request = new GetRequest(this.requestService.generateRequestId(), requestHref);
     if (hasValue(this.responseMsToLive)) {
       request.responseMsToLive = this.responseMsToLive;
     }
     this.requestService.configure(request);
-    return this.rdbService.buildSingle<T>(href);
+    return this.rdbService.buildSingle<T>(href, ...linksToFollow);
+  }
+
+  /**
+   * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
+   * @param href            The url of object we want to retrieve
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
+    const requestHref = this.buildHrefFromFindOptions(href, findListOptions, []);
+    const request = new GetRequest(this.requestService.generateRequestId(), requestHref);
+    if (hasValue(this.responseMsToLive)) {
+      request.responseMsToLive = this.responseMsToLive;
+    }
+    this.requestService.configure(request);
+    return this.rdbService.buildList<T>(requestHref, ...linksToFollow);
   }
 
   /**
@@ -211,7 +262,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  protected searchBy(searchMethod: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
+  protected searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
 
     const hrefObs = this.getSearchByHref(searchMethod, options);
 
@@ -228,7 +279,7 @@ export abstract class DataService<T extends CacheableObject> {
       switchMap((href) => this.requestService.getByHref(href)),
       skipWhile((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
       switchMap((href) =>
-        this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>
+        this.rdbService.buildList<T>(hrefObs, ...linksToFollow) as Observable<RemoteData<PaginatedList<T>>>
       )
     );
   }
@@ -248,18 +299,18 @@ export abstract class DataService<T extends CacheableObject> {
    * @param {DSpaceObject} object The given object
    */
   update(object: T): Observable<RemoteData<T>> {
-    const oldVersion$ = this.findByHref(object.self);
+    const oldVersion$ = this.findByHref(object._links.self.href);
     return oldVersion$.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       mergeMap((oldVersion: T) => {
-        const operations = this.comparator.diff(oldVersion, object);
-        if (isNotEmpty(operations)) {
-          this.objectCache.addPatch(object.self, operations);
+          const operations = this.comparator.diff(oldVersion, object);
+          if (isNotEmpty(operations)) {
+            this.objectCache.addPatch(object._links.self.href, operations);
+          }
+          return this.findByHref(object._links.self.href);
         }
-        return this.findByHref(object.self);
-      }
-    ));
+      ));
   }
 
   /**
@@ -279,8 +330,7 @@ export abstract class DataService<T extends CacheableObject> {
       map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
     );
 
-    const normalizedObject: NormalizedObject<T> = this.dataBuildService.normalize<T>(dso);
-    const serializedDso = new DSpaceRESTv2Serializer(getMapsToType((dso as any).type)).serialize(normalizedObject);
+    const serializedDso = new DSpaceSerializer(getClassForType((dso as any).type)).serialize(dso);
 
     const request$ = endpoint$.pipe(
       take(1),

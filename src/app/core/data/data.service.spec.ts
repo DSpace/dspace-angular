@@ -1,5 +1,4 @@
 import { DataService } from './data.service';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
@@ -13,7 +12,6 @@ import { compare, Operation } from 'fast-json-patch';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ChangeAnalyzer } from './change-analyzer';
 import { HttpClient } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Item } from '../shared/item.model';
 import * as uuidv4 from 'uuid/v4';
@@ -21,23 +19,19 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 const endpoint = 'https://rest.api/core';
 
-// tslint:disable:max-classes-per-file
-class NormalizedTestObject extends NormalizedObject<Item> {
-}
-
+/* tslint:disable:max-classes-per-file */
 class TestService extends DataService<any> {
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected linkPath: string,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<NormalizedTestObject>
+    protected comparator: ChangeAnalyzer<Item>
   ) {
     super();
   }
@@ -46,9 +40,8 @@ class TestService extends DataService<any> {
     return observableOf(endpoint);
   }
 }
-
-class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
-  diff(object1: NormalizedTestObject, object2: NormalizedTestObject): Operation[] {
+class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
+  diff(object1: Item, object2: Item): Operation[] {
     return compare((object1 as any).metadata, (object2 as any).metadata);
   }
 
@@ -63,9 +56,6 @@ describe('DataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = new DummyChangeAnalyzer() as any;
-  const dataBuildService = {
-    normalize: (object) => object
-  } as NormalizedObjectBuildService;
   const objectCache = {
     addPatch: () => {
       /* empty */
@@ -80,7 +70,6 @@ describe('DataService', () => {
     return new TestService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       endpoint,
       halService,
@@ -184,13 +173,15 @@ describe('DataService', () => {
       operations = [{ op: 'replace', path: '/0/value', value: name2 } as Operation];
       selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
 
-      dso = new DSpaceObject();
-      dso.self = selfLink;
-      dso.metadata = [{ key: 'dc.title', value: name1 }];
+      dso = Object.assign(new DSpaceObject(), {
+        _links: { self: { href: selfLink } },
+        metadata: [{ key: 'dc.title', value: name1 }]
+      });
 
-      dso2 = new DSpaceObject();
-      dso2.self = selfLink;
-      dso2.metadata = [{ key: 'dc.title', value: name2 }];
+      dso2 = Object.assign(new DSpaceObject(), {
+        _links: { self: { href: selfLink } },
+        metadata: [{ key: 'dc.title', value: name2 }]
+      });
 
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(dso));
       spyOn(objectCache, 'addPatch');
@@ -207,3 +198,4 @@ describe('DataService', () => {
     });
   });
 });
+/* tslint:enable:max-classes-per-file */

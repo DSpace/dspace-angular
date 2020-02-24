@@ -12,10 +12,10 @@ import { BaseResponseParsingService } from '../data/base-response-parsing.servic
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
-import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionObject } from './models/submission-object.model';
+import { WorkflowItem } from './models/workflowitem.model';
+import { WorkspaceItem } from './models/workspaceitem.model';
 
 /**
  * Export a function to check if object has same properties of FormFieldMetadataValueObject
@@ -77,6 +77,18 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
 
   protected toCache = false;
 
+  /**
+   * The submission assumes certain related HALResources will always be embedded.
+   * It only works if the responseparser finds these embedded resources, and directly
+   * attaches them to the requested object, instead of putting them in the cache and
+   * treating them as separate objects. This boolean was added to allow us to disable
+   * that behavior for the rest of the application, while keeping it for the submission.
+   *
+   * It should be removed after the submission has been refactored to treat embeds as
+   * resources that may need to be retrieved separately.
+   */
+  protected shouldDirectlyAttachEmbeds = true;
+
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               protected objectCache: ObjectCacheService,
               protected dsoParser: DSOResponseParsingService
@@ -119,15 +131,15 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
    */
   protected processResponse<ObjectDomain>(data: any, request: RestRequest): any[] {
     const dataDefinition = this.process<ObjectDomain>(data, request);
-    const normalizedDefinition = Array.of();
+    const definition = Array.of();
     const processedList = Array.isArray(dataDefinition) ? dataDefinition : Array.of(dataDefinition);
 
     processedList.forEach((item) => {
 
-      let normalizedItem = Object.assign({}, item);
-      // In case data is an Instance of NormalizedWorkspaceItem normalize field value of all the section of type form
-      if (item instanceof NormalizedWorkspaceItem
-        || item instanceof NormalizedWorkflowItem) {
+      item = Object.assign({}, item);
+      // In case data is an Instance of WorkspaceItem normalize field value of all the section of type form
+      if (item instanceof WorkspaceItem
+        || item instanceof WorkflowItem) {
         if (item.sections) {
           const precessedSection = Object.create({});
           // Iterate over all workspaceitem's sections
@@ -137,35 +149,35 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
                 // When Upload section is disabled, add to submission only if there are files
                 (!item.sections[sectionId].hasOwnProperty('files') || isNotEmpty((item.sections[sectionId] as any).files)))) {
 
-                const normalizedSectionData = Object.create({});
+                const sectiondata = Object.create({});
                 // Iterate over all sections property
                 Object.keys(item.sections[sectionId])
                   .forEach((metdadataId) => {
                     const entry = item.sections[sectionId][metdadataId];
                     // If entry is not an array, for sure is not a section of type form
                     if (Array.isArray(entry)) {
-                      normalizedSectionData[metdadataId] = [];
+                      sectiondata[metdadataId] = [];
                       entry.forEach((valueItem, index) => {
                         // Parse value and normalize it
                         const normValue = normalizeSectionData(valueItem, index);
                         if (isNotEmpty(normValue)) {
-                          normalizedSectionData[metdadataId].push(normValue);
+                          sectiondata[metdadataId].push(normValue);
                         }
                       });
                     } else {
-                      normalizedSectionData[metdadataId] = entry;
+                      sectiondata[metdadataId] = entry;
                     }
                   });
-                precessedSection[sectionId] = normalizedSectionData;
+                precessedSection[sectionId] = sectiondata;
               }
             });
-          normalizedItem = Object.assign({}, item, { sections: precessedSection });
+          item = Object.assign({}, item, { sections: precessedSection });
         }
       }
-      normalizedDefinition.push(normalizedItem);
+      definition.push(item);
     });
 
-    return normalizedDefinition;
+    return definition;
   }
 
 }

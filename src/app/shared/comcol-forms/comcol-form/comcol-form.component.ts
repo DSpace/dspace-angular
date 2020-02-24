@@ -1,34 +1,30 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import {
-  DynamicFormControlModel,
-  DynamicFormService,
-  DynamicInputModel
-} from '@ng-dynamic-forms/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
+import { FileUploader } from 'ng2-file-upload';
+import { combineLatest as observableCombineLatest } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { AuthService } from '../../../core/auth/auth.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
+import { ComColDataService } from '../../../core/data/comcol-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Collection } from '../../../core/shared/collection.model';
+import { Community } from '../../../core/shared/community.model';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { hasValue, isNotEmpty } from '../../empty.util';
-import { UploaderOptions } from '../../uploader/uploader-options.model';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { ComColDataService } from '../../../core/data/comcol-data.service';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { AuthService } from '../../../core/auth/auth.service';
-import { Community } from '../../../core/shared/community.model';
-import { Collection } from '../../../core/shared/collection.model';
+import { UploaderOptions } from '../../uploader/uploader-options.model';
 import { UploaderComponent } from '../../uploader/uploader.component';
-import { FileUploader } from 'ng2-file-upload';
-import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
-import { RequestService } from '../../../core/data/request.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -253,8 +249,8 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * Refresh the object's cache to ensure the latest version
    */
   private refreshCache() {
-    this.requestService.removeByHrefSubstring(this.dso.self);
-    this.objectCache.remove(this.dso.self);
+    this.requestService.removeByHrefSubstring(this.dso._links.self.href);
+    this.objectCache.remove(this.dso._links.self.href);
   }
 
   /**

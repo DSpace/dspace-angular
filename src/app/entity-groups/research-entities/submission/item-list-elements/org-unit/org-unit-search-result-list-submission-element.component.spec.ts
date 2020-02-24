@@ -1,21 +1,33 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { OrgUnitSearchResultListSubmissionElementComponent } from './org-unit-search-result-list-submission-element.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { Store } from '@ngrx/store';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
+import { TranslateService } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { CommunityDataService } from '../../../../../core/data/community-data.service';
+import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
+import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { Bitstream } from '../../../../../core/shared/bitstream.model';
+import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
+import { Item } from '../../../../../core/shared/item.model';
+import { UUIDService } from '../../../../../core/shared/uuid.service';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { OrgUnitSearchResultListSubmissionElementComponent } from './org-unit-search-result-list-submission-element.component';
 
 let personListElementComponent: OrgUnitSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<OrgUnitSearchResultListSubmissionElementComponent>;
@@ -79,6 +91,11 @@ function init() {
 describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
   beforeEach(async(() => {
     init();
+    const mockBitstreamDataService = {
+      getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
+        return createSuccessfulRemoteDataObject$(new Bitstream());
+      }
+    };
     TestBed.configureTestingModule({
       declarations: [OrgUnitSearchResultListSubmissionElementComponent, TruncatePipe],
       providers: [
@@ -89,7 +106,16 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: Store, useValue: {} }
+        { provide: Store, useValue: {} },
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: UUIDService, useValue: {} },
+        { provide: RemoteDataBuildService, useValue: {} },
+        { provide: CommunityDataService, useValue: {} },
+        { provide: HALEndpointService, useValue: {} },
+        { provide: HttpClient, useValue: {} },
+        { provide: DSOChangeAnalyzer, useValue: {} },
+        { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

@@ -1,31 +1,39 @@
-import { Injectable } from '@angular/core';
-import { DataService } from './data.service';
-import { Bundle } from '../shared/bundle.model';
-import { RequestService } from './request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindListOptions } from './request.models';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
+import { hasValue } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { CoreState } from '../core.reducers';
+import { Bundle } from '../shared/bundle.model';
+import { BUNDLE } from '../shared/bundle.resource-type';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { DataService } from './data.service';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { PaginatedList } from './paginated-list';
+import { RemoteData } from './remote-data';
+import { FindListOptions } from './request.models';
+import { RequestService } from './request.service';
 
 /**
- * A service responsible for fetching/sending data from/to the REST API on the bundles endpoint
+ * A service to retrieve {@link Bundle}s from the REST API
  */
-@Injectable()
+@Injectable(
+  {providedIn: 'root'}
+)
+@dataService(BUNDLE)
 export class BundleDataService extends DataService<Bundle> {
   protected linkPath = 'bundles';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -36,11 +44,41 @@ export class BundleDataService extends DataService<Bundle> {
   }
 
   /**
-   * Get the endpoint for browsing bundles
-   * @param {FindListOptions} options
-   * @returns {Observable<string>}
+   * Retrieve all {@link Bundle}s in the given {@link Item}
+   *
+   * @param item the {@link Item} the {@link Bundle}s are a part of
+   * @param options the {@link FindListOptions} for the request
+   * @param linksToFollow the {@link FollowLinkConfig}s for the request
    */
-  getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath);
+  findAllByItem(item: Item, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<PaginatedList<Bundle>>> {
+    return this.findAllByHref(item._links.bundles.href, options,  ...linksToFollow);
+  }
+
+  /**
+   * Retrieve a {@link Bundle} in the given {@link Item} by name
+   *
+   * @param item the {@link Item} the {@link Bundle}s are a part of
+   * @param bundleName the name of the {@link Bundle} to retrieve
+   * @param linksToFollow the {@link FollowLinkConfig}s for the request
+   */
+  // TODO should be implemented rest side
+  findByItemAndName(item: Item, bundleName: string, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<Bundle>> {
+    return this.findAllByItem(item, { elementsPerPage: Number.MAX_SAFE_INTEGER }, ...linksToFollow).pipe(
+      map((rd: RemoteData<PaginatedList<Bundle>>) => {
+        if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
+          const matchingBundle = rd.payload.page.find((bundle: Bundle) =>
+            bundle.name === bundleName);
+          return new RemoteData(
+            false,
+            false,
+            true,
+            undefined,
+            matchingBundle
+          );
+        } else {
+          return rd as any;
+        }
+      }),
+    );
   }
 }

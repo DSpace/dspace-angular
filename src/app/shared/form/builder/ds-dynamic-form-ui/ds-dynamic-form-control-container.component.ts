@@ -50,6 +50,7 @@ import {
   DynamicNGBootstrapTimePickerComponent
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import { followLink } from '../../../utils/follow-link-config.model';
 import {
   Reorderable,
   ReorderableRelationship
@@ -240,7 +241,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.listId = 'list-' + this.model.relationship.relationshipType;
 
       const submissionObject$ = this.submissionObjectService
-        .findById(this.model.submissionId).pipe(
+        .findById(this.model.submissionId, followLink('item'), followLink('collection')).pipe(
           getAllSucceededRemoteData(),
           getRemoteDataPayload()
         );
@@ -251,7 +252,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.subs.push(item$.subscribe((item) => this.item = item));
       this.subs.push(collection$.subscribe((collection) => this.collection = collection));
       this.reorderables$ = item$.pipe(
-        switchMap((item) => this.relationshipService.getItemRelationshipsByLabel(item, this.model.relationship.relationshipType)
+        switchMap((item) => this.relationshipService.getItemRelationshipsByLabel(item, this.model.relationship.relationshipType, undefined, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
           .pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload(),
@@ -283,9 +284,12 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         this.ref.detectChanges();
       }));
 
-      this.relationshipService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
+      item$.pipe(
+        switchMap((item) => this.relationshipService.getRelatedItemsByLabel(item, this.model.relationship.relationshipType)),
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
-      ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
+      ).subscribe((relatedItems: Array<SearchResult<Item>>) => {
+        this.selectableListService.select(this.listId, relatedItems)
+      });
     }
   }
 
