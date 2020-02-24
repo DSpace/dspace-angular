@@ -1,26 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
+import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
+import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
+@rendersWorkflowTaskOption('submit_reject')
 @Component({
   selector: 'ds-claimed-task-actions-reject',
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
   templateUrl: './claimed-task-actions-reject.component.html',
 })
-
-export class ClaimedTaskActionsRejectComponent implements OnInit {
-
-  /**
-   * A boolean representing if a reject operation is pending
-   */
-  @Input() processingReject: boolean;
-
-  /**
-   * CSS classes to append to reject button
-   */
-  @Input() wrapperClass: string;
-
+/**
+ * Component for displaying and processing the reject action on a workflow task item
+ */
+export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
   /**
    * An event fired when a reject action is confirmed.
    * Event's payload equals to reject reason.
@@ -42,8 +38,12 @@ export class ClaimedTaskActionsRejectComponent implements OnInit {
    *
    * @param {FormBuilder} formBuilder
    * @param {NgbModal} modalService
+   * @param claimedTaskService
    */
-  constructor(private formBuilder: FormBuilder, private modalService: NgbModal) {
+  constructor(protected claimedTaskService: ClaimedTaskDataService,
+              private formBuilder: FormBuilder,
+              private modalService: NgbModal) {
+    super();
   }
 
   /**
@@ -53,17 +53,20 @@ export class ClaimedTaskActionsRejectComponent implements OnInit {
     this.rejectForm = this.formBuilder.group({
       reason: ['', Validators.required]
     });
-
   }
 
   /**
-   * Close modal and emit reject event
+   * Reject the task
    */
-  confirmReject() {
-    this.processingReject = true;
-    this.modalRef.close('Send Button');
+  process() {
+    this.processing$.next(true);
     const reason = this.rejectForm.get('reason').value;
-    this.reject.emit(reason);
+    this.modalRef.close('Send Button');
+    this.claimedTaskService.rejectTask(reason, this.object.id)
+      .subscribe((res: ProcessTaskResponse) => {
+        this.processing$.next(false);
+        this.processCompleted.emit(res.hasSucceeded);
+      });
   }
 
   /**

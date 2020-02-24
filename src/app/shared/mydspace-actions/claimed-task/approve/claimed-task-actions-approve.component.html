@@ -1,8 +1,8 @@
 <button type="button"
         [className]="'btn btn-success ' + wrapperClass"
         ngbTooltip="{{'submission.workflow.tasks.claimed.approve_help' | translate}}"
-        [disabled]="processingApprove"
-        (click)="confirmApprove()">
-  <span *ngIf="processingApprove"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-  <span *ngIf="!processingApprove"><i class="fa fa-thumbs-up"></i> {{'submission.workflow.tasks.claimed.approve' | translate}}</span>
+        [disabled]="processing$ | async"
+        (click)="process()">
+  <span *ngIf="processing$ | async"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+  <span *ngIf="!(processing$ | async)"><i class="fa fa-thumbs-up"></i> {{'submission.workflow.tasks.claimed.approve' | translate}}</span>
 </button>
