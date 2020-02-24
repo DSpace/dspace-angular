@@ -19,7 +19,7 @@ import variables from '../styles/_exposed_variables.scss';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/initial-menus-state';
-import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { slideSidebarPadding } from './shared/animations/slide';
 import { HostWindowService } from './shared/host-window.service';
 import { Theme } from '../config/theme.inferface';
@@ -38,7 +38,7 @@ export const LANG_COOKIE = 'language_cookie';
   animations: [slideSidebarPadding]
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  isLoading = true;
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   sidebarVisible: Observable<boolean>;
   slideSidebarOver: Observable<boolean>;
   collapsedSidebarWidth: Observable<string>;
@@ -131,12 +131,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       delay(0)
     ).subscribe((event) => {
         if (event instanceof NavigationStart) {
-          this.isLoading = true;
+          this.isLoading$.next(true);
         } else if (
           event instanceof NavigationEnd ||
           event instanceof NavigationCancel
         ) {
-          this.isLoading = false;
+          this.isLoading$.next(false);
         }
       });
   }

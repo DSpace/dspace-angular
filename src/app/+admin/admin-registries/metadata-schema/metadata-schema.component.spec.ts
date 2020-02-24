@@ -30,13 +30,21 @@ describe('MetadataSchemaComponent', () => {
   const mockSchemasList = [
     {
       id: 1,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
+      _links: {
+        self: {
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
+        },
+      },
       prefix: 'dc',
       namespace: 'http://dublincore.org/documents/dcmi-terms/'
     },
     {
       id: 2,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
+      _links: {
+        self: {
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
+        },
+      },
       prefix: 'mock',
       namespace: 'http://dspace.org/mockschema'
     }
@@ -44,7 +52,11 @@ describe('MetadataSchemaComponent', () => {
   const mockFieldsList = [
     {
       id: 1,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/8',
+      _links: {
+        self: {
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/8',
+        },
+      },
       element: 'contributor',
       qualifier: 'advisor',
       scopeNote: null,
@@ -52,7 +64,11 @@ describe('MetadataSchemaComponent', () => {
     },
     {
       id: 2,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/9',
+      _links: {
+        self: {
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/9',
+        },
+      },
       element: 'contributor',
       qualifier: 'author',
       scopeNote: null,
@@ -60,7 +76,11 @@ describe('MetadataSchemaComponent', () => {
     },
     {
       id: 3,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10',
+      _links: {
+        self: {
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10',
+        },
+      },
       element: 'contributor',
       qualifier: 'editor',
       scopeNote: 'test scope note',
@@ -68,7 +88,11 @@ describe('MetadataSchemaComponent', () => {
     },
     {
       id: 4,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/11',
+      _links: {
+        self: {
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/11',
+        },
+      },
       element: 'contributor',
       qualifier: 'illustrator',
       scopeNote: null,

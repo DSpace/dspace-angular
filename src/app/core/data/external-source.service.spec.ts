@@ -49,7 +49,7 @@ describe('ExternalSourceService', () => {
     halService = jasmine.createSpyObj('halService', {
       getEndpoint: observableOf('external-sources-REST-endpoint')
     });
-    service = new ExternalSourceService(requestService, rdbService, undefined, undefined, undefined, halService, undefined, undefined, undefined);
+    service = new ExternalSourceService(requestService, rdbService, undefined, undefined, halService, undefined, undefined, undefined);
   }
 
   beforeEach(() => {

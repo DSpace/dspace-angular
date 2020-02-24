@@ -1,7 +1,4 @@
 import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
-
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, startWith, take } from 'rxjs/operators';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -9,25 +6,29 @@ import {
   DynamicFormLayout
 } from '@ng-dynamic-forms/core';
 
-import { SectionModelComponent } from '../models/section.model';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, find, flatMap, map, startWith, take } from 'rxjs/operators';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../shared/empty.util';
-import { License } from '../../../core/shared/license.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { Collection } from '../../../core/shared/collection.model';
-import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './section-license.model';
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormService } from '../../../shared/form/form.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { SectionsType } from '../sections-type';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionDataObject } from '../models/section-data.model';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { Collection } from '../../../core/shared/collection.model';
+import { License } from '../../../core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/models/workspaceitem-section-license.model';
-import { SubmissionService } from '../../submission.service';
-import { SectionsService } from '../sections.service';
-import { SectionFormOperationsService } from '../form/section-form-operations.service';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../shared/empty.util';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
+import { FormService } from '../../../shared/form/form.service';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { SubmissionService } from '../../submission.service';
+import { SectionFormOperationsService } from '../form/section-form-operations.service';
+import { SectionDataObject } from '../models/section-data.model';
+
+import { SectionModelComponent } from '../models/section.model';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
+import { SectionsService } from '../sections.service';
+import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './section-license.model';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -132,9 +133,9 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
       (model as DynamicCheckboxModel).valueUpdates.next(false);
     }
 
-    this.licenseText$ = this.collectionDataService.findById(this.collectionId).pipe(
+    this.licenseText$ = this.collectionDataService.findById(this.collectionId, followLink('license')).pipe(
       filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
-      flatMap((collectionData: RemoteData<Collection>) => collectionData.payload.license),
+      flatMap((collectionData: RemoteData<Collection>) => (collectionData.payload as any).license),
       find((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))),
       map((licenseData: RemoteData<License>) => licenseData.payload.text),
       startWith(''));

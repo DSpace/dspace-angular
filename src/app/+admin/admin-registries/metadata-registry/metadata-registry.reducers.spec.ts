@@ -20,7 +20,11 @@ class NullAction extends MetadataRegistryEditSchemaAction {
 const schema: MetadataSchema = Object.assign(new MetadataSchema(),
   {
     id: 'schema-id',
-    self: 'http://rest.self/schema/dc',
+    _links: {
+      self: {
+        href: 'http://rest.self/schema/dc'
+      },
+    },
     prefix: 'dc',
     namespace: 'http://dublincore.org/documents/dcmi-terms/'
   });
@@ -28,7 +32,11 @@ const schema: MetadataSchema = Object.assign(new MetadataSchema(),
 const schema2: MetadataSchema = Object.assign(new MetadataSchema(),
   {
     id: 'another-schema-id',
-    self: 'http://rest.self/schema/dcterms',
+    _links: {
+      self: {
+        href: 'http://rest.self/schema/dcterms',
+      },
+    },
     prefix: 'dcterms',
     namespace: 'http://purl.org/dc/terms/'
   });
@@ -36,7 +44,11 @@ const schema2: MetadataSchema = Object.assign(new MetadataSchema(),
 const field: MetadataField = Object.assign(new MetadataField(),
   {
     id: 'author-field-id',
-    self: 'http://rest.self/field/author',
+    _links: {
+      self: {
+        href: 'http://rest.self/field/author',
+      },
+    },
     element: 'contributor',
     qualifier: 'author',
     scopeNote: 'Author of an item',
@@ -46,7 +58,11 @@ const field: MetadataField = Object.assign(new MetadataField(),
 const field2: MetadataField = Object.assign(new MetadataField(),
   {
     id: 'title-field-id',
-    self: 'http://rest.self/field/title',
+    _links: {
+      self: {
+        href: 'http://rest.self/field/title',
+      },
+    },
     element: 'title',
     qualifier: null,
     scopeNote: 'Title of an item',

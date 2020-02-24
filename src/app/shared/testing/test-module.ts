@@ -1,10 +1,10 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import { QueryParamsDirectiveStub } from './query-params-directive-stub';
+import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { MySimpleItemActionComponent } from '../../+item-page/edit-item-page/simple-item-action/abstract-simple-item-action.component.spec';
-import {CommonModule} from '@angular/common';
-import {SharedModule} from '../shared.module';
-import { RouterLinkDirectiveStub } from './router-link-directive-stub';
+import { SharedModule } from '../shared.module';
 import { NgComponentOutletDirectiveStub } from './ng-component-outlet-directive-stub';
+import { QueryParamsDirectiveStub } from './query-params-directive-stub';
+import { RouterLinkDirectiveStub } from './router-link-directive-stub';
 
 /**
  * This module isn't used. It serves to prevent the AoT compiler
@@ -26,4 +26,5 @@ import { NgComponentOutletDirectiveStub } from './ng-component-outlet-directive-
     CUSTOM_ELEMENTS_SCHEMA
   ]
 })
-export class TestModule {}
+export class TestModule {
+}

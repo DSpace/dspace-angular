@@ -8,6 +8,8 @@ import { distinctUntilChanged, filter, map, startWith, switchMap, take, withLate
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { LinkService } from '../cache/builders/link.service';
 
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
@@ -21,8 +23,7 @@ import { AppState, routerStateSelector } from '../../app.reducer';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import {RouteService} from '../services/route.service';
+import { RouteService } from '../services/route.service';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -49,7 +50,7 @@ export class AuthService {
               protected routeService: RouteService,
               protected storage: CookieService,
               protected store: Store<AppState>,
-              protected rdbService: RemoteDataBuildService
+              protected linkService: LinkService
   ) {
     this.store.pipe(
       select(isAuthenticated),
@@ -133,7 +134,7 @@ export class AuthService {
     headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status) => this.rdbService.build(status)),
+      map((status) => this.linkService.resolveLinks(status, followLink<AuthStatus>('eperson'))),
       switchMap((status: AuthStatus) => {
         if (status.authenticated) {
           return status.eperson.pipe(map((eperson) => eperson.payload));

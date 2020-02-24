@@ -1,12 +1,13 @@
-
-import {map} from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { RemoteData } from '../../../core/data/remote-data';
 
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { RemoteData } from '../../../core/data/remote-data';
+import { PageInfo } from '../../../core/shared/page-info.model';
 
 /**
  * This component renders the parent collections section of the item
@@ -25,9 +26,9 @@ export class CollectionsComponent implements OnInit {
 
   separator = '<br/>';
 
-  collections: Observable<Collection[]>;
+  collectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
 
-  constructor(private rdbs: RemoteDataBuildService) {
+  constructor(private cds: CollectionDataService) {
 
   }
 
@@ -37,11 +38,25 @@ export class CollectionsComponent implements OnInit {
     // TODO: this should use parents, but the collections
     // for an Item aren't returned by the REST API yet,
     // only the owning collection
-    this.collections = this.item.owner.pipe(map((rd: RemoteData<Collection>) => [rd.payload]));
+    this.collectionsRD$ = this.cds.findOwningCollectionFor(this.item).pipe(
+      map((rd: RemoteData<Collection>) => {
+        if (rd.hasSucceeded) {
+          return new RemoteData(
+            false,
+            false,
+            true,
+            undefined,
+            new PaginatedList({
+              elementsPerPage: 10,
+              totalPages: 1,
+              currentPage: 1,
+              totalElements: 1
+            } as PageInfo, [rd.payload])
+          );
+        } else {
+          return rd as any;
+        }
+      })
+    );
   }
-
-  hasSucceeded() {
-    return this.item.owner.pipe(map((rd: RemoteData<Collection>) => rd.hasSucceeded));
-  }
-
 }

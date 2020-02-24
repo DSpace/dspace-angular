@@ -1,12 +1,12 @@
-import { getAllSucceededRemoteData, getFinishedRemoteData, getSucceededRemoteData } from '../../../../core/shared/operators';
-import { hasValue } from '../../../../shared/empty.util';
-import { Observable } from 'rxjs/internal/Observable';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { distinctUntilChanged, filter, flatMap, map, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
-import { Item } from '../../../../core/shared/item.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { distinctUntilChanged, flatMap, map, switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { Item } from '../../../../core/shared/item.model';
+import { getFinishedRemoteData, getSucceededRemoteData } from '../../../../core/shared/operators';
+import { hasValue } from '../../../../shared/empty.util';
 
 /**
  * Operator for comparing arrays using a mapping function
@@ -18,7 +18,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 export const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
   (a: T[], b: T[]): boolean => {
     if (!Array.isArray(a) || ! Array.isArray(b)) {
-      return false;
+      return false
     }
 
     const aIds = a.map(mapFn);
@@ -72,6 +72,7 @@ export const relationsToItems = (thisId: string) =>
 export const paginatedRelationsToItems = (thisId: string) =>
   (source: Observable<RemoteData<PaginatedList<Relationship>>>): Observable<RemoteData<PaginatedList<Item>>> =>
     source.pipe(
+      getSucceededRemoteData(),
       switchMap((relationshipsRD: RemoteData<PaginatedList<Relationship>>) => {
         return observableCombineLatest(
           ...relationshipsRD.payload.page.map((rel: Relationship) => observableCombineLatest(rel.leftItem.pipe(getFinishedRemoteData()), rel.rightItem.pipe(getFinishedRemoteData())))

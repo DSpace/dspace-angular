@@ -6,7 +6,6 @@ import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { CoreState } from '../core.reducers';
 import { ClaimedTaskDataService } from './claimed-task-data.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -22,9 +21,6 @@ describe('ClaimedTaskDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const dataBuildService = {
-    normalize: (object) => object
-  } as NormalizedObjectBuildService;
   const objectCache = {
     addPatch: () => {
       /* empty */
@@ -39,7 +35,6 @@ describe('ClaimedTaskDataService', () => {
     return new ClaimedTaskDataService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       objectCache,
       halService,

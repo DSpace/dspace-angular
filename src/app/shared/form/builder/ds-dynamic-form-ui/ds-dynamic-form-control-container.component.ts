@@ -99,6 +99,7 @@ import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { FormService } from '../../form.service';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { followLink } from '../../../utils/follow-link-config.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -241,7 +242,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.setItem();
       this.value = Object.assign(new MetadataValue(), this.model.value);
       if (hasValue(this.value) && this.value.isVirtual) {
-        const relationship$ = this.relationshipService.findById(this.value.virtualValue)
+        const relationship$ = this.relationshipService.findById(this.value.virtualValue, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
           .pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
@@ -357,7 +358,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   private setItem() {
     const submissionObject$ = this.submissionObjectService
-      .findById(this.model.submissionId).pipe(
+      .findById(this.model.submissionId, followLink('item'), followLink('collection')).pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload()
       );

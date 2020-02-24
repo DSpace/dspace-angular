@@ -1,59 +1,62 @@
-import { distinctUntilChanged, filter, find, map, switchMap, take } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, find, map, switchMap, tap } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { BrowseService } from '../browse/browse.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
-import { Item } from '../shared/item.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
-
-import { DataService } from './data.service';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import {
-  DeleteRequest,
-  FindListOptions,
-  MappedCollectionsRequest,
-  PatchRequest,
-  PostRequest, PutRequest,
-  RestRequest
-} from './request.models';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { BrowseService } from '../browse/browse.service';
+import { dataService } from '../cache/builders/build-decorators';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
+import { CoreState } from '../core.reducers';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { Collection } from '../shared/collection.model';
+import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { ITEM } from '../shared/item.resource-type';
 import {
   configureRequest,
   filterSuccessfulResponses,
   getRequestFromRequestHref,
   getResponseFromEntry
 } from '../shared/operators';
-import { RequestEntry } from './request.reducer';
-import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { Collection } from '../shared/collection.model';
-import { RemoteData } from './remote-data';
+import { URLCombiner } from '../url-combiner/url-combiner';
+
+import { DataService } from './data.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { PaginatedList } from './paginated-list';
-import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { RemoteData } from './remote-data';
+import {
+  DeleteRequest,
+  FindListOptions,
+  MappedCollectionsRequest,
+  PatchRequest,
+  PostRequest,
+  PutRequest,
+  RestRequest
+} from './request.models';
+import { RequestEntry } from './request.reducer';
+import { RequestService } from './request.service';
 
 @Injectable()
+@dataService(ITEM)
 export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     private bs: BrowseService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<Item>) {
+    protected comparator: DSOChangeAnalyzer<Item>,
+  ) {
     super();
   }
 
@@ -238,7 +241,7 @@ export class ItemDataService extends DataService<Item> {
     hrefObs.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new PutRequest(requestId, href, collection.self, options);
+        const request = new PutRequest(requestId, href, collection._links.self.href, options);
         this.requestService.configure(request);
       })
     ).subscribe();
@@ -266,7 +269,7 @@ export class ItemDataService extends DataService<Item> {
     href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new PostRequest(requestId, href, externalSourceEntry.self, options);
+        const request = new PostRequest(requestId, href, externalSourceEntry._links.self.href, options);
         this.requestService.configure(request);
       })
     ).subscribe();

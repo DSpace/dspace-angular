@@ -1,13 +1,15 @@
 import * as deepFreeze from 'deep-freeze';
-
-import { requestReducer, RequestState } from './request.reducer';
+import { RestResponse } from '../cache/response.models';
 import {
   RequestCompleteAction,
   RequestConfigureAction,
-  RequestExecuteAction, RequestRemoveAction, ResetResponseTimestampsAction
+  RequestExecuteAction,
+  RequestRemoveAction,
+  ResetResponseTimestampsAction
 } from './request.actions';
 import { GetRequest } from './request.models';
-import { RestResponse } from '../cache/response.models';
+
+import { requestReducer, RequestState } from './request.reducer';
 
 const response =  new RestResponse(true, 200, 'OK');
 class NullAction extends RequestCompleteAction {

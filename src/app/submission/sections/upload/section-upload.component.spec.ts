@@ -27,7 +27,7 @@ import { SubmissionUploadsConfigService } from '../../../core/config/submission-
 import { SectionUploadService } from './section-upload.service';
 import { SubmissionSectionUploadComponent } from './section-upload.component';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { GroupEpersonService } from '../../../core/eperson/group-eperson.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { cold, hot } from 'jasmine-marbles';
 import { Collection } from '../../../core/shared/collection.model';
 import { ResourcePolicy } from '../../../core/shared/resource-policy.model';
@@ -52,8 +52,8 @@ function getMockCollectionDataService(): CollectionDataService {
   });
 }
 
-function getMockGroupEpersonService(): GroupEpersonService {
-  return jasmine.createSpyObj('GroupEpersonService', {
+function getMockGroupEpersonService(): GroupDataService {
+  return jasmine.createSpyObj('GroupDataService', {
     findById: jasmine.createSpy('findById'),
 
   });
@@ -134,7 +134,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       ],
       providers: [
         { provide: CollectionDataService, useValue: getMockCollectionDataService() },
-        { provide: GroupEpersonService, useValue: getMockGroupEpersonService() },
+        { provide: GroupDataService, useValue: getMockGroupEpersonService() },
         { provide: ResourcePolicyService, useValue: getMockResourcePolicyService() },
         { provide: SubmissionUploadsConfigService, useValue: getMockSubmissionUploadsConfigService() },
         { provide: SectionsService, useClass: SectionsServiceStub },
@@ -181,7 +181,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       submissionServiceStub = TestBed.get(SubmissionService);
       sectionsServiceStub = TestBed.get(SectionsService);
       collectionDataService = TestBed.get(CollectionDataService);
-      groupService = TestBed.get(GroupEpersonService);
+      groupService = TestBed.get(GroupDataService);
       resourcePolicyService = TestBed.get(ResourcePolicyService);
       uploadsConfigService = TestBed.get(SubmissionUploadsConfigService);
       bitstreamService = TestBed.get(SectionUploadService);
@@ -197,7 +197,9 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
-      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new Collection(), mockCollection, {
+        defaultAccessConditions: createSuccessfulRemoteDataObject$(mockDefaultAccessCondition)
+      })));
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 

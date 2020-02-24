@@ -2,6 +2,8 @@ import { combineLatest as observableCombineLatest, Observable, of as observableO
 import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { first, map, switchMap, tap } from 'rxjs/operators';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { LinkService } from '../../cache/builders/link.service';
 import { FacetConfigSuccessResponse, FacetValueSuccessResponse, SearchSuccessResponse } from '../../cache/response.models';
 import { PaginatedList } from '../../data/paginated-list';
 import { ResponseParsingService } from '../../data/parsing.service';
@@ -13,7 +15,6 @@ import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
-import { NormalizedSearchResult } from '../../../shared/search/normalized-search-result.model';
 import { SearchOptions } from '../../../shared/search/search-options.model';
 import { SearchResult } from '../../../shared/search/search-result.model';
 import { FacetValue } from '../../../shared/search/facet-value.model';
@@ -69,6 +70,7 @@ export class SearchService implements OnDestroy {
               private routeService: RouteService,
               protected requestService: RequestService,
               private rdb: RemoteDataBuildService,
+              private linkService: LinkService,
               private halService: HALEndpointService,
               private communityService: CommunityDataService,
               private dspaceObjectService: DSpaceObjectDataService
@@ -167,8 +169,8 @@ export class SearchService implements OnDestroy {
     const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
       map((sqr: SearchQueryResponse) => {
         return sqr.objects
-          .filter((nsr: NormalizedSearchResult) => isNotUndefined(nsr.indexableObject))
-          .map((nsr: NormalizedSearchResult) => new GetRequest(this.requestService.generateRequestId(), nsr.indexableObject))
+          .filter((sr: SearchResult<DSpaceObject>) => isNotUndefined(sr._links.indexableObject))
+          .map((sr: SearchResult<DSpaceObject>) => new GetRequest(this.requestService.generateRequestId(), sr._links.indexableObject.href))
       }),
       // Send a request for each item to ensure fresh cache
       tap((reqs: RestRequest[]) => reqs.forEach((req: RestRequest) => this.requestService.configure(req))),
@@ -179,7 +181,7 @@ export class SearchService implements OnDestroy {
     // Create search results again with the correct dso objects linked to each result
     const tDomainListObs = observableCombineLatest(sqrObs, dsoObs).pipe(
       map(([sqr, dsos]) => {
-        return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
+        return sqr.objects.map((object: SearchResult<DSpaceObject>, index: number) => {
           let co = DSpaceObject;
           if (dsos.payload[index]) {
             const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
@@ -340,6 +342,7 @@ export class SearchService implements OnDestroy {
       switchMap((dsoRD: RemoteData<DSpaceObject>) => {
           if ((dsoRD.payload as any).type === Community.type.value) {
             const community: Community = dsoRD.payload as Community;
+            this.linkService.resolveLinks(community, followLink('subcommunities'), followLink('collections'));
             return observableCombineLatest(community.subcommunities, community.collections).pipe(
               map(([subCommunities, collections]) => {
                 /*if this is a community, we also need to show the direct children*/

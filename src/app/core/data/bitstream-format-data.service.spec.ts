@@ -8,7 +8,6 @@ import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { async } from '@angular/core/testing';
@@ -48,14 +47,12 @@ describe('BitstreamFormatDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const dataBuildService = {} as NormalizedObjectBuildService;
   const rdbService = {} as RemoteDataBuildService;
 
   function initTestService(halService) {
     return new BitstreamFormatDataService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       objectCache,
       halService,

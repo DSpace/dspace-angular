@@ -10,18 +10,16 @@ import {
   isNotEmptyOperator
 } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { GenericSuccessResponse } from '../cache/response.models';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import {
-  BrowseEndpointRequest,
-  BrowseEntriesRequest,
-  BrowseItemsRequest,
-  RestRequest
-} from '../data/request.models';
+import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest, RestRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
 import {
   configureRequest,
   filterSuccessfulResponses,
@@ -31,10 +29,7 @@ import {
   getRequestFromRequestHref
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { Item } from '../shared/item.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { GenericSuccessResponse } from '../cache/response.models';
 
 /**
  * The service handling all browse requests
@@ -81,10 +76,11 @@ export class BrowseService {
       map((response: GenericSuccessResponse<BrowseDefinition[]>) => response.payload),
       ensureArrayHasValue(),
       map((definitions: BrowseDefinition[]) => definitions
-        .map((definition: BrowseDefinition) => Object.assign(new BrowseDefinition(), definition))),
-      distinctUntilChanged()
+        .map((definition: BrowseDefinition) => {
+          return Object.assign(new BrowseDefinition(), definition)
+        })),
+      distinctUntilChanged(),
     );
-
     return this.rdb.toRemoteDataObservable(requestEntry$, payload$);
   }
 
@@ -96,7 +92,10 @@ export class BrowseService {
     return this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
-      map((_links: any) => _links.entries),
+      map((_links: any) => {
+        const entriesLink = _links.entries.href || _links.entries;
+        return entriesLink;
+      }),
       hasValueOperator(),
       map((href: string) => {
         // TODO nearly identical to PaginatedSearchOptions => refactor
@@ -133,7 +132,10 @@ export class BrowseService {
     return this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
-      map((_links: any) => _links.items),
+      map((_links: any) => {
+        const itemsLink = _links.items.href || _links.items;
+        return itemsLink;
+      }),
       hasValueOperator(),
       map((href: string) => {
         const args = [];
@@ -171,7 +173,10 @@ export class BrowseService {
     return this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(definition),
       hasValueOperator(),
-      map((_links: any) => _links.items),
+      map((_links: any) => {
+        const itemsLink = _links.items.href || _links.items;
+        return itemsLink;
+      }),
       hasValueOperator(),
       map((href: string) => {
         const args = [];
@@ -249,7 +254,7 @@ export class BrowseService {
         if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkPath])) {
           throw new Error(`A browse endpoint for ${linkPath} on ${metadataKey} isn't configured`);
         } else {
-          return def._links[linkPath];
+          return def._links[linkPath] || def._links[linkPath].href;
         }
       }),
       startWith(undefined),

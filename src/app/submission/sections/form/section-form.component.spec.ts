@@ -111,10 +111,11 @@ const testFormConfiguration = {
       ]
     } as FormRowModel,
   ],
-  self: 'testFormConfiguration.url',
   type: 'submissionform',
   _links: {
-    self: 'testFormConfiguration.url'
+    self: {
+      href: 'testFormConfiguration.url'
+    }
   }
 } as any;
 

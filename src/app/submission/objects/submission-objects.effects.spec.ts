@@ -109,8 +109,8 @@ describe('SubmissionObjectEffects test suite', () => {
       const mappedActions = [];
       (submissionDefinitionResponse.sections as SubmissionSectionModel[])
         .forEach((sectionDefinition: SubmissionSectionModel) => {
-          const sectionId = sectionDefinition._links.self.substr(sectionDefinition._links.self.lastIndexOf('/') + 1);
-          const config = sectionDefinition._links.config || '';
+          const sectionId = sectionDefinition._links.self.href.substr(sectionDefinition._links.self.href.lastIndexOf('/') + 1);
+          const config = sectionDefinition._links.config.href || '';
           const enabled = (sectionDefinition.mandatory);
           const sectionData = {};
           const sectionErrors = null;

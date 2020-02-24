@@ -376,10 +376,14 @@ describe('FormBuilderService test suite', () => {
           ]
         } as FormRowModel
       ],
-      self: 'testFormConfiguration.url',
+      self: {
+        href: 'testFormConfiguration.url'
+      },
       type: 'submissionform',
       _links: {
-        self: 'testFormConfiguration.url'
+        self: {
+          href: 'testFormConfiguration.url'
+        }
       }
     } as any;
   });

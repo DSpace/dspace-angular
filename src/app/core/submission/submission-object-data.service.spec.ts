@@ -50,7 +50,7 @@ describe('SubmissionObjectDataService', () => {
         service = new SubmissionObjectDataService(workspaceitemDataService, workflowItemDataService, submissionService, halService);
       });
 
-      it('should forward the result of WorkspaceitemDataService.findById()', () => {
+      it('should forward the result of WorkspaceitemDataService.findByIdAndIDType()', () => {
         const result = service.findById(submissionId);
         expect(workspaceitemDataService.findById).toHaveBeenCalledWith(submissionId);
         expect(result).toBe(wsiResult);
@@ -65,7 +65,7 @@ describe('SubmissionObjectDataService', () => {
         service = new SubmissionObjectDataService(workspaceitemDataService, workflowItemDataService, submissionService, halService);
       });
 
-      it('should forward the result of WorkflowItemDataService.findById()', () => {
+      it('should forward the result of WorkflowItemDataService.findByIdAndIDType()', () => {
         const result = service.findById(submissionId);
         expect(workflowItemDataService.findById).toHaveBeenCalledWith(submissionId);
         expect(result).toBe(wfiResult);

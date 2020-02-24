@@ -1,4 +1,4 @@
-import { browser, element, by, protractor } from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 import { promise } from 'selenium-webdriver';
 
 export class ProtractorPage {
