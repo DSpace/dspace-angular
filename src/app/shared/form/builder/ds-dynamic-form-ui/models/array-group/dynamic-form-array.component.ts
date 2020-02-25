@@ -1,5 +1,14 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, NgZone, OnInit, Output, QueryList } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnInit,
+  Output,
+  QueryList
+} from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
@@ -25,7 +34,7 @@ import {
 } from '../../../../../../core/shared/operators';
 import { SubmissionObject } from '../../../../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
-import { hasNoValue, hasValue, isNotEmpty, isNull } from '../../../../../empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty, isNull } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import {
   Reorderable,
@@ -41,6 +50,7 @@ import { ObjectCacheService } from '../../../../../../core/cache/object-cache.se
 import { RequestService } from '../../../../../../core/data/request.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { AppState } from '../../../../../../app.reducer';
+import { followLink } from '../../../../../utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-dynamic-form-array',
@@ -69,6 +79,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
               protected relationshipService: RelationshipService,
+              protected changeDetectorRef: ChangeDetectorRef,
               protected submissionObjectService: SubmissionObjectDataService,
               protected zone: NgZone,
               protected formService: DynamicFormService,
@@ -80,7 +91,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
 
   ngOnInit(): void {
     this.submissionObjectService
-      .findById(this.model.submissionId).pipe(
+      .findById(this.model.submissionId, followLink('item')).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>)
@@ -91,12 +102,12 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
       )
     ).subscribe((item) => {
       this.submissionItem = item;
-      this.updateReorderables();
+      this.updateReorderables(false);
     });
 
   }
 
-  private updateReorderables(): void {
+  private updateReorderables(shouldPropagateChanges = true): void {
     this.zone.runOutsideAngular(() => {
       let groups = this.model.groups.map((group, index) => [group, (this.control as any).controls[index]]);
       groups = [...groups, groups[0]];
@@ -114,7 +125,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
               confidence: formFieldMetadataValue.confidence
             });
             if (metadataValue.isVirtual) {
-              return this.relationshipService.findById(metadataValue.virtualValue)
+              return this.relationshipService.findById(metadataValue.virtualValue, followLink('leftItem'))
                 .pipe(
                   getSucceededRemoteData(),
                   getRemoteDataPayload(),
@@ -158,39 +169,54 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
 
       observableCombineLatest(reorderable$arr)
         .subscribe((reorderables: Reorderable[]) => {
-          if (isNotEmpty(this.reorderables)) {
-            reorderables.forEach((newReorderable: Reorderable) => {
-              const match = this.reorderables.find((reo: Reorderable) => reo.getId() === newReorderable.getId());
-              if (hasValue(match)) {
-                newReorderable.oldIndex = match.newIndex;
-              }
-            })
-          }
-          this.reorderables = reorderables;
-          const updatedReorderables: Array<Observable<any>> = [];
-          this.reorderables.forEach((reorderable: Reorderable, index: number) => {
-            if (reorderable.hasMoved) {
-              const prevIndex = reorderable.oldIndex;
-              const updatedReorderable = reorderable.update().pipe(take(1));
-              updatedReorderables.push(updatedReorderable);
-              updatedReorderable.subscribe((v) => {
-                if (reorderable instanceof ReorderableFormFieldMetadataValue) {
-                  const reoMD = reorderable as ReorderableFormFieldMetadataValue;
-                  const mdl = Object.assign({}, reoMD.model, { value: reoMD.metadataValue });
-                  this.onChange({
-                    $event: { previousIndex: prevIndex },
-                    context: { index },
-                    control: reoMD.control,
-                    group: this.group,
-                    model: mdl,
-                    type: DynamicFormControlEventType.Change
-                  });
-                }
-              });
+          reorderables.forEach((newReorderable: Reorderable) => {
+            const match = this.reorderables.find((reo: Reorderable) => reo.getId() === newReorderable.getId());
+            if (hasValue(match)) {
+              newReorderable.oldIndex = match.newIndex;
+            } else {
+              newReorderable.oldIndex = -1;
             }
           });
-          observableCombineLatest(...updatedReorderables).pipe(
-          ).subscribe(() => this.submissionService.dispatchSave(this.model.submissionId));
+
+          this.reorderables = reorderables;
+
+          if (shouldPropagateChanges) {
+            const updatedReorderables: Array<Observable<any>> = [];
+            let hasMetadataField = false;
+            this.reorderables.forEach((reorderable: Reorderable, index: number) => {
+              if (reorderable.hasMoved) {
+                const prevIndex = reorderable.oldIndex;
+                const updatedReorderable = reorderable.update().pipe(take(1));
+                updatedReorderables.push(updatedReorderable);
+                if (reorderable instanceof ReorderableFormFieldMetadataValue) {
+                  hasMetadataField = true;
+                  updatedReorderable.subscribe((v) => {
+                    const reoMD = reorderable as ReorderableFormFieldMetadataValue;
+                    const mdl = Object.assign({}, reoMD.model, { value: reoMD.metadataValue });
+                    this.onChange({
+                      $event: { previousIndex: prevIndex },
+                      context: { index },
+                      control: reoMD.control,
+                      group: this.group,
+                      model: mdl,
+                      type: DynamicFormControlEventType.Change
+                    });
+                  });
+                }
+              }
+            });
+
+            observableCombineLatest(updatedReorderables).pipe(
+            ).subscribe(() => {
+              if (hasMetadataField && hasValue(this.model.relationshipConfig)) {
+                // if it's a mix between entities and regular metadata fields,
+                // we need to save after every operation, since they use different
+                // endpoints and otherwise they'll get out of sync.
+                this.submissionService.dispatchSave(this.model.submissionId);
+              }
+              this.changeDetectorRef.detectChanges();
+            });
+          }
         });
     })
   }
@@ -198,16 +224,5 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
   moveSelection(event: CdkDragDrop<Relationship>) {
     this.model.moveGroup(event.previousIndex, event.currentIndex - event.previousIndex);
     this.updateReorderables();
-  }
-
-  onChange($event) {
-    let event = $event;
-    if (hasValue($event) && hasNoValue($event.context)) {
-      const context = Object.assign({}, $event.context, { index: this.reorderables.length });
-      event = Object.assign({}, $event, { context });
-    } else {
-      this.updateReorderables();
-    }
-    super.onChange(event);
   }
 }

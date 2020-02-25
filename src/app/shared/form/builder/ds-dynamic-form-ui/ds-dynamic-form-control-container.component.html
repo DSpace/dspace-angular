@@ -9,9 +9,7 @@
     <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
     <div [ngClass]="{'form-row': model.hasLanguages || isRelationship, 'd-none': relationshipValue$ | async}">
         <div [ngClass]="getClass('grid', 'control')">
-
             <ng-container #componentViewContainer></ng-container>
-
             <small *ngIf="hasHint && (!showErrorMessages || errorMessages.length === 0)"
                    class="text-muted" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
 
@@ -20,8 +18,7 @@
             </div>
 
         </div>
-
-        <div *ngIf="model.languageCodes && model.languageCodes.length > 0" class="col-xs-2">
+        <div *ngIf="model.languageCodes && model.languageCodes.length > 0" class="col-xs-2" >
             <select
                     #language="ngModel"
                     [disabled]="model.readOnly"
@@ -34,8 +31,7 @@
                 <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
             </select>
         </div>
-
-        <div *ngIf="isRelationship && context?.index < 1" class="col-auto text-center">
+        <div *ngIf="isRelationship" class="col-auto text-center" [class.invisible]="context?.index > 0">
             <button class="btn btn-secondary"
                     type="button"
                     ngbTooltip="{{'form.lookup-help' | translate}}"
@@ -44,9 +40,7 @@
             </button>
         </div>
     </div>
-
     <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
-
     <ng-container *ngIf="value?.isVirtual">
         <ds-existing-metadata-list-element
                 [reoRel]="relationshipValue$ | async"

@@ -9,7 +9,15 @@ import {
   DynamicFormControlModel
 } from '@ng-dynamic-forms/core';
 
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+  isUndefined
+} from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -312,7 +320,7 @@ export class SectionFormOperationsService {
     } else if (this.formBuilder.isRelationGroup(event.model)) {
       // It's a relation model
       this.dispatchOperationsFromMap(this.getValueMap(value), pathCombiner, event, previousValue);
-    } else if (this.formBuilder.hasArrayGroupValue(event.model)) {
+    } else if (this.formBuilder.hasArrayGroupValue(event.model) && hasNoValue((event.model as any).relationshipConfig)) {
       // Model has as value an array, so dispatch an add operation with entire block of values
       this.operationsBuilder.add(
         pathCombiner.getPath(segmentedPath),
@@ -327,10 +335,16 @@ export class SectionFormOperationsService {
           this.operationsBuilder.remove(pathCombiner.getPath(path));
         }
       } else if (hasValue(event.$event) && hasValue(event.$event.previousIndex)) {
-        this.operationsBuilder.move(
-          pathCombiner.getPath(path),
-          pathCombiner.getPath(segmentedPath + '/' + event.$event.previousIndex).path
-      )
+        if (event.$event.previousIndex < 0) {
+          this.operationsBuilder.add(
+            pathCombiner.getPath(segmentedPath),
+            value, true);
+        } else {
+          this.operationsBuilder.move(
+            pathCombiner.getPath(path),
+            pathCombiner.getPath(segmentedPath + '/' + event.$event.previousIndex).path
+          )
+        }
       } else {
         // New value is not equal from the previous one, so dispatch a replace operation
         this.operationsBuilder.replace(

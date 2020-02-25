@@ -35,13 +35,11 @@ export class JsonPatchOperationsBuilder {
    *    A boolean representing if the value to be added is a plain text value
    */
   add(path: JsonPatchOperationPathObject, value, first = false, plain = false) {
-    if ((typeof value === 'object' && hasValue(value.value)) || hasValue(value)) {
-      this.store.dispatch(
-        new NewPatchAddOperationAction(
-          path.rootElement,
-          path.subRootElement,
-          path.path, this.prepareValue(value, plain, first)));
-    }
+    this.store.dispatch(
+      new NewPatchAddOperationAction(
+        path.rootElement,
+        path.subRootElement,
+        path.path, this.prepareValue(value, plain, first)));
   }
 
   /**

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
-import { combineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, find, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { isEqual } from 'lodash';
@@ -32,13 +32,12 @@ import { SectionsService } from '../sections.service';
 import { difference } from '../../../shared/object.util';
 import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { combineLatest as combineLatestObservable } from 'rxjs';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 /**
  * This component represents a section that contains a Form.
@@ -166,19 +165,19 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       map((configData: ConfigData) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
       flatMap(() =>
-        combineLatestObservable(
+        observableCombineLatest(
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id),
           this.submissionObjectService.getHrefByID(this.submissionId).pipe(take(1)).pipe(
             switchMap((href: string) => {
               this.objectCache.remove(href);
               this.requestService.removeByHrefSubstring(this.submissionId);
-              return combineLatest(
+              return observableCombineLatest(
                 this.objectCache.hasBySelfLinkObservable(href),
                 this.requestService.hasByHrefObservable(href)
               ).pipe(
                 filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
                 take(1),
-                switchMap(() => this.submissionObjectService.findById(this.submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
+                switchMap(() => this.submissionObjectService.findById(this.submissionId, followLink('item')).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
               )
             })
           )

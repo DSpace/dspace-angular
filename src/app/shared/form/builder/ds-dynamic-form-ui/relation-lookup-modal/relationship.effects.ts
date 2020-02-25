@@ -19,6 +19,7 @@ import { ObjectCacheService } from '../../../../../core/cache/object-cache.servi
 import { RequestService } from '../../../../../core/data/request.service';
 import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
 import { CommitPatchOperationsAction, JsonPatchOperationsActionTypes, PatchOperationsActions } from '../../../../../core/json-patch/json-patch-operations.actions';
+import { followLink } from '../../../../utils/follow-link-config.model';
 
 const DEBOUNCE_TIME = 5000;
 
@@ -162,10 +163,15 @@ export class RelationshipEffects {
     this.relationshipService.getRelationshipByItemsAndLabel(item1, item2, relationshipType).pipe(
       take(1),
       hasValueOperator(),
+      tap((v) => console.log('before delete', v)),
       mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id, 'none')),
       take(1),
+      tap((v) => console.log('before refresh', v)),
       switchMap(() => this.refreshWorkspaceItemInCache(submissionId)),
-    ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
+    ).subscribe((submissionObject: SubmissionObject) => {
+      console.log('in subscribe', submissionObject);
+      this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false))
+    });
   }
 
   refreshWorkspaceItemInCache(submissionId: string): Observable<SubmissionObject> {
@@ -179,7 +185,7 @@ export class RelationshipEffects {
         ).pipe(
           filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
           take(1),
-          switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
+          switchMap(() => this.submissionObjectService.findById(submissionId, followLink('item')).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
         )
       })
     );

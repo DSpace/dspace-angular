@@ -80,6 +80,9 @@ export abstract class FieldParser {
             model = this.modelFactory(fieldValue, false);
             if (!isFirstModelInArray) {
               model.hint = undefined;
+              if (Array.isArray(model.group)) {
+                model.group.forEach((group) => group.hint = undefined);
+              }
             }
           }
           setLayout(model, 'element', 'host', 'col');

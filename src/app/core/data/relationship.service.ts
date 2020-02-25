@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { distinctUntilChanged, filter, map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import {
@@ -138,10 +138,10 @@ export class RelationshipService extends DataService<Relationship> {
    * @param relationshipId The identifier of the relationship
    */
   private refreshRelationshipItemsInCacheByRelationship(relationshipId: string) {
-    this.findById(relationshipId).pipe(
+    this.findById(relationshipId, followLink('leftItem'), followLink('rightItem')).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
-      switchMap((rel: Relationship) => combineLatest(
+      switchMap((rel: Relationship) => observableCombineLatest(
         rel.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
         rel.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
         )
@@ -160,7 +160,7 @@ export class RelationshipService extends DataService<Relationship> {
   private refreshRelationshipItemsInCache(item) {
     this.objectCache.remove(item._links.self.href);
     this.requestService.removeByHrefSubstring(item.uuid);
-    combineLatest(
+    observableCombineLatest(
       this.objectCache.hasBySelfLinkObservable(item._links.self.href),
       this.requestService.hasByHrefObservable(item.self)
     ).pipe(
