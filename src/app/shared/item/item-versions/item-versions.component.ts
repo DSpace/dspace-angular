@@ -13,7 +13,6 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
 import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 import { AlertType } from '../../alert/aletr-type';
-import { hasValueOperator } from '../../empty.util';
 import { followLink } from '../../utils/follow-link-config.model';
 
 @Component({
@@ -104,7 +103,7 @@ export class ItemVersionsComponent implements OnInit {
       switchMap(([versionHistory, page]: [VersionHistory, number]) =>
         this.versionHistoryService.getVersions(versionHistory.id,
           new PaginatedSearchOptions({pagination: Object.assign({}, this.options, { currentPage: page })}),
-          followLink('item')))
+          followLink('item'), followLink('eperson')))
     );
     this.hasEpersons$ = this.versionsRD$.pipe(
       getAllSucceededRemoteData(),

@@ -16,17 +16,17 @@ describe('ItemVersionsComponent', () => {
   let fixture: ComponentFixture<ItemVersionsComponent>;
 
   const versionHistory = Object.assign(new VersionHistory(), {
-    id: 1
+    id: '1'
   });
   const version1 = Object.assign(new Version(), {
-    id: 1,
+    id: '1',
     version: 1,
     created: new Date(2020, 1, 1),
     summary: 'first version',
     versionhistory: createSuccessfulRemoteDataObject$(versionHistory)
   });
   const version2 = Object.assign(new Version(), {
-    id: 2,
+    id: '2',
     version: 2,
     summary: 'second version',
     created: new Date(2020, 1, 2),

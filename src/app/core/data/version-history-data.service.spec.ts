@@ -26,7 +26,7 @@ describe('VersionHistoryDataService', () => {
     let result;
 
     beforeEach(() => {
-      result = service.getVersions(1);
+      result = service.getVersions('1');
     });
 
     it('should configure a GET request', () => {
@@ -49,6 +49,6 @@ describe('VersionHistoryDataService', () => {
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
 
-    service = new VersionHistoryDataService(requestService, rdbService, null, null, objectCache, halService, notificationsService, null, null);
+    service = new VersionHistoryDataService(requestService, rdbService, null, objectCache, halService, notificationsService, null, null);
   }
 });
