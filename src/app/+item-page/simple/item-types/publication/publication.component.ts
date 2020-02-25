@@ -17,4 +17,5 @@ import { listableObjectComponent } from '../../../../shared/object-collection/sh
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PublicationComponent extends ItemComponent {
+
 }

@@ -10,7 +10,7 @@
                 [options]="config.notifications">
         </ds-notifications-board>
         <main class="main-content">
-            <div class="container" *ngIf="isLoading">
+            <div class="container" *ngIf="isLoading$ | async">
                 <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
             </div>
             <router-outlet></router-outlet>

@@ -1,32 +1,35 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ItemRelationshipsComponent } from './item-relationships.component';
 import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { RouterStub } from '../../../shared/testing/router-stub';
-import { TestScheduler } from 'rxjs/testing';
-import { SharedModule } from '../../../shared/shared.module';
-import { TranslateModule } from '@ngx-translate/core';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 import { GLOBAL_CONFIG } from '../../../../config';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RestResponse } from '../../../core/cache/response.models';
+import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { RelationshipService } from '../../../core/data/relationship.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
-import { RelationshipService } from '../../../core/data/relationship.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { getTestScheduler } from 'jasmine-marbles';
-import { RestResponse } from '../../../core/cache/response.models';
-import { RequestService } from '../../../core/data/request.service';
-import { EntityTypeService } from '../../../core/data/entity-type.service';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { NotificationType } from '../../../shared/notifications/models/notification-type';
+import {
+  INotification,
+  Notification
+} from '../../../shared/notifications/models/notification.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { SharedModule } from '../../../shared/shared.module';
+import { RouterStub } from '../../../shared/testing/router-stub';
+import { ItemRelationshipsComponent } from './item-relationships.component';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -77,13 +80,17 @@ describe('ItemRelationshipsComponent', () => {
 
     relationships = [
       Object.assign(new Relationship(), {
-        self: url + '/2',
+        _links: {
+          self: { href: url + '/2' }
+        },
         id: '2',
         uuid: '2',
         relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
       }),
       Object.assign(new Relationship(), {
-        self: url + '/3',
+        _links: {
+          self: { href: url + '/3' }
+        },
         id: '3',
         uuid: '3',
         relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
@@ -91,7 +98,9 @@ describe('ItemRelationshipsComponent', () => {
     ];
 
     item = Object.assign(new Item(), {
-      self: 'fake-item-url/publication',
+      _links: {
+        self: { href: 'fake-item-url/publication' }
+      },
       id: 'publication',
       uuid: 'publication',
       relationships: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), relationships))),

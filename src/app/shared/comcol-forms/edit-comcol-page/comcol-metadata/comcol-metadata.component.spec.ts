@@ -1,21 +1,20 @@
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Community } from '../../../../core/shared/community.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../../shared.module';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { DataService } from '../../../../core/data/data.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComcolMetadataComponent } from './comcol-metadata.component';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../testing/utils';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service-stub';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Community } from '../../../../core/shared/community.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { SharedModule } from '../../../shared.module';
+import { NotificationsServiceStub } from '../../../testing/notifications-service-stub';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../testing/utils';
+import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {
   let comp: ComcolMetadataComponent<DSpaceObject>;

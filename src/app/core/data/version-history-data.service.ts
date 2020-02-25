@@ -3,7 +3,6 @@ import { VersionHistory } from '../shared/version-history.model';
 import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -18,11 +17,15 @@ import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { Version } from '../shared/version.model';
 import { map, switchMap, take } from 'rxjs/operators';
+import { dataService } from '../cache/builders/build-decorators';
+import { VERSION_HISTORY } from '../shared/version-history.resource-type';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
  */
 @Injectable()
+@dataService(VERSION_HISTORY)
 export class VersionHistoryDataService extends DataService<VersionHistory> {
   protected linkPath = 'versionhistories';
   protected versionsEndpoint = 'versions';
@@ -30,7 +33,6 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -51,7 +53,7 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
    * Get the versions endpoint for a version history
    * @param versionHistoryId
    */
-  getVersionsEndpoint(versionHistoryId: number): Observable<string> {
+  getVersionsEndpoint(versionHistoryId: string): Observable<string> {
     return this.getBrowseEndpoint().pipe(
       switchMap((href: string) => this.halService.getEndpoint(this.versionsEndpoint, `${href}/${versionHistoryId}`))
     );
@@ -61,8 +63,9 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
    * Get a version history's versions using paginated search options
    * @param versionHistoryId  The version history's ID
    * @param searchOptions     The search options to use
+   * @param linksToFollow     HAL Links to follow on the Versions
    */
-  getVersions(versionHistoryId: number, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Version>>> {
+  getVersions(versionHistoryId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Version>>): Observable<RemoteData<PaginatedList<Version>>> {
     const hrefObs = this.getVersionsEndpoint(versionHistoryId).pipe(
       map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
     );
@@ -73,6 +76,6 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
       this.requestService.configure(request);
     });
 
-    return this.rdbService.buildList<Version>(hrefObs);
+    return this.rdbService.buildList<Version>(hrefObs, ...linksToFollow);
   }
 }

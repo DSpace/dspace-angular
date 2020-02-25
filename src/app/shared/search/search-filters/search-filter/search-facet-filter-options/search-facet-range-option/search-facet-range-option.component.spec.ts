@@ -38,7 +38,14 @@ describe('SearchFacetRangeOptionComponent', () => {
     label: value2,
     value: value2,
     count: 20,
-    search: ''
+    _links: {
+      self: {
+        href: ''
+      },
+      search: {
+        href: ''
+      }
+    }
   };
 
   const searchLink = '/search';
@@ -96,7 +103,14 @@ describe('SearchFacetRangeOptionComponent', () => {
         label: '50-60',
         value: '50-60',
         count: 20,
-        search: ''
+        _links: {
+          self: {
+            href: ''
+          },
+          search: {
+            href: ''
+          }
+        }
       };
       (comp as any).updateChangeParams();
       expect(comp.changeQueryParams).toEqual({

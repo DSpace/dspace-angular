@@ -1,44 +1,58 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
 import { CommonModule, Location } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
-import { Observable, of as observableOf } from 'rxjs';
-import { UUIDService } from '../shared/uuid.service';
 
-import { MetadataService } from './metadata.service';
-
-import { CoreState } from '../core.reducers';
-
-import { GlobalConfig } from '../../../config/global-config.interface';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { EmptyError } from 'rxjs/internal-compatibility';
 import { ENV_CONFIG, GLOBAL_CONFIG } from '../../../config';
 
-import { ItemDataService } from '../data/item-data.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestService } from '../data/request.service';
+import { GlobalConfig } from '../../../config/global-config.interface';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 
-import { MockItem } from '../../shared/mocks/mock-item';
+import {
+  MockBitstream1,
+  MockBitstream2,
+  MockBitstreamFormat1,
+  MockBitstreamFormat2,
+  MockItem
+} from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
-import { BrowseService } from '../browse/browse.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { EmptyError } from 'rxjs/internal-compatibility';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
-import { MetadataValue } from '../shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { AuthService } from '../auth/auth.service';
+import { BrowseService } from '../browse/browse.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+
+import { CoreState } from '../core.reducers';
+import { BitstreamDataService } from '../data/bitstream-data.service';
+import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
+import { CommunityDataService } from '../data/community-data.service';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+
+import { ItemDataService } from '../data/item-data.service';
+import { PaginatedList } from '../data/paginated-list';
+import { FindListOptions } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { Bitstream } from '../shared/bitstream.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { MetadataValue } from '../shared/metadata.models';
+import { PageInfo } from '../shared/page-info.model';
+import { UUIDService } from '../shared/uuid.service';
+
+import { MetadataService } from './metadata.service';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -50,13 +64,15 @@ class TestComponent {
   }
 }
 
-@Component({ template: '' }) class DummyItemComponent {
+@Component({ template: '' })
+class DummyItemComponent {
   constructor(private route: ActivatedRoute, private items: ItemDataService, private metadata: MetadataService) {
     this.route.params.subscribe((params) => {
       this.metadata.processRemoteData(this.items.findById(params.id));
     });
   }
 }
+
 /* tslint:enable:max-classes-per-file */
 
 describe('MetadataService', () => {
@@ -88,10 +104,33 @@ describe('MetadataService', () => {
     store = new Store<CoreState>(undefined, undefined, undefined);
     spyOn(store, 'dispatch');
 
-    objectCacheService = new ObjectCacheService(store);
+    objectCacheService = new ObjectCacheService(store, undefined);
     uuidService = new UUIDService();
     requestService = new RequestService(objectCacheService, uuidService, store, undefined);
-    remoteDataBuildService = new RemoteDataBuildService(objectCacheService, requestService);
+    remoteDataBuildService = new RemoteDataBuildService(objectCacheService, undefined, requestService);
+    const mockBitstreamDataService = {
+      findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+        if (item.equals(MockItem)) {
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [MockBitstream1, MockBitstream2]));
+        } else {
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
+        }
+      },
+    };
+    const mockBitstreamFormatDataService = {
+      findByBitstream(bitstream: Bitstream): Observable<RemoteData<BitstreamFormat>> {
+        switch (bitstream) {
+          case MockBitstream1:
+            return createSuccessfulRemoteDataObject$(MockBitstreamFormat1);
+            break;
+          case MockBitstream2:
+            return createSuccessfulRemoteDataObject$(MockBitstreamFormat2);
+            break;
+          default:
+            return createSuccessfulRemoteDataObject$(new BitstreamFormat());
+        }
+      }
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -105,7 +144,12 @@ describe('MetadataService', () => {
         }),
         RouterTestingModule.withRoutes([
           { path: 'items/:id', component: DummyItemComponent, pathMatch: 'full' },
-          { path: 'other', component: DummyItemComponent, pathMatch: 'full', data: { title: 'Dummy Title', description: 'This is a dummy item component for testing!' } }
+          {
+            path: 'other',
+            component: DummyItemComponent,
+            pathMatch: 'full',
+            data: { title: 'Dummy Title', description: 'This is a dummy item component for testing!' }
+          }
         ])
       ],
       declarations: [
@@ -121,8 +165,11 @@ describe('MetadataService', () => {
         { provide: AuthService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: HttpClient, useValue: {} },
-        { provide: NormalizedObjectBuildService, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
+        { provide: CommunityDataService, useValue: {} },
+        { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: BitstreamFormatDataService, useValue: mockBitstreamFormatDataService },
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         Meta,
         Title,
         ItemDataService,
@@ -193,7 +240,8 @@ describe('MetadataService', () => {
   describe('when the item has no bitstreams', () => {
 
     beforeEach(() => {
-      spyOn(MockItem, 'getFiles').and.returnValue(observableOf([]));
+      // this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL')
+      // spyOn(MockItem, 'getFiles').and.returnValue(observableOf([]));
     });
 
     it('processRemoteData should not produce an EmptyError', fakeAsync(() => {
@@ -212,7 +260,7 @@ describe('MetadataService', () => {
 
   const mockType = (mockItem: Item, type: string): Item => {
     const typedMockItem = Object.assign(new Item(), mockItem) as Item;
-    typedMockItem.metadata['dc.type'] = [ { value: type } ] as MetadataValue[];
+    typedMockItem.metadata['dc.type'] = [{ value: type }] as MetadataValue[];
     return typedMockItem;
   };
 

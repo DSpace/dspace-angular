@@ -1,44 +1,69 @@
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { autoserialize, deserialize } from 'cerialize';
 import { isNotEmpty } from '../../shared/empty.util';
-import { MetadataSchema } from './metadata-schema.model';
-import { ResourceType } from '../shared/resource-type';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { link, typedObject } from '../cache/builders/build-decorators';
 import { GenericConstructor } from '../shared/generic-constructor';
+import { HALLink } from '../shared/hal-link.model';
+import { HALResource } from '../shared/hal-resource.model';
+import { ResourceType } from '../shared/resource-type';
+import { excludeFromEquals } from '../utilities/equals.decorators';
+import { METADATA_FIELD } from './metadata-field.resource-type';
+import { MetadataSchema } from './metadata-schema.model';
 
 /**
  * Class the represents a metadata field
  */
-export class MetadataField extends ListableObject {
-  static type = new ResourceType('metadatafield');
+@typedObject
+export class MetadataField extends ListableObject implements HALResource {
+  static type = METADATA_FIELD;
+
+  /**
+   * The object type
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   /**
    * The identifier of this metadata field
    */
+  @autoserialize
   id: number;
-
-  /**
-   * The self link of this metadata field
-   */
-  self: string;
 
   /**
    * The element of this metadata field
    */
+  @autoserialize
   element: string;
 
   /**
    * The qualifier of this metadata field
    */
+  @autoserialize
   qualifier: string;
 
   /**
    * The scope note of this metadata field
    */
+  @autoserialize
   scopeNote: string;
 
   /**
-   * The metadata schema object of this metadata field
+   * The {@link HALLink}s for this MetadataField
    */
-  schema: MetadataSchema;
+  @deserialize
+  _links: {
+    self: HALLink,
+    schema: HALLink
+  };
+
+  /**
+   * The MetadataSchema for this MetadataField
+   * Will be undefined unless the schema {@link HALLink} has been resolved.
+   */
+  // TODO the responseparsingservice assumes schemas are always embedded. This should use remotedata, and be a link instead.
+  // @link(METADATA_SCHEMA)
+  schema?: MetadataSchema;
 
   /**
    * Method to print this metadata field as a string

@@ -3,7 +3,6 @@ import { DataService } from './data.service';
 import { Version } from '../shared/version.model';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -13,18 +12,20 @@ import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
+import { dataService } from '../cache/builders/build-decorators';
+import { VERSION } from '../shared/version.resource-type';
 
 /**
  * Service responsible for handling requests related to the Version object
  */
 @Injectable()
+@dataService(VERSION)
 export class VersionDataService extends DataService<Version> {
   protected linkPath = 'versions';
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
