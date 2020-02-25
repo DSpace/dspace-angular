@@ -1,16 +1,16 @@
-import { async, TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs/internal/observable/of';
-import { TranslateModule } from '@ngx-translate/core';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { EditRelationshipComponent } from './edit-relationship.component';
+import { async, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs/internal/observable/of';
+import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../../../core/data/paginated-list';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
-import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
+import { EditRelationshipComponent } from './edit-relationship.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 let objectUpdatesService;
@@ -42,7 +42,11 @@ describe('EditRelationshipComponent', () => {
     });
 
     item = Object.assign(new Item(), {
-      self: 'fake-item-url/publication',
+      _links: {
+        self: {
+          href: 'fake-item-url/publication'
+        }
+      },
       id: 'publication',
       uuid: 'publication',
       relationships: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), relationships)))
@@ -54,7 +58,9 @@ describe('EditRelationshipComponent', () => {
 
     relationships = [
       Object.assign(new Relationship(), {
-        self: url + '/2',
+        _links: {
+          self: { href: url + '/2' }
+        },
         id: '2',
         uuid: '2',
         leftId: 'author1',
@@ -64,7 +70,9 @@ describe('EditRelationshipComponent', () => {
         rightItem: observableOf(new RemoteData(false, false, true, undefined, item)),
       }),
       Object.assign(new Relationship(), {
-        self: url + '/3',
+        _links: {
+          self: { href: url + '/3' }
+        },
         id: '3',
         uuid: '3',
         leftId: 'author2',

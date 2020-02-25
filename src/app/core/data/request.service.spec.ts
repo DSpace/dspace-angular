@@ -2,6 +2,7 @@ import * as ngrx from '@ngrx/store';
 import { ActionsSubject, Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { BehaviorSubject, EMPTY, of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
 import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
 import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
@@ -19,9 +20,8 @@ import {
   PutRequest,
   RestRequest
 } from './request.models';
-import { RequestService } from './request.service';
-import { TestScheduler } from 'rxjs/testing';
 import { RequestEntry } from './request.reducer';
+import { RequestService } from './request.service';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

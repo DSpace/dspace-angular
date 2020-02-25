@@ -4,13 +4,13 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { AuthStatus } from './models/auth-status.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { AuthService } from './auth.service';
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { EPerson } from '../eperson/models/eperson.model';
-import { NormalizedAuthStatus } from './models/normalized-auth-status.model';
+import { AuthService } from './auth.service';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 /**
  * The auth service.
@@ -35,7 +35,7 @@ export class ServerAuthService extends AuthService {
 
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status) => this.rdbService.build(status)),
+      map((status) => this.linkService.resolveLinks(status, followLink<AuthStatus>('eperson'))),
       switchMap((status: AuthStatus) => {
         if (status.authenticated) {
           return status.eperson.pipe(map((eperson) => eperson.payload));
@@ -61,7 +61,7 @@ export class ServerAuthService extends AuthService {
     options.headers = headers;
     options.withCredentials = true;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status: NormalizedAuthStatus) => Object.assign(new AuthStatus(), status))
+      map((status: AuthStatus) => Object.assign(new AuthStatus(), status))
     );
   }
 

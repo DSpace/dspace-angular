@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchFilterConfig } from '../../../../search-filter-config.model';
-import { FilterType } from '../../../../filter-type.model';
 import { FormsModule } from '@angular/forms';
-import { of as observableOf } from 'rxjs';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchServiceStub } from '../../../../../testing/search-service-stub';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { RouterStub } from '../../../../../testing/router-stub';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { SearchFacetSelectedOptionComponent } from './search-facet-selected-option.component';
+import { SearchService } from '../../../../../../core/shared/search/search.service';
+import { RouterStub } from '../../../../../testing/router-stub';
+import { SearchServiceStub } from '../../../../../testing/search-service-stub';
 import { FacetValue } from '../../../../facet-value.model';
+import { FilterType } from '../../../../filter-type.model';
+import { SearchFilterConfig } from '../../../../search-filter-config.model';
+import { SearchFacetSelectedOptionComponent } from './search-facet-selected-option.component';
 
 describe('SearchFacetSelectedOptionComponent', () => {
   let comp: SearchFacetSelectedOptionComponent;
@@ -47,25 +47,37 @@ describe('SearchFacetSelectedOptionComponent', () => {
     label: value1,
     value: value1,
     count: 20,
-    search: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1}`
+    _links: {
+      self: { href: 'selectedValue-self-link1' },
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1}` }
+    }
   };
   const selectedValue2: FacetValue = {
     label: value2,
     value: value2,
     count: 20,
-    search: `http://test.org/api/discover/search/objects?f.${filterName1}=${value2}`
+    _links: {
+      self: { href: 'selectedValue-self-link2' },
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName1}=${value2}` }
+    }
   };
   const selectedAuthorityValue: FacetValue = {
     label: label1,
     value: value1,
     count: 20,
-    search: `http://test.org/api/discover/search/objects?f.${filterName2}=${value1},${operator}`
+    _links: {
+      self: { href: 'selectedAuthorityValue-self-link1' },
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value1},${operator}` }
+    }
   };
   const selectedAuthorityValue2: FacetValue = {
     label: label2,
     value: value2,
     count: 20,
-    search: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}`
+    _links: {
+      self: { href: 'selectedAuthorityValue-self-link2' },
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}` }
+    }
   };
   const selectedValues = [selectedValue, selectedValue2];
   const selectedAuthorityValues = [selectedAuthorityValue, selectedAuthorityValue2];
@@ -73,13 +85,19 @@ describe('SearchFacetSelectedOptionComponent', () => {
     label: value2,
     value: value2,
     count: 1,
-    search: ''
+    _links: {
+      self: { href: 'facetValue-self-link2' },
+      search: { href: `` }
+    }
   };
   const authorityValue: FacetValue = {
     label: label2,
     value: value2,
     count: 20,
-    search: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}`
+    _links: {
+      self: { href: 'authorityValue-self-link2' },
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}` }
+    }
   };
   const selectedValues$ = observableOf(selectedValues);
   const selectedAuthorityValues$ = observableOf(selectedAuthorityValues);

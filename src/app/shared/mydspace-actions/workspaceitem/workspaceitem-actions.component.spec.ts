@@ -72,7 +72,7 @@ describe('WorkspaceitemActionsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        NgbModule.forRoot(),
+        NgbModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -128,7 +128,7 @@ describe('WorkspaceitemActionsComponent', () => {
     expect(btn).toBeDefined();
   });
 
-  it('should call confirmDiscard on discard confirmation', fakeAsync(() => {
+  it('should call confirmDiscard on discard confirmation', () => {
     mockDataService.delete.and.returnValue(observableOf(true));
     spyOn(component, 'reload');
     const btn = fixture.debugElement.query(By.css('.btn-danger'));
@@ -144,7 +144,7 @@ describe('WorkspaceitemActionsComponent', () => {
       expect(mockDataService.delete).toHaveBeenCalledWith(mockObject);
     });
 
-  }));
+  });
 
   it('should display a success notification on delete success', async(() => {
     spyOn((component as any).modalService, 'open').and.returnValue({result: Promise.resolve('ok')});

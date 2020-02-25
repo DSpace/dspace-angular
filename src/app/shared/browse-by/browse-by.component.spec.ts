@@ -51,7 +51,7 @@ describe('BrowseByComponent', () => {
         CommonModule,
         TranslateModule.forRoot(),
         SharedModule,
-        NgbModule.forRoot(),
+        NgbModule,
         StoreModule.forRoot({}),
         TranslateModule.forRoot({
           loader: {

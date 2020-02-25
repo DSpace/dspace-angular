@@ -840,4 +840,5 @@ export type SubmissionObjectAction = DisableSectionAction
   | SaveSubmissionSectionFormAction
   | SaveSubmissionSectionFormSuccessAction
   | SaveSubmissionSectionFormErrorAction
-  | SetActiveSectionAction;
+  | SetActiveSectionAction
+  | DepositSubmissionAction;

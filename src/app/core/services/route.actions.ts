@@ -162,4 +162,5 @@ export type RouteActions =
   | AddQueryParameterAction
   | AddParameterAction
   | ResetRouteStateAction
-  | SetParameterAction;
+  | SetParameterAction
+  | SetQueryParameterAction;

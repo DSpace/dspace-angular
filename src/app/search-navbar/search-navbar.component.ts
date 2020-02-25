@@ -22,7 +22,7 @@ export class SearchNavbarComponent {
   isExpanded = 'collapsed';
 
   // Search input field
-  @ViewChild('searchInput') searchField: ElementRef;
+  @ViewChild('searchInput', {static: false}) searchField: ElementRef;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private searchService: SearchService) {
     this.searchForm = this.formBuilder.group(({

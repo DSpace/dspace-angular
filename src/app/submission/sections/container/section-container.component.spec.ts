@@ -73,7 +73,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        NgbModule.forRoot(),
+        NgbModule,
         TranslateModule.forRoot()
       ],
       declarations: [

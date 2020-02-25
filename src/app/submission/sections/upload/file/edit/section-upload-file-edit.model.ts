@@ -48,10 +48,10 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
   placeholder: 'submission.sections.upload.form.from-placeholder',
   inline: false,
   toggleIcon: 'far fa-calendar-alt',
-  relation: [
+  relations: [
     {
-      action: 'ENABLE',
-      connective: 'OR',
+      match: 'ENABLE',
+      operator: 'OR',
       when: []
     }
   ],
@@ -78,10 +78,10 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
   placeholder: 'submission.sections.upload.form.until-placeholder',
   inline: false,
   toggleIcon: 'far fa-calendar-alt',
-  relation: [
+  relations: [
     {
-      action: 'ENABLE',
-      connective: 'OR',
+      match: 'ENABLE',
+      operator: 'OR',
       when: []
     }
   ],
@@ -106,10 +106,10 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelCo
   id: 'groupUUID',
   label: 'submission.sections.upload.form.group-label',
   options: [],
-  relation: [
+  relations: [
     {
-      action: 'ENABLE',
-      connective: 'OR',
+      match: 'ENABLE',
+      operator: 'OR',
       when: []
     }
   ],

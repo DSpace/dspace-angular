@@ -1,3 +1,4 @@
+import { filter, tap } from 'rxjs/operators';
 import { CollectionItemMapperComponent } from './collection-item-mapper.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -52,7 +53,12 @@ describe('CollectionItemMapperComponent', () => {
 
   const mockCollection: Collection = Object.assign(new Collection(), {
     id: 'ce41d451-97ed-4a9c-94a1-7de34f16a9f4',
-    name: 'test-collection'
+    name: 'test-collection',
+    _links: {
+      self: {
+        href: 'https://rest.api/collections/ce41d451-97ed-4a9c-94a1-7de34f16a9f4'
+      }
+    }
   });
   const mockCollectionRD: RemoteData<Collection> = new RemoteData<Collection>(false, false, true, null, mockCollection);
   const mockSearchOptions = of(new PaginatedSearchOptions({
@@ -116,7 +122,7 @@ describe('CollectionItemMapperComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
