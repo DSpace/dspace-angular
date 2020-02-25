@@ -24,7 +24,7 @@ export class UUIDIndexEffects {
         return new AddToIndexAction(
           IndexName.OBJECT,
           action.payload.objectToCache.uuid,
-          action.payload.objectToCache.self
+          action.payload.objectToCache._links.self.href
         );
       })
     );

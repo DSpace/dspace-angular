@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { LinkService } from '../../../core/cache/builders/link.service';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';

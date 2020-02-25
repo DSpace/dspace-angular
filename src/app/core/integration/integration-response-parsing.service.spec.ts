@@ -1,22 +1,21 @@
-import { ErrorResponse, IntegrationSuccessResponse } from '../cache/response.models';
-
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { Store } from '@ngrx/store';
 import { GlobalConfig } from '../../../config/global-config.interface';
 
-import { Store } from '@ngrx/store';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ErrorResponse, IntegrationSuccessResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
-import { IntegrationResponseParsingService } from './integration-response-parsing.service';
-import { IntegrationRequest } from '../data/request.models';
-import { AuthorityValue } from './models/authority.value';
-import { PageInfo } from '../shared/page-info.model';
 import { PaginatedList } from '../data/paginated-list';
+import { IntegrationRequest } from '../data/request.models';
+import { PageInfo } from '../shared/page-info.model';
+import { IntegrationResponseParsingService } from './integration-response-parsing.service';
+import { AuthorityValue } from './models/authority.value';
 
 describe('IntegrationResponseParsingService', () => {
   let service: IntegrationResponseParsingService;
 
   const EnvConfig = {} as GlobalConfig;
   const store = {} as Store<CoreState>;
-  const objectCacheService = new ObjectCacheService(store);
+  const objectCacheService = new ObjectCacheService(store, undefined);
   const name = 'type';
   const metadata = 'dc.type';
   const query = '';
@@ -33,8 +32,16 @@ describe('IntegrationResponseParsingService', () => {
   let definitions;
 
   function initVars() {
-    pageInfo = Object.assign(new PageInfo(), { elementsPerPage: 5, totalElements: 5, totalPages: 1, currentPage: 1, self: 'https://rest.api/integration/authorities/type/entries'});
-    definitions = new PaginatedList(pageInfo,[
+    pageInfo = Object.assign(new PageInfo(), {
+      elementsPerPage: 5,
+      totalElements: 5,
+      totalPages: 1,
+      currentPage: 1,
+      _links: {
+        self: { href: 'https://rest.api/integration/authorities/type/entries' }
+      }
+    });
+    definitions = new PaginatedList(pageInfo, [
       Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'One',

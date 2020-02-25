@@ -86,7 +86,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       imports: [
         BrowserModule,
         CommonModule,
-        NgbModule.forRoot(),
+        NgbModule,
         TranslateModule.forRoot()
       ],
       declarations: [
@@ -190,7 +190,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       expect(comp.fileData).toEqual(fileData);
     });
 
-    it('should call deleteFile on delete confirmation', fakeAsync(() => {
+    it('should call deleteFile on delete confirmation', () => {
       spyOn(compAsAny, 'deleteFile');
       comp.fileData = fileData;
 
@@ -209,7 +209,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       fixture.whenStable().then(() => {
         expect(compAsAny.deleteFile).toHaveBeenCalled();
       });
-    }));
+    });
 
     it('should delete file properly', () => {
       compAsAny.pathCombiner = pathCombiner;

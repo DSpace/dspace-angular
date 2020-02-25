@@ -1,21 +1,28 @@
 .git
-node-modules
-__build__
-__server_build__
+.idea
+.vscode
+.DS_Store
+*.iml
+
+# Build folders
+node_modules
+build
+dist
 typings
 tsd_typings
-npm-debug.log
-dist
 coverage
-.idea
-*.iml
+__build__
+__server_build__
+
+# Node
+*.log
+npm-debug.log.*
+
+# Angular files
 *.ngfactory.ts
 *.css.shim.ts
 *.scss.shim.ts
-.DS_Store
+
+# Webpack files
 webpack.records.json
-npm-debug.log.*
-morgan.log
-yarn-error.log
-*.css
 package-lock.json

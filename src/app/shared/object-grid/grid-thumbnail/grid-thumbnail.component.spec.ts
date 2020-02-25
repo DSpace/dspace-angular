@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-
-import { GridThumbnailComponent } from './grid-thumbnail.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { SafeUrlPipe } from '../../utils/safe-url-pipe';
+
+import { GridThumbnailComponent } from './grid-thumbnail.component';
 
 describe('GridThumbnailComponent', () => {
   let comp: GridThumbnailComponent;
@@ -26,14 +26,22 @@ describe('GridThumbnailComponent', () => {
   });
 
   it('should display image', () => {
-    comp.thumbnail = new Bitstream();
-    comp.thumbnail.content = 'test.url';
+    const thumbnail = new Bitstream();
+    thumbnail._links = {
+      self: { href: 'self.url' },
+      bundle: { href: 'bundle.url' },
+      format: { href: 'format.url' },
+      content: { href: 'content.url' },
+    };
+    comp.thumbnail = thumbnail;
     fixture.detectChanges();
     const image: HTMLElement = de.query(By.css('img')).nativeElement;
-    expect(image.getAttribute('src')).toBe(comp.thumbnail.content);
+    expect(image.getAttribute('src')).toBe(comp.thumbnail._links.content.href);
   });
 
   it('should display placeholder', () => {
+    const thumbnail = new Bitstream();
+    comp.thumbnail = thumbnail;
     fixture.detectChanges();
     const image: HTMLElement = de.query(By.css('img')).nativeElement;
     expect(image.getAttribute('src')).toBe(comp.defaultImage);

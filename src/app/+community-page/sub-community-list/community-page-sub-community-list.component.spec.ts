@@ -117,7 +117,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
         TranslateModule.forRoot(),
         SharedModule,
         RouterTestingModule.withRoutes([]),
-        NgbModule.forRoot(),
+        NgbModule,
         NoopAnimationsModule
       ],
       declarations: [CommunityPageSubCommunityListComponent],

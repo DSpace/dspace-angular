@@ -1,25 +1,27 @@
-import { filter, switchMap, take } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { filter, switchMap, take } from 'rxjs/operators';
+import { hasValue } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
-import { ComColDataService } from './comcol-data.service';
-import { RequestService } from './request.service';
+import { COMMUNITY } from '../shared/community.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindListOptions, FindListRequest } from './request.models';
-import { RemoteData } from './remote-data';
-import { hasValue } from '../../shared/empty.util';
-import { Observable } from 'rxjs';
-import { PaginatedList } from './paginated-list';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { ComColDataService } from './comcol-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { PaginatedList } from './paginated-list';
+import { RemoteData } from './remote-data';
+import { FindListOptions, FindListRequest } from './request.models';
+import { RequestService } from './request.service';
 
 @Injectable()
+@dataService(COMMUNITY)
 export class CommunityDataService extends ComColDataService<Community> {
   protected linkPath = 'communities';
   protected topLinkPath = 'communities/search/top';
@@ -28,7 +30,6 @@ export class CommunityDataService extends ComColDataService<Community> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,

@@ -1,7 +1,7 @@
 <ds-metadata-field-wrapper [label]="label | translate">
-    <div class="file-section row" *ngFor="let file of (bitstreamsObs | async); let last=last;">
+    <div class="file-section row" *ngFor="let file of (bitstreams$ | async); let last=last;">
         <div class="col-3">
-            <ds-thumbnail [thumbnail]="thumbnails.get(file.id) | async"></ds-thumbnail>
+            <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
         </div>
         <div class="col-7">
             <dl class="row">
@@ -21,7 +21,7 @@
             </dl>
         </div>
         <div class="col-2">
-            <a [href]="file.content" [download]="file.name">
+            <a [href]="file._links.content.href" [download]="file.name">
                 {{"item.page.filesection.download" | translate}}
             </a>
         </div>

@@ -1,6 +1,6 @@
 import * as deepFreeze from 'deep-freeze';
-
-import { objectCacheReducer } from './object-cache.reducer';
+import { Operation } from 'fast-json-patch';
+import { Item } from '../shared/item.model';
 import {
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
@@ -8,8 +8,8 @@ import {
   RemoveFromObjectCacheAction,
   ResetObjectCacheTimestampsAction
 } from './object-cache.actions';
-import { Operation } from 'fast-json-patch';
-import { Item } from '../shared/item.model';
+
+import { objectCacheReducer } from './object-cache.reducer';
 
 class NullAction extends RemoveFromObjectCacheAction {
   type = null;
@@ -31,19 +31,21 @@ describe('objectCacheReducer', () => {
       data: {
         type: Item.type,
         self: selfLink1,
-        foo: 'bar'
+        foo: 'bar',
+        _links: { self: { href: selfLink1 } }
       },
       timeAdded: new Date().getTime(),
       msToLive: 900000,
       requestUUID: requestUUID1,
       patches: [],
-      isDirty: false
+      isDirty: false,
     },
     [selfLink2]: {
       data: {
         type: Item.type,
         self: requestUUID2,
-        foo: 'baz'
+        foo: 'baz',
+        _links: { self: { href: requestUUID2 } }
       },
       timeAdded: new Date().getTime(),
       msToLive: 900000,
@@ -70,7 +72,7 @@ describe('objectCacheReducer', () => {
 
   it('should add the payload to the cache in response to an ADD action', () => {
     const state = Object.create(null);
-    const objectToCache = { self: selfLink1, type: Item.type };
+    const objectToCache = { self: selfLink1, type: Item.type, _links: { self: { href: selfLink1 } } };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const requestUUID = requestUUID1;
@@ -87,7 +89,8 @@ describe('objectCacheReducer', () => {
       self: selfLink1,
       foo: 'baz',
       somethingElse: true,
-      type: Item.type
+      type: Item.type,
+      _links: { self: { href: selfLink1 } }
     };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
@@ -103,7 +106,7 @@ describe('objectCacheReducer', () => {
 
   it('should perform the ADD action without affecting the previous state', () => {
     const state = Object.create(null);
-    const objectToCache = { self: selfLink1, type: Item.type };
+    const objectToCache = { self: selfLink1, type: Item.type, _links: { self: { href: selfLink1 } } };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const requestUUID = requestUUID1;
@@ -121,8 +124,8 @@ describe('objectCacheReducer', () => {
     expect(newState[selfLink1]).toBeUndefined();
   });
 
-  it("shouldn't do anything in response to the REMOVE action for an object that isn't cached", () => {
-    const wrongKey = "this isn't cached";
+  it('shouldn\'t do anything in response to the REMOVE action for an object that isn\'t cached', () => {
+    const wrongKey = 'this isn\'t cached';
     const action = new RemoveFromObjectCacheAction(wrongKey);
     const newState = objectCacheReducer(testState, action);
 

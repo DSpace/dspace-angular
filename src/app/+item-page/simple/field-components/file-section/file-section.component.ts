@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
+import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
 
 /**
  * This component renders the file section of the item
@@ -20,14 +22,21 @@ export class FileSectionComponent implements OnInit {
 
   separator = '<br/>';
 
-  bitstreamsObs: Observable<Bitstream[]>;
+  bitstreams$: Observable<Bitstream[]>;
+
+  constructor(
+    protected bitstreamDataService: BitstreamDataService
+  ) {
+  }
 
   ngOnInit(): void {
     this.initialize();
   }
 
   initialize(): void {
-    this.bitstreamsObs = this.item.getFiles();
+    this.bitstreams$ = this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL').pipe(
+      getFirstSucceededRemoteListPayload()
+    );
   }
 
 }

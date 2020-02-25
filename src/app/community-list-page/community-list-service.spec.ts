@@ -190,8 +190,6 @@ describe('CommunityListService', () => {
     service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub, store);
   }));
 
-  afterAll(() => service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub, store));
-
   it('should create', inject([CommunityListService], (serviceIn: CommunityListService) => {
     expect(serviceIn).toBeTruthy();
   }));

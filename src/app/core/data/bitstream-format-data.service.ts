@@ -1,31 +1,34 @@
-import { Injectable } from '@angular/core';
-import { DataService } from './data.service';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { RequestService } from './request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { createSelector, select, Store } from '@ngrx/store';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { DeleteByIDRequest, FindListOptions, PostRequest, PutRequest } from './request.models';
+import { Injectable } from '@angular/core';
+import { createSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { find, map, tap } from 'rxjs/operators';
-import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
-import { RestResponse } from '../cache/response.models';
-import { BitstreamFormatRegistryState } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+import { find, map, tap } from 'rxjs/operators';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction
 } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.actions';
+import { BitstreamFormatRegistryState } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { hasValue } from '../../shared/empty.util';
-import { RequestEntry } from './request.reducer';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { dataService } from '../cache/builders/build-decorators';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { BITSTREAM_FORMAT } from '../shared/bitstream-format.resource-type';
+import { Bitstream } from '../shared/bitstream.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { configureRequest, getResponseFromEntry } from '../shared/operators';
+import { DataService } from './data.service';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { RemoteData } from './remote-data';
+import { DeleteByIDRequest, PostRequest, PutRequest } from './request.models';
+import { RequestEntry } from './request.reducer';
+import { RequestService } from './request.service';
 
 const bitstreamFormatsStateSelector = createSelector(
   coreSelector,
@@ -38,6 +41,7 @@ const selectedBitstreamFormatSelector = createSelector(bitstreamFormatsStateSele
  * A service responsible for fetching/sending data from/to the REST API on the bitstreamformats endpoint
  */
 @Injectable()
+@dataService(BITSTREAM_FORMAT)
 export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
 
   protected linkPath = 'bitstreamformats';
@@ -45,7 +49,6 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -53,16 +56,6 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<BitstreamFormat>) {
     super();
-  }
-
-  /**
-   * Get the endpoint for browsing bitstream formats
-   * @param {FindListOptions} options
-   * @param {string} linkPath
-   * @returns {Observable<string>}
-   */
-  getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath);
   }
 
   /**
@@ -182,5 +175,9 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
       find((request: RequestEntry) => request.completed),
       map((request: RequestEntry) => request.response.isSuccessful)
     );
+  }
+
+  findByBitstream(bitstream: Bitstream): Observable<RemoteData<BitstreamFormat>> {
+    return this.findByHref(bitstream._links.format.href);
   }
 }

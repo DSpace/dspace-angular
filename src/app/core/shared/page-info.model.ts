@@ -1,10 +1,12 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { hasValue } from '../../shared/empty.util';
+import { HALLink } from './hal-link.model';
+import { HALResource } from './hal-resource.model';
 
 /**
  * Represents the state of a paginated response
  */
-export class PageInfo {
+export class PageInfo implements HALResource {
 
   /**
    * The number of elements on a page
@@ -30,20 +32,17 @@ export class PageInfo {
   @autoserializeAs(Number, 'number')
   currentPage: number;
 
-  @autoserialize
-  last: string;
-
-  @autoserialize
-  next: string;
-
-  @autoserialize
-  prev: string;
-
-  @autoserialize
-  first: string;
-
-  @autoserialize
-  self: string;
+  /**
+   * The {@link HALLink}s for this PageInfo
+   */
+  @deserialize
+  _links: {
+    first: HALLink;
+    prev: HALLink;
+    next: HALLink;
+    last: HALLink;
+    self: HALLink;
+  };
 
   constructor(
     options?: {
@@ -60,4 +59,41 @@ export class PageInfo {
       this.currentPage = options.currentPage;
     }
   }
+
+  get self() {
+    return this._links.self.href;
+  }
+
+  get last(): string {
+    if (hasValue(this._links) && hasValue(this._links.last)) {
+      return this._links.last.href;
+    } else {
+      return undefined;
+    }
+  }
+
+  get next(): string {
+    if (hasValue(this._links) && hasValue(this._links.next)) {
+      return this._links.next.href;
+    } else {
+      return undefined;
+    }
+  }
+
+  get prev(): string {
+    if (hasValue(this._links) && hasValue(this._links.prev)) {
+      return this._links.prev.href;
+    } else {
+      return undefined;
+    }
+  }
+
+  get first(): string {
+    if (hasValue(this._links) && hasValue(this._links.first)) {
+      return this._links.first.href;
+    } else {
+      return undefined;
+    }
+  }
+
 }

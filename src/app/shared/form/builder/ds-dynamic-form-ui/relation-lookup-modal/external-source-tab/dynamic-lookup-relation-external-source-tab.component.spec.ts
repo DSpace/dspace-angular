@@ -95,7 +95,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     init();
     TestBed.configureTestingModule({
       declarations: [DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule.forRoot(), BrowserAnimationsModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, BrowserAnimationsModule],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {

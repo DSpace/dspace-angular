@@ -9,7 +9,11 @@ export const EPersonMock: EPerson = Object.assign(new EPerson(),{
   email: 'test@test.com',
   requireCertificate: false,
   selfRegistered: false,
-  self: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/testid',
+  _links: {
+    self: {
+      href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/testid',
+    }
+  },
   id: 'testid',
   uuid: 'testid',
   type: 'eperson',

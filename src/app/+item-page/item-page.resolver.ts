@@ -6,6 +6,7 @@ import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
 import { hasValue } from '../shared/empty.util';
 import { find } from 'rxjs/operators';
+import { followLink } from '../shared/utils/follow-link-config.model';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
@@ -23,9 +24,12 @@ export class ItemPageResolver implements Resolve<RemoteData<Item>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
-    return this.itemService.findById(route.params.id)
-      .pipe(
-        find((RD) => hasValue(RD.error) || RD.hasSucceeded),
-      );
+    return this.itemService.findById(route.params.id,
+      followLink('owningCollection'),
+      followLink('bundles'),
+      followLink('relationships')
+    ).pipe(
+      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
+    );
   }
 }

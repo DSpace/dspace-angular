@@ -1,22 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-
-import { Observable, of as observableOf } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
+import { Store, StoreModule } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 
-import { ServerSyncBufferEffects } from './server-sync-buffer.effects';
-import { GLOBAL_CONFIG } from '../../../config';
-import { CommitSSBAction, EmptySSBAction, ServerSyncBufferActionTypes } from './server-sync-buffer.actions';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { Store, StoreModule } from '@ngrx/store';
-import { RequestService } from '../data/request.service';
-import { ObjectCacheService } from './object-cache.service';
-import { MockStore } from '../../shared/testing/mock-store';
+import { Observable, of as observableOf } from 'rxjs';
 import * as operators from 'rxjs/operators';
-import { spyOnOperator } from '../../shared/testing/utils';
-import { DSpaceObject } from '../shared/dspace-object.model';
+import { GLOBAL_CONFIG } from '../../../config';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { MockStore } from '../../shared/testing/mock-store';
+import { spyOnOperator } from '../../shared/testing/utils';
+import { RequestService } from '../data/request.service';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
+import { ObjectCacheService } from './object-cache.service';
+import { CommitSSBAction, EmptySSBAction, ServerSyncBufferActionTypes } from './server-sync-buffer.actions';
+
+import { ServerSyncBufferEffects } from './server-sync-buffer.effects';
 
 describe('ServerSyncBufferEffects', () => {
   let ssbEffects: ServerSyncBufferEffects;
@@ -47,8 +47,9 @@ describe('ServerSyncBufferEffects', () => {
         {
           provide: ObjectCacheService, useValue: {
             getObjectBySelfLink: (link) => {
-              const object = new DSpaceObject();
-              object.self = link;
+              const object = Object.assign(new DSpaceObject(), {
+                _links: { self: { href: link } }
+              });
               return observableOf(object);
             }
           }

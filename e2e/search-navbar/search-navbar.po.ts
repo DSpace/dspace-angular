@@ -1,4 +1,4 @@
-import { browser, element, by, protractor } from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 import { promise } from 'selenium-webdriver';
 
 export class ProtractorPage {
@@ -32,9 +32,4 @@ export class ProtractorPage {
   submitByPressingEnter() {
     element(by.css('#search-navbar-container form input[name="query"]')).sendKeys(protractor.Key.ENTER);
   }
-
-  submitByPressingEnter() {
-    element(by.css('#search-navbar-container form input[name="query"]')).sendKeys(protractor.Key.ENTER);
-  }
-
 }
