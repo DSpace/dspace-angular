@@ -55,16 +55,19 @@ export class LinkService {
         parent: this.parentInjector
       }).get(provider);
 
-      const href = model._links[matchingLinkDef.linkName].href;
+      const link = model._links[matchingLinkDef.linkName];
+      if (hasValue(link)) {
+        const href = link.href;
 
-      try {
-        if (matchingLinkDef.isList) {
-          model[linkToFollow.name] = service.findAllByHref(href, linkToFollow.findListOptions, ...linkToFollow.linksToFollow);
-        } else {
-          model[linkToFollow.name] = service.findByHref(href, ...linkToFollow.linksToFollow);
+        try {
+          if (matchingLinkDef.isList) {
+            model[linkToFollow.name] = service.findAllByHref(href, linkToFollow.findListOptions, ...linkToFollow.linksToFollow);
+          } else {
+            model[linkToFollow.name] = service.findByHref(href, ...linkToFollow.linksToFollow);
+          }
+        } catch (e) {
+          throw new Error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} from ${href}`);
         }
-      } catch (e) {
-        throw new Error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} from ${href}`);
       }
     }
     return model;
