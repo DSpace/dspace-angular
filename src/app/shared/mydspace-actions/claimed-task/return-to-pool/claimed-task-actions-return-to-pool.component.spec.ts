@@ -5,11 +5,20 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task-actions-return-to-pool.component';
 import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
+import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { of as observableOf } from 'rxjs/internal/observable/of';
+import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
+import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 
 let component: ClaimedTaskActionsReturnToPoolComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsReturnToPoolComponent>;
 
 describe('ClaimedTaskActionsReturnToPoolComponent', () => {
+  const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
+  const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
+    returnToPoolTask: observableOf(new ProcessTaskResponse(true))
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -19,6 +28,9 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
             useClass: MockTranslateLoader
           }
         })
+      ],
+      providers: [
+        { provide: ClaimedTaskDataService, useValue: claimedTaskService }
       ],
       declarations: [ClaimedTaskActionsReturnToPoolComponent],
       schemas: [NO_ERRORS_SCHEMA]
@@ -30,12 +42,8 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsReturnToPoolComponent);
     component = fixture.componentInstance;
+    component.object = object;
     fixture.detectChanges();
-  });
-
-  afterEach(() => {
-    fixture = null;
-    component = null;
   });
 
   it('should display return to pool button', () => {
@@ -45,7 +53,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   });
 
   it('should display spin icon when return to pool action is pending', () => {
-    component.processingReturnToPool = true;
+    component.processing$.next(true);
     fixture.detectChanges();
 
     const span = fixture.debugElement.query(By.css('.btn-secondary .fa-spin'));
@@ -53,13 +61,13 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
     expect(span).toBeDefined();
   });
 
-  it('should emit return to pool event', () => {
-    spyOn(component.returnToPool, 'emit');
+  it('should emit a successful processCompleted event', () => {
+    spyOn(component.processCompleted, 'emit');
 
-    component.confirmReturnToPool();
+    component.process();
     fixture.detectChanges();
 
-    expect(component.returnToPool.emit).toHaveBeenCalled();
+    expect(component.processCompleted.emit).toHaveBeenCalled();
   });
 
 });

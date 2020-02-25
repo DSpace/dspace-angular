@@ -8,6 +8,10 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ClaimedTaskActionsRejectComponent } from './claimed-task-actions-reject.component';
 import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
+import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { of as observableOf } from 'rxjs/internal/observable/of';
+import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
+import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 
 let component: ClaimedTaskActionsRejectComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsRejectComponent>;
@@ -15,6 +19,11 @@ let formBuilder: FormBuilder;
 let modalService: NgbModal;
 
 describe('ClaimedTaskActionsRejectComponent', () => {
+  const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
+  const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
+    rejectTask: observableOf(new ProcessTaskResponse(true))
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -29,6 +38,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
       ],
       declarations: [ClaimedTaskActionsRejectComponent],
       providers: [
+        { provide: ClaimedTaskDataService, useValue: claimedTaskService },
         FormBuilder,
         NgbModal
       ],
@@ -43,15 +53,9 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     component = fixture.componentInstance;
     formBuilder = TestBed.get(FormBuilder);
     modalService = TestBed.get(NgbModal);
+    component.object = object;
     component.modalRef = modalService.open('ok');
     fixture.detectChanges();
-  });
-
-  afterEach(() => {
-    fixture = null;
-    component = null;
-    modalService = null;
-    formBuilder = null;
   });
 
   it('should init reject form properly', () => {
@@ -67,7 +71,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
   });
 
   it('should display spin icon when reject is pending', () => {
-    component.processingReject = true;
+    component.processing$.next(true);
     fixture.detectChanges();
 
     const span = fixture.debugElement.query(By.css('.btn-danger .fa-spin'));
@@ -87,8 +91,8 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     component.modalRef.close()
   });
 
-  it('should call confirmReject on form submit', () => {
-    spyOn(component.reject, 'emit');
+  it('should call processCompleted on form submit', () => {
+    spyOn(component.processCompleted, 'emit');
 
     const btn = fixture.debugElement.query(By.css('.btn-danger'));
     btn.nativeElement.click();
@@ -100,9 +104,6 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     form.dispatchEvent(new Event('ngSubmit'));
     fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      expect(component.reject.emit).toHaveBeenCalled();
-    });
-
+    expect(component.processCompleted.emit).toHaveBeenCalled();
   });
 });

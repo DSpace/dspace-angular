@@ -3,13 +3,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task-actions-approve.component';
+import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task-actions-edit-metadata.component';
 import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
+import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 
 let component: ClaimedTaskActionsEditMetadataComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsEditMetadataComponent>;
 
-describe('ClaimedTaskActionsApproveComponent', () => {
+describe('ClaimedTaskActionsEditMetadataComponent', () => {
+  const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -30,36 +33,14 @@ describe('ClaimedTaskActionsApproveComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsEditMetadataComponent);
     component = fixture.componentInstance;
+    component.object = object;
     fixture.detectChanges();
   });
 
-  afterEach(() => {
-    fixture = null;
-    component = null;
-  });
-
-  it('should display approve button', () => {
-    const btn = fixture.debugElement.query(By.css('.btn-success'));
+  it('should display edit button', () => {
+    const btn = fixture.debugElement.query(By.css('.btn-primary'));
 
     expect(btn).toBeDefined();
-  });
-
-  it('should display spin icon when approve is pending', () => {
-    component.processingApprove = true;
-    fixture.detectChanges();
-
-    const span = fixture.debugElement.query(By.css('.btn-success .fa-spin'));
-
-    expect(span).toBeDefined();
-  });
-
-  it('should emit approve event', () => {
-    spyOn(component.approve, 'emit');
-
-    component.confirmApprove();
-    fixture.detectChanges();
-
-    expect(component.approve.emit).toHaveBeenCalled();
   });
 
 });

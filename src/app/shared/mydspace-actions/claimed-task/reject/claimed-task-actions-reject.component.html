@@ -1,5 +1,5 @@
 <ng-template #rejectTipContent><p [innerHTML]="'submission.workflow.tasks.claimed.reject_help' | translate"></p></ng-template>
-<button [className]="'btn btn-danger ' + wrapperClass"
+<button [className]="'btn btn-danger'"
         [ngbTooltip]="rejectTipContent"
         [disabled]="processing$ | async"
         (click)="openRejectModal(rejectModal)" >
