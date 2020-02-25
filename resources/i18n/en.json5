@@ -1110,6 +1110,10 @@
 
 
 
+  "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
+
+
+
   "journal.listelement.badge": "Journal",
 
   "journal.page.description": "Description",
