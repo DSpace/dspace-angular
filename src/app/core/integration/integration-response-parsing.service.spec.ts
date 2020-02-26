@@ -9,7 +9,6 @@ import { IntegrationRequest } from '../data/request.models';
 import { AuthorityEntry } from './models/authority-entry.model';
 import { PageInfo } from '../shared/page-info.model';
 import { IntegrationResponseParsingService } from './integration-response-parsing.service';
-import { AuthorityValue } from './models/authority.value';
 
 describe('IntegrationResponseParsingService', () => {
   let service: IntegrationResponseParsingService;
@@ -43,7 +42,7 @@ describe('IntegrationResponseParsingService', () => {
       }
     });
     definitions = new PaginatedList(pageInfo, [
-      Object.assign(new AuthorityValue(), {
+      Object.assign(new AuthorityEntry(), {
         type: 'authorityEntry',
         display: 'One',
         id: 'One',

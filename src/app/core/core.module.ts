@@ -88,14 +88,12 @@ import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
 import { AuthorityService } from './integration/authority.service';
 import { IntegrationResponseParsingService } from './integration/integration-response-parsing.service';
-import { AuthorityValue } from './integration/models/authority.value';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
 import { MetadataService } from './metadata/metadata.service';
 import { RegistryService } from './registry/registry.service';
 import { RoleService } from './roles/role.service';
-
 import { ApiService } from './services/api.service';
 import { ServerResponseService } from './services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from './services/window.service';
@@ -135,6 +133,10 @@ import { PoolTask } from './tasks/models/pool-task-object.model';
 import { TaskObject } from './tasks/models/task-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { AuthorityTreeviewService } from '../shared/authority-treeview/authority-treeview.service';
+import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { Authority } from './integration/models/authority.model';
+import { AuthorityEntry } from './integration/models/authority-entry.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -292,7 +294,8 @@ export const models =
     SubmissionSectionModel,
     SubmissionUploadsModel,
     AuthStatus,
-    AuthorityValue,
+    Authority,
+    AuthorityEntry,
     BrowseEntry,
     BrowseDefinition,
     ClaimedTask,
