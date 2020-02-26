@@ -12,8 +12,8 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
-    selector: 'ds-epeople-registry',
-    templateUrl: './epeople-registry.component.html',
+  selector: 'ds-epeople-registry',
+  templateUrl: './epeople-registry.component.html',
 })
 /**
  * A component used for managing all existing epeople within the repository.

@@ -1,7 +1,7 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { RouterModule } from '@angular/router';
 import { getAdminModulePath } from '../app-routing.module';
+import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
@@ -28,8 +28,8 @@ export function getRegistriesModulePath() {
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: AdminSearchPageComponent,
         data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' }
-      },
-    ])
+      }
+    ]),
   ]
 })
 export class AdminRoutingModule {
