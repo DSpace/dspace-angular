@@ -1,13 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, Injector, Optional } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+import { Subscription } from 'rxjs';
+import { distinctUntilChanged, startWith } from 'rxjs/operators';
 
 import {
-  DYNAMIC_FORM_CONTROL_ACTION_DISABLE,
-  DYNAMIC_FORM_CONTROL_ACTION_ENABLE,
-  DYNAMIC_FORM_CONTROL_CONNECTIVE_AND,
-  DYNAMIC_FORM_CONTROL_CONNECTIVE_OR,
+  AND_OPERATOR,
+  DYNAMIC_MATCHERS,
+  DynamicFormControlCondition,
+  DynamicFormControlMatcher,
   DynamicFormControlModel,
   DynamicFormControlRelation,
-  DynamicFormControlRelationGroup
+  DynamicFormRelationService,
+  OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 
 import { isUndefined } from '../../../empty.util';
@@ -16,7 +21,10 @@ import { FormBuilderService } from '../form-builder.service';
 @Injectable()
 export class DsDynamicTypeBindRelationService {
 
-  constructor(protected formBuilderService: FormBuilderService) {
+  constructor(@Optional() @Inject(DYNAMIC_MATCHERS) private dynamicMatchers: DynamicFormControlMatcher[],
+              protected dynamicFormRelationService: DynamicFormRelationService,
+              protected formBuilderService: FormBuilderService,
+              protected injector: Injector) {
 
   }
 
@@ -24,7 +32,7 @@ export class DsDynamicTypeBindRelationService {
 
     const models: DynamicFormControlModel[] = [];
 
-    (model as any).typeBind.forEach((relGroup) => relGroup.when.forEach((rel) => {
+    (model as any).typeBindRelations.forEach((relGroup) => relGroup.when.forEach((rel) => {
 
       if (model.id === rel.id) {
         throw new Error(`FormControl ${model.id} cannot depend on itself`);
@@ -40,42 +48,76 @@ export class DsDynamicTypeBindRelationService {
     return models;
   }
 
-  public isFormControlToBeHidden(relGroup: DynamicFormControlRelationGroup): boolean {
+  public matchesCondition(relation: DynamicFormControlRelation, matcher: DynamicFormControlMatcher): boolean {
 
-    return relGroup.when.reduce((toBeDisabled: boolean, rel: DynamicFormControlRelation, index: number) => {
+    const operator = relation.operator || OR_OPERATOR;
+
+    return relation.when.reduce((hasAlreadyMatched: boolean, condition: DynamicFormControlCondition, index: number) => {
 
       const bindModel: any = this.formBuilderService.getTypeBindModel();
 
       const value = (isUndefined(bindModel.value) || typeof bindModel.value === 'string') ? bindModel.value : bindModel.value.value;
 
-      if (bindModel && relGroup.action === DYNAMIC_FORM_CONTROL_ACTION_DISABLE) {
+      if (bindModel && relation.match === matcher.match) {
 
-        if (index > 0 && relGroup.connective === DYNAMIC_FORM_CONTROL_CONNECTIVE_AND && !toBeDisabled) {
+        if (index > 0 && operator === AND_OPERATOR && !hasAlreadyMatched) {
           return false;
         }
 
-        if (index > 0 && relGroup.connective === DYNAMIC_FORM_CONTROL_CONNECTIVE_OR && toBeDisabled) {
+        if (index > 0 && operator === OR_OPERATOR && hasAlreadyMatched) {
           return true;
         }
 
-        return rel.value === value;
+        return condition.value === value;
       }
 
-      if (bindModel && relGroup.action === DYNAMIC_FORM_CONTROL_ACTION_ENABLE) {
+      if (bindModel && relation.match === matcher.opposingMatch) {
 
-        if (index > 0 && relGroup.connective === DYNAMIC_FORM_CONTROL_CONNECTIVE_AND && toBeDisabled) {
+        if (index > 0 && operator === AND_OPERATOR && hasAlreadyMatched) {
           return true;
         }
 
-        if (index > 0 && relGroup.connective === DYNAMIC_FORM_CONTROL_CONNECTIVE_OR && !toBeDisabled) {
+        if (index > 0 && operator === OR_OPERATOR && !hasAlreadyMatched) {
           return false;
         }
 
-        return isUndefined(value) || !(rel.value === value);
+        return !(condition.value === value);
       }
 
       return false;
 
     }, false);
+  }
+
+  subscribeRelations(model: DynamicFormControlModel, control: FormControl): Subscription[] {
+
+    const relatedModels = this.getRelatedFormModel(model);
+    const subscriptions: Subscription[] = [];
+
+    Object.values(relatedModels).forEach((relatedModel: any) => {
+
+      const initValue = (isUndefined(relatedModel.value) || typeof relatedModel.value === 'string') ? relatedModel.value : relatedModel.value.value;
+
+      const valueChanges = relatedModel.valueUpdates.pipe(
+        startWith(initValue),
+        distinctUntilChanged()
+      );
+
+      subscriptions.push(valueChanges.subscribe(() => {
+
+        this.dynamicMatchers.forEach((matcher) => {
+
+          const relation = this.dynamicFormRelationService.findRelationByMatcher((model as any).typeBindRelations, matcher);
+
+          if (relation !== undefined) {
+
+            const hasMatch = this.matchesCondition(relation, matcher);
+            matcher.onChange(hasMatch, model, control, this.injector);
+          }
+        });
+      }));
+    });
+
+    return subscriptions;
   }
 }

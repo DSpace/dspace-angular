@@ -32,17 +32,16 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
   DynamicDatePickerModel,
   DynamicFormArrayGroupModel,
+  DynamicFormComponentService,
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicFormControlRelationGroup,
-  DynamicFormInstancesService,
   DynamicFormLayout,
-  DynamicFormLayoutService, DynamicFormRelationService,
+  DynamicFormLayoutService,
+  DynamicFormRelationService,
   DynamicFormValidationService,
   DynamicTemplateDirective,
-  findActivationRelation,
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -85,7 +84,7 @@ import {
 } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
@@ -317,8 +316,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         this.model.placeholder = this.translateService.instant(this.model.placeholder);
       }
 
-      if (this.model.typeBind && this.model.typeBind.length > 0) {
-        this.setControlTypeBindRelations();
+      if (this.model.typeBindRelations && this.model.typeBindRelations.length > 0) {
+        this.subscriptions.push(...this.typeBindRelationService.subscribeRelations(this.model, this.control));
       }
     }
   }
@@ -334,35 +333,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.showErrorMessagesPreviousStage = this.showErrorMessages;
   }
 
-  protected setControlTypeBindRelations(): void {
-
-    const typeBindRelActivation = findActivationRelation(this.model.typeBind);
-
-    if (typeBindRelActivation !== null) {
-
-      const rel = typeBindRelActivation as DynamicFormControlRelationGroup;
-
-      this.updateModelHidden(rel);
-
-      this.typeBindRelationService.getRelatedFormModel(this.model)
-        .forEach((model: any) => {
-
-          this.subscriptions.push(
-            model.valueUpdates.pipe(
-              distinctUntilChanged()
-            ).subscribe(() => {
-              this.updateModelHidden(typeBindRelActivation);
-            })
-          );
-        });
-    }
-  }
-
-  updateModelHidden(relation: DynamicFormControlRelationGroup): void {
-    this.model.disabledUpdates.next(this.typeBindRelationService.isFormControlToBeHidden(relation));
-    this.model.hiddenUpdates.next(this.typeBindRelationService.isFormControlToBeHidden(relation));
-  }
-
   protected createFormControlComponent(): void {
     super.createFormControlComponent();
 
@@ -373,7 +343,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         index = this.context.index;
       }
 
-      const instance = this.dynamicFormInstanceService.getFormControlInstance(this.model, index);
+      const instance = this.dynamicFormComponentService.getFormControlRef(this.model, index);
       if (instance) {
         (instance as any).formModel = this.formModel;
         (instance as any).formGroup = this.formGroup;
