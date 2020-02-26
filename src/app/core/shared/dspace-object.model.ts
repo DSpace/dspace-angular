@@ -69,6 +69,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
 
   /**
    * The name for this DSpaceObject
+   * @deprecated use {@link DSONameService} instead
    */
   get name(): string {
     return (isUndefined(this._name)) ? this.firstMetadataValue('dc.title') : this._name;
