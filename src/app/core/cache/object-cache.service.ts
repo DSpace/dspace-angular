@@ -276,6 +276,8 @@ export class ObjectCacheService {
    *     list of operations to perform
    */
   public addPatch(selfLink: string, patch: Operation[]) {
+    console.log('selfLink addPatch', selfLink)
+    console.log('patch addPatch', patch)
     this.store.dispatch(new AddPatchObjectCacheAction(selfLink, patch));
     this.store.dispatch(new AddToSSBAction(selfLink, RestRequestMethod.PATCH));
   }
