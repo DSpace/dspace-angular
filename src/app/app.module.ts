@@ -3,12 +3,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { META_REDUCERS, MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
+import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
+import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -21,7 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { appEffects } from './app.effects';
-import { appMetaReducers, debugMetaReducers, universalMetaReducer } from './app.metareducers';
+import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 import { appReducers, AppState } from './app.reducer';
 
 import { CoreModule } from './core/core.module';
@@ -97,7 +96,8 @@ const PROVIDERS = [
     provide: RouterStateSerializer,
     useClass: DSpaceRouterStateSerializer
   },
-  ClientCookieService
+  ClientCookieService,
+  ...DYNAMIC_MATCHER_PROVIDERS,
 ];
 
 const DECLARATIONS = [
