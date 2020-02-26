@@ -23,7 +23,6 @@ import { EPersonMock } from '../../shared/testing/eperson-mock';
 import { AppState } from '../../app.reducer';
 import { ClientCookieService } from '../services/client-cookie.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 import { routeServiceStub } from '../../shared/testing/route-service-stub';
 import { RouteService } from '../services/route.service';
 import { authMethodsMock } from '../../shared/testing/auth-service-stub';
@@ -64,7 +63,7 @@ describe('AuthService test', () => {
     linkService = {
       resolveLinks: {}
     };
-    spyOn(linkService, 'resolveLinks').and.returnValue({authenticated: true, eperson: observableOf({payload: {}})});
+    spyOn(linkService, 'resolveLinks').and.returnValue({ authenticated: true, eperson: observableOf({ payload: {} }) });
 
   }
 
@@ -272,7 +271,7 @@ describe('AuthService test', () => {
       expect(storage.remove).toHaveBeenCalled();
     });
 
-    it ('should set redirect url to previous page', () => {
+    it('should set redirect url to previous page', () => {
       spyOn(routeServiceMock, 'getHistory').and.callThrough();
       spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(true);
@@ -280,7 +279,7 @@ describe('AuthService test', () => {
       expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/collection/123');
     });
 
-    it ('should set redirect url to current page', () => {
+    it('should set redirect url to current page', () => {
       spyOn(routeServiceMock, 'getHistory').and.callThrough();
       spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(false);
@@ -288,7 +287,7 @@ describe('AuthService test', () => {
       expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/home');
     });
 
-    it ('should redirect to / and not to /login', () => {
+    it('should redirect to / and not to /login', () => {
       spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['/login', '/login']));
       spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(true);
@@ -296,7 +295,7 @@ describe('AuthService test', () => {
       expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/');
     });
 
-    it ('should redirect to / when no redirect url is found', () => {
+    it('should redirect to / when no redirect url is found', () => {
       spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['']));
       spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(true);
