@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { AdminRegistriesModule } from './admin-registries/admin-registries.module';
-import { AdminRoutingModule } from './admin-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { AdminAccessControlModule } from './admin-access-control/admin-access-control.module';
+import { AdminRegistriesModule } from './admin-registries/admin-registries.module';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
 import { SearchPageModule } from '../+search-page/search-page.module';
 import { ItemAdminSearchResultListElementComponent } from './admin-search-page/admin-search-results/admin-search-result-list-element/item-search-result/item-admin-search-result-list-element.component';
@@ -15,7 +15,7 @@ import { ItemAdminSearchResultActionsComponent } from './admin-search-page/admin
 @NgModule({
   imports: [
     AdminRegistriesModule,
-    AdminRoutingModule,
+    AdminAccessControlModule,
     SharedModule,
     SearchPageModule
   ],

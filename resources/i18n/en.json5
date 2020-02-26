@@ -170,6 +170,66 @@
 
 
 
+  "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
+
+  "admin.access-control.epeople.head": "EPeople",
+
+  "admin.access-control.epeople.search.head": "Search",
+
+  "admin.access-control.epeople.search.scope.name": "Name",
+
+  "admin.access-control.epeople.search.scope.email": "E-mail",
+
+  "admin.access-control.epeople.search.scope.metadata": "Metadata",
+
+  "admin.access-control.epeople.search.button": "Search",
+
+  "admin.access-control.epeople.button.add": "Add EPerson",
+
+  "admin.access-control.epeople.table.id": "ID",
+
+  "admin.access-control.epeople.table.name": "Name",
+
+  "admin.access-control.epeople.table.email": "E-mail",
+
+  "admin.access-control.epeople.table.edit": "Edit",
+
+  "item.access-control.epeople.table.edit.buttons.edit": "Edit",
+
+  "item.access-control.epeople.table.edit.buttons.remove": "Remove",
+
+  "admin.access-control.epeople.no-items": "No EPeople to show.",
+
+  "admin.access-control.epeople.form.create": "Create EPerson",
+
+  "admin.access-control.epeople.form.edit": "Edit EPerson",
+
+  "admin.access-control.epeople.form.firstName": "First name",
+
+  "admin.access-control.epeople.form.lastName": "Last name",
+
+  "admin.access-control.epeople.form.email": "E-mail",
+
+  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+
+  "admin.access-control.epeople.form.canLogIn": "Can log in",
+
+  "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+
+  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+
+  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+
+
+
   "admin.search.breadcrumbs": "Administrative Search",
 
   "admin.search.collection.edit": "Edit",
@@ -1500,7 +1560,7 @@
   "relationships.isSingleVolumeOf": "Journal Volume",
 
   "relationships.isVolumeOf": "Journal Volumes",
-  
+
   "relationships.isContributorOf": "Contributors",
 
 
