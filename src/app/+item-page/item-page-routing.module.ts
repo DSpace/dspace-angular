@@ -16,7 +16,7 @@ export function getItemPageRoute(itemId: string) {
 }
 
 export function getItemEditPath(id: string) {
-  return new URLCombiner(getItemModulePath(), ITEM_EDIT_PATH.replace(/:id/, id)).toString()
+  return new URLCombiner(getItemModulePath(), id, ITEM_EDIT_PATH).toString()
 }
 
 const ITEM_EDIT_PATH = 'edit';

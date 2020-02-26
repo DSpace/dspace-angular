@@ -21,7 +21,7 @@ export function getCollectionPageRoute(collectionId: string) {
 }
 
 export function getCollectionEditPath(id: string) {
-  return new URLCombiner(getCollectionModulePath(), COLLECTION_EDIT_PATH.replace(/:id/, id)).toString()
+  return new URLCombiner(getCollectionModulePath(), id, COLLECTION_EDIT_PATH).toString()
 }
 
 export function getCollectionCreatePath() {

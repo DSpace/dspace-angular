@@ -266,6 +266,8 @@
 
   "collection.edit.head": "Edit Collection",
 
+  "collection.edit.breadcrumbs": "Edit Collection",
+
 
 
   "collection.edit.item-mapper.cancel": "Cancel",
@@ -450,6 +452,7 @@
 
   "community.edit.head": "Edit Community",
 
+  "community.edit.breadcrumbs": "Edit Community",
 
 
   "community.edit.logo.label": "Community logo",
@@ -656,6 +659,8 @@
   "item.edit.delete.success": "The item has been deleted",
 
   "item.edit.head": "Edit Item",
+
+  "item.edit.breadcrumbs": "Edit Item",
 
 
 
@@ -1077,6 +1082,8 @@
 
   "login.title": "Login",
 
+  "login.breadcrumbs": "Login",
+
 
 
   "logout.form.header": "Log out from DSpace",
@@ -1473,6 +1480,7 @@
 
   "search.title": "DSpace Angular :: Search",
 
+  "search.breadcrumbs": "Search",
 
 
   "search.filters.applied.f.author": "Author",

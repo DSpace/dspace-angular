@@ -7,7 +7,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: '', pathMatch: 'full', component: LoginPageComponent, resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { breadcrumbKey: 'Search', title: 'login.title' } }
+      { path: '', pathMatch: 'full', component: LoginPageComponent, resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { breadcrumbKey: 'login', title: 'login.title' } }
     ])
   ]
 })

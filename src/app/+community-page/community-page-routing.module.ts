@@ -20,7 +20,7 @@ export function getCommunityPageRoute(communityId: string) {
 }
 
 export function getCommunityEditPath(id: string) {
-  return new URLCombiner(getCommunityModulePath(), COMMUNITY_EDIT_PATH.replace(/:id/, id)).toString()
+  return new URLCombiner(getCommunityModulePath(), id, COMMUNITY_EDIT_PATH).toString()
 }
 
 export function getCommunityCreatePath() {

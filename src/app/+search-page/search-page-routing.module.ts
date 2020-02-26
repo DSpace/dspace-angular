@@ -11,7 +11,7 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
   imports: [
     RouterModule.forChild([{
         path: '',
-        resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { title: 'search.title', breadcrumbKey: 'Search' },
+        resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { title: 'search.title', breadcrumbKey: 'search' },
         children: [
           { path: '', component: SearchPageComponent },
           { path: ':configuration', component: ConfigurationSearchPageComponent, canActivate: [ConfigurationSearchPageGuard] }

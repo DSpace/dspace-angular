@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { ItemDataService } from '../data/item-data.service';
-import { Item } from '../shared/item.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { Collection } from '../shared/collection.model';
 import { CollectionDataService } from '../data/collection-data.service';

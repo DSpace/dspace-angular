@@ -33,7 +33,7 @@ const ITEM_EDIT_MOVE_PATH = 'move';
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
         },
-        data: { breadcrumbKey: 'edit.item' },
+        data: { breadcrumbKey: 'item.edit' },
         children: [
           {
             path: '',

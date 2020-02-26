@@ -5,6 +5,7 @@ import { CollectionMetadataComponent } from './collection-metadata/collection-me
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
 import { CollectionCurateComponent } from './collection-curate/collection-curate.component';
+import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 /**
  * Routing module that handles the routing for the Edit Collection page administrator functionality
@@ -14,6 +15,10 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
     RouterModule.forChild([
       {
         path: '',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: { breadcrumbKey: 'collection.edit' },
         component: EditCollectionPageComponent,
         children: [
           {
