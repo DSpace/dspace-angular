@@ -5,7 +5,7 @@ import { Item } from '../shared/item.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 
 /**
- * The class that resolve the BreadcrumbConfig object for a route
+ * The class that resolves the BreadcrumbConfig object for an Item
  */
 @Injectable()
 export class ItemBreadcrumbResolver extends DSOBreadcrumbResolver<Item> {

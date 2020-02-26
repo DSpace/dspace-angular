@@ -5,7 +5,7 @@ import { Collection } from '../shared/collection.model';
 import { CollectionDataService } from '../data/collection-data.service';
 
 /**
- * The class that resolve the BreadcrumbConfig object for a route
+ * The class that resolves the BreadcrumbConfig object for a Collection
  */
 @Injectable()
 export class CollectionBreadcrumbResolver extends DSOBreadcrumbResolver<Collection> {

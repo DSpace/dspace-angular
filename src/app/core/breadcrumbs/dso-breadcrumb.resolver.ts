@@ -10,7 +10,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
 
 /**
- * The class that resolve the BreadcrumbConfig object for a route
+ * The class that resolves the BreadcrumbConfig object for a DSpaceObject
  */
 @Injectable()
 export class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> implements Resolve<BreadcrumbConfig<T>> {
@@ -18,7 +18,7 @@ export class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> im
   }
 
   /**
-   * Method for resolving a site object
+   * Method for resolving a breadcrumb config object
    * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
    * @param {RouterStateSnapshot} state The current RouterStateSnapshot
    * @returns BreadcrumbConfig object

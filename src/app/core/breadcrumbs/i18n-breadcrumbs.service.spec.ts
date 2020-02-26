@@ -3,7 +3,7 @@ import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { BREADCRUMB_MESSAGE_POSTFIX, I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
 
-fdescribe('I18nBreadcrumbsService', () => {
+describe('I18nBreadcrumbsService', () => {
   let service: I18nBreadcrumbsService;
   let exampleString;
   let exampleURL;

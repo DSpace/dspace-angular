@@ -5,7 +5,7 @@ import { CommunityDataService } from '../data/community-data.service';
 import { Community } from '../shared/community.model';
 
 /**
- * The class that resolve the BreadcrumbConfig object for a route
+ * The class that resolves the BreadcrumbConfig object for a Community
  */
 @Injectable()
 export class CommunityBreadcrumbResolver extends DSOBreadcrumbResolver<Community> {

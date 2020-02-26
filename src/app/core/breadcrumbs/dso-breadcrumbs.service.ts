@@ -12,6 +12,9 @@ import { RemoteData } from '../data/remote-data';
 import { hasValue } from '../../shared/empty.util';
 import { Injectable } from '@angular/core';
 
+/**
+ * Service to calculate DSpaceObject breadcrumbs for a single part of the route
+ */
 @Injectable()
 export class DSOBreadcrumbsService implements BreadcrumbsService<ChildHALResource & DSpaceObject> {
   constructor(
@@ -21,6 +24,12 @@ export class DSOBreadcrumbsService implements BreadcrumbsService<ChildHALResourc
 
   }
 
+  /**
+   * Method to recursively calculate the breadcrumbs
+   * This method returns the name and url of the key and all its parent DSO's recursively, top down
+   * @param key The key (a DSpaceObject) used to resolve the breadcrumb
+   * @param url The url to use as a link for this breadcrumb
+   */
   getBreadcrumbs(key: ChildHALResource & DSpaceObject, url: string): Observable<Breadcrumb[]> {
     const label = this.dsoNameService.getName(key);
     const crumb = new Breadcrumb(label, url);

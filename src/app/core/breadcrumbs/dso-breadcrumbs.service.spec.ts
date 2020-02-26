@@ -5,20 +5,15 @@ import { LinkService } from '../cache/builders/link.service';
 import { Item } from '../shared/item.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { map } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../data/remote-data';
-import { hasValue } from '../../shared/empty.util';
 import { Community } from '../shared/community.model';
 import { Collection } from '../shared/collection.model';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { getItemPageRoute } from '../../+item-page/item-page-routing.module';
-import { getCommunityPageRoute } from '../../+community-page/community-page-routing.module';
-import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing.module';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { getTestScheduler } from 'jasmine-marbles';
 import { getDSOPath } from '../../app-routing.module';
+import { DSONameService } from './dso-name.service';
 
-fdescribe('DSOBreadcrumbsService', () => {
+describe('DSOBreadcrumbsService', () => {
   let service: DSOBreadcrumbsService;
   let linkService: any;
   let testItem;
@@ -33,7 +28,7 @@ fdescribe('DSOBreadcrumbsService', () => {
   let collectionUUID;
   let communityUUID;
 
-  let objects: DSpaceObject[];
+  let dsoNameService;
 
   function init() {
     itemPath = '/items/';
@@ -47,7 +42,9 @@ fdescribe('DSOBreadcrumbsService', () => {
     testCommunity = Object.assign(new Community(),
       {
         type: 'community',
-        name: 'community',
+        metadata: {
+          'dc.title': [{value: 'community'}]
+        },
         uuid: communityUUID,
         parentCommunity: observableOf(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
 
@@ -61,7 +58,9 @@ fdescribe('DSOBreadcrumbsService', () => {
     testCollection = Object.assign(new Collection(),
       {
         type: 'collection',
-        name: 'collection',
+        metadata: {
+          'dc.title': [{value: 'collection'}]
+        },
         uuid: collectionUUID,
         parentCommunity: createSuccessfulRemoteDataObject$(testCommunity),
         _links: {
@@ -74,7 +73,9 @@ fdescribe('DSOBreadcrumbsService', () => {
     testItem = Object.assign(new Item(),
       {
         type: 'item',
-        name: 'item',
+        metadata: {
+          'dc.title': [{value: 'item'}]
+        },
         uuid: itemUUID,
         owningCollection: createSuccessfulRemoteDataObject$(testCollection),
         _links: {
@@ -84,15 +85,15 @@ fdescribe('DSOBreadcrumbsService', () => {
       }
     );
 
-    objects = [testItem, testCollection, testCommunity];
-
+    dsoNameService = { getName: (dso) => getName(dso) }
   }
 
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
       providers: [
-        { provide: LinkService, useValue: getMockLinkService() }
+        { provide: LinkService, useValue: getMockLinkService() },
+        { provide: DSONameService, useValue: dsoNameService }
       ]
     }).compileComponents();
   }));
@@ -100,18 +101,22 @@ fdescribe('DSOBreadcrumbsService', () => {
   beforeEach(() => {
     linkService = TestBed.get(LinkService);
     linkService.resolveLink.and.callFake((object, link) => object);
-    service = new DSOBreadcrumbsService(linkService);
+    service = new DSOBreadcrumbsService(linkService, dsoNameService);
   });
 
   describe('getBreadcrumbs', () => {
     it('should return the breadcrumbs based on an Item', () => {
       const breadcrumbs = service.getBreadcrumbs(testItem, testItem._links.self);
       const expectedCrumbs = [
-        new Breadcrumb(testCommunity.name, getDSOPath(testCommunity)),
-        new Breadcrumb(testCollection.name, getDSOPath(testCollection)),
-        new Breadcrumb(testItem.name, getDSOPath(testItem)),
+        new Breadcrumb(getName(testCommunity), getDSOPath(testCommunity)),
+        new Breadcrumb(getName(testCollection), getDSOPath(testCollection)),
+        new Breadcrumb(getName(testItem), getDSOPath(testItem)),
       ];
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: expectedCrumbs });
     })
   });
+
+  function getName(dso: DSpaceObject): string {
+    return dso.metadata['dc.title'][0].value
+  }
 });

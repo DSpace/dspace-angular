@@ -5,14 +5,28 @@ import { hasNoValue, hasValue, isNotUndefined } from '../shared/empty.util';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, Observable, Subscription, of as observableOf } from 'rxjs';
 
+/**
+ * Component representing the breadcrumbs of a page
+ */
 @Component({
   selector: 'ds-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss']
 })
 export class BreadcrumbsComponent implements OnInit, OnDestroy {
+  /**
+   * List of breadcrumbs for this page
+   */
   breadcrumbs: Breadcrumb[];
+
+  /**
+   * Whether or not to show breadcrumbs on this page
+   */
   showBreadcrumbs: boolean;
+
+  /**
+   * Subscription to unsubscribe from on destroy
+   */
   subscription: Subscription;
 
   constructor(
@@ -21,6 +35,9 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
   ) {
   }
 
+  /**
+   * Sets the breadcrumbs on init for this page
+   */
   ngOnInit(): void {
     this.subscription = this.router.events.pipe(
       filter((e): e is NavigationEnd => e instanceof NavigationEnd),
@@ -32,6 +49,10 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
     )
   }
 
+  /**
+   * Method that recursively resolves breadcrumbs
+   * @param route The route to get the breadcrumb from
+   */
   resolveBreadcrumbs(route: ActivatedRoute): Observable<Breadcrumb[]> {
     const data = route.snapshot.data;
     const routeConfig = route.snapshot.routeConfig;
@@ -56,12 +77,18 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
     return !last ? this.resolveBreadcrumbs(route.firstChild) : observableOf([]);
   }
 
+  /**
+   * Unsubscribe from subscription
+   */
   ngOnDestroy(): void {
     if (hasValue(this.subscription)) {
       this.subscription.unsubscribe();
     }
   }
 
+  /**
+   * Resets the state of the breadcrumbs
+   */
   reset() {
     this.breadcrumbs = [];
     this.showBreadcrumbs = true;
