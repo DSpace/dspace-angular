@@ -12,6 +12,7 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { VarDirective } from '../../../utils/var.directive';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;
@@ -59,7 +60,7 @@ describe('ClaimedSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
-      declarations: [ClaimedSearchResultListElementComponent],
+      declarations: [ClaimedSearchResultListElementComponent, VarDirective],
       providers: [
         { provide: TruncatableService, useValue: {} },
       ],
@@ -79,8 +80,11 @@ describe('ClaimedSearchResultListElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should init item properly', () => {
-    expect(component.workflowitem).toEqual(workflowitem);
+  it('should init item properly', (done) => {
+    component.workflowitemRD$.subscribe((workflowitemRD) => {
+      expect(workflowitemRD.payload).toEqual(workflowitem);
+      done();
+    });
   });
 
   it('should have properly status', () => {

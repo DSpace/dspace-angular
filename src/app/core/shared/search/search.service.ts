@@ -2,7 +2,7 @@ import { combineLatest as observableCombineLatest, Observable, of as observableO
 import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { first, map, switchMap, tap } from 'rxjs/operators';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { LinkService } from '../../cache/builders/link.service';
 import { FacetConfigSuccessResponse, FacetValueSuccessResponse, SearchSuccessResponse } from '../../cache/response.models';
 import { PaginatedList } from '../../data/paginated-list';
@@ -107,10 +107,11 @@ export class SearchService implements OnDestroy {
    * Method to retrieve a paginated list of search results from the server
    * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
    * @param responseMsToLive The amount of milliseconds for the response to live in cache
+   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
    */
-  search(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
-    return this.getPaginatedResults(this.searchEntries(searchOptions));
+  search<T extends DSpaceObject>(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+    return this.getPaginatedResults<T>(this.searchEntries(searchOptions), ...linksToFollow);
   }
 
   /**
@@ -151,9 +152,10 @@ export class SearchService implements OnDestroy {
   /**
    * Method to convert the parsed responses into a paginated list of search results
    * @param searchEntries: The request entries from the search method
+   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
    */
-  getPaginatedResults(searchEntries: Observable<{ searchOptions: PaginatedSearchOptions, requestEntry: RequestEntry }>): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+  getPaginatedResults<T extends DSpaceObject>(searchEntries: Observable<{ searchOptions: PaginatedSearchOptions, requestEntry: RequestEntry }>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     const requestEntryObs: Observable<RequestEntry> = searchEntries.pipe(
       map((entry) => entry.requestEntry),
     );
@@ -174,7 +176,7 @@ export class SearchService implements OnDestroy {
       }),
       // Send a request for each item to ensure fresh cache
       tap((reqs: RestRequest[]) => reqs.forEach((req: RestRequest) => this.requestService.configure(req))),
-      map((reqs: RestRequest[]) => reqs.map((req: RestRequest) => this.rdb.buildSingle(req.href))),
+      map((reqs: RestRequest[]) => reqs.map((req: RestRequest) => this.rdb.buildSingle(req.href, ...linksToFollow))),
       switchMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input)),
     );
 

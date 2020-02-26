@@ -29,6 +29,8 @@ import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
 import { SearchResult } from '../shared/search/search-result.model';
 import { Context } from '../core/shared/context.model';
+import { followLink } from '../shared/utils/follow-link-config.model';
+import { ClaimedTask } from '../core/tasks/models/claimed-task-object.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -126,7 +128,10 @@ export class MyDSpacePageComponent implements OnInit {
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.sub = this.searchOptions$.pipe(
       tap(() => this.resultsRD$.next(null)),
-      switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getSucceededRemoteData())))
+      switchMap((options: PaginatedSearchOptions) =>
+        this.service.search<ClaimedTask>(options, undefined,
+          followLink('workflowitem', undefined, followLink('item'), followLink('submitter')),
+          followLink('owner')).pipe(getSucceededRemoteData())))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });

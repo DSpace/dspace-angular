@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/operators';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { isNotUndefined } from '../../../empty.util';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
@@ -40,24 +38,13 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   /**
    * The workflowitem object that belonging to the result object
    */
-  public workflowitem: WorkflowItem;
+  public workflowitemRD$: Observable<RemoteData<WorkflowItem>>;
 
   /**
    * Initialize all instance variables
    */
   ngOnInit() {
     super.ngOnInit();
-    this.initWorkflowItem(this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>);
-  }
-
-  /**
-   * Retrieve workflowitem from result object
-   */
-  initWorkflowItem(wfi$: Observable<RemoteData<WorkflowItem>>) {
-    wfi$.pipe(
-      find((rd: RemoteData<WorkflowItem>) => (rd.hasSucceeded && isNotUndefined(rd.payload)))
-    ).subscribe((rd: RemoteData<WorkflowItem>) => {
-      this.workflowitem = rd.payload;
-    });
+    this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
 }
