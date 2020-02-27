@@ -138,6 +138,10 @@ module.exports = {
     label: 'Čeština',
     active: true,
   }, {
+    code: 'hu',
+    label: 'Magyar',
+    active: true,
+  }, {
     code: 'nl',
     label: 'Nederlands',
     active: true,
