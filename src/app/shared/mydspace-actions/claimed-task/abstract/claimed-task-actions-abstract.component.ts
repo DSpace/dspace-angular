@@ -1,11 +1,24 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
+import { WorkflowTaskOptions } from '../workflow-task-options.model';
+import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 
 /**
  * Abstract component for rendering a claimed task's action
+ * To create a child-component for a new option:
+ * - Make sure the option is defined in the WorkflowTaskOptions enum
+ * - Set the "option" of the component to the enum value
+ * - Add a @rendersWorkflowTaskOption annotation to your component providing the same enum value
+ * - Optionally overwrite createBody if the request body requires more than just the option
  */
 export abstract class ClaimedTaskActionsAbstractComponent {
+  /**
+   * The workflow task option the child component represents
+   */
+  abstract option: WorkflowTaskOptions;
+
   /**
    * The Claimed Task to display an action for
    */
@@ -21,8 +34,30 @@ export abstract class ClaimedTaskActionsAbstractComponent {
    */
   processing$ = new BehaviorSubject<boolean>(false);
 
+  constructor(protected claimedTaskService: ClaimedTaskDataService) {
+  }
+
   /**
-   * Method called when the action's button is clicked
+   * Create a request body for submitting the task
+   * Overwrite this method in the child component if the body requires more than just the option
    */
-  abstract process();
+  createbody(): any {
+    return {
+      [this.option]: 'true'
+    };
+  }
+
+  /**
+   * Submit the task for this option
+   * While the task is submitting, processing$ is set to true and processCompleted emits the response's status when
+   * completed
+   */
+  submitTask() {
+    this.processing$.next(true);
+    this.claimedTaskService.submitTask(this.object.id, this.createbody())
+      .subscribe((res: ProcessTaskResponse) => {
+        this.processing$.next(false);
+        this.processCompleted.emit(res.hasSucceeded);
+      });
+  }
 }

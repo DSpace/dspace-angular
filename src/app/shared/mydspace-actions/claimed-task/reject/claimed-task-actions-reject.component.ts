@@ -1,13 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
+import { WorkflowTaskOptions } from '../workflow-task-options.model';
 
-@rendersWorkflowTaskOption('submit_reject')
+@rendersWorkflowTaskOption(WorkflowTaskOptions.Reject)
 @Component({
   selector: 'ds-claimed-task-actions-reject',
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
@@ -18,10 +18,9 @@ import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-deco
  */
 export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
   /**
-   * An event fired when a reject action is confirmed.
-   * Event's payload equals to reject reason.
+   * This component represents the edit metadata option
    */
-  @Output() reject: EventEmitter<string> = new EventEmitter<string>();
+  option = WorkflowTaskOptions.Reject;
 
   /**
    * The reject form group
@@ -43,7 +42,7 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
   constructor(protected claimedTaskService: ClaimedTaskDataService,
               private formBuilder: FormBuilder,
               private modalService: NgbModal) {
-    super();
+    super(claimedTaskService);
   }
 
   /**
@@ -56,17 +55,20 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
   }
 
   /**
-   * Reject the task
+   * Create the request body for rejecting a workflow task
+   * Includes the reason from the form
    */
-  process() {
-    this.processing$.next(true);
+  createbody(): any {
     const reason = this.rejectForm.get('reason').value;
+    return Object.assign(super.createbody(), { reason });
+  }
+
+  /**
+   * Submit a reject option for the task
+   */
+  submitTask() {
     this.modalRef.close('Send Button');
-    this.claimedTaskService.rejectTask(reason, this.object.id)
-      .subscribe((res: ProcessTaskResponse) => {
-        this.processing$.next(false);
-        this.processCompleted.emit(res.hasSucceeded);
-      });
+    super.submitTask();
   }
 
   /**

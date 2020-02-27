@@ -6,6 +6,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task-actions-edit-metadata.component';
 import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 
 let component: ClaimedTaskActionsEditMetadataComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsEditMetadataComponent>;
@@ -22,6 +23,9 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
             useClass: MockTranslateLoader
           }
         })
+      ],
+      providers: [
+        { provide: ClaimedTaskDataService, useValue: {} }
       ],
       declarations: [ClaimedTaskActionsEditMetadataComponent],
       schemas: [NO_ERRORS_SCHEMA]

@@ -21,7 +21,7 @@
     <div class="alert alert-info" role="alert">
       {{'submission.workflow.tasks.claimed.reject.reason.info' | translate}}
     </div>
-    <form (ngSubmit)="process(rejectModal);" [formGroup]="rejectForm" >
+    <form (ngSubmit)="submitTask(rejectModal);" [formGroup]="rejectForm" >
       <textarea style="width: 100%"
                 formControlName="reason"
                 rows="4"

@@ -16,7 +16,7 @@ let fixture: ComponentFixture<ClaimedTaskActionsApproveComponent>;
 describe('ClaimedTaskActionsApproveComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    approveTask: observableOf(new ProcessTaskResponse(true))
+    submitTask: observableOf(new ProcessTaskResponse(true))
   });
 
   beforeEach(async(() => {
@@ -61,13 +61,27 @@ describe('ClaimedTaskActionsApproveComponent', () => {
     expect(span).toBeDefined();
   });
 
-  it('should emit a successful processCompleted event', () => {
-    spyOn(component.processCompleted, 'emit');
+  describe('submitTask', () => {
+    let expectedBody;
 
-    component.process();
-    fixture.detectChanges();
+    beforeEach(() => {
+      spyOn(component.processCompleted, 'emit');
 
-    expect(component.processCompleted.emit).toHaveBeenCalled();
+      expectedBody = {
+        [component.option]: 'true'
+      };
+
+      component.submitTask();
+      fixture.detectChanges();
+    });
+
+    it('should call claimedTaskService\'s submitTask with the expected body', () => {
+      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
+    });
+
+    it('should emit a successful processCompleted event', () => {
+      expect(component.processCompleted.emit).toHaveBeenCalledWith(true);
+    });
   });
 
 });

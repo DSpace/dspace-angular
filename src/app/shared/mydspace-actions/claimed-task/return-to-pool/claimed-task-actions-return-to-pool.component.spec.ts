@@ -61,13 +61,21 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
     expect(span).toBeDefined();
   });
 
-  it('should emit a successful processCompleted event', () => {
-    spyOn(component.processCompleted, 'emit');
+  describe('submitTask', () => {
+    beforeEach(() => {
+      spyOn(component.processCompleted, 'emit');
 
-    component.process();
-    fixture.detectChanges();
+      component.submitTask();
+      fixture.detectChanges();
+    });
 
-    expect(component.processCompleted.emit).toHaveBeenCalled();
+    it('should call claimedTaskService\'s returnToPoolTask', () => {
+      expect(claimedTaskService.returnToPoolTask).toHaveBeenCalledWith(object.id)
+    });
+
+    it('should emit a successful processCompleted event', () => {
+      expect(component.processCompleted.emit).toHaveBeenCalledWith(true);
+    });
   });
 
 });

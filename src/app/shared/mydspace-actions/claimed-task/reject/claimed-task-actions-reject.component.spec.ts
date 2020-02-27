@@ -21,7 +21,7 @@ let modalService: NgbModal;
 describe('ClaimedTaskActionsRejectComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    rejectTask: observableOf(new ProcessTaskResponse(true))
+    submitTask: observableOf(new ProcessTaskResponse(true))
   });
 
   beforeEach(async(() => {
@@ -91,19 +91,34 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     component.modalRef.close()
   });
 
-  it('should call processCompleted on form submit', () => {
-    spyOn(component.processCompleted, 'emit');
+  describe('on form submit', () => {
+    let expectedBody;
 
-    const btn = fixture.debugElement.query(By.css('.btn-danger'));
-    btn.nativeElement.click();
-    fixture.detectChanges();
+    beforeEach(() => {
+      spyOn(component.processCompleted, 'emit');
 
-    expect(component.modalRef).toBeDefined();
+      expectedBody = {
+        [component.option]: 'true',
+        reason: null
+      };
 
-    const form = ((document as any).querySelector('form'));
-    form.dispatchEvent(new Event('ngSubmit'));
-    fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('.btn-danger'));
+      btn.nativeElement.click();
+      fixture.detectChanges();
 
-    expect(component.processCompleted.emit).toHaveBeenCalled();
+      expect(component.modalRef).toBeDefined();
+
+      const form = ((document as any).querySelector('form'));
+      form.dispatchEvent(new Event('ngSubmit'));
+      fixture.detectChanges();
+    });
+
+    it('should call claimedTaskService\'s submitTask with the expected body', () => {
+      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
+    });
+
+    it('should emit a successful processCompleted event', () => {
+      expect(component.processCompleted.emit).toHaveBeenCalledWith(true);
+    });
   });
 });

@@ -7,6 +7,7 @@ import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
+import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 
 describe('ClaimedTaskActionsLoaderComponent', () => {
   let comp: ClaimedTaskActionsLoaderComponent;
@@ -20,7 +21,10 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ClaimedTaskActionsLoaderComponent, ClaimedTaskActionsEditMetadataComponent, ClaimedTaskActionsDirective],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [ComponentFactoryResolver]
+      providers: [
+        { provide: ClaimedTaskDataService, useValue: {} },
+        ComponentFactoryResolver
+      ]
     }).overrideComponent(ClaimedTaskActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,

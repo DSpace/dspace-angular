@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
+import { WorkflowTaskOptions } from '../workflow-task-options.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 
-@rendersWorkflowTaskOption('submit_edit_metadata')
+@rendersWorkflowTaskOption(WorkflowTaskOptions.EditMetadata)
 @Component({
   selector: 'ds-claimed-task-actions-edit-metadata',
   styleUrls: ['./claimed-task-actions-edit-metadata.component.scss'],
@@ -14,7 +14,12 @@ import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data
  * Component for displaying the edit metadata action on a workflow task item
  */
 export class ClaimedTaskActionsEditMetadataComponent extends ClaimedTaskActionsAbstractComponent {
-  process() {
-    // Nothing needs to happen for the edit-metadata button, it simply renders a link to another page
+  /**
+   * This component represents the edit metadata option
+   */
+  option = WorkflowTaskOptions.EditMetadata;
+
+  constructor(protected claimedTaskService: ClaimedTaskDataService) {
+    super(claimedTaskService);
   }
 }
