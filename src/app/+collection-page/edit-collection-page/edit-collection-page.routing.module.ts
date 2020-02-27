@@ -31,23 +31,24 @@ import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.r
             component: CollectionMetadataComponent,
             data: {
               title: 'collection.edit.tabs.metadata.title',
-              hideReturnButton: true
+              hideReturnButton: true,
+              showBreadcrumbs: true
             }
           },
           {
             path: 'roles',
             component: CollectionRolesComponent,
-            data: { title: 'collection.edit.tabs.roles.title' }
+            data: { title: 'collection.edit.tabs.roles.title', showBreadcrumbs: true }
           },
           {
             path: 'source',
             component: CollectionSourceComponent,
-            data: { title: 'collection.edit.tabs.source.title' }
+            data: { title: 'collection.edit.tabs.source.title', showBreadcrumbs: true }
           },
           {
             path: 'curate',
             component: CollectionCurateComponent,
-            data: { title: 'collection.edit.tabs.curate.title' }
+            data: { title: 'collection.edit.tabs.curate.title', showBreadcrumbs: true }
           }
         ]
       }

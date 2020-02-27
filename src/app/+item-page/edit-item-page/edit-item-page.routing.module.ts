@@ -47,34 +47,34 @@ const ITEM_EDIT_MOVE_PATH = 'move';
               {
                 path: 'status',
                 component: ItemStatusComponent,
-                data: { title: 'item.edit.tabs.status.title' }
+                data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true }
               },
               {
                 path: 'bitstreams',
                 component: ItemBitstreamsComponent,
-                data: { title: 'item.edit.tabs.bitstreams.title' }
+                data: { title: 'item.edit.tabs.bitstreams.title', showBreadcrumbs: true }
               },
               {
                 path: 'metadata',
                 component: ItemMetadataComponent,
-                data: { title: 'item.edit.tabs.metadata.title' }
+                data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true }
               },
               {
                 path: 'relationships',
                 component: ItemRelationshipsComponent,
-                data: { title: 'item.edit.tabs.relationships.title' }
+                data: { title: 'item.edit.tabs.relationships.title', showBreadcrumbs: true }
               },
               {
                 path: 'view',
                 /* TODO - change when view page exists */
                 component: ItemBitstreamsComponent,
-                data: { title: 'item.edit.tabs.view.title' }
+                data: { title: 'item.edit.tabs.view.title', showBreadcrumbs: true }
               },
               {
                 path: 'curate',
                 /* TODO - change when curate page exists */
                 component: ItemBitstreamsComponent,
-                data: { title: 'item.edit.tabs.curate.title' }
+                data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true }
               }
             ]
           },

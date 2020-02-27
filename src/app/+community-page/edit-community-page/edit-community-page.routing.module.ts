@@ -31,18 +31,19 @@ import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.r
             component: CommunityMetadataComponent,
             data: {
               title: 'community.edit.tabs.metadata.title',
-              hideReturnButton: true
+              hideReturnButton: true,
+              showBreadcrumbs: true
             }
           },
           {
             path: 'roles',
             component: CommunityRolesComponent,
-            data: { title: 'community.edit.tabs.roles.title' }
+            data: { title: 'community.edit.tabs.roles.title', showBreadcrumbs: true }
           },
           {
             path: 'curate',
             component: CommunityCurateComponent,
-            data: { title: 'community.edit.tabs.curate.title' }
+            data: { title: 'community.edit.tabs.curate.title', showBreadcrumbs: true }
           }
         ]
       }

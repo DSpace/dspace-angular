@@ -9,11 +9,11 @@ import { hasNoValue } from '../../shared/empty.util';
  */
 @Injectable()
 export class I18nBreadcrumbResolver implements Resolve<BreadcrumbConfig<string>> {
-  constructor(private breadcrumbService: I18nBreadcrumbsService) {
+  constructor(protected breadcrumbService: I18nBreadcrumbsService) {
   }
 
   /**
-   * Method for resolving a site object
+   * Method for resolving an I18n breadcrumb configuration object
    * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
    * @param {RouterStateSnapshot} state The current RouterStateSnapshot
    * @returns BreadcrumbConfig object

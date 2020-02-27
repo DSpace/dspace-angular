@@ -196,6 +196,14 @@
 
   "browse.metadata.title": "Title",
 
+  "browse.metadata.author.breadcrumbs": "Browse by Author",
+
+  "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+
+  "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+
+  "browse.metadata.title.breadcrumbs": "Browse by Title",
+
   "browse.startsWith.choose_start": "(Choose start)",
 
   "browse.startsWith.choose_year": "(Choose year)",
@@ -235,7 +243,6 @@
   "browse.startsWith.type_text": "Or enter first few letters:",
 
   "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-
 
 
   "chips.remove": "Remove chip",

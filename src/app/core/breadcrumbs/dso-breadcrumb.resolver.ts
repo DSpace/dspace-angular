@@ -8,12 +8,13 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * The class that resolves the BreadcrumbConfig object for a DSpaceObject
  */
 @Injectable()
-export class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> implements Resolve<BreadcrumbConfig<T>> {
+export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> implements Resolve<BreadcrumbConfig<T>> {
   constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: DataService<T>) {
   }
 
@@ -25,7 +26,7 @@ export class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> im
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<T>> {
     const uuid = route.params.id;
-    return this.dataService.findById(uuid).pipe(
+    return this.dataService.findById(uuid, ...this.followLinks).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       map((object: T) => {
@@ -34,6 +35,12 @@ export class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> im
         return { provider: this.breadcrumbService, key: object, url: url };
       })
     );
-
   }
+
+  /**
+   * Method that returns the follow links to already resolve
+   * The self links defined in this list are expected to be requested somewhere in the near future
+   * Requesting them as embeds will limit the number of requests
+   */
+  abstract get followLinks(): Array<FollowLinkConfig<T>>;
 }

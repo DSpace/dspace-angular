@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
-import { hasNoValue, hasValue, isNotUndefined } from '../shared/empty.util';
+import { hasNoValue, hasValue, isNotUndefined, isUndefined } from '../shared/empty.util';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, Observable, Subscription, of as observableOf } from 'rxjs';
 
@@ -58,8 +58,12 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
     const routeConfig = route.snapshot.routeConfig;
 
     const last: boolean = hasNoValue(route.firstChild);
-    if (last && isNotUndefined(data.showBreadcrumbs)) {
-      this.showBreadcrumbs = data.showBreadcrumbs;
+    if (last) {
+      if (hasValue(data.showBreadcrumbs)) {
+        this.showBreadcrumbs = data.showBreadcrumbs;
+      } else if (isUndefined(data.breadcrumb)) {
+        this.showBreadcrumbs = false;
+      }
     }
 
     if (

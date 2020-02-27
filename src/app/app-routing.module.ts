@@ -11,6 +11,7 @@ import { Collection } from './core/shared/collection.model';
 import { Item } from './core/shared/item.model';
 import { getItemPageRoute } from './+item-page/item-page-routing.module';
 import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
+import { BrowseByDSOBreadcrumbResolver } from './+browse-by/browse-by-dso-breadcrumb.resolver';
 
 const ITEM_MODULE_PATH = 'items';
 
@@ -60,7 +61,7 @@ export function getDSOPath(dso: DSpaceObject): string {
       { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
       { path: 'mydspace', loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule', canActivate: [AuthenticatedGuard] },
       { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
-      { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule' },
+      { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule'},
       { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
       { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
