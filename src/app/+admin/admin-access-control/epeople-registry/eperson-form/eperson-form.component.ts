@@ -98,7 +98,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   @Output() cancelForm: EventEmitter<any> = new EventEmitter();
 
-  constructor(private epersonService: EPersonDataService,
+  constructor(public epersonService: EPersonDataService,
               private formBuilderService: FormBuilderService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,) {
