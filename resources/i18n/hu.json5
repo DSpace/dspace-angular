@@ -1,41 +1,32 @@
 {
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  // TODO New key - Add a translation
   "404.help": "A keresett oldal nem található. lehetséges, hogy az oldal elköltözött, avagy törölték. Az alábbi gombra kattintva visszajuthat a főoldalra.",
 
   // "404.link.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
   "404.link.home-page": "Vigyen a főoldalra",
 
   // "404.page-not-found": "page not found",
-  // TODO New key - Add a translation
   "404.page-not-found": "az oldal nem található",
 
 
 
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.create.failure.content": "Hiba történt az új bitstream formátum létrehozásakor.",
 
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.create.failure.head": "Hiba",
 
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.create.head": "Bitstream formátum létrehozása",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.create.new": "Új bitstream formátum hozzáadása",
 
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.create.success.content": "Az új bitstream formátum sikeresen létrehozva.",
 
   // "admin.registries.bitstream-formats.create.success.head": "Success",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.create.success.head": "Sikerült",
 
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
@@ -43,7 +34,6 @@
   "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
 
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.delete.failure.head": "Hiba",
 
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
@@ -51,7 +41,6 @@
   "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
 
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.delete.success.head": "Sikerült",
 
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
@@ -59,11 +48,9 @@
   "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
 
   // "admin.registries.bitstream-formats.edit.description.hint": "",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.description.hint": "",
 
   // "admin.registries.bitstream-formats.edit.description.label": "Description",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.description.label": "Leírás",
 
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
@@ -71,7 +58,6 @@
   "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
 
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.extensions.label": "Fájl kiterjesztés",
 
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
