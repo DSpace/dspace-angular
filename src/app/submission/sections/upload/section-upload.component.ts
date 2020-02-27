@@ -164,7 +164,8 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         flatMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection)),
         filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
         tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = collectionRemoteData.payload.name),
-        flatMap((collectionRemoteData: RemoteData<Collection>) => {
+        // TODO review this part when https://github.com/DSpace/dspace-angular/issues/575 is resolved
+/*        flatMap((collectionRemoteData: RemoteData<Collection>) => {
           return this.resourcePolicyService.findByHref(
             (collectionRemoteData.payload as any)._links.defaultAccessConditions.href
           );
@@ -176,7 +177,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
             this.collectionDefaultAccessConditions = Array.isArray(defaultAccessConditionsRemoteData.payload)
               ? defaultAccessConditionsRemoteData.payload : [defaultAccessConditionsRemoteData.payload];
           }
-        }),
+        }),*/
         flatMap(() => config$),
         flatMap((config: SubmissionUploadsModel) => {
           this.required$.next(config.required);
