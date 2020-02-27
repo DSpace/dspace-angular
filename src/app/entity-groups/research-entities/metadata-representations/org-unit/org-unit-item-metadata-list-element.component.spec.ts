@@ -13,7 +13,7 @@ const mockItem = Object.assign(new Item(), { metadata: { 'dc.description': [{ va
 const virtMD = Object.assign(new MetadataValue(), { value: organisation });
 const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(virtMD), mockItem);
 
-fdescribe('OrgUnitItemMetadataListElementComponent', () => {
+describe('OrgUnitItemMetadataListElementComponent', () => {
   let comp: OrgUnitItemMetadataListElementComponent;
   let fixture: ComponentFixture<OrgUnitItemMetadataListElementComponent>;
 
