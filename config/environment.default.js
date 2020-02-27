@@ -142,8 +142,8 @@ module.exports = {
     label: 'Nederlands',
     active: true,
   }, {
-    code: 'pt',
-    label: 'Português',
+    code: 'pt-BR',
+    label: 'Português Brasileiro',
     active: true,
   }],
   // Browse-By Pages
