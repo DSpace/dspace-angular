@@ -143,8 +143,12 @@ module.exports = {
     active: true,
   }, {
     code: 'pt-BR',
-    label: 'Português Brasileiro',
+    label: 'Português do Brasil',
     active: true,
+  }, {
+    code: 'pt-PT',
+    label: 'Português',
+    active: false,
   }],
   // Browse-By Pages
   browseBy: {
