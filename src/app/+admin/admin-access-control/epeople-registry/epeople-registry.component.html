@@ -7,7 +7,7 @@
       <ds-eperson-form *ngIf="isEPersonFormShown" (submitForm)="forceUpdateEPeople()"
                        (cancelForm)="isEPersonFormShown = false"></ds-eperson-form>
 
-      <div class="button-row top d-flex">
+      <div *ngIf="!isEPersonFormShown" class="button-row top d-flex pb-2">
         <button class="mr-auto btn btn-success"
                 (click)="isEPersonFormShown = true">
           <i class="fas fa-plus"></i>

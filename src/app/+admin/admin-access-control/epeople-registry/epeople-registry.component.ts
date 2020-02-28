@@ -85,10 +85,7 @@ export class EPeopleRegistryComponent {
   public forceUpdateEPeople() {
     this.epersonService.clearEPersonRequests();
     this.isEPersonFormShown = false;
-    this.updateEPeople({
-      currentPage: 1,
-      elementsPerPage: this.config.pageSize
-    });
+    this.search({ query: '', scope: 'name' })
   }
 
   /**
