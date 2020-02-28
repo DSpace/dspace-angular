@@ -16,7 +16,7 @@ import { RequestService } from '../../../core/data/request.service';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { WorkflowTaskOptions } from './workflow-task-options.model';
+import { WORKFLOW_TASK_OPTION_RETURN_TO_POOL } from './return-to-pool/claimed-task-actions-return-to-pool.component';
 
 /**
  * This component represents actions related to ClaimedTask object.
@@ -47,7 +47,7 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    * The option used to render the "return to pool" component
    * Every claimed task contains this option
    */
-  public returnToPoolOption = WorkflowTaskOptions.ReturnToPool;
+  public returnToPoolOption = WORKFLOW_TASK_OPTION_RETURN_TO_POOL;
 
   /**
    * Initialize instance variables

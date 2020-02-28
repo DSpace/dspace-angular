@@ -5,9 +5,10 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
-import { WorkflowTaskOptions } from '../workflow-task-options.model';
 
-@rendersWorkflowTaskOption(WorkflowTaskOptions.Reject)
+export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
+
+@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_REJECT)
 @Component({
   selector: 'ds-claimed-task-actions-reject',
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
@@ -18,9 +19,9 @@ import { WorkflowTaskOptions } from '../workflow-task-options.model';
  */
 export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
   /**
-   * This component represents the edit metadata option
+   * This component represents the reject option
    */
-  option = WorkflowTaskOptions.Reject;
+  option = WORKFLOW_TASK_OPTION_REJECT;
 
   /**
    * The reject form group

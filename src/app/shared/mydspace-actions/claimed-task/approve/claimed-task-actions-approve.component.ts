@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
-import { WorkflowTaskOptions } from '../workflow-task-options.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 
-@rendersWorkflowTaskOption(WorkflowTaskOptions.Approve)
+export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
+
+@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_APPROVE)
 @Component({
   selector: 'ds-claimed-task-actions-approve',
   styleUrls: ['./claimed-task-actions-approve.component.scss'],
@@ -17,7 +18,7 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
   /**
    * This component represents the approve option
    */
-  option = WorkflowTaskOptions.Approve;
+  option = WORKFLOW_TASK_OPTION_APPROVE;
 
   constructor(protected claimedTaskService: ClaimedTaskDataService) {
     super(claimedTaskService);

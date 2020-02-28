@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
-import { WorkflowTaskOptions } from '../workflow-task-options.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 
-@rendersWorkflowTaskOption(WorkflowTaskOptions.EditMetadata)
+export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
+
+@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_EDIT_METADATA)
 @Component({
   selector: 'ds-claimed-task-actions-edit-metadata',
   styleUrls: ['./claimed-task-actions-edit-metadata.component.scss'],
@@ -17,7 +18,7 @@ export class ClaimedTaskActionsEditMetadataComponent extends ClaimedTaskActionsA
   /**
    * This component represents the edit metadata option
    */
-  option = WorkflowTaskOptions.EditMetadata;
+  option = WORKFLOW_TASK_OPTION_EDIT_METADATA;
 
   constructor(protected claimedTaskService: ClaimedTaskDataService) {
     super(claimedTaskService);

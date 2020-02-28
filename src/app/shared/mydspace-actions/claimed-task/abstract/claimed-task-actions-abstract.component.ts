@@ -2,14 +2,12 @@ import { EventEmitter, Input, Output } from '@angular/core';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { WorkflowTaskOptions } from '../workflow-task-options.model';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 
 /**
  * Abstract component for rendering a claimed task's action
  * To create a child-component for a new option:
- * - Make sure the option is defined in the WorkflowTaskOptions enum
- * - Set the "option" of the component to the enum value
+ * - Set the "option" of the component
  * - Add a @rendersWorkflowTaskOption annotation to your component providing the same enum value
  * - Optionally overwrite createBody if the request body requires more than just the option
  */
@@ -17,7 +15,7 @@ export abstract class ClaimedTaskActionsAbstractComponent {
   /**
    * The workflow task option the child component represents
    */
-  abstract option: WorkflowTaskOptions;
+  abstract option: string;
 
   /**
    * The Claimed Task to display an action for
