@@ -38,6 +38,7 @@ import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-s
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { SharedModule } from './shared/shared.module';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -128,6 +129,7 @@ const EXPORTS = [
   ],
   declarations: [
     ...DECLARATIONS,
+    BreadcrumbsComponent,
   ],
   exports: [
     ...EXPORTS
