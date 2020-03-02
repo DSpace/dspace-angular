@@ -17,7 +17,7 @@ import {
   RefreshTokenAction,
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction,
-  ResetAuthenticationMessagesAction,
+  ResetAuthenticationMessagesAction, RetrieveAuthenticatedEpersonErrorAction, RetrieveAuthenticatedEpersonSuccessAction,
   SetRedirectUrlAction
 } from './auth.actions';
 import { AuthTokenInfo } from './models/auth-token-info.model';
@@ -107,16 +107,15 @@ describe('authReducer', () => {
       loading: true,
       info: undefined
     };
-    const action = new AuthenticatedSuccessAction(true, mockTokenInfo, EPersonMock);
+    const action = new AuthenticatedSuccessAction(true, mockTokenInfo, EPersonMock._links.self.href);
     const newState = authReducer(initialState, action);
     state = {
       authenticated: true,
       authToken: mockTokenInfo,
-      loaded: true,
+      loaded: false,
       error: undefined,
-      loading: false,
-      info: undefined,
-      user: EPersonMock
+      loading: true,
+      info: undefined
     };
     expect(newState).toEqual(state);
   });
@@ -238,6 +237,50 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       user: EPersonMock
+    };
+    expect(newState).toEqual(state);
+  });
+
+  it('should properly set the state, in response to a RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS action', () => {
+    initialState = {
+      authenticated: true,
+      authToken: mockTokenInfo,
+      loaded: false,
+      error: undefined,
+      loading: true,
+      info: undefined
+    };
+    const action = new RetrieveAuthenticatedEpersonSuccessAction(EPersonMock);
+    const newState = authReducer(initialState, action);
+    state = {
+      authenticated: true,
+      authToken: mockTokenInfo,
+      loaded: true,
+      error: undefined,
+      loading: false,
+      info: undefined,
+      user: EPersonMock
+    };
+    expect(newState).toEqual(state);
+  });
+
+  it('should properly set the state, in response to a RETRIEVE_AUTHENTICATED_EPERSON_ERROR action', () => {
+    initialState = {
+      authenticated: false,
+      loaded: false,
+      error: undefined,
+      loading: true,
+      info: undefined
+    };
+    const action = new RetrieveAuthenticatedEpersonErrorAction(mockError);
+    const newState = authReducer(initialState, action);
+    state = {
+      authenticated: false,
+      authToken: undefined,
+      error: 'Test error message',
+      loaded: true,
+      loading: false,
+      info: undefined
     };
     expect(newState).toEqual(state);
   });
