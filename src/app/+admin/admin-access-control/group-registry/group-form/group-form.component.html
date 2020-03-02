@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="group-form row">
+    <div class="col-12">
+
+      <div *ngIf="groupDataService.getActiveGroup() | async; then editheader; else createHeader"></div>
+
+      <ng-template #createHeader>
+        <h2 class="border-bottom pb-2">{{messagePrefix + '.head.create' | translate}}</h2>
+      </ng-template>
+
+      <ng-template #editheader>
+        <h2 class="border-bottom pb-2">{{messagePrefix + '.head.edit' | translate}}</h2>
+      </ng-template>
+
+      <ds-form [formId]="formId"
+               [formModel]="formModel"
+               [formGroup]="formGroup"
+               [formLayout]="formLayout"
+               (cancel)="onCancel()"
+               (submitForm)="onSubmit()">
+      </ds-form>
+
+      <ds-subgroups-list [messagePrefix]="messagePrefix + '.subgroups-list'"></ds-subgroups-list>
+      <ds-members-list [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>
+
+      <div>
+        <button [routerLink]="['/admin/access-control/groups']" class="btn btn-primary">{{messagePrefix + '.return' | translate}}</button>
+      </div>
+
+    </div>
+  </div>
+</div>

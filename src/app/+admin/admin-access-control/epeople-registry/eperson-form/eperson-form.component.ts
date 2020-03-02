@@ -241,7 +241,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * @param values
    */
   createNewEPerson(values) {
-    console.log('createNewEPerson(values)', values)
     const ePersonToCreate = Object.assign(new EPerson(), values);
 
     const response = this.epersonService.tryToCreate(ePersonToCreate);
