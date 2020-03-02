@@ -10,10 +10,11 @@ import { COLLECTION } from './collection.resource-type';
 import { COMMUNITY } from './community.resource-type';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
+import { ChildHALResource } from './child-hal-resource.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
-export class Community extends DSpaceObject {
+export class Community extends DSpaceObject implements ChildHALResource {
   static type = COMMUNITY;
 
   /**
@@ -30,6 +31,7 @@ export class Community extends DSpaceObject {
     collections: HALLink;
     logo: HALLink;
     subcommunities: HALLink;
+    parentCommunity: HALLink;
     self: HALLink;
   };
 
@@ -53,6 +55,13 @@ export class Community extends DSpaceObject {
    */
   @link(COMMUNITY, true)
   subcommunities?: Observable<RemoteData<PaginatedList<Community>>>;
+
+  /**
+   * The Community that is a direct parent of this Community
+   * Will be undefined unless the parent community HALLink has been resolved.
+   */
+  @link(COMMUNITY, false)
+  parentCommunity?: Observable<RemoteData<Community>>;
 
   /**
    * The introductory text of this Community
@@ -84,5 +93,9 @@ export class Community extends DSpaceObject {
    */
   get sidebarText(): string {
     return this.firstMetadataValue('dc.description.tableofcontents');
+  }
+
+  getParentLinkKey(): keyof this['_links'] {
+    return 'parentCommunity';
   }
 }

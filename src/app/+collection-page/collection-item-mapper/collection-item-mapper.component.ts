@@ -102,7 +102,7 @@ export class CollectionItemMapperComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.data.pipe(map((data) => data.collection)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Collection>>;
+    this.collectionRD$ = this.route.data.pipe(map((data) => data.dso)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Collection>>;
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.loadItemLists();
   }

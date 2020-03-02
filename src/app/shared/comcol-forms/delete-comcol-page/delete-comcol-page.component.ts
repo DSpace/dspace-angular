@@ -43,7 +43,7 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements 
    * Deletes an existing DSO and redirects to the home page afterwards, showing a notification that states whether or not the deletion was successful
    */
   onConfirm(dso: TDomain) {
-    this.dsoDataService.delete(dso)
+    this.dsoDataService.delete(dso.id)
       .pipe(first())
       .subscribe((success: boolean) => {
         if (success) {
