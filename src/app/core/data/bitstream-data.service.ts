@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, switchMap } from 'rxjs/operators';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
@@ -72,7 +72,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
   public getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
     return this.bundleService.findByItemAndName(item, 'THUMBNAIL').pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {
-        if (hasValue(bundleRD.payload)) {
+        if (isNotEmpty(bundleRD.payload)) {
           return this.findAllByBundle(bundleRD.payload, { elementsPerPage: 1 }).pipe(
             map((bitstreamRD: RemoteData<PaginatedList<Bitstream>>) => {
               if (hasValue(bitstreamRD.payload) && hasValue(bitstreamRD.payload.page)) {
@@ -108,7 +108,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
   public getMatchingThumbnail(item: Item, bitstreamInOriginal: Bitstream): Observable<RemoteData<Bitstream>> {
     return this.bundleService.findByItemAndName(item, 'THUMBNAIL').pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {
-        if (hasValue(bundleRD.payload)) {
+        if (isNotEmpty(bundleRD.payload)) {
           return this.findAllByBundle(bundleRD.payload, { elementsPerPage: Number.MAX_SAFE_INTEGER }).pipe(
             map((bitstreamRD: RemoteData<PaginatedList<Bitstream>>) => {
               if (hasValue(bitstreamRD.payload) && hasValue(bitstreamRD.payload.page)) {

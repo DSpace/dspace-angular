@@ -12,6 +12,7 @@ import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { WorkflowItem } from '../../submission/models/workflowitem.model';
 import { TASK_OBJECT } from './task-object.resource-type';
+import { WORKFLOWITEM } from '../../eperson/models/workflowitem.resource-type';
 
 /**
  * An abstract model class for a TaskObject.
@@ -45,7 +46,7 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
   @deserialize
   _links: {
     self: HALLink;
-    eperson: HALLink;
+    owner: HALLink;
     group: HALLink;
     workflowitem: HALLink;
   };
@@ -54,7 +55,7 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
    * The EPerson for this task
    * Will be undefined unless the eperson {@link HALLink} has been resolved.
    */
-  @link(EPERSON)
+  @link(EPERSON, false, 'owner')
   eperson?: Observable<RemoteData<EPerson>>;
 
   /**
@@ -68,7 +69,7 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
    * The WorkflowItem for this task
    * Will be undefined unless the workflowitem {@link HALLink} has been resolved.
    */
-  @link(WorkflowItem.type)
+  @link(WORKFLOWITEM)
   workflowitem?: Observable<RemoteData<WorkflowItem>> | WorkflowItem;
 
 }
