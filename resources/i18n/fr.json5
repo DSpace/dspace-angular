@@ -292,8 +292,7 @@
   
   
   // "collection.form.abstract": "Short Description",
-  // TODO New key - Add a translation
-  "collection.form.abstract": "Short Description",
+  "collection.form.abstract": "Description succinte",
   
   // "collection.form.description": "Introductory text (HTML)",
   // TODO New key - Add a translation
