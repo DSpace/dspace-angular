@@ -11,6 +11,9 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 
 /**
  * This component renders claimed task object for the search result in the list view.
@@ -40,11 +43,24 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
    */
   public workflowitemRD$: Observable<RemoteData<WorkflowItem>>;
 
+  constructor(
+    protected linkService: LinkService,
+    protected truncatableService: TruncatableService
+  ) {
+    super(truncatableService);
+  }
+
   /**
    * Initialize all instance variables
    */
   ngOnInit() {
     super.ngOnInit();
+    this.linkService.resolveLink(this.dso, followLink(
+      'workflowitem',
+      null,
+      followLink('item'),
+      followLink('submitter')
+    ));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
 }

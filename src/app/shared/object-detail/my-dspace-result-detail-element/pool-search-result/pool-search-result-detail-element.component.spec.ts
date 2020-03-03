@@ -11,6 +11,9 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 import { PoolSearchResultDetailElementComponent } from './pool-search-result-detail-element.component';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
+import { VarDirective } from '../../../utils/var.directive';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { getMockLinkService } from '../../../mocks/mock-link-service';
 
 let component: PoolSearchResultDetailElementComponent;
 let fixture: ComponentFixture<PoolSearchResultDetailElementComponent>;
@@ -53,15 +56,17 @@ const rdItem = createSuccessfulRemoteDataObject(item);
 const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
+const linkService = getMockLinkService();
 
 describe('PoolSearchResultDetailElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
-      declarations: [PoolSearchResultDetailElementComponent],
+      declarations: [PoolSearchResultDetailElementComponent, VarDirective],
       providers: [
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
-        { provide: 'indexElementProvider', useValue: (compIndex) }
+        { provide: 'indexElementProvider', useValue: (compIndex) },
+        { provide: LinkService, useValue: linkService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolSearchResultDetailElementComponent, {
@@ -79,8 +84,12 @@ describe('PoolSearchResultDetailElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should init item properly', () => {
-    expect(component.workflowitem).toEqual(workflowitem);
+  it('should init workflowitem properly', (done) => {
+    component.workflowitemRD$.subscribe((workflowitemRD) => {
+      expect(linkService.resolveLink).toHaveBeenCalled();
+      expect(workflowitemRD.payload).toEqual(workflowitem);
+      done();
+    });
   });
 
   it('should have properly status', () => {

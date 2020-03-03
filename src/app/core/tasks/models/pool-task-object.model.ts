@@ -1,5 +1,5 @@
 import { inheritSerialization } from 'cerialize';
-import { typedObject } from '../../cache/builders/build-decorators';
+import { inheritLinkAnnotations, typedObject } from '../../cache/builders/build-decorators';
 import { POOL_TASK } from './pool-task-object.resource-type';
 import { TaskObject } from './task-object.model';
 
@@ -8,6 +8,7 @@ import { TaskObject } from './task-object.model';
  */
 @typedObject
 @inheritSerialization(TaskObject)
+@inheritLinkAnnotations(TaskObject)
 export class PoolTask extends TaskObject {
   static type = POOL_TASK;
 }
