@@ -83,7 +83,7 @@ describe('CollectionItemMapperComponent', () => {
   const itemDataServiceStub = {
     mapToCollection: () => of(new RestResponse(true, 200, 'OK'))
   };
-  const activatedRouteStub = new ActivatedRouteStub({}, { collection: mockCollectionRD });
+  const activatedRouteStub = new ActivatedRouteStub({}, { dso: mockCollectionRD });
   const translateServiceStub = {
     get: () => of('test-message of collection ' + mockCollection.name),
     onLangChange: new EventEmitter(),

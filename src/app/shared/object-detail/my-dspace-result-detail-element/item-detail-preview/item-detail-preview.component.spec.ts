@@ -5,8 +5,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { of as observableOf } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
+
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -28,7 +28,6 @@ import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service-st
 import { createSuccessfulRemoteDataObject$ } from '../../../testing/utils';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
 import { FollowLinkConfig } from '../../../utils/follow-link-config.model';
-
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { VarDirective } from '../../../utils/var.directive';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
@@ -127,8 +126,17 @@ describe('ItemDetailPreviewComponent', () => {
 
   }));
 
-  it('should init thumbnail and bitstreams on init', () => {
-    expect(component.thumbnail$).toBeDefined();
-    expect(component.bitstreams$).toBeDefined();
+  it('should get item thumbnail', (done) => {
+    component.getThumbnail().subscribe((thumbnail) => {
+      expect(thumbnail).toBeDefined();
+      done();
+    });
+  });
+
+  it('should get item bitstreams', (done) => {
+    component.getFiles().subscribe((bitstreams) => {
+      expect(bitstreams).toBeDefined();
+      done();
+    })
   });
 });

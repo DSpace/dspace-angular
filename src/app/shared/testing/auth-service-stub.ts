@@ -35,12 +35,16 @@ export class AuthServiceStub {
     }
   }
 
-  public authenticatedUser(token: AuthTokenInfo): Observable<EPerson> {
+  public authenticatedUser(token: AuthTokenInfo): Observable<string> {
     if (token.accessToken === 'token_test') {
-      return observableOf(EPersonMock);
+      return observableOf(EPersonMock._links.self.href);
     } else {
       throw(new Error('Message Error test'));
     }
+  }
+
+  public retrieveAuthenticatedUserByHref(href: string): Observable<EPerson> {
+    return observableOf(EPersonMock);
   }
 
   public buildAuthHeader(token?: AuthTokenInfo): string {

@@ -27,7 +27,7 @@ export class ItemPageResolver implements Resolve<RemoteData<Item>> {
     return this.itemService.findById(route.params.id,
       followLink('owningCollection'),
       followLink('bundles'),
-      followLink('relationships')
+      followLink('relationships'),
     ).pipe(
       find((RD) => hasValue(RD.error) || RD.hasSucceeded),
     );

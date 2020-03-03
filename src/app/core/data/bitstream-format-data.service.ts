@@ -154,19 +154,19 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
 
   /**
    * Delete an existing DSpace Object on the server
-   * @param format The DSpace Object to be removed
+   * @param formatID The DSpace Object'id to be removed
    * Return an observable that emits true when the deletion was successful, false when it failed
    */
-  delete(format: BitstreamFormat): Observable<boolean> {
+  delete(formatID: string): Observable<boolean> {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, format.id)));
+      map((endpoint: string) => this.getIDHref(endpoint, formatID)));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new DeleteByIDRequest(requestId, href, format.id);
+        const request = new DeleteByIDRequest(requestId, href, formatID);
         this.requestService.configure(request);
       })
     ).subscribe();

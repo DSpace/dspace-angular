@@ -4,13 +4,11 @@ import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, startWith, take, withLatestFrom } from 'rxjs/operators';
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
 
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { LinkService } from '../cache/builders/link.service';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -28,6 +26,8 @@ import {
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RouteService } from '../services/route.service';
+import { EPersonDataService } from '../eperson/eperson-data.service';
+import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { AuthMethod } from './models/auth.method';
 
 export const LOGIN_ROUTE = '/login';
@@ -48,13 +48,13 @@ export class AuthService {
 
   constructor(@Inject(REQUEST) protected req: any,
               @Inject(NativeWindowService) protected _window: NativeWindowRef,
-              protected authRequestService: AuthRequestService,
               @Optional() @Inject(RESPONSE) private response: any,
+              protected authRequestService: AuthRequestService,
+              protected epersonService: EPersonDataService,
               protected router: Router,
               protected routeService: RouteService,
               protected storage: CookieService,
-              protected store: Store<AppState>,
-              protected linkService: LinkService
+              protected store: Store<AppState>
   ) {
     this.store.pipe(
       select(isAuthenticated),
@@ -142,10 +142,10 @@ export class AuthService {
   }
 
   /**
-   * Returns the authenticated user
-   * @returns {User}
+   * Returns the href link to authenticated user
+   * @returns {string}
    */
-  public authenticatedUser(token: AuthTokenInfo): Observable<EPerson> {
+  public authenticatedUser(token: AuthTokenInfo): Observable<string> {
     // Determine if the user has an existing auth session on the server
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -153,14 +153,23 @@ export class AuthService {
     headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status) => this.linkService.resolveLinks(status, followLink<AuthStatus>('eperson'))),
-      switchMap((status: AuthStatus) => {
+      map((status: AuthStatus) => {
         if (status.authenticated) {
-          return status.eperson.pipe(map((eperson) => eperson.payload));
+          return status._links.eperson.href;
         } else {
           throw(new Error('Not authenticated'));
         }
       }))
+  }
+
+  /**
+   * Returns the authenticated user
+   * @returns {User}
+   */
+  public retrieveAuthenticatedUserByHref(userHref: string): Observable<EPerson> {
+    return this.epersonService.findByHref(userHref).pipe(
+      getFirstSucceededRemoteDataPayload()
+    )
   }
 
   /**
