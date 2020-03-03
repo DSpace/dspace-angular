@@ -19,7 +19,7 @@
           <ds-search-labels [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
           <div class="row">
               <div id="search-body"
-                   class="row-offcanvas row-offcanvas-left"
+                   class="row-offcanvas row-offcanvas-left w-100"
                    [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
                   <ds-search-sidebar *ngIf="(isXsOrSm$ | async)" class="col-12"
                                      id="search-sidebar-sm"
