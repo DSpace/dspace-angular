@@ -1,586 +1,293 @@
 {
   
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  // TODO New key - Add a translation
-  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  
+  "404.help": "La page que vous recherchez n'a pas pu être localisée. Cette page pourrait avoir été déplacée ou supprimée. Vous pouvez utiliser le bouton ci-dessous pour revenir sur la page d'accueil.",
   // "404.link.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
-  "404.link.home-page": "Take me to the home page",
-  
+  "404.link.home-page": "Retour sur la page d'accueil",
   // "404.page-not-found": "page not found",
-  // TODO New key - Add a translation
-  "404.page-not-found": "page not found",
-  
-  
+  "404.page-not-found": "Page introuvable",
   
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  
+  "admin.registries.bitstream-formats.create.failure.content": "Une erreur s'est produite lors de l'ajout du nouveau format de fichier.",
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.head": "Failure",
-  
+  "admin.registries.bitstream-formats.create.failure.head": "Erreur",
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
-  
+  "admin.registries.bitstream-formats.create.head": "Ajouter un format de fichier",
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  
+  "admin.registries.bitstream-formats.create.new": "Ajouter un format de fichier",
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
-  
+  "admin.registries.bitstream-formats.create.success.content": "Le nouveau format de fichier a été ajouté avec succès.",
   // "admin.registries.bitstream-formats.create.success.head": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.head": "Success",
-  
+  "admin.registries.bitstream-formats.create.success.head": "Succès",
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
-  
+  "admin.registries.bitstream-formats.delete.failure.amount": "La suppression de {{ amount }} format(s) a échoué",
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.head": "Failure",
-  
+  "admin.registries.bitstream-formats.delete.failure.head": "Echec",
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-  
+  "admin.registries.bitstream-formats.delete.success.amount": "{{ amount }} format(s) ajouté(s) avec succès",
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.head": "Success",
-  
+  "admin.registries.bitstream-formats.delete.success.head": "Succès",
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
-  
+  "admin.registries.bitstream-formats.description": "Cette liste des formats de fichier contient les informations relatives aux formats connus et leur niveau de support.",
   // "admin.registries.bitstream-formats.edit.description.hint": "",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.description.hint": "",
-  
   // "admin.registries.bitstream-formats.edit.description.label": "Description",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.description.label": "Description",
-  
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
-  
+  "admin.registries.bitstream-formats.edit.extensions.hint": "Les extensions de fichier sont utilisées pour identifier le format des fichiers téléchargés. Plusieurs extensions peuvent être encodées pour chaque format.",
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
-  
+  "admin.registries.bitstream-formats.edit.extensions.label": "Extensions de fichier",
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
-  
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Veuillez entrer l'extension de fichier sans point",
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  
+  "admin.registries.bitstream-formats.edit.failure.content": "Une erreur s'est produite lors de l'édition du format de fichier.",
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.head": "Failure",
-  
+  "admin.registries.bitstream-formats.edit.failure.head": "Echec",
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
-  
+  "admin.registries.bitstream-formats.edit.head": "Format de fichier: {{ format }}",
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes.",
-  
+  "admin.registries.bitstream-formats.edit.internal.hint": "Les formats identifiés en tant que formats internes sont cachés pour l'utilisateur et utilisés uniquement à des fins administratives.",
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.label": "Internal",
-  
+  "admin.registries.bitstream-formats.edit.internal.label": "Interne",
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
-  
+  "admin.registries.bitstream-formats.edit.mimetype.hint": "Le type MIME associé avec ce format ne doit pas nécessairement être unique.",
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
-  
+  "admin.registries.bitstream-formats.edit.mimetype.label": "Type MIME",
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
-  
+  "admin.registries.bitstream-formats.edit.shortDescription.hint": "Nom unique pour ce format (p. ex. Microsoft Word XP or Microsoft Word 2000)",
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
-  
+  "admin.registries.bitstream-formats.edit.shortDescription.label": "Nom",
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  
+  "admin.registries.bitstream-formats.edit.success.content": "Le format de fichier a été édité avec succès.",
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.head": "Success",
-  
+  "admin.registries.bitstream-formats.edit.success.head": "Succès",
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Le niveau de support auquel votre institution souscrit pour ce format.",
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
-  
+  "admin.registries.bitstream-formats.edit.supportLevel.label": "Niveau de support",
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  
+  "admin.registries.bitstream-formats.head": "Registre des formats de fichier",
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  
+  "admin.registries.bitstream-formats.no-items": "Aucun format de fichier disponible.",
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.delete": "Delete selected",
-  
+  "admin.registries.bitstream-formats.table.delete": "Supprimer les éléments sélectionnés",
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
-  
+  "admin.registries.bitstream-formats.table.deselect-all": "Désélectionner tout",
   // "admin.registries.bitstream-formats.table.internal": "internal",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.internal": "internal",
-  
+  "admin.registries.bitstream-formats.table.internal": "interne",
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
-  
+  "admin.registries.bitstream-formats.table.mimetype": "Type MIME",
   // "admin.registries.bitstream-formats.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.name": "Name",
-  
+  "admin.registries.bitstream-formats.table.name": "Nom",
   // "admin.registries.bitstream-formats.table.return": "Return",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.return": "Return",
-  
+  "admin.registries.bitstream-formats.table.return": "Retour",
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
-  
+  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Connu",
   // "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
-  
+  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supporté",
   // "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
-  
+  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Inconnu",
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
-  
+  "admin.registries.bitstream-formats.table.supportLevel.head": "Niveau de support",
   // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  
-  
+  "admin.registries.bitstream-formats.title": "DSpace Angular :: Registre des formats de fichier",
   
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
-  
+  "admin.registries.metadata.description": "Le registre de métadonnées présente une liste à jour de tous les champs de métadonnées disponibles dans le dépôt. Ces champs peuvent être répartis entre plusieurs schémas. Le schéma Dublin Core qualifié est toutefois requis dans DSpace.",
   // "admin.registries.metadata.form.create": "Create metadata schema",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.form.create": "Create metadata schema",
-  
+  "admin.registries.metadata.form.create": "Ajouter un schéma de métadonnées",
   // "admin.registries.metadata.form.edit": "Edit metadata schema",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.form.edit": "Edit metadata schema",
-  
+  "admin.registries.metadata.form.edit": "Editer un schéma de métadonnées",
   // "admin.registries.metadata.form.name": "Name",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.form.name": "Name",
-  
+  "admin.registries.metadata.form.name": "Nom",
   // "admin.registries.metadata.form.namespace": "Namespace",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.form.namespace": "Namespace",
-  
+  "admin.registries.metadata.form.namespace": "Espace de nommage",
   // "admin.registries.metadata.head": "Metadata Registry",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.head": "Metadata Registry",
-  
+  "admin.registries.metadata.head": "Registre de métadonnées",
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  
+  "admin.registries.metadata.schemas.no-items": "Aucun schéma de métadonnées disponible.",
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.delete": "Delete selected",
-  
+  "admin.registries.metadata.schemas.table.delete": "Supprimer les éléments sélectionnés",
   // "admin.registries.metadata.schemas.table.id": "ID",
-  // TODO New key - Add a translation
   "admin.registries.metadata.schemas.table.id": "ID",
-  
   // "admin.registries.metadata.schemas.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.name": "Name",
-  
+  "admin.registries.metadata.schemas.table.name": "Nom",
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.namespace": "Namespace",
-  
+  "admin.registries.metadata.schemas.table.namespace": "Espace de nommage",
   // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  
-  
-  
+  "admin.registries.metadata.title": "DSpace Angular :: Registre de métadonnées",
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
-  // TODO New key - Add a translation
-  "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
-  
+  "admin.registries.schema.description": "Ceci est le schéma de métadonnées correspondant à l'espace de nommage \"{{namespace}}\".",
   // "admin.registries.schema.fields.head": "Schema metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.head": "Schema metadata fields",
-  
+  "admin.registries.schema.fields.head": "Champs de métadonnées du schéma",
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.no-items": "No metadata fields to show.",
-  
+  "admin.registries.schema.fields.no-items": "Aucun champ de métadonnée disponible.",
   // "admin.registries.schema.fields.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.delete": "Delete selected",
-  
+  "admin.registries.schema.fields.table.delete": "Supprimer les éléments sélectionnés",
   // "admin.registries.schema.fields.table.field": "Field",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.field": "Field",
-  
+  "admin.registries.schema.fields.table.field": "Champ",
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.scopenote": "Scope Note",
-  
+  "admin.registries.schema.fields.table.scopenote": "Note d'application",
   // "admin.registries.schema.form.create": "Create metadata field",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.create": "Create metadata field",
-  
+  "admin.registries.schema.form.create": "Ajouter un champ de métadonnées",
   // "admin.registries.schema.form.edit": "Edit metadata field",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.edit": "Edit metadata field",
-  
+  "admin.registries.schema.form.edit": "Modifier champ de métadonnées",
   // "admin.registries.schema.form.element": "Element",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.element": "Element",
-  
+  "admin.registries.schema.form.element": "Elément",
   // "admin.registries.schema.form.qualifier": "Qualifier",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.qualifier": "Qualifier",
-  
+  "admin.registries.schema.form.qualifier": "Qualificatif",
   // "admin.registries.schema.form.scopenote": "Scope Note",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.scopenote": "Scope Note",
-  
+  "admin.registries.schema.form.scopenote": "Note d'application",
   // "admin.registries.schema.head": "Metadata Schema",
-  // TODO New key - Add a translation
-  "admin.registries.schema.head": "Metadata Schema",
-  
+  "admin.registries.schema.head": "Schéma de métadonnées",
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  
+  "admin.registries.schema.notification.created": "Schéma de métadonnées \"{{prefix}}\" créé avec succès",
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
-  
+  "admin.registries.schema.notification.deleted.failure": "Erreur lors de la suppression de {{amount}} schéma(s) de métadonnées",
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
-  
+  "admin.registries.schema.notification.deleted.success": "{{amount}} schéma(s) de métadonnées supprimé(s) avec succès",
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  
+  "admin.registries.schema.notification.edited": "Schéma de métadonnées \"{{prefix}}\" édité avec succès",
   // "admin.registries.schema.notification.failure": "Error",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.failure": "Error",
-  
+  "admin.registries.schema.notification.failure": "Erreur",
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  
+  "admin.registries.schema.notification.field.created": "Champ de métadonnée \"{{field}}\" créé avec succès",
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
-  
+  "admin.registries.schema.notification.field.deleted.failure": "Erreur lors de la suppression de {{amount}} champ(s) de métadonnées",
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
-  
+  "admin.registries.schema.notification.field.deleted.success": "{{amount}} champ(s) de métadonnées supprimé(s) avec succès",
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  
+  "admin.registries.schema.notification.field.edited": "Champ de métadonnée \"{{field}}\" édité avec succès",
   // "admin.registries.schema.notification.success": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.success": "Success",
-  
+  "admin.registries.schema.notification.success": "Succès",
   // "admin.registries.schema.return": "Return",
-  // TODO New key - Add a translation
-  "admin.registries.schema.return": "Return",
-  
+  "admin.registries.schema.return": "Retour",
   // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  // TODO New key - Add a translation
-  "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  
-  
+  "admin.registries.schema.title": "DSpace Angular :: Registre des schémas de métadonnées",
   
   // "auth.errors.invalid-user": "Invalid email address or password.",
-  // TODO New key - Add a translation
-  "auth.errors.invalid-user": "Invalid email address or password.",
-  
+  "auth.errors.invalid-user": "Adresse e-mail ou mot de passe non valide.",
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  // TODO New key - Add a translation
-  "auth.messages.expired": "Your session has expired. Please log in again.",
-  
-  
+  "auth.messages.expired": "Votre session a expiré. Veuille vous reconnecter.",
   
   // "browse.comcol.by.author": "By Author",
-  // TODO New key - Add a translation
-  "browse.comcol.by.author": "By Author",
-  
+  "browse.comcol.by.author": "Par auteur",
   // "browse.comcol.by.dateissued": "By Issue Date",
-  // TODO New key - Add a translation
-  "browse.comcol.by.dateissued": "By Issue Date",
-  
+  "browse.comcol.by.dateissued": "Par date de publication",
   // "browse.comcol.by.subject": "By Subject",
-  // TODO New key - Add a translation
-  "browse.comcol.by.subject": "By Subject",
-  
+  "browse.comcol.by.subject": "Par sujet",
   // "browse.comcol.by.title": "By Title",
-  // TODO New key - Add a translation
-  "browse.comcol.by.title": "By Title",
-  
+  "browse.comcol.by.title": "Par titre",
   // "browse.comcol.head": "Browse",
-  // TODO New key - Add a translation
-  "browse.comcol.head": "Browse",
-  
+  "browse.comcol.head": "Parcourir",
   // "browse.empty": "No items to show.",
-  // TODO New key - Add a translation
-  "browse.empty": "No items to show.",
-  
+  "browse.empty": "Aucun résultat.",
   // "browse.metadata.author": "Author",
-  // TODO New key - Add a translation
-  "browse.metadata.author": "Author",
-  
+  "browse.metadata.author": "Auteur",
   // "browse.metadata.dateissued": "Issue Date",
-  // TODO New key - Add a translation
-  "browse.metadata.dateissued": "Issue Date",
-  
+  "browse.metadata.dateissued": "Date de publication",
   // "browse.metadata.subject": "Subject",
-  // TODO New key - Add a translation
-  "browse.metadata.subject": "Subject",
-  
+  "browse.metadata.subject": "Suject",
   // "browse.metadata.title": "Title",
-  // TODO New key - Add a translation
-  "browse.metadata.title": "Title",
-  
+  "browse.metadata.title": "Titre",
   // "browse.startsWith.choose_start": "(Choose start)",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_start": "(Choose start)",
-  
+  "browse.startsWith.choose_start": "(Choisir point de départ)",
   // "browse.startsWith.choose_year": "(Choose year)",
-  // TODO New key - Add a translation
-  "browse.startsWith.choose_year": "(Choose year)",
-  
+  "browse.startsWith.choose_year": "(Choisir l'année)",
   // "browse.startsWith.jump": "Jump to a point in the index:",
-  // TODO New key - Add a translation
-  "browse.startsWith.jump": "Jump to a point in the index:",
-  
+  "browse.startsWith.jump": "Aller directement à une entrée de l'index:",
   // "browse.startsWith.months.april": "April",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.april": "April",
-  
+  "browse.startsWith.months.april": "Avril",
   // "browse.startsWith.months.august": "August",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.august": "August",
-  
+  "browse.startsWith.months.august": "Août",
   // "browse.startsWith.months.december": "December",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.december": "December",
-  
+  "browse.startsWith.months.december": "Décembre",
   // "browse.startsWith.months.february": "February",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.february": "February",
-  
+  "browse.startsWith.months.february": "Février",
   // "browse.startsWith.months.january": "January",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.january": "January",
-  
+  "browse.startsWith.months.january": "Janvier",
   // "browse.startsWith.months.july": "July",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.july": "July",
-  
+  "browse.startsWith.months.july": "Juillet",
   // "browse.startsWith.months.june": "June",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.june": "June",
-  
+  "browse.startsWith.months.june": "Juin",
   // "browse.startsWith.months.march": "March",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.march": "March",
-  
+  "browse.startsWith.months.march": "Mars",
   // "browse.startsWith.months.may": "May",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.may": "May",
-  
+  "browse.startsWith.months.may": "Mai",
   // "browse.startsWith.months.none": "(Choose month)",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.none": "(Choose month)",
-  
+  "browse.startsWith.months.none": "(Choisir le mois)",
   // "browse.startsWith.months.november": "November",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.november": "November",
-  
+  "browse.startsWith.months.november": "Novembre",
   // "browse.startsWith.months.october": "October",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.october": "October",
-  
+  "browse.startsWith.months.october": "Octobre",
   // "browse.startsWith.months.september": "September",
-  // TODO New key - Add a translation
-  "browse.startsWith.months.september": "September",
-  
+  "browse.startsWith.months.september": "Septembre",
   // "browse.startsWith.submit": "Go",
-  // TODO New key - Add a translation
-  "browse.startsWith.submit": "Go",
-  
+  "browse.startsWith.submit": "Valider",
   // "browse.startsWith.type_date": "Or type in a date (year-month):",
-  // TODO New key - Add a translation
-  "browse.startsWith.type_date": "Or type in a date (year-month):",
-  
+  "browse.startsWith.type_date": "Ou saisir une date (année-mois):",
   // "browse.startsWith.type_text": "Or enter first few letters:",
-  // TODO New key - Add a translation
-  "browse.startsWith.type_text": "Or enter first few letters:",
-  
+  "browse.startsWith.type_text": "Ou saisir les premières lettres:",
   // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  // TODO New key - Add a translation
-  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  
-  
+  "browse.title": "Parcourir {{ collection }} par {{ field }} {{ value }}",
   
   // "chips.remove": "Remove chip",
-  // TODO New key - Add a translation
-  "chips.remove": "Remove chip",
-  
-  
+  "chips.remove": "Supprimer fragment",
   
   // "collection.create.head": "Create a Collection",
-  // TODO New key - Add a translation
-  "collection.create.head": "Create a Collection",
-  
+  "collection.create.head": "Créer une collection",
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
-  // TODO New key - Add a translation
-  "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
-  
+  "collection.create.sub-head": "Créer une collection au sein de la communauté {{ parent }}",
   // "collection.delete.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.delete.cancel": "Cancel",
-  
+  "collection.delete.cancel": "Annuler",
   // "collection.delete.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "collection.delete.confirm": "Confirm",
-  
+  "collection.delete.confirm": "Valider",
   // "collection.delete.head": "Delete Collection",
-  // TODO New key - Add a translation
-  "collection.delete.head": "Delete Collection",
-  
+  "collection.delete.head": "Supprimer collection",
   // "collection.delete.notification.fail": "Collection could not be deleted",
-  // TODO New key - Add a translation
-  "collection.delete.notification.fail": "Collection could not be deleted",
-  
+  "collection.delete.notification.fail": "La collection n'a pas pu être supprimée",
   // "collection.delete.notification.success": "Successfully deleted collection",
-  // TODO New key - Add a translation
-  "collection.delete.notification.success": "Successfully deleted collection",
-  
+  "collection.delete.notification.success": "Collection supprimée avec succès",
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
-  // TODO New key - Add a translation
-  "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
-  
-  
-  
+  "collection.delete.text": "Êtes-vous certain de vouloir supprimer la collection \"{{ dso }}\"",
   // "collection.edit.delete": "Delete this collection",
-  // TODO New key - Add a translation
-  "collection.edit.delete": "Delete this collection",
-  
+  "collection.edit.delete": "Supprimer cette collection",
   // "collection.edit.head": "Edit Collection",
-  // TODO New key - Add a translation
-  "collection.edit.head": "Edit Collection",
-  
-  
-  
+  "collection.edit.head": "Editer Collection",
   // "collection.edit.item-mapper.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.cancel": "Cancel",
-  
+  "collection.edit.item-mapper.cancel": "Annuler",
   // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
-  // TODO New key - Add a translation
   "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
-  
   // "collection.edit.item-mapper.confirm": "Map selected items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.confirm": "Map selected items",
-  
+  "collection.edit.item-mapper.confirm": "Associer les éléments sélectionnés",
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  
+  "collection.edit.item-mapper.description": "Cet outil d'association d'objets permet aux administrateurs de collection d'associer des objets provenant d'autres collections dans cette collection. Vous pouvez rechercher des objets d'autres collections et les associer, ou consulter la liste des objets actuellement associés.",
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  
+  "collection.edit.item-mapper.head": "Item Mapper - Associer des éléments provenant d'autres collections",
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.no-search": "Please enter a query to search",
-  
+  "collection.edit.item-mapper.no-search": "Veuillez entrer un élément à rechercher",
   // "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
-  
+  "collection.edit.item-mapper.notifications.map.error.content": "Des erreurs se sont produites lors de l'association de {{amount}} objet(s).",
   // "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
-  
+  "collection.edit.item-mapper.notifications.map.error.head": "Erreurs d'association",
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  
+  "collection.edit.item-mapper.notifications.map.success.content": "{{amount}} objet(s) associé(s) avec succès.",
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
-  
+  "collection.edit.item-mapper.notifications.map.success.head": "Association terminée",
   // "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-  
+  "collection.edit.item-mapper.notifications.unmap.error.content": "Des erreurs se sont produites lors de la suppression de l'association de {{amount}} objet(s).",
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
-  
+  "collection.edit.item-mapper.notifications.unmap.error.head": "Erreurs de suppression d'association",
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-  
+  "collection.edit.item-mapper.notifications.unmap.success.content": "{{amount}} association(s) supprimée(s) avec succès.",
   // "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
-  
+  "collection.edit.item-mapper.notifications.unmap.success.head": "Suppression d'association terminée",
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  
+  "collection.edit.item-mapper.remove": "Supprimer les associations sélectionnées",
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  
+  "collection.edit.item-mapper.tabs.browse": "Parcourir les objets associés",
   // "collection.edit.item-mapper.tabs.map": "Map new items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.map": "Map new items",
+  "collection.edit.item-mapper.tabs.map": "Associer nouveaux objets",
   
   
   
@@ -3213,8 +2920,5 @@
   // "uploader.queue-length": "Queue length",
   // TODO New key - Add a translation
   "uploader.queue-length": "Queue length",
-  
-  
-  
 
 }
