@@ -1,7 +1,6 @@
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
-import { EPersonDataService } from '../eperson/eperson-data.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { GLOBAL_CONFIG } from '../../../config';

@@ -18,6 +18,8 @@ import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { dataService } from '../cache/builders/build-decorators';
+import { GROUP } from './models/group.resource-type';
 
 /**
  * Provides methods to retrieve eperson group resources.
@@ -25,6 +27,7 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 @Injectable({
   providedIn: 'root'
 })
+@dataService(GROUP)
 export class GroupDataService extends DataService<Group> {
   protected linkPath = 'groups';
   protected browseEndpoint = '';

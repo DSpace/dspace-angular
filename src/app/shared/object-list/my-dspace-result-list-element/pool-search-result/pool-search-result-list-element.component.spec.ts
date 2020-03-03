@@ -12,6 +12,9 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { VarDirective } from '../../../utils/var.directive';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { getMockLinkService } from '../../../mocks/mock-link-service';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -54,14 +57,16 @@ const rdItem = createSuccessfulRemoteDataObject(item);
 const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
+const linkService = getMockLinkService();
 
 describe('PoolSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
-      declarations: [PoolSearchResultListElementComponent],
+      declarations: [PoolSearchResultListElementComponent, VarDirective],
       providers: [
         { provide: TruncatableService, useValue: {} },
+        { provide: LinkService, useValue: linkService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolSearchResultListElementComponent, {
@@ -79,8 +84,12 @@ describe('PoolSearchResultListElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should init item properly', () => {
-    expect(component.workflowitem).toEqual(workflowitem);
+  it('should init workflowitem properly', (done) => {
+    component.workflowitemRD$.subscribe((workflowitemRD) => {
+      expect(linkService.resolveLink).toHaveBeenCalled();
+      expect(workflowitemRD.payload).toEqual(workflowitem);
+      done();
+    });
   });
 
   it('should have properly status', () => {

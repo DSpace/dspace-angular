@@ -35,6 +35,9 @@ export const AuthActionTypes = {
   REGISTRATION_ERROR: type('dspace/auth/REGISTRATION_ERROR'),
   REGISTRATION_SUCCESS: type('dspace/auth/REGISTRATION_SUCCESS'),
   SET_REDIRECT_URL: type('dspace/auth/SET_REDIRECT_URL'),
+  RETRIEVE_AUTHENTICATED_EPERSON: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON'),
+  RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS'),
+  RETRIEVE_AUTHENTICATED_EPERSON_ERROR: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_ERROR'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -52,7 +55,7 @@ export class AuthenticateAction implements Action {
   };
 
   constructor(email: string, password: string) {
-    this.payload = {email, password};
+    this.payload = { email, password };
   }
 }
 
@@ -80,11 +83,11 @@ export class AuthenticatedSuccessAction implements Action {
   payload: {
     authenticated: boolean;
     authToken: AuthTokenInfo;
-    user: EPerson
+    userHref: string
   };
 
-  constructor(authenticated: boolean, authToken: AuthTokenInfo, user: EPerson) {
-    this.payload = {authenticated, authToken, user};
+  constructor(authenticated: boolean, authToken: AuthTokenInfo, userHref: string) {
+    this.payload = { authenticated, authToken, userHref };
   }
 }
 
@@ -378,6 +381,47 @@ export class SetRedirectUrlAction implements Action {
   }
 }
 
+/**
+ * Retrieve the authenticated eperson.
+ * @class RetrieveAuthenticatedEpersonAction
+ * @implements {Action}
+ */
+export class RetrieveAuthenticatedEpersonAction implements Action {
+  public type: string = AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON;
+  payload: string;
+
+  constructor(user: string) {
+    this.payload = user ;
+  }
+}
+
+/**
+ * Set the authenticated eperson in the state.
+ * @class RetrieveAuthenticatedEpersonSuccessAction
+ * @implements {Action}
+ */
+export class RetrieveAuthenticatedEpersonSuccessAction implements Action {
+  public type: string = AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS;
+  payload: EPerson;
+
+  constructor(user: EPerson) {
+    this.payload = user ;
+  }
+}
+
+/**
+ * Set the authenticated eperson in the state.
+ * @class RetrieveAuthenticatedEpersonSuccessAction
+ * @implements {Action}
+ */
+export class RetrieveAuthenticatedEpersonErrorAction implements Action {
+  public type: string = AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_ERROR;
+  payload: Error;
+
+  constructor(payload: Error) {
+    this.payload = payload ;
+  }
+}
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -406,4 +450,9 @@ export type AuthActions
   | RetrieveAuthMethodsAction
   | RetrieveAuthMethodsSuccessAction
   | RetrieveAuthMethodsErrorAction
-  | RetrieveTokenAction;
+  | RetrieveTokenAction
+  | ResetAuthenticationMessagesAction
+  | RetrieveAuthenticatedEpersonAction
+  | RetrieveAuthenticatedEpersonErrorAction
+  | RetrieveAuthenticatedEpersonSuccessAction
+  | SetRedirectUrlAction;

@@ -218,5 +218,52 @@ describe('LinkService', () => {
     });
   });
 
+  describe('when a link is missing', () => {
+    beforeEach(() => {
+      testModel = Object.assign(new TestModel(), {
+        value: 'a test value',
+        _links: {
+          self: {
+            href: 'http://self.link'
+          },
+          predecessor: {
+            href: 'http://predecessor.link'
+          }
+        }
+      });
+      spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
+    });
+
+    describe('resolving the available link', () => {
+      beforeEach(() => {
+        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue({
+          resourceType: TEST_MODEL,
+          linkName: 'predecessor',
+          propertyName: 'predecessor'
+        });
+        result = service.resolveLinks(testModel, followLink('predecessor'));
+      });
+
+      it('should return the model with the resolved link', () => {
+        expect(result.predecessor).toBe('findByHref');
+      });
+    });
+
+    describe('resolving the missing link', () => {
+      beforeEach(() => {
+        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue({
+          resourceType: TEST_MODEL,
+          linkName: 'successor',
+          propertyName: 'successor'
+        });
+        result = service.resolveLinks(testModel, followLink('successor'));
+      });
+
+      it('should return the model with no resolved link', () => {
+        expect(result.successor).toBeUndefined();
+      });
+    });
+  });
+
 });
 /* tslint:enable:max-classes-per-file */
