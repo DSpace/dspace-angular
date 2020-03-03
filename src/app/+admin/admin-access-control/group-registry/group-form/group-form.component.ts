@@ -109,13 +109,14 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         required: true,
       });
       this.groupDescription = new DynamicTextAreaModel({
-        id: 'description',
+        id: 'groupDescription',
         label: groupDescription,
-        name: 'dc.description',
+        name: 'groupDescription',
         required: false,
       });
       this.formModel = [
         this.groupName,
+        this.groupDescription
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.subs.push(this.groupDataService.getActiveGroup().subscribe((group: Group) => {
@@ -160,7 +161,6 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         } else {
           this.editGroup(group, values);
         }
-        this.clearFields();
       }
     );
   }
@@ -176,26 +176,20 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         getRemoteDataPayload())
       .subscribe((group: Group) => {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.created.success', { name: group.name }));
+        this.setActiveGroup(group.id);
         this.submitForm.emit(group);
       }));
   }
 
   /**
-   * //TODO
+   * // TODO
    * @param group
    * @param values
    */
   editGroup(group: Group, values) {
-    // TODO
-  }
-
-  /**
-   * Reset all input-fields to be empty
-   */
-  clearFields() {
-    this.formGroup.patchValue({
-      groupName: '',
-    });
+    // TODO (backend)
+    console.log('TODO implement editGroup', values);
+    this.notificationsService.error('TODO implement editGroup (not yet implemented in backend) ');
   }
 
   /**

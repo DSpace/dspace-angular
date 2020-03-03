@@ -26,6 +26,9 @@ export class MembersListComponent implements OnInit, OnDestroy {
   @Input()
   messagePrefix: string;
 
+  /**
+   * EPeople being displayed, initially all members, after search result of search
+   */
   ePeople: Observable<RemoteData<PaginatedList<EPerson>>>;
 
   /**
@@ -91,23 +94,45 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.ePeople = this.ePersonDataService.getEPeople(options);
   }
 
+  /**
+   * Deletes a given EPerson from the members list of the group currently being edited
+   * @param ePerson   EPerson we want to delete as member from group that is currently being edited
+   */
   deleteMemberFromGroup(ePerson: EPerson) {
-    // TODO
-    console.log('deleteMember TODO', ePerson);
-    // this.forceUpdateEPeople();
+    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+      if (activeGroup != null) {
+        this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson);
+        this.forceUpdateEPeople(activeGroup);
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
+      }
+    });
   }
 
+  /**
+   * Adds a given EPerson to the members list of the group currently being edited
+   * @param ePerson   EPerson we want to add as member to group that is currently being edited
+   */
   addMemberToGroup(ePerson: EPerson) {
-    // TODO
-    console.log('addMember TODO', ePerson);
-    // this.forceUpdateEPeople();
+    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+      if (activeGroup != null) {
+        this.groupDataService.addMemberToGroup(activeGroup, ePerson);
+        this.forceUpdateEPeople(activeGroup);
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
+      }
+    });
   }
 
-  isMemberOfGroup(ePerson: EPerson): Observable<boolean> {
+  /**
+   * Whether or not the given ePerson is a member of the group currently being edited
+   * @param possibleMember  EPerson that is a possible member (being tested) of the group currently being edited
+   */
+  isMemberOfGroup(possibleMember: EPerson): Observable<boolean> {
     return this.groupDataService.getActiveGroup().pipe(take(1),
       mergeMap((group: Group) => {
         if (group != null) {
-          return this.groupDataService.findAllByHref(ePerson._links.groups.href, {
+          return this.groupDataService.findAllByHref(possibleMember._links.groups.href, {
             currentPage: 0,
             elementsPerPage: Number.MAX_SAFE_INTEGER
           })
@@ -137,10 +162,15 @@ export class MembersListComponent implements OnInit, OnDestroy {
   /**
    * Force-update the list of EPeople by first clearing the cache related to EPeople, then performing
    * a new REST call
+   * @param activeGroup   Group currently being edited
    */
-  public forceUpdateEPeople() {
+  public forceUpdateEPeople(activeGroup: Group) {
+    this.groupDataService.clearGroupsRequests();
     this.ePersonDataService.clearEPersonRequests();
-    this.search({ query: '', scope: 'metadata' })
+    this.ePeople = this.ePersonDataService.findAllByHref(activeGroup._links.epersons.href, {
+      currentPage: 1,
+      elementsPerPage: this.config.pageSize
+    })
   }
 
   /**

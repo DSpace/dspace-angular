@@ -91,6 +91,9 @@ export class GroupsRegistryComponent {
    * Delete Group
    */
   deleteGroup(group: Group) {
+    // TODO (backend)
+    console.log('TODO implement editGroup', group);
+    this.notificationsService.error('TODO implement deleteGroup (not yet implemented in backend)');
     if (hasValue(group.id)) {
       this.groupService.deleteGroup(group).pipe(take(1)).subscribe((success: boolean) => {
         if (success) {
@@ -112,7 +115,7 @@ export class GroupsRegistryComponent {
   }
 
   /**
-   * Get the amount of members (epersons embedded value of a group) //TODO
+   * Get the amount of members (epersons embedded value of a group)
    * @param group
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {

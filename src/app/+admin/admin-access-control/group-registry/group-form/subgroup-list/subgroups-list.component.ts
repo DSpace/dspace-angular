@@ -25,6 +25,9 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   @Input()
   messagePrefix: string;
 
+  /**
+   * Groups being displayed, initially all subgroups, after search result of search
+   */
   groups: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
@@ -88,6 +91,10 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.groups = this.groupDataService.getGroups(options);
   }
 
+  /**
+   * Whether or not the given group is a subgroup of the group currently being edited
+   * @param possibleSubgroup Group that is a possible subgroup (being tested) of the group currently being edited
+   */
   isSubgroupOfGroup(possibleSubgroup: Group): Observable<boolean> {
     return this.groupDataService.getActiveGroup().pipe(take(1),
       mergeMap((group: Group) => {
@@ -104,19 +111,37 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
         } else {
           return observableOf(false);
         }
-      }))
+      }));
   }
 
-  deleteSubgroupFromGroup(group: Group) {
-    // TODO
-    console.log('deleteSubgroup TODO', group);
-    // this.forceUpdateGroup();
+  /**
+   * Deletes given subgroup from the group currently being edited
+   * @param subgroup  Group we want to delete from the subgroups of the group currently being edited
+   */
+  deleteSubgroupFromGroup(subgroup: Group) {
+    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+      if (activeGroup != null) {
+        this.groupDataService.deleteSubGroupFromGroup(activeGroup, subgroup);
+        this.forceUpdateGroups(activeGroup);
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
+      }
+    });
   }
 
-  addSubgroupToGroup(group: Group) {
-    // TODO
-    console.log('addSubgroup TODO', group);
-    // this.forceUpdateGroup();
+  /**
+   * Adds given subgroup to the group currently being edited
+   * @param subgroup  Subgroup to add to group currently being edited
+   */
+  addSubgroupToGroup(subgroup: Group) {
+    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+      if (activeGroup != null) {
+        this.groupDataService.addSubGroupToGroup(activeGroup, subgroup);
+        this.forceUpdateGroups(activeGroup);
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
+      }
+    });
   }
 
   /**
@@ -134,10 +159,14 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
 
   /**
    * Force-update the list of groups by first clearing the cache related to groups, then performing a new REST call
+   * @param activeGroup   Group currently being edited
    */
-  public forceUpdateGroup() {
+  public forceUpdateGroups(activeGroup: Group) {
     this.groupDataService.clearGroupsRequests();
-    this.search({ query: '' })
+    this.groups = this.groupDataService.findAllByHref(activeGroup._links.groups.href, {
+      currentPage: 1,
+      elementsPerPage: this.config.pageSize
+    })
   }
 
   /**

@@ -254,8 +254,8 @@
   "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
 
   "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
-  // TODO
-  "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\" (Not yet implemented)",
+
+  "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
 
 
   "admin.access-control.groups.form.head.create": "Create group",
@@ -263,6 +263,8 @@
   "admin.access-control.groups.form.head.edit": "Edit group",
 
   "admin.access-control.groups.form.groupName": "Group name",
+
+  "admin.access-control.groups.form.groupDescription": "Description",
 
   "admin.access-control.groups.form.button.return": "Return",
 
@@ -290,6 +292,8 @@
 
   "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
 
+  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+
   "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
 
   "admin.access-control.groups.form.members-list.button.see-all": "Search all",
@@ -311,6 +315,8 @@
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
 
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
+
+  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
 
   "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
 

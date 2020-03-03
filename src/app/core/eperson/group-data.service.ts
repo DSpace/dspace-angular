@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
@@ -20,10 +20,12 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions, FindListRequest } from '../data/request.models';
+import { DeleteRequest, FindListOptions, FindListRequest, PostRequest } from '../data/request.models';
 
 import { RequestService } from '../data/request.service';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { GROUP } from './models/group.resource-type';
@@ -41,6 +43,8 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
 export class GroupDataService extends DataService<Group> {
   protected linkPath = 'groups';
   protected browseEndpoint = '';
+  protected ePersonsEndpoint = 'epersons';
+  protected subgroupsEndpoint = 'subgroups';
 
   constructor(
     protected comparator: DSOChangeAnalyzer<Group>,
@@ -132,7 +136,6 @@ export class GroupDataService extends DataService<Group> {
     if (isUpdate) {
       return this.updateGroup(group);
     } else {
-      console.log('group create', group)
       return this.create(group, null);
     }
   }
@@ -142,8 +145,60 @@ export class GroupDataService extends DataService<Group> {
    * @param {DSpaceObject} ePerson The given object
    */
   updateGroup(group: Group): Observable<RemoteData<Group>> {
-      // TODO
+    // TODO
     return null;
+  }
+
+  /**
+   * Adds given subgroup as a subgroup to the given active group
+   * @param activeGroup   Group we want to add subgroup to
+   * @param subgroup      Group we want to add as subgroup to activeGroup
+   */
+  addSubGroupToGroup(activeGroup: Group, subgroup: Group) {
+    const requestId = this.requestService.generateRequestId();
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+    const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint, subgroup.self, options);
+    this.requestService.configure(postRequest);
+  }
+
+  /**
+   * Deletes a given subgroup from the subgroups of the given active group
+   * @param activeGroup   Group we want to delete subgroup from
+   * @param subgroup      Subgroup we want to delete from activeGroup
+   */
+  deleteSubGroupFromGroup(activeGroup: Group, subgroup: Group) {
+    const requestId = this.requestService.generateRequestId();
+    const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint + '/' + subgroup.id);
+    this.requestService.configure(deleteRequest);
+  }
+
+  /**
+   * Adds given ePerson as member to given group
+   * @param activeGroup   Group we want to add member to
+   * @param ePerson       EPerson we want to add as member to given activeGroup
+   */
+  addMemberToGroup(activeGroup: Group, ePerson: EPerson) {
+    const requestId = this.requestService.generateRequestId();
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+    const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint, ePerson.self, options);
+    this.requestService.configure(postRequest);
+  }
+
+  /**
+   * Deletes a given ePerson from the members of the given active group
+   * @param activeGroup   Group we want to delete member from
+   * @param ePerson       EPerson we want to delete from members of given activeGroup
+   */
+  deleteMemberFromGroup(activeGroup: Group, ePerson: EPerson) {
+    const requestId = this.requestService.generateRequestId();
+    const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint + '/' + ePerson.id);
+    this.requestService.configure(deleteRequest);
   }
 
   /**
