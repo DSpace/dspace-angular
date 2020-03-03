@@ -12,10 +12,13 @@ import { License } from './license.model';
 import { LICENSE } from './license.resource-type';
 import { ResourcePolicy } from './resource-policy.model';
 import { RESOURCE_POLICY } from './resource-policy.resource-type';
+import { COMMUNITY } from './community.resource-type';
+import { Community } from './community.model';
+import { ChildHALResource } from './child-hal-resource.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
-export class Collection extends DSpaceObject {
+export class Collection extends DSpaceObject implements ChildHALResource {
   static type = COLLECTION;
 
   /**
@@ -35,6 +38,7 @@ export class Collection extends DSpaceObject {
     itemtemplate: HALLink;
     defaultAccessConditions: HALLink;
     logo: HALLink;
+    parentCommunity: HALLink;
     self: HALLink;
   };
 
@@ -58,6 +62,13 @@ export class Collection extends DSpaceObject {
    */
   @link(RESOURCE_POLICY, true)
   defaultAccessConditions?: Observable<RemoteData<PaginatedList<ResourcePolicy>>>;
+
+  /**
+   * The Community that is a direct parent of this Collection
+   * Will be undefined unless the parent community HALLink has been resolved.
+   */
+  @link(COMMUNITY, false)
+  parentCommunity?: Observable<RemoteData<Community>>;
 
   /**
    * The introductory text of this Collection
@@ -97,5 +108,9 @@ export class Collection extends DSpaceObject {
    */
   get sidebarText(): string {
     return this.firstMetadataValue('dc.description.tableofcontents');
+  }
+
+  getParentLinkKey(): keyof this['_links'] {
+    return 'parentCommunity';
   }
 }

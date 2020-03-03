@@ -312,7 +312,7 @@ export class ItemDeleteComponent
         )
       ),
     ).subscribe((types) => {
-      this.itemDataService.delete(this.item, types).pipe(first()).subscribe(
+      this.itemDataService.delete(this.item.id, types).pipe(first()).subscribe(
         (succeeded: boolean) => {
           this.notify(succeeded);
         }
@@ -322,7 +322,7 @@ export class ItemDeleteComponent
 
   /**
    * When the item is successfully delete, navigate to the homepage, otherwise navigate back to the item edit page
-   * @param response
+   * @param succeeded
    */
   notify(succeeded: boolean) {
     if (succeeded) {

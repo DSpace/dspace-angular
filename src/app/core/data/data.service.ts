@@ -152,7 +152,11 @@ export abstract class DataService<T extends CacheableObject> {
   /**
    * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
    * info should be added to the objects
+   *
+   * @param options         Find list options object
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
    */
   findAll(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
     return this.findList(this.getFindAllHref(options), options, ...linksToFollow);
@@ -162,6 +166,7 @@ export abstract class DataService<T extends CacheableObject> {
    * Returns an observable of {@link RemoteData} of an object, based on href observable,
    * with a list of {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
    * @param href$           Observable of href of object we want to retrieve
+   * @param options         Find list options object
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   protected findList(href$, options: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<T>>) {
@@ -231,6 +236,7 @@ export abstract class DataService<T extends CacheableObject> {
    * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the object
    * @param href            The url of object we want to retrieve
+   * @param findListOptions Find list options object
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
@@ -259,6 +265,7 @@ export abstract class DataService<T extends CacheableObject> {
    *
    * @param searchMethod The search method for the object
    * @param options The [[FindListOptions]] object
+   * @param linksToFollow The array of [[FollowLinkConfig]]
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
@@ -367,16 +374,16 @@ export abstract class DataService<T extends CacheableObject> {
 
   /**
    * Delete an existing DSpace Object on the server
-   * @param dso The DSpace Object to be removed
+   * @param dsoID The DSpace Object' id to be removed
    * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
    *                            metadata should be saved as real metadata
    * @return an observable that emits true when the deletion was successful, false when it failed
    */
-  delete(dso: T, copyVirtualMetadata?: string[]): Observable<boolean> {
+  delete(dsoID: string, copyVirtualMetadata?: string[]): Observable<boolean> {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, dso.uuid)));
+      map((endpoint: string) => this.getIDHref(endpoint, dsoID)));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)),
@@ -388,7 +395,7 @@ export abstract class DataService<T extends CacheableObject> {
               + id
           );
         }
-        const request = new DeleteByIDRequest(requestId, href, dso.uuid);
+        const request = new DeleteByIDRequest(requestId, href, dsoID);
         this.requestService.configure(request);
       })
     ).subscribe();

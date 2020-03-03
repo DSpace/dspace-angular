@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -141,7 +141,7 @@ describe('WorkspaceitemActionsComponent', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
-      expect(mockDataService.delete).toHaveBeenCalledWith(mockObject);
+      expect(mockDataService.delete).toHaveBeenCalledWith(mockObject.id);
     });
 
   });

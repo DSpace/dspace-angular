@@ -10,6 +10,9 @@ import { DeleteCollectionPageComponent } from './delete-collection-page/delete-c
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getCollectionModulePath } from '../app-routing.module';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
+import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
+import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
+import { LinkService } from '../core/cache/builders/link.service';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 
@@ -18,7 +21,7 @@ export function getCollectionPageRoute(collectionId: string) {
 }
 
 export function getCollectionEditPath(id: string) {
-  return new URLCombiner(getCollectionModulePath(), COLLECTION_EDIT_PATH.replace(/:id/, id)).toString()
+  return new URLCombiner(getCollectionModulePath(), id, COLLECTION_EDIT_PATH).toString()
 }
 
 export function getCollectionCreatePath() {
@@ -26,51 +29,54 @@ export function getCollectionCreatePath() {
 }
 
 const COLLECTION_CREATE_PATH = 'create';
-const COLLECTION_EDIT_PATH = ':id/edit';
+const COLLECTION_EDIT_PATH = 'edit';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
+        path: ':id',
+        resolve: {
+          dso: CollectionPageResolver,
+          breadcrumb: CollectionBreadcrumbResolver
+        },
+        children: [
+          {
+            path: COLLECTION_EDIT_PATH,
+            loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
+            canActivate: [AuthenticatedGuard]
+          },
+          {
+            path: 'delete',
+            pathMatch: 'full',
+            component: DeleteCollectionPageComponent,
+            canActivate: [AuthenticatedGuard],
+          },
+          {
+            path: '',
+            component: CollectionPageComponent,
+            pathMatch: 'full',
+          },
+          {
+            path: '/edit/mapper',
+            component: CollectionItemMapperComponent,
+            pathMatch: 'full',
+            canActivate: [AuthenticatedGuard]
+          }
+        ]
+      },
+      {
         path: COLLECTION_CREATE_PATH,
         component: CreateCollectionPageComponent,
         canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
       },
-      {
-        path: COLLECTION_EDIT_PATH,
-        loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
-        canActivate: [AuthenticatedGuard]
-      },
-      {
-        path: ':id/delete',
-        pathMatch: 'full',
-        component: DeleteCollectionPageComponent,
-        canActivate: [AuthenticatedGuard],
-        resolve: {
-          dso: CollectionPageResolver
-        }
-      },
-      {
-        path: ':id',
-        component: CollectionPageComponent,
-        pathMatch: 'full',
-        resolve: {
-          collection: CollectionPageResolver
-        }
-      },
-      {
-        path: ':id/edit/mapper',
-        component: CollectionItemMapperComponent,
-        pathMatch: 'full',
-        resolve: {
-          collection: CollectionPageResolver
-        },
-        canActivate: [AuthenticatedGuard]
-      }
     ])
   ],
   providers: [
     CollectionPageResolver,
+    CollectionBreadcrumbResolver,
+    DSOBreadcrumbsService,
+    LinkService,
     CreateCollectionPageGuard
   ]
 })

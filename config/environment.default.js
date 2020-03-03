@@ -140,7 +140,7 @@ module.exports = {
   }, {
     code: 'nl',
     label: 'Nederlands',
-    active: false,
+    active: true,
   }, {
     code: 'pt',
     label: 'Português',

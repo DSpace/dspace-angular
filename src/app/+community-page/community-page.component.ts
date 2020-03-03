@@ -46,7 +46,7 @@ export class CommunityPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.communityRD$ = this.route.data.pipe(
-      map((data) => data.community as RemoteData<Community>),
+      map((data) => data.dso as RemoteData<Community>),
       redirectToPageNotFoundOn404(this.router)
     );
     this.logoRD$ = this.communityRD$.pipe(
