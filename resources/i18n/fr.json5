@@ -289,241 +289,128 @@
   // "collection.edit.item-mapper.tabs.map": "Map new items",
   "collection.edit.item-mapper.tabs.map": "Associer nouveaux objets",
   
-  
-  
   // "collection.form.abstract": "Short Description",
   "collection.form.abstract": "Description succinte",
-  
   // "collection.form.description": "Introductory text (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.description": "Introductory text (HTML)",
-  
+  "collection.form.description": "Texte d'introduction (HTML)",
   // "collection.form.errors.title.required": "Please enter a collection name",
-  // TODO New key - Add a translation
-  "collection.form.errors.title.required": "Please enter a collection name",
-  
+  "collection.form.errors.title.required": "Veuillez entrer un nom de collection",
   // "collection.form.license": "License",
-  // TODO New key - Add a translation
-  "collection.form.license": "License",
-  
+  "collection.form.license": "Licence",
   // "collection.form.provenance": "Provenance",
-  // TODO New key - Add a translation
   "collection.form.provenance": "Provenance",
-  
   // "collection.form.rights": "Copyright text (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.rights": "Copyright text (HTML)",
-  
+  "collection.form.rights": "Texte de copyright (HTML): ",
   // "collection.form.tableofcontents": "News (HTML)",
-  // TODO New key - Add a translation
-  "collection.form.tableofcontents": "News (HTML)",
-  
+  "collection.form.tableofcontents": "Nouvelles (HTML)",
   // "collection.form.title": "Name",
-  // TODO New key - Add a translation
-  "collection.form.title": "Name",
-  
-  
-  
+  "collection.form.title": "Nom",
   // "collection.page.browse.recent.head": "Recent Submissions",
-  // TODO New key - Add a translation
-  "collection.page.browse.recent.head": "Recent Submissions",
-  
+  "collection.page.browse.recent.head": "Dépôts récents",
   // "collection.page.browse.recent.empty": "No items to show",
-  // TODO New key - Add a translation
-  "collection.page.browse.recent.empty": "No items to show",
-  
+  "collection.page.browse.recent.empty": "Aucun dépôt disponible",
   // "collection.page.handle": "Permanent URI for this collection",
-  // TODO New key - Add a translation
-  "collection.page.handle": "Permanent URI for this collection",
-  
+  "collection.page.handle": "URI permanent de cette collection",
   // "collection.page.license": "License",
-  // TODO New key - Add a translation
-  "collection.page.license": "License",
-  
+  "collection.page.license": "Licence",
   // "collection.page.news": "News",
-  // TODO New key - Add a translation
-  "collection.page.news": "News",
-  
-  
+  "collection.page.news": "Nouvelles",
   
   // "collection.select.confirm": "Confirm selected",
-  // TODO New key - Add a translation
-  "collection.select.confirm": "Confirm selected",
-  
+  "collection.select.confirm": "Confirmer sélection",
   // "collection.select.empty": "No collections to show",
-  // TODO New key - Add a translation
-  "collection.select.empty": "No collections to show",
-  
+  "collection.select.empty": "Aucune collection disponible",
   // "collection.select.table.title": "Title",
-  // TODO New key - Add a translation
-  "collection.select.table.title": "Title",
-  
-  
+  "collection.select.table.title": "Titre",
   
   // "community.create.head": "Create a Community",
-  // TODO New key - Add a translation
-  "community.create.head": "Create a Community",
-  
+  "community.create.head": "Créer une communauté",
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  // TODO New key - Add a translation
-  "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
+  "community.create.sub-head": "Créer une sous-communauté pour la communauté {{ parent }}",
   
   // "community.delete.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "community.delete.cancel": "Cancel",
-  
+  "community.delete.cancel": "Annuler",
   // "community.delete.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "community.delete.confirm": "Confirm",
-  
+  "community.delete.confirm": "Confirmer",
   // "community.delete.head": "Delete Community",
-  // TODO New key - Add a translation
-  "community.delete.head": "Delete Community",
-  
+  "community.delete.head": "Supprimer communauté",
   // "community.delete.notification.fail": "Community could not be deleted",
-  // TODO New key - Add a translation
-  "community.delete.notification.fail": "Community could not be deleted",
-  
+  "community.delete.notification.fail": "La communauté n'a pas pu être supprimée",
   // "community.delete.notification.success": "Successfully deleted community",
-  // TODO New key - Add a translation
-  "community.delete.notification.success": "Successfully deleted community",
-  
+  "community.delete.notification.success": "La communauté a été supprimée avec succès",
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  // TODO New key - Add a translation
-  "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
+  "community.delete.text": "Êtes-vous sûr de vouloir supprimer la communauté \"{{ dso }}\"",
   
   // "community.edit.delete": "Delete this community",
-  // TODO New key - Add a translation
-  "community.edit.delete": "Delete this community",
-  
+  "community.edit.delete": "Supprimer cette communauté",
   // "community.edit.head": "Edit Community",
-  // TODO New key - Add a translation
-  "community.edit.head": "Edit Community",
+  "community.edit.head": "Editer communauté",
   
   // "community.form.abstract": "Short Description",
-  // TODO New key - Add a translation
-  "community.form.abstract": "Short Description",
-  
+  "community.form.abstract": "Description succinte",
   // "community.form.description": "Introductory text (HTML)",
-  // TODO New key - Add a translation
-  "community.form.description": "Introductory text (HTML)",
-  
+  "community.form.description": "Texte d'introduction (HTML)",
   // "community.form.errors.title.required": "Please enter a community name",
-  // TODO New key - Add a translation
-  "community.form.errors.title.required": "Please enter a community name",
-  
+  "community.form.errors.title.required": "Veuillez entrer un nom de communauté",
   // "community.form.rights": "Copyright text (HTML)",
-  // TODO New key - Add a translation
-  "community.form.rights": "Copyright text (HTML)",
-  
+  "community.form.rights": "Texte de copyright (HTML)",
   // "community.form.tableofcontents": "News (HTML)",
-  // TODO New key - Add a translation
-  "community.form.tableofcontents": "News (HTML)",
-  
+  "community.form.tableofcontents": "Nouvelles (HTML)",
   // "community.form.title": "Name",
-  // TODO New key - Add a translation
-  "community.form.title": "Name",
+  "community.form.title": "Nom",
   
   // "community.page.handle": "Permanent URI for this community",
-  // TODO New key - Add a translation
-  "community.page.handle": "Permanent URI for this community",
-  
+  "community.page.handle": "URI permanent de cette communauté",
   // "community.page.license": "License",
-  // TODO New key - Add a translation
-  "community.page.license": "License",
-  
+  "community.page.license": "Licence",
   // "community.page.news": "News",
-  // TODO New key - Add a translation
-  "community.page.news": "News",
+  "community.page.news": "Nouvelles",
   
   // "community.all-lists.head": "Subcommunities and Collections",
-  // TODO New key - Add a translation
-  "community.all-lists.head": "Subcommunities and Collections",
-  
+  "community.all-lists.head": "Sous-communautés et collections",
   // "community.sub-collection-list.head": "Collections of this Community",
-  // TODO New key - Add a translation
-  "community.sub-collection-list.head": "Collections of this Community",
-  
+  "community.sub-collection-list.head": "Collections au sein de cette communauté",
   // "community.sub-community-list.head": "Communities of this Community",
-  // TODO New key - Add a translation
-  "community.sub-community-list.head": "Communities of this Community",
-  
-  
+  "community.sub-community-list.head": "Sous-communautés au sein de cette communauté",
   
   // "dso-selector.create.collection.head": "New collection",
-  // TODO New key - Add a translation
-  "dso-selector.create.collection.head": "New collection",
-  
+  "dso-selector.create.collection.head": "Nouvelle collection",
   // "dso-selector.create.community.head": "New community",
-  // TODO New key - Add a translation
-  "dso-selector.create.community.head": "New community",
-  
+  "dso-selector.create.community.head": "Nouvelle communauté",
   // "dso-selector.create.community.sub-level": "Create a new community in",
-  // TODO New key - Add a translation
-  "dso-selector.create.community.sub-level": "Create a new community in",
-  
+  "dso-selector.create.community.sub-level": "Créer une nouvelle communauté dans",
   // "dso-selector.create.community.top-level": "Create a new top-level community",
-  // TODO New key - Add a translation
-  "dso-selector.create.community.top-level": "Create a new top-level community",
-  
+  "dso-selector.create.community.top-level": "Créer une nouvelle communauté de 1er niveau",
   // "dso-selector.create.item.head": "New item",
-  // TODO New key - Add a translation
-  "dso-selector.create.item.head": "New item",
-  
+  "dso-selector.create.item.head": "Nouvel objet",
   // "dso-selector.edit.collection.head": "Edit collection",
-  // TODO New key - Add a translation
-  "dso-selector.edit.collection.head": "Edit collection",
-  
+  "dso-selector.edit.collection.head": "Editer collection",
   // "dso-selector.edit.community.head": "Edit community",
-  // TODO New key - Add a translation
-  "dso-selector.edit.community.head": "Edit community",
-  
+  "dso-selector.edit.community.head": "Editer communauté",
   // "dso-selector.edit.item.head": "Edit item",
-  // TODO New key - Add a translation
-  "dso-selector.edit.item.head": "Edit item",
+  "dso-selector.edit.item.head": "Editer objet",
   
   // "dso-selector.no-results": "No {{ type }} found",
-  // TODO New key - Add a translation
-  "dso-selector.no-results": "No {{ type }} found",
-  
+  "dso-selector.no-results": "Aucun {{ type }} trouvé",
   // "dso-selector.placeholder": "Search for a {{ type }}",
-  // TODO New key - Add a translation
-  "dso-selector.placeholder": "Search for a {{ type }}",
-  
-  
+  "dso-selector.placeholder": "Rechercher un(e) {{ type }}",
   
   // "error.browse-by": "Error fetching items",
-  // TODO New key - Add a translation
-  "error.browse-by": "Error fetching items",
-  
+  "error.browse-by": "Erreur lors de la récupération des objets",
   // "error.collection": "Error fetching collection",
-  // TODO New key - Add a translation
-  "error.collection": "Error fetching collection",
-  
+  "error.collection": "Erreur lors de la récupération de la collection",
   // "error.collections": "Error fetching collections",
-  // TODO New key - Add a translation
-  "error.collections": "Error fetching collections",
-  
+  "error.collections": "Erreur lors de la récupération des collections",
   // "error.community": "Error fetching community",
-  // TODO New key - Add a translation
-  "error.community": "Error fetching community",
-  
+  "error.community": "Erreur lors de la récupération de la communauté",
   // "error.identifier": "No item found for the identifier",
-  // TODO New key - Add a translation
-  "error.identifier": "No item found for the identifier",
-  
+  "error.identifier": "Aucun objet correspondant à cet identifiant",
   // "error.default": "Error",
-  // TODO New key - Add a translation
-  "error.default": "Error",
-  
+  "error.default": "Erreur",
   // "error.item": "Error fetching item",
-  // TODO New key - Add a translation
-  "error.item": "Error fetching item",
-  
+  "error.item": "Erreur lors de la récupération de l'objet",
   // "error.items": "Error fetching items",
-  // TODO New key - Add a translation
-  "error.items": "Error fetching items",
-  
+  "error.items": "Erreur lors de la récupération des objets",
   // "error.objects": "Error fetching objects",
   // TODO New key - Add a translation
   "error.objects": "Error fetching objects",
