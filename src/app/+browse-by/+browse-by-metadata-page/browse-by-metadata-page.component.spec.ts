@@ -20,7 +20,6 @@ import { Item } from '../../core/shared/item.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Community } from '../../core/shared/community.model';
 import { MockRouter } from '../../shared/mocks/mock-router';
-import { ResourceType } from '../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { VarDirective } from '../../shared/utils/var.directive';

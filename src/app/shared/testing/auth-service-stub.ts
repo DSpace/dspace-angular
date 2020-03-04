@@ -3,7 +3,6 @@ import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPersonMock } from './eperson-mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { RemoteData } from '../../core/data/remote-data';
 import { createSuccessfulRemoteDataObject$ } from './utils';
 
 export class AuthServiceStub {
@@ -30,12 +29,16 @@ export class AuthServiceStub {
     }
   }
 
-  public authenticatedUser(token: AuthTokenInfo): Observable<EPerson> {
+  public authenticatedUser(token: AuthTokenInfo): Observable<string> {
     if (token.accessToken === 'token_test') {
-      return observableOf(EPersonMock);
+      return observableOf(EPersonMock._links.self.href);
     } else {
       throw(new Error('Message Error test'));
     }
+  }
+
+  public retrieveAuthenticatedUserByHref(href: string): Observable<EPerson> {
+    return observableOf(EPersonMock);
   }
 
   public buildAuthHeader(token?: AuthTokenInfo): string {

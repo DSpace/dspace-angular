@@ -95,7 +95,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
               this.router.navigate(['/mydspace']);
             } else {
               this.collectionId = (submissionObject.collection as Collection).id;
-              this.selfUrl = submissionObject.self;
+              this.selfUrl = submissionObject._links.self.href;
               this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
               this.submissionId = submissionObject.id;
               this.changeDetectorRef.detectChanges();

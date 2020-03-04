@@ -17,6 +17,7 @@ import { HALLink } from './hal-link.model';
 import { Relationship } from './item-relationships/relationship.model';
 import { RELATIONSHIP } from './item-relationships/relationship.resource-type';
 import { ITEM } from './item.resource-type';
+import { ChildHALResource } from './child-hal-resource.model';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
 
@@ -25,7 +26,7 @@ import { VERSION } from './version.resource-type';
  */
 @typedObject
 @inheritSerialization(DSpaceObject)
-export class Item extends DSpaceObject {
+export class Item extends DSpaceObject implements ChildHALResource {
   static type = ITEM;
 
   /**
@@ -109,5 +110,9 @@ export class Item extends DSpaceObject {
       entityType = DEFAULT_ENTITY_TYPE;
     }
     return [entityType, ...super.getRenderTypes()];
+  }
+
+  getParentLinkKey(): keyof this['_links'] {
+    return 'owningCollection';
   }
 }

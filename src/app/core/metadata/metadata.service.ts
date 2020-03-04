@@ -10,6 +10,7 @@ import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'r
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
@@ -35,6 +36,7 @@ export class MetadataService {
     private translate: TranslateService,
     private meta: Meta,
     private title: Title,
+    private dsoNameService: DSONameService,
     private bitstreamDataService: BitstreamDataService,
     private bitstreamFormatDataService: BitstreamFormatDataService,
     @Inject(GLOBAL_CONFIG) private envConfig: GlobalConfig
@@ -154,7 +156,7 @@ export class MetadataService {
    * Add <meta name="title" ... >  to the <head>
    */
   private setTitleTag(): void {
-    const value = this.getMetaTagValue('dc.title');
+    const value = this.dsoNameService.getName(this.currentObject.getValue());
     this.addMetaTag('title', value);
     this.title.setTitle(value);
   }

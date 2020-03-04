@@ -26,7 +26,10 @@ import {
   RefreshTokenSuccessAction,
   RegistrationAction,
   RegistrationErrorAction,
-  RegistrationSuccessAction
+  RegistrationSuccessAction,
+  RetrieveAuthenticatedEpersonAction,
+  RetrieveAuthenticatedEpersonErrorAction,
+  RetrieveAuthenticatedEpersonSuccessAction
 } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
@@ -66,9 +69,15 @@ export class AuthEffects {
       ofType(AuthActionTypes.AUTHENTICATED),
       switchMap((action: AuthenticatedAction) => {
         return this.authService.authenticatedUser(action.payload).pipe(
-          map((user: EPerson) => new AuthenticatedSuccessAction((user !== null), action.payload, user)),
+          map((userHref: string) => new AuthenticatedSuccessAction((userHref !== null), action.payload, userHref)),
           catchError((error) => observableOf(new AuthenticatedErrorAction(error))),);
       })
+    );
+
+  @Effect()
+  public authenticatedSuccess$: Observable<Action> = this.actions$.pipe(
+      ofType(AuthActionTypes.AUTHENTICATED_SUCCESS),
+      map((action: AuthenticatedSuccessAction) => new RetrieveAuthenticatedEpersonAction(action.payload.userHref))
     );
 
   // It means "reacts to this action but don't send another"
@@ -77,6 +86,16 @@ export class AuthEffects {
       ofType(AuthActionTypes.AUTHENTICATED_ERROR),
       tap((action: LogOutSuccessAction) => this.authService.removeToken())
     );
+
+  @Effect()
+  public retrieveAuthenticatedEperson$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON),
+    switchMap((action: RetrieveAuthenticatedEpersonAction) => {
+      return this.authService.retrieveAuthenticatedUserByHref(action.payload).pipe(
+        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user)),
+        catchError((error) => observableOf(new RetrieveAuthenticatedEpersonErrorAction(error))));
+    })
+  );
 
   @Effect()
   public checkToken$: Observable<Action> = this.actions$.pipe(ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN),

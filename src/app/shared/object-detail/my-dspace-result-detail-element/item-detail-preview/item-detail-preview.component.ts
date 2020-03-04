@@ -1,17 +1,13 @@
 import { Component, Input } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
 
 import { Item } from '../../../../core/shared/item.model';
 import {
-  getAllSucceededRemoteListPayload,
   getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload,
-  getRemoteDataPayload,
-  getSucceededRemoteData
+  getFirstSucceededRemoteListPayload
 } from '../../../../core/shared/operators';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { fadeInOut } from '../../../animations/fade';
@@ -71,18 +67,11 @@ export class ItemDetailPreviewComponent {
    *
    * @param {FileService} fileService
    * @param {HALEndpointService} halService
+   * @param {BitstreamDataService} bitstreamDataService
    */
   constructor(private fileService: FileService,
               private halService: HALEndpointService,
               private bitstreamDataService: BitstreamDataService) {
-  }
-
-  /**
-   * Initialize all instance variables
-   */
-  ngOnInit() {
-    this.thumbnail$ = this.getThumbnail();
-    this.bitstreams$ = this.getFiles();
   }
 
   /**
@@ -98,14 +87,14 @@ export class ItemDetailPreviewComponent {
   }
 
   // TODO refactor this method to return RemoteData, and the template to deal with loading and errors
-  getThumbnail(): Observable<Bitstream> {
+  public getThumbnail(): Observable<Bitstream> {
     return this.bitstreamDataService.getThumbnailFor(this.item).pipe(
       getFirstSucceededRemoteDataPayload()
     );
   }
 
   // TODO refactor this method to return RemoteData, and the template to deal with loading and errors
-  getFiles(): Observable<Bitstream[]> {
+  public getFiles(): Observable<Bitstream[]> {
     return this.bitstreamDataService
       .findAllByItemAndBundleName(this.item, 'ORIGINAL', { elementsPerPage: Number.MAX_SAFE_INTEGER })
       .pipe(

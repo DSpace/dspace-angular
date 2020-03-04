@@ -10,9 +10,9 @@
     <div class="row mb-1">
       <div class="col-xs-12 col-md-4">
         <ds-metadata-field-wrapper>
-          <ds-thumbnail [thumbnail]="thumbnail$ | async"></ds-thumbnail>
+          <ds-thumbnail [thumbnail]="getThumbnail() | async"></ds-thumbnail>
         </ds-metadata-field-wrapper>
-        <ng-container *ngVar="(bitstreams$ | async) as bitstreams">
+        <ng-container *ngVar="(getFiles() | async) as bitstreams">
           <ds-metadata-field-wrapper [label]="('item.page.files' | translate)">
             <div *ngIf="bitstreams?.length > 0" class="file-section">
               <button class="btn btn-link" *ngFor="let file of bitstreams; let last=last;" (click)="downloadBitstreamFile(file?.uuid)">

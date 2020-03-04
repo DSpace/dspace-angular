@@ -11,6 +11,9 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
+import { VarDirective } from '../../../utils/var.directive';
+import { getMockLinkService } from '../../../mocks/mock-link-service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 
 let component: ClaimedTaskSearchResultDetailElementComponent;
 let fixture: ComponentFixture<ClaimedTaskSearchResultDetailElementComponent>;
@@ -53,12 +56,16 @@ const rdItem = createSuccessfulRemoteDataObject(item);
 const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem) });
+const linkService = getMockLinkService();
 
 describe('ClaimedTaskSearchResultDetailElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
-      declarations: [ClaimedTaskSearchResultDetailElementComponent],
+      declarations: [ClaimedTaskSearchResultDetailElementComponent, VarDirective],
+      providers: [
+        { provide: LinkService, useValue: linkService }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ClaimedTaskSearchResultDetailElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
@@ -75,8 +82,12 @@ describe('ClaimedTaskSearchResultDetailElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should init item properly', () => {
-    expect(component.workflowitem).toEqual(workflowitem);
+  it('should init workflowitem properly', (done) => {
+    component.workflowitemRD$.subscribe((workflowitemRD) => {
+      expect(linkService.resolveLink).toHaveBeenCalled();
+      expect(workflowitemRD.payload).toEqual(workflowitem);
+      done();
+    });
   });
 
   it('should have properly status', () => {

@@ -37,24 +37,24 @@ export class BrowseByGuard implements CanActivate {
       return dsoAndMetadata$.pipe(
         map((dsoRD) => {
           const name = dsoRD.payload.name;
-          route.data = this.createData(title, id, metadataField, name, metadataTranslated, value);
+          route.data = this.createData(title, id, metadataField, name, metadataTranslated, value, route);
           return true;
         })
       );
     } else {
-      route.data = this.createData(title, id, metadataField, '', metadataTranslated, value);
+      route.data = this.createData(title, id, metadataField, '', metadataTranslated, value, route);
       return observableOf(true);
     }
   }
 
-  private createData(title, id, metadataField, collection, field, value) {
-    return {
+  private createData(title, id, metadataField, collection, field, value, route) {
+    return Object.assign({}, route.data, {
       title: title,
       id: id,
       metadataField: metadataField,
       collection: collection,
       field: field,
       value: hasValue(value) ? `"${value}"` : ''
-    }
+    });
   }
 }
