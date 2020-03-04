@@ -143,7 +143,7 @@ import { TaskObject } from './tasks/models/task-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
-import { NormalizedWorkflowAction } from './tasks/models/normalized-workflow-action-object.model';
+import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -308,7 +308,7 @@ export const models =
     ItemType,
     ExternalSource,
     ExternalSourceEntry,
-    NormalizedWorkflowAction
+    WorkflowAction
   ];
 
 @NgModule({
