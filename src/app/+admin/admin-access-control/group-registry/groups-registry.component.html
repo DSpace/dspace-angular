@@ -50,7 +50,7 @@
             <tr *ngFor="let group of (groups | async)?.payload?.page">
               <td>{{group.id}}</td>
               <td>{{group.name}}</td>
-              <td>{{(getMembers(group) | async)?.payload?.totalElements}}</td>
+              <td>{{(getMembers(group) | async)?.payload?.totalElements + (getSubgroups(group) | async)?.payload?.totalElements}}</td>
 <!--              <td>{{getOptionalComColFromName(group.name)}}</td>-->
               <td>
                 <div class="btn-group edit-field">

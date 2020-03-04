@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
+import { RestResponse } from '../../../../../core/cache/response.models';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
@@ -101,7 +102,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
   deleteMemberFromGroup(ePerson: EPerson) {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
-        this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson);
+        const response = this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson);
+        this.showNotifications('deleteMember', response, ePerson.name, activeGroup);
         this.forceUpdateEPeople(activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
@@ -116,7 +118,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
   addMemberToGroup(ePerson: EPerson) {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
-        this.groupDataService.addMemberToGroup(activeGroup, ePerson);
+        const response = this.groupDataService.addMemberToGroup(activeGroup, ePerson);
+        this.showNotifications('addMember', response, ePerson.name, activeGroup);
         this.forceUpdateEPeople(activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
@@ -132,15 +135,15 @@ export class MembersListComponent implements OnInit, OnDestroy {
     return this.groupDataService.getActiveGroup().pipe(take(1),
       mergeMap((group: Group) => {
         if (group != null) {
-          return this.groupDataService.findAllByHref(possibleMember._links.groups.href, {
+          return this.ePersonDataService.findAllByHref(group._links.epersons.href, {
             currentPage: 0,
             elementsPerPage: Number.MAX_SAFE_INTEGER
           })
             .pipe(
               getSucceededRemoteData(),
               getRemoteDataPayload(),
-              map((listTotalGroups: PaginatedList<Group>) => listTotalGroups.page.filter((groupInList: Group) => groupInList.id === group.id)),
-              map((groups: Group[]) => groups.length > 0))
+              map((listEPeopleInGroup: PaginatedList<EPerson>) => listEPeopleInGroup.page.filter((ePersonInList: EPerson) => ePersonInList.id === possibleMember.id)),
+              map((epeople: EPerson[]) => epeople.length > 0))
         } else {
           return observableOf(false);
         }
@@ -178,5 +181,22 @@ export class MembersListComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+  }
+
+  /**
+   * Shows a notification based on the success/failure of the request
+   * @param messageSuffix   Suffix for message
+   * @param response        RestResponse observable containing success/failure request
+   * @param nameObject      Object request was about
+   * @param activeGroup     Group currently being edited
+   */
+  showNotifications(messageSuffix: string, response: Observable<RestResponse>, nameObject: string, activeGroup: Group) {
+    response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
+      if (restResponse.isSuccessful) {
+        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.success.' + messageSuffix, { name: nameObject }));
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
+      }
+    })
   }
 }

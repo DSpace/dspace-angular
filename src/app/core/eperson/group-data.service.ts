@@ -16,15 +16,17 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SearchParam } from '../cache/models/search-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
 import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { DeleteRequest, FindListOptions, FindListRequest, PostRequest } from '../data/request.models';
+import { DeleteRequest, FindListOptions, FindListRequest, PostRequest, RestRequest } from '../data/request.models';
 
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { getResponseFromEntry } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 import { dataService } from '../cache/builders/build-decorators';
@@ -154,7 +156,7 @@ export class GroupDataService extends DataService<Group> {
    * @param activeGroup   Group we want to add subgroup to
    * @param subgroup      Group we want to add as subgroup to activeGroup
    */
-  addSubGroupToGroup(activeGroup: Group, subgroup: Group) {
+  addSubGroupToGroup(activeGroup: Group, subgroup: Group): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -162,6 +164,8 @@ export class GroupDataService extends DataService<Group> {
     options.headers = headers;
     const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint, subgroup.self, options);
     this.requestService.configure(postRequest);
+
+    return this.fetchResponse(requestId);
   }
 
   /**
@@ -169,10 +173,12 @@ export class GroupDataService extends DataService<Group> {
    * @param activeGroup   Group we want to delete subgroup from
    * @param subgroup      Subgroup we want to delete from activeGroup
    */
-  deleteSubGroupFromGroup(activeGroup: Group, subgroup: Group) {
+  deleteSubGroupFromGroup(activeGroup: Group, subgroup: Group): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
     const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint + '/' + subgroup.id);
     this.requestService.configure(deleteRequest);
+
+    return this.fetchResponse(requestId);
   }
 
   /**
@@ -180,7 +186,7 @@ export class GroupDataService extends DataService<Group> {
    * @param activeGroup   Group we want to add member to
    * @param ePerson       EPerson we want to add as member to given activeGroup
    */
-  addMemberToGroup(activeGroup: Group, ePerson: EPerson) {
+  addMemberToGroup(activeGroup: Group, ePerson: EPerson): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -188,6 +194,8 @@ export class GroupDataService extends DataService<Group> {
     options.headers = headers;
     const postRequest = new PostRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint, ePerson.self, options);
     this.requestService.configure(postRequest);
+
+    return this.fetchResponse(requestId);
   }
 
   /**
@@ -195,10 +203,25 @@ export class GroupDataService extends DataService<Group> {
    * @param activeGroup   Group we want to delete member from
    * @param ePerson       EPerson we want to delete from members of given activeGroup
    */
-  deleteMemberFromGroup(activeGroup: Group, ePerson: EPerson) {
+  deleteMemberFromGroup(activeGroup: Group, ePerson: EPerson): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
     const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint + '/' + ePerson.id);
     this.requestService.configure(deleteRequest);
+
+    return this.fetchResponse(requestId);
+  }
+
+  /**
+   * Gets the restResponse from the requestService
+   * @param requestId
+   */
+  protected fetchResponse(requestId: string): Observable<RestResponse> {
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: RestResponse) => {
+        return response;
+      })
+    );
   }
 
   /**

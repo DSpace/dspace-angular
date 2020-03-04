@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
+import { RestResponse } from '../../../../../core/cache/response.models';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
@@ -121,7 +122,8 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   deleteSubgroupFromGroup(subgroup: Group) {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
-        this.groupDataService.deleteSubGroupFromGroup(activeGroup, subgroup);
+        const response = this.groupDataService.deleteSubGroupFromGroup(activeGroup, subgroup);
+        this.showNotifications('addSubgroup', response, subgroup.name, activeGroup);
         this.forceUpdateGroups(activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
@@ -136,7 +138,8 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   addSubgroupToGroup(subgroup: Group) {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
-        this.groupDataService.addSubGroupToGroup(activeGroup, subgroup);
+        const response = this.groupDataService.addSubGroupToGroup(activeGroup, subgroup);
+        this.showNotifications('deleteSubgroup', response, subgroup.name, activeGroup);
         this.forceUpdateGroups(activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
@@ -174,5 +177,22 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+  }
+
+  /**
+   * Shows a notification based on the success/failure of the request
+   * @param messageSuffix   Suffix for message
+   * @param response        RestResponse observable containing success/failure request
+   * @param nameObject      Object request was about
+   * @param activeGroup     Group currently being edited
+   */
+  showNotifications(messageSuffix: string, response: Observable<RestResponse>, nameObject: string, activeGroup: Group) {
+    response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
+      if (restResponse.isSuccessful) {
+        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.success.' + messageSuffix, { name: nameObject }));
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
+      }
+    })
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -22,7 +22,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
  * A component used for managing all existing groups within the repository.
  * The admin can create, edit or delete groups here.
  */
-export class GroupsRegistryComponent {
+export class GroupsRegistryComponent implements OnInit {
 
   messagePrefix = 'admin.access-control.groups.';
 
@@ -48,13 +48,16 @@ export class GroupsRegistryComponent {
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private formBuilder: FormBuilder) {
+    this.searchForm = this.formBuilder.group(({
+      query: '',
+    }));
+  }
+
+  ngOnInit() {
     this.updateGroups({
       currentPage: 1,
       elementsPerPage: this.config.pageSize
     });
-    this.searchForm = this.formBuilder.group(({
-      query: '',
-    }));
   }
 
   /**
@@ -72,7 +75,7 @@ export class GroupsRegistryComponent {
    * Update the list of groups by fetching it from the rest api or cache
    */
   private updateGroups(options) {
-    this.groups = this.groupService.getGroups(options, followLink('epersons'));
+    this.groups = this.groupService.getGroups(options, followLink('epersons'), followLink('groups'));
   }
 
   /**
@@ -115,11 +118,19 @@ export class GroupsRegistryComponent {
   }
 
   /**
-   * Get the amount of members (epersons embedded value of a group)
+   * Get the members (epersons embedded value of a group)
    * @param group
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {
     return this.ePersonDataService.findAllByHref(group._links.epersons.href);
+  }
+
+  /**
+   * Get the subgroups (groups embedded value of a group)
+   * @param group
+   */
+  getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
+    return this.groupService.findAllByHref(group._links.groups.href);
   }
 
   /**
