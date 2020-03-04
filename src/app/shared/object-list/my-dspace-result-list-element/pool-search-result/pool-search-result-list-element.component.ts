@@ -58,11 +58,8 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
    */
   ngOnInit() {
     super.ngOnInit();
-    this.linkService.resolveLink(this.dso, followLink(
-      'workflowitem',
-      null,
-      followLink('item'),
-      followLink('submitter')
+    this.linkService.resolveLink(this.dso, followLink('workflowitem', null, true,
+      followLink('item'), followLink('submitter')
     ));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
