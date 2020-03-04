@@ -123,7 +123,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteSubGroupFromGroup(activeGroup, subgroup);
-        this.showNotifications('addSubgroup', response, subgroup.name, activeGroup);
+        this.showNotifications('deleteSubgroup', response, subgroup.name, activeGroup);
         this.forceUpdateGroups(activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
@@ -139,7 +139,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.addSubGroupToGroup(activeGroup, subgroup);
-        this.showNotifications('deleteSubgroup', response, subgroup.name, activeGroup);
+        this.showNotifications('addSubgroup', response, subgroup.name, activeGroup);
         this.forceUpdateGroups(activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
