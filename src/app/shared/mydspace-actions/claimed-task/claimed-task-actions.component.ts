@@ -96,7 +96,7 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    * @param object
    */
   initAction(object: ClaimedTask) {
-    this.actionRD$ = this.workflowActionService.findById(object.action);
+    this.actionRD$ = object.action;
   }
 
 }
