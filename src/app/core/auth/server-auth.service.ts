@@ -1,8 +1,8 @@
-import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
@@ -59,6 +59,7 @@ export class ServerAuthService extends AuthService {
       headers = headers.append('X-Requested-With', referer);
     }
     options.headers = headers;
+    options.withCredentials = true;
     return this.authRequestService.getRequest('status', options).pipe(
       map((status: NormalizedAuthStatus) => Object.assign(new AuthStatus(), status))
     );

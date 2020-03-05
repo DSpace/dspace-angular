@@ -211,7 +211,7 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
+  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false, typeBindModel = null): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
 
@@ -228,7 +228,10 @@ export class FormBuilderService extends DynamicFormService {
       });
     }
 
-    const typeBindModel = this.findById('dc_type', rows);
+    if (isNull(typeBindModel)) {
+      typeBindModel = this.findById('dc_type', rows);
+    }
+
     if (typeBindModel !== null) {
       this.setTypeBindModel(typeBindModel);
     }
