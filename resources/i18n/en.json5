@@ -226,6 +226,16 @@
 
   "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
 
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+
+  "admin.access-control.epeople.form.table.id": "ID",
+
+  "admin.access-control.epeople.form.table.name": "Name",
+
+  "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
+
+  "admin.access-control.epeople.form.goToGroups": "Add to groups",
+
   "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
 
   "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",

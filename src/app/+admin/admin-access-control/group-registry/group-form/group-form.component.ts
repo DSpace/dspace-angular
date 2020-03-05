@@ -134,7 +134,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   onCancel() {
     this.groupDataService.cancelEditGroup();
     this.cancelForm.emit();
-    this.router.navigate(['/admin/access-control/groups']);
+    this.router.navigate([this.groupDataService.getGroupRegistryRouterLink()]);
   }
 
   /**

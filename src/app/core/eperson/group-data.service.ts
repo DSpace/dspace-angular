@@ -255,4 +255,12 @@ export class GroupDataService extends DataService<Group> {
     });
   }
 
+  public getGroupRegistryRouterLink(): string {
+    return '/admin/access-control/groups';
+  }
+
+  public getGroupEditPageRouterLink(groupId: string): string {
+    return '/admin/access-control/groups/' + groupId;
+  }
+
 }
