@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-item-edit-bitstream',
@@ -22,7 +23,7 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
   /**
    * The view on the bitstream
    */
-  @ViewChild('bitstreamView', {static: false}) bitstreamView;
+  @ViewChild('bitstreamView', {static: true}) bitstreamView;
 
   /**
    * The current field, value and state of the bitstream
@@ -45,11 +46,17 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
   bitstream: Bitstream;
 
   /**
+   * The bitstream's name
+   */
+  bitstreamName: string;
+
+  /**
    * The format of the bitstream
    */
   format$: Observable<BitstreamFormat>;
 
   constructor(private objectUpdatesService: ObjectUpdatesService,
+              private dsoNameService: DSONameService,
               private viewContainerRef: ViewContainerRef) {
   }
 
@@ -63,6 +70,7 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
    */
   ngOnChanges(changes: SimpleChanges): void {
     this.bitstream = cloneDeep(this.fieldUpdate.field) as Bitstream;
+    this.bitstreamName = this.dsoNameService.getName(this.bitstream);
     this.format$ = this.bitstream.format.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload()

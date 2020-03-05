@@ -7,6 +7,7 @@ import { BundleDataService } from '../../../../../core/data/bundle-data.service'
 import { switchMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../../../../shared/search/paginated-search-options.model';
 import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-paginated-drag-and-drop-bitstream-list',
@@ -45,8 +46,11 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
    */
   initializeObjectsRD(): void {
     this.objectsRD$ = this.currentPage$.pipe(
-      switchMap((page: number) => this.bundleService.getBitstreams(this.bundle.id,
-        new PaginatedSearchOptions({pagination: Object.assign({}, this.options, { currentPage: page })})))
+      switchMap((page: number) => this.bundleService.getBitstreams(
+        this.bundle.id,
+        new PaginatedSearchOptions({pagination: Object.assign({}, this.options, { currentPage: page })}),
+        followLink('format')
+      ))
     );
   }
 

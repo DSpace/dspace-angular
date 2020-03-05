@@ -99,8 +99,9 @@ export class BundleDataService extends DataService<Bundle> {
    * Get a bundle's bitstreams using paginated search options
    * @param bundleId        The bundle's ID
    * @param searchOptions   The search options to use
+   * @param linksToFollow   The {@link FollowLinkConfig}s for the request
    */
-  getBitstreams(bundleId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  getBitstreams(bundleId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
     const hrefObs = this.getBitstreamsEndpoint(bundleId).pipe(
       map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
     );
@@ -111,6 +112,6 @@ export class BundleDataService extends DataService<Bundle> {
       this.requestService.configure(request);
     });
 
-    return this.rdbService.buildList<Bitstream>(hrefObs);
+    return this.rdbService.buildList<Bitstream>(hrefObs, ...linksToFollow);
   }
 }

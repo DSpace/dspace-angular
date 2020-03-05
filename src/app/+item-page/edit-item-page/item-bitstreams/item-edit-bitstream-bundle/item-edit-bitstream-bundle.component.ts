@@ -17,7 +17,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   /**
    * The view on the bundle information and bitstreams
    */
-  @ViewChild('bundleView', {static: false}) bundleView;
+  @ViewChild('bundleView', {static: true}) bundleView;
 
   /**
    * The bundle to display bitstreams for
