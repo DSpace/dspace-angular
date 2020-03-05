@@ -31,7 +31,6 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId
 } from '../../../shared/mocks/mock-submission';
-import { FormComponent } from '../../../shared/form/form.component';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionSectionDetectDuplicateComponent } from './section-detect-duplicate.component';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -42,6 +41,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 // import { License } from '../../../core/shared/license.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { cold } from 'jasmine-marbles';
+import { SharedModule } from '../../../shared/shared.module';
+import { DetectDuplicateService } from './detect-duplicate.service';
+import { getMockDetectDuplicateService } from '../../../shared/mocks/mock-detect-duplicate-service';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -122,10 +124,10 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        SharedModule,
         TranslateModule.forRoot(),
       ],
       declarations: [
-        FormComponent,
         SubmissionSectionDetectDuplicateComponent,
         TestComponent
       ],
@@ -141,6 +143,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
+        { provide: DetectDuplicateService, useClass: getMockDetectDuplicateService},
         ChangeDetectorRef,
         FormBuilderService,
         SubmissionSectionDetectDuplicateComponent
@@ -171,7 +174,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
     }));
   });
 
-  describe('', () => {
+  fdescribe('', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionSectionDetectDuplicateComponent);
       comp = fixture.componentInstance;

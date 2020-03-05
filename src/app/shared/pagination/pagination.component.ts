@@ -100,6 +100,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
   @Input() public hidePagerWhenSinglePage = true;
 
   /**
+   * Boolean option to make possible the route update
+   */
+  @Input() public doUpdateRoute = true;
+
+  /**
    * Current page.
    */
   public currentPage;
@@ -247,7 +252,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page being navigated to.
    */
   public doPageChange(page: number) {
-    this.updateRoute({ pageId: this.id, page: page.toString() });
+    if (this.doUpdateRoute) {
+      this.updateRoute({ page: page.toString() });
+    } else {
+      this.setPage(page);
+    }
   }
 
   /**

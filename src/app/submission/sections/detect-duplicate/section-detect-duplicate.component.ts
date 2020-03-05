@@ -29,14 +29,12 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
   public isLoading = true;
   public sectionData$: Observable<any>;
   public matches = {};
-  public totalMatch$: Observable<number>;
 
   config: PaginationComponentOptions;
   sortConfig: SortOptions;
 
   isWorkFlow = false;
   disclaimer: Observable<string>;
-  sub: Subscription;
 
   constructor(protected detectDuplicateService: DetectDuplicateService,
               protected translate: TranslateService,
@@ -54,38 +52,30 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
     this.config.pageSize = 2;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
 
-    this.sectionData$ = this.detectDuplicateService.getDuplicateMatches(this.submissionId, this.sectionData.id);
-
-    this.totalMatch$ = this.detectDuplicateService.getDuplicateTotalMatches(this.submissionId, this.sectionData.id);
-
     this.isWorkFlow = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkflowItem;
+
+    this.sectionData$ = this.detectDuplicateService.getDuplicateMatchesByScope(this.submissionId, this.sectionData.id, this.isWorkFlow);
 
     this.disclaimer = this.isWorkFlow ?
       this.translate.get('submission.sections.detect-duplicate.disclaimer-ctrl')
       : this.translate.get('submission.sections.detect-duplicate.disclaimer');
 
     this.isLoading = false;
-
-    this.sub = this.totalMatch$.pipe(
-      map((totalMatches: number) => totalMatches === 0),
-      distinctUntilChanged())
-      .subscribe((status: boolean) => {
-        this.sectionService.setSectionStatus(this.submissionId, this.sectionData.id, status);
-      })
   }
 
   protected getSectionStatus(): Observable<boolean> {
-    return this.totalMatch$.pipe(
+    // a sto punto conto gli elementi se == 0 -> TRUE
+    return this.sectionData$.pipe(
       map((totalMatches: number) => totalMatches === 0));
   }
 
-  setPage(page) {
+  setPage(page: number) {
     this.config.currentPage = page;
   }
 
   onSectionDestroy(): void {
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
+    if (hasValue(this.sectionData)) {
+      this.sectionData.unsubscribe();
     }
   }
 

@@ -17,6 +17,10 @@ import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionObject } from './models/submission-object.model';
 
+// To remove before commit
+import mockDedupResponse from './mock-submission-response.json';
+// END
+
 /**
  * Export a function to check if object has same properties of FormFieldMetadataValueObject
  *
@@ -159,6 +163,9 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
                 precessedSection[sectionId] = normalizedSectionData;
               }
             });
+          // To remove before commit
+          precessedSection['detect-duplicate'] = JSON.parse(JSON.stringify(mockDedupResponse));
+          // END
           normalizedItem = Object.assign({}, item, { sections: precessedSection });
         }
       }

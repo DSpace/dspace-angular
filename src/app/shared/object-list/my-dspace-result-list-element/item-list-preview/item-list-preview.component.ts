@@ -4,6 +4,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { SearchResult } from '../../../search/search-result.model';
+import { DuplicateMatchMetadataDetailConfig } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 
 /**
  * This component show metadata for the given item object in the list view.
@@ -36,4 +37,8 @@ export class ItemListPreviewComponent {
    */
   @Input() showSubmitter = false;
 
+  /**
+   * An object representing the duplicate match
+   */
+  @Input() metadataList: DuplicateMatchMetadataDetailConfig[] = [];
 }
