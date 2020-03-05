@@ -71,7 +71,9 @@ const getUuidsFromHrefSubstring = (state: IndexState, href: string): string[] =>
 /**
  * A service to interact with the request state in the store
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RequestService {
   private requestsOnTheirWayToTheStore: string[] = [];
 

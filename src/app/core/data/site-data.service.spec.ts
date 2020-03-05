@@ -8,7 +8,6 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../cache/response.models';
@@ -63,12 +62,10 @@ describe('SiteDataService', () => {
     const notificationsService = {} as NotificationsService;
     const http = {} as HttpClient;
     const comparator = {} as any;
-    const dataBuildService = {} as NormalizedObjectBuildService;
 
     service = new SiteDataService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       objectCache,
       halService,

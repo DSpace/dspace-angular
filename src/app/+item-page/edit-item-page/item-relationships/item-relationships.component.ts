@@ -4,6 +4,7 @@ import { DeleteRelationship, FieldUpdate, FieldUpdates } from '../../../core/dat
 import { Observable } from 'rxjs/internal/Observable';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { zip as observableZip } from 'rxjs';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -71,7 +72,10 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
     super.ngOnInit();
     this.itemUpdateSubscription = this.requestService.hasByHrefObservable(this.item.self).pipe(
       filter((exists: boolean) => !exists),
-      switchMap(() => this.itemService.findById(this.item.uuid)),
+      switchMap(() => this.itemService.findById(this.item.uuid,
+        followLink('owningCollection'),
+        followLink('bundles'),
+        followLink('relationships'))),
       getSucceededRemoteData(),
     ).subscribe((itemRD: RemoteData<Item>) => {
       this.item = itemRD.payload;
@@ -94,7 +98,11 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
 
     this.relationshipTypes$ = this.entityType$.pipe(
       switchMap((entityType) =>
-        this.entityTypeService.getEntityTypeRelationships(entityType.id).pipe(
+        this.entityTypeService.getEntityTypeRelationships(
+          entityType.id,
+          followLink('leftType'),
+          followLink('rightType'))
+        .pipe(
           getSucceededRemoteData(),
           getRemoteDataPayload(),
           map((relationshipTypes) => relationshipTypes.page),

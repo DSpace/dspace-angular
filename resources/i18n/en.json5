@@ -232,6 +232,14 @@
 
   "browse.metadata.title": "Title",
 
+  "browse.metadata.author.breadcrumbs": "Browse by Author",
+
+  "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+
+  "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+
+  "browse.metadata.title.breadcrumbs": "Browse by Title",
+
   "browse.startsWith.choose_start": "(Choose start)",
 
   "browse.startsWith.choose_year": "(Choose year)",
@@ -273,7 +281,6 @@
   "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
 
-
   "chips.remove": "Remove chip",
 
 
@@ -301,6 +308,8 @@
   "collection.edit.delete": "Delete this collection",
 
   "collection.edit.head": "Edit Collection",
+
+  "collection.edit.breadcrumbs": "Edit Collection",
 
 
 
@@ -486,6 +495,7 @@
 
   "community.edit.head": "Edit Community",
 
+  "community.edit.breadcrumbs": "Edit Community",
 
 
   "community.edit.logo.label": "Community logo",
@@ -771,6 +781,8 @@
   "item.edit.delete.success": "The item has been deleted",
 
   "item.edit.head": "Edit Item",
+
+  "item.edit.breadcrumbs": "Edit Item",
 
 
 
@@ -1196,6 +1208,8 @@
 
   "login.title": "Login",
 
+  "login.breadcrumbs": "Login",
+
 
 
   "logout.form.header": "Log out from DSpace",
@@ -1592,6 +1606,7 @@
 
   "search.title": "DSpace Angular :: Search",
 
+  "search.breadcrumbs": "Search",
 
 
   "search.filters.applied.f.author": "Author",

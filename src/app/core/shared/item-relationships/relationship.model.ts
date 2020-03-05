@@ -1,63 +1,100 @@
+import { autoserialize, deserialize, serialize, deserializeAs } from 'cerialize';
 import { Observable } from 'rxjs';
+import { link, typedObject } from '../../cache/builders/build-decorators';
+import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { HALLink } from '../hal-link.model';
+import { Item } from '../item.model';
+import { ITEM } from '../item.resource-type';
 import { ResourceType } from '../resource-type';
 import { RelationshipType } from './relationship-type.model';
-import { Item } from '../item.model';
+import { RELATIONSHIP_TYPE } from './relationship-type.resource-type';
+import { RELATIONSHIP } from './relationship.resource-type';
 
 /**
  * Describes a Relationship between two Items
  */
+@typedObject
 export class Relationship implements CacheableObject {
-  static type = new ResourceType('relationship');
+  static type = RELATIONSHIP;
 
   /**
-   * The link to the rest endpoint where this object can be found
+   * The object type
    */
-  self: string;
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   /**
    * The universally unique identifier of this Relationship
+   * This UUID is generated client-side and isn't used by the backend.
+   * It is based on the ID, so it will be the same for each refresh.
    */
+  @deserializeAs(new IDToUUIDSerializer(Relationship.type.value), 'id')
   uuid: string;
 
   /**
    * The identifier of this Relationship
    */
+  @autoserialize
   id: string;
-
-  /**
-   * The item to the left of this relationship
-   */
-  leftItem: Observable<RemoteData<Item>>;
-
-  /**
-   * The item to the right of this relationship
-   */
-  rightItem: Observable<RemoteData<Item>>;
 
   /**
    * The place of the Item to the left side of this Relationship
    */
+  @autoserialize
   leftPlace: number;
 
   /**
    * The place of the Item to the right side of this Relationship
    */
+  @autoserialize
   rightPlace: number;
 
   /**
    * The name variant of the Item to the left side of this Relationship
    */
+  @autoserialize
   leftwardValue: string;
 
   /**
    * The name variant of the Item to the right side of this Relationship
    */
+  @autoserialize
   rightwardValue: string;
 
   /**
-   * The type of Relationship
+   * The {@link HALLink}s for this Relationship
    */
-  relationshipType: Observable<RemoteData<RelationshipType>>;
+  @deserialize
+  _links: {
+    self: HALLink;
+    leftItem: HALLink;
+    rightItem: HALLink;
+    relationshipType: HALLink;
+  };
+
+  /**
+   * The item on the left side of this relationship
+   * Will be undefined unless the leftItem {@link HALLink} has been resolved.
+   */
+  @link(ITEM)
+  leftItem?: Observable<RemoteData<Item>>;
+
+  /**
+   * The item on the right side of this relationship
+   * Will be undefined unless the rightItem {@link HALLink} has been resolved.
+   */
+  @link(ITEM)
+  rightItem?: Observable<RemoteData<Item>>;
+
+  /**
+   * The RelationshipType for this Relationship
+   * Will be undefined unless the relationshipType {@link HALLink} has been resolved.
+   */
+  @link(RELATIONSHIP_TYPE)
+  relationshipType?: Observable<RemoteData<RelationshipType>>;
+
 }

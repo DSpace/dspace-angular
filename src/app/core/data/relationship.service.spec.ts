@@ -1,26 +1,28 @@
-import { RelationshipService } from './relationship.service';
-import { RequestService } from './request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
+import { Observable } from 'rxjs/internal/Observable';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RequestEntry } from './request.reducer';
+import * as ItemRelationshipsUtils from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/mock-remote-data-build.service';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { createSuccessfulRemoteDataObject$, spyOnOperator } from '../../shared/testing/utils';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
-import { RemoteData } from './remote-data';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { Item } from '../shared/item.model';
-import { PaginatedList } from './paginated-list';
 import { PageInfo } from '../shared/page-info.model';
-import { DeleteRequest } from './request.models';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { Observable } from 'rxjs/internal/Observable';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { PaginatedList } from './paginated-list';
+import { RelationshipService } from './relationship.service';
+import { RemoteData } from './remote-data';
+import { DeleteRequest, FindListOptions } from './request.models';
+import { RequestEntry } from './request.reducer';
+import { RequestService } from './request.service';
 
 describe('RelationshipService', () => {
   let service: RelationshipService;
   let requestService: RequestService;
 
-  const restEndpointURL = 'https://rest.api/';
+  const restEndpointURL = 'https://rest.api/core';
   const relationshipsEndpointURL = `${restEndpointURL}/relationships`;
   const halService: any = new HALEndpointServiceStub(restEndpointURL);
 
@@ -31,38 +33,68 @@ describe('RelationshipService', () => {
     rightwardType: 'isPublicationOfAuthor'
   });
 
+  const ri1SelfLink = restEndpointURL + '/author1';
+  const ri2SelfLink = restEndpointURL + '/author2';
+  const itemSelfLink = restEndpointURL + '/publication';
+
   const relationship1 = Object.assign(new Relationship(), {
-    self: relationshipsEndpointURL + '/2',
+    _links: {
+      self: {
+        href: relationshipsEndpointURL + '/2'
+      },
+      leftItem: {
+        href: ri1SelfLink
+      },
+      rightItem: {
+        href: itemSelfLink
+      }
+    },
     id: '2',
     uuid: '2',
     relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
   });
   const relationship2 = Object.assign(new Relationship(), {
-    self: relationshipsEndpointURL + '/3',
+    _links: {
+      self: {
+        href: relationshipsEndpointURL + '/3'
+      },
+      leftItem: {
+        href: ri2SelfLink
+      },
+      rightItem: {
+        href: itemSelfLink
+      },
+    },
     id: '3',
     uuid: '3',
     relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
   });
 
-  const relationships = [ relationship1, relationship2 ];
-
-  const item = Object.assign(new Item(), {
-    self: 'fake-item-url/publication',
+  const relationships = [relationship1, relationship2];  const item = Object.assign(new Item(), {
     id: 'publication',
     uuid: 'publication',
-    relationships: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), relationships)))
+    relationships: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), relationships))),
+    _links: {
+      relationships: { href: restEndpointURL + '/publication/relationships' },
+      self: { href: itemSelfLink }
+    }
   });
 
   const relatedItem1 = Object.assign(new Item(), {
-    self: 'fake-item-url/author1',
     id: 'author1',
-    uuid: 'author1'
+    uuid: 'author1',
+    _links: {
+      self: { href: ri1SelfLink }
+    }
   });
   const relatedItem2 = Object.assign(new Item(), {
-    self: 'fake-item-url/author2',
     id: 'author2',
-    uuid: 'author2'
+    uuid: 'author2',
+    _links: {
+      self: { href: ri2SelfLink }
+    }
   });
+
   relationship1.leftItem = getRemotedataObservable(relatedItem1);
   relationship1.rightItem = getRemotedataObservable(item);
   relationship2.leftItem = getRemotedataObservable(relatedItem2);
@@ -70,10 +102,12 @@ describe('RelationshipService', () => {
   const relatedItems = [relatedItem1, relatedItem2];
 
   const buildList$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [relatedItems]));
-  const rdbService = getMockRemoteDataBuildService(undefined, buildList$);
+  const relationships$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [relationships]));
+  const rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, {'href': buildList$, 'https://rest.api/core/publication/relationships': relationships$});
   const objectCache = Object.assign({
     /* tslint:disable:no-empty */
-    remove: () => {},
+    remove: () => {
+    },
     hasBySelfLinkObservable: () => observableOf(false)
     /* tslint:enable:no-empty */
   }) as ObjectCacheService;
@@ -88,7 +122,6 @@ describe('RelationshipService', () => {
       itemService,
       requestService,
       rdbService,
-      null,
       null,
       halService,
       objectCache,
@@ -123,33 +156,104 @@ describe('RelationshipService', () => {
     });
 
     it('should clear the cache of the related items', () => {
-      expect(objectCache.remove).toHaveBeenCalledWith(relatedItem1.self);
-      expect(objectCache.remove).toHaveBeenCalledWith(item.self);
+      expect(objectCache.remove).toHaveBeenCalledWith(relatedItem1._links.self.href);
+      expect(objectCache.remove).toHaveBeenCalledWith(item._links.self.href);
       expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.self);
       expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.self);
     });
   });
 
   describe('getItemRelationshipsArray', () => {
-    it('should return the item\'s relationships in the form of an array', () => {
+    it('should return the item\'s relationships in the form of an array', (done) => {
       service.getItemRelationshipsArray(item).subscribe((result) => {
-        expect(result).toEqual(relationships);
+        result.forEach((relResult: any) => {
+          expect(relResult).toEqual(relationships);
+        });
+        done();
       });
     });
   });
 
   describe('getRelatedItems', () => {
-    it('should return the related items', () => {
-      service.getRelatedItems(item).subscribe((result) => {
-        expect(result).toEqual(relatedItems);
+    let mockItem;
+
+    beforeEach(() => {
+      mockItem = { uuid: 'someid' } as Item;
+
+      spyOn(service, 'getItemRelationshipsArray').and.returnValue(observableOf(relationships));
+
+      spyOnOperator(ItemRelationshipsUtils, 'relationsToItems').and.returnValue((v) => v);
+    });
+
+    it('should call getItemRelationshipsArray with the correct params', (done) => {
+      service.getRelatedItems(mockItem).subscribe(() => {
+        expect(service.getItemRelationshipsArray).toHaveBeenCalledWith(
+          mockItem,
+          followLink('leftItem'),
+          followLink('rightItem'),
+          followLink('relationshipType')
+        );
+        done();
+      });
+    });
+
+    it('should use the relationsToItems operator', (done) => {
+      service.getRelatedItems(mockItem).subscribe(() => {
+        expect(ItemRelationshipsUtils.relationsToItems).toHaveBeenCalledWith(mockItem.uuid);
+        done();
       });
     });
   });
 
   describe('getRelatedItemsByLabel', () => {
-    it('should return the related items by label', () => {
-      service.getRelatedItemsByLabel(item, relationshipType.rightwardType).subscribe((result) => {
-        expect(result.payload.page).toEqual(relatedItems);
+    let relationsList;
+    let mockItem;
+    let mockLabel;
+    let mockOptions;
+
+    beforeEach(() => {
+      relationsList = new PaginatedList(new PageInfo({
+        elementsPerPage: relationships.length,
+        totalElements: relationships.length,
+        currentPage: 1,
+        totalPages: 1
+      }), relationships);
+      mockItem = { uuid: 'someid' } as Item;
+      mockLabel = 'label';
+      mockOptions = { label: 'options' } as FindListOptions;
+
+      const rd$ = createSuccessfulRemoteDataObject$(relationsList);
+      spyOn(service, 'getItemRelationshipsByLabel').and.returnValue(rd$);
+
+      spyOnOperator(ItemRelationshipsUtils, 'paginatedRelationsToItems').and.returnValue((v) => v);
+    });
+
+    it('should call getItemRelationshipsByLabel with the correct params', (done) => {
+      service.getRelatedItemsByLabel(
+        mockItem,
+        mockLabel,
+        mockOptions
+      ).subscribe((result) => {
+        expect(service.getItemRelationshipsByLabel).toHaveBeenCalledWith(
+          mockItem,
+          mockLabel,
+          mockOptions,
+          followLink('leftItem'),
+          followLink('rightItem'),
+          followLink('relationshipType')
+        );
+        done();
+      });
+    });
+
+    it('should use the paginatedRelationsToItems operator', (done) => {
+      service.getRelatedItemsByLabel(
+        mockItem,
+        mockLabel,
+        mockOptions
+      ).subscribe((result) => {
+        expect(ItemRelationshipsUtils.paginatedRelationsToItems).toHaveBeenCalledWith(mockItem.uuid);
+        done();
       });
     });
   })

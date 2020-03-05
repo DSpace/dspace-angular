@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>
-      <ds-thumbnail [thumbnail]="object.getThumbnail() | async"></ds-thumbnail>
+      <ds-thumbnail [thumbnail]="getThumbnail() | async"></ds-thumbnail>
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field [item]="object"
       [fields]="['publicationvolume.volumeNumber']"

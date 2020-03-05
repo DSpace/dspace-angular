@@ -464,7 +464,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     bitstream$.pipe(
       switchMap(() => {
         if (isNewFormat) {
-          const operation = Object.assign({op: 'replace', path: '/format', value: selectedFormat.self});
+          const operation = Object.assign({op: 'replace', path: '/format', value: selectedFormat._links.self});
           this.bitstreamService.patch(this.bitstream.self, [operation]);
         }
 

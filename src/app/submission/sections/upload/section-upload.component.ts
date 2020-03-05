@@ -2,12 +2,13 @@ import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription} from 'rxjs';
 import { distinctUntilChanged, filter, find, flatMap, map, reduce, take, tap } from 'rxjs/operators';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 import { SectionModelComponent } from '../models/section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
 import { SectionUploadService } from './section-upload.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { GroupEpersonService } from '../../../core/eperson/group-eperson.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { ResourcePolicyService } from '../../../core/data/resource-policy.service';
 import { SubmissionUploadsConfigService } from '../../../core/config/submission-uploads-config.service';
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
@@ -95,7 +96,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   public configMetadataForm$: Observable<SubmissionFormsModel>;
 
   /**
-   * List of available access conditions that could be setted to files
+   * List of available access conditions that could be set to files
    */
   public availableAccessConditionOptions: AccessConditionOption[];  // List of accessConditions that an user can select
 
@@ -122,7 +123,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
    * @param {SectionUploadService} bitstreamService
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {CollectionDataService} collectionDataService
-   * @param {GroupEpersonService} groupService
+   * @param {GroupDataService} groupService
    * @param {ResourcePolicyService} resourcePolicyService
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
@@ -133,7 +134,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   constructor(private bitstreamService: SectionUploadService,
               private changeDetectorRef: ChangeDetectorRef,
               private collectionDataService: CollectionDataService,
-              private groupService: GroupEpersonService,
+              private groupService: GroupDataService,
               private resourcePolicyService: ResourcePolicyService,
               protected sectionService: SectionsService,
               private submissionService: SubmissionService,
@@ -163,9 +164,10 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         flatMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection)),
         filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
         tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = collectionRemoteData.payload.name),
-        flatMap((collectionRemoteData: RemoteData<Collection>) => {
+        // TODO review this part when https://github.com/DSpace/dspace-angular/issues/575 is resolved
+/*        flatMap((collectionRemoteData: RemoteData<Collection>) => {
           return this.resourcePolicyService.findByHref(
-            (collectionRemoteData.payload as any)._links.defaultAccessConditions
+            (collectionRemoteData.payload as any)._links.defaultAccessConditions.href
           );
         }),
         filter((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) =>
@@ -175,7 +177,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
             this.collectionDefaultAccessConditions = Array.isArray(defaultAccessConditionsRemoteData.payload)
               ? defaultAccessConditionsRemoteData.payload : [defaultAccessConditionsRemoteData.payload];
           }
-        }),
+        }),*/
         flatMap(() => config$),
         flatMap((config: SubmissionUploadsModel) => {
           this.required$.next(config.required);

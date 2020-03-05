@@ -182,7 +182,7 @@ describe('ItemDeleteComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [ItemDeleteComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
@@ -220,7 +220,7 @@ describe('ItemDeleteComponent', () => {
       spyOn(comp, 'notify');
       comp.performAction();
       expect(mockItemDataService.delete)
-        .toHaveBeenCalledWith(mockItem, types.filter((type) => typesSelection[type]).map((type) => type.id));
+        .toHaveBeenCalledWith(mockItem.id, types.filter((type) => typesSelection[type]).map((type) => type.id));
       expect(comp.notify).toHaveBeenCalled();
     });
   });

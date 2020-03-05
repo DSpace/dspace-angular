@@ -1,13 +1,13 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
 
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { SortablejsOptions } from 'angular-sortablejs';
 import { isObject } from 'lodash';
 
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
 import { UploaderService } from '../uploader/uploader.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Options } from 'sortablejs';
 
 @Component({
   selector: 'ds-chips',
@@ -25,7 +25,7 @@ export class ChipsComponent implements OnChanges {
   @Output() remove: EventEmitter<number> = new EventEmitter<number>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
 
-  options: SortablejsOptions;
+  options: Options;
   dragged = -1;
   tipText: string[];
 

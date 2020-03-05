@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -72,7 +72,7 @@ describe('WorkspaceitemActionsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        NgbModule.forRoot(),
+        NgbModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -128,7 +128,7 @@ describe('WorkspaceitemActionsComponent', () => {
     expect(btn).toBeDefined();
   });
 
-  it('should call confirmDiscard on discard confirmation', fakeAsync(() => {
+  it('should call confirmDiscard on discard confirmation', () => {
     mockDataService.delete.and.returnValue(observableOf(true));
     spyOn(component, 'reload');
     const btn = fixture.debugElement.query(By.css('.btn-danger'));
@@ -141,10 +141,10 @@ describe('WorkspaceitemActionsComponent', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
-      expect(mockDataService.delete).toHaveBeenCalledWith(mockObject);
+      expect(mockDataService.delete).toHaveBeenCalledWith(mockObject.id);
     });
 
-  }));
+  });
 
   it('should display a success notification on delete success', async(() => {
     spyOn((component as any).modalService, 'open').and.returnValue({result: Promise.resolve('ok')});

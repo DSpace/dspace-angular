@@ -32,7 +32,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   /**
    * A view on the child pagination component
    */
-  @ViewChild(PaginationComponent) paginationComponent: PaginationComponent;
+  @ViewChild(PaginationComponent, {static: false}) paginationComponent: PaginationComponent;
 
   /**
    * The URL to use for accessing the object updates from this list

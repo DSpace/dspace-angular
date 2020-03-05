@@ -92,7 +92,7 @@ describe('BitstreamFormatsComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
       providers: [
         {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
@@ -214,7 +214,7 @@ describe('BitstreamFormatsComponent', () => {
         });
 
         TestBed.configureTestingModule({
-          imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+          imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
           declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
           providers: [
             {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
@@ -230,10 +230,10 @@ describe('BitstreamFormatsComponent', () => {
       comp.deleteFormats();
 
       expect(bitstreamFormatService.clearBitStreamFormatRequests).toHaveBeenCalled();
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat1);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat2);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat3);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat4);
+      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat1.id);
+      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat2.id);
+      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat3.id);
+      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat4.id);
 
       expect(notificationsServiceStub.success).toHaveBeenCalledWith('admin.registries.bitstream-formats.delete.success.head',
         'admin.registries.bitstream-formats.delete.success.amount');
@@ -260,7 +260,7 @@ describe('BitstreamFormatsComponent', () => {
         });
 
         TestBed.configureTestingModule({
-          imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+          imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
           declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
           providers: [
             {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
@@ -276,10 +276,10 @@ describe('BitstreamFormatsComponent', () => {
       comp.deleteFormats();
 
       expect(bitstreamFormatService.clearBitStreamFormatRequests).toHaveBeenCalled();
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat1);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat2);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat3);
-      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat4);
+      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat1.id);
+      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat2.id);
+      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat3.id);
+      expect(bitstreamFormatService.delete).toHaveBeenCalledWith(bitstreamFormat4.id);
 
       expect(notificationsServiceStub.error).toHaveBeenCalledWith('admin.registries.bitstream-formats.delete.failure.head',
         'admin.registries.bitstream-formats.delete.failure.amount');

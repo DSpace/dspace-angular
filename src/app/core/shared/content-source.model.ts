@@ -1,4 +1,6 @@
 import { autoserialize, autoserializeAs, deserializeAs, deserialize } from 'cerialize';
+import { HALLink } from './hal-link.model';
+import { HALResource } from './hal-resource.model';
 import { MetadataConfig } from './metadata-config.model';
 
 /**
@@ -14,7 +16,7 @@ export enum ContentSourceHarvestType {
 /**
  * A model class that holds information about the Content Source of a Collection
  */
-export class ContentSource {
+export class ContentSource implements HALResource {
   /**
    * Unique identifier, this is necessary to store the ContentSource in FieldUpdates
    * Because the ContentSource coming from the REST API doesn't have a UUID, we're using the selflink
@@ -53,8 +55,10 @@ export class ContentSource {
   metadataConfigs: MetadataConfig[];
 
   /**
-   * The REST link to itself
+   * The {@link HALLink}s for this ContentSource
    */
   @deserialize
-  self: string;
+  _links: {
+    self: HALLink
+  }
 }

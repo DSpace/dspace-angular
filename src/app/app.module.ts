@@ -3,16 +3,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { META_REDUCERS, MetaReducer, StoreModule } from '@ngrx/store';
+import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
+import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-
-import { storeFreeze } from 'ngrx-store-freeze';
 
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../config';
 import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
@@ -41,6 +38,7 @@ import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-s
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { SharedModule } from './shared/shared.module';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -51,8 +49,7 @@ export function getBase() {
 }
 
 export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppState>> {
-  const metaReducers: Array<MetaReducer<AppState>> = config.production ? appMetaReducers : [...appMetaReducers, storeFreeze];
-  return config.debug ? [...metaReducers, ...debugMetaReducers] : metaReducers;
+  return config.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
 
 const IMPORTS = [
@@ -63,11 +60,11 @@ const IMPORTS = [
   AppRoutingModule,
   CoreModule.forRoot(),
   ScrollToModule.forRoot(),
-  NgbModule.forRoot(),
+  NgbModule,
   TranslateModule.forRoot(),
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers),
-  StoreRouterConnectingModule,
+  StoreRouterConnectingModule.forRoot(),
 ];
 
 const ENTITY_IMPORTS = [
@@ -92,7 +89,7 @@ const PROVIDERS = [
     useFactory: (getBase)
   },
   {
-    provide: META_REDUCERS,
+    provide: USER_PROVIDED_META_REDUCERS,
     useFactory: getMetaReducers,
     deps: [GLOBAL_CONFIG]
   },
@@ -100,7 +97,8 @@ const PROVIDERS = [
     provide: RouterStateSerializer,
     useClass: DSpaceRouterStateSerializer
   },
-  ClientCookieService
+  ClientCookieService,
+  ...DYNAMIC_MATCHER_PROVIDERS,
 ];
 
 const DECLARATIONS = [
@@ -131,6 +129,7 @@ const EXPORTS = [
   ],
   declarations: [
     ...DECLARATIONS,
+    BreadcrumbsComponent,
   ],
   exports: [
     ...EXPORTS

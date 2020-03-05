@@ -195,7 +195,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
       take(1),
       switchMap((removedBistreams: Bitstream[]) => {
         if (isNotEmpty(removedBistreams)) {
-          return observableZip(...removedBistreams.map((bitstream: Bitstream) => this.bitstreamService.deleteAndReturnResponse(bitstream)));
+          return observableZip(...removedBistreams.map((bitstream: Bitstream) => this.bitstreamService.deleteAndReturnResponse(bitstream.id)));
         } else {
           return observableOf(undefined);
         }

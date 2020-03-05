@@ -1,19 +1,22 @@
-import {EditRelationshipListComponent} from './edit-relationship-list.component';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {RelationshipType} from '../../../../core/shared/item-relationships/relationship-type.model';
-import {Relationship} from '../../../../core/shared/item-relationships/relationship.model';
-import {of as observableOf} from 'rxjs/internal/observable/of';
-import {RemoteData} from '../../../../core/data/remote-data';
-import {Item} from '../../../../core/shared/item.model';
-import {PaginatedList} from '../../../../core/data/paginated-list';
-import {PageInfo} from '../../../../core/shared/page-info.model';
-import {FieldChangeType} from '../../../../core/data/object-updates/object-updates.actions';
-import {SharedModule} from '../../../../shared/shared.module';
-import {TranslateModule} from '@ngx-translate/core';
-import {ObjectUpdatesService} from '../../../../core/data/object-updates/object-updates.service';
-import {DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {ItemType} from '../../../../core/shared/item-relationships/item-type.model';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs/internal/observable/of';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../../../core/data/paginated-list';
+import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { Item } from '../../../../core/shared/item.model';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { getMockLinkService } from '../../../../shared/mocks/mock-link-service';
+import { SharedModule } from '../../../../shared/shared.module';
+import { EditRelationshipListComponent } from './edit-relationship-list.component';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -57,7 +60,11 @@ describe('EditRelationshipListComponent', () => {
     });
 
     relationship1 = Object.assign(new Relationship(), {
-      self: url + '/2',
+      _links: {
+        self: {
+          href: url + '/2'
+        }
+      },
       id: '2',
       uuid: '2',
       leftId: 'author1',
@@ -68,7 +75,11 @@ describe('EditRelationshipListComponent', () => {
     });
 
     relationship2 = Object.assign(new Relationship(), {
-      self: url + '/3',
+      _links: {
+        self: {
+          href: url + '/3'
+        }
+      },
       id: '3',
       uuid: '3',
       leftId: 'author2',
@@ -79,7 +90,9 @@ describe('EditRelationshipListComponent', () => {
     });
 
     item = Object.assign(new Item(), {
-      self: 'fake-item-url/publication',
+      _links: {
+        self: { href: 'fake-item-url/publication' }
+      },
       id: 'publication',
       uuid: 'publication',
       relationships: observableOf(new RemoteData(
@@ -142,6 +155,8 @@ describe('EditRelationshipListComponent', () => {
       declarations: [EditRelationshipListComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: RelationshipTypeService, useValue: {} },
+        { provide: LinkService, useValue: getMockLinkService() },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

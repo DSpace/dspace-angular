@@ -1,15 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { Observable } from 'rxjs/internal/Observable';
 import {FieldUpdate, FieldUpdates} from '../../../../core/data/object-updates/object-updates.reducer';
 import {Item} from '../../../../core/shared/item.model';
-import {map, switchMap} from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import {hasValue} from '../../../../shared/empty.util';
 import {Relationship} from '../../../../core/shared/item-relationships/relationship.model';
 import {RelationshipType} from '../../../../core/shared/item-relationships/relationship-type.model';
-import {getRemoteDataPayload, getSucceededRemoteData} from '../../../../core/shared/operators';
-import {combineLatest as observableCombineLatest, combineLatest} from 'rxjs';
-import {ItemType} from '../../../../core/shared/item-relationships/item-type.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  getSucceededRemoteData
+} from '../../../../core/shared/operators';
+import { combineLatest as observableCombineLatest } from 'rxjs';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -47,6 +53,7 @@ export class EditRelationshipListComponent implements OnInit {
 
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,
+    protected linkService: LinkService
   ) {
   }
 
@@ -71,7 +78,7 @@ export class EditRelationshipListComponent implements OnInit {
    */
   private getLabel(): Observable<string> {
 
-    return combineLatest([
+    return observableCombineLatest([
       this.relationshipType.leftType,
       this.relationshipType.rightType,
     ].map((itemTypeRD) => itemTypeRD.pipe(
@@ -94,8 +101,20 @@ export class EditRelationshipListComponent implements OnInit {
 
   ngOnInit(): void {
     this.updates$ = this.item.relationships.pipe(
+      getAllSucceededRemoteData(),
       map((relationships) => relationships.payload.page.filter((relationship) => relationship)),
-      switchMap((itemRelationships) =>
+      map((relationships: Relationship[]) =>
+        relationships.map((relationship: Relationship) => {
+          this.linkService.resolveLinks(
+            relationship,
+            followLink('relationshipType'),
+            followLink('leftItem'),
+            followLink('rightItem'),
+          );
+          return relationship;
+        })
+      ),
+      switchMap((itemRelationships: Relationship[]) =>
         observableCombineLatest(
           itemRelationships
             .map((relationship) => relationship.relationshipType.pipe(

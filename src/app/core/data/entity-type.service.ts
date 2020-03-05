@@ -1,7 +1,7 @@
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -25,11 +25,9 @@ import {ItemType} from '../shared/item-relationships/item-type.model';
 export class EntityTypeService extends DataService<ItemType> {
 
   protected linkPath = 'entitytypes';
-  protected forceBypassCache = false;
 
   constructor(protected requestService: RequestService,
               protected rdbService: RemoteDataBuildService,
-              protected dataBuildService: NormalizedObjectBuildService,
               protected store: Store<CoreState>,
               protected halService: HALEndpointService,
               protected objectCache: ObjectCacheService,
@@ -56,8 +54,9 @@ export class EntityTypeService extends DataService<ItemType> {
   /**
    * Get the allowed relationship types for an entity type
    * @param entityTypeId
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  getEntityTypeRelationships(entityTypeId: string): Observable<RemoteData<PaginatedList<RelationshipType>>> {
+  getEntityTypeRelationships(entityTypeId: string, ...linksToFollow: Array<FollowLinkConfig<RelationshipType>>): Observable<RemoteData<PaginatedList<RelationshipType>>> {
 
     const href$ = this.getRelationshipTypesEndpoint(entityTypeId);
 
@@ -66,7 +65,7 @@ export class EntityTypeService extends DataService<ItemType> {
       this.requestService.configure(request);
     });
 
-    return this.rdbService.buildList(href$);
+    return this.rdbService.buildList(href$, ...linksToFollow);
   }
 
   /**

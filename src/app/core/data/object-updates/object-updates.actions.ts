@@ -371,4 +371,7 @@ export type ObjectUpdatesAction
   | RemoveFieldUpdateAction
   | MoveFieldUpdateAction
   | AddPageToCustomOrderAction
-  | SelectVirtualMetadataAction;
+  | RemoveAllObjectUpdatesAction
+  | SelectVirtualMetadataAction
+  | SetEditableFieldUpdateAction
+  | SetValidFieldUpdateAction;

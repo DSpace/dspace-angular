@@ -22,6 +22,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.comp
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { SearchService } from '../../core/shared/search/search.service';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -48,7 +49,7 @@ export class CollectionItemMapperComponent implements OnInit {
    * A view on the tabset element
    * Used to switch tabs programmatically
    */
-  @ViewChild('tabs') tabs;
+  @ViewChild('tabs', {static: false}) tabs;
 
   /**
    * The collection to map items to
@@ -101,7 +102,7 @@ export class CollectionItemMapperComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.data.pipe(map((data) => data.collection)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Collection>>;
+    this.collectionRD$ = this.route.data.pipe(map((data) => data.dso)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Collection>>;
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.loadItemLists();
   }
@@ -122,7 +123,7 @@ export class CollectionItemMapperComponent implements OnInit {
         if (shouldUpdate) {
           return this.collectionDataService.getMappedItems(collectionRD.payload.id, Object.assign(options, {
             sort: this.defaultSortOptions
-          }))
+          }),followLink('owningCollection'))
         }
       })
     );
@@ -154,7 +155,7 @@ export class CollectionItemMapperComponent implements OnInit {
       map((collectionRD: RemoteData<Collection>) => collectionRD.payload),
       switchMap((collection: Collection) =>
         observableCombineLatest(ids.map((id: string) =>
-          remove ? this.itemDataService.removeMappingFromCollection(id, collection.id) : this.itemDataService.mapToCollection(id, collection.self)
+          remove ? this.itemDataService.removeMappingFromCollection(id, collection.id) : this.itemDataService.mapToCollection(id, collection._links.self.href)
         ))
       )
     );

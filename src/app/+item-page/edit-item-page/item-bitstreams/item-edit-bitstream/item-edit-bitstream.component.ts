@@ -22,7 +22,7 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
   /**
    * The view on the bitstream
    */
-  @ViewChild('bitstreamView') bitstreamView;
+  @ViewChild('bitstreamView', {static: false}) bitstreamView;
 
   /**
    * The current field, value and state of the bitstream

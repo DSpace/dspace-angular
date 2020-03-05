@@ -8,7 +8,7 @@ import {
   LogOutErrorAction,
   RedirectWhenAuthenticationIsRequiredAction,
   RedirectWhenTokenExpiredAction,
-  RefreshTokenSuccessAction,
+  RefreshTokenSuccessAction, RetrieveAuthenticatedEpersonSuccessAction,
   SetRedirectUrlAction
 } from './auth.actions';
 // import models
@@ -80,6 +80,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       });
 
     case AuthActionTypes.AUTHENTICATED_ERROR:
+    case AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_ERROR:
       return Object.assign({}, state, {
         authenticated: false,
         authToken: undefined,
@@ -91,12 +92,16 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.AUTHENTICATED_SUCCESS:
       return Object.assign({}, state, {
         authenticated: true,
-        authToken: (action as AuthenticatedSuccessAction).payload.authToken,
+        authToken: (action as AuthenticatedSuccessAction).payload.authToken
+      });
+
+    case AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS:
+      return Object.assign({}, state, {
         loaded: true,
         error: undefined,
         loading: false,
         info: undefined,
-        user: (action as AuthenticatedSuccessAction).payload.user
+        user: (action as RetrieveAuthenticatedEpersonSuccessAction).payload
       });
 
     case AuthActionTypes.AUTHENTICATE_ERROR:

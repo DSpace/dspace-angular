@@ -9,7 +9,7 @@ export class ItemEditBitstreamDragHandleComponent implements OnInit {
   /**
    * The view on the drag-handle
    */
-  @ViewChild('handleView') handleView;
+  @ViewChild('handleView', {static: false}) handleView;
 
   constructor(private viewContainerRef: ViewContainerRef) {
   }

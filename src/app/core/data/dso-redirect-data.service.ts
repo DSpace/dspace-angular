@@ -1,35 +1,32 @@
-import { DataService } from './data.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HttpClient } from '@angular/common/http';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestService } from './request.service';
-import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
-import { FindListOptions, FindByIDRequest, IdentifierType } from './request.models';
-import { Observable } from 'rxjs';
-import { RemoteData } from './remote-data';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Injectable } from '@angular/core';
-import { filter, take, tap } from 'rxjs/operators';
-import { hasValue } from '../../shared/empty.util';
-import { getFinishedRemoteData } from '../shared/operators';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
+import { hasValue } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { CoreState } from '../core.reducers';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { getFinishedRemoteData } from '../shared/operators';
+import { DataService } from './data.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { RemoteData } from './remote-data';
+import { FindByIDRequest, IdentifierType } from './request.models';
+import { RequestService } from './request.service';
 
 @Injectable()
 export class DsoRedirectDataService extends DataService<any> {
 
   // Set the default link path to the identifier lookup endpoint.
   protected linkPath = 'pid';
-  protected forceBypassCache = false;
   private uuidEndpoint = 'dso';
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -38,10 +35,6 @@ export class DsoRedirectDataService extends DataService<any> {
     protected comparator: DSOChangeAnalyzer<any>,
     private router: Router) {
     super();
-  }
-
-  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return this.halService.getEndpoint(linkPath);
   }
 
   setLinkPath(identifierType: IdentifierType) {
@@ -58,9 +51,9 @@ export class DsoRedirectDataService extends DataService<any> {
       .replace(/\{\?uuid\}/, `?uuid=${resourceID}`);
   }
 
-  findById(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<FindByIDRequest>> {
+  findByIdAndIDType(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<FindByIDRequest>> {
     this.setLinkPath(identifierType);
-    return super.findById(id).pipe(
+    return this.findById(id).pipe(
       getFinishedRemoteData(),
       take(1),
       tap((response) => {

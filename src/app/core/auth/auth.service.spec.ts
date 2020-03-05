@@ -11,7 +11,6 @@ import { NativeWindowRef, NativeWindowService } from '../services/window.service
 import { AuthService } from './auth.service';
 import { RouterStub } from '../../shared/testing/router-stub';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
-
 import { CookieService } from '../services/cookie.service';
 import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service-stub';
 import { AuthRequestService } from './auth-request.service';
@@ -22,11 +21,20 @@ import { EPersonMock } from '../../shared/testing/eperson-mock';
 import { AppState } from '../../app.reducer';
 import { ClientCookieService } from '../services/client-cookie.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 import { routeServiceStub } from '../../shared/testing/route-service-stub';
 import { RouteService } from '../services/route.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { RemoteData } from '../data/remote-data';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { EPersonDataService } from '../eperson/eperson-data.service';
 
 describe('AuthService test', () => {
+
+  const mockEpersonDataService: any = {
+    findByHref(href: string): Observable<RemoteData<EPerson>> {
+      return createSuccessfulRemoteDataObject$(EPersonMock);
+    }
+  };
 
   let mockStore: Store<AuthState>;
   let authService: AuthService;
@@ -38,7 +46,7 @@ describe('AuthService test', () => {
   let storage: CookieService;
   let token: AuthTokenInfo;
   let authenticatedState;
-  let rdbService;
+  let linkService;
 
   function init() {
     mockStore = jasmine.createSpyObj('store', {
@@ -58,8 +66,10 @@ describe('AuthService test', () => {
     };
     authRequest = new AuthRequestServiceStub();
     routeStub = new ActivatedRouteStub();
-    rdbService = getMockRemoteDataBuildService();
-    spyOn(rdbService, 'build').and.returnValue({authenticated: true, eperson: observableOf({payload: {}})});
+    linkService = {
+      resolveLinks: {}
+    };
+    spyOn(linkService, 'resolveLinks').and.returnValue({ authenticated: true, eperson: observableOf({ payload: {} }) });
 
   }
 
@@ -80,7 +90,7 @@ describe('AuthService test', () => {
           { provide: RouteService, useValue: routeServiceStub },
           { provide: ActivatedRoute, useValue: routeStub },
           { provide: Store, useValue: mockStore },
-          { provide: RemoteDataBuildService, useValue: rdbService },
+          { provide: EPersonDataService, useValue: mockEpersonDataService },
           CookieService,
           AuthService
         ],
@@ -98,8 +108,14 @@ describe('AuthService test', () => {
       expect(authService.authenticate.bind(null, 'user', 'passwordwrong')).toThrow();
     });
 
-    it('should return the authenticated user object when user token is valid', () => {
-      authService.authenticatedUser(new AuthTokenInfo('test_token')).subscribe((user: EPerson) => {
+    it('should return the authenticated user href when user token is valid', () => {
+      authService.authenticatedUser(new AuthTokenInfo('test_token')).subscribe((userHref: string) => {
+        expect(userHref).toBeDefined();
+      });
+    });
+
+    it('should return the authenticated user', () => {
+      authService.retrieveAuthenticatedUserByHref(EPersonMock._links.self.href).subscribe((user: EPerson) => {
         expect(user).toBeDefined();
       });
     });
@@ -143,7 +159,7 @@ describe('AuthService test', () => {
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
           { provide: RouteService, useValue: routeServiceStub },
-          { provide: RemoteDataBuildService, useValue: rdbService },
+          { provide: RemoteDataBuildService, useValue: linkService },
           CookieService,
           AuthService
         ]
@@ -156,7 +172,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, router, routeService, cookieService, store, rdbService);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store);
     }));
 
     it('should return true when user is logged in', () => {
@@ -195,7 +211,7 @@ describe('AuthService test', () => {
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
           { provide: RouteService, useValue: routeServiceStub },
-          { provide: RemoteDataBuildService, useValue: rdbService },
+          { provide: RemoteDataBuildService, useValue: linkService },
           ClientCookieService,
           CookieService,
           AuthService
@@ -218,7 +234,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, router, routeService, cookieService, store, rdbService);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store);
       storage = (authService as any).storage;
       routeServiceMock = TestBed.get(RouteService);
       routerStub = TestBed.get(Router);
@@ -247,7 +263,7 @@ describe('AuthService test', () => {
       expect(storage.remove).toHaveBeenCalled();
     });
 
-    it ('should set redirect url to previous page', () => {
+    it('should set redirect url to previous page', () => {
       spyOn(routeServiceMock, 'getHistory').and.callThrough();
       spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(true);
@@ -255,7 +271,7 @@ describe('AuthService test', () => {
       expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/collection/123');
     });
 
-    it ('should set redirect url to current page', () => {
+    it('should set redirect url to current page', () => {
       spyOn(routeServiceMock, 'getHistory').and.callThrough();
       spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(false);
@@ -263,7 +279,7 @@ describe('AuthService test', () => {
       expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/home');
     });
 
-    it ('should redirect to / and not to /login', () => {
+    it('should redirect to / and not to /login', () => {
       spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['/login', '/login']));
       spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(true);
@@ -271,7 +287,7 @@ describe('AuthService test', () => {
       expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/');
     });
 
-    it ('should redirect to / when no redirect url is found', () => {
+    it('should redirect to / when no redirect url is found', () => {
       spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['']));
       spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(true);

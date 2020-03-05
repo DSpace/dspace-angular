@@ -1,9 +1,5 @@
-import { MoveOperation, Operation } from 'fast-json-patch/lib/core';
-import { compare } from 'fast-json-patch';
-import { ChangeAnalyzer } from './change-analyzer';
+import { MoveOperation } from 'fast-json-patch/lib/core';
 import { Injectable } from '@angular/core';
-import { CacheableObject } from '../cache/object-cache.reducer';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { hasValue } from '../../shared/empty.util';
 

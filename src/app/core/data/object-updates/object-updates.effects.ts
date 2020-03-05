@@ -54,8 +54,8 @@ export class ObjectUpdatesEffects {
     .pipe(
       ofType(...Object.values(ObjectUpdatesActionTypes)),
       map((action: ObjectUpdatesAction) => {
-        if (hasValue(action.payload)) {
-          const url: string = action.payload.url;
+        if (hasValue((action as any).payload)) {
+          const url: string = (action as any).payload.url;
           if (hasNoValue(this.actionMap$[url])) {
             this.actionMap$[url] = new Subject<ObjectUpdatesAction>();
           }
