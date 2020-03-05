@@ -19,9 +19,8 @@
       <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="row">
         <div class="col-12 col-sm-3">
           <select name="scope" id="scope" formControlName="scope" class="form-control" aria-label="Search scope">
-            <option value="name">{{labelPrefix + 'search.scope.name' | translate}}</option>
-            <option value="email">{{labelPrefix + 'search.scope.email' | translate}}</option>
             <option value="metadata">{{labelPrefix + 'search.scope.metadata' | translate}}</option>
+            <option value="email">{{labelPrefix + 'search.scope.email' | translate}}</option>
           </select>
         </div>
         <div class="col-sm-9 col-12">

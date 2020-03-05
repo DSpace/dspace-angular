@@ -13,7 +13,7 @@ import { type } from '../../../shared/ngrx/type';
 export const EPeopleRegistryActionTypes = {
 
   EDIT_EPERSON: type('dspace/epeople-registry/EDIT_EPERSON'),
-  CANCEL_EDIT_EPERSON: type('dspace/epeople-registry/CANCEL_SCHEMA'),
+  CANCEL_EDIT_EPERSON: type('dspace/epeople-registry/CANCEL_EDIT_EPERSON'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -25,8 +25,8 @@ export class EPeopleRegistryEditEPersonAction implements Action {
 
   eperson: EPerson;
 
-  constructor(registry: EPerson) {
-    this.eperson = registry;
+  constructor(eperson: EPerson) {
+    this.eperson = eperson;
   }
 }
 

@@ -6,7 +6,7 @@ import {
 } from './epeople-registry.actions';
 
 /**
- * The metadata registry state.
+ * The EPeople registry state.
  * @interface EPeopleRegistryState
  */
 export interface EPeopleRegistryState {

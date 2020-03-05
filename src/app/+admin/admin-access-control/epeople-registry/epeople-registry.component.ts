@@ -55,7 +55,7 @@ export class EPeopleRegistryComponent {
     });
     this.isEPersonFormShown = false;
     this.searchForm = this.formBuilder.group(({
-      scope: 'name',
+      scope: 'metadata',
       query: '',
     }));
   }
@@ -85,42 +85,18 @@ export class EPeopleRegistryComponent {
   public forceUpdateEPeople() {
     this.epersonService.clearEPersonRequests();
     this.isEPersonFormShown = false;
-    this.search({ query: '', scope: 'name' })
+    this.search({ query: '', scope: 'metadata' })
   }
 
   /**
-   * Search in the EPeople by name, email or metadata
+   * Search in the EPeople by metadata (default) or email
    * @param data  Contains scope and query param
    */
   search(data: any) {
-    const query = data.query;
-    const scope = data.scope;
-    switch (scope) {
-      case 'name':
-        this.ePeople = this.epersonService.getEpeopleByName(query, {
-          currentPage: 1,
-          elementsPerPage: this.config.pageSize
-        });
-        break;
-      case 'email':
-        this.ePeople = this.epersonService.getEpeopleByEmail(query, {
-          currentPage: 1,
-          elementsPerPage: this.config.pageSize
-        });
-        break;
-      case 'metadata':
-        this.ePeople = this.epersonService.getEpeopleByMetadata(query, {
-          currentPage: 1,
-          elementsPerPage: this.config.pageSize
-        });
-        break;
-      default:
-        this.ePeople = this.epersonService.getEpeopleByEmail(query, {
-          currentPage: 1,
-          elementsPerPage: this.config.pageSize
-        });
-        break;
-    }
+    this.ePeople = this.epersonService.searchByScope(data.scope, data.query, {
+      currentPage: 1,
+      elementsPerPage: this.config.pageSize
+    });
   }
 
   /**
@@ -141,11 +117,11 @@ export class EPeopleRegistryComponent {
   }
 
   /**
-   * Start editing the selected metadata schema
-   * @param schema
+   * Start editing the selected EPerson
+   * @param ePerson
    */
   editEPerson(ePerson: EPerson) {
-    this.getActiveEPerson().pipe(take(1)).subscribe((activeEPerson) => {
+    this.getActiveEPerson().pipe(take(1)).subscribe((activeEPerson: EPerson) => {
       if (ePerson === activeEPerson) {
         this.epersonService.cancelEditEPerson();
         this.isEPersonFormShown = false;
@@ -158,7 +134,7 @@ export class EPeopleRegistryComponent {
   }
 
   /**
-   * Delete EPerson
+   * Deletes EPerson, show notification on success/failure & updates EPeople list
    */
   deleteEPerson(ePerson: EPerson) {
     if (hasValue(ePerson.id)) {
@@ -167,7 +143,7 @@ export class EPeopleRegistryComponent {
           this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: ePerson.name }));
           this.forceUpdateEPeople();
         } else {
-          this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.failure', { name: ePerson.name }));
+          this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.deleted.failure', { name: ePerson.name }));
         }
         this.epersonService.cancelEditEPerson();
         this.isEPersonFormShown = false;

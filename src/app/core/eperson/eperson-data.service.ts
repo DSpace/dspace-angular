@@ -39,7 +39,6 @@ const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopl
 export class EPersonDataService extends DataService<EPerson> {
 
   protected linkPath = 'epersons';
-  protected searchByNamePath = 'byName';
   protected searchByEmailPath = 'byEmail';
   protected searchByMetadataPath = 'byMetadata';
 
@@ -58,7 +57,7 @@ export class EPersonDataService extends DataService<EPerson> {
 
   /**
    * Retrieves all EPeople
-   * @param pagination The pagination info used to retrieve the EPeople
+   * @param options The options info used to retrieve the EPeople
    */
   public getEPeople(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<EPerson>>> {
     const hrefObs = this.getFindAllHref(options, this.linkPath);
@@ -74,14 +73,20 @@ export class EPersonDataService extends DataService<EPerson> {
   }
 
   /**
-   * Returns a search result list of EPeople, by name query (/eperson/epersons/search/{@link searchByNamePath}?q=<>)
-   * @param query     name query
-   * @param options
-   * @param linksToFollow
+   * Search the EPeople with a given scope and query
+   * @param scope   Scope of the EPeople search, default byMetadata
+   * @param query   Query of search
+   * @param options Options of search request
    */
-  public getEpeopleByName(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
-    const searchParams = [new SearchParam('q', query)];
-    return this.getEPeopleBy(searchParams, this.searchByNamePath, options, ...linksToFollow);
+  public searchByScope(scope: string, query: string, options: FindListOptions = {}) {
+    switch (scope) {
+      case 'metadata':
+        return this.getEpeopleByMetadata(query.trim(), options);
+      case 'email':
+        return this.getEpeopleByEmail(query.trim(), options);
+      default:
+        return this.getEpeopleByMetadata(query.trim(), options);
+    }
   }
 
   /**
@@ -127,25 +132,11 @@ export class EPersonDataService extends DataService<EPerson> {
   }
 
   /**
-   * Create or Update an EPerson
-   *  If the EPerson contains an id, it is assumed the eperson already exists and is updated instead
-   * @param ePerson    The EPerson to create or update
-   */
-  public createOrUpdateEPerson(ePerson: EPerson): Observable<RemoteData<EPerson>> {
-    const isUpdate = hasValue(ePerson.id);
-    if (isUpdate) {
-      return this.updateEPerson(ePerson);
-    } else {
-      return this.create(ePerson, null);
-    }
-  }
-
-  /**
    * Add a new patch to the object cache
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} ePerson The given object
    */
-  updateEPerson(ePerson: EPerson): Observable<RemoteData<EPerson>> {
+  public updateEPerson(ePerson: EPerson): Observable<RemoteData<EPerson>> {
     const oldVersion$ = this.findByHref(ePerson._links.self.href);
     return oldVersion$.pipe(
       getSucceededRemoteData(),
@@ -165,7 +156,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param oldEPerson
    * @param newEPerson
    */
-  generateOperations(oldEPerson: EPerson, newEPerson: EPerson): Operation[] {
+  private generateOperations(oldEPerson: EPerson, newEPerson: EPerson): Operation[] {
     let operations = this.comparator.diff(oldEPerson, newEPerson).filter((operation: Operation) => operation.op === 'replace');
     if (hasValue(oldEPerson.email) && oldEPerson.email !== newEPerson.email) {
       operations = [...operations, {
@@ -223,10 +214,10 @@ export class EPersonDataService extends DataService<EPerson> {
 
   /**
    * Method to delete an EPerson
-   * @param id The EPerson to delete
+   * @param ePerson The EPerson to delete
    */
   public deleteEPerson(ePerson: EPerson): Observable<boolean> {
-    return this.delete(ePerson);
+    return this.delete(ePerson.id);
   }
 
 }

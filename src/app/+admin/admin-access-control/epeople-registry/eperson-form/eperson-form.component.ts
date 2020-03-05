@@ -8,6 +8,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { take } from 'rxjs/operators';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
@@ -98,6 +99,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   @Output() cancelForm: EventEmitter<any> = new EventEmitter();
 
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
+
   constructor(public epersonService: EPersonDataService,
               private formBuilderService: FormBuilderService,
               private translateService: TranslateService,
@@ -162,7 +168,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         this.requireCertificate,
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-      this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
+      this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
         this.formGroup.patchValue({
           firstName: eperson != null ? eperson.firstMetadataValue('eperson.firstname') : '',
           lastName: eperson != null ? eperson.firstMetadataValue('eperson.lastname') : '',
@@ -171,7 +177,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           requireCertificate: eperson != null ? eperson.requireCertificate : false,
           selfRegistered: false,
         });
-      });
+      }));
     });
   }
 
@@ -225,14 +231,14 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * @param values
    */
   createNewEPerson(values) {
-    this.epersonService.createOrUpdateEPerson(Object.assign(new EPerson(), values))
+    this.subs.push(this.epersonService.create(Object.assign(new EPerson(), values), null)
       .pipe(
         getSucceededRemoteData(),
         getRemoteDataPayload())
       .subscribe((newEPerson: EPerson) => {
         this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: newEPerson.name }));
         this.submitForm.emit(newEPerson);
-      });
+      }));
   }
 
   /**
@@ -241,7 +247,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * @param values
    */
   editEPerson(ePerson: EPerson, values) {
-    this.epersonService.createOrUpdateEPerson(Object.assign(new EPerson(), {
+    this.epersonService.updateEPerson(Object.assign(new EPerson(), {
       id: ePerson.id,
       metadata: {
         'eperson.firstname': [
@@ -283,9 +289,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Cancel the current edit when component is destroyed
+   * Cancel the current edit when component is destroyed & unsub all subscriptions
    */
   ngOnDestroy(): void {
     this.onCancel();
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 }
