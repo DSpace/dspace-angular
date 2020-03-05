@@ -39,17 +39,38 @@ describe('SearchFacetFilterComponent', () => {
       label: value1,
       value: value1,
       count: 52,
-      search: ''
+      _links: {
+        self: {
+          href: ''
+        },
+        search: {
+          href: ''
+        }
+      }
     }, {
       label: value2,
       value: value2,
       count: 20,
-      search: ''
+      _links: {
+        self: {
+          href: ''
+        },
+        search: {
+          href: ''
+        }
+      }
     }, {
       label: value3,
       value: value3,
       count: 5,
-      search: ''
+      _links: {
+        self: {
+          href: ''
+        },
+        search: {
+          href: ''
+        }
+      }
     }
   ];
 

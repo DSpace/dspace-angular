@@ -10,7 +10,9 @@ import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
-  DynamicSelectModel
+  DynamicSelectModel,
+  MATCH_ENABLED,
+  OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
@@ -125,7 +127,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
   /**
    * The FormComponent reference
    */
-  @ViewChild('formRef') public formRef: FormComponent;
+  @ViewChild('formRef', {static: false}) public formRef: FormComponent;
 
   /**
    * Initialize instance variables
@@ -206,9 +208,9 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
           hasGroups.push({ id: 'name', value: condition.name });
         }
       });
-      const confStart = { relation: [{ action: 'ENABLE', connective: 'OR', when: hasStart }] };
-      const confEnd = { relation: [{ action: 'ENABLE', connective: 'OR', when: hasEnd }] };
-      const confGroup = { relation: [{ action: 'ENABLE', connective: 'OR', when: hasGroups }] };
+      const confStart = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: hasStart }] };
+      const confEnd = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: hasEnd }] };
+      const confGroup = { relations: [{ match: MATCH_ENABLED, operator: OR_OPERATOR, when: hasGroups }] };
 
       accessConditionsArrayConfig.groupFactory = () => {
         const type = new DynamicSelectModel(accessConditionTypeModelConfig, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT);
@@ -334,7 +336,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
             });
 
             // Due to a bug can't dynamically change the select options, so replace the model with a new one
-            const confGroup = { relation: groupModel.relation };
+            const confGroup = { relation: groupModel.relations };
             const groupsConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG, confGroup);
             groupsConfig.options = groupOptions;
             (model.parent as DynamicFormGroupModel).group.pop();

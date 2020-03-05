@@ -1,10 +1,10 @@
-import { RemoteDataBuildService } from './remote-data-build.service';
-import { Item } from '../../shared/item.model';
-import { PaginatedList } from '../../data/paginated-list';
-import { PageInfo } from '../../shared/page-info.model';
-import { RemoteData } from '../../data/remote-data';
 import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
+import { PaginatedList } from '../../data/paginated-list';
+import { RemoteData } from '../../data/remote-data';
+import { Item } from '../../shared/item.model';
+import { PageInfo } from '../../shared/page-info.model';
+import { RemoteDataBuildService } from './remote-data-build.service';
 
 const pageInfo = new PageInfo();
 const array = [
@@ -37,7 +37,7 @@ describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;
 
   beforeEach(() => {
-    service = new RemoteDataBuildService(undefined, undefined);
+    service = new RemoteDataBuildService(undefined, undefined, undefined);
   });
 
   describe('when toPaginatedList is called', () => {

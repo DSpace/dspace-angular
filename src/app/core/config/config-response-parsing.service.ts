@@ -15,6 +15,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 @Injectable()
 export class ConfigResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
   protected toCache = false;
+  protected shouldDirectlyAttachEmbeds = true;
 
   constructor(
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,

@@ -3,7 +3,7 @@ import {
   DynamicDatePickerModelConfig,
   DynamicFormControlLayout,
   DynamicFormControlModel,
-  DynamicFormControlRelationGroup,
+  DynamicFormControlRelation,
   serializable
 } from '@ng-dynamic-forms/core';
 
@@ -14,7 +14,7 @@ import { isEmpty, isNotUndefined } from '../../../../../empty.util';
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 
 export interface DynamicDsDatePickerModelConfig extends DynamicDatePickerModelConfig {
-  typeBind?: DynamicFormControlRelationGroup[];
+  typeBindRelations?: DynamicFormControlRelation[];
 }
 
 /**
@@ -22,7 +22,7 @@ export interface DynamicDsDatePickerModelConfig extends DynamicDatePickerModelCo
  */
 export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   @serializable() hiddenUpdates: Subject<boolean>;
-  @serializable() typeBind: DynamicFormControlRelationGroup[];
+  @serializable() typeBindRelations: DynamicFormControlRelation[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
   valueUpdates: Subject<any>;
   malformedDate: boolean;
@@ -31,7 +31,7 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   constructor(config: DynamicDsDatePickerModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
     this.malformedDate = false;
-    this.typeBind = config.typeBind ? config.typeBind : [];
+    this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
     this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
     this.hiddenUpdates.subscribe((hidden: boolean) => {
       this.hidden = hidden;

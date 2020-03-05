@@ -7,7 +7,6 @@ import { RequestService } from './request.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DsoRedirectDataService } from './dso-redirect-data.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
@@ -31,7 +30,6 @@ describe('DsoRedirectDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const dataBuildService = {} as NormalizedObjectBuildService;
   const objectCache = {} as ObjectCacheService;
   let setup;
   beforeEach(() => {
@@ -68,7 +66,6 @@ describe('DsoRedirectDataService', () => {
       service = new DsoRedirectDataService(
         requestService,
         rdbService,
-        dataBuildService,
         store,
         objectCache,
         halService,
@@ -83,7 +80,7 @@ describe('DsoRedirectDataService', () => {
   describe('findById', () => {
     it('should call HALEndpointService with the path to the pid endpoint', () => {
       setup();
-      scheduler.schedule(() => service.findById(dsoHandle, IdentifierType.HANDLE));
+      scheduler.schedule(() => service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE));
       scheduler.flush();
 
       expect(halService.getEndpoint).toHaveBeenCalledWith('pid');
@@ -91,7 +88,7 @@ describe('DsoRedirectDataService', () => {
 
     it('should call HALEndpointService with the path to the dso endpoint', () => {
       setup();
-      scheduler.schedule(() => service.findById(dsoUUID, IdentifierType.UUID));
+      scheduler.schedule(() => service.findByIdAndIDType(dsoUUID, IdentifierType.UUID));
       scheduler.flush();
 
       expect(halService.getEndpoint).toHaveBeenCalledWith('dso');
@@ -99,7 +96,7 @@ describe('DsoRedirectDataService', () => {
 
     it('should call HALEndpointService with the path to the dso endpoint when identifier type not specified', () => {
       setup();
-      scheduler.schedule(() => service.findById(dsoUUID));
+      scheduler.schedule(() => service.findByIdAndIDType(dsoUUID));
       scheduler.flush();
 
       expect(halService.getEndpoint).toHaveBeenCalledWith('dso');
@@ -107,7 +104,7 @@ describe('DsoRedirectDataService', () => {
 
     it('should configure the proper FindByIDRequest for uuid', () => {
       setup();
-      scheduler.schedule(() => service.findById(dsoUUID, IdentifierType.UUID));
+      scheduler.schedule(() => service.findByIdAndIDType(dsoUUID, IdentifierType.UUID));
       scheduler.flush();
 
       expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestUUIDURL, dsoUUID));
@@ -115,7 +112,7 @@ describe('DsoRedirectDataService', () => {
 
     it('should configure the proper FindByIDRequest for handle', () => {
       setup();
-      scheduler.schedule(() => service.findById(dsoHandle, IdentifierType.HANDLE));
+      scheduler.schedule(() => service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE));
       scheduler.flush();
 
       expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestHandleURL, dsoHandle));
@@ -124,7 +121,7 @@ describe('DsoRedirectDataService', () => {
     it('should navigate to item route', () => {
       remoteData.payload.type = 'item';
       setup();
-      const redir = service.findById(dsoHandle, IdentifierType.HANDLE);
+      const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
       // The framework would normally subscribe but do it here so we can test navigation.
       redir.subscribe();
       scheduler.schedule(() => redir);
@@ -135,7 +132,7 @@ describe('DsoRedirectDataService', () => {
     it('should navigate to collections route', () => {
       remoteData.payload.type = 'collection';
       setup();
-      const redir = service.findById(dsoHandle, IdentifierType.HANDLE);
+      const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
@@ -145,7 +142,7 @@ describe('DsoRedirectDataService', () => {
     it('should navigate to communities route', () => {
       remoteData.payload.type = 'community';
       setup();
-      const redir = service.findById(dsoHandle, IdentifierType.HANDLE);
+      const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();

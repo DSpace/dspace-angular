@@ -3,20 +3,20 @@
         <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]"
            class="card-img-top full-width">
             <div>
-                <ds-grid-thumbnail [thumbnail]="dso.getThumbnail() | async">
+                <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
                 </ds-grid-thumbnail>
             </div>
         </a>
         <span *ngIf="linkType == linkTypes.None" class="card-img-top full-width">
             <div>
-                <ds-grid-thumbnail [thumbnail]="dso.getThumbnail() | async">
+                <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
                 </ds-grid-thumbnail>
             </div>
         </span>
         <div class="card-body">
             <ds-item-type-badge [object]="dso"></ds-item-type-badge>
             <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
-                <h4 class="card-title" [innerHTML]="firstMetadataValue('person.familyName') + ', ' + firstMetadataValue('person.givenName')"></h4>
+                <h4 class="card-title" [innerHTML]="getPersonName()"></h4>
             </ds-truncatable-part>
             <p *ngIf="dso.hasMetadata('person.email')" class="item-email card-text text-muted">
                 <ds-truncatable-part [id]="dso.id" [minLines]="1">

@@ -1,7 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-
-import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -14,6 +13,10 @@ import { AppState } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { LogInShibbolethComponent } from './log-in-shibboleth.component';
+import { NativeWindowService } from '../../../../core/services/window.service';
+import { RouterStub } from '../../../testing/router-stub';
+import { ActivatedRouteStub } from '../../../testing/active-router-stub';
+import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 
 describe('LogInShibbolethComponent', () => {
 
@@ -21,6 +24,10 @@ describe('LogInShibbolethComponent', () => {
   let fixture: ComponentFixture<LogInShibbolethComponent>;
   let page: Page;
   let user: EPerson;
+  let componentAsAny: any;
+  let setHrefSpy;
+  const shibbolethBaseUrl = 'dspace-rest.test/shibboleth?redirectUrl=';
+  const location = shibbolethBaseUrl + 'http://dspace-angular.test/home';
 
   const authState = {
     authenticated: false,
@@ -44,9 +51,10 @@ describe('LogInShibbolethComponent', () => {
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
-        { provide: 'authMethodProvider',
-          useValue: new AuthMethod(AuthMethodType.Shibboleth, 'dspace.test/shibboleth')
-        }
+        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Shibboleth, location) },
+        { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
+        { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -68,16 +76,42 @@ describe('LogInShibbolethComponent', () => {
 
     // get test component from the fixture
     component = fixture.componentInstance;
+    componentAsAny = component;
 
     // create page
     page = new Page(component, fixture);
+    setHrefSpy = spyOnProperty(componentAsAny._window.nativeWindow.location, 'href', 'set').and.callThrough();
 
   }));
 
-  it('should display a link with properly href', () => {
+  it('should set the properly a new redirectUrl', () => {
+    const currentUrl = 'http://dspace-angular.test/collections/12345';
+    componentAsAny._window.nativeWindow.location.href = currentUrl;
+
     fixture.detectChanges();
-    const link = fixture.debugElement.query(By.css('a'));
-    expect(link.nativeElement.getAttribute('href')).toBe('dspace.test/shibboleth');
+
+    expect(componentAsAny.injectedAuthMethodModel.location).toBe(location);
+    expect(componentAsAny._window.nativeWindow.location.href).toBe(currentUrl);
+
+    component.redirectToShibboleth();
+
+    expect(setHrefSpy).toHaveBeenCalledWith(shibbolethBaseUrl + currentUrl)
+
+  });
+
+  it('should not set a new redirectUrl', () => {
+    const currentUrl = 'http://dspace-angular.test/home';
+    componentAsAny._window.nativeWindow.location.href = currentUrl;
+
+    fixture.detectChanges();
+
+    expect(componentAsAny.injectedAuthMethodModel.location).toBe(location);
+    expect(componentAsAny._window.nativeWindow.location.href).toBe(currentUrl);
+
+    component.redirectToShibboleth();
+
+    expect(setHrefSpy).toHaveBeenCalledWith(shibbolethBaseUrl + currentUrl)
+
   });
 
 });

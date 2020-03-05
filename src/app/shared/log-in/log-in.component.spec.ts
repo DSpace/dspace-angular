@@ -12,6 +12,11 @@ import { authMethodsMock, AuthServiceStub } from '../testing/auth-service-stub';
 import { createTestComponent } from '../testing/utils';
 import { SharedModule } from '../shared.module';
 import { appReducers } from '../../app.reducer';
+import { NativeWindowService } from '../../core/services/window.service';
+import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterStub } from '../testing/router-stub';
+import { ActivatedRouteStub } from '../testing/active-router-stub';
 
 describe('LogInComponent', () => {
 
@@ -42,7 +47,10 @@ describe('LogInComponent', () => {
         TestComponent
       ],
       providers: [
-        {provide: AuthService, useClass: AuthServiceStub},
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
+        { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         provideMockStore({ initialState }),
         LogInComponent
       ],

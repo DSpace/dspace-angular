@@ -395,6 +395,14 @@ describe('SubmissionService test suite', () => {
       service.createSubmission();
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, undefined);
+    });
+
+    it('should create a new submission with collection', () => {
+      service.createSubmission(collectionId);
+
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, collectionId);
     });
   });
 

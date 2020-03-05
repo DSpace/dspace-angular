@@ -64,7 +64,7 @@ export class BitstreamFormatsComponent implements OnInit {
         const tasks$ = [];
         for (const format of formats) {
           if (hasValue(format.id)) {
-            tasks$.push(this.bitstreamFormatService.delete(format));
+            tasks$.push(this.bitstreamFormatService.delete(format.id));
           }
         }
         zip(...tasks$).subscribe((results: boolean[]) => {

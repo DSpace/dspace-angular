@@ -4,7 +4,7 @@ a<div class="top-item-page">
 
             <div class="col-12 col-md-2 d-flex flex-md-column justify-content-between">
                 <ds-metadata-field-wrapper>
-                    <ds-thumbnail [thumbnail]="object.getThumbnail() | async"></ds-thumbnail>
+                    <ds-thumbnail [thumbnail]="getThumbnail() | async"></ds-thumbnail>
                 </ds-metadata-field-wrapper>
                 <div>
                     <a class="btn btn-secondary"
@@ -50,7 +50,10 @@ a<div class="top-item-page">
                                                     [fields]="['dc.identifier.citation']"
                                                     [label]="'item.page.citation'">
                         </ds-generic-item-page-field>
-                        <ds-item-page-uri-field [item]="object"></ds-item-page-uri-field>
+                        <<ds-item-page-uri-field [item]="object"
+                                                 [fields]="['dc.identifier.uri']"
+                                                 [label]="'item.page.uri'">
+                        </ds-item-page-uri-field>
                         <ds-item-page-collections [item]="object"></ds-item-page-collections>
                     </div>
                 </div>

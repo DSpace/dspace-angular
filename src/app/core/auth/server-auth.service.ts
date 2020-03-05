@@ -2,15 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { AuthStatus } from './models/auth-status.model';
 import { isNotEmpty } from '../../shared/empty.util';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthService } from './auth.service';
+import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { EPerson } from '../eperson/models/eperson.model';
-import { NormalizedAuthStatus } from './models/normalized-auth-status.model';
 
 /**
  * The auth service.
@@ -22,7 +20,7 @@ export class ServerAuthService extends AuthService {
    * Returns the authenticated user
    * @returns {User}
    */
-  public authenticatedUser(token: AuthTokenInfo): Observable<EPerson> {
+  public authenticatedUser(token: AuthTokenInfo): Observable<string> {
     // Determine if the user has an existing auth session on the server
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -35,10 +33,9 @@ export class ServerAuthService extends AuthService {
 
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status) => this.rdbService.build(status)),
-      switchMap((status: AuthStatus) => {
+      map((status: AuthStatus) => {
         if (status.authenticated) {
-          return status.eperson.pipe(map((eperson) => eperson.payload));
+          return status._links.eperson.href;
         } else {
           throw(new Error('Not authenticated'));
         }
@@ -61,7 +58,7 @@ export class ServerAuthService extends AuthService {
     options.headers = headers;
     options.withCredentials = true;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status: NormalizedAuthStatus) => Object.assign(new AuthStatus(), status))
+      map((status: AuthStatus) => Object.assign(new AuthStatus(), status))
     );
   }
 

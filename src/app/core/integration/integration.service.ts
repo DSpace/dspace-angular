@@ -1,5 +1,5 @@
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-import { distinctUntilChanged, filter, first, flatMap, map, mergeMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, mergeMap, tap } from 'rxjs/operators';
 
 import { RequestService } from '../data/request.service';
 import { IntegrationSuccessResponse } from '../cache/response.models';
@@ -62,7 +62,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
    */
-  protected getEntriesHref(endpoint, options: IntegrationSearchOptions = new IntegrationSearchOptions()): Observable<string> {
+  protected getEntriesHref(endpoint, options: IntegrationSearchOptions = new IntegrationSearchOptions()): string {
     let href;
     const args = [];
 
@@ -78,7 +78,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
       })
     }
 
-    return this.buildHrefFromFindOptions(observableOf(href), args, options);
+    return this.buildHrefFromFindOptions(href, options, args);
   }
 
   /**
@@ -89,7 +89,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
    */
-  protected getEntryValueHref(endpoint, options: IntegrationSearchOptions = new IntegrationSearchOptions()): Observable<string> {
+  protected getEntryValueHref(endpoint, options: IntegrationSearchOptions = new IntegrationSearchOptions()): string {
     let href;
     const args = [];
 
@@ -107,7 +107,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
         })
     }
 
-    return this.buildHrefFromFindOptions(observableOf(href), args, options);
+    return this.buildHrefFromFindOptions(href, options, args);
   }
 
   /**
@@ -124,10 +124,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
     searchMethod: string,
     options: IntegrationSearchOptions = new IntegrationSearchOptions()): Observable<string> {
 
-    let result: Observable<string>;
     const args = [];
-
-    result = this.getEntriesSearchEndpoint(endpoint, searchMethod, options.name);
 
     if (hasValue(options.searchParams)) {
       options.searchParams.forEach((param: SearchParam) => {
@@ -135,7 +132,9 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
       })
     }
 
-    return this.buildHrefFromFindOptions(result, args, options);
+    return this.getEntriesSearchEndpoint(endpoint, searchMethod, options.name).pipe(
+      map((href) => this.buildHrefFromFindOptions(href, options, args))
+    );
   }
 
   /**
@@ -163,9 +162,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
     searchMethod: string,
     options: IntegrationSearchOptions = new IntegrationSearchOptions()): Observable<IntegrationData> {
 
-    const hrefObs = this.getEntriesSearchByHref(this.linkPath, searchMethod, options);
-
-    return hrefObs.pipe(
+    return this.getEntriesSearchByHref(this.linkPath, searchMethod, options).pipe(
       first((href: string) => hasValue(href)),
       map((endpointURL: string) => new IntegrationRequest(this.requestService.generateRequestId(), endpointURL)),
       tap((request: GetRequest) => this.requestService.configure(request)),
@@ -183,7 +180,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
    */
   public getEntriesByName(options: IntegrationSearchOptions): Observable<IntegrationData> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      flatMap((endpoint: string) => this.getEntriesHref(endpoint, options)),
+      map((endpoint: string) => this.getEntriesHref(endpoint, options)),
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => new IntegrationRequest(this.requestService.generateRequestId(), endpointURL)),
@@ -201,7 +198,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
    */
   public getEntryByValue(options: IntegrationSearchOptions): Observable<IntegrationData> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      flatMap((endpoint: string) => this.getEntryValueHref(endpoint, options)),
+      map((endpoint: string) => this.getEntryValueHref(endpoint, options)),
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => new IntegrationRequest(this.requestService.generateRequestId(), endpointURL)),

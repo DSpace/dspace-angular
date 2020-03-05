@@ -3,17 +3,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { META_REDUCERS, MetaReducer, StoreModule } from '@ngrx/store';
+import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
+import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { storeFreeze } from 'ngrx-store-freeze';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../config';
+import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
+import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.component';
+import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -23,23 +24,21 @@ import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 import { appReducers, AppState } from './app.reducer';
 
 import { CoreModule } from './core/core.module';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
-
-import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
-import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
-import { NotificationComponent } from './shared/notifications/notification/notification.component';
-import { SharedModule } from './shared/shared.module';
-import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
-import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.component';
-import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
-import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
-import { NavbarModule } from './navbar/navbar.module';
 import { ClientCookieService } from './core/services/client-cookie.service';
 import { JournalEntitiesModule } from './entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from './entity-groups/research-entities/research-entities.module';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
+import { HeaderComponent } from './header/header.component';
+import { NavbarModule } from './navbar/navbar.module';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { SearchNavbarComponent } from './search-navbar/search-navbar.component';
+
+import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
+import { NotificationComponent } from './shared/notifications/notification/notification.component';
+import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
+import { SharedModule } from './shared/shared.module';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -50,8 +49,7 @@ export function getBase() {
 }
 
 export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppState>> {
-  const metaReducers: Array<MetaReducer<AppState>> = config.production ? appMetaReducers : [...appMetaReducers, storeFreeze];
-  return config.debug ? [...metaReducers, ...debugMetaReducers] : metaReducers;
+  return config.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
 
 const IMPORTS = [
@@ -62,11 +60,11 @@ const IMPORTS = [
   AppRoutingModule,
   CoreModule.forRoot(),
   ScrollToModule.forRoot(),
-  NgbModule.forRoot(),
+  NgbModule,
   TranslateModule.forRoot(),
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers),
-  StoreRouterConnectingModule,
+  StoreRouterConnectingModule.forRoot(),
 ];
 
 const ENTITY_IMPORTS = [
@@ -91,7 +89,7 @@ const PROVIDERS = [
     useFactory: (getBase)
   },
   {
-    provide: META_REDUCERS,
+    provide: USER_PROVIDED_META_REDUCERS,
     useFactory: getMetaReducers,
     deps: [GLOBAL_CONFIG]
   },
@@ -99,7 +97,8 @@ const PROVIDERS = [
     provide: RouterStateSerializer,
     useClass: DSpaceRouterStateSerializer
   },
-  ClientCookieService
+  ClientCookieService,
+  ...DYNAMIC_MATCHER_PROVIDERS,
 ];
 
 const DECLARATIONS = [
@@ -113,6 +112,7 @@ const DECLARATIONS = [
   PageNotFoundComponent,
   NotificationComponent,
   NotificationsBoardComponent,
+  SearchNavbarComponent,
 ];
 
 const EXPORTS = [
@@ -128,7 +128,8 @@ const EXPORTS = [
     ...PROVIDERS
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
+    BreadcrumbsComponent,
   ],
   exports: [
     ...EXPORTS

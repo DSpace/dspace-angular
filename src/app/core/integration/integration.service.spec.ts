@@ -11,18 +11,20 @@ import { IntegrationSearchOptions } from './models/integration-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 import { AuthorityEntry } from './models/authority-entry.model';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DummyChangeAnalyzer } from '../data/data.service.spec';
+import { Item } from '../shared/item.model';
+import { compare, Operation } from 'fast-json-patch';
 
 const LINK_NAME = 'authorities';
 const ENTRIES = 'entries';
 const ENTRY_VALUE = 'entryValue';
+
+/* tslint:disable:max-classes-per-file */
 
 class TestService extends IntegrationService<AuthorityEntry> {
   protected forceBypassCache = false;
@@ -33,7 +35,6 @@ class TestService extends IntegrationService<AuthorityEntry> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -41,6 +42,13 @@ class TestService extends IntegrationService<AuthorityEntry> {
     protected http: HttpClient,
     protected comparator: ChangeAnalyzer<AuthorityEntry>) {
     super();
+  }
+
+}
+
+class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
+  diff(object1: Item, object2: Item): Operation[] {
+    return compare((object1 as any).metadata, (object2 as any).metadata);
   }
 
 }
@@ -67,9 +75,7 @@ describe('IntegrationService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = new DummyChangeAnalyzer() as any;
-  const dataBuildService = {
-    normalize: (object) => object
-  } as NormalizedObjectBuildService;
+
   const objectCache = {
     addPatch: () => {
       /* empty */
@@ -86,7 +92,6 @@ describe('IntegrationService', () => {
     return new TestService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       objectCache,
       halService,
@@ -157,3 +162,5 @@ describe('IntegrationService', () => {
     });
   });
 });
+
+/* tslint:enable:max-classes-per-file */

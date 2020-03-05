@@ -22,6 +22,11 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 install:
+  # update chrome
+  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+  - sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+  - sudo apt-get update
+  - sudo apt-get install google-chrome-stable
   # Start up DSpace 7 using the entities database dump
   - docker-compose -f ./docker/docker-compose-travis.yml up -d
   # Use the dspace-cli image to populate the assetstore.  Trigger a discovery and oai update
@@ -39,8 +44,8 @@ after_script:
 language: node_js
 
 node_js:
-  - "8"
   - "10"
+  - "12"
 
 cache:
   yarn: true

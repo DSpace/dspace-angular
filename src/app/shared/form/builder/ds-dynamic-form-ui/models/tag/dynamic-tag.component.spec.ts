@@ -85,7 +85,7 @@ describe('DsDynamicTagComponent test suite', () => {
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
-        NgbModule.forRoot(),
+        NgbModule,
         ReactiveFormsModule,
       ],
       declarations: [

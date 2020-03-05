@@ -126,7 +126,7 @@ function removeFromIndexByValue(state: MetaIndexState, action: RemoveFromIndexBy
  * @return MetaIndexState
  *    the new state
  */
-function removeFromIndexBySubstring(state: MetaIndexState, action: RemoveFromIndexByValueAction): MetaIndexState {
+function removeFromIndexBySubstring(state: MetaIndexState, action: RemoveFromIndexByValueAction | RemoveFromIndexBySubstringAction): MetaIndexState {
   const subState = state[action.payload.name];
   const newSubState = Object.create(null);
   for (const value in subState) {

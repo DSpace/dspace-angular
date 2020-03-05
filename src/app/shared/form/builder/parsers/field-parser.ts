@@ -1,5 +1,5 @@
 import { Inject, InjectionToken } from '@angular/core';
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isEmpty } from '../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 
 import { uniqueId } from 'lodash';
@@ -9,7 +9,7 @@ import {
   DynamicRowArrayModelConfig
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, MATCH_VISIBLE, OR_OPERATOR } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { ParserOptions } from './parser-options';
@@ -235,9 +235,9 @@ export abstract class FieldParser {
           value: value
         })
       });
-      (controlModel as DsDynamicInputModel).typeBind = [{
-        action: 'ENABLE',
-        connective: 'OR',
+      (controlModel as DsDynamicInputModel).typeBindRelations = [{
+        match: MATCH_VISIBLE,
+        operator: OR_OPERATOR,
         when: bindValues
       }];
     }

@@ -906,4 +906,5 @@ export type SubmissionObjectAction = DisableSectionAction
   | SetActiveSectionAction
   | SetDuplicateDecisionAction
   | SetDuplicateDecisionSuccessAction
-  | SetDuplicateDecisionErrorAction;
+  | SetDuplicateDecisionErrorAction
+  | DepositSubmissionAction;

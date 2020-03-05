@@ -13,6 +13,7 @@ import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.compo
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
+import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
 const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
@@ -29,104 +30,88 @@ const ITEM_EDIT_MOVE_PATH = 'move';
     RouterModule.forChild([
       {
         path: '',
-        component: EditItemPageComponent,
         resolve: {
-          item: ItemPageResolver
+          breadcrumb: I18nBreadcrumbResolver
         },
+        data: { breadcrumbKey: 'item.edit' },
         children: [
           {
             path: '',
-            redirectTo: 'status',
-            pathMatch: 'full'
+            component: EditItemPageComponent,
+            children: [
+              {
+                path: '',
+                redirectTo: 'status',
+                pathMatch: 'full'
+              },
+              {
+                path: 'status',
+                component: ItemStatusComponent,
+                data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true }
+              },
+              {
+                path: 'bitstreams',
+                component: ItemBitstreamsComponent,
+                data: { title: 'item.edit.tabs.bitstreams.title', showBreadcrumbs: true }
+              },
+              {
+                path: 'metadata',
+                component: ItemMetadataComponent,
+                data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true }
+              },
+              {
+                path: 'relationships',
+                component: ItemRelationshipsComponent,
+                data: { title: 'item.edit.tabs.relationships.title', showBreadcrumbs: true }
+              },
+              {
+                path: 'view',
+                /* TODO - change when view page exists */
+                component: ItemBitstreamsComponent,
+                data: { title: 'item.edit.tabs.view.title', showBreadcrumbs: true }
+              },
+              {
+                path: 'curate',
+                /* TODO - change when curate page exists */
+                component: ItemBitstreamsComponent,
+                data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true }
+              }
+            ]
           },
           {
-            path: 'status',
-            component: ItemStatusComponent,
-            data: { title: 'item.edit.tabs.status.title' }
+            path: 'mapper',
+            component: ItemCollectionMapperComponent,
           },
           {
-            path: 'bitstreams',
-            component: ItemBitstreamsComponent,
-            data: { title: 'item.edit.tabs.bitstreams.title' }
+            path: ITEM_EDIT_WITHDRAW_PATH,
+            component: ItemWithdrawComponent,
           },
           {
-            path: 'metadata',
-            component: ItemMetadataComponent,
-            data: { title: 'item.edit.tabs.metadata.title' }
+            path: ITEM_EDIT_REINSTATE_PATH,
+            component: ItemReinstateComponent,
           },
           {
-            path: 'relationships',
-            component: ItemRelationshipsComponent,
-            data: { title: 'item.edit.tabs.relationships.title' }
+            path: ITEM_EDIT_PRIVATE_PATH,
+            component: ItemPrivateComponent,
           },
           {
-            path: 'view',
-            /* TODO - change when view page exists */
-            component: ItemBitstreamsComponent,
-            data: { title: 'item.edit.tabs.view.title' }
+            path: ITEM_EDIT_PUBLIC_PATH,
+            component: ItemPublicComponent,
           },
           {
-            path: 'curate',
-            /* TODO - change when curate page exists */
-            component: ItemBitstreamsComponent,
-            data: { title: 'item.edit.tabs.curate.title' }
+            path: ITEM_EDIT_DELETE_PATH,
+            component: ItemDeleteComponent,
           },
+          {
+            path: ITEM_EDIT_MOVE_PATH,
+            component: ItemMoveComponent,
+            data: { title: 'item.edit.move.title' },
+          }
         ]
-      },
-      {
-        path: 'mapper',
-        component: ItemCollectionMapperComponent,
-        resolve: {
-          item: ItemPageResolver
-        }
-      },
-      {
-        path: ITEM_EDIT_WITHDRAW_PATH,
-        component: ItemWithdrawComponent,
-        resolve: {
-          item: ItemPageResolver
-        }
-      },
-      {
-        path: ITEM_EDIT_REINSTATE_PATH,
-        component: ItemReinstateComponent,
-        resolve: {
-          item: ItemPageResolver
-        }
-      },
-      {
-        path: ITEM_EDIT_PRIVATE_PATH,
-        component: ItemPrivateComponent,
-        resolve: {
-          item: ItemPageResolver
-        }
-      },
-      {
-        path: ITEM_EDIT_PUBLIC_PATH,
-        component: ItemPublicComponent,
-        resolve: {
-          item: ItemPageResolver
-        }
-      },
-      {
-        path: ITEM_EDIT_DELETE_PATH,
-        component: ItemDeleteComponent,
-        resolve: {
-          item: ItemPageResolver
-        }
-      },
-      {
-        path: ITEM_EDIT_MOVE_PATH,
-        component: ItemMoveComponent,
-        data: { title: 'item.edit.move.title' },
-        resolve: {
-          item: ItemPageResolver
-        }
-      }])
+      }
+    ])
   ],
-  providers: [
-    ItemPageResolver,
-  ]
+  providers: []
 })
 export class EditItemPageRoutingModule {
 

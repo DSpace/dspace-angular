@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { Bitstream } from '../../../../../core/shared/bitstream.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -15,6 +19,7 @@ import { NameVariantModalComponent } from '../../name-variant-modal/name-variant
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import { isNotEmpty } from '../../../../../shared/empty.util';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SubmissionModal)
 @Component({
@@ -37,13 +42,14 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
               private translateService: TranslateService,
               private modalService: NgbModal,
               private itemDataService: ItemDataService,
+              private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService) {
     super(truncatableService);
   }
 
   ngOnInit() {
     super.ngOnInit();
-    const defaultValue = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
+    const defaultValue = this.getPersonName();
     const alternatives = this.allMetadataValues(this.alternativeField);
     this.allSuggestions = [defaultValue, ...alternatives];
 
@@ -94,5 +100,21 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
     const modalComp = modalRef.componentInstance;
     modalComp.value = value;
     return modalRef.result;
+  }
+
+  // TODO refactor to return RemoteData, and thumbnail template to deal with loading
+  getThumbnail(): Observable<Bitstream> {
+    return this.bitstreamDataService.getThumbnailFor(this.dso).pipe(
+      getFirstSucceededRemoteDataPayload()
+    );
+  }
+
+  getPersonName(): string {
+    let personName = this.dso.name;
+    if (isNotEmpty(this.firstMetadataValue('person.familyName')) && isNotEmpty(this.firstMetadataValue('person.givenName'))) {
+      personName = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName')
+    }
+
+    return personName
   }
 }

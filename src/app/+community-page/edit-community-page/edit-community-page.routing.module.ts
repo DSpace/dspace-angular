@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommunityMetadataComponent } from './community-metadata/community-metadata.component';
 import { CommunityRolesComponent } from './community-roles/community-roles.component';
 import { CommunityCurateComponent } from './community-curate/community-curate.component';
+import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 /**
  * Routing module that handles the routing for the Edit Community page administrator functionality
@@ -14,10 +15,11 @@ import { CommunityCurateComponent } from './community-curate/community-curate.co
     RouterModule.forChild([
       {
         path: '',
-        component: EditCommunityPageComponent,
         resolve: {
-          dso: CommunityPageResolver
+          breadcrumb: I18nBreadcrumbResolver
         },
+        data: { breadcrumbKey: 'community.edit' },
+        component: EditCommunityPageComponent,
         children: [
           {
             path: '',
@@ -29,26 +31,24 @@ import { CommunityCurateComponent } from './community-curate/community-curate.co
             component: CommunityMetadataComponent,
             data: {
               title: 'community.edit.tabs.metadata.title',
-              hideReturnButton: true
+              hideReturnButton: true,
+              showBreadcrumbs: true
             }
           },
           {
             path: 'roles',
             component: CommunityRolesComponent,
-            data: { title: 'community.edit.tabs.roles.title' }
+            data: { title: 'community.edit.tabs.roles.title', showBreadcrumbs: true }
           },
           {
             path: 'curate',
             component: CommunityCurateComponent,
-            data: { title: 'community.edit.tabs.curate.title' }
+            data: { title: 'community.edit.tabs.curate.title', showBreadcrumbs: true }
           }
         ]
       }
     ])
   ],
-  providers: [
-    CommunityPageResolver,
-  ]
 })
 export class EditCommunityPageRoutingModule {
 

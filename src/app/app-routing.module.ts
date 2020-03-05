@@ -3,6 +3,15 @@ import { RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
+import { Breadcrumb } from './breadcrumbs/breadcrumb/breadcrumb.model';
+import { DSpaceObject } from './core/shared/dspace-object.model';
+import { Community } from './core/shared/community.model';
+import { getCommunityPageRoute } from './+community-page/community-page-routing.module';
+import { Collection } from './core/shared/collection.model';
+import { Item } from './core/shared/item.model';
+import { getItemPageRoute } from './+item-page/item-page-routing.module';
+import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
+import { BrowseByDSOBreadcrumbResolver } from './+browse-by/browse-by-dso-breadcrumb.resolver';
 
 const ITEM_MODULE_PATH = 'items';
 
@@ -28,11 +37,22 @@ export function getAdminModulePath() {
   return `/${ADMIN_MODULE_PATH}`;
 }
 
+export function getDSOPath(dso: DSpaceObject): string {
+  switch ((dso as any).type) {
+    case Community.type.value:
+      return getCommunityPageRoute(dso.uuid);
+    case Collection.type.value:
+      return getCollectionPageRoute(dso.uuid);
+    case Item.type.value:
+      return getItemPageRoute(dso.uuid);
+  }
+}
+
 @NgModule({
   imports: [
     RouterModule.forRoot([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'home', loadChildren: './+home-page/home-page.module#HomePageModule' },
+      { path: 'home', loadChildren: './+home-page/home-page.module#HomePageModule', data: { showBreadcrumbs: false } },
       { path: 'community-list', loadChildren: './community-list-page/community-list-page.module#CommunityListPageModule' },
       { path: 'id', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
       { path: 'handle', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
@@ -45,7 +65,7 @@ export function getAdminModulePath() {
         canActivate: [AuthenticatedGuard]
       },
       { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
-      { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule' },
+      { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule'},
       { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
       { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
@@ -61,7 +81,7 @@ export function getAdminModulePath() {
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ])
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
 

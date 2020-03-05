@@ -29,12 +29,12 @@ describe('PersonItemMetadataListElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     fixture = TestBed.createComponent(PersonItemMetadataListElementComponent);
     comp = fixture.componentInstance;
     comp.metadataRepresentation = mockItemMetadataRepresentation;
     fixture.detectChanges();
-  }));
+  });
 
   it('should show the person\'s name as a link', () => {
     const linkText = fixture.debugElement.query(By.css('a')).nativeElement.textContent;

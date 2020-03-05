@@ -8,7 +8,6 @@ import { IntegrationService } from './integration.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { AuthorityEntry } from './models/authority-entry.model';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -32,7 +31,6 @@ export class AuthorityService extends IntegrationService<IntegrationModel> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,

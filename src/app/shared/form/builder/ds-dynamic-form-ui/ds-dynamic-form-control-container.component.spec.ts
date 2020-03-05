@@ -182,7 +182,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        NgbModule.forRoot(),
+        NgbModule,
         DynamicFormsCoreModule.forRoot(),
         SharedModule,
         TranslateModule.forRoot(),

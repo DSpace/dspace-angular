@@ -62,6 +62,21 @@ export class ObjectListComponent {
   @Input() context: Context;
 
   /**
+   * Option for hiding the pagination detail
+   */
+  @Input() hidePaginationDetail = false;
+
+  /**
+   * Whether or not to add an import button to the object
+   */
+  @Input() importable = false;
+
+  /**
+   * Config used for the import button
+   */
+  @Input() importConfig: { importLabel: string };
+
+  /**
    * The current listable objects
    */
   private _objects: RemoteData<PaginatedList<ListableObject>>;
@@ -119,6 +134,12 @@ export class ObjectListComponent {
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  /**
+   * Send an import event to the parent component
+   */
+  @Output() importObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
   /**
    * An event fired when the sort field is changed.
    * Event's payload equals to the newly selected sort field.
