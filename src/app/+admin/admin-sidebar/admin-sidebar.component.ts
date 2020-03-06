@@ -350,53 +350,19 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           link: ''
         } as LinkMenuItemModel,
       },
-
-      /*  Search */
+      /*  Admin Search */
       {
-        id: 'find',
+        id: 'admin_search',
         active: false,
         visible: true,
         model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.find'
-        } as TextMenuItemModel,
+          type: MenuItemType.LINK,
+          text: 'menu.section.admin_search',
+          link: '/admin/search'
+        } as LinkMenuItemModel,
         icon: 'search',
         index: 5
       },
-      {
-        id: 'find_items',
-        parentID: 'find',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.find_items',
-          link: '/search'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'find_withdrawn_items',
-        parentID: 'find',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.find_withdrawn_items',
-          link: ''
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'find_private_items',
-        parentID: 'find',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.find_private_items',
-          link: ''
-        } as LinkMenuItemModel,
-      },
-
       /*  Registries */
       {
         id: 'registries',

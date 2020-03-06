@@ -1143,6 +1143,10 @@
 
 
 
+  "menu.section.admin_search": "Admin Search",
+
+
+
   "menu.section.browse_community": "This Community",
 
   "menu.section.browse_community_by_author": "By Author",
@@ -1193,17 +1197,9 @@
 
 
 
-  "menu.section.find": "Find",
-
-  "menu.section.find_items": "Items",
-
-  "menu.section.find_private_items": "Private Items",
-
-  "menu.section.find_withdrawn_items": "Withdrawn Items",
-
-
-
   "menu.section.icon.access_control": "Access Control menu section",
+
+  "menu.section.icon.admin_search": "Admin search menu section",
 
   "menu.section.icon.control_panel": "Control Panel menu section",
 
