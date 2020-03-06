@@ -31,7 +31,9 @@ describe('UploadBistreamComponent', () => {
   const bundle = Object.assign(new Bundle(), {
     id: 'bundle',
     uuid: 'bundle',
-    self: 'bundle-selflink'
+    _links: {
+      self: { href: 'bundle-selflink' }
+    }
   });
   const itemName = 'fake-name';
   const mockItem = Object.assign(new Item(), {
@@ -112,7 +114,7 @@ describe('UploadBistreamComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [UploadBitstreamComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },

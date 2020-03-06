@@ -35,9 +35,11 @@ const infoNotification: INotification = new Notification('id', NotificationType.
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
 const successNotification: INotification = new Notification('id', NotificationType.Success, 'success');
 const bitstream1 = Object.assign(new Bitstream(), {
+  id: 'bitstream1',
   uuid: 'bitstream1'
 });
 const bitstream2 = Object.assign(new Bitstream(), {
+  id: 'bitstream2',
   uuid: 'bitstream2'
 });
 const fieldUpdate1 = {
@@ -51,7 +53,9 @@ const fieldUpdate2 = {
 const bundle = Object.assign(new Bundle(), {
   id: 'bundle1',
   uuid: 'bundle1',
-  self: 'bundle1-selflink',
+  _links: {
+    self: { href: 'bundle1-selflink' }
+  },
   bitstreams: createMockRDPaginatedObs([bitstream1, bitstream2])
 });
 const moveOperations = [
@@ -124,6 +128,9 @@ describe('ItemBitstreamsComponent', () => {
     item = Object.assign(new Item(), {
       uuid: 'item',
       id: 'item',
+      _links: {
+        self: { href: 'item-selflink' }
+      },
       bundles: createMockRDPaginatedObs([bundle]),
       lastModified: date
     });
@@ -177,11 +184,11 @@ describe('ItemBitstreamsComponent', () => {
     });
 
     it('should call deleteAndReturnResponse on the bitstreamService for the marked field', () => {
-      expect(bitstreamService.deleteAndReturnResponse).toHaveBeenCalledWith(bitstream2);
+      expect(bitstreamService.deleteAndReturnResponse).toHaveBeenCalledWith(bitstream2.id);
     });
 
     it('should not call deleteAndReturnResponse on the bitstreamService for the unmarked field', () => {
-      expect(bitstreamService.deleteAndReturnResponse).not.toHaveBeenCalledWith(bitstream1);
+      expect(bitstreamService.deleteAndReturnResponse).not.toHaveBeenCalledWith(bitstream1.id);
     });
 
     it('should send out a patch for the move operations', () => {

@@ -26,7 +26,9 @@ describe('ItemEditBitstreamBundleComponent', () => {
   const bundle = Object.assign(new Bundle(), {
     id: 'bundle-1',
     uuid: 'bundle-1',
-    self: 'bundle-1-selflink'
+    _links: {
+      self: { href: 'bundle-1-selflink' }
+    }
   });
 
   beforeEach(async(() => {

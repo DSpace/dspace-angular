@@ -21,7 +21,9 @@ describe('BitstreamDataService', () => {
 
   const bitstream = Object.assign(new Bitstream(), {
     uuid: 'fake-bitstream',
-    self: 'fake-bitstream-self'
+    _links: {
+      self: { href: 'fake-bitstream-self' }
+    }
   });
   const format = Object.assign(new BitstreamFormat(), {
     id: '2',
@@ -41,7 +43,7 @@ describe('BitstreamDataService', () => {
       getBrowseEndpoint: observableOf(bitstreamFormatHref)
     });
 
-    service = new BitstreamDataService(requestService, null, null, null, null, objectCache, halService, null, null, null, bitstreamFormatService);
+    service = new BitstreamDataService(requestService, null, null, null, objectCache, halService, null, null, null, null, bitstreamFormatService);
   });
 
   describe('when updating the bitstream\'s format', () => {

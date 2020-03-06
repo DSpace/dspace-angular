@@ -17,6 +17,7 @@ import { CollectionSearchResult } from '../../../object-collection/shared/collec
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';
+import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 
 let collectionSearchResultGridElementComponent: CollectionSearchResultGridElementComponent;
 let fixture: ComponentFixture<CollectionSearchResultGridElementComponent>;
@@ -68,6 +69,7 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: BitstreamFormatDataService, useValue: {} },
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]

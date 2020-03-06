@@ -41,24 +41,33 @@ describe('EditBitstreamPageComponent', () => {
 
   beforeEach(async(() => {
     allFormats = [
-      {
+      Object.assign({
         id: '1',
         shortDescription: 'Unknown',
         description: 'Unknown format',
-        supportLevel: BitstreamFormatSupportLevel.Unknown
-      },
-      {
+        supportLevel: BitstreamFormatSupportLevel.Unknown,
+        _links: {
+          self: { href: 'format-selflink-1' }
+        }
+      }),
+      Object.assign({
         id: '2',
         shortDescription: 'PNG',
         description: 'Portable Network Graphics',
-        supportLevel: BitstreamFormatSupportLevel.Known
-      },
-      {
+        supportLevel: BitstreamFormatSupportLevel.Known,
+        _links: {
+          self: { href: 'format-selflink-2' }
+        }
+      }),
+      Object.assign({
         id: '3',
         shortDescription: 'GIF',
         description: 'Graphics Interchange Format',
-        supportLevel: BitstreamFormatSupportLevel.Known
-      }
+        supportLevel: BitstreamFormatSupportLevel.Known,
+        _links: {
+          self: { href: 'format-selflink-3' }
+        }
+      })
     ] as BitstreamFormat[];
     selectedFormat = allFormats[1];
     notificationsService = jasmine.createSpyObj('notificationsService',
@@ -93,7 +102,10 @@ describe('EditBitstreamPageComponent', () => {
           }
         ]
       },
-      format: observableOf(new RemoteData(false, false, true, null, selectedFormat))
+      format: observableOf(new RemoteData(false, false, true, null, selectedFormat)),
+      _links: {
+        self: 'bitstream-selflink'
+      }
     });
     bitstreamService = jasmine.createSpyObj('bitstreamService', {
       findById: observableOf(new RemoteData(false, false, true, null, bitstream)),
