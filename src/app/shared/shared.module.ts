@@ -6,7 +6,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 
 import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
@@ -180,6 +180,7 @@ import { SortablejsModule } from 'ngx-sortablejs';
 import { ItemAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/item-search-result/item-admin-search-result-list-element.component';
 import { CommunityAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/community-search-result/community-admin-search-result-list-element.component';
 import { CollectionAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/collection-search-result/collection-admin-search-result-list-element.component';
+import { MissingTranslationHelper } from './translate/missing-translation.helper';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -197,7 +198,6 @@ const MODULES = [
   NgxPaginationModule,
   ReactiveFormsModule,
   RouterModule,
-  TranslateModule,
   NouisliderModule,
   MomentModule,
   TextMaskModule,
@@ -206,7 +206,11 @@ const MODULES = [
 ];
 
 const ROOT_MODULES = [
-  TooltipModule.forRoot()
+  TooltipModule.forRoot(),
+  TranslateModule.forRoot({
+    missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+    useDefaultLang: true
+  })
 ];
 
 const PIPES = [

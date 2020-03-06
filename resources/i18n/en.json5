@@ -1627,6 +1627,13 @@
 
 
 
+  "search.filters.entityType.JournalIssue": "Journal Issue",
+
+  "search.filters.has_content_in_original_bundle.true": "Yes",
+
+  "search.filters.has_content_in_original_bundle.false": "No",
+
+
   "search.filters.head": "Filters",
 
   "search.filters.reset": "Reset filters",
@@ -2006,7 +2013,7 @@
   "title": "DSpace",
 
 
-  "undiscoverable.search.results.head": "Admin Search",
+  "discoverableAndUndiscoverableItems.search.results.head": "Admin Search",
 
 
   "uploader.browse": "browse",

@@ -8,7 +8,7 @@ import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router
 import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../config';
@@ -39,6 +39,7 @@ import { NotificationComponent } from './shared/notifications/notification/notif
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { MissingTranslationHelper } from './shared/translate/missing-translation.helper';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -61,7 +62,6 @@ const IMPORTS = [
   CoreModule.forRoot(),
   ScrollToModule.forRoot(),
   NgbModule,
-  TranslateModule.forRoot(),
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers),
   StoreRouterConnectingModule.forRoot(),
