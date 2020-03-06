@@ -192,9 +192,9 @@
 
   "admin.access-control.epeople.table.edit": "Edit",
 
-  "item.access-control.epeople.table.edit.buttons.edit": "Edit",
+  "admin.access-control.epeople.table.edit.buttons.edit": "Edit",
 
-  "item.access-control.epeople.table.edit.buttons.remove": "Remove",
+  "admin.access-control.epeople.table.edit.buttons.remove": "Remove",
 
   "admin.access-control.epeople.no-items": "No EPeople to show.",
 
@@ -241,6 +241,7 @@
   "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
 
 
+
   "admin.access-control.groups.title": "DSpace Angular :: Groups",
 
   "admin.access-control.groups.head": "Groups",
@@ -275,8 +276,6 @@
   "admin.access-control.groups.form.groupName": "Group name",
 
   "admin.access-control.groups.form.groupDescription": "Description",
-
-  "admin.access-control.groups.form.button.return": "Return",
 
   "admin.access-control.groups.form.notification.created.success": "Successfully created group \"{{name}}\"",
 
@@ -350,7 +349,7 @@
 
   "admin.access-control.groups.form.subgroups-list.button.see-all": "Search all",
 
-  "admin.access-control.groups.form.return": "Return",
+  "admin.access-control.groups.form.return": "Return to groups",
 
 
 

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { map, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -19,7 +20,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
  * A component used for managing all existing epeople within the repository.
  * The admin can create, edit or delete epeople here.
  */
-export class EPeopleRegistryComponent {
+export class EPeopleRegistryComponent implements OnInit, OnDestroy {
 
   labelPrefix = 'admin.access-control.epeople.';
 
@@ -45,15 +46,28 @@ export class EPeopleRegistryComponent {
   // The search form
   searchForm;
 
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
+
   constructor(private epersonService: EPersonDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private formBuilder: FormBuilder) {
+  }
+
+  ngOnInit() {
+    this.isEPersonFormShown = false;
     this.updateEPeople({
       currentPage: 1,
       elementsPerPage: this.config.pageSize
     });
-    this.isEPersonFormShown = false;
+    this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
+      if (eperson != null && eperson.id) {
+        this.isEPersonFormShown = true;
+      }
+    }));
     this.searchForm = this.formBuilder.group(({
       scope: 'metadata',
       query: '',
@@ -149,6 +163,13 @@ export class EPeopleRegistryComponent {
         this.isEPersonFormShown = false;
       })
     }
+  }
+
+  /**
+   * Unsub all subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
   scrollToTop() {

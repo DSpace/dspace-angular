@@ -55,7 +55,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
   searchDone: boolean;
 
   constructor(private groupDataService: GroupDataService,
-              private ePersonDataService: EPersonDataService,
+              public ePersonDataService: EPersonDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private formBuilder: FormBuilder) {

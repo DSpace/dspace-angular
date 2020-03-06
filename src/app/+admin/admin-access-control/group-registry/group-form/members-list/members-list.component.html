@@ -22,12 +22,12 @@
   </form>
 
   <ds-pagination *ngIf="(ePeople | async)?.payload.totalElements > 0"
-    [paginationOptions]="config"
-    [pageInfoState]="(ePeople | async)?.payload"
-    [collectionSize]="(ePeople | async)?.payload?.totalElements"
-    [hideGear]="true"
-    [hidePagerWhenSinglePage]="true"
-    (pageChange)="onPageChange($event)">
+                 [paginationOptions]="config"
+                 [pageInfoState]="(ePeople | async)?.payload"
+                 [collectionSize]="(ePeople | async)?.payload?.totalElements"
+                 [hideGear]="true"
+                 [hidePagerWhenSinglePage]="true"
+                 (pageChange)="onPageChange($event)">
 
     <div class="table-responsive">
       <table id="groups" class="table table-striped table-hover table-bordered">
@@ -41,7 +41,8 @@
         <tbody>
         <tr *ngFor="let ePerson of (ePeople | async)?.payload?.page">
           <td>{{ePerson.id}}</td>
-          <td>{{ePerson.name}}</td>
+          <td><a (click)="ePersonDataService.startEditingNewEPerson(ePerson)"
+                 [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">{{ePerson.name}}</a></td>
           <td>
             <div class="btn-group edit-field">
               <button *ngIf="(isMemberOfGroup(ePerson) | async)"
@@ -66,12 +67,15 @@
 
   </ds-pagination>
 
-  <div *ngIf="(ePeople | async)?.payload.totalElements == 0 && !searchDone" class="alert alert-info w-100 mb-2" role="alert">
+  <div *ngIf="(ePeople | async)?.payload.totalElements == 0 && !searchDone" class="alert alert-info w-100 mb-2"
+       role="alert">
     {{messagePrefix + '.no-members-yet' | translate}}
-    <button (click)="search({query: ''})" class="btn btn-primary">{{messagePrefix + '.button.see-all' | translate}}</button>
+    <button (click)="search({query: ''})"
+            class="btn btn-primary">{{messagePrefix + '.button.see-all' | translate}}</button>
   </div>
 
-  <div *ngIf="(ePeople | async)?.payload.totalElements == 0 && searchDone" class="alert alert-info w-100 mb-2" role="alert">
+  <div *ngIf="(ePeople | async)?.payload.totalElements == 0 && searchDone" class="alert alert-info w-100 mb-2"
+       role="alert">
     {{messagePrefix + '.no-items' | translate}}
   </div>
 

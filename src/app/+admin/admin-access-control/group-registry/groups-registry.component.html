@@ -54,7 +54,7 @@
 <!--              <td>{{getOptionalComColFromName(group.name)}}</td>-->
               <td>
                 <div class="btn-group edit-field">
-                  <button [routerLink]="[group.id]" class="btn btn-outline-primary btn-sm"
+                  <button [routerLink]="groupService.getGroupEditPageRouterLink(group)" class="btn btn-outline-primary btn-sm"
                           title="{{messagePrefix + 'table.edit.buttons.edit' | translate}}">
                     <i class="fas fa-edit fa-fw"></i>
                   </button>

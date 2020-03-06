@@ -259,8 +259,27 @@ export class GroupDataService extends DataService<Group> {
     return '/admin/access-control/groups';
   }
 
-  public getGroupEditPageRouterLink(groupId: string): string {
-    return '/admin/access-control/groups/' + groupId;
+  /**
+   * Change which group is being edited and return the link for the edit page of the new group being edited
+   * @param newGroup New group to edit
+   */
+  public startEditingNewGroup(newGroup: Group): string {
+    this.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+      if (newGroup === activeGroup) {
+        this.cancelEditGroup()
+      } else {
+        this.editGroup(newGroup)
+      }
+    });
+    return '/admin/access-control/groups/' + newGroup.id;
+  }
+
+  /**
+   * Get Edit page of group
+   * @param group Group we want edit page for
+   */
+  public getGroupEditPageRouterLink(group: Group): string {
+    return '/admin/access-control/groups/' + group.id;
   }
 
 }

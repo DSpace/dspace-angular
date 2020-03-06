@@ -219,4 +219,27 @@ export class EPersonDataService extends DataService<EPerson> {
     return this.delete(ePerson.id);
   }
 
+  /**
+   * Change which ePerson is being edited and return the link for EPeople edit page
+   * @param ePerson New EPerson to edit
+   */
+  public startEditingNewEPerson(ePerson: EPerson): string {
+    this.getActiveEPerson().pipe(take(1)).subscribe((activeEPerson: EPerson) => {
+      if (ePerson === activeEPerson) {
+        this.cancelEditEPerson();
+      } else {
+        this.editEPerson(ePerson);
+      }
+    });
+    return '/admin/access-control/epeople';
+  }
+
+  /**
+   * Get EPeople admin page
+   * @param ePerson New EPerson to edit
+   */
+  public getEPeoplePageRouterLink(): string {
+    return '/admin/access-control/epeople';
+  }
+
 }
