@@ -17,6 +17,7 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { SearchService } from '../core/shared/search/search.service';
 import { currentPath } from '../shared/utils/route.utils';
 import { Router } from '@angular/router';
+import { Context } from '../core/shared/context.model';
 
 @Component({
   selector: 'ds-search',
@@ -83,6 +84,12 @@ export class SearchComponent implements OnInit {
    */
   @Input()
   configuration$: Observable<string>;
+
+  /**
+   * The current context
+   */
+  @Input()
+  context: Context;
 
   /**
    * Link to the search page

@@ -170,6 +170,32 @@
 
 
 
+  "admin.search.collection.edit": "Edit",
+
+  "admin.search.community.edit": "Edit",
+
+  "admin.search.item.delete": "Delete",
+
+  "admin.search.item.edit": "Edit",
+
+  "admin.search.item.make-private": "Make Private",
+
+  "admin.search.item.make-public": "Make Public",
+
+  "admin.search.item.move": "Move",
+
+  "admin.search.item.private": "Private",
+
+  "admin.search.item.reinstate": "Reinstate",
+
+  "admin.search.item.withdraw": "Withdraw",
+
+  "admin.search.item.withdrawn": "Withdrawn",
+
+  "admin.search.title": "Admin Search",
+
+
+
   "auth.errors.invalid-user": "Invalid email address or password.",
 
   "auth.messages.expired": "Your session has expired. Please log in again.",
@@ -1983,6 +2009,8 @@
 
   "title": "DSpace",
 
+
+  "undiscoverable.search.results.head": "Admin Search",
 
 
   "uploader.browse": "browse",

@@ -1,0 +1,8 @@
+<ds-listable-object-component-loader [object]="object"
+                                     [viewMode]="viewModes.ListElement"
+                                     [index]="index"
+                                     [linkType]="linkType"
+                                     [listID]="listID"></ds-listable-object-component-loader>
+<a class="btn btn-primary mt-1 mb-3" [routerLink]="[getEditPath()]">
+    <i class="fa fa-edit"></i> {{"admin.search.collection.edit" | translate}}
+</a>

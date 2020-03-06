@@ -1,0 +1,39 @@
+<div *ngIf="dso && !dso.isDiscoverable" class="private-badge">
+    <span class="badge badge-danger">{{ "admin.search.item.private" | translate }}</span>
+</div>
+<div *ngIf="dso && dso.isWithdrawn" class="withdrawn-badge">
+    <span class="badge badge-warning">{{ "admin.search.item.withdrawn" | translate }}</span>
+</div>
+<ds-listable-object-component-loader [object]="object"
+                                     [viewMode]="viewModes.ListElement"
+                                     [index]="index"
+                                     [linkType]="linkType"
+                                     [listID]="listID"></ds-listable-object-component-loader>
+
+<a class="btn btn-light my-1 edit-link" [routerLink]="[getEditPath()]">
+    <i class="fa fa-edit"></i><span class="d-none d-sm-inline"> {{"admin.search.item.edit" | translate}}</span>
+</a>
+
+<a *ngIf="dso && !dso.isWithdrawn" class="btn btn-light my-1 withdraw-link" [routerLink]="[getWithdrawPath()]">
+    <i class="fa fa-box"></i><span class="d-none d-sm-inline"> {{"admin.search.item.withdraw" | translate}}</span>
+</a>
+
+<a *ngIf="dso && dso.isWithdrawn" class="btn btn-light my-1 reinstate-link" [routerLink]="[getReinstatePath()]">
+    <i class="fa fa-box-open"></i><span class="d-none d-sm-inline"> {{"admin.search.item.reinstate" | translate}}</span>
+</a>
+
+<a *ngIf="dso && dso.isDiscoverable" class="btn btn-light my-1 private-link" [routerLink]="[getPrivatePath()]">
+    <i class="fa fa-eye-slash"></i><span class="d-none d-sm-inline"> {{"admin.search.item.make-private" | translate}}</span>
+</a>
+
+<a *ngIf="dso && !dso.isDiscoverable" class="btn btn-light my-1 public-link" [routerLink]="[getPublicPath()]">
+    <i class="fa fa-eye"></i><span class="d-none d-sm-inline"> {{"admin.search.item.make-public" | translate}}</span>
+</a>
+
+<a class="btn btn-light my-1 delete-link" [routerLink]="[getDeletePath()]">
+    <i class="fa fa-trash"></i><span class="d-none d-sm-inline"> {{"admin.search.item.delete" | translate}}</span>
+</a>
+
+<a class="btn btn-light my-1 move-link" [routerLink]="[getMovePath()]">
+    <i class="fa fa-arrow-circle-right"></i><span class="d-none d-sm-inline"> {{"admin.search.item.move" | translate}}</span>
+</a>

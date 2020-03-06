@@ -177,6 +177,9 @@ import { ImportableListItemControlComponent } from './object-collection/shared/i
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { SortablejsModule } from 'ngx-sortablejs';
+import { ItemAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/item-search-result/item-admin-search-result-list-element.component';
+import { CommunityAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/community-search-result/community-admin-search-result-list-element.component';
+import { CollectionAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/collection-search-result/collection-admin-search-result-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -339,7 +342,10 @@ const COMPONENTS = [
   SelectableListItemControlComponent,
   ExternalSourceEntryImportModalComponent,
   ImportableListItemControlComponent,
-  ExistingMetadataListElementComponent
+  ExistingMetadataListElementComponent,
+  ItemAdminSearchResultListElementComponent,
+  CommunityAdminSearchResultListElementComponent,
+  CollectionAdminSearchResultListElementComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -402,7 +408,10 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
-  ExternalSourceEntryImportModalComponent
+  ExternalSourceEntryImportModalComponent,
+  ItemAdminSearchResultListElementComponent,
+  CommunityAdminSearchResultListElementComponent,
+  CollectionAdminSearchResultListElementComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
