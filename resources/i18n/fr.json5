@@ -8,15 +8,15 @@
   "404.page-not-found": "Page introuvable",
   
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  "admin.registries.bitstream-formats.create.failure.content": "Une erreur s'est produite lors de l'ajout du nouveau format de fichier.",
+  "admin.registries.bitstream-formats.create.failure.content": "Une erreur s'est produite lors de l'ajout du nouveau format Bitstream.",
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.failure.head": "Erreur",
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
-  "admin.registries.bitstream-formats.create.head": "Ajouter un format de fichier",
+  "admin.registries.bitstream-formats.create.head": "Ajouter un format Bistream",
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  "admin.registries.bitstream-formats.create.new": "Ajouter un format de fichier",
+  "admin.registries.bitstream-formats.create.new": "Ajouter un format Bitstream",
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
-  "admin.registries.bitstream-formats.create.success.content": "Le nouveau format de fichier a été ajouté avec succès.",
+  "admin.registries.bitstream-formats.create.success.content": "Le nouveau format Bitstream a été ajouté avec succès.",
   // "admin.registries.bitstream-formats.create.success.head": "Success",
   "admin.registries.bitstream-formats.create.success.head": "Succès",
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
@@ -28,7 +28,7 @@
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
   "admin.registries.bitstream-formats.delete.success.head": "Succès",
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
-  "admin.registries.bitstream-formats.description": "Cette liste des formats de fichier contient les informations relatives aux formats connus et leur niveau de support.",
+  "admin.registries.bitstream-formats.description": "Cette liste des formats Bitstream contient les informations relatives aux formats connus et leur niveau de support.",
   // "admin.registries.bitstream-formats.edit.description.hint": "",
   "admin.registries.bitstream-formats.edit.description.hint": "",
   // "admin.registries.bitstream-formats.edit.description.label": "Description",
@@ -40,11 +40,11 @@
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
   "admin.registries.bitstream-formats.edit.extensions.placeholder": "Veuillez entrer l'extension de fichier sans point",
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  "admin.registries.bitstream-formats.edit.failure.content": "Une erreur s'est produite lors de l'édition du format de fichier.",
+  "admin.registries.bitstream-formats.edit.failure.content": "Une erreur s'est produite lors de l'édition du format Bitstream.",
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
   "admin.registries.bitstream-formats.edit.failure.head": "Echec",
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
-  "admin.registries.bitstream-formats.edit.head": "Format de fichier: {{ format }}",
+  "admin.registries.bitstream-formats.edit.head": "Format Bitstream: {{ format }}",
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes.",
   "admin.registries.bitstream-formats.edit.internal.hint": "Les formats identifiés en tant que formats internes sont cachés pour l'utilisateur et utilisés uniquement à des fins administratives.",
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
@@ -58,7 +58,7 @@
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
   "admin.registries.bitstream-formats.edit.shortDescription.label": "Nom",
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  "admin.registries.bitstream-formats.edit.success.content": "Le format de fichier a été édité avec succès.",
+  "admin.registries.bitstream-formats.edit.success.content": "Le format Bitstream a été édité avec succès.",
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
   "admin.registries.bitstream-formats.edit.success.head": "Succès",
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
@@ -66,9 +66,9 @@
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   "admin.registries.bitstream-formats.edit.supportLevel.label": "Niveau de support",
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  "admin.registries.bitstream-formats.head": "Registre des formats de fichier",
+  "admin.registries.bitstream-formats.head": "Registre des formats Bitstream",
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  "admin.registries.bitstream-formats.no-items": "Aucun format de fichier disponible.",
+  "admin.registries.bitstream-formats.no-items": "Aucun format Bitstream disponible.",
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
   "admin.registries.bitstream-formats.table.delete": "Supprimer les éléments sélectionnés",
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
@@ -90,7 +90,7 @@
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   "admin.registries.bitstream-formats.table.supportLevel.head": "Niveau de support",
   // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Registre des formats de fichier",
+  "admin.registries.bitstream-formats.title": "DSpace Angular :: Registre des formats Bitstream",
   
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
   "admin.registries.metadata.description": "Le registre de métadonnées présente une liste à jour de tous les champs de métadonnées disponibles dans le dépôt. Ces champs peuvent être répartis entre plusieurs schémas. Le schéma Dublin Core qualifié est toutefois requis dans DSpace.",
@@ -195,7 +195,7 @@
   // "browse.startsWith.choose_year": "(Choose year)",
   "browse.startsWith.choose_year": "(Choisir l'année)",
   // "browse.startsWith.jump": "Jump to a point in the index:",
-  "browse.startsWith.jump": "Aller directement à une entrée de l'index:",
+  "browse.startsWith.jump": "Aller directement à une entrée de l'index :",
   // "browse.startsWith.months.april": "April",
   "browse.startsWith.months.april": "Avril",
   // "browse.startsWith.months.august": "August",
@@ -225,9 +225,9 @@
   // "browse.startsWith.submit": "Go",
   "browse.startsWith.submit": "Valider",
   // "browse.startsWith.type_date": "Or type in a date (year-month):",
-  "browse.startsWith.type_date": "Ou saisir une date (année-mois):",
+  "browse.startsWith.type_date": "Ou saisir une date (année-mois) :",
   // "browse.startsWith.type_text": "Or enter first few letters:",
-  "browse.startsWith.type_text": "Ou saisir les premières lettres:",
+  "browse.startsWith.type_text": "Ou saisir les premières lettres :",
   // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
   "browse.title": "Parcourir {{ collection }} par {{ field }} {{ value }}",
   
@@ -235,23 +235,23 @@
   "chips.remove": "Supprimer fragment",
   
   // "collection.create.head": "Create a Collection",
-  "collection.create.head": "Créer une collection",
+  "collection.create.head": "Créer une Collection",
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
-  "collection.create.sub-head": "Créer une collection au sein de la communauté {{ parent }}",
+  "collection.create.sub-head": "Créer une Collection au sein de la Communauté {{ parent }}",
   // "collection.delete.cancel": "Cancel",
   "collection.delete.cancel": "Annuler",
   // "collection.delete.confirm": "Confirm",
   "collection.delete.confirm": "Valider",
   // "collection.delete.head": "Delete Collection",
-  "collection.delete.head": "Supprimer collection",
+  "collection.delete.head": "Supprimer Collection",
   // "collection.delete.notification.fail": "Collection could not be deleted",
-  "collection.delete.notification.fail": "La collection n'a pas pu être supprimée",
+  "collection.delete.notification.fail": "La Collection n'a pas pu être supprimée",
   // "collection.delete.notification.success": "Successfully deleted collection",
   "collection.delete.notification.success": "Collection supprimée avec succès",
   // "collection.delete.text": "Are you sure you want to delete collection \"{{ dso }}\"",
-  "collection.delete.text": "Êtes-vous certain de vouloir supprimer la collection \"{{ dso }}\"",
+  "collection.delete.text": "Êtes-vous certain de vouloir supprimer la Collection \"{{ dso }}\"",
   // "collection.edit.delete": "Delete this collection",
-  "collection.edit.delete": "Supprimer cette collection",
+  "collection.edit.delete": "Supprimer cette Collection",
   // "collection.edit.head": "Edit Collection",
   "collection.edit.head": "Editer Collection",
   // "collection.edit.item-mapper.cancel": "Cancel",
@@ -259,23 +259,23 @@
   // "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
   "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
   // "collection.edit.item-mapper.confirm": "Map selected items",
-  "collection.edit.item-mapper.confirm": "Associer les éléments sélectionnés",
+  "collection.edit.item-mapper.confirm": "Associer les Items sélectionnés",
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  "collection.edit.item-mapper.description": "Cet outil d'association d'objets permet aux administrateurs de collection d'associer des objets provenant d'autres collections dans cette collection. Vous pouvez rechercher des objets d'autres collections et les associer, ou consulter la liste des objets actuellement associés.",
+  "collection.edit.item-mapper.description": "L'Item Mapper permet aux administrateurs de Collection d'associer des Items provenant d'autres Collections dans cette Collection. Vous pouvez rechercher des Items d'autres Collections et les associer, ou consulter la liste des Items actuellement associés.",
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  "collection.edit.item-mapper.head": "Item Mapper - Associer des éléments provenant d'autres collections",
+  "collection.edit.item-mapper.head": "Item Mapper - Associer des Items provenant d'autres Collections",
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
   "collection.edit.item-mapper.no-search": "Veuillez entrer un élément à rechercher",
   // "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.map.error.content": "Des erreurs se sont produites lors de l'association de {{amount}} objet(s).",
+  "collection.edit.item-mapper.notifications.map.error.content": "Des erreurs se sont produites lors de l'association de {{amount}} Item(s).",
   // "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
   "collection.edit.item-mapper.notifications.map.error.head": "Erreurs d'association",
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  "collection.edit.item-mapper.notifications.map.success.content": "{{amount}} objet(s) associé(s) avec succès.",
+  "collection.edit.item-mapper.notifications.map.success.content": "{{amount}} Item(s) associé(s) avec succès.",
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
   "collection.edit.item-mapper.notifications.map.success.head": "Association terminée",
   // "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.unmap.error.content": "Des erreurs se sont produites lors de la suppression de l'association de {{amount}} objet(s).",
+  "collection.edit.item-mapper.notifications.unmap.error.content": "Des erreurs se sont produites lors de la suppression de l'association de {{amount}} Item(s).",
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
   "collection.edit.item-mapper.notifications.unmap.error.head": "Erreurs de suppression d'association",
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
@@ -285,22 +285,22 @@
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
   "collection.edit.item-mapper.remove": "Supprimer les associations sélectionnées",
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  "collection.edit.item-mapper.tabs.browse": "Parcourir les objets associés",
+  "collection.edit.item-mapper.tabs.browse": "Parcourir les Items associés",
   // "collection.edit.item-mapper.tabs.map": "Map new items",
-  "collection.edit.item-mapper.tabs.map": "Associer nouveaux objets",
+  "collection.edit.item-mapper.tabs.map": "Associer nouveaux Items",
   
   // "collection.form.abstract": "Short Description",
   "collection.form.abstract": "Description succinte",
   // "collection.form.description": "Introductory text (HTML)",
   "collection.form.description": "Texte d'introduction (HTML)",
   // "collection.form.errors.title.required": "Please enter a collection name",
-  "collection.form.errors.title.required": "Veuillez entrer un nom de collection",
+  "collection.form.errors.title.required": "Veuillez entrer un nom de Collection",
   // "collection.form.license": "License",
   "collection.form.license": "Licence",
   // "collection.form.provenance": "Provenance",
   "collection.form.provenance": "Provenance",
   // "collection.form.rights": "Copyright text (HTML)",
-  "collection.form.rights": "Texte de copyright (HTML): ",
+  "collection.form.rights": "Texte de copyright (HTML)",
   // "collection.form.tableofcontents": "News (HTML)",
   "collection.form.tableofcontents": "Nouvelles (HTML)",
   // "collection.form.title": "Name",
@@ -319,39 +319,39 @@
   // "collection.select.confirm": "Confirm selected",
   "collection.select.confirm": "Confirmer sélection",
   // "collection.select.empty": "No collections to show",
-  "collection.select.empty": "Aucune collection disponible",
+  "collection.select.empty": "Aucune Collection disponible",
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Titre",
   
   // "community.create.head": "Create a Community",
-  "community.create.head": "Créer une communauté",
+  "community.create.head": "Créer une Communauté",
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  "community.create.sub-head": "Créer une sous-communauté pour la communauté {{ parent }}",
+  "community.create.sub-head": "Créer une Sous-Communauté pour la Communauté {{ parent }}",
   
   // "community.delete.cancel": "Cancel",
   "community.delete.cancel": "Annuler",
   // "community.delete.confirm": "Confirm",
   "community.delete.confirm": "Confirmer",
   // "community.delete.head": "Delete Community",
-  "community.delete.head": "Supprimer communauté",
+  "community.delete.head": "Supprimer Communauté",
   // "community.delete.notification.fail": "Community could not be deleted",
-  "community.delete.notification.fail": "La communauté n'a pas pu être supprimée",
+  "community.delete.notification.fail": "La Communauté n'a pas pu être supprimée",
   // "community.delete.notification.success": "Successfully deleted community",
-  "community.delete.notification.success": "La communauté a été supprimée avec succès",
+  "community.delete.notification.success": "La Communauté a été supprimée avec succès",
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  "community.delete.text": "Êtes-vous sûr de vouloir supprimer la communauté \"{{ dso }}\"",
+  "community.delete.text": "Êtes-vous sûr de vouloir supprimer la Communauté \"{{ dso }}\"",
   
   // "community.edit.delete": "Delete this community",
-  "community.edit.delete": "Supprimer cette communauté",
+  "community.edit.delete": "Supprimer cette Communauté",
   // "community.edit.head": "Edit Community",
-  "community.edit.head": "Editer communauté",
+  "community.edit.head": "Editer Communauté",
   
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Description succinte",
   // "community.form.description": "Introductory text (HTML)",
   "community.form.description": "Texte d'introduction (HTML)",
   // "community.form.errors.title.required": "Please enter a community name",
-  "community.form.errors.title.required": "Veuillez entrer un nom de communauté",
+  "community.form.errors.title.required": "Veuillez entrer un nom de Communauté",
   // "community.form.rights": "Copyright text (HTML)",
   "community.form.rights": "Texte de copyright (HTML)",
   // "community.form.tableofcontents": "News (HTML)",
@@ -360,35 +360,35 @@
   "community.form.title": "Nom",
   
   // "community.page.handle": "Permanent URI for this community",
-  "community.page.handle": "URI permanent de cette communauté",
+  "community.page.handle": "URI permanent de cette Communauté",
   // "community.page.license": "License",
   "community.page.license": "Licence",
   // "community.page.news": "News",
   "community.page.news": "Nouvelles",
   
   // "community.all-lists.head": "Subcommunities and Collections",
-  "community.all-lists.head": "Sous-communautés et collections",
+  "community.all-lists.head": "Sous-Communautés et Collections",
   // "community.sub-collection-list.head": "Collections of this Community",
-  "community.sub-collection-list.head": "Collections au sein de cette communauté",
+  "community.sub-collection-list.head": "Collections au sein de cette Communauté",
   // "community.sub-community-list.head": "Communities of this Community",
-  "community.sub-community-list.head": "Sous-communautés au sein de cette communauté",
+  "community.sub-community-list.head": "Sous-Communautés au sein de cette Communauté",
   
   // "dso-selector.create.collection.head": "New collection",
-  "dso-selector.create.collection.head": "Nouvelle collection",
+  "dso-selector.create.collection.head": "Nouvelle Collection",
   // "dso-selector.create.community.head": "New community",
-  "dso-selector.create.community.head": "Nouvelle communauté",
+  "dso-selector.create.community.head": "Nouvelle Communauté",
   // "dso-selector.create.community.sub-level": "Create a new community in",
-  "dso-selector.create.community.sub-level": "Créer une nouvelle communauté dans",
+  "dso-selector.create.community.sub-level": "Créer une nouvelle Communauté dans",
   // "dso-selector.create.community.top-level": "Create a new top-level community",
-  "dso-selector.create.community.top-level": "Créer une nouvelle communauté de 1er niveau",
+  "dso-selector.create.community.top-level": "Créer une nouvelle Communauté de 1er niveau",
   // "dso-selector.create.item.head": "New item",
-  "dso-selector.create.item.head": "Nouvel objet",
+  "dso-selector.create.item.head": "Nouvel Item",
   // "dso-selector.edit.collection.head": "Edit collection",
-  "dso-selector.edit.collection.head": "Editer collection",
+  "dso-selector.edit.collection.head": "Editer Collection",
   // "dso-selector.edit.community.head": "Edit community",
-  "dso-selector.edit.community.head": "Editer communauté",
+  "dso-selector.edit.community.head": "Editer Communauté",
   // "dso-selector.edit.item.head": "Edit item",
-  "dso-selector.edit.item.head": "Editer objet",
+  "dso-selector.edit.item.head": "Editer Item",
   
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "Aucun {{ type }} trouvé",
@@ -396,847 +396,432 @@
   "dso-selector.placeholder": "Rechercher un(e) {{ type }}",
   
   // "error.browse-by": "Error fetching items",
-  "error.browse-by": "Erreur lors de la récupération des objets",
+  "error.browse-by": "Erreur lors de la récupération des Items",
   // "error.collection": "Error fetching collection",
-  "error.collection": "Erreur lors de la récupération de la collection",
+  "error.collection": "Erreur lors de la récupération de la Collection",
   // "error.collections": "Error fetching collections",
-  "error.collections": "Erreur lors de la récupération des collections",
+  "error.collections": "Erreur lors de la récupération des Collections",
   // "error.community": "Error fetching community",
-  "error.community": "Erreur lors de la récupération de la communauté",
+  "error.community": "Erreur lors de la récupération de la Communauté",
   // "error.identifier": "No item found for the identifier",
   "error.identifier": "Aucun objet correspondant à cet identifiant",
   // "error.default": "Error",
   "error.default": "Erreur",
   // "error.item": "Error fetching item",
-  "error.item": "Erreur lors de la récupération de l'objet",
+  "error.item": "Erreur lors de la récupération de l'Item",
   // "error.items": "Error fetching items",
-  "error.items": "Erreur lors de la récupération des objets",
+  "error.items": "Erreur lors de la récupération des Items",
   // "error.objects": "Error fetching objects",
-  // TODO New key - Add a translation
-  "error.objects": "Error fetching objects",
-  
+  "error.objects": "Erreur lors de la récupération des Objets",
   // "error.recent-submissions": "Error fetching recent submissions",
-  // TODO New key - Add a translation
-  "error.recent-submissions": "Error fetching recent submissions",
-  
+  "error.recent-submissions": "Erreur lors de la récupération des dépôts récents",
   // "error.search-results": "Error fetching search results",
-  // TODO New key - Add a translation
-  "error.search-results": "Error fetching search results",
-  
+  "error.search-results": "Erreur lors de la récupération des résultats de recherche",
   // "error.sub-collections": "Error fetching sub-collections",
-  // TODO New key - Add a translation
-  "error.sub-collections": "Error fetching sub-collections",
-  
+  "error.sub-collections": "Erreur lors de la récupération des Sous-Collections",
   // "error.sub-communities": "Error fetching sub-communities",
-  // TODO New key - Add a translation
-  "error.sub-communities": "Error fetching sub-communities",
-  
+  "error.sub-communities": "Erreur lors de la récupération des Sous-Communautés",
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
-  // TODO New key - Add a translation
-  "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
-  
+  "error.submission.sections.init-form-error": "Une erreur s'est produite dans la section d'initilisation, veuillez vérifier la configuration de votre formulaire de dépôt. Plus de détails disponibles ci-dessous : <br> <br>",
   // "error.top-level-communities": "Error fetching top-level communities",
-  // TODO New key - Add a translation
-  "error.top-level-communities": "Error fetching top-level communities",
-  
+  "error.top-level-communities": "Erreur lors de la récupération des Communautés de 1er niveau",
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  // TODO New key - Add a translation
-  "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  
+  "error.validation.license.notgranted": "Vous devez accepter cette licence pour terminer votre dépôt. Si vous êtes dans l'incapacité d'accepter cette licence actuellement, vous pouvez sauvegarder votre dépôt et y revenir ultérieurement ou le supprimer.",
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
-  // TODO New key - Add a translation
-  "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
-  
-  
+  "error.validation.pattern": "Cette entrée est invalide en vertu du pattern : {{ pattern }}.",
   
   // "footer.copyright": "copyright © 2002-{{ year }}",
   // TODO New key - Add a translation
-  "footer.copyright": "copyright © 2002-{{ year }}",
-  
+  "footer.copyright": "Copyright © 2002-{{ year }}",
   // "footer.link.dspace": "DSpace software",
-  // TODO New key - Add a translation
   "footer.link.dspace": "DSpace software",
-  
   // "footer.link.duraspace": "DuraSpace",
-  // TODO New key - Add a translation
   "footer.link.duraspace": "DuraSpace",
   
-  
-  
   // "form.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "form.cancel": "Cancel",
-  
+  "form.cancel": "Annuler",
   // "form.clear": "Clear",
-  // TODO New key - Add a translation
-  "form.clear": "Clear",
-  
+  "form.clear": "Effacer",
   // "form.clear-help": "Click here to remove the selected value",
-  // TODO New key - Add a translation
-  "form.clear-help": "Click here to remove the selected value",
-  
+  "form.clear-help": "Cliquer ici pour supprimer la valeur sélectionnée",
   // "form.edit": "Edit",
-  // TODO New key - Add a translation
-  "form.edit": "Edit",
-  
+  "form.edit": "Editer",
   // "form.edit-help": "Click here to edit the selected value",
-  // TODO New key - Add a translation
-  "form.edit-help": "Click here to edit the selected value",
-  
+  "form.edit-help": "Cliquer ici pour éditer la valeur sélectionnée",
   // "form.first-name": "First name",
-  // TODO New key - Add a translation
-  "form.first-name": "First name",
-  
+  "form.first-name": "Prénom",
   // "form.group-collapse": "Collapse",
-  // TODO New key - Add a translation
-  "form.group-collapse": "Collapse",
-  
+  "form.group-collapse": "Réduire",
   // "form.group-collapse-help": "Click here to collapse",
-  // TODO New key - Add a translation
-  "form.group-collapse-help": "Click here to collapse",
-  
+  "form.group-collapse-help": "Cliquer ici pour réduire",-
   // "form.group-expand": "Expand",
-  // TODO New key - Add a translation
-  "form.group-expand": "Expand",
-  
+  "form.group-expand": "Développer",
   // "form.group-expand-help": "Click here to expand and add more elements",
-  // TODO New key - Add a translation
-  "form.group-expand-help": "Click here to expand and add more elements",
-  
+  "form.group-expand-help": "Cliquer ici pour développer et ajouter davantage d'éléments",
   // "form.last-name": "Last name",
-  // TODO New key - Add a translation
-  "form.last-name": "Last name",
-  
+  "form.last-name": "Nom",
   // "form.loading": "Loading...",
-  // TODO New key - Add a translation
-  "form.loading": "Loading...",
-  
+  "form.loading": "En cours de chargement...",
   // "form.no-results": "No results found",
-  // TODO New key - Add a translation
-  "form.no-results": "No results found",
-  
+  "form.no-results": "Aucun résultat disponible",
   // "form.no-value": "No value entered",
-  // TODO New key - Add a translation
-  "form.no-value": "No value entered",
-  
+  "form.no-value": "Aucune valeur entrée",
   // "form.other-information": {},
-  // TODO New key - Add a translation
   "form.other-information": {},
-  
   // "form.remove": "Remove",
-  // TODO New key - Add a translation
-  "form.remove": "Remove",
-  
+  "form.remove": "Supprimer",
   // "form.save": "Save",
-  // TODO New key - Add a translation
-  "form.save": "Save",
-  
+  "form.save": "Sauvegarder",
   // "form.save-help": "Save changes",
-  // TODO New key - Add a translation
-  "form.save-help": "Save changes",
-  
+  "form.save-help": "Sauvegarder changements",
   // "form.search": "Search",
-  // TODO New key - Add a translation
-  "form.search": "Search",
-  
+  "form.search": "Rechercher",
   // "form.search-help": "Click here to looking for an existing correspondence",
-  // TODO New key - Add a translation
-  "form.search-help": "Click here to looking for an existing correspondence",
-  
+  "form.search-help": "Cliquer ici pour rechercher une correspondance existante",
   // "form.submit": "Submit",
-  // TODO New key - Add a translation
-  "form.submit": "Submit",
-  
-  
+  "form.submit": "Déposer",
   
   // "home.description": "",
-  // TODO New key - Add a translation
   "home.description": "",
-  
   // "home.title": "DSpace Angular :: Home",
-  // TODO New key - Add a translation
   "home.title": "DSpace Angular :: Home",
-  
   // "home.top-level-communities.head": "Communities in DSpace",
-  // TODO New key - Add a translation
-  "home.top-level-communities.head": "Communities in DSpace",
-  
+  "home.top-level-communities.head": "Communautés DSpace",
   // "home.top-level-communities.help": "Select a community to browse its collections.",
-  // TODO New key - Add a translation
-  "home.top-level-communities.help": "Select a community to browse its collections.",
-  
-  
+  "home.top-level-communities.help": "Sélectionner une Communauté pour parcourir les Collections sous-jacentes.",
   
   // "item.edit.delete.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.delete.cancel": "Cancel",
-  
+  "item.edit.delete.cancel": "Annuler",
   // "item.edit.delete.confirm": "Delete",
-  // TODO New key - Add a translation
-  "item.edit.delete.confirm": "Delete",
-  
+  "item.edit.delete.confirm": "Supprimer",
   // "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
-  // TODO New key - Add a translation
-  "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
-  
+  "item.edit.delete.description": "Êtes-vous certain de vouloir complétement supprimer cet Item ? Attention, il n'y aura pas de retour en arrière possible.",
   // "item.edit.delete.error": "An error occurred while deleting the item",
-  // TODO New key - Add a translation
-  "item.edit.delete.error": "An error occurred while deleting the item",
-  
+  "item.edit.delete.error": "Une erreur s'est produite lors de la suppression de l'Item",
   // "item.edit.delete.header": "Delete item: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.delete.header": "Delete item: {{ id }}",
-  
+  "item.edit.delete.header": "Supprimer Item : {{ id }}",
   // "item.edit.delete.success": "The item has been deleted",
-  // TODO New key - Add a translation
-  "item.edit.delete.success": "The item has been deleted",
-  
+  "item.edit.delete.success": "L'Item a été supprimé",
   // "item.edit.head": "Edit Item",
-  // TODO New key - Add a translation
-  "item.edit.head": "Edit Item",
-  
-  
-  
+  "item.edit.head": "Editer Item",
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.buttons.add": "Map item to selected collections",
-  
+  "item.edit.item-mapper.buttons.add": "Associer Item aux Collections sélectionnées",
   // "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
-  
+  "item.edit.item-mapper.buttons.remove": "Supprimer l'association d'Item pour les Collections sélectionnées",
   // "item.edit.item-mapper.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.cancel": "Cancel",
-  
+  "item.edit.item-mapper.cancel": "Annuler",
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
-  
+  "item.edit.item-mapper.description": "L'Item Mapper permet aux administrateurs de Collection d'associer des Items avec d'autres Collections. Vous pouvez rechercher des Collections et les associer ou parcourir la liste des Collections auxquelles l'Item est actuellement associé.",
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  
+  "item.edit.item-mapper.head": "Item Mapper - Associer Item avec Collections",
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
-  
+  "item.edit.item-mapper.item": "Item : \"<b>{{name}}</b>\"",
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.no-search": "Please enter a query to search",
-  
+  "item.edit.item-mapper.no-search": "Veuillez entrer un élément à rechercher",
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
-  
+  "item.edit.item-mapper.notifications.add.error.content": "Des erreurs se sont produites à l'association de l'Item avec {{amount}} Collections.",
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
-  
+  "item.edit.item-mapper.notifications.add.error.head": "Erreurs d'association",
   // "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
-  
+  "item.edit.item-mapper.notifications.add.success.content": "Item associé avec succès avec {{amount}} Collections.",
   // "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
-  
+  "item.edit.item-mapper.notifications.add.success.head": "Association terminée",
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
-  
+  "item.edit.item-mapper.notifications.remove.error.content": "Des erreurs se sont produites à la suppression de l'association de {{amount}} Collections.",
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
-  
+  "item.edit.item-mapper.notifications.remove.error.head": "Erreurs à la suppression d'association",
   // "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
-  
+  "item.edit.item-mapper.notifications.remove.success.content": "Association de l'item avec {{amount}} Collections supprimée avec succès.",
   // "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
-  
+  "item.edit.item-mapper.notifications.remove.success.head": "Suppression d'association terminée",
   // "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
-  
+  "item.edit.item-mapper.tabs.browse": "Parcourir Collections associées",
   // "item.edit.item-mapper.tabs.map": "Map new collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.tabs.map": "Map new collections",
-  
-  
+  "item.edit.item-mapper.tabs.map": "Associer nouvelles Collections",
   
   // "item.edit.metadata.add-button": "Add",
-  // TODO New key - Add a translation
-  "item.edit.metadata.add-button": "Add",
-  
+  "item.edit.metadata.add-button": "Ajouter",
   // "item.edit.metadata.discard-button": "Discard",
-  // TODO New key - Add a translation
-  "item.edit.metadata.discard-button": "Discard",
-  
+  "item.edit.metadata.discard-button": "Annuler",
   // "item.edit.metadata.edit.buttons.edit": "Edit",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.edit": "Edit",
-  
+  "item.edit.metadata.edit.buttons.edit": "Editer",
   // "item.edit.metadata.edit.buttons.remove": "Remove",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.remove": "Remove",
-  
+  "item.edit.metadata.edit.buttons.remove": "Supprimer",
   // "item.edit.metadata.edit.buttons.undo": "Undo changes",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.undo": "Undo changes",
-  
+  "item.edit.metadata.edit.buttons.undo": "Annuler changements",
   // "item.edit.metadata.edit.buttons.unedit": "Stop editing",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.unedit": "Stop editing",
-  
+  "item.edit.metadata.edit.buttons.unedit": "Stopper l'édition",
   // "item.edit.metadata.headers.edit": "Edit",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.edit": "Edit",
-  
+  "item.edit.metadata.headers.edit": "Editer",
   // "item.edit.metadata.headers.field": "Field",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.field": "Field",
-  
+  "item.edit.metadata.headers.field": "Champ",
   // "item.edit.metadata.headers.language": "Lang",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.language": "Lang",
-  
+  "item.edit.metadata.headers.language": "Langue",
   // "item.edit.metadata.headers.value": "Value",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.value": "Value",
-  
+  "item.edit.metadata.headers.value": "Valeur",
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
-  // TODO New key - Add a translation
-  "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
-  
+  "item.edit.metadata.metadatafield.invalid": "Veuillez choisir un champ de métadonnée valide",
   // "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  
+  "item.edit.metadata.notifications.discarded.content": "Vos changements ont été annulés. Pour rétablir vos changements, cliquer sur le bouton 'Annuler'",
   // "item.edit.metadata.notifications.discarded.title": "Changed discarded",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.discarded.title": "Changed discarded",
-  
+  "item.edit.metadata.notifications.discarded.title": "Changements annulés",
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  
+  "item.edit.metadata.notifications.invalid.content": "Vos changements n'ont pas été sauvegardés. Veuillez vérifier que tous les champs sont valides avant de sauvegarder.",
   // "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
-  
+  "item.edit.metadata.notifications.invalid.title": "Metadonnée invalide",
   // "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  
+  "item.edit.metadata.notifications.outdated.content": "L'Item sur lequel vous êtes en train de travailler a été édité par un autre utilisateur. Vos changements en cours sont ignorés pour éviter des conflits",
   // "item.edit.metadata.notifications.outdated.title": "Changed outdated",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.outdated.title": "Changed outdated",
-  
+  "item.edit.metadata.notifications.outdated.title": "Changements obsolètes",
   // "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
-  
+  "item.edit.metadata.notifications.saved.content": "Vos modifications de métadonnées n'ont pas été sauvegardées.",
   // "item.edit.metadata.notifications.saved.title": "Metadata saved",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.saved.title": "Metadata saved",
-  
+  "item.edit.metadata.notifications.saved.title": "Métadonnée sauvegardée",
   // "item.edit.metadata.reinstate-button": "Undo",
-  // TODO New key - Add a translation
-  "item.edit.metadata.reinstate-button": "Undo",
-  
+  "item.edit.metadata.reinstate-button": "Annuler",
   // "item.edit.metadata.save-button": "Save",
-  // TODO New key - Add a translation
-  "item.edit.metadata.save-button": "Save",
-  
-  
+  "item.edit.metadata.save-button": "Sauvegarder",
   
   // "item.edit.modify.overview.field": "Field",
-  // TODO New key - Add a translation
-  "item.edit.modify.overview.field": "Field",
-  
+  "item.edit.modify.overview.field": "Champ",
   // "item.edit.modify.overview.language": "Language",
-  // TODO New key - Add a translation
-  "item.edit.modify.overview.language": "Language",
-  
+  "item.edit.modify.overview.language": "Langue",
   // "item.edit.modify.overview.value": "Value",
-  // TODO New key - Add a translation
-  "item.edit.modify.overview.value": "Value",
-  
-  
+  "item.edit.modify.overview.value": "Valeur",
   
   // "item.edit.move.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.move.cancel": "Cancel",
-  
+  "item.edit.move.cancel": "Annuler",
   // "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
-  // TODO New key - Add a translation
-  "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
-  
+  "item.edit.move.description": "Sélectionner la Collection dans laquelle vous souhaitez transférer l'Item. Pour limiter la liste de Collections affichées, vous pouvez utiliser le champ de recherche.",
   // "item.edit.move.error": "An error occured when attempting to move the item",
-  // TODO New key - Add a translation
-  "item.edit.move.error": "An error occured when attempting to move the item",
-  
+  "item.edit.move.error": "Une erreur s'est produite lors du transfert de l'Item",
   // "item.edit.move.head": "Move item: {{id}}",
-  // TODO New key - Add a translation
-  "item.edit.move.head": "Move item: {{id}}",
-  
+  "item.edit.move.head": "Transférer item : {{id}}",
   // "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
-  // TODO New key - Add a translation
-  "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
-  
+  "item.edit.move.inheritpolicies.checkbox": "Récupérer règles",
   // "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
-  // TODO New key - Add a translation
-  "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
-  
+  "item.edit.move.inheritpolicies.description": "Récupérer les règles par défaut de la Collection de destination",
   // "item.edit.move.move": "Move",
-  // TODO New key - Add a translation
-  "item.edit.move.move": "Move",
-  
+  "item.edit.move.move": "Transférer",
   // "item.edit.move.processing": "Moving...",
-  // TODO New key - Add a translation
-  "item.edit.move.processing": "Moving...",
-  
+  "item.edit.move.processing": "En cours de transfert...",
   // "item.edit.move.search.placeholder": "Enter a search query to look for collections",
-  // TODO New key - Add a translation
-  "item.edit.move.search.placeholder": "Enter a search query to look for collections",
-  
+  "item.edit.move.search.placeholder": "Rechercher Collection",
   // "item.edit.move.success": "The item has been moved succesfully",
-  // TODO New key - Add a translation
-  "item.edit.move.success": "The item has been moved succesfully",
-  
+  "item.edit.move.success": "L'Item a été transféré avec succès",
   // "item.edit.move.title": "Move item",
-  // TODO New key - Add a translation
-  "item.edit.move.title": "Move item",
-  
-  
+  "item.edit.move.title": "Transférer item",
   
   // "item.edit.private.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.private.cancel": "Cancel",
-  
+  "item.edit.private.cancel": "Annuler",
   // "item.edit.private.confirm": "Make it Private",
-  // TODO New key - Add a translation
-  "item.edit.private.confirm": "Make it Private",
-  
+  "item.edit.private.confirm": "Définir comme Privé",
   // "item.edit.private.description": "Are you sure this item should be made private in the archive?",
-  // TODO New key - Add a translation
-  "item.edit.private.description": "Are you sure this item should be made private in the archive?",
-  
+  "item.edit.private.description": "Êtes-vous certain de vouloir définir cet Item comme Privé ?",
   // "item.edit.private.error": "An error occurred while making the item private",
-  // TODO New key - Add a translation
-  "item.edit.private.error": "An error occurred while making the item private",
-  
+  "item.edit.private.error": "Une erreur s'est produite lors de la définition de l'Item en tant qu'Item Privé",
   // "item.edit.private.header": "Make item private: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.private.header": "Make item private: {{ id }}",
-  
+  "item.edit.private.header": "Définir Item comme Privé : {{ id }}",
   // "item.edit.private.success": "The item is now private",
-  // TODO New key - Add a translation
-  "item.edit.private.success": "The item is now private",
-  
-  
+  "item.edit.private.success": "L'Item est désormais Privé",
   
   // "item.edit.public.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.public.cancel": "Cancel",
-  
+  "item.edit.public.cancel": "Annuler",
   // "item.edit.public.confirm": "Make it Public",
-  // TODO New key - Add a translation
-  "item.edit.public.confirm": "Make it Public",
-  
+  "item.edit.public.confirm": "Définir comme Public",
   // "item.edit.public.description": "Are you sure this item should be made public in the archive?",
-  // TODO New key - Add a translation
-  "item.edit.public.description": "Are you sure this item should be made public in the archive?",
-  
+  "item.edit.public.description": "Êtes-vous certain de vouloir définir cet Item comme Public ?",
   // "item.edit.public.error": "An error occurred while making the item public",
-  // TODO New key - Add a translation
-  "item.edit.public.error": "An error occurred while making the item public",
-  
+  "item.edit.public.error": "Une erreur s'est produite lors e la définition de l'Item en tant qu'Item Public",
   // "item.edit.public.header": "Make item public: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.public.header": "Make item public: {{ id }}",
-  
+  "item.edit.public.header": "Définir Item comme Public : {{ id }}",
   // "item.edit.public.success": "The item is now public",
-  // TODO New key - Add a translation
-  "item.edit.public.success": "The item is now public",
-  
-  
+  "item.edit.public.success": "L'Item est désormais Public",
   
   // "item.edit.reinstate.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.cancel": "Cancel",
-  
+  "item.edit.reinstate.cancel": "Annuler",
   // "item.edit.reinstate.confirm": "Reinstate",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.confirm": "Reinstate",
-  
+  "item.edit.reinstate.confirm": "Réintégrer",
   // "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
-  
+  "item.edit.reinstate.description": "Êtes-vous certain de vouloir réintégrer cet Item ?",
   // "item.edit.reinstate.error": "An error occurred while reinstating the item",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.error": "An error occurred while reinstating the item",
-  
+  "item.edit.reinstate.error": "Une erreur s'est produite lors de la réintégration de l'Item",
   // "item.edit.reinstate.header": "Reinstate item: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.header": "Reinstate item: {{ id }}",
-  
+  "item.edit.reinstate.header": "Réintégrer Item : {{ id }}",
   // "item.edit.reinstate.success": "The item was reinstated successfully",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.success": "The item was reinstated successfully",
-  
-  
+  "item.edit.reinstate.success": "L'Item a été réintégré avec succès",
   
   // "item.edit.relationships.discard-button": "Discard",
-  // TODO New key - Add a translation
-  "item.edit.relationships.discard-button": "Discard",
-  
+  "item.edit.relationships.discard-button": "Annuler",
   // "item.edit.relationships.edit.buttons.remove": "Remove",
-  // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.remove": "Remove",
-  
+  "item.edit.relationships.edit.buttons.remove": "Supprimer",
   // "item.edit.relationships.edit.buttons.undo": "Undo changes",
-  // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.undo": "Undo changes",
-  
+  "item.edit.relationships.edit.buttons.undo": "Annuler changements",
   // "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  
+  "item.edit.relationships.notifications.discarded.content": "Vos changements ont été annulés. Pour rétablir vos changements, cliquer sur le bouton 'Annuler'",
   // "item.edit.relationships.notifications.discarded.title": "Changes discarded",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.discarded.title": "Changes discarded",
-  
+  "item.edit.relationships.notifications.discarded.title": "Changements annulés",
   // "item.edit.relationships.notifications.failed.title": "Error deleting relationship",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.failed.title": "Error deleting relationship",
-  
+  "item.edit.relationships.notifications.failed.title": "Erreur lors de la suppression de la Relation",
   // "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  
+  "item.edit.relationships.notifications.outdated.content": "L'Item sur lequel vous êtes en train de travailler a été édité par un autre utilisateur. Vos changements en cours sont ignorés pour éviter des conflits.",
   // "item.edit.relationships.notifications.outdated.title": "Changes outdated",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.outdated.title": "Changes outdated",
-  
+  "item.edit.relationships.notifications.outdated.title": "Changements obsolètes",
   // "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
-  
+  "item.edit.relationships.notifications.saved.content": "Vos changements aux Relations de l'Item ont été sauvegardés.",
   // "item.edit.relationships.notifications.saved.title": "Relationships saved",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.saved.title": "Relationships saved",
-  
+  "item.edit.relationships.notifications.saved.title": "Relations sauvegardées",
   // "item.edit.relationships.reinstate-button": "Undo",
-  // TODO New key - Add a translation
-  "item.edit.relationships.reinstate-button": "Undo",
-  
+  "item.edit.relationships.reinstate-button": "Annuler",
   // "item.edit.relationships.save-button": "Save",
-  // TODO New key - Add a translation
-  "item.edit.relationships.save-button": "Save",
-  
-  
-  
+  "item.edit.relationships.save-button": "Sauvegarder",
   // "item.edit.tabs.bitstreams.head": "Item Bitstreams",
-  // TODO New key - Add a translation
-  "item.edit.tabs.bitstreams.head": "Item Bitstreams",
-  
+  "item.edit.tabs.bitstreams.head": "Bitstreams de l'Item",
   // "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
-  // TODO New key - Add a translation
-  "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
-  
+  "item.edit.tabs.bitstreams.title": "Edition Item - Bitstreams",
   // "item.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "item.edit.tabs.curate.head": "Curate",
-  
+  "item.edit.tabs.curate.head": "Gestion de contenu",
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
-  // TODO New key - Add a translation
-  "item.edit.tabs.curate.title": "Item Edit - Curate",
-  
+  "item.edit.tabs.curate.title": "Edition Item - Gestion de contenu",
   // "item.edit.tabs.metadata.head": "Item Metadata",
-  // TODO New key - Add a translation
-  "item.edit.tabs.metadata.head": "Item Metadata",
-  
-  // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
-  // TODO New key - Add a translation
-  "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
-  
+  "item.edit.tabs.metadata.head": "Métadonnées de l'Item",
+  // "item.edit.tabs.metadata.title": "Item Edit - Metadata",
+  "item.edit.tabs.metadata.title": "Edition Item - Métadonnées",
   // "item.edit.tabs.relationships.head": "Item Relationships",
-  // TODO New key - Add a translation
-  "item.edit.tabs.relationships.head": "Item Relationships",
-  
+  "item.edit.tabs.relationships.head": "Relations de l'Item",
   // "item.edit.tabs.relationships.title": "Item Edit - Relationships",
-  // TODO New key - Add a translation
-  "item.edit.tabs.relationships.title": "Item Edit - Relationships",
-  
+  "item.edit.tabs.relationships.title": "Edition Item - Relations",
   // "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
-  
+  "item.edit.tabs.status.buttons.authorizations.button": "Accès...",
   // "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
-  
+  "item.edit.tabs.status.buttons.authorizations.label": "Editer les règles d'accès de l'Item",
   // "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
-  
+  "item.edit.tabs.status.buttons.delete.button": "Supprimer définitivement",
   // "item.edit.tabs.status.buttons.delete.label": "Completely expunge item",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.delete.label": "Completely expunge item",
-  
+  "item.edit.tabs.status.buttons.delete.label": "Supprimer l'Item définitivement",
   // "item.edit.tabs.status.buttons.mappedCollections.button": "Mapped collections",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.mappedCollections.button": "Mapped collections",
-  
+  "item.edit.tabs.status.buttons.mappedCollections.button": "Collections associées",
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
-  
+  "item.edit.tabs.status.buttons.mappedCollections.label": "Gérer les Collections associées",
   // "item.edit.tabs.status.buttons.move.button": "Move...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.move.button": "Move...",
-  
+  "item.edit.tabs.status.buttons.move.button": "Transférer...",
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
-  
+  "item.edit.tabs.status.buttons.move.label": "Transférer l'Item dans une autre collection",
   // "item.edit.tabs.status.buttons.private.button": "Make it private...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.private.button": "Make it private...",
-  
+  "item.edit.tabs.status.buttons.private.button": "Définir comme privé...",
   // "item.edit.tabs.status.buttons.private.label": "Make item private",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.private.label": "Make item private",
-  
+  "item.edit.tabs.status.buttons.private.label": "Définir l'Item en tant qu'Item Privé",
   // "item.edit.tabs.status.buttons.public.button": "Make it public...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.public.button": "Make it public...",
-  
+  "item.edit.tabs.status.buttons.public.button": "Définir comme public...",
   // "item.edit.tabs.status.buttons.public.label": "Make item public",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.public.label": "Make item public",
-  
+  "item.edit.tabs.status.buttons.public.label": "Définir l'Item en tant qu'Item public",
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
-  
+  "item.edit.tabs.status.buttons.reinstate.button": "Réintégrer...",
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
-  
+  "item.edit.tabs.status.buttons.reinstate.label": "Réintégrer l'Item",
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  
+  "item.edit.tabs.status.buttons.withdraw.button": "Retirer...",
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
-  
+  "item.edit.tabs.status.buttons.withdraw.label": "Retirer l'Item",
   // "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
-  
+  "item.edit.tabs.status.description": "Bienvenue sur la page de gestion de l'Item. D'ici, vous pouvez retirer, réintégrer, transférer ou supprimer l'Item. Dans les autres onglets, vous pouvez également mettre à jour, ajouter ou supprimer des métadonnées et/ou bitstreams.",
   // "item.edit.tabs.status.head": "Item Status",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.head": "Item Status",
-  
+  "item.edit.tabs.status.head": "Statut Item",
   // "item.edit.tabs.status.labels.handle": "Handle",
-  // TODO New key - Add a translation
   "item.edit.tabs.status.labels.handle": "Handle",
-  
   // "item.edit.tabs.status.labels.id": "Item Internal ID",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.labels.id": "Item Internal ID",
-  
+  "item.edit.tabs.status.labels.id": "Identifiant interne de l'Item",
   // "item.edit.tabs.status.labels.itemPage": "Item Page",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.labels.itemPage": "Item Page",
-  
+  "item.edit.tabs.status.labels.itemPage": "Page de l'Item",
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.labels.lastModified": "Last Modified",
-  
+  "item.edit.tabs.status.labels.lastModified": "Date de dernière modification",
   // "item.edit.tabs.status.title": "Item Edit -  Status",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.title": "Item Edit -  Status",
-  
+  "item.edit.tabs.status.title": "Edition Item - Statut",
   // "item.edit.tabs.view.head": "View Item",
-  // TODO New key - Add a translation
-  "item.edit.tabs.view.head": "View Item",
-  
+  "item.edit.tabs.view.head": "Voir Item",
   // "item.edit.tabs.view.title": "Item Edit -  View",
-  // TODO New key - Add a translation
-  "item.edit.tabs.view.title": "Item Edit -  View",
-  
-  
-  
+  "item.edit.tabs.view.title": "Edition Item - View",
   // "item.edit.withdraw.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.cancel": "Cancel",
-  
+  "item.edit.withdraw.cancel": "Annuler",
   // "item.edit.withdraw.confirm": "Withdraw",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.confirm": "Withdraw",
-  
+  "item.edit.withdraw.confirm": "Retirer",
   // "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
-  
+  "item.edit.withdraw.description": "Êtes-vous certain que cet Item doit être retiré du dépôt ?",
   // "item.edit.withdraw.error": "An error occurred while withdrawing the item",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.error": "An error occurred while withdrawing the item",
-  
+  "item.edit.withdraw.error": "Une erreur s'est produite lors du retrait de l'Item",
   // "item.edit.withdraw.header": "Withdraw item: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.header": "Withdraw item: {{ id }}",
-  
+  "item.edit.withdraw.header": "Retrait item: {{ id }}",
   // "item.edit.withdraw.success": "The item was withdrawn successfully",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.success": "The item was withdrawn successfully",
-  
-  
+  "item.edit.withdraw.success": "L'Item a été retiré avec succès",
   
   // "item.page.abstract": "Abstract",
-  // TODO New key - Add a translation
-  "item.page.abstract": "Abstract",
-  
+  "item.page.abstract": "Résumé",
   // "item.page.author": "Authors",
-  // TODO New key - Add a translation
-  "item.page.author": "Authors",
-  
+  "item.page.author": "Auteurs",
   // "item.page.citation": "Citation",
-  // TODO New key - Add a translation
   "item.page.citation": "Citation",
-  
   // "item.page.collections": "Collections",
-  // TODO New key - Add a translation
   "item.page.collections": "Collections",
-  
   // "item.page.date": "Date",
-  // TODO New key - Add a translation
   "item.page.date": "Date",
-  
   // "item.page.files": "Files",
-  // TODO New key - Add a translation
-  "item.page.files": "Files",
-  
+  "item.page.files": "Fichiers",
   // "item.page.filesection.description": "Description:",
-  // TODO New key - Add a translation
-  "item.page.filesection.description": "Description:",
-  
+  "item.page.filesection.description": "Description :",
   // "item.page.filesection.download": "Download",
-  // TODO New key - Add a translation
-  "item.page.filesection.download": "Download",
-  
+  "item.page.filesection.download": "Télécharger",
   // "item.page.filesection.format": "Format:",
-  // TODO New key - Add a translation
-  "item.page.filesection.format": "Format:",
-  
+  "item.page.filesection.format": "Format :",
   // "item.page.filesection.name": "Name:",
-  // TODO New key - Add a translation
-  "item.page.filesection.name": "Name:",
-  
+  "item.page.filesection.name": "Nom :",
   // "item.page.filesection.size": "Size:",
-  // TODO New key - Add a translation
-  "item.page.filesection.size": "Size:",
-  
+  "item.page.filesection.size": "Taille :",
   // "item.page.journal.search.title": "Articles in this journal",
-  // TODO New key - Add a translation
-  "item.page.journal.search.title": "Articles in this journal",
-  
+  "item.page.journal.search.title": "Articles dans cette Revue",
   // "item.page.link.full": "Full item page",
-  // TODO New key - Add a translation
-  "item.page.link.full": "Full item page",
-  
+  "item.page.link.full": "Notice complète",
   // "item.page.link.simple": "Simple item page",
-  // TODO New key - Add a translation
-  "item.page.link.simple": "Simple item page",
-  
+  "item.page.link.simple": "Notice simple",
   // "item.page.person.search.title": "Articles by this author",
-  // TODO New key - Add a translation
-  "item.page.person.search.title": "Articles by this author",
-  
+  "item.page.person.search.title": "Articles de cet auteur",
   // "item.page.related-items.view-more": "View more",
-  // TODO New key - Add a translation
-  "item.page.related-items.view-more": "View more",
-  
+  "item.page.related-items.view-more": "Plus de résultats",
   // "item.page.related-items.view-less": "View less",
-  // TODO New key - Add a translation
-  "item.page.related-items.view-less": "View less",
-  
+  "item.page.related-items.view-less": "Moins de résultats",
   // "item.page.subject": "Keywords",
-  // TODO New key - Add a translation
-  "item.page.subject": "Keywords",
-  
+  "item.page.subject": "Mots-clés",
   // "item.page.uri": "URI",
-  // TODO New key - Add a translation
   "item.page.uri": "URI",
   
-  
-  
   // "item.select.confirm": "Confirm selected",
-  // TODO New key - Add a translation
-  "item.select.confirm": "Confirm selected",
-  
+  "item.select.confirm": "Confirmer sélection",
   // "item.select.empty": "No items to show",
-  // TODO New key - Add a translation
-  "item.select.empty": "No items to show",
-  
+  "item.select.empty": "Aucun Item à afficher",
   // "item.select.table.author": "Author",
-  // TODO New key - Add a translation
-  "item.select.table.author": "Author",
-  
+  "item.select.table.author": "Auteur",
   // "item.select.table.collection": "Collection",
-  // TODO New key - Add a translation
   "item.select.table.collection": "Collection",
-  
   // "item.select.table.title": "Title",
-  // TODO New key - Add a translation
-  "item.select.table.title": "Title",
-  
-  
+  "item.select.table.title": "Titre",
   
   // "journal.listelement.badge": "Journal",
-  // TODO New key - Add a translation
-  "journal.listelement.badge": "Journal",
-  
+  "journal.listelement.badge": "Revue",
   // "journal.page.description": "Description",
-  // TODO New key - Add a translation
   "journal.page.description": "Description",
-  
   // "journal.page.editor": "Editor-in-Chief",
-  // TODO New key - Add a translation
-  "journal.page.editor": "Editor-in-Chief",
-  
+  "journal.page.editor": "Rédacteur en chef",
   // "journal.page.issn": "ISSN",
-  // TODO New key - Add a translation
   "journal.page.issn": "ISSN",
-  
   // "journal.page.publisher": "Publisher",
-  // TODO New key - Add a translation
-  "journal.page.publisher": "Publisher",
-  
+  "journal.page.publisher": "Editeur",
   // "journal.page.titleprefix": "Journal: ",
-  // TODO New key - Add a translation
-  "journal.page.titleprefix": "Journal: ",
-  
+  "journal.page.titleprefix": "Revue : ",
   // "journal.search.results.head": "Journal Search Results",
-  // TODO New key - Add a translation
-  "journal.search.results.head": "Journal Search Results",
-  
+  "journal.search.results.head": "Résultats de recherche Revue",
   // "journal.search.title": "DSpace Angular :: Journal Search",
-  // TODO New key - Add a translation
-  "journal.search.title": "DSpace Angular :: Journal Search",
-  
-  
+  "journal.search.title": "DSpace Angular :: Recherche Revue",
   
   // "journalissue.listelement.badge": "Journal Issue",
-  // TODO New key - Add a translation
   "journalissue.listelement.badge": "Journal Issue",
   
   // "journalissue.page.description": "Description",
