@@ -1629,6 +1629,10 @@
 
   "search.filters.entityType.JournalIssue": "Journal Issue",
 
+  "search.filters.entityType.JournalVolume": "Journal Volume",
+
+  "search.filters.entityType.OrgUnit": "Organizational Unit",
+
   "search.filters.has_content_in_original_bundle.true": "Yes",
 
   "search.filters.has_content_in_original_bundle.false": "No",

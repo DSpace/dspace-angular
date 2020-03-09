@@ -206,11 +206,11 @@ const MODULES = [
 ];
 
 const ROOT_MODULES = [
-  TooltipModule.forRoot(),
-  TranslateModule.forRoot({
+  TranslateModule.forChild({
     missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
     useDefaultLang: true
-  })
+  }),
+  TooltipModule.forRoot(),
 ];
 
 const PIPES = [
@@ -349,7 +349,9 @@ const COMPONENTS = [
   ExistingMetadataListElementComponent,
   ItemAdminSearchResultListElementComponent,
   CommunityAdminSearchResultListElementComponent,
-  CollectionAdminSearchResultListElementComponent
+  CollectionAdminSearchResultListElementComponent,
+  PublicationSearchResultListElementComponent,
+  ExistingMetadataListElementComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -415,7 +417,7 @@ const ENTRY_COMPONENTS = [
   ExternalSourceEntryImportModalComponent,
   ItemAdminSearchResultListElementComponent,
   CommunityAdminSearchResultListElementComponent,
-  CollectionAdminSearchResultListElementComponent
+  CollectionAdminSearchResultListElementComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -448,8 +450,8 @@ const DIRECTIVES = [
 
 @NgModule({
   imports: [
+    ...ROOT_MODULES,
     ...MODULES,
-    ...ROOT_MODULES
   ],
   declarations: [
     ...PIPES,
@@ -457,8 +459,7 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    PublicationSearchResultListElementComponent,
-    ExistingMetadataListElementComponent
+
   ],
   providers: [
     ...PROVIDERS
