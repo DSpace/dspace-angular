@@ -171,15 +171,15 @@
   "auth.messages.expired": "Votre session a expiré. Veuille vous reconnecter.",
   
   // "browse.comcol.by.author": "By Author",
-  "browse.comcol.by.author": "Par auteur",
+  "browse.comcol.by.author": "Auteur",
   // "browse.comcol.by.dateissued": "By Issue Date",
-  "browse.comcol.by.dateissued": "Par date de publication",
+  "browse.comcol.by.dateissued": "Date de publication",
   // "browse.comcol.by.subject": "By Subject",
-  "browse.comcol.by.subject": "Par sujet",
+  "browse.comcol.by.subject": "Sujet",
   // "browse.comcol.by.title": "By Title",
-  "browse.comcol.by.title": "Par titre",
+  "browse.comcol.by.title": "Titre",
   // "browse.comcol.head": "Browse",
-  "browse.comcol.head": "Parcourir",
+  "browse.comcol.head": "Parcourir par",
   // "browse.empty": "No items to show.",
   "browse.empty": "Aucun résultat.",
   // "browse.metadata.author": "Author",
@@ -820,359 +820,183 @@
   "journal.search.results.head": "Résultats de recherche Revue",
   // "journal.search.title": "DSpace Angular :: Journal Search",
   "journal.search.title": "DSpace Angular :: Recherche Revue",
-  
   // "journalissue.listelement.badge": "Journal Issue",
-  "journalissue.listelement.badge": "Journal Issue",
-  
+  "journalissue.listelement.badge": "Numéro de Revue",
   // "journalissue.page.description": "Description",
-  // TODO New key - Add a translation
   "journalissue.page.description": "Description",
-  
   // "journalissue.page.issuedate": "Issue Date",
-  // TODO New key - Add a translation
-  "journalissue.page.issuedate": "Issue Date",
-  
+  "journalissue.page.issuedate": "Date de publication",
   // "journalissue.page.journal-issn": "Journal ISSN",
-  // TODO New key - Add a translation
-  "journalissue.page.journal-issn": "Journal ISSN",
-  
+  "journalissue.page.journal-issn": "ISSN de la Revue",
   // "journalissue.page.journal-title": "Journal Title",
-  // TODO New key - Add a translation
-  "journalissue.page.journal-title": "Journal Title",
-  
+  "journalissue.page.journal-title": "Titre de la Revue",
   // "journalissue.page.keyword": "Keywords",
-  // TODO New key - Add a translation
-  "journalissue.page.keyword": "Keywords",
-  
+  "journalissue.page.keyword": "Mots-clés",
   // "journalissue.page.number": "Number",
-  // TODO New key - Add a translation
-  "journalissue.page.number": "Number",
-  
+  "journalissue.page.number": "Nombre",
   // "journalissue.page.titleprefix": "Journal Issue: ",
-  // TODO New key - Add a translation
-  "journalissue.page.titleprefix": "Journal Issue: ",
-  
-  
-  
+  "journalissue.page.titleprefix": "Numéro de Revue : ",
+
   // "journalvolume.listelement.badge": "Journal Volume",
-  // TODO New key - Add a translation
-  "journalvolume.listelement.badge": "Journal Volume",
-  
+  "journalvolume.listelement.badge": "Volume de Revue",
   // "journalvolume.page.description": "Description",
-  // TODO New key - Add a translation
   "journalvolume.page.description": "Description",
-  
   // "journalvolume.page.issuedate": "Issue Date",
-  // TODO New key - Add a translation
-  "journalvolume.page.issuedate": "Issue Date",
-  
+  "journalvolume.page.issuedate": "Date de publication",
   // "journalvolume.page.titleprefix": "Journal Volume: ",
-  // TODO New key - Add a translation
-  "journalvolume.page.titleprefix": "Journal Volume: ",
-  
+  "journalvolume.page.titleprefix": "Volume de Revue : ",
   // "journalvolume.page.volume": "Volume",
-  // TODO New key - Add a translation
   "journalvolume.page.volume": "Volume",
   
-  
-  
   // "loading.browse-by": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.browse-by": "Loading items...",
-  
+  "loading.browse-by": "Items en cours de chargement...",
   // "loading.browse-by-page": "Loading page...",
-  // TODO New key - Add a translation
-  "loading.browse-by-page": "Loading page...",
-  
+  "loading.browse-by-page": "Page en cours de chargement...",
   // "loading.collection": "Loading collection...",
-  // TODO New key - Add a translation
-  "loading.collection": "Loading collection...",
-  
+  "loading.collection": "Collection en cours de chargement...",
   // "loading.collections": "Loading collections...",
-  // TODO New key - Add a translation
-  "loading.collections": "Loading collections...",
-  
+  "loading.collections": "Collections en cours de chargement...",
   // "loading.community": "Loading community...",
-  // TODO New key - Add a translation
-  "loading.community": "Loading community...",
-  
+  "loading.community": "Communauté en cours de chargement...",
   // "loading.default": "Loading...",
-  // TODO New key - Add a translation
-  "loading.default": "Loading...",
-  
+  "loading.default": "En cours de chargement...",
   // "loading.item": "Loading item...",
-  // TODO New key - Add a translation
-  "loading.item": "Loading item...",
-  
+  "loading.item": "Item en cours de chargement...",
   // "loading.items": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.items": "Loading items...",
-  
+  "loading.items": "Items en cours de chargement...",
   // "loading.mydspace-results": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.mydspace-results": "Loading items...",
-  
+  "loading.mydspace-results": "Items en cours de chargement...",
   // "loading.objects": "Loading...",
-  // TODO New key - Add a translation
-  "loading.objects": "Loading...",
-  
+  "loading.objects": "En cours de chargement...",
   // "loading.recent-submissions": "Loading recent submissions...",
-  // TODO New key - Add a translation
-  "loading.recent-submissions": "Loading recent submissions...",
-  
+  "loading.recent-submissions": "Dépôts récents en cours de chargement...",
   // "loading.search-results": "Loading search results...",
-  // TODO New key - Add a translation
-  "loading.search-results": "Loading search results...",
-  
+  "loading.search-results": "Résultats de recherche en cours de chargement...",
   // "loading.sub-collections": "Loading sub-collections...",
-  // TODO New key - Add a translation
-  "loading.sub-collections": "Loading sub-collections...",
-  
+  "loading.sub-collections": "Sous-Collections en cours de chargement...",
   // "loading.sub-communities": "Loading sub-communities...",
-  // TODO New key - Add a translation
-  "loading.sub-communities": "Loading sub-communities...",
-  
+  "loading.sub-communities": "Sous-Communautés en cours de chargement...",
   // "loading.top-level-communities": "Loading top-level communities...",
-  // TODO New key - Add a translation
-  "loading.top-level-communities": "Loading top-level communities...",
-  
-  
+  "loading.top-level-communities": "Communautés de 1er niveau en cours de chargement...",
   
   // "login.form.email": "Email address",
-  // TODO New key - Add a translation
-  "login.form.email": "Email address",
-  
+  "login.form.email": "Adresse e-mail",
   // "login.form.forgot-password": "Have you forgotten your password?",
-  // TODO New key - Add a translation
-  "login.form.forgot-password": "Have you forgotten your password?",
-  
+  "login.form.forgot-password": "Mot de passe oublié ?",
   // "login.form.header": "Please log in to DSpace",
-  // TODO New key - Add a translation
-  "login.form.header": "Please log in to DSpace",
-  
+  "login.form.header": "Se connecter sur DSpace",
   // "login.form.new-user": "New user? Click here to register.",
-  // TODO New key - Add a translation
-  "login.form.new-user": "New user? Click here to register.",
-  
+  "login.form.new-user": "Nouvel utilisateur? Cliquer ici pour vous enregistrer.",
   // "login.form.password": "Password",
-  // TODO New key - Add a translation
-  "login.form.password": "Password",
-  
+  "login.form.password": "Mot de passe",
   // "login.form.submit": "Log in",
-  // TODO New key - Add a translation
-  "login.form.submit": "Log in",
-  
+  "login.form.submit": "Se connecter",
   // "login.title": "Login",
-  // TODO New key - Add a translation
-  "login.title": "Login",
-  
-  
+  "login.title": "Connection",
   
   // "logout.form.header": "Log out from DSpace",
-  // TODO New key - Add a translation
-  "logout.form.header": "Log out from DSpace",
-  
+  "logout.form.header": "Se déconnecter de DSpace",
   // "logout.form.submit": "Log out",
-  // TODO New key - Add a translation
-  "logout.form.submit": "Log out",
-  
+  "logout.form.submit": "Se déconnecter",
   // "logout.title": "Logout",
-  // TODO New key - Add a translation
-  "logout.title": "Logout",
-  
-  
+  "logout.title": "Déconnection",
   
   // "menu.header.admin": "Admin",
-  // TODO New key - Add a translation
   "menu.header.admin": "Admin",
-  
   // "menu.header.image.logo": "Repository logo",
-  // TODO New key - Add a translation
-  "menu.header.image.logo": "Repository logo",
-  
-  
+  "menu.header.image.logo": "Logo du site",
   
   // "menu.section.access_control": "Access Control",
-  // TODO New key - Add a translation
-  "menu.section.access_control": "Access Control",
-  
+  "menu.section.access_control": "Contrôle d'accès",
   // "menu.section.access_control_authorizations": "Authorizations",
-  // TODO New key - Add a translation
-  "menu.section.access_control_authorizations": "Authorizations",
-  
+  "menu.section.access_control_authorizations": "Autorisations",
   // "menu.section.access_control_groups": "Groups",
-  // TODO New key - Add a translation
-  "menu.section.access_control_groups": "Groups",
-  
+  "menu.section.access_control_groups": "Groupes d'utilisateurs",
   // "menu.section.access_control_people": "People",
-  // TODO New key - Add a translation
-  "menu.section.access_control_people": "People",
-  
-  
-  
+  "menu.section.access_control_people": "Utilisateurs",
   // "menu.section.browse_community": "This Community",
-  // TODO New key - Add a translation
-  "menu.section.browse_community": "This Community",
-  
+  "menu.section.browse_community": "Cette Communauté",
   // "menu.section.browse_community_by_author": "By Author",
-  // TODO New key - Add a translation
-  "menu.section.browse_community_by_author": "By Author",
-  
+  "menu.section.browse_community_by_author": "Auteur",
   // "menu.section.browse_community_by_issue_date": "By Issue Date",
-  // TODO New key - Add a translation
-  "menu.section.browse_community_by_issue_date": "By Issue Date",
-  
+  "menu.section.browse_community_by_issue_date": "Date de publication",
   // "menu.section.browse_community_by_title": "By Title",
-  // TODO New key - Add a translation
-  "menu.section.browse_community_by_title": "By Title",
-  
+  "menu.section.browse_community_by_title": "Titre",
   // "menu.section.browse_global": "All of DSpace",
-  // TODO New key - Add a translation
-  "menu.section.browse_global": "All of DSpace",
-  
+  "menu.section.browse_global": "Tout DSpace",
   // "menu.section.browse_global_by_author": "By Author",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_author": "By Author",
-  
+  "menu.section.browse_global_by_author": "Auteur",
   // "menu.section.browse_global_by_dateissued": "By Issue Date",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_dateissued": "By Issue Date",
-  
+  "menu.section.browse_global_by_dateissued": "Date de publication",
   // "menu.section.browse_global_by_subject": "By Subject",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_subject": "By Subject",
-  
+  "menu.section.browse_global_by_subject": "Sujet",
   // "menu.section.browse_global_by_title": "By Title",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_title": "By Title",
-  
+  "menu.section.browse_global_by_title": "Titre",
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_communities_and_collections": "Communities & Collections",
-  
-  
+  "menu.section.browse_global_communities_and_collections": "Communautés & Collections",
   
   // "menu.section.control_panel": "Control Panel",
-  // TODO New key - Add a translation
-  "menu.section.control_panel": "Control Panel",
-  
+  "menu.section.control_panel": "Panneau de configuration",
   // "menu.section.curation_task": "Curation Task",
-  // TODO New key - Add a translation
-  "menu.section.curation_task": "Curation Task",
-  
-  
+  "menu.section.curation_task": "Tâches de Curation",
   
   // "menu.section.edit": "Edit",
-  // TODO New key - Add a translation
-  "menu.section.edit": "Edit",
-  
+  "menu.section.edit": "Editer",
   // "menu.section.edit_collection": "Collection",
-  // TODO New key - Add a translation
   "menu.section.edit_collection": "Collection",
-  
   // "menu.section.edit_community": "Community",
-  // TODO New key - Add a translation
-  "menu.section.edit_community": "Community",
-  
+  "menu.section.edit_community": "Communauté",
   // "menu.section.edit_item": "Item",
-  // TODO New key - Add a translation
   "menu.section.edit_item": "Item",
   
-  
-  
   // "menu.section.export": "Export",
-  // TODO New key - Add a translation
-  "menu.section.export": "Export",
-  
+  "menu.section.export": "Exporter",
   // "menu.section.export_collection": "Collection",
-  // TODO New key - Add a translation
   "menu.section.export_collection": "Collection",
-  
   // "menu.section.export_community": "Community",
-  // TODO New key - Add a translation
-  "menu.section.export_community": "Community",
-  
+  "menu.section.export_community": "Communauté",
   // "menu.section.export_item": "Item",
-  // TODO New key - Add a translation
   "menu.section.export_item": "Item",
-  
   // "menu.section.export_metadata": "Metadata",
-  // TODO New key - Add a translation
-  "menu.section.export_metadata": "Metadata",
-  
-  
+  "menu.section.export_metadata": "Metadonnées",
   
   // "menu.section.find": "Find",
-  // TODO New key - Add a translation
-  "menu.section.find": "Find",
-  
+  "menu.section.find": "Rechercher",
   // "menu.section.find_items": "Items",
-  // TODO New key - Add a translation
   "menu.section.find_items": "Items",
-  
   // "menu.section.find_private_items": "Private Items",
-  // TODO New key - Add a translation
-  "menu.section.find_private_items": "Private Items",
-  
+  "menu.section.find_private_items": "Items Privés",
   // "menu.section.find_withdrawn_items": "Withdrawn Items",
-  // TODO New key - Add a translation
-  "menu.section.find_withdrawn_items": "Withdrawn Items",
-  
-  
-  
+  "menu.section.find_withdrawn_items": "Items Retirés",
+
+  // These are the hints when hovering over the icons of the sidebar menu
   // "menu.section.icon.access_control": "Access Control menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.access_control": "Access Control menu section",
-  
+  "menu.section.icon.access_control": "Section du menu relative au contrôle d'accès",  
   // "menu.section.icon.control_panel": "Control Panel menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.control_panel": "Control Panel menu section",
-  
+  "menu.section.icon.control_panel": "Section du menu relative au panneau de configuration",
   // "menu.section.icon.curation_task": "Curation Task menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.curation_task": "Curation Task menu section",
-  
+  "menu.section.icon.curation_task": "Section du menu relative aux tâches de Curation",
   // "menu.section.icon.edit": "Edit menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.edit": "Edit menu section",
-  
+  "menu.section.icon.edit": "Section du menu relative à l'édition",
   // "menu.section.icon.export": "Export menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.export": "Export menu section",
-  
+  "menu.section.icon.export": "Section du menu relative à l'export",
   // "menu.section.icon.find": "Find menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.find": "Find menu section",
-  
+  "menu.section.icon.find": "Section du menu relative à la recherche",
   // "menu.section.icon.import": "Import menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.import": "Import menu section",
-  
+  "menu.section.icon.import": "Section du menu relative à l'import",
   // "menu.section.icon.new": "New menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.new": "New menu section",
-  
+  "menu.section.icon.new": "Section du menu relative à l'ajout d'éléments",
   // "menu.section.icon.pin": "Pin sidebar",
-  // TODO New key - Add a translation
-  "menu.section.icon.pin": "Pin sidebar",
-  
+  "menu.section.icon.pin": "Epingler menu latéral",
   // "menu.section.icon.registries": "Registries menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.registries": "Registries menu section",
-  
+  "menu.section.icon.registries": "Section du menu relative aux Registres",
   // "menu.section.icon.statistics_task": "Statistics Task menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.statistics_task": "Statistics Task menu section",
-  
+  "menu.section.icon.statistics_task": "Section du menu relative aux tâches Statistiques",
   // "menu.section.icon.unpin": "Unpin sidebar",
-  // TODO New key - Add a translation
-  "menu.section.icon.unpin": "Unpin sidebar",
-  
-  
+  "menu.section.icon.unpin": "Libérer menu latéral",
   
   // "menu.section.import": "Import",
-  // TODO New key - Add a translation
-  "menu.section.import": "Import",
+  "menu.section.import": "Importer",
   
   // "menu.section.import_batch": "Batch Import (ZIP)",
   // TODO New key - Add a translation
