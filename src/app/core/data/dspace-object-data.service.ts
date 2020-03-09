@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -31,8 +32,9 @@ class DataServiceImpl extends DataService<DSpaceObject> {
     super();
   }
 
-  getIDHref(endpoint, resourceID): string {
-    return endpoint.replace(/\{\?uuid\}/, `?uuid=${resourceID}`);
+  getIDHref(endpoint, resourceID,  ...linksToFollow: Array<FollowLinkConfig<DSpaceObject>>): string {
+    return this.buildHrefFromFindOptions( endpoint.replace(/\{\?uuid\}/, `?uuid=${resourceID}`),
+      {}, [], ...linksToFollow);
   }
 }
 
