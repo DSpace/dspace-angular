@@ -997,525 +997,265 @@
   
   // "menu.section.import": "Import",
   "menu.section.import": "Importer",
-  
   // "menu.section.import_batch": "Batch Import (ZIP)",
   // TODO New key - Add a translation
-  "menu.section.import_batch": "Batch Import (ZIP)",
-  
+  "menu.section.import_batch": "Import par lot (ZIP)",
   // "menu.section.import_metadata": "Metadata",
-  // TODO New key - Add a translation
-  "menu.section.import_metadata": "Metadata",
-  
-  
+  "menu.section.import_metadata": "Import de métadonnées",
   
   // "menu.section.new": "New",
-  // TODO New key - Add a translation
-  "menu.section.new": "New",
-  
+  "menu.section.new": "Créer",
   // "menu.section.new_collection": "Collection",
-  // TODO New key - Add a translation
   "menu.section.new_collection": "Collection",
-  
   // "menu.section.new_community": "Community",
-  // TODO New key - Add a translation
-  "menu.section.new_community": "Community",
-  
+  "menu.section.new_community": "Communauté",
   // "menu.section.new_item": "Item",
-  // TODO New key - Add a translation
   "menu.section.new_item": "Item",
-  
   // "menu.section.new_item_version": "Item Version",
-  // TODO New key - Add a translation
-  "menu.section.new_item_version": "Item Version",
-  
-  
-  
+  "menu.section.new_item_version": "Version",
   // "menu.section.pin": "Pin sidebar",
-  // TODO New key - Add a translation
-  "menu.section.pin": "Pin sidebar",
-  
+  "menu.section.pin": "Epingler menu latéral",
   // "menu.section.unpin": "Unpin sidebar",
-  // TODO New key - Add a translation
-  "menu.section.unpin": "Unpin sidebar",
-  
-  
+  "menu.section.unpin": "Libérer menu latéral",
   
   // "menu.section.registries": "Registries",
-  // TODO New key - Add a translation
-  "menu.section.registries": "Registries",
-  
+  "menu.section.registries": "Registres",
   // "menu.section.registries_format": "Format",
-  // TODO New key - Add a translation
   "menu.section.registries_format": "Format",
-  
   // "menu.section.registries_metadata": "Metadata",
-  // TODO New key - Add a translation
-  "menu.section.registries_metadata": "Metadata",
-  
-  
+  "menu.section.registries_metadata": "Métadonnées",
   
   // "menu.section.statistics": "Statistics",
-  // TODO New key - Add a translation
-  "menu.section.statistics": "Statistics",
-  
+  "menu.section.statistics": "Statistiques",
   // "menu.section.statistics_task": "Statistics Task",
-  // TODO New key - Add a translation
-  "menu.section.statistics_task": "Statistics Task",
-  
-  
+  "menu.section.statistics_task": "Tâche statistiques",
   
   // "menu.section.toggle.access_control": "Toggle Access Control section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.access_control": "Toggle Access Control section",
-  
+  "menu.section.toggle.access_control": "Ouvrir/Fermer section Contrôle d'accès",
   // "menu.section.toggle.control_panel": "Toggle Control Panel section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.control_panel": "Toggle Control Panel section",
-  
+  "menu.section.toggle.control_panel": "Ouvrir/Fermer section Panneau de configuration",
   // "menu.section.toggle.curation_task": "Toggle Curation Task section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.curation_task": "Toggle Curation Task section",
-  
+  "menu.section.toggle.curation_task": "Ouvrir/Fermer section Tâche de Curation",
   // "menu.section.toggle.edit": "Toggle Edit section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.edit": "Toggle Edit section",
-  
+  "menu.section.toggle.edit": "Ouvrir/Fermer section Editer",
   // "menu.section.toggle.export": "Toggle Export section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.export": "Toggle Export section",
-  
+  "menu.section.toggle.export": "Ouvrir/Fermer section Exporter",
   // "menu.section.toggle.find": "Toggle Find section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.find": "Toggle Find section",
-  
+  "menu.section.toggle.find": "Ouvrir/Fermer section Rechercher",
   // "menu.section.toggle.import": "Toggle Import section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.import": "Toggle Import section",
-  
+  "menu.section.toggle.import": "Ouvrir/Fermer section Importer",
   // "menu.section.toggle.new": "Toggle New section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.new": "Toggle New section",
-  
+  "menu.section.toggle.new": "Ouvrir/Fermer section Créer",
   // "menu.section.toggle.registries": "Toggle Registries section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.registries": "Toggle Registries section",
-  
+  "menu.section.toggle.registries": "Ouvrir/Fermer section Registres",
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
-  
-  
+  "menu.section.toggle.statistics_task": "Ouvrir/Fermer section Tâche statistiques",
   
   // "mydspace.description": "",
-  // TODO New key - Add a translation
   "mydspace.description": "",
-  
   // "mydspace.general.text-here": "HERE",
-  // TODO New key - Add a translation
-  "mydspace.general.text-here": "HERE",
-  
+  "mydspace.general.text-here": "ICI",
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
-  // TODO New key - Add a translation
-  "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
-  
+  "mydspace.messages.controller-help": "Sélectionner cette option pour envoyer un message au déposant.",
   // "mydspace.messages.description-placeholder": "Insert your message here...",
-  // TODO New key - Add a translation
-  "mydspace.messages.description-placeholder": "Insert your message here...",
-  
+  "mydspace.messages.description-placeholder": "Insérer votre message ici...",
   // "mydspace.messages.hide-msg": "Hide message",
-  // TODO New key - Add a translation
-  "mydspace.messages.hide-msg": "Hide message",
-  
+  "mydspace.messages.hide-msg": "Masquer message",
   // "mydspace.messages.mark-as-read": "Mark as read",
-  // TODO New key - Add a translation
-  "mydspace.messages.mark-as-read": "Mark as read",
-  
+  "mydspace.messages.mark-as-read": "Marquer comme lu",
   // "mydspace.messages.mark-as-unread": "Mark as unread",
-  // TODO New key - Add a translation
-  "mydspace.messages.mark-as-unread": "Mark as unread",
-  
+  "mydspace.messages.mark-as-unread": "Marquer comme non lu",
   // "mydspace.messages.no-content": "No content.",
-  // TODO New key - Add a translation
-  "mydspace.messages.no-content": "No content.",
-  
+  "mydspace.messages.no-content": "Aucun contenu.",
   // "mydspace.messages.no-messages": "No messages yet.",
-  // TODO New key - Add a translation
-  "mydspace.messages.no-messages": "No messages yet.",
-  
+  "mydspace.messages.no-messages": "Pas encore de messages.",
   // "mydspace.messages.send-btn": "Send",
-  // TODO New key - Add a translation
-  "mydspace.messages.send-btn": "Send",
-  
+  "mydspace.messages.send-btn": "Envoyer",
   // "mydspace.messages.show-msg": "Show message",
-  // TODO New key - Add a translation
-  "mydspace.messages.show-msg": "Show message",
-  
+  "mydspace.messages.show-msg": "Afficher message",
   // "mydspace.messages.subject-placeholder": "Subject...",
-  // TODO New key - Add a translation
-  "mydspace.messages.subject-placeholder": "Subject...",
-  
+  "mydspace.messages.subject-placeholder": "Objet...",
   // "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
-  // TODO New key - Add a translation
-  "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
-  
+  "mydspace.messages.submitter-help": "Sélectionner cette option pour envoyer un message au vérificateur.",
   // "mydspace.messages.title": "Messages",
-  // TODO New key - Add a translation
   "mydspace.messages.title": "Messages",
-  
   // "mydspace.messages.to": "To",
-  // TODO New key - Add a translation
-  "mydspace.messages.to": "To",
-  
+  "mydspace.messages.to": "À",
   // "mydspace.new-submission": "New submission",
-  // TODO New key - Add a translation
-  "mydspace.new-submission": "New submission",
-  
+  "mydspace.new-submission": "Nouveau dépôt",
   // "mydspace.results.head": "Your submissions",
-  // TODO New key - Add a translation
-  "mydspace.results.head": "Your submissions",
-  
+  "mydspace.results.head": "Vos dépôts",
   // "mydspace.results.no-abstract": "No Abstract",
-  // TODO New key - Add a translation
-  "mydspace.results.no-abstract": "No Abstract",
-  
+  "mydspace.results.no-abstract": "Aucun résumé",
   // "mydspace.results.no-authors": "No Authors",
-  // TODO New key - Add a translation
-  "mydspace.results.no-authors": "No Authors",
-  
+  "mydspace.results.no-authors": "Aucun auteur",
   // "mydspace.results.no-collections": "No Collections",
-  // TODO New key - Add a translation
-  "mydspace.results.no-collections": "No Collections",
-  
+  "mydspace.results.no-collections": "Aucune Collection",
   // "mydspace.results.no-date": "No Date",
-  // TODO New key - Add a translation
-  "mydspace.results.no-date": "No Date",
-  
+  "mydspace.results.no-date": "Aucune date",
   // "mydspace.results.no-files": "No Files",
-  // TODO New key - Add a translation
-  "mydspace.results.no-files": "No Files",
-  
+  "mydspace.results.no-files": "Aucun fichier",
   // "mydspace.results.no-results": "There were no items to show",
-  // TODO New key - Add a translation
-  "mydspace.results.no-results": "There were no items to show",
-  
+  "mydspace.results.no-results": "Aucun Item à afficher",
   // "mydspace.results.no-title": "No title",
-  // TODO New key - Add a translation
-  "mydspace.results.no-title": "No title",
-  
+  "mydspace.results.no-title": "Aucun titre",
   // "mydspace.results.no-uri": "No Uri",
-  // TODO New key - Add a translation
-  "mydspace.results.no-uri": "No Uri",
-  
+  "mydspace.results.no-uri": "Aucune URL",
   // "mydspace.show.workflow": "All tasks",
-  // TODO New key - Add a translation
-  "mydspace.show.workflow": "All tasks",
-  
+  "mydspace.show.workflow": "Tâches de validation",
   // "mydspace.show.workspace": "Your Submissions",
-  // TODO New key - Add a translation
-  "mydspace.show.workspace": "Your Submissions",
-  
+  "mydspace.show.workspace": "Vos dépôts",
   // "mydspace.status.archived": "Archived",
-  // TODO New key - Add a translation
-  "mydspace.status.archived": "Archived",
-  
+  "mydspace.status.archived": "Archivés",
   // "mydspace.status.validation": "Validation",
-  // TODO New key - Add a translation
-  "mydspace.status.validation": "Validation",
-  
+  "mydspace.status.validation": "En cours de validation",
   // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  // TODO New key - Add a translation
-  "mydspace.status.waiting-for-controller": "Waiting for controller",
-  
+  "mydspace.status.waiting-for-controller": "En attente d'assignation",
   // "mydspace.status.workflow": "Workflow",
-  // TODO New key - Add a translation
   "mydspace.status.workflow": "Workflow",
-  
   // "mydspace.status.workspace": "Workspace",
-  // TODO New key - Add a translation
   "mydspace.status.workspace": "Workspace",
-  
   // "mydspace.title": "MyDSpace",
-  // TODO New key - Add a translation
   "mydspace.title": "MyDSpace",
-  
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
-  // TODO New key - Add a translation
-  "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
-  
+  "mydspace.upload.upload-failed": "Erreur à la création du Workspace. Veuillez vérifier le contenu téléchargé avant de réessayer.",
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
-  // TODO New key - Add a translation
-  "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
-  
+  "mydspace.upload.upload-multiple-successful": "{{qty}} nouveaux Items créés dans le Workspace.",
   // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  // TODO New key - Add a translation
-  "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  
+  "mydspace.upload.upload-successful": "Nouvel item créé dans le Workspace. Cliquer {{here}} pour l'éditer.",
   // "mydspace.view-btn": "View",
-  // TODO New key - Add a translation
-  "mydspace.view-btn": "View",
-  
-  
+  "mydspace.view-btn": "Afficher",
   
   // "nav.browse.header": "All of DSpace",
-  // TODO New key - Add a translation
-  "nav.browse.header": "All of DSpace",
-  
+  "nav.browse.header": "Tout Dspace",
   // "nav.community-browse.header": "By Community",
-  // TODO New key - Add a translation
-  "nav.community-browse.header": "By Community",
-  
+  "nav.community-browse.header": "Par Communauté",
   // "nav.language": "Language switch",
-  // TODO New key - Add a translation
-  "nav.language": "Language switch",
-  
+  "nav.language": "Sélecteur de langue",
   // "nav.login": "Log In",
-  // TODO New key - Add a translation
-  "nav.login": "Log In",
-  
+  "nav.login": "Se connecter",
   // "nav.logout": "Log Out",
-  // TODO New key - Add a translation
-  "nav.logout": "Log Out",
-  
+  "nav.logout": "Se déconnecter",
   // "nav.mydspace": "MyDSpace",
-  // TODO New key - Add a translation
   "nav.mydspace": "MyDSpace",
-  
   // "nav.search": "Search",
-  // TODO New key - Add a translation
-  "nav.search": "Search",
-  
+  "nav.search": "Rechercher",
   // "nav.statistics.header": "Statistics",
-  // TODO New key - Add a translation
-  "nav.statistics.header": "Statistics",
-  
-  
+  "nav.statistics.header": "Statistiques",
   
   // "orgunit.listelement.badge": "Organizational Unit",
-  // TODO New key - Add a translation
-  "orgunit.listelement.badge": "Organizational Unit",
-  
+  "orgunit.listelement.badge": "Structure Organisationnelle",
   // "orgunit.page.city": "City",
-  // TODO New key - Add a translation
-  "orgunit.page.city": "City",
-  
+  "orgunit.page.city": "Ville",
   // "orgunit.page.country": "Country",
-  // TODO New key - Add a translation
-  "orgunit.page.country": "Country",
-  
+  "orgunit.page.country": "Pays",
   // "orgunit.page.dateestablished": "Date established",
-  // TODO New key - Add a translation
-  "orgunit.page.dateestablished": "Date established",
-  
+  "orgunit.page.dateestablished": "Date de fondation",
   // "orgunit.page.description": "Description",
-  // TODO New key - Add a translation
   "orgunit.page.description": "Description",
-  
   // "orgunit.page.id": "ID",
-  // TODO New key - Add a translation
   "orgunit.page.id": "ID",
-  
   // "orgunit.page.titleprefix": "Organizational Unit: ",
-  // TODO New key - Add a translation
-  "orgunit.page.titleprefix": "Organizational Unit: ",
-  
-  
+  "orgunit.page.titleprefix": "Structure Organisationnelle : ",
   
   // "pagination.results-per-page": "Results Per Page",
-  // TODO New key - Add a translation
-  "pagination.results-per-page": "Results Per Page",
-  
+  "pagination.results-per-page": "Résultats par page",
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
-  // TODO New key - Add a translation
-  "pagination.showing.detail": "{{ range }} of {{ total }}",
-  
+  "pagination.showing.detail": "{{ range }} sur {{ total }}",
   // "pagination.showing.label": "Now showing ",
-  // TODO New key - Add a translation
-  "pagination.showing.label": "Now showing ",
-  
+  "pagination.showing.label": "Voici les éléments ",
   // "pagination.sort-direction": "Sort Options",
-  // TODO New key - Add a translation
-  "pagination.sort-direction": "Sort Options",
-  
-  
+  "pagination.sort-direction": "Options de tri",
   
   // "person.listelement.badge": "Person",
-  // TODO New key - Add a translation
-  "person.listelement.badge": "Person",
-  
+  "person.listelement.badge": "Personne",
   // "person.page.birthdate": "Birth Date",
-  // TODO New key - Add a translation
-  "person.page.birthdate": "Birth Date",
-  
+  "person.page.birthdate": "Date de naissance",
   // "person.page.email": "Email Address",
-  // TODO New key - Add a translation
-  "person.page.email": "Email Address",
-  
+  "person.page.email": "Adresse mail",
   // "person.page.firstname": "First Name",
-  // TODO New key - Add a translation
-  "person.page.firstname": "First Name",
-  
+  "person.page.firstname": "Prénom",
   // "person.page.jobtitle": "Job Title",
-  // TODO New key - Add a translation
-  "person.page.jobtitle": "Job Title",
-  
+  "person.page.jobtitle": "Fonction",
   // "person.page.lastname": "Last Name",
-  // TODO New key - Add a translation
-  "person.page.lastname": "Last Name",
-  
+  "person.page.lastname": "Nom de famille",
   // "person.page.link.full": "Show all metadata",
-  // TODO New key - Add a translation
-  "person.page.link.full": "Show all metadata",
-  
+  "person.page.link.full": "Afficher toutes les métadonnées",
   // "person.page.orcid": "ORCID",
-  // TODO New key - Add a translation
   "person.page.orcid": "ORCID",
-  
   // "person.page.staffid": "Staff ID",
-  // TODO New key - Add a translation
   "person.page.staffid": "Staff ID",
-  
   // "person.page.titleprefix": "Person: ",
-  // TODO New key - Add a translation
-  "person.page.titleprefix": "Person: ",
-  
+  "person.page.titleprefix": "Personne : ",
   // "person.search.results.head": "Person Search Results",
-  // TODO New key - Add a translation
-  "person.search.results.head": "Person Search Results",
-  
+  "person.search.results.head": "Résultats de recherche Personne",
   // "person.search.title": "DSpace Angular :: Person Search",
-  // TODO New key - Add a translation
-  "person.search.title": "DSpace Angular :: Person Search",
-  
-  
+  "person.search.title": "DSpace Angular :: Recherche Personne",
   
   // "project.listelement.badge": "Research Project",
-  // TODO New key - Add a translation
-  "project.listelement.badge": "Research Project",
-  
+  "project.listelement.badge": "Projet de recherche",
   // "project.page.contributor": "Contributors",
-  // TODO New key - Add a translation
-  "project.page.contributor": "Contributors",
-  
+  "project.page.contributor": "Contributeurs",
   // "project.page.description": "Description",
-  // TODO New key - Add a translation
   "project.page.description": "Description",
-  
   // "project.page.expectedcompletion": "Expected Completion",
-  // TODO New key - Add a translation
-  "project.page.expectedcompletion": "Expected Completion",
-  
+  "project.page.expectedcompletion": "Echéance prévue",
   // "project.page.funder": "Funders",
-  // TODO New key - Add a translation
-  "project.page.funder": "Funders",
-  
+  "project.page.funder": "Bailleurs de fonds",
   // "project.page.id": "ID",
-  // TODO New key - Add a translation
   "project.page.id": "ID",
-  
   // "project.page.keyword": "Keywords",
-  // TODO New key - Add a translation
-  "project.page.keyword": "Keywords",
-  
+  "project.page.keyword": "Mots-clés",
   // "project.page.status": "Status",
-  // TODO New key - Add a translation
-  "project.page.status": "Status",
-  
+  "project.page.status": "Statut",
   // "project.page.titleprefix": "Research Project: ",
-  // TODO New key - Add a translation
-  "project.page.titleprefix": "Research Project: ",
-  
-  
+  "project.page.titleprefix": "Projet de recherche : ",
   
   // "publication.listelement.badge": "Publication",
-  // TODO New key - Add a translation
   "publication.listelement.badge": "Publication",
-  
   // "publication.page.description": "Description",
-  // TODO New key - Add a translation
   "publication.page.description": "Description",
-  
   // "publication.page.journal-issn": "Journal ISSN",
-  // TODO New key - Add a translation
-  "publication.page.journal-issn": "Journal ISSN",
-  
+  "publication.page.journal-issn": "ISSN de la revue",
   // "publication.page.journal-title": "Journal Title",
-  // TODO New key - Add a translation
-  "publication.page.journal-title": "Journal Title",
-  
+  "publication.page.journal-title": "Titre de la revue",
   // "publication.page.publisher": "Publisher",
-  // TODO New key - Add a translation
-  "publication.page.publisher": "Publisher",
-  
+  "publication.page.publisher": "Editeur",
   // "publication.page.titleprefix": "Publication: ",
-  // TODO New key - Add a translation
-  "publication.page.titleprefix": "Publication: ",
-  
+  "publication.page.titleprefix": "Publication : ",
   // "publication.page.volume-title": "Volume Title",
-  // TODO New key - Add a translation
-  "publication.page.volume-title": "Volume Title",
-  
+  "publication.page.volume-title": "Titre du volume",
   // "publication.search.results.head": "Publication Search Results",
-  // TODO New key - Add a translation
-  "publication.search.results.head": "Publication Search Results",
-  
+  "publication.search.results.head": "Résultats de recherche Publication",
   // "publication.search.title": "DSpace Angular :: Publication Search",
-  // TODO New key - Add a translation
-  "publication.search.title": "DSpace Angular :: Publication Search",
-  
-  
+  "publication.search.title": "DSpace Angular :: Recherche Publication",
   
   // "relationships.isAuthorOf": "Authors",
-  // TODO New key - Add a translation
-  "relationships.isAuthorOf": "Authors",
-  
+  "relationships.isAuthorOf": "Auteurs",
   // "relationships.isIssueOf": "Journal Issues",
-  // TODO New key - Add a translation
-  "relationships.isIssueOf": "Journal Issues",
-  
+  "relationships.isIssueOf": "Numéros de revue",
   // "relationships.isJournalIssueOf": "Journal Issue",
-  // TODO New key - Add a translation
-  "relationships.isJournalIssueOf": "Journal Issue",
-  
+  "relationships.isJournalIssueOf": "Numéro de revue",
   // "relationships.isJournalOf": "Journals",
-  // TODO New key - Add a translation
-  "relationships.isJournalOf": "Journals",
-  
+  "relationships.isJournalOf": "Revues",
   // "relationships.isOrgUnitOf": "Organizational Units",
-  // TODO New key - Add a translation
-  "relationships.isOrgUnitOf": "Organizational Units",
-  
+  "relationships.isOrgUnitOf": "Structure organisationnelle",
   // "relationships.isPersonOf": "Authors",
-  // TODO New key - Add a translation
-  "relationships.isPersonOf": "Authors",
-  
+  "relationships.isPersonOf": "Auteurs",
   // "relationships.isProjectOf": "Research Projects",
-  // TODO New key - Add a translation
-  "relationships.isProjectOf": "Research Projects",
-  
+  "relationships.isProjectOf": "Projets de recherche",
   // "relationships.isPublicationOf": "Publications",
-  // TODO New key - Add a translation
   "relationships.isPublicationOf": "Publications",
-  
   // "relationships.isPublicationOfJournalIssue": "Articles",
-  // TODO New key - Add a translation
   "relationships.isPublicationOfJournalIssue": "Articles",
-  
   // "relationships.isSingleJournalOf": "Journal",
-  // TODO New key - Add a translation
-  "relationships.isSingleJournalOf": "Journal",
-  
+  "relationships.isSingleJournalOf": "Revue",
   // "relationships.isSingleVolumeOf": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isSingleVolumeOf": "Journal Volume",
-  
+  "relationships.isSingleVolumeOf": "Volume de Revue",
   // "relationships.isVolumeOf": "Journal Volumes",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf": "Journal Volumes",
-  
-  
+  "relationships.isVolumeOf": "Volumes de Revue",
   
   // "search.description": "",
-  // TODO New key - Add a translation
   "search.description": "",
   
   // "search.switch-configuration.title": "Show",
