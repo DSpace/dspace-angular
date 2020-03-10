@@ -310,7 +310,7 @@
   // "collection.page.browse.recent.empty": "No items to show",
   "collection.page.browse.recent.empty": "Aucun dépôt disponible",
   // "collection.page.handle": "Permanent URI for this collection",
-  "collection.page.handle": "URI permanent de cette collection",
+  "collection.page.handle": "URI permanent de cette Collection",
   // "collection.page.license": "License",
   "collection.page.license": "Licence",
   // "collection.page.news": "News",
@@ -706,7 +706,7 @@
   // "item.edit.tabs.status.buttons.move.button": "Move...",
   "item.edit.tabs.status.buttons.move.button": "Transférer...",
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
-  "item.edit.tabs.status.buttons.move.label": "Transférer l'Item dans une autre collection",
+  "item.edit.tabs.status.buttons.move.label": "Transférer l'Item dans une autre Collection",
   // "item.edit.tabs.status.buttons.private.button": "Make it private...",
   "item.edit.tabs.status.buttons.private.button": "Définir comme privé...",
   // "item.edit.tabs.status.buttons.private.label": "Make item private",
@@ -1449,7 +1449,7 @@
   // "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
   "submission.sections.general.metadata-extracted-new-section": "Nouvelle section <strong>{{sectionId}}</strong> ajoutée au dépôt.",
   // "submission.sections.general.no-collection": "No collection found",
-  "submission.sections.general.no-collection": "Aucune collection disponible",
+  "submission.sections.general.no-collection": "Aucune Collection disponible",
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "Aucune option disponible",
   // "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
@@ -1457,7 +1457,7 @@
   // "submission.sections.general.save_success_notice": "Submission saved successfully.",
   "submission.sections.general.save_success_notice": "Dépôt sauvegardé avec succès.",
   // "submission.sections.general.search-collection": "Search for a collection",
-  "submission.sections.general.search-collection": "Rechercher une collection",
+  "submission.sections.general.search-collection": "Rechercher une Collection",
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   "submission.sections.general.sections_not_valid": "Section(s) incomplète(s).",
   // "submission.sections.submit.progressbar.cclicense": "Creative commons license",
@@ -1505,73 +1505,43 @@
   // "submission.sections.upload.form.until-placeholder": "Until",
   "submission.sections.upload.form.until-placeholder": "Jusque",
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
-  "submission.sections.upload.header.policy.default.nolist": "Les fichiers uploadés dans la collection {{collectionName}} seront accessibles au(x) groupe(s) suivant(s) :",
+  "submission.sections.upload.header.policy.default.nolist": "Les fichiers uploadés dans la Collection {{collectionName}} seront accessibles au(x) groupe(s) suivant(s) :",
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  "submission.sections.upload.header.policy.default.withlist": "Veuillez noter que, en complément des accès spécifiquement accordés pour le fichier, les fichiers uploadés dans la collection {{collectionName}} seront accessibles par défaut au(x) groupe(s) suivant(s) :",
+  "submission.sections.upload.header.policy.default.withlist": "Veuillez noter que, en complément des accès spécifiquement accordés pour le fichier, les fichiers uploadés dans la Collection {{collectionName}} seront accessibles par défaut au(x) groupe(s) suivant(s) :",
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
   "submission.sections.upload.info": "Vous trouverez ici tous les fichiers actuellement associés à l'Item. Vous pouvez éditer les métadonnés et les niveaux d'accès de ce(s) fichier(s) ou <strong>uploader des fichiers complémentaires simplement en les glissant n'importe où sur cette page</strong>",
   // "submission.sections.upload.no-entry": "No",
   "submission.sections.upload.no-entry": "Non",
   // "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
   "submission.sections.upload.no-file-uploaded": "Aucun fichier uploadé.",
-
   // "submission.sections.upload.save-metadata": "Save metadata",
-  // TODO New key - Add a translation
-  "submission.sections.upload.save-metadata": "Save metadata",
-  
+  "submission.sections.upload.save-metadata": "Sauvegarder métadonnées",
   // "submission.sections.upload.undo": "Cancel",
-  // TODO New key - Add a translation
-  "submission.sections.upload.undo": "Cancel",
-  
+  "submission.sections.upload.undo": "Annuler",
   // "submission.sections.upload.upload-failed": "Upload failed",
-  // TODO New key - Add a translation
-  "submission.sections.upload.upload-failed": "Upload failed",
-  
+  "submission.sections.upload.upload-failed": "Echec de l'upload",
   // "submission.sections.upload.upload-successful": "Upload successful",
-  // TODO New key - Add a translation
-  "submission.sections.upload.upload-successful": "Upload successful",
-  
-  
-  
+  "submission.sections.upload.upload-successful": "Upload réussi",
   // "submission.submit.title": "Submission",
-  // TODO New key - Add a translation
-  "submission.submit.title": "Submission",
-  
-  
+  "submission.submit.title": "Dépôt",
   
   // "submission.workflow.generic.delete": "Delete",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.delete": "Delete",
-  
+  "submission.workflow.generic.delete": "Supprimer",
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  
+  "submission.workflow.generic.delete-help": "Si vous souhaitez supprimer cet Item, cliquez sur \"Supprimer\". Une confirmation vous sera alors demandée.",
   // "submission.workflow.generic.edit": "Edit",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.edit": "Edit",
-  
+  "submission.workflow.generic.edit": "Editer",
   // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
-  
+  "submission.workflow.generic.edit-help": "Sélectionner cette option pour changer les métadonnées de l'Item.",
   // "submission.workflow.generic.view": "View",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.view": "View",
-  
+  "submission.workflow.generic.view": "Afficher",
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
-  
-  
+  "submission.workflow.generic.view-help": "Sélectionner cette option pour afficher les métadonnées de l'Item.",
   
   // "submission.workflow.tasks.claimed.approve": "Approve",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.approve": "Approve",
-  
+  "submission.workflow.tasks.claimed.approve": "Approuver",
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  "submission.workflow.tasks.claimed.approve_help": "Si vous avez contrôlé cet Item et qu'il peut être ajouté à la Collection, sélectionner l'option \"Approuver\".",
   
   // "submission.workflow.tasks.claimed.edit": "Edit",
   // TODO New key - Add a translation
