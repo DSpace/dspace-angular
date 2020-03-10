@@ -1411,6 +1411,40 @@
 
 
 
+  "profile.breadcrumbs": "Update Profile",
+
+  "profile.card.identify": "Identify",
+
+  "profile.card.security": "Security",
+
+  "profile.form.submit": "Update Profile",
+
+  "profile.head": "Update Profile",
+
+  "profile.metadata.form.error.firstname": "First Name is required",
+
+  "profile.metadata.form.error.lastname": "Last Name is required",
+
+  "profile.metadata.form.label.email": "Email Address",
+
+  "profile.metadata.form.label.firstname": "First Name",
+
+  "profile.metadata.form.label.language": "Language",
+
+  "profile.metadata.form.label.lastname": "Last Name",
+
+  "profile.metadata.form.label.phone": "Contact Telephone",
+
+  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+
+  "profile.security.form.label.password": "Password",
+
+  "profile.security.form.label.passwordrepeat": "Retype to confirm",
+
+  "profile.title": "Update Profile",
+
+
+
   "project.listelement.badge": "Research Project",
 
   "project.page.contributor": "Contributors",

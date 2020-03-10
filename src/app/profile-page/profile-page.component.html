@@ -1,0 +1,18 @@
+<ng-container *ngVar="(user$ | async) as user">
+  <div class="container" *ngIf="user">
+    <h3 class="mb-4">{{'profile.head' | translate}}</h3>
+    <div class="card mb-4">
+      <div class="card-header">{{'profile.card.identify' | translate}}</div>
+      <div class="card-body">
+        <ds-profile-page-metadata-form [user]="user"></ds-profile-page-metadata-form>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="card-header">{{'profile.card.security' | translate}}</div>
+      <div class="card-body">
+        <ds-profile-page-security-form></ds-profile-page-security-form>
+      </div>
+    </div>
+    <button class="btn btn-outline-primary" (click)="updateProfile()">{{'profile.form.submit' | translate}}</button>
+  </div>
+</ng-container>
