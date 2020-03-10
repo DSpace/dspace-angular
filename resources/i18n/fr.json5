@@ -1532,7 +1532,7 @@
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Editer",
   // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
-  "submission.workflow.generic.edit-help": "Sélectionner cette option pour changer les métadonnées de l'Item.",
+  "submission.workflow.generic.edit-help": "Sélectionner cette option pour modifier les métadonnées de l'Item.",
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "Afficher",
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
@@ -1542,109 +1542,55 @@
   "submission.workflow.tasks.claimed.approve": "Approuver",
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
   "submission.workflow.tasks.claimed.approve_help": "Si vous avez contrôlé cet Item et qu'il peut être ajouté à la Collection, sélectionner l'option \"Approuver\".",
-  
   // "submission.workflow.tasks.claimed.edit": "Edit",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.edit": "Edit",
-  
+  "submission.workflow.tasks.claimed.edit": "Editer",
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
-  
+  "submission.workflow.tasks.claimed.edit_help": "Sélectionner cette option pour modifyer les métadonnées de l'Item.",
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  
+  "submission.workflow.tasks.claimed.reject.reason.info": "Veuillez spécifier la raison pour laquelle ce dépôt est rejeté dans le champ ci-dessous, en indicant si le déposant peut résoudre un problème et redéposer ensuite.",
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
-  
+  "submission.workflow.tasks.claimed.reject.reason.placeholder": "Décrire la raison du rejet",
   // "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
-  
+  "submission.workflow.tasks.claimed.reject.reason.submit": "Rejeter Item",
   // "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
-  
+  "submission.workflow.tasks.claimed.reject.reason.title": "Raison",
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.submit": "Reject",
-  
+  "submission.workflow.tasks.claimed.reject.submit": "Rejeter",
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  
+  "submission.workflow.tasks.claimed.reject_help": "Si vous avez contrôle cet Item et qu'il ne peut <strong>PAS</strong> être ajouté à la Collection, sélectionner l'option \"Rejeter\".  Il vous sera alors demandé d'indiquer la raison de ce rejet et si le déposant peut apporter une correction avant de redéposer.",
   // "submission.workflow.tasks.claimed.return": "Return to pool",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.return": "Return to pool",
-  
+  "submission.workflow.tasks.claimed.return": "Se désassigner",
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
-  
-  
-  
+  "submission.workflow.tasks.claimed.return_help": "Renvoyer la tâche dans le pool de validation pour qu'un autre utilisateur puisse en prendre soin.",
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.error": "Error occurred during operation...",
-  
+  "submission.workflow.tasks.generic.error": "Une erreur s'est produite au cours de l'opération...",
   // "submission.workflow.tasks.generic.processing": "Processing...",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.processing": "Processing...",
-  
+  "submission.workflow.tasks.generic.processing": "En cours de traitement...",
   // "submission.workflow.tasks.generic.submitter": "Submitter",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.submitter": "Submitter",
-  
+  "submission.workflow.tasks.generic.submitter": "Déposant",
   // "submission.workflow.tasks.generic.success": "Operation successful",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.success": "Operation successful",
-  
-  
-  
+  "submission.workflow.tasks.generic.success": "Opération exécutée avec succès",
   // "submission.workflow.tasks.pool.claim": "Claim",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.pool.claim": "Claim",
-  
+  "submission.workflow.tasks.pool.claim": "Prendre en charge",
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
-  
+  "submission.workflow.tasks.pool.claim_help": "Assigner cette tâche à votre propre utilisateur.",
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.pool.hide-detail": "Hide detail",
-  
+  "submission.workflow.tasks.pool.hide-detail": "Masquer détails",
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.pool.show-detail": "Show detail",
-  
-  
+  "submission.workflow.tasks.pool.show-detail": "Afficher détails",
   
   // "title": "DSpace",
-  // TODO New key - Add a translation
   "title": "DSpace",
-  
-  
-  
+
   // "uploader.browse": "browse",
-  // TODO New key - Add a translation
-  "uploader.browse": "browse",
-  
+  "uploader.browse": "parcourir",
   // "uploader.drag-message": "Drag & Drop your files here",
-  // TODO New key - Add a translation
-  "uploader.drag-message": "Drag & Drop your files here",
-  
+  "uploader.drag-message": "Glisser & Déposer vos fichiers ici",
   // "uploader.or": ", or",
-  // TODO New key - Add a translation
-  "uploader.or": ", or",
-  
+  "uploader.or": ", ou",
   // "uploader.processing": "Processing",
-  // TODO New key - Add a translation
-  "uploader.processing": "Processing",
-  
+  "uploader.processing": "En cours de traitement",
   // "uploader.queue-length": "Queue length",
-  // TODO New key - Add a translation
-  "uploader.queue-length": "Queue length",
+  "uploader.queue-length": "Longueur de la file d'attente",
 
 }
