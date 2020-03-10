@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -45,10 +46,11 @@ export class DsoRedirectDataService extends DataService<any> {
     }
   }
 
-  getIDHref(endpoint, resourceID): string {
+  getIDHref(endpoint, resourceID, ...linksToFollow: Array<FollowLinkConfig<any>>): string {
     // Supporting both identifier (pid) and uuid (dso) endpoints
-    return endpoint.replace(/\{\?id\}/, `?id=${resourceID}`)
-      .replace(/\{\?uuid\}/, `?uuid=${resourceID}`);
+    return this.buildHrefFromFindOptions( endpoint.replace(/\{\?id\}/, `?id=${resourceID}`)
+        .replace(/\{\?uuid\}/, `?uuid=${resourceID}`),
+      {}, [], ...linksToFollow);
   }
 
   findByIdAndIDType(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<FindByIDRequest>> {

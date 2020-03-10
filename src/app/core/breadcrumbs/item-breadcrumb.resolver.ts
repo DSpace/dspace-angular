@@ -21,8 +21,8 @@ export class ItemBreadcrumbResolver extends DSOBreadcrumbResolver<Item> {
    */
   get followLinks(): Array<FollowLinkConfig<Item>> {
     return [
-      followLink('owningCollection', undefined,
-        followLink('parentCommunity', undefined,
+      followLink('owningCollection', undefined, true,
+        followLink('parentCommunity', undefined, true,
           followLink('parentCommunity'))
       ),
       followLink('bundles'),
