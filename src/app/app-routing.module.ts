@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
-import { Breadcrumb } from './breadcrumbs/breadcrumb/breadcrumb.model';
 import { DSpaceObject } from './core/shared/dspace-object.model';
 import { Community } from './core/shared/community.model';
 import { getCommunityPageRoute } from './+community-page/community-page-routing.module';
@@ -11,7 +10,6 @@ import { Collection } from './core/shared/collection.model';
 import { Item } from './core/shared/item.model';
 import { getItemPageRoute } from './+item-page/item-page-routing.module';
 import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
-import { BrowseByDSOBreadcrumbResolver } from './+browse-by/browse-by-dso-breadcrumb.resolver';
 
 const ITEM_MODULE_PATH = 'items';
 

@@ -1,4 +1,4 @@
-import {MissingTranslationHandler, MissingTranslationHandlerParams} from '@ngx-translate/core';
+import { MissingTranslationHandler, MissingTranslationHandlerParams } from '@ngx-translate/core';
 
 export class MissingTranslationHelper implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams) {

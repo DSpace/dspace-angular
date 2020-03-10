@@ -181,6 +181,9 @@ import { ItemAdminSearchResultListElementComponent } from './object-list/admin-s
 import { CommunityAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/community-search-result/community-admin-search-result-list-element.component';
 import { CollectionAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/collection-search-result/collection-admin-search-result-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
+import { ItemAdminSearchResultGridElementComponent } from './object-grid/admin-search-result-grid-element/item-search-result/item-admin-search-result-grid-element.component';
+import { CommunityAdminSearchResultGridElementComponent } from './object-grid/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
+import { CollectionAdminSearchResultGridElementComponent } from './object-grid/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -347,11 +350,13 @@ const COMPONENTS = [
   ExternalSourceEntryImportModalComponent,
   ImportableListItemControlComponent,
   ExistingMetadataListElementComponent,
+  PublicationSearchResultListElementComponent,
   ItemAdminSearchResultListElementComponent,
   CommunityAdminSearchResultListElementComponent,
   CollectionAdminSearchResultListElementComponent,
-  PublicationSearchResultListElementComponent,
-  ExistingMetadataListElementComponent
+  ItemAdminSearchResultGridElementComponent,
+  CommunityAdminSearchResultGridElementComponent,
+  CollectionAdminSearchResultGridElementComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -418,6 +423,9 @@ const ENTRY_COMPONENTS = [
   ItemAdminSearchResultListElementComponent,
   CommunityAdminSearchResultListElementComponent,
   CollectionAdminSearchResultListElementComponent,
+  ItemAdminSearchResultGridElementComponent,
+  CommunityAdminSearchResultGridElementComponent,
+  CollectionAdminSearchResultGridElementComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

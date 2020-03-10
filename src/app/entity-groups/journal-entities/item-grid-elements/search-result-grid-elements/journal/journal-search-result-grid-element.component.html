@@ -1,6 +1,8 @@
 <ds-truncatable [id]="dso.id">
     <div class="card" [@focusShadow]="(isCollapsed$ | async)?'blur':'focus'">
-        <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]" class="card-img-top full-width">
+        <ng-content></ng-content>
+        <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]"
+           class="card-img-top full-width">
             <div>
                 <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
                 </ds-grid-thumbnail>
@@ -37,5 +39,6 @@
                    class="lead btn btn-primary viewButton">View</a>
             </div>
         </div>
+        <ng-content></ng-content>
     </div>
 </ds-truncatable>

@@ -170,6 +170,8 @@
 
 
 
+  "admin.search.breadcrumbs": "Administrative Search",
+
   "admin.search.collection.edit": "Edit",
 
   "admin.search.community.edit": "Edit",
@@ -192,7 +194,7 @@
 
   "admin.search.item.withdrawn": "Withdrawn",
 
-  "admin.search.title": "Admin Search",
+  "admin.search.title": "Administrative Search",
 
 
 
@@ -1520,6 +1522,8 @@
 
   "search.filters.applied.f.dateSubmitted": "Date submitted",
 
+  "search.filters.applied.f.discoverable": "Private",
+
   "search.filters.applied.f.entityType": "Item Type",
 
   "search.filters.applied.f.has_content_in_original_bundle": "Has files",
@@ -1531,9 +1535,14 @@
   "search.filters.applied.f.subject": "Subject",
 
   "search.filters.applied.f.submitter": "Submitter",
+
   "search.filters.applied.f.jobTitle": "Job Title",
+
   "search.filters.applied.f.birthDate.max": "End birth date",
+
   "search.filters.applied.f.birthDate.min": "Start birth date",
+
+  "search.filters.applied.f.withdrawn": "Withdrawn",
 
 
 
@@ -1570,6 +1579,10 @@
   "search.filters.filter.dateSubmitted.head": "Date submitted",
 
   "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
+
+  "search.filters.filter.discoverable.head": "Private",
+
+  "search.filters.filter.withdrawn.head": "Withdrawn",
 
   "search.filters.filter.entityType.head": "Item Type",
 
@@ -1636,6 +1649,14 @@
   "search.filters.has_content_in_original_bundle.true": "Yes",
 
   "search.filters.has_content_in_original_bundle.false": "No",
+
+  "search.filters.discoverable.true": "No",
+
+  "search.filters.discoverable.false": "Yes",
+
+  "search.filters.withdrawn.true": "Yes",
+
+  "search.filters.withdrawn.false": "No",
 
 
   "search.filters.head": "Filters",
@@ -2017,7 +2038,7 @@
   "title": "DSpace",
 
 
-  "discoverableAndUndiscoverableItems.search.results.head": "Admin Search",
+  "discoverableAndUndiscoverableItems.search.results.head": "Administrative Search",
 
 
   "uploader.browse": "browse",
