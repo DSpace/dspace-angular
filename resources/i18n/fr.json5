@@ -1504,27 +1504,17 @@
   "submission.sections.upload.form.until-label": "Accès accordé jusque",
   // "submission.sections.upload.form.until-placeholder": "Until",
   "submission.sections.upload.form.until-placeholder": "Jusque",
-  
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
-  // TODO New key - Add a translation
-  "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
-  
+  "submission.sections.upload.header.policy.default.nolist": "Les fichiers uploadés dans la collection {{collectionName}} seront accessibles au(x) groupe(s) suivant(s) :",
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  // TODO New key - Add a translation
-  "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  
+  "submission.sections.upload.header.policy.default.withlist": "Veuillez noter que, en complément des accès spécifiquement accordés pour le fichier, les fichiers uploadés dans la collection {{collectionName}} seront accessibles par défaut au(x) groupe(s) suivant(s) :",
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
-  // TODO New key - Add a translation
-  "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
-  
+  "submission.sections.upload.info": "Vous trouverez ici tous les fichiers actuellement associés à l'Item. Vous pouvez éditer les métadonnés et les niveaux d'accès de ce(s) fichier(s) ou <strong>uploader des fichiers complémentaires simplement en les glissant n'importe où sur cette page</strong>",
   // "submission.sections.upload.no-entry": "No",
-  // TODO New key - Add a translation
-  "submission.sections.upload.no-entry": "No",
-  
+  "submission.sections.upload.no-entry": "Non",
   // "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
-  
+  "submission.sections.upload.no-file-uploaded": "Aucun fichier uploadé.",
+
   // "submission.sections.upload.save-metadata": "Save metadata",
   // TODO New key - Add a translation
   "submission.sections.upload.save-metadata": "Save metadata",
