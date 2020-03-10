@@ -187,7 +187,7 @@
   // "browse.metadata.dateissued": "Issue Date",
   "browse.metadata.dateissued": "Date de publication",
   // "browse.metadata.subject": "Subject",
-  "browse.metadata.subject": "Suject",
+  "browse.metadata.subject": "Sujet",
   // "browse.metadata.title": "Title",
   "browse.metadata.title": "Titre",
   // "browse.startsWith.choose_start": "(Choose start)",
@@ -339,7 +339,7 @@
   // "community.delete.notification.success": "Successfully deleted community",
   "community.delete.notification.success": "La Communauté a été supprimée avec succès",
   // "community.delete.text": "Are you sure you want to delete community \"{{ dso }}\"",
-  "community.delete.text": "Êtes-vous sûr de vouloir supprimer la Communauté \"{{ dso }}\"",
+  "community.delete.text": "Êtes-vous sûr(e) de vouloir supprimer la Communauté \"{{ dso }}\"",
   
   // "community.edit.delete": "Delete this community",
   "community.edit.delete": "Supprimer cette Communauté",
@@ -562,7 +562,7 @@
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
   "item.edit.metadata.metadatafield.invalid": "Veuillez choisir un champ de métadonnée valide",
   // "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.metadata.notifications.discarded.content": "Vos changements ont été annulés. Pour rétablir vos changements, cliquer sur le bouton 'Annuler'",
+  "item.edit.metadata.notifications.discarded.content": "Vos changements ont été annulés. Pour rétablir vos changements, cliquer sur le bouton 'Rétablir'",
   // "item.edit.metadata.notifications.discarded.title": "Changed discarded",
   "item.edit.metadata.notifications.discarded.title": "Changements annulés",
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
@@ -578,7 +578,7 @@
   // "item.edit.metadata.notifications.saved.title": "Metadata saved",
   "item.edit.metadata.notifications.saved.title": "Métadonnée sauvegardée",
   // "item.edit.metadata.reinstate-button": "Undo",
-  "item.edit.metadata.reinstate-button": "Annuler",
+  "item.edit.metadata.reinstate-button": "Rétablir",
   // "item.edit.metadata.save-button": "Save",
   "item.edit.metadata.save-button": "Sauvegarder",
   
@@ -658,7 +658,7 @@
   // "item.edit.relationships.edit.buttons.undo": "Undo changes",
   "item.edit.relationships.edit.buttons.undo": "Annuler changements",
   // "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.relationships.notifications.discarded.content": "Vos changements ont été annulés. Pour rétablir vos changements, cliquer sur le bouton 'Annuler'",
+  "item.edit.relationships.notifications.discarded.content": "Vos changements ont été annulés. Pour rétablir vos changements, cliquer sur le bouton 'Rétablir'",
   // "item.edit.relationships.notifications.discarded.title": "Changes discarded",
   "item.edit.relationships.notifications.discarded.title": "Changements annulés",
   // "item.edit.relationships.notifications.failed.title": "Error deleting relationship",
@@ -672,7 +672,7 @@
   // "item.edit.relationships.notifications.saved.title": "Relationships saved",
   "item.edit.relationships.notifications.saved.title": "Relations sauvegardées",
   // "item.edit.relationships.reinstate-button": "Undo",
-  "item.edit.relationships.reinstate-button": "Annuler",
+  "item.edit.relationships.reinstate-button": "Rétablir",
   // "item.edit.relationships.save-button": "Save",
   "item.edit.relationships.save-button": "Sauvegarder",
   // "item.edit.tabs.bitstreams.head": "Item Bitstreams",
@@ -1257,522 +1257,253 @@
   
   // "search.description": "",
   "search.description": "",
-  
   // "search.switch-configuration.title": "Show",
-  // TODO New key - Add a translation
-  "search.switch-configuration.title": "Show",
-  
+  "search.switch-configuration.title": "Afficher",
   // "search.title": "DSpace Angular :: Search",
-  // TODO New key - Add a translation
-  "search.title": "DSpace Angular :: Search",
-  
-  
-  
+  "search.title": "DSpace Angular :: Recherche",
   // "search.filters.applied.f.author": "Author",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.author": "Author",
-  
-  // "search.filters.applied.f.dateIssued.max": "End date",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.dateIssued.max": "End date",
-  
+  "search.filters.applied.f.author": "Auteur",
   // "search.filters.applied.f.dateIssued.min": "Start date",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.dateIssued.min": "Start date",
-  
+  "search.filters.applied.f.dateIssued.min": "Depuis",
+  // "search.filters.applied.f.dateIssued.max": "End date",
+  "search.filters.applied.f.dateIssued.max": "Jusque",
   // "search.filters.applied.f.dateSubmitted": "Date submitted",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.dateSubmitted": "Date submitted",
-  
+  "search.filters.applied.f.dateSubmitted": "Date de dépôt",
   // "search.filters.applied.f.entityType": "Item Type",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.entityType": "Item Type",
-  
+  "search.filters.applied.f.entityType": "Type d'Item",
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.has_content_in_original_bundle": "Has files",
-  
+  "search.filters.applied.f.has_content_in_original_bundle": "Fichier(s) présent(s)",
   // "search.filters.applied.f.itemtype": "Type",
-  // TODO New key - Add a translation
   "search.filters.applied.f.itemtype": "Type",
-  
   // "search.filters.applied.f.namedresourcetype": "Status",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.namedresourcetype": "Status",
-  
+  "search.filters.applied.f.namedresourcetype": "Statut",
   // "search.filters.applied.f.subject": "Subject",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.subject": "Subject",
-  
+  "search.filters.applied.f.subject": "Sujet",
   // "search.filters.applied.f.submitter": "Submitter",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.submitter": "Submitter",
-  
-  
-  
+  "search.filters.applied.f.submitter": "Déposant",
   // "search.filters.filter.author.head": "Author",
-  // TODO New key - Add a translation
-  "search.filters.filter.author.head": "Author",
-  
+  "search.filters.filter.author.head": "Auteur",
   // "search.filters.filter.author.placeholder": "Author name",
-  // TODO New key - Add a translation
-  "search.filters.filter.author.placeholder": "Author name",
-  
+  "search.filters.filter.author.placeholder": "Nom de l'auteur",
   // "search.filters.filter.birthDate.head": "Birth Date",
-  // TODO New key - Add a translation
-  "search.filters.filter.birthDate.head": "Birth Date",
-  
+  "search.filters.filter.birthDate.head": "Date de naissance",
   // "search.filters.filter.birthDate.placeholder": "Birth Date",
-  // TODO New key - Add a translation
-  "search.filters.filter.birthDate.placeholder": "Birth Date",
-  
+  "search.filters.filter.birthDate.placeholder": "Date de naissance",
   // "search.filters.filter.creativeDatePublished.head": "Date Published",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.head": "Date Published",
-  
+  "search.filters.filter.creativeDatePublished.head": "Date de publication",
   // "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
-  
+  "search.filters.filter.creativeDatePublished.placeholder": "Date de publication",
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkEditor.head": "Editor",
-  
+  "search.filters.filter.creativeWorkEditor.head": "Rédacteur en chef",
   // "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
-  
+  "search.filters.filter.creativeWorkEditor.placeholder": "Rédacteur en chef",
   // "search.filters.filter.creativeWorkKeywords.head": "Subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkKeywords.head": "Subject",
-  
+  "search.filters.filter.creativeWorkKeywords.head": "Sujet",
   // "search.filters.filter.creativeWorkKeywords.placeholder": "Subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkKeywords.placeholder": "Subject",
-  
+  "search.filters.filter.creativeWorkKeywords.placeholder": "Sujet",
   // "search.filters.filter.creativeWorkPublisher.head": "Publisher",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkPublisher.head": "Publisher",
-  
+  "search.filters.filter.creativeWorkPublisher.head": "Editeur",
   // "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
-  
+  "search.filters.filter.creativeWorkPublisher.placeholder": "Editeur",
   // "search.filters.filter.dateIssued.head": "Date",
-  // TODO New key - Add a translation
   "search.filters.filter.dateIssued.head": "Date",
-  
   // "search.filters.filter.dateIssued.max.placeholder": "Minimum Date",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.max.placeholder": "Minimum Date",
-  
+  "search.filters.filter.dateIssued.max.placeholder": "Depuis",
   // "search.filters.filter.dateIssued.min.placeholder": "Maximum Date",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.min.placeholder": "Maximum Date",
-  
+  "search.filters.filter.dateIssued.min.placeholder": "Jusque",
   // "search.filters.filter.dateSubmitted.head": "Date submitted",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateSubmitted.head": "Date submitted",
-  
+  "search.filters.filter.dateSubmitted.head": "Date de dépôt",
   // "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
-  
+  "search.filters.filter.dateSubmitted.placeholder": "Date de dépôt",
   // "search.filters.filter.entityType.head": "Item Type",
-  // TODO New key - Add a translation
-  "search.filters.filter.entityType.head": "Item Type",
-  
+  "search.filters.filter.entityType.head": "Type d'Item",
   // "search.filters.filter.entityType.placeholder": "Item Type",
-  // TODO New key - Add a translation
-  "search.filters.filter.entityType.placeholder": "Item Type",
-  
+  "search.filters.filter.entityType.placeholder": "Type d'Item",
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
-  // TODO New key - Add a translation
-  "search.filters.filter.has_content_in_original_bundle.head": "Has files",
-  
+  "search.filters.filter.has_content_in_original_bundle.head": "Fichier(s) présent(s)",
   // "search.filters.filter.itemtype.head": "Type",
-  // TODO New key - Add a translation
   "search.filters.filter.itemtype.head": "Type",
-  
   // "search.filters.filter.itemtype.placeholder": "Type",
-  // TODO New key - Add a translation
   "search.filters.filter.itemtype.placeholder": "Type",
-  
   // "search.filters.filter.jobTitle.head": "Job Title",
-  // TODO New key - Add a translation
-  "search.filters.filter.jobTitle.head": "Job Title",
-  
+  "search.filters.filter.jobTitle.head": "Fonction",
   // "search.filters.filter.jobTitle.placeholder": "Job Title",
-  // TODO New key - Add a translation
-  "search.filters.filter.jobTitle.placeholder": "Job Title",
-  
+  "search.filters.filter.jobTitle.placeholder": "Fonction",
   // "search.filters.filter.knowsLanguage.head": "Known language",
-  // TODO New key - Add a translation
-  "search.filters.filter.knowsLanguage.head": "Known language",
-  
+  "search.filters.filter.knowsLanguage.head": "Langue(s)",
   // "search.filters.filter.knowsLanguage.placeholder": "Known language",
-  // TODO New key - Add a translation
-  "search.filters.filter.knowsLanguage.placeholder": "Known language",
-  
+  "search.filters.filter.knowsLanguage.placeholder": "Langue(s)",
   // "search.filters.filter.namedresourcetype.head": "Status",
-  // TODO New key - Add a translation
-  "search.filters.filter.namedresourcetype.head": "Status",
-  
+  "search.filters.filter.namedresourcetype.head": "Statut",
   // "search.filters.filter.namedresourcetype.placeholder": "Status",
-  // TODO New key - Add a translation
-  "search.filters.filter.namedresourcetype.placeholder": "Status",
-  
+  "search.filters.filter.namedresourcetype.placeholder": "Statut",
   // "search.filters.filter.objectpeople.head": "People",
-  // TODO New key - Add a translation
-  "search.filters.filter.objectpeople.head": "People",
-  
+  "search.filters.filter.objectpeople.head": "Personne",
   // "search.filters.filter.objectpeople.placeholder": "People",
-  // TODO New key - Add a translation
-  "search.filters.filter.objectpeople.placeholder": "People",
-  
+  "search.filters.filter.objectpeople.placeholder": "Personne",
   // "search.filters.filter.organizationAddressCountry.head": "Country",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressCountry.head": "Country",
-  
+  "search.filters.filter.organizationAddressCountry.head": "Pays",
   // "search.filters.filter.organizationAddressCountry.placeholder": "Country",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressCountry.placeholder": "Country",
-  
+  "search.filters.filter.organizationAddressCountry.placeholder": "Pays",
   // "search.filters.filter.organizationAddressLocality.head": "City",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressLocality.head": "City",
-  
+  "search.filters.filter.organizationAddressLocality.head": "Ville",
   // "search.filters.filter.organizationAddressLocality.placeholder": "City",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressLocality.placeholder": "City",
-  
+  "search.filters.filter.organizationAddressLocality.placeholder": "Ville",
   // "search.filters.filter.organizationFoundingDate.head": "Date Founded",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.head": "Date Founded",
-  
+  "search.filters.filter.organizationFoundingDate.head": "Date de fondation",
   // "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
-  
+  "search.filters.filter.organizationFoundingDate.placeholder": "Date de fondation",
   // "search.filters.filter.scope.head": "Scope",
-  // TODO New key - Add a translation
   "search.filters.filter.scope.head": "Scope",
-  
   // "search.filters.filter.scope.placeholder": "Scope filter",
-  // TODO New key - Add a translation
-  "search.filters.filter.scope.placeholder": "Scope filter",
-  
+  "search.filters.filter.scope.placeholder": "Scope",
   // "search.filters.filter.show-less": "Collapse",
-  // TODO New key - Add a translation
-  "search.filters.filter.show-less": "Collapse",
-  
+  "search.filters.filter.show-less": "Moins",
   // "search.filters.filter.show-more": "Show more",
-  // TODO New key - Add a translation
-  "search.filters.filter.show-more": "Show more",
-  
+  "search.filters.filter.show-more": "Plus",
   // "search.filters.filter.subject.head": "Subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.subject.head": "Subject",
-  
+  "search.filters.filter.subject.head": "Sujet",
   // "search.filters.filter.subject.placeholder": "Subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.subject.placeholder": "Subject",
-  
+  "search.filters.filter.subject.placeholder": "Sujet",
   // "search.filters.filter.submitter.head": "Submitter",
-  // TODO New key - Add a translation
-  "search.filters.filter.submitter.head": "Submitter",
-  
+  "search.filters.filter.submitter.head": "Déposant",
   // "search.filters.filter.submitter.placeholder": "Submitter",
-  // TODO New key - Add a translation
-  "search.filters.filter.submitter.placeholder": "Submitter",
-  
-  
-  
+  "search.filters.filter.submitter.placeholder": "Déposant",
   // "search.filters.head": "Filters",
-  // TODO New key - Add a translation
-  "search.filters.head": "Filters",
-  
+  "search.filters.head": "Filtres",
   // "search.filters.reset": "Reset filters",
-  // TODO New key - Add a translation
-  "search.filters.reset": "Reset filters",
-  
-  
-  
+  "search.filters.reset": "Réinitialiser filtres",
   // "search.form.search": "Search",
-  // TODO New key - Add a translation
-  "search.form.search": "Search",
-  
+  "search.form.search": "Recherche",
   // "search.form.search_dspace": "Search DSpace",
-  // TODO New key - Add a translation
-  "search.form.search_dspace": "Search DSpace",
-  
+  "search.form.search_dspace": "Recherche dans DSpace",
   // "search.form.search_mydspace": "Search MyDSpace",
-  // TODO New key - Add a translation
-  "search.form.search_mydspace": "Search MyDSpace",
-  
-  
-  
+  "search.form.search_mydspace": "Recherche dans MyDSpace",
   // "search.results.head": "Search Results",
-  // TODO New key - Add a translation
-  "search.results.head": "Search Results",
-  
+  "search.results.head": "Résultats de recherche",
   // "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
-  // TODO New key - Add a translation
-  "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
-  
+  "search.results.no-results": "Votre recherche n'a retourné aucun résultat. Vous n'arrivez pas à trouver ce que vous recherchez ? Essayez de mettre",
   // "search.results.no-results-link": "quotes around it",
-  // TODO New key - Add a translation
-  "search.results.no-results-link": "quotes around it",
-  
-  
-  
+  "search.results.no-results-link": "des guillemets avant et après les termes recherchés",
   // "search.sidebar.close": "Back to results",
-  // TODO New key - Add a translation
-  "search.sidebar.close": "Back to results",
-  
+  "search.sidebar.close": "Retour aux résultats",
   // "search.sidebar.filters.title": "Filters",
-  // TODO New key - Add a translation
-  "search.sidebar.filters.title": "Filters",
-  
+  "search.sidebar.filters.title": "Filtres",
   // "search.sidebar.open": "Search Tools",
-  // TODO New key - Add a translation
-  "search.sidebar.open": "Search Tools",
-  
+  "search.sidebar.open": "Outils de recherche",
   // "search.sidebar.results": "results",
-  // TODO New key - Add a translation
-  "search.sidebar.results": "results",
-  
+  "search.sidebar.results": "Résultats",
   // "search.sidebar.settings.rpp": "Results per page",
-  // TODO New key - Add a translation
-  "search.sidebar.settings.rpp": "Results per page",
-  
+  "search.sidebar.settings.rpp": "Résultats par page",
   // "search.sidebar.settings.sort-by": "Sort By",
-  // TODO New key - Add a translation
-  "search.sidebar.settings.sort-by": "Sort By",
-  
+  "search.sidebar.settings.sort-by": "Trier par",
   // "search.sidebar.settings.title": "Settings",
-  // TODO New key - Add a translation
-  "search.sidebar.settings.title": "Settings",
-  
-  
-  
+  "search.sidebar.settings.title": "Paramètres",
   // "search.view-switch.show-detail": "Show detail",
-  // TODO New key - Add a translation
-  "search.view-switch.show-detail": "Show detail",
-  
+  "search.view-switch.show-detail": "Afficher détail",
   // "search.view-switch.show-grid": "Show as grid",
-  // TODO New key - Add a translation
-  "search.view-switch.show-grid": "Show as grid",
-  
+  "search.view-switch.show-grid": "Affichage Grille",
   // "search.view-switch.show-list": "Show as list",
-  // TODO New key - Add a translation
-  "search.view-switch.show-list": "Show as list",
-  
-  
-  
+  "search.view-switch.show-list": "Affichage Liste",
   // "sorting.dc.title.ASC": "Title Ascending",
-  // TODO New key - Add a translation
-  "sorting.dc.title.ASC": "Title Ascending",
-  
+  "sorting.dc.title.ASC": "Titre croissant",
   // "sorting.dc.title.DESC": "Title Descending",
-  // TODO New key - Add a translation
-  "sorting.dc.title.DESC": "Title Descending",
-  
+  "sorting.dc.title.DESC": "Titre décroissant",
   // "sorting.score.DESC": "Relevance",
-  // TODO New key - Add a translation
-  "sorting.score.DESC": "Relevance",
-  
-  
-  
+  "sorting.score.DESC": "Pertinence",
+
   // "submission.edit.title": "Edit Submission",
-  // TODO New key - Add a translation
-  "submission.edit.title": "Edit Submission",
-  
+  "submission.edit.title": "Editer dépôt",
   // "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
-  // TODO New key - Add a translation
-  "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
-  
+  "submission.general.cannot_submit": "Vous n'avez pas les droits requis pour réaliser un nouveau dépôt.",
   // "submission.general.deposit": "Deposit",
-  // TODO New key - Add a translation
-  "submission.general.deposit": "Deposit",
-  
+  "submission.general.deposit": "Déposer",
   // "submission.general.discard.confirm.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "submission.general.discard.confirm.cancel": "Cancel",
-  
+  "submission.general.discard.confirm.cancel": "Annuler",
   // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
-  // TODO New key - Add a translation
-  "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
-  
+  "submission.general.discard.confirm.info": "L'annulation est irréversible, les données du dépôt en cours seront perdues. Êtes-vous sûr(e) ?",
   // "submission.general.discard.confirm.submit": "Yes, I'm sure",
-  // TODO New key - Add a translation
-  "submission.general.discard.confirm.submit": "Yes, I'm sure",
-  
+  "submission.general.discard.confirm.submit": "Oui, certain(e)",
   // "submission.general.discard.confirm.title": "Discard submission",
-  // TODO New key - Add a translation
-  "submission.general.discard.confirm.title": "Discard submission",
-  
+  "submission.general.discard.confirm.title": "Annuler dépôt",
   // "submission.general.discard.submit": "Discard",
-  // TODO New key - Add a translation
-  "submission.general.discard.submit": "Discard",
-  
+  "submission.general.discard.submit": "Annuler",
   // "submission.general.save": "Save",
-  // TODO New key - Add a translation
-  "submission.general.save": "Save",
-  
+  "submission.general.save": "Sauvegarder",
   // "submission.general.save-later": "Save for later",
-  // TODO New key - Add a translation
-  "submission.general.save-later": "Save for later",
-  
-  
-  
+  "submission.general.save-later": "Sauvegarder pour plus tard",
   // "submission.sections.general.add-more": "Add more",
-  // TODO New key - Add a translation
-  "submission.sections.general.add-more": "Add more",
-  
+  "submission.sections.general.add-more": "Ajouter section(s)",
   // "submission.sections.general.collection": "Collection",
-  // TODO New key - Add a translation
   "submission.sections.general.collection": "Collection",
-  
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
-  // TODO New key - Add a translation
-  "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
-  
+  "submission.sections.general.deposit_error_notice": "Une erreur s'est produite lors du dépôt de l'Item, veuillez réessayer plus tard.",
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
-  // TODO New key - Add a translation
-  "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
-  
+  "submission.sections.general.deposit_success_notice": "Dépôt réalisé avec succès.",
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  // TODO New key - Add a translation
-  "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  
+  "submission.sections.general.discard_error_notice": "Une erreur s'est produite lors de la suppression du brouillon, veuillez réessayer plus tard.",
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
-  // TODO New key - Add a translation
-  "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
-  
+  "submission.sections.general.discard_success_notice": "Brouillon supprimé avec succès.",
   // "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
-  // TODO New key - Add a translation
-  "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
-  
+  "submission.sections.general.metadata-extracted": "De nouvelles métadonnées ont été extraites et ajoutées à la section <strong>{{sectionId}}</strong>.",
   // "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
-  // TODO New key - Add a translation
-  "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
-  
+  "submission.sections.general.metadata-extracted-new-section": "Nouvelle section <strong>{{sectionId}}</strong> ajoutée au dépôt.",
   // "submission.sections.general.no-collection": "No collection found",
-  // TODO New key - Add a translation
-  "submission.sections.general.no-collection": "No collection found",
-  
+  "submission.sections.general.no-collection": "Aucune collection disponible",
   // "submission.sections.general.no-sections": "No options available",
-  // TODO New key - Add a translation
-  "submission.sections.general.no-sections": "No options available",
-  
+  "submission.sections.general.no-sections": "Aucune option disponible",
   // "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
-  // TODO New key - Add a translation
-  "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
-  
+  "submission.sections.general.save_error_notice": "Une erreur s'est produite à la sauvegarde du dépôt, veuillez réessayer plus tard.",
   // "submission.sections.general.save_success_notice": "Submission saved successfully.",
-  // TODO New key - Add a translation
-  "submission.sections.general.save_success_notice": "Submission saved successfully.",
-  
+  "submission.sections.general.save_success_notice": "Dépôt sauvegardé avec succès.",
   // "submission.sections.general.search-collection": "Search for a collection",
-  // TODO New key - Add a translation
-  "submission.sections.general.search-collection": "Search for a collection",
-  
+  "submission.sections.general.search-collection": "Rechercher une collection",
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
-  // TODO New key - Add a translation
-  "submission.sections.general.sections_not_valid": "There are incomplete sections.",
-  
-  
-  
+  "submission.sections.general.sections_not_valid": "Section(s) incomplète(s).",
   // "submission.sections.submit.progressbar.cclicense": "Creative commons license",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.cclicense": "Creative commons license",
-  
+  "submission.sections.submit.progressbar.cclicense": "Licence Creative Commons",
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.recycle": "Recycle",
-  
+  "submission.sections.submit.progressbar.describe.recycle": "Recycler",
   // "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
-  
+  "submission.sections.submit.progressbar.describe.stepcustom": "Décrire",
   // "submission.sections.submit.progressbar.describe.stepone": "Describe",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.stepone": "Describe",
-  
+  "submission.sections.submit.progressbar.describe.stepone": "Décrire",
   // "submission.sections.submit.progressbar.describe.steptwo": "Describe",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.steptwo": "Describe",
-  
+  "submission.sections.submit.progressbar.describe.steptwo": "Décrire",
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
-  
+  "submission.sections.submit.progressbar.detect-duplicate": "Doublon(s) potentiel(s)",
   // "submission.sections.submit.progressbar.license": "Deposit license",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.license": "Deposit license",
-  
+  "submission.sections.submit.progressbar.license": "Licence de dépôt",
   // "submission.sections.submit.progressbar.upload": "Upload files",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.upload": "Upload files",
-  
-  
-  
+  "submission.sections.submit.progressbar.upload": "Uploader",
   // "submission.sections.upload.delete.confirm.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.cancel": "Cancel",
-  
+  "submission.sections.upload.delete.confirm.cancel": "Annuler",
   // "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
-  // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
-  
+  "submission.sections.upload.delete.confirm.info": "Cette opération est irréversible. Êtes-vous sûr(e)?",
   // "submission.sections.upload.delete.confirm.submit": "Yes, I'm sure",
-  // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.submit": "Yes, I'm sure",
-  
+  "submission.sections.upload.delete.confirm.submit": "Oui, certain(e)",
   // "submission.sections.upload.delete.confirm.title": "Delete bitstream",
-  // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.title": "Delete bitstream",
-  
+  "submission.sections.upload.delete.confirm.title": "Supprimer Bitstream",
   // "submission.sections.upload.delete.submit": "Delete",
-  // TODO New key - Add a translation
-  "submission.sections.upload.delete.submit": "Delete",
-  
+  "submission.sections.upload.delete.submit": "Supprimer",
   // "submission.sections.upload.drop-message": "Drop files to attach them to the item",
-  // TODO New key - Add a translation
-  "submission.sections.upload.drop-message": "Drop files to attach them to the item",
-  
+  "submission.sections.upload.drop-message": "Déposer des fichiers pour les lier à l'Item",
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.access-condition-label": "Access condition type",
-  
+  "submission.sections.upload.form.access-condition-label": "Niveau d'accès",
   // "submission.sections.upload.form.date-required": "Date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.date-required": "Date is required.",
-  
+  "submission.sections.upload.form.date-required": "Date obligatoire.",
   // "submission.sections.upload.form.from-label": "Access grant from",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.from-label": "Access grant from",
-  
+  "submission.sections.upload.form.from-label": "Accès accordé depuis",
   // "submission.sections.upload.form.from-placeholder": "From",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.from-placeholder": "From",
-  
+  "submission.sections.upload.form.from-placeholder": "Depuis",
   // "submission.sections.upload.form.group-label": "Group",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.group-label": "Group",
-  
+  "submission.sections.upload.form.group-label": "Groupe",
   // "submission.sections.upload.form.group-required": "Group is required.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.group-required": "Group is required.",
-  
+  "submission.sections.upload.form.group-required": "Groupe requis.",
   // "submission.sections.upload.form.until-label": "Access grant until",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.until-label": "Access grant until",
-  
+  "submission.sections.upload.form.until-label": "Accès accordé jusque",
   // "submission.sections.upload.form.until-placeholder": "Until",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.until-placeholder": "Until",
+  "submission.sections.upload.form.until-placeholder": "Jusque",
   
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
   // TODO New key - Add a translation
