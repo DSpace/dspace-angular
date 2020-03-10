@@ -17,11 +17,10 @@ import { SearchResultGridElementComponent } from '../../search-result-grid-eleme
  * The component for displaying a list element for a community search result on the admin search page
  */
 export class CommunityAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<CommunitySearchResult, Community> {
+  editPath: string;
 
-  /**
-   * Returns the path to the edit page of this community
-   */
-  getEditPath(): string {
-    return getCommunityEditPath(this.dso.uuid)
+  ngOnInit() {
+    super.ngOnInit();
+    this.editPath = getCommunityEditPath(this.dso.uuid);
   }
 }

@@ -15,11 +15,11 @@
 </a>
 
 <a *ngIf="dso && !dso.isWithdrawn" class="btn btn-light my-1 withdraw-link" [routerLink]="[getWithdrawPath()]" [title]="'admin.search.item.withdraw' | translate">
-    <i class="fa fa-box"></i><span class="d-none d-sm-inline"> {{"admin.search.item.withdraw" | translate}}</span>
+    <i class="fa fa-ban"></i><span class="d-none d-sm-inline"> {{"admin.search.item.withdraw" | translate}}</span>
 </a>
 
 <a *ngIf="dso && dso.isWithdrawn" class="btn btn-light my-1 reinstate-link" [routerLink]="[getReinstatePath()]" [title]="'admin.search.item.reinstate' | translate">
-    <i class="fa fa-box-open"></i><span class="d-none d-sm-inline"> {{"admin.search.item.reinstate" | translate}}</span>
+    <i class="fa fa-undo"></i><span class="d-none d-sm-inline"> {{"admin.search.item.reinstate" | translate}}</span>
 </a>
 
 <a *ngIf="dso && dso.isDiscoverable" class="btn btn-light my-1 private-link" [routerLink]="[getPrivatePath()]" [title]="'admin.search.item.make-private' | translate">

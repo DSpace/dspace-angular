@@ -17,11 +17,10 @@ import { SearchResultGridElementComponent } from '../../search-result-grid-eleme
  * The component for displaying a list element for a collection search result on the admin search page
  */
 export class CollectionAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<CollectionSearchResult, Collection> {
+  editPath: string;
 
-  /**
-   * Returns the path to the edit page of this collection
-   */
-  getEditPath(): string {
-    return getCollectionEditPath(this.dso.uuid)
+  ngOnInit() {
+    super.ngOnInit();
+    this.editPath = getCollectionEditPath(this.dso.uuid);
   }
 }

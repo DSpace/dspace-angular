@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { SharedModule } from '../../../shared.module';
 import { CollectionAdminSearchResultGridElementComponent } from './collection-admin-search-result-grid-element.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
@@ -12,7 +16,7 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { getCollectionEditPath } from '../../../../+collection-page/collection-page-routing.module';
 
-describe('CollectionAdminSearchResultListElementComponent', () => {
+describe('CollectionAdminSearchResultGridElementComponent', () => {
   let component: CollectionAdminSearchResultGridElementComponent;
   let fixture: ComponentFixture<CollectionAdminSearchResultGridElementComponent>;
   let id;
@@ -28,12 +32,15 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
+        NoopAnimationsModule,
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        SharedModule
       ],
-      declarations: [CollectionAdminSearchResultGridElementComponent],
-      providers: [{ provide: TruncatableService, useValue: {} }],
-      schemas: [NO_ERRORS_SCHEMA]
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: BitstreamDataService, useValue: {} },
+      ]
     })
       .compileComponents();
   }));
@@ -53,7 +60,7 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
   });
 
   it('should render an edit button with the correct link', () => {
-    const a = fixture.debugElement.query(By.css('a'));
+    const a = fixture.debugElement.query(By.css('a.edit-link'));
     const link = a.nativeElement.href;
     expect(link).toContain(getCollectionEditPath(id));
   })

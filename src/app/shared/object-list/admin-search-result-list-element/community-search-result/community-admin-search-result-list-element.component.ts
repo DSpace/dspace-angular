@@ -17,11 +17,10 @@ import { getCommunityEditPath } from '../../../../+community-page/community-page
  * The component for displaying a list element for a community search result on the admin search page
  */
 export class CommunityAdminSearchResultListElementComponent extends SearchResultListElementComponent<CommunitySearchResult, Community> {
+  editPath: string;
 
-  /**
-   * Returns the path to the edit page of this community
-   */
-  getEditPath(): string {
-    return getCommunityEditPath(this.dso.uuid)
+  ngOnInit() {
+    super.ngOnInit();
+    this.editPath = getCommunityEditPath(this.dso.uuid);
   }
 }

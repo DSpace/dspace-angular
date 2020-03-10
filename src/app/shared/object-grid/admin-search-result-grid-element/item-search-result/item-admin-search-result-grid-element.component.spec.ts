@@ -1,7 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { Item } from '../../../../core/shared/item.model';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { SharedModule } from '../../../shared.module';
+import { createSuccessfulRemoteDataObject$ } from '../../../testing/utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
@@ -20,6 +29,12 @@ describe('ItemAdminSearchResultListElementComponent', () => {
   let id;
   let searchResult;
 
+  const mockBitstreamDataService = {
+    getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
+      return createSuccessfulRemoteDataObject$(new Bitstream());
+    }
+  };
+
   function init() {
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
     searchResult = new ItemSearchResult();
@@ -30,11 +45,15 @@ describe('ItemAdminSearchResultListElementComponent', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
+        NoopAnimationsModule,
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        SharedModule
       ],
-      declarations: [ItemAdminSearchResultGridElementComponent],
-      providers: [{ provide: TruncatableService, useValue: {} }],
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
