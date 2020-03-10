@@ -21,7 +21,7 @@ export class CollectionBreadcrumbResolver extends DSOBreadcrumbResolver<Collecti
    */
   get followLinks(): Array<FollowLinkConfig<Collection>> {
     return [
-      followLink('parentCommunity', undefined,
+      followLink('parentCommunity', undefined, true,
         followLink('parentCommunity')
       )
     ];
