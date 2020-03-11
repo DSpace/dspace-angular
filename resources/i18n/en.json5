@@ -1421,6 +1421,8 @@
 
   "profile.form.submit": "Update Profile",
 
+  "profile.groups.head": "Authorization groups you belong to",
+
   "profile.head": "Update Profile",
 
   "profile.metadata.form.error.firstname.required": "First Name is required",

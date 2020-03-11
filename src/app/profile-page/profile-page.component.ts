@@ -8,6 +8,14 @@ import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/p
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Group } from '../core/eperson/models/group.model';
+import { RemoteData } from '../core/data/remote-data';
+import { PaginatedList } from '../core/data/paginated-list';
+import { filter, switchMap, tap } from 'rxjs/operators';
+import { EPersonDataService } from '../core/eperson/eperson-data.service';
+import { getAllSucceededRemoteData, getRemoteDataPayload, getSucceededRemoteData } from '../core/shared/operators';
+import { hasValue } from '../shared/empty.util';
+import { followLink } from '../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-profile-page',
@@ -27,15 +35,28 @@ export class ProfilePageComponent implements OnInit {
    */
   user$: Observable<EPerson>;
 
+  /**
+   * The groups the user belongs to
+   */
+  groupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
+
   NOTIFICATIONS_PREFIX = 'profile.notifications.';
 
   constructor(private store: Store<AppState>,
               private notificationsService: NotificationsService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private epersonService: EPersonDataService) {
   }
 
   ngOnInit(): void {
-    this.user$ = this.store.pipe(select(getAuthenticatedUser));
+    this.user$ = this.store.pipe(
+      select(getAuthenticatedUser),
+      filter((user: EPerson) => hasValue(user.id)),
+      switchMap((user: EPerson) => this.epersonService.findById(user.id, followLink('groups'))),
+      getAllSucceededRemoteData(),
+      getRemoteDataPayload()
+    );
+    this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
   }
 
   updateProfile() {

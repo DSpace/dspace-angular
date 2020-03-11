@@ -14,5 +14,14 @@
       </div>
     </div>
     <button class="btn btn-outline-primary" (click)="updateProfile()">{{'profile.form.submit' | translate}}</button>
+
+    <ng-container *ngVar="(groupsRD$ | async)?.payload?.page as groups">
+      <div *ngIf="groups">
+        <h3 class="mt-4">{{'profile.groups.head' | translate}}</h3>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let group of groups" class="list-group-item">{{group.name}}</li>
+        </ul>
+      </div>
+    </ng-container>
   </div>
 </ng-container>
