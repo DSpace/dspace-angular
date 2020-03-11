@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import {
   DynamicFormControlModel,
   DynamicFormService, DynamicFormValueControlModel,
@@ -14,6 +14,10 @@ import { LangConfig } from '../../../config/lang-config.interface';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep } from 'lodash';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
+import { FormService } from '../../shared/form/form.service';
+import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../shared/form/form.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-profile-page-metadata-form',
@@ -24,6 +28,12 @@ export class ProfilePageMetadataFormComponent implements OnInit {
    * The user to display the form for
    */
   @Input() user: EPerson;
+
+  /**
+   * Reference to the form component
+   * Used for validating the form before sending update requests
+   */
+  @ViewChild(FormComponent, { static: false }) formRef: FormComponent;
 
   formModel: DynamicFormControlModel[] = [
     new DynamicInputModel({
@@ -72,6 +82,8 @@ export class ProfilePageMetadataFormComponent implements OnInit {
 
   ERROR_PREFIX = 'profile.metadata.form.error.';
 
+  NOTIFICATION_PREFIX = 'profile.metadata.form.notifications.';
+
   /**
    * All of the configured active languages
    */
@@ -79,13 +91,24 @@ export class ProfilePageMetadataFormComponent implements OnInit {
 
   constructor(@Inject(GLOBAL_CONFIG) protected config: GlobalConfig,
               protected location: Location,
-              protected formService: DynamicFormService,
+              protected formService: FormService,
+              protected formBuilderService: FormBuilderService,
               protected translate: TranslateService,
-              protected epersonService: EPersonDataService) {
+              protected epersonService: EPersonDataService,
+              protected notificationsService: NotificationsService) {
   }
 
   ngOnInit(): void {
     this.activeLangs = this.config.languages.filter((MyLangConfig) => MyLangConfig.active === true);
+    this.setFormValues();
+    this.updateFieldTranslations();
+    this.translate.onLangChange
+      .subscribe(() => {
+        this.updateFieldTranslations();
+      });
+  }
+
+  setFormValues() {
     this.formModel.forEach(
       (fieldModel: DynamicInputModel | DynamicSelectModel<string>) => {
         if (fieldModel.name === 'email') {
@@ -99,12 +122,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
         }
       }
     );
-    this.formGroup = this.formService.createFormGroup(this.formModel);
-    this.updateFieldTranslations();
-    this.translate.onLangChange
-      .subscribe(() => {
-        this.updateFieldTranslations();
-      });
+    this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
   }
 
   updateFieldTranslations() {
@@ -122,8 +140,13 @@ export class ProfilePageMetadataFormComponent implements OnInit {
   }
 
   updateProfile() {
-    const newMetadata = Object.assign({}, this.user.metadata);
-    this.formModel.forEach((fieldModel: DynamicFormValueControlModel<string>) => {
+    if (!this.formRef.formGroup.valid) {
+      this.formService.validateAllFormFields(this.formGroup);
+      return;
+    }
+
+    const newMetadata = cloneDeep(this.user.metadata);
+    this.formModel.filter((fieldModel) => fieldModel.id !== 'email').forEach((fieldModel: DynamicFormValueControlModel<string>) => {
       if (newMetadata.hasOwnProperty(fieldModel.name) && newMetadata[fieldModel.name].length > 0) {
         if (hasValue(fieldModel.value)) {
           newMetadata[fieldModel.name][0].value = fieldModel.value;
@@ -142,6 +165,11 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       getRemoteDataPayload()
     ).subscribe((user) => {
       this.user = user;
+      this.setFormValues();
+      this.notificationsService.success(
+        this.translate.instant(this.NOTIFICATION_PREFIX + 'success.title'),
+        this.translate.instant(this.NOTIFICATION_PREFIX + 'success.content')
+      );
     });
   }
 }

@@ -1353,6 +1353,8 @@
 
   "nav.mydspace": "MyDSpace",
 
+  "nav.profile": "Profile",
+
   "nav.search": "Search",
 
   "nav.statistics.header": "Statistics",
@@ -1421,9 +1423,9 @@
 
   "profile.head": "Update Profile",
 
-  "profile.metadata.form.error.firstname": "First Name is required",
+  "profile.metadata.form.error.firstname.required": "First Name is required",
 
-  "profile.metadata.form.error.lastname": "Last Name is required",
+  "profile.metadata.form.error.lastname.required": "Last Name is required",
 
   "profile.metadata.form.label.email": "Email Address",
 
@@ -1434,6 +1436,10 @@
   "profile.metadata.form.label.lastname": "Last Name",
 
   "profile.metadata.form.label.phone": "Contact Telephone",
+
+  "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
+
+  "profile.metadata.form.notifications.success.title": "Profile saved",
 
   "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
 
