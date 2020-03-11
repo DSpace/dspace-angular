@@ -25,9 +25,14 @@ import { followLink } from '../shared/utils/follow-link-config.model';
  * Component for a user to edit their profile information
  */
 export class ProfilePageComponent implements OnInit {
-
+  /**
+   * A reference to the metadata form component
+   */
   @ViewChild(ProfilePageMetadataFormComponent, { static: false }) metadataForm: ProfilePageMetadataFormComponent;
 
+  /**
+   * A reference to the security form component
+   */
   @ViewChild(ProfilePageSecurityFormComponent, { static: false }) securityForm: ProfilePageSecurityFormComponent;
 
   /**
@@ -40,6 +45,9 @@ export class ProfilePageComponent implements OnInit {
    */
   groupsRD$: Observable<RemoteData<PaginatedList<Group>>>;
 
+  /**
+   * Prefix for the notification messages of this component
+   */
   NOTIFICATIONS_PREFIX = 'profile.notifications.';
 
   constructor(private store: Store<AppState>,
@@ -59,6 +67,10 @@ export class ProfilePageComponent implements OnInit {
     this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
   }
 
+  /**
+   * Fire an update on both the metadata and security forms
+   * Show a warning notification when no changes were made in both forms
+   */
   updateProfile() {
     const metadataChanged = this.metadataForm.updateProfile();
     const securityChanged = this.securityForm.updateSecurity();

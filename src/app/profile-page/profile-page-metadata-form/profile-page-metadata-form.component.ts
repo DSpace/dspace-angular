@@ -23,12 +23,24 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   selector: 'ds-profile-page-metadata-form',
   templateUrl: './profile-page-metadata-form.component.html'
 })
+/**
+ * Component for a user to edit their metadata
+ * Displays a form containing:
+ * - readonly email field,
+ * - required first name text field
+ * - required last name text field
+ * - phone text field
+ * - language dropdown
+ */
 export class ProfilePageMetadataFormComponent implements OnInit {
   /**
    * The user to display the form for
    */
   @Input() user: EPerson;
 
+  /**
+   * The form's input models
+   */
   formModel: DynamicFormControlModel[] = [
     new DynamicInputModel({
       id: 'email',
@@ -72,14 +84,24 @@ export class ProfilePageMetadataFormComponent implements OnInit {
    */
   formGroup: FormGroup;
 
+  /**
+   * Prefix for the form's label messages of this component
+   */
   LABEL_PREFIX = 'profile.metadata.form.label.';
 
+  /**
+   * Prefix for the form's error messages of this component
+   */
   ERROR_PREFIX = 'profile.metadata.form.error.';
 
+  /**
+   * Prefix for the notification messages of this component
+   */
   NOTIFICATION_PREFIX = 'profile.metadata.form.notifications.';
 
   /**
    * All of the configured active languages
+   * Used to populate the language dropdown
    */
   activeLangs: LangConfig[];
 
@@ -101,6 +123,10 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       });
   }
 
+  /**
+   * Loop over all the form's input models and set their values depending on the user's metadata
+   * Create the FormGroup
+   */
   setFormValues() {
     this.formModel.forEach(
       (fieldModel: DynamicInputModel | DynamicSelectModel<string>) => {
@@ -118,6 +144,9 @@ export class ProfilePageMetadataFormComponent implements OnInit {
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
   }
 
+  /**
+   * Update the translations of the field labels and error messages
+   */
   updateFieldTranslations() {
     this.formModel.forEach(
       (fieldModel: DynamicInputModel) => {
@@ -132,6 +161,15 @@ export class ProfilePageMetadataFormComponent implements OnInit {
     );
   }
 
+  /**
+   * Update the user's metadata
+   *
+   * Sends a patch request for updating the user's metadata when at least one value changed or got added/removed and the
+   * form is valid.
+   * Nothing happens when the form is invalid or no metadata changed.
+   *
+   * Returns false when nothing happened.
+   */
   updateProfile(): boolean {
     if (!this.formGroup.valid) {
       return false;

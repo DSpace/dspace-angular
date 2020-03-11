@@ -16,12 +16,19 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   selector: 'ds-profile-page-security-form',
   templateUrl: './profile-page-security-form.component.html'
 })
+/**
+ * Component for a user to edit their security information
+ * Displays a form containing a password field and a confirmation of the password
+ */
 export class ProfilePageSecurityFormComponent implements OnInit {
   /**
    * The user to display the form for
    */
   @Input() user: EPerson;
 
+  /**
+   * The form's input models
+   */
   formModel: DynamicFormControlModel[] = [
     new DynamicInputModel({
       id: 'password',
@@ -40,8 +47,14 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    */
   formGroup: FormGroup;
 
+  /**
+   * Prefix for the notification messages of this component
+   */
   NOTIFICATIONS_PREFIX = 'profile.security.form.notifications.';
 
+  /**
+   * Prefix for the form's label messages of this component
+   */
   LABEL_PREFIX = 'profile.security.form.label.';
 
   constructor(protected formService: DynamicFormService,
@@ -59,6 +72,9 @@ export class ProfilePageSecurityFormComponent implements OnInit {
       });
   }
 
+  /**
+   * Update the translations of the field labels
+   */
   updateFieldTranslations() {
     this.formModel.forEach(
       (fieldModel: DynamicInputModel) => {
@@ -67,6 +83,10 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     );
   }
 
+  /**
+   * Check if both password fields are filled in and equal
+   * @param group The FormGroup to validate
+   */
   checkPasswords(group: FormGroup) {
     const pass = group.get('password').value;
     const repeatPass = group.get('passwordrepeat').value;
@@ -74,6 +94,16 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     return isEmpty(repeatPass) || pass === repeatPass ? null : { notSame: true };
   }
 
+  /**
+   * Update the user's security details
+   *
+   * Sends a patch request for changing the user's password when a new password is present and the password confirmation
+   * matches the new password.
+   * Nothing happens when no passwords are filled in.
+   * An error notification is displayed when the password confirmation does not match the new password.
+   *
+   * Returns false when nothing happened
+   */
   updateSecurity() {
     const pass = this.formGroup.get('password').value;
     const passEntered = isNotEmpty(pass);
