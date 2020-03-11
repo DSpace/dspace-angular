@@ -1441,11 +1441,25 @@
 
   "profile.metadata.form.notifications.success.title": "Profile saved",
 
+  "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
+
+  "profile.notifications.warning.no-changes.title": "No changes",
+
+  "profile.security.form.error.matching-passwords": "The passwords do not match.",
+
   "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
 
   "profile.security.form.label.password": "Password",
 
   "profile.security.form.label.passwordrepeat": "Retype to confirm",
+
+  "profile.security.form.notifications.success.content": "Successfully changed password.",
+
+  "profile.security.form.notifications.success.title": "Password changed",
+
+  "profile.security.form.notifications.error.title": "Error changing passwords",
+
+  "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
 
   "profile.title": "Update Profile",
 

@@ -2,5 +2,7 @@
 <ds-form *ngIf="formModel"
          [formId]="'profile-page-security-form-id'"
          [formModel]="formModel"
+         [formGroup]="formGroup"
          [displaySubmit]="false">
 </ds-form>
+<div class="container-fluid text-danger" *ngIf="formGroup.hasError('notSame')">{{'profile.security.form.error.matching-passwords' | translate}}</div>

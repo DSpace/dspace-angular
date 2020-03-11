@@ -29,12 +29,6 @@ export class ProfilePageMetadataFormComponent implements OnInit {
    */
   @Input() user: EPerson;
 
-  /**
-   * Reference to the form component
-   * Used for validating the form before sending update requests
-   */
-  @ViewChild(FormComponent, { static: false }) formRef: FormComponent;
-
   formModel: DynamicFormControlModel[] = [
     new DynamicInputModel({
       id: 'email',
@@ -91,7 +85,6 @@ export class ProfilePageMetadataFormComponent implements OnInit {
 
   constructor(@Inject(GLOBAL_CONFIG) protected config: GlobalConfig,
               protected location: Location,
-              protected formService: FormService,
               protected formBuilderService: FormBuilderService,
               protected translate: TranslateService,
               protected epersonService: EPersonDataService,
@@ -139,37 +132,47 @@ export class ProfilePageMetadataFormComponent implements OnInit {
     );
   }
 
-  updateProfile() {
-    if (!this.formRef.formGroup.valid) {
-      this.formService.validateAllFormFields(this.formGroup);
-      return;
+  updateProfile(): boolean {
+    if (!this.formGroup.valid) {
+      return false;
     }
 
     const newMetadata = cloneDeep(this.user.metadata);
+    let changed = false;
     this.formModel.filter((fieldModel) => fieldModel.id !== 'email').forEach((fieldModel: DynamicFormValueControlModel<string>) => {
       if (newMetadata.hasOwnProperty(fieldModel.name) && newMetadata[fieldModel.name].length > 0) {
         if (hasValue(fieldModel.value)) {
-          newMetadata[fieldModel.name][0].value = fieldModel.value;
+          if (newMetadata[fieldModel.name][0].value !== fieldModel.value) {
+            newMetadata[fieldModel.name][0].value = fieldModel.value;
+            changed = true;
+          }
         } else {
           newMetadata[fieldModel.name] = [];
+          changed = true;
         }
       } else if (hasValue(fieldModel.value)) {
         newMetadata[fieldModel.name] = [{
           value: fieldModel.value,
           language: null
         } as any];
+        changed = true;
       }
     });
-    this.epersonService.update(Object.assign(cloneDeep(this.user), { metadata: newMetadata })).pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload()
-    ).subscribe((user) => {
-      this.user = user;
-      this.setFormValues();
-      this.notificationsService.success(
-        this.translate.instant(this.NOTIFICATION_PREFIX + 'success.title'),
-        this.translate.instant(this.NOTIFICATION_PREFIX + 'success.content')
-      );
-    });
+
+    if (changed) {
+      this.epersonService.update(Object.assign(cloneDeep(this.user), {metadata: newMetadata})).pipe(
+        getSucceededRemoteData(),
+        getRemoteDataPayload()
+      ).subscribe((user) => {
+        this.user = user;
+        this.setFormValues();
+        this.notificationsService.success(
+          this.translate.instant(this.NOTIFICATION_PREFIX + 'success.title'),
+          this.translate.instant(this.NOTIFICATION_PREFIX + 'success.content')
+        );
+      });
+    }
+
+    return changed;
   }
 }
