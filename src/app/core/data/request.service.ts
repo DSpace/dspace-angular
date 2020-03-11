@@ -148,6 +148,13 @@ export class RequestService {
    * @param {RestRequest} request The request to send out
    */
   configure<T extends CacheableObject>(request: RestRequest): void {
+    /**
+     * Since this method doesn't return anything, is used very often and has
+     * problems with actions being dispatched to the store but not reduced before
+     * that info is needed again, we may as well run it in a separate zone. That way
+     * it won't block the UI, and actions have a better chance of being already
+     * processed when the next isCachedOrPending call comes
+     */
     this.zone.runOutsideAngular(() => {
       const isGetRequest = request.method === RestRequestMethod.GET;
       if (!isGetRequest || request.forceBypassCache || !this.isCachedOrPending(request)) {
