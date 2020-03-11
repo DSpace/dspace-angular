@@ -306,7 +306,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  protected searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
+  searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
 
     const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
 

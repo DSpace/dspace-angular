@@ -78,7 +78,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param query   Query of search
    * @param options Options of search request
    */
-  public searchByScope(scope: string, query: string, options: FindListOptions = {}) {
+  public searchByScope(scope: string, query: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<EPerson>>> {
     switch (scope) {
       case 'metadata':
         return this.getEpeopleByMetadata(query.trim(), options);
@@ -95,7 +95,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param options
    * @param linksToFollow
    */
-  public getEpeopleByEmail(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEpeopleByEmail(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
     const searchParams = [new SearchParam('email', query)];
     return this.getEPeopleBy(searchParams, this.searchByEmailPath, options, ...linksToFollow);
   }
@@ -106,7 +106,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param options
    * @param linksToFollow
    */
-  public getEpeopleByMetadata(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEpeopleByMetadata(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
     const searchParams = [new SearchParam('query', query)];
     return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, ...linksToFollow);
   }
@@ -171,11 +171,6 @@ export class EPersonDataService extends DataService<EPerson> {
     if (hasValue(oldEPerson.canLogIn) && oldEPerson.canLogIn !== newEPerson.canLogIn) {
       operations = [...operations, {
         op: 'replace', path: '/canLogIn', value: newEPerson.canLogIn
-      }]
-    }
-    if (hasValue(oldEPerson.netid) && oldEPerson.netid !== newEPerson.netid) {
-      operations = [...operations, {
-        op: 'replace', path: '/netid', value: newEPerson.netid
       }]
     }
     return operations;
