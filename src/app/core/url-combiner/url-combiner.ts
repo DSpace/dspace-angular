@@ -41,8 +41,8 @@ export class URLCombiner {
       // remove consecutive slashes
       url = url.replace(/([^:\s])\/+/g, '$1/');
 
-      // remove trailing slash before parameters or hash
-      url = url.replace(/\/(\?|&|#[^!])/g, '$1');
+      // remove trailing slash
+      url = url.replace(/\/($|\?|&|#[^!])/g, '$1');
 
       // replace ? in parameters with &
       url = url.replace(/(\?.+)\?/g, '$1&');
