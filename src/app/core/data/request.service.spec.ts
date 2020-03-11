@@ -1,4 +1,3 @@
-import { NgZone } from '@angular/core';
 import * as ngrx from '@ngrx/store';
 import { ActionsSubject, Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
@@ -63,7 +62,6 @@ describe('RequestService', () => {
       objectCache,
       uuidService,
       store,
-      new NgZone({}),
       undefined
     );
     serviceAsAny = service as any;
