@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, race as observableRace } from 'rxjs';
-import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { filter, map, mergeMap, take } from 'rxjs/operators';
 import { cloneDeep, remove } from 'lodash';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -80,6 +80,7 @@ export class RequestService {
   constructor(private objectCache: ObjectCacheService,
               private uuidService: UUIDService,
               private store: Store<CoreState>,
+              private zone: NgZone,
               private indexStore: Store<MetaIndexState>) {
   }
 
@@ -147,21 +148,23 @@ export class RequestService {
    * @param {RestRequest} request The request to send out
    */
   configure<T extends CacheableObject>(request: RestRequest): void {
-    const isGetRequest = request.method === RestRequestMethod.GET;
-    if (!isGetRequest || request.forceBypassCache || !this.isCachedOrPending(request)) {
-      this.dispatchRequest(request);
-      if (isGetRequest) {
-        this.trackRequestsOnTheirWayToTheStore(request);
-      }
-    } else {
-      this.getByHref(request.href).pipe(
-        filter((entry) => hasValue(entry)),
-        take(1)
-      ).subscribe((entry) => {
-          return this.store.dispatch(new AddToIndexAction(IndexName.UUID_MAPPING, request.uuid, entry.request.uuid))
+    this.zone.runOutsideAngular(() => {
+      const isGetRequest = request.method === RestRequestMethod.GET;
+      if (!isGetRequest || request.forceBypassCache || !this.isCachedOrPending(request)) {
+        this.dispatchRequest(request);
+        if (isGetRequest) {
+          this.trackRequestsOnTheirWayToTheStore(request);
         }
-      )
-    }
+      } else {
+        this.getByHref(request.href).pipe(
+          filter((entry) => hasValue(entry)),
+          take(1)
+        ).subscribe((entry) => {
+            return this.store.dispatch(new AddToIndexAction(IndexName.UUID_MAPPING, request.uuid, entry.request.uuid))
+          }
+        )
+      }
+    });
   }
 
   /**
