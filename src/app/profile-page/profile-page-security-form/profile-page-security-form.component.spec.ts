@@ -8,17 +8,19 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
-import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../../core/cache/response.models';
 
 describe('ProfilePageSecurityFormComponent', () => {
   let component: ProfilePageSecurityFormComponent;
   let fixture: ComponentFixture<ProfilePageSecurityFormComponent>;
 
-  const user = new EPerson();
+  const user = Object.assign(new EPerson(), {
+    _links: {
+      self: { href: 'user-selflink' }
+    }
+  });
 
   const epersonService = jasmine.createSpyObj('epersonService', {
-    immediatePatch: observableOf(new RestResponse(true,  200, 'OK'))
+    patch: {}
   });
   const notificationsService = jasmine.createSpyObj('notificationsService', {
     success: {},
@@ -58,8 +60,8 @@ describe('ProfilePageSecurityFormComponent', () => {
         expect(result).toEqual(false);
       });
 
-      it('should not call epersonService.immediatePatch', () => {
-        expect(epersonService.immediatePatch).not.toHaveBeenCalled();
+      it('should not call epersonService.patch', () => {
+        expect(epersonService.patch).not.toHaveBeenCalled();
       });
     });
 
@@ -91,8 +93,8 @@ describe('ProfilePageSecurityFormComponent', () => {
         expect(result).toEqual(true);
       });
 
-      it('should return call epersonService.immediatePatch', () => {
-        expect(epersonService.immediatePatch).toHaveBeenCalledWith(user, operations);
+      it('should return call epersonService.patch', () => {
+        expect(epersonService.patch).toHaveBeenCalledWith(user.self, operations);
       });
     });
   });
