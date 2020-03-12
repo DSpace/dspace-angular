@@ -8,6 +8,8 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
+import { of as observableOf } from 'rxjs';
+import { RestResponse } from '../../core/cache/response.models';
 
 describe('ProfilePageSecurityFormComponent', () => {
   let component: ProfilePageSecurityFormComponent;
@@ -20,7 +22,7 @@ describe('ProfilePageSecurityFormComponent', () => {
   });
 
   const epersonService = jasmine.createSpyObj('epersonService', {
-    patch: {}
+    patch: observableOf(new RestResponse(true,  200, 'OK'))
   });
   const notificationsService = jasmine.createSpyObj('notificationsService', {
     success: {},
@@ -94,7 +96,7 @@ describe('ProfilePageSecurityFormComponent', () => {
       });
 
       it('should return call epersonService.patch', () => {
-        expect(epersonService.patch).toHaveBeenCalledWith(user.self, operations);
+        expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
       });
     });
   });
