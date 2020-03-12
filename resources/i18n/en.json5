@@ -1455,9 +1455,9 @@
 
   "profile.security.form.label.passwordrepeat": "Retype to confirm",
 
-  "profile.security.form.notifications.success.content": "Successfully changed password.",
+  "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
 
-  "profile.security.form.notifications.success.title": "Password changed",
+  "profile.security.form.notifications.success.title": "Password saved",
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
 

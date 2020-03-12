@@ -116,18 +116,11 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     }
     if (passEntered) {
       const operation = Object.assign({ op: 'replace', path: '/password', value: pass });
-      this.epersonService.immediatePatch(this.user, [operation]).subscribe((response: RestResponse) => {
-        if (response.isSuccessful) {
-          this.notificationsService.success(
-            this.translate.instant(this.NOTIFICATIONS_PREFIX + 'success.title'),
-            this.translate.instant(this.NOTIFICATIONS_PREFIX + 'success.content')
-          );
-        } else {
-          this.notificationsService.error(
-            this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.title'), (response as ErrorResponse).errorMessage
-          );
-        }
-      });
+      this.epersonService.patch(this.user.self, [operation]);
+      this.notificationsService.success(
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'success.title'),
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'success.content')
+      );
     }
 
     return passEntered;
