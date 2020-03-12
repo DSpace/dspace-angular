@@ -1,20 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
-import { SharedModule } from '../../../shared.module';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { SharedModule } from '../../../../../shared/shared.module';
 import { CollectionAdminSearchResultGridElementComponent } from './collection-admin-search-result-grid-element.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { Collection } from '../../../../core/shared/collection.model';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
+import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { getCollectionEditPath } from '../../../../+collection-page/collection-page-routing.module';
+import { getCollectionEditPath } from '../../../../../+collection-page/collection-page-routing.module';
 
 describe('CollectionAdminSearchResultGridElementComponent', () => {
   let component: CollectionAdminSearchResultGridElementComponent;
@@ -37,6 +35,7 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
         RouterTestingModule.withRoutes([]),
         SharedModule
       ],
+      declarations: [CollectionAdminSearchResultGridElementComponent],
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },

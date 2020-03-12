@@ -1,36 +1,32 @@
-import { Component } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { Context } from '../../../../core/shared/context.model';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
-import { getItemEditPath } from '../../../../+item-page/item-page-routing.module';
-import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
+import { Component, Input } from '@angular/core';
+import { Item } from '../../../core/shared/item.model';
+import { getItemEditPath } from '../../../+item-page/item-page-routing.module';
+import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import {
   ITEM_EDIT_DELETE_PATH,
   ITEM_EDIT_MOVE_PATH,
-  ITEM_EDIT_PRIVATE_PATH, ITEM_EDIT_PUBLIC_PATH,
+  ITEM_EDIT_PRIVATE_PATH,
+  ITEM_EDIT_PUBLIC_PATH,
   ITEM_EDIT_REINSTATE_PATH,
   ITEM_EDIT_WITHDRAW_PATH
-} from '../../../../+item-page/edit-item-page/edit-item-page.routing.module';
+} from '../../../+item-page/edit-item-page/edit-item-page.routing.module';
 
-@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.AdminSearch)
 @Component({
-  selector: 'ds-item-admin-search-result-list-element',
-  styleUrls: ['./item-admin-search-result-list-element.component.scss'],
-  templateUrl: './item-admin-search-result-list-element.component.html'
+  selector: 'ds-item-admin-search-result-actions-element',
+  styleUrls: ['./item-admin-search-result-actions.component.scss'],
+  templateUrl: './item-admin-search-result-actions.component.html'
 })
 /**
  * The component for displaying a list element for an item search result on the admin search page
  */
-export class ItemAdminSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
-
+export class ItemAdminSearchResultActionsComponent {
+  @Input() public item: Item;
+  @Input() public small: boolean;
   /**
    * Returns the path to the edit page of this item
    */
   getEditPath(): string {
-    return getItemEditPath(this.dso.uuid)
+    return getItemEditPath(this.item.uuid)
   }
 
   /**

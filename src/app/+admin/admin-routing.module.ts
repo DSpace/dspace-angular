@@ -18,7 +18,12 @@ export function getRegistriesModulePath() {
         path: REGISTRIES_MODULE_PATH,
         loadChildren: './admin-registries/admin-registries.module#AdminRegistriesModule'
       },
-      { path: 'search', resolve: { breadcrumb: I18nBreadcrumbResolver }, component: AdminSearchPageComponent, data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' } },
+      {
+        path: 'search',
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        component: AdminSearchPageComponent,
+        data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' }
+      },
     ])
   ]
 })

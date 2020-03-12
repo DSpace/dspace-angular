@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { Context } from '../../../../core/shared/context.model';
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
-import { Community } from '../../../../core/shared/community.model';
-import { getCommunityEditPath } from '../../../../+community-page/community-page-routing.module';
-import { SearchResultGridElementComponent } from '../../search-result-grid-element/search-result-grid-element.component';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { Context } from '../../../../../core/shared/context.model';
+import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
+import { Community } from '../../../../../core/shared/community.model';
+import { getCommunityEditPath } from '../../../../../+community-page/community-page-routing.module';
+import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 
 @listableObjectComponent(CommunitySearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({

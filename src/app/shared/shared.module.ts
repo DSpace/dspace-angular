@@ -177,13 +177,7 @@ import { ImportableListItemControlComponent } from './object-collection/shared/i
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { SortablejsModule } from 'ngx-sortablejs';
-import { ItemAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/item-search-result/item-admin-search-result-list-element.component';
-import { CommunityAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/community-search-result/community-admin-search-result-list-element.component';
-import { CollectionAdminSearchResultListElementComponent } from './object-list/admin-search-result-list-element/collection-search-result/collection-admin-search-result-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
-import { ItemAdminSearchResultGridElementComponent } from './object-grid/admin-search-result-grid-element/item-search-result/item-admin-search-result-grid-element.component';
-import { CommunityAdminSearchResultGridElementComponent } from './object-grid/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
-import { CollectionAdminSearchResultGridElementComponent } from './object-grid/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -351,12 +345,6 @@ const COMPONENTS = [
   ImportableListItemControlComponent,
   ExistingMetadataListElementComponent,
   PublicationSearchResultListElementComponent,
-  ItemAdminSearchResultListElementComponent,
-  CommunityAdminSearchResultListElementComponent,
-  CollectionAdminSearchResultListElementComponent,
-  ItemAdminSearchResultGridElementComponent,
-  CommunityAdminSearchResultGridElementComponent,
-  CollectionAdminSearchResultGridElementComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -420,12 +408,6 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
   ExternalSourceEntryImportModalComponent,
-  ItemAdminSearchResultListElementComponent,
-  CommunityAdminSearchResultListElementComponent,
-  CollectionAdminSearchResultListElementComponent,
-  ItemAdminSearchResultGridElementComponent,
-  CommunityAdminSearchResultGridElementComponent,
-  CollectionAdminSearchResultGridElementComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

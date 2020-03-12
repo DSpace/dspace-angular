@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { Context } from '../../../../core/shared/context.model';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { getCollectionEditPath } from '../../../../+collection-page/collection-page-routing.module';
-import { SearchResultGridElementComponent } from '../../search-result-grid-element/search-result-grid-element.component';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { Context } from '../../../../../core/shared/context.model';
+import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
+import { Collection } from '../../../../../core/shared/collection.model';
+import { getCollectionEditPath } from '../../../../../+collection-page/collection-page-routing.module';
+import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({
