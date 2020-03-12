@@ -171,7 +171,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
       switchMap(([bundles, moveOperationList]: [Bundle[], Operation[][]]) =>
         observableZip(...bundles.map((bundle: Bundle, index: number) => {
           if (isNotEmpty(moveOperationList[index])) {
-            return this.bundleService.immediatePatch(bundle, moveOperationList[index]);
+            return this.bundleService.patch(bundle, moveOperationList[index]);
           } else {
             return observableOf(undefined);
           }

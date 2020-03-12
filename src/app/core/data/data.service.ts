@@ -330,21 +330,11 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
-   * Add a new patch to the object cache to a specified object
-   * @param {string} href The selflink of the object that will be patched
+   * Send out a patch for a specified object
+   * @param {T} dso The object to send a patch for
    * @param {Operation[]} operations The patch operations to be performed
    */
-  patch(href: string, operations: Operation[]) {
-    this.objectCache.addPatch(href, operations);
-  }
-
-  /**
-   * Send out an immediate patch request, instead of adding to the object cache first
-   * This is useful in cases where you need the returned response and an object cache update is not needed
-   * @param dso         The dso to send the patch to
-   * @param operations  The patch operations
-   */
-  immediatePatch(dso: T, operations: Operation[]): Observable<RestResponse> {
+  patch(dso: T, operations: Operation[]): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
