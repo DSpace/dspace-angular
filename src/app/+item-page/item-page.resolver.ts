@@ -28,7 +28,7 @@ export class ItemPageResolver implements Resolve<RemoteData<Item>> {
       followLink('owningCollection'),
       followLink('bundles'),
       followLink('relationships'),
-      followLink('version', undefined, followLink('versionhistory')),
+      followLink('version', undefined, true, followLink('versionhistory')),
     ).pipe(
       find((RD) => hasValue(RD.error) || RD.hasSucceeded),
     );
