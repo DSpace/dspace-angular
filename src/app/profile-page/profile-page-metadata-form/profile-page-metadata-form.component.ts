@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import {
   DynamicFormControlModel,
   DynamicFormService, DynamicFormValueControlModel,
@@ -6,7 +6,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
@@ -14,9 +13,7 @@ import { LangConfig } from '../../../config/lang-config.interface';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep } from 'lodash';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
-import { FormService } from '../../shared/form/form.service';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
-import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
@@ -106,7 +103,6 @@ export class ProfilePageMetadataFormComponent implements OnInit {
   activeLangs: LangConfig[];
 
   constructor(@Inject(GLOBAL_CONFIG) protected config: GlobalConfig,
-              protected location: Location,
               protected formBuilderService: FormBuilderService,
               protected translate: TranslateService,
               protected epersonService: EPersonDataService,

@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
   DynamicFormControlModel,
-  DynamicFormService, DynamicFormValueControlModel,
+  DynamicFormService,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup } from '@angular/forms';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ErrorResponse, RestResponse } from '../../core/cache/response.models';
