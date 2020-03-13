@@ -2038,7 +2038,7 @@
   "title": "DSpace",
 
 
-  "discoverableAndUndiscoverableItems.search.results.head": "Administrative Search",
+  "administrativeView.search.results.head": "Administrative Search",
 
 
   "uploader.browse": "browse",
