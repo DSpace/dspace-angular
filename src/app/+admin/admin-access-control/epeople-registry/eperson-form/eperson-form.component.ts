@@ -244,13 +244,13 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: ePersonToCreate.name }));
       }
     });
-    this.showNotificationIfEmailInUse(ePersonToCreate);
+    this.showNotificationIfEmailInUse(ePersonToCreate, 'created');
   }
 
   /**
    * Edits existing EPerson based on given values from form and old EPerson
-   * @param ePerson
-   * @param values
+   * @param ePerson   ePerson to edit
+   * @param values    new ePerson values (of form)
    */
   editEPerson(ePerson: EPerson, values) {
     const editedEperson = Object.assign(new EPerson(), {
@@ -280,24 +280,33 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: editedEperson.name }));
         this.submitForm.emit(editedEperson);
       } else {
-        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: editedEperson.name }));
+        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', { name: editedEperson.name }));
       }
     });
-    this.showNotificationIfEmailInUse(editedEperson);
+
+    if (values.email != null && values.email !== ePerson.email) {
+      this.showNotificationIfEmailInUse(editedEperson, 'edited');
+    }
   }
 
-  private showNotificationIfEmailInUse(ePersonToCreate: EPerson) {
+  /**
+   * Checks for the given ePerson if there is already an ePerson in the system with that email
+   * and shows notification if this is the case
+   * @param ePerson               ePerson values to check
+   * @param notificationSection   whether in create or edit
+   */
+  private showNotificationIfEmailInUse(ePerson: EPerson, notificationSection: string) {
     // Relevant message for email in use
     // TODO: should be changed to email scope, but byEmail currently not in backend
-    this.subs.push(this.epersonService.searchByScope(null, ePersonToCreate.email, {
+    this.subs.push(this.epersonService.searchByScope(null, ePerson.email, {
       currentPage: 1,
       elementsPerPage: 0
     }).pipe(getSucceededRemoteData(), getRemoteDataPayload())
       .subscribe((list: PaginatedList<EPerson>) => {
         if (list.totalElements > 0) {
-          this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure.emailInUse', {
-            name: ePersonToCreate.name,
-            email: ePersonToCreate.email
+          this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.' + notificationSection + '.failure.emailInUse', {
+            name: ePerson.name,
+            email: ePerson.email
           }));
         }
       }));
