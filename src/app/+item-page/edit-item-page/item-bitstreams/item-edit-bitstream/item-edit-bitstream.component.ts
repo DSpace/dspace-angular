@@ -17,6 +17,8 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 })
 /**
  * Component that displays a single bitstream of an item on the edit page
+ * Creates an embedded view of the contents
+ * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream element)
  */
 export class ItemEditBitstreamComponent implements OnChanges, OnInit {
 

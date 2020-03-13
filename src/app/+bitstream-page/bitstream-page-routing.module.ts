@@ -6,6 +6,9 @@ import { BitstreamPageResolver } from './bitstream-page.resolver';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 
+/**
+ * Routing module to help navigate Bitstream pages
+ */
 @NgModule({
   imports: [
     RouterModule.forChild([

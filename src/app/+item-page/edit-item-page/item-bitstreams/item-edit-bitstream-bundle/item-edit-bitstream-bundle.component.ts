@@ -11,6 +11,8 @@ import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/
 })
 /**
  * Component that displays a single bundle of an item on the item bitstreams edit page
+ * Creates an embedded view of the contents. This is to ensure the table structure won't break.
+ * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream-bundle element)
  */
 export class ItemEditBitstreamBundleComponent implements OnInit {
 

@@ -69,6 +69,14 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
               protected translate: TranslateService) {
   }
 
+  /**
+   * Initialize component properties:
+   * itemRD$          Fetched from the current route data (populated by BitstreamPageResolver)
+   * bundlesRD$       List of bundles on the item
+   * selectedBundleId Starts off by checking if the route's queryParams contain a "bundle" parameter. If none is found,
+   *                  the ID of the first bundle in the list is selected.
+   * Calls setUploadUrl after setting the selected bundle
+   */
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(map((data) => data.item));
     this.bundlesRD$ = this.itemRD$.pipe(

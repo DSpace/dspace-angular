@@ -302,7 +302,7 @@ describe('DataService', () => {
     });
   });
 
-  describe('immediatePatch', () => {
+  describe('patch', () => {
     const dso = {
       uuid: 'dso-uuid'
     };
@@ -315,7 +315,7 @@ describe('DataService', () => {
     ];
 
     beforeEach(() => {
-      service.immediatePatch(dso, operations);
+      service.patch(dso, operations);
     });
 
     it('should configure a PatchRequest', () => {
