@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch/lib/core';
 import { Observable } from 'rxjs';
-import { filter, mergeMap, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction
@@ -17,6 +17,7 @@ import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SearchParam } from '../cache/models/search-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
 import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
@@ -136,18 +137,20 @@ export class EPersonDataService extends DataService<EPerson> {
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} ePerson The given object
    */
-  public updateEPerson(ePerson: EPerson): Observable<RemoteData<EPerson>> {
+  public updateEPerson(ePerson: EPerson): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
     const oldVersion$ = this.findByHref(ePerson._links.self.href);
-    return oldVersion$.pipe(
+    oldVersion$.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
-      mergeMap((oldEPerson: EPerson) => {
+      map((oldEPerson: EPerson) => {
         const operations = this.generateOperations(oldEPerson, ePerson);
-        const patchRequest = new PatchRequest(this.requestService.generateRequestId(), ePerson._links.self.href, operations);
+        const patchRequest = new PatchRequest(requestId, ePerson._links.self.href, operations);
         this.requestService.configure(patchRequest);
-        return this.findByHref(ePerson._links.self.href);
       }),
     );
+
+    return this.fetchResponse(requestId);
   }
 
   /**

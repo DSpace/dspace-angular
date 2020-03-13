@@ -10,6 +10,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { take } from 'rxjs/operators';
+import { RestResponse } from '../../../../core/cache/response.models';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
@@ -231,14 +233,18 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * @param values
    */
   createNewEPerson(values) {
-    this.subs.push(this.epersonService.create(Object.assign(new EPerson(), values), null)
-      .pipe(
-        getSucceededRemoteData(),
-        getRemoteDataPayload())
-      .subscribe((newEPerson: EPerson) => {
-        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: newEPerson.name }));
-        this.submitForm.emit(newEPerson);
-      }));
+    const ePersonToCreate = Object.assign(new EPerson(), values);
+
+    const response = this.epersonService.tryToCreate(ePersonToCreate);
+    response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
+      if (restResponse.isSuccessful) {
+        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: ePersonToCreate.name }));
+        this.submitForm.emit(ePersonToCreate);
+      } else {
+        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: ePersonToCreate.name }));
+      }
+    });
+    this.showNotificationIfEmailInUse(ePersonToCreate);
   }
 
   /**
@@ -247,7 +253,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * @param values
    */
   editEPerson(ePerson: EPerson, values) {
-    this.epersonService.updateEPerson(Object.assign(new EPerson(), {
+    const editedEperson = Object.assign(new EPerson(), {
       id: ePerson.id,
       metadata: {
         'eperson.firstname': [
@@ -266,14 +272,35 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       requireCertificate: (hasValue(values.requireCertificate) ? values.requireCertificate : ePerson.requireCertificate),
       selfRegistered: false,
       _links: ePerson._links,
-    }))
-      .pipe(
-        getSucceededRemoteData(),
-        getRemoteDataPayload())
-      .subscribe((updatedEPerson: EPerson) => {
-        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: updatedEPerson.name }));
-        this.submitForm.emit(updatedEPerson);
-      });
+    });
+
+    const response = this.epersonService.updateEPerson(editedEperson);
+    response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
+      if (restResponse.isSuccessful) {
+        this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: editedEperson.name }));
+        this.submitForm.emit(editedEperson);
+      } else {
+        this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: editedEperson.name }));
+      }
+    });
+    this.showNotificationIfEmailInUse(editedEperson);
+  }
+
+  private showNotificationIfEmailInUse(ePersonToCreate: EPerson) {
+    // Relevant message for email in use
+    // TODO: should be changed to email scope, but byEmail currently not in backend
+    this.subs.push(this.epersonService.searchByScope(null, ePersonToCreate.email, {
+      currentPage: 1,
+      elementsPerPage: 0
+    }).pipe(getSucceededRemoteData(), getRemoteDataPayload())
+      .subscribe((list: PaginatedList<EPerson>) => {
+        if (list.totalElements > 0) {
+          this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure.emailInUse', {
+            name: ePersonToCreate.name,
+            email: ePersonToCreate.email
+          }));
+        }
+      }));
   }
 
   /**

@@ -410,6 +410,48 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
+   * Create a new DSpaceObject on the server, and store the response
+   * in the object cache, returns observable of the response to determine success
+   *
+   * @param {DSpaceObject} dso
+   *    The object to create
+   */
+  tryToCreate(dso: T): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+    const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+    );
+
+    const serializedDso = new DSpaceSerializer(getClassForType((dso as any).type)).serialize(dso);
+
+    const request$ = endpoint$.pipe(
+      take(1),
+      map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
+    );
+
+    // Execute the post request
+    request$.pipe(
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    return this.fetchResponse(requestId);
+  }
+
+  /**
+   * Gets the restResponse from the requestService
+   * @param requestId
+   */
+  protected fetchResponse(requestId: string): Observable<RestResponse> {
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: RestResponse) => {
+        return response;
+      })
+    );
+  }
+
+  /**
    * Delete an existing DSpace Object on the server
    * @param dsoID The DSpace Object' id to be removed
    * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
