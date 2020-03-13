@@ -19,7 +19,7 @@ import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-f
 import { cloneDeep } from 'lodash';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import {
-  getAllSucceededRemoteData,
+  getAllSucceededRemoteData, getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
   getSucceededRemoteData
@@ -35,6 +35,9 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { RequestService } from '../../core/data/request.service';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -266,18 +269,15 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   protected subs: Subscription[] = [];
 
-  /**
-   * Denotes whether or not we're awaiting the server's response after a save
-   */
-  private _saveResponsePending: boolean;
-
   constructor(private route: ActivatedRoute,
               private location: Location,
               private formService: DynamicFormService,
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
               private notificationsService: NotificationsService,
-              private bitstreamFormatService: BitstreamFormatDataService) {
+              private bitstreamFormatService: BitstreamFormatDataService,
+              private objectCache: ObjectCacheService,
+              private requestService: RequestService) {
   }
 
   /**
@@ -295,7 +295,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const bitstream$ = this.bitstreamRD$.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
-      switchMap((bitstream: Bitstream) => this.bitstreamService.findById(bitstream.id).pipe(
+      switchMap((bitstream: Bitstream) => this.bitstreamService.findById(bitstream.id, followLink('format')).pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
         filter((bs: Bitstream) => hasValue(bs)))
@@ -316,13 +316,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.formats = allFormats.page;
         this.updateFormatModel();
         this.updateForm(this.bitstream);
-        if (this._saveResponsePending) {
-          this.notificationsService.success(
-            this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
-            this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
-          );
-          this._saveResponsePending = false;
-        }
       })
     );
 
@@ -347,14 +340,14 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         primaryBitstream: false
       },
       descriptionContainer: {
-        description: bitstream.description
+        description: bitstream.firstMetadataValue('dc.description')
       },
       formatContainer: {
         newFormat: hasValue(bitstream.firstMetadata('dc.format')) ? bitstream.firstMetadata('dc.format').value : undefined
       }
     });
     this.bitstream.format.pipe(
-      getFirstSucceededRemoteDataPayload()
+      getAllSucceededRemoteDataPayload()
     ).subscribe((format: BitstreamFormat) => {
       this.originalFormat = format;
       this.formGroup.patchValue({
@@ -463,18 +456,17 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     bitstream$.pipe(
       switchMap(() => {
-        if (isNewFormat) {
-          const operation = Object.assign({op: 'replace', path: '/format', value: selectedFormat._links.self});
-          this.bitstreamService.patch(this.bitstream.self, [operation]);
-        }
-
         return this.bitstreamService.update(this.bitstream).pipe(
           getFirstSucceededRemoteDataPayload()
         );
       })
     ).subscribe(() => {
       this.bitstreamService.commitUpdates();
-      this._saveResponsePending = true;
+      this.notificationsService.success(
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
+      );
+      this.requestService.removeByHrefSubstring(this.bitstream.self + '/format');
     });
   }
 
