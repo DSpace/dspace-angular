@@ -81,7 +81,7 @@ export const EPersonMock2: EPerson = Object.assign(new EPerson(), {
     'eperson.lastname': [
       {
         language: null,
-        value: 'Test2'
+        value: 'MeepMeep'
       },
     ],
     'eperson.language': [
