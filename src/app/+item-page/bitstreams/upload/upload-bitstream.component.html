@@ -10,11 +10,18 @@
           </div>
         </ng-container>
       </div>
-      <div class="col-12" *ngIf="bundles.length > 0">
-        <label for="bundleName" class="font-weight-bold">{{'item.bitstreams.upload.bundle' | translate}}</label>
-        <select id="bundleName" class="form-control" [(ngModel)]="selectedBundleId" (change)="setUploadUrl()">
-          <option *ngFor="let bundle of bundles" [value]="bundle.id">{{bundle.name}}</option>
-        </select>
+      <div class="col-12">
+        <label class="font-weight-bold">{{'item.bitstreams.upload.bundle' | translate}}</label>
+        <ds-dso-input-suggestions #f id="search-form"
+                                  [suggestions]="bundles"
+                                  [placeholder]="'item.bitstreams.upload.bundle.placeholder'| translate"
+                                  [action]="getCurrentUrl()"
+                                  [name]="'bundle-select'"
+                                  [(ngModel)]="selectedBundleName"
+                                  (clickSuggestion)="onClick($event)"
+                                  (click)="f.open()"
+                                  ngDefaultControl>
+        </ds-dso-input-suggestions>
         <ds-uploader  class="w-100"
                       [dropMsg]="'item.bitstreams.upload.drop-message'"
                       [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"

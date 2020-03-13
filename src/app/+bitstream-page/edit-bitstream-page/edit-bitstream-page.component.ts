@@ -466,7 +466,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
       );
-      this.requestService.removeByHrefSubstring(this.bitstream.self + '/format');
     });
   }
 

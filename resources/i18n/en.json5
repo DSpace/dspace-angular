@@ -694,6 +694,8 @@
 
   "item.bitstreams.upload.bundle": "Bundle",
 
+  "item.bitstreams.upload.bundle.placeholder": "Click here to enter a bundle name or select one from the dropdown, if available.",
+
   "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
 
   "item.bitstreams.upload.drop-message": "Drop a file to upload",

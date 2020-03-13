@@ -178,6 +178,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
+import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -407,7 +408,8 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
-  ExternalSourceEntryImportModalComponent
+  ExternalSourceEntryImportModalComponent,
+  BundleListElementComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

@@ -43,6 +43,11 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
   selectedBundleId: string;
 
   /**
+   * The name of the currently selected bundle to upload a bitstream to
+   */
+  selectedBundleName: string;
+
+  /**
    * The uploader configuration options
    * @type {UploaderOptions}
    */
@@ -124,6 +129,24 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    */
   public onUploadError() {
     this.notificationsService.error(null, this.translate.get('item.bitstreams.upload.failed'));
+  }
+
+  /**
+   * The user selected a bundle from the input suggestions
+   * Set the bundle ID and Name properties, as well as the upload URL
+   * @param bundle
+   */
+  onClick(bundle: Bundle) {
+    this.selectedBundleId = bundle.id;
+    this.selectedBundleName = bundle.name;
+    this.setUploadUrl();
+  }
+
+  /**
+   * @returns {string} the current URL
+   */
+  getCurrentUrl() {
+    return this.router.url;
   }
 
   /**

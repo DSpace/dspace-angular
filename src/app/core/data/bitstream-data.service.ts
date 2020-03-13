@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -188,7 +188,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
     const formatHref$ = this.bitstreamFormatService.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${format.id}`)
     );
-    observableCombineLatest(bitstreamHref$, formatHref$).pipe(
+    observableCombineLatest([bitstreamHref$, formatHref$]).pipe(
       map(([bitstreamHref, formatHref]) => {
         const options: HttpOptions = Object.create({});
         let headers = new HttpHeaders();
@@ -196,8 +196,11 @@ export class BitstreamDataService extends DataService<Bitstream> {
         options.headers = headers;
         return new PutRequest(requestId, bitstreamHref, formatHref, options);
       }),
-      configureRequest(this.requestService)
-    ).subscribe();
+      configureRequest(this.requestService),
+      take(1)
+    ).subscribe(() => {
+      this.requestService.removeByHrefSubstring(bitstream.self + '/format');
+    });
 
     return this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry()
