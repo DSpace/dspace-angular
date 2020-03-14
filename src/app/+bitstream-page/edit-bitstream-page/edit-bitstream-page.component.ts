@@ -429,7 +429,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   onSubmit() {
     const updatedValues = this.formGroup.getRawValue();
-    this.formToBitstream(updatedValues);
+    const updatedBitstream = this.formToBitstream(updatedValues);
     const selectedFormat = this.formats.find((f: BitstreamFormat) => f.id === updatedValues.formatContainer.selectedFormat);
     const isNewFormat = selectedFormat.id !== this.originalFormat.id;
 
@@ -456,7 +456,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     bitstream$.pipe(
       switchMap(() => {
-        return this.bitstreamService.update(this.bitstream).pipe(
+        return this.bitstreamService.update(updatedBitstream).pipe(
           getFirstSucceededRemoteDataPayload()
         );
       })
@@ -473,8 +473,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Parse form data to an updated bitstream object
    * @param rawForm   Raw form data
    */
-  formToBitstream(rawForm) {
-    const newMetadata = cloneDeep(this.bitstream.metadata);
+  formToBitstream(rawForm): Bitstream {
+    const updatedBitstream = cloneDeep(this.bitstream);
+    const newMetadata = updatedBitstream.metadata;
     // TODO: Set bitstream to primary when supported
     const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
     Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
@@ -482,7 +483,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     if (isNotEmpty(rawForm.formatContainer.newFormat)) {
       Metadata.setFirstValue(newMetadata, 'dc.format', rawForm.formatContainer.newFormat);
     }
-    this.bitstream.metadata = newMetadata;
+    updatedBitstream.metadata = newMetadata;
+    return updatedBitstream;
   }
 
   /**
