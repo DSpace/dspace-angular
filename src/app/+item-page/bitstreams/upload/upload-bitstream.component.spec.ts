@@ -23,9 +23,8 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
-import { By } from '@angular/platform-browser';
 
-fdescribe('UploadBistreamComponent', () => {
+describe('UploadBistreamComponent', () => {
   let comp: UploadBitstreamComponent;
   let fixture: ComponentFixture<UploadBitstreamComponent>;
 

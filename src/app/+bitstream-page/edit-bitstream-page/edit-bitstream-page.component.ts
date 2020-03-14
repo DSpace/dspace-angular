@@ -275,9 +275,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
               private notificationsService: NotificationsService,
-              private bitstreamFormatService: BitstreamFormatDataService,
-              private objectCache: ObjectCacheService,
-              private requestService: RequestService) {
+              private bitstreamFormatService: BitstreamFormatDataService) {
   }
 
   /**

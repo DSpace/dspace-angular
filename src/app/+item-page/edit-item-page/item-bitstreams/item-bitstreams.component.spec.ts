@@ -146,7 +146,7 @@ describe('ItemBitstreamsComponent', () => {
       url: url
     });
     bundleService = jasmine.createSpyObj('bundleService', {
-      immediatePatch: observableOf(new RestResponse(true, 200, 'OK'))
+      patch: observableOf(new RestResponse(true, 200, 'OK'))
     });
 
     TestBed.configureTestingModule({
@@ -192,7 +192,7 @@ describe('ItemBitstreamsComponent', () => {
     });
 
     it('should send out a patch for the move operations', () => {
-      expect(bundleService.immediatePatch).toHaveBeenCalled();
+      expect(bundleService.patch).toHaveBeenCalled();
     });
   });
 

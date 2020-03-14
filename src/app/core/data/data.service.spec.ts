@@ -287,18 +287,23 @@ describe('DataService', () => {
   });
 
   describe('patch', () => {
-    let operations;
-    let selfLink;
+    const dso = {
+      uuid: 'dso-uuid'
+    };
+    const operations = [
+      Object.assign({
+        op: 'move',
+        from: '/1',
+        path: '/5'
+      }) as Operation
+    ];
 
     beforeEach(() => {
-      operations = [{ op: 'replace', path: '/metadata/dc.title', value: 'random string' } as Operation];
-      selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
-      spyOn(objectCache, 'addPatch');
+      service.patch(dso, operations);
     });
 
-    it('should call addPatch on the object cache with the right parameters', () => {
-      service.patch(selfLink, operations);
-      expect(objectCache.addPatch).toHaveBeenCalledWith(selfLink, operations);
+    it('should configure a PatchRequest', () => {
+      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PatchRequest));
     });
   });
 

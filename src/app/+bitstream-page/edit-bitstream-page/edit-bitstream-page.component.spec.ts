@@ -152,7 +152,7 @@ describe('EditBitstreamPageComponent', () => {
     });
 
     it('should fill in the bitstream\'s description', () => {
-      expect(rawForm.descriptionContainer.description).toEqual(bitstream.description);
+      expect(rawForm.descriptionContainer.description).toEqual(bitstream.firstMetadataValue('dc.description'));
     });
 
     it('should select the correct format', () => {
