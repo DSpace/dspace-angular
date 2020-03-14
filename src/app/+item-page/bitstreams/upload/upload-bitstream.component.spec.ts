@@ -23,16 +23,41 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
+import { By } from '@angular/platform-browser';
 
-describe('UploadBistreamComponent', () => {
+fdescribe('UploadBistreamComponent', () => {
   let comp: UploadBitstreamComponent;
   let fixture: ComponentFixture<UploadBitstreamComponent>;
 
   const bundle = Object.assign(new Bundle(), {
     id: 'bundle',
     uuid: 'bundle',
+    metadata: {
+      'dc.title': [
+        {
+          value: 'bundleName',
+          language: null
+        }
+      ]
+    },
     _links: {
       self: { href: 'bundle-selflink' }
+    }
+  });
+  const customName = 'Custom Name';
+  const createdBundle = Object.assign(new Bundle(), {
+    id: 'created-bundle',
+    uuid: 'created-bundle',
+    metadata: {
+      'dc.title': [
+        {
+          value: customName,
+          language: null
+        }
+      ]
+    },
+    _links: {
+      self: { href: 'created-bundle-selflink' }
     }
   });
   const itemName = 'fake-name';
@@ -53,16 +78,19 @@ describe('UploadBistreamComponent', () => {
   const routerStub = new RouterStub();
   const restEndpoint = 'fake-rest-endpoint';
   const mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-    getBitstreamsEndpoint: observableOf(restEndpoint)
+    getBitstreamsEndpoint: observableOf(restEndpoint),
+    createBundle: createSuccessfulRemoteDataObject$(createdBundle)
   });
   const bundleService = jasmine.createSpyObj('bundleService', {
-    getBitstreamsEndpoint: observableOf(restEndpoint)
+    getBitstreamsEndpoint: observableOf(restEndpoint),
+    findById: createSuccessfulRemoteDataObject$(bundle)
   });
   const authToken = 'fake-auth-token';
   const authServiceStub = Object.assign(new AuthServiceStub(), {
     buildAuthHeader: () => authToken
   });
   const notificationsServiceStub = new NotificationsServiceStub();
+  const uploaderComponent = jasmine.createSpyObj('uploaderComponent', ['ngOnInit']);
 
   describe('when a file is uploaded', () => {
     beforeEach(async(() => {
@@ -98,6 +126,65 @@ describe('UploadBistreamComponent', () => {
     });
   });
 
+  describe('when a bundle url parameter is present', () => {
+    beforeEach(async(() => {
+      createUploadBitstreamTestingModule({
+        bundle: bundle.id
+      });
+    }));
+
+    beforeEach(() => {
+      loadFixtureAndComp();
+    });
+
+    it('should set the selected id to the bundle\'s id', () => {
+      expect(comp.selectedBundleId).toEqual(bundle.id);
+    });
+
+    it('should set the selected name to the bundle\'s name', () => {
+      expect(comp.selectedBundleName).toEqual(bundle.name);
+    });
+
+    describe('and bundle name changed', () => {
+      beforeEach(() => {
+        comp.bundleNameChange();
+      });
+
+      it('should clear out the selected id', () => {
+        expect(comp.selectedBundleId).toBeUndefined();
+      });
+    });
+  });
+
+  describe('when a name is filled in, but no ID is selected', () => {
+    beforeEach(async(() => {
+      createUploadBitstreamTestingModule({});
+    }));
+
+    beforeEach(() => {
+      loadFixtureAndComp();
+      comp.selectedBundleName = customName;
+    });
+
+    describe('createBundle', () => {
+      beforeEach(() => {
+        comp.createBundle();
+      });
+
+      it('should create a new bundle', () => {
+        expect(mockItemDataService.createBundle).toHaveBeenCalledWith(mockItem.id, customName);
+      });
+
+      it('should set the selected id to the id of the new bundle', () => {
+        expect(comp.selectedBundleId).toEqual(createdBundle.id);
+      });
+
+      it('should display a success notification', () => {
+        expect(notificationsServiceStub.success).toHaveBeenCalled();
+      });
+    });
+  });
+
   /**
    * Setup an UploadBitstreamComponent testing module with custom queryParams for the route
    * @param queryParams
@@ -109,7 +196,10 @@ describe('UploadBistreamComponent', () => {
       }),
       queryParams: observableOf(queryParams),
       snapshot: {
-        queryParams: queryParams
+        queryParams: queryParams,
+        params: {
+          id: mockItem.id
+        }
       }
     };
 
@@ -135,6 +225,7 @@ describe('UploadBistreamComponent', () => {
   function loadFixtureAndComp() {
     fixture = TestBed.createComponent(UploadBitstreamComponent);
     comp = fixture.componentInstance;
+    comp.uploaderComponent = uploaderComponent;
     fixture.detectChanges();
   }
 
