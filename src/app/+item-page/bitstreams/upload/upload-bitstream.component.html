@@ -25,7 +25,7 @@
                                   ngDefaultControl>
         </ds-dso-input-suggestions>
         <button *ngIf="!selectedBundleId && selectedBundleName?.length > 0" class="btn btn-success" (click)="createBundle()">
-          <i class="fa fa-plus"></i> Create bundle
+          <i class="fa fa-plus"></i> {{ 'item.bitstreams.upload.bundle.new' | translate }}
         </button>
         <ds-uploader  class="w-100" *ngIf="selectedBundleId"
                       [dropMsg]="'item.bitstreams.upload.drop-message'"

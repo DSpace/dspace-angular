@@ -698,6 +698,8 @@
 
   "item.bitstreams.upload.bundle.new.placeholder": "Click here to enter a new bundle name.",
 
+  "item.bitstreams.upload.bundle.new": "Create bundle",
+
   "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
 
   "item.bitstreams.upload.drop-message": "Drop a file to upload",
