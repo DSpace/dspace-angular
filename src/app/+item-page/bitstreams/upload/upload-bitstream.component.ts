@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
@@ -6,7 +6,7 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { hasValue, isEmpty } from '../../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -15,17 +15,28 @@ import { getBitstreamModulePath } from '../../../app-routing.module';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload
+} from '../../../core/shared/operators';
+import { UploaderComponent } from '../../../shared/uploader/uploader.component';
 
 @Component({
   selector: 'ds-upload-bitstream',
-  templateUrl: './upload-bitstream.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './upload-bitstream.component.html'
 })
 /**
  * Page component for uploading a bitstream to an item
  */
 export class UploadBitstreamComponent implements OnInit, OnDestroy {
+  /**
+   * The file uploader component
+   */
+  @ViewChild(UploaderComponent, {static: false}) uploaderComponent: UploaderComponent;
+
+  /**
+   * The ID of the item to upload a bitstream to
+   */
+  itemId: string;
 
   /**
    * The item to upload a bitstream to
@@ -60,6 +71,11 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
   });
 
   /**
+   * The prefix for all i18n notification messages within this component
+   */
+  NOTIFICATIONS_PREFIX = 'item.bitstreams.upload.notifications.';
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -83,25 +99,43 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    * Calls setUploadUrl after setting the selected bundle
    */
   ngOnInit(): void {
+    this.itemId = this.route.snapshot.params.id;
     this.itemRD$ = this.route.data.pipe(map((data) => data.item));
     this.bundlesRD$ = this.itemRD$.pipe(
       switchMap((itemRD: RemoteData<Item>) => itemRD.payload.bundles)
     );
     this.selectedBundleId = this.route.snapshot.queryParams.bundle;
-    if (isEmpty(this.selectedBundleId)) {
-      this.bundlesRD$.pipe(
-        getSucceededRemoteData(),
-        getRemoteDataPayload(),
-        take(1)
-      ).subscribe((bundles: PaginatedList<Bundle>) => {
-        if (bundles.page.length > 0) {
-          this.selectedBundleId = bundles.page[0].id;
-          this.setUploadUrl();
-        }
+    if (isNotEmpty(this.selectedBundleId)) {
+      this.bundleService.findById(this.selectedBundleId).pipe(
+        getFirstSucceededRemoteDataPayload()
+      ).subscribe((bundle: Bundle) => {
+        this.selectedBundleName = bundle.name;
       });
-    } else {
       this.setUploadUrl();
     }
+  }
+
+  /**
+   * Create a new bundle with the filled in name on the current item
+   */
+  createBundle() {
+    this.itemService.createBundle(this.itemId, this.selectedBundleName).pipe(
+      getFirstSucceededRemoteDataPayload()
+    ).subscribe((bundle: Bundle) => {
+      this.selectedBundleId = bundle.id;
+      this.notificationsService.success(
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'bundle.created.title'),
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'bundle.created.content')
+      );
+    });
+  }
+
+  /**
+   * The user changed the bundle name
+   * Reset the bundle ID
+   */
+  bundleNameChange() {
+    this.selectedBundleId = undefined;
   }
 
   /**
@@ -113,6 +147,8 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
       if (isEmpty(this.uploadFilesOptions.authToken)) {
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
       }
+      // Re-initialize the uploader component to ensure the latest changes to the options are applied
+      this.uploaderComponent.ngOnInit();
     });
   }
 
@@ -128,7 +164,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    * The request was unsuccessful, display an error notification
    */
   public onUploadError() {
-    this.notificationsService.error(null, this.translate.get('item.bitstreams.upload.failed'));
+    this.notificationsService.error(null, this.translate.get(this.NOTIFICATIONS_PREFIX + 'upload.failed'));
   }
 
   /**

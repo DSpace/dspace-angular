@@ -43,6 +43,8 @@ import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { Bundle } from '../shared/bundle.model';
+import { MetadataMap } from '../shared/metadata.models';
+import { BundleDataService } from './bundle-data.service';
 
 @Injectable()
 @dataService(ITEM)
@@ -59,6 +61,7 @@ export class ItemDataService extends DataService<Item> {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOChangeAnalyzer<Item>,
+    protected bundleService: BundleDataService
   ) {
     super();
   }
@@ -243,6 +246,47 @@ export class ItemDataService extends DataService<Item> {
     });
 
     return this.rdbService.buildList<Bundle>(hrefObs);
+  }
+
+  /**
+   * Create a new bundle on an item
+   * @param itemId      The item's ID
+   * @param bundleName  The new bundle's name
+   * @param metadata    Optional metadata for the bundle
+   */
+  public createBundle(itemId: string, bundleName: string, metadata?: MetadataMap): Observable<RemoteData<Bundle>> {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getBundlesEndpoint(itemId);
+
+    const bundleJson = {
+      name: bundleName,
+      metadata: metadata ? metadata : {}
+    };
+
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href) => {
+      const options: HttpOptions = Object.create({});
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      options.headers = headers;
+      const request = new PostRequest(requestId, href, JSON.stringify(bundleJson), options);
+      this.requestService.configure(request);
+    });
+
+    const selfLink$ = this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: any) => {
+        if (isNotEmpty(response.resourceSelfLinks)) {
+          return response.resourceSelfLinks[0];
+        }
+      }),
+      distinctUntilChanged()
+    ) as Observable<string>;
+
+    return selfLink$.pipe(
+      switchMap((selfLink: string) => this.bundleService.findByHref(selfLink)),
+    );
   }
 
   /**

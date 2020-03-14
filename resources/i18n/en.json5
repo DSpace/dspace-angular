@@ -694,15 +694,21 @@
 
   "item.bitstreams.upload.bundle": "Bundle",
 
-  "item.bitstreams.upload.bundle.placeholder": "Click here to enter a bundle name or select one from the dropdown, if available.",
+  "item.bitstreams.upload.bundle.dropdown.placeholder": "Click here to select a bundle from the dropdown.",
+
+  "item.bitstreams.upload.bundle.new.placeholder": "Click here to enter a new bundle name.",
 
   "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
 
   "item.bitstreams.upload.drop-message": "Drop a file to upload",
 
-  "item.bitstreams.upload.failed": "Upload failed. Please verify the content before retrying.",
-
   "item.bitstreams.upload.item": "Item: ",
+
+  "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
+
+  "item.bitstreams.upload.notifications.bundle.created.title": "Created bundle",
+
+  "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
 
   "item.bitstreams.upload.title": "Upload bitstream",
 

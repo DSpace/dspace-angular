@@ -14,27 +14,26 @@
         <label class="font-weight-bold">{{'item.bitstreams.upload.bundle' | translate}}</label>
         <ds-dso-input-suggestions #f id="search-form"
                                   [suggestions]="bundles"
-                                  [placeholder]="'item.bitstreams.upload.bundle.placeholder'| translate"
+                                  [placeholder]="(bundles?.length > 0 ? 'item.bitstreams.upload.bundle.dropdown.placeholder' : 'item.bitstreams.upload.bundle.new.placeholder') | translate"
                                   [action]="getCurrentUrl()"
                                   [name]="'bundle-select'"
+                                  [debounceTime]="50"
                                   [(ngModel)]="selectedBundleName"
+                                  (typeSuggestion)="bundleNameChange()"
                                   (clickSuggestion)="onClick($event)"
                                   (click)="f.open()"
                                   ngDefaultControl>
         </ds-dso-input-suggestions>
-        <ds-uploader  class="w-100"
+        <button *ngIf="!selectedBundleId && selectedBundleName?.length > 0" class="btn btn-success" (click)="createBundle()">
+          <i class="fa fa-plus"></i> Create bundle
+        </button>
+        <ds-uploader  class="w-100" *ngIf="selectedBundleId"
                       [dropMsg]="'item.bitstreams.upload.drop-message'"
                       [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
                       [enableDragOverDocument]="true"
                       [uploadFilesOptions]="uploadFilesOptions"
-                      [uploadProperties]="uploadProperties"
                       (onCompleteItem)="onCompleteItem($event)"
                       (onUploadError)="onUploadError()"></ds-uploader>
-      </div>
-      <div class="col-12" *ngIf="bundles.length === 0">
-        <div class="alert alert-info w-100 d-inline-block" role="alert">
-          {{'item.bitstreams.upload.bundles.empty' | translate}}
-        </div>
       </div>
     </div>
   </ng-container>
