@@ -180,6 +180,8 @@ export class ItemDataService extends DataService<Item> {
     const patchOperation = [{
       op: 'replace', path: '/withdrawn', value: withdrawn
     }];
+    this.requestService.removeByHrefSubstring('/discover');
+
     return this.getItemWithdrawEndpoint(itemId).pipe(
       distinctUntilChanged(),
       map((endpointURL: string) =>
@@ -201,6 +203,8 @@ export class ItemDataService extends DataService<Item> {
     const patchOperation = [{
       op: 'replace', path: '/discoverable', value: discoverable
     }];
+    this.requestService.removeByHrefSubstring('/discover');
+
     return this.getItemDiscoverableEndpoint(itemId).pipe(
       distinctUntilChanged(),
       map((endpointURL: string) =>
