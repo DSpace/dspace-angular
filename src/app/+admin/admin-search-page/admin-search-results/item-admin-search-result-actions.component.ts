@@ -17,11 +17,19 @@ import {
   templateUrl: './item-admin-search-result-actions.component.html'
 })
 /**
- * The component for displaying a list element for an item search result on the admin search page
+ * The component for displaying the actions for a list element for an item search result on the admin search page
  */
 export class ItemAdminSearchResultActionsComponent {
+  /**
+   * The item to perform the actions on
+   */
   @Input() public item: Item;
+
+  /**
+   * Whether or not to use small buttons
+   */
   @Input() public small: boolean;
+
   /**
    * Returns the path to the edit page of this item
    */
