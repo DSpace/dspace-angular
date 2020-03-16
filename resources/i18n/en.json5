@@ -694,9 +694,7 @@
 
   "item.bitstreams.upload.bundle": "Bundle",
 
-  "item.bitstreams.upload.bundle.dropdown.placeholder": "Click here to select a bundle from the dropdown.",
-
-  "item.bitstreams.upload.bundle.new.placeholder": "Click here to enter a new bundle name.",
+  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
 
   "item.bitstreams.upload.bundle.new": "Create bundle",
 
