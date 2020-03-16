@@ -190,7 +190,7 @@ describe('EPeopleRegistryComponent', () => {
       it('first ePerson is deleted', () => {
         expect(ePeopleIdsFoundBeforeDelete.length === ePeopleIdsFoundAfterDelete + 1);
         ePeopleIdsFoundAfterDelete.forEach((epersonElement) => {
-          expect(epersonElement.nativeElement.textContent !== ePeopleIdsFoundBeforeDelete[0].nativeElement.textContent).toBeTrue();
+          expect(epersonElement !== ePeopleIdsFoundBeforeDelete[0].nativeElement.textContent).toBeTrue();
         });
       });
     });

@@ -146,9 +146,10 @@ export class EPersonDataService extends DataService<EPerson> {
       map((oldEPerson: EPerson) => {
         const operations = this.generateOperations(oldEPerson, ePerson);
         const patchRequest = new PatchRequest(requestId, ePerson._links.self.href, operations);
-        this.requestService.configure(patchRequest);
+        return this.requestService.configure(patchRequest);
       }),
-    );
+      take(1)
+    ).subscribe();
 
     return this.fetchResponse(requestId);
   }
