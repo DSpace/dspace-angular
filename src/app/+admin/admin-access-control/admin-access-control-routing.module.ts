@@ -9,6 +9,9 @@ import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.co
     ])
   ]
 })
+/**
+ * Routing module for the AccessControl section of the admin sidebar
+ */
 export class AdminAccessControlRoutingModule {
 
 }

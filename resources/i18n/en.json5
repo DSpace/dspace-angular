@@ -178,7 +178,7 @@
 
   "admin.access-control.epeople.search.scope.name": "Name",
 
-  "admin.access-control.epeople.search.scope.email": "E-mail",
+  "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
 
   "admin.access-control.epeople.search.scope.metadata": "Metadata",
 

@@ -106,10 +106,18 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
+  /**
+   * Try to retrieve initial active eperson, to fill in checkboxes at component creation
+   */
+  epersonInitial: EPerson;
+
   constructor(public epersonService: EPersonDataService,
               private formBuilderService: FormBuilderService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,) {
+    this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
+      this.epersonInitial = eperson;
+    }));
   }
 
   ngOnInit() {
@@ -155,12 +163,14 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           id: 'canLogIn',
           label: canLogIn,
           name: 'canLogIn',
+          value: (this.epersonInitial != null ? this.epersonInitial.canLogIn : true)
         });
       this.requireCertificate = new DynamicCheckboxModel(
         {
           id: 'requireCertificate',
           label: requireCertificate,
           name: 'requireCertificate',
+          value: (this.epersonInitial != null ? this.epersonInitial.requireCertificate : false)
         });
       this.formModel = [
         this.firstName,
@@ -175,10 +185,9 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           firstName: eperson != null ? eperson.firstMetadataValue('eperson.firstname') : '',
           lastName: eperson != null ? eperson.firstMetadataValue('eperson.lastname') : '',
           email: eperson != null ? eperson.email : '',
-          canLogIn: eperson != null ? eperson.canLogIn : true,
-          requireCertificate: eperson != null ? eperson.requireCertificate : false,
-          selfRegistered: false,
         });
+        this.formGroup.get('canLogIn').patchValue((eperson != null ? eperson.canLogIn : true));
+        this.formGroup.get('requireCertificate').patchValue((eperson != null ? eperson.requireCertificate : false));
       }));
     });
   }
@@ -216,14 +225,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           email: this.email.value,
           canLogIn: this.canLogIn.value,
           requireCertificate: this.requireCertificate.value,
-          selfRegistered: false,
         };
         if (ePerson == null) {
           this.createNewEPerson(values);
         } else {
           this.editEPerson(ePerson, values);
         }
-        this.clearFields();
       }
     );
   }
@@ -270,7 +277,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       email: (hasValue(values.email) ? values.email : ePerson.email),
       canLogIn: (hasValue(values.canLogIn) ? values.canLogIn : ePerson.canLogIn),
       requireCertificate: (hasValue(values.requireCertificate) ? values.requireCertificate : ePerson.requireCertificate),
-      selfRegistered: false,
       _links: ePerson._links,
     });
 
@@ -320,7 +326,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       firstName: '',
       lastName: '',
       email: '',
-      canLogin: '',
+      canLogin: true,
+      requireCertificate: false
     });
   }
 

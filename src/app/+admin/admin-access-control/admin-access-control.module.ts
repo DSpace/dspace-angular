@@ -21,6 +21,9 @@ import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-fo
   ],
   entryComponents: []
 })
+/**
+ * This module handles all components related to the access control pages
+ */
 export class AdminAccessControlModule {
 
 }
