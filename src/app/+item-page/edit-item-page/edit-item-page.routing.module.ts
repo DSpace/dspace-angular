@@ -15,12 +15,12 @@ import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 
-const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
-const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
-const ITEM_EDIT_PRIVATE_PATH = 'private';
-const ITEM_EDIT_PUBLIC_PATH = 'public';
-const ITEM_EDIT_DELETE_PATH = 'delete';
-const ITEM_EDIT_MOVE_PATH = 'move';
+export const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
+export const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
+export const ITEM_EDIT_PRIVATE_PATH = 'private';
+export const ITEM_EDIT_PUBLIC_PATH = 'public';
+export const ITEM_EDIT_DELETE_PATH = 'delete';
+export const ITEM_EDIT_MOVE_PATH = 'move';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality

@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
@@ -62,6 +63,7 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
+        { provide: BitstreamDataService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         { provide: NotificationsService, useValue: {} },

@@ -170,6 +170,34 @@
 
 
 
+  "admin.search.breadcrumbs": "Administrative Search",
+
+  "admin.search.collection.edit": "Edit",
+
+  "admin.search.community.edit": "Edit",
+
+  "admin.search.item.delete": "Delete",
+
+  "admin.search.item.edit": "Edit",
+
+  "admin.search.item.make-private": "Make Private",
+
+  "admin.search.item.make-public": "Make Public",
+
+  "admin.search.item.move": "Move",
+
+  "admin.search.item.private": "Private",
+
+  "admin.search.item.reinstate": "Reinstate",
+
+  "admin.search.item.withdraw": "Withdraw",
+
+  "admin.search.item.withdrawn": "Withdrawn",
+
+  "admin.search.title": "Administrative Search",
+
+
+
   "auth.errors.invalid-user": "Invalid email address or password.",
 
   "auth.messages.expired": "Your session has expired. Please log in again.",
@@ -1117,6 +1145,10 @@
 
 
 
+  "menu.section.admin_search": "Admin Search",
+
+
+
   "menu.section.browse_community": "This Community",
 
   "menu.section.browse_community_by_author": "By Author",
@@ -1167,17 +1199,9 @@
 
 
 
-  "menu.section.find": "Find",
-
-  "menu.section.find_items": "Items",
-
-  "menu.section.find_private_items": "Private Items",
-
-  "menu.section.find_withdrawn_items": "Withdrawn Items",
-
-
-
   "menu.section.icon.access_control": "Access Control menu section",
+
+  "menu.section.icon.admin_search": "Admin search menu section",
 
   "menu.section.icon.control_panel": "Control Panel menu section",
 
@@ -1498,6 +1522,8 @@
 
   "search.filters.applied.f.dateSubmitted": "Date submitted",
 
+  "search.filters.applied.f.discoverable": "Private",
+
   "search.filters.applied.f.entityType": "Item Type",
 
   "search.filters.applied.f.has_content_in_original_bundle": "Has files",
@@ -1509,9 +1535,14 @@
   "search.filters.applied.f.subject": "Subject",
 
   "search.filters.applied.f.submitter": "Submitter",
+
   "search.filters.applied.f.jobTitle": "Job Title",
+
   "search.filters.applied.f.birthDate.max": "End birth date",
+
   "search.filters.applied.f.birthDate.min": "Start birth date",
+
+  "search.filters.applied.f.withdrawn": "Withdrawn",
 
 
 
@@ -1548,6 +1579,10 @@
   "search.filters.filter.dateSubmitted.head": "Date submitted",
 
   "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
+
+  "search.filters.filter.discoverable.head": "Private",
+
+  "search.filters.filter.withdrawn.head": "Withdrawn",
 
   "search.filters.filter.entityType.head": "Item Type",
 
@@ -1603,6 +1638,25 @@
 
   "search.filters.filter.submitter.placeholder": "Submitter",
 
+
+
+  "search.filters.entityType.JournalIssue": "Journal Issue",
+
+  "search.filters.entityType.JournalVolume": "Journal Volume",
+
+  "search.filters.entityType.OrgUnit": "Organizational Unit",
+
+  "search.filters.has_content_in_original_bundle.true": "Yes",
+
+  "search.filters.has_content_in_original_bundle.false": "No",
+
+  "search.filters.discoverable.true": "No",
+
+  "search.filters.discoverable.false": "Yes",
+
+  "search.filters.withdrawn.true": "Yes",
+
+  "search.filters.withdrawn.false": "No",
 
 
   "search.filters.head": "Filters",
@@ -1983,6 +2037,8 @@
 
   "title": "DSpace",
 
+
+  "administrativeView.search.results.head": "Administrative Search",
 
 
   "uploader.browse": "browse",
