@@ -78,7 +78,7 @@ export class SubmissionRestService {
       params.push('projection=full')
     }
     if (collectionId) {
-      params.push(`&owningCollection=${collectionId}`);
+      params.push(`owningCollection=${collectionId}`);
     }
     params.forEach((param, index) => {
       url = new URLCombiner(url, ((index === 0) ? '?' : '&') + param).toString();
