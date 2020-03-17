@@ -51,7 +51,7 @@ export abstract class BaseResponseParsingService {
         return this.processArray(data, request);
       } else if (isRestDataObject(data)) {
         const object = this.deserialize(data);
-        if (isNotEmpty(data._embedded)) {
+        if (isNotEmpty(data._embedded) && hasValue(object)) {
           Object
             .keys(data._embedded)
             .filter((property) => data._embedded.hasOwnProperty(property))
