@@ -40,6 +40,7 @@ const COLLECTION_EDIT_PATH = 'edit';
           dso: CollectionPageResolver,
           breadcrumb: CollectionBreadcrumbResolver
         },
+        runGuardsAndResolvers: 'always',
         children: [
           {
             path: COLLECTION_EDIT_PATH,
