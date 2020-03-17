@@ -176,7 +176,6 @@ import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynam
 import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
-import { EditItemVersionHistorySelectorComponent } from './dso-selector/modal-wrappers/edit-item-version-history-selector/edit-item-version-history-selector.component';
 import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { SortablejsModule } from 'ngx-sortablejs';
 
@@ -299,7 +298,6 @@ const COMPONENTS = [
   EditCommunitySelectorComponent,
   EditCollectionSelectorComponent,
   EditItemSelectorComponent,
-  EditItemVersionHistorySelectorComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
   BrowseByComponent,
@@ -386,7 +384,6 @@ const ENTRY_COMPONENTS = [
   EditCommunitySelectorComponent,
   EditCollectionSelectorComponent,
   EditItemSelectorComponent,
-  EditItemVersionHistorySelectorComponent,
   StartsWithTextComponent,
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,

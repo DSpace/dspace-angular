@@ -5,6 +5,7 @@ import { Item } from '../../../core/shared/item.model';
 import { map } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { ActivatedRoute } from '@angular/router';
+import { AlertType } from '../../../shared/alert/aletr-type';
 
 @Component({
   selector: 'ds-item-version-history',
@@ -19,10 +20,16 @@ export class ItemVersionHistoryComponent {
    */
   itemRD$: Observable<RemoteData<Item>>;
 
+  /**
+   * The AlertType enumeration
+   * @type {AlertType}
+   */
+  AlertTypeEnum = AlertType;
+
   constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.pipe(map((data) => data.item)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Item>>;
+    this.itemRD$ = this.route.parent.data.pipe(map((data) => data.item)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Item>>;
   }
 }

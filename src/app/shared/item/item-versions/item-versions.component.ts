@@ -36,6 +36,11 @@ export class ItemVersionsComponent implements OnInit {
   @Input() displayWhenEmpty = false;
 
   /**
+   * Whether or not to display the title
+   */
+  @Input() displayTitle = true;
+
+  /**
    * The AlertType enumeration
    * @type {AlertType}
    */

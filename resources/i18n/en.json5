@@ -913,6 +913,12 @@
 
   "item.edit.tabs.status.title": "Item Edit -  Status",
 
+  "item.edit.tabs.versionhistory.head": "Version History",
+
+  "item.edit.tabs.versionhistory.title": "Item Edit - Version History",
+
+  "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
+
   "item.edit.tabs.view.head": "View Item",
 
   "item.edit.tabs.view.title": "Item Edit -  View",
@@ -1171,8 +1177,6 @@
   "menu.section.edit_community": "Community",
 
   "menu.section.edit_item": "Item",
-
-  "menu.section.edit_item_version_history": "Item Version History",
 
 
 

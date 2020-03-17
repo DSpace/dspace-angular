@@ -1,4 +1,3 @@
-import { ItemPageResolver } from '../item-page.resolver';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EditItemPageComponent } from './edit-item-page.component';
@@ -16,17 +15,12 @@ import { ItemRelationshipsComponent } from './item-relationships/item-relationsh
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 
-export function getItemEditVersionHistoryPath() {
-  return ITEM_EDIT_VERSION_HISTORY;
-}
-
 const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
 const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
 const ITEM_EDIT_PRIVATE_PATH = 'private';
 const ITEM_EDIT_PUBLIC_PATH = 'public';
 const ITEM_EDIT_DELETE_PATH = 'delete';
 const ITEM_EDIT_MOVE_PATH = 'move';
-const ITEM_EDIT_VERSION_HISTORY = 'versionhistory';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -81,6 +75,11 @@ const ITEM_EDIT_VERSION_HISTORY = 'versionhistory';
                 /* TODO - change when curate page exists */
                 component: ItemBitstreamsComponent,
                 data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true }
+              },
+              {
+                path: 'versionhistory',
+                component: ItemVersionHistoryComponent,
+                data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true }
               }
             ]
           },
@@ -112,10 +111,6 @@ const ITEM_EDIT_VERSION_HISTORY = 'versionhistory';
             path: ITEM_EDIT_MOVE_PATH,
             component: ItemMoveComponent,
             data: { title: 'item.edit.move.title' },
-          },
-          {
-            path: ITEM_EDIT_VERSION_HISTORY,
-            component: ItemVersionHistoryComponent,
           }
         ]
       }

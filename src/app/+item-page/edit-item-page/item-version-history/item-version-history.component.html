@@ -1,6 +1,6 @@
-<div class="container" *ngVar="(itemRD$ | async)?.payload as item">
-  <ds-item-versions *ngIf="item" [item]="item" [displayWhenEmpty]="true"></ds-item-versions>
-  <a class="btn btn-outline-primary" [routerLink]="['/items/' + item?.id]">
-    {{"item.version.history.return" | translate}}
-  </a>
+<div class="mt-4">
+  <ds-alert [content]="'item.edit.tabs.versionhistory.under-construction'" [type]="AlertTypeEnum.Warning"></ds-alert>
+</div>
+<div class="mt-2" *ngVar="(itemRD$ | async)?.payload as item">
+  <ds-item-versions *ngIf="item" [item]="item" [displayWhenEmpty]="true" [displayTitle]="false"></ds-item-versions>
 </div>
