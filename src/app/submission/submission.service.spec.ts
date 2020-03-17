@@ -421,7 +421,7 @@ describe('SubmissionService test suite', () => {
 
       service.depositSubmission(selfUrl);
 
-      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workflowitems', selfUrl, null, options);
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workflowitems', selfUrl, null, options, null, false);
     });
   });
 
