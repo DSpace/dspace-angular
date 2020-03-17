@@ -67,7 +67,10 @@ export function getDSOPath(dso: DSpaceObject): string {
       { path: 'workspaceitems', loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule' },
       { path: 'workflowitems', loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule' },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
-    ])
+    ],
+    {
+      onSameUrlNavigation: 'reload',
+    })
   ],
   exports: [RouterModule],
 })
