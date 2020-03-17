@@ -1,8 +1,41 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
+import { URLCombiner } from '../url-combiner/url-combiner';
 import { IndexName, IndexState, MetaIndexState } from './index.reducer';
+import * as parse from 'url-parse';
+
+/**
+ * Return the given url without `embed` params.
+ *
+ * E.g. https://rest.api/resource?size=5&embed=subresource&rpp=3
+ * becomes https://rest.api/resource?size=5&rpp=3
+ *
+ * When you index a request url you don't want to include
+ * embed params because embedded data isn't relevant when
+ * you want to know
+ *
+ * @param url The url to use
+ */
+export const getUrlWithoutEmbedParams = (url: string): string => {
+  if (isNotEmpty(url)) {
+    const parsed = parse(url);
+    if (isNotEmpty(parsed.query)) {
+      const parts = parsed.query.split(/[?|&]/)
+        .filter((part: string) => isNotEmpty(part))
+        .filter((part: string) => !part.startsWith('embed='));
+      let args = '';
+      if (isNotEmpty(parts)) {
+        args = `?${parts.join('&')}`;
+      }
+      url = new URLCombiner(parsed.origin, parsed.pathname, args).toString();
+      return url;
+    }
+  }
+
+  return url;
+};
 
 /**
  * Return the MetaIndexState based on the CoreSate
@@ -74,7 +107,7 @@ export const selfLinkFromUuidSelector =
 export const uuidFromHrefSelector =
   (href: string): MemoizedSelector<CoreState, string> => createSelector(
     requestIndexSelector,
-    (state: IndexState) => hasValue(state) ? state[href] : undefined
+    (state: IndexState) => hasValue(state) ? state[getUrlWithoutEmbedParams(href)] : undefined
   );
 
 /**
