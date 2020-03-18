@@ -35,6 +35,12 @@ export function getAdminModulePath() {
   return `/${ADMIN_MODULE_PATH}`;
 }
 
+const PROFILE_MODULE_PATH = 'profile';
+
+export function getProfileModulePath() {
+  return `/${PROFILE_MODULE_PATH}`;
+}
+
 export function getDSOPath(dso: DSpaceObject): string {
   switch ((dso as any).type) {
     case Community.type.value:
@@ -66,6 +72,7 @@ export function getDSOPath(dso: DSpaceObject): string {
       { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },
       { path: 'workspaceitems', loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule' },
       { path: 'workflowitems', loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule' },
+      { path: PROFILE_MODULE_PATH, loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard] },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ],
     {
