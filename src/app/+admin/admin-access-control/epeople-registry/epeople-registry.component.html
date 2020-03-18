@@ -8,10 +8,10 @@
                        (cancelForm)="isEPersonFormShown = false"></ds-eperson-form>
 
       <div *ngIf="!isEPersonFormShown" class="button-row top d-flex pb-2">
-        <button class="mr-auto btn btn-success"
+        <button class="mr-auto btn btn-success addEPerson-button"
                 (click)="isEPersonFormShown = true">
           <i class="fas fa-plus"></i>
-          <span class="d-none d-sm-inline">&nbsp;{{labelPrefix + 'button.add' | translate}}</span>
+          <span class="d-none d-sm-inline">{{labelPrefix + 'button.add' | translate}}</span>
         </button>
       </div>
 

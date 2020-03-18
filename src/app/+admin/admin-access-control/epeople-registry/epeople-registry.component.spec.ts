@@ -23,7 +23,7 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
 
-fdescribe('EPeopleRegistryComponent', () => {
+describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
   let fixture: ComponentFixture<EPeopleRegistryComponent>;
   let translateService: TranslateService;

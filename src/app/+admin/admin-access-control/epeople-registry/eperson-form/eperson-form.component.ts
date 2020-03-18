@@ -185,9 +185,9 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           firstName: eperson != null ? eperson.firstMetadataValue('eperson.firstname') : '',
           lastName: eperson != null ? eperson.firstMetadataValue('eperson.lastname') : '',
           email: eperson != null ? eperson.email : '',
+          canLogIn: eperson != null ? eperson.canLogIn : true,
+          requireCertificate: eperson != null ? eperson.requireCertificate : false
         });
-        this.formGroup.get('canLogIn').patchValue((eperson != null ? eperson.canLogIn : true));
-        this.formGroup.get('requireCertificate').patchValue((eperson != null ? eperson.requireCertificate : false));
       }));
     });
   }
@@ -198,7 +198,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   onCancel() {
     this.epersonService.cancelEditEPerson();
     this.cancelForm.emit();
-    this.clearFields();
   }
 
   /**
@@ -210,6 +209,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.epersonService.getActiveEPerson().pipe(take(1)).subscribe(
       (ePerson: EPerson) => {
+        console.log('onsubmit ep', ePerson)
         const values = {
           metadata: {
             'eperson.firstname': [
@@ -241,6 +241,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * @param values
    */
   createNewEPerson(values) {
+    console.log('createNewEPerson(values)', values)
     const ePersonToCreate = Object.assign(new EPerson(), values);
 
     const response = this.epersonService.tryToCreate(ePersonToCreate);
