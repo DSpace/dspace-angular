@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { getAdminModulePath } from '../app-routing.module';
+import { NgModule } from '@angular/core';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { getAdminModulePath } from '../app-routing.module';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
