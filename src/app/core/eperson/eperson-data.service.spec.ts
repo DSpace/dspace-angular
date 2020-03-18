@@ -20,7 +20,6 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { SearchParam } from '../cache/models/search-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { PaginatedList } from '../data/paginated-list';
@@ -39,10 +38,6 @@ describe('EPersonDataService', () => {
   let store: Store<CoreState>;
   let requestService: RequestService;
   let scheduler: TestScheduler;
-
-  const responseCacheEntry = new RequestEntry();
-  responseCacheEntry.response = new RestResponse(true, 200, 'Success');
-  responseCacheEntry.completed = true;
 
   const epeople = [EPersonMock, EPersonMock2];
 
@@ -77,6 +72,7 @@ describe('EPersonDataService', () => {
 
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
+      completed: true,
       response: { isSuccessful: successful, payload: epeople } as any
     } as RequestEntry)
   };
