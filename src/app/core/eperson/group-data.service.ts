@@ -45,8 +45,8 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
 export class GroupDataService extends DataService<Group> {
   protected linkPath = 'groups';
   protected browseEndpoint = '';
-  protected ePersonsEndpoint = 'epersons';
-  protected subgroupsEndpoint = 'subgroups';
+  public ePersonsEndpoint = 'epersons';
+  public subgroupsEndpoint = 'subgroups';
 
   constructor(
     protected comparator: DSOChangeAnalyzer<Group>,
@@ -130,7 +130,6 @@ export class GroupDataService extends DataService<Group> {
   /**
    * Create or Update a group
    *  If the group contains an id, it is assumed the eperson already exists and is updated instead
-   *  //TODO
    * @param group    The group to create or update
    */
   public createOrUpdateGroup(group: Group): Observable<RemoteData<Group>> {

@@ -1,14 +1,34 @@
 import { Group } from '../../core/eperson/models/group.model';
+import { EPersonMock } from './eperson-mock';
+
+export const GroupMock2: Group = Object.assign(new Group(), {
+  handle: null,
+  groups: [],
+  epersons: [],
+  selfRegistered: false,
+  _links: {
+    self: {
+      href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2',
+    },
+    subgroups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/subgroups' },
+    epersons: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/epersons' }
+  },
+  id: 'testgroupid2',
+  uuid: 'testgroupid2',
+  type: 'group',
+});
 
 export const GroupMock: Group = Object.assign(new Group(), {
   handle: null,
-  groups: [],
+  groups: [GroupMock2],
+  epersons: [EPersonMock],
   selfRegistered: false,
   _links: {
     self: {
       href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid',
     },
-    groups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/groups' }
+    subgroups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/subgroups' },
+    epersons: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/epersons' }
   },
   id: 'testgroupid',
   uuid: 'testgroupid',
