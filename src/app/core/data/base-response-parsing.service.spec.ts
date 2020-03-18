@@ -29,8 +29,10 @@ describe('BaseResponseParsingService', () => {
   const requestUUID = 'request-uuid';
   const requestHref = 'request-href';
   const request = new GetRequest(requestUUID, requestHref);
+  let obj: CacheableObject;
 
   beforeEach(() => {
+    obj = undefined;
     objectCache = jasmine.createSpyObj('objectCache', {
       add: {}
     });
@@ -38,8 +40,6 @@ describe('BaseResponseParsingService', () => {
   });
 
   describe('cache', () => {
-    let obj: CacheableObject;
-
     describe('when the object is undefined', () => {
       it('should not throw an error', () => {
         expect(() => { service.cache(obj, request, {}) }).not.toThrow();

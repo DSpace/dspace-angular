@@ -34,12 +34,12 @@ describe('DsoRedirectDataService', () => {
   const http = {} as HttpClient;
   const comparator = {} as any;
   const objectCache = {} as ObjectCacheService;
-  let setup;
+
   beforeEach(() => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', {a: pidLink})
+      getEndpoint: cold('a', { a: pidLink })
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
@@ -60,29 +60,26 @@ describe('DsoRedirectDataService', () => {
       }
     };
 
-    setup = () => {
-      rdbService = jasmine.createSpyObj('rdbService', {
-        buildSingle: cold('a', {
-          a: remoteData
-        })
-      });
-      service = new DsoRedirectDataService(
-        requestService,
-        rdbService,
-        store,
-        objectCache,
-        halService,
-        notificationsService,
-        http,
-        comparator,
-        router
-      );
-    }
+    rdbService = jasmine.createSpyObj('rdbService', {
+      buildSingle: cold('a', {
+        a: remoteData
+      })
+    });
+    service = new DsoRedirectDataService(
+      requestService,
+      rdbService,
+      store,
+      objectCache,
+      halService,
+      notificationsService,
+      http,
+      comparator,
+      router
+    );
   });
 
   describe('findById', () => {
     it('should call HALEndpointService with the path to the pid endpoint', () => {
-      setup();
       scheduler.schedule(() => service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE));
       scheduler.flush();
 
@@ -90,7 +87,6 @@ describe('DsoRedirectDataService', () => {
     });
 
     it('should call HALEndpointService with the path to the dso endpoint', () => {
-      setup();
       scheduler.schedule(() => service.findByIdAndIDType(dsoUUID, IdentifierType.UUID));
       scheduler.flush();
 
@@ -98,7 +94,6 @@ describe('DsoRedirectDataService', () => {
     });
 
     it('should call HALEndpointService with the path to the dso endpoint when identifier type not specified', () => {
-      setup();
       scheduler.schedule(() => service.findByIdAndIDType(dsoUUID));
       scheduler.flush();
 
@@ -106,7 +101,6 @@ describe('DsoRedirectDataService', () => {
     });
 
     it('should configure the proper FindByIDRequest for uuid', () => {
-      setup();
       scheduler.schedule(() => service.findByIdAndIDType(dsoUUID, IdentifierType.UUID));
       scheduler.flush();
 
@@ -114,7 +108,6 @@ describe('DsoRedirectDataService', () => {
     });
 
     it('should configure the proper FindByIDRequest for handle', () => {
-      setup();
       scheduler.schedule(() => service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE));
       scheduler.flush();
 
@@ -123,7 +116,6 @@ describe('DsoRedirectDataService', () => {
 
     it('should navigate to item route', () => {
       remoteData.payload.type = 'item';
-      setup();
       const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
       // The framework would normally subscribe but do it here so we can test navigation.
       redir.subscribe();
@@ -134,7 +126,6 @@ describe('DsoRedirectDataService', () => {
 
     it('should navigate to collections route', () => {
       remoteData.payload.type = 'collection';
-      setup();
       const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
       redir.subscribe();
       scheduler.schedule(() => redir);
@@ -144,7 +135,6 @@ describe('DsoRedirectDataService', () => {
 
     it('should navigate to communities route', () => {
       remoteData.payload.type = 'community';
-      setup();
       const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
       redir.subscribe();
       scheduler.schedule(() => redir);

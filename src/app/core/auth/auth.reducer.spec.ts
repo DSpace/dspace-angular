@@ -114,9 +114,8 @@ describe('authReducer', () => {
       authToken: mockTokenInfo,
       loaded: false,
       error: undefined,
-      loading: false,
-      info: undefined,
-      user: EPersonMock
+      loading: true,
+      info: undefined
     };
     expect(newState).toEqual(state);
   });

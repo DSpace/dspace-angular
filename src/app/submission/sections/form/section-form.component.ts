@@ -135,7 +135,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
               protected translate: TranslateService,
-              protected workspaceItemDataService: WorkspaceitemDataService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
