@@ -35,6 +35,11 @@ const COLLECTION_EDIT_PATH = 'edit';
   imports: [
     RouterModule.forChild([
       {
+        path: COLLECTION_CREATE_PATH,
+        component: CreateCollectionPageComponent,
+        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
+      },
+      {
         path: ':id',
         resolve: {
           dso: CollectionPageResolver,
@@ -64,11 +69,6 @@ const COLLECTION_EDIT_PATH = 'edit';
             canActivate: [AuthenticatedGuard]
           }
         ]
-      },
-      {
-        path: COLLECTION_CREATE_PATH,
-        component: CreateCollectionPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
       },
     ])
   ],
