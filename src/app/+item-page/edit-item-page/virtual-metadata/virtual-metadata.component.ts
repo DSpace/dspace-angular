@@ -52,7 +52,7 @@ export class VirtualMetadataComponent implements OnInit {
     return [this.leftItem, this.rightItem];
   }
 
-  private virtualMetadata: Map<string, VirtualMetadata[]> = new Map<string, VirtualMetadata[]>();
+  public virtualMetadata: Map<string, VirtualMetadata[]> = new Map<string, VirtualMetadata[]>();
 
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,

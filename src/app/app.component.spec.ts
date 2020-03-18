@@ -25,28 +25,28 @@ import { HostWindowResizeAction } from './shared/host-window.actions';
 
 import { MetadataService } from './core/metadata/metadata.service';
 
-import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
 
-import { MockTranslateLoader } from './shared/mocks/mock-translate-loader';
-import { MockMetadataService } from './shared/mocks/mock-metadata-service';
+import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
+import { MetadataServiceMock } from './shared/mocks/metadata-service.mock';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { AngularticsMock } from './shared/mocks/mock-angulartics.service';
-import { AuthServiceMock } from './shared/mocks/mock-auth.service';
+import { AngularticsMock } from './shared/mocks/angulartics.service.mock';
+import { AuthServiceMock } from './shared/mocks/auth.service.mock';
 import { AuthService } from './core/auth/auth.service';
 import { MenuService } from './shared/menu/menu.service';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
-import { CSSVariableServiceStub } from './shared/testing/css-variable-service-stub';
-import { MenuServiceStub } from './shared/testing/menu-service-stub';
+import { CSSVariableServiceStub } from './shared/testing/css-variable-service.stub';
+import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { HostWindowService } from './shared/host-window.service';
-import { HostWindowServiceStub } from './shared/testing/host-window-service-stub';
+import { HostWindowServiceStub } from './shared/testing/host-window-service.stub';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouteService } from './core/services/route.service';
-import { MockActivatedRoute } from './shared/mocks/mock-active-router';
-import { MockRouter } from './shared/mocks/mock-router';
-import { MockCookieService } from './shared/mocks/mock-cookie.service';
+import { MockActivatedRoute } from './shared/mocks/active-router.mock';
+import { RouterMock } from './shared/mocks/router.mock';
+import { CookieServiceMock } from './shared/mocks/cookie.service.mock';
 import { CookieService } from './core/services/cookie.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+import { storeModuleConfig } from './app.reducer';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -61,33 +61,32 @@ describe('App component', () => {
     return TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        StoreModule.forRoot({}),
+        StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],
       declarations: [AppComponent], // declare the test component
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
-        { provide: MetadataService, useValue: new MockMetadataService() },
+        { provide: MetadataService, useValue: new MetadataServiceMock() },
         { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsMock() },
         { provide: Angulartics2DSpace, useValue: new AngularticsMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
-        { provide: Router, useValue: new MockRouter() },
+        { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-        { provide: CookieService, useValue: new MockCookieService()},
+        { provide: CookieService, useValue: new CookieServiceMock()},
         AppComponent,
         RouteService
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
+    });
   }));
 
   // synchronous beforeEach

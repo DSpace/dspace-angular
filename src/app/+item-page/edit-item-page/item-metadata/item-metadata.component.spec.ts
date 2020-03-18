@@ -16,8 +16,7 @@ import {
   Notification
 } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { RouterStub } from '../../../shared/testing/router-stub';
-import { GLOBAL_CONFIG } from '../../../../config';
+import { RouterStub } from '../../../shared/testing/router.stub';
 import { Item } from '../../../core/shared/item.model';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
@@ -29,7 +28,7 @@ import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
-} from '../../../shared/testing/utils';
+} from '../../../shared/remote-data.utils';
 
 let comp: any;
 let fixture: ComponentFixture<ItemMetadataComponent>;
@@ -130,7 +129,7 @@ describe('ItemMetadataComponent', () => {
       paginatedMetadataFields = new PaginatedList(undefined, [mdField1, mdField2, mdField3]);
 
       metadataFieldService = jasmine.createSpyObj({
-        getAllMetadataFields:createSuccessfulRemoteDataObject$(paginatedMetadataFields)
+        getAllMetadataFields: createSuccessfulRemoteDataObject$(paginatedMetadataFields)
       });
       scheduler = getTestScheduler();
       objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
@@ -161,7 +160,6 @@ describe('ItemMetadataComponent', () => {
           { provide: Router, useValue: router },
           { provide: ActivatedRoute, useValue: routeStub },
           { provide: NotificationsService, useValue: notificationsService },
-          { provide: GLOBAL_CONFIG, useValue: { item: { edit: { undoTimeout: 10 } } } as any },
           { provide: RegistryService, useValue: metadataFieldService },
         ], schemas: [
           NO_ERRORS_SCHEMA

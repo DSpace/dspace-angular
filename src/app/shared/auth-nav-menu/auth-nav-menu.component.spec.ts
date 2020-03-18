@@ -5,11 +5,11 @@ import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { authReducer, AuthState } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson-mock';
+import { EPersonMock } from '../testing/eperson.mock';
 import { TranslateModule } from '@ngx-translate/core';
-import { AppState } from '../../app.reducer';
+import { AppState, storeModuleConfig } from '../../app.reducer';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';
-import { HostWindowServiceStub } from '../testing/host-window-service-stub';
+import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { HostWindowService } from '../host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
@@ -51,7 +51,12 @@ describe('AuthNavMenuComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          StoreModule.forRoot(authReducer),
+          StoreModule.forRoot(authReducer, {
+            runtimeChecks: {
+              strictStateImmutability: false,
+              strictActionImmutability: false
+            }
+          }),
           TranslateModule.forRoot()
         ],
         declarations: [
@@ -244,7 +249,12 @@ describe('AuthNavMenuComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          StoreModule.forRoot(authReducer),
+          StoreModule.forRoot(authReducer, {
+            runtimeChecks: {
+              strictStateImmutability: false,
+              strictActionImmutability: false
+            }
+          }),
           TranslateModule.forRoot()
         ],
         declarations: [

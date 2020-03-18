@@ -5,13 +5,13 @@ import { Observable } from 'rxjs';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { map, switchMap, take } from 'rxjs/operators';
-import { createSuccessfulRemoteDataObject } from '../../../../../testing/utils';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { Context } from '../../../../../../core/shared/context.model';
+import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.utils';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',

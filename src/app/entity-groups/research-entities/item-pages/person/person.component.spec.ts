@@ -5,7 +5,7 @@ import {
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { Item } from '../../../../core/shared/item.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { PersonComponent } from './person.component';
 
 const mockItem: Item = Object.assign(new Item(), {

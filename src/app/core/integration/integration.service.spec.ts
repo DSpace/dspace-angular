@@ -1,15 +1,15 @@
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 
 import { RequestService } from '../data/request.service';
 import { IntegrationRequest } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { IntegrationService } from './integration.service';
 import { IntegrationSearchOptions } from './models/integration-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 
 const LINK_NAME = 'authorities';
 const ENTRIES = 'entries';
@@ -60,7 +60,7 @@ describe('IntegrationService', () => {
     requestService = getMockRequestService();
     rdbService = getMockRemoteDataBuildService();
     scheduler = getTestScheduler();
-    halService = new HALEndpointServiceStub(integrationEndpoint);
+    halService = new HalEndpointServiceStub(integrationEndpoint);
     findOptions = new IntegrationSearchOptions(uuid, name, metadata, query);
     service = initTestService();
 

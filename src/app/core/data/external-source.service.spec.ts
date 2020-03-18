@@ -1,5 +1,6 @@
 import { ExternalSourceService } from './external-source.service';
-import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { of as observableOf } from 'rxjs';
 import { GetRequest } from './request.models';

@@ -1,6 +1,4 @@
-import 'reflect-metadata';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import { DataService } from '../../data/data.service';
 
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
@@ -98,7 +96,7 @@ export const link = <T extends HALResource>(
     let targetMap = linkMap.get(target.constructor);
 
     if (hasNoValue(targetMap)) {
-      targetMap = new Map<keyof T['_links'],LinkDefinition<T>>();
+      targetMap = new Map<keyof T['_links'], LinkDefinition<T>>();
     }
 
     if (hasNoValue(linkName)) {

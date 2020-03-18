@@ -1,6 +1,6 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { GetRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
@@ -21,7 +21,7 @@ import { of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject
-} from '../../shared/testing/utils';
+} from '../../shared/remote-data.utils';
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;

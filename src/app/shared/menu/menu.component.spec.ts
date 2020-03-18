@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MenuService } from './menu.service';
 import { MenuComponent } from './menu.component';
-import { MenuServiceStub } from '../testing/menu-service-stub';
+import { MenuServiceStub } from '../testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
 import { MenuSection } from './menu.reducer';
 

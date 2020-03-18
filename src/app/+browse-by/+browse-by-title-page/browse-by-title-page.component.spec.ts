@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../core/shared/item.model';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,12 +13,11 @@ import { toRemoteData } from '../+browse-by-metadata-page/browse-by-metadata-pag
 import { BrowseByTitlePageComponent } from './browse-by-title-page.component';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { Community } from '../../core/shared/community.model';
-import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { BrowseService } from '../../core/browse/browse.service';
-import { MockRouter } from '../../shared/mocks/mock-router';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
@@ -70,7 +69,7 @@ describe('BrowseByTitlePageComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
-        { provide: Router, useValue: new MockRouter() }
+        { provide: Router, useValue: new RouterMock() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

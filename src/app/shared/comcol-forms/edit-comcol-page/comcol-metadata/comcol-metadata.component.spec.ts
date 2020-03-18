@@ -12,8 +12,8 @@ import { Community } from '../../../../core/shared/community.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { SharedModule } from '../../../shared.module';
-import { NotificationsServiceStub } from '../../../testing/notifications-service-stub';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../testing/utils';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {

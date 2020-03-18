@@ -7,18 +7,18 @@ import { of as observableOf } from 'rxjs';
 import { cold } from 'jasmine-marbles';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
-import { RouterStub } from '../../testing/router-stub';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { RouterStub } from '../../testing/router.stub';
 import { Item } from '../../../core/shared/item.model';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../testing/utils';
-import { getMockSearchService } from '../../mocks/mock-search-service';
-import { getMockRequestService } from '../../mocks/mock-request.service';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { getMockSearchService } from '../../mocks/search-service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { RequestService } from '../../../core/data/request.service';
 import { SearchService } from '../../../core/shared/search/search.service';
 
@@ -95,7 +95,7 @@ describe('ClaimedTaskActionsComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

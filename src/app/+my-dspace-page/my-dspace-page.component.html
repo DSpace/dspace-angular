@@ -1,6 +1,5 @@
 <div class="container">
-  <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]"
-                               (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>
+  <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]"></ds-my-dspace-new-submission>
   <div class="search-page row">
       <ds-search-sidebar *ngIf="!(isXsOrSm$ | async)" class="col-3 sidebar-md-sticky"
                          id="search-sidebar"

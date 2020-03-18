@@ -40,8 +40,8 @@ export class EditRelationshipComponent implements OnChanges {
     return this.fieldUpdate.field as Relationship;
   }
 
-  private leftItem$: Observable<Item>;
-  private rightItem$: Observable<Item>;
+  public leftItem$: Observable<Item>;
+  public rightItem$: Observable<Item>;
 
   /**
    * The related item of this relationship

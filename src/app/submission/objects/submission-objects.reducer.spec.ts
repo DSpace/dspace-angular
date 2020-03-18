@@ -38,7 +38,7 @@ import {
   mockSubmissionId,
   mockSubmissionSelfUrl,
   mockSubmissionState
-} from '../../shared/mocks/mock-submission';
+} from '../../shared/mocks/submission.mock';
 
 describe('submissionReducer test suite', () => {
 

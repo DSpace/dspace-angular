@@ -4,7 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TranslateModule } from '@ngx-translate/core';
-import { QueryParamsDirectiveStub } from '../../shared/testing/query-params-directive-stub';
+import { QueryParamsDirectiveStub } from '../../shared/testing/query-params-directive.stub';
 import { MyDSpaceResultsComponent } from './my-dspace-results.component';
 
 describe('MyDSpaceResultsComponent', () => {

@@ -11,7 +11,6 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -54,7 +53,6 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected route: ActivatedRoute,
     protected relationshipService: RelationshipService,
     protected objectCache: ObjectCacheService,
@@ -62,7 +60,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
     protected entityTypeService: EntityTypeService,
     protected cdr: ChangeDetectorRef,
   ) {
-    super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
+    super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
 
   /**

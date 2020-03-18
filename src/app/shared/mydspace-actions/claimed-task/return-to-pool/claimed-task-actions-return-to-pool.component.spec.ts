@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task-actions-return-to-pool.component';
-import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 
 let component: ClaimedTaskActionsReturnToPoolComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsReturnToPoolComponent>;
@@ -16,7 +16,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

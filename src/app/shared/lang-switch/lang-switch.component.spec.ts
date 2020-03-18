@@ -1,13 +1,12 @@
-import {LangSwitchComponent} from './lang-switch.component';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
-import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import { GLOBAL_CONFIG } from '../../../config';
-import {LangConfig} from '../../../config/lang-config.interface';
-import {Observable, of} from 'rxjs';
+import { LangSwitchComponent } from './lang-switch.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { LangConfig } from '../../../config/lang-config.interface';
+import { Observable, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { MockCookieService } from '../mocks/mock-cookie.service';
+import { CookieServiceMock } from '../mocks/cookie.service.mock';
 import { CookieService } from '../../core/services/cookie.service';
 
 // This test is completely independent from any message catalogs or keys in the codebase
@@ -20,14 +19,15 @@ import { CookieService } from '../../core/services/cookie.service';
 class CustomLoader implements TranslateLoader {
   getTranslation(lang: string): Observable<any> {
     return of({
-      "footer": {
-        "copyright": "copyright © 2002-{{ year }}",
-        "link.dspace": "DSpace software",
-        "link.duraspace": "DuraSpace"
+      'footer': {
+        'copyright': 'copyright © 2002-{{ year }}',
+        'link.dspace': 'DSpace software',
+        'link.duraspace': 'DuraSpace'
       }
     });
   }
 }
+
 /* tslint:enable:quotemark */
 /* tslint:enable:object-literal-key-quotes */
 
@@ -36,7 +36,7 @@ let cookie: CookieService;
 describe('LangSwitchComponent', () => {
 
   beforeEach(() => {
-    cookie = Object.assign(new MockCookieService());
+    cookie = Object.assign(new CookieServiceMock());
   });
 
   describe('with English and Deutsch activated, English as default', () => {
@@ -65,14 +65,13 @@ describe('LangSwitchComponent', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule, TranslateModule.forRoot(
           {
-            loader: {provide: TranslateLoader, useClass: CustomLoader}
+            loader: { provide: TranslateLoader, useClass: CustomLoader }
           }
         )],
         declarations: [LangSwitchComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           TranslateService,
-          { provide: GLOBAL_CONFIG, useValue: mockConfig },
           { provide: CookieService, useValue: cookie }
         ]
       }).compileComponents()
@@ -154,14 +153,13 @@ describe('LangSwitchComponent', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule, TranslateModule.forRoot(
           {
-            loader: {provide: TranslateLoader, useClass: CustomLoader}
+            loader: { provide: TranslateLoader, useClass: CustomLoader }
           }
         )],
         declarations: [LangSwitchComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           TranslateService,
-          { provide: GLOBAL_CONFIG, useValue: mockConfig },
           { provide: CookieService, useValue: cookie }
         ]
       }).compileComponents();

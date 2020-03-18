@@ -13,7 +13,6 @@ import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { TranslateService } from '@ngx-translate/core';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
@@ -42,11 +41,10 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected route: ActivatedRoute,
     protected metadataFieldService: RegistryService,
   ) {
-    super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
+    super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
 
   /**

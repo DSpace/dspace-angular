@@ -14,16 +14,14 @@ import { NgbModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstr
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
+import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
 import { DsDynamicTagComponent } from './dynamic-tag.component';
 import { DynamicTagModel } from './dynamic-tag.model';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
-import { createTestComponent } from '../../../../../testing/utils';
-import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
+import { createTestComponent } from '../../../../../testing/utils.test';
 
 function createKeyUpEvent(key: number) {
   /* tslint:disable:no-empty */
@@ -40,7 +38,6 @@ function createKeyUpEvent(key: number) {
 
 let TAG_TEST_GROUP;
 let TAG_TEST_MODEL_CONFIG;
-const envConfig: GlobalConfig = MOCK_SUBMISSION_CONFIG;
 
 function init() {
   TAG_TEST_GROUP = new FormGroup({
@@ -96,7 +93,6 @@ describe('DsDynamicTagComponent test suite', () => {
         ChangeDetectorRef,
         DsDynamicTagComponent,
         { provide: AuthorityService, useValue: authorityServiceStub },
-        { provide: GLOBAL_CONFIG, useValue: envConfig },
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} }
       ],

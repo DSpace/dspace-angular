@@ -1,9 +1,8 @@
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { of as observableOf } from 'rxjs';
-import { GlobalConfig } from '../../../../config/global-config.interface';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { EndpointMockingRestService } from './endpoint-mocking-rest.service';
-import { MockResponseMap } from './mocks/mock-response-map';
+import { ResponseMapMock } from './mocks/response-map.mock';
 
 describe('EndpointMockingRestService', () => {
   let service: EndpointMockingRestService;
@@ -14,23 +13,17 @@ describe('EndpointMockingRestService', () => {
     statusText: '200'
   } as HttpResponse<any>;
 
-  const mockResponseMap: MockResponseMap = new Map([
+  const mockResponseMap: ResponseMapMock = new Map([
     [ '/foo', { bar: true } ]
   ]);
 
   beforeEach(() => {
-    const EnvConfig = {
-      rest: {
-        nameSpace: '/api'
-      }
-    } as GlobalConfig;
-
     const httpStub = jasmine.createSpyObj('http', {
       get: observableOf(serverHttpResponse),
       request: observableOf(serverHttpResponse)
     });
 
-    service = new EndpointMockingRestService(EnvConfig, mockResponseMap, httpStub);
+    service = new EndpointMockingRestService(mockResponseMap, httpStub);
   });
 
   describe('get', () => {

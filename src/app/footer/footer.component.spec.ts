@@ -21,7 +21,8 @@ import { Store, StoreModule } from '@ngrx/store';
 // Load the implementations that should be tested
 import { FooterComponent } from './footer.component';
 
-import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { storeModuleConfig } from '../app.reducer';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
@@ -33,10 +34,10 @@ describe('Footer component', () => {
   // async beforeEach
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
-      imports: [CommonModule, StoreModule.forRoot({}), TranslateModule.forRoot({
+      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: MockTranslateLoader
+          useClass: TranslateLoaderMock
         }
       })],
       declarations: [FooterComponent], // declare the test component

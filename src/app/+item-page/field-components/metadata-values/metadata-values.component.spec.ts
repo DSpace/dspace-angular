@@ -1,7 +1,7 @@
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MockTranslateLoader } from '../../../shared/mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { MetadataValuesComponent } from './metadata-values.component';
 import { By } from '@angular/platform-browser';
 import { MetadataValue } from '../../../core/shared/metadata.models';
@@ -31,7 +31,7 @@ describe('MetadataValuesComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: MockTranslateLoader
+          useClass: TranslateLoaderMock
         }
       })],
       declarations: [MetadataValuesComponent],

@@ -5,7 +5,7 @@ import { MetadataRepresentationListComponent } from './metadata-representation-l
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { Item } from '../../../core/shared/item.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';

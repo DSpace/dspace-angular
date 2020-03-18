@@ -11,6 +11,7 @@ import { NotificationType } from './models/notification-type';
 import { Notification } from './models/notification.model';
 import { uniqueId } from 'lodash';
 import { ChangeDetectorRef } from '@angular/core';
+import { storeModuleConfig } from '../../app.reducer';
 
 describe('Notifications reducer', () => {
 
@@ -27,7 +28,7 @@ describe('Notifications reducer', () => {
       providers: [NotificationsService],
       imports: [
         ChangeDetectorRef,
-        StoreModule.forRoot({notificationsReducer}),
+        StoreModule.forRoot({notificationsReducer}, storeModuleConfig),
       ]
     });
 

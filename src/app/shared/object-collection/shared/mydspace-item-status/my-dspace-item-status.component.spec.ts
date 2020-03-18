@@ -8,12 +8,12 @@ import { RemoteData } from '../../../../core/data/remote-data';
 
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { EPersonMock } from '../../../testing/eperson-mock';
+import { EPersonMock } from '../../../testing/eperson.mock';
 import { MyDSpaceItemStatusComponent } from './my-dspace-item-status.component';
 import { MyDspaceItemStatusType } from './my-dspace-item-status-type';
-import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 
 let component: MyDSpaceItemStatusComponent;
 let fixture: ComponentFixture<MyDSpaceItemStatusComponent>;
@@ -32,7 +32,7 @@ describe('MyDSpaceItemStatusComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

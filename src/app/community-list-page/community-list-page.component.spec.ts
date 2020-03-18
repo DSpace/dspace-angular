@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 
 import { CommunityListPageComponent } from './community-list-page.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('CommunityListPageComponent', () => {
@@ -15,7 +15,7 @@ describe('CommunityListPageComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           },
         }),
       ],

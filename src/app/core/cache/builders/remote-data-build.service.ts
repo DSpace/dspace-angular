@@ -8,7 +8,7 @@ import {
   isNotEmpty,
   isNotUndefined
 } from '../../../shared/empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';

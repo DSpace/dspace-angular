@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { GLOBAL_CONFIG } from '../../../../config';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
@@ -28,7 +27,7 @@ import {
 } from '../../../shared/notifications/models/notification.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SharedModule } from '../../../shared/shared.module';
-import { RouterStub } from '../../../shared/testing/router-stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 
 let comp: any;
@@ -221,7 +220,6 @@ describe('ItemRelationshipsComponent', () => {
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: NotificationsService, useValue: notificationsService },
-        { provide: GLOBAL_CONFIG, useValue: { item: { edit: { undoTimeout: 10 } } } as any },
         { provide: RelationshipService, useValue: relationshipService },
         { provide: EntityTypeService, useValue: entityTypeService },
         { provide: ObjectCacheService, useValue: objectCache },

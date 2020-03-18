@@ -1,7 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "angularCompilerOptions": {
-    "entryModule": "./modules/app/browser-app.module#BrowserAppModule",
-    "preserveWhitespaces": true
-  }
-}

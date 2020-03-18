@@ -12,26 +12,24 @@ import { SubmissionFormsModel } from '../../../../../../core/config/models/confi
 import { FormFieldModel } from '../../../models/form-field.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormService } from '../../../../form.service';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../../../../config';
 import { FormComponent } from '../../../../form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';
-import { createTestComponent } from '../../../../../testing/utils';
+import { createTestComponent } from '../../../../../testing/utils.test';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
-import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
+import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
 import { Store, StoreModule } from '@ngrx/store';
-import { MockStore } from '../../../../../testing/mock-store';
+import { StoreMock } from '../../../../../testing/store.mock';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
+import { GlobalConfig } from '../../../../../../../config/global-config.interface';
+import { storeModuleConfig } from '../../../../../../app.reducer';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
 export let FORM_GROUP_TEST_GROUP;
-
-const config: GlobalConfig = MOCK_SUBMISSION_CONFIG;
 
 const submissionId = '1234';
 
@@ -114,7 +112,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        StoreModule.forRoot({}),
+        StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot()
       ],
       declarations: [
@@ -131,8 +129,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormComponent,
         FormService,
         { provide: AuthorityService, useValue: new AuthorityServiceStub() },
-        { provide: GLOBAL_CONFIG, useValue: config },
-        { provide: Store, useClass: MockStore }
+        { provide: Store, useClass: StoreMock }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

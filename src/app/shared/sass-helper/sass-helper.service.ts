@@ -1,15 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { AppState, keySelector } from '../../app.reducer';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { AddCSSVariableAction } from './sass-helper.actions';
 
 @Injectable()
 export class CSSVariableService {
   constructor(
-    protected store: Store<AppState>,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
+    protected store: Store<AppState>) {
   }
 
   addCSSVariable(name: string, value: string) {

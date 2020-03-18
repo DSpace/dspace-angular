@@ -29,7 +29,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 export function getRequest(transferState: TransferState): any {
-  return transferState.get<any>(REQ_KEY, {})
+  return transferState.get<any>(REQ_KEY, {});
 }
 
 @NgModule({

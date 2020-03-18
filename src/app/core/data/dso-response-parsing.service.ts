@@ -1,8 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../config';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { RestResponse, DSOSuccessResponse } from '../cache/response.models';
 import { RestRequest } from './request.models';
@@ -17,7 +15,6 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
   protected toCache = true;
 
   constructor(
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected objectCache: ObjectCacheService,
   ) {
     super();

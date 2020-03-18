@@ -40,10 +40,10 @@ class TestModel implements HALResource {
 @Injectable()
 class TestDataService {
   findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<any>>) {
-    return 'findAllByHref'
+    return 'findAllByHref';
   }
   findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<any>>) {
-    return 'findByHref'
+    return 'findByHref';
   }
 }
 
@@ -169,7 +169,7 @@ describe('LinkService', () => {
   describe('resolveLinks', () => {
     beforeEach(() => {
       spyOn(service, 'resolveLink');
-      service.resolveLinks(testModel, followLink('predecessor'), followLink('successor'))
+      result = service.resolveLinks(testModel, followLink('predecessor'), followLink('successor'))
     });
 
     it('should call resolveLink with the model for each of the provided links', () => {

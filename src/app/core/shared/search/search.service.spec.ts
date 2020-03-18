@@ -7,14 +7,14 @@ import { Component } from '@angular/core';
 import { SearchService } from './search.service';
 import { Router, UrlTree } from '@angular/router';
 import { RequestService } from '../../data/request.service';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
-import { RouterStub } from '../../../shared/testing/router-stub';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
 import { HALEndpointService } from '../hal-endpoint.service';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { RemoteData } from '../../data/remote-data';
 import { RequestEntry } from '../../data/request.reducer';
-import { getMockRequestService } from '../../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { FacetConfigSuccessResponse, SearchSuccessResponse } from '../../cache/response.models';
 import { SearchQueryResponse } from '../../../shared/search/search-query-response.model';
 import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
@@ -23,9 +23,9 @@ import { ViewMode } from '../view-mode.model';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { map } from 'rxjs/operators';
 import { RouteService } from '../../services/route.service';
-import { routeServiceStub } from '../../../shared/testing/route-service-stub';
+import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 @Component({ template: '' })
 class DummyComponent {

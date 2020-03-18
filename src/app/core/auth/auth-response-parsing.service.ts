@@ -3,8 +3,6 @@ import { Inject, Injectable } from '@angular/core';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
 import { AuthStatusResponse, RestResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ResponseParsingService } from '../data/parsing.service';
@@ -16,8 +14,7 @@ export class AuthResponseParsingService extends BaseResponseParsingService imple
 
   protected toCache = true;
 
-  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected objectCache: ObjectCacheService) {
+  constructor(protected objectCache: ObjectCacheService) {
     super();
   }
 

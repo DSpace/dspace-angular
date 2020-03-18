@@ -11,8 +11,8 @@ import { BitstreamFormatDataService } from '../../../../core/data/bitstream-form
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service-stub';
-import { RouterStub } from '../../../../shared/testing/router-stub';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../../shared/testing/router.stub';
 import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
 
 describe('AddBitstreamFormatComponent', () => {

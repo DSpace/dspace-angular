@@ -5,18 +5,18 @@ import { Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
-import { RouterStub } from '../../testing/router-stub';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { RouterStub } from '../../testing/router.stub';
 import { Item } from '../../../core/shared/item.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
-import { createSuccessfulRemoteDataObject } from '../../testing/utils';
-import { getMockRequestService } from '../../mocks/mock-request.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { RequestService } from '../../../core/data/request.service';
-import { getMockSearchService } from '../../mocks/mock-search-service';
+import { getMockSearchService } from '../../mocks/search-service.mock';
 import { SearchService } from '../../../core/shared/search/search.service';
 
 let component: WorkflowitemActionsComponent;
@@ -69,7 +69,7 @@ describe('WorkflowitemActionsComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

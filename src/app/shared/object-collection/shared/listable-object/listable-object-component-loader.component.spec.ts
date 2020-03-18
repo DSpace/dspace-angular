@@ -8,7 +8,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import * as listableObjectDecorators from './listable-object.decorator';
 import { PublicationListElementComponent } from '../../../object-list/item-list-element/item-types/publication/publication-list-element.component';
 import { ListableObjectDirective } from './listable-object.directive';
-import { spyOnExported } from '../../../testing/utils';
+import { spyOnExported } from '../../../testing/utils.test';
 
 const testType = 'TestType';
 const testContext = Context.Search;

@@ -7,12 +7,12 @@ import { Store, StoreModule } from '@ngrx/store';
 
 import { LogInComponent } from './log-in.component';
 import { authReducer } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson-mock';
+import { EPersonMock } from '../testing/eperson.mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
-import { AuthServiceStub } from '../testing/auth-service-stub';
-import { AppState } from '../../app.reducer';
+import { AuthServiceStub } from '../testing/auth-service.stub';
+import { AppState, storeModuleConfig } from '../../app.reducer';
 
 describe('LogInComponent', () => {
 
@@ -37,7 +37,12 @@ describe('LogInComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forRoot(authReducer),
+        StoreModule.forRoot(authReducer, {
+          runtimeChecks: {
+            strictStateImmutability: false,
+            strictActionImmutability: false
+          }
+        }),
         TranslateModule.forRoot()
       ],
       declarations: [

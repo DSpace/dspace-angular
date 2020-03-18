@@ -19,19 +19,21 @@ import { AuthService } from '../../app/core/auth/auth.service';
 import { ServerAuthService } from '../../app/core/auth/server-auth.service';
 
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { AngularticsMock } from '../../app/shared/mocks/mock-angulartics.service';
+import { AngularticsMock } from '../../app/shared/mocks/angulartics.service.mock';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { ServerSubmissionService } from '../../app/submission/server-submission.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
+import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 
 export function createTranslateLoader() {
-  return new TranslateJson5UniversalLoader('dist/assets/i18n/', '.json5');
+  return new TranslateJson5UniversalLoader('dist/server/assets/i18n/', '.json5');
 }
 
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
+    ModuleMapLoaderModule,
     BrowserModule.withServerTransition({
       appId: 'dspace-angular'
     }),

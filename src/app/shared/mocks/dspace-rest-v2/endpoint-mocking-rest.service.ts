@@ -1,14 +1,14 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { isEmpty } from '../../empty.util';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
 
 import { DSpaceRESTV2Response } from '../../../core/dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Service, HttpOptions } from '../../../core/dspace-rest-v2/dspace-rest-v2.service';
-import { MOCK_RESPONSE_MAP, MockResponseMap } from './mocks/mock-response-map';
+import { MOCK_RESPONSE_MAP, ResponseMapMock } from './mocks/response-map.mock';
 import * as URL from 'url-parse';
+import { environment } from '../../../../environments/environment';
 
 /**
  * Service to access DSpace's REST API.
@@ -21,8 +21,7 @@ import * as URL from 'url-parse';
 export class EndpointMockingRestService extends DSpaceRESTv2Service {
 
   constructor(
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    @Inject(MOCK_RESPONSE_MAP) protected mockResponseMap: MockResponseMap,
+    @Inject(MOCK_RESPONSE_MAP) protected mockResponseMap: ResponseMapMock,
     protected http: HttpClient
   ) {
     super(http);
@@ -99,7 +98,7 @@ export class EndpointMockingRestService extends DSpaceRESTv2Service {
    */
   private getMockData(urlStr: string): any {
     const url = new URL(urlStr);
-    const key = url.pathname.slice(this.EnvConfig.rest.nameSpace.length);
+    const key = url.pathname.slice(environment.rest.nameSpace.length);
     if (this.mockResponseMap.has(key)) {
       // parse and stringify to clone the object to ensure that any changes made
       // to it afterwards don't affect future calls

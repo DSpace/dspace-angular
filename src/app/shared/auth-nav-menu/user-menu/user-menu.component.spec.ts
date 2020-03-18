@@ -7,9 +7,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { UserMenuComponent } from './user-menu.component';
 import { authReducer, AuthState } from '../../../core/auth/auth.reducer';
 import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
-import { EPersonMock } from '../../testing/eperson-mock';
-import { AppState } from '../../../app.reducer';
-import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
+import { EPersonMock } from '../../testing/eperson.mock';
+import { AppState, storeModuleConfig } from '../../../app.reducer';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { cold } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
 
@@ -41,11 +41,16 @@ describe('UserMenuComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(authReducer),
+        StoreModule.forRoot(authReducer, {
+          runtimeChecks: {
+            strictStateImmutability: false,
+            strictActionImmutability: false
+          }
+        }),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

@@ -7,8 +7,8 @@ npm-debug.log
 
 /build/
 
-/config/environment.dev.js
-/config/environment.prod.js
+/src/environments/environment.dev.ts
+/src/environments/environment.prod.ts
 
 /coverage
 

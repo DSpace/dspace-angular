@@ -1,4 +1,4 @@
-import { Component, Inject, Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
 import { Item } from '../../../core/shared/item.model';
@@ -7,9 +7,9 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 /**
@@ -45,7 +45,6 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected route: ActivatedRoute
   ) {
 
@@ -63,7 +62,7 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
       this.item = item;
     });
 
-    this.discardTimeOut = this.EnvConfig.item.edit.undoTimeout;
+    this.discardTimeOut = environment.item.edit.undoTimeout;
     this.url = this.router.url;
     if (this.url.indexOf('?') > 0) {
       this.url = this.url.substr(0, this.url.indexOf('?'));

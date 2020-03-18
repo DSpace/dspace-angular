@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../config';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 /**
@@ -14,8 +14,7 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../../config';
  */
 export class BrowseByGuard implements CanActivate {
 
-  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
-              protected dsoService: DSpaceObjectDataService,
+  constructor(protected dsoService: DSpaceObjectDataService,
               protected translate: TranslateService) {
   }
 
@@ -24,7 +23,7 @@ export class BrowseByGuard implements CanActivate {
     const id = route.params.id || route.queryParams.id || route.data.id;
     let metadataField = route.data.metadataField;
     if (hasNoValue(metadataField) && hasValue(id)) {
-      const config = this.config.browseBy.types.find((conf) => conf.id === id);
+      const config = environment.browseBy.types.find((conf) => conf.id === id);
       if (hasValue(config) && hasValue(config.metadataField)) {
         metadataField = config.metadataField;
       }

@@ -72,7 +72,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    * The context to displaying lists for
    */
   @Input() context: Context;
-
+  @Input() repeatable: boolean;
   /**
    * Emit an event when an object has been imported (or selected from similar local entries)
    */

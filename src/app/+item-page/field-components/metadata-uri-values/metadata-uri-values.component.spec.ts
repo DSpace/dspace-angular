@@ -1,7 +1,7 @@
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MockTranslateLoader } from '../../../shared/mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';
 import { isNotEmpty } from '../../../shared/empty.util';
@@ -30,7 +30,7 @@ describe('MetadataUriValuesComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: MockTranslateLoader
+          useClass: TranslateLoaderMock
         }
       })],
       declarations: [MetadataUriValuesComponent],

@@ -47,7 +47,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
    * A boolean representing if submission form is valid or not
    * @type {Observable<boolean>}
    */
-  private submissionIsInvalid: Observable<boolean> = observableOf(true);
+  public submissionIsInvalid: Observable<boolean> = observableOf(true);
 
   /**
    * Initialize instance variables

@@ -12,16 +12,17 @@ import {
   DynamicFormControlEventType
 } from '@ng-dynamic-forms/core';
 
-import { createSuccessfulRemoteDataObject$, createTestComponent } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$} from '../../../shared/remote-data.utils';
+import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SubmissionService } from '../../submission.service';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service-stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SectionsService } from '../sections.service';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service-stub';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { getMockFormOperationsService } from '../../../shared/mocks/mock-form-operations-service';
-import { getMockFormService } from '../../../shared/mocks/mock-form-service';
+import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { FormService } from '../../../shared/form/form.service';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import { SectionDataObject } from '../models/section-data.model';
@@ -30,7 +31,7 @@ import {
   mockLicenseParsedErrors,
   mockSubmissionCollectionId,
   mockSubmissionId
-} from '../../../shared/mocks/mock-submission';
+} from '../../../shared/mocks/submission.mock';
 import { FormComponent } from '../../../shared/form/form.component';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionSectionLicenseComponent } from './section-license.component';

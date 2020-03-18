@@ -6,8 +6,8 @@ import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/mock-remote-data-build.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { CollectionsComponent } from './collections.component';
 
 let collectionsComponent: CollectionsComponent;

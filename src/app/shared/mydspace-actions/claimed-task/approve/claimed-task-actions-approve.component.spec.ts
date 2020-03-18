@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ClaimedTaskActionsApproveComponent } from './claimed-task-actions-approve.component';
-import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 
 let component: ClaimedTaskActionsApproveComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsApproveComponent>;
@@ -16,7 +16,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

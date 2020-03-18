@@ -73,3 +73,10 @@ export function keySelector<T>(key: string, selector): MemoizedSelector<AppState
     }
   });
 }
+
+export const storeModuleConfig = {
+  runtimeChecks: {
+    strictStateImmutability: true,
+    strictActionImmutability: true
+  }
+};

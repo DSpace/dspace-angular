@@ -21,7 +21,7 @@ import {
   SetRedirectUrlAction
 } from './auth.actions';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { EPersonMock } from '../../shared/testing/eperson-mock';
+import { EPersonMock } from '../../shared/testing/eperson.mock';
 
 describe('authReducer', () => {
 
@@ -114,8 +114,9 @@ describe('authReducer', () => {
       authToken: mockTokenInfo,
       loaded: false,
       error: undefined,
-      loading: true,
-      info: undefined
+      loading: false,
+      info: undefined,
+      user: EPersonMock
     };
     expect(newState).toEqual(state);
   });

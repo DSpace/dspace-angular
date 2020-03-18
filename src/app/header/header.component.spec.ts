@@ -9,7 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuServiceStub } from '../shared/testing/menu-service-stub';
+import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;

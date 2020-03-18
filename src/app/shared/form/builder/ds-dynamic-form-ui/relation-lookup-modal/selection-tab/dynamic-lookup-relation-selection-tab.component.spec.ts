@@ -14,7 +14,7 @@ import { By } from '@angular/platform-browser';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 
 describe('DsDynamicLookupRelationSelectionTabComponent', () => {
   let component: DsDynamicLookupRelationSelectionTabComponent;

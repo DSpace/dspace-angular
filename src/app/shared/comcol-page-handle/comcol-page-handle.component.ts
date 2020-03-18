@@ -1,7 +1,6 @@
-import { Component, Input, Inject, Injectable } from '@angular/core';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../config';
+import { Component, Injectable, Input } from '@angular/core';
 import { UIURLCombiner } from '../../core/url-combiner/ui-url-combiner';
+
 /**
  * This component builds a URL from the value of "handle"
  */
@@ -21,9 +20,7 @@ export class ComcolPageHandleComponent {
   // The value of "handle"
   @Input() content: string;
 
-  constructor(@Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
-  }
   public getHandle(): string {
-    return new UIURLCombiner(this.EnvConfig, '/handle/', this.content).toString();
+    return new UIURLCombiner('/handle/', this.content).toString();
   }
 }

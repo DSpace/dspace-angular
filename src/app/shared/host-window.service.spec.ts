@@ -4,7 +4,7 @@ import { of as observableOf } from 'rxjs';
 import { AppState } from '../app.reducer';
 
 import { HostWindowService, WidthCategory } from './host-window.service';
-import { CSSVariableServiceStub } from './testing/css-variable-service-stub';
+import { CSSVariableServiceStub } from './testing/css-variable-service.stub';
 describe('HostWindowService', () => {
   let service: HostWindowService;
   let store: Store<AppState>;

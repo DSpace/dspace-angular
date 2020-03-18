@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, SimpleChange } from '@a
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
-import { SubmissionServiceStub } from '../../shared/testing/submission-service-stub';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import {
   mockSectionsData,
   mockSectionsList,
@@ -12,14 +12,14 @@ import {
   mockSubmissionObjectNew,
   mockSubmissionSelfUrl,
   mockSubmissionState
-} from '../../shared/mocks/mock-submission';
+} from '../../shared/mocks/submission.mock';
 import { SubmissionService } from '../submission.service';
 import { SubmissionFormComponent } from './submission-form.component';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
+import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
-import { createTestComponent } from '../../shared/testing/utils';
+import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { createTestComponent } from '../../shared/testing/utils.test';
 
 describe('SubmissionFormComponent Component', () => {
 
@@ -47,7 +47,7 @@ describe('SubmissionFormComponent Component', () => {
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
-        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
+        { provide: HALEndpointService, useValue: new HalEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         ChangeDetectorRef,
         SubmissionFormComponent

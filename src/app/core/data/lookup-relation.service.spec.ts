@@ -1,7 +1,8 @@
 import { LookupRelationService } from './lookup-relation.service';
 import { ExternalSourceService } from './external-source.service';
 import { SearchService } from '../shared/search/search.service';
-import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 import { PaginatedList } from './paginated-list';
 import { PageInfo } from '../shared/page-info.model';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';

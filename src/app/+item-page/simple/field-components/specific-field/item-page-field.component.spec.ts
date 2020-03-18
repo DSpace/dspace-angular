@@ -3,12 +3,12 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Item } from '../../../../core/shared/item.model';
 import { PaginatedList } from '../../../../core/data/paginated-list';
-import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { ItemPageFieldComponent } from './item-page-field.component';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 
 let comp: ItemPageFieldComponent;
 let fixture: ComponentFixture<ItemPageFieldComponent>;
@@ -24,7 +24,7 @@ describe('ItemPageFieldComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: MockTranslateLoader
+          useClass: TranslateLoaderMock
         }
       })],
       declarations: [ItemPageFieldComponent, MetadataValuesComponent],

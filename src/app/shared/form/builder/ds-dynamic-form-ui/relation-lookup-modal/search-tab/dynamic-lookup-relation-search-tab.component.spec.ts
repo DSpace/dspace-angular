@@ -11,7 +11,7 @@ import { VarDirective } from '../../../../../utils/var.directive';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { of as observableOf } from 'rxjs';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../../../../core/shared/item.model';

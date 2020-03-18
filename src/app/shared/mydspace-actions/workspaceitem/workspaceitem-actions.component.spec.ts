@@ -7,18 +7,18 @@ import { of as observableOf } from 'rxjs';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
-import { RouterStub } from '../../testing/router-stub';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { RouterStub } from '../../testing/router.stub';
 import { Item } from '../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { createSuccessfulRemoteDataObject } from '../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { RequestService } from '../../../core/data/request.service';
-import { getMockRequestService } from '../../mocks/mock-request.service';
-import { getMockSearchService } from '../../mocks/mock-search-service';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { getMockSearchService } from '../../mocks/search-service.mock';
 import { SearchService } from '../../../core/shared/search/search.service';
 
 let component: WorkspaceitemActionsComponent;
@@ -76,7 +76,7 @@ describe('WorkspaceitemActionsComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

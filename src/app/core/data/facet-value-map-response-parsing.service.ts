@@ -1,14 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
+import { Injectable } from '@angular/core';
 import { FacetValue } from '../../shared/search/facet-value.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import {
-  FacetValueMap,
-  FacetValueMapSuccessResponse,
-  FacetValueSuccessResponse,
-  RestResponse
-} from '../cache/response.models';
+import { FacetValueMap, FacetValueMapSuccessResponse, FacetValueSuccessResponse, RestResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
 import { BaseResponseParsingService } from './base-response-parsing.service';
@@ -20,7 +13,6 @@ export class FacetValueMapResponseParsingService extends BaseResponseParsingServ
   toCache = false;
 
   constructor(
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected objectCache: ObjectCacheService,
   ) { super();
   }

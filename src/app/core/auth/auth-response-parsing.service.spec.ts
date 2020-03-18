@@ -3,12 +3,13 @@ import { async, TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { MockStore } from '../../shared/testing/mock-store';
+import { StoreMock } from '../../shared/testing/store.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { AuthStatusResponse } from '../cache/response.models';
 import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
 import { AuthResponseParsingService } from './auth-response-parsing.service';
 import { AuthStatus } from './models/auth-status.model';
+import { storeModuleConfig } from '../../app.reducer';
 
 describe('AuthResponseParsingService', () => {
   let service: AuthResponseParsingService;
@@ -21,10 +22,10 @@ describe('AuthResponseParsingService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot({}, storeModuleConfig),
       ],
       providers: [
-        { provide: Store, useClass: MockStore }
+        { provide: Store, useClass: StoreMock }
       ]
     }).compileComponents();
   }));
@@ -35,7 +36,7 @@ describe('AuthResponseParsingService', () => {
       removeResolvedLinks: {}
     });
     objectCacheService = new ObjectCacheService(store as any, linkServiceStub);
-    service = new AuthResponseParsingService(EnvConfig, objectCacheService);
+    service = new AuthResponseParsingService(objectCacheService);
   });
 
   describe('parse', () => {

@@ -1,14 +1,14 @@
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MockTranslateLoader } from '../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
-import { SearchServiceStub } from '../testing/search-service-stub';
+import { SearchServiceStub } from '../testing/search-service.stub';
 import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({ template: '' })
@@ -26,7 +26,7 @@ describe('ViewModeSwitchComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
         RouterTestingModule.withRoutes([

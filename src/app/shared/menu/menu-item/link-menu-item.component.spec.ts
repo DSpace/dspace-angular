@@ -3,8 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { LinkMenuItemComponent } from './link-menu-item.component';
-import { RouterLinkDirectiveStub } from '../../testing/router-link-directive-stub';
-import { GLOBAL_CONFIG } from '../../../../config';
+import { RouterLinkDirectiveStub } from '../../testing/router-link-directive.stub';
 
 describe('LinkMenuItemComponent', () => {
   let component: LinkMenuItemComponent;
@@ -13,17 +12,11 @@ describe('LinkMenuItemComponent', () => {
   let text;
   let link;
   let nameSpace;
-  let globalConfig;
 
   function init() {
     text = 'HELLO';
     link = 'http://google.com';
-    nameSpace = 'dspace.com/';
-    globalConfig = {
-      ui: {
-        nameSpace: nameSpace
-      }
-    } as any;
+    nameSpace = '/angular-dspace';
   }
   beforeEach(async(() => {
     init();
@@ -32,7 +25,6 @@ describe('LinkMenuItemComponent', () => {
       declarations: [LinkMenuItemComponent, RouterLinkDirectiveStub],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text, link: link } },
-        { provide: GLOBAL_CONFIG, useValue: globalConfig },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

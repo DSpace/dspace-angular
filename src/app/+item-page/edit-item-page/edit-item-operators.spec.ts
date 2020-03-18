@@ -5,7 +5,7 @@ import {findSuccessfulAccordingTo} from './edit-item-operators';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject
-} from '../../shared/testing/utils';
+} from '../../shared/remote-data.utils';
 
 describe('findSuccessfulAccordingTo', () => {
   let mockItem1;

@@ -5,8 +5,6 @@ import { RestRequest } from '../data/request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ErrorResponse, RestResponse, TaskResponse } from '../cache/response.models';
 
@@ -21,11 +19,9 @@ export class TaskResponseParsingService extends BaseResponseParsingService imple
   /**
    * Initialize instance variables
    *
-   * @param {GlobalConfig} EnvConfig
    * @param {ObjectCacheService} objectCache
    */
-  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected objectCache: ObjectCacheService,) {
+  constructor(protected objectCache: ObjectCacheService) {
     super();
   }
 

@@ -11,11 +11,11 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
+import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
 import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
-import { createTestComponent, hasClass } from '../../../../../testing/utils';
+import { createTestComponent, hasClass } from '../../../../../testing/utils.test';
 
 export const SD_TEST_GROUP = new FormGroup({
   dropdown: new FormControl(),

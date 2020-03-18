@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { LoginPageComponent } from './login-page.component';
-import { ActivatedRouteStub } from '../shared/testing/active-router-stub';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 
 describe('LoginPageComponent', () => {
   let comp: LoginPageComponent;

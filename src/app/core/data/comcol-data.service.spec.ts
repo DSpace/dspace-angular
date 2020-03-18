@@ -3,8 +3,7 @@ import { Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { Observable, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { GlobalConfig } from '../../../config';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -27,7 +26,6 @@ class TestService extends ComColDataService<any> {
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
-    protected EnvConfig: GlobalConfig,
     protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -55,7 +53,6 @@ describe('ComColDataService', () => {
 
   const rdbService = {} as RemoteDataBuildService;
   const store = {} as Store<CoreState>;
-  const EnvConfig = {} as GlobalConfig;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
@@ -67,7 +64,7 @@ describe('ComColDataService', () => {
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful } as any
-    } as RequestEntry)
+    } as RequestEntry);
   };
 
   const communitiesEndpoint = 'https://rest.api/core/communities';
@@ -106,7 +103,6 @@ describe('ComColDataService', () => {
       requestService,
       rdbService,
       store,
-      EnvConfig,
       cds,
       objectCache,
       halService,

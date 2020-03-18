@@ -4,12 +4,13 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$, createTestComponent } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionObjectState } from '../../objects/submission-objects.reducer';
 import { SubmissionService } from '../../submission.service';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service-stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SectionsService } from '../sections.service';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service-stub';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
@@ -20,7 +21,7 @@ import {
   mockSubmissionState,
   mockUploadConfigResponse,
   mockUploadConfigResponseNotRequired, mockUploadFiles,
-} from '../../../shared/mocks/mock-submission';
+} from '../../../shared/mocks/submission.mock';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { SubmissionUploadsConfigService } from '../../../core/config/submission-uploads-config.service';
@@ -35,7 +36,7 @@ import { ResourcePolicyService } from '../../../core/data/resource-policy.servic
 import { ConfigData } from '../../../core/config/config-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Group } from '../../../core/eperson/models/group.model';
-import { getMockSectionUploadService } from '../../../shared/mocks/mock-section-upload.service';
+import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
 
 function getMockSubmissionUploadsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('SubmissionUploadsConfigService', {

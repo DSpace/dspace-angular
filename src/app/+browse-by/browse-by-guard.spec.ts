@@ -1,7 +1,6 @@
 import { first } from 'rxjs/operators';
 import { BrowseByGuard } from './browse-by-guard';
 import { of as observableOf } from 'rxjs';
-import { ENV_CONFIG } from '../../config';
 
 describe('BrowseByGuard', () => {
   describe('canActivate', () => {
@@ -25,7 +24,7 @@ describe('BrowseByGuard', () => {
       translateService = {
         instant: () => field
       };
-      guard = new BrowseByGuard(ENV_CONFIG, dsoService, translateService);
+      guard = new BrowseByGuard(dsoService, translateService);
     });
 
     it('should return true, and sets up the data correctly, with a scope and value', () => {

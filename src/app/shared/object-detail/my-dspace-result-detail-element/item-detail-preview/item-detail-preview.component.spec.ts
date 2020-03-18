@@ -22,10 +22,10 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { Item } from '../../../../core/shared/item.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
-import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../testing/utils';
+import { HalEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
 import { FollowLinkConfig } from '../../../utils/follow-link-config.model';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
@@ -89,14 +89,14 @@ describe('ItemDetailPreviewComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],
       declarations: [ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective],
       providers: [
         { provide: FileService, useValue: getMockFileService() },
-        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
+        { provide: HALEndpointService, useValue: new HalEndpointServiceStub('workspaceitems') },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },

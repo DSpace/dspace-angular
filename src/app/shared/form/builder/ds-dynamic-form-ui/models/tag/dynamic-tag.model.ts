@@ -1,6 +1,5 @@
 import { AUTOCOMPLETE_OFF, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
-import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_TAG = 'TAG';
 
@@ -22,7 +21,7 @@ export class DynamicTagModel extends DsDynamicInputModel {
     this.autoComplete = AUTOCOMPLETE_OFF;
     this.minChars = config.minChars || 3;
     const value = config.value || [];
-    this.valueUpdates.next(value)
+    this.valueUpdates.next(value);
   }
 
 }

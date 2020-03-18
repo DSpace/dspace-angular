@@ -6,8 +6,6 @@ import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.
 import { EpersonSuccessResponse, ErrorResponse, RestResponse } from '../cache/response.models';
 import { isNotEmpty } from '../../shared/empty.util';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
@@ -20,7 +18,6 @@ export class EpersonResponseParsingService extends BaseResponseParsingService im
   protected toCache = false;
 
   constructor(
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected objectCache: ObjectCacheService,
   ) {
     super();

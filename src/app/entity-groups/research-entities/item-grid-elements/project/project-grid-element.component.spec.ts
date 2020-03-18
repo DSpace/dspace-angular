@@ -1,7 +1,7 @@
 import { Item } from '../../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ProjectGridElementComponent } from './project-grid-element.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { async, TestBed } from '@angular/core/testing';

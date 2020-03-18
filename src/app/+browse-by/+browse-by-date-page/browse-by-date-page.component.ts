@@ -11,9 +11,9 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { BrowseByType, rendersBrowseBy } from '../+browse-by-switcher/browse-by-decorator';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -33,8 +33,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
    */
   defaultMetadataField = 'dc.date.issued';
 
-  public constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
-                     protected route: ActivatedRoute,
+  public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
                      protected router: Router,
@@ -77,7 +76,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
   updateStartsWithOptions(definition: string, metadataField: string, scope?: string) {
     this.subs.push(
       this.browseService.getFirstItemFor(definition, scope).subscribe((firstItemRD: RemoteData<Item>) => {
-        let lowerLimit = this.config.browseBy.defaultLowerLimit;
+        let lowerLimit = environment.browseBy.defaultLowerLimit;
         if (hasValue(firstItemRD.payload)) {
           const date = firstItemRD.payload.firstMetadataValue(metadataField);
           if (hasValue(date)) {
@@ -88,8 +87,8 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         }
         const options = [];
         const currentYear = new Date().getFullYear();
-        const oneYearBreak = Math.floor((currentYear - this.config.browseBy.oneYearLimit) / 5) * 5;
-        const fiveYearBreak = Math.floor((currentYear - this.config.browseBy.fiveYearLimit) / 10) * 10;
+        const oneYearBreak = Math.floor((currentYear - environment.browseBy.oneYearLimit) / 5) * 5;
+        const fiveYearBreak = Math.floor((currentYear - environment.browseBy.fiveYearLimit) / 10) * 10;
         if (lowerLimit <= fiveYearBreak) {
           lowerLimit -= 10;
         } else if (lowerLimit <= oneYearBreak) {

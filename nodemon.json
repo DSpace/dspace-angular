@@ -1,9 +1,0 @@
-{
-  "watch": [
-    "dist",
-    "config",
-    "src/index.html"
-  ],
-  "ext": "js ts json html",
-  "delay": "50"
-}

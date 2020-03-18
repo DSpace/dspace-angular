@@ -1,5 +1,5 @@
 import { SearchConfigurationService } from './search-configuration.service';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';

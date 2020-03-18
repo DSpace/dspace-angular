@@ -15,7 +15,7 @@ import { RegistryService } from '../../../../core/registry/registry.service';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { SharedModule } from '../../../../shared/shared.module';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { EditInPlaceFieldComponent } from './edit-in-place-field.component';
 
 let comp: EditInPlaceFieldComponent;

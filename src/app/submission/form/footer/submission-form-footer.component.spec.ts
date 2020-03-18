@@ -8,13 +8,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service-stub';
-import { mockSubmissionId } from '../../../shared/mocks/mock-submission';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
 import { SubmissionService } from '../../submission.service';
-import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service-stub';
+import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
-import { createTestComponent } from '../../../shared/testing/utils';
+import { createTestComponent } from '../../../shared/testing/utils.test';
 
 describe('SubmissionFormFooterComponent Component', () => {
 

@@ -8,7 +8,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
 
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -21,6 +20,7 @@ import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../shared/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class MetadataService {
@@ -39,7 +39,6 @@ export class MetadataService {
     private dsoNameService: DSONameService,
     private bitstreamDataService: BitstreamDataService,
     private bitstreamFormatDataService: BitstreamFormatDataService,
-    @Inject(GLOBAL_CONFIG) private envConfig: GlobalConfig
   ) {
     // TODO: determine what open graph meta tags are needed and whether
     // the differ per route. potentially add image based on DSpaceObject
@@ -255,7 +254,7 @@ export class MetadataService {
    */
   private setCitationAbstractUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
-      const value = [this.envConfig.ui.baseUrl, this.router.url].join('');
+      const value = [environment.ui.baseUrl, this.router.url].join('');
       this.addMetaTag('citation_abstract_html_url', value);
     }
   }
@@ -272,7 +271,7 @@ export class MetadataService {
           first((files) => isNotEmpty(files)),
           catchError((error) => {
             console.debug(error.message);
-            return []
+            return [];
           }))
         .subscribe((bitstreams: Bitstream[]) => {
           for (const bitstream of bitstreams) {

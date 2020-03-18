@@ -12,9 +12,9 @@ import { SubmissionFormComponent } from './form/submission-form.component';
 import { SubmissionFormSectionAddComponent } from './form/section-add/submission-form-section-add.component';
 import { SubmissionSectionContainerComponent } from './sections/container/section-container.component';
 import { CommonModule } from '@angular/common';
-import { StoreModule } from '@ngrx/store';
+import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { submissionReducers } from './submission.reducers';
+import { submissionReducers, SubmissionState } from './submission.reducers';
 import { submissionEffects } from './submission.effects';
 import { SubmissionSectionUploadComponent } from './sections/upload/section-upload.component';
 import { SectionUploadService } from './sections/upload/section-upload.service';
@@ -27,13 +27,15 @@ import { SubmissionSectionUploadFileEditComponent } from './sections/upload/file
 import { SubmissionSectionUploadFileViewComponent } from './sections/upload/file/view/section-upload-file-view.component';
 import { SubmissionSectionUploadAccessConditionsComponent } from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
+import { storeModuleConfig } from '../app.reducer';
+import { CoreState } from '../core/core.reducers';
 
 @NgModule({
   imports: [
     CommonModule,
     CoreModule.forRoot(),
     SharedModule,
-    StoreModule.forFeature('submission', submissionReducers, {}),
+    StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
     EffectsModule.forFeature(submissionEffects),
     TranslateModule
   ],

@@ -4,8 +4,8 @@ import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { BehaviorSubject, EMPTY, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
-import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
+import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
+import { defaultUUID, getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';

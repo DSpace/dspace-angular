@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { FullItemPageComponent } from './full-item-page.component';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../core/shared/item.model';
@@ -20,7 +20,7 @@ import { By } from '@angular/platform-browser';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
-} from '../../shared/testing/utils';
+} from '../../shared/remote-data.utils';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
@@ -51,7 +51,7 @@ describe('FullItemPageComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: MockTranslateLoader
+          useClass: TranslateLoaderMock
         }
       }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
       declarations: [FullItemPageComponent, TruncatePipe, VarDirective],

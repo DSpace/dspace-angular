@@ -23,10 +23,11 @@ import {
   RetrieveAuthenticatedEpersonErrorAction,
   RetrieveAuthenticatedEpersonSuccessAction
 } from './auth.actions';
-import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
+import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from './auth.service';
 import { AuthState } from './auth.reducer';
-import { EPersonMock } from '../../shared/testing/eperson-mock';
+
+import { EPersonMock } from '../../shared/testing/eperson.mock';
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;

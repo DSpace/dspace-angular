@@ -9,7 +9,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommunityMetadataComponent } from './community-metadata.component';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 
 describe('CommunityMetadataComponent', () => {
   let comp: CommunityMetadataComponent;

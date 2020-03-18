@@ -2,7 +2,7 @@ import { of as observableOf } from 'rxjs';
 import { TestBed, inject, async } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
-import { MockStore } from '../shared/testing/mock-store';
+import { StoreMock } from '../shared/testing/store.mock';
 import { CommunityListService, FlatNode, toFlatNode } from './community-list-service';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
@@ -11,14 +11,14 @@ import { CommunityDataService } from '../core/data/community-data.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$
-} from '../shared/testing/utils';
+} from '../shared/remote-data.utils';
 import { Community } from '../core/shared/community.model';
 import { Collection } from '../core/shared/collection.model';
 import { take } from 'rxjs/operators';
 import { FindListOptions } from '../core/data/request.models';
 
 describe('CommunityListService', () => {
-  let store: MockStore<AppState>;
+  let store: StoreMock<AppState>;
   const standardElementsPerPage = 2;
   let collectionDataServiceStub: any;
   let communityDataServiceStub: any;
@@ -183,7 +183,7 @@ describe('CommunityListService', () => {
       providers: [CommunityListService,
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
-        { provide: Store, useValue: MockStore },
+        { provide: Store, useValue: StoreMock },
       ],
     });
     store = TestBed.get(Store);

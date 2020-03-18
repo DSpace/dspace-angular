@@ -32,14 +32,13 @@ import { Chips } from '../../../../../chips/models/chips.model';
 import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
-import { GlobalConfig } from '../../../../../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { environment } from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'ds-dynamic-relation-group',
@@ -67,8 +66,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
 
   @ViewChild('formRef', {static: false}) private formRef: FormComponent;
 
-  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              private authorityService: AuthorityService,
+  constructor(private authorityService: AuthorityService,
               private formBuilderService: FormBuilderService,
               private formService: FormService,
               private cdr: ChangeDetectorRef,
@@ -295,7 +293,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       initChipsValue,
       'value',
       this.model.mandatoryField,
-      this.EnvConfig.submission.icons.metadata);
+      environment.submission.icons.metadata);
     this.subs.push(
       this.chips.chipsItems
         .subscribe(() => {
@@ -308,7 +306,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
             }
           }
         }),
-    )
+    );
   }
 
   private resetForm() {

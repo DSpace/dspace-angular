@@ -10,7 +10,6 @@ import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { SharedModule } from '../../../../../shared/shared.module';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
@@ -18,6 +17,7 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
   let component: ItemAdminSearchResultGridElementComponent;

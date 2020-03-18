@@ -12,7 +12,7 @@
             <ds-dynamic-form-control-container *ngFor="let _model of groupModel.group"
                                                [bindId]="false"
                                                [context]="groupModel"
-                                               [group]="control.at(idx)"
+                                               [group]="control.get([idx])"
                                                [hidden]="_model.hidden"
                                                [layout]="layout"
                                                [model]="_model"

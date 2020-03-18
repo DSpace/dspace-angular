@@ -9,8 +9,6 @@ import {
   EmptySSBAction,
   ServerSyncBufferActionTypes
 } from './server-sync-buffer.actions';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { CoreState } from '../core.reducers';
 import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
@@ -23,6 +21,7 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ServerSyncBufferEffects {
@@ -37,7 +36,7 @@ export class ServerSyncBufferEffects {
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
       exhaustMap((action: AddToSSBAction) => {
-        const autoSyncConfig = this.EnvConfig.cache.autoSync;
+        const autoSyncConfig = environment.cache.autoSync;
         const timeoutInSeconds = autoSyncConfig.timePerMethod[action.payload.method] || autoSyncConfig.defaultTime;
         return observableOf(new CommitSSBAction(action.payload.method)).pipe(
           delay(timeoutInSeconds * 1000),
@@ -85,7 +84,7 @@ export class ServerSyncBufferEffects {
               return observableOf({ type: 'NO_ACTION' });
             }
           })
-        )
+        );
       })
     );
 
@@ -104,16 +103,15 @@ export class ServerSyncBufferEffects {
 
         this.requestService.configure(new PutRequest(this.requestService.generateRequestId(), href, serializedObject));
 
-        return new ApplyPatchObjectCacheAction(href)
+        return new ApplyPatchObjectCacheAction(href);
       })
-    )
+    );
   }
 
   constructor(private actions$: Actions,
               private store: Store<CoreState>,
               private requestService: RequestService,
-              private objectCache: ObjectCacheService,
-              @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
+              private objectCache: ObjectCacheService) {
 
   }
 }

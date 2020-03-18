@@ -1,4 +1,4 @@
-import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
+import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { ErrorResponse, GenericSuccessResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { BrowseEntriesResponseParsingService } from './browse-entries-response-parsing.service';
@@ -9,7 +9,7 @@ describe('BrowseItemsResponseParsingService', () => {
   let service: BrowseItemsResponseParsingService;
 
   beforeEach(() => {
-    service = new BrowseItemsResponseParsingService(undefined, getMockObjectCacheService());
+    service = new BrowseItemsResponseParsingService(getMockObjectCacheService());
   });
 
   describe('parse', () => {

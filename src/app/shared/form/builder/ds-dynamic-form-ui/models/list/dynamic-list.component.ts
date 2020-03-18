@@ -32,7 +32,7 @@ export interface ListItem {
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
-  @Input() model: DynamicListCheckboxGroupModel | DynamicListRadioGroupModel;
+  @Input() model: any;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();

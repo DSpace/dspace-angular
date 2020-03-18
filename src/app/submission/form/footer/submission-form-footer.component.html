@@ -26,7 +26,7 @@
     <button *ngIf="(showDepositAndDiscard | async)"
             type="button"
             class="btn btn-primary"
-            [disabled]="(submissionIsInvalid | async)" (click)="deposit()">
+            [disabled]="(submissionIsInvalid | async)" (click)="deposit($event)">
       <span>{{'submission.general.deposit' | translate}}</span>
     </button>
   </div>

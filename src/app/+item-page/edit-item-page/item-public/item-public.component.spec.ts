@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Item } from '../../../core/shared/item.model';
-import { RouterStub } from '../../../shared/testing/router-stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
 import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -16,7 +16,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemPublicComponent } from './item-public.component';
 import { RestResponse } from '../../../core/cache/response.models';
-import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 
 let comp: ItemPublicComponent;
 let fixture: ComponentFixture<ItemPublicComponent>;

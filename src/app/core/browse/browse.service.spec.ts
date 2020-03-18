@@ -1,9 +1,9 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
@@ -19,7 +19,7 @@ describe('BrowseService', () => {
   let rdbService: RemoteDataBuildService;
 
   const browsesEndpointURL = 'https://rest.api/browses';
-  const halService: any = new HALEndpointServiceStub(browsesEndpointURL);
+  const halService: any = new HalEndpointServiceStub(browsesEndpointURL);
   const browseDefinitions = [
     Object.assign(new BrowseDefinition(), {
       id: 'date',

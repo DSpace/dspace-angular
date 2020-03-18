@@ -1,6 +1,6 @@
 import { TranslateLoader } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import JSON5 from 'json5'
+import * as JSON5 from 'json5'
 import * as fs from 'fs';
 
 export class TranslateJson5UniversalLoader implements TranslateLoader {

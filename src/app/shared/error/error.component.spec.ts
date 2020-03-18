@@ -4,7 +4,7 @@ import { DebugElement } from '@angular/core';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 
-import { MockTranslateLoader } from '../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 
 import { ErrorComponent } from './error.component';
 
@@ -21,7 +21,7 @@ describe('ErrorComponent (inline template)', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],

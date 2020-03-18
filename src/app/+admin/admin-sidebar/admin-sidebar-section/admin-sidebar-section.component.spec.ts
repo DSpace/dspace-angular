@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuService } from '../../../shared/menu/menu.service';
-import { MenuServiceStub } from '../../../shared/testing/menu-service-stub';
+import { MenuServiceStub } from '../../../shared/testing/menu-service.stub';
 import { CSSVariableService } from '../../../shared/sass-helper/sass-helper.service';
-import { CSSVariableServiceStub } from '../../../shared/testing/css-variable-service-stub';
+import { CSSVariableServiceStub } from '../../../shared/testing/css-variable-service.stub';
 import { Component } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminSidebarSectionComponent } from './admin-sidebar-section.component';

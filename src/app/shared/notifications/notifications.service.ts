@@ -11,13 +11,12 @@ import { NotificationType } from './models/notification-type';
 import { NotificationOptions } from './models/notification-options.model';
 
 import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class NotificationsService {
 
-  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
-              private store: Store<Notification>,
+  constructor(private store: Store<Notification>,
               private translate: TranslateService) {
   }
 
@@ -114,9 +113,9 @@ export class NotificationsService {
 
   private getDefaultOptions(): NotificationOptions {
     return new NotificationOptions(
-      this.config.notifications.timeOut,
-      this.config.notifications.clickToClose,
-      this.config.notifications.animate
+      environment.notifications.timeOut,
+      environment.notifications.clickToClose,
+      environment.notifications.animate
     );
   }
 }

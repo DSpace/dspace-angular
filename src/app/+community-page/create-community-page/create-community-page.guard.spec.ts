@@ -1,11 +1,8 @@
 import { CreateCommunityPageGuard } from './create-community-page.guard';
-import { MockRouter } from '../../shared/mocks/mock-router';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { Community } from '../../core/shared/community.model';
 import { first } from 'rxjs/operators';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/testing/utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('CreateCommunityPageGuard', () => {
   describe('canActivate', () => {
@@ -25,7 +22,7 @@ describe('CreateCommunityPageGuard', () => {
           }
         }
       };
-      router = new MockRouter();
+      router = new RouterMock();
 
       guard = new CreateCommunityPageGuard(router, communityDataServiceStub);
     });

@@ -1,9 +1,9 @@
 import { async, TestBed } from '@angular/core/testing';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { getMockLinkService } from '../../shared/mocks/mock-link-service';
+import { getMockLinkService } from '../../shared/mocks/link-service.mock';
 import { LinkService } from '../cache/builders/link.service';
 import { Item } from '../shared/item.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { of as observableOf } from 'rxjs';
 import { Community } from '../shared/community.model';

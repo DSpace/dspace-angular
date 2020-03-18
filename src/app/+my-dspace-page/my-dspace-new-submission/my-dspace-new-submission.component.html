@@ -3,7 +3,7 @@
     <ds-uploader *ngIf="uploadFilesOptions.url !== ''"
                  [uploadFilesOptions]="uploadFilesOptions"
                  (onCompleteItem)="onCompleteItem($event)"
-                 (onUploadError)="onUploadError($event)"></ds-uploader>
+                 (onUploadError)="onUploadError()"></ds-uploader>
 
   </div>
   <div class="add">

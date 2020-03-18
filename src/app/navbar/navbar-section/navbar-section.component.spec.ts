@@ -4,9 +4,9 @@ import { NavbarSectionComponent } from './navbar-section.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuService } from '../../shared/menu/menu.service';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service-stub';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { Component } from '@angular/core';
-import { MenuServiceStub } from '../../shared/testing/menu-service-stub';
+import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
 
 describe('NavbarSectionComponent', () => {

@@ -8,9 +8,8 @@ import {
 } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
 
-import { StoreModule } from '@ngrx/store';
+import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
-import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
 
 import { isNotEmpty } from '../shared/empty.util';
 import { FormBuilderService } from '../shared/form/builder/form-builder.service';
@@ -21,9 +20,9 @@ import { EndpointMockingRestService } from '../shared/mocks/dspace-rest-v2/endpo
 
 import {
   MOCK_RESPONSE_MAP,
-  MockResponseMap,
+  ResponseMapMock,
   mockResponseMap
-} from '../shared/mocks/dspace-rest-v2/mocks/mock-response-map';
+} from '../shared/mocks/dspace-rest-v2/mocks/response-map.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
@@ -50,7 +49,7 @@ import { SubmissionFormsConfigService } from './config/submission-forms-config.s
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
 
 import { coreEffects } from './core.effects';
-import { coreReducers } from './core.reducers';
+import { coreReducers, CoreState } from './core.reducers';
 import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
 import { BrowseEntriesResponseParsingService } from './data/browse-entries-response-parsing.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
@@ -142,22 +141,24 @@ import { PoolTask } from './tasks/models/pool-task-object.model';
 import { TaskObject } from './tasks/models/task-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { environment } from '../../environments/environment';
+import { storeModuleConfig } from '../app.reducer';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
  * If there is no mock version available for the endpoint, the actual REST response will be used just like in production mode
  */
-export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
-  if (ENV_CONFIG.production) {
+export const restServiceFactory = (mocks: ResponseMapMock, http: HttpClient) => {
+  if (environment.production) {
     return new DSpaceRESTv2Service(http);
   } else {
-    return new EndpointMockingRestService(cfg, mocks, http);
+    return new EndpointMockingRestService(mocks, http);
   }
 };
 
 const IMPORTS = [
   CommonModule,
-  StoreModule.forFeature('core', coreReducers, {}),
+  StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
   EffectsModule.forFeature(coreEffects)
 ];
 
@@ -175,7 +176,7 @@ const PROVIDERS = [
   SiteDataService,
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
-  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [GLOBAL_CONFIG, MOCK_RESPONSE_MAP, HttpClient]},
+  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient]},
   DynamicFormLayoutService,
   DynamicFormService,
   DynamicFormValidationService,

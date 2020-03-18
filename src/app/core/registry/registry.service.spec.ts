@@ -17,12 +17,12 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { MockStore } from '../../shared/testing/mock-store';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { StoreMock } from '../../shared/testing/store.mock';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
 import {
@@ -40,6 +40,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import { RegistryService } from './registry.service';
+import { storeModuleConfig } from '../../app.reducer';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -151,7 +152,7 @@ describe('RegistryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, StoreModule.forRoot({}), TranslateModule.forRoot()],
+      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot()],
       declarations: [
         DummyComponent
       ],
@@ -159,7 +160,7 @@ describe('RegistryService', () => {
         { provide: RequestService, useValue: getMockRequestService() },
         { provide: RemoteDataBuildService, useValue: rdbStub },
         { provide: HALEndpointService, useValue: halServiceStub },
-        { provide: Store, useClass: MockStore },
+        { provide: Store, useClass: StoreMock },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         RegistryService
       ]

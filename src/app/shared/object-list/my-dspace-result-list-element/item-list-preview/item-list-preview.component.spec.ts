@@ -8,7 +8,7 @@ import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;
@@ -72,7 +72,7 @@ describe('ItemListPreviewComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],

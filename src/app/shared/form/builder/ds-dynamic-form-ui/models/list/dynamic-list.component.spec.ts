@@ -17,11 +17,11 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
+import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 import { By } from '@angular/platform-browser';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
-import { createTestComponent } from '../../../../../testing/utils';
+import { createTestComponent } from '../../../../../testing/utils.test';
 
 export const LAYOUT_TEST = {
   element: {

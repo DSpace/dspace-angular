@@ -28,5 +28,5 @@ export interface GlobalConfig extends Config {
   browseBy: BrowseByConfig;
   item: ItemPageConfig;
   collection: CollectionPageConfig;
-  themes: Theme[];
+  theme: Theme;
 }

@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { PublicationGridElementComponent } from './publication-grid-element.component';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { Item } from '../../../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 

@@ -3,7 +3,6 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of as observableOf } from 'rxjs';
 import { catchError, filter, flatMap, map, take } from 'rxjs/operators';
 
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { StoreActionTypes } from '../../store.actions';
 import { getClassForType } from '../cache/builders/build-decorators';
@@ -22,11 +21,11 @@ import { RequestError, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 
-export const addToResponseCacheAndCompleteAction = (request: RestRequest, envConfig: GlobalConfig) =>
+export const addToResponseCacheAndCompleteAction = (request: RestRequest) =>
   (source: Observable<RestResponse>): Observable<RequestCompleteAction> =>
     source.pipe(
       map((response: RestResponse) => {
-        return new RequestCompleteAction(request.uuid, response)
+        return new RequestCompleteAction(request.uuid, response);
       })
     );
 
@@ -50,9 +49,9 @@ export class RequestEffects {
       }
       return this.restApi.request(request.method, request.href, body, request.options).pipe(
         map((data: DSpaceRESTV2Response) => this.injector.get(request.getResponseParser()).parse(request, data)),
-        addToResponseCacheAndCompleteAction(request, this.EnvConfig),
+        addToResponseCacheAndCompleteAction(request),
         catchError((error: RequestError) => observableOf(new ErrorResponse(error)).pipe(
-          addToResponseCacheAndCompleteAction(request, this.EnvConfig)
+          addToResponseCacheAndCompleteAction(request)
         ))
       );
     })
@@ -72,7 +71,6 @@ export class RequestEffects {
     );
 
   constructor(
-    @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig,
     private actions$: Actions,
     private restApi: DSpaceRESTv2Service,
     private injector: Injector,

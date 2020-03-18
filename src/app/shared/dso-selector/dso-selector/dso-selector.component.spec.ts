@@ -8,7 +8,7 @@ import { ItemSearchResult } from '../../object-collection/shared/item-search-res
 import { Item } from '../../../core/shared/item.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject$ } from '../../testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 
 describe('DSOSelectorComponent', () => {

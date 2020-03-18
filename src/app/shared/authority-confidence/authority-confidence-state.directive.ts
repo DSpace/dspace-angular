@@ -1,8 +1,9 @@
 import {
+  AfterViewInit,
   Directive,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   HostListener,
-  Inject,
   Input,
   OnChanges,
   Output,
@@ -16,8 +17,8 @@ import { AuthorityValue } from '../../core/integration/models/authority.value';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../core/integration/models/confidence-type';
 import { isNotEmpty, isNull } from '../empty.util';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { ConfidenceIconConfig } from '../../../config/submission-config.interface';
+import { environment } from '../../../environments/environment';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
@@ -25,7 +26,7 @@ import { ConfidenceIconConfig } from '../../../config/submission-config.interfac
 @Directive({
   selector: '[dsAuthorityConfidenceState]'
 })
-export class AuthorityConfidenceStateDirective implements OnChanges {
+export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit {
 
   /**
    * The metadata value
@@ -69,7 +70,6 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
    * @param {Renderer2} renderer
    */
   constructor(
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     private elem: ElementRef,
     private renderer: Renderer2
   ) {
@@ -135,7 +135,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
       return 'd-none';
     }
 
-    const confidenceIcons: ConfidenceIconConfig[] = this.EnvConfig.submission.icons.authority.confidence;
+    const confidenceIcons: ConfidenceIconConfig[] = environment.submission.icons.authority.confidence;
 
     const confidenceIndex: number = findIndex(confidenceIcons, {value: confidence});
 
