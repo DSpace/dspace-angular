@@ -1449,6 +1449,8 @@
 
   "profile.security.form.error.matching-passwords": "The passwords do not match.",
 
+  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
+
   "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
 
   "profile.security.form.label.password": "Password",
@@ -1460,6 +1462,8 @@
   "profile.security.form.notifications.success.title": "Password saved",
 
   "profile.security.form.notifications.error.title": "Error changing passwords",
+
+  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
 
   "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
 

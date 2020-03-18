@@ -64,7 +64,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formGroup = this.formService.createFormGroup(this.formModel, { validators: this.checkPasswords });
+    this.formGroup = this.formService.createFormGroup(this.formModel, { validators: [this.checkPasswordsEqual, this.checkPasswordLength] });
     this.updateFieldTranslations();
     this.translate.onLangChange
       .subscribe(() => {
@@ -87,11 +87,21 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    * Check if both password fields are filled in and equal
    * @param group The FormGroup to validate
    */
-  checkPasswords(group: FormGroup) {
+  checkPasswordsEqual(group: FormGroup) {
     const pass = group.get('password').value;
     const repeatPass = group.get('passwordrepeat').value;
 
-    return isEmpty(repeatPass) || pass === repeatPass ? null : { notSame: true };
+    return pass === repeatPass ? null : { notSame: true };
+  }
+
+  /**
+   * Check if the password is at least 6 characters long
+   * @param group The FormGroup to validate
+   */
+  checkPasswordLength(group: FormGroup) {
+    const pass = group.get('password').value;
+
+    return isEmpty(pass) || pass.length >= 6 ? null : { notLongEnough: true };
   }
 
   /**
@@ -109,7 +119,12 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     const passEntered = isNotEmpty(pass);
     if (!this.formGroup.valid) {
       if (passEntered) {
-        this.notificationsService.error(this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.not-same'));
+        if (this.checkPasswordsEqual(this.formGroup) != null) {
+          this.notificationsService.error(this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.not-same'));
+        }
+        if (this.checkPasswordLength(this.formGroup) != null) {
+          this.notificationsService.error(this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.not-long-enough'));
+        }
         return true;
       }
       return false;

@@ -5,4 +5,5 @@
          [formGroup]="formGroup"
          [displaySubmit]="false">
 </ds-form>
+<div class="container-fluid text-danger" *ngIf="formGroup.hasError('notLongEnough')">{{'profile.security.form.error.password-length' | translate}}</div>
 <div class="container-fluid text-danger" *ngIf="formGroup.hasError('notSame')">{{'profile.security.form.error.matching-passwords' | translate}}</div>

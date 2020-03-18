@@ -80,14 +80,14 @@ describe('ProfilePageSecurityFormComponent', () => {
       });
     });
 
-    describe('when both password fields are filled in and equal', () => {
+    describe('when both password fields are filled in, long enough and equal', () => {
       let result;
       let operations;
 
       beforeEach(() => {
-        setModelValue('password', 'test');
-        setModelValue('passwordrepeat', 'test');
-        operations = [{ op: 'replace', path: '/password', value: 'test' }];
+        setModelValue('password', 'testest');
+        setModelValue('passwordrepeat', 'testest');
+        operations = [{ op: 'replace', path: '/password', value: 'testest' }];
         result = component.updateSecurity();
       });
 
