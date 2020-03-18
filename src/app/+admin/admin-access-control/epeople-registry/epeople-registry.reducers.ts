@@ -11,7 +11,6 @@ import {
  */
 export interface EPeopleRegistryState {
   editEPerson: EPerson;
-  selectedEPeople: EPerson[];
 }
 
 /**
@@ -19,7 +18,6 @@ export interface EPeopleRegistryState {
  */
 const initialState: EPeopleRegistryState = {
   editEPerson: null,
-  selectedEPeople: [],
 };
 
 /**

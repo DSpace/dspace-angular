@@ -22,9 +22,8 @@ import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson-mock'
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
-import { EPersonFormComponent } from './eperson-form/eperson-form.component';
 
-describe('EPeopleRegistryComponent', () => {
+fdescribe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
   let fixture: ComponentFixture<EPeopleRegistryComponent>;
   let translateService: TranslateService;
@@ -85,7 +84,7 @@ describe('EPeopleRegistryComponent', () => {
           }
         }),
       ],
-      declarations: [EPeopleRegistryComponent, EPersonFormComponent],
+      declarations: [EPeopleRegistryComponent],
       providers: [EPeopleRegistryComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -152,7 +151,7 @@ describe('EPeopleRegistryComponent', () => {
     });
   });
 
-  describe('editEPerson', () => {
+  describe('toggleEditEPerson', () => {
     describe('when you click on first edit eperson button', () => {
       beforeEach(fakeAsync(() => {
         const editButtons = fixture.debugElement.queryAll(By.css('.access-control-editEPersonButton'));
@@ -164,9 +163,16 @@ describe('EPeopleRegistryComponent', () => {
         fixture.detectChanges();
       }));
 
-      it('edit eperson form shows', () => {
-        const editFormTitle = fixture.debugElement.queryAll(By.css('ds-eperson-form h4'));
-        expect(editFormTitle[0]).toBeDefined();
+      it('editEPerson form is toggled', () => {
+        const ePeopleIds = fixture.debugElement.queryAll(By.css('#epeople tr td:first-child'));
+        ePersonDataServiceStub.getActiveEPerson().subscribe((activeEPerson: EPerson) => {
+          if (activeEPerson === ePeopleIds[0].nativeElement.textContent) {
+            expect(component.isEPersonFormShown).toEqual(false);
+          } else {
+            expect(component.isEPersonFormShown).toEqual(true);
+          }
+
+        })
       });
     });
   });

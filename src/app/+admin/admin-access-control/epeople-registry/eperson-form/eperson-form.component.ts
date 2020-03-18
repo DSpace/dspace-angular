@@ -198,6 +198,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   onCancel() {
     this.epersonService.cancelEditEPerson();
     this.cancelForm.emit();
+    this.clearFields();
   }
 
   /**
@@ -249,6 +250,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         this.submitForm.emit(ePersonToCreate);
       } else {
         this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: ePersonToCreate.name }));
+        this.cancelForm.emit();
       }
     });
     this.showNotificationIfEmailInUse(ePersonToCreate, 'created');
@@ -287,6 +289,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         this.submitForm.emit(editedEperson);
       } else {
         this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', { name: editedEperson.name }));
+        this.cancelForm.emit();
       }
     });
 
@@ -303,8 +306,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   private showNotificationIfEmailInUse(ePerson: EPerson, notificationSection: string) {
     // Relevant message for email in use
-    // TODO: should be changed to email scope, but byEmail currently not in backend
-    this.subs.push(this.epersonService.searchByScope(null, ePerson.email, {
+    this.subs.push(this.epersonService.searchByScope('email', ePerson.email, {
       currentPage: 1,
       elementsPerPage: 0
     }).pipe(getSucceededRemoteData(), getRemoteDataPayload())
