@@ -3,13 +3,11 @@ import { Store } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
-import { Collection } from '../shared/collection.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
 import { DsoRedirectDataService } from './dso-redirect-data.service';
 import { FindByIDRequest, IdentifierType } from './request.models';
 import { RequestService } from './request.service';
@@ -150,60 +148,26 @@ describe('DsoRedirectDataService', () => {
     });
 
     it('should include single linksToFollow as embed', () => {
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'bundles' as any,
-      });
       const expected = `${requestUUIDURL}&embed=bundles`;
-      const result = (service as any).getIDHref(pidLink, dsoUUID, mockFollowLinkConfig);
+      const result = (service as any).getIDHref(pidLink, dsoUUID, followLink('bundles'));
       expect(result).toEqual(expected);
     });
 
     it('should include multiple linksToFollow as embed', () => {
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'bundles' as any,
-      });
-      const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'owningCollection' as any,
-      });
-      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'templateItemOf' as any,
-      });
       const expected = `${requestUUIDURL}&embed=bundles&embed=owningCollection&embed=templateItemOf`;
-      const result = (service as any).getIDHref(pidLink, dsoUUID, mockFollowLinkConfig, mockFollowLinkConfig2, mockFollowLinkConfig3);
+      const result = (service as any).getIDHref(pidLink, dsoUUID, followLink('bundles'), followLink('owningCollection'), followLink('templateItemOf'));
       expect(result).toEqual(expected);
     });
 
     it('should not include linksToFollow with shouldEmbed = false', () => {
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'bundles' as any,
-        shouldEmbed: false,
-      });
-      const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'owningCollection' as any,
-        shouldEmbed: false,
-      });
-      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'templateItemOf' as any,
-      });
       const expected = `${requestUUIDURL}&embed=templateItemOf`;
-      const result = (service as any).getIDHref(pidLink, dsoUUID, mockFollowLinkConfig, mockFollowLinkConfig2, mockFollowLinkConfig3);
+      const result = (service as any).getIDHref(pidLink, dsoUUID, followLink('bundles', undefined, false), followLink('owningCollection', undefined, false), followLink('templateItemOf'));
       expect(result).toEqual(expected);
     });
 
     it('should include nested linksToFollow 3lvl', () => {
-      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'relationships' as any,
-      });
-      const mockFollowLinkConfig2: FollowLinkConfig<Collection> = Object.assign(new FollowLinkConfig(), {
-        name: 'itemtemplate' as any,
-        linksToFollow: mockFollowLinkConfig3,
-      });
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'owningCollection' as any,
-        linksToFollow: mockFollowLinkConfig2,
-      });
       const expected = `${requestUUIDURL}&embed=owningCollection/itemtemplate/relationships`;
-      const result = (service as any).getIDHref(pidLink, dsoUUID, mockFollowLinkConfig);
+      const result = (service as any).getIDHref(pidLink, dsoUUID, followLink('owningCollection', undefined, true, followLink('itemtemplate', undefined, true, followLink('relationships'))));
       expect(result).toEqual(expected);
     });
   });

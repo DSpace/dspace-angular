@@ -23,6 +23,7 @@ module.exports = function (config) {
     },
     reporters: ['mocha', 'kjhtml'],
     mochaReporter: {
+      ignoreSkipped: true,
       output: 'autowatch'
     },
     port: 9876,

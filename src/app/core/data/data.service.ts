@@ -158,7 +158,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @param linksToFollow   links we want to embed in query string if shouldEmbed is true
    */
   protected addEmbedParams(args: string[], ...linksToFollow: Array<FollowLinkConfig<T>>) {
-    [...linksToFollow].forEach((linkToFollow: FollowLinkConfig<T>) => {
+    linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
       if (linkToFollow !== undefined && linkToFollow.shouldEmbed) {
         const embedString = 'embed=' + String(linkToFollow.name);
         const embedWithNestedString = this.addNestedEmbeds(embedString, ...linkToFollow.linksToFollow);
