@@ -1,6 +1,7 @@
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { GroupMock } from './group-mock';
 
-export const EPersonMock: EPerson = Object.assign(new EPerson(),{
+export const EPersonMock: EPerson = Object.assign(new EPerson(), {
   handle: null,
   groups: [],
   netid: 'test@test.com',
@@ -12,7 +13,8 @@ export const EPersonMock: EPerson = Object.assign(new EPerson(),{
   _links: {
     self: {
       href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/testid',
-    }
+    },
+    groups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/testid/groups' }
   },
   id: 'testid',
   uuid: 'testid',
@@ -40,6 +42,52 @@ export const EPersonMock: EPerson = Object.assign(new EPerson(),{
       {
         language: null,
         value: 'en'
+      },
+    ]
+  }
+});
+
+export const EPersonMock2: EPerson = Object.assign(new EPerson(), {
+  handle: null,
+  groups: [GroupMock],
+  netid: 'test2@test.com',
+  lastActive: '2019-05-14T12:25:42.411+0000',
+  canLogIn: false,
+  email: 'test2@test.com',
+  requireCertificate: false,
+  selfRegistered: true,
+  _links: {
+    self: {
+      href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/testid2',
+    },
+    groups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/testid2/groups' }
+  },
+  id: 'testid2',
+  uuid: 'testid2',
+  type: 'eperson',
+  metadata: {
+    'dc.title': [
+      {
+        language: null,
+        value: 'User Test 2'
+      }
+    ],
+    'eperson.firstname': [
+      {
+        language: null,
+        value: 'User2'
+      }
+    ],
+    'eperson.lastname': [
+      {
+        language: null,
+        value: 'MeepMeep'
+      },
+    ],
+    'eperson.language': [
+      {
+        language: null,
+        value: 'fr'
       },
     ]
   }
