@@ -200,10 +200,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
-        this.groups = this.groupsDataService.findAllByHref(eperson._links.groups.href, {
-          currentPage: 1,
-          elementsPerPage: this.config.pageSize
-        });
+        if (eperson != null) {
+          this.groups = this.groupsDataService.findAllByHref(eperson._links.groups.href, {
+            currentPage: 1,
+            elementsPerPage: this.config.pageSize
+          });
+        }
         this.formGroup.patchValue({
           firstName: eperson != null ? eperson.firstMetadataValue('eperson.firstname') : '',
           lastName: eperson != null ? eperson.firstMetadataValue('eperson.lastname') : '',

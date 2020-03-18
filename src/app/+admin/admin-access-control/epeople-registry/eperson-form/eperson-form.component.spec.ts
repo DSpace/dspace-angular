@@ -1,3 +1,5 @@
+import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -7,13 +9,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../../core/cache/response.models';
+import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { FindListOptions } from '../../../../core/data/request.models';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { UUIDService } from '../../../../core/shared/uuid.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../../shared/mocks/mock-form-builder-service';
 import { getMockTranslateService } from '../../../../shared/mocks/mock-translate.service';
@@ -107,6 +114,13 @@ describe('EPersonFormComponent', () => {
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
+        { provide: DSOChangeAnalyzer, useValue: {} },
+        { provide: HttpClient, useValue: {} },
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: UUIDService, useValue: {} },
+        { provide: Store, useValue: {} },
+        { provide: RemoteDataBuildService, useValue: {} },
+        { provide: HALEndpointService, useValue: {} },
         EPeopleRegistryComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -116,7 +130,6 @@ describe('EPersonFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EPersonFormComponent);
     component = fixture.componentInstance;
-    component.ngOnInit();
     fixture.detectChanges();
   });
 
