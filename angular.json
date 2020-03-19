@@ -144,6 +144,18 @@
             }
           }
         },
+        "e2e:docker": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "dspace-angular-cli:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dspace-angular-cli:serve:production"
+            }
+          }
+        },
         "server": {
           "builder": "@angular-builders/custom-webpack:server",
           "options": {

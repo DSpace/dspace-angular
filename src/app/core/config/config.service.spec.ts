@@ -5,7 +5,7 @@ import { ConfigService } from './config.service';
 import { RequestService } from '../data/request.service';
 import { ConfigRequest, FindListOptions } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 
 const LINK_NAME = 'test';
 const BROWSE = 'search/findByCollection';
@@ -46,7 +46,7 @@ describe('ConfigService', () => {
   beforeEach(() => {
     scheduler = getTestScheduler();
     requestService = getMockRequestService();
-    halService = new HalEndpointServiceStub(configEndpoint);
+    halService = new HALEndpointServiceStub(configEndpoint);
     service = initTestService();
   });
 

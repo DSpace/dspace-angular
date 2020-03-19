@@ -68,5 +68,14 @@ export const environment: GlobalConfig = {
         ]
       }
     }
-  }
+  },
+  languages: [{
+    code: 'en',
+    label: 'English',
+    active: true,
+  }, {
+    code: 'de',
+    label: 'Deutsch',
+    active: true,
+  }]
 };

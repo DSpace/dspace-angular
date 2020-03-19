@@ -10,7 +10,7 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
-import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission.component';
 import { AppState } from '../../app.reducer';
@@ -49,7 +49,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
-        { provide: HALEndpointService, useValue: new HalEndpointServiceStub('workspaceitems') },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ScrollToService, useValue: getMockScrollToService() },
         { provide: Store, useValue: store },

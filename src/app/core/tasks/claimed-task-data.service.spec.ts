@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CoreState } from '../core.reducers';
@@ -16,7 +16,7 @@ describe('ClaimedTaskDataService', () => {
   const taskEndpoint = 'https://rest.api/task';
   const linkPath = 'claimedtasks';
   const requestService: any = getMockRequestService();
-  const halService: any = new HalEndpointServiceStub(taskEndpoint);
+  const halService: any = new HALEndpointServiceStub(taskEndpoint);
   const rdbService = {} as RemoteDataBuildService;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;

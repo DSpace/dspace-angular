@@ -24,7 +24,7 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { HalEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
 import { FollowLinkConfig } from '../../../utils/follow-link-config.model';
@@ -96,7 +96,7 @@ describe('ItemDetailPreviewComponent', () => {
       declarations: [ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective],
       providers: [
         { provide: FileService, useValue: getMockFileService() },
-        { provide: HALEndpointService, useValue: new HalEndpointServiceStub('workspaceitems') },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },

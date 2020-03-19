@@ -10,7 +10,7 @@ export const environment: GlobalConfig = {
   ui: new ServerConfig(
     false,
     'localhost',
-    3000,
+    4000,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     '/',
   ),

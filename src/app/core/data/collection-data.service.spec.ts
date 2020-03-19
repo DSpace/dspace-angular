@@ -2,7 +2,7 @@ import { CollectionDataService } from './collection-data.service';
 import { RequestService } from './request.service';
 import { TranslateService } from '@ngx-translate/core';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { fakeAsync, tick } from '@angular/core/testing';
@@ -122,7 +122,7 @@ describe('CollectionDataService', () => {
     objectCache = jasmine.createSpyObj('objectCache', {
       remove: jasmine.createSpy('remove')
     });
-    halService = new HalEndpointServiceStub(url);
+    halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
     translate = getMockTranslateService();
 

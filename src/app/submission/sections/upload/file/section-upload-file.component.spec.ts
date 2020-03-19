@@ -10,7 +10,7 @@ import { FileService } from '../../../../core/shared/file.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { HalEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
@@ -97,7 +97,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       providers: [
         { provide: FileService, useValue: getMockFileService() },
         { provide: FormService, useValue: getMockFormService() },
-        { provide: HALEndpointService, useValue: new HalEndpointServiceStub('workspaceitems') },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },

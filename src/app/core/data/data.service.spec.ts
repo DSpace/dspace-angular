@@ -2,14 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { compare, Operation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
-import * as uuidv4 from 'uuid/v4';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
-import { Collection } from '../shared/collection.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -18,8 +16,8 @@ import { ChangeAnalyzer } from './change-analyzer';
 import { DataService } from './data.service';
 import { FindListOptions, PatchRequest } from './request.models';
 import { RequestService } from './request.service';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 
 const endpoint = 'https://rest.api/core';
 

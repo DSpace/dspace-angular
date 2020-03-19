@@ -6,7 +6,7 @@ import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import {
   SubmissionDeleteRequest,
   SubmissionPatchRequest,
@@ -41,7 +41,7 @@ describe('SubmissionRestService test suite', () => {
     requestService = getMockRequestService();
     rdbService = getMockRemoteDataBuildService();
     scheduler = getTestScheduler();
-    halService = new HalEndpointServiceStub(resourceEndpointURL);
+    halService = new HALEndpointServiceStub(resourceEndpointURL);
     service = initTestService();
 
   });

@@ -1,6 +1,6 @@
 import { StatisticsService } from './statistics.service';
 import { RequestService } from '../core/data/request.service';
-import { HalEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
 import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { TrackRequest } from './track-request.model';
 import { isEqual } from 'lodash';
@@ -11,7 +11,7 @@ describe('StatisticsService', () => {
   let service: StatisticsService;
   let requestService: jasmine.SpyObj<RequestService>;
   const restURL = 'https://rest.api';
-  const halService: any = new HalEndpointServiceStub(restURL);
+  const halService: any = new HALEndpointServiceStub(restURL);
 
   function initTestService() {
     return new StatisticsService(

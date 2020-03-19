@@ -3,7 +3,7 @@ import { of as observableOf } from 'rxjs/internal/observable/of';
 import * as ItemRelationshipsUtils from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { spyOnOperator } from '../../shared/testing/utils.test';
 import { followLink } from '../../shared/utils/follow-link-config.model';
@@ -25,7 +25,7 @@ describe('RelationshipService', () => {
 
   const restEndpointURL = 'https://rest.api/core';
   const relationshipsEndpointURL = `${restEndpointURL}/relationships`;
-  const halService: any = new HalEndpointServiceStub(restEndpointURL);
+  const halService: any = new HALEndpointServiceStub(restEndpointURL);
 
   const relationshipType = Object.assign(new RelationshipType(), {
     id: '1',

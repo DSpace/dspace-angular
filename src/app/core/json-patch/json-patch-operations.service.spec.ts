@@ -8,7 +8,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
 import { SubmissionPatchRequest } from '../data/request.models';
-import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { JsonPatchOperationsService } from './json-patch-operations.service';
@@ -115,7 +115,7 @@ describe('JsonPatchOperationsService test suite', () => {
     requestService = getMockRequestService(getRequestEntry$(true));
     rdbService = getMockRemoteDataBuildService();
     scheduler = getTestScheduler();
-    halService = new HalEndpointServiceStub(resourceEndpointURL);
+    halService = new HALEndpointServiceStub(resourceEndpointURL);
     service = initTestService();
 
     spyOn(store, 'select').and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
@@ -168,7 +168,7 @@ describe('JsonPatchOperationsService test suite', () => {
         requestService = getMockRequestService(getRequestEntry$(false));
         rdbService = getMockRemoteDataBuildService();
         scheduler = getTestScheduler();
-        halService = new HalEndpointServiceStub(resourceEndpointURL);
+        halService = new HALEndpointServiceStub(resourceEndpointURL);
         service = initTestService();
 
         store.select.and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
@@ -231,7 +231,7 @@ describe('JsonPatchOperationsService test suite', () => {
         requestService = getMockRequestService(getRequestEntry$(false));
         rdbService = getMockRemoteDataBuildService();
         scheduler = getTestScheduler();
-        halService = new HalEndpointServiceStub(resourceEndpointURL);
+        halService = new HALEndpointServiceStub(resourceEndpointURL);
         service = initTestService();
 
         store.select.and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));

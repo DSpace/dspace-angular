@@ -6,7 +6,7 @@ import { TasksService } from './tasks.service';
 import { RequestService } from '../data/request.service';
 import { TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { TaskObject } from './models/task-object.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
@@ -55,7 +55,7 @@ describe('TasksService', () => {
   const taskEndpoint = 'https://rest.api/task';
   const linkPath = 'testTask';
   const requestService = getMockRequestService();
-  const halService: any = new HalEndpointServiceStub(taskEndpoint);
+  const halService: any = new HALEndpointServiceStub(taskEndpoint);
   const rdbService = {} as RemoteDataBuildService;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;

@@ -1,7 +1,7 @@
 import { of as observableOf } from 'rxjs';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { HalEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
@@ -33,7 +33,7 @@ describe('RelationshipTypeService', () => {
 
   function init() {
     restEndpointURL = 'https://rest.api/relationshiptypes';
-    halService = new HalEndpointServiceStub(restEndpointURL);
+    halService = new HALEndpointServiceStub(restEndpointURL);
     publicationTypeString = 'Publication';
     personTypeString = 'Person';
     orgUnitTypeString = 'OrgUnit';

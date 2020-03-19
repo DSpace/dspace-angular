@@ -1,6 +1,6 @@
 import { of as observableOf } from 'rxjs';
 
-export class HalEndpointServiceStub {
+export class HALEndpointServiceStub {
 
   constructor(private url: string) {};
   getEndpoint(path: string) {
