@@ -1,0 +1,6 @@
+<select [(ngModel)]="selectedScript">
+  <option selected>Choose a script...</option>
+  <option *ngFor="let script of scripts | async" [ngValue]="script">
+    {{script.name}}
+  </option>
+</select>
