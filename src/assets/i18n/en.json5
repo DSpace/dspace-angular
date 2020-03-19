@@ -170,6 +170,70 @@
 
 
 
+  "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
+
+  "admin.access-control.epeople.head": "EPeople",
+
+  "admin.access-control.epeople.search.head": "Search",
+
+  "admin.access-control.epeople.search.scope.name": "Name",
+
+  "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+
+  "admin.access-control.epeople.search.scope.metadata": "Metadata",
+
+  "admin.access-control.epeople.search.button": "Search",
+
+  "admin.access-control.epeople.button.add": "Add EPerson",
+
+  "admin.access-control.epeople.table.id": "ID",
+
+  "admin.access-control.epeople.table.name": "Name",
+
+  "admin.access-control.epeople.table.email": "E-mail",
+
+  "admin.access-control.epeople.table.edit": "Edit",
+
+  "item.access-control.epeople.table.edit.buttons.edit": "Edit",
+
+  "item.access-control.epeople.table.edit.buttons.remove": "Remove",
+
+  "admin.access-control.epeople.no-items": "No EPeople to show.",
+
+  "admin.access-control.epeople.form.create": "Create EPerson",
+
+  "admin.access-control.epeople.form.edit": "Edit EPerson",
+
+  "admin.access-control.epeople.form.firstName": "First name",
+
+  "admin.access-control.epeople.form.lastName": "Last name",
+
+  "admin.access-control.epeople.form.email": "E-mail",
+
+  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+
+  "admin.access-control.epeople.form.canLogIn": "Can log in",
+
+  "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+
+  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+
+  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+
+  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+
+
+
   "admin.search.breadcrumbs": "Administrative Search",
 
   "admin.search.collection.edit": "Edit",
@@ -1377,6 +1441,8 @@
 
   "nav.mydspace": "MyDSpace",
 
+  "nav.profile": "Profile",
+
   "nav.search": "Search",
 
   "nav.statistics.header": "Statistics",
@@ -1432,6 +1498,64 @@
   "person.search.results.head": "Person Search Results",
 
   "person.search.title": "DSpace Angular :: Person Search",
+
+
+
+  "profile.breadcrumbs": "Update Profile",
+
+  "profile.card.identify": "Identify",
+
+  "profile.card.security": "Security",
+
+  "profile.form.submit": "Update Profile",
+
+  "profile.groups.head": "Authorization groups you belong to",
+
+  "profile.head": "Update Profile",
+
+  "profile.metadata.form.error.firstname.required": "First Name is required",
+
+  "profile.metadata.form.error.lastname.required": "Last Name is required",
+
+  "profile.metadata.form.label.email": "Email Address",
+
+  "profile.metadata.form.label.firstname": "First Name",
+
+  "profile.metadata.form.label.language": "Language",
+
+  "profile.metadata.form.label.lastname": "Last Name",
+
+  "profile.metadata.form.label.phone": "Contact Telephone",
+
+  "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
+
+  "profile.metadata.form.notifications.success.title": "Profile saved",
+
+  "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
+
+  "profile.notifications.warning.no-changes.title": "No changes",
+
+  "profile.security.form.error.matching-passwords": "The passwords do not match.",
+
+  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
+
+  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+
+  "profile.security.form.label.password": "Password",
+
+  "profile.security.form.label.passwordrepeat": "Retype to confirm",
+
+  "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
+
+  "profile.security.form.notifications.success.title": "Password saved",
+
+  "profile.security.form.notifications.error.title": "Error changing passwords",
+
+  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
+
+  "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
+
+  "profile.title": "Update Profile",
 
 
 
@@ -1500,7 +1624,7 @@
   "relationships.isSingleVolumeOf": "Journal Volume",
 
   "relationships.isVolumeOf": "Journal Volumes",
-  
+
   "relationships.isContributorOf": "Contributors",
 
 
