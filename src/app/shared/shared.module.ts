@@ -6,7 +6,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 
 import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
@@ -178,6 +178,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { SortablejsModule } from 'ngx-sortablejs';
+import { MissingTranslationHelper } from './translate/missing-translation.helper';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -195,7 +196,6 @@ const MODULES = [
   NgxPaginationModule,
   ReactiveFormsModule,
   RouterModule,
-  TranslateModule,
   NouisliderModule,
   MomentModule,
   TextMaskModule,
@@ -204,7 +204,11 @@ const MODULES = [
 ];
 
 const ROOT_MODULES = [
-  TooltipModule.forRoot()
+  TranslateModule.forChild({
+    missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+    useDefaultLang: true
+  }),
+  TooltipModule.forRoot(),
 ];
 
 const PIPES = [
@@ -341,7 +345,8 @@ const COMPONENTS = [
   ExternalSourceEntryImportModalComponent,
   ImportableListItemControlComponent,
   ExistingMetadataListElementComponent,
-  ItemVersionsComponent
+  ItemVersionsComponent,
+  PublicationSearchResultListElementComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -405,7 +410,7 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
   ExternalSourceEntryImportModalComponent,
-  ItemVersionsComponent
+  ItemVersionsComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -438,8 +443,8 @@ const DIRECTIVES = [
 
 @NgModule({
   imports: [
+    ...ROOT_MODULES,
     ...MODULES,
-    ...ROOT_MODULES
   ],
   declarations: [
     ...PIPES,
@@ -447,8 +452,7 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    PublicationSearchResultListElementComponent,
-    ExistingMetadataListElementComponent
+
   ],
   providers: [
     ...PROVIDERS

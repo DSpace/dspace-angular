@@ -30,6 +30,7 @@ const ITEM_EDIT_PATH = 'edit';
           item: ItemPageResolver,
           breadcrumb: ItemBreadcrumbResolver
         },
+        runGuardsAndResolvers: 'always',
         children: [
           {
             path: '',
