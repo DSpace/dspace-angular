@@ -307,27 +307,6 @@ describe('DataService', () => {
     });
   });
 
-  describe('patch', () => {
-    const dso = {
-      uuid: 'dso-uuid'
-    };
-    const operations = [
-      Object.assign({
-        op: 'move',
-        from: '/1',
-        path: '/5'
-      }) as Operation
-    ];
-
-    beforeEach(() => {
-      service.patch(dso, operations);
-    });
-
-    it('should configure a PatchRequest', () => {
-      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PatchRequest));
-    });
-  });
-
   describe('update', () => {
     let operations;
     let selfLink;

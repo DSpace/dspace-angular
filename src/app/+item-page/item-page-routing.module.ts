@@ -32,6 +32,7 @@ const UPLOAD_BITSTREAM_PATH = 'bitstreams/new';
           item: ItemPageResolver,
           breadcrumb: ItemBreadcrumbResolver
         },
+        runGuardsAndResolvers: 'always',
         children: [
           {
             path: '',

@@ -20,7 +20,7 @@ import { ITEM } from '../shared/item.resource-type';
 import {
   configureRequest,
   filterSuccessfulResponses,
-  getRequestFromRequestHref,
+  getRequestFromRequestHref, getRequestFromRequestUUID,
   getResponseFromEntry
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -186,14 +186,17 @@ export class ItemDataService extends DataService<Item> {
     const patchOperation = [{
       op: 'replace', path: '/withdrawn', value: withdrawn
     }];
+    this.requestService.removeByHrefSubstring('/discover');
+
     return this.getItemWithdrawEndpoint(itemId).pipe(
       distinctUntilChanged(),
       map((endpointURL: string) =>
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
       ),
       configureRequest(this.requestService),
-      map((request: RestRequest) => request.href),
-      getRequestFromRequestHref(this.requestService),
+      map((request: RestRequest) => request.uuid),
+      getRequestFromRequestUUID(this.requestService),
+      filter((requestEntry: RequestEntry) => requestEntry.completed),
       map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
@@ -207,14 +210,17 @@ export class ItemDataService extends DataService<Item> {
     const patchOperation = [{
       op: 'replace', path: '/discoverable', value: discoverable
     }];
+    this.requestService.removeByHrefSubstring('/discover');
+
     return this.getItemDiscoverableEndpoint(itemId).pipe(
       distinctUntilChanged(),
       map((endpointURL: string) =>
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
       ),
       configureRequest(this.requestService),
-      map((request: RestRequest) => request.href),
-      getRequestFromRequestHref(this.requestService),
+      map((request: RestRequest) => request.uuid),
+      getRequestFromRequestUUID(this.requestService),
+      filter((requestEntry: RequestEntry) => requestEntry.completed),
       map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }

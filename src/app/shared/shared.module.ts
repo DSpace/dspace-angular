@@ -6,7 +6,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 
 import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
@@ -179,6 +179,7 @@ import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-
 import { SortablejsModule } from 'ngx-sortablejs';
 import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
 import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
+import { MissingTranslationHelper } from './translate/missing-translation.helper';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -196,7 +197,6 @@ const MODULES = [
   NgxPaginationModule,
   ReactiveFormsModule,
   RouterModule,
-  TranslateModule,
   NouisliderModule,
   MomentModule,
   TextMaskModule,
@@ -205,7 +205,11 @@ const MODULES = [
 ];
 
 const ROOT_MODULES = [
-  TooltipModule.forRoot()
+  TranslateModule.forChild({
+    missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+    useDefaultLang: true
+  }),
+  TooltipModule.forRoot(),
 ];
 
 const PIPES = [
@@ -344,7 +348,8 @@ const COMPONENTS = [
   SelectableListItemControlComponent,
   ExternalSourceEntryImportModalComponent,
   ImportableListItemControlComponent,
-  ExistingMetadataListElementComponent
+  ExistingMetadataListElementComponent,
+  PublicationSearchResultListElementComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -442,8 +447,8 @@ const DIRECTIVES = [
 
 @NgModule({
   imports: [
+    ...ROOT_MODULES,
     ...MODULES,
-    ...ROOT_MODULES
   ],
   declarations: [
     ...PIPES,
@@ -451,8 +456,7 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    PublicationSearchResultListElementComponent,
-    ExistingMetadataListElementComponent
+
   ],
   providers: [
     ...PROVIDERS

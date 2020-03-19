@@ -108,7 +108,7 @@ export class ServerSyncBufferEffects {
         }
         return new ApplyPatchObjectCacheAction(href);
       })
-    )
+    );
   }
 
   constructor(private actions$: Actions,
