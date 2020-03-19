@@ -89,8 +89,7 @@ describe('EPeopleRegistryComponent', () => {
       providers: [EPeopleRegistryComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: FormBuilderService, useValue: builderService },
-        EPeopleRegistryComponent
+        { provide: FormBuilderService, useValue: builderService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

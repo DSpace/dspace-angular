@@ -7,7 +7,6 @@ import { GroupRegistryAction, GroupRegistryActionTypes, GroupRegistryEditGroupAc
  */
 export interface GroupRegistryState {
   editGroup: Group;
-  selectedGroup: Group[];
 }
 
 /**
@@ -15,7 +14,6 @@ export interface GroupRegistryState {
  */
 const initialState: GroupRegistryState = {
   editGroup: null,
-  selectedGroup: [],
 };
 
 /**
