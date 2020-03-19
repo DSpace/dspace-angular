@@ -71,6 +71,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "travis": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.travis.ts"
+                }
+              ]
             }
           }
         },
@@ -82,6 +90,9 @@
           "configurations": {
             "production": {
               "browserTarget": "dspace-angular-cli:build:production"
+            },
+            "travis": {
+              "browserTarget": "dspace-angular-cli:build:travis"
             }
           }
         },
@@ -141,18 +152,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "dspace-angular-cli:serve:production"
-            }
-          }
-        },
-        "e2e:docker": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "dspace-angular-cli:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "dspace-angular-cli:serve:production"
+            },
+            "travis": {
+              "devServerTarget": "dspace-angular-cli:serve:travis"
             }
           }
         },
