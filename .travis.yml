@@ -54,4 +54,4 @@ bundler_args: --retry 5
 
 script:
   - yarn run ci
-  - cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - cat coverage/dspace-angular-cli/lcov.info | ./node_modules/coveralls/bin/coveralls.js
