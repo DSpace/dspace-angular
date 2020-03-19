@@ -7,7 +7,7 @@
   </div>
   <div class="{{columnSizes.columns[1].buildClasses()}} row-element d-flex align-items-center">
     <div class="w-100">
-      {{ bitstream.description }}
+      {{ bitstream?.firstMetadataValue('dc.description') }}
     </div>
   </div>
   <div class="{{columnSizes.columns[2].buildClasses()}} row-element d-flex align-items-center">
