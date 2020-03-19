@@ -75,7 +75,7 @@ export class GroupsRegistryComponent implements OnInit {
    * Update the list of groups by fetching it from the rest api or cache
    */
   private updateGroups(options) {
-    this.groups = this.groupService.getGroups(options, followLink('epersons'), followLink('groups'));
+    this.groups = this.groupService.getGroups(options, followLink('epersons'), followLink('subgroups'));
   }
 
   /**
@@ -87,7 +87,7 @@ export class GroupsRegistryComponent implements OnInit {
     this.groups = this.groupService.searchGroups(query.trim(), {
       currentPage: 1,
       elementsPerPage: this.config.pageSize
-    }, followLink('epersons'));
+    });
   }
 
   /**
@@ -130,7 +130,7 @@ export class GroupsRegistryComponent implements OnInit {
    * @param group
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
-    return this.groupService.findAllByHref(group._links.groups.href);
+    return this.groupService.findAllByHref(group._links.subgroups.href);
   }
 
   /**

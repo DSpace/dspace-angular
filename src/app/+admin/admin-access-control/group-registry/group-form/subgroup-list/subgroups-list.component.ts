@@ -62,7 +62,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subs.push(this.groupDataService.getActiveGroup().subscribe((group: Group) => {
       if (group != null) {
-        this.groups = this.groupDataService.findAllByHref(group._links.groups.href, {
+        this.groups = this.groupDataService.findAllByHref(group._links.subgroups.href, {
           currentPage: 1,
           elementsPerPage: this.config.pageSize
         })
@@ -100,7 +100,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     return this.groupDataService.getActiveGroup().pipe(take(1),
       mergeMap((group: Group) => {
         if (group != null) {
-          return this.groupDataService.findAllByHref(group._links.groups.href, {
+          return this.groupDataService.findAllByHref(group._links.subgroups.href, {
             currentPage: 0,
             elementsPerPage: Number.MAX_SAFE_INTEGER
           })
@@ -157,7 +157,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.groups = this.groupDataService.searchGroups(query.trim(), {
       currentPage: 1,
       elementsPerPage: this.config.pageSize
-    }, followLink('epersons'));
+    });
   }
 
   /**
@@ -166,7 +166,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    */
   public forceUpdateGroups(activeGroup: Group) {
     this.groupDataService.clearGroupsRequests();
-    this.groups = this.groupDataService.findAllByHref(activeGroup._links.groups.href, {
+    this.groups = this.groupDataService.findAllByHref(activeGroup._links.subgroups.href, {
       currentPage: 1,
       elementsPerPage: this.config.pageSize
     })

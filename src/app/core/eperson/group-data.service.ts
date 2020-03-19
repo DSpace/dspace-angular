@@ -124,7 +124,7 @@ export class GroupDataService extends DataService<Group> {
    * @param id The group id to delete
    */
   public deleteGroup(group: Group): Observable<boolean> {
-    return this.delete(group);
+    return this.delete(group.id);
   }
 
   /**

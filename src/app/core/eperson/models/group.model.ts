@@ -39,7 +39,7 @@ export class Group extends DSpaceObject {
   @deserialize
   _links: {
     self: HALLink;
-    groups: HALLink;
+    subgroups: HALLink;
     epersons: HALLink;
   };
 
@@ -48,7 +48,7 @@ export class Group extends DSpaceObject {
    * Will be undefined unless the groups {@link HALLink} has been resolved.
    */
   @link(GROUP, true)
-  public groups?: Observable<RemoteData<PaginatedList<Group>>>;
+  public subgroups?: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
    * The list of EPeople in this group
