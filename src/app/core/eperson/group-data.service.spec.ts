@@ -34,35 +34,44 @@ describe('GroupDataService', () => {
   let store: Store<CoreState>;
   let requestService: RequestService;
 
-  const restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
-  const groupsEndpoint = `${restEndpointURL}/groups`;
-  const groups = [GroupMock, GroupMock2];
-  const groups$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), groups));
-  const halService: any = new HALEndpointServiceStub(restEndpointURL);
-  const rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups': groups$ });
+  let restEndpointURL;
+  let groupsEndpoint;
+  let groups;
+  let groups$;
+  let halService;
+  let rdbService;
 
-  TestBed.configureTestingModule({
-    imports: [
-      CommonModule,
-      StoreModule.forRoot({}),
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: MockTranslateLoader
-        }
-      }),
-    ],
-    declarations: [],
-    providers: [],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-  });
+  let getRequestEntry$;
 
-  const getRequestEntry$ = (successful: boolean) => {
-    return observableOf({
-      completed: true,
-      response: { isSuccessful: successful, payload: groups } as any
-    } as RequestEntry)
-  };
+  function init() {
+    getRequestEntry$ = (successful: boolean) => {
+      return observableOf({
+        completed: true,
+        response: { isSuccessful: successful, payload: groups } as any
+      } as RequestEntry)
+    };
+    restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
+    groupsEndpoint = `${restEndpointURL}/groups`;
+    groups = [GroupMock, GroupMock2];
+    groups$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), groups));
+    rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups': groups$ });
+    halService = new HALEndpointServiceStub(restEndpointURL);
+    TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+        StoreModule.forRoot({}),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        }),
+      ],
+      declarations: [],
+      providers: [],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    });
+  }
 
   function initTestService() {
     return new GroupDataService(
@@ -78,6 +87,7 @@ describe('GroupDataService', () => {
   };
 
   beforeEach(() => {
+    init();
     requestService = getMockRequestService(getRequestEntry$(true));
     store = new Store<CoreState>(undefined, undefined, undefined);
     service = initTestService();

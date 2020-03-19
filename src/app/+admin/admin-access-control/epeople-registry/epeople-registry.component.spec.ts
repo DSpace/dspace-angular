@@ -29,10 +29,11 @@ describe('EPeopleRegistryComponent', () => {
   let translateService: TranslateService;
   let builderService: FormBuilderService;
 
-  const mockEPeople = [EPersonMock, EPersonMock2];
+  let mockEPeople;
   let ePersonDataServiceStub: any;
 
   beforeEach(async(() => {
+    mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
       activeEPerson: null,
       allEpeople: mockEPeople,
