@@ -22,6 +22,7 @@ import { EditRelationshipComponent } from './item-relationships/edit-relationshi
 import { EditRelationshipListComponent } from './item-relationships/edit-relationship-list/edit-relationship-list.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.component';
+import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -47,6 +48,7 @@ import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.co
     ItemMetadataComponent,
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
+    ItemVersionHistoryComponent,
     EditInPlaceFieldComponent,
     EditRelationshipComponent,
     EditRelationshipListComponent,
