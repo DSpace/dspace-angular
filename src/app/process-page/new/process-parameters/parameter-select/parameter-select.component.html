@@ -1,0 +1,14 @@
+<div class="form-group">
+    <select required id="process-parameters"
+            class="form-control"
+            name="script"
+            [(ngModel)]="selectedParameter"
+            #param="ngModel">
+        <option [ngValue]="undefined">Add a parameter...</option>
+        <option *ngFor="let param of parameters">
+            {{param.nameLong || param.name}}
+        </option>
+    </select>
+    <ds-string-input></ds-string-input>
+    <button><span class="fas fa-trash"></span></button>
+</div>

@@ -6,6 +6,9 @@ import { ScriptDataService } from './scripts/script-data.service';
 import { NewProcessComponent } from './new/new-process.component';
 import { ScriptsSelectComponent } from './new/scripts-select/scripts-select.component';
 import { ScriptHelpComponent } from './new/script-help/script-help.component';
+import { ParameterSelectComponent } from './new/process-parameters/parameter-select/parameter-select.component';
+import { ProcessParametersComponent } from './new/process-parameters/process-parameters.component';
+import { StringValueInputComponent } from './new/process-parameters/parameter-value-input/string-value-input/string-value-input.component';
 
 @NgModule({
   imports: [
@@ -15,7 +18,10 @@ import { ScriptHelpComponent } from './new/script-help/script-help.component';
   declarations: [
     NewProcessComponent,
     ScriptsSelectComponent,
-    ScriptHelpComponent
+    ScriptHelpComponent,
+    ParameterSelectComponent,
+    ProcessParametersComponent,
+    StringValueInputComponent,
   ],
   entryComponents: [
   ],

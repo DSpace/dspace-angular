@@ -1,10 +1,14 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-6">
-            <ds-scripts-select (select)="selectScript($event)"></ds-scripts-select>
+            <form>
+                <ds-scripts-select (select)="selectScript($event)"></ds-scripts-select>
+                <ds-process-parameters [script]="selectedScript"></ds-process-parameters>
+            </form>
         </div>
         <div class="col-12 col-md-6">
             <ds-script-help [script]="selectedScript"></ds-script-help>
         </div>
     </div>
+
 </div>
