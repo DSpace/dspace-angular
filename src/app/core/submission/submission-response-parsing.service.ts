@@ -17,6 +17,10 @@ import { SubmissionObject } from './models/submission-object.model';
 import { WorkflowItem } from './models/workflowitem.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
 
+// To remove before commit
+import mockDedupResponse from './mock-submission-response.json';
+// END
+
 /**
  * Export a function to check if object has same properties of FormFieldMetadataValueObject
  *
@@ -136,7 +140,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
 
     processedList.forEach((item) => {
 
-      item = Object.assign({}, item);
+      // item = Object.assign({}, item);
       // In case data is an Instance of WorkspaceItem normalize field value of all the section of type form
       if (item instanceof WorkspaceItem
         || item instanceof WorkflowItem) {
@@ -171,6 +175,9 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
                 precessedSection[sectionId] = sectiondata;
               }
             });
+          // To remove before commit
+          precessedSection['detect-duplicate'] = JSON.parse(JSON.stringify(mockDedupResponse));
+          // END
           item = Object.assign({}, item, { sections: precessedSection });
         }
       }

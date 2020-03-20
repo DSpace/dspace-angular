@@ -42,11 +42,18 @@ import {
   SaveSubmissionSectionFormAction,
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
+  SetDuplicateDecisionAction,
+  SetDuplicateDecisionErrorAction,
+  SetDuplicateDecisionSuccessAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction
 } from './submission-objects.actions';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
+
+// Rimuovere prima del commit
+import mockDedupResponse from '../../core/submission/mock-submission-dedup-definition.json';
+// END
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -59,11 +66,17 @@ export class SubmissionObjectEffects {
     map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
-      definition.sections.page.forEach((sectionDefinition: any) => {
+      // Rimuovere prima del commit
+      const jsonDedup = JSON.parse(JSON.stringify(mockDedupResponse));
+      const definitionBis = [...definition.sections.page,jsonDedup];
+      definitionBis.forEach((sectionDefinition: any) => {
+      // definition.sections.page.forEach((sectionDefinition: any) => {
         const selfLink = sectionDefinition._links.self.href || sectionDefinition._links.self;
         const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
-        const enabled = (sectionDefinition.mandatory) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
+        const enabled = (sectionDefinition.sectionType === SectionsType.Upload) ||
+          (sectionDefinition.mandatory && sectionDefinition.sectionType !== SectionsType.DetectDuplicate) ||
+          (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
         const sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
         const sectionErrors = null;
         mappedActions.push(
@@ -200,6 +213,22 @@ export class SubmissionObjectEffects {
         map(() => new DisableSectionSuccessAction(action.payload.submissionId, action.payload.sectionId)),
         catchError(() => observableOf(new DisableSectionErrorAction(action.payload.submissionId, action.payload.sectionId))));
     }));
+
+  @Effect() saveDuplicateDecision$ = this.actions$.pipe(
+    ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION),
+    switchMap((action: SetDuplicateDecisionAction) => {
+      return this.operationsService.jsonPatchByResourceID(
+        this.submissionService.getSubmissionObjectLinkName(),
+        action.payload.submissionId,
+        'sections',
+        action.payload.sectionId).pipe(
+        map((response: SubmissionObject[]) => new SetDuplicateDecisionSuccessAction(action.payload.submissionId, action.payload.sectionId, response)),
+        catchError(() => observableOf(new SetDuplicateDecisionErrorAction(action.payload.submissionId))));
+  }));
+
+  @Effect({dispatch: false}) setDuplicateDecisionSuccess$ = this.actions$.pipe(
+    ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS),
+    tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.detect-duplicate.decision-success-notice'))));
 
   /**
    * Dispatch a [DepositSubmissionSuccessAction] or a [DepositSubmissionErrorAction] on error
