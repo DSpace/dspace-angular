@@ -1534,6 +1534,22 @@
 
 
 
+  "process.page.overview.table.finish" : "Finish time",
+
+  "process.page.overview.table.id" : "Process ID",
+
+  "process.page.overview.table.name" : "Name",
+
+  "process.page.overview.table.start" : "Start time",
+
+  "process.page.overview.table.status" : "Status",
+
+  "process.page.overview.table.user" : "User",
+
+  "process.page.overview.title": "Processes Overview",
+
+
+
   "profile.breadcrumbs": "Update Profile",
 
   "profile.card.identify": "Identify",
