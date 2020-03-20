@@ -107,6 +107,8 @@ export class ItemVersionsNoticeComponent implements OnInit {
    * @param item The item for which the url is requested
    */
   getItemPage(item: Item): string {
-    return getItemPageRoute(item.id);
+    if (hasValue(item)) {
+      return getItemPageRoute(item.id);
+    }
   }
 }
