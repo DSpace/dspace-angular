@@ -176,6 +176,7 @@ import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynam
 import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
 import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
@@ -349,6 +350,7 @@ const COMPONENTS = [
   ExternalSourceEntryImportModalComponent,
   ImportableListItemControlComponent,
   ExistingMetadataListElementComponent,
+  ItemVersionsComponent,
   PublicationSearchResultListElementComponent,
 ];
 
@@ -414,6 +416,7 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
   ExternalSourceEntryImportModalComponent,
+  ItemVersionsComponent,
   BundleListElementComponent
 ];
 

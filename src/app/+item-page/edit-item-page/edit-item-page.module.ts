@@ -29,6 +29,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ItemEditBitstreamDragHandleComponent } from './item-bitstreams/item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 import { PaginatedDragAndDropBitstreamListComponent } from './item-bitstreams/item-edit-bitstream-bundle/paginated-drag-and-drop-bitstream-list/paginated-drag-and-drop-bitstream-list.component';
 import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.component';
+import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -56,6 +57,7 @@ import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.co
     ItemMetadataComponent,
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
+    ItemVersionHistoryComponent,
     EditInPlaceFieldComponent,
     ItemEditBitstreamComponent,
     ItemEditBitstreamBundleComponent,

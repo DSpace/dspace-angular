@@ -1128,6 +1128,12 @@
 
   "item.edit.tabs.status.title": "Item Edit -  Status",
 
+  "item.edit.tabs.versionhistory.head": "Version History",
+
+  "item.edit.tabs.versionhistory.title": "Item Edit - Version History",
+
+  "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
+
   "item.edit.tabs.view.head": "View Item",
 
   "item.edit.tabs.view.title": "Item Edit -  View",
@@ -1205,6 +1211,25 @@
   "item.select.table.collection": "Collection",
 
   "item.select.table.title": "Title",
+
+
+  "item.version.history.empty": "There are no other versions for this item yet.",
+
+  "item.version.history.head": "Version History",
+
+  "item.version.history.return": "Return",
+
+  "item.version.history.selected": "Selected version",
+
+  "item.version.history.table.version": "Version",
+
+  "item.version.history.table.item": "Item",
+
+  "item.version.history.table.editor": "Editor",
+
+  "item.version.history.table.date": "Date",
+
+  "item.version.history.table.summary": "Summary",
 
 
 

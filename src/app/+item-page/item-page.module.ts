@@ -61,7 +61,7 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
     RelatedEntitiesSearchComponent,
     UploadBitstreamComponent,
     TabbedRelatedEntitiesSearchComponent,
-    AbstractIncrementalListComponent
+    AbstractIncrementalListComponent,
   ],
   exports: [
     ItemComponent,
