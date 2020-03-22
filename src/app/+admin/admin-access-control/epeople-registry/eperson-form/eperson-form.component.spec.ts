@@ -139,30 +139,37 @@ describe('EPersonFormComponent', () => {
   }));
 
   describe('when submitting the form', () => {
-    const firstName = 'testName';
-    const lastName = 'testLastName';
-    const email = 'testEmail@test.com';
-    const canLogIn = false;
-    const requireCertificate = false;
+    let firstName;
+    let lastName;
+    let email;
+    let canLogIn;
+    let requireCertificate;
 
-    const expected = Object.assign(new EPerson(), {
-      metadata: {
-        'eperson.firstname': [
-          {
-            value: firstName
-          }
-        ],
-        'eperson.lastname': [
-          {
-            value: lastName
-          },
-        ],
-      },
-      email: email,
-      canLogIn: canLogIn,
-      requireCertificate: requireCertificate,
-    });
+    let expected;
     beforeEach(() => {
+      firstName = 'testName';
+      lastName = 'testLastName';
+      email = 'testEmail@test.com';
+      canLogIn = false;
+      requireCertificate = false;
+
+      expected = Object.assign(new EPerson(), {
+        metadata: {
+          'eperson.firstname': [
+            {
+              value: firstName
+            }
+          ],
+          'eperson.lastname': [
+            {
+              value: lastName
+            },
+          ],
+        },
+        email: email,
+        canLogIn: canLogIn,
+        requireCertificate: requireCertificate,
+      });
       spyOn(component.submitForm, 'emit');
       component.firstName.value = firstName;
       component.lastName.value = lastName;
@@ -185,25 +192,26 @@ describe('EPersonFormComponent', () => {
     });
 
     describe('with an active eperson', () => {
-      const expectedWithId = Object.assign(new EPerson(), {
-        metadata: {
-          'eperson.firstname': [
-            {
-              value: firstName
-            }
-          ],
-          'eperson.lastname': [
-            {
-              value: lastName
-            },
-          ],
-        },
-        email: email,
-        canLogIn: canLogIn,
-        requireCertificate: requireCertificate,
-      });
+      let expectedWithId;
 
       beforeEach(() => {
+        expectedWithId = Object.assign(new EPerson(), {
+          metadata: {
+            'eperson.firstname': [
+              {
+                value: firstName
+              }
+            ],
+            'eperson.lastname': [
+              {
+                value: lastName
+              },
+            ],
+          },
+          email: email,
+          canLogIn: canLogIn,
+          requireCertificate: requireCertificate,
+        });
         spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(expectedWithId));
         component.onSubmit();
         fixture.detectChanges();

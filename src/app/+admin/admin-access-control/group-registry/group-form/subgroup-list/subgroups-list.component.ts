@@ -169,7 +169,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.groups = this.groupDataService.findAllByHref(activeGroup._links.subgroups.href, {
       currentPage: 1,
       elementsPerPage: this.config.pageSize
-    })
+    });
   }
 
   /**

@@ -277,9 +277,11 @@
 
   "admin.access-control.groups.form.groupDescription": "Description",
 
-  "admin.access-control.groups.form.notification.created.success": "Successfully created group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
 
-  "admin.access-control.groups.form.notification.created.failure": "Failed to create group \"{{name}}\"",
+  "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
+
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
 
   "admin.access-control.groups.form.members-list.head": "Members",
 

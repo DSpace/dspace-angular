@@ -3,7 +3,7 @@ import { EPersonMock } from './eperson-mock';
 
 export const GroupMock2: Group = Object.assign(new Group(), {
   handle: null,
-  groups: [],
+  subgroups: [],
   epersons: [],
   selfRegistered: false,
   _links: {
@@ -20,7 +20,7 @@ export const GroupMock2: Group = Object.assign(new Group(), {
 
 export const GroupMock: Group = Object.assign(new Group(), {
   handle: null,
-  groups: [GroupMock2],
+  subgroups: [GroupMock2],
   epersons: [EPersonMock],
   selfRegistered: false,
   _links: {

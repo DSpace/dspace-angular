@@ -11,6 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { take } from 'rxjs/operators';
+import { RestResponse } from '../../../../core/cache/response.models';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
@@ -92,9 +94,9 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
+    this.subs.push(this.route.params.subscribe((params) => {
       this.setActiveGroup(params.groupId)
-    });
+    }));
     combineLatest(
       this.translateService.get(`${this.messagePrefix}.groupName`),
       this.translateService.get(`${this.messagePrefix}.groupDescription`),
@@ -155,7 +157,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
             ],
           },
         };
-        if (group == null) {
+        if (group === null) {
           this.createNewGroup(values);
         } else {
           this.editGroup(group, values);
@@ -169,14 +171,38 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * @param values
    */
   createNewGroup(values) {
-    this.subs.push(this.groupDataService.createOrUpdateGroup(Object.assign(new Group(), values))
-      .pipe(
-        getSucceededRemoteData(),
-        getRemoteDataPayload())
-      .subscribe((group: Group) => {
-        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.created.success', { name: group.name }));
-        this.setActiveGroup(group.id);
-        this.submitForm.emit(group);
+    const groupToCreate = Object.assign(new Group(), values);
+    const response = this.groupDataService.tryToCreate(groupToCreate);
+    response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
+      if (restResponse.isSuccessful) {
+        this.notificationsService.success(this.translateService.get(this.messagePrefix  + '.notification.created.success', { name: groupToCreate.name }));
+        this.submitForm.emit(groupToCreate);
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.created.failure', { name: groupToCreate.name }));
+        this.showNotificationIfNameInUse(groupToCreate, 'created');
+        this.cancelForm.emit();
+      }
+    });
+  }
+
+  /**
+   * Checks for the given group if there is already a group in the system with that group name and shows error if that
+   * is the case
+   * @param group                 group to check
+   * @param notificationSection   whether in create or edit
+   */
+  private showNotificationIfNameInUse(group: Group, notificationSection: string) {
+    // Relevant message for group name in use
+    this.subs.push(this.groupDataService.searchGroups(group.name, {
+      currentPage: 1,
+      elementsPerPage: 0
+    }).pipe(getSucceededRemoteData(), getRemoteDataPayload())
+      .subscribe((list: PaginatedList<Group>) => {
+        if (list.totalElements > 0) {
+          this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.' + notificationSection + '.failure.groupNameInUse', {
+            name: group.name
+          }));
+        }
       }));
   }
 
