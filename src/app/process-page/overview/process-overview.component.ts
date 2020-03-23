@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProcessDataService } from '../processes/process-data.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -10,6 +9,7 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { map } from 'rxjs/operators';
+import { ProcessDataService } from '../../core/data/processes/process-data.service';
 
 @Component({
   selector: 'ds-process-overview',

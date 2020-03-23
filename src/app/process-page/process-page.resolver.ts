@@ -4,9 +4,9 @@ import { RemoteData } from '../core/data/remote-data';
 import { Observable } from 'rxjs/internal/Observable';
 import { find } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
-import { ProcessDataService } from './processes/process-data.service';
 import { Process } from './processes/process.model';
 import { followLink } from '../shared/utils/follow-link-config.model';
+import { ProcessDataService } from '../core/data/processes/process-data.service';
 
 /**
  * This class represents a resolver that requests a specific process before the route is activated

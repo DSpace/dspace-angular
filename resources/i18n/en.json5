@@ -1534,6 +1534,18 @@
 
 
 
+  "process.page.detail.arguments" : "Arguments",
+
+  "process.page.detail.output" : "Process Output",
+
+  "process.page.detail.output.alert" : "Work in progress - Process output is not available yet",
+
+  "process.page.detail.output-files" : "Output Files",
+
+  "process.page.detail.output-files.alert" : "Work in progress - Output files are not available yet",
+
+  "process.page.detail.script" : "Script",
+
   "process.page.detail.title" : "Process: {{ id }} - {{ name }}",
 
   "process.page.overview.table.finish" : "Finish time",
