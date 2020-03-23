@@ -113,12 +113,15 @@ export class UploaderComponent {
   ngAfterViewInit() {
     // Maybe to remove: needed to avoid CORS issue with our temp upload server
     this.uploader.onAfterAddingFile = ((item) => {
+      console.log(item);
+
       item.withCredentials = false;
     });
     if (isUndefined(this.onBeforeUpload)) {
       this.onBeforeUpload = () => {return};
     }
     this.uploader.onBeforeUploadItem = (item) => {
+
       if (item.url !== this.uploader.options.url) {
         item.url = this.uploader.options.url;
       }

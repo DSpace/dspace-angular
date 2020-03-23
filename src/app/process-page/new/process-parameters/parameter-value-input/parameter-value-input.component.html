@@ -1,3 +1,4 @@
 <div [ngSwitch]="parameter?.type">
   <ds-string-value-input *ngSwitchCase="parameterTypes.STRING"></ds-string-value-input>
+  <ds-file-value-input *ngSwitchCase="parameterTypes.FILE"></ds-file-value-input>
 </div>
