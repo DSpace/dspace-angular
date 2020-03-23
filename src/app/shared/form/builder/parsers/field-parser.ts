@@ -212,7 +212,7 @@ export abstract class FieldParser {
 
     controlModel.placeholder = this.configData.label;
 
-    controlModel.hint = this.configData.hints;
+    controlModel.hint = this.configData.hints || '&nbsp;';
 
     if (this.configData.mandatory && setErrors) {
       this.markAsRequired(controlModel);
