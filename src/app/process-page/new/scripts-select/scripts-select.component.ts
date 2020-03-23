@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { ScriptDataService } from '../../scripts/script-data.service';
+import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { Script } from '../../scripts/script.model';
 import { Observable, Subscription } from 'rxjs';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';

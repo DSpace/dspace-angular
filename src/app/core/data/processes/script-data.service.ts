@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { DataService } from '../../core/data/data.service';
-import { RequestService } from '../../core/data/request.service';
-import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
+import { DataService } from '../data.service';
+import { RequestService } from '../request.service';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core/core.reducers';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { CoreState } from '../../core.reducers';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { DefaultChangeAnalyzer } from '../../core/data/default-change-analyzer.service';
-import { Script } from './script.model';
+import { DefaultChangeAnalyzer } from '../default-change-analyzer.service';
+import { Script } from '../../../process-page/scripts/script.model';
 
 @Injectable()
 export class ScriptDataService extends DataService<Script> {

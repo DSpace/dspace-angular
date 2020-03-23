@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-
 import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -14,11 +13,7 @@ import { FormService } from '../shared/form/form.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest-v2/endpoint-mocking-rest.service';
-import {
-  MOCK_RESPONSE_MAP,
-  MockResponseMap,
-  mockResponseMap
-} from '../shared/mocks/dspace-rest-v2/mocks/mock-response-map';
+import { MOCK_RESPONSE_MAP, MockResponseMap, mockResponseMap } from '../shared/mocks/dspace-rest-v2/mocks/mock-response-map';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
@@ -141,6 +136,8 @@ import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { Script } from '../process-page/scripts/script.model';
 import { Process } from '../process-page/processes/process.model';
+import { ProcessDataService } from './data/processes/process-data.service';
+import { ScriptDataService } from './data/processes/script-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -261,6 +258,8 @@ const PROVIDERS = [
   VersionHistoryDataService,
   LicenseDataService,
   ItemTypeDataService,
+  ProcessDataService,
+  ScriptDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
