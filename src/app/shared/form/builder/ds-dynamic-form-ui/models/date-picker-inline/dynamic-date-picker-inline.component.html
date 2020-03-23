@@ -1,39 +1,40 @@
 <div [formGroup]="group" class="input-group">
 
-    <input ngbDatepicker class="form-control date-input" #datepicker="ngbDatepicker"
-           [class.is-invalid]="showErrorMessages"
-           [displayMonths]="model.getAdditional('displayMonths', config['displayMonths'])"
-           [dynamicId]="bindId && model.id"
-           [firstDayOfWeek]="model.getAdditional('firstDayOfWeek', config['firstDayOfWeek'])"
-           [formControlName]="model.id"
-           [maxDate]="model.max"
-           [minDate]="model.min"
-           [name]="model.name"
-           [navigation]="model.getAdditional('navigation', config['navigation'])"
-           [ngClass]="getClass('element', 'control')"
-           [outsideDays]="model.getAdditional('outsideDays', config['outsideDays'])"
-           [placeholder]="model.placeholder"
-           [placement]="model.getAdditional('placement', 'bottom-left')"
-           [showWeekdays]="model.getAdditional('showWeekdays', config['showWeekdays'])"
-           [showWeekNumbers]="model.getAdditional('showWeekNumbers', config['showWeekNumbers'])"
-           [startDate]="model.focusedDate"
-           (blur)="onBlur($event)"
-           (dateSelect)="onChange($event)"
-           (focus)="onFocus($event)">
+  <input ngbDatepicker class="form-control date-input" #datepicker="ngbDatepicker"
+         [class.is-invalid]="showErrorMessages"
+         [displayMonths]="model.getAdditional('displayMonths', config['displayMonths'])"
+         [firstDayOfWeek]="model.getAdditional('firstDayOfWeek', config['firstDayOfWeek'])"
+         [formControlName]="model.id"
+         [id]="elementId"
+         [maxDate]="model.max"
+         [minDate]="model.min"
+         [name]="model.name"
+         [navigation]="model.getAdditional('navigation', config['navigation'])"
+         [ngClass]="getClass('element', 'control')"
+         [outsideDays]="model.getAdditional('outsideDays', config['outsideDays'])"
+         [placeholder]="model.placeholder"
+         [placement]="model.getAdditional('placement', 'bottom-left')"
+         [showWeekdays]="model.getAdditional('showWeekdays', config['showWeekdays'])"
+         [showWeekNumbers]="model.getAdditional('showWeekNumbers', config['showWeekNumbers'])"
+         [startDate]="model.focusedDate"
+         [value]="formatter.format(model.value)"
+         (blur)="onBlur($event)"
+         (dateSelect)="onChange($event)"
+         (focus)="onFocus($event)">
 
-    <div class="input-group-append">
+  <div class="input-group-append">
 
-        <button class="btn btn-outline-secondary"
-                type="button"
-                [class.disabled]="model.disabled"
-                [disabled]="model.disabled"
-                (click)="datepicker.toggle()">
+    <button class="btn btn-outline-secondary"
+            type="button"
+            [class.disabled]="model.disabled"
+            [disabled]="model.disabled"
+            (click)="datepicker.toggle()">
 
-            <i *ngIf="model.toggleIcon" class="{{model.toggleIcon}}" aria-hidden="true"></i>
-            <span *ngIf="model.toggleLabel">{{ model.toggleLabel }}</span>
+      <i *ngIf="model.toggleIcon" class="{{model.toggleIcon}}" aria-hidden="true"></i>
+      <span *ngIf="model.toggleLabel">{{ model.toggleLabel }}</span>
 
-        </button>
+    </button>
 
-    </div>
+  </div>
 
 </div>
