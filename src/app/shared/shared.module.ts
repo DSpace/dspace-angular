@@ -179,6 +179,7 @@ import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-
 import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
+import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -347,6 +348,7 @@ const COMPONENTS = [
   ExistingMetadataListElementComponent,
   ItemVersionsComponent,
   PublicationSearchResultListElementComponent,
+  ItemVersionsNoticeComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -411,6 +413,7 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationExternalSourceTabComponent,
   ExternalSourceEntryImportModalComponent,
   ItemVersionsComponent,
+  ItemVersionsNoticeComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
