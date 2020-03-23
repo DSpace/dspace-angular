@@ -59,7 +59,7 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
     MetadataRepresentationListComponent,
     RelatedEntitiesSearchComponent,
     TabbedRelatedEntitiesSearchComponent,
-    AbstractIncrementalListComponent
+    AbstractIncrementalListComponent,
   ],
   exports: [
     ItemComponent,

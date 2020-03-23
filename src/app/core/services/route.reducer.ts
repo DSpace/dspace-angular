@@ -9,6 +9,7 @@ import {
   SetQueryParameterAction,
   SetQueryParametersAction
 } from './route.actions';
+import { isNotEmpty } from '../../shared/empty.util';
 
 /**
  * Interface to represent the parameter state of a current route in the store
@@ -81,7 +82,8 @@ function addParameter(state: RouteState, action: AddParameterAction | AddQueryPa
  * @param paramType The type of parameter to set: route or query parameter
  */
 function setParameters(state: RouteState, action: SetParametersAction | SetQueryParametersAction, paramType: string): RouteState {
-  return Object.assign({}, state, { [paramType]: { [action.payload.key]: action.payload.value } });
+  const param = isNotEmpty(action.payload) ? { [paramType]: { [action.payload.key]: action.payload.value } } : {};
+  return Object.assign({}, state, param);
 }
 
 /**

@@ -57,7 +57,7 @@ export abstract class BaseResponseParsingService {
             .filter((property) => data._embedded.hasOwnProperty(property))
             .forEach((property) => {
               const parsedObj = this.process<ObjectDomain>(data._embedded[property], request);
-              if (this.shouldDirectlyAttachEmbeds && isNotEmpty(parsedObj)) {
+              if (hasValue(object) && this.shouldDirectlyAttachEmbeds && isNotEmpty(parsedObj)) {
                   if (isRestPaginatedList(data._embedded[property])) {
                     object[property] = parsedObj;
                     object[property].page = parsedObj.page.map((obj) => this.retrieveObjectOrUrl(obj));
@@ -117,10 +117,12 @@ export abstract class BaseResponseParsingService {
         const serializer = new this.serializerConstructor(objConstructor);
         return serializer.deserialize(obj);
       } else {
+        console.warn('cannot deserialize type ' + type);
         return null;
       }
 
     } else {
+      console.warn('cannot deserialize type ' + type);
       return null;
     }
   }
@@ -142,7 +144,8 @@ export abstract class BaseResponseParsingService {
       } else {
         dataJSON = JSON.stringify(data);
       }
-      throw new Error(`Can't cache incomplete ${type}: ${JSON.stringify(co)}, parsed from (partial) response: ${dataJSON}`);
+      console.warn(`Can't cache incomplete ${type}: ${JSON.stringify(co)}, parsed from (partial) response: ${dataJSON}`);
+      return;
     }
     this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : this.EnvConfig.cache.msToLive.default, request.uuid);
   }

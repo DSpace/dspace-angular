@@ -39,6 +39,7 @@ const COMMUNITY_EDIT_PATH = 'edit';
           dso: CommunityPageResolver,
           breadcrumb: CommunityBreadcrumbResolver
         },
+        runGuardsAndResolvers: 'always',
         children: [
           {
             path: COMMUNITY_EDIT_PATH,

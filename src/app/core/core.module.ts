@@ -135,6 +135,10 @@ import { PoolTask } from './tasks/models/pool-task-object.model';
 import { TaskObject } from './tasks/models/task-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { VersionDataService } from './data/version-data.service';
+import { VersionHistoryDataService } from './data/version-history-data.service';
+import { Version } from './shared/version.model';
+import { VersionHistory } from './shared/version-history.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -251,6 +255,8 @@ const PROVIDERS = [
   RelationshipTypeService,
   ExternalSourceService,
   LookupRelationService,
+  VersionDataService,
+  VersionHistoryDataService,
   LicenseDataService,
   ItemTypeDataService,
   // register AuthInterceptor as HttpInterceptor
@@ -301,6 +307,8 @@ export const models =
     ItemType,
     ExternalSource,
     ExternalSourceEntry,
+    Version,
+    VersionHistory
   ];
 
 @NgModule({

@@ -1,3 +1,4 @@
+import { switchMap } from 'rxjs/operators';
 import { HostWindowService } from '../shared/host-window.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchComponent } from './search.component';
