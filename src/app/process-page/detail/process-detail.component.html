@@ -1,19 +1,19 @@
 <div class="container" *ngVar="(processRD$ | async)?.payload as process">
   <h2>{{'process.page.detail.title' | translate:{ id: process?.processId, name: process?.scriptName } }}</h2>
 
-  <ds-process-detail-field [title]="'process.page.detail.script'">
+  <ds-process-detail-field id="process-name" [title]="'process.page.detail.script'">
     <div>{{ process?.scriptName }}</div>
   </ds-process-detail-field>
 
-  <ds-process-detail-field [title]="'process.page.detail.arguments'">
+  <ds-process-detail-field id="process-arguments" [title]="'process.page.detail.arguments'">
     <div *ngFor="let argument of process?.parameters">{{ argument?.name }} {{ argument?.value }}</div>
   </ds-process-detail-field>
 
-  <ds-process-detail-field [title]="'process.page.detail.output-files'">
+  <ds-process-detail-field id="process-files" [title]="'process.page.detail.output-files'">
     <ds-alert [content]="'process.page.detail.output-files.alert'" [type]="AlertTypeEnum.Warning"></ds-alert>
   </ds-process-detail-field>
 
-  <ds-process-detail-field [title]="'process.page.detail.output'">
+  <ds-process-detail-field id="process-output" [title]="'process.page.detail.output'">
     <pre class="font-weight-bold text-secondary bg-light p-3">{{'process.page.detail.output.alert' | translate}}</pre>
   </ds-process-detail-field>
 </div>
