@@ -20,6 +20,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './mapped-collections-reponse-parsing.service';
+import { ProcessFilesResponseParsingService } from './process-files-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -223,6 +224,15 @@ export class MappedCollectionsRequest extends GetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return MappedCollectionsReponseParsingService;
+  }
+}
+
+/**
+ * Request to fetch the files of a process
+ */
+export class ProcessFilesRequest extends GetRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return ProcessFilesResponseParsingService;
   }
 }
 

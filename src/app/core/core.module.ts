@@ -138,6 +138,7 @@ import { Script } from '../process-page/scripts/script.model';
 import { Process } from '../process-page/processes/process.model';
 import { ProcessDataService } from './data/processes/process-data.service';
 import { ScriptDataService } from './data/processes/script-data.service';
+import { ProcessFilesResponseParsingService } from './data/process-files-response-parsing.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -260,6 +261,7 @@ const PROVIDERS = [
   ItemTypeDataService,
   ProcessDataService,
   ScriptDataService,
+  ProcessFilesResponseParsingService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

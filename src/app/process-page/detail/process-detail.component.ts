@@ -3,9 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { Process } from '../processes/process.model';
-import { map } from 'rxjs/operators';
-import { redirectToPageNotFoundOn404 } from '../../core/shared/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { getFirstSucceededRemoteDataPayload, redirectToPageNotFoundOn404 } from '../../core/shared/operators';
 import { AlertType } from '../../shared/alert/aletr-type';
+import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { Bitstream } from '../../core/shared/bitstream.model';
 
 @Component({
   selector: 'ds-process-detail',
@@ -27,8 +30,14 @@ export class ProcessDetailComponent implements OnInit {
    */
   processRD$: Observable<RemoteData<Process>>;
 
+  /**
+   * The Process's Output Files
+   */
+  filesRD$: Observable<RemoteData<PaginatedList<Bitstream>>>;
+
   constructor(protected route: ActivatedRoute,
-              protected router: Router) {
+              protected router: Router,
+              protected processService: ProcessDataService) {
   }
 
   /**
@@ -39,6 +48,11 @@ export class ProcessDetailComponent implements OnInit {
     this.processRD$ = this.route.data.pipe(
       map((data) => data.process as RemoteData<Process>),
       redirectToPageNotFoundOn404(this.router)
+    );
+
+    this.filesRD$ = this.processRD$.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((process: Process) => this.processService.getFiles(process.processId))
     );
   }
 
