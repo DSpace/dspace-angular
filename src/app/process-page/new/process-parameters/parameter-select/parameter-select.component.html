@@ -1,14 +1,16 @@
-<div class="form-group">
-    <select required id="process-parameters"
-            class="form-control"
-            name="script"
-            [(ngModel)]="selectedParameter"
-            #param="ngModel">
-        <option [ngValue]="undefined">Add a parameter...</option>
-        <option *ngFor="let param of parameters">
-            {{param.nameLong || param.name}}
-        </option>
-    </select>
-    <ds-string-input></ds-string-input>
-    <button><span class="fas fa-trash"></span></button>
+<div class="form-row">
+        <select required id="process-parameters"
+                class="form-control col"
+                name="script"
+                [(ngModel)]="selectedParameter"
+                #param="ngModel">
+            <option [ngValue]="undefined">Add a parameter...</option>
+            <option *ngFor="let param of parameters" [ngValue]="param.name">
+                {{param.nameLong || param.name}}
+            </option>
+        </select>
+        <ds-parameter-value-input [parameter]="selectedScriptParameter" class="d-block col"></ds-parameter-value-input>
+        <button *ngIf="removable" class="btn btn-light col-1" (click)="removeParameter.emit(parameterValue);"><span class="fas fa-trash"></span></button>
+        <span *ngIf="!removable" class="col-1"></span>
 </div>
+

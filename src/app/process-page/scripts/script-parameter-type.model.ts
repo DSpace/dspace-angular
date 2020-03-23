@@ -2,9 +2,9 @@
  * List of parameter types used for scripts
  */
 export enum ScriptParameterType {
-  STRING = 'string',
+  STRING = 'String',
   DATE = 'date',
   BOOLEAN = 'boolean',
-  FILE = 'file',
-  OUTPUT = 'output'
+  FILE = 'InputStream',
+  OUTPUT = 'OutputStream'
 }

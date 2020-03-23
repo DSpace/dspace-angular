@@ -9,6 +9,7 @@ import { ScriptHelpComponent } from './new/script-help/script-help.component';
 import { ParameterSelectComponent } from './new/process-parameters/parameter-select/parameter-select.component';
 import { ProcessParametersComponent } from './new/process-parameters/process-parameters.component';
 import { StringValueInputComponent } from './new/process-parameters/parameter-value-input/string-value-input/string-value-input.component';
+import { ParameterValueInputComponent } from './new/process-parameters/parameter-value-input/parameter-value-input.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { StringValueInputComponent } from './new/process-parameters/parameter-va
     ParameterSelectComponent,
     ProcessParametersComponent,
     StringValueInputComponent,
+    ParameterValueInputComponent,
   ],
   entryComponents: [
   ],

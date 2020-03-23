@@ -11,12 +11,18 @@ import { hasNoValue } from '../../../../shared/empty.util';
 export class ParameterSelectComponent implements OnInit {
   @Input() parameterValue: ProcessParameter;
   @Input() parameters: ScriptParameter[];
+  @Input() removable: boolean;
+  @Output() removeParameter: EventEmitter<ProcessParameter> = new EventEmitter<ProcessParameter>();
   @Output() changeParameter: EventEmitter<ProcessParameter> = new EventEmitter<ProcessParameter>();
 
   ngOnInit(): void {
     if (hasNoValue(this.parameterValue)) {
       this.parameterValue = new ProcessParameter();
     }
+  }
+
+  get selectedScriptParameter(): ScriptParameter {
+    return this.parameters.find((parameter: ScriptParameter) => parameter.name === this.selectedParameter);
   }
 
   get selectedParameter(): string {

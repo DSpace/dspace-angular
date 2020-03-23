@@ -1,8 +1,10 @@
 <div class="form-group" *ngIf="script">
     <label>Parameters</label>
     <ds-parameter-select
-            *ngFor="let value of parameterValues; let i = index;"
+            *ngFor="let value of parameterValues; let i = index; let last = last"
             [parameters]="script.parameters"
             [parameterValue]="value"
+            [removable]="!last"
+            (removeParameter)="removeParameter(i)"
             (changeParameter)="updateParameter($event, i)"></ds-parameter-select>
 </div>
