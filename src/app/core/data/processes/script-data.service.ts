@@ -16,8 +16,11 @@ import { MultipartPostRequest, RestRequest } from '../request.models';
 import { RequestService } from '../request.service';
 import { Observable } from 'rxjs';
 import { RequestEntry } from '../request.reducer';
+import { dataService } from '../../cache/builders/build-decorators';
+import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
 
 @Injectable()
+@dataService(SCRIPT)
 export class ScriptDataService extends DataService<Script> {
   protected linkPath = 'scripts';
 

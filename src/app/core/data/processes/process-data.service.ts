@@ -10,8 +10,11 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from '../default-change-analyzer.service';
 import { Process } from '../../../process-page/processes/process.model';
+import { dataService } from '../../cache/builders/build-decorators';
+import { PROCESS } from '../../../process-page/processes/process.resource-type';
 
 @Injectable()
+@dataService(PROCESS)
 export class ProcessDataService extends DataService<Process> {
   protected linkPath = 'processes';
 

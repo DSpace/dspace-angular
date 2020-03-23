@@ -1534,6 +1534,8 @@
 
 
 
+  "process.page.detail.title" : "Process: {{ id }} - {{ name }}",
+
   "process.page.overview.table.finish" : "Finish time",
 
   "process.page.overview.table.id" : "Process ID",

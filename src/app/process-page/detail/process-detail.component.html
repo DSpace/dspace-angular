@@ -1,0 +1,7 @@
+<div class="container" *ngVar="(processRD$ | async)?.payload as process">
+  <h2>{{'process.page.detail.title' | translate:{ id: process?.id, name: process?.scriptName } }}</h2>
+
+  <ds-process-detail-field [title]="'process.page.detail.script'">
+    <div>{{ process?.scriptName }}</div>
+  </ds-process-detail-field>
+</div>

@@ -6,7 +6,13 @@ import { autoserialize, deserialize } from 'cerialize';
 import { PROCESS } from './process.resource-type';
 import { excludeFromEquals } from '../../core/utilities/equals.decorators';
 import { ResourceType } from '../../core/shared/resource-type';
-import { typedObject } from '../../core/cache/builders/build-decorators';
+import { link, typedObject } from '../../core/cache/builders/build-decorators';
+import { COLLECTION } from '../../core/shared/collection.resource-type';
+import { Observable } from 'rxjs/internal/Observable';
+import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
+import { SCRIPT } from '../scripts/script.resource-type';
+import { Script } from '../scripts/script.model';
 
 /**
  * Object representing a process
@@ -74,4 +80,11 @@ export class Process implements CacheableObject {
     output: HALLink,
     files: HALLink
   };
+
+  /**
+   * The Script that created this Process
+   * Will be undefined unless the owningCollection {@link HALLink} has been resolved.
+   */
+  @link(SCRIPT)
+  script?: Observable<RemoteData<Script>>;
 }
