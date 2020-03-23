@@ -15,6 +15,7 @@ import { AuthorityOptions } from '../../../../core/integration/models/authority-
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
 import { RelationshipOptions } from '../models/relationship-options.model';
+import { dateToISOFormat, isNgbDateStruct } from '../../../date.util';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -310,7 +311,9 @@ export abstract class FieldParser {
         return;
       }
 
-      if (typeof fieldValue === 'object') {
+      if (isNgbDateStruct(fieldValue)) {
+        modelConfig.value = fieldValue;
+      } else if (typeof fieldValue === 'object') {
         modelConfig.language = fieldValue.language;
         if (forceValueAsObj) {
           modelConfig.value = fieldValue;

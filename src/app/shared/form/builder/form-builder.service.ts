@@ -10,8 +10,10 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlModel,
   DynamicFormGroupModel,
-  DynamicFormService, DynamicFormValidationService,
-  DynamicPathable, parseReviver,
+  DynamicFormService,
+  DynamicFormValidationService,
+  DynamicPathable,
+  parseReviver,
 } from '@ng-dynamic-forms/core';
 import { isObject, isString, mergeWith } from 'lodash';
 
@@ -20,11 +22,14 @@ import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qua
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP, DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  DynamicRelationGroupModel
+} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
-import { isNgbDateStruct } from '../../date.util';
+import { dateToString, isNgbDateStruct } from '../../date.util';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -119,6 +124,8 @@ export class FormBuilderService extends DynamicFormService {
       const controlLanguage = (controlModel as DsDynamicInputModel).hasLanguages ? (controlModel as DsDynamicInputModel).language : null;
       if (isString(controlValue)) {
         return new FormFieldMetadataValueObject(controlValue, controlLanguage, null, null, controlModelIndex);
+      } else if (isNgbDateStruct(controlValue)) {
+        return new FormFieldMetadataValueObject(dateToString(controlValue))
       } else if (isObject(controlValue)) {
         const authority = controlValue.authority || controlValue.id || null;
         const place = controlModelIndex || controlValue.place;
