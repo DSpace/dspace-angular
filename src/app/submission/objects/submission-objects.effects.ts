@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { union } from 'lodash';
-
 import { from as observableFrom, of as observableOf } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, concatMap, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
@@ -110,7 +111,7 @@ export class SubmissionObjectEffects {
    */
   @Effect() saveSubmission$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM),
-    switchMap((action: SaveSubmissionFormAction) => {
+    concatMap((action: SaveSubmissionFormAction) => {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
@@ -124,7 +125,7 @@ export class SubmissionObjectEffects {
    */
   @Effect() saveForLaterSubmission$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM),
-    switchMap((action: SaveForLaterSubmissionFormAction) => {
+    concatMap((action: SaveForLaterSubmissionFormAction) => {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
@@ -149,7 +150,7 @@ export class SubmissionObjectEffects {
    */
   @Effect() saveSection$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM),
-    switchMap((action: SaveSubmissionSectionFormAction) => {
+    concatMap((action: SaveSubmissionSectionFormAction) => {
       return this.operationsService.jsonPatchByResourceID(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
@@ -173,7 +174,7 @@ export class SubmissionObjectEffects {
   @Effect() saveAndDeposit$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION),
     withLatestFrom(this.store$),
-    switchMap(([action, currentState]: [SaveAndDepositSubmissionAction, any]) => {
+    concatMap(([action, currentState]: [SaveAndDepositSubmissionAction, any]) => {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
@@ -191,7 +192,7 @@ export class SubmissionObjectEffects {
 
   @Effect() removeSection$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISABLE_SECTION),
-    switchMap((action: DisableSectionAction) => {
+    concatMap((action: DisableSectionAction) => {
       return this.operationsService.jsonPatchByResourceID(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
