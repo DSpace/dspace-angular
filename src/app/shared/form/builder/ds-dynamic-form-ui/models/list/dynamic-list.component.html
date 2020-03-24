@@ -13,8 +13,8 @@
         <input type="checkbox" class="custom-control-input"
                [attr.tabindex]="item.index"
                [checked]="item.value"
-               [id]="item.id"
-               [dynamicId]="item.id"
+               [id]="model.id + item.id"
+               [dynamicId]="model.id + item.id"
                [formControlName]="item.id"
                [name]="model.name"
                [required]="model.required"
@@ -25,7 +25,7 @@
         <label class="custom-control-label"
                [class.disabled]="model.disabled"
                [ngClass]="model.layout.element?.control"
-               [for]="item.id">
+               [for]="model.id + item.id">
           <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
         </label>
       </div>
@@ -47,14 +47,15 @@
 
         <input type="radio" class="custom-control-input"
                [checked]="item.value"
-               [dynamicId]="item.id"
+               [id]="model.id + item.id"
+               [dynamicId]="model.id + item.id"
                [name]="model.id"
                [required]="model.required"
                [value]="item.index"
                (blur)="onBlur($event)"
                (focus)="onFocus($event)"/>
         <label class="custom-control-label"
-               [for]="item.id"
+               [for]="model.id + item.id"
                [class.disabled]="model.disabled"
                [ngClass]="model.layout.element?.control">
           <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
