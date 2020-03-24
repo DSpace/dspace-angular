@@ -3,7 +3,6 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 import { FieldParser } from './field-parser';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { dateToNgbDateStruct } from '../../../date.util';
 import { isNotEmpty } from '../../../empty.util';
 import { DS_DATE_PICKER_SEPARATOR } from '../ds-dynamic-form-ui/models/date-picker/date-picker.component';
 
@@ -14,7 +13,6 @@ export class CalendarFieldParser extends FieldParser {
 
     inputDateModelConfig.toggleIcon = 'fas fa-calendar';
     inputDateModelConfig.min = new NgbDate(1900, 1, 1);
-    inputDateModelConfig.max = dateToNgbDateStruct();
 
     let currentDate = fieldValue;
     if (isNotEmpty(fieldValue)) {
