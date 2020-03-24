@@ -17,7 +17,7 @@
          [showWeekdays]="model.getAdditional('showWeekdays', config['showWeekdays'])"
          [showWeekNumbers]="model.getAdditional('showWeekNumbers', config['showWeekNumbers'])"
          [startDate]="model.focusedDate"
-         [value]="formatter.format(model.value)"
+         [value]="getInitDate()"
          (blur)="onBlur($event)"
          (dateSelect)="onChange($event)"
          (focus)="onFocus($event)">
