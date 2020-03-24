@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 
@@ -9,5 +9,6 @@ import { ScriptParameter } from '../../../scripts/script-parameter.model';
 })
 export class ParameterValueInputComponent {
   @Input() parameter: ScriptParameter;
+  @Output() updateValue: EventEmitter<any> = new EventEmitter();
   parameterTypes = ScriptParameterType;
 }

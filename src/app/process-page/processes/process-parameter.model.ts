@@ -6,8 +6,9 @@ export class ProcessParameter {
    * The name of the parameter Eg. '-d', '-f' etc.
    */
   name: string;
+
   /**
    * The value of the parameter
    */
-  value: string;
+  value: any;
 }

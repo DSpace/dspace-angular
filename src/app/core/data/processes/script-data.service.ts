@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
-import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
@@ -10,6 +9,11 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from '../default-change-analyzer.service';
 import { Script } from '../../../process-page/scripts/script.model';
+import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
+import { map } from 'rxjs/operators';
+import { URLCombiner } from '../../url-combiner/url-combiner';
+import { MultipartPostRequest, RestRequest } from '../request.models';
+import { RequestService } from '../request.service';
 
 @Injectable()
 export class ScriptDataService extends DataService<Script> {
@@ -25,5 +29,25 @@ export class ScriptDataService extends DataService<Script> {
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<Script>) {
     super();
+  }
+
+  public invocate(scriptName: string, parameters: ProcessParameter[], files: File[]) {
+    this.getBrowseEndpoint().pipe(
+      map((endpoint: string) => new URLCombiner(endpoint, scriptName, 'processes').toString()),
+      map((endpoint: string) => {
+        const body = this.getInvocationFormData(parameters, files);
+        return new MultipartPostRequest(this.requestService.generateRequestId(), endpoint, body)
+      }),
+      map((request: RestRequest) => this.requestService.configure(request))
+    ).subscribe();
+  }
+
+  private getInvocationFormData(parameters: ProcessParameter[], files: File[]): FormData {
+    const form: FormData = new FormData();
+    form.set('properties', JSON.stringify(parameters));
+    files.forEach((file: File) => {
+      form.append('file', file);
+    });
+    return form;
   }
 }

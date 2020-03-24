@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Script } from '../../scripts/script.model';
 import { ProcessParameter } from '../../processes/process-parameter.model';
+import { hasValue } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-process-parameters',
@@ -9,6 +10,7 @@ import { ProcessParameter } from '../../processes/process-parameter.model';
 })
 export class ProcessParametersComponent implements OnChanges {
   @Input() script: Script;
+  @Output() updateParameters: EventEmitter<ProcessParameter[]> = new EventEmitter();
   parameterValues: ProcessParameter[];
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -27,6 +29,7 @@ export class ProcessParametersComponent implements OnChanges {
     if (index === this.parameterValues.length - 1) {
       this.addParameter();
     }
+    this.updateParameters.emit(this.parameterValues.filter((param: ProcessParameter) => hasValue(param.name)));
   }
 
   removeParameter(index: number) {

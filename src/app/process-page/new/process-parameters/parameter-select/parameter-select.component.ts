@@ -31,6 +31,7 @@ export class ParameterSelectComponent implements OnInit {
 
   set selectedParameter(value: string) {
     this.parameterValue.name = value;
+    this.selectedParameterValue = undefined;
     this.changeParameter.emit(this.parameterValue);
   }
 

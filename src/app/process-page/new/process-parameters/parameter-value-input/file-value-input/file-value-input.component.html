@@ -1,6 +1,10 @@
-<ds-uploader dropMsg="process.parameter.file-upload"
-              dropOverDocumentMsg="process.parameter.file-upload"
-              [enableDragOverDocument]="true"
-              [uploadFilesOptions]="uploadFilesOptions"
-              (onCompleteItem)="onCompleteItem()"
-              (onUploadError)="onUploadError()"></ds-uploader>
+<label for="file-upload" class="btn btn-light">
+    {{'process.new.parameter.file.upload-button' | translate}}
+</label>
+<input requireFile #file="ngModel" type="file" id="file-upload" class="form-control-file d-none" [ngModel]="file" (ngModelChange)="setFile($event)"/>
+<div *ngIf="file.invalid && (file.dirty || file.touched)"
+     class="alert alert-danger">
+    <div *ngIf="file.errors.required">
+        {{'process.new.parameter.file.required' | translate}}
+    </div>
+</div>

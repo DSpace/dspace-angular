@@ -186,6 +186,8 @@ import { LogInPasswordComponent } from './log-in/methods/password/log-in-passwor
 import { LogInComponent } from './log-in/log-in.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
+import { FileValidator } from './utils/require-file.validator';
+import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -452,7 +454,9 @@ const DIRECTIVES = [
   AutoFocusDirective,
   RoleDirective,
   MetadataRepresentationDirective,
-  ListableObjectDirective
+  ListableObjectDirective,
+  FileValueAccessorDirective,
+  FileValidator
 ];
 
 @NgModule({

@@ -32,6 +32,8 @@ export enum IdentifierType {
 export abstract class RestRequest {
   public responseMsToLive = 10 * 1000;
   public forceBypassCache = false;
+  public isMultipart = false;
+
   constructor(
     public uuid: string,
     public href: string,
@@ -64,6 +66,18 @@ export class GetRequest extends RestRequest {
 }
 
 export class PostRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any,
+    public options?: HttpOptions
+  )  {
+    super(uuid, href, RestRequestMethod.POST, body)
+  }
+}
+
+export class MultipartPostRequest extends RestRequest {
+  public isMultipart = true;
   constructor(
     public uuid: string,
     public href: string,

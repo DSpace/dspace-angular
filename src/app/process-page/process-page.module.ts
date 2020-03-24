@@ -9,6 +9,8 @@ import { ProcessParametersComponent } from './new/process-parameters/process-par
 import { StringValueInputComponent } from './new/process-parameters/parameter-value-input/string-value-input/string-value-input.component';
 import { ParameterValueInputComponent } from './new/process-parameters/parameter-value-input/parameter-value-input.component';
 import { FileValueInputComponent } from './new/process-parameters/parameter-value-input/file-value-input/file-value-input.component';
+import { BooleanValueInputComponent } from './new/process-parameters/parameter-value-input/boolean-value-input/boolean-value-input.component';
+import { DateValueInputComponent } from './new/process-parameters/parameter-value-input/date-value-input/date-value-input.component';
 
 @NgModule({
   imports: [
@@ -24,6 +26,8 @@ import { FileValueInputComponent } from './new/process-parameters/parameter-valu
     StringValueInputComponent,
     ParameterValueInputComponent,
     FileValueInputComponent,
+    BooleanValueInputComponent,
+    DateValueInputComponent,
   ],
   entryComponents: []
 })

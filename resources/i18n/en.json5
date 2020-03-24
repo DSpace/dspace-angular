@@ -1614,6 +1614,24 @@
 
 
 
+  "process.new.select-parameters": "Parameters",
+
+  "process.new.submit": "Submit",
+
+  "process.new.select-script": "Script",
+
+  "process.new.select-script.placeholder": "Choose a script...",
+
+  "process.new.select-script.required": "Script is required",
+
+  "process.new.parameter.file.upload-button": "Select file...",
+
+  "process.new.parameter.file.required": "Please select a file",
+
+  "process.new.parameter.string.required": "Parameter value is required",
+
+
+
   "publication.listelement.badge": "Publication",
 
   "publication.page.description": "Description",

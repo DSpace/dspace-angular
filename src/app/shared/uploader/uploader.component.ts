@@ -146,6 +146,8 @@ export class UploaderComponent {
     };
     this.uploader.onProgressAll = () => this.onProgress();
     this.uploader.onProgressItem = () => this.onProgress();
+
+    console.log(this.uploader.options.formatDataFunction());
   }
 
   /**
