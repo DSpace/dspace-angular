@@ -16,13 +16,15 @@ import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/s
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { RequestService } from '../data/request.service';
-import { PutRequest } from '../data/request.models';
+import { PatchRequest, PutRequest } from '../data/request.models';
 import { ObjectCacheService } from './object-cache.service';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { ObjectCacheEntry } from './object-cache.reducer';
+import { Operation } from 'fast-json-patch';
 
 @Injectable()
 export class ServerSyncBufferEffects {
@@ -96,17 +98,19 @@ export class ServerSyncBufferEffects {
    * @returns {Observable<Action>} ApplyPatchObjectCacheAction to be dispatched
    */
   private applyPatch(href: string): Observable<Action> {
-    const patchObject = this.objectCache.getObjectBySelfLink(href).pipe(take(1));
+    const patchObject = this.objectCache.getBySelfLink(href).pipe(take(1));
 
     return patchObject.pipe(
-      map((object) => {
-        const serializedObject = new DSpaceSerializer(object.constructor as GenericConstructor<{}>).serialize(object);
-
-        this.requestService.configure(new PutRequest(this.requestService.generateRequestId(), href, serializedObject));
-
-        return new ApplyPatchObjectCacheAction(href)
+      map((entry: ObjectCacheEntry) => {
+        if (isNotEmpty(entry.patches)) {
+          const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
+          if (isNotEmpty(flatPatch)) {
+            this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, flatPatch));
+          }
+        }
+        return new ApplyPatchObjectCacheAction(href);
       })
-    )
+    );
   }
 
   constructor(private actions$: Actions,

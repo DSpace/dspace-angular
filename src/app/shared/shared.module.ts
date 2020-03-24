@@ -6,7 +6,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 
 import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
@@ -182,11 +182,13 @@ import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynam
 import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
+import { MissingTranslationHelper } from './translate/missing-translation.helper';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -204,7 +206,6 @@ const MODULES = [
   NgxPaginationModule,
   ReactiveFormsModule,
   RouterModule,
-  TranslateModule,
   NouisliderModule,
   MomentModule,
   TextMaskModule,
@@ -214,7 +215,11 @@ const MODULES = [
 ];
 
 const ROOT_MODULES = [
-  TooltipModule.forRoot()
+  TranslateModule.forChild({
+    missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+    useDefaultLang: true
+  }),
+  TooltipModule.forRoot(),
 ];
 
 const PIPES = [
@@ -356,7 +361,8 @@ const COMPONENTS = [
   LogInShibbolethComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
-  ItemTypeBadgeComponent
+  ItemVersionsComponent,
+  PublicationSearchResultListElementComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -423,7 +429,8 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationExternalSourceTabComponent,
   ExternalSourceEntryImportModalComponent,
   LogInPasswordComponent,
-  LogInShibbolethComponent
+  LogInShibbolethComponent,
+  ItemVersionsComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -456,8 +463,8 @@ const DIRECTIVES = [
 
 @NgModule({
   imports: [
+    ...ROOT_MODULES,
     ...MODULES,
-    ...ROOT_MODULES
   ],
   declarations: [
     ...PIPES,
@@ -465,8 +472,7 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    PublicationSearchResultListElementComponent,
-    ExistingMetadataListElementComponent
+
   ],
   providers: [
     ...PROVIDERS

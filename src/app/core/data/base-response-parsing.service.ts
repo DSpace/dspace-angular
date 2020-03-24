@@ -57,7 +57,7 @@ export abstract class BaseResponseParsingService {
             .filter((property) => data._embedded.hasOwnProperty(property))
             .forEach((property) => {
               const parsedObj = this.process<ObjectDomain>(data._embedded[property], request);
-              if (this.shouldDirectlyAttachEmbeds && isNotEmpty(parsedObj)) {
+              if (hasValue(object) && this.shouldDirectlyAttachEmbeds && isNotEmpty(parsedObj)) {
                   if (isRestPaginatedList(data._embedded[property])) {
                     object[property] = parsedObj;
                     object[property].page = parsedObj.page.map((obj) => this.retrieveObjectOrUrl(obj));

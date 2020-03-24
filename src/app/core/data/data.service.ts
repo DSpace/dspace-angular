@@ -44,7 +44,7 @@ import {
   FindByIDRequest,
   FindListOptions,
   FindListRequest,
-  GetRequest
+  GetRequest, PatchRequest
 } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
@@ -306,7 +306,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  protected searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
+  searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
 
     const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
 
@@ -329,12 +329,28 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
-   * Add a new patch to the object cache to a specified object
-   * @param {string} href The selflink of the object that will be patched
+   * Send a patch request for a specified object
+   * @param {T} dso The object to send a patch request for
    * @param {Operation[]} operations The patch operations to be performed
    */
-  patch(href: string, operations: Operation[]) {
-    this.objectCache.addPatch(href, operations);
+  patch(dso: T, operations: Operation[]): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, dso.uuid)));
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PatchRequest(requestId, href, operations);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
   }
 
   /**
@@ -407,6 +423,48 @@ export abstract class DataService<T extends CacheableObject> {
     return selfLink$.pipe(
       switchMap((selfLink: string) => this.findByHref(selfLink)),
     )
+  }
+
+  /**
+   * Create a new DSpaceObject on the server, and store the response
+   * in the object cache, returns observable of the response to determine success
+   *
+   * @param {DSpaceObject} dso
+   *    The object to create
+   */
+  tryToCreate(dso: T): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+    const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+    );
+
+    const serializedDso = new DSpaceSerializer(getClassForType((dso as any).type)).serialize(dso);
+
+    const request$ = endpoint$.pipe(
+      take(1),
+      map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
+    );
+
+    // Execute the post request
+    request$.pipe(
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    return this.fetchResponse(requestId);
+  }
+
+  /**
+   * Gets the restResponse from the requestService
+   * @param requestId
+   */
+  protected fetchResponse(requestId: string): Observable<RestResponse> {
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: RestResponse) => {
+        return response;
+      })
+    );
   }
 
   /**
