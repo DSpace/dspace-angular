@@ -6,12 +6,21 @@
   </ds-process-detail-field>
 
   <ds-process-detail-field id="process-arguments" [title]="'process.page.detail.arguments'">
+    <ds-alert *ngIf="files?.length === 0" [content]="'process.page.detail.arguments.empty'" [type]="AlertTypeEnum.Info"></ds-alert>
     <div *ngFor="let argument of process?.parameters">{{ argument?.name }} {{ argument?.value }}</div>
   </ds-process-detail-field>
 
-  <ds-process-detail-field id="process-files" [title]="'process.page.detail.output-files'">
-    <ds-alert [content]="'process.page.detail.output-files.alert'" [type]="AlertTypeEnum.Warning"></ds-alert>
-  </ds-process-detail-field>
+  <div *ngVar="(filesRD$ | async)?.payload?.page as files">
+    <ds-process-detail-field *ngIf="files" id="process-files" [title]="'process.page.detail.output-files'">
+      <ds-alert *ngIf="files?.length === 0" [content]="'process.page.detail.output-files.empty'" [type]="AlertTypeEnum.Info"></ds-alert>
+      <div *ngIf="files?.length > 0">
+        <div *ngFor="let file of files">
+          <span><a [href]="file?._links?.content?.href">{{getFileName(file)}}</a></span>
+          <span>({{file?.sizeBytes | dsFileSize}})</span>
+        </div>
+      </div>
+    </ds-process-detail-field>
+  </div>
 
   <ds-process-detail-field id="process-output" [title]="'process.page.detail.output'">
     <pre class="font-weight-bold text-secondary bg-light p-3">{{'process.page.detail.output.alert' | translate}}</pre>

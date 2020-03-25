@@ -1536,13 +1536,15 @@
 
   "process.page.detail.arguments" : "Arguments",
 
+  "process.page.detail.arguments.empty" : "This process doesn't contain any arguments",
+
   "process.page.detail.output" : "Process Output",
 
   "process.page.detail.output.alert" : "Work in progress - Process output is not available yet",
 
   "process.page.detail.output-files" : "Output Files",
 
-  "process.page.detail.output-files.alert" : "Work in progress - Output files are not available yet",
+  "process.page.detail.output-files.empty" : "This process doesn't contain any output files",
 
   "process.page.detail.script" : "Script",
 

@@ -9,6 +9,7 @@ import { AlertType } from '../../shared/alert/aletr-type';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { Bitstream } from '../../core/shared/bitstream.model';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-process-detail',
@@ -37,7 +38,8 @@ export class ProcessDetailComponent implements OnInit {
 
   constructor(protected route: ActivatedRoute,
               protected router: Router,
-              protected processService: ProcessDataService) {
+              protected processService: ProcessDataService,
+              protected nameService: DSONameService) {
   }
 
   /**
@@ -54,6 +56,14 @@ export class ProcessDetailComponent implements OnInit {
       getFirstSucceededRemoteDataPayload(),
       switchMap((process: Process) => this.processService.getFiles(process.processId))
     );
+  }
+
+  /**
+   * Get the name of a bitstream
+   * @param bitstream
+   */
+  getFileName(bitstream: Bitstream) {
+    return this.nameService.getName(bitstream);
   }
 
 }

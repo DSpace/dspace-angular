@@ -6,6 +6,8 @@ import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { PaginatedList } from './paginated-list';
 import { PageInfo } from '../shared/page-info.model';
 import { Injectable } from '@angular/core';
+import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
+import { Bitstream } from '../shared/bitstream.model';
 
 @Injectable()
 /**
@@ -18,7 +20,7 @@ export class ProcessFilesResponseParsingService implements ResponseParsingServic
 
     let page;
     if (isNotEmpty(payload._embedded) && isNotEmpty(Object.keys(payload._embedded))) {
-      const bitstreams = payload._embedded[Object.keys(payload._embedded)[0]];
+      const bitstreams = new DSpaceSerializer(Bitstream).deserializeArray(payload._embedded[Object.keys(payload._embedded)[0]]);
 
       if (isNotEmpty(bitstreams)) {
         page = new PaginatedList(Object.assign(new PageInfo(), {

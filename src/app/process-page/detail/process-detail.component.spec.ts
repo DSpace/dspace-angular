@@ -8,14 +8,27 @@ import { ProcessDetailFieldComponent } from './process-detail-field/process-deta
 import { Process } from '../processes/process.model';
 import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../shared/testing/utils';
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/testing/utils';
 import { By } from '@angular/platform-browser';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
-describe('ProcessDetailComponent', () => {
+fdescribe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
   let fixture: ComponentFixture<ProcessDetailComponent>;
 
+  let processService: ProcessDataService;
+  let nameService: DSONameService;
+
   let process: Process;
+  let fileName: string;
+  let files: Bitstream[];
 
   function init() {
     process = Object.assign(new Process(), {
@@ -32,15 +45,40 @@ describe('ProcessDetailComponent', () => {
         }
       ]
     });
+    fileName = 'fake-file-name';
+    files = [
+      Object.assign(new Bitstream(), {
+        sizeBytes: 10000,
+        metadata: {
+          'dc.title': [
+            {
+              value: fileName,
+              language: null
+            }
+          ]
+        },
+        _links: {
+          content: { href: 'file-selflink' }
+        }
+      })
+    ];
+    processService = jasmine.createSpyObj('processService', {
+      getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files))
+    });
+    nameService = jasmine.createSpyObj('nameService', {
+      getName: fileName
+    });
   }
 
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective],
+      declarations: [ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: ActivatedRoute, useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) } }
+        { provide: ActivatedRoute, useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) } },
+        { provide: ProcessDataService, useValue: processService },
+        { provide: DSONameService, useValue: nameService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -62,6 +100,11 @@ describe('ProcessDetailComponent', () => {
     process.parameters.forEach((param) => {
       expect(args.textContent).toContain(`${param.name} ${param.value}`)
     });
+  });
+
+  it('should display the process\'s output files', () => {
+    const processFiles = fixture.debugElement.query(By.css('#process-files')).nativeElement;
+    expect(processFiles.textContent).toContain(fileName);
   });
 
 });
