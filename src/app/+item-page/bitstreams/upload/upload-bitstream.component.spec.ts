@@ -23,6 +23,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
+import { RequestService } from '../../../core/data/request.service';
 
 describe('UploadBistreamComponent', () => {
   let comp: UploadBitstreamComponent;
@@ -90,6 +91,9 @@ describe('UploadBistreamComponent', () => {
   });
   const notificationsServiceStub = new NotificationsServiceStub();
   const uploaderComponent = jasmine.createSpyObj('uploaderComponent', ['ngOnInit']);
+  const requestService = jasmine.createSpyObj('requestService', {
+    removeByHrefSubstring: {}
+  });
 
   describe('when a file is uploaded', () => {
     beforeEach(async(() => {
@@ -211,7 +215,8 @@ describe('UploadBistreamComponent', () => {
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: AuthService, useValue: authServiceStub },
-        { provide: BundleDataService, useValue: bundleService }
+        { provide: BundleDataService, useValue: bundleService },
+        { provide: RequestService, useValue: requestService }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

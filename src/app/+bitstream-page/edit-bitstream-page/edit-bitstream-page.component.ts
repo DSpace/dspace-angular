@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -36,8 +36,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { RequestService } from '../../core/data/request.service';
+import { getItemEditPath } from '../../+item-page/item-page-routing.module';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -264,12 +263,19 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
 
   /**
+   * The ID of the item the bitstream originates from
+   * Taken from the current query parameters when present
+   */
+  itemId: string;
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
   protected subs: Subscription[] = [];
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private location: Location,
               private formService: DynamicFormService,
               private translate: TranslateService,
@@ -287,6 +293,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formGroup = this.formService.createFormGroup(this.formModel);
 
+    this.itemId = this.route.snapshot.queryParams.itemId;
     this.bitstreamRD$ = this.route.data.pipe(map((data) => data.bitstream));
     this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
 
@@ -464,6 +471,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
       );
+      this.navigateToItemEditBitstreams();
     });
   }
 
@@ -489,7 +497,19 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Cancel the form and return to the previous page
    */
   onCancel() {
-    this.location.back();
+    this.navigateToItemEditBitstreams();
+  }
+
+  /**
+   * When the item ID is present, navigate back to the item's edit bitstreams page, otherwise go back to the previous
+   * page the user came from
+   */
+  navigateToItemEditBitstreams() {
+    if (hasValue(this.itemId)) {
+      this.router.navigate([getItemEditPath(this.itemId), 'bitstreams']);
+    } else {
+      this.location.back();
+    }
   }
 
   /**

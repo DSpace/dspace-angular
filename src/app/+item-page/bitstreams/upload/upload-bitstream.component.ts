@@ -19,6 +19,8 @@ import {
   getFirstSucceededRemoteDataPayload
 } from '../../../core/shared/operators';
 import { UploaderComponent } from '../../../shared/uploader/uploader.component';
+import { getItemEditPath } from '../../item-page-routing.module';
+import { RequestService } from '../../../core/data/request.service';
 
 @Component({
   selector: 'ds-upload-bitstream',
@@ -87,7 +89,8 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
               protected bundleService: BundleDataService,
               protected authService: AuthService,
               protected notificationsService: NotificationsService,
-              protected translate: TranslateService) {
+              protected translate: TranslateService,
+              protected requestService: RequestService) {
   }
 
   /**
@@ -157,7 +160,14 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    * @param bitstream
    */
   public onCompleteItem(bitstream) {
-    this.router.navigate([getBitstreamModulePath(), bitstream.id, 'edit']);
+    // Clear cached requests for this bundle's bitstreams to ensure lists on all pages are up-to-date
+    this.bundleService.getBitstreamsEndpoint(this.selectedBundleId).pipe(take(1)).subscribe((href: string) => {
+      this.requestService.removeByHrefSubstring(href);
+    });
+
+    // Bring over the item ID as a query parameter
+    const queryParams = { itemId: this.itemId };
+    this.router.navigate([getBitstreamModulePath(), bitstream.id, 'edit'], { queryParams: queryParams });
   }
 
   /**
@@ -176,6 +186,13 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
     this.selectedBundleId = bundle.id;
     this.selectedBundleName = bundle.name;
     this.setUploadUrl();
+  }
+
+  /**
+   * When cancel is clicked, navigate back to the item's edit bitstreams page
+   */
+  onCancel() {
+    this.router.navigate([getItemEditPath(this.itemId), 'bitstreams']);
   }
 
   /**

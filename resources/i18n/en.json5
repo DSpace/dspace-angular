@@ -792,6 +792,8 @@
 
   "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
 
+  "item.bitstreams.upload.cancel": "Cancel",
+
   "item.bitstreams.upload.drop-message": "Drop a file to upload",
 
   "item.bitstreams.upload.item": "Item: ",

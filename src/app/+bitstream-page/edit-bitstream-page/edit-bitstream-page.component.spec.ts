@@ -124,7 +124,7 @@ describe('EditBitstreamPageComponent', () => {
       providers: [
         { provide: NotificationsService, useValue: notificationsService },
         { provide: DynamicFormService, useValue: formService },
-        { provide: ActivatedRoute, useValue: { data: observableOf({ bitstream: new RemoteData(false, false, true, null, bitstream) }) } },
+        { provide: ActivatedRoute, useValue: { data: observableOf({ bitstream: new RemoteData(false, false, true, null, bitstream) }), snapshot: { queryParams: {} } } },
         { provide: BitstreamDataService, useValue: bitstreamService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         ChangeDetectorRef

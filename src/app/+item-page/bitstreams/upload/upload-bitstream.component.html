@@ -34,6 +34,7 @@
                       [uploadFilesOptions]="uploadFilesOptions"
                       (onCompleteItem)="onCompleteItem($event)"
                       (onUploadError)="onUploadError()"></ds-uploader>
+        <button class="btn btn-outline-secondary" (click)="onCancel()">{{'item.bitstreams.upload.cancel' | translate}}</button>
       </div>
     </div>
   </ng-container>
