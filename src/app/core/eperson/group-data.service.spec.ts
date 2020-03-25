@@ -82,7 +82,8 @@ describe('GroupDataService', () => {
       rdbService,
       store,
       null,
-      halService
+      halService,
+      null,
     );
   };
 
