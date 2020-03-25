@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ValueInputComponent } from '../value-input.component';
 
+/**
+ * Represents the value of a boolean parameter
+ */
 @Component({
   selector: 'ds-boolean-value-input',
   templateUrl: './boolean-value-input.component.html',

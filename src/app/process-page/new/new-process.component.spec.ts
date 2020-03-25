@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProcessParametersComponent } from './process-parameters.component';
-import { ProcessParameter } from '../../processes/process-parameter.model';
-import { By } from '@angular/platform-browser';
-import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../../../shared/testing/mock-translate-loader';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Script } from '../../scripts/script.model';
-import { ScriptParameter } from '../../scripts/script-parameter.model';
+import { NewProcessComponent } from './new-process.component';
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import { MockTranslateLoader } from '../../shared/testing/mock-translate-loader';
+import { ScriptParameter } from '../scripts/script-parameter.model';
+import { Script } from '../scripts/script.model';
+import { ProcessParameter } from '../processes/process-parameter.model';
 
-describe('ProcessParametersComponent', () => {
-  let component: ProcessParametersComponent;
-  let fixture: ComponentFixture<ProcessParametersComponent>;
+describe('NewProcessComponent', () => {
+  let component: NewProcessComponent;
+  let fixture: ComponentFixture<NewProcessComponent>;
+  let scriptService;
   let parameterValues;
   let script;
 
@@ -25,7 +25,8 @@ describe('ProcessParametersComponent', () => {
       Object.assign(new ProcessParameter(), { name: '-a', value: 'bla' }),
       Object.assign(new ProcessParameter(), { name: '-b', value: '123' }),
       Object.assign(new ProcessParameter(), { name: '-c', value: 'value' }),
-    ]
+    ];
+    scriptService = jasmine.createSpyObj('scriptService', ['invoke'])
   }
 
   beforeEach(async(() => {
@@ -39,17 +40,20 @@ describe('ProcessParametersComponent', () => {
             useClass: MockTranslateLoader
           }
         })],
-      declarations: [ProcessParametersComponent, ParameterSelectComponent],
+      declarations: [NewProcessComponent],
+      providers: [
+        { provide: ScriptDataService, useValue: scriptService },
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProcessParametersComponent);
+    fixture = TestBed.createComponent(NewProcessComponent);
     component = fixture.componentInstance;
-    component.script = script;
-    component.parameterValues = parameterValues;
+    component.parameters = parameterValues;
+    component.selectedScript = script;
     fixture.detectChanges();
   });
 
@@ -57,8 +61,8 @@ describe('ProcessParametersComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render a ParameterSelectComponent for each parameter value of the component', () => {
-    const selectComponents = fixture.debugElement.queryAll(By.directive(ParameterSelectComponent));
-    expect(selectComponents.length).toBe(parameterValues.length);
+  it('should call invoke on the scriptService on submit', () => {
+    component.submitForm({ invalid: false });
+    expect(scriptService.invoke).toHaveBeenCalled();
   });
 });

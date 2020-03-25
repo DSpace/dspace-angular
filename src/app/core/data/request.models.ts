@@ -76,6 +76,9 @@ export class PostRequest extends RestRequest {
   }
 }
 
+/**
+ * Request representing a multipart post request
+ */
 export class MultipartPostRequest extends RestRequest {
   public isMultipart = true;
   constructor(

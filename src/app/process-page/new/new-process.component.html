@@ -1,8 +1,7 @@
-<script src="process-parameters/parameter-value-input/value-input.component.ts"></script>
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-6">
-            <form #form="ngForm" (ngSubmit)="submitForm()">
+            <form #form="ngForm" (ngSubmit)="submitForm(form)">
                 <ds-scripts-select (select)="selectedScript = $event"></ds-scripts-select>
                 <ds-process-parameters [script]="selectedScript" (updateParameters)="parameters = $event"></ds-process-parameters>
                 <button [disabled]="form.invalid" type="submit" class="btn btn-light float-right">{{ 'process.new.submit' | translate }}</button>
@@ -13,4 +12,3 @@
         </div>
     </div>
 </div>
-

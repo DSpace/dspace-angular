@@ -13,6 +13,9 @@ import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
         { provide: NG_VALUE_ACCESSOR, useExisting: FileValueAccessorDirective, multi: true }
     ]
 })
+/**
+ * Value accessor directive for inputs of type 'file'
+ */
 export class FileValueAccessorDirective implements ControlValueAccessor {
     value: any;
     onChange = (_) => { /* empty */ };

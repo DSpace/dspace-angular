@@ -6,10 +6,13 @@ import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shar
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { hasValue, hasValueOperator } from '../../../shared/empty.util';
+import { hasValue } from '../../../shared/empty.util';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
 
+/**
+ * Component used to select a script
+ */
 @Component({
   selector: 'ds-scripts-select',
   templateUrl: './scripts-select.component.html',
@@ -28,6 +31,10 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
   ) {
   }
 
+  /**
+   * Sets all available scripts
+   * Checks if the route contains a script ID and auto selects this scripts
+   */
   ngOnInit() {
     this.scripts$ = this.scriptService.findAll({ elementsPerPage: Number.MAX_SAFE_INTEGER })
       .pipe(
@@ -55,10 +62,17 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Returns the identifier of the selected script
+   */
   get selectedScript(): string {
     return this._selectedScript ? this._selectedScript.id : undefined;
   }
 
+  /**
+   * Sets the currently selected script by navigating to the correct route using the scripts ID
+   * @param value The identifier of the script
+   */
   set selectedScript(value: string) {
     this.router.navigate([],
       {

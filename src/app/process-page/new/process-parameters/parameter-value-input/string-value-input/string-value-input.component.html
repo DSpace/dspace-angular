@@ -1,6 +1,6 @@
 <input required #string="ngModel" type="text" class="form-control" id="string-value-input" [ngModel]="value" (ngModelChange)="setValue($event)"/>
 <div *ngIf="string.invalid && (string.dirty || string.touched)"
-     class="alert alert-danger">
+     class="alert alert-danger validation-error">
     <div *ngIf="string.errors.required">
         {{'process.new.parameter.string.required' | translate}}
     </div>

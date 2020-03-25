@@ -3,7 +3,7 @@
 </label>
 <input requireFile #file="ngModel" type="file" id="file-upload" class="form-control-file d-none" [ngModel]="file" (ngModelChange)="setFile($event)"/>
 <div *ngIf="file.invalid && (file.dirty || file.touched)"
-     class="alert alert-danger">
+     class="alert alert-danger validation-error">
     <div *ngIf="file.errors.required">
         {{'process.new.parameter.file.required' | translate}}
     </div>

@@ -69,6 +69,8 @@ export class DSpaceRESTv2Service {
    *    an optional body for the request
    * @param options
    *    the HttpOptions object
+   * @param isMultipart
+   *     true when this concerns a multipart request
    * @return {Observable<string>}
    *      An Observable<string> containing the response from the server
    */

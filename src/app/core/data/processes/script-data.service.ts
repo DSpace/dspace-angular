@@ -31,7 +31,7 @@ export class ScriptDataService extends DataService<Script> {
     super();
   }
 
-  public invocate(scriptName: string, parameters: ProcessParameter[], files: File[]) {
+  public invoke(scriptName: string, parameters: ProcessParameter[], files: File[]) {
     this.getBrowseEndpoint().pipe(
       map((endpoint: string) => new URLCombiner(endpoint, scriptName, 'processes').toString()),
       map((endpoint: string) => {

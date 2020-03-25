@@ -8,6 +8,9 @@ import { excludeFromEquals } from '../../core/utilities/equals.decorators';
 import { ResourceType } from '../../core/shared/resource-type';
 import { typedObject } from '../../core/cache/builders/build-decorators';
 
+/**
+ * Object representing a process
+ */
 @typedObject
 export class Process implements CacheableObject {
   static type = PROCESS;

@@ -7,6 +7,9 @@ import { typedObject } from '../../core/cache/builders/build-decorators';
 import { excludeFromEquals } from '../../core/utilities/equals.decorators';
 import { ResourceType } from '../../core/shared/resource-type';
 
+/**
+ * Object representing a script
+ */
 @typedObject
 export class Script implements CacheableObject {
   static type = SCRIPT;

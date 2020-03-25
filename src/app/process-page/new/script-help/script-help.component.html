@@ -1,7 +1,7 @@
 <h3>{{script?.name}}</h3>
 <span>{{script?.description}}</span>
 
-<table class="table-border less mt-3">
+<table class="table-borderless mt-3 text-secondary">
     <tr *ngFor="let param of script?.parameters">
         <td>{{param.name}} {{param.nameLong}} {{param.type !== 'boolean' ? '<' + param.type + '>' : ''}}</td>
         <td>{{param.description}}</td>

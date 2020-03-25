@@ -12,7 +12,7 @@
     </select>
 
     <div *ngIf="script.invalid && (script.dirty || script.touched)"
-         class="alert alert-danger">
+         class="alert alert-danger validation-error">
         <div *ngIf="script.errors.required">
             {{'process.new.select-script.required' | translate}}
         </div>
