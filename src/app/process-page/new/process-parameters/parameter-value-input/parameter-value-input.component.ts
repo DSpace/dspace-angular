@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Optional, Output } from '@angular/core';
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { controlContainerFactory } from '../../new-process.component';
 
 /**
  * Component that renders the correct parameter value input based the script parameter's type
@@ -8,9 +10,14 @@ import { ScriptParameter } from '../../../scripts/script-parameter.model';
 @Component({
   selector: 'ds-parameter-value-input',
   templateUrl: './parameter-value-input.component.html',
-  styleUrls: ['./parameter-value-input.component.scss']
+  styleUrls: ['./parameter-value-input.component.scss'],
+  viewProviders: [ { provide: ControlContainer,
+    useFactory: controlContainerFactory,
+    deps: [[new Optional(), NgForm]] } ]
 })
 export class ParameterValueInputComponent {
+  @Input() index: number;
+
   /**
    * The current script parameter
    */

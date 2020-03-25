@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { ValueInputComponent } from '../value-input.component';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { controlContainerFactory } from '../../../new-process.component';
 
 /**
  * Represents the value of a boolean parameter
@@ -7,7 +9,10 @@ import { ValueInputComponent } from '../value-input.component';
 @Component({
   selector: 'ds-boolean-value-input',
   templateUrl: './boolean-value-input.component.html',
-  styleUrls: ['./boolean-value-input.component.scss']
+  styleUrls: ['./boolean-value-input.component.scss'],
+  viewProviders: [ { provide: ControlContainer,
+    useFactory: controlContainerFactory,
+    deps: [[new Optional(), NgForm]] } ]
 })
 export class BooleanValueInputComponent extends ValueInputComponent<boolean> implements OnInit {
   ngOnInit() {

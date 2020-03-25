@@ -1,6 +1,6 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../../../../shared/mocks/mock-translate-loader';
 import { By } from '@angular/platform-browser';
@@ -20,7 +20,9 @@ describe('StringValueInputComponent', () => {
             useClass: MockTranslateLoader
           }
         })],
-      declarations: [StringValueInputComponent]
+      declarations: [StringValueInputComponent],
+      providers: [
+      ]
     })
       .compileComponents();
   }));
@@ -40,7 +42,7 @@ describe('StringValueInputComponent', () => {
     expect(validationError).toBeFalsy();
   });
 
-  it('should show a validation error if the input field was touched but left empty',  fakeAsync(() => {
+  it('should show a validation error if the input field was touched but left empty', fakeAsync(() => {
     component.value = '';
     fixture.detectChanges();
     tick();

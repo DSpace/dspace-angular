@@ -5,6 +5,7 @@
             [parameters]="script.parameters"
             [parameterValue]="value"
             [removable]="!last"
+            [index]="i"
             (removeParameter)="removeParameter(i)"
             (changeParameter)="updateParameter($event, i)"></ds-parameter-select>
 </div>

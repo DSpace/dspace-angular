@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { ValueInputComponent } from '../value-input.component';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { controlContainerFactory } from '../../../new-process.component';
 
 /**
  * Represents the user inputted value of a string parameter
@@ -7,7 +9,10 @@ import { ValueInputComponent } from '../value-input.component';
 @Component({
   selector: 'ds-string-value-input',
   templateUrl: './string-value-input.component.html',
-  styleUrls: ['./string-value-input.component.scss']
+  styleUrls: ['./string-value-input.component.scss'],
+  viewProviders: [ { provide: ControlContainer,
+    useFactory: controlContainerFactory,
+    deps: [[new Optional(), NgForm]] } ]
 })
 export class StringValueInputComponent extends ValueInputComponent<string> {
   /**

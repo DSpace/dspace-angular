@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Optional, Output, SimpleChanges } from '@angular/core';
 import { Script } from '../../scripts/script.model';
 import { ProcessParameter } from '../../processes/process-parameter.model';
 import { hasValue } from '../../../shared/empty.util';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { ScriptParameter } from '../../scripts/script-parameter.model';
+import { controlContainerFactory } from '../new-process.component';
 
 /**
  * Component that represents the selected list of parameters for a script
@@ -9,7 +12,10 @@ import { hasValue } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-process-parameters',
   templateUrl: './process-parameters.component.html',
-  styleUrls: ['./process-parameters.component.scss']
+  styleUrls: ['./process-parameters.component.scss'],
+  viewProviders: [ { provide: ControlContainer,
+    useFactory: controlContainerFactory,
+    deps: [[new Optional(), NgForm]] } ]
 })
 export class ProcessParametersComponent implements OnChanges {
   /**
@@ -42,7 +48,7 @@ export class ProcessParametersComponent implements OnChanges {
    */
   initParameters() {
     this.parameterValues = [];
-    this.addParameter();
+    this.initializeParameter();
   }
 
   /**
@@ -65,6 +71,20 @@ export class ProcessParametersComponent implements OnChanges {
    */
   removeParameter(index: number) {
     this.parameterValues = this.parameterValues.filter((value, i) => i !== index);
+  }
+
+  /**
+   * Initializes parameter values based on the selected script
+   */
+  initializeParameter() {
+    if (hasValue(this.script)) {
+      this.parameterValues = this.script.parameters
+        .filter((param) => param.mandatory)
+        .map(
+          (parameter: ScriptParameter) => Object.assign(new ProcessParameter(), { name: parameter.name })
+        );
+    }
+    this.addParameter();
   }
 
   /**

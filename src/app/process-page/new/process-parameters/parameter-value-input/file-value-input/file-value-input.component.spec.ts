@@ -1,6 +1,6 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../../../../shared/mocks/mock-translate-loader';
 import { By } from '@angular/platform-browser';
@@ -9,7 +9,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FileValueAccessorDirective } from '../../../../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../../../../shared/utils/require-file.validator';
 
-describe('FileValueInputComponent', () => {
+‡describe('FileValueInputComponent', () => {
   let component: FileValueInputComponent;
   let fixture: ComponentFixture<FileValueInputComponent>;
 

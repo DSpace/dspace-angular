@@ -5,6 +5,10 @@ import { ScriptParameter } from '../../scripts/script-parameter.model';
 import { Script } from '../../scripts/script.model';
 import { ScriptParameterType } from '../../scripts/script-parameter-type.model';
 import { By } from '@angular/platform-browser';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { MockTranslateLoader } from '../../../shared/testing/mock-translate-loader';
 
 describe('ScriptHelpComponent', () => {
   let component: ScriptHelpComponent;
@@ -25,7 +29,16 @@ describe('ScriptHelpComponent', () => {
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ ScriptHelpComponent ]
+      imports: [
+        FormsModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        })],
+      declarations: [ ScriptHelpComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

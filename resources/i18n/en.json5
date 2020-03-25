@@ -1616,6 +1616,8 @@
 
   "process.new.select-parameters": "Parameters",
 
+  "process.new.cancel": "Cancel",
+
   "process.new.submit": "Submit",
 
   "process.new.select-script": "Script",
@@ -1629,6 +1631,24 @@
   "process.new.parameter.file.required": "Please select a file",
 
   "process.new.parameter.string.required": "Parameter value is required",
+
+  "process.new.parameter.type.value": "value",
+
+  "process.new.parameter.type.file": "file",
+
+  "process.new.parameter.required.missing": "The following parameters are required but still missing:",
+
+  "process.new.notification.success.title": "Success",
+
+  "process.new.notification.success.content": "The process was successfully created",
+
+  "process.new.notification.error.title": "Error",
+
+  "process.new.notification.error.content": "An error occurred while creating this process",
+
+  "process.new.header": "Create a new process",
+
+  "process.new.title": "Create a new process",
 
 
 

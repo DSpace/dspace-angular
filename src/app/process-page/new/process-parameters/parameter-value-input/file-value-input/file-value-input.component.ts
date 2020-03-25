@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { ValueInputComponent } from '../value-input.component';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { controlContainerFactory } from '../../../new-process.component';
 
 /**
  * Represents the user inputted value of a file parameter
@@ -7,15 +9,18 @@ import { ValueInputComponent } from '../value-input.component';
 @Component({
   selector: 'ds-file-value-input',
   templateUrl: './file-value-input.component.html',
-  styleUrls: ['./file-value-input.component.scss']
+  styleUrls: ['./file-value-input.component.scss'],
+  viewProviders: [ { provide: ControlContainer,
+    useFactory: controlContainerFactory,
+    deps: [[new Optional(), NgForm]] } ]
 })
 export class FileValueInputComponent extends ValueInputComponent<File> {
   /**
    * The current value of the file
    */
-  file: File;
+  fileObject: File;
   setFile(files) {
-    this.file = files.length > 0 ? files[0] : undefined;
-    this.updateValue.emit(this.file);
+    this.fileObject = files.length > 0 ? files[0] : undefined;
+    this.updateValue.emit(this.fileObject);
   }
 }

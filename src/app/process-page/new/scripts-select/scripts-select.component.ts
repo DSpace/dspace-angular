@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { Script } from '../../scripts/script.model';
 import { Observable, Subscription } from 'rxjs';
@@ -7,6 +7,8 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { hasValue } from '../../../shared/empty.util';
+import { ControlContainer, FormControl, NgForm } from '@angular/forms';
+import { controlContainerFactory } from '../new-process.component';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
 
@@ -16,7 +18,10 @@ const SCRIPT_QUERY_PARAMETER = 'script';
 @Component({
   selector: 'ds-scripts-select',
   templateUrl: './scripts-select.component.html',
-  styleUrls: ['./scripts-select.component.scss']
+  styleUrls: ['./scripts-select.component.scss'],
+  viewProviders: [ { provide: ControlContainer,
+    useFactory: controlContainerFactory,
+    deps: [[new Optional(), NgForm]] } ]
 })
 export class ScriptsSelectComponent implements OnInit, OnDestroy {
   @Output() select: EventEmitter<Script> = new EventEmitter<Script>();

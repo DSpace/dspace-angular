@@ -9,6 +9,9 @@ import { MockTranslateLoader } from '../../shared/testing/mock-translate-loader'
 import { ScriptParameter } from '../scripts/script-parameter.model';
 import { Script } from '../scripts/script.model';
 import { ProcessParameter } from '../processes/process-parameter.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
+import { of as observableOf } from 'rxjs';
 
 describe('NewProcessComponent', () => {
   let component: NewProcessComponent;
@@ -26,7 +29,17 @@ describe('NewProcessComponent', () => {
       Object.assign(new ProcessParameter(), { name: '-b', value: '123' }),
       Object.assign(new ProcessParameter(), { name: '-c', value: 'value' }),
     ];
-    scriptService = jasmine.createSpyObj('scriptService', ['invoke'])
+    scriptService = jasmine.createSpyObj(
+      'scriptService',
+      {
+        invoke: observableOf({
+          response:
+            {
+              isSuccessful: true
+            }
+        })
+      }
+    )
   }
 
   beforeEach(async(() => {
@@ -43,6 +56,7 @@ describe('NewProcessComponent', () => {
       declarations: [NewProcessComponent],
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
+        { provide: NotificationsService, useValue: NotificationsServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -62,7 +76,7 @@ describe('NewProcessComponent', () => {
   });
 
   it('should call invoke on the scriptService on submit', () => {
-    component.submitForm({ invalid: false });
+    component.submitForm({ invalid: false } as any);
     expect(scriptService.invoke).toHaveBeenCalled();
   });
 });

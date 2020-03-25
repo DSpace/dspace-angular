@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Optional } from '@angular/core';
 import { ProcessParameter } from '../../../processes/process-parameter.model';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { hasNoValue } from '../../../../shared/empty.util';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { controlContainerFactory } from '../../new-process.component';
 
 /**
  * Component to select a single parameter for a process
@@ -9,13 +11,19 @@ import { hasNoValue } from '../../../../shared/empty.util';
 @Component({
   selector: 'ds-parameter-select',
   templateUrl: './parameter-select.component.html',
-  styleUrls: ['./parameter-select.component.scss']
+  styleUrls: ['./parameter-select.component.scss'],
+  viewProviders: [ { provide: ControlContainer,
+    useFactory: controlContainerFactory,
+    deps: [[new Optional(), NgForm]] } ]
 })
 export class ParameterSelectComponent implements OnInit {
+  @Input() index: number;
+
   /**
    * The current parameter value of the selected parameter
    */
   @Input() parameterValue: ProcessParameter;
+
   /**
    * The available script parameters for the script
    */

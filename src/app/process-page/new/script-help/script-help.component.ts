@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Script } from '../../scripts/script.model';
+import { ScriptParameterType } from '../../scripts/script-parameter-type.model';
 
 /**
  * Components that represents a help section for the script use and parameters
@@ -14,4 +15,9 @@ export class ScriptHelpComponent {
    * The current script to show the help information for
    */
   @Input() script: Script;
+
+  /**
+   * The available script parameter types
+   */
+  parameterTypes = ScriptParameterType;
 }

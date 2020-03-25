@@ -10,10 +10,12 @@ import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from '../default-change-analyzer.service';
 import { Script } from '../../../process-page/scripts/script.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
-import { map } from 'rxjs/operators';
+import { find, map, switchMap, tap } from 'rxjs/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { MultipartPostRequest, RestRequest } from '../request.models';
 import { RequestService } from '../request.service';
+import { Observable } from 'rxjs';
+import { RequestEntry } from '../request.reducer';
 
 @Injectable()
 export class ScriptDataService extends DataService<Script> {
@@ -31,15 +33,18 @@ export class ScriptDataService extends DataService<Script> {
     super();
   }
 
-  public invoke(scriptName: string, parameters: ProcessParameter[], files: File[]) {
-    this.getBrowseEndpoint().pipe(
+  public invoke(scriptName: string, parameters: ProcessParameter[], files: File[]): Observable<RequestEntry> {
+    const requestId = this.requestService.generateRequestId();
+    return this.getBrowseEndpoint().pipe(
       map((endpoint: string) => new URLCombiner(endpoint, scriptName, 'processes').toString()),
       map((endpoint: string) => {
         const body = this.getInvocationFormData(parameters, files);
-        return new MultipartPostRequest(this.requestService.generateRequestId(), endpoint, body)
+        return new MultipartPostRequest(requestId, endpoint, body)
       }),
-      map((request: RestRequest) => this.requestService.configure(request))
-    ).subscribe();
+      map((request: RestRequest) => this.requestService.configure(request)),
+      switchMap(() => this.requestService.getByUUID(requestId)),
+      find((request: RequestEntry) => request.completed)
+    );
   }
 
   private getInvocationFormData(parameters: ProcessParameter[], files: File[]): FormData {

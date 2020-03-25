@@ -8,6 +8,7 @@ import { NewProcessComponent } from './new/new-process.component';
       {
         path: 'new',
         component: NewProcessComponent,
+        data: { title: 'process.new.title' }
       },
     ])
   ]

@@ -3,7 +3,13 @@ import { Script } from '../scripts/script.model';
 import { Process } from '../processes/process.model';
 import { ProcessParameter } from '../processes/process-parameter.model';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { NgForm } from '@angular/forms';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { ScriptParameter } from '../scripts/script-parameter.model';
+import { RequestEntry } from '../../core/data/request.reducer';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
+import { pipe } from 'rxjs';
 
 /**
  * Component to create a new script
@@ -27,14 +33,19 @@ export class NewProcessComponent implements OnInit {
   /**
    * The parameter values to use to start the process
    */
-  public parameters: ProcessParameter[];
+  public parameters: ProcessParameter[] = [];
 
   /**
    * Optional files that are used as parameter values
    */
   public files: File[] = [];
 
-  constructor(private scriptService: ScriptDataService) {
+  /**
+   * Contains the missing parameters on submission
+   */
+  public missingParameters = [];
+
+  constructor(private scriptService: ScriptDataService, private notificationsService: NotificationsService, private translationService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -46,7 +57,7 @@ export class NewProcessComponent implements OnInit {
    * @param form
    */
   submitForm(form: NgForm) {
-    if (!this.validateForm(form)) {
+    if (!this.validateForm(form) || this.isRequiredMissing()) {
       return;
     }
 
@@ -58,6 +69,18 @@ export class NewProcessComponent implements OnInit {
       }
     );
     this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files)
+      .pipe(take(1))
+      .subscribe((requestEntry: RequestEntry) => {
+        if (requestEntry.response.isSuccessful) {
+          const title = this.translationService.get('process.new.notification.success.title');
+          const content = this.translationService.get('process.new.notification.success.content');
+          this.notificationsService.success(title, content)
+        } else {
+          const title = this.translationService.get('process.new.notification.error.title');
+          const content = this.translationService.get('process.new.notification.error.content');
+          this.notificationsService.error(title, content)
+        }
+      })
   }
 
   /**
@@ -69,7 +92,7 @@ export class NewProcessComponent implements OnInit {
     if (typeof processParameter.value === 'object') {
       this.files = [...this.files, processParameter.value];
       return processParameter.value.name;
-  }
+    }
     return processParameter.value;
   }
 
@@ -88,4 +111,20 @@ export class NewProcessComponent implements OnInit {
     }
     return true;
   }
+
+  private isRequiredMissing() {
+    const setParams: string[] = this.parameters
+      .map((param) => param.name);
+    const requiredParams: ScriptParameter[] = this.selectedScript.parameters.filter((param) => param.mandatory)
+    for (const rp of requiredParams) {
+      if (!setParams.includes(rp.name)) {
+        this.missingParameters.push(rp.name);
+      }
+    }
+    return this.missingParameters.length > 0;
+  }
+}
+
+export function controlContainerFactory(controlContainer?: ControlContainer) {
+  return controlContainer;
 }
