@@ -40,6 +40,11 @@ export class ProcessOverviewComponent implements OnInit {
     pageSize: 20
   });
 
+  /**
+   * Date format to use for start and end time of processes
+   */
+  dateFormat = 'yyyy-MM-dd HH:mm:ss';
+
   constructor(protected processService: ProcessDataService,
               protected ePersonService: EPersonDataService) {
   }

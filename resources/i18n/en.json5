@@ -1538,6 +1538,8 @@
 
   "process.page.detail.arguments.empty" : "This process doesn't contain any arguments",
 
+  "process.page.detail.back" : "Back",
+
   "process.page.detail.output" : "Process Output",
 
   "process.page.detail.output.alert" : "Work in progress - Process output is not available yet",
