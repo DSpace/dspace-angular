@@ -181,6 +181,7 @@ import { SortablejsModule } from 'ngx-sortablejs';
 import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
 import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
+import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -352,6 +353,7 @@ const COMPONENTS = [
   ExistingMetadataListElementComponent,
   ItemVersionsComponent,
   PublicationSearchResultListElementComponent,
+  ItemVersionsNoticeComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -417,7 +419,8 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationExternalSourceTabComponent,
   ExternalSourceEntryImportModalComponent,
   ItemVersionsComponent,
-  BundleListElementComponent
+  BundleListElementComponent,
+  ItemVersionsNoticeComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
