@@ -27,22 +27,22 @@ describe('ProcessOverviewComponent', () => {
       Object.assign(new Process(), {
         processId: 1,
         scriptName: 'script-name',
-        startTime: '2020-03-19T13:20:23.535+0000',
-        endTime: '2020-03-19T13:27:36.720+0000',
+        startTime: '2020-03-19',
+        endTime: '2020-03-19',
         processStatus: ProcessStatus.COMPLETED
       }),
       Object.assign(new Process(), {
         processId: 2,
         scriptName: 'script-name',
-        startTime: '2020-03-20T11:21:23.487+0000',
-        endTime: '2020-03-20T11:22:36.165+0000',
+        startTime: '2020-03-20',
+        endTime: '2020-03-20',
         processStatus: ProcessStatus.FAILED
       }),
       Object.assign(new Process(), {
         processId: 3,
         scriptName: 'another-script-name',
-        startTime: '2020-03-21T20:05:00.784+0000',
-        endTime: '2020-03-21T20:15:56.126+0000',
+        startTime: '2020-03-21',
+        endTime: '2020-03-21',
         processStatus: ProcessStatus.RUNNING
       })
     ];

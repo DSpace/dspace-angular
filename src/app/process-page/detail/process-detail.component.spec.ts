@@ -19,7 +19,7 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
-fdescribe('ProcessDetailComponent', () => {
+describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
   let fixture: ComponentFixture<ProcessDetailComponent>;
 
