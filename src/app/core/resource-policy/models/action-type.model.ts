@@ -5,27 +5,27 @@ export enum ActionType {
   /**
    * Action of reading, viewing or downloading something
    */
-  READ = 0,
+  READ = 'READ',
 
   /**
    * Action of modifying something
    */
-  WRITE = 1,
+  WRITE = 'WRITE',
 
   /**
    * Action of deleting something
    */
-  DELETE = 2,
+  DELETE = 'DELETE',
 
   /**
    * Action of adding something to a container
    */
-  ADD = 3,
+  ADD = 'ADD',
 
   /**
    * Action of removing something from a container
    */
-  REMOVE = 4,
+  REMOVE = 'REMOVE',
 
   /**
    * Action of performing workflow step 1
@@ -50,15 +50,20 @@ export enum ActionType {
   /**
    * Default Read policies for Bitstreams submitted to container
    */
-  DEFAULT_BITSTREAM_READ = 9,
+  DEFAULT_BITSTREAM_READ = 'DEFAULT_BITSTREAM_READ',
 
   /**
    *  Default Read policies for Items submitted to container
    */
-  DEFAULT_ITEM_READ = 10,
+  DEFAULT_ITEM_READ = 'DEFAULT_ITEM_READ',
 
   /**
    * Administrative actions
    */
-  ADMIN = 11,
+  ADMIN = 'ADMIN',
+
+  /**
+   * Action of withdrawn reading
+   */
+  WITHDRAWN_READ = 'WITHDRAWN_READ'
 }

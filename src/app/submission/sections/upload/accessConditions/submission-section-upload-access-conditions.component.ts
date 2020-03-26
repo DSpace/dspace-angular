@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { find } from 'rxjs/operators';
 
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { ResourcePolicy } from '../../../../core/shared/resource-policy.model';
+import { ResourcePolicy } from '../../../../core/resource-policy/models/resource-policy.model';
 import { isEmpty } from '../../../../shared/empty.util';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { RemoteData } from '../../../../core/data/remote-data';

@@ -11,16 +11,19 @@ import { RequestService } from '../data/request.service';
 import { FindListOptions } from '../data/request.models';
 import { Collection } from '../shared/collection.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ResourcePolicy } from '../shared/resource-policy.model';
+import { ResourcePolicy } from './models/resource-policy.model';
 import { RemoteData } from '../data/remote-data';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RESOURCE_POLICY } from '../shared/resource-policy.resource-type';
-import { ChangeAnalyzer } from './change-analyzer';
+import { RESOURCE_POLICY } from './models/resource-policy.resource-type';
+import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from '../data/paginated-list';
+import { ActionType } from './models/action-type.model';
+import { SearchParam } from '../cache/models/search-param.model';
+import { isNotEmpty } from '../../shared/empty.util';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -51,6 +54,9 @@ class DataServiceImpl extends DataService<ResourcePolicy> {
 @dataService(RESOURCE_POLICY)
 export class ResourcePolicyService {
   private dataService: DataServiceImpl;
+  protected searchByEPersonMethod = 'eperson';
+  protected searchByGroupMethod = 'group';
+  protected searchByResourceMethod = 'resource';
 
   constructor(
     protected requestService: RequestService,
@@ -74,13 +80,13 @@ export class ResourcePolicyService {
   }
 
   /**
-   * Returns a list of observables of {@link RemoteData} of {@link ResourcePolicy}s, based on an href, with a list of {@link FollowLinkConfig},
-   * to automatically resolve {@link HALLink}s of the {@link ResourcePolicy}
-   * @param href            The url of the {@link ResourcePolicy} we want to retrieve
+   * Returns an observable of {@link RemoteData} of a {@link ResourcePolicy}, based on its ID, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
+   * @param id              ID of {@link ResourcePolicy} we want to retrieve
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
-    return this.dataService.findAllByHref(href, findListOptions, ...linksToFollow);
+  findById(id: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<ResourcePolicy>> {
+    return this.dataService.findById(id, ...linksToFollow);
   }
 
   /**
@@ -92,4 +98,53 @@ export class ResourcePolicyService {
   getDefaultAccessConditionsFor(collection: Collection, findListOptions?: FindListOptions): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     return this.dataService.findAllByHref(collection._links.defaultAccessConditions.href, findListOptions);
   }
+
+  /**
+   * Return the {@link ResourcePolicy} list for a {@link EPerson}
+   *
+   * @param UUID           UUID of a given {@link EPerson}
+   * @param resourceUUID   Limit the returned policies to the specified DSO
+   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  searchByEPerson(UUID: string, resourceUUID?: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>) {
+    const options = new FindListOptions();
+    options.searchParams = [new SearchParam('uuid', UUID)];
+    if (isNotEmpty(resourceUUID)) {
+      options.searchParams.push(new SearchParam('resource', resourceUUID))
+    }
+    return this.dataService.searchBy(this.searchByEPersonMethod, options, ...linksToFollow)
+  }
+
+  /**
+   * Return the {@link ResourcePolicy} list for a {@link Group}
+   *
+   * @param UUID           UUID of a given {@link Group}
+   * @param resourceUUID   Limit the returned policies to the specified DSO
+   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  searchByGroup(UUID: string, resourceUUID?: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>) {
+    const options = new FindListOptions();
+    options.searchParams = [new SearchParam('uuid', UUID)];
+    if (isNotEmpty(resourceUUID)) {
+      options.searchParams.push(new SearchParam('resource', resourceUUID))
+    }
+    return this.dataService.searchBy(this.searchByGroupMethod, options, ...linksToFollow)
+  }
+
+  /**
+   * Return the {@link ResourcePolicy} list for a given DSO
+   *
+   * @param UUID           UUID of a given DSO
+   * @param action         Limit the returned policies to the specified {@link ActionType}
+   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  searchByResource(UUID: string, action?: ActionType, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>) {
+    const options = new FindListOptions();
+    options.searchParams = [new SearchParam('uuid', UUID)];
+    if (isNotEmpty(action)) {
+      options.searchParams.push(new SearchParam('action', action))
+    }
+    return this.dataService.searchBy(this.searchByResourceMethod, options, ...linksToFollow)
+  }
+
 }

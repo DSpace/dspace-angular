@@ -19,7 +19,8 @@ import {
   mockSubmissionId,
   mockSubmissionState,
   mockUploadConfigResponse,
-  mockUploadConfigResponseNotRequired, mockUploadFiles,
+  mockUploadConfigResponseNotRequired,
+  mockUploadFiles,
 } from '../../../shared/mocks/mock-submission';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -28,10 +29,10 @@ import { SectionUploadService } from './section-upload.service';
 import { SubmissionSectionUploadComponent } from './section-upload.component';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { cold, hot } from 'jasmine-marbles';
+import { cold } from 'jasmine-marbles';
 import { Collection } from '../../../core/shared/collection.model';
-import { ResourcePolicy } from '../../../core/shared/resource-policy.model';
-import { ResourcePolicyService } from '../../../core/data/resource-policy.service';
+import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
 import { ConfigData } from '../../../core/config/config-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Group } from '../../../core/eperson/models/group.model';
