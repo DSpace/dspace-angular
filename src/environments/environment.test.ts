@@ -1,25 +1,21 @@
 // This configuration is currently only being used for unit tests, end-to-end tests use environment.dev.ts
-import { environment as defaultEnv } from './environment.common';
 import { GlobalConfig } from '../config/global-config.interface';
-import { ServerConfig } from '../config/server-config.interface';
 
-export const environment: GlobalConfig = {
-  ...defaultEnv,
-
-  rest: new ServerConfig(
-    true,
-    'rest.com',
-    443,
+export const environment: Partial<GlobalConfig> = {
+  rest: {
+    ssl: true,
+    host: 'rest.com',
+    port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    '/api',
-  ),
-  ui: new ServerConfig(
-    false,
-    'dspace.com',
-    80,
+    nameSpace: '/api'
+  },
+  ui: {
+    ssl: false,
+    host: 'dspace.com',
+    port: 80,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    '/angular-dspace',
-  ),
+    nameSpace: '/angular-dspace',
+  },
   submission: {
     autosave: {
       // NOTE: which metadata trigger an autosave

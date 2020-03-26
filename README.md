@@ -93,7 +93,7 @@ import { environment } from '../environment.ts';
 Running the app
 ---------------
 
-After you have installed all dependencies you can now run the app. Run `yarn run start:dev` to start a local server which will watch for changes, rebuild the code, and reload the server for you. You can visit it at `http://localhost:4200`.
+After you have installed all dependencies you can now run the app. Run `yarn run start:dev` to start a local server which will watch for changes, rebuild the code, and reload the server for you. You can visit it at `http://localhost:4000`.
 
 ### Running in production mode
 
@@ -372,7 +372,7 @@ Frequently asked questions
 -	Where do I write my tests?
 	-	You can write your tests next to your component files. e.g. for `src/app/home/home.component.ts` call it `src/app/home/home.component.spec.ts`
 -	How do I start the app when I get `EACCES` and `EADDRINUSE` errors?
-	-	The `EADDRINUSE` error means the port `4000` of `4200` is currently being used and `EACCES` is lack of permission to build files to `./dist/`
+	-	The `EADDRINUSE` error means the port `4000` is currently being used and `EACCES` is lack of permission to build files to `./dist/`
 -	What are the naming conventions for Angular 2?
 	-	See [the official angular 2 style guide](https://angular.io/styleguide)
 -	Why is the size of my app larger in development?

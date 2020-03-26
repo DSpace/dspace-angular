@@ -2,26 +2,25 @@ import { GlobalConfig } from '../config/global-config.interface';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { BrowseByType } from '../app/+browse-by/+browse-by-switcher/browse-by-decorator';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
-import { ServerConfig } from '../config/server-config.interface';
 
 export const environment: GlobalConfig = {
   production: true,
   // Angular Universal server settings.
-  ui: new ServerConfig(
-    false,
-    'localhost',
-    4000,
+  ui: {
+    ssl: false,
+    host: 'localhost',
+    port: 4000,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    '/',
-  ),
+    nameSpace: '/',
+  },
   // The REST API server settings.
-  rest: new ServerConfig(
-    true,
-    'dspace7.4science.cloud',
-    443,
+  rest: {
+    ssl: true,
+    host: 'dspace7.4science.cloud',
+    port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    '/server/api',
-  ),
+    nameSpace: '/server/api',
+  },
   // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default
