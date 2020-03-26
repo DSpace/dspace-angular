@@ -1,12 +1,16 @@
-<h3>{{script?.name}}</h3>
-<span>{{script?.description}}</span>
+<div class="text-secondary">
+  <h3>{{script?.name}}</h3>
+  <span>{{script?.description}}</span>
 
-<table class="table-borderless mt-3 text-secondary">
+  <table class="table-borderless mt-3">
     <tr *ngFor="let param of script?.parameters">
-        <td class="align-top text-nowrap">{{param.name}} {{param.nameLong}} <ng-container *ngTemplateOutlet="type; context: param"></ng-container></td>
-        <td>{{param.description}}</td>
+      <td class="align-top text-nowrap">{{param.name}} {{param.nameLong}}
+        <ng-container *ngTemplateOutlet="type; context: param"></ng-container>
+      </td>
+      <td>{{param.description}}</td>
     </tr>
-</table>
+  </table>
+</div>
 
 <ng-template #type let-type="type">
     <ng-container [ngSwitch]="type">
