@@ -1204,7 +1204,11 @@
 
   "login.form.new-user": "New user? Click here to register.",
 
+  "login.form.or-divider": "or",
+
   "login.form.password": "Password",
+
+  "login.form.shibboleth": "Log in with Shibboleth",
 
   "login.form.submit": "Log in",
 

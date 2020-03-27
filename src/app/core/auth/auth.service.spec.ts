@@ -27,6 +27,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../data/remote-data';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { EPersonDataService } from '../eperson/eperson-data.service';
+import { authMethodsMock } from '../../shared/testing/auth-service-stub';
+import { AuthMethod } from './models/auth.method';
 
 describe('AuthService test', () => {
 
@@ -144,6 +146,26 @@ describe('AuthService test', () => {
       expect(authService.logout.bind(null)).toThrow();
     });
 
+    it('should return the authentication status object to check an Authentication Cookie', () => {
+      authService.checkAuthenticationCookie().subscribe((status: AuthStatus) => {
+        expect(status).toBeDefined();
+      });
+    });
+
+    it('should return the authentication methods available', () => {
+      const authStatus = new AuthStatus();
+
+      authService.retrieveAuthMethodsFromAuthStatus(authStatus).subscribe((authMethods: AuthMethod[]) => {
+        expect(authMethods).toBeDefined();
+        expect(authMethods.length).toBe(0);
+      });
+
+      authStatus.authMethods = authMethodsMock;
+      authService.retrieveAuthMethodsFromAuthStatus(authStatus).subscribe((authMethods: AuthMethod[]) => {
+        expect(authMethods).toBeDefined();
+        expect(authMethods.length).toBe(2);
+      });
+    });
   });
 
   describe('', () => {

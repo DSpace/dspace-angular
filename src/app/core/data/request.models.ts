@@ -230,6 +230,8 @@ export class AuthPostRequest extends PostRequest {
 }
 
 export class AuthGetRequest extends GetRequest {
+  forceBypassCache = true;
+
   constructor(uuid: string, href: string, public options?: HttpOptions) {
     super(uuid, href, null, options);
   }
