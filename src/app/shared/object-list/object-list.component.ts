@@ -35,6 +35,11 @@ export class ObjectListComponent {
   @Input() sortConfig: SortOptions;
 
   /**
+   * Optional array of SortOptions to support field selection from the pagination gear
+   */
+  @Input() sortOptionsMulti: SortOptions[];
+
+  /**
    * Whether or not the list elements have a border
    */
   @Input() hasBorder = false;

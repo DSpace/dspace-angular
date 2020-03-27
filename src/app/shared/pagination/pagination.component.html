@@ -13,6 +13,10 @@
             <button class="dropdown-item" *ngFor="let item of pageSizeOptions" (click)="doPageSizeChange(item)"><i [ngClass]="{'invisible': item != pageSize}" class="fas fa-check" aria-hidden="true"></i> {{item}} </button>
             <h6 class="dropdown-header">{{ 'pagination.sort-direction' | translate}}</h6>
             <button class="dropdown-item" *ngFor="let direction of (sortDirections | dsKeys)" (click)="doSortDirectionChange(direction.value)"><i [ngClass]="{'invisible': direction.value !== sortDirection}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}} </button>
+            <div *ngIf="sortOptionsMulti != null">
+              <h6 class="dropdown-header">{{ 'pagination.sort-field' | translate}}</h6>
+              <button class="dropdown-item" *ngFor="let field of (sortOptionsMulti)" (click)="doSortFieldChange(field.field)"><i [ngClass]="{'invisible': field.field !== sortField}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + field.field }} </button>
+            </div>
           </div>
         </div>
       </div>
