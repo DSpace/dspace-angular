@@ -3,7 +3,7 @@ import { NotificationAnimationsType } from './notification-animations-type';
 export interface INotificationOptions {
   timeOut: number;
   clickToClose: boolean;
-  animate: NotificationAnimationsType;
+  animate: NotificationAnimationsType | string;
 }
 
 export class NotificationOptions implements INotificationOptions {
@@ -13,7 +13,7 @@ export class NotificationOptions implements INotificationOptions {
 
   constructor(timeOut = 5000,
               clickToClose = true,
-              animate = NotificationAnimationsType.Scale) {
+              animate: NotificationAnimationsType | string = NotificationAnimationsType.Scale) {
 
     this.timeOut = timeOut;
     this.clickToClose = clickToClose;

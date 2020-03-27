@@ -7,7 +7,6 @@
     "config:prod": "ts-node --project ./tsconfig.ts-node.json scripts/set-env.ts --prod",
     "config:test": "ts-node --project ./tsconfig.ts-node.json scripts/set-env.ts --test",
     "prestart:dev": "yarn run config:dev",
-    "prestart:prod": "yarn run config:prod",
     "prebuild": "yarn run config:dev",
     "pretest": "yarn run config:test",
     "pretest:headless": "yarn run config:test",

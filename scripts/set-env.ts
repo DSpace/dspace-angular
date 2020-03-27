@@ -43,6 +43,7 @@ import(environmentFilePath)
   .catch(() => generateEnvironmentFile(merge(commonEnv, processEnv)));
 
 function generateEnvironmentFile(file: GlobalConfig): void {
+  console.log(file);
   buildBaseUrls(file);
   const contents = `export const environment = ` + JSON.stringify(file);
   console.log(colors.magenta('The file `environment.ts` will be written with the following content: \n'));
@@ -54,12 +55,18 @@ function generateEnvironmentFile(file: GlobalConfig): void {
       console.log(colors.magenta(`Angular environment.ts file generated correctly at ${targetPath} \n`));
     }
   });
-  console.log(file);
 }
 
 // allow to override a few important options by environment variables
 function createServerConfig(host?: string,  port?: string, nameSpace?: string, ssl?: string): ServerConfig {
-  const result = { host, nameSpace } as any;
+  const result = {} as any;
+  if (hasValue(host)) {
+    result.host = host;
+  }
+
+  if (hasValue(nameSpace)) {
+    result.host = nameSpace;
+  }
 
   if (hasValue(port)) {
     result.port = Number(port);
@@ -75,6 +82,8 @@ function createServerConfig(host?: string,  port?: string, nameSpace?: string, s
 function buildBaseUrls(config: GlobalConfig): void {
   for (const key in config) {
     if (config.hasOwnProperty(key) && config[key].host) {
+      console.log(key);
+      console.log(config[key]);
       config[key].baseUrl = [
         getProtocol(config[key].ssl),
         getHost(config[key].host),
