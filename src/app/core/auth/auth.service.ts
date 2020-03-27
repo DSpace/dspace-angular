@@ -23,7 +23,7 @@ import { NativeWindowRef, NativeWindowService } from '../services/window.service
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RouteService } from '../services/route.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../shared/operators';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -149,7 +149,7 @@ export class AuthService {
    */
   public retrieveAuthenticatedUserByHref(userHref: string): Observable<EPerson> {
     return this.epersonService.findByHref(userHref).pipe(
-      getFirstSucceededRemoteDataPayload()
+      getAllSucceededRemoteDataPayload()
     )
   }
 

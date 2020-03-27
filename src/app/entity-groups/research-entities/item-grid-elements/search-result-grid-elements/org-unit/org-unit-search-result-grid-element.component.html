@@ -1,41 +1,49 @@
-<ds-truncatable [id]="dso.id">
-    <div class="card" [@focusShadow]="(isCollapsed$ | async)?'blur':'focus'">
-        <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]" class="card-img-top full-width">
-            <div>
-                <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
-                </ds-grid-thumbnail>
-            </div>
-        </a>
-        <span *ngIf="linkType == linkTypes.None" class="card-img-top full-width">
+<div class="card" [@focusShadow]="(isCollapsed$ | async)?'blur':'focus'">
+  <ds-truncatable [id]="dso.id">
+    <ng-content></ng-content>
+    <a *ngIf="linkType != linkTypes.None"
+       [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
+       rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]"
+       class="card-img-top full-width">
+      <div>
+        <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
+        </ds-grid-thumbnail>
+      </div>
+    </a>
+    <span *ngIf="linkType == linkTypes.None" class="card-img-top full-width">
             <div>
                 <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
                 </ds-grid-thumbnail>
             </div>
         </span>
-        <div class="card-body">
-            <ds-item-type-badge [object]="dso"></ds-item-type-badge>
-            <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
-                <h4 class="card-title" [innerHTML]="firstMetadataValue('organization.legalName')"></h4>
-            </ds-truncatable-part>
-            <p *ngIf="dso.hasMetadata('organization.foundingDate')" class="item-date card-text text-muted">
-                <ds-truncatable-part [id]="dso.id" [minLines]="1">
-                    <span [innerHTML]="firstMetadataValue('organization.foundingDate')"></span>
-                </ds-truncatable-part>
-            </p>
-            <p *ngIf="dso.hasMetadata('organization.address.addressCountry')"
-               class="item-location card-text">
-                <ds-truncatable-part [id]="dso.id" [minLines]="3">
-                    <span class="item-country">{{firstMetadataValue('organization.address.addressCountry')}}</span>
-                    <span *ngIf="dso.hasMetadata('organization.address.addressLocality')" class="item-city">
+    <div class="card-body">
+      <ds-item-type-badge [object]="dso"></ds-item-type-badge>
+      <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
+        <h4 class="card-title" [innerHTML]="firstMetadataValue('organization.legalName')"></h4>
+      </ds-truncatable-part>
+      <p *ngIf="dso.hasMetadata('organization.foundingDate')"
+         class="item-date card-text text-muted">
+        <ds-truncatable-part [id]="dso.id" [minLines]="1">
+          <span [innerHTML]="firstMetadataValue('organization.foundingDate')"></span>
+        </ds-truncatable-part>
+      </p>
+      <p *ngIf="dso.hasMetadata('organization.address.addressCountry')"
+         class="item-location card-text">
+        <ds-truncatable-part [id]="dso.id" [minLines]="3">
+          <span
+            class="item-country">{{firstMetadataValue('organization.address.addressCountry')}}</span>
+          <span *ngIf="dso.hasMetadata('organization.address.addressLocality')" class="item-city">
             <span>, </span>
-                        {{firstMetadataValue('organization.address.addressLocality')}}
+            {{firstMetadataValue('organization.address.addressLocality')}}
           </span>
-                </ds-truncatable-part>
-            </p>
-            <div *ngIf="linkType != linkTypes.None" class="text-center">
-                <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]"
-                  class="lead btn btn-primary viewButton">View</a>
-            </div>
-        </div>
+        </ds-truncatable-part>
+      </p>
+      <div *ngIf="linkType != linkTypes.None" class="text-center">
+        <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
+           rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]"
+           class="lead btn btn-primary viewButton">View</a>
+      </div>
     </div>
-</ds-truncatable>
+  </ds-truncatable>
+  <ng-content></ng-content>
+</div>

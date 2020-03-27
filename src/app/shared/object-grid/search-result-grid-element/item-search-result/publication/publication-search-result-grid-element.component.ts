@@ -7,6 +7,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)
+@listableObjectComponent(ItemSearchResult, ViewMode.GridElement)
 @Component({
   selector: 'ds-publication-search-result-grid-element',
   styleUrls: ['./publication-search-result-grid-element.component.scss'],

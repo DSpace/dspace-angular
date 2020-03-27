@@ -6,7 +6,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 
 import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
@@ -176,7 +176,10 @@ import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynam
 import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { SortablejsModule } from 'ngx-sortablejs';
+import { MissingTranslationHelper } from './translate/missing-translation.helper';
+import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
 import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
 import { ClaimedTaskActionsEditMetadataComponent } from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
@@ -197,7 +200,6 @@ const MODULES = [
   NgxPaginationModule,
   ReactiveFormsModule,
   RouterModule,
-  TranslateModule,
   NouisliderModule,
   MomentModule,
   TextMaskModule,
@@ -206,7 +208,11 @@ const MODULES = [
 ];
 
 const ROOT_MODULES = [
-  TooltipModule.forRoot()
+  TranslateModule.forChild({
+    missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+    useDefaultLang: true
+  }),
+  TooltipModule.forRoot(),
 ];
 
 const PIPES = [
@@ -344,7 +350,10 @@ const COMPONENTS = [
   SelectableListItemControlComponent,
   ExternalSourceEntryImportModalComponent,
   ImportableListItemControlComponent,
-  ExistingMetadataListElementComponent
+  ExistingMetadataListElementComponent,
+  ItemVersionsComponent,
+  PublicationSearchResultListElementComponent,
+  ItemVersionsNoticeComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -408,6 +417,8 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
   ExternalSourceEntryImportModalComponent,
+  ItemVersionsComponent,
+  ItemVersionsNoticeComponent,
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
@@ -445,8 +456,8 @@ const DIRECTIVES = [
 
 @NgModule({
   imports: [
+    ...ROOT_MODULES,
     ...MODULES,
-    ...ROOT_MODULES
   ],
   declarations: [
     ...PIPES,
@@ -454,8 +465,7 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    PublicationSearchResultListElementComponent,
-    ExistingMetadataListElementComponent
+
   ],
   providers: [
     ...PROVIDERS

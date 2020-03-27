@@ -1,0 +1,12 @@
+<div *ngIf="dso && !dso.isDiscoverable" class="private-badge">
+    <span class="badge badge-danger">{{ "admin.search.item.private" | translate }}</span>
+</div>
+<div *ngIf="dso && dso.isWithdrawn" class="withdrawn-badge">
+    <span class="badge badge-warning">{{ "admin.search.item.withdrawn" | translate }}</span>
+</div>
+<ds-listable-object-component-loader [object]="object"
+                                     [viewMode]="viewModes.ListElement"
+                                     [index]="index"
+                                     [linkType]="linkType"
+                                     [listID]="listID"></ds-listable-object-component-loader>
+<ds-item-admin-search-result-actions-element [item]="dso" [small]="false"></ds-item-admin-search-result-actions-element>

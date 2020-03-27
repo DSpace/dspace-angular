@@ -1,6 +1,7 @@
 <div class="container" *ngVar="(itemRD$ | async) as itemRD">
   <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="itemRD?.payload as item">
+      <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
       <ds-view-tracker [object]="item"></ds-view-tracker>
       <ds-item-page-title-field [item]="item"></ds-item-page-title-field>
       <div class="simple-view-link my-3">
@@ -21,6 +22,7 @@
       </table>
       <ds-item-page-full-file-section [item]="item"></ds-item-page-full-file-section>
       <ds-item-page-collections [item]="item"></ds-item-page-collections>
+      <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
     </div>
   </div>
   <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>
