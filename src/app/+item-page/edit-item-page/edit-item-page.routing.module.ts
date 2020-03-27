@@ -14,6 +14,7 @@ import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
+import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 
 export const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
 export const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
@@ -21,6 +22,7 @@ export const ITEM_EDIT_PRIVATE_PATH = 'private';
 export const ITEM_EDIT_PUBLIC_PATH = 'public';
 export const ITEM_EDIT_DELETE_PATH = 'delete';
 export const ITEM_EDIT_MOVE_PATH = 'move';
+export const ITEM_EDIT_AUTHORIZATIONS_PATH = 'authorizations';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -111,6 +113,11 @@ export const ITEM_EDIT_MOVE_PATH = 'move';
             path: ITEM_EDIT_MOVE_PATH,
             component: ItemMoveComponent,
             data: { title: 'item.edit.move.title' },
+          },
+          {
+            path: ITEM_EDIT_AUTHORIZATIONS_PATH,
+            component: ItemAuthorizationsComponent,
+            data: { title: 'item.edit.authorizations.title' },
           }
         ]
       }

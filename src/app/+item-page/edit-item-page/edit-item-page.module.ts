@@ -23,6 +23,7 @@ import { EditRelationshipListComponent } from './item-relationships/edit-relatio
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.component';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
+import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -55,6 +56,7 @@ import { ItemVersionHistoryComponent } from './item-version-history/item-version
     ItemCollectionMapperComponent,
     ItemMoveComponent,
     VirtualMetadataComponent,
+    ItemAuthorizationsComponent
   ]
 })
 export class EditItemPageModule {

@@ -106,7 +106,7 @@ export class ResourcePolicyService {
    * @param resourceUUID   Limit the returned policies to the specified DSO
    * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByEPerson(UUID: string, resourceUUID?: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>) {
+  searchByEPerson(UUID: string, resourceUUID?: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new SearchParam('uuid', UUID)];
     if (isNotEmpty(resourceUUID)) {
@@ -122,7 +122,7 @@ export class ResourcePolicyService {
    * @param resourceUUID   Limit the returned policies to the specified DSO
    * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByGroup(UUID: string, resourceUUID?: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>) {
+  searchByGroup(UUID: string, resourceUUID?: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new SearchParam('uuid', UUID)];
     if (isNotEmpty(resourceUUID)) {
@@ -138,7 +138,7 @@ export class ResourcePolicyService {
    * @param action         Limit the returned policies to the specified {@link ActionType}
    * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByResource(UUID: string, action?: ActionType, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>) {
+  searchByResource(UUID: string, action?: ActionType, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new SearchParam('uuid', UUID)];
     if (isNotEmpty(action)) {
