@@ -1,0 +1,6 @@
+{
+  "watch": ["src/environments"],
+  "ext": "ts",
+  "ignore": ["src/environments/environment.ts"],
+  "exec": "ts-node --project ./tsconfig.ts-node.json scripts/set-env.ts --dev"
+}

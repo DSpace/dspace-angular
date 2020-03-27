@@ -1,9 +1,10 @@
+import { BrowseByType } from '../../../+browse-by/+browse-by-switcher/browse-by-decorator';
 import { NotificationAnimationsType } from './notification-animations-type';
 
 export interface INotificationOptions {
   timeOut: number;
   clickToClose: boolean;
-  animate: NotificationAnimationsType | string;
+  animate: BrowseByType;
 }
 
 export class NotificationOptions implements INotificationOptions {
@@ -17,6 +18,6 @@ export class NotificationOptions implements INotificationOptions {
 
     this.timeOut = timeOut;
     this.clickToClose = clickToClose;
-    this.animate = animate;
+    this.animate = BrowseByType[animate];
   }
 }

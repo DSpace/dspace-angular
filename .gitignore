@@ -7,6 +7,10 @@ npm-debug.log
 
 /build/
 
+/src/environments/environment.ts
+/src/environments/environment.dev.ts
+/src/environments/environment.prod.ts
+
 /coverage
 
 /dist/
@@ -33,3 +37,5 @@ yarn-error.log
 package-lock.json
 
 .java-version
+
+.env

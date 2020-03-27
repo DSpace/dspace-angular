@@ -13,9 +13,12 @@ const merge = require('deepmerge');
 
 const environment = process.argv[2];
 let environmentFilePath;
+let production = false;
+
 switch (environment) {
   case '--prod':
   case '--production':
+    production = true;
     environmentFilePath = '../src/environments/environment.prod.ts';
     break;
   case '--test':
@@ -43,7 +46,7 @@ import(environmentFilePath)
   .catch(() => generateEnvironmentFile(merge(commonEnv, processEnv)));
 
 function generateEnvironmentFile(file: GlobalConfig): void {
-  console.log(file);
+  file.production = production;
   buildBaseUrls(file);
   const contents = `export const environment = ` + JSON.stringify(file);
   console.log(colors.magenta('The file `environment.ts` will be written with the following content: \n'));
