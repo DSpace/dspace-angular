@@ -19,12 +19,15 @@ switch (environment) {
   case '--prod':
   case '--production':
     production = true;
+    console.log(`Building ${colors.red.bold(`production`)} environment`);
     environmentFilePath = '../src/environments/environment.prod.ts';
     break;
   case '--test':
+    console.log(`Building ${colors.blue.bold(`test`)} environment`);
     environmentFilePath = '../src/environments/environment.test.ts';
     break;
   default:
+    console.log(`Building ${colors.green.bold(`development`)} environment`);
     environmentFilePath = '../src/environments/environment.dev.ts';
 }
 
@@ -49,13 +52,11 @@ function generateEnvironmentFile(file: GlobalConfig): void {
   file.production = production;
   buildBaseUrls(file);
   const contents = `export const environment = ` + JSON.stringify(file);
-  console.log(colors.magenta('The file `environment.ts` will be written with the following content: \n'));
-  console.log(colors.grey(contents));
   writeFile(targetPath, contents, (err) => {
     if (err) {
       throw console.error(err);
     } else {
-      console.log(colors.magenta(`Angular environment.ts file generated correctly at ${targetPath} \n`));
+      console.log(`Angular ${colors.bold('environment.ts')} file generated correctly at ${colors.bold(targetPath)} \n`);
     }
   });
 }
@@ -85,8 +86,6 @@ function createServerConfig(host?: string,  port?: string, nameSpace?: string, s
 function buildBaseUrls(config: GlobalConfig): void {
   for (const key in config) {
     if (config.hasOwnProperty(key) && config[key].host) {
-      console.log(key);
-      console.log(config[key]);
       config[key].baseUrl = [
         getProtocol(config[key].ssl),
         getHost(config[key].host),
