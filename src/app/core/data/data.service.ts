@@ -292,9 +292,9 @@ export abstract class DataService<T extends CacheableObject> {
    * @param searchMethod The search method for the object
    */
   protected getSearchEndpoint(searchMethod: string): Observable<string> {
-    return this.halService.getEndpoint(`${this.linkPath}/search`).pipe(
+    return this.halService.getEndpoint(this.linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
-      map((href: string) => `${href}/${searchMethod}`));
+      map((href: string) => `${href}/search/${searchMethod}`));
   }
 
   /**
