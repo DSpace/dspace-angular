@@ -42,7 +42,7 @@ export class SubmissionSectionUploadAccessConditionsComponent implements OnInit 
   ngOnInit() {
     this.accessConditions.forEach((accessCondition: ResourcePolicy) => {
       if (isEmpty(accessCondition.name)) {
-        this.groupService.findById(accessCondition.groupUUID).pipe(
+        this.groupService.findByHref(accessCondition._links.group.href).pipe(
           find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded))
           .subscribe((rd: RemoteData<Group>) => {
             const group: Group = rd.payload;
