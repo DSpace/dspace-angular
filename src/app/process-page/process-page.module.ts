@@ -14,6 +14,8 @@ import { DateValueInputComponent } from './new/process-parameters/parameter-valu
 import { ProcessOverviewComponent } from './overview/process-overview.component';
 import { ProcessDetailComponent } from './detail/process-detail.component';
 import { ProcessDetailFieldComponent } from './detail/process-detail-field/process-detail-field.component';
+import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
+import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -34,6 +36,10 @@ import { ProcessDetailFieldComponent } from './detail/process-detail-field/proce
     ProcessOverviewComponent,
     ProcessDetailComponent,
     ProcessDetailFieldComponent
+  ],
+  providers: [
+    ProcessBreadcrumbResolver,
+    ProcessBreadcrumbsService
   ],
   entryComponents: []
 })
