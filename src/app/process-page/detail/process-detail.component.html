@@ -1,16 +1,16 @@
 <div class="container" *ngVar="(processRD$ | async)?.payload as process">
-  <h2>{{'process.page.detail.title' | translate:{ id: process?.processId, name: process?.scriptName } }}</h2>
+  <h2>{{'process.detail.title' | translate:{ id: process?.processId, name: process?.scriptName } }}</h2>
 
-  <ds-process-detail-field id="process-name" [title]="'process.page.detail.script'">
+  <ds-process-detail-field id="process-name" [title]="'process.detail.script'">
     <div>{{ process?.scriptName }}</div>
   </ds-process-detail-field>
 
-  <ds-process-detail-field *ngIf="process?.parameters && process?.parameters?.length > 0" id="process-arguments" [title]="'process.page.detail.arguments'">
+  <ds-process-detail-field *ngIf="process?.parameters && process?.parameters?.length > 0" id="process-arguments" [title]="'process.detail.arguments'">
     <div *ngFor="let argument of process?.parameters">{{ argument?.name }} {{ argument?.value }}</div>
   </ds-process-detail-field>
 
   <div *ngVar="(filesRD$ | async)?.payload?.page as files">
-    <ds-process-detail-field *ngIf="files && files?.length > 0" id="process-files" [title]="'process.page.detail.output-files'">
+    <ds-process-detail-field *ngIf="files && files?.length > 0" id="process-files" [title]="'process.detail.output-files'">
       <div *ngFor="let file of files">
         <span><a [href]="file?._links?.content?.href">{{getFileName(file)}}</a></span>
         <span>({{file?.sizeBytes | dsFileSize}})</span>
@@ -18,9 +18,9 @@
     </ds-process-detail-field>
   </div>
 
-  <!--<ds-process-detail-field id="process-output" [title]="'process.page.detail.output'">-->
-    <!--<pre class="font-weight-bold text-secondary bg-light p-3">{{'process.page.detail.output.alert' | translate}}</pre>-->
+  <!--<ds-process-detail-field id="process-output" [title]="'process.detail.output'">-->
+    <!--<pre class="font-weight-bold text-secondary bg-light p-3">{{'process.detail.output.alert' | translate}}</pre>-->
   <!--</ds-process-detail-field>-->
 
-  <a class="btn btn-light mt-3" [routerLink]="'/processes'">{{'process.page.detail.back' | translate}}</a>
+  <a class="btn btn-light mt-3" [routerLink]="'/processes'">{{'process.detail.back' | translate}}</a>
 </div>

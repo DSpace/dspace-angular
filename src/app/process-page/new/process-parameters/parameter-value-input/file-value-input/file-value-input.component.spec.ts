@@ -9,7 +9,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FileValueAccessorDirective } from '../../../../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../../../../shared/utils/require-file.validator';
 
-‡describe('FileValueInputComponent', () => {
+describe('FileValueInputComponent', () => {
   let component: FileValueInputComponent;
   let fixture: ComponentFixture<FileValueInputComponent>;
 

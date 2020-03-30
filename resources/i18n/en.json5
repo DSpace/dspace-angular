@@ -1316,6 +1316,8 @@
 
   "menu.section.icon.pin": "Pin sidebar",
 
+  "menu.section.icon.processes": "Processes menu section",
+
   "menu.section.icon.registries": "Registries menu section",
 
   "menu.section.icon.statistics_task": "Statistics Task menu section",
@@ -1342,11 +1344,17 @@
 
   "menu.section.new_item_version": "Item Version",
 
+  "menu.section.new_process": "Process",
+
 
 
   "menu.section.pin": "Pin sidebar",
 
   "menu.section.unpin": "Unpin sidebar",
+
+
+
+  "menu.section.processes": "Processes",
 
 
 
@@ -1534,38 +1542,81 @@
 
 
 
-  "process.page.detail.arguments" : "Arguments",
+  "process.new.select-parameters": "Parameters",
 
-  "process.page.detail.arguments.empty" : "This process doesn't contain any arguments",
+  "process.new.cancel": "Cancel",
 
-  "process.page.detail.back" : "Back",
+  "process.new.submit": "Submit",
 
-  "process.page.detail.output" : "Process Output",
+  "process.new.select-script": "Script",
 
-  "process.page.detail.output.alert" : "Work in progress - Process output is not available yet",
+  "process.new.select-script.placeholder": "Choose a script...",
 
-  "process.page.detail.output-files" : "Output Files",
+  "process.new.select-script.required": "Script is required",
 
-  "process.page.detail.output-files.empty" : "This process doesn't contain any output files",
+  "process.new.parameter.file.upload-button": "Select file...",
 
-  "process.page.detail.script" : "Script",
+  "process.new.parameter.file.required": "Please select a file",
 
-  "process.page.detail.title" : "Process: {{ id }} - {{ name }}",
+  "process.new.parameter.string.required": "Parameter value is required",
 
-  "process.page.overview.table.finish" : "Finish time",
+  "process.new.parameter.type.value": "value",
 
-  "process.page.overview.table.id" : "Process ID",
+  "process.new.parameter.type.file": "file",
 
-  "process.page.overview.table.name" : "Name",
+  "process.new.parameter.required.missing": "The following parameters are required but still missing:",
 
-  "process.page.overview.table.start" : "Start time",
+  "process.new.notification.success.title": "Success",
 
-  "process.page.overview.table.status" : "Status",
+  "process.new.notification.success.content": "The process was successfully created",
 
-  "process.page.overview.table.user" : "User",
+  "process.new.notification.error.title": "Error",
 
-  "process.page.overview.title": "Processes Overview",
+  "process.new.notification.error.content": "An error occurred while creating this process",
 
+  "process.new.header": "Create a new process",
+
+  "process.new.title": "Create a new process",
+
+  "process.new.breadcrumbs": "Create a new process",
+
+
+
+  "process.detail.arguments" : "Arguments",
+
+  "process.detail.arguments.empty" : "This process doesn't contain any arguments",
+
+  "process.detail.back" : "Back",
+
+  "process.detail.output" : "Process Output",
+
+  "process.detail.output.alert" : "Work in progress - Process output is not available yet",
+
+  "process.detail.output-files" : "Output Files",
+
+  "process.detail.output-files.empty" : "This process doesn't contain any output files",
+
+  "process.detail.script" : "Script",
+
+  "process.detail.title" : "Process: {{ id }} - {{ name }}",
+
+
+
+  "process.overview.table.finish" : "Finish time",
+
+  "process.overview.table.id" : "Process ID",
+
+  "process.overview.table.name" : "Name",
+
+  "process.overview.table.start" : "Start time",
+
+  "process.overview.table.status" : "Status",
+
+  "process.overview.table.user" : "User",
+
+  "process.overview.title": "Processes Overview",
+
+  "process.overview.breadcrumbs": "Processes Overview",
 
 
   "profile.breadcrumbs": "Update Profile",
@@ -1645,44 +1696,6 @@
   "project.page.titleprefix": "Research Project: ",
 
   "project.search.results.head": "Project Search Results",
-
-
-
-  "process.new.select-parameters": "Parameters",
-
-  "process.new.cancel": "Cancel",
-
-  "process.new.submit": "Submit",
-
-  "process.new.select-script": "Script",
-
-  "process.new.select-script.placeholder": "Choose a script...",
-
-  "process.new.select-script.required": "Script is required",
-
-  "process.new.parameter.file.upload-button": "Select file...",
-
-  "process.new.parameter.file.required": "Please select a file",
-
-  "process.new.parameter.string.required": "Parameter value is required",
-
-  "process.new.parameter.type.value": "value",
-
-  "process.new.parameter.type.file": "file",
-
-  "process.new.parameter.required.missing": "The following parameters are required but still missing:",
-
-  "process.new.notification.success.title": "Success",
-
-  "process.new.notification.success.content": "The process was successfully created",
-
-  "process.new.notification.error.title": "Error",
-
-  "process.new.notification.error.content": "An error occurred while creating this process",
-
-  "process.new.header": "Create a new process",
-
-  "process.new.title": "Create a new process",
 
 
 

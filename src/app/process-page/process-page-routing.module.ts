@@ -14,7 +14,7 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
       {
         path: '',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
-        data: { breadcrumbKey: 'process' },
+        data: { breadcrumbKey: 'process.overview' },
         canActivate: [AuthenticatedGuard],
         children: [
           {
