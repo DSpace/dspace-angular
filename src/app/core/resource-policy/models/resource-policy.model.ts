@@ -1,5 +1,5 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { typedObject } from '../../cache/builders/build-decorators';
+import { link, typedObject } from '../../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { ActionType } from './action-type.model';
 import { CacheableObject } from '../../cache/object-cache.reducer';
@@ -8,6 +8,12 @@ import { RESOURCE_POLICY } from './resource-policy.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { PolicyType } from './policy-type.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { RemoteData } from '../../data/remote-data';
+import { GROUP } from '../../eperson/models/group.resource-type';
+import { Group } from '../../eperson/models/group.model';
+import { EPERSON } from '../../eperson/models/eperson.resource-type';
+import { EPerson } from '../../eperson/models/eperson.model';
 
 /**
  * Model class for a Resource Policy
@@ -81,5 +87,19 @@ export class ResourcePolicy implements CacheableObject {
     eperson: HALLink,
     group: HALLink,
     self: HALLink,
-  }
+  };
+
+  /**
+   * The eperson linked by this resource policy
+   * Will be undefined unless the version {@link HALLink} has been resolved.
+   */
+  @link(EPERSON)
+  eperson?: Observable<RemoteData<EPerson>>;
+
+  /**
+   * The group linked by this resource policy
+   * Will be undefined unless the version {@link HALLink} has been resolved.
+   */
+  @link(GROUP)
+  group?: Observable<RemoteData<Group>>;
 }
