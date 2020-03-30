@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -46,6 +47,10 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   // The search form
   searchForm;
 
+  // Current search in epersons registry
+  currentSearchQuery: string;
+  currentSearchScope: string;
+
   /**
    * List of subscriptions
    */
@@ -54,23 +59,23 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   constructor(private epersonService: EPersonDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
+    this.currentSearchQuery = '';
+    this.currentSearchScope = 'metadata';
+    this.searchForm = this.formBuilder.group(({
+      scope: 'metadata',
+      query: '',
+    }));
   }
 
   ngOnInit() {
     this.isEPersonFormShown = false;
-    this.updateEPeople({
-      currentPage: 1,
-      elementsPerPage: this.config.pageSize
-    });
+    this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       if (eperson != null && eperson.id) {
         this.isEPersonFormShown = true;
       }
-    }));
-    this.searchForm = this.formBuilder.group(({
-      scope: 'metadata',
-      query: '',
     }));
   }
 
@@ -79,17 +84,8 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * @param event
    */
   onPageChange(event) {
-    this.updateEPeople({
-      currentPage: event,
-      elementsPerPage: this.config.pageSize
-    });
-  }
-
-  /**
-   * Update the list of EPeople by fetching it from the rest api or cache
-   */
-  private updateEPeople(options) {
-    this.ePeople = this.epersonService.getEPeople(options);
+    this.config.currentPage = event;
+    this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery })
   }
 
   /**
@@ -107,8 +103,20 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * @param data  Contains scope and query param
    */
   search(data: any) {
-    this.ePeople = this.epersonService.searchByScope(data.scope, data.query, {
-      currentPage: 1,
+    const query: string = data.query;
+    const scope: string = data.scope;
+    if (query != null && this.currentSearchQuery !== query) {
+      this.router.navigateByUrl(this.epersonService.getEPeoplePageRouterLink());
+      this.currentSearchQuery = query;
+      this.config.currentPage = 1;
+    }
+    if (scope != null && this.currentSearchScope !== scope) {
+      this.router.navigateByUrl(this.epersonService.getEPeoplePageRouterLink());
+      this.currentSearchScope = scope;
+      this.config.currentPage = 1;
+    }
+    this.ePeople = this.epersonService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
+      currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize
     });
   }
@@ -180,5 +188,15 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
         window.scrollTo(0, currentScroll - (currentScroll / 8));
       }
     })();
+  }
+
+  /**
+   * Reset all input-fields to be empty and search all search
+   */
+  clearFormAndResetResult() {
+    this.searchForm.patchValue({
+      query: '',
+    });
+    this.search({ query: '' });
   }
 }

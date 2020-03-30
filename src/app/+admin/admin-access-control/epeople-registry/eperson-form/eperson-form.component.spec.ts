@@ -60,6 +60,9 @@ describe('EPersonFormComponent', () => {
           return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
         }
         if (scope === 'metadata') {
+          if (query === '') {
+            return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allEpeople));
+          }
           const result = this.allEpeople.find((ePerson: EPerson) => {
             return (ePerson.name.includes(query) || ePerson.email.includes(query))
           });

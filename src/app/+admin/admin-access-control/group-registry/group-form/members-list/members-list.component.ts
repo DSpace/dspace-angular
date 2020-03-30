@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
@@ -28,12 +29,24 @@ export class MembersListComponent implements OnInit, OnDestroy {
   messagePrefix: string;
 
   /**
-   * EPeople being displayed, initially all members, after search result of search
+   * EPeople being displayed in search result, initially all members, after search result of search
    */
-  ePeople: Observable<RemoteData<PaginatedList<EPerson>>>;
+  ePeopleSearch: Observable<RemoteData<PaginatedList<EPerson>>>;
+  /**
+   * List of EPeople members of currently active group being edited
+   */
+  ePeopleMembersOfGroup: Observable<RemoteData<PaginatedList<EPerson>>>;
 
   /**
-   * Pagination config used to display the list of EPeople
+   * Pagination config used to display the list of EPeople that are result of EPeople search
+   */
+  configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'search-members-list-pagination',
+    pageSize: 5,
+    currentPage: 1
+  });
+  /**
+   * Pagination config used to display the list of EPerson Membes of active group being edited
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'members-list-pagination',
@@ -49,50 +62,57 @@ export class MembersListComponent implements OnInit, OnDestroy {
   // The search form
   searchForm;
 
-  /**
-   * Whether or not user has done a search yet
-   */
+  // Current search in edit group - epeople search form
+  currentSearchQuery: string;
+  currentSearchScope: string;
+
+  // Whether or not user has done a EPeople search yet
   searchDone: boolean;
+
+  // current active group being edited
+  groupBeingEdited: Group;
 
   constructor(private groupDataService: GroupDataService,
               public ePersonDataService: EPersonDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
+    this.currentSearchQuery = '';
+    this.currentSearchScope = 'metadata';
   }
 
   ngOnInit() {
-    this.subs.push(this.groupDataService.getActiveGroup().subscribe((group: Group) => {
-      if (group != null) {
-        this.ePeople = this.ePersonDataService.findAllByHref(group._links.epersons.href, {
-          currentPage: 1,
-          elementsPerPage: this.config.pageSize
-        })
-      }
-    }));
     this.searchForm = this.formBuilder.group(({
       scope: 'metadata',
       query: '',
     }));
-    this.searchDone = false;
+    this.subs.push(this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
+      if (activeGroup != null) {
+        this.groupBeingEdited = activeGroup;
+        this.forceUpdateEPeople(activeGroup);
+      }
+    }));
   }
 
   /**
-   * Event triggered when the user changes page
+   * Event triggered when the user changes page on search result
+   * @param event
+   */
+  onPageChangeSearch(event) {
+    this.configSearch.currentPage = event;
+    this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
+  }
+
+  /**
+   * Event triggered when the user changes page on EPerson embers of active group
    * @param event
    */
   onPageChange(event) {
-    this.updateMembers({
+    this.ePeopleMembersOfGroup = this.ePersonDataService.findAllByHref(this.groupBeingEdited._links.epersons.href, {
       currentPage: event,
       elementsPerPage: this.config.pageSize
-    });
-  }
-
-  /**
-   * Update the list of members by fetching it from the rest api or cache
-   */
-  private updateMembers(options) {
-    this.ePeople = this.ePersonDataService.getEPeople(options);
+    })
   }
 
   /**
@@ -120,7 +140,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         const response = this.groupDataService.addMemberToGroup(activeGroup, ePerson);
         this.showNotifications('addMember', response, ePerson.name, activeGroup);
-        this.forceUpdateEPeople(activeGroup);
+        this.forceUpdateEPeople(activeGroup, ePerson);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -155,10 +175,22 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * @param data  Contains scope and query param
    */
   search(data: any) {
+    const query: string = data.query;
+    const scope: string = data.scope;
+    if (query != null && this.currentSearchQuery !== query && this.groupBeingEdited) {
+      this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(this.groupBeingEdited));
+      this.currentSearchQuery = query;
+      this.configSearch.currentPage = 1;
+    }
+    if (scope != null && this.currentSearchScope !== scope && this.groupBeingEdited) {
+      this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(this.groupBeingEdited));
+      this.currentSearchScope = scope;
+      this.configSearch.currentPage = 1;
+    }
     this.searchDone = true;
-    this.ePeople = this.ePersonDataService.searchByScope(data.scope, data.query, {
-      currentPage: 1,
-      elementsPerPage: this.config.pageSize
+    this.ePeopleSearch = this.ePersonDataService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
+      currentPage: this.configSearch.currentPage,
+      elementsPerPage: this.configSearch.pageSize
     });
   }
 
@@ -167,12 +199,15 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * a new REST call
    * @param activeGroup   Group currently being edited
    */
-  public forceUpdateEPeople(activeGroup: Group) {
-    this.groupDataService.clearGroupsRequests();
-    this.ePersonDataService.clearEPersonRequests();
-    this.ePeople = this.ePersonDataService.findAllByHref(activeGroup._links.epersons.href, {
-      currentPage: 1,
-      elementsPerPage: this.config.pageSize
+  public forceUpdateEPeople(activeGroup: Group, ePersonToUpdate?: EPerson) {
+    if (ePersonToUpdate != null) {
+      this.ePersonDataService.clearLinkRequests(ePersonToUpdate._links.groups.href);
+    }
+    this.ePersonDataService.clearLinkRequests(activeGroup._links.epersons.href);
+    this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(activeGroup));
+    this.ePeopleMembersOfGroup = this.ePersonDataService.findAllByHref(activeGroup._links.epersons.href, {
+      currentPage: this.configSearch.currentPage,
+      elementsPerPage: this.configSearch.pageSize
     })
   }
 
@@ -198,5 +233,15 @@ export class MembersListComponent implements OnInit, OnDestroy {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
       }
     })
+  }
+
+  /**
+   * Reset all input-fields to be empty and search all search
+   */
+  clearFormAndResetResult() {
+    this.searchForm.patchValue({
+      query: '',
+    });
+    this.search({ query: '' });
   }
 }

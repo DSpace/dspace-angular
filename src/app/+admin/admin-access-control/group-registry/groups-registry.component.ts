@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -9,10 +10,10 @@ import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Group } from '../../../core/eperson/models/group.model';
+import { RouteService } from '../../../core/services/route.service';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -43,21 +44,24 @@ export class GroupsRegistryComponent implements OnInit {
   // The search form
   searchForm;
 
+  // Current search in groups registry
+  currentSearchQuery: string;
+
   constructor(private groupService: GroupDataService,
               private ePersonDataService: EPersonDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              protected routeService: RouteService,
+              private router: Router) {
+    this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
-      query: '',
+      query: this.currentSearchQuery,
     }));
   }
 
   ngOnInit() {
-    this.updateGroups({
-      currentPage: 1,
-      elementsPerPage: this.config.pageSize
-    });
+    this.search({ query: this.currentSearchQuery });
   }
 
   /**
@@ -65,17 +69,8 @@ export class GroupsRegistryComponent implements OnInit {
    * @param event
    */
   onPageChange(event) {
-    this.updateGroups({
-      currentPage: event,
-      elementsPerPage: this.config.pageSize
-    });
-  }
-
-  /**
-   * Update the list of groups by fetching it from the rest api or cache
-   */
-  private updateGroups(options) {
-    this.groups = this.groupService.getGroups(options, followLink('epersons'), followLink('subgroups'));
+    this.config.currentPage = event;
+    this.search({ query: this.currentSearchQuery })
   }
 
   /**
@@ -84,8 +79,13 @@ export class GroupsRegistryComponent implements OnInit {
    */
   search(data: any) {
     const query: string = data.query;
-    this.groups = this.groupService.searchGroups(query.trim(), {
-      currentPage: 1,
+    if (query != null && this.currentSearchQuery !== query) {
+      this.router.navigateByUrl(this.groupService.getGroupRegistryRouterLink());
+      this.currentSearchQuery = query;
+      this.config.currentPage = 1;
+    }
+    this.groups = this.groupService.searchGroups(this.currentSearchQuery.trim(), {
+      currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize
     });
   }
@@ -114,7 +114,7 @@ export class GroupsRegistryComponent implements OnInit {
    */
   public forceUpdateGroup() {
     this.groupService.clearGroupsRequests();
-    this.search({ query: '' })
+    this.search({ query: this.currentSearchQuery })
   }
 
   /**
@@ -131,6 +131,16 @@ export class GroupsRegistryComponent implements OnInit {
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
     return this.groupService.findAllByHref(group._links.subgroups.href);
+  }
+
+  /**
+   * Reset all input-fields to be empty and search all search
+   */
+  clearFormAndResetResult() {
+    this.searchForm.patchValue({
+      query: '',
+    });
+    this.search({ query: '' });
   }
 
   /**

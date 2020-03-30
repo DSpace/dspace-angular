@@ -176,6 +176,8 @@
 
   "admin.access-control.epeople.search.head": "Search",
 
+  "admin.access-control.epeople.button.see-all": "Browse All",
+
   "admin.access-control.epeople.search.scope.metadata": "Metadata",
 
   "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
@@ -192,9 +194,9 @@
 
   "admin.access-control.epeople.table.edit": "Edit",
 
-  "admin.access-control.epeople.table.edit.buttons.edit": "Edit",
+  "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
 
-  "admin.access-control.epeople.table.edit.buttons.remove": "Remove",
+  "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
 
   "admin.access-control.epeople.no-items": "No EPeople to show.",
 
@@ -250,6 +252,8 @@
 
   "admin.access-control.groups.search.head": "Search groups",
 
+  "admin.access-control.groups.button.see-all": "Browse all",
+
   "admin.access-control.groups.search.button": "Search",
 
   "admin.access-control.groups.table.id": "ID",
@@ -261,6 +265,10 @@
   "admin.access-control.groups.table.comcol": "Community / Collection",
 
   "admin.access-control.groups.table.edit": "Edit",
+
+  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+
+  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
 
   "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
 
@@ -283,9 +291,13 @@
 
   "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
 
-  "admin.access-control.groups.form.members-list.head": "Members",
+  "admin.access-control.groups.form.members-list.head": "EPeople",
 
   "admin.access-control.groups.form.members-list.search.head": "Search EPeople",
+
+  "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
+
+  "admin.access-control.groups.form.members-list.headMembers": "Browse Members",
 
   "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
 
@@ -315,13 +327,15 @@
 
   "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
 
-  "admin.access-control.groups.form.members-list.button.see-all": "Search all",
-
   "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
 
-  "admin.access-control.groups.form.subgroups-list.head": "Subgroups",
+  "admin.access-control.groups.form.subgroups-list.head": "Groups",
 
   "admin.access-control.groups.form.subgroups-list.search.head": "Search Groups",
+
+  "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
+
+  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Browse Subgroups",
 
   "admin.access-control.groups.form.subgroups-list.search.button": "Search",
 
@@ -347,9 +361,7 @@
 
   "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
 
-  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet, search and add.",
-
-  "admin.access-control.groups.form.subgroups-list.button.see-all": "Search all",
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
 
   "admin.access-control.groups.form.return": "Return to groups",
 

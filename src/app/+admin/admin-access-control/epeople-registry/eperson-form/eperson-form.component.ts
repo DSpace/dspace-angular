@@ -234,7 +234,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.epersonService.getActiveEPerson().pipe(take(1)).subscribe(
       (ePerson: EPerson) => {
-        console.log('onsubmit ep', ePerson)
         const values = {
           metadata: {
             'eperson.firstname': [
@@ -343,19 +342,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
           }));
         }
       }));
-  }
-
-  /**
-   * Reset all input-fields to be empty
-   */
-  clearFields() {
-    this.formGroup.patchValue({
-      firstName: '',
-      lastName: '',
-      email: '',
-      canLogin: true,
-      requireCertificate: false
-    });
   }
 
   /**

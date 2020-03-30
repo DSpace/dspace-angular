@@ -181,12 +181,19 @@ export class EPersonDataService extends DataService<EPerson> {
   }
 
   /**
-   * Method that clears a cached EPerson request and returns its REST url
+   * Method that clears a cached EPerson request
    */
   public clearEPersonRequests(): void {
     this.getBrowseEndpoint().pipe(take(1)).subscribe((link: string) => {
       this.requestService.removeByHrefSubstring(link);
     });
+  }
+
+  /**
+   * Method that clears a link's requests in cache
+   */
+  public clearLinkRequests(href: string): void {
+    this.requestService.removeByHrefSubstring(href);
   }
 
   /**

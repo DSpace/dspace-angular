@@ -246,12 +246,19 @@ export class GroupDataService extends DataService<Group> {
   }
 
   /**
-   * Method that clears a cached groups request and returns its REST url
+   * Method that clears a cached groups request
    */
   public clearGroupsRequests(): void {
     this.getBrowseEndpoint().pipe(take(1)).subscribe((link: string) => {
       this.requestService.removeByHrefSubstring(link);
     });
+  }
+
+  /**
+   * Method that clears a cached get subgroups of certain group request
+   */
+  public clearGroupLinkRequests(href: string): void {
+    this.requestService.removeByHrefSubstring(href);
   }
 
   public getGroupRegistryRouterLink(): string {

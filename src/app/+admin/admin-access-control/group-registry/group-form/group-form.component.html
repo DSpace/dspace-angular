@@ -20,11 +20,12 @@
                (submitForm)="onSubmit()">
       </ds-form>
 
-      <ds-subgroups-list [messagePrefix]="messagePrefix + '.subgroups-list'"></ds-subgroups-list>
       <ds-members-list [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>
+      <ds-subgroups-list [messagePrefix]="messagePrefix + '.subgroups-list'"></ds-subgroups-list>
 
       <div>
-        <button [routerLink]="[this.groupDataService.getGroupRegistryRouterLink()]" class="btn btn-primary">{{messagePrefix + '.return' | translate}}</button>
+        <button [routerLink]="[this.groupDataService.getGroupRegistryRouterLink()]"
+                class="btn btn-primary">{{messagePrefix + '.return' | translate}}</button>
       </div>
 
     </div>

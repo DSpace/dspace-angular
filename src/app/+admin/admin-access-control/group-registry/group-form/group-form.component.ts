@@ -17,7 +17,7 @@ import { EPersonDataService } from '../../../../core/eperson/eperson-data.servic
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
-import { hasValue } from '../../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 
@@ -121,11 +121,16 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         this.groupDescription
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-      this.subs.push(this.groupDataService.getActiveGroup().subscribe((group: Group) => {
-        this.formGroup.patchValue({
-          groupName: group != null ? group.name : '',
-          groupDescription: group != null ? group.firstMetadataValue('dc.description') : '',
-        });
+      this.subs.push(this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
+        if (activeGroup != null) {
+          this.formGroup.patchValue({
+            groupName: activeGroup != null ? activeGroup.name : '',
+            groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
+          });
+          if (activeGroup.permanent) {
+            this.formGroup.get('groupName').disable();
+          }
+        }
       }));
     });
   }
@@ -136,6 +141,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   onCancel() {
     this.groupDataService.cancelEditGroup();
     this.cancelForm.emit();
+    this.router.navigate([this.groupDataService.getGroupRegistryRouterLink()]);
   }
 
   /**
@@ -175,8 +181,12 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     const response = this.groupDataService.tryToCreate(groupToCreate);
     response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
       if (restResponse.isSuccessful) {
-        this.notificationsService.success(this.translateService.get(this.messagePrefix  + '.notification.created.success', { name: groupToCreate.name }));
+        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.created.success', { name: groupToCreate.name }));
         this.submitForm.emit(groupToCreate);
+        const resp: any = restResponse;
+        if (isNotEmpty(resp.resourceSelfLinks)) {
+          this.setActiveGroupWithLink(resp.resourceSelfLinks[0]);
+        }
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.created.failure', { name: groupToCreate.name }));
         this.showNotificationIfNameInUse(groupToCreate, 'created');
@@ -219,13 +229,32 @@ export class GroupFormComponent implements OnInit, OnDestroy {
 
   /**
    * Start editing the selected group
-   * @param group
+   * @param groupId   ID of group to set as active
    */
   setActiveGroup(groupId: string) {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup === null) {
         this.groupDataService.cancelEditGroup();
         this.groupDataService.findById(groupId)
+          .pipe(
+            getSucceededRemoteData(),
+            getRemoteDataPayload())
+          .subscribe((group: Group) => {
+            this.groupDataService.editGroup(group);
+          })
+      }
+    });
+  }
+
+  /**
+   * Start editing the selected group
+   * @param groupSelfLink   SelfLink of group to set as active
+   */
+  setActiveGroupWithLink(groupSelfLink: string) {
+    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
+      if (activeGroup === null) {
+        this.groupDataService.cancelEditGroup();
+        this.groupDataService.findByHref(groupSelfLink)
           .pipe(
             getSucceededRemoteData(),
             getRemoteDataPayload())
