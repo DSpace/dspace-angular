@@ -68,16 +68,29 @@ export function getDSOPath(dso: DSpaceObject): string {
       { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
       { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
       { path: BITSTREAM_MODULE_PATH, loadChildren: './+bitstream-page/bitstream-page.module#BitstreamPageModule' },
-      { path: 'mydspace', loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule', canActivate: [AuthenticatedGuard] },
+      {
+        path: 'mydspace',
+        loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule',
+        canActivate: [AuthenticatedGuard]
+      },
       { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
       { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule'},
       { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
       { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
       { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },
-      { path: 'workspaceitems', loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule' },
-      { path: 'workflowitems', loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule' },
-      { path: PROFILE_MODULE_PATH, loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard] },
+      {
+        path: 'workspaceitems',
+        loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule'
+      },
+      {
+        path: 'workflowitems',
+        loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule'
+      },
+      {
+        path: PROFILE_MODULE_PATH,
+        loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard]
+      },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ],
     {

@@ -1,17 +1,14 @@
-
-import {take} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot } from '@angular/router';
 
-import {Observable, of} from 'rxjs';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
-// reducers
 import { CoreState } from '../core.reducers';
-import { isAuthenticated, isAuthenticationLoading } from './selectors';
+import { isAuthenticated } from './selectors';
 import { AuthService } from './auth.service';
 import { RedirectWhenAuthenticationIsRequiredAction } from './auth.actions';
-import { isEmpty } from '../../shared/empty.util';
 
 /**
  * Prevent unauthorized activating and loading of routes

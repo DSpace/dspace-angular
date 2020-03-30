@@ -12,6 +12,7 @@ import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { AuthError } from './auth-error.model';
 import { AUTH_STATUS } from './auth-status.resource-type';
 import { AuthTokenInfo } from './auth-token-info.model';
+import { AuthMethod } from './auth.method';
 
 /**
  * Object that represents the authenticated status of a user
@@ -79,5 +80,13 @@ export class AuthStatus implements CacheableObject {
    * Authentication error if there was one for this status
    */
   // TODO should be refactored to use the RemoteData error
+  @autoserialize
   error?: AuthError;
+
+  /**
+   * All authentication methods enabled at the backend
+   */
+  @autoserialize
+  authMethods: AuthMethod[];
+
 }
