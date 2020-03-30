@@ -115,20 +115,38 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    */
   isSubgroupOfGroup(possibleSubgroup: Group): Observable<boolean> {
     return this.groupDataService.getActiveGroup().pipe(take(1),
-      mergeMap((group: Group) => {
-        if (group != null) {
-          return this.groupDataService.findAllByHref(group._links.subgroups.href, {
-            currentPage: 0,
-            elementsPerPage: Number.MAX_SAFE_INTEGER
-          })
-            .pipe(
-              getSucceededRemoteData(),
-              getRemoteDataPayload(),
-              map((listTotalGroups: PaginatedList<Group>) => listTotalGroups.page.filter((groupInList: Group) => groupInList.id === possibleSubgroup.id)),
-              map((groups: Group[]) => groups.length > 0))
-        } else {
+      mergeMap((activeGroup: Group) => {
+        if (activeGroup != null) {
+          if (activeGroup.uuid === possibleSubgroup.uuid) {
+            return observableOf(false);
+          } else {
+            return this.groupDataService.findAllByHref(activeGroup._links.subgroups.href, {
+              currentPage: 0,
+              elementsPerPage: Number.MAX_SAFE_INTEGER
+            })
+              .pipe(
+                getSucceededRemoteData(),
+                getRemoteDataPayload(),
+                map((listTotalGroups: PaginatedList<Group>) => listTotalGroups.page.filter((groupInList: Group) => groupInList.id === possibleSubgroup.id)),
+                map((groups: Group[]) => groups.length > 0))
+          }
+        } else  {
           return observableOf(false);
         }
+      }));
+  }
+
+  /**
+   * Whether or not the given group is the current group being edited
+   * @param group Group that is possibly the current group being edited
+   */
+  isActiveGroup(group: Group): Observable<boolean> {
+    return this.groupDataService.getActiveGroup().pipe(take(1),
+      mergeMap((activeGroup: Group) => {
+        if (activeGroup != null && activeGroup.uuid === group.uuid) {
+            return observableOf(true);
+        }
+        return observableOf(false);
       }));
   }
 
@@ -155,9 +173,13 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   addSubgroupToGroup(subgroup: Group) {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
-        const response = this.groupDataService.addSubGroupToGroup(activeGroup, subgroup);
-        this.showNotifications('addSubgroup', response, subgroup.name, activeGroup);
-        this.forceUpdateGroups(activeGroup);
+        if (activeGroup.uuid !== subgroup.uuid) {
+          const response = this.groupDataService.addSubGroupToGroup(activeGroup, subgroup);
+          this.showNotifications('addSubgroup', response, subgroup.name, activeGroup);
+          this.forceUpdateGroups(activeGroup);
+        } else {
+          this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.subgroupToAddIsActiveGroup'));
+        }
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }

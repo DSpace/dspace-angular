@@ -42,14 +42,16 @@
                  [routerLink]="[groupDataService.getGroupEditPageRouterLink(group)]">{{group.name}}</a></td>
           <td>
             <div class="btn-group edit-field">
-              <button *ngIf="(isSubgroupOfGroup(group) | async)"
+              <button *ngIf="(isSubgroupOfGroup(group) | async) && !(isActiveGroup(group) | async)"
                       (click)="deleteSubgroupFromGroup(group)"
                       class="btn btn-outline-danger btn-sm deleteButton"
                       title="{{messagePrefix + '.table.edit.buttons.remove' | translate: {name: group.name} }}">
                 <i class="fas fa-trash-alt fa-fw"></i>
               </button>
 
-              <button *ngIf="!(isSubgroupOfGroup(group) | async)"
+              <p *ngIf="(isActiveGroup(group) | async)">{{ messagePrefix + '.table.edit.currentGroup' | translate }}</p>
+
+              <button *ngIf="!(isSubgroupOfGroup(group) | async) && !(isActiveGroup(group) | async)"
                       (click)="addSubgroupToGroup(group)"
                       class="btn btn-outline-primary btn-sm addButton"
                       title="{{messagePrefix + '.table.edit.buttons.add' | translate: {name: group.name} }}">
