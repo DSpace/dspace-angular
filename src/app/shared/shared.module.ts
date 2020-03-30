@@ -179,6 +179,8 @@ import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-
 import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
+import { ResourcePoliciesComponent } from './resource-policies/resource-policies.component';
+import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -347,6 +349,7 @@ const COMPONENTS = [
   ExistingMetadataListElementComponent,
   ItemVersionsComponent,
   PublicationSearchResultListElementComponent,
+  ResourcePoliciesComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -438,7 +441,8 @@ const DIRECTIVES = [
   AutoFocusDirective,
   RoleDirective,
   MetadataRepresentationDirective,
-  ListableObjectDirective
+  ListableObjectDirective,
+  NgForTrackByIdDirective
 ];
 
 @NgModule({

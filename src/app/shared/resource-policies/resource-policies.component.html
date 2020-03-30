@@ -1,0 +1,40 @@
+<div *ngIf="(getResourcePolicies() | async)?.hasSucceeded">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th colspan="6">
+          <p class="d-flex justify-content-between align-items-center m-0">
+            {{ 'resource-policies.table.headers.title.for.' + resourceKey | translate }} {{resourceUUID}}
+            <button class="btn btn-outline-primary float-right">
+              {{'resource-policies.add.for.' + resourceKey | translate}}
+            </button>
+          </p>
+        </th>
+      </tr>
+      <tr class="text-center">
+        <th>{{'resource-policies.table.headers.id' | translate}}</th>
+        <th>{{'resource-policies.table.headers.name' | translate}}</th>
+        <th>{{'resource-policies.table.headers.action' | translate}}</th>
+        <th>{{'resource-policies.table.headers.group' | translate}}</th>
+        <th>{{'resource-policies.table.headers.date.start' | translate}}</th>
+        <th>{{'resource-policies.table.headers.date.end' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let policy of (getResourcePolicies() | async)?.payload?.page; trackById">
+        <th scope="row">{{policy.id}}</th>
+        <td>{{policy.name}}</td>
+        <td>{{policy.action}}</td>
+        <td *ngIf="(hasGroup(policy) | async)">
+          {{getGroupName(policy) | async}}
+          <button class="btn btn-link pt-0 pb-0" (click)="redirectToGroupEditPage(policy)">
+            {{'resource-policies.table.headers.group.edit' | translate}}
+          </button>
+        </td>
+        <td *ngIf="!(hasGroup(policy) | async)"></td>
+        <td>{{policy.startDate}}</td>
+        <td>{{policy.endDate}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

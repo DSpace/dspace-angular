@@ -1657,6 +1657,36 @@
 
 
 
+  "resource-policies.add.for.": "Add a new policy",
+
+  "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
+
+  "resource-policies.add.for.bundle": "Add a new Bundle policy",
+
+  "resource-policies.add.for.item": "Add a new Item policy",
+
+  "resource-policies.table.headers.action": "Action",
+
+  "resource-policies.table.headers.date.end": "End Date",
+
+  "resource-policies.table.headers.date.start": "Start Date",
+
+  "resource-policies.table.headers.group": "Group",
+
+  "resource-policies.table.headers.group.edit": "Edit",
+
+  "resource-policies.table.headers.name": "Name",
+
+  "resource-policies.table.headers.id": "ID",
+
+  "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
+
+  "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
+
+  "resource-policies.table.headers.title.for.item": "Policies for Item",
+
+
+
   "search.description": "",
 
   "search.switch-configuration.title": "Show",
