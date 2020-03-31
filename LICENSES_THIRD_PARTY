@@ -4,6 +4,8 @@ A summary of all third-party, production dependencies used by this user interfac
 
     npx license-checker --production --summary
 
+(Additional license-checker options may be found in its documentation: https://github.com/davglass/license-checker)
+
 You must agree to the terms of these licenses, in addition to the DSpace source code license, in order to use this
 software.
 
