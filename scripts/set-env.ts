@@ -47,7 +47,7 @@ const processEnv = {
 import(environmentFilePath)
   .then((file) => generateEnvironmentFile(merge.all([commonEnv, file.environment, processEnv])))
   .catch(() => {
-    console.log(colors.orange.bold(`No specific environment file found for ` + environment));
+    console.log(colors.yellow.bold(`No specific environment file found for ` + environment));
     generateEnvironmentFile(merge(commonEnv, processEnv))
   });
 
