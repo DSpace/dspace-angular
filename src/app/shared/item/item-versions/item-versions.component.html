@@ -1,0 +1,47 @@
+<div *ngVar="(versionsRD$ | async)?.payload as versions">
+  <div *ngVar="(versionRD$ | async)?.payload as itemVersion">
+    <div class="mb-2" *ngIf="versions?.page?.length > 0 || displayWhenEmpty">
+      <h2 *ngIf="displayTitle">{{"item.version.history.head" | translate}}</h2>
+      <ds-pagination *ngIf="versions?.page?.length > 0"
+                     [hideGear]="true"
+                     [hidePagerWhenSinglePage]="true"
+                     [paginationOptions]="options"
+                     [pageInfoState]="versions"
+                     [collectionSize]="versions?.totalElements"
+                     [disableRouteParameterUpdate]="true"
+                     (pageChange)="switchPage($event)">
+        <table class="table table-striped my-2">
+          <thead>
+            <tr>
+              <th scope="col">{{"item.version.history.table.version" | translate}}</th>
+              <th scope="col">{{"item.version.history.table.item" | translate}}</th>
+              <th scope="col" *ngIf="(hasEpersons$ | async)">{{"item.version.history.table.editor" | translate}}</th>
+              <th scope="col">{{"item.version.history.table.date" | translate}}</th>
+              <th scope="col">{{"item.version.history.table.summary" | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let version of versions?.page" [id]="'version-row-' + version.id">
+              <td class="version-row-element-version">{{version?.version}}</td>
+              <td class="version-row-element-item">
+                <span *ngVar="(version?.item | async)?.payload as item">
+                  <a *ngIf="item" [routerLink]="['/items', item?.id]">{{item?.handle}}</a>
+                  <span *ngIf="version?.id === itemVersion?.id">*</span>
+                </span>
+              </td>
+              <td *ngIf="(hasEpersons$ | async)" class="version-row-element-editor">
+                <span *ngVar="(version?.eperson | async)?.payload as eperson">
+                  <a *ngIf="eperson" [href]="'mailto:' + eperson?.email">{{eperson?.name}}</a>
+                </span>
+              </td>
+              <td class="version-row-element-date">{{version?.created}}</td>
+              <td class="version-row-element-summary">{{version?.summary}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div>*&nbsp;{{"item.version.history.selected" | translate}}</div>
+      </ds-pagination>
+      <ds-alert *ngIf="!itemVersion || versions?.page?.length === 0" [content]="'item.version.history.empty'" [type]="AlertTypeEnum.Info"></ds-alert>
+    </div>
+  </div>
+</div>

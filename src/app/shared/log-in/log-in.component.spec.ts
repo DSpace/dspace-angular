@@ -1,7 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 
@@ -10,26 +8,26 @@ import { authReducer } from '../../core/auth/auth.reducer';
 import { EPersonMock } from '../testing/eperson.mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { LogInComponent } from './log-in.component';
 import { AuthService } from '../../core/auth/auth.service';
-import { AuthServiceStub } from '../testing/auth-service.stub';
+import { authMethodsMock, AuthServiceStub } from '../testing/auth-service.stub';
 import { AppState, storeModuleConfig } from '../../app.reducer';
 
 describe('LogInComponent', () => {
 
   let component: LogInComponent;
   let fixture: ComponentFixture<LogInComponent>;
-  let page: Page;
-  let user: EPerson;
-
-  const authState = {
-    authenticated: false,
-    loaded: false,
-    loading: false,
+  const initialState = {
+    core: {
+      auth: {
+        authenticated: false,
+        loaded: false,
+        loading: false,
+        authMethods: authMethodsMock
+      }
+    }
   };
-
-  beforeEach(() => {
-    user = EPersonMock;
-  });
 
   beforeEach(async(() => {
     // refine the test module by declaring the test component
@@ -43,13 +41,19 @@ describe('LogInComponent', () => {
             strictActionImmutability: false
           }
         }),
+        SharedModule,
         TranslateModule.forRoot()
       ],
       declarations: [
-        LogInComponent
+        TestComponent
       ],
       providers: [
-        {provide: AuthService, useClass: AuthServiceStub}
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
+        { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        provideMockStore({ initialState }),
+        LogInComponent
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -59,75 +63,58 @@ describe('LogInComponent', () => {
 
   }));
 
-  beforeEach(inject([Store], (store: Store<AppState>) => {
-    store
-      .subscribe((state) => {
-        (state as any).core = Object.create({});
-        (state as any).core.auth = authState;
-      });
+  describe('', () => {
+    let testComp: TestComponent;
+    let testFixture: ComponentFixture<TestComponent>;
 
-    // create component and test fixture
-    fixture = TestBed.createComponent(LogInComponent);
+    // synchronous beforeEach
+    beforeEach(() => {
+      const html = `<ds-log-in [isStandalonePage]="isStandalonePage"> </ds-log-in>`;
 
-    // get test component from the fixture
-    component = fixture.componentInstance;
-
-    // create page
-    page = new Page(component, fixture);
-
-    // verify the fixture is stable (no pending tasks)
-    fixture.whenStable().then(() => {
-      page.addPageElements();
+      testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
+      testComp = testFixture.componentInstance;
     });
 
-  }));
+    afterEach(() => {
+      testFixture.destroy();
+    });
 
-  it('should create a FormGroup comprised of FormControls', () => {
-    fixture.detectChanges();
-    expect(component.form instanceof FormGroup).toBe(true);
+    it('should create LogInComponent', inject([LogInComponent], (app: LogInComponent) => {
+
+      expect(app).toBeDefined();
+
+    }));
   });
 
-  it('should authenticate', () => {
-    fixture.detectChanges();
+  describe('', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(LogInComponent);
+      component = fixture.componentInstance;
 
-    // set FormControl values
-    component.form.controls.email.setValue('user');
-    component.form.controls.password.setValue('password');
+      fixture.detectChanges();
+    });
 
-    // submit form
-    component.submit();
+    afterEach(() => {
+      fixture.destroy();
+      component = null;
+    });
 
-    // verify Store.dispatch() is invoked
-    expect(page.navigateSpy.calls.any()).toBe(true, 'Store.dispatch not invoked');
+    it('should render a log-in container component for each auth method available', () => {
+      const loginContainers = fixture.debugElement.queryAll(By.css('ds-log-in-container'));
+      expect(loginContainers.length).toBe(2);
+
+    });
   });
 
 });
 
-/**
- * I represent the DOM elements and attach spies.
- *
- * @class Page
- */
-class Page {
+// declare a test component
+@Component({
+  selector: 'ds-test-cmp',
+  template: ``
+})
+class TestComponent {
 
-  public emailInput: HTMLInputElement;
-  public navigateSpy: jasmine.Spy;
-  public passwordInput: HTMLInputElement;
+  isStandalonePage = true;
 
-  constructor(private component: LogInComponent, private fixture: ComponentFixture<LogInComponent>) {
-    // use injector to get services
-    const injector = fixture.debugElement.injector;
-    const store = injector.get(Store);
-
-    // add spies
-    this.navigateSpy = spyOn(store, 'dispatch');
-  }
-
-  public addPageElements() {
-    const emailInputSelector = 'input[formcontrolname=\'email\']';
-    this.emailInput = this.fixture.debugElement.query(By.css(emailInputSelector)).nativeElement;
-
-    const passwordInputSelector = 'input[formcontrolname=\'password\']';
-    this.passwordInput = this.fixture.debugElement.query(By.css(passwordInputSelector)).nativeElement;
-  }
 }

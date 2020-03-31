@@ -1,11 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-import {
-  DynamicFormLayoutService,
-  DynamicFormService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+
+import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
 
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
@@ -17,7 +14,6 @@ import { FormService } from '../shared/form/form.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest-v2/endpoint-mocking-rest.service';
-
 import {
   MOCK_RESPONSE_MAP,
   ResponseMapMock,
@@ -47,7 +43,6 @@ import { SubmissionUploadsModel } from './config/models/config-submission-upload
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
-
 import { coreEffects } from './core.effects';
 import { coreReducers, CoreState } from './core.reducers';
 import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
@@ -102,7 +97,6 @@ import { RegistryService } from './registry/registry.service';
 import { RoleService } from './roles/role.service';
 
 import { ApiService } from './services/api.service';
-import { RouteService } from './services/route.service';
 import { ServerResponseService } from './services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from './services/window.service';
 import { BitstreamFormat } from './shared/bitstream-format.model';
@@ -143,6 +137,10 @@ import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
+import { VersionDataService } from './data/version-data.service';
+import { VersionHistoryDataService } from './data/version-history-data.service';
+import { Version } from './shared/version.model';
+import { VersionHistory } from './shared/version-history.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -212,7 +210,6 @@ const PROVIDERS = [
   BrowseItemsResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
-  RouteService,
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionRestService,
@@ -256,6 +253,8 @@ const PROVIDERS = [
   RelationshipTypeService,
   ExternalSourceService,
   LookupRelationService,
+  VersionDataService,
+  VersionHistoryDataService,
   LicenseDataService,
   ItemTypeDataService,
   // register AuthInterceptor as HttpInterceptor
@@ -306,6 +305,8 @@ export const models =
     ItemType,
     ExternalSource,
     ExternalSourceEntry,
+    Version,
+    VersionHistory
   ];
 
 @NgModule({
