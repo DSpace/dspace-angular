@@ -8,10 +8,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LogInContainerComponent } from './log-in-container.component';
 import { authReducer } from '../../../core/auth/auth.reducer';
 import { SharedModule } from '../../shared.module';
-import { createTestComponent } from '../../testing/utils';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthMethod } from '../../../core/auth/models/auth.method';
-import { AuthServiceStub } from '../../testing/auth-service-stub';
+import { AuthServiceStub } from '../../testing/auth-service.stub';
+import { createTestComponent } from '../../testing/utils.test';
 
 describe('LogInContainerComponent', () => {
 

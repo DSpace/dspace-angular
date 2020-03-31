@@ -4,6 +4,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { LinkMenuItemComponent } from './link-menu-item.component';
 import { RouterLinkDirectiveStub } from '../../testing/router-link-directive.stub';
+import { environment } from '../../../../environments/environment';
 
 describe('LinkMenuItemComponent', () => {
   let component: LinkMenuItemComponent;
@@ -11,12 +12,10 @@ describe('LinkMenuItemComponent', () => {
   let debugElement: DebugElement;
   let text;
   let link;
-  let nameSpace;
 
   function init() {
     text = 'HELLO';
     link = 'http://google.com';
-    nameSpace = '/angular-dspace';
   }
   beforeEach(async(() => {
     init();
@@ -52,6 +51,6 @@ describe('LinkMenuItemComponent', () => {
     const routerLinkQuery = linkDes.map((de) => de.injector.get(RouterLinkDirectiveStub));
 
     expect(routerLinkQuery.length).toBe(1);
-    expect(routerLinkQuery[0].routerLink).toBe(nameSpace + link);
+    expect(routerLinkQuery[0].routerLink).toBe(environment.ui.nameSpace + link);
   });
 });

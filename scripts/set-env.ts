@@ -45,8 +45,11 @@ const processEnv = {
 } as GlobalConfig;
 
 import(environmentFilePath)
-  .then((file) => generateEnvironmentFile(merge.all(commonEnv, file.environment, processEnv)))
-  .catch(() => generateEnvironmentFile(merge(commonEnv, processEnv)));
+  .then((file) => generateEnvironmentFile(merge.all([commonEnv, file.environment, processEnv])))
+  .catch(() => {
+    console.log(colors.orange.bold(`No specific environment file found for ` + environment));
+    generateEnvironmentFile(merge(commonEnv, processEnv))
+  });
 
 function generateEnvironmentFile(file: GlobalConfig): void {
   file.production = production;

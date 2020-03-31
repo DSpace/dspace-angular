@@ -5,14 +5,19 @@ import { Store, StoreModule } from '@ngrx/store';
 
 import { LogInComponent } from './log-in.component';
 import { authReducer } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson.mock';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LogInComponent } from './log-in.component';
 import { AuthService } from '../../core/auth/auth.service';
 import { authMethodsMock, AuthServiceStub } from '../testing/auth-service.stub';
-import { AppState, storeModuleConfig } from '../../app.reducer';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared.module';
+import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterStub } from '../testing/router.stub';
+import { NativeWindowService } from '../../core/services/window.service';
+import { provideMockStore } from '@ngrx/store/testing';
+import { createTestComponent } from '../testing/utils.test';
 
 describe('LogInComponent', () => {
 

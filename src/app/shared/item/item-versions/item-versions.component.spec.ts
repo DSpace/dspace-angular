@@ -7,9 +7,10 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
 import { VersionHistory } from '../../../core/shared/version-history.model';
-import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../../testing/utils';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
 import { By } from '@angular/platform-browser';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { createPaginatedList } from '../../testing/utils.test';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;

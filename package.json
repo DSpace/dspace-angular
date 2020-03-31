@@ -13,7 +13,6 @@
     "pretest:headless": "yarn run config:test",
     "prebuild:prod": "yarn run config:prod",
     "pree2e": "yarn run config:prod",
-    "pree2e:travis": "yarn run config:travis",
     "start": "yarn run start:prod",
     "serve": "ng serve",
     "start:dev": "npm-run-all --parallel config:dev:watch serve",
@@ -26,10 +25,9 @@
     "test:headless": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng test --watch=false --sourceMap=true --browsers=ChromeHeadless --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "e2e:travis": "ng e2e",
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
     "serve:ssr": "node dist/server",
-    "ci": "ng lint && yarn run build:prod && yarn test:headless && yarn run e2e:travis",
+    "ci": "ng lint && yarn run build:prod && yarn test:headless && yarn run e2e",
     "clean:coverage": "rimraf coverage",
     "clean:dist": "rimraf dist",
     "clean:doc": "rimraf doc",
@@ -38,7 +36,8 @@
     "clean:bld": "rimraf build",
     "clean:node": "rimraf node_modules",
     "clean:prod": "yarn run clean:coverage && yarn run clean:doc && yarn run clean:dist && yarn run clean:log && yarn run clean:json && yarn run clean:bld",
-    "clean": "yarn run clean:prod && yarn run clean:node"
+    "clean": "yarn run clean:prod && yarn run clean:node && yarn run clean:env",
+    "clean:env": "rimraf src/environments/environment.ts"
   },
   "browser": {
     "fs": false,

@@ -2,9 +2,9 @@ import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { VersionHistoryDataService } from './version-history-data.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { GetRequest } from './request.models';
 
 const url = 'fake-url';
