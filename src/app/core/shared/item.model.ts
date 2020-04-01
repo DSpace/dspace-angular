@@ -17,13 +17,16 @@ import { HALLink } from './hal-link.model';
 import { Relationship } from './item-relationships/relationship.model';
 import { RELATIONSHIP } from './item-relationships/relationship.resource-type';
 import { ITEM } from './item.resource-type';
+import { ChildHALResource } from './child-hal-resource.model';
+import { Version } from './version.model';
+import { VERSION } from './version.resource-type';
 
 /**
  * Class representing a DSpace Item
  */
 @typedObject
 @inheritSerialization(DSpaceObject)
-export class Item extends DSpaceObject {
+export class Item extends DSpaceObject implements ChildHALResource {
   static type = ITEM;
 
   /**
@@ -66,6 +69,7 @@ export class Item extends DSpaceObject {
     bundles: HALLink;
     owningCollection: HALLink;
     templateItemOf: HALLink;
+    version: HALLink;
     self: HALLink;
   };
 
@@ -75,6 +79,13 @@ export class Item extends DSpaceObject {
    */
   @link(COLLECTION)
   owningCollection?: Observable<RemoteData<Collection>>;
+
+  /**
+   * The version this item represents in its history
+   * Will be undefined unless the version {@link HALLink} has been resolved.
+   */
+  @link(VERSION)
+  version?: Observable<RemoteData<Version>>;
 
   /**
    * The list of Bundles inside this Item
@@ -99,5 +110,9 @@ export class Item extends DSpaceObject {
       entityType = DEFAULT_ENTITY_TYPE;
     }
     return [entityType, ...super.getRenderTypes()];
+  }
+
+  getParentLinkKey(): keyof this['_links'] {
+    return 'owningCollection';
   }
 }

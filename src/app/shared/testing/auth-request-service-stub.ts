@@ -5,8 +5,6 @@ import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { isNotEmpty } from '../empty.util';
 import { EPersonMock } from './eperson-mock';
-import { RemoteData } from '../../core/data/remote-data';
-import { createSuccessfulRemoteDataObject$ } from './utils';
 
 export class AuthRequestServiceStub {
   protected mockUser: EPerson = EPersonMock;
@@ -23,15 +21,24 @@ export class AuthRequestServiceStub {
       } else {
         authStatusStub.authenticated = false;
       }
-    } else {
+    } else if (isNotEmpty(options)) {
       const token = (options.headers as any).lazyUpdate[1].value;
       if (this.validateToken(token)) {
         authStatusStub.authenticated = true;
         authStatusStub.token = this.mockTokenInfo;
-        authStatusStub.eperson = createSuccessfulRemoteDataObject$(this.mockUser);
+        authStatusStub._links = {
+          self: {
+            href: 'dspace.org/api/status',
+          },
+          eperson: {
+            href: this.mockUser._links.self.href
+          }
+        };
       } else {
         authStatusStub.authenticated = false;
       }
+    } else {
+      authStatusStub.authenticated = false;
     }
     return observableOf(authStatusStub);
   }
@@ -43,11 +50,18 @@ export class AuthRequestServiceStub {
         authStatusStub.authenticated = false;
         break;
       case 'status':
-        const token = (options.headers as any).lazyUpdate[1].value;
+        const token = ((options.headers as any).lazyUpdate[1]) ? (options.headers as any).lazyUpdate[1].value : null;
         if (this.validateToken(token)) {
           authStatusStub.authenticated = true;
           authStatusStub.token = this.mockTokenInfo;
-          authStatusStub.eperson = createSuccessfulRemoteDataObject$(this.mockUser);
+          authStatusStub._links = {
+            self: {
+              href: 'dspace.org/api/status',
+            },
+            eperson: {
+              href: this.mockUser._links.self.href
+            }
+          };
         } else {
           authStatusStub.authenticated = false;
         }

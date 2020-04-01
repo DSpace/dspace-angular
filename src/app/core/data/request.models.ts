@@ -119,6 +119,8 @@ export class HeadRequest extends RestRequest {
 }
 
 export class PatchRequest extends RestRequest {
+  public responseMsToLive = 60 * 15 * 1000;
+
   constructor(
     public uuid: string,
     public href: string,
@@ -228,6 +230,8 @@ export class AuthPostRequest extends PostRequest {
 }
 
 export class AuthGetRequest extends GetRequest {
+  forceBypassCache = true;
+
   constructor(uuid: string, href: string, public options?: HttpOptions) {
     super(uuid, href, null, options);
   }

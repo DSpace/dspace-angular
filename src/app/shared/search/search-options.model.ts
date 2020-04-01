@@ -50,7 +50,7 @@ export class SearchOptions {
     if (isNotEmpty(this.filters)) {
       this.filters.forEach((filter: SearchFilter) => {
         filter.values.forEach((value) => {
-          const filterValue = value.includes(',') ? `${value}` : `${value},${filter.operator}`;
+          const filterValue = value.includes(',') ? `${value}` : value + (filter.operator ? ',' + filter.operator : '');
           args.push(`${filter.key}=${filterValue}`)
         });
       });

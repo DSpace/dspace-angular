@@ -96,14 +96,15 @@ export class RemoteDataBuildService {
         const responsePending = hasValue(reqEntry) && hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
         let isSuccessful: boolean;
         let error: RemoteDataError;
-        if (hasValue(reqEntry) && hasValue(reqEntry.response)) {
-          isSuccessful = reqEntry.response.statusCode === 204 ||
-            reqEntry.response.statusCode >= 200 && reqEntry.response.statusCode < 300 && hasValue(payload);
-          const errorMessage = isSuccessful === false ? (reqEntry.response as ErrorResponse).errorMessage : undefined;
+        const response = reqEntry ? reqEntry.response : undefined;
+        if (hasValue(response)) {
+          isSuccessful = response.statusCode === 204 ||
+            response.statusCode >= 200 && response.statusCode < 300 && hasValue(payload);
+          const errorMessage = isSuccessful === false ? (response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
             error = new RemoteDataError(
-              (reqEntry.response as ErrorResponse).statusCode,
-              (reqEntry.response as ErrorResponse).statusText,
+              response.statusCode,
+              response.statusText,
               errorMessage
             );
           }
@@ -113,7 +114,9 @@ export class RemoteDataBuildService {
           responsePending,
           isSuccessful,
           error,
-          payload
+          payload,
+          hasValue(response) ? response.statusCode : undefined
+
         );
       })
     );

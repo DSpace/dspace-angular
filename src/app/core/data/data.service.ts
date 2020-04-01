@@ -44,7 +44,7 @@ import {
   FindByIDRequest,
   FindListOptions,
   FindListRequest,
-  GetRequest
+  GetRequest, PatchRequest
 } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
@@ -83,14 +83,15 @@ export abstract class DataService<T extends CacheableObject> {
    * @param linkPath The link path for the object
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected getFindAllHref(options: FindListOptions = {}, linkPath?: string): Observable<string> {
+  protected getFindAllHref(options: FindListOptions = {}, linkPath?: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
     let result$: Observable<string>;
     const args = [];
 
     result$ = this.getBrowseEndpoint(options, linkPath).pipe(distinctUntilChanged());
 
-    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args)));
+    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
   }
 
   /**
@@ -100,8 +101,9 @@ export abstract class DataService<T extends CacheableObject> {
    * @param options The [[FindListOptions]] object
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected getSearchByHref(searchMethod: string, options: FindListOptions = {}): Observable<string> {
+  protected getSearchByHref(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
     let result$: Observable<string>;
     const args = [];
 
@@ -113,7 +115,7 @@ export abstract class DataService<T extends CacheableObject> {
       })
     }
 
-    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args)));
+    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
   }
 
   /**
@@ -124,9 +126,9 @@ export abstract class DataService<T extends CacheableObject> {
    * @param extraArgs Array with additional params to combine with query string
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = []): string {
-
+  protected buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = [], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
     let args = [...extraArgs];
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
@@ -142,6 +144,7 @@ export abstract class DataService<T extends CacheableObject> {
     if (hasValue(options.startsWith)) {
       args = [...args, `startsWith=${options.startsWith}`];
     }
+    args = this.addEmbedParams(args, ...linksToFollow);
     if (isNotEmpty(args)) {
       return new URLCombiner(href, `?${args.join('&')}`).toString();
     } else {
@@ -150,9 +153,47 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
+   * Adds the embed options to the link for the request
+   * @param args            params for the query string
+   * @param linksToFollow   links we want to embed in query string if shouldEmbed is true
+   */
+  protected addEmbedParams(args: string[], ...linksToFollow: Array<FollowLinkConfig<T>>) {
+    linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
+      if (linkToFollow !== undefined && linkToFollow.shouldEmbed) {
+        const embedString = 'embed=' + String(linkToFollow.name);
+        const embedWithNestedString = this.addNestedEmbeds(embedString, ...linkToFollow.linksToFollow);
+        args = [...args, embedWithNestedString];
+      }
+    });
+    return args;
+  }
+
+  /**
+   * Add the nested followLinks to the embed param, recursively, separated by a /
+   * @param embedString     embedString so far (recursive)
+   * @param linksToFollow   links we want to embed in query string if shouldEmbed is true
+   */
+  protected addNestedEmbeds(embedString: string, ...linksToFollow: Array<FollowLinkConfig<T>>): string {
+    let nestEmbed = embedString;
+    linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
+      if (linkToFollow !== undefined && linkToFollow.shouldEmbed) {
+        nestEmbed = nestEmbed + '/' + String(linkToFollow.name);
+        if (linkToFollow.linksToFollow !== undefined) {
+          nestEmbed = this.addNestedEmbeds(nestEmbed, ...linkToFollow.linksToFollow);
+        }
+      }
+    });
+    return nestEmbed;
+  }
+
+  /**
    * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
    * info should be added to the objects
+   *
+   * @param options         Find list options object
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
    */
   findAll(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
     return this.findList(this.getFindAllHref(options), options, ...linksToFollow);
@@ -162,6 +203,7 @@ export abstract class DataService<T extends CacheableObject> {
    * Returns an observable of {@link RemoteData} of an object, based on href observable,
    * with a list of {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
    * @param href$           Observable of href of object we want to retrieve
+   * @param options         Find list options object
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   protected findList(href$, options: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<T>>) {
@@ -179,12 +221,13 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
-   * Create the HREF for a specific object based on its identifier
+   * Create the HREF for a specific object based on its identifier; with possible embed query params based on linksToFollow
    * @param endpoint The base endpoint for the type of object
    * @param resourceID The identifier for the object
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  getIDHref(endpoint, resourceID): string {
-    return `${endpoint}/${resourceID}`;
+  getIDHref(endpoint, resourceID, ...linksToFollow: Array<FollowLinkConfig<T>>): string {
+    return this.buildHrefFromFindOptions(endpoint + '/' + resourceID, {}, [], ...linksToFollow);
   }
 
   /**
@@ -194,9 +237,8 @@ export abstract class DataService<T extends CacheableObject> {
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findById(id: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
-
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
+      map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id), ...linksToFollow)));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)))
@@ -218,7 +260,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
-    const requestHref = this.buildHrefFromFindOptions(href, {}, []);
+    const requestHref = this.buildHrefFromFindOptions(href, {}, [], ...linksToFollow);
     const request = new GetRequest(this.requestService.generateRequestId(), requestHref);
     if (hasValue(this.responseMsToLive)) {
       request.responseMsToLive = this.responseMsToLive;
@@ -231,10 +273,11 @@ export abstract class DataService<T extends CacheableObject> {
    * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the object
    * @param href            The url of object we want to retrieve
+   * @param findListOptions Find list options object
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
-    const requestHref = this.buildHrefFromFindOptions(href, findListOptions, []);
+    const requestHref = this.buildHrefFromFindOptions(href, findListOptions, [], ...linksToFollow);
     const request = new GetRequest(this.requestService.generateRequestId(), requestHref);
     if (hasValue(this.responseMsToLive)) {
       request.responseMsToLive = this.responseMsToLive;
@@ -259,12 +302,13 @@ export abstract class DataService<T extends CacheableObject> {
    *
    * @param searchMethod The search method for the object
    * @param options The [[FindListOptions]] object
+   * @param linksToFollow The array of [[FollowLinkConfig]]
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  protected searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
+  searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
 
-    const hrefObs = this.getSearchByHref(searchMethod, options);
+    const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
 
     return hrefObs.pipe(
       find((href: string) => hasValue(href)),
@@ -285,12 +329,28 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
-   * Add a new patch to the object cache to a specified object
-   * @param {string} href The selflink of the object that will be patched
+   * Send a patch request for a specified object
+   * @param {T} dso The object to send a patch request for
    * @param {Operation[]} operations The patch operations to be performed
    */
-  patch(href: string, operations: Operation[]) {
-    this.objectCache.addPatch(href, operations);
+  patch(dso: T, operations: Operation[]): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, dso.uuid)));
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PatchRequest(requestId, href, operations);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
   }
 
   /**
@@ -366,17 +426,59 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
+   * Create a new DSpaceObject on the server, and store the response
+   * in the object cache, returns observable of the response to determine success
+   *
+   * @param {DSpaceObject} dso
+   *    The object to create
+   */
+  tryToCreate(dso: T): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+    const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+    );
+
+    const serializedDso = new DSpaceSerializer(getClassForType((dso as any).type)).serialize(dso);
+
+    const request$ = endpoint$.pipe(
+      take(1),
+      map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
+    );
+
+    // Execute the post request
+    request$.pipe(
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    return this.fetchResponse(requestId);
+  }
+
+  /**
+   * Gets the restResponse from the requestService
+   * @param requestId
+   */
+  protected fetchResponse(requestId: string): Observable<RestResponse> {
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: RestResponse) => {
+        return response;
+      })
+    );
+  }
+
+  /**
    * Delete an existing DSpace Object on the server
-   * @param dso The DSpace Object to be removed
+   * @param dsoID The DSpace Object' id to be removed
    * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
    *                            metadata should be saved as real metadata
    * @return an observable that emits true when the deletion was successful, false when it failed
    */
-  delete(dso: T, copyVirtualMetadata?: string[]): Observable<boolean> {
+  delete(dsoID: string, copyVirtualMetadata?: string[]): Observable<boolean> {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, dso.uuid)));
+      map((endpoint: string) => this.getIDHref(endpoint, dsoID)));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)),
@@ -388,7 +490,7 @@ export abstract class DataService<T extends CacheableObject> {
               + id
           );
         }
-        const request = new DeleteByIDRequest(requestId, href, dso.uuid);
+        const request = new DeleteByIDRequest(requestId, href, dsoID);
         this.requestService.configure(request);
       })
     ).subscribe();

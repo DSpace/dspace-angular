@@ -220,7 +220,7 @@ describe('ItemDeleteComponent', () => {
       spyOn(comp, 'notify');
       comp.performAction();
       expect(mockItemDataService.delete)
-        .toHaveBeenCalledWith(mockItem, types.filter((type) => typesSelection[type]).map((type) => type.id));
+        .toHaveBeenCalledWith(mockItem.id, types.filter((type) => typesSelection[type]).map((type) => type.id));
       expect(comp.notify).toHaveBeenCalled();
     });
   });

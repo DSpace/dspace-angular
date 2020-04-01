@@ -90,7 +90,7 @@ describe('LinkService', () => {
           propertyName: 'predecessor'
         });
         spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
-        service.resolveLink(testModel, followLink('predecessor', {}, followLink('successor')))
+        service.resolveLink(testModel, followLink('predecessor', {}, true, followLink('successor')))
       });
       it('should call dataservice.findByHref with the correct href and nested links', () => {
         expect(testDataService.findByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, followLink('successor'));
@@ -105,7 +105,7 @@ describe('LinkService', () => {
           isList: true
         });
         spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
-        service.resolveLink(testModel, followLink('predecessor', { some: 'options '} as any, followLink('successor')))
+        service.resolveLink(testModel, followLink('predecessor', { some: 'options '} as any, true, followLink('successor')))
       });
       it('should call dataservice.findAllByHref with the correct href, findListOptions,  and nested links', () => {
         expect(testDataService.findAllByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options '} as any, followLink('successor'));
@@ -119,7 +119,7 @@ describe('LinkService', () => {
           propertyName: 'predecessor'
         });
         spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
-        result = service.resolveLink(testModel, followLink('predecessor', {}, followLink('successor')))
+        result = service.resolveLink(testModel, followLink('predecessor', {}, true, followLink('successor')))
       });
 
       it('should call getLinkDefinition with the correct model and link', () => {
@@ -144,7 +144,7 @@ describe('LinkService', () => {
       });
       it('should throw an error', () => {
         expect(() => {
-          service.resolveLink(testModel, followLink('predecessor', {}, followLink('successor')))
+          service.resolveLink(testModel, followLink('predecessor', {}, true, followLink('successor')))
         }).toThrow();
       });
     });
@@ -160,7 +160,7 @@ describe('LinkService', () => {
       });
       it('should throw an error', () => {
         expect(() => {
-          service.resolveLink(testModel, followLink('predecessor', {}, followLink('successor')))
+          service.resolveLink(testModel, followLink('predecessor', {}, true, followLink('successor')))
         }).toThrow();
       });
     });
@@ -215,6 +215,53 @@ describe('LinkService', () => {
       service.removeResolvedLinks(testModel);
       expect(testModel.predecessor as any).toBe('predecessor value');
       expect(testModel.successor as any).toBe('successor value');
+    });
+  });
+
+  describe('when a link is missing', () => {
+    beforeEach(() => {
+      testModel = Object.assign(new TestModel(), {
+        value: 'a test value',
+        _links: {
+          self: {
+            href: 'http://self.link'
+          },
+          predecessor: {
+            href: 'http://predecessor.link'
+          }
+        }
+      });
+      spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
+    });
+
+    describe('resolving the available link', () => {
+      beforeEach(() => {
+        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue({
+          resourceType: TEST_MODEL,
+          linkName: 'predecessor',
+          propertyName: 'predecessor'
+        });
+        result = service.resolveLinks(testModel, followLink('predecessor'));
+      });
+
+      it('should return the model with the resolved link', () => {
+        expect(result.predecessor).toBe('findByHref');
+      });
+    });
+
+    describe('resolving the missing link', () => {
+      beforeEach(() => {
+        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue({
+          resourceType: TEST_MODEL,
+          linkName: 'successor',
+          propertyName: 'successor'
+        });
+        result = service.resolveLinks(testModel, followLink('successor'));
+      });
+
+      it('should return the model with no resolved link', () => {
+        expect(result.successor).toBeUndefined();
+      });
     });
   });
 

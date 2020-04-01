@@ -52,7 +52,7 @@ export abstract class FieldParser {
         initialCount: this.getInitArrayIndex(),
         notRepeatable: !this.configData.repeatable,
         relationshipConfig: this.configData.selectableRelationship,
-        required: isNotEmpty(this.configData.mandatory),
+        required: JSON.parse( this.configData.mandatory),
         submissionId: this.submissionId,
         metadataKey,
         groupFactory: () => {

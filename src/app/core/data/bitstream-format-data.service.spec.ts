@@ -282,7 +282,7 @@ describe('BitstreamFormatDataService', () => {
       format.id = 'format-id';
 
       const expected = cold('(b|)', {b: true});
-      const result = service.delete(format);
+      const result = service.delete(format.id);
 
       expect(result).toBeObservable(expected);
     });

@@ -6,7 +6,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { isEqual } from 'lodash';
 
-import { AddParameterAction, SetParameterAction, SetParametersAction, SetQueryParametersAction } from './route.actions';
+import { AddParameterAction, SetParameterAction, SetParametersAction, SetQueryParameterAction, SetQueryParametersAction } from './route.actions';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { hasValue } from '../../shared/empty.util';
@@ -59,7 +59,9 @@ export function parameterSelector(key: string, paramsSelector: (state: CoreState
 /**
  * Service to keep track of the current query parameters
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RouteService {
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<CoreState>) {
     this.saveRouting();
@@ -192,6 +194,10 @@ export class RouteService {
    */
   public setParameter(key, value) {
     this.store.dispatch(new SetParameterAction(key, value));
+  }
+
+  public setQueryParameter(key, value) {
+    this.store.dispatch(new SetQueryParameterAction(key, value));
   }
 
   /**

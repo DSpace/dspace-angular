@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
+import { mockTruncatableService } from '../mocks/mock-trucatable.service';
 import { TruncatableComponent } from './truncatable.component';
 import { TruncatableService } from './truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -10,29 +11,12 @@ describe('TruncatableComponent', () => {
   let fixture: ComponentFixture<TruncatableComponent>;
   const identifier = '1234567890';
   let truncatableService;
-  const truncatableServiceStub: any = {
-    /* tslint:disable:no-empty */
-    isCollapsed: (id: string) => {
-      if (id === '1') {
-        return observableOf(true)
-      } else {
-        return observableOf(false);
-      }
-    },
-    expand: (id: string) => {
-    },
-    collapse: (id: string) => {
-    },
-    toggle: (id: string) => {
-    }
-    /* tslint:enable:no-empty */
-  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [TruncatableComponent],
       providers: [
-        { provide: TruncatableService, useValue: truncatableServiceStub },
+        { provide: TruncatableService, useValue: mockTruncatableService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(TruncatableComponent, {

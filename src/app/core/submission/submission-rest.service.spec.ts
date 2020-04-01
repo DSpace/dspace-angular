@@ -26,7 +26,7 @@ describe('SubmissionRestService test suite', () => {
   const resourceEndpoint = 'workspaceitems';
   const resourceScope = '260';
   const body = { test: new FormFieldMetadataValueObject('test')};
-  const resourceHref = resourceEndpointURL + '/' + resourceEndpoint + '/' + resourceScope;
+  const resourceHref = resourceEndpointURL + '/' + resourceEndpoint + '/' + resourceScope + '?projection=full';
   const timestampResponse = 1545994811992;
 
   function initTestService() {

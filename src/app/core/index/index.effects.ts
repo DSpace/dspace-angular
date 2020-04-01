@@ -12,6 +12,7 @@ import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions'
 import { hasValue } from '../../shared/empty.util';
 import { IndexName } from './index.reducer';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { getUrlWithoutEmbedParams } from './index.selectors';
 
 @Injectable()
 export class UUIDIndexEffects {
@@ -47,7 +48,7 @@ export class UUIDIndexEffects {
       map((action: RequestConfigureAction) => {
         return new AddToIndexAction(
           IndexName.REQUEST,
-          action.payload.href,
+          getUrlWithoutEmbedParams(action.payload.href),
           action.payload.uuid
         );
       })

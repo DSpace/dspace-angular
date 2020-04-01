@@ -107,6 +107,17 @@ const _getRegistrationError = (state: AuthState) => state.error;
  */
 const _getRedirectUrl = (state: AuthState) => state.redirectUrl;
 
+const _getAuthenticationMethods = (state: AuthState) => state.authMethods;
+
+/**
+ * Returns the authentication methods enabled at the backend
+ * @function getAuthenticationMethods
+ * @param {AuthState} state
+ * @param {any} props
+ * @return {any}
+ */
+export const getAuthenticationMethods = createSelector(getAuthState, _getAuthenticationMethods);
+
 /**
  * Returns the authenticated user
  * @function getAuthenticatedUser
