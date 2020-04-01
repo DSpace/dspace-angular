@@ -10,6 +10,8 @@ import { RelationshipOptions } from '../../models/relationship-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../testing/utils';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { of as observableOf } from "rxjs";
+import { RelationshipService } from "../../../../../core/data/relationship.service";
 
 describe('ExistingMetadataListElementComponent', () => {
   let component: ExistingMetadataListElementComponent;
@@ -29,6 +31,7 @@ describe('ExistingMetadataListElementComponent', () => {
   let rightItemRD$;
   let relatedSearchResult;
   let submissionId;
+  let relationshipService;
 
   function init() {
     uuid1 = '91ce578d-2e63-4093-8c73-3faafd716000';
@@ -43,10 +46,13 @@ describe('ExistingMetadataListElementComponent', () => {
     leftItemRD$ = createSuccessfulRemoteDataObject$(relatedItem);
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
+    relationshipService = {
+      updatePlace:() => observableOf({})
+    } as any;
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
-    reoRel = new ReorderableRelationship(relationship, true, {} as any);
     submissionId = '1234';
+    reoRel = new ReorderableRelationship(relationship, true, relationshipService, {} as any, submissionId);
   }
 
   beforeEach(async(() => {
