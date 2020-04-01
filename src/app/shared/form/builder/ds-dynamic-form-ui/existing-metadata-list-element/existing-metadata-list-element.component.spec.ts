@@ -10,8 +10,8 @@ import { RelationshipOptions } from '../../models/relationship-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../testing/utils';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { of as observableOf } from "rxjs";
-import { RelationshipService } from "../../../../../core/data/relationship.service";
+import { of as observableOf } from 'rxjs';
+import { RelationshipService } from '../../../../../core/data/relationship.service';
 
 describe('ExistingMetadataListElementComponent', () => {
   let component: ExistingMetadataListElementComponent;
