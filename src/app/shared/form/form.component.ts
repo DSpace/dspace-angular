@@ -6,7 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output, ViewEncapsulation
+  Output
 } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
@@ -23,9 +23,6 @@ import { Observable, Subscription } from 'rxjs';
 import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { FormEntry, FormError } from './form.reducer';
-import { FormFieldMetadataValueObject } from "./builder/models/form-field-metadata-value.model";
-import { AuthorityValue } from "../../core/integration/models/authority.value";
-import { DsDynamicInputModel } from "./builder/ds-dynamic-form-ui/models/ds-dynamic-input.model";
 
 /**
  * The default form component.

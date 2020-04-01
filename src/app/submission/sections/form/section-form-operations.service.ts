@@ -305,9 +305,10 @@ export class SectionFormOperationsService {
    * @param event
    *    the [[DynamicFormControlEvent]] for the specified operation
    */
-  protected dispatchOperationsFromAddEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                              event: DynamicFormControlEvent
-                                              ): void {
+  protected dispatchOperationsFromAddEvent(
+    pathCombiner: JsonPatchOperationPathCombiner,
+    event: DynamicFormControlEvent
+  ): void {
     const path = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
     if (isNotEmpty(value)) {
