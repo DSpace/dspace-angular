@@ -68,7 +68,7 @@ export function getDSOPath(dso: DSpaceObject): string {
         loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule',
         canActivate: [AuthenticatedGuard]
       },
-      { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
+      { path: 'search', loadChildren: './+search-page/search-page-routing.module#SearchPageRoutingModule' },
       { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule'},
       { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },

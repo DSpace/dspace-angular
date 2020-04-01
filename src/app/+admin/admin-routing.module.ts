@@ -4,6 +4,8 @@ import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getAdminModulePath } from '../app-routing.module';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
+import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 
 const REGISTRIES_MODULE_PATH = 'registries';
 const ACCESS_CONTROL_MODULE_PATH = 'access-control';
@@ -26,10 +28,18 @@ export function getRegistriesModulePath() {
       {
         path: 'search',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
-        component: AdminSearchPageComponent,
-        data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' }
+        component: AdminWorkflowPageComponent,
+        data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' }
       },
+      {
+        path: 'workflow',
+        component: AdminSearchPageComponent,
+      }
     ])
+  ],
+  providers: [
+    I18nBreadcrumbResolver,
+    I18nBreadcrumbsService
   ]
 })
 export class AdminRoutingModule {
