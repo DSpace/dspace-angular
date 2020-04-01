@@ -130,6 +130,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'bundle.created.title'),
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'bundle.created.content')
       );
+      this.setUploadUrl();
     });
   }
 
@@ -151,7 +152,9 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
       }
       // Re-initialize the uploader component to ensure the latest changes to the options are applied
-      this.uploaderComponent.ngOnInit();
+      if (this.uploaderComponent) {
+        this.uploaderComponent.ngOnInit();
+      }
     });
   }
 
