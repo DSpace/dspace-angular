@@ -1,5 +1,9 @@
 @import './../../../../../../../styles/variables';
 
+:host {
+  display: block;
+}
+
 .cdk-drag {
     margin-left: -(2 * $spacer);
     margin-right: -(0.5 * $spacer);

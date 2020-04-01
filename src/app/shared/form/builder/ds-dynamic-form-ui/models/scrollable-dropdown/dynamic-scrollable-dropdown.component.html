@@ -1,8 +1,7 @@
 <div #sdRef="ngbDropdown" ngbDropdown class="input-group w-100">
-  <input class="form-control"
+  <input #inputElement class="form-control"
          [attr.autoComplete]="model.autoComplete"
          [class.is-invalid]="showErrorMessages"
-         [dynamicId]="bindId && model.id"
          [name]="model.name"
          [readonly]="model.readOnly"
          [type]="model.inputType"
@@ -11,9 +10,8 @@
          (click)="$event.stopPropagation(); openDropdown(sdRef);"
          (focus)="onFocus($event)"
          (keypress)="$event.preventDefault()">
-    <button aria-describedby="collectionControlsMenuLabel"
+    <button #buttonElement aria-describedby="collectionControlsMenuLabel"
             class="ds-form-input-btn  btn btn-outline-primary"
-            id="scrollableDropdownMenuButton_{{model.id}}"
             ngbDropdownToggle
             [disabled]="model.readOnly"
             (click)="onToggle(sdRef); $event.stopPropagation();"></button>

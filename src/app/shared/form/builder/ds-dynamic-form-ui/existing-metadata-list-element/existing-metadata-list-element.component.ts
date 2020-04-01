@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel, DynamicFormControlEvent } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
-import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 import { AppState } from '../../../../../app.reducer';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
@@ -140,7 +140,7 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
   @Input() metadataFields: string[];
   @Input() relationshipOptions: RelationshipOptions;
   @Input() submissionId: string;
-  metadataRepresentation: MetadataRepresentation;
+  metadataRepresentation$: BehaviorSubject<MetadataRepresentation>;
   relatedItem: Item;
 
   /**
@@ -167,10 +167,15 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
         const relationMD: MetadataValue = this.submissionItem.firstMetadata(this.relationshipOptions.metadataField, { value: this.relatedItem.uuid });
         if (hasValue(relationMD)) {
           const metadataRepresentationMD: MetadataValue = this.submissionItem.firstMetadata(this.metadataFields, { authority: relationMD.authority });
-          this.metadataRepresentation = Object.assign(
+          const nextValue = Object.assign(
             new ItemMetadataRepresentation(metadataRepresentationMD),
             this.relatedItem
-          )
+          );
+          if (hasValue(this.metadataRepresentation$)) {
+            this.metadataRepresentation$.next(nextValue);
+          } else {
+            this.metadataRepresentation$ = new BehaviorSubject<MetadataRepresentation>(nextValue);
+          }
         }
       }));
     }

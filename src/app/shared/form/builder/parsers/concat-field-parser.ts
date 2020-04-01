@@ -13,7 +13,7 @@ import {
   DynamicConcatModel,
   DynamicConcatModelConfig
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { isNotEmpty } from '../../../empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
 import { ParserOptions } from './parser-options';
 import {
   CONFIG_DATA,
@@ -53,14 +53,18 @@ export class ConcatFieldParser extends FieldParser {
     };
 
     const groupId = id.replace(/\./g, '_') + CONCAT_GROUP_SUFFIX;
-    const concatGroup: DynamicConcatModelConfig = this.initModel(groupId, label, false);
+    const concatGroup: DynamicConcatModelConfig = this.initModel(groupId, label, false, true);
 
     concatGroup.group = [];
     concatGroup.separator = this.separator;
 
     const input1ModelConfig: DynamicInputModelConfig = this.initModel(id + CONCAT_FIRST_INPUT_SUFFIX, false, false);
     const input2ModelConfig: DynamicInputModelConfig = this.initModel(id + CONCAT_SECOND_INPUT_SUFFIX, false, false);
-    input2ModelConfig.hint = '&nbsp;';
+
+    if (hasNoValue(concatGroup.hint) && hasValue(input1ModelConfig.hint) && hasNoValue(input2ModelConfig.hint)) {
+      concatGroup.hint = input1ModelConfig.hint;
+      input1ModelConfig.hint = undefined;
+    }
 
     if (this.configData.mandatory) {
       concatGroup.required = true;

@@ -14,6 +14,7 @@ export const CONCAT_SECOND_INPUT_SUFFIX = '_CONCAT_SECOND_INPUT';
 export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   separator: string;
   value?: any;
+  hint?: string;
   relationship?: RelationshipOptions;
   repeatable: boolean;
   required: boolean;
@@ -28,6 +29,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
   @serializable() required?: boolean;
+  @serializable() hint?: string;
   @serializable() metadataFields: string[];
   @serializable() submissionId: string;
 
@@ -41,6 +43,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.relationship = config.relationship;
     this.repeatable = config.repeatable;
     this.required = config.required;
+    this.hint = config.hint;
     this.metadataFields = config.metadataFields;
     this.submissionId = config.submissionId;
     this.valueUpdates = new Subject<string>();

@@ -23,6 +23,9 @@ import { Observable, Subscription } from 'rxjs';
 import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { FormEntry, FormError } from './form.reducer';
+import { FormFieldMetadataValueObject } from "./builder/models/form-field-metadata-value.model";
+import { AuthorityValue } from "../../core/integration/models/authority.value";
+import { DsDynamicInputModel } from "./builder/ds-dynamic-form-ui/models/ds-dynamic-input.model";
 
 /**
  * The default form component.
@@ -301,14 +304,33 @@ export class FormComponent implements OnDestroy, OnInit {
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
+
+    // First emit the new value so it can be sent to the server
+    const value = formArrayControl.controls[0].value;
+    const event = this.getEvent($event, arrayContext, 0, 'add');
+    this.addArrayItem.emit(event);
+    this.change.emit(event);
+
+    // Next: update the UI so the user sees the changes
+    // without having to wait for the server's reply
+
+    // add an empty new field at the bottom
     this.formBuilderService.addFormArrayGroup(formArrayControl, arrayContext);
-    this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
 
-    const value = formArrayControl.controls[index].value;
-    formArrayControl.controls[formArrayControl.length - 1].setValue(value);
+    // set that field to the new value
+    const model = arrayContext.groups[arrayContext.groups.length - 1].group[0] as any;
+    if (model.type === 'SCROLLABLE_DROPDOWN') {
+      model.value = Object.values(value)[0];
+    } else {
+      formArrayControl.controls[formArrayControl.length - 1].setValue(value);
+    }
 
-    this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
-    this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
+    // Clear the topmost field by removing the filled out version and inserting a new, empty version.
+    // Doing it this way ensures an empty value of the correct type is added without a bunch of ifs here
+    this.formBuilderService.removeFormArrayGroup(0, formArrayControl, arrayContext);
+    this.formBuilderService.insertFormArrayGroup(0, formArrayControl, arrayContext);
+
+    // Tell the formService that it should rerender.
     this.formService.changeForm(this.formId, this.formModel);
   }
 

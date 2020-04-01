@@ -334,7 +334,6 @@ export class SubmissionObjectEffects {
           if (notify && !currentState.sections[sectionId].enabled) {
             this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
           }
-          console.log(submissionId, sectionId, sectionData, sectionErrors);
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
         }
       });

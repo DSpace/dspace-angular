@@ -69,6 +69,9 @@ export class SectionFormOperationsService {
       case 'change':
         this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue);
         break;
+      case 'add':
+        this.dispatchOperationsFromAddEvent(pathCombiner, event);
+        break;
       default:
         break;
     }
@@ -291,6 +294,41 @@ export class SectionFormOperationsService {
       this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
     } else if (isNotEmpty(value)) {
       this.operationsBuilder.remove(pathCombiner.getPath(path));
+    }
+  }
+
+  /**
+   * Handle form add operations
+   *
+   * @param pathCombiner
+   *    the [[JsonPatchOperationPathCombiner]] object for the specified operation
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   */
+  protected dispatchOperationsFromAddEvent(pathCombiner: JsonPatchOperationPathCombiner,
+                                              event: DynamicFormControlEvent
+                                              ): void {
+    const path = this.getFieldPathSegmentedFromChangeEvent(event);
+    const value = this.getFieldValueFromChangeEvent(event);
+    if (isNotEmpty(value)) {
+      value.place = this.getArrayIndexFromEvent(event);
+      if (hasValue(event.group) && hasValue(event.group.value)) {
+        const valuesInGroup = event.group.value
+          .map((g) => Object.values(g))
+          .reduce((accumulator, currentValue) => accumulator.concat(currentValue))
+          .filter((v) => isNotEmpty(v));
+        if (valuesInGroup.length === 1) {
+          // The first add for a field needs to be a different PATCH operation
+          // for some reason
+          this.operationsBuilder.add(
+            pathCombiner.getPath([path]),
+            [value], false);
+        } else {
+          this.operationsBuilder.add(
+            pathCombiner.getPath([path, '-']),
+            value, false);
+        }
+      }
     }
   }
 

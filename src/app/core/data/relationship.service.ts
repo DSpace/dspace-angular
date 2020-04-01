@@ -32,7 +32,7 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { Item } from '../shared/item.model';
 import {
-  configureRequest,
+  configureRequest, getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
   getResponseFromEntry,
   getSucceededRemoteData
@@ -323,8 +323,7 @@ export class RelationshipService extends DataService<Relationship> {
 
   private isItemMatchWithItemRD(itemRD$: Observable<RemoteData<Item>>, itemCheck: Item): Observable<boolean> {
     return itemRD$.pipe(
-      getSucceededRemoteData(),
-      map((itemRD: RemoteData<Item>) => itemRD.payload),
+      getFirstSucceededRemoteDataPayload(),
       map((item: Item) => item.uuid === itemCheck.uuid)
     );
   }
@@ -378,6 +377,7 @@ export class RelationshipService extends DataService<Relationship> {
     let count = 0
     const update$: Observable<RemoteData<Relationship>> = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
       .pipe(
+        filter((relation: Relationship) => hasValue(relation)),
         switchMap((relation: Relationship) =>
           relation.relationshipType.pipe(
             getSucceededRemoteData(),

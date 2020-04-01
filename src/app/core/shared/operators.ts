@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, find, flatMap, map, tap } from 'rxjs/operators';
+import { filter, find, flatMap, map, take, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
@@ -65,7 +65,7 @@ export const getPaginatedListPayload = () =>
 
 export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
+    source.pipe(filter((rd: RemoteData<T>) => rd.hasSucceeded), take(1));
 
 /**
  * Get the first successful remotely retrieved object

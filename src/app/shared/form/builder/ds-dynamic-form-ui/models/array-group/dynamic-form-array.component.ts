@@ -9,7 +9,7 @@ import {
   Output,
   QueryList
 } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
   DynamicFormArrayGroupModel,
@@ -22,7 +22,7 @@ import {
   DynamicTemplateDirective
 } from '@ng-dynamic-forms/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { RelationshipService } from '../../../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
@@ -34,7 +34,7 @@ import {
 } from '../../../../../../core/shared/operators';
 import { SubmissionObject } from '../../../../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty, isNull } from '../../../../../empty.util';
+import { hasValue } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import {
   Reorderable,
@@ -43,11 +43,7 @@ import {
 } from '../../existing-metadata-list-element/existing-metadata-list-element.component';
 import { DynamicConcatModel } from '../ds-dynamic-concat.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
-import { SaveSubmissionSectionFormSuccessAction } from '../../../../../../submission/objects/submission-objects.actions';
 import { Store } from '@ngrx/store';
-import { SubmissionState } from '../../../../../../submission/submission.reducers';
-import { ObjectCacheService } from '../../../../../../core/cache/object-cache.service';
-import { RequestService } from '../../../../../../core/data/request.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { AppState } from '../../../../../../app.reducer';
 import { followLink } from '../../../../../utils/follow-link-config.model';
@@ -115,7 +111,10 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
         .filter(([group, control], index) => index > 0 && hasValue((group.group[0] as any).value)) // disregard the first group, it is always empty to ensure the first field remains empty
         .map(([group, control]: [DynamicFormArrayGroupModel, AbstractControl], index: number) => {
           const model = group.group[0] as DynamicConcatModel;
+          // console.log('model.id', model.id);
+          // console.log('model.value', model.value);
           let formFieldMetadataValue: FormFieldMetadataValueObject = model.value as FormFieldMetadataValueObject;
+          // console.log('formFieldMetadataValue', formFieldMetadataValue);
           if (hasValue(formFieldMetadataValue)) {
             const metadataValue = Object.assign(new MetadataValue(), {
               value: formFieldMetadataValue.display,
@@ -192,13 +191,14 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
                   hasMetadataField = true;
                   updatedReorderable.subscribe((v) => {
                     const reoMD = reorderable as ReorderableFormFieldMetadataValue;
-                    const mdl = Object.assign({}, reoMD.model, { value: reoMD.metadataValue });
+                    reoMD.model.value = reoMD.metadataValue;
+                    console.log('reoMD', reoMD);
                     this.onChange({
                       $event: { previousIndex: prevIndex },
                       context: { index },
                       control: reoMD.control,
                       group: this.group,
-                      model: mdl,
+                      model: reoMD.model,
                       type: DynamicFormControlEventType.Change
                     });
                   });
@@ -224,5 +224,11 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
   moveSelection(event: CdkDragDrop<Relationship>) {
     this.model.moveGroup(event.previousIndex, event.currentIndex - event.previousIndex);
     this.updateReorderables();
+  }
+
+  update(index: number) {
+    if (index > 0) {
+      this.updateReorderables();
+    }
   }
 }

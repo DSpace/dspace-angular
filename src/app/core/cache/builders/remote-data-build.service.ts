@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
-import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, startWith, switchMap } from 'rxjs/operators';
 import {
   hasValue,
   hasValueOperator,
@@ -97,7 +97,8 @@ export class RemoteDataBuildService {
         let isSuccessful: boolean;
         let error: RemoteDataError;
         if (hasValue(reqEntry) && hasValue(reqEntry.response)) {
-          isSuccessful = reqEntry.response.isSuccessful;
+          isSuccessful = reqEntry.response.statusCode === 204 ||
+            reqEntry.response.statusCode >= 200 && reqEntry.response.statusCode < 300 && hasValue(payload);
           const errorMessage = isSuccessful === false ? (reqEntry.response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
             error = new RemoteDataError(
@@ -140,6 +141,7 @@ export class RemoteDataBuildService {
             );
           }));
       }),
+      startWith([]),
       distinctUntilChanged(),
     );
     const pageInfo$ = requestEntry$.pipe(
@@ -156,7 +158,7 @@ export class RemoteDataBuildService {
       })
     );
 
-    const payload$ = observableCombineLatest(tDomainList$, pageInfo$).pipe(
+    const payload$ = observableCombineLatest([tDomainList$, pageInfo$]).pipe(
       map(([tDomainList, pageInfo]) => {
         return new PaginatedList(pageInfo, tDomainList);
       })

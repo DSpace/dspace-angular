@@ -78,12 +78,7 @@ export abstract class FieldParser {
               }
             }
             model = this.modelFactory(fieldValue, false);
-            if (!isFirstModelInArray) {
-              model.hint = undefined;
-              if (Array.isArray(model.group)) {
-                model.group.forEach((group) => group.hint = undefined);
-              }
-            }
+            model.id = `${model.id}_${fieldArrayCounter}`;
           }
           setLayout(model, 'element', 'host', 'col');
           if (model.hasLanguages || isNotEmpty(model.relationship)) {

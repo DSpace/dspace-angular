@@ -33,7 +33,7 @@ import {
   DynamicDatePickerModel, DynamicFormComponentService,
   DynamicFormControl,
   DynamicFormControlContainerComponent,
-  DynamicFormControlEvent,
+  DynamicFormControlEvent, DynamicFormControlEventType,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService, DynamicFormRelationService,
@@ -60,7 +60,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/dat
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
@@ -73,7 +73,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, startWith, switchMap, find, take } from 'rxjs/operators';
+import { map, startWith, switchMap, find, take, tap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -246,7 +246,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           .pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
-        this.relationshipValue$ = observableCombineLatest(this.item$.pipe(take(1)), relationship$).pipe(
+        this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(
           switchMap(([item, relationship]: [Item, Relationship]) =>
             relationship.leftItem.pipe(
               getSucceededRemoteData(),
@@ -278,7 +278,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes) {
+    if (changes && !this.isRelationship) {
       super.ngOnChanges(changes);
       if (this.model && this.model.placeholder) {
         this.model.placeholder = this.translateService.instant(this.model.placeholder);
@@ -322,7 +322,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Open a modal where the user can select relationships to be added to item being submitted
    */
   openLookup() {
-
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
@@ -330,11 +329,14 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
     modalComp.query = this.model.value ? this.model.value.value : '';
     if (hasValue(this.model.value)) {
-      // this.model.reset();
-      // this.model.value = undefined;
-      // this.model.valueUpdates(undefined);
-      this.model.value.value = undefined;
-      this.change.emit();
+      this.model.value = '';
+      this.onChange({
+        $event: { previousIndex: 0 },
+        context: { index: 0 },
+        control: this.control,
+        model: this.model,
+        type: DynamicFormControlEventType.Change
+      });
     }
     this.submissionService.dispatchSave(this.model.submissionId);
 
@@ -368,5 +370,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
     this.subs.push(this.item$.subscribe((item) => this.item = item));
     this.subs.push(collection$.subscribe((collection) => this.collection = collection));
+
   }
 }

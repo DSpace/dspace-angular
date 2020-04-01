@@ -163,13 +163,10 @@ export class RelationshipEffects {
     this.relationshipService.getRelationshipByItemsAndLabel(item1, item2, relationshipType).pipe(
       take(1),
       hasValueOperator(),
-      tap((v) => console.log('before delete', v)),
       mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id, 'none')),
       take(1),
-      tap((v) => console.log('before refresh', v)),
       switchMap(() => this.refreshWorkspaceItemInCache(submissionId)),
     ).subscribe((submissionObject: SubmissionObject) => {
-      console.log('in subscribe', submissionObject);
       this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false))
     });
   }
