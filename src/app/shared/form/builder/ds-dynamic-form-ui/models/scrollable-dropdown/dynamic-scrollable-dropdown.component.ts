@@ -48,7 +48,6 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
   }
 
   ngOnInit() {
-    // console.log('ngOnInit', this.model, this.model.value);
     this.searchOptions = new IntegrationSearchOptions(
       this.model.authorityOptions.scope,
       this.model.authorityOptions.name,
@@ -66,7 +65,6 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
       }),
       first())
       .subscribe((object: IntegrationData) => {
-        // console.log('ngOnInit subscribe', object, this.model, this.model.value);
         this.optionsList = object.payload;
         if (this.model.value) {
           this.setCurrentValue(this.model.value);

@@ -111,10 +111,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
         .filter(([group, control], index) => index > 0 && hasValue((group.group[0] as any).value)) // disregard the first group, it is always empty to ensure the first field remains empty
         .map(([group, control]: [DynamicFormArrayGroupModel, AbstractControl], index: number) => {
           const model = group.group[0] as DynamicConcatModel;
-          // console.log('model.id', model.id);
-          // console.log('model.value', model.value);
           let formFieldMetadataValue: FormFieldMetadataValueObject = model.value as FormFieldMetadataValueObject;
-          // console.log('formFieldMetadataValue', formFieldMetadataValue);
           if (hasValue(formFieldMetadataValue)) {
             const metadataValue = Object.assign(new MetadataValue(), {
               value: formFieldMetadataValue.display,
