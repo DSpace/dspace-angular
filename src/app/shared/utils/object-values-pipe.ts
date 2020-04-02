@@ -1,6 +1,10 @@
 import { PipeTransform, Pipe } from '@angular/core';
+import { isNotEmpty } from '../empty.util';
 
-@Pipe({name: 'dsObjectValues'})
+@Pipe({
+  name: 'dsObjectValues',
+  pure: true
+})
 /**
  * Pipe for parsing all values of an object to an array of values
  */
@@ -12,7 +16,9 @@ export class ObjectValuesPipe implements PipeTransform {
    */
   transform(value, args: string[]): any {
     const values = [];
-    Object.values(value).forEach((v) => values.push(v));
+    if (isNotEmpty(value)) {
+      Object.values(value).forEach((v) => values.push(v));
+    }
     return values;
   }
 }

@@ -37,14 +37,14 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   metadataFields$: Observable<string[]>;
 
   constructor(
-    protected itemService: ItemDataService,
-    protected objectUpdatesService: ObjectUpdatesService,
-    protected router: Router,
-    protected notificationsService: NotificationsService,
-    protected translateService: TranslateService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    protected route: ActivatedRoute,
-    protected metadataFieldService: RegistryService,
+    public itemService: ItemDataService,
+    public objectUpdatesService: ObjectUpdatesService,
+    public router: Router,
+    public notificationsService: NotificationsService,
+    public translateService: TranslateService,
+    @Inject(GLOBAL_CONFIG) public EnvConfig: GlobalConfig,
+    public route: ActivatedRoute,
+    public metadataFieldService: RegistryService,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
   }
@@ -61,8 +61,8 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Initialize the values and updates of the current item's metadata fields
    */
   public initializeUpdates(): void {
-    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.getMetadataAsListExcludingRelationships());
-  }
+    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
+    }
 
   /**
    * Initialize the prefix for notification messages
@@ -83,7 +83,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
-    this.objectUpdatesService.initialize(this.url, this.getMetadataAsListExcludingRelationships(), this.item.lastModified);
+    this.objectUpdatesService.initialize(this.url, this.item.metadataAsList, this.item.lastModified);
   }
 
   /**
