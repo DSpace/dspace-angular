@@ -38,7 +38,7 @@
 
   "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
 
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
 
   "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
 
