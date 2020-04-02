@@ -27,7 +27,7 @@ export class ProtractorPage {
   }
 
   setCurrentScope(scope: string) {
-    element(by.css('#search-form option[value="' + scope + '"]')).click();
+    return element(by.css('#search-form option[value="' + scope + '"]')).click();
   }
 
   setCurrentQuery(query: string) {
@@ -35,7 +35,7 @@ export class ProtractorPage {
   }
 
   submitSearchForm() {
-    element(by.css('#search-form button.search-button')).click();
+    return element(by.css('#search-form button.search-button')).click();
   }
 
   getRandomScopeOption(): promise.Promise<string> {

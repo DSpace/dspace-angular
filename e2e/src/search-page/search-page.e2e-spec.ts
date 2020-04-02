@@ -22,10 +22,11 @@ describe('protractor SearchPage', () => {
     page.navigateToSearch()
       .then(() => page.getRandomScopeOption())
       .then((scopeString: string) => {
-        page.navigateToSearchWithScopeParameter(scopeString);
-        page.getCurrentScope().then((s: string) => {
-          expect<string>(s).toEqual(scopeString);
-        });
+        page.navigateToSearchWithScopeParameter(scopeString)
+          .then(() => page.getCurrentScope())
+          .then((s: string) => {
+            expect<string>(s).toEqual(scopeString);
+          })
       });
   });
 
@@ -33,13 +34,15 @@ describe('protractor SearchPage', () => {
     page.navigateToSearch()
       .then(() => page.getRandomScopeOption())
       .then((scopeString: string) => {
-        page.setCurrentScope(scopeString);
-        page.submitSearchForm();
-        browser.wait(() => {
-          return browser.getCurrentUrl().then((url: string) => {
-            return url.indexOf('scope=' + encodeURI(scopeString)) !== -1;
-          });
-        });
+        page.setCurrentScope(scopeString)
+          .then(() => page.submitSearchForm())
+          .then(() => () => {
+            browser.wait(() => {
+              return browser.getCurrentUrl().then((url: string) => {
+                return url.indexOf('scope=' + encodeURI(scopeString)) !== -1;
+              })
+            })
+          })
       });
   });
 
