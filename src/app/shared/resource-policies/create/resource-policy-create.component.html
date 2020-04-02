@@ -1,0 +1,6 @@
+<div class="container">
+  <h4 class="mb-3">{{'resource-policies.create.modal.head' | translate}}</h4>
+
+  <ds-resource-policy-form (reset)="redirectToPreviousPage()"
+                           (submit)="createResourcePolicy($event)"></ds-resource-policy-form>
+</div>

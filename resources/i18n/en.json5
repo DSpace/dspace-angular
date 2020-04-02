@@ -1667,15 +1667,51 @@
 
   "resource-policies.add.for.item": "Add a new Item policy",
 
+  "resource-policies.create.modal.head": "Create new resource policy",
+
+  "resource-policies.edit.modal.head": "Edit resource policy",
+
+  "resource-policies.form.action-type.label": "Select the action type",
+
+  "resource-policies.form.action-type.required": "You must select the resource policy action.",
+
+  "resource-policies.form.eperson-group-list.label": "Select the eperson or group that will be grant of the permission",
+
+  "resource-policies.form.eperson-group-list.select.btn": "Select",
+
+  "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+
+  "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
+
+  "resource-policies.form.eperson-group-list.table.headers.action": "Action",
+
+  "resource-policies.form.eperson-group-list.table.headers.id": "ID",
+
+  "resource-policies.form.eperson-group-list.table.headers.name": "Name",
+
+  "resource-policies.form.date.end.label": "End Date",
+
+  "resource-policies.form.date.start.label": "Start Date",
+
+  "resource-policies.form.description.label": "Description",
+
+  "resource-policies.form.name.label": "Name",
+
+  "resource-policies.form.policy-type.label": "Select the policy type",
+
+  "resource-policies.form.policy-type.required": "You must select the resource policy type.",
+
   "resource-policies.table.headers.action": "Action",
 
   "resource-policies.table.headers.date.end": "End Date",
 
   "resource-policies.table.headers.date.start": "Start Date",
 
-  "resource-policies.table.headers.group": "Group",
+  "resource-policies.table.headers.edit": "Edit",
 
-  "resource-policies.table.headers.group.edit": "Edit",
+  "resource-policies.table.headers.eperson": "EPerson",
+
+  "resource-policies.table.headers.group": "Group",
 
   "resource-policies.table.headers.name": "Name",
 
