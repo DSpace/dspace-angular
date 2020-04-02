@@ -153,6 +153,33 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
+   * Turn an array of RequestParam into a query string and combine it with the given HREF
+   *
+   * @param href The HREF to which the query string should be appended
+   * @param params Array with additional params to combine with query string
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   *
+   * @return {Observable<string>}
+   * Return an observable that emits created HREF
+   */
+  protected buildHrefWithParams(href: string, params: RequestParam[], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
+
+    let  args = [];
+    if (hasValue(params)) {
+      params.forEach((param: RequestParam) => {
+        args.push(`${param.fieldName}=${param.fieldValue}`);
+      })
+    }
+
+    args = this.addEmbedParams(args, ...linksToFollow);
+
+    if (isNotEmpty(args)) {
+      return new URLCombiner(href, `?${args.join('&')}`).toString();
+    } else {
+      return href;
+    }
+  }
+  /**
    * Adds the embed options to the link for the request
    * @param args            params for the query string
    * @param linksToFollow   links we want to embed in query string if shouldEmbed is true
@@ -379,15 +406,15 @@ export abstract class DataService<T extends CacheableObject> {
    *
    * @param {DSpaceObject} dso
    *    The object to create
-   * @param {string} parentUUID
-   *    The UUID of the parent to create the new object under
+   * @param {RequestParam[]} params
+   *    Array with additional params to combine with query string
    */
-  create(dso: T, parentUUID: string): Observable<RemoteData<T>> {
+  create(dso: T, ...params: RequestParam[]): Observable<RemoteData<T>> {
     const requestId = this.requestService.generateRequestId();
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
+      map((endpoint: string) => this.buildHrefWithParams(endpoint, params))
     );
 
     const serializedDso = new DSpaceSerializer(getClassForType((dso as any).type)).serialize(dso);
