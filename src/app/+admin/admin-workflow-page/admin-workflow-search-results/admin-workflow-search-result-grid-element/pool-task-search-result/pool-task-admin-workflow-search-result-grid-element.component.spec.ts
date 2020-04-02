@@ -1,21 +1,35 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { Bitstream } from '../../../../../core/shared/bitstream.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { SharedModule } from '../../../../../shared/shared.module';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { ItemAdminWorkflowSearchResultListElementComponent } from './item-admin-workflow-search-result-list-element.component';
-import { Item } from '../../../../../core/shared/item.model';
+import { PoolTaskAdminWorkflowSearchResultGridElementComponent } from './pool-task-admin-workflow-search-result-grid-element.component';
 
-describe('ItemAdminSearchResultListElementComponent', () => {
-  let component: ItemAdminWorkflowSearchResultListElementComponent;
-  let fixture: ComponentFixture<ItemAdminWorkflowSearchResultListElementComponent>;
+describe('ItemAdminSearchResultGridElementComponent', () => {
+  let component: PoolTaskAdminWorkflowSearchResultGridElementComponent;
+  let fixture: ComponentFixture<PoolTaskAdminWorkflowSearchResultGridElementComponent>;
   let id;
   let searchResult;
+
+  const mockBitstreamDataService = {
+    getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
+      return createSuccessfulRemoteDataObject$(new Bitstream());
+    }
+  };
 
   function init() {
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
@@ -26,20 +40,26 @@ describe('ItemAdminSearchResultListElementComponent', () => {
 
   beforeEach(async(() => {
     init();
-    TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
-      ],
-      declarations: [ItemAdminWorkflowSearchResultListElementComponent],
-      providers: [{ provide: TruncatableService, useValue: {} }],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    TestBed.configureTestingModule(
+      {
+        declarations: [PoolTaskAdminWorkflowSearchResultGridElementComponent],
+        imports: [
+          NoopAnimationsModule,
+          TranslateModule.forRoot(),
+          RouterTestingModule.withRoutes([]),
+          SharedModule
+        ],
+        providers: [
+          { provide: TruncatableService, useValue: mockTruncatableService },
+          { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemAdminWorkflowSearchResultListElementComponent);
+    fixture = TestBed.createComponent(PoolTaskAdminWorkflowSearchResultGridElementComponent);
     component = fixture.componentInstance;
     component.object = searchResult;
     component.linkTypes = CollectionElementLinkType;

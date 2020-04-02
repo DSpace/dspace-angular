@@ -262,6 +262,14 @@
 
 
 
+
+  "admin.workflow.breadcrumbs": "Admin Workflow",
+
+  "admin.workflow.title": "Admin Workflow",
+
+
+
+
   "auth.errors.invalid-user": "Invalid email address or password.",
 
   "auth.messages.expired": "Your session has expired. Please log in again.",
@@ -1385,6 +1393,8 @@
   "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
 
 
+  "menu.section.workflow": "Active Workflows",
+
 
   "mydspace.description": "",
 
@@ -2213,5 +2223,9 @@
   "virtual-metadata.delete-item.modal-head": "The virtual metadata of this relation",
 
   "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
+
+  "workflowAdmin.search.results.head": "Active Workflows",
+
+  "workflowAdmin.search.results.head": "Active Workflows",
 }
 

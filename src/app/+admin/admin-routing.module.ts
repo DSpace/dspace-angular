@@ -28,13 +28,15 @@ export function getRegistriesModulePath() {
       {
         path: 'search',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
-        component: AdminWorkflowPageComponent,
-        data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' }
+        component: AdminSearchPageComponent,
+        data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' }
       },
       {
         path: 'workflow',
-        component: AdminSearchPageComponent,
-      }
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        component: AdminWorkflowPageComponent,
+        data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' }
+      },
     ])
   ],
   providers: [

@@ -19,33 +19,32 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
+import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { AbstractListableElementComponent } from '../../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
-  selector: 'ds-item-admin-workflow-search-result-grid-element',
-  styleUrls: ['./item-admin-workflow-search-result-grid-element.component.scss'],
-  templateUrl: './item-admin-workflow-search-result-grid-element.component.html'
+  selector: 'ds-workflow-item-admin-workflow-grid-element',
+  styleUrls: ['./workflow-item-admin-workflow-grid-element.component.scss'],
+  templateUrl: './workflow-item-admin-workflow-grid-element.component.html'
 })
 /**
- * The component for displaying a list element for an item search result on the admin search page
+ * The component for displaying a list element for an workflow item on the admin search page
  */
-export class ItemAdminWorkflowSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> implements OnInit {
+export class WorkflowItemAdminWorkflowGridElementComponent extends AbstractListableElementComponent<WorkflowItem> {
   @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
   @ViewChild('badges', { static: true }) badges: ElementRef;
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
 
-  constructor(protected truncatableService: TruncatableService,
-              protected bitstreamDataService: BitstreamDataService,
-              private componentFactoryResolver: ComponentFactoryResolver
-  ) {
-    super(truncatableService, bitstreamDataService);
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+    super();
   }
 
   /**
    * Setup the dynamic child component
    */
   ngOnInit(): void {
-    super.ngOnInit();
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
 
     const viewContainerRef = this.listableObjectDirective.viewContainerRef;

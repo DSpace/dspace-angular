@@ -447,7 +447,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.workflow',
-          link: '/admin/worklow'
+          link: '/admin/workflow'
         } as LinkMenuItemModel,
         icon: 'user-check',
         index: 10

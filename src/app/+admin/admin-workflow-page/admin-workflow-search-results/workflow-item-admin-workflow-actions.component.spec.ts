@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ItemAdminWorkflowSearchResultActionsComponent } from './item-admin-workflow-search-result-actions.component';
+import { ItemAdminWorkflowSearchResultActionsComponent } from './workflow-item-admin-workflow-actions.component';
 import { Item } from '../../../core/shared/item.model';
 import {
   ITEM_EDIT_DELETE_PATH,

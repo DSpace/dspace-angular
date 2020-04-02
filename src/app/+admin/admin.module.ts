@@ -12,10 +12,12 @@ import { ItemAdminSearchResultGridElementComponent } from './admin-search-page/a
 import { CommunityAdminSearchResultGridElementComponent } from './admin-search-page/admin-search-results/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
 import { CollectionAdminSearchResultGridElementComponent } from './admin-search-page/admin-search-results/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
 import { ItemAdminSearchResultActionsComponent } from './admin-search-page/admin-search-results/item-admin-search-result-actions.component';
-import { ItemAdminWorkflowSearchResultGridElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-grid-element/item-search-result/item-admin-workflow-search-result-grid-element.component';
-import { ItemAdminWorkflowSearchResultActionsComponent } from './admin-workflow-page/admin-workflow-search-results/item-admin-workflow-search-result-actions.component';
-import { ItemAdminWorkflowSearchResultListElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-list-element/item-search-result/item-admin-workflow-search-result-list-element.component';
+import { WorkflowItemAdminWorkflowGridElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-grid-element/workflow-item/workflow-item-admin-workflow-grid-element.component';
+import { WorkflowItemAdminWorkflowActionsComponent } from './admin-workflow-page/admin-workflow-search-results/workflow-item-admin-workflow-actions.component';
+import { WorkflowItemAdminWorkflowListElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-list-element/workflow-item/workflow-item-admin-workflow-list-element.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
+import { PoolTaskAdminWorkflowSearchResultListElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-list-element/pool-task-item-search-result/pool-task-admin-workflow-search-result-list-element.component';
+import { PoolTaskAdminWorkflowSearchResultGridElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-grid-element/pool-task-search-result/pool-task-admin-workflow-search-result-grid-element.component';
 
 @NgModule({
   imports: [
@@ -36,9 +38,12 @@ import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow
     CollectionAdminSearchResultGridElementComponent,
     ItemAdminSearchResultActionsComponent,
 
-    ItemAdminWorkflowSearchResultListElementComponent,
-    ItemAdminWorkflowSearchResultGridElementComponent,
-    ItemAdminWorkflowSearchResultActionsComponent,
+    WorkflowItemAdminWorkflowListElementComponent,
+    WorkflowItemAdminWorkflowGridElementComponent,
+    WorkflowItemAdminWorkflowActionsComponent,
+
+    PoolTaskAdminWorkflowSearchResultListElementComponent,
+    PoolTaskAdminWorkflowSearchResultGridElementComponent,
   ],
   entryComponents: [
     ItemAdminSearchResultListElementComponent,
@@ -49,9 +54,12 @@ import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow
     CollectionAdminSearchResultGridElementComponent,
     ItemAdminSearchResultActionsComponent,
 
-    ItemAdminWorkflowSearchResultListElementComponent,
-    ItemAdminWorkflowSearchResultGridElementComponent,
-    ItemAdminWorkflowSearchResultActionsComponent,
+    WorkflowItemAdminWorkflowListElementComponent,
+    WorkflowItemAdminWorkflowGridElementComponent,
+    WorkflowItemAdminWorkflowActionsComponent,
+
+    PoolTaskAdminWorkflowSearchResultListElementComponent,
+    PoolTaskAdminWorkflowSearchResultGridElementComponent,
   ]
 })
 export class AdminModule {
