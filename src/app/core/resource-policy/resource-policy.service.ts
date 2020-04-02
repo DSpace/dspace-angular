@@ -22,7 +22,7 @@ import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { ActionType } from './models/action-type.model';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { isNotEmpty } from '../../shared/empty.util';
 
 /* tslint:disable:max-classes-per-file */
@@ -108,9 +108,9 @@ export class ResourcePolicyService {
    */
   searchByEPerson(UUID: string, resourceUUID?: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
-    options.searchParams = [new SearchParam('uuid', UUID)];
+    options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(resourceUUID)) {
-      options.searchParams.push(new SearchParam('resource', resourceUUID))
+      options.searchParams.push(new RequestParam('resource', resourceUUID))
     }
     return this.dataService.searchBy(this.searchByEPersonMethod, options, ...linksToFollow)
   }
@@ -124,9 +124,9 @@ export class ResourcePolicyService {
    */
   searchByGroup(UUID: string, resourceUUID?: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
-    options.searchParams = [new SearchParam('uuid', UUID)];
+    options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(resourceUUID)) {
-      options.searchParams.push(new SearchParam('resource', resourceUUID))
+      options.searchParams.push(new RequestParam('resource', resourceUUID))
     }
     return this.dataService.searchBy(this.searchByGroupMethod, options, ...linksToFollow)
   }
@@ -140,9 +140,9 @@ export class ResourcePolicyService {
    */
   searchByResource(UUID: string, action?: ActionType, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
-    options.searchParams = [new SearchParam('uuid', UUID)];
+    options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(action)) {
-      options.searchParams.push(new SearchParam('action', action))
+      options.searchParams.push(new RequestParam('action', action))
     }
     return this.dataService.searchBy(this.searchByResourceMethod, options, ...linksToFollow)
   }

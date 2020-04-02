@@ -12,7 +12,7 @@ import { PaginatedSearchOptions } from '../../shared/search/paginated-search-opt
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
@@ -94,7 +94,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
   getAuthorizedCollectionByCommunity(communityId: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAuthorizedByCommunity';
     options = Object.assign({}, options, {
-      searchParams: [new SearchParam('uuid', communityId)]
+      searchParams: [new RequestParam('uuid', communityId)]
     });
 
     return this.searchBy(searchHref, options).pipe(

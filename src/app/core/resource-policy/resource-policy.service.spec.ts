@@ -13,7 +13,7 @@ import { ResourcePolicyService } from './resource-policy.service';
 import { PolicyType } from './models/policy-type.model';
 import { ActionType } from './models/action-type.model';
 import { FindListOptions } from '../data/request.models';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { PageInfo } from '../shared/page-info.model';
 import { PaginatedList } from '../data/paginated-list';
 import { createSuccessfulRemoteDataObject } from '../../shared/testing/utils';
@@ -168,7 +168,7 @@ describe('ResourcePolicyService', () => {
   describe('searchByEPerson', () => {
     it('should proxy the call to dataservice.searchBy', () => {
       const options = new FindListOptions();
-      options.searchParams = [new SearchParam('uuid', epersonUUID)];
+      options.searchParams = [new RequestParam('uuid', epersonUUID)];
       scheduler.schedule(() => service.searchByEPerson(epersonUUID));
       scheduler.flush();
 
@@ -178,8 +178,8 @@ describe('ResourcePolicyService', () => {
     it('should proxy the call to dataservice.searchBy with additional search param', () => {
       const options = new FindListOptions();
       options.searchParams = [
-        new SearchParam('uuid', epersonUUID),
-        new SearchParam('resource', resourceUUID),
+        new RequestParam('uuid', epersonUUID),
+        new RequestParam('resource', resourceUUID),
       ];
       scheduler.schedule(() => service.searchByEPerson(epersonUUID, resourceUUID));
       scheduler.flush();
@@ -200,7 +200,7 @@ describe('ResourcePolicyService', () => {
   describe('searchByGroup', () => {
     it('should proxy the call to dataservice.searchBy', () => {
       const options = new FindListOptions();
-      options.searchParams = [new SearchParam('uuid', groupUUID)];
+      options.searchParams = [new RequestParam('uuid', groupUUID)];
       scheduler.schedule(() => service.searchByGroup(groupUUID));
       scheduler.flush();
 
@@ -210,8 +210,8 @@ describe('ResourcePolicyService', () => {
     it('should proxy the call to dataservice.searchBy with additional search param', () => {
       const options = new FindListOptions();
       options.searchParams = [
-        new SearchParam('uuid', groupUUID),
-        new SearchParam('resource', resourceUUID),
+        new RequestParam('uuid', groupUUID),
+        new RequestParam('resource', resourceUUID),
       ];
       scheduler.schedule(() => service.searchByGroup(groupUUID, resourceUUID));
       scheduler.flush();
@@ -232,7 +232,7 @@ describe('ResourcePolicyService', () => {
   describe('searchByResource', () => {
     it('should proxy the call to dataservice.searchBy', () => {
       const options = new FindListOptions();
-      options.searchParams = [new SearchParam('uuid', resourceUUID)];
+      options.searchParams = [new RequestParam('uuid', resourceUUID)];
       scheduler.schedule(() => service.searchByResource(resourceUUID));
       scheduler.flush();
 
@@ -243,8 +243,8 @@ describe('ResourcePolicyService', () => {
       const action = ActionType.READ;
       const options = new FindListOptions();
       options.searchParams = [
-        new SearchParam('uuid', resourceUUID),
-        new SearchParam('action', action),
+        new RequestParam('uuid', resourceUUID),
+        new RequestParam('action', action),
       ];
       scheduler.schedule(() => service.searchByResource(resourceUUID, action));
       scheduler.flush();

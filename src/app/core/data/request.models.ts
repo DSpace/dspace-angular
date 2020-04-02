@@ -11,7 +11,7 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { RestRequestMethod } from './rest-request-method';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
 import { MetadataschemaParsingService } from './metadataschema-parsing.service';
@@ -146,7 +146,7 @@ export class FindListOptions {
   elementsPerPage?: number;
   currentPage?: number;
   sort?: SortOptions;
-  searchParams?: SearchParam[];
+  searchParams?: RequestParam[];
   startsWith?: string;
 }
 

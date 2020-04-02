@@ -15,7 +15,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { DataService } from '../data/data.service';
@@ -97,7 +97,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param linksToFollow
    */
   private getEpeopleByEmail(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
-    const searchParams = [new SearchParam('email', query)];
+    const searchParams = [new RequestParam('email', query)];
     return this.getEPeopleBy(searchParams, this.searchByEmailPath, options, ...linksToFollow);
   }
 
@@ -108,7 +108,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param linksToFollow
    */
   private getEpeopleByMetadata(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
-    const searchParams = [new SearchParam('query', query)];
+    const searchParams = [new RequestParam('query', query)];
     return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, ...linksToFollow);
   }
 
@@ -119,7 +119,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param options
    * @param linksToFollow
    */
-  private getEPeopleBy(searchParams: SearchParam[], searchMethod: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEPeopleBy(searchParams: RequestParam[], searchMethod: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
     let findListOptions = new FindListOptions();
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);

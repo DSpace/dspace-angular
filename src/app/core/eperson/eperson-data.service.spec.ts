@@ -18,7 +18,7 @@ import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson-mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
@@ -105,7 +105,7 @@ describe('EPersonDataService', () => {
     it('search by default scope (byMetadata) and no query', () => {
       service.searchByScope(null, '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new SearchParam('query', ''))]
+        searchParams: [Object.assign(new RequestParam('query', ''))]
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options);
     });
@@ -113,7 +113,7 @@ describe('EPersonDataService', () => {
     it('search metadata scope and no query', () => {
       service.searchByScope('metadata', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new SearchParam('query', ''))]
+        searchParams: [Object.assign(new RequestParam('query', ''))]
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options);
     });
@@ -121,7 +121,7 @@ describe('EPersonDataService', () => {
     it('search metadata scope and with query', () => {
       service.searchByScope('metadata', 'test');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new SearchParam('query', 'test'))]
+        searchParams: [Object.assign(new RequestParam('query', 'test'))]
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options);
     });
@@ -129,7 +129,7 @@ describe('EPersonDataService', () => {
     it('search email scope and no query', () => {
       service.searchByScope('email', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new SearchParam('email', ''))]
+        searchParams: [Object.assign(new RequestParam('email', ''))]
       });
       expect(service.searchBy).toHaveBeenCalledWith('byEmail', options);
     });

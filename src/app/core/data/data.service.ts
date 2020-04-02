@@ -20,7 +20,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
@@ -110,7 +110,7 @@ export abstract class DataService<T extends CacheableObject> {
     result$ = this.getSearchEndpoint(searchMethod);
 
     if (hasValue(options.searchParams)) {
-      options.searchParams.forEach((param: SearchParam) => {
+      options.searchParams.forEach((param: RequestParam) => {
         args.push(`${param.fieldName}=${param.fieldValue}`);
       })
     }

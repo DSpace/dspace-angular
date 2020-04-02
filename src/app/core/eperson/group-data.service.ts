@@ -13,7 +13,7 @@ import { Group } from './models/group.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -56,7 +56,7 @@ export class GroupDataService extends DataService<Group> {
   isMemberOf(groupName: string): Observable<boolean> {
     const searchHref = 'isMemberOf';
     const options = new FindListOptions();
-    options.searchParams = [new SearchParam('groupName', groupName)];
+    options.searchParams = [new RequestParam('groupName', groupName)];
 
     return this.searchBy(searchHref, options).pipe(
         filter((groups: RemoteData<PaginatedList<Group>>) => !groups.isResponsePending),
