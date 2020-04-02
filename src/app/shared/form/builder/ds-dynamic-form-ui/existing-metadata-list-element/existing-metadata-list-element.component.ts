@@ -167,14 +167,14 @@ export class ReorderableRelationship extends Reorderable {
   templateUrl: './existing-metadata-list-element.component.html',
   styleUrls: ['./existing-metadata-list-element.component.scss']
 })
-export class ExistingMetadataListElementComponent implements OnChanges, OnDestroy {
+export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() listId: string;
   @Input() submissionItem: Item;
   @Input() reoRel: ReorderableRelationship;
   @Input() metadataFields: string[];
   @Input() relationshipOptions: RelationshipOptions;
   @Input() submissionId: string;
-  metadataRepresentation$: BehaviorSubject<MetadataRepresentation>;
+  metadataRepresentation$: BehaviorSubject<MetadataRepresentation> = new BehaviorSubject<MetadataRepresentation>(undefined);
   relatedItem: Item;
 
   /**
@@ -186,6 +186,10 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
     private selectableListService: SelectableListService,
     private store: Store<AppState>
   ) {
+  }
+
+  ngOnInit(): void {
+    this.ngOnChanges();
   }
 
   /**
@@ -208,11 +212,7 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
             new ItemMetadataRepresentation(metadataRepresentationMD),
             this.relatedItem
           );
-          if (hasValue(this.metadataRepresentation$)) {
-            this.metadataRepresentation$.next(nextValue);
-          } else {
-            this.metadataRepresentation$ = new BehaviorSubject<MetadataRepresentation>(nextValue);
-          }
+          this.metadataRepresentation$.next(nextValue);
         }
       }));
     }

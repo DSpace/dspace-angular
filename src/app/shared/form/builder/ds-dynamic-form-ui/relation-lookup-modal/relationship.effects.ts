@@ -98,7 +98,7 @@ export class RelationshipEffects {
           const { item1, item2, relationshipType, submissionId, nameVariant } = action.payload;
           const identifier: string = this.createIdentifier(item1, item2, relationshipType);
           const inProgress = hasValue(this.debounceMap[identifier]);
-          if (inProgress) {
+        if (inProgress) {
             this.nameVariantUpdates[identifier] = nameVariant;
           } else {
             this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant).pipe(take(1))

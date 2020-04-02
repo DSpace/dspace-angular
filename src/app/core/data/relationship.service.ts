@@ -3,7 +3,16 @@ import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { distinctUntilChanged, filter, map, startWith, switchMap, take, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  startWith,
+  switchMap,
+  take,
+  tap,
+  mergeMap
+} from 'rxjs/operators';
 import {
   compareArraysUsingIds,
   paginatedRelationsToItems,
@@ -306,7 +315,7 @@ export class RelationshipService extends DataService<Relationship> {
         getSucceededRemoteData(),
         isNotEmptyOperator(),
         map((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
-        switchMap((relationships: Relationship[]) => {
+        mergeMap((relationships: Relationship[]) => {
           return observableCombineLatest(...relationships.map((relationship: Relationship) => {
               return observableCombineLatest(
                 this.isItemMatchWithItemRD(this.itemService.findByHref(relationship._links.leftItem.href), item2),
@@ -378,6 +387,7 @@ export class RelationshipService extends DataService<Relationship> {
     let count = 0
     const update$: Observable<RemoteData<Relationship>> = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
       .pipe(
+        tap((v) => console.log('updateNameVariant after getRelationshipByItemsAndLabel', v)),
         filter((relation: Relationship) => hasValue(relation)),
         switchMap((relation: Relationship) =>
           relation.relationshipType.pipe(
@@ -389,6 +399,7 @@ export class RelationshipService extends DataService<Relationship> {
           )
         ),
         switchMap((relationshipAndType: { relation: Relationship, type: RelationshipType }) => {
+          console.log('updateNameVariant switchMap', relationshipAndType);
           const { relation, type } = relationshipAndType;
           let updatedRelationship;
           if (relationshipLabel === type.leftwardType) {
