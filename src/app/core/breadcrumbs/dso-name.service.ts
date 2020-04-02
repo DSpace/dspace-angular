@@ -28,7 +28,8 @@ export class DSONameService {
       return dso.firstMetadataValue('organization.legalName');
     },
     Default: (dso: DSpaceObject): string => {
-      return dso.firstMetadataValue('dc.title');
+      // If object doesn't have dc.title metadata use name property
+      return dso.firstMetadataValue('dc.title') || dso.name;
     }
   };
 
