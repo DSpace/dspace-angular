@@ -140,11 +140,11 @@ export class MembersListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         const response = this.groupDataService.addMemberToGroup(activeGroup, ePerson);
         this.showNotifications('addMember', response, ePerson.name, activeGroup);
-        this.forceUpdateEPeople(activeGroup, ePerson);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
     });
+    this.forceUpdateEPeople(this.groupBeingEdited, ePerson);
   }
 
   /**

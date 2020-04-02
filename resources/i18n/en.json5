@@ -293,11 +293,11 @@
 
   "admin.access-control.groups.form.members-list.head": "EPeople",
 
-  "admin.access-control.groups.form.members-list.search.head": "Search EPeople",
+  "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
 
   "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
 
-  "admin.access-control.groups.form.members-list.headMembers": "Browse Members",
+  "admin.access-control.groups.form.members-list.headMembers": "Current Members",
 
   "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
 
@@ -331,11 +331,11 @@
 
   "admin.access-control.groups.form.subgroups-list.head": "Groups",
 
-  "admin.access-control.groups.form.subgroups-list.search.head": "Search Groups",
+  "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
 
   "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
 
-  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Browse Subgroups",
+  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
 
   "admin.access-control.groups.form.subgroups-list.search.button": "Search",
 

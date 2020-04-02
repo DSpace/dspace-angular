@@ -130,7 +130,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
                 map((listTotalGroups: PaginatedList<Group>) => listTotalGroups.page.filter((groupInList: Group) => groupInList.id === possibleSubgroup.id)),
                 map((groups: Group[]) => groups.length > 0))
           }
-        } else  {
+        } else {
           return observableOf(false);
         }
       }));
@@ -144,7 +144,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     return this.groupDataService.getActiveGroup().pipe(take(1),
       mergeMap((activeGroup: Group) => {
         if (activeGroup != null && activeGroup.uuid === group.uuid) {
-            return observableOf(true);
+          return observableOf(true);
         }
         return observableOf(false);
       }));
@@ -176,7 +176,6 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
         if (activeGroup.uuid !== subgroup.uuid) {
           const response = this.groupDataService.addSubGroupToGroup(activeGroup, subgroup);
           this.showNotifications('addSubgroup', response, subgroup.name, activeGroup);
-          this.forceUpdateGroups(activeGroup);
         } else {
           this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.subgroupToAddIsActiveGroup'));
         }
@@ -184,6 +183,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
     });
+    this.forceUpdateGroups(this.groupBeingEdited);
   }
 
   /**

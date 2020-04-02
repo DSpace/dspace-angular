@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -232,18 +232,14 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * @param groupId   ID of group to set as active
    */
   setActiveGroup(groupId: string) {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
-      if (activeGroup === null) {
-        this.groupDataService.cancelEditGroup();
-        this.groupDataService.findById(groupId)
-          .pipe(
-            getSucceededRemoteData(),
-            getRemoteDataPayload())
-          .subscribe((group: Group) => {
-            this.groupDataService.editGroup(group);
-          })
-      }
-    });
+    this.groupDataService.cancelEditGroup();
+    this.groupDataService.findById(groupId)
+      .pipe(
+        getSucceededRemoteData(),
+        getRemoteDataPayload())
+      .subscribe((group: Group) => {
+        this.groupDataService.editGroup(group);
+      });
   }
 
   /**
@@ -268,6 +264,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   /**
    * Cancel the current edit when component is destroyed & unsub all subscriptions
    */
+  @HostListener('window:beforeunload')
   ngOnDestroy(): void {
     this.onCancel();
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
