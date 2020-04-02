@@ -38,7 +38,7 @@
 
   "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
 
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
 
   "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
 
@@ -1115,6 +1115,10 @@
 
 
 
+  "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
+
+
+
   "journal.listelement.badge": "Journal",
 
   "journal.page.description": "Description",
@@ -1205,7 +1209,11 @@
 
   "login.form.new-user": "New user? Click here to register.",
 
+  "login.form.or-divider": "or",
+
   "login.form.password": "Password",
+
+  "login.form.shibboleth": "Log in with Shibboleth",
 
   "login.form.submit": "Log in",
 
