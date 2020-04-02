@@ -294,6 +294,20 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
   }
 }
 
+/**
+ * Add a new operation to a patch
+ *
+ * @param body
+ *    The current patch
+ * @param actionType
+ *    The type of operation to add
+ * @param targetPath
+ *    The path for the operation
+ * @param value
+ *    The new value
+ * @param fromPath
+ *    The previous path (in case of a move operation)
+ */
 function addOperationToList(body: JsonPatchOperationObject[], actionType, targetPath, value?, fromPath?) {
   const newBody = Array.from(body);
   switch (actionType) {

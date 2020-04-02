@@ -105,6 +105,7 @@ export class ServerSyncBufferEffects {
         if (isNotEmpty(entry.patches)) {
           const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
           if (isNotEmpty(flatPatch)) {
+            // if (href.match(/https://dspace7-ben.atmire.com/server/api/core/relationships/\d+/))
             this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, flatPatch));
           }
         }

@@ -144,6 +144,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * @param selectableObjects
    */
   select(...selectableObjects: Array<SearchResult<Item>>) {
+    console.log('selectableObjects', selectableObjects);
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = combineLatest(...selectableObjects.map((sri: SearchResult<Item>) => {
@@ -163,7 +164,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         obs
           .subscribe((arr: any[]) => {
             return arr.forEach((object: any) => {
-                this.store.dispatch(new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant));
+              const addRelationshipAction = new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
+              console.log('addRelationshipAction', addRelationshipAction);
+              this.store.dispatch(addRelationshipAction);
               }
             );
           })

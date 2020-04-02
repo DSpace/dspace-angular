@@ -114,6 +114,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param rightwardValue The rightward value of the relationship
    */
   addRelationship(typeId: string, item1: Item, item2: Item, leftwardValue?: string, rightwardValue?: string): Observable<RestResponse> {
+    console.log('addRelationship', typeId, item1, item2, leftwardValue, rightwardValue);
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');

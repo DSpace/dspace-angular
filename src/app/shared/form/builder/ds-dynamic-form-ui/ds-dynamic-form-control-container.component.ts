@@ -358,6 +358,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       .forEach((sub) => sub.unsubscribe());
   }
 
+  /**
+   *  Initialize this.item$ based on this.model.submissionId
+   */
   private setItem() {
     const submissionObject$ = this.submissionObjectService
       .findById(this.model.submissionId, followLink('item'), followLink('collection')).pipe(

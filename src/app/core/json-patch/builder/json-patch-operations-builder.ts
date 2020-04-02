@@ -65,6 +65,14 @@ export class JsonPatchOperationsBuilder {
     }
   }
 
+  /**
+   * Dispatch a new NewPatchMoveOperationAction
+   *
+   * @param path
+   *    the new path tho move to
+   * @param prevPath
+   *    the original path to move from
+   */
   move(path: JsonPatchOperationPathObject, prevPath: string) {
     this.store.dispatch(
       new NewPatchMoveOperationAction(

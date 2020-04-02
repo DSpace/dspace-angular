@@ -509,7 +509,15 @@ export abstract class DataService<T extends CacheableObject> {
     this.requestService.commit(method);
   }
 
-  getLinkPath() {
+  /**
+   * Return the links to traverse from the root of the api to the
+   * endpoint this DataService represents
+   *
+   * e.g. if the api root links to 'foo', and the endpoint at 'foo'
+   * links to 'bar' the linkPath for the BarDataService would be
+   * 'foo/bar'
+   */
+  getLinkPath(): string {
     return this.linkPath;
   }
 }

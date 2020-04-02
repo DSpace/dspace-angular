@@ -35,17 +35,33 @@ export abstract class Reorderable {
   constructor(public oldIndex?: number, public newIndex?: number) {
   }
 
+  /**
+   * Return the id for this Reorderable
+   */
   abstract getId(): string;
 
+  /**
+   * Return the place metadata for this Reorderable
+   */
   abstract getPlace(): number;
 
+  /**
+   * Update the Reorderable
+   */
   abstract update(): Observable<any>;
 
+  /**
+   * Returns true if the oldIndex of this Reorderable
+   * differs from the newIndex
+   */
   get hasMoved(): boolean {
     return this.oldIndex !== this.newIndex
   }
 }
 
+/**
+ * A Reorderable representation of a FormFieldMetadataValue
+ */
 export class ReorderableFormFieldMetadataValue extends Reorderable {
 
   constructor(
@@ -60,6 +76,9 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
     this.metadataValue = metadataValue;
   }
 
+  /**
+   * Return the id for this Reorderable
+   */
   getId(): string {
     if (hasValue(this.metadataValue.authority)) {
       return this.metadataValue.authority;
@@ -69,10 +88,16 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
     }
   }
 
+  /**
+   * Return the place metadata for this Reorderable
+   */
   getPlace(): number {
     return this.metadataValue.place;
   }
 
+  /**
+   * Update the Reorderable
+   */
   update(): Observable<FormFieldMetadataValueObject> {
     this.oldIndex = this.newIndex;
     return observableOf(this.metadataValue);
@@ -98,10 +123,16 @@ export class ReorderableRelationship extends Reorderable {
     this.useLeftItem = useLeftItem;
   }
 
+  /**
+   * Return the id for this Reorderable
+   */
   getId(): string {
     return this.relationship.id;
   }
 
+  /**
+   * Return the place metadata for this Reorderable
+   */
   getPlace(): number {
     if (this.useLeftItem) {
       return this.relationship.rightPlace
@@ -110,6 +141,9 @@ export class ReorderableRelationship extends Reorderable {
     }
   }
 
+  /**
+   * Update the Reorderable
+   */
   update(): Observable<RemoteData<Relationship>> {
     this.store.dispatch(new UpdateRelationshipAction(this.relationship, this.submissionID))
     const updatedRelationship$ = this.relationshipService.updatePlace(this).pipe(
@@ -154,6 +188,9 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
   ) {
   }
 
+  /**
+   * Change callback for the component
+   */
   ngOnChanges() {
     if (hasValue(this.reoRel)) {
       const item$ = this.reoRel.useLeftItem ?

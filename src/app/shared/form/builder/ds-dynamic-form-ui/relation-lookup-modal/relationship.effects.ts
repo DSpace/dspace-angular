@@ -21,7 +21,7 @@ import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sy
 import { CommitPatchOperationsAction, JsonPatchOperationsActionTypes, PatchOperationsActions } from '../../../../../core/json-patch/json-patch-operations.actions';
 import { followLink } from '../../../../utils/follow-link-config.model';
 
-const DEBOUNCE_TIME = 5000;
+const DEBOUNCE_TIME = 500;
 
 /**
  * NGRX effects for RelationshipEffects
