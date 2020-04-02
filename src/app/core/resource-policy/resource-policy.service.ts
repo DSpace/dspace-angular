@@ -70,6 +70,40 @@ export class ResourcePolicyService {
   }
 
   /**
+   * Create a new ResourcePolicy on the server, and store the response
+   * in the object cache
+   *
+   * @param {ResourcePolicy} resourcePolicy
+   *    The resource policy to create
+   * @param {string} resourceUUID
+   *    The uuid of the resource target of the policy
+   * @param {string} epersonUUID
+   *    The uuid of the eperson that will be grant of the permission. Exactly one of eperson or group is required
+   * @param {string} groupUUID
+   *    The uuid of the group that will be grant of the permission. Exactly one of eperson or group is required
+   */
+  create(resourcePolicy: ResourcePolicy, resourceUUID: string, epersonUUID?: string, groupUUID?: string): Observable<RemoteData<ResourcePolicy>> {
+    const params = [];
+    params.push(new RequestParam('resource', resourceUUID));
+    if (isNotEmpty(epersonUUID)) {
+      params.push(new RequestParam('eperson', epersonUUID));
+    } else if (isNotEmpty(groupUUID)) {
+      params.push(new RequestParam('group', groupUUID));
+    }
+    return this.dataService.create(resourcePolicy, ...params);
+  }
+
+  /**
+   * Delete an existing ResourcePolicy on the server
+   *
+   * @param resourcePolicyID The resource policy's id to be removed
+   * @return an observable that emits true when the deletion was successful, false when it failed
+   */
+  delete(resourcePolicyID: string): Observable<boolean> {
+    return this.dataService.delete(resourcePolicyID);
+  }
+
+  /**
    * Returns an observable of {@link RemoteData} of a {@link ResourcePolicy}, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the {@link ResourcePolicy}
    * @param href            The url of {@link ResourcePolicy} we want to retrieve

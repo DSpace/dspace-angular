@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { async } from '@angular/core/testing';
 
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -27,15 +28,16 @@ describe('ResourcePolicyService', () => {
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
   let halService: HALEndpointService;
+  let responseCacheEntry: RequestEntry;
 
-  const resourcePolicy = {
+  const resourcePolicy: any = {
     id: '1',
     name: null,
     description: null,
     policyType: PolicyType.TYPE_SUBMISSION,
     action: ActionType.READ,
-    startDate : null,
-    endDate : null,
+    startDate: null,
+    endDate: null,
     type: 'resourcepolicy',
     uuid: 'resource-policy-1',
     _links: {
@@ -51,14 +53,14 @@ describe('ResourcePolicyService', () => {
     }
   };
 
-  const anotherResourcePolicy = {
+  const anotherResourcePolicy: any = {
     id: '2',
     name: null,
     description: null,
     policyType: PolicyType.TYPE_SUBMISSION,
     action: ActionType.WRITE,
-    startDate : null,
-    endDate : null,
+    startDate: null,
+    endDate: null,
     type: 'resourcepolicy',
     uuid: 'resource-policy-2',
     _links: {
@@ -82,12 +84,10 @@ describe('ResourcePolicyService', () => {
   const resourceUUID = '8b39g7ya-5a4b-438b-851f-be1d5b4a1c5a';
 
   const pageInfo = new PageInfo();
-  const array = [resourcePolicy, anotherResourcePolicy ];
+  const array = [resourcePolicy, anotherResourcePolicy];
   const paginatedList = new PaginatedList(pageInfo, array);
   const resourcePolicyRD = createSuccessfulRemoteDataObject(resourcePolicy);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-  const responseCacheEntry = new RequestEntry();
-  responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
   beforeEach(() => {
     scheduler = getTestScheduler();
@@ -96,11 +96,15 @@ describe('ResourcePolicyService', () => {
       getEndpoint: cold('a', { a: endpointURL })
     });
 
+    responseCacheEntry = new RequestEntry();
+    responseCacheEntry.response = new RestResponse(true, 200, 'Success');
+
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
       configure: true,
       removeByHrefSubstring: {},
       getByHref: observableOf(responseCacheEntry),
+      getByUUID: observableOf(responseCacheEntry),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: hot('a|', {
@@ -125,10 +129,65 @@ describe('ResourcePolicyService', () => {
       comparator
     );
 
+    spyOn((service as any).dataService, 'create').and.callThrough();
+    spyOn((service as any).dataService, 'delete').and.callThrough();
     spyOn((service as any).dataService, 'findById').and.callThrough();
     spyOn((service as any).dataService, 'findByHref').and.callThrough();
     spyOn((service as any).dataService, 'searchBy').and.callThrough();
     spyOn((service as any).dataService, 'getSearchByHref').and.returnValue(observableOf(requestURL));
+  });
+
+  describe('create', () => {
+    it('should proxy the call to dataservice.create with eperson UUID', () => {
+      scheduler.schedule(() => service.create(resourcePolicy, resourceUUID, epersonUUID));
+      const params = [
+        new RequestParam('resource', resourceUUID),
+        new RequestParam('eperson', epersonUUID)
+      ];
+      scheduler.flush();
+
+      expect((service as any).dataService.create).toHaveBeenCalledWith(resourcePolicy, ...params);
+    });
+
+    it('should proxy the call to dataservice.create with group UUID', () => {
+      scheduler.schedule(() => service.create(resourcePolicy, resourceUUID, null, groupUUID));
+      const params = [
+        new RequestParam('resource', resourceUUID),
+        new RequestParam('group', groupUUID)
+      ];
+      scheduler.flush();
+
+      expect((service as any).dataService.create).toHaveBeenCalledWith(resourcePolicy, ...params);
+    });
+
+    it('should return a RemoteData<ResourcePolicy> for the object with the given id', () => {
+      const result = service.create(resourcePolicy, resourceUUID, epersonUUID);
+      const expected = cold('a|', {
+        a: resourcePolicyRD
+      });
+      expect(result).toBeObservable(expected);
+    });
+  });
+
+  describe('delete', () => {
+    beforeEach(async(() => {
+      scheduler = getTestScheduler();
+      responseCacheEntry.completed = true;
+      requestService = jasmine.createSpyObj('requestService', {
+        configure: {},
+        getByHref: observableOf(responseCacheEntry),
+        getByUUID: hot('a', { a: responseCacheEntry }),
+        generateRequestId: 'request-id',
+        removeByHrefSubstring: {}
+      });
+    }));
+
+    it('should proxy the call to dataservice.create', () => {
+      scheduler.schedule(() => service.delete(resourcePolicyId));
+      scheduler.flush();
+
+      expect((service as any).dataService.delete).toHaveBeenCalledWith(resourcePolicyId);
+    });
   });
 
   describe('findById', () => {
