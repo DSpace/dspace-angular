@@ -1,5 +1,5 @@
 import { ProtractorPage } from './app.po';
-import { by, element } from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 
 describe('protractor App', () => {
   let page: ProtractorPage;
@@ -10,16 +10,18 @@ describe('protractor App', () => {
 
   it('should display translated title "DSpace Angular :: Home"', () => {
     page.navigateTo()
+      .then(() => page.waitUntilNotLoading())
       .then(() => {
-          element(by.css('.main-content')).getAttribute('innerHTML').then((v) => process.stdout.write(v));
           expect<any>(page.getPageTitleText()).toEqual('DSpace Angular :: Home');
         }
-      );
+      )
+    ;
   });
 
   it('should contain a news section', () => {
     page.navigateTo()
-      .then(() =>
-        page.getHomePageNewsText().then((text) => expect<any>(text).toBeDefined()));
+      .then(() => page.waitUntilNotLoading())
+      .then(() => page.getHomePageNewsText())
+      .then((text) => expect<any>(text).toBeDefined());
   });
 });

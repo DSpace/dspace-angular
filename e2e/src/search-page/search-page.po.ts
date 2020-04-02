@@ -46,4 +46,10 @@ export class ProtractorPage {
     });
   }
 
+  waitUntilNotLoading(): promise.Promise<unknown> {
+    const loading = element(by.css('.loader'));
+    const EC = protractor.ExpectedConditions;
+    const notLoading = EC.not(EC.presenceOf(loading));
+    return browser.wait(notLoading, 10000);
+  }
 }

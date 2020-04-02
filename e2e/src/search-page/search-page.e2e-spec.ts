@@ -23,6 +23,7 @@ describe('protractor SearchPage', () => {
       .then(() => page.getRandomScopeOption())
       .then((scopeString: string) => {
         page.navigateToSearchWithScopeParameter(scopeString)
+          .then(() => page.waitUntilNotLoading())
           .then(() => page.getCurrentScope())
           .then((s: string) => {
             expect<string>(s).toEqual(scopeString);
@@ -36,6 +37,7 @@ describe('protractor SearchPage', () => {
       .then((scopeString: string) => {
         page.setCurrentScope(scopeString)
           .then(() => page.submitSearchForm())
+          .then(() => page.waitUntilNotLoading())
           .then(() => () => {
             browser.wait(() => {
               return browser.getCurrentUrl().then((url: string) => {
