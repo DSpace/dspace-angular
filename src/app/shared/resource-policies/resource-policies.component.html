@@ -2,10 +2,10 @@
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th colspan="6">
+        <th colspan="7">
           <p class="d-flex justify-content-between align-items-center m-0">
             {{ 'resource-policies.table.headers.title.for.' + resourceKey | translate }} {{resourceUUID}}
-            <button class="btn btn-outline-primary float-right">
+            <button class="btn btn-outline-primary float-right" (click)="createResourcePolicy()">
               {{'resource-policies.add.for.' + resourceKey | translate}}
             </button>
           </p>
@@ -15,6 +15,7 @@
         <th>{{'resource-policies.table.headers.id' | translate}}</th>
         <th>{{'resource-policies.table.headers.name' | translate}}</th>
         <th>{{'resource-policies.table.headers.action' | translate}}</th>
+        <th>{{'resource-policies.table.headers.eperson' | translate}}</th>
         <th>{{'resource-policies.table.headers.group' | translate}}</th>
         <th>{{'resource-policies.table.headers.date.start' | translate}}</th>
         <th>{{'resource-policies.table.headers.date.end' | translate}}</th>
@@ -22,13 +23,22 @@
     </thead>
     <tbody>
       <tr *ngFor="let policy of (getResourcePolicies() | async)?.payload?.page; trackById">
-        <th scope="row">{{policy.id}}</th>
+        <th scope="row">
+          {{policy.id}}
+          <button class="btn btn-link pt-0 pb-0" (click)="editResourcePolicy(policy)">
+            {{'resource-policies.table.headers.edit' | translate}}
+          </button>
+        </th>
         <td>{{policy.name}}</td>
         <td>{{policy.action}}</td>
+        <td *ngIf="(hasEPerson(policy) | async)">
+          {{getEPersonName(policy) | async}}
+        </td>
+        <td *ngIf="!(hasEPerson(policy) | async)"></td>
         <td *ngIf="(hasGroup(policy) | async)">
           {{getGroupName(policy) | async}}
           <button class="btn btn-link pt-0 pb-0" (click)="redirectToGroupEditPage(policy)">
-            {{'resource-policies.table.headers.group.edit' | translate}}
+            {{'resource-policies.table.headers.edit' | translate}}
           </button>
         </td>
         <td *ngIf="!(hasGroup(policy) | async)"></td>

@@ -1,5 +1,5 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,6 +13,8 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { Group } from '../../core/eperson/models/group.model';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { hasValue, isNotEmpty } from '../empty.util';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 
 @Component({
   selector: 'ds-resource-policies',
@@ -51,15 +53,21 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   /**
    * Initialize instance variables
    *
+   * @param {ChangeDetectorRef} cdr
    * @param {DSONameService} dsoNameService
+   * @param {EPersonDataService} ePersonService
    * @param {GroupDataService} groupService
    * @param {ResourcePolicyService} resourcePolicyService
+   * @param {ActivatedRoute} route
    * @param {Router} router
    */
   constructor(
+    private cdr: ChangeDetectorRef,
     private dsoNameService: DSONameService,
+    private ePersonService: EPersonDataService,
     private groupService: GroupDataService,
     private resourcePolicyService: ResourcePolicyService,
+    private route: ActivatedRoute,
     private router: Router
   ) {
   }
@@ -75,6 +83,34 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Redirect to resource policy creation page
+   */
+  createResourcePolicy(): void {
+    this.router.navigate([`../${this.resourceUUID}/create`], { relativeTo: this.route })
+  }
+
+  /**
+   * Redirect to resource policy editing page
+   *
+   * @param policy The resource policy
+   */
+  editResourcePolicy(policy: ResourcePolicy): void {
+    this.router.navigate([`../${this.resourceUUID}/${policy.id}/edit`], { relativeTo: this.route })
+  }
+
+  /**
+   * Return the ePerson's name which the given policy is linked to
+   *
+   * @param policy The resource policy
+   */
+  getEPersonName(policy: ResourcePolicy): Observable<string> {
+    return this.ePersonService.findByHref(policy._links.eperson.href).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((eperson: EPerson) => this.dsoNameService.getName(eperson))
+    )
+  }
+
+  /**
    * Return the group's name which the given policy is linked to
    *
    * @param policy The resource policy
@@ -82,8 +118,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   getGroupName(policy: ResourcePolicy): Observable<string> {
     return this.groupService.findByHref(policy._links.group.href).pipe(
       getFirstSucceededRemoteDataPayload(),
-      // A group has not dc.title metadata so is not possible to use DSONameService to retrieve name
-      map((group: Group) => group.name)
+      map((group: Group) => this.dsoNameService.getName(group))
     )
   }
 
@@ -94,6 +129,19 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   getResourcePolicies(): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     return this.resourcePolicies$;
+  }
+
+  /**
+   * Check whether the given policy is linked to a ePerson
+   *
+   * @param policy The resource policy
+   * @return an observable that emits true when the policy is linked to a ePerson, false otherwise
+   */
+  hasEPerson(policy): Observable<boolean> {
+    return this.ePersonService.findByHref(policy._links.eperson.href).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((eperson: EPerson) => isNotEmpty(eperson))
+    )
   }
 
   /**
