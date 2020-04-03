@@ -7,6 +7,7 @@ import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getWorkflowItemModulePath } from '../app-routing.module';
 import { WorkflowItemDeleteComponent } from './workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
+import { WorkflowItemSendBackComponent } from './workflow-item-send-back/workflow-item-send-back.component';
 
 export function getWorkflowItemPageRoute(wfiId: string) {
   return new URLCombiner(getWorkflowItemModulePath(), wfiId).toString();
@@ -50,8 +51,8 @@ const WORKFLOW_ITEM_SEND_BACK_PATH = 'sendback';
           {
             canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_SEND_BACK_PATH,
-            component: WorkflowItemDeleteComponent,
-            data: { title: 'workflow-item.sendback.title' }
+            component: WorkflowItemSendBackComponent,
+            data: { title: 'workflow-item.send-back.title' }
           }
         ]
       }]

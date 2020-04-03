@@ -16,8 +16,8 @@ import { WorkflowItemAdminWorkflowGridElementComponent } from './admin-workflow-
 import { WorkflowItemAdminWorkflowActionsComponent } from './admin-workflow-page/admin-workflow-search-results/workflow-item-admin-workflow-actions.component';
 import { WorkflowItemAdminWorkflowListElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-list-element/workflow-item/workflow-item-admin-workflow-list-element.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
-import { PoolTaskAdminWorkflowSearchResultListElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-list-element/pool-task-item-search-result/pool-task-admin-workflow-search-result-list-element.component';
-import { PoolTaskAdminWorkflowSearchResultGridElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-grid-element/pool-task-search-result/pool-task-admin-workflow-search-result-grid-element.component';
+import { TaskAdminWorkflowSearchResultGridElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-grid-element/task-search-result/task-admin-workflow-search-result-grid-element.component';
+import { TaskAdminWorkflowSearchResultListElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-list-element/task-item-search-result/task-admin-workflow-search-result-list-element.component';
 
 @NgModule({
   imports: [
@@ -42,8 +42,8 @@ import { PoolTaskAdminWorkflowSearchResultGridElementComponent } from './admin-w
     WorkflowItemAdminWorkflowGridElementComponent,
     WorkflowItemAdminWorkflowActionsComponent,
 
-    PoolTaskAdminWorkflowSearchResultListElementComponent,
-    PoolTaskAdminWorkflowSearchResultGridElementComponent,
+    TaskAdminWorkflowSearchResultGridElementComponent,
+    TaskAdminWorkflowSearchResultListElementComponent,
   ],
   entryComponents: [
     ItemAdminSearchResultListElementComponent,
@@ -58,8 +58,8 @@ import { PoolTaskAdminWorkflowSearchResultGridElementComponent } from './admin-w
     WorkflowItemAdminWorkflowGridElementComponent,
     WorkflowItemAdminWorkflowActionsComponent,
 
-    PoolTaskAdminWorkflowSearchResultListElementComponent,
-    PoolTaskAdminWorkflowSearchResultGridElementComponent,
+    TaskAdminWorkflowSearchResultGridElementComponent,
+    TaskAdminWorkflowSearchResultListElementComponent,
   ]
 })
 export class AdminModule {

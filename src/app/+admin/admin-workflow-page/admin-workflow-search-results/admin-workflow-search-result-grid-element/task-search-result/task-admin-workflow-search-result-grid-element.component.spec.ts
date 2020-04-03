@@ -17,11 +17,11 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { PoolTaskAdminWorkflowSearchResultGridElementComponent } from './pool-task-admin-workflow-search-result-grid-element.component';
+import { TaskAdminWorkflowSearchResultGridElementComponent } from './task-admin-workflow-search-result-grid-element.component';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
-  let component: PoolTaskAdminWorkflowSearchResultGridElementComponent;
-  let fixture: ComponentFixture<PoolTaskAdminWorkflowSearchResultGridElementComponent>;
+  let component: TaskAdminWorkflowSearchResultGridElementComponent;
+  let fixture: ComponentFixture<TaskAdminWorkflowSearchResultGridElementComponent>;
   let id;
   let searchResult;
 
@@ -42,7 +42,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [PoolTaskAdminWorkflowSearchResultGridElementComponent],
+        declarations: [TaskAdminWorkflowSearchResultGridElementComponent],
         imports: [
           NoopAnimationsModule,
           TranslateModule.forRoot(),
@@ -59,7 +59,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PoolTaskAdminWorkflowSearchResultGridElementComponent);
+    fixture = TestBed.createComponent(TaskAdminWorkflowSearchResultGridElementComponent);
     component = fixture.componentInstance;
     component.object = searchResult;
     component.linkTypes = CollectionElementLinkType;

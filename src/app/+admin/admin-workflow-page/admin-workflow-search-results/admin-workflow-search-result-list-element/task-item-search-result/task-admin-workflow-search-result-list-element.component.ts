@@ -14,19 +14,18 @@ import { SearchResult } from '../../../../../shared/search/search-result.model';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { tap } from 'rxjs/operators';
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @Component({
-  selector: 'ds-pooltask-admin-workflow-search-result-list-element',
-  styleUrls: ['./pool-task-admin-workflow-search-result-list-element.component.scss'],
-  templateUrl: './pool-task-admin-workflow-search-result-list-element.component.html'
+  selector: 'ds-task-admin-workflow-search-result-list-element',
+  styleUrls: ['./task-admin-workflow-search-result-list-element.component.scss'],
+  templateUrl: './task-admin-workflow-search-result-list-element.component.html'
 })
 /**
  * The component for displaying a list element for an pool task search result on the admin search page
  */
-export class PoolTaskAdminWorkflowSearchResultListElementComponent extends SearchResultListElementComponent<SearchResult<TaskObject>, TaskObject> {
+export class TaskAdminWorkflowSearchResultListElementComponent extends SearchResultListElementComponent<SearchResult<TaskObject>, TaskObject> {
   public wfi$: Observable<WorkflowItem>;
 
   constructor(private linkService: LinkService, protected truncatableService: TruncatableService) {

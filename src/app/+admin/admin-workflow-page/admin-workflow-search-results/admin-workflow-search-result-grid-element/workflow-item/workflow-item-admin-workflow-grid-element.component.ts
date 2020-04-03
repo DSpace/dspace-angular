@@ -22,6 +22,12 @@ import { ListableObjectDirective } from '../../../../../shared/object-collection
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { AbstractListableElementComponent } from '../../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { Observable } from 'rxjs';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
+import { take } from 'rxjs/operators';
 
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
@@ -36,8 +42,9 @@ export class WorkflowItemAdminWorkflowGridElementComponent extends AbstractLista
   @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
   @ViewChild('badges', { static: true }) badges: ElementRef;
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
+  public item$: Observable<Item>;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private linkService: LinkService) {
     super();
   }
 
@@ -45,30 +52,37 @@ export class WorkflowItemAdminWorkflowGridElementComponent extends AbstractLista
    * Setup the dynamic child component
    */
   ngOnInit(): void {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
+    this.object = this.linkService.resolveLink(this.object, followLink('item'));
+    this.item$ = (this.object.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
+    this.item$.pipe(take(1)).subscribe((item: Item) => {
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(item));
 
-    const viewContainerRef = this.listableObjectDirective.viewContainerRef;
-    viewContainerRef.clear();
+        const viewContainerRef = this.listableObjectDirective.viewContainerRef;
+        viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(
-      componentFactory,
-      0,
-      undefined,
-      [
-        [this.badges.nativeElement],
-        [this.buttons.nativeElement]
-      ]);
-    (componentRef.instance as any).object = this.object;
-    (componentRef.instance as any).index = this.index;
-    (componentRef.instance as any).linkType = this.linkType;
-    (componentRef.instance as any).listID = this.listID;
+        const componentRef = viewContainerRef.createComponent(
+          componentFactory,
+          0,
+          undefined,
+          [
+            [this.badges.nativeElement],
+            [this.buttons.nativeElement]
+          ]);
+        (componentRef.instance as any).object = item;
+        (componentRef.instance as any).index = this.index;
+        (componentRef.instance as any).linkType = this.linkType;
+        (componentRef.instance as any).listID = this.listID;
+        componentRef.changeDetectorRef.detectChanges();
+      }
+    )
   }
 
   /**
    * Fetch the component depending on the item's relationship type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
-  private getComponent(): GenericConstructor<Component> {
-    return getListableObjectComponent(this.object.getRenderTypes(), ViewMode.GridElement, undefined)
+  private getComponent(item: Item): GenericConstructor<Component> {
+    return getListableObjectComponent(item.getRenderTypes(), ViewMode.GridElement, undefined)
   }
+
 }

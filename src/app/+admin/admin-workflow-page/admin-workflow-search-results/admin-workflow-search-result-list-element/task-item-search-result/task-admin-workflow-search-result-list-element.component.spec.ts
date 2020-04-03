@@ -8,12 +8,12 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { PoolTaskAdminWorkflowSearchResultListElementComponent } from './pool-task-admin-workflow-search-result-list-element.component';
+import { TaskAdminWorkflowSearchResultListElementComponent } from './task-admin-workflow-search-result-list-element.component';
 import { Item } from '../../../../../core/shared/item.model';
 
 describe('ItemAdminSearchResultListElementComponent', () => {
-  let component: PoolTaskAdminWorkflowSearchResultListElementComponent;
-  let fixture: ComponentFixture<PoolTaskAdminWorkflowSearchResultListElementComponent>;
+  let component: TaskAdminWorkflowSearchResultListElementComponent;
+  let fixture: ComponentFixture<TaskAdminWorkflowSearchResultListElementComponent>;
   let id;
   let searchResult;
 
@@ -31,7 +31,7 @@ describe('ItemAdminSearchResultListElementComponent', () => {
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([])
       ],
-      declarations: [PoolTaskAdminWorkflowSearchResultListElementComponent],
+      declarations: [TaskAdminWorkflowSearchResultListElementComponent],
       providers: [{ provide: TruncatableService, useValue: {} }],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -39,7 +39,7 @@ describe('ItemAdminSearchResultListElementComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PoolTaskAdminWorkflowSearchResultListElementComponent);
+    fixture = TestBed.createComponent(TaskAdminWorkflowSearchResultListElementComponent);
     component = fixture.componentInstance;
     component.object = searchResult;
     component.linkTypes = CollectionElementLinkType;

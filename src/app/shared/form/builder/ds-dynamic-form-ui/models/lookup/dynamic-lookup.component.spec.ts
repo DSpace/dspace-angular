@@ -27,8 +27,6 @@ import { AuthorityConfidenceStateDirective } from '../../../../../authority-conf
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../../../../config';
 import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
-import { WorkspaceitemsEditPageModule } from '../../../../../../+workspaceitems-edit-page/workspaceitems-edit-page.module';
-import { WorkspaceItem } from '../../../../../../core/submission/models/workspaceitem.model';
 
 let LOOKUP_TEST_MODEL_CONFIG = {
   authorityOptions: {

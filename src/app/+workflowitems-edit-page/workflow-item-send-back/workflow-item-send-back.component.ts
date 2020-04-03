@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { WorkflowItemActionPageComponent } from '../workflow-item-action-page.component';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { RouteService } from '../../core/services/route.service';
@@ -8,10 +8,10 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'ds-workflow-item-delete',
+  selector: 'ds-workflow-item-send-back',
   templateUrl: '../workflow-item-action-page.component.html'
 })
-export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent {
+export class WorkflowItemSendBackComponent extends WorkflowItemActionPageComponent {
   constructor(protected route: ActivatedRoute,
               protected workflowItemService: WorkflowItemDataService,
               protected router: Router,
@@ -22,10 +22,10 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
   }
 
   getType(): string {
-    return 'delete';
+    return 'send-back';
   }
 
   sendRequest(id: string): Observable<boolean> {
-    return this.workflowItemService.delete(id);
+    return this.workflowItemService.sendBack(id);
   }
 }
