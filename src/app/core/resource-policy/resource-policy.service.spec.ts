@@ -170,23 +170,20 @@ describe('ResourcePolicyService', () => {
   });
 
   describe('delete', () => {
-    beforeEach(async(() => {
-      scheduler = getTestScheduler();
-      responseCacheEntry.completed = true;
-      requestService = jasmine.createSpyObj('requestService', {
-        configure: {},
-        getByHref: observableOf(responseCacheEntry),
-        getByUUID: hot('a', { a: responseCacheEntry }),
-        generateRequestId: 'request-id',
-        removeByHrefSubstring: {}
-      });
-    }));
-
     it('should proxy the call to dataservice.create', () => {
       scheduler.schedule(() => service.delete(resourcePolicyId));
       scheduler.flush();
 
       expect((service as any).dataService.delete).toHaveBeenCalledWith(resourcePolicyId);
+    });
+  });
+
+  describe('update', () => {
+    it('should proxy the call to dataservice.update', () => {
+      scheduler.schedule(() => service.update(resourcePolicy));
+      scheduler.flush();
+
+      expect((service as any).dataService.update).toHaveBeenCalledWith(resourcePolicy);
     });
   });
 

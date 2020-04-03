@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -7,13 +7,15 @@ import { uniqueId } from 'lodash'
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { DataService } from '../../../../core/data/data.service';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { FindListOptions } from '../../../../core/data/request.models';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { getDataServiceFor } from '../../../../core/cache/builders/build-decorators';
+import { EPERSON } from '../../../../core/eperson/models/eperson.resource-type';
+import { GROUP } from '../../../../core/eperson/models/group.resource-type';
+import { ResourceType } from '../../../../core/shared/resource-type';
 
 @Component({
   selector: 'ds-eperson-group-list',
@@ -69,9 +71,13 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    */
   private subs: Subscription[] = [];
 
-  constructor(public dsoNameService: DSONameService,
-              private epersonService: EPersonDataService,
-              private groupsService: GroupDataService) {
+  constructor(public dsoNameService: DSONameService, private parentInjector: Injector) {
+    const resourceType: ResourceType = (this.isListOfEPerson) ? EPERSON : GROUP;
+    const provider = getDataServiceFor(resourceType);
+    this.dataService = Injector.create({
+      providers: [],
+      parent: this.parentInjector
+    }).get(provider);
   }
 
   /**
@@ -80,7 +86,6 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paginationOptions.id = uniqueId('eperson-group-list-pagination');
     this.paginationOptions.pageSize = 5;
-    this.dataService = (this.isListOfEPerson) ? this.epersonService : this.groupsService;
 
     if (this.initSelected) {
       this.entrySelectedId.next(this.initSelected);

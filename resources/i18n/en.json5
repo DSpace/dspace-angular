@@ -1675,9 +1675,21 @@
 
   "resource-policies.add.for.item": "Add a new Item policy",
 
-  "resource-policies.create.modal.head": "Create new resource policy",
+  "resource-policies.create.page.heading": "Create new resource policy for ",
 
-  "resource-policies.edit.modal.head": "Edit resource policy",
+  "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
+
+  "resource-policies.create.page.success.content": "Operation successful",
+
+  "resource-policies.create.page.title": "Create new resource policy",
+
+  "resource-policies.edit.page.heading": "Edit resource policy ",
+
+  "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
+
+  "resource-policies.edit.page.success.content": "Operation successful",
+
+  "resource-policies.edit.page.title": "Edit resource policy",
 
   "resource-policies.form.action-type.label": "Select the action type",
 
@@ -1721,9 +1733,11 @@
 
   "resource-policies.table.headers.group": "Group",
 
+  "resource-policies.table.headers.id": "ID",
+
   "resource-policies.table.headers.name": "Name",
 
-  "resource-policies.table.headers.id": "ID",
+  "resource-policies.table.headers.policyType": "type",
 
   "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
 

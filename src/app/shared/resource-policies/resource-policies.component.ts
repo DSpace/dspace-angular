@@ -1,12 +1,16 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { filter, map, startWith, take } from 'rxjs/operators';
 
 import { ResourcePolicyService } from '../../core/resource-policy/resource-policy.service';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { getFirstSucceededRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataWithNotEmptyPayload,
+  getSucceededRemoteData
+} from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -15,6 +19,8 @@ import { GroupDataService } from '../../core/eperson/group-data.service';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { followLink } from '../utils/follow-link-config.model';
+import { RequestService } from '../../core/data/request.service';
 
 @Component({
   selector: 'ds-resource-policies',
@@ -36,13 +42,20 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * The resource type (e.g. 'item', 'bundle' etc) used as key to build automatically translation label
    * @type {string}
    */
-  @Input() public resourceKey: string;
+  @Input() public resourceType: string;
+
+  /**
+   * A boolean representing if component is active
+   * @type {boolean}
+   */
+  private isActive: boolean;
 
   /**
    * The list of policies for given resource
    * @type {Observable<RemoteData<PaginatedList<ResourcePolicy>>>}
    */
-  private resourcePolicies$: Observable<RemoteData<PaginatedList<ResourcePolicy>>>;
+  private resourcePolicies$: BehaviorSubject<RemoteData<PaginatedList<ResourcePolicy>>> =
+    new BehaviorSubject<RemoteData<PaginatedList<ResourcePolicy>>>({} as any);
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -57,6 +70,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @param {DSONameService} dsoNameService
    * @param {EPersonDataService} ePersonService
    * @param {GroupDataService} groupService
+   * @param {RequestService} requestService
    * @param {ResourcePolicyService} resourcePolicyService
    * @param {ActivatedRoute} route
    * @param {Router} router
@@ -66,6 +80,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
     private dsoNameService: DSONameService,
     private ePersonService: EPersonDataService,
     private groupService: GroupDataService,
+    private requestService: RequestService,
     private resourcePolicyService: ResourcePolicyService,
     private route: ActivatedRoute,
     private router: Router
@@ -76,9 +91,16 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * Initialize the component, setting up the resource's policies
    */
   ngOnInit(): void {
-    this.resourcePolicies$ = this.resourcePolicyService.searchByResource(this.resourceUUID).pipe(
-      getSucceededRemoteData()
-    );
+    this.isActive = true;
+    this.requestService.removeByHrefSubstring(this.resourceUUID);
+    this.resourcePolicyService.searchByResource(this.resourceUUID, null,
+      followLink('eperson'), followLink('group')).pipe(
+      filter(() => this.isActive),
+      getSucceededRemoteData(),
+      take(1)
+    ).subscribe((result) => {
+      this.resourcePolicies$.next(result);
+    });
 
   }
 
@@ -86,7 +108,13 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * Redirect to resource policy creation page
    */
   createResourcePolicy(): void {
-    this.router.navigate([`../${this.resourceUUID}/create`], { relativeTo: this.route })
+    this.router.navigate([`../create`], {
+      relativeTo: this.route,
+      queryParams: {
+        policyTargetId: this.resourceUUID,
+        targetType: this.resourceType
+      }
+    })
   }
 
   /**
@@ -95,7 +123,12 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @param policy The resource policy
    */
   editResourcePolicy(policy: ResourcePolicy): void {
-    this.router.navigate([`../${this.resourceUUID}/${policy.id}/edit`], { relativeTo: this.route })
+    this.router.navigate([`../edit`], {
+      relativeTo: this.route,
+      queryParams: {
+        policyId: policy.id
+      }
+    })
   }
 
   /**
@@ -104,9 +137,11 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @param policy The resource policy
    */
   getEPersonName(policy: ResourcePolicy): Observable<string> {
-    return this.ePersonService.findByHref(policy._links.eperson.href).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => this.dsoNameService.getName(eperson))
+    return policy.eperson.pipe(
+      filter(() => this.isActive),
+      getFirstSucceededRemoteDataWithNotEmptyPayload(),
+      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
+      startWith('')
     )
   }
 
@@ -116,9 +151,11 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @param policy The resource policy
    */
   getGroupName(policy: ResourcePolicy): Observable<string> {
-    return this.groupService.findByHref(policy._links.group.href).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((group: Group) => this.dsoNameService.getName(group))
+    return policy.group.pipe(
+      filter(() => this.isActive),
+      getFirstSucceededRemoteDataWithNotEmptyPayload(),
+      map((group: Group) => this.dsoNameService.getName(group)),
+      startWith('')
     )
   }
 
@@ -128,7 +165,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @return an observable that emits all resource's policies
    */
   getResourcePolicies(): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
-    return this.resourcePolicies$;
+    return this.resourcePolicies$.asObservable();
   }
 
   /**
@@ -138,7 +175,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @return an observable that emits true when the policy is linked to a ePerson, false otherwise
    */
   hasEPerson(policy): Observable<boolean> {
-    return this.ePersonService.findByHref(policy._links.eperson.href).pipe(
+    return policy.eperson.pipe(
+      filter(() => this.isActive),
       getFirstSucceededRemoteDataPayload(),
       map((eperson: EPerson) => isNotEmpty(eperson))
     )
@@ -151,7 +189,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @return an observable that emits true when the policy is linked to a group, false otherwise
    */
   hasGroup(policy): Observable<boolean> {
-    return this.groupService.findByHref(policy._links.group.href).pipe(
+    return policy.group.pipe(
+      filter(() => this.isActive),
       getFirstSucceededRemoteDataPayload(),
       map((group: Group) => isNotEmpty(group))
     )
@@ -164,7 +203,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   redirectToGroupEditPage(policy: ResourcePolicy): void {
     this.subs.push(
-      this.groupService.findByHref(policy._links.group.href).pipe(
+      policy.group.pipe(
+        filter(() => this.isActive),
         getFirstSucceededRemoteDataPayload(),
         map((group: Group) => group.id)
       ).subscribe((groupUUID) => this.router.navigate(['groups', groupUUID, 'edit']))
@@ -175,6 +215,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * Unsubscribe from all subscriptions
    */
   ngOnDestroy(): void {
+    this.isActive = false;
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe())

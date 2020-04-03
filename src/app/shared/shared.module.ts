@@ -189,9 +189,9 @@ import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-ve
 import { ResourcePoliciesComponent } from './resource-policies/resource-policies.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { ResourcePolicyFormComponent } from './resource-policies/form/resource-policy-form';
-import { ResourcePolicyCreateComponent } from './resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyEditComponent } from './resource-policies/edit/resource-policy-edit.component';
 import { EpersonGroupListComponent } from './resource-policies/form/eperson-group-list/eperson-group-list.component';
+import { ResourcePolicyTargetResolver } from './resource-policies/resolvers/resource-policy-target.resolver';
+import { ResourcePolicyResolver } from './resource-policies/resolvers/resource-policy.resolver';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -366,8 +366,6 @@ const COMPONENTS = [
   ItemVersionsNoticeComponent,
   ResourcePoliciesComponent,
   ResourcePolicyFormComponent,
-  ResourcePolicyCreateComponent,
-  ResourcePolicyEditComponent,
   EpersonGroupListComponent
 ];
 
@@ -435,9 +433,7 @@ const ENTRY_COMPONENTS = [
   LogInPasswordComponent,
   LogInShibbolethComponent,
   ItemVersionsComponent,
-  ItemVersionsNoticeComponent,
-  ResourcePolicyCreateComponent,
-  ResourcePolicyEditComponent
+  ItemVersionsNoticeComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -452,7 +448,9 @@ const PROVIDERS = [
   {
     provide: DYNAMIC_FORM_CONTROL_MAP_FN,
     useValue: dsDynamicFormControlMapFn
-  }
+  },
+  ResourcePolicyResolver,
+  ResourcePolicyTargetResolver
 ];
 
 const DIRECTIVES = [

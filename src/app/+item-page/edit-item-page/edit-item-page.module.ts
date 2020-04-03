@@ -24,6 +24,8 @@ import { ItemMoveComponent } from './item-move/item-move.component';
 import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.component';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
+import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -56,7 +58,9 @@ import { ItemAuthorizationsComponent } from './item-authorizations/item-authoriz
     ItemCollectionMapperComponent,
     ItemMoveComponent,
     VirtualMetadataComponent,
-    ItemAuthorizationsComponent
+    ItemAuthorizationsComponent,
+    ResourcePolicyEditComponent,
+    ResourcePolicyCreateComponent,
   ]
 })
 export class EditItemPageModule {

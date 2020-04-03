@@ -104,6 +104,15 @@ export class ResourcePolicyService {
   }
 
   /**
+   * Add a new patch to the object cache
+   * The patch is derived from the differences between the given object and its version in the object cache
+   * @param {ResourcePolicy} object The given object
+   */
+  update(object: ResourcePolicy): Observable<RemoteData<ResourcePolicy>> {
+    return this.dataService.update(object);
+  }
+
+  /**
    * Returns an observable of {@link RemoteData} of a {@link ResourcePolicy}, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the {@link ResourcePolicy}
    * @param href            The url of {@link ResourcePolicy} we want to retrieve

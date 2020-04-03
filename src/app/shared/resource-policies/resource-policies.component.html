@@ -4,9 +4,9 @@
       <tr>
         <th colspan="7">
           <p class="d-flex justify-content-between align-items-center m-0">
-            {{ 'resource-policies.table.headers.title.for.' + resourceKey | translate }} {{resourceUUID}}
+            {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }} {{resourceUUID}}
             <button class="btn btn-outline-primary float-right" (click)="createResourcePolicy()">
-              {{'resource-policies.add.for.' + resourceKey | translate}}
+              {{'resource-policies.add.for.' + resourceType | translate}}
             </button>
           </p>
         </th>
@@ -14,6 +14,7 @@
       <tr class="text-center">
         <th>{{'resource-policies.table.headers.id' | translate}}</th>
         <th>{{'resource-policies.table.headers.name' | translate}}</th>
+        <th>{{'resource-policies.table.headers.policyType' | translate}}</th>
         <th>{{'resource-policies.table.headers.action' | translate}}</th>
         <th>{{'resource-policies.table.headers.eperson' | translate}}</th>
         <th>{{'resource-policies.table.headers.group' | translate}}</th>
@@ -30,6 +31,7 @@
           </button>
         </th>
         <td>{{policy.name}}</td>
+        <td>{{policy.policyType}}</td>
         <td>{{policy.action}}</td>
         <td *ngIf="(hasEPerson(policy) | async)">
           {{getEPersonName(policy) | async}}

@@ -15,8 +15,10 @@ import { ItemRelationshipsComponent } from './item-relationships/item-relationsh
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
-import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
+import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
+import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 
 export const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
 export const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
@@ -118,19 +120,27 @@ export const ITEM_EDIT_AUTHORIZATIONS_PATH = 'authorizations';
           },
           {
             path: ITEM_EDIT_AUTHORIZATIONS_PATH,
-            data: { title: 'item.edit.authorizations.title' },
             children: [
               {
-                path: ':dso/create',
+                path: 'create',
+                resolve: {
+                  resourcePolicyTarget: ResourcePolicyTargetResolver
+                },
                 component: ResourcePolicyCreateComponent,
+                data: { title: 'resource-policies.create.page.title' }
               },
               {
-                path: ':dso/:policy/edit',
+                path: 'edit',
+                resolve: {
+                  resourcePolicy: ResourcePolicyResolver
+                },
                 component: ResourcePolicyEditComponent,
+                data: { title: 'resource-policies.edit.page.title' }
               },
               {
                 path: '',
-                component: ItemAuthorizationsComponent
+                component: ItemAuthorizationsComponent,
+                data: { title: 'item.edit.authorizations.title' }
               }
             ]
           }
@@ -138,7 +148,10 @@ export const ITEM_EDIT_AUTHORIZATIONS_PATH = 'authorizations';
       }
     ])
   ],
-  providers: []
+  providers: [
+    ResourcePolicyResolver,
+    ResourcePolicyTargetResolver
+  ]
 })
 export class EditItemPageRoutingModule {
 
