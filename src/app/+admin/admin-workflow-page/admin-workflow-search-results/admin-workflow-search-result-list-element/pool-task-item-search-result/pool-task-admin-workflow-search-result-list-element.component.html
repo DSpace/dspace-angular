@@ -1,6 +1,7 @@
-<ds-workflow-item-admin-workflow-search-result-list-element
+<ds-workflow-item-admin-workflow-list-element
+        *ngIf="wfi$ | async"
         [index]="index"
         [object]="wfi$ | async"
         [linkType]="linkType"
         [listID]="listID"
-></ds-workflow-item-admin-workflow-search-result-list-element>
+></ds-workflow-item-admin-workflow-list-element>

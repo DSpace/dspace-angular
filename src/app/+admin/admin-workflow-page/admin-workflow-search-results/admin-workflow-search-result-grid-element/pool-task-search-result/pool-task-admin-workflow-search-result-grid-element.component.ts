@@ -25,8 +25,12 @@ import { Observable } from 'rxjs';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
+import { SearchResult } from '../../../../../shared/search/search-result.model';
+import { TaskObject } from '../../../../../core/tasks/models/task-object.model';
+import { ClaimedTaskSearchResult } from '../../../../../shared/object-collection/shared/claimed-task-search-result.model';
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
+@listableObjectComponent(ClaimedTaskSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
   selector: 'ds-pool-task-admin-workflow-search-result-grid-element',
   styleUrls: ['./pool-task-admin-workflow-search-result-grid-element.component.scss'],
@@ -35,7 +39,7 @@ import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../
 /**
  * The component for displaying a list element for an pool task search result on the admin search page
  */
-export class PoolTaskAdminWorkflowSearchResultGridElementComponent extends SearchResultGridElementComponent<PoolTaskSearchResult, PoolTask> implements OnInit {
+export class PoolTaskAdminWorkflowSearchResultGridElementComponent extends SearchResultGridElementComponent<SearchResult<TaskObject>, TaskObject> implements OnInit {
   public wfi$: Observable<WorkflowItem>;
 
   ngOnInit(): void {

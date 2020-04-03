@@ -186,6 +186,7 @@ import { LogInPasswordComponent } from './log-in/methods/password/log-in-passwor
 import { LogInComponent } from './log-in/log-in.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
+import { ModifyItemOverviewComponent } from '../+item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -357,7 +358,8 @@ const COMPONENTS = [
   LogInContainerComponent,
   ItemVersionsComponent,
   PublicationSearchResultListElementComponent,
-  ItemVersionsNoticeComponent
+  ItemVersionsNoticeComponent,
+  ModifyItemOverviewComponent,
 ];
 
 const ENTRY_COMPONENTS = [

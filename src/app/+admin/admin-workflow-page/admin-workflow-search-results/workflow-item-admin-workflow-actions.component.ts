@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { getItemEditPath } from '../../../+item-page/item-page-routing.module';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
-import { ITEM_EDIT_WITHDRAW_PATH } from '../../../+item-page/edit-item-page/edit-item-page.routing.module';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { getWorkflowItemDeletePath, getWorkflowItemSendBackPath } from '../../../+workflowitems-edit-page/workflowitems-edit-page-routing.module';
 
 @Component({
   selector: 'ds-workflow-item-admin-workflow-actions-element',
@@ -27,13 +25,13 @@ export class WorkflowItemAdminWorkflowActionsComponent {
    * Returns the path to the delete page of this workflow item
    */
   getDeletePath(): string {
-    return getDeletePath(this.wfi.id)
+    return getWorkflowItemDeletePath(this.wfi.id)
   }
 
   /**
    * Returns the path to the send back page of this workflow item
    */
   getSendBackPath(): string {
-    return getSendPath(this.wfi.id);
+    return getWorkflowItemSendBackPath(this.wfi.id);
   }
 }

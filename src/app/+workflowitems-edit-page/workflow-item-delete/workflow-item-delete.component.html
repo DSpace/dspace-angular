@@ -1,1 +1,6 @@
-<ds-modify-item-overview [item]="wfi.item"></ds-modify-item-overview>
+<div class="container" *ngVar="item$ | async as item">
+
+    <ds-modify-item-overview *ngIf="item" [item]="item"></ds-modify-item-overview>
+    <button class="btn btn-default" (click)="previousPage()">Cancel</button>
+    <button class="btn btn-danger" (click)="delete()">Delete</button>
+</div>

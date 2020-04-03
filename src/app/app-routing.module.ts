@@ -41,6 +41,12 @@ export function getProfileModulePath() {
   return `/${PROFILE_MODULE_PATH}`;
 }
 
+const WORKFLOW_ITEM_MODULE_PATH = 'workflowitems';
+
+export function getWorkflowItemModulePath() {
+  return `/${WORKFLOW_ITEM_MODULE_PATH}`;
+}
+
 export function getDSOPath(dso: DSpaceObject): string {
   switch ((dso as any).type) {
     case Community.type.value:
@@ -79,7 +85,7 @@ export function getDSOPath(dso: DSpaceObject): string {
         loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule'
       },
       {
-        path: 'workflowitems',
+        path: WORKFLOW_ITEM_MODULE_PATH,
         loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule'
       },
       {
