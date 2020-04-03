@@ -208,6 +208,7 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
         const relationMD: MetadataValue = this.submissionItem.firstMetadata(this.relationshipOptions.metadataField, { value: this.relatedItem.uuid });
         if (hasValue(relationMD)) {
           const metadataRepresentationMD: MetadataValue = this.submissionItem.firstMetadata(this.metadataFields, { authority: relationMD.authority });
+
           const nextValue = Object.assign(
             new ItemMetadataRepresentation(metadataRepresentationMD),
             this.relatedItem

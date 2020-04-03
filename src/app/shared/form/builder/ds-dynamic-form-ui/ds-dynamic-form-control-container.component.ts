@@ -83,7 +83,12 @@ import { SelectableListService } from '../../../object-list/selectable-list/sele
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { getAllSucceededRemoteData, getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  getSucceededRemoteData,
+  getAllSucceededRemoteDataPayload, getPaginatedListPayload, getFirstSucceededRemoteDataPayload
+} from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
@@ -95,11 +100,13 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Collection } from '../../../../core/shared/collection.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
 import { FormService } from '../../form.service';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { paginatedRelationsToItems } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { RelationshipOptions } from '../models/relationship-options.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -261,13 +268,37 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       }
     }
     if (this.model.relationshipConfig) {
+      const relationshipOptions = Object.assign(new RelationshipOptions(), this.model.relationshipConfig);
       this.listId = 'list-' + this.model.relationshipConfig.relationshipType;
       this.setItem();
       const subscription = this.selectableListService.getSelectableList(this.listId).pipe(
         find((list: SelectableListState) => hasNoValue(list)),
         switchMap(() => this.item$.pipe(take(1))),
         switchMap((item) => {
-          return this.relationshipService.getRelatedItemsByLabel(item, this.model.relationshipConfig.relationshipType).pipe(
+          const relationshipsRD$ = this.relationshipService.getItemRelationshipsByLabel(item,
+            this.model.relationshipConfig.relationshipType,
+            undefined,
+            followLink('leftItem'),
+            followLink('rightItem'),
+            followLink('relationshipType')
+          );
+
+          relationshipsRD$.pipe(
+            getFirstSucceededRemoteDataPayload(),
+            getPaginatedListPayload()
+          ).subscribe((relationships: Relationship[]) => {
+            // set initial namevariants for pre-existing relationships
+            relationships.forEach((relationship: Relationship) => {
+              const relationshipMD: MetadataValue = item.firstMetadata(relationshipOptions.metadataField, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
+              const nameVariantMD: MetadataValue = item.firstMetadata(this.model.metadataFields, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
+              if (hasValue(relationshipMD) && isNotEmpty(relationshipMD.value) && hasValue(nameVariantMD) && isNotEmpty(nameVariantMD.value)) {
+                this.relationshipService.setNameVariant(this.listId, relationshipMD.value, nameVariantMD.value);
+              }
+            });
+          });
+
+          return relationshipsRD$.pipe(
+            paginatedRelationsToItems(item.uuid),
             getSucceededRemoteData(),
             map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((i) => Object.assign(new ItemSearchResult(), { indexableObject: i }))),
           )

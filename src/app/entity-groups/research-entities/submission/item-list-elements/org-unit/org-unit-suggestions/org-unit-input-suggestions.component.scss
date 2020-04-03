@@ -1,6 +1,7 @@
 form {
     z-index: 1;
     &:before {
+        pointer-events: none; // prevent the icon from ‘catching‘ the click
         position: absolute;
         font-weight: 900;
         font-family: "Font Awesome 5 Free";

@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest, OperatorFunction } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import {
   distinctUntilChanged,
   filter,
+  find,
   map,
   startWith,
   switchMap,
@@ -44,7 +45,7 @@ import {
   configureRequest, getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
   getResponseFromEntry,
-  getSucceededRemoteData
+  getSucceededRemoteData, getPaginatedListPayload
 } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
@@ -53,6 +54,7 @@ import { PaginatedList } from './paginated-list';
 import { RemoteData, RemoteDataState } from './remote-data';
 import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
 import { RequestService } from './request.service';
+import has = Reflect.has;
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -167,7 +169,7 @@ export class RelationshipService extends DataService<Relationship> {
    * Method to remove an item that's part of a relationship from the cache
    * @param item The item to remove from the cache
    */
-  private refreshRelationshipItemsInCache(item) {
+  public refreshRelationshipItemsInCache(item) {
     this.objectCache.remove(item._links.self.href);
     this.requestService.removeByHrefSubstring(item.uuid);
     observableCombineLatest(
@@ -310,24 +312,29 @@ export class RelationshipService extends DataService<Relationship> {
    * @param label The rightward or leftward type of the relationship
    */
   getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string, options?: FindListOptions): Observable<Relationship> {
-    return this.getItemRelationshipsByLabel(item1, label, options, followLink('relationshipType'), followLink('leftItem'), followLink('rightItem'))
-      .pipe(
+    console.log('getRelationshipByItemsAndLabel', item1, item2, label, options);
+    return this.getItemRelationshipsByLabel(
+      item1,
+      label,
+      options,
+      followLink('relationshipType'),
+      followLink('leftItem'),
+      followLink('rightItem')
+    ).pipe(
         getSucceededRemoteData(),
-        isNotEmptyOperator(),
-        map((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
-        mergeMap((relationships: Relationship[]) => {
-          return observableCombineLatest(...relationships.map((relationship: Relationship) => {
-              return observableCombineLatest(
-                this.isItemMatchWithItemRD(this.itemService.findByHref(relationship._links.leftItem.href), item2),
-                this.isItemMatchWithItemRD(this.itemService.findByHref(relationship._links.rightItem.href), item2)
-              ).pipe(
-                map(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
-                map((isMatch) => isMatch ? relationship : undefined)
-              );
-            })
-          )
+        // the mergemap below will emit all elements of the list as separate events
+        mergeMap((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
+        mergeMap((relationship: Relationship) => {
+          return observableCombineLatest([
+            this.isItemMatchWithItemRD(this.itemService.findByHref(relationship._links.leftItem.href), item2),
+            this.isItemMatchWithItemRD(this.itemService.findByHref(relationship._links.rightItem.href), item2)
+          ]).pipe(
+            map(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
+            map((isMatch) => isMatch ? relationship : undefined)
+          );
         }),
-        map((relationships: Relationship[]) => relationships.find(((relationship) => hasValue(relationship))))
+        filter((relationship) => hasValue(relationship)),
+        take(1)
       )
   }
 
@@ -384,11 +391,8 @@ export class RelationshipService extends DataService<Relationship> {
    * @param nameVariant The name variant to set for the matching relationship
    */
   public updateNameVariant(item1: Item, item2: Item, relationshipLabel: string, nameVariant: string): Observable<RemoteData<Relationship>> {
-    let count = 0
-    const update$: Observable<RemoteData<Relationship>> = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
+    return this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
       .pipe(
-        tap((v) => console.log('updateNameVariant after getRelationshipByItemsAndLabel', v)),
-        filter((relation: Relationship) => hasValue(relation)),
         switchMap((relation: Relationship) =>
           relation.relationshipType.pipe(
             getSucceededRemoteData(),
@@ -399,7 +403,6 @@ export class RelationshipService extends DataService<Relationship> {
           )
         ),
         switchMap((relationshipAndType: { relation: Relationship, type: RelationshipType }) => {
-          console.log('updateNameVariant switchMap', relationshipAndType);
           const { relation, type } = relationshipAndType;
           let updatedRelationship;
           if (relationshipLabel === type.leftwardType) {
@@ -409,15 +412,7 @@ export class RelationshipService extends DataService<Relationship> {
           }
           return this.update(updatedRelationship);
         }),
-        tap((relationshipRD: RemoteData<Relationship>) => {
-          if (relationshipRD.hasSucceeded && count < 1) {
-            count++;
-            this.refreshRelationshipItemsInCache(item1);
-            this.refreshRelationshipItemsInCache(item2);
-          }
-        })
       );
-    return update$
   }
 
   /**

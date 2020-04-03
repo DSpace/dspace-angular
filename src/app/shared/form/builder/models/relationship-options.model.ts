@@ -1,4 +1,4 @@
-const RELATION_METADATA_PREFIX = 'relation.'
+const RELATION_METADATA_PREFIX = 'relation.';
 
 /**
  * The submission options for fields that can represent relationships

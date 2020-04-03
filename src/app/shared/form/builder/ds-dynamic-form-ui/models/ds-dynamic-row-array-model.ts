@@ -7,6 +7,7 @@ export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig 
   submissionId: string;
   relationshipConfig: RelationshipOptions;
   metadataKey: string;
+  metadataFields: string[];
 }
 
 export class DynamicRowArrayModel extends DynamicFormArrayModel {
@@ -15,6 +16,7 @@ export class DynamicRowArrayModel extends DynamicFormArrayModel {
   @serializable() submissionId: string;
   @serializable() relationshipConfig: RelationshipOptions;
   @serializable() metadataKey: string;
+  @serializable() metadataFields: string[];
   isRowArray = true;
 
   constructor(config: DynamicRowArrayModelConfig, layout?: DynamicFormControlLayout) {
@@ -24,5 +26,6 @@ export class DynamicRowArrayModel extends DynamicFormArrayModel {
     this.submissionId = config.submissionId;
     this.relationshipConfig = config.relationshipConfig;
     this.metadataKey = config.metadataKey;
+    this.metadataFields = config.metadataFields;
   }
 }

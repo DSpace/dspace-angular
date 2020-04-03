@@ -10,7 +10,6 @@ import { AuthorityValue } from '../../core/integration/models/authority.value';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormRowModel } from '../../core/config/models/config-submission-form.model';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 
 export const qualdropSelectConfig = {
   name: 'dc.identifier_QUALDROP_METADATA',
@@ -82,7 +81,8 @@ const rowArrayQualdropConfig = {
   },
   required: false,
   submissionId: '1234',
-  metadataKey: 'dc.some.key'
+  metadataKey: 'dc.some.key',
+  metadataFields: ['dc.some.key']
 } as DynamicRowArrayModelConfig;
 
 export const MockRowArrayQualdropModel: DynamicRowArrayModel = new DynamicRowArrayModel(rowArrayQualdropConfig);

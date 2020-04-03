@@ -55,7 +55,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
     this.relationshipService.getNameVariant(this.listID, this.dso.uuid)
       .pipe(take(1))
       .subscribe((nameVariant: string) => {
-          this.selectedName = nameVariant || defaultValue;
+        this.selectedName = nameVariant || defaultValue;
         }
       );
   }

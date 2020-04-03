@@ -55,6 +55,7 @@ export abstract class FieldParser {
         required: JSON.parse( this.configData.mandatory),
         submissionId: this.submissionId,
         metadataKey,
+        metadataFields: this.getAllFieldIds(),
         groupFactory: () => {
           let model;
           let isFirstModelInArray = true;

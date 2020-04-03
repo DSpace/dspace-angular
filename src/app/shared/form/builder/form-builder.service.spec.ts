@@ -268,7 +268,8 @@ describe('FormBuilderService test suite', () => {
             ];
           },
           required: false,
-          metadataKey: 'dc.contributor.author'
+          metadataKey: 'dc.contributor.author',
+          metadataFields: ['dc.contributor.author']
         },
       ),
     ];

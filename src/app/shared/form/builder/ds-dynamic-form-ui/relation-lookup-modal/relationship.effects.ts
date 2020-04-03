@@ -20,6 +20,7 @@ import { RequestService } from '../../../../../core/data/request.service';
 import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
 import { CommitPatchOperationsAction, JsonPatchOperationsActionTypes, PatchOperationsActions } from '../../../../../core/json-patch/json-patch-operations.actions';
 import { followLink } from '../../../../utils/follow-link-config.model';
+import { RemoteData } from '../../../../../core/data/remote-data';
 
 const DEBOUNCE_TIME = 500;
 
@@ -101,10 +102,14 @@ export class RelationshipEffects {
         if (inProgress) {
             this.nameVariantUpdates[identifier] = nameVariant;
           } else {
-            this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant).pipe(take(1))
-              .subscribe(() => {
-                this.updateAfterPatchSubmissionId = submissionId;
-              });
+            this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant).pipe(
+              filter((relationshipRD: RemoteData<Relationship>) => hasValue(relationshipRD.payload)),
+              take(1)
+            ).subscribe(() => {
+              this.updateAfterPatchSubmissionId = submissionId;
+              this.relationshipService.refreshRelationshipItemsInCache(item1);
+              this.relationshipService.refreshRelationshipItemsInCache(item2);
+            });
           }
         }
       )
@@ -161,8 +166,6 @@ export class RelationshipEffects {
 
   private removeRelationship(item1: Item, item2: Item, relationshipType: string, submissionId: string) {
     this.relationshipService.getRelationshipByItemsAndLabel(item1, item2, relationshipType).pipe(
-      take(1),
-      hasValueOperator(),
       mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id, 'none')),
       take(1),
       switchMap(() => this.refreshWorkspaceItemInCache(submissionId)),
