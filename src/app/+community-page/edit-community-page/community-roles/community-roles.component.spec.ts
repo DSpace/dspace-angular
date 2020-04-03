@@ -7,6 +7,9 @@ import { CommunityRolesComponent } from './community-roles.component';
 import { Community } from '../../../core/shared/community.model';
 import { By } from '@angular/platform-browser';
 import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { SharedModule } from '../../../shared/shared.module';
 
 describe('CommunityRolesComponent', () => {
 
@@ -24,21 +27,48 @@ describe('CommunityRolesComponent', () => {
             false,
             true,
             undefined,
-            new Community(),
-          )
+            Object.assign(new Community(), {
+              _links: {
+                irrelevant: {
+                  href: 'irrelevant link',
+                },
+                adminGroup: {
+                  href: 'adminGroup link',
+                },
+              },
+            }),
+          ),
         })
       }
+    };
+
+    const requestService = {
+      hasByHrefObservable: () => observableOf(true),
+    };
+
+    const groupDataService = {
+      findByHref: () => observableOf(new RemoteData(
+        false,
+        false,
+        true,
+        undefined,
+        {},
+        200,
+      )),
     };
 
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        SharedModule,
       ],
       declarations: [
         CommunityRolesComponent,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: route },
+        { provide: RequestService, useValue: requestService },
+        { provide: GroupDataService, useValue: groupDataService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -51,6 +81,7 @@ describe('CommunityRolesComponent', () => {
   });
 
   it('should display a community admin role component', () => {
-    expect(de.query(By.css('ds-comcol-role.admin'))).toBeDefined();
+    expect(de.query(By.css('ds-comcol-role .community-admin')))
+      .toBeTruthy();
   });
 });

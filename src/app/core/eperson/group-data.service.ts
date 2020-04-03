@@ -324,12 +324,11 @@ export class GroupDataService extends DataService<Group> {
    * Create a group for a given role for a given community or collection.
    *
    * @param dso         The community or collection for which to create a group
-   * @param comcolRole  The role for which to create a group
+   * @param link        The REST endpoint to create the group
    */
-  createComcolGroup(dso: Community|Collection, comcolRole: ComcolRole): Observable<RestResponse> {
+  createComcolGroup(dso: Community|Collection, link: string): Observable<RestResponse> {
 
     const requestId = this.requestService.generateRequestId();
-    const link = comcolRole.getEndpoint(dso);
     const group = Object.assign(new Group(), {
       metadata: {
         'dc.description': [
@@ -340,47 +339,37 @@ export class GroupDataService extends DataService<Group> {
       },
     });
 
-    return this.halService.getEndpoint(link).pipe(
-      distinctUntilChanged(),
-      take(1),
-      map((endpoint: string) =>
-        new CreateRequest(
-          requestId,
-          endpoint,
-          JSON.stringify(group),
-        )
-      ),
-      configureRequest(this.requestService),
-      tap(() => this.requestService.removeByHrefSubstring(link)),
-      switchMap((restRequest) => this.requestService.getByUUID(restRequest.uuid)),
+    this.requestService.configure(
+      new CreateRequest(
+        requestId,
+        link,
+        JSON.stringify(group),
+      ));
+
+    return this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry(),
+      tap(() => this.requestService.removeByHrefSubstring(link)),
     );
   }
 
   /**
    * Delete the group for a given role for a given community or collection.
    *
-   * @param dso         The community or collection for which to delete the group
-   * @param comcolRole  The role for which to delete the group
+   * @param link        The REST endpoint to delete the group
    */
-  deleteComcolGroup(dso: Community|Collection, comcolRole: ComcolRole): Observable<RestResponse> {
+  deleteComcolGroup(link: string): Observable<RestResponse> {
 
     const requestId = this.requestService.generateRequestId();
-    const link = comcolRole.getEndpoint(dso);
 
-    return this.halService.getEndpoint(link).pipe(
-      distinctUntilChanged(),
-      take(1),
-      map((endpoint: string) =>
-        new DeleteRequest(
-          requestId,
-          endpoint,
-        )
-      ),
-      configureRequest(this.requestService),
-      tap(() => this.requestService.removeByHrefSubstring(link)),
-      switchMap((restRequest) => this.requestService.getByUUID(restRequest.uuid)),
+    this.requestService.configure(
+      new DeleteRequest(
+        requestId,
+        link,
+      ));
+
+    return this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry(),
+      tap(() => this.requestService.removeByHrefSubstring(link)),
     );
   }
 }
