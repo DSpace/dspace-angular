@@ -18,6 +18,7 @@ import { CommunitySearchResult } from '../../../object-collection/shared/communi
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CommunitySearchResultGridElementComponent } from './community-search-result-grid-element.component';
+import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 
 let communitySearchResultGridElementComponent: CommunitySearchResultGridElementComponent;
 let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
@@ -70,6 +71,7 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: BitstreamFormatDataService, useValue: {} },
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]

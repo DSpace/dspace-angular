@@ -63,7 +63,7 @@ export class AbstractTrackableComponent {
    * Get translated notification title
    * @param key
    */
-  protected getNotificationTitle(key: string) {
+  getNotificationTitle(key: string) {
     return this.translateService.instant(this.notificationsPrefix + key + '.title');
   }
 
@@ -71,7 +71,7 @@ export class AbstractTrackableComponent {
    * Get translated notification content
    * @param key
    */
-  protected getNotificationContent(key: string) {
+  getNotificationContent(key: string) {
     return this.translateService.instant(this.notificationsPrefix + key + '.content');
 
   }

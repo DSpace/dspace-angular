@@ -3,12 +3,12 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,
-  ObjectUpdatesActionTypes,
+  ObjectUpdatesActionTypes, RemoveAllObjectUpdatesAction,
   RemoveObjectUpdatesAction
 } from './object-updates.actions';
 import { delay, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { of as observableOf, race as observableRace, Subject } from 'rxjs';
-import { hasNoValue } from '../../../shared/empty.util';
+import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import {
@@ -16,6 +16,7 @@ import {
   NotificationsActionTypes,
   RemoveNotificationAction
 } from '../../../shared/notifications/notifications.actions';
+import { Action } from '@ngrx/store';
 
 /**
  * NGRX effects for ObjectUpdatesActions
@@ -53,13 +54,14 @@ export class ObjectUpdatesEffects {
     .pipe(
       ofType(...Object.values(ObjectUpdatesActionTypes)),
       map((action: ObjectUpdatesAction) => {
-          const url: string = action.payload.url;
+        if (hasValue((action as any).payload)) {
+          const url: string = (action as any).payload.url;
           if (hasNoValue(this.actionMap$[url])) {
             this.actionMap$[url] = new Subject<ObjectUpdatesAction>();
           }
           this.actionMap$[url].next(action);
         }
-      )
+      })
     );
 
   /**
@@ -91,9 +93,15 @@ export class ObjectUpdatesEffects {
           const url: string = action.payload.url;
           const notification: INotification = action.payload.notification;
           const timeOut = notification.options.timeOut;
+
+          let removeAction: Action = new RemoveObjectUpdatesAction(action.payload.url);
+          if (action.payload.discardAll) {
+            removeAction = new RemoveAllObjectUpdatesAction();
+          }
+
           return observableRace(
             // Either wait for the delay and perform a remove action
-            observableOf(new RemoveObjectUpdatesAction(action.payload.url)).pipe(delay(timeOut)),
+            observableOf(removeAction).pipe(delay(timeOut)),
             // Or wait for a a user action
             this.actionMap$[url].pipe(
               take(1),
@@ -106,19 +114,19 @@ export class ObjectUpdatesEffects {
                   return { type: 'NO_ACTION' }
                 }
                 // If someone performed another action, assume the user does not want to reinstate and remove all changes
-                return new RemoveObjectUpdatesAction(action.payload.url);
+                return removeAction
               })
             ),
             this.notificationActionMap$[notification.id].pipe(
               filter((notificationsAction: NotificationsActions) => notificationsAction.type === NotificationsActionTypes.REMOVE_NOTIFICATION),
               map(() => {
-                return new RemoveObjectUpdatesAction(action.payload.url);
+                return removeAction;
               })
             ),
             this.notificationActionMap$[this.allIdentifier].pipe(
               filter((notificationsAction: NotificationsActions) => notificationsAction.type === NotificationsActionTypes.REMOVE_ALL_NOTIFICATIONS),
               map(() => {
-                return new RemoveObjectUpdatesAction(action.payload.url);
+                return removeAction;
               })
             )
           )

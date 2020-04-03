@@ -10,12 +10,14 @@ import { BrowseByConfig } from './browse-by-config.interface';
 import { ItemPageConfig } from './item-page-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { Theme } from './theme.inferface';
+import {AuthConfig} from './auth-config.interfaces';
 
 export interface GlobalConfig extends Config {
   ui: ServerConfig;
   rest: ServerConfig;
   production: boolean;
   cache: CacheConfig;
+  auth: AuthConfig;
   form: FormConfig;
   notifications: INotificationBoardOptions;
   submission: SubmissionConfig;

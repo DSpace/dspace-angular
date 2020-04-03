@@ -1,13 +1,3 @@
-.form-login .form-control:focus {
-  z-index: 2;
+.login-container {
+  max-width: 350px;
 }
-.form-login input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-login input[type="password"] {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-

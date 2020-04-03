@@ -1,24 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-import {
-  DynamicFormLayoutService,
-  DynamicFormService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
-import { EffectsModule } from '@ngrx/effects';
 
+import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
-
 import { isNotEmpty } from '../shared/empty.util';
 import { FormBuilderService } from '../shared/form/builder/form-builder.service';
 import { FormService } from '../shared/form/form.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest-v2/endpoint-mocking-rest.service';
-
 import {
   MOCK_RESPONSE_MAP,
   MockResponseMap,
@@ -48,7 +43,6 @@ import { SubmissionUploadsModel } from './config/models/config-submission-upload
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
-
 import { coreEffects } from './core.effects';
 import { coreReducers } from './core.reducers';
 import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
@@ -103,7 +97,6 @@ import { RegistryService } from './registry/registry.service';
 import { RoleService } from './roles/role.service';
 
 import { ApiService } from './services/api.service';
-import { RouteService } from './services/route.service';
 import { ServerResponseService } from './services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from './services/window.service';
 import { BitstreamFormat } from './shared/bitstream-format.model';
@@ -142,6 +135,8 @@ import { PoolTask } from './tasks/models/pool-task-object.model';
 import { TaskObject } from './tasks/models/task-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { ArrayMoveChangeAnalyzer } from './data/array-move-change-analyzer.service';
+import { BitstreamDataService } from './data/bitstream-data.service';
 import { VersionDataService } from './data/version-data.service';
 import { VersionHistoryDataService } from './data/version-history-data.service';
 import { Version } from './shared/version.model';
@@ -181,7 +176,11 @@ const PROVIDERS = [
   SiteDataService,
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
-  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [GLOBAL_CONFIG, MOCK_RESPONSE_MAP, HttpClient]},
+  {
+    provide: DSpaceRESTv2Service,
+    useFactory: restServiceFactory,
+    deps: [GLOBAL_CONFIG, MOCK_RESPONSE_MAP, HttpClient]
+  },
   DynamicFormLayoutService,
   DynamicFormService,
   DynamicFormValidationService,
@@ -217,7 +216,6 @@ const PROVIDERS = [
   BrowseItemsResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
-  RouteService,
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionRestService,
@@ -239,6 +237,7 @@ const PROVIDERS = [
   DSpaceObjectDataService,
   DSOChangeAnalyzer,
   DefaultChangeAnalyzer,
+  ArrayMoveChangeAnalyzer,
   ObjectSelectService,
   CSSVariableService,
   MenuService,
@@ -250,6 +249,7 @@ const PROVIDERS = [
   TaskResponseParsingService,
   ClaimedTaskDataService,
   PoolTaskDataService,
+  BitstreamDataService,
   EntityTypeService,
   ContentSourceResponseParsingService,
   SearchService,
