@@ -886,7 +886,7 @@
   // "login.form.header": "Please log in to DSpace",
   "login.form.header": "Se connecter sur DSpace",
   // "login.form.new-user": "New user? Click here to register.",
-  "login.form.new-user": "Pas encore de compte ? Cliquez ici pour vous enregistrer.”",
+  "login.form.new-user": "Pas encore de compte ? Cliquez ici pour vous enregistrer.",
   // "login.form.password": "Password",
   "login.form.password": "Mot de passe",
   // "login.form.submit": "Log in",
