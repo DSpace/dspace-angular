@@ -75,7 +75,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
     if (!this.allSuggestions.includes(value)) {
       this.openModal(value)
         .then(() => {
-
+          // user clicked ok: store the name variant in the item
           const newName: MetadataValue = new MetadataValue();
           newName.value = value;
 
@@ -89,9 +89,12 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
               },
             });
           this.itemDataService.update(updatedItem).pipe(take(1)).subscribe();
-        })
+        }).catch(() => {
+        // user clicked cancel: use the name variant only for this relation, no further action required
+      }).finally(() => {
+        this.select(value);
+      })
     }
-    this.select(value);
   }
 
   openModal(value): Promise<any> {
