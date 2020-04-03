@@ -90,7 +90,7 @@ describe('UploadBistreamComponent', () => {
     buildAuthHeader: () => authToken
   });
   const notificationsServiceStub = new NotificationsServiceStub();
-  const uploaderComponent = jasmine.createSpyObj('uploaderComponent', ['ngOnInit']);
+  const uploaderComponent = jasmine.createSpyObj('uploaderComponent', ['ngOnInit', 'ngAfterViewInit']);
   const requestService = jasmine.createSpyObj('requestService', {
     removeByHrefSubstring: {}
   });
