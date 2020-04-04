@@ -268,6 +268,42 @@
 
 
 
+  "bitstream.edit.bitstream": "Bitstream: ",
+
+  "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
+
+  "bitstream.edit.form.description.label": "Description",
+
+  "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+
+  "bitstream.edit.form.embargo.label": "Embargo until specific date",
+
+  "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
+
+  "bitstream.edit.form.fileName.label": "Filename",
+
+  "bitstream.edit.form.newFormat.label": "Describe new format",
+
+  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+
+  "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
+
+  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+
+  "bitstream.edit.form.selectedFormat.label": "Selected Format",
+
+  "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
+
+  "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
+
+  "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
+
+  "bitstream.edit.notifications.saved.title": "Bitstream saved",
+
+  "bitstream.edit.title": "Edit bitstream",
+
+
+
   "browse.comcol.by.author": "By Author",
 
   "browse.comcol.by.dateissued": "By Issue Date",
@@ -638,6 +674,8 @@
 
 
 
+  "error.bitstream": "Error fetching bitstream",
+
   "error.browse-by": "Error fetching items",
 
   "error.collection": "Error fetching collection",
@@ -748,6 +786,93 @@
   "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
 
   "item.edit.authorizations.title": "Edit item's Policies",
+
+
+
+  "item.bitstreams.upload.bundle": "Bundle",
+
+  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
+
+  "item.bitstreams.upload.bundle.new": "Create bundle",
+
+  "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+
+  "item.bitstreams.upload.cancel": "Cancel",
+
+  "item.bitstreams.upload.drop-message": "Drop a file to upload",
+
+  "item.bitstreams.upload.item": "Item: ",
+
+  "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
+
+  "item.bitstreams.upload.notifications.bundle.created.title": "Created bundle",
+
+  "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
+
+  "item.bitstreams.upload.title": "Upload bitstream",
+
+
+
+  "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
+
+  "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
+
+  "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
+
+  "item.edit.bitstreams.bundle.load.more": "Load more",
+
+  "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
+
+  "item.edit.bitstreams.discard-button": "Discard",
+
+  "item.edit.bitstreams.edit.buttons.download": "Download",
+
+  "item.edit.bitstreams.edit.buttons.drag": "Drag",
+
+  "item.edit.bitstreams.edit.buttons.edit": "Edit",
+
+  "item.edit.bitstreams.edit.buttons.remove": "Remove",
+
+  "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
+
+  "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
+
+  "item.edit.bitstreams.headers.actions": "Actions",
+
+  "item.edit.bitstreams.headers.bundle": "Bundle",
+
+  "item.edit.bitstreams.headers.description": "Description",
+
+  "item.edit.bitstreams.headers.format": "Format",
+
+  "item.edit.bitstreams.headers.name": "Name",
+
+  "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+
+  "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
+
+  "item.edit.bitstreams.notifications.move.failed.title": "Error moving bitstreams",
+
+  "item.edit.bitstreams.notifications.move.saved.content": "Your move changes to this item's bitstreams and bundles have been saved.",
+
+  "item.edit.bitstreams.notifications.move.saved.title": "Move changes saved",
+
+  "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+
+  "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
+
+  "item.edit.bitstreams.notifications.remove.failed.title": "Error deleting bitstream",
+
+  "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
+
+  "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
+
+  "item.edit.bitstreams.reinstate-button": "Undo",
+
+  "item.edit.bitstreams.save-button": "Save",
+
+  "item.edit.bitstreams.upload-button": "Upload",
+
 
 
   "item.edit.delete.cancel": "Cancel",
@@ -948,7 +1073,7 @@
 
 
 
-  "item.edit.tabs.bitstreams.head": "Item Bitstreams",
+  "item.edit.tabs.bitstreams.head": "Bitstreams",
 
   "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
 
@@ -956,11 +1081,11 @@
 
   "item.edit.tabs.curate.title": "Item Edit - Curate",
 
-  "item.edit.tabs.metadata.head": "Item Metadata",
+  "item.edit.tabs.metadata.head": "Metadata",
 
   "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
 
-  "item.edit.tabs.relationships.head": "Item Relationships",
+  "item.edit.tabs.relationships.head": "Relationships",
 
   "item.edit.tabs.relationships.title": "Item Edit - Relationships",
 
@@ -998,7 +1123,7 @@
 
   "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
 
-  "item.edit.tabs.status.head": "Item Status",
+  "item.edit.tabs.status.head": "Status",
 
   "item.edit.tabs.status.labels.handle": "Handle",
 
@@ -1166,6 +1291,10 @@
   "journalvolume.page.volume": "Volume",
 
 
+
+  "loading.bitstream": "Loading bitstream...",
+
+  "loading.bitstreams": "Loading bitstreams...",
 
   "loading.browse-by": "Loading items...",
 

@@ -135,10 +135,14 @@ import { PoolTask } from './tasks/models/pool-task-object.model';
 import { TaskObject } from './tasks/models/task-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { ArrayMoveChangeAnalyzer } from './data/array-move-change-analyzer.service';
+import { BitstreamDataService } from './data/bitstream-data.service';
 import { VersionDataService } from './data/version-data.service';
 import { VersionHistoryDataService } from './data/version-history-data.service';
 import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
+import { WorkflowActionDataService } from './data/workflow-action-data.service';
+import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -233,6 +237,7 @@ const PROVIDERS = [
   DSpaceObjectDataService,
   DSOChangeAnalyzer,
   DefaultChangeAnalyzer,
+  ArrayMoveChangeAnalyzer,
   ObjectSelectService,
   CSSVariableService,
   MenuService,
@@ -244,6 +249,7 @@ const PROVIDERS = [
   TaskResponseParsingService,
   ClaimedTaskDataService,
   PoolTaskDataService,
+  BitstreamDataService,
   EntityTypeService,
   ContentSourceResponseParsingService,
   SearchService,
@@ -259,6 +265,7 @@ const PROVIDERS = [
   VersionHistoryDataService,
   LicenseDataService,
   ItemTypeDataService,
+  WorkflowActionDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -308,7 +315,8 @@ export const models =
     ExternalSource,
     ExternalSourceEntry,
     Version,
-    VersionHistory
+    VersionHistory,
+    WorkflowAction
   ];
 
 @NgModule({

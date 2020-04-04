@@ -184,8 +184,13 @@ import { LogInContainerComponent } from './log-in/container/log-in-container.com
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
+import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
+import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
+import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
+import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
+import { ClaimedTaskActionsEditMetadataComponent } from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ResourcePoliciesComponent } from './resource-policies/resource-policies.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { ResourcePolicyFormComponent } from './resource-policies/form/resource-policy-form';
@@ -297,6 +302,8 @@ const COMPONENTS = [
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
+  ClaimedTaskActionsEditMetadataComponent,
+  ClaimedTaskActionsLoaderComponent,
   ItemActionsComponent,
   PoolTaskActionsComponent,
   WorkflowitemActionsComponent,
@@ -351,6 +358,9 @@ const COMPONENTS = [
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   ItemTypeBadgeComponent,
+  BrowseByComponent,
+  AbstractTrackableComponent,
+  CustomSwitchComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
@@ -413,6 +423,7 @@ const ENTRY_COMPONENTS = [
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
+  CustomSwitchComponent,
   ItemMetadataRepresentationListElementComponent,
   SearchResultsComponent,
   CollectionSearchResultGridElementComponent,
@@ -433,7 +444,12 @@ const ENTRY_COMPONENTS = [
   LogInPasswordComponent,
   LogInShibbolethComponent,
   ItemVersionsComponent,
-  ItemVersionsNoticeComponent
+  BundleListElementComponent,
+  ItemVersionsNoticeComponent,
+  ClaimedTaskActionsApproveComponent,
+  ClaimedTaskActionsRejectComponent,
+  ClaimedTaskActionsReturnToPoolComponent,
+  ClaimedTaskActionsEditMetadataComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -464,6 +480,7 @@ const DIRECTIVES = [
   RoleDirective,
   MetadataRepresentationDirective,
   ListableObjectDirective,
+  ClaimedTaskActionsDirective,
   NgForTrackByIdDirective
 ];
 
