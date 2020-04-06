@@ -25,7 +25,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { ObjectCacheEntry } from './object-cache.reducer';
 import { Operation } from 'fast-json-patch';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 
 @Injectable()
 export class ServerSyncBufferEffects {
@@ -99,48 +98,20 @@ export class ServerSyncBufferEffects {
    * @returns {Observable<Action>} ApplyPatchObjectCacheAction to be dispatched
    */
   private applyPatch(href: string): Observable<Action> {
-    if (isNotEmpty(href.match(/^http.*\/core\/relationships\/\d+$/))) {
-      return this.sendPatchAsPut(href);
-    } else {
-      const patchObject = this.objectCache.getBySelfLink(href).pipe(take(1));
-
-      return patchObject.pipe(
-        map((entry: ObjectCacheEntry) => {
-          if (isNotEmpty(entry.patches)) {
-            const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
-            if (isNotEmpty(flatPatch)) {
-              this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, flatPatch));
-            }
-          }
-          return new ApplyPatchObjectCacheAction(href);
-        })
-      );
-    }
-  }
-
-
-  /**
-   * Send a list of PATCH operations made by the UI as a PUT request to the REST API
-   * This allows us to use PATCH in the UI while PATCH support for the endpoint is still
-   * under developent.
-   *
-   * @param {string} href The self link of the cache entry
-   * @returns {Observable<Action>} ApplyPatchObjectCacheAction to be dispatched
-   */
-  private sendPatchAsPut(href: string): Observable<Action> {
-    const patchObject = this.objectCache.getObjectBySelfLink(href).pipe(take(1));
+    const patchObject = this.objectCache.getBySelfLink(href).pipe(take(1));
 
     return patchObject.pipe(
-      map((object) => {
-        const serializedObject = new DSpaceSerializer(object.constructor as GenericConstructor<{}>).serialize(object);
-
-        this.requestService.configure(new PutRequest(this.requestService.generateRequestId(), href, serializedObject));
-
-        return new ApplyPatchObjectCacheAction(href)
+      map((entry: ObjectCacheEntry) => {
+        if (isNotEmpty(entry.patches)) {
+          const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
+          if (isNotEmpty(flatPatch)) {
+            this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, flatPatch));
+          }
+        }
+        return new ApplyPatchObjectCacheAction(href);
       })
-    )
+    );
   }
-
 
   constructor(private actions$: Actions,
               private store: Store<CoreState>,

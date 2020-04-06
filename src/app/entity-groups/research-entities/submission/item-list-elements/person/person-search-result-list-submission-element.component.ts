@@ -89,6 +89,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
                 },
               });
             this.itemDataService.update(updatedItem).pipe(take(1)).subscribe();
+            this.itemDataService.commitUpdates();
       }).catch(() => {
         // user clicked cancel: use the name variant only for this relation, no further action required
       }).finally(() => {
