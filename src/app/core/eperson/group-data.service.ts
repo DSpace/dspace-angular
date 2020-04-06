@@ -277,7 +277,7 @@ export class GroupDataService extends DataService<Group> {
         this.editGroup(newGroup)
       }
     });
-    return '/admin/access-control/groups/' + newGroup.id;
+    return this.getGroupEditPageRouterLinkWithID(newGroup.id)
   }
 
   /**
@@ -285,7 +285,28 @@ export class GroupDataService extends DataService<Group> {
    * @param group Group we want edit page for
    */
   public getGroupEditPageRouterLink(group: Group): string {
-    return '/admin/access-control/groups/' + group.id;
+    return this.getGroupEditPageRouterLinkWithID(group.id);
+  }
+
+  /**
+   * Get Edit page of group
+   * @param groupID Group ID we want edit page for
+   */
+  public getGroupEditPageRouterLinkWithID(groupId: string): string {
+    return '/admin/access-control/groups/' + groupId;
+  }
+
+  /**
+   * Extract optional UUID from a string
+   * @param stringWithUUID  String with possible UUID
+   */
+  public getUUIDFromString(stringWithUUID: string): string {
+    let foundUUID = '';
+    const uuidMatches = stringWithUUID.match(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/g);
+    if (uuidMatches != null) {
+      foundUUID = uuidMatches[0];
+    }
+    return foundUUID;
   }
 
 }

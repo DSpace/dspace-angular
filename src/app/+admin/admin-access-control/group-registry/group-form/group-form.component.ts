@@ -84,6 +84,11 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
+  /**
+   * Group currently being edited
+   */
+  groupBeingEdited: Group;
+
   constructor(public groupDataService: GroupDataService,
               private ePersonDataService: EPersonDataService,
               private formBuilderService: FormBuilderService,
@@ -123,6 +128,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.subs.push(this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
         if (activeGroup != null) {
+          this.groupBeingEdited = activeGroup;
           this.formGroup.patchValue({
             groupName: activeGroup != null ? activeGroup.name : '',
             groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
@@ -185,7 +191,9 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         this.submitForm.emit(groupToCreate);
         const resp: any = restResponse;
         if (isNotEmpty(resp.resourceSelfLinks)) {
-          this.setActiveGroupWithLink(resp.resourceSelfLinks[0]);
+          const groupSelfLink = resp.resourceSelfLinks[0];
+          this.setActiveGroupWithLink(groupSelfLink);
+          this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLinkWithID(this.groupDataService.getUUIDFromString(groupSelfLink)));
         }
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.created.failure', { name: groupToCreate.name }));

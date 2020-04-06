@@ -149,11 +149,6 @@ export class GroupsRegistryComponent implements OnInit {
    * @param groupName
    */
   getOptionalComColFromName(groupName: string): string {
-    let optionalComColName = '';
-    const uuidMatches = groupName.match(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/g);
-    if (uuidMatches != null) {
-      optionalComColName = uuidMatches[0];
-    }
-    return optionalComColName;
+    return this.groupService.getUUIDFromString(groupName);
   }
 }
