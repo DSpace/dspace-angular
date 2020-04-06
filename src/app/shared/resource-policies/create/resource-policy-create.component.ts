@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { BehaviorSubject, Observable } from 'rxjs';
 import { first, map, take } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
@@ -19,18 +21,28 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 export class ResourcePolicyCreateComponent implements OnInit {
 
   /**
+   * The name of the resource target of the policy
+   */
+  public targetResourceName: string;
+
+  /**
+   * A boolean representing if a submission creation operation is pending
+   * @type {BehaviorSubject<boolean>}
+   */
+  private processing$ = new BehaviorSubject<boolean>(false);
+
+  /**
    * The uuid of the resource target of the policy
    */
   private targetResourceUUID: string;
-
-  public targetResourceName: string;
 
   constructor(
     private dsoNameService: DSONameService,
     private notificationsService: NotificationsService,
     private resourcePolicyService: ResourcePolicyService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -43,11 +55,16 @@ export class ResourcePolicyCreateComponent implements OnInit {
     });
   }
 
-  redirectToAuthorizationsPage() {
+  isProcessing(): Observable<boolean> {
+    return this.processing$.asObservable();
+  }
+
+  redirectToAuthorizationsPage(): void {
     this.router.navigate([`../../${ITEM_EDIT_AUTHORIZATIONS_PATH}`], { relativeTo: this.route });
   }
 
-  createResourcePolicy(event: ResourcePolicyEvent) {
+  createResourcePolicy(event: ResourcePolicyEvent): void {
+    this.processing$.next(true);
     let response$;
     if (event.target.type === 'eperson') {
       response$ = this.resourcePolicyService.create(event.object, this.targetResourceUUID, event.target.uuid);
@@ -57,11 +74,12 @@ export class ResourcePolicyCreateComponent implements OnInit {
     response$.pipe(
       first((response: RemoteData<ResourcePolicy>) => !response.isResponsePending)
     ).subscribe((responseRD: RemoteData<ResourcePolicy>) => {
+      this.processing$.next(false);
       if (responseRD.hasSucceeded) {
-        this.notificationsService.success(null, 'resource-policies.create.page.success.content');
+        this.notificationsService.success(null, this.translate.get('resource-policies.create.page.success.content'));
         this.redirectToAuthorizationsPage();
       } else {
-        this.notificationsService.error(null, 'resource-policies.create.page.failure.content');
+        this.notificationsService.success(null, this.translate.get('resource-policies.create.page.failure.content'));
       }
     })
   }

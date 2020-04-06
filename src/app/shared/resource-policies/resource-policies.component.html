@@ -1,17 +1,40 @@
-<div *ngIf="(getResourcePolicies() | async)?.hasSucceeded">
+<div *ngIf="(getResourcePolicies() | async)?.length > 0">
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th colspan="7">
-          <p class="d-flex justify-content-between align-items-center m-0">
+        <th colspan="9">
+          <div class="d-flex justify-content-between align-items-center m-0">
             {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }} {{resourceUUID}}
-            <button class="btn btn-outline-primary float-right" (click)="createResourcePolicy()">
-              {{'resource-policies.add.for.' + resourceType | translate}}
-            </button>
-          </p>
+            <div>
+              <button class="btn btn-outline-primary float-right ml-1"
+                      [disabled]="(!(canDelete() | async)) || (isProcessingDelete() | async)"
+                      (click)="deleteSelectedResourcePolicies()">
+                <span *ngIf="(isProcessingDelete() | async)">
+                  <i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}
+                </span>
+                <span *ngIf="!(isProcessingDelete() | async)">
+                  {{'resource-policies.delete.btn' | translate}}
+                </span>
+              </button>
+              <button class="btn btn-outline-primary float-right"
+                      [disabled]="(isProcessingDelete() | async)"
+                      (click)="redirectToResourcePolicyCreatePage()">
+                {{'resource-policies.add.for.' + resourceType | translate}}
+              </button>
+            </div>
+          </div>
         </th>
       </tr>
       <tr class="text-center">
+        <th>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox"
+                   class="custom-control-input"
+                   [id]="'selectAll_' + resourceUUID"
+                   (change)="selectAllCheckbox($event)">
+            <label class="custom-control-label" [for]="'selectAll_' + resourceUUID"></label>
+          </div>
+        </th>
         <th>{{'resource-policies.table.headers.id' | translate}}</th>
         <th>{{'resource-policies.table.headers.name' | translate}}</th>
         <th>{{'resource-policies.table.headers.policyType' | translate}}</th>
@@ -23,29 +46,39 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let policy of (getResourcePolicies() | async)?.payload?.page; trackById">
+      <tr *ngFor="let entry of (getResourcePolicies() | async); trackById">
+        <td class="text-center">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox"
+                   class="custom-control-input"
+                   [id]="entry.id"
+                   [ngModel]="entry.checked"
+                   (ngModelChange)="selectCheckbox(entry, $event)">
+            <label class="custom-control-label" [for]="entry.id"></label>
+          </div>
+        </td>
         <th scope="row">
-          {{policy.id}}
-          <button class="btn btn-link pt-0 pb-0" (click)="editResourcePolicy(policy)">
+          {{entry.id}}
+          <button class="btn btn-link pt-0 pb-0" (click)="redirectToResourcePolicyEditPage(entry.policy)">
             {{'resource-policies.table.headers.edit' | translate}}
           </button>
         </th>
-        <td>{{policy.name}}</td>
-        <td>{{policy.policyType}}</td>
-        <td>{{policy.action}}</td>
-        <td *ngIf="(hasEPerson(policy) | async)">
-          {{getEPersonName(policy) | async}}
+        <td>{{entry.policy.name}}</td>
+        <td>{{entry.policy.policyType}}</td>
+        <td>{{entry.policy.action}}</td>
+        <td *ngIf="(hasEPerson(entry.policy) | async)">
+          {{getEPersonName(entry.policy) | async}}
         </td>
-        <td *ngIf="!(hasEPerson(policy) | async)"></td>
-        <td *ngIf="(hasGroup(policy) | async)">
-          {{getGroupName(policy) | async}}
-          <button class="btn btn-link pt-0 pb-0" (click)="redirectToGroupEditPage(policy)">
+        <td *ngIf="!(hasEPerson(entry.policy) | async)"></td>
+        <td *ngIf="(hasGroup(entry.policy) | async)">
+          {{getGroupName(entry.policy) | async}}
+          <button class="btn btn-link pt-0 pb-0" (click)="redirectToGroupEditPage(entry.policy)">
             {{'resource-policies.table.headers.edit' | translate}}
           </button>
         </td>
-        <td *ngIf="!(hasGroup(policy) | async)"></td>
-        <td>{{policy.startDate}}</td>
-        <td>{{policy.endDate}}</td>
+        <td *ngIf="!(hasGroup(entry.policy) | async)"></td>
+        <td>{{formatDate(entry.policy.startDate)}}</td>
+        <td>{{formatDate(entry.policy.endDate)}}</td>
       </tr>
     </tbody>
   </table>

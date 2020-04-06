@@ -1,5 +1,5 @@
 import {
-  DynamicDateControlModelConfig,
+  DynamicDatePickerModelConfig,
   DynamicFormControlLayout,
   DynamicFormGroupModelConfig,
   DynamicFormOptionConfig,
@@ -118,9 +118,12 @@ export const RESOURCE_POLICY_FORM_DATE_GROUP_LAYOUT: DynamicFormControlLayout = 
   }
 };
 
-export const RESOURCE_POLICY_FORM_START_DATE_CONFIG: DynamicDateControlModelConfig = {
+export const RESOURCE_POLICY_FORM_START_DATE_CONFIG: DynamicDatePickerModelConfig = {
   id: 'start',
   label: 'resource-policies.form.date.start.label',
+  placeholder: 'resource-policies.form.date.start.label',
+  inline: false,
+  toggleIcon: 'far fa-calendar-alt'
 };
 
 export const RESOURCE_POLICY_FORM_START_DATE_LAYOUT: DynamicFormControlLayout = {
@@ -133,9 +136,12 @@ export const RESOURCE_POLICY_FORM_START_DATE_LAYOUT: DynamicFormControlLayout = 
   }
 };
 
-export const RESOURCE_POLICY_FORM_END_DATE_CONFIG: DynamicDateControlModelConfig = {
+export const RESOURCE_POLICY_FORM_END_DATE_CONFIG: DynamicDatePickerModelConfig = {
   id: 'end',
-  label: 'resource-policies.form.date.end.label'
+  label: 'resource-policies.form.date.end.label',
+  placeholder: 'resource-policies.form.date.end.label',
+  inline: false,
+  toggleIcon: 'far fa-calendar-alt'
 };
 export const RESOURCE_POLICY_FORM_END_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {

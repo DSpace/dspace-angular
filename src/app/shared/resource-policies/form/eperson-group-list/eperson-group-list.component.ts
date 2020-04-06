@@ -151,6 +151,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    * Unsubscribe from all subscriptions
    */
   ngOnDestroy(): void {
+    this.list$ = null;
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe())

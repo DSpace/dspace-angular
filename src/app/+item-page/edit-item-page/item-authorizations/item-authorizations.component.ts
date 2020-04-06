@@ -1,12 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, filter, first, flatMap, map, take } from 'rxjs/operators';
 
 import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataWithNotEmptyPayload
+} from '../../../core/shared/operators';
 import { Item } from '../../../core/shared/item.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
@@ -15,6 +18,9 @@ import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { FindListOptions } from '../../../core/data/request.models';
 
+/**
+ * Interface for a bundle's bitstream map entry
+ */
 interface BundleBitstreamsMapEntry {
   id: string;
   bitstreams: Observable<PaginatedList<Bitstream>>
@@ -35,7 +41,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    * The list of bundle for the item
    * @type {Observable<PaginatedList<Bundle>>}
    */
-  private bundles$: Observable<PaginatedList<Bundle>>;
+  private bundles$: BehaviorSubject<Bundle[]> = new BehaviorSubject<Bundle[]>([]);
 
   /**
    * The target editing item
@@ -69,22 +75,28 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.item$ = this.route.data.pipe(
       map((data) => data.item),
-      getFirstSucceededRemoteDataPayload(),
+      getFirstSucceededRemoteDataWithNotEmptyPayload(),
       map((item: Item) => this.linkService.resolveLink(
         item,
         followLink('bundles', new FindListOptions(), true, followLink('bitstreams'))
       ))
     ) as Observable<Item>;
 
-    this.bundles$ = this.item$.pipe(
+    const bundles$: Observable<PaginatedList<Bundle>> = this.item$.pipe(
       filter((item: Item) => isNotEmpty(item.bundles)),
       flatMap((item: Item) => item.bundles),
-      getFirstSucceededRemoteDataPayload(),
+      getFirstSucceededRemoteDataWithNotEmptyPayload(),
       catchError(() => observableOf(new PaginatedList(null, [])))
     );
 
     this.subs.push(
-      this.bundles$.pipe(
+      bundles$.pipe(
+        take(1),
+        map((list: PaginatedList<Bundle>) => list.page)
+      ).subscribe((bundles: Bundle[]) => {
+        this.bundles$.next(bundles);
+      }),
+      bundles$.pipe(
         take(1),
         flatMap((list: PaginatedList<Bundle>) => list.page),
         map((bundle: Bundle) => ({ id: bundle.id, bitstreams: this.getBundleBitstreams(bundle) }))
@@ -109,8 +121,8 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    *
    * @return an observable that emits all item's bundles
    */
-  getItemBundles(): Observable<PaginatedList<Bundle>> {
-    return this.bundles$
+  getItemBundles(): Observable<Bundle[]> {
+    return this.bundles$.asObservable();
   }
 
   /**
