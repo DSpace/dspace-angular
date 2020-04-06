@@ -3,7 +3,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { isObject } from 'lodash';
 import * as moment from 'moment';
 
-import { isEmpty } from './empty.util';
+import { isNull } from './empty.util';
 
 /**
  * Returns true if the passed value is a NgbDateStruct.
@@ -80,7 +80,7 @@ export function stringToNgbDateStruct(date: string): NgbDateStruct {
  *    the NgbDateStruct object
  */
 export function dateToNgbDateStruct(date?: Date): NgbDateStruct {
-  if (isEmpty(date)) {
+  if (isNull(date)) {
     date = new Date()
   }
 
@@ -89,4 +89,26 @@ export function dateToNgbDateStruct(date?: Date): NgbDateStruct {
     month: date.getMonth() + 1,
     day: date.getDate()
   };
+}
+
+/**
+ * Returns a date in simplified format (YYYY-MM-DD).
+ *
+ * @param date
+ *    The date to format
+ * @return string
+ *    the formatted date
+ */
+export function dateToString(date: Date | NgbDateStruct): string {
+  const dateObj: Date = (date instanceof Date) ? date : ngbDateStructToDate(date);
+
+  let year = dateObj.getFullYear().toString();
+  let month = (dateObj.getMonth() + 1).toString();
+  let day = dateObj.getDate().toString();
+
+  year = (year.length === 1) ? '0' + year : year;
+  month = (month.length === 1) ? '0' + month : month;
+  day = (day.length === 1) ? '0' + day : day;
+  const dateStr = `${year}-${month}-${day}`;
+  return moment.utc(dateStr, 'YYYYMMDD').format('YYYY-MM-DD');
 }
