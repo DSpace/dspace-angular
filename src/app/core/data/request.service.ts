@@ -3,9 +3,9 @@ import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, race as observableRace } from 'rxjs';
-import { filter, map, mergeMap, take } from 'rxjs/operators';
+import { filter, map, mergeMap, take, switchMap } from 'rxjs/operators';
 import { cloneDeep, remove } from 'lodash';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -111,13 +111,22 @@ export class RequestService {
    */
   getByUUID(uuid: string): Observable<RequestEntry> {
     return observableRace(
-      this.store.pipe(select(entryFromUUIDSelector(uuid))),
+      this.store.pipe(
+        select(entryFromUUIDSelector(uuid)),
+        hasValueOperator()
+      ),
       this.store.pipe(
         select(originalRequestUUIDFromRequestUUIDSelector(uuid)),
-        mergeMap((originalUUID) => {
-            return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
+        switchMap((originalUUID) => {
+            if (hasValue(originalUUID)) {
+              return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
+            } else {
+              return []
+            }
           },
-        ))
+        ),
+        hasValueOperator()
+      )
     ).pipe(
       map((entry: RequestEntry) => {
         // Headers break after being retrieved from the store (because of lazy initialization)
@@ -137,7 +146,14 @@ export class RequestService {
   getByHref(href: string): Observable<RequestEntry> {
     return this.store.pipe(
       select(uuidFromHrefSelector(href)),
-      mergeMap((uuid: string) => this.getByUUID(uuid))
+      mergeMap((uuid: string) => {
+        if (isNotEmpty(uuid)) {
+          return this.getByUUID(uuid);
+        }
+        else {
+          return [undefined];
+        }
+      })
     );
   }
 
