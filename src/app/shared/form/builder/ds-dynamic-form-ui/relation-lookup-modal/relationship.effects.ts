@@ -105,7 +105,7 @@ export class RelationshipEffects {
             this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant).pipe(
               filter((relationshipRD: RemoteData<Relationship>) => hasValue(relationshipRD.payload)),
               take(1)
-            ).subscribe(() => {
+            ).subscribe((c) => {
               this.updateAfterPatchSubmissionId = submissionId;
               this.relationshipService.refreshRelationshipItemsInCache(item1);
               this.relationshipService.refreshRelationshipItemsInCache(item2);

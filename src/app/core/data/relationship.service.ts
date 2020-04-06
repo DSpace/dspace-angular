@@ -67,6 +67,19 @@ const relationshipStateSelector = (listID: string, itemID: string): MemoizedSele
 };
 
 /**
+ * Return true if the Item in the payload of the source observable matches
+ * the given Item by UUID
+ *
+ * @param itemCheck the Item to compare with
+ */
+const compareItemsByUUID = (itemCheck: Item) =>
+  (source: Observable<RemoteData<Item>>): Observable<boolean> =>
+    source.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((item: Item) => item.uuid === itemCheck.uuid)
+    );
+
+/**
  * The service handling all relationship requests
  */
 @Injectable()
@@ -125,7 +138,6 @@ export class RelationshipService extends DataService<Relationship> {
    * @param rightwardValue The rightward value of the relationship
    */
   addRelationship(typeId: string, item1: Item, item2: Item, leftwardValue?: string, rightwardValue?: string): Observable<RestResponse> {
-    console.log('addRelationship', typeId, item1, item2, leftwardValue, rightwardValue);
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
@@ -172,10 +184,10 @@ export class RelationshipService extends DataService<Relationship> {
   public refreshRelationshipItemsInCache(item) {
     this.objectCache.remove(item._links.self.href);
     this.requestService.removeByHrefSubstring(item.uuid);
-    observableCombineLatest(
+    observableCombineLatest([
       this.objectCache.hasBySelfLinkObservable(item._links.self.href),
       this.requestService.hasByHrefObservable(item.self)
-    ).pipe(
+    ]).pipe(
       filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
       take(1),
       switchMap(() => this.itemService.findByHref(item._links.self.href).pipe(take(1)))
@@ -184,7 +196,10 @@ export class RelationshipService extends DataService<Relationship> {
 
   /**
    * Get an item's relationships in the form of an array
-   * @param item
+   *
+   * @param item            The {@link Item} to get {@link Relationship}s for
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
+   *                        should be automatically resolved
    */
   getItemRelationshipsArray(item: Item, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<Relationship[]> {
     return this.findAllByHref(item._links.relationships.href, undefined, ...linksToFollow).pipe(
@@ -283,10 +298,10 @@ export class RelationshipService extends DataService<Relationship> {
   getRelationshipsByRelatedItemIds(item: Item, uuids: string[]): Observable<Relationship[]> {
     return this.getItemRelationshipsArray(item, followLink('leftItem'), followLink('rightItem')).pipe(
       switchMap((relationships: Relationship[]) => {
-        return observableCombineLatest(...relationships.map((relationship: Relationship) => {
+        return observableCombineLatest(relationships.map((relationship: Relationship) => {
           const isLeftItem$ = this.isItemInUUIDArray(relationship.leftItem, uuids);
           const isRightItem$ = this.isItemInUUIDArray(relationship.rightItem, uuids);
-          return observableCombineLatest(isLeftItem$, isRightItem$).pipe(
+          return observableCombineLatest([isLeftItem$, isRightItem$]).pipe(
             filter(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
             map(() => relationship),
             startWith(undefined)
@@ -312,7 +327,6 @@ export class RelationshipService extends DataService<Relationship> {
    * @param label The rightward or leftward type of the relationship
    */
   getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string, options?: FindListOptions): Observable<Relationship> {
-    console.log('getRelationshipByItemsAndLabel', item1, item2, label, options);
     return this.getItemRelationshipsByLabel(
       item1,
       label,
@@ -326,8 +340,8 @@ export class RelationshipService extends DataService<Relationship> {
         mergeMap((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
         mergeMap((relationship: Relationship) => {
           return observableCombineLatest([
-            this.isItemMatchWithItemRD(this.itemService.findByHref(relationship._links.leftItem.href), item2),
-            this.isItemMatchWithItemRD(this.itemService.findByHref(relationship._links.rightItem.href), item2)
+            this.itemService.findByHref(relationship._links.leftItem.href).pipe(compareItemsByUUID(item2)),
+            this.itemService.findByHref(relationship._links.rightItem.href).pipe(compareItemsByUUID(item2))
           ]).pipe(
             map(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
             map((isMatch) => isMatch ? relationship : undefined)
@@ -336,13 +350,6 @@ export class RelationshipService extends DataService<Relationship> {
         filter((relationship) => hasValue(relationship)),
         take(1)
       )
-  }
-
-  private isItemMatchWithItemRD(itemRD$: Observable<RemoteData<Item>>, itemCheck: Item): Observable<boolean> {
-    return itemRD$.pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((item: Item) => item.uuid === itemCheck.uuid)
-    );
   }
 
   /**
@@ -440,5 +447,15 @@ export class RelationshipService extends DataService<Relationship> {
     });
 
     return update$;
+  }
+
+
+  /**
+   * Patch isn't supported on the relationship endpoint, so use put instead.
+   *
+   * @param object the {@link Relationship} to update
+   */
+  update(object: Relationship): Observable<RemoteData<Relationship>> {
+    return this.put(object);
   }
 }

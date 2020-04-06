@@ -44,7 +44,7 @@
     <ng-container *ngIf="value?.isVirtual">
         <ds-existing-metadata-list-element
                 [reoRel]="relationshipValue$ | async"
-                [submissionItem]="item"
+                [submissionItem]="item$ | async"
                 [listId]="listId"
                 [metadataFields]="model.metadataFields"
                 [submissionId]="model.submissionId"
