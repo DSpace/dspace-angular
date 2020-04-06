@@ -506,7 +506,7 @@ export abstract class DataService<T extends CacheableObject> {
     const requestId = this.deleteAndReturnRequestId(dsoID, copyVirtualMetadata);
 
     return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
+      find((request: RequestEntry) => isNotEmpty(request) && request.completed),
       map((request: RequestEntry) => request.response.isSuccessful)
     );
   }
