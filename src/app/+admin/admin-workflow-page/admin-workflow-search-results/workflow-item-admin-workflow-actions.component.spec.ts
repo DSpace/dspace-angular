@@ -4,7 +4,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ItemAdminWorkflowSearchResultActionsComponent } from './workflow-item-admin-workflow-actions.component';
 import { Item } from '../../../core/shared/item.model';
 import {
   ITEM_EDIT_DELETE_PATH,
@@ -16,17 +15,20 @@ import {
 } from '../../../+item-page/edit-item-page/edit-item-page.routing.module';
 import { getItemEditPath } from '../../../+item-page/item-page-routing.module';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { WorkflowItemAdminWorkflowActionsComponent } from './workflow-item-admin-workflow-actions.component';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { getWorkflowItemDeletePath, getWorkflowItemSendBackPath } from '../../../+workflowitems-edit-page/workflowitems-edit-page-routing.module';
 
-describe('ItemAdminSearchResultActionsComponent', () => {
-  let component: ItemAdminWorkflowSearchResultActionsComponent;
-  let fixture: ComponentFixture<ItemAdminWorkflowSearchResultActionsComponent>;
+describe('WorkflowItemAdminWorkflowActionsComponent', () => {
+  let component: WorkflowItemAdminWorkflowActionsComponent;
+  let fixture: ComponentFixture<WorkflowItemAdminWorkflowActionsComponent>;
   let id;
-  let item;
+  let wfi;
 
   function init() {
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
-    item = new Item();
-    item.uuid = id;
+    wfi = new WorkflowItem();
+    wfi.id = id;
   }
   beforeEach(async(() => {
     init();
@@ -35,16 +37,16 @@ describe('ItemAdminSearchResultActionsComponent', () => {
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([])
       ],
-      declarations: [ItemAdminWorkflowSearchResultActionsComponent],
+      declarations: [WorkflowItemAdminWorkflowActionsComponent],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemAdminWorkflowSearchResultActionsComponent);
+    fixture = TestBed.createComponent(WorkflowItemAdminWorkflowActionsComponent);
     component = fixture.componentInstance;
-    component.item = item;
+    component.wfi = wfi;
     fixture.detectChanges();
   });
 
@@ -52,93 +54,15 @@ describe('ItemAdminSearchResultActionsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render an edit button with the correct link', () => {
-    const button = fixture.debugElement.query(By.css('a.edit-link'));
-    const link = button.nativeElement.href;
-    expect(link).toContain(getItemEditPath(id));
-  });
-
   it('should render a delete button with the correct link', () => {
     const button = fixture.debugElement.query(By.css('a.delete-link'));
     const link = button.nativeElement.href;
-    expect(link).toContain(new URLCombiner(getItemEditPath(id), ITEM_EDIT_DELETE_PATH).toString());
+    expect(link).toContain(new URLCombiner(getWorkflowItemDeletePath(wfi.id)).toString());
   });
 
   it('should render a move button with the correct link', () => {
-    const a = fixture.debugElement.query(By.css('a.move-link'));
+    const a = fixture.debugElement.query(By.css('a.send-back-link'));
     const link = a.nativeElement.href;
-    expect(link).toContain(new URLCombiner(getItemEditPath(id), ITEM_EDIT_MOVE_PATH).toString());
+    expect(link).toContain(new URLCombiner(getWorkflowItemSendBackPath(wfi.id)).toString());
   });
-
-  describe('when the item is not withdrawn', () => {
-    beforeEach(() => {
-        component.item.isWithdrawn = false;
-        fixture.detectChanges();
-    });
-
-    it('should render a withdraw button with the correct link', () => {
-      const a = fixture.debugElement.query(By.css('a.withdraw-link'));
-      const link = a.nativeElement.href;
-      expect(link).toContain(new URLCombiner(getItemEditPath(id), ITEM_EDIT_WITHDRAW_PATH).toString());
-    });
-
-    it('should not render a reinstate button with the correct link', () => {
-      const a = fixture.debugElement.query(By.css('a.reinstate-link'));
-      expect(a).toBeNull();
-    });
-  });
-
-  describe('when the item is withdrawn', () => {
-    beforeEach(() => {
-      component.item.isWithdrawn = true;
-      fixture.detectChanges();
-    });
-
-    it('should not render a withdraw button with the correct link', () => {
-      const a = fixture.debugElement.query(By.css('a.withdraw-link'));
-      expect(a).toBeNull();
-    });
-
-    it('should render a reinstate button with the correct link', () => {
-      const a = fixture.debugElement.query(By.css('a.reinstate-link'));
-      const link = a.nativeElement.href;
-      expect(link).toContain(new URLCombiner(getItemEditPath(id), ITEM_EDIT_REINSTATE_PATH).toString());
-    });
-  });
-
-  describe('when the item is not private', () => {
-    beforeEach(() => {
-      component.item.isDiscoverable = true;
-      fixture.detectChanges();
-    });
-
-    it('should render a make private button with the correct link', () => {
-      const a = fixture.debugElement.query(By.css('a.private-link'));
-      const link = a.nativeElement.href;
-      expect(link).toContain(new URLCombiner(getItemEditPath(id), ITEM_EDIT_PRIVATE_PATH).toString());
-    });
-
-    it('should not render a make public button with the correct link', () => {
-      const a = fixture.debugElement.query(By.css('a.public-link'));
-      expect(a).toBeNull();
-    });
-  });
-
-  describe('when the item is private', () => {
-    beforeEach(() => {
-      component.item.isDiscoverable = false;
-      fixture.detectChanges();
-    });
-
-    it('should not render a make private button with the correct link', () => {
-      const a = fixture.debugElement.query(By.css('a.private-link'));
-      expect(a).toBeNull();
-    });
-
-    it('should render a make private button with the correct link', () => {
-      const a = fixture.debugElement.query(By.css('a.public-link'));
-      const link = a.nativeElement.href;
-      expect(link).toContain(new URLCombiner(getItemEditPath(id), ITEM_EDIT_PUBLIC_PATH).toString());
-    });
-  })
 });

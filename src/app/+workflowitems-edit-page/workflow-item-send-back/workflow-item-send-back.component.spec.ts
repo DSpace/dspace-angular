@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { WorkflowItemSendBackComponent } from './workflow-item-send-back.component';
 
-import { WorkflowItemDeleteComponent } from './workflow-item-send-back.component';
 
-describe('WorkflowItemDeleteComponent', () => {
-  let component: WorkflowItemDeleteComponent;
-  let fixture: ComponentFixture<WorkflowItemDeleteComponent>;
+describe('WorkflowItemSendBackComponent', () => {
+  let component: WorkflowItemSendBackComponent;
+  let fixture: ComponentFixture<WorkflowItemSendBackComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WorkflowItemDeleteComponent ]
+      declarations: [ WorkflowItemSendBackComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WorkflowItemDeleteComponent);
+    fixture = TestBed.createComponent(WorkflowItemSendBackComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
