@@ -22,7 +22,7 @@ import {
   DynamicTemplateDirective
 } from '@ng-dynamic-forms/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap, filter } from 'rxjs/operators';
 import { RelationshipService } from '../../../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
@@ -121,13 +121,17 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
               confidence: formFieldMetadataValue.confidence
             });
             if (metadataValue.isVirtual) {
+              console.log('updateReorderables metadataValue.isVirtual', metadataValue.isVirtual);
               return this.relationshipService.findById(metadataValue.virtualValue, followLink('leftItem'))
                 .pipe(
-                  getSucceededRemoteData(),
+                  tap((v) => console.log('rsfbd', v)),
+                  filter((relRD: RemoteData<Relationship>) => hasValue(relRD.payload)),
+                  take(1),
                   getRemoteDataPayload(),
                   switchMap((relationship: Relationship) =>
                     relationship.leftItem.pipe(
-                      getSucceededRemoteData(),
+                      filter((itemRD: RemoteData<Item>) => hasValue(itemRD.payload)),
+                      take(1),
                       getRemoteDataPayload(),
                       map((leftItem: Item) => {
                         return new ReorderableRelationship(
@@ -181,6 +185,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
             let hasMetadataField = false;
             this.reorderables.forEach((reorderable: Reorderable, index: number) => {
               if (reorderable.hasMoved) {
+                console.log('reorderable moved', reorderable);
                 const prevIndex = reorderable.oldIndex;
                 const updatedReorderable = reorderable.update().pipe(take(1));
                 updatedReorderables.push(updatedReorderable);
