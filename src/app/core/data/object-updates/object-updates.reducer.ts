@@ -1,8 +1,8 @@
 import {
-  AddFieldUpdateAction,
+  AddFieldUpdateAction, AddPageToCustomOrderAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
-  InitializeFieldsAction,
+  InitializeFieldsAction, MoveFieldUpdateAction,
   ObjectUpdatesAction,
   ObjectUpdatesActionTypes,
   ReinstateObjectUpdatesAction,
@@ -12,7 +12,9 @@ import {
   SetValidFieldUpdateAction,
   SelectVirtualMetadataAction,
 } from './object-updates.actions';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { from } from 'rxjs/internal/observable/from';
 import {Relationship} from '../../shared/item-relationships/relationship.model';
 
 /**
@@ -46,7 +48,7 @@ export interface Identifiable {
 /**
  * The state of a single field update
  */
-export interface  FieldUpdate {
+export interface FieldUpdate {
   field: Identifiable,
   changeType: FieldChangeType
 }
@@ -82,6 +84,20 @@ export interface DeleteRelationship extends Relationship {
 }
 
 /**
+ * A custom order given to the list of objects
+ */
+export interface CustomOrder {
+  initialOrderPages: OrderPage[],
+  newOrderPages: OrderPage[],
+  pageSize: number;
+  changed: boolean
+}
+
+export interface OrderPage {
+  order: string[]
+}
+
+/**
  * The updated state of a single page
  */
 export interface ObjectUpdatesEntry {
@@ -89,6 +105,7 @@ export interface ObjectUpdatesEntry {
   fieldUpdates: FieldUpdates;
   virtualMetadataSources: VirtualMetadataSources;
   lastModified: Date;
+  customOrder: CustomOrder
 }
 
 /**
@@ -121,6 +138,9 @@ export function objectUpdatesReducer(state = initialState, action: ObjectUpdates
     case ObjectUpdatesActionTypes.INITIALIZE_FIELDS: {
       return initializeFieldsUpdate(state, action as InitializeFieldsAction);
     }
+    case ObjectUpdatesActionTypes.ADD_PAGE_TO_CUSTOM_ORDER: {
+      return addPageToCustomOrder(state, action as AddPageToCustomOrderAction);
+    }
     case ObjectUpdatesActionTypes.ADD_FIELD: {
       return addFieldUpdate(state, action as AddFieldUpdateAction);
     }
@@ -136,6 +156,9 @@ export function objectUpdatesReducer(state = initialState, action: ObjectUpdates
     case ObjectUpdatesActionTypes.REMOVE: {
       return removeObjectUpdates(state, action as RemoveObjectUpdatesAction);
     }
+    case ObjectUpdatesActionTypes.REMOVE_ALL: {
+      return removeAllObjectUpdates(state);
+    }
     case ObjectUpdatesActionTypes.REMOVE_FIELD: {
       return removeFieldUpdate(state, action as RemoveFieldUpdateAction);
     }
@@ -144,6 +167,9 @@ export function objectUpdatesReducer(state = initialState, action: ObjectUpdates
     }
     case ObjectUpdatesActionTypes.SET_VALID_FIELD: {
       return setValidFieldUpdate(state, action as SetValidFieldUpdateAction);
+    }
+    case ObjectUpdatesActionTypes.MOVE: {
+      return moveFieldUpdate(state, action as MoveFieldUpdateAction);
     }
     default: {
       return state;
@@ -160,15 +186,47 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
   const url: string = action.payload.url;
   const fields: Identifiable[] = action.payload.fields;
   const lastModifiedServer: Date = action.payload.lastModified;
+  const order = action.payload.order;
+  const pageSize = action.payload.pageSize;
+  const page = action.payload.page;
   const fieldStates = createInitialFieldStates(fields);
+  const initialOrderPages = addOrderToPages([], order, pageSize, page);
   const newPageState = Object.assign(
     {},
     state[url],
     { fieldStates: fieldStates },
     { fieldUpdates: {} },
     { virtualMetadataSources: {} },
-    { lastModified: lastModifiedServer }
+    { lastModified: lastModifiedServer },
+    { customOrder: {
+      initialOrderPages: initialOrderPages,
+      newOrderPages: initialOrderPages,
+      pageSize: pageSize,
+      changed: false }
+    }
   );
+  return Object.assign({}, state, { [url]: newPageState });
+}
+
+/**
+ * Add a page of objects to the state of a specific url and update a specific page of the custom order
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
+function addPageToCustomOrder(state: any, action: AddPageToCustomOrderAction) {
+  const url: string = action.payload.url;
+  const fields: Identifiable[] = action.payload.fields;
+  const fieldStates = createInitialFieldStates(fields);
+  const order = action.payload.order;
+  const page = action.payload.page;
+  const pageState: ObjectUpdatesEntry = state[url] || {};
+  const newPageState = Object.assign({}, pageState, {
+    fieldStates: Object.assign({}, pageState.fieldStates, fieldStates),
+    customOrder: Object.assign({}, pageState.customOrder, {
+      newOrderPages: addOrderToPages(pageState.customOrder.newOrderPages, order, pageState.customOrder.pageSize, page),
+      initialOrderPages: addOrderToPages(pageState.customOrder.initialOrderPages, order, pageState.customOrder.pageSize, page)
+    })
+  });
   return Object.assign({}, state, { [url]: newPageState });
 }
 
@@ -252,7 +310,24 @@ function selectVirtualMetadata(state: any, action: SelectVirtualMetadataAction) 
  * @param action The action to perform on the current state
  */
 function discardObjectUpdates(state: any, action: DiscardObjectUpdatesAction) {
-  const url: string = action.payload.url;
+  if (action.payload.discardAll) {
+    let newState = Object.assign({}, state);
+    Object.keys(state).filter((path: string) => !path.endsWith(OBJECT_UPDATES_TRASH_PATH)).forEach((path: string) => {
+      newState = discardObjectUpdatesFor(path, newState);
+    });
+    return newState;
+  } else {
+    const url: string = action.payload.url;
+    return discardObjectUpdatesFor(url, state);
+  }
+}
+
+/**
+ * Discard all updates for a specific action's url in the store
+ * @param url   The action's url
+ * @param state The current state
+ */
+function discardObjectUpdatesFor(url: string, state: any) {
   const pageState: ObjectUpdatesEntry = state[url];
   const newFieldStates = {};
   Object.keys(pageState.fieldStates).forEach((uuid: string) => {
@@ -263,9 +338,19 @@ function discardObjectUpdates(state: any, action: DiscardObjectUpdatesAction) {
     }
   });
 
+  const newCustomOrder = Object.assign({}, pageState.customOrder);
+  if (pageState.customOrder.changed) {
+    const initialOrder = pageState.customOrder.initialOrderPages;
+    if (isNotEmpty(initialOrder)) {
+      newCustomOrder.newOrderPages = initialOrder;
+      newCustomOrder.changed = false;
+    }
+  }
+
   const discardedPageState = Object.assign({}, pageState, {
     fieldUpdates: {},
-    fieldStates: newFieldStates
+    fieldStates: newFieldStates,
+    customOrder: newCustomOrder
   });
   return Object.assign({}, state, { [url]: discardedPageState }, { [url + OBJECT_UPDATES_TRASH_PATH]: pageState });
 }
@@ -302,6 +387,18 @@ function removeObjectUpdates(state: any, action: RemoveObjectUpdatesAction) {
 function removeObjectUpdatesByURL(state: any, url: string) {
   const newState = Object.assign({}, state);
   delete newState[url + OBJECT_UPDATES_TRASH_PATH];
+  return newState;
+}
+
+/**
+ * Remove all updates in the store
+ * @param state The current state
+ */
+function removeAllObjectUpdates(state: any) {
+  const newState = Object.assign({}, state);
+  Object.keys(state).filter((path: string) => path.endsWith(OBJECT_UPDATES_TRASH_PATH)).forEach((path: string) => {
+    delete newState[path];
+  });
   return newState;
 }
 
@@ -406,4 +503,122 @@ function createInitialFieldStates(fields: Identifiable[]) {
   const fieldStates = {};
   uuids.forEach((uuid: string) => fieldStates[uuid] = initialFieldState);
   return fieldStates;
+}
+
+/**
+ * Method to add a list of objects to an existing FieldStates object
+ * @param fieldStates                   FieldStates to add states to
+ * @param fields Identifiable objects   The list of objects to add to the FieldStates
+ */
+function addFieldStates(fieldStates: FieldStates, fields: Identifiable[]) {
+  const uuids = fields.map((field: Identifiable) => field.uuid);
+  uuids.forEach((uuid: string) => fieldStates[uuid] = initialFieldState);
+  return fieldStates;
+}
+
+/**
+ * Move an object within the custom order of a page state
+ * @param state   The current state
+ * @param action  The move action to perform
+ */
+function moveFieldUpdate(state: any, action: MoveFieldUpdateAction) {
+  const url = action.payload.url;
+  const fromIndex = action.payload.from;
+  const toIndex = action.payload.to;
+  const fromPage = action.payload.fromPage;
+  const toPage = action.payload.toPage;
+  const field = action.payload.field;
+
+  const pageState: ObjectUpdatesEntry = state[url];
+  const initialOrderPages = pageState.customOrder.initialOrderPages;
+  const customOrderPages = [...pageState.customOrder.newOrderPages];
+
+  // Create a copy of the custom orders for the from- and to-pages
+  const fromPageOrder = [...customOrderPages[fromPage].order];
+  const toPageOrder = [...customOrderPages[toPage].order];
+  if (fromPage === toPage) {
+    if (isNotEmpty(customOrderPages[fromPage]) && isNotEmpty(customOrderPages[fromPage].order[fromIndex]) && isNotEmpty(customOrderPages[fromPage].order[toIndex])) {
+      // Move an item from one index to another within the same page
+      moveItemInArray(fromPageOrder, fromIndex, toIndex);
+      // Update the custom order for this page
+      customOrderPages[fromPage] = { order: fromPageOrder };
+    }
+  } else {
+    if (isNotEmpty(customOrderPages[fromPage]) && hasValue(customOrderPages[toPage]) && isNotEmpty(customOrderPages[fromPage].order[fromIndex])) {
+      // Move an item from one index of one page to an index in another page
+      transferArrayItem(fromPageOrder, toPageOrder, fromIndex, toIndex);
+      // Update the custom order for both pages
+      customOrderPages[fromPage] = { order: fromPageOrder };
+      customOrderPages[toPage] = { order: toPageOrder };
+    }
+  }
+
+  // Create a field update if it doesn't exist for this field yet
+  let fieldUpdate = {};
+  if (hasValue(field)) {
+    fieldUpdate = pageState.fieldUpdates[field.uuid];
+    if (hasNoValue(fieldUpdate)) {
+      fieldUpdate = { field: field, changeType: undefined }
+    }
+  }
+
+  // Update the store's state with new values and return
+  return Object.assign({}, state, { [url]: Object.assign({}, pageState, {
+    fieldUpdates: Object.assign({}, pageState.fieldUpdates, hasValue(field) ? { [field.uuid]: fieldUpdate } : {}),
+    customOrder: Object.assign({}, pageState.customOrder, { newOrderPages: customOrderPages, changed: checkForOrderChanges(initialOrderPages, customOrderPages) })
+  })})
+}
+
+/**
+ * Compare two lists of OrderPage objects and return whether there's at least one change in the order of objects within
+ * @param initialOrderPages The initial list of OrderPages
+ * @param customOrderPages  The changed list of OrderPages
+ */
+function checkForOrderChanges(initialOrderPages: OrderPage[], customOrderPages: OrderPage[]) {
+  let changed = false;
+  initialOrderPages.forEach((orderPage: OrderPage, page: number) => {
+    if (isNotEmpty(orderPage) && isNotEmpty(orderPage.order) && isNotEmpty(customOrderPages[page]) && isNotEmpty(customOrderPages[page].order)) {
+      orderPage.order.forEach((id: string, index: number) => {
+        if (id !== customOrderPages[page].order[index]) {
+          changed = true;
+          return;
+        }
+      });
+      if (changed) {
+        return;
+      }
+    }
+  });
+  return changed;
+}
+
+/**
+ * Initialize a custom order page by providing the list of all pages, a list of UUIDs, pageSize and the page to populate
+ * @param initialPages  The initial list of OrderPage objects
+ * @param order         The list of UUIDs to create a page for
+ * @param pageSize      The pageSize used to populate empty spacer pages
+ * @param page          The index of the page to add
+ */
+function addOrderToPages(initialPages: OrderPage[], order: string[], pageSize: number, page: number): OrderPage[] {
+  const result = [...initialPages];
+  const orderPage: OrderPage = { order: order };
+  if (page < result.length) {
+    // The page we're trying to add already exists in the list. Overwrite it.
+    result[page] = orderPage;
+  } else if (page === result.length) {
+    // The page we're trying to add is the next page in the list, add it.
+    result.push(orderPage);
+  } else {
+    // The page we're trying to add is at least one page ahead of the list, fill the list with empty pages before adding the page.
+    const emptyOrder = [];
+    for (let i = 0; i < pageSize; i++) {
+      emptyOrder.push(undefined);
+    }
+    const emptyOrderPage: OrderPage = { order: emptyOrder };
+    for (let i = result.length; i < page; i++) {
+      result.push(emptyOrderPage);
+    }
+    result.push(orderPage);
+  }
+  return result;
 }

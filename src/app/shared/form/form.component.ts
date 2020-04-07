@@ -46,6 +46,16 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() formId: string;
 
   /**
+   * i18n key for the submit button
+   */
+  @Input() submitLabel = 'form.submit';
+
+  /**
+   * i18n key for the cancel button
+   */
+  @Input() cancelLabel = 'form.cancel';
+
+  /**
    * An array of DynamicFormControlModel type
    */
   @Input() formModel: DynamicFormControlModel[];

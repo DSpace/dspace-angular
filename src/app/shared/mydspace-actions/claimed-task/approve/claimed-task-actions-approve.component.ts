@@ -1,32 +1,26 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
+import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 
+export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
+
+@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_APPROVE)
 @Component({
   selector: 'ds-claimed-task-actions-approve',
   styleUrls: ['./claimed-task-actions-approve.component.scss'],
   templateUrl: './claimed-task-actions-approve.component.html',
 })
-
-export class ClaimedTaskActionsApproveComponent {
-
+/**
+ * Component for displaying and processing the approve action on a workflow task item
+ */
+export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstractComponent {
   /**
-   * A boolean representing if a reject operation is pending
+   * This component represents the approve option
    */
-  @Input() processingApprove: boolean;
+  option = WORKFLOW_TASK_OPTION_APPROVE;
 
-  /**
-   * CSS classes to append to reject button
-   */
-  @Input() wrapperClass: string;
-
-  /**
-   * An event fired when a approve action is confirmed.
-   */
-  @Output() approve: EventEmitter<any> = new EventEmitter<any>();
-
-  /**
-   * Emit approve event
-   */
-  confirmApprove() {
-    this.approve.emit();
+  constructor(protected claimedTaskService: ClaimedTaskDataService) {
+    super(claimedTaskService);
   }
 }

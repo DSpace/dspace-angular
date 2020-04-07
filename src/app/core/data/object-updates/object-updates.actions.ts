@@ -8,6 +8,7 @@ import {INotification} from '../../../shared/notifications/models/notification.m
  */
 export const ObjectUpdatesActionTypes = {
   INITIALIZE_FIELDS: type('dspace/core/cache/object-updates/INITIALIZE_FIELDS'),
+  ADD_PAGE_TO_CUSTOM_ORDER: type('dspace/core/cache/object-updates/ADD_PAGE_TO_CUSTOM_ORDER'),
   SET_EDITABLE_FIELD: type('dspace/core/cache/object-updates/SET_EDITABLE_FIELD'),
   SET_VALID_FIELD: type('dspace/core/cache/object-updates/SET_VALID_FIELD'),
   ADD_FIELD: type('dspace/core/cache/object-updates/ADD_FIELD'),
@@ -15,7 +16,9 @@ export const ObjectUpdatesActionTypes = {
   DISCARD: type('dspace/core/cache/object-updates/DISCARD'),
   REINSTATE: type('dspace/core/cache/object-updates/REINSTATE'),
   REMOVE: type('dspace/core/cache/object-updates/REMOVE'),
+  REMOVE_ALL: type('dspace/core/cache/object-updates/REMOVE_ALL'),
   REMOVE_FIELD: type('dspace/core/cache/object-updates/REMOVE_FIELD'),
+  MOVE: type('dspace/core/cache/object-updates/MOVE'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -26,7 +29,8 @@ export const ObjectUpdatesActionTypes = {
 export enum FieldChangeType {
   UPDATE = 0,
   ADD = 1,
-  REMOVE = 2
+  REMOVE = 2,
+  MOVE = 3
 }
 
 /**
@@ -37,7 +41,10 @@ export class InitializeFieldsAction implements Action {
   payload: {
     url: string,
     fields: Identifiable[],
-    lastModified: Date
+    lastModified: Date,
+    order: string[],
+    pageSize: number,
+    page: number
   };
 
   /**
@@ -47,13 +54,49 @@ export class InitializeFieldsAction implements Action {
    *    the unique url of the page for which the fields are being initialized
    * @param fields The identifiable fields of which the updates are kept track of
    * @param lastModified The last modified date of the object that belongs to the page
+   * @param order A custom order to keep track of objects moving around
+   * @param pageSize The page size used to fill empty pages for the custom order
+   * @param page The first page to populate in the custom order
    */
   constructor(
     url: string,
     fields: Identifiable[],
-    lastModified: Date
+    lastModified: Date,
+    order: string[] = [],
+    pageSize: number = 9999,
+    page: number = 0
   ) {
-    this.payload = { url, fields, lastModified };
+    this.payload = { url, fields, lastModified, order, pageSize, page };
+  }
+}
+
+/**
+ * An ngrx action to initialize a new page's fields in the ObjectUpdates state
+ */
+export class AddPageToCustomOrderAction implements Action {
+  type = ObjectUpdatesActionTypes.ADD_PAGE_TO_CUSTOM_ORDER;
+  payload: {
+    url: string,
+    fields: Identifiable[],
+    order: string[],
+    page: number
+  };
+
+  /**
+   * Create a new AddPageToCustomOrderAction
+   *
+   * @param url The unique url of the page for which the fields are being added
+   * @param fields The identifiable fields of which the updates are kept track of
+   * @param order A custom order to keep track of objects moving around
+   * @param page The page to populate in the custom order
+   */
+  constructor(
+    url: string,
+    fields: Identifiable[],
+    order: string[] = [],
+    page: number = 0
+  ) {
+    this.payload = { url, fields, order, page };
   }
 }
 
@@ -180,7 +223,8 @@ export class DiscardObjectUpdatesAction implements Action {
   type = ObjectUpdatesActionTypes.DISCARD;
   payload: {
     url: string,
-    notification: INotification
+    notification: INotification,
+    discardAll: boolean;
   };
 
   /**
@@ -189,12 +233,14 @@ export class DiscardObjectUpdatesAction implements Action {
    * @param url
    *    the unique url of the page for which the changes should be discarded
    * @param notification The notification that is raised when changes are discarded
+   * @param discardAll  discard all
    */
   constructor(
     url: string,
-    notification: INotification
+    notification: INotification,
+    discardAll = false
   ) {
-    this.payload = { url, notification };
+    this.payload = { url, notification, discardAll };
   }
 }
 
@@ -243,6 +289,13 @@ export class RemoveObjectUpdatesAction implements Action {
 }
 
 /**
+ * An ngrx action to remove all previously discarded updates in the ObjectUpdates state
+ */
+export class RemoveAllObjectUpdatesAction implements Action {
+  type = ObjectUpdatesActionTypes.REMOVE_ALL;
+}
+
+/**
  * An ngrx action to remove a single field update in the ObjectUpdates state for a certain page url and field uuid
  */
 export class RemoveFieldUpdateAction implements Action {
@@ -267,6 +320,43 @@ export class RemoveFieldUpdateAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to remove a single field update in the ObjectUpdates state for a certain page url and field uuid
+ */
+export class MoveFieldUpdateAction implements Action {
+  type = ObjectUpdatesActionTypes.MOVE;
+  payload: {
+    url: string,
+    from: number,
+    to: number,
+    fromPage: number,
+    toPage: number,
+    field?: Identifiable
+  };
+
+  /**
+   * Create a new RemoveObjectUpdatesAction
+   *
+   * @param url
+   *    the unique url of the page for which a field's change should be removed
+   * @param from      The index of the object to move
+   * @param to        The index to move the object to
+   * @param fromPage  The page to move the object from
+   * @param toPage    The page to move the object to
+   * @param field     Optional field to add to the fieldUpdates list (useful when we want to track updates across multiple pages)
+   */
+  constructor(
+    url: string,
+    from: number,
+    to: number,
+    fromPage: number,
+    toPage: number,
+    field?: Identifiable
+  ) {
+    this.payload = { url, from, to, fromPage, toPage, field };
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -279,6 +369,9 @@ export type ObjectUpdatesAction
   | ReinstateObjectUpdatesAction
   | RemoveObjectUpdatesAction
   | RemoveFieldUpdateAction
+  | MoveFieldUpdateAction
+  | AddPageToCustomOrderAction
+  | RemoveAllObjectUpdatesAction
   | SelectVirtualMetadataAction
   | SetEditableFieldUpdateAction
   | SetValidFieldUpdateAction;

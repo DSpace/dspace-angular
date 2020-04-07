@@ -68,6 +68,8 @@ function addToServerSyncQueue(state: ServerSyncBufferState, action: AddToSSBActi
   const actionEntry = action.payload as ServerSyncBufferEntry;
   if (hasNoValue(state.buffer.find((entry) => entry.href === actionEntry.href && entry.method === actionEntry.method))) {
     return Object.assign({}, state, { buffer: state.buffer.concat(actionEntry) });
+  } else {
+    return state;
   }
 }
 
