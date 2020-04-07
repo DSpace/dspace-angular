@@ -181,12 +181,19 @@ export class EPersonDataService extends DataService<EPerson> {
   }
 
   /**
-   * Method that clears a cached EPerson request and returns its REST url
+   * Method that clears a cached EPerson request
    */
   public clearEPersonRequests(): void {
     this.getBrowseEndpoint().pipe(take(1)).subscribe((link: string) => {
       this.requestService.removeByHrefSubstring(link);
     });
+  }
+
+  /**
+   * Method that clears a link's requests in cache
+   */
+  public clearLinkRequests(href: string): void {
+    this.requestService.removeByHrefSubstring(href);
   }
 
   /**
@@ -217,6 +224,29 @@ export class EPersonDataService extends DataService<EPerson> {
    */
   public deleteEPerson(ePerson: EPerson): Observable<boolean> {
     return this.delete(ePerson.id);
+  }
+
+  /**
+   * Change which ePerson is being edited and return the link for EPeople edit page
+   * @param ePerson New EPerson to edit
+   */
+  public startEditingNewEPerson(ePerson: EPerson): string {
+    this.getActiveEPerson().pipe(take(1)).subscribe((activeEPerson: EPerson) => {
+      if (ePerson === activeEPerson) {
+        this.cancelEditEPerson();
+      } else {
+        this.editEPerson(ePerson);
+      }
+    });
+    return '/admin/access-control/epeople';
+  }
+
+  /**
+   * Get EPeople admin page
+   * @param ePerson New EPerson to edit
+   */
+  public getEPeoplePageRouterLink(): string {
+    return '/admin/access-control/epeople';
   }
 
 }

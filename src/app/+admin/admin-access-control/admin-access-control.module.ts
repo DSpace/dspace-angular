@@ -6,6 +6,10 @@ import { SharedModule } from '../../shared/shared.module';
 import { AdminAccessControlRoutingModule } from './admin-access-control-routing.module';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-form.component';
+import { GroupFormComponent } from './group-registry/group-form/group-form.component';
+import { MembersListComponent } from './group-registry/group-form/members-list/members-list.component';
+import { SubgroupsListComponent } from './group-registry/group-form/subgroup-list/subgroups-list.component';
+import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 
 @NgModule({
   imports: [
@@ -17,7 +21,11 @@ import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-fo
   ],
   declarations: [
     EPeopleRegistryComponent,
-    EPersonFormComponent
+    EPersonFormComponent,
+    GroupsRegistryComponent,
+    GroupFormComponent,
+    SubgroupsListComponent,
+    MembersListComponent
   ],
   entryComponents: []
 })

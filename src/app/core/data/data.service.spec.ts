@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { compare, Operation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
-import * as uuidv4 from 'uuid/v4';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';

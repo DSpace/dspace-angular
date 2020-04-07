@@ -176,11 +176,11 @@
 
   "admin.access-control.epeople.search.head": "Search",
 
-  "admin.access-control.epeople.search.scope.name": "Name",
-
-  "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+  "admin.access-control.epeople.button.see-all": "Browse All",
 
   "admin.access-control.epeople.search.scope.metadata": "Metadata",
+
+  "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
 
   "admin.access-control.epeople.search.button": "Search",
 
@@ -190,13 +190,13 @@
 
   "admin.access-control.epeople.table.name": "Name",
 
-  "admin.access-control.epeople.table.email": "E-mail",
+  "admin.access-control.epeople.table.email": "E-mail (exact)",
 
   "admin.access-control.epeople.table.edit": "Edit",
 
-  "item.access-control.epeople.table.edit.buttons.edit": "Edit",
+  "admin.access-control.epeople.table.edit.buttons.edit": "Edit \"{{name}}\"",
 
-  "item.access-control.epeople.table.edit.buttons.remove": "Remove",
+  "admin.access-control.epeople.table.edit.buttons.remove": "Delete \"{{name}}\"",
 
   "admin.access-control.epeople.no-items": "No EPeople to show.",
 
@@ -228,9 +228,146 @@
 
   "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
 
+  "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
+
+  "admin.access-control.epeople.form.table.id": "ID",
+
+  "admin.access-control.epeople.form.table.name": "Name",
+
+  "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
+
+  "admin.access-control.epeople.form.goToGroups": "Add to groups",
+
   "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
 
   "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+
+
+
+  "admin.access-control.groups.title": "DSpace Angular :: Groups",
+
+  "admin.access-control.groups.head": "Groups",
+
+  "admin.access-control.groups.button.add": "Add group",
+
+  "admin.access-control.groups.search.head": "Search groups",
+
+  "admin.access-control.groups.button.see-all": "Browse all",
+
+  "admin.access-control.groups.search.button": "Search",
+
+  "admin.access-control.groups.table.id": "ID",
+
+  "admin.access-control.groups.table.name": "Name",
+
+  "admin.access-control.groups.table.members": "Members",
+
+  "admin.access-control.groups.table.comcol": "Community / Collection",
+
+  "admin.access-control.groups.table.edit": "Edit",
+
+  "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
+
+  "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+
+  "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
+
+  "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
+
+  "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
+
+
+  "admin.access-control.groups.form.head.create": "Create group",
+
+  "admin.access-control.groups.form.head.edit": "Edit group",
+
+  "admin.access-control.groups.form.groupName": "Group name",
+
+  "admin.access-control.groups.form.groupDescription": "Description",
+
+  "admin.access-control.groups.form.notification.created.success": "Successfully created Group \"{{name}}\"",
+
+  "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
+
+  "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+
+  "admin.access-control.groups.form.members-list.head": "EPeople",
+
+  "admin.access-control.groups.form.members-list.search.head": "Add EPeople",
+
+  "admin.access-control.groups.form.members-list.button.see-all": "Browse All",
+
+  "admin.access-control.groups.form.members-list.headMembers": "Current Members",
+
+  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
+
+  "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
+
+  "admin.access-control.groups.form.members-list.search.button": "Search",
+
+  "admin.access-control.groups.form.members-list.table.id": "ID",
+
+  "admin.access-control.groups.form.members-list.table.name": "Name",
+
+  "admin.access-control.groups.form.members-list.table.edit": "Remove / Add",
+
+  "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
+
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
+
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
+
+  "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
+
+  "admin.access-control.groups.form.members-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
+
+  "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
+
+  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+
+  "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
+
+  "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
+
+  "admin.access-control.groups.form.subgroups-list.head": "Groups",
+
+  "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
+
+  "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
+
+  "admin.access-control.groups.form.subgroups-list.headSubgroups": "Current Subgroups",
+
+  "admin.access-control.groups.form.subgroups-list.search.button": "Search",
+
+  "admin.access-control.groups.form.subgroups-list.table.id": "ID",
+
+  "admin.access-control.groups.form.subgroups-list.table.name": "Name",
+
+  "admin.access-control.groups.form.subgroups-list.table.edit": "Remove / Add",
+
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
+
+  "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
+
+  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
+
+  "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
+
+  "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
+
+  "admin.access-control.groups.form.subgroups-list.notification.success.deleteSubgroup": "Successfully deleted subgroup: \"{{name}}\"",
+
+  "admin.access-control.groups.form.subgroups-list.notification.failure.deleteSubgroup": "Failed to delete subgroup: \"{{name}}\"",
+
+  "admin.access-control.groups.form.subgroups-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
+
+  "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "This is the current group, can't be added.",
+
+  "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
+
+  "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
+
+  "admin.access-control.groups.form.return": "Return to groups",
 
 
 
@@ -2325,6 +2462,9 @@
 
 
   "administrativeView.search.results.head": "Administrative Search",
+
+  "menu.section.admin_search": "Admin Search",
+
 
 
   "uploader.browse": "browse",
