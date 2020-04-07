@@ -162,7 +162,7 @@ describe('RequestService', () => {
       });
     });
 
-    describe('if the request with the specified UUID doesn\'t exist in the store', () => {
+    describe(`if the request with the specified UUID doesn't exist in the store `, () => {
       beforeEach(() => {
         selectSpy.and.callFake(() => {
           return () => {
@@ -171,10 +171,10 @@ describe('RequestService', () => {
         });
       });
 
-      it('should return an Observable of undefined', () => {
+      it(`it shouldn't return anything`, () => {
         const result = service.getByUUID(testUUID);
 
-        scheduler.expectObservable(result).toBe('b', { b: undefined });
+        scheduler.expectObservable(result).toBe('');
       });
     });
 
