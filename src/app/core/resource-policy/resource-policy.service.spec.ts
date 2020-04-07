@@ -131,6 +131,7 @@ describe('ResourcePolicyService', () => {
 
     spyOn((service as any).dataService, 'create').and.callThrough();
     spyOn((service as any).dataService, 'delete').and.callThrough();
+    spyOn((service as any).dataService, 'update').and.callThrough();
     spyOn((service as any).dataService, 'findById').and.callThrough();
     spyOn((service as any).dataService, 'findByHref').and.callThrough();
     spyOn((service as any).dataService, 'searchBy').and.callThrough();
