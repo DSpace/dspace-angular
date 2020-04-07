@@ -22,6 +22,7 @@ import {
 } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
+import { parseJsonSchemaToCommandDescription } from '@angular/cli/utilities/json-schema';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -178,7 +179,41 @@ describe('RequestService', () => {
       });
     });
 
-  });
+    describe(`if the request with the specified UUID wasn't sent, because it was already cached`, () => {
+      beforeEach(() => {
+        let callCounter = 0;
+        const responses = [
+          cold('a', { a: undefined }), // No hit in the request cache with that UUID
+          cold('b', { b: 'otherRequestUUID' }), // A hit in the index, which returns the uuid of the cached request
+          cold('c', { c: {  // the call to retrieve the cached request using the UUID from the index
+              c: {
+                completed: true
+              }
+            }
+          })
+        ];
+        selectSpy.and.callFake(() => {
+          return () => {
+            const response = responses[callCounter];
+            callCounter++;
+            return () => response;
+          };
+        });
+      });
+
+      it(`it should return the cached request`, () => {
+        const result = service.getByUUID(testUUID);
+
+        scheduler.expectObservable(result).toBe('c', { c: {
+            c: {
+              completed: true
+            }
+          }
+        });
+      });
+    });
+
+    });
 
   describe('getByHref', () => {
     describe('when the request with the specified href exists in the store', () => {
