@@ -47,6 +47,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
   @Input() listID: string;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean = true;
+
+  /**
    * Directive hook used to place the dynamic child component
    */
   @ViewChild(ListableObjectDirective, {static: true}) listableObjectDirective: ListableObjectDirective;
@@ -68,6 +73,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
     (componentRef.instance as any).index = this.index;
     (componentRef.instance as any).linkType = this.linkType;
     (componentRef.instance as any).listID = this.listID;
+    (componentRef.instance as any).showLabel = this.showLabel;
   }
 
   /**

@@ -186,6 +186,7 @@ import { LogInPasswordComponent } from './log-in/methods/password/log-in-passwor
 import { LogInComponent } from './log-in/log-in.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
+import { ExistingRelationListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-relation-list-element/existing-relation-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -352,6 +353,7 @@ const COMPONENTS = [
   ExternalSourceEntryImportModalComponent,
   ImportableListItemControlComponent,
   ExistingMetadataListElementComponent,
+  ExistingRelationListElementComponent,
   LogInShibbolethComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
@@ -421,6 +423,7 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
   ExternalSourceEntryImportModalComponent,
+  ExistingRelationListElementComponent,
   LogInPasswordComponent,
   LogInShibbolethComponent,
   ItemVersionsComponent,

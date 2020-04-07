@@ -17,6 +17,8 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   repeatable: boolean;
   metadataFields: string[];
   submissionId: string;
+  hasSelectableMetadata: boolean;
+
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -29,6 +31,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() repeatable?: boolean;
   @serializable() metadataFields: string[];
   @serializable() submissionId: string;
+  @serializable() hasSelectableMetadata: boolean;
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
@@ -39,6 +42,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.value = config.value;
     this.relationship = config.relationship;
     this.submissionId = config.submissionId;
+    this.hasSelectableMetadata = config.hasSelectableMetadata;
 
     this.language = config.language;
     if (!this.language) {

@@ -20,6 +20,7 @@ export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   required: boolean;
   metadataFields: string[];
   submissionId: string;
+  hasSelectableMetadata: boolean;
 }
 
 export class DynamicConcatModel extends DynamicFormGroupModel {
@@ -32,6 +33,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() hint?: string;
   @serializable() metadataFields: string[];
   @serializable() submissionId: string;
+  @serializable() hasSelectableMetadata: boolean;
 
   isCustomGroup = true;
   valueUpdates: Subject<string>;
@@ -46,6 +48,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.hint = config.hint;
     this.metadataFields = config.metadataFields;
     this.submissionId = config.submissionId;
+    this.hasSelectableMetadata = config.hasSelectableMetadata;
     this.valueUpdates = new Subject<string>();
     this.valueUpdates.subscribe((value: string) => this.value = value);
   }

@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { union } from 'lodash';
 
-import { from as observableFrom, of as observableOf } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
+import { catchError, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
@@ -44,6 +44,9 @@ import {
   UpdateSectionDataAction
 } from './submission-objects.actions';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
+import { Item } from '../../core/shared/item.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -61,7 +64,12 @@ export class SubmissionObjectEffects {
         const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
         const enabled = (sectionDefinition.mandatory) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
-        const sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
+        let sectionData;
+        if (sectionDefinition.sectionType != SectionsType.SubmissionForm) {
+          sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
+        } else {
+          sectionData = action.payload.item.metadata;
+        }
         const sectionErrors = null;
         mappedActions.push(
           new InitSectionAction(
@@ -99,6 +107,7 @@ export class SubmissionObjectEffects {
         action.payload.selfUrl,
         action.payload.submissionDefinition,
         action.payload.sections,
+        action.payload.item,
         null
       )));
 
@@ -334,6 +343,7 @@ export class SubmissionObjectEffects {
           if (notify && !currentState.sections[sectionId].enabled) {
             this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
           }
+          console.log(sectionId, sectionData);
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
         }
       });

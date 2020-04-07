@@ -46,6 +46,7 @@ import { RemoteDataError } from '../core/data/remote-data-error';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/testing/utils';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
+import { Item } from '../core/shared/item.model';
 
 /**
  * A service that provides methods used in submission process.
@@ -164,8 +165,9 @@ export class SubmissionService {
     selfUrl: string,
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
+    item: Item,
     errors: SubmissionSectionError[]) {
-    this.store.dispatch(new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, sections, errors));
+    this.store.dispatch(new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors));
   }
 
   /**
@@ -503,9 +505,10 @@ export class SubmissionService {
     submissionId: string,
     selfUrl: string,
     submissionDefinition: SubmissionDefinitionsModel,
-    sections: WorkspaceitemSectionsObject
+    sections: WorkspaceitemSectionsObject,
+    item: Item
   ) {
-    this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition));
+    this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition, item));
   }
 
   /**

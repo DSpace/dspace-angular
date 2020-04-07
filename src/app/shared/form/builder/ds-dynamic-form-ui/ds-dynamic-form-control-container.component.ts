@@ -256,7 +256,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(
           switchMap(([item, relationship]: [Item, Relationship]) =>
             relationship.leftItem.pipe(
-              getSucceededRemoteData(),
+              getAllSucceededRemoteData(),
               getRemoteDataPayload(),
               map((leftItem: Item) => {
                 return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid, this.relationshipService, this.store, this.model.submissionId)
@@ -267,16 +267,17 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         );
       }
     }
-    if (this.model.relationshipConfig) {
-      const relationshipOptions = Object.assign(new RelationshipOptions(), this.model.relationshipConfig);
-      this.listId = 'list-' + this.model.relationshipConfig.relationshipType;
+    if (this.model.relationshipConfig || (this.isRelationship && !this.model.repeatable)) {
+      const config = this.model.relationshipConfig || this.model.relationship;
+      const relationshipOptions = Object.assign(new RelationshipOptions(), config);
+      this.listId = 'list-' + relationshipOptions.relationshipType;
       this.setItem();
       const subscription = this.selectableListService.getSelectableList(this.listId).pipe(
         find((list: SelectableListState) => hasNoValue(list)),
         switchMap(() => this.item$.pipe(take(1))),
         switchMap((item) => {
           const relationshipsRD$ = this.relationshipService.getItemRelationshipsByLabel(item,
-            this.model.relationshipConfig.relationshipType,
+            relationshipOptions.relationshipType,
             undefined,
             followLink('leftItem'),
             followLink('rightItem'),

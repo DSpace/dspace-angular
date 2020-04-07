@@ -51,7 +51,7 @@ describe('DisabledFieldParser test suite', () => {
   it('should set init value properly', () => {
     initFormValues = {
       description: [
-        new FormFieldMetadataValueObject('test description'),
+        'test description',
       ],
     };
     const expectedValue ='test description';
@@ -59,7 +59,7 @@ describe('DisabledFieldParser test suite', () => {
     const parser = new DisabledFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
-    expect(fieldModel.value).toEqual(expectedValue);
+    expect(fieldModel.value.value).toEqual(expectedValue);
   });
 
 });

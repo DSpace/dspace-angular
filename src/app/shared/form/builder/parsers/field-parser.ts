@@ -45,17 +45,17 @@ export abstract class FieldParser {
       if (Array.isArray(this.configData.selectableMetadata) && this.configData.selectableMetadata.length === 1) {
         metadataKey = this.configData.selectableMetadata[0].metadata;
       }
-
       const config = {
         id: uniqueId() + '_array',
         label: this.configData.label,
         initialCount: this.getInitArrayIndex(),
         notRepeatable: !this.configData.repeatable,
         relationshipConfig: this.configData.selectableRelationship,
-        required: JSON.parse( this.configData.mandatory),
+        required: JSON.parse(this.configData.mandatory),
         submissionId: this.submissionId,
         metadataKey,
         metadataFields: this.getAllFieldIds(),
+        hasSelectableMetadata: isNotEmpty(this.configData.selectableMetadata),
         groupFactory: () => {
           let model;
           let isFirstModelInArray = true;
@@ -192,7 +192,7 @@ export abstract class FieldParser {
         return ids;
       }
     } else {
-      return [this.configData.selectableRelationship.relationshipType];
+      return ['relation.' + this.configData.selectableRelationship.relationshipType];
     }
   }
 
@@ -216,7 +216,8 @@ export abstract class FieldParser {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);
     }
     controlModel.repeatable = this.configData.repeatable;
-    controlModel.metadataFields = isNotEmpty(this.configData.selectableMetadata) ? this.configData.selectableMetadata.map((metadataObject) => metadataObject.metadata) : [];
+    controlModel.metadataFields = this.getAllFieldIds() || [];
+    controlModel.hasSelectableMetadata = isNotEmpty(this.configData.selectableMetadata);
     controlModel.submissionId = this.submissionId;
 
     // Set label

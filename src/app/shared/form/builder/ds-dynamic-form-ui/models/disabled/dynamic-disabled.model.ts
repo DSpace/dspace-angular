@@ -5,6 +5,7 @@ export const DYNAMIC_FORM_CONTROL_TYPE_DISABLED = 'EMPTY';
 
 export interface DsDynamicDisabledModelConfig extends DsDynamicInputModelConfig {
   value?: any;
+  hasSelectableMetadata: boolean;
 }
 
 /**
@@ -14,11 +15,14 @@ export class DynamicDisabledModel extends DsDynamicInputModel {
 
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DISABLED;
   @serializable() value: any;
+  @serializable() hasSelectableMetadata: boolean;
 
   constructor(config: DsDynamicDisabledModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
     this.readOnly = true;
     this.disabled = true;
+    this.hasSelectableMetadata = config.hasSelectableMetadata;
+
     this.valueUpdates.next(config.value);
   }
 }

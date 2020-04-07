@@ -47,6 +47,7 @@ import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { MockStore } from '../../shared/testing/mock-store';
 import { AppState } from '../../app.reducer';
 import parseSectionErrors from '../utils/parseSectionErrors';
+import { Item } from '../../core/shared/item.model';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;
@@ -101,6 +102,7 @@ describe('SubmissionObjectEffects test suite', () => {
             selfUrl: selfUrl,
             submissionDefinition: submissionDefinition,
             sections: {},
+            item: {metadata: {}},
             errors: [],
           }
         }
@@ -153,6 +155,7 @@ describe('SubmissionObjectEffects test suite', () => {
             selfUrl: selfUrl,
             submissionDefinition: submissionDefinition,
             sections: {},
+            item: new Item(),
             errors: [],
           }
         }
@@ -165,6 +168,7 @@ describe('SubmissionObjectEffects test suite', () => {
           selfUrl,
           submissionDefinition,
           {},
+          new Item(),
           null
         )
       });

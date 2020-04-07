@@ -43,6 +43,7 @@
     <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
     <ng-container *ngIf="value?.isVirtual">
         <ds-existing-metadata-list-element
+                *ngIf="model.hasSelectableMetadata"
                 [reoRel]="relationshipValue$ | async"
                 [submissionItem]="item$ | async"
                 [listId]="listId"
@@ -50,6 +51,15 @@
                 [submissionId]="model.submissionId"
                 [relationshipOptions]="model.relationship">
         </ds-existing-metadata-list-element>
+        <ds-existing-relation-list-element
+                *ngIf="!model.hasSelectableMetadata"
+                [reoRel]="relationshipValue$ | async"
+                [submissionItem]="item$ | async"
+                [listId]="listId"
+                [metadataFields]="model.metadataFields"
+                [submissionId]="model.submissionId"
+                [relationshipOptions]="model.relationship">
+        </ds-existing-relation-list-element>
     </ng-container>
     <ng-content></ng-content>
 </div>
