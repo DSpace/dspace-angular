@@ -140,13 +140,21 @@ describe('RequestService', () => {
   describe('getByUUID', () => {
     describe('if the request with the specified UUID exists in the store', () => {
       beforeEach(() => {
+        let callCounter = 0;
+        const responses = [
+          cold('a', { // A direct hit in the request cache
+            a: {
+              completed: true
+            }
+          }),
+          cold('b', { b: undefined }), // No hit in the index
+          cold('c', { c: undefined })  // So no mapped hit in the request cache
+        ];
         selectSpy.and.callFake(() => {
           return () => {
-            return () => hot('a', {
-              a: {
-                completed: true
-              }
-            });
+            const response = responses[callCounter];
+            callCounter++;
+            return () => response;
           };
         });
       });
@@ -165,17 +173,25 @@ describe('RequestService', () => {
 
     describe(`if the request with the specified UUID doesn't exist in the store `, () => {
       beforeEach(() => {
+        let callCounter = 0;
+        const responses = [
+          cold('a', { a: undefined }), // No direct hit in the request cache
+          cold('b', { b: undefined }), // No hit in the index
+          cold('c', { c: undefined }), // So no mapped hit in the request cache
+        ];
         selectSpy.and.callFake(() => {
           return () => {
-            return () => hot('a', { a: undefined });
+            const response = responses[callCounter];
+            callCounter++;
+            return () => response;
           };
         });
       });
 
-      it(`it shouldn't return anything`, () => {
+      it('should return an Observable of undefined', () => {
         const result = service.getByUUID(testUUID);
 
-        scheduler.expectObservable(result).toBe('');
+        scheduler.expectObservable(result).toBe('a', { a: undefined });
       });
     });
 
@@ -183,12 +199,11 @@ describe('RequestService', () => {
       beforeEach(() => {
         let callCounter = 0;
         const responses = [
-          cold('a', { a: undefined }), // No hit in the request cache with that UUID
+          cold('a', { a: undefined }), // No direct hit in the request cache with that UUID
           cold('b', { b: 'otherRequestUUID' }), // A hit in the index, which returns the uuid of the cached request
-          cold('c', { c: {  // the call to retrieve the cached request using the UUID from the index
-              c: {
-                completed: true
-              }
+          cold('c', {   // the call to retrieve the cached request using the UUID from the index
+            c: {
+              completed: true
             }
           })
         ];
@@ -204,10 +219,9 @@ describe('RequestService', () => {
       it(`it should return the cached request`, () => {
         const result = service.getByUUID(testUUID);
 
-        scheduler.expectObservable(result).toBe('c', { c: {
-            c: {
-              completed: true
-            }
+        scheduler.expectObservable(result).toBe('c', {
+          c: {
+            completed: true
           }
         });
       });
