@@ -177,11 +177,19 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    */
   private buildResourcePolicyForm(): DynamicFormControlModel[] {
     const formModel: DynamicFormControlModel[] = [];
+    // TODO to be removed when https://jira.lyrasis.org/browse/DS-4477 will be implemented
+    const policyTypeConf = Object.assign({}, RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG, {
+      disabled: isNotEmpty(this.resourcePolicy)
+    });
+    // TODO to be removed when https://jira.lyrasis.org/browse/DS-4477 will be implemented
+    const actionConf = Object.assign({}, RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG, {
+      disabled: isNotEmpty(this.resourcePolicy)
+    });
     formModel.push(
       new DsDynamicInputModel(RESOURCE_POLICY_FORM_NAME_CONFIG),
       new DsDynamicTextAreaModel(RESOURCE_POLICY_FORM_DESCRIPTION_CONFIG),
-      new DynamicSelectModel(RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG),
-      new DynamicSelectModel(RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG)
+      new DynamicSelectModel(policyTypeConf),
+      new DynamicSelectModel(actionConf)
     );
 
     const startDateModel = new DynamicDatePickerModel(
