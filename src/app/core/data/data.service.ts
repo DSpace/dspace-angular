@@ -365,7 +365,7 @@ export abstract class DataService<T extends CacheableObject> {
     this.requestService.configure(request);
 
     return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => hasValue(request) && request.completed),
+      find((re: RequestEntry) => hasValue(re) && re.completed),
       switchMap(() => this.findByHref(object._links.self.href))
     );
   }

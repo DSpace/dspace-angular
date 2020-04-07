@@ -149,8 +149,7 @@ export class RequestService {
       mergeMap((uuid: string) => {
         if (isNotEmpty(uuid)) {
           return this.getByUUID(uuid);
-        }
-        else {
+        } else {
           return [undefined];
         }
       })

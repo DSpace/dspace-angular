@@ -449,7 +449,6 @@ export class RelationshipService extends DataService<Relationship> {
     return update$;
   }
 
-
   /**
    * Patch isn't supported on the relationship endpoint, so use put instead.
    *

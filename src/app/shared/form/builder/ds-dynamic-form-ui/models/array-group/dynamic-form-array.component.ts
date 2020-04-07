@@ -121,10 +121,8 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
               confidence: formFieldMetadataValue.confidence
             });
             if (metadataValue.isVirtual) {
-              console.log('updateReorderables metadataValue.isVirtual', metadataValue.isVirtual);
               return this.relationshipService.findById(metadataValue.virtualValue, followLink('leftItem'))
                 .pipe(
-                  tap((v) => console.log('rsfbd', v)),
                   filter((relRD: RemoteData<Relationship>) => hasValue(relRD.payload)),
                   take(1),
                   getRemoteDataPayload(),
