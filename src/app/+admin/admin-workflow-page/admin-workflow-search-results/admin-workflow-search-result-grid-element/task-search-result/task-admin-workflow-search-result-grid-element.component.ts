@@ -24,15 +24,21 @@ import { BitstreamDataService } from '../../../../../core/data/bitstream-data.se
   templateUrl: './task-admin-workflow-search-result-grid-element.component.html'
 })
 /**
- * The component for displaying a list element for an pool task search result on the admin search page
+ * The component for displaying a list element for an task search result on the admin workflow search page
  */
 export class TaskAdminWorkflowSearchResultGridElementComponent extends SearchResultGridElementComponent<SearchResult<TaskObject>, TaskObject> implements OnInit {
+  /**
+   * The workflow item linked to the task object
+   */
   public wfi$: Observable<WorkflowItem>;
 
   constructor(private linkService: LinkService, protected truncatableService: TruncatableService, protected bitstreamService: BitstreamDataService) {
     super(truncatableService, bitstreamService);
   }
 
+  /**
+   * Initialize the workflow item
+   */
   ngOnInit(): void {
     super.ngOnInit();
     this.dso = this.linkService.resolveLink(this.dso, followLink('workflowitem'));

@@ -12,6 +12,9 @@ import { RemoteData } from '../core/data/remote-data';
 import { getAllSucceededRemoteData, getRemoteDataPayload } from '../core/shared/operators';
 import { isEmpty } from '../shared/empty.util';
 
+/**
+ * Abstract component representing a page to perform an action on a workflow item
+ */
 export abstract class WorkflowItemActionPageComponent implements OnInit {
   public type;
   public wfi$: Observable<WorkflowItem>;
@@ -25,12 +28,18 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
               protected translationService: TranslateService) {
   }
 
+  /**
+   * Sets up the type, workflow item and its item object
+   */
   ngOnInit() {
     this.type = this.getType();
     this.wfi$ = this.route.data.pipe(map((data: Data) => data.wfi as RemoteData<WorkflowItem>), getRemoteDataPayload());
     this.item$ = this.wfi$.pipe(switchMap((wfi: WorkflowItem) => (wfi.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
   }
 
+  /**
+   * Performs the action and shows a notification based on the outcome of the action
+   */
   performAction() {
     this.wfi$.pipe(
       take(1),
@@ -49,6 +58,10 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
     })
   }
 
+  /**
+   * Navigates to the previous url
+   * If there's not previous url, it continues to the mydspace page instead
+   */
   previousPage() {
     this.routeService.getPreviousUrl().pipe(take(1))
       .subscribe((url) => {
@@ -56,10 +69,18 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
             url = '/mydspace';
           }
           this.router.navigateByUrl(url);
-
         }
       );
   }
+
+  /**
+   * Performs the action of this workflow item action page
+   * @param id The id of the WorkflowItem
+   */
   abstract sendRequest(id: string): Observable<boolean>;
+
+  /**
+   * Returns the type of page
+   */
   abstract getType(): string;
 }

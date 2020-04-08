@@ -21,6 +21,7 @@ import { SearchResult } from '../../../../../shared/search/search-result.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../../../shared/mocks/mock-link-service';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 
 describe('TaskAdminWorkflowSearchResultGridElementComponent', () => {
   let component: TaskAdminWorkflowSearchResultGridElementComponent;
@@ -78,5 +79,9 @@ describe('TaskAdminWorkflowSearchResultGridElementComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should retrieve the workflow item using the link service', () => {
+    expect(linkService.resolveLink).toHaveBeenCalledWith(searchResult.indexableObject, followLink('workflowitem'));
   });
 });

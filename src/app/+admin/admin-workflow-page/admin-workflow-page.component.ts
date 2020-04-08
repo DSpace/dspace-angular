@@ -8,7 +8,7 @@ import { Context } from '../../core/shared/context.model';
 })
 
 /**
- * Component that represents a search page for administrators
+ * Component that represents a workflow item search page for administrators
  */
 export class AdminWorkflowPageComponent {
   /**

@@ -11,6 +11,9 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'ds-workflow-item-delete',
   templateUrl: '../workflow-item-action-page.component.html'
 })
+/**
+ * Component representing a page to delete a workflow item
+ */
 export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent {
   constructor(protected route: ActivatedRoute,
               protected workflowItemService: WorkflowItemDataService,
@@ -21,10 +24,17 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
     super(route, workflowItemService, router, routeService, notificationsService, translationService);
   }
 
+  /**
+   * Returns the type of page
+   */
   getType(): string {
     return 'delete';
   }
 
+  /**
+   * Performs the action of this workflow item action page
+   * @param id The id of the WorkflowItem
+   */
   sendRequest(id: string): Observable<boolean> {
     return this.workflowItemService.delete(id);
   }

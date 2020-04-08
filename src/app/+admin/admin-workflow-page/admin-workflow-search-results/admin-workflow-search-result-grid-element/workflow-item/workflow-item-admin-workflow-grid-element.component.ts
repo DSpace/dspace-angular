@@ -36,12 +36,27 @@ import { take } from 'rxjs/operators';
   templateUrl: './workflow-item-admin-workflow-grid-element.component.html'
 })
 /**
- * The component for displaying a list element for an workflow item on the admin search page
+ * The component for displaying a grid element for an workflow item on the admin workflow search page
  */
 export class WorkflowItemAdminWorkflowGridElementComponent extends AbstractListableElementComponent<WorkflowItem> {
+  /**
+   * Directive used to render the dynamic component in
+   */
   @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
+
+  /**
+   * The html child that contains the badges html
+   */
   @ViewChild('badges', { static: true }) badges: ElementRef;
+
+  /**
+   * The html child that contains the button html
+   */
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
+
+  /**
+   * The item linked to the workflow item
+   */
   public item$: Observable<Item>;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver, private linkService: LinkService) {
@@ -50,6 +65,7 @@ export class WorkflowItemAdminWorkflowGridElementComponent extends AbstractLista
 
   /**
    * Setup the dynamic child component
+   * Initialize the item object from the workflow item
    */
   ngOnInit(): void {
     this.object = this.linkService.resolveLink(this.object, followLink('item'));

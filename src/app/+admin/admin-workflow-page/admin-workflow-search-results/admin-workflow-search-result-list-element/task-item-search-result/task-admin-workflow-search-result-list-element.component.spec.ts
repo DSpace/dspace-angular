@@ -13,6 +13,7 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../../../shared/mocks/mock-link-service';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { TaskObject } from '../../../../../core/tasks/models/task-object.model';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 
 describe('TaskAdminWorkflowSearchResultListElementComponent', () => {
   let component: TaskAdminWorkflowSearchResultListElementComponent;
@@ -59,5 +60,9 @@ describe('TaskAdminWorkflowSearchResultListElementComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should retrieve the workflow item using the link service', () => {
+    expect(linkService.resolveLink).toHaveBeenCalledWith(searchResult.indexableObject, followLink('workflowitem'));
   });
 });

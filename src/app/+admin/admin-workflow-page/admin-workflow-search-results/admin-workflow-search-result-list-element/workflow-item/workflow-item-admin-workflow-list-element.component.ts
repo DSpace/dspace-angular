@@ -18,15 +18,22 @@ import { Item } from '../../../../../core/shared/item.model';
   templateUrl: './workflow-item-admin-workflow-list-element.component.html'
 })
 /**
- * The component for displaying a list element for an workflow item on the admin search page
+ * The component for displaying a list element for an workflow item on the admin workflow search page
  */
 export class WorkflowItemAdminWorkflowListElementComponent extends AbstractListableElementComponent<WorkflowItem> implements OnInit {
+
+  /**
+   * The item linked to the workflow item
+   */
   public item$: Observable<Item>;
 
   constructor(private linkService: LinkService) {
     super();
   }
 
+  /**
+   * Initialize the item object from the workflow item
+   */
   ngOnInit(): void {
     this.object = this.linkService.resolveLink(this.object, followLink('item'));
     this.item$ = (this.object.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());

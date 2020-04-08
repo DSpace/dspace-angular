@@ -23,15 +23,21 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
   templateUrl: './task-admin-workflow-search-result-list-element.component.html'
 })
 /**
- * The component for displaying a list element for an pool task search result on the admin search page
+ * The component for displaying a grid element for an task search result on the admin workflow search page
  */
 export class TaskAdminWorkflowSearchResultListElementComponent extends SearchResultListElementComponent<SearchResult<TaskObject>, TaskObject> {
+  /**
+   * The workflow item linked to the task object
+   */
   public wfi$: Observable<WorkflowItem>;
 
   constructor(private linkService: LinkService, protected truncatableService: TruncatableService) {
     super(truncatableService);
   }
 
+  /**
+   * Initialize the workflow item
+   */
   ngOnInit(): void {
     super.ngOnInit();
     this.dso = this.linkService.resolveLink(this.dso, followLink('workflowitem'));

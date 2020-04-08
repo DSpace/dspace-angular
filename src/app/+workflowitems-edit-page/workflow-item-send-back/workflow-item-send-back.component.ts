@@ -11,6 +11,9 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'ds-workflow-item-send-back',
   templateUrl: '../workflow-item-action-page.component.html'
 })
+/**
+ * Component representing a page to send back a workflow item to the submitter
+ */
 export class WorkflowItemSendBackComponent extends WorkflowItemActionPageComponent {
   constructor(protected route: ActivatedRoute,
               protected workflowItemService: WorkflowItemDataService,
@@ -21,10 +24,17 @@ export class WorkflowItemSendBackComponent extends WorkflowItemActionPageCompone
     super(route, workflowItemService, router, routeService, notificationsService, translationService);
   }
 
+  /**
+   * Returns the type of page
+   */
   getType(): string {
     return 'send-back';
   }
 
+  /**
+   * Performs the action of this workflow item action page
+   * @param id The id of the WorkflowItem
+   */
   sendRequest(id: string): Observable<boolean> {
     return this.workflowItemService.sendBack(id);
   }

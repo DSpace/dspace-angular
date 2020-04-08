@@ -8,11 +8,11 @@ import { getWorkflowItemDeletePath, getWorkflowItemSendBackPath } from '../../..
   templateUrl: './workflow-item-admin-workflow-actions.component.html'
 })
 /**
- * The component for displaying the actions for a list element for an item on the admin workflow page
+ * The component for displaying the actions for a list element for an item on the admin workflow search page
  */
 export class WorkflowItemAdminWorkflowActionsComponent {
   /**
-   * The item to perform the actions on
+   * The workflow item to perform the actions on
    */
   @Input() public wfi: WorkflowItem;
 
