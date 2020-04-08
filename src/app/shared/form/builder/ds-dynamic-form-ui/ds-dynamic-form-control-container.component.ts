@@ -244,9 +244,58 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   ngOnInit(): void {
     this.isRelationship = hasValue(this.model.relationship);
-    if (this.isRelationship) {
-      this.listId = 'list-' + this.model.relationship.relationshipType;
+    const isWrapperAroundRelationshipList = hasValue(this.model.relationshipConfig);
+
+    if(this.isRelationship) {
+      console.log('isRelationship', this.model, this.model.value);
+    }
+    if (isWrapperAroundRelationshipList) {
+      console.log('isWrapperAroundRelationshipList', this.model, this.model.value)
+    }
+
+    if (this.isRelationship || isWrapperAroundRelationshipList) {
+      const config = this.model.relationshipConfig || this.model.relationship;
+      const relationshipOptions = Object.assign(new RelationshipOptions(), config);
+      this.listId = 'list-' + relationshipOptions.relationshipType;
       this.setItem();
+
+      if (isWrapperAroundRelationshipList || !this.model.repeatable) {
+        const subscription = this.selectableListService.getSelectableList(this.listId).pipe(
+          find((list: SelectableListState) => hasNoValue(list)),
+          switchMap(() => this.item$.pipe(take(1))),
+          switchMap((item) => {
+            const relationshipsRD$ = this.relationshipService.getItemRelationshipsByLabel(item,
+              relationshipOptions.relationshipType,
+              undefined,
+              followLink('leftItem'),
+              followLink('rightItem'),
+              followLink('relationshipType')
+            );
+
+            relationshipsRD$.pipe(
+              getFirstSucceededRemoteDataPayload(),
+              getPaginatedListPayload()
+            ).subscribe((relationships: Relationship[]) => {
+              // set initial namevariants for pre-existing relationships
+              relationships.forEach((relationship: Relationship) => {
+                const relationshipMD: MetadataValue = item.firstMetadata(relationshipOptions.metadataField, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
+                const nameVariantMD: MetadataValue = item.firstMetadata(this.model.metadataFields, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
+                if (hasValue(relationshipMD) && isNotEmpty(relationshipMD.value) && hasValue(nameVariantMD) && isNotEmpty(nameVariantMD.value)) {
+                  this.relationshipService.setNameVariant(this.listId, relationshipMD.value, nameVariantMD.value);
+                }
+              });
+            });
+
+            return relationshipsRD$.pipe(
+              paginatedRelationsToItems(item.uuid),
+              getSucceededRemoteData(),
+              map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((i) => Object.assign(new ItemSearchResult(), { indexableObject: i }))),
+            )
+          })
+        ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
+        this.subs.push(subscription);
+      }
+
       this.value = Object.assign(new MetadataValue(), this.model.value);
       if (hasValue(this.value) && this.value.isVirtual) {
         const relationship$ = this.relationshipService.findById(this.value.virtualValue, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
@@ -254,6 +303,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(
+          tap((v) => console.log('tapvamu', v)),
           switchMap(([item, relationship]: [Item, Relationship]) =>
             relationship.leftItem.pipe(
               getAllSucceededRemoteData(),
@@ -266,46 +316,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           startWith(undefined)
         );
       }
-    }
-    if (this.model.relationshipConfig || (this.isRelationship && !this.model.repeatable)) {
-      const config = this.model.relationshipConfig || this.model.relationship;
-      const relationshipOptions = Object.assign(new RelationshipOptions(), config);
-      this.listId = 'list-' + relationshipOptions.relationshipType;
-      this.setItem();
-      const subscription = this.selectableListService.getSelectableList(this.listId).pipe(
-        find((list: SelectableListState) => hasNoValue(list)),
-        switchMap(() => this.item$.pipe(take(1))),
-        switchMap((item) => {
-          const relationshipsRD$ = this.relationshipService.getItemRelationshipsByLabel(item,
-            relationshipOptions.relationshipType,
-            undefined,
-            followLink('leftItem'),
-            followLink('rightItem'),
-            followLink('relationshipType')
-          );
-
-          relationshipsRD$.pipe(
-            getFirstSucceededRemoteDataPayload(),
-            getPaginatedListPayload()
-          ).subscribe((relationships: Relationship[]) => {
-            // set initial namevariants for pre-existing relationships
-            relationships.forEach((relationship: Relationship) => {
-              const relationshipMD: MetadataValue = item.firstMetadata(relationshipOptions.metadataField, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
-              const nameVariantMD: MetadataValue = item.firstMetadata(this.model.metadataFields, { authority: `${VIRTUAL_METADATA_PREFIX}${relationship.id}` });
-              if (hasValue(relationshipMD) && isNotEmpty(relationshipMD.value) && hasValue(nameVariantMD) && isNotEmpty(nameVariantMD.value)) {
-                this.relationshipService.setNameVariant(this.listId, relationshipMD.value, nameVariantMD.value);
-              }
-            });
-          });
-
-          return relationshipsRD$.pipe(
-            paginatedRelationsToItems(item.uuid),
-            getSucceededRemoteData(),
-            map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((i) => Object.assign(new ItemSearchResult(), { indexableObject: i }))),
-          )
-        })
-      ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
-      this.subs.push(subscription);
     }
   }
 

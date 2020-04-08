@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { combineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
@@ -175,7 +175,9 @@ export class SectionsService {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
       filter((sectionObj: SubmissionSectionObject) => hasValue(sectionObj)),
       map((sectionObj: SubmissionSectionObject) => sectionObj),
-      distinctUntilChanged());
+      distinctUntilChanged(),
+      tap((v) => console.log('sectionStateChange', submissionId, sectionId, v)),
+      );
   }
 
   /**

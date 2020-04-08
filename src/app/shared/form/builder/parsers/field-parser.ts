@@ -99,6 +99,7 @@ export abstract class FieldParser {
 
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
+      model.submissionId = this.submissionId;
       if (model.hasLanguages || isNotEmpty(model.relationship)) {
         setLayout(model, 'grid', 'control', 'col');
       }

@@ -328,10 +328,12 @@ export class SubmissionObjectEffects {
 
         const sections: WorkspaceitemSectionsObject = (item.sections && isNotEmpty(item.sections)) ? item.sections : {};
         const sectionsKeys: string[] = union(Object.keys(sections), Object.keys(errorsList));
+        const metadata = (item.item as Item).metadata;
+        const metadataKeys = Object.keys(metadata);
 
         for (const sectionId of sectionsKeys) {
           const sectionErrors = errorsList[sectionId] || [];
-          const sectionData = sections[sectionId] || {};
+          let sectionData = sections[sectionId] || {};
 
           // When Upload section is disabled, add to submission only if there are files
           if (currentState.sections[sectionId].sectionType === SectionsType.Upload
@@ -340,10 +342,17 @@ export class SubmissionObjectEffects {
             continue;
           }
 
+          const sectionKeys = Object.keys(sectionData);
+          if (sectionKeys.every((key: string) => metadataKeys.includes(key))) {
+            sectionData = metadata as any;
+          }
+
+          console.log('sectionData', sectionData);
+
+
           if (notify && !currentState.sections[sectionId].enabled) {
             this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
           }
-          console.log(sectionId, sectionData);
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
         }
       });

@@ -144,7 +144,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
       if (item instanceof WorkspaceItem
         || item instanceof WorkflowItem) {
         if (item.sections) {
-          const sectionConfigs = (item.submissionDefinition as SubmissionDefinitionsModel).sections.page;
+          const sectionConfigs = item.sections.page ? (item.submissionDefinition as SubmissionDefinitionsModel).sections.page : [];
           const precessedSection = Object.create({});
           // Iterate over all workspaceitem's sections
           Object.keys(item.sections)

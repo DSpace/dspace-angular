@@ -134,6 +134,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
    */
   ngOnChanges() {
     if (hasValue(this.reoRel)) {
+      console.log('onChanges', this.reoRel.useLeftItem ? this.reoRel.relationship._links.leftItem.href : this.reoRel.relationship._links.rightItem.href);
       const item$ = this.reoRel.useLeftItem ?
         this.reoRel.relationship.leftItem : this.reoRel.relationship.rightItem;
       this.subs.push(item$.pipe(
@@ -144,6 +145,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
         this.relatedItem = item;
       }));
     }
+
   }
 
   /**
