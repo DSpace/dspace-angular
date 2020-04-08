@@ -12,6 +12,7 @@ import { ComcolRole } from './comcol-role';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ComcolRoleComponent', () => {
 
@@ -34,10 +35,9 @@ describe('ComcolRoleComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot(),
         SharedModule,
-      ],
-      declarations: [
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
       ],
       providers: [
         { provide: GroupDataService, useValue: groupService },
