@@ -10,6 +10,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { SharedModule } from '../../../shared/shared.module';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { RequestService } from '../../../core/data/request.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CollectionRolesComponent', () => {
 
@@ -71,8 +72,9 @@ describe('CollectionRolesComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot(),
         SharedModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
       ],
       declarations: [
         CollectionRolesComponent,

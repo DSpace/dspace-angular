@@ -55,7 +55,6 @@ describe('ComcolRoleComponent', () => {
       ],
       providers: [
         { provide: GroupDataService, useValue: groupService },
-        { provide: ChangeDetectorRef, useValue: {} },
         { provide: RequestService, useValue: requestService },
       ], schemas: [
         NO_ERRORS_SCHEMA

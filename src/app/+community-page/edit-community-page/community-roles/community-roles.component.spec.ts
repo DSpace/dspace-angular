@@ -10,6 +10,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { SharedModule } from '../../../shared/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CommunityRolesComponent', () => {
 
@@ -59,8 +60,9 @@ describe('CommunityRolesComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot(),
         SharedModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
       ],
       declarations: [
         CommunityRolesComponent,
