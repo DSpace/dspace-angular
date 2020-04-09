@@ -12,7 +12,7 @@ import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/w
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isNotUndefined, hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SectionsType } from '../sections/sections-type';
 import { SectionsService } from '../sections/sections.service';
@@ -329,7 +329,7 @@ export class SubmissionObjectEffects {
         const sections: WorkspaceitemSectionsObject = (item.sections && isNotEmpty(item.sections)) ? item.sections : {};
         const sectionsKeys: string[] = union(Object.keys(sections), Object.keys(errorsList));
         const metadata = (item.item as Item).metadata;
-        const metadataKeys = Object.keys(metadata);
+        const metadataKeys = hasValue(metadata) ? Object.keys(metadata) : undefined;
 
         for (const sectionId of sectionsKeys) {
           const sectionErrors = errorsList[sectionId] || [];
@@ -342,13 +342,16 @@ export class SubmissionObjectEffects {
             continue;
           }
 
-          const sectionKeys = Object.keys(sectionData);
-          if (sectionKeys.every((key: string) => metadataKeys.includes(key))) {
-            sectionData = metadata as any;
+          if (isNotEmpty(metadataKeys)) {
+            const sectionKeys = Object.keys(sectionData);
+            if (sectionKeys.every((key: string) => metadataKeys.includes(key))) {
+              sectionData = metadata as any;
+              console.log('sectionData', sectionData);
+              //TODO het werkt op deze branch dus ook niet voor andere relaties, zorg er dus voor dat de state opnieuw wordt opgehaald na een change
+              // of gewoon rechtstreeks naar het submission item kijkt.
+
+            }
           }
-
-          console.log('sectionData', sectionData);
-
 
           if (notify && !currentState.sections[sectionId].enabled) {
             this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
