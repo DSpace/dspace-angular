@@ -263,9 +263,9 @@
 
 
 
-  "admin.workflow.breadcrumbs": "Admin Workflow",
+  "admin.workflow.breadcrumbs": "Administer Workflow",
 
-  "admin.workflow.title": "Admin Workflow",
+  "admin.workflow.title": "Administer Workflow",
 
   "admin.workflow.item.workflow": "Workflow",
 
@@ -1399,7 +1399,7 @@
   "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
 
 
-  "menu.section.workflow": "Active Workflows",
+  "menu.section.workflow": "Administer Workflow",
 
 
   "mydspace.description": "",
@@ -2232,7 +2232,7 @@
 
 
 
-  "workflowAdmin.search.results.head": "Active Workflows",
+  "workflowAdmin.search.results.head": "Administer Workflow",
 
 
 
