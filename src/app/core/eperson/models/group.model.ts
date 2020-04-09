@@ -6,12 +6,20 @@ import { RemoteData } from '../../data/remote-data';
 
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
+import { EPerson } from './eperson.model';
+import { EPERSON } from './eperson.resource-type';
 import { GROUP } from './group.resource-type';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
 export class Group extends DSpaceObject {
   static type = GROUP;
+
+  /**
+   * A string representing the unique name of this Group
+   */
+  @autoserialize
+  public name: string;
 
   /**
    * A string representing the unique handle of this Group
@@ -31,7 +39,8 @@ export class Group extends DSpaceObject {
   @deserialize
   _links: {
     self: HALLink;
-    groups: HALLink;
+    subgroups: HALLink;
+    epersons: HALLink;
   };
 
   /**
@@ -39,6 +48,13 @@ export class Group extends DSpaceObject {
    * Will be undefined unless the groups {@link HALLink} has been resolved.
    */
   @link(GROUP, true)
-  public groups?: Observable<RemoteData<PaginatedList<Group>>>;
+  public subgroups?: Observable<RemoteData<PaginatedList<Group>>>;
+
+  /**
+   * The list of EPeople in this group
+   * Will be undefined unless the epersons {@link HALLink} has been resolved.
+   */
+  @link(EPERSON, true)
+  public epersons?: Observable<RemoteData<PaginatedList<EPerson>>>;
 
 }

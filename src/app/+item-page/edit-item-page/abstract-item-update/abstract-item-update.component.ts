@@ -10,12 +10,16 @@ import { TranslateService } from '@ngx-translate/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
+import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 
-@Injectable()
+@Component({
+  selector: 'ds-abstract-item-update',
+  template: ''
+})
 /**
  * Abstract component for managing object updates of an item
  */
-export abstract class AbstractItemUpdateComponent implements OnInit {
+export class AbstractItemUpdateComponent extends AbstractTrackableComponent implements OnInit {
   /**
    * The item to display the edit page for
    */
@@ -25,30 +29,17 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
    * Should be initialized in the initializeUpdates method of the child component
    */
   updates$: Observable<FieldUpdates>;
-  /**
-   * The current url of this page
-   */
-  url: string;
-  /**
-   * Prefix for this component's notification translate keys
-   * Should be initialized in the initializeNotificationsPrefix method of the child component
-   */
-  notificationsPrefix;
-  /**
-   * The time span for being able to undo discarding changes
-   */
-  discardTimeOut: number;
 
   constructor(
-    protected itemService: ItemDataService,
-    protected objectUpdatesService: ObjectUpdatesService,
-    protected router: Router,
-    protected notificationsService: NotificationsService,
-    protected translateService: TranslateService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    protected route: ActivatedRoute
+    public itemService: ItemDataService,
+    public objectUpdatesService: ObjectUpdatesService,
+    public router: Router,
+    public notificationsService: NotificationsService,
+    public translateService: TranslateService,
+    @Inject(GLOBAL_CONFIG) public EnvConfig: GlobalConfig,
+    public route: ActivatedRoute
   ) {
-
+    super(objectUpdatesService, notificationsService, translateService)
   }
 
   /**
@@ -61,6 +52,7 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
         map((data: RemoteData<Item>) => data.payload)
       ).subscribe((item: Item) => {
       this.item = item;
+      this.postItemInit();
     });
 
     this.discardTimeOut = this.EnvConfig.item.edit.undoTimeout;
@@ -81,32 +73,50 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
   }
 
   /**
-   * Initialize the values and updates of the current item's fields
+   * Actions to perform after the item has been initialized
+   * Abstract method: Should be overwritten in the sub class
    */
-  abstract initializeUpdates(): void;
+  postItemInit(): void {
+    // Overwrite in subclasses
+  }
+
+  /**
+   * Initialize the values and updates of the current item's fields
+   * Abstract method: Should be overwritten in the sub class
+   */
+  initializeUpdates(): void {
+    // Overwrite in subclasses
+  }
 
   /**
    * Initialize the prefix for notification messages
+   * Abstract method: Should be overwritten in the sub class
    */
-  abstract initializeNotificationsPrefix(): void;
+  initializeNotificationsPrefix(): void {
+    // Overwrite in subclasses
+  }
 
   /**
    * Sends all initial values of this item to the object updates service
+   * Abstract method: Should be overwritten in the sub class
    */
-  abstract initializeOriginalFields(): void;
+  initializeOriginalFields(): void {
+    // Overwrite in subclasses
+  }
+
+  /**
+   * Submit the current changes
+   * Abstract method: Should be overwritten in the sub class
+   */
+  submit(): void {
+    // Overwrite in subclasses
+  }
 
   /**
    * Prevent unnecessary rerendering so fields don't lose focus
    */
   trackUpdate(index, update: FieldUpdate) {
     return update && update.field ? update.field.uuid : undefined;
-  }
-
-  /**
-   * Checks whether or not there are currently updates for this item
-   */
-  hasChanges(): Observable<boolean> {
-    return this.objectUpdatesService.hasUpdates(this.url);
   }
 
   /**
@@ -130,50 +140,5 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
         }
       }
     );
-  }
-
-  /**
-   * Submit the current changes
-   */
-  abstract submit(): void;
-
-  /**
-   * Request the object updates service to discard all current changes to this item
-   * Shows a notification to remind the user that they can undo this
-   */
-  discard() {
-    const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), { timeOut: this.discardTimeOut });
-    this.objectUpdatesService.discardFieldUpdates(this.url, undoNotification);
-  }
-
-  /**
-   * Request the object updates service to undo discarding all changes to this item
-   */
-  reinstate() {
-    this.objectUpdatesService.reinstateFieldUpdates(this.url);
-  }
-
-  /**
-   * Checks whether or not the item is currently reinstatable
-   */
-  isReinstatable(): Observable<boolean> {
-    return this.objectUpdatesService.isReinstatable(this.url);
-  }
-
-  /**
-   * Get translated notification title
-   * @param key
-   */
-  protected getNotificationTitle(key: string) {
-    return this.translateService.instant(this.notificationsPrefix + key + '.title');
-  }
-
-  /**
-   * Get translated notification content
-   * @param key
-   */
-  protected getNotificationContent(key: string) {
-    return this.translateService.instant(this.notificationsPrefix + key + '.content');
-
   }
 }

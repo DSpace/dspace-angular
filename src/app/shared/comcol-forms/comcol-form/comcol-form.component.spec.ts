@@ -137,7 +137,7 @@ describe('ComColFormComponent', () => {
                 type: Community.type
               },
             ),
-            uploader: {} as any,
+            uploader: undefined,
             deleteLogo: false
           }
         );

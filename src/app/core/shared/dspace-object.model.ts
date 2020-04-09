@@ -1,5 +1,5 @@
 import { autoserialize, autoserializeAs, deserialize, deserializeAs } from 'cerialize';
-import { hasNoValue, isUndefined } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isUndefined } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -79,6 +79,9 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    * The name for this DSpaceObject
    */
   set name(name) {
+    if (hasValue(this.firstMetadata('dc.title'))) {
+      this.firstMetadata('dc.title').value = name;
+    }
     this._name = name;
   }
 

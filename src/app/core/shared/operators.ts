@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, find, flatMap, map, tap } from 'rxjs/operators';
+import { filter, find, flatMap, map, take, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
@@ -206,4 +206,14 @@ export const getFirstOccurrence = () =>
   <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<RemoteData<T>> =>
     source.pipe(
       map((rd) => Object.assign(rd, { payload: rd.payload.page.length > 0 ? rd.payload.page[0] : undefined }))
+    );
+
+/**
+ * Operator for turning the current page of bitstreams into an array
+ */
+export const paginatedListToArray = () =>
+  <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
+    source.pipe(
+      hasValueOperator(),
+      map((objectRD: RemoteData<PaginatedList<T>>) => objectRD.payload.page.filter((object: T) => hasValue(object)))
     );
