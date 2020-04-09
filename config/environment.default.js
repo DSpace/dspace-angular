@@ -149,6 +149,10 @@ module.exports = {
     code: 'fr',
     label: 'Français',
     active: true,
+  }, {
+    code: 'lv',
+    label: 'Latviešu',
+    active: true,
   }],
   // Browse-By Pages
   browseBy: {
