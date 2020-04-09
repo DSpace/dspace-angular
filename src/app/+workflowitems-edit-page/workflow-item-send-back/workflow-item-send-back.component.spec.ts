@@ -15,6 +15,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back.component';
+import { RequestService } from '../../core/data/request.service';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 
 describe('WorkflowItemSendBackComponent', () => {
   let component: WorkflowItemSendBackComponent;
@@ -50,6 +52,7 @@ describe('WorkflowItemSendBackComponent', () => {
         { provide: RouteService, useValue: {} },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: WorkflowItemDataService, useValue: wfiService },
+        { provide: RequestService, useValue: getMockRequestService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

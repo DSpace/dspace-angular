@@ -15,6 +15,8 @@ import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
+import { RequestService } from '../../core/data/request.service';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 
 describe('WorkflowItemDeleteComponent', () => {
   let component: WorkflowItemDeleteComponent;
@@ -50,6 +52,7 @@ describe('WorkflowItemDeleteComponent', () => {
         { provide: RouteService, useValue: {} },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: WorkflowItemDataService, useValue: wfiService },
+        { provide: RequestService, useValue: getMockRequestService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

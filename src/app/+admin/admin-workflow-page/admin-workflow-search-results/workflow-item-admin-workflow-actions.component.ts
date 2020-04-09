@@ -11,6 +11,7 @@ import { getWorkflowItemDeletePath, getWorkflowItemSendBackPath } from '../../..
  * The component for displaying the actions for a list element for an item on the admin workflow search page
  */
 export class WorkflowItemAdminWorkflowActionsComponent {
+
   /**
    * The workflow item to perform the actions on
    */
@@ -25,6 +26,7 @@ export class WorkflowItemAdminWorkflowActionsComponent {
    * Returns the path to the delete page of this workflow item
    */
   getDeletePath(): string {
+
     return getWorkflowItemDeletePath(this.wfi.id)
   }
 

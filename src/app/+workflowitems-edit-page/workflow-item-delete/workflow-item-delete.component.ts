@@ -6,6 +6,7 @@ import { WorkflowItemDataService } from '../../core/submission/workflowitem-data
 import { RouteService } from '../../core/services/route.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { RequestService } from '../../core/data/request.service';
 
 @Component({
   selector: 'ds-workflow-item-delete',
@@ -20,7 +21,8 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
               protected router: Router,
               protected routeService: RouteService,
               protected notificationsService: NotificationsService,
-              protected translationService: TranslateService) {
+              protected translationService: TranslateService,
+              protected requestService: RequestService) {
     super(route, workflowItemService, router, routeService, notificationsService, translationService);
   }
 
@@ -36,6 +38,7 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
    * @param id The id of the WorkflowItem
    */
   sendRequest(id: string): Observable<boolean> {
+    this.requestService.removeByHrefSubstring('/discover');
     return this.workflowItemService.delete(id);
   }
 }
