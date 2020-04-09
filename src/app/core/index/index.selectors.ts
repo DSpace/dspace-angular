@@ -72,6 +72,17 @@ export const requestIndexSelector: MemoizedSelector<CoreState, IndexState> = cre
 );
 
 /**
+ * Return the alternative link index based on the MetaIndexState
+ *
+ * @returns
+ *    a MemoizedSelector to select the alternative link index
+ */
+export const alternativeLinkIndexSelector: MemoizedSelector<CoreState, IndexState> = createSelector(
+  metaIndexSelector,
+  (state: MetaIndexState) => state[IndexName.ALTERNATIVE_OBJECT_LINK]
+);
+
+/**
  * Return the request UUID mapping index based on the MetaIndexState
  *
  * @returns
@@ -123,4 +134,18 @@ export const originalRequestUUIDFromRequestUUIDSelector =
   (uuid: string): MemoizedSelector<CoreState, string> => createSelector(
     requestUUIDIndexSelector,
     (state: IndexState) => hasValue(state) ? state[uuid] : undefined
+  );
+
+/**
+ * Return the self link of an object based on its alternative link
+ *
+ * @param altLink
+ *    the alternative link of an object
+ * @returns
+ *    a MemoizedSelector to select the object self link
+ */
+export const selfLinkFromAlternativeLinkSelector =
+  (altLink: string): MemoizedSelector<CoreState, string> => createSelector(
+    alternativeLinkIndexSelector,
+    (state: IndexState) => hasValue(state) ? state[altLink] : undefined
   );

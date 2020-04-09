@@ -3,21 +3,16 @@ import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { distinctUntilChanged, filter, map, mergeMap, take, } from 'rxjs/operators';
-import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
+import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap, } from 'rxjs/operators';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { selfLinkFromUuidSelector } from '../index/index.selectors';
+import { selfLinkFromAlternativeLinkSelector, selfLinkFromUuidSelector } from '../index/index.selectors';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { getClassForType } from './builders/build-decorators';
 import { LinkService } from './builders/link.service';
-import {
-  AddPatchObjectCacheAction,
-  AddToObjectCacheAction,
-  ApplyPatchObjectCacheAction,
-  RemoveFromObjectCacheAction
-} from './object-cache.actions';
+import { AddPatchObjectCacheAction, AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
 
 import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
@@ -61,9 +56,9 @@ export class ObjectCacheService {
    * @param requestUUID
    *    The UUID of the request that resulted in this object
    */
-  add(object: CacheableObject, msToLive: number, requestUUID: string): void {
+  add(object: CacheableObject, msToLive: number, requestUUID: string, alternativeLink?: string): void {
     object = this.linkService.removeResolvedLinks(object); // Ensure the object we're storing has no resolved links
-    this.store.dispatch(new AddToObjectCacheAction(object, new Date().getTime(), msToLive, requestUUID));
+    this.store.dispatch(new AddToObjectCacheAction(object, new Date().getTime(), msToLive, requestUUID, alternativeLink));
   }
 
   /**
@@ -132,10 +127,26 @@ export class ObjectCacheService {
    *    An observable of the requested object cache entry
    */
   getBySelfLink(selfLink: string): Observable<ObjectCacheEntry> {
-    return this.store.pipe(
-      select(entryFromSelfLinkSelector(selfLink)),
-      filter((entry) => this.isValid(entry)),
-      distinctUntilChanged()
+    return observableCombineLatest([
+      this.store.pipe(
+        select(entryFromSelfLinkSelector(selfLink)),
+      ),
+      this.store.pipe(
+        select(selfLinkFromAlternativeLinkSelector(selfLink)),
+        switchMap((selfLink) => {
+            console.log(selfLink);
+            if (selfLink) {
+              return this.store.pipe(
+                select(entryFromSelfLinkSelector(selfLink)));
+            } else {
+              return [undefined];
+            }
+          },
+        ),
+      )
+    ]).pipe(
+      map((objectEntries: ObjectCacheEntry[]) => objectEntries.find((entry: ObjectCacheEntry) => this.isValid(entry))),
+      tap((objectEntry: ObjectCacheEntry) => console.log(objectEntry))
     );
   }
 

@@ -9,6 +9,7 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { RestRequest } from './request.models';
+
 /* tslint:disable:max-classes-per-file */
 
 /**
@@ -28,10 +29,10 @@ export function isRestDataObject(halObj: any): boolean {
  */
 export function isRestPaginatedList(halObj: any): boolean {
   return hasValue(halObj.page) &&
-          hasValue(halObj.page.size) &&
-          hasValue(halObj.page.totalElements) &&
-          hasValue(halObj.page.totalPages) &&
-          hasValue(halObj.page.number);
+    hasValue(halObj.page.size) &&
+    hasValue(halObj.page.totalElements) &&
+    hasValue(halObj.page.totalPages) &&
+    hasValue(halObj.page.number);
 }
 
 export abstract class BaseResponseParsingService {
@@ -41,7 +42,7 @@ export abstract class BaseResponseParsingService {
   protected shouldDirectlyAttachEmbeds = false;
   protected serializerConstructor: GenericConstructor<Serializer<any>> = DSpaceSerializer;
 
-  protected process<ObjectDomain>(data: any, request: RestRequest): any {
+  protected process<ObjectDomain>(data: any, request: RestRequest, alternativeURL?: string): any {
     if (isNotEmpty(data)) {
       if (hasNoValue(data) || (typeof data !== 'object')) {
         return data;
@@ -56,21 +57,21 @@ export abstract class BaseResponseParsingService {
             .keys(data._embedded)
             .filter((property) => data._embedded.hasOwnProperty(property))
             .forEach((property) => {
-              const parsedObj = this.process<ObjectDomain>(data._embedded[property], request);
+              const parsedObj = this.process<ObjectDomain>(data._embedded[property], request, data._links[property].href);
               if (hasValue(object) && this.shouldDirectlyAttachEmbeds && isNotEmpty(parsedObj)) {
-                  if (isRestPaginatedList(data._embedded[property])) {
-                    object[property] = parsedObj;
-                    object[property].page = parsedObj.page.map((obj) => this.retrieveObjectOrUrl(obj));
-                  } else if (isRestDataObject(data._embedded[property])) {
-                    object[property] = this.retrieveObjectOrUrl(parsedObj);
-                  } else if (Array.isArray(parsedObj)) {
-                    object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj))
-                  }
+                if (isRestPaginatedList(data._embedded[property])) {
+                  object[property] = parsedObj;
+                  object[property].page = parsedObj.page.map((obj) => this.retrieveObjectOrUrl(obj));
+                } else if (isRestDataObject(data._embedded[property])) {
+                  object[property] = this.retrieveObjectOrUrl(parsedObj);
+                } else if (Array.isArray(parsedObj)) {
+                  object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj))
+                }
               }
             });
         }
 
-        this.cache(object, request, data);
+        this.cache(object, request, data, alternativeURL);
         return object;
       }
       const result = {};
@@ -96,7 +97,7 @@ export abstract class BaseResponseParsingService {
       list = this.flattenSingleKeyObject(list);
     }
     const page: ObjectDomain[] = this.processArray(list, request);
-    return new PaginatedList<ObjectDomain>(pageInfo, page, );
+    return new PaginatedList<ObjectDomain>(pageInfo, page,);
   }
 
   protected processArray<ObjectDomain>(data: any, request: RestRequest): ObjectDomain[] {
@@ -127,13 +128,13 @@ export abstract class BaseResponseParsingService {
     }
   }
 
-  protected cache<ObjectDomain>(obj, request: RestRequest, data: any) {
+  protected cache<ObjectDomain>(obj, request: RestRequest, data: any, alternativeURL: string) {
     if (this.toCache) {
-      this.addToObjectCache(obj, request, data);
+      this.addToObjectCache(obj, request, data, alternativeURL);
     }
   }
 
-  protected addToObjectCache(co: CacheableObject, request: RestRequest, data: any): void {
+  protected addToObjectCache(co: CacheableObject, request: RestRequest, data: any, alternativeURL: string): void {
     if (hasNoValue(co) || hasNoValue(co._links) || hasNoValue(co._links.self) || hasNoValue(co._links.self.href)) {
       const type = hasValue(data) && hasValue(data.type) ? data.type : 'object';
       let dataJSON: string;
@@ -147,7 +148,8 @@ export abstract class BaseResponseParsingService {
       console.warn(`Can't cache incomplete ${type}: ${JSON.stringify(co)}, parsed from (partial) response: ${dataJSON}`);
       return;
     }
-    this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : this.EnvConfig.cache.msToLive.default, request.uuid);
+
+    this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : this.EnvConfig.cache.msToLive.default, request.uuid, alternativeURL);
   }
 
   processPageInfo(payload: any): PageInfo {
