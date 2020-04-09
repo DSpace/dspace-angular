@@ -145,6 +145,10 @@ module.exports = {
     code: 'pt',
     label: 'Português',
     active: true,
+  }, {
+    code: 'fr',
+    label: 'Français',
+    active: true,
   }],
   // Browse-By Pages
   browseBy: {
