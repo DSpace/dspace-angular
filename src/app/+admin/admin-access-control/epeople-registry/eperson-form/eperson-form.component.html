@@ -14,6 +14,18 @@
          [formLayout]="formLayout"
          (cancel)="onCancel()"
          (submitForm)="onSubmit()">
+  <button class="btn btn-light" [disabled]="!(canReset$ | async)">
+    <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
+  </button>
+  <button class="btn btn-light" [disabled]="!(canDelete$ | async)">
+    <i class="fa fa-trash"></i> {{'admin.access-control.epeople.actions.delete' | translate}}
+  </button>
+  <button *ngIf="!isImpersonated" class="btn btn-light" [disabled]="!(canImpersonate$ | async)" (click)="impersonate()">
+    <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
+  </button>
+  <button *ngIf="isImpersonated" class="btn btn-light" (click)="stopImpersonating()">
+    <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.stop-impersonating' | translate}}
+  </button>
 </ds-form>
 
 <div *ngIf="epersonService.getActiveEPerson() | async">

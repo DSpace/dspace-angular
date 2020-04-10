@@ -18,7 +18,7 @@ import { AppState } from '../../app.reducer';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
 import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -235,8 +235,16 @@ export class AuthInterceptor implements HttpInterceptor {
         });
       // Get the auth header from the service.
       authorization = authService.buildAuthHeader(token);
+      let newHeaders = req.headers.set('authorization', authorization);
+
+      // When present, add the ID of the EPerson we're impersonating to the headers
+      const impersonatingID = authService.getImpersonateID();
+      if (hasValue(impersonatingID)) {
+        newHeaders = newHeaders.set('X-On-Behalf-Of', impersonatingID);
+      }
+
       // Clone the request to add the new header.
-      newReq = req.clone({ headers: req.headers.set('authorization', authorization) });
+      newReq = req.clone({ headers: newHeaders });
     } else {
       newReq = req.clone();
     }

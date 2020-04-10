@@ -14,7 +14,7 @@ import { AuthRequestService } from './auth-request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
-import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
 import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
@@ -33,6 +33,7 @@ import { AuthMethod } from './models/auth.method';
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
 export const REDIRECT_COOKIE = 'dsRedirectUrl';
+export const IMPERSONATING_COOKIE = 'dsImpersonatingEPerson';
 
 /**
  * The auth service.
@@ -467,6 +468,46 @@ export class AuthService {
   clearRedirectUrl() {
     this.store.dispatch(new SetRedirectUrlAction(''));
     this.storage.remove(REDIRECT_COOKIE);
+  }
+
+  /**
+   * Start impersonating EPerson
+   * @param epersonId ID of the EPerson to impersonate
+   */
+  impersonate(epersonId: string) {
+    this.storage.set(IMPERSONATING_COOKIE, epersonId);
+    this.refreshAfterLogout();
+  }
+
+  /**
+   * Stop impersonating EPerson
+   */
+  stopImpersonating() {
+    this.storage.remove(IMPERSONATING_COOKIE);
+    this.refreshAfterLogout();
+  }
+
+  /**
+   * Get the ID of the EPerson we're currently impersonating
+   * Returns undefined if we're not impersonating anyone
+   */
+  getImpersonateID(): string {
+    return this.storage.get(IMPERSONATING_COOKIE);
+  }
+
+  /**
+   * Whether or not we are currently impersonating an EPerson
+   */
+  isImpersonating(): boolean {
+    return hasValue(this.getImpersonateID());
+  }
+
+  /**
+   * Whether or not we are currently impersonating a specific EPerson
+   * @param epersonId ID of the EPerson to check
+   */
+  isImpersonatingUser(epersonId: string): boolean {
+    return this.getImpersonateID() === epersonId;
   }
 
 }
