@@ -230,7 +230,7 @@ export class RequestService {
    */
   public isCachedOrPending(request: GetRequest): boolean {
     const inReqCache = this.hasByHref(request.href);
-    const inObjCache = this.objectCache.hasBySelfLink(request.href);
+    const inObjCache = this.objectCache.hasByHref(request.href);
     const isCached = inReqCache || inObjCache;
     const isPending = this.isPending(request);
     return isCached || isPending;

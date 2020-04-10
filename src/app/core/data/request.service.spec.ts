@@ -47,7 +47,7 @@ describe('RequestService', () => {
     scheduler = getTestScheduler();
 
     objectCache = getMockObjectCacheService();
-    (objectCache.hasBySelfLink as any).and.returnValue(false);
+    (objectCache.hasByHref as any).and.returnValue(false);
 
     uuidService = getMockUUIDService();
 
@@ -347,7 +347,7 @@ describe('RequestService', () => {
     describe('when the request is cached', () => {
       describe('in the ObjectCache', () => {
         beforeEach(() => {
-          (objectCache.hasBySelfLink as any).and.returnValue(true);
+          (objectCache.hasByHref as any).and.returnValue(true);
           (objectCache.hasByUUID as any).and.returnValue(true);
           spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
         });
@@ -361,7 +361,7 @@ describe('RequestService', () => {
       });
       describe('in the request cache', () => {
         beforeEach(() => {
-          (objectCache.hasBySelfLink as any).and.returnValue(false);
+          (objectCache.hasByHref as any).and.returnValue(false);
           spyOn(serviceAsAny, 'hasByHref').and.returnValue(true);
         });
         it('should return true', () => {

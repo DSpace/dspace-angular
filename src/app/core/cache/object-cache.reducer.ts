@@ -50,7 +50,6 @@ export abstract class TypedObject {
 export class CacheableObject extends TypedObject implements HALResource {
   uuid?: string;
   handle?: string;
-
   _links: {
     self: HALLink;
   }
@@ -71,6 +70,7 @@ export class ObjectCacheEntry implements CacheEntry {
   requestUUID: string;
   patches: Patch[] = [];
   isDirty: boolean;
+  alternativeLinks: string[];
 }
 /* tslint:enable:max-classes-per-file */
 
@@ -137,15 +137,17 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
  *    the new state, with the object added, or overwritten.
  */
 function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheAction): ObjectCacheState {
-  const existing = state[action.payload.objectToCache._links.self.href];
+  const existing = state[action.payload.objectToCache._links.self.href] || {} as any;
+  const newAltLinks = hasValue(action.payload.alternativeLink) ? [action.payload.alternativeLink] : [];
   return Object.assign({}, state, {
     [action.payload.objectToCache._links.self.href]: {
       data: action.payload.objectToCache,
       timeAdded: action.payload.timeAdded,
       msToLive: action.payload.msToLive,
       requestUUID: action.payload.requestUUID,
-      isDirty: (hasValue(existing) ? isNotEmpty(existing.patches) : false),
-      patches: (hasValue(existing) ? existing.patches : [])
+      isDirty: isNotEmpty(existing.patches),
+      patches: existing.patches || [],
+      alternativeLinks: [...(existing.alternativeLinks || []), ...newAltLinks]
     }
   });
 }

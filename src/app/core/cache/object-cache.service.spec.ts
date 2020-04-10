@@ -134,7 +134,7 @@ describe('ObjectCacheService', () => {
         };
       });
 
-      expect(service.hasBySelfLink(selfLink)).toBe(true);
+      expect(service.hasByHref(selfLink)).toBe(true);
     });
 
     it('should return false if the object with the supplied self link isn\'t cached', () => {
@@ -144,7 +144,7 @@ describe('ObjectCacheService', () => {
         };
       });
 
-      expect(service.hasBySelfLink(selfLink)).toBe(false);
+      expect(service.hasByHref(selfLink)).toBe(false);
     });
 
     it('should return false if the object with the supplied self link is cached but has exceeded its time to live', () => {
@@ -154,7 +154,7 @@ describe('ObjectCacheService', () => {
         };
       });
 
-      expect(service.hasBySelfLink(selfLink)).toBe(false);
+      expect(service.hasByHref(selfLink)).toBe(false);
     });
   });
 

@@ -165,7 +165,7 @@ export class RelationshipService extends DataService<Relationship> {
     this.objectCache.remove(item._links.self.href);
     this.requestService.removeByHrefSubstring(item.uuid);
     combineLatest(
-      this.objectCache.hasBySelfLinkObservable(item._links.self.href),
+      this.objectCache.hasByHrefObservable(item._links.self.href),
       this.requestService.hasByHrefObservable(item.uuid)
     ).pipe(
       filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
