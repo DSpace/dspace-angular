@@ -16,6 +16,9 @@ import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
+import {
+  SaveSubmissionFormAction
+} from '../../../../../submission/objects/submission-objects.actions';
 
 // tslint:disable:max-classes-per-file
 /**

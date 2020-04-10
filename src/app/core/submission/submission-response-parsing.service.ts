@@ -16,10 +16,6 @@ import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/f
 import { SubmissionObject } from './models/submission-object.model';
 import { WorkflowItem } from './models/workflowitem.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
-import { SubmissionDefinitionsModel } from '../config/models/config-submission-definitions.model';
-import { SubmissionSectionModel } from '../config/models/config-submission-section.model';
-import { SectionsType } from '../../submission/sections/sections-type';
-import { SectionDataModel } from '../../submission/sections/models/section.model';
 
 /**
  * Export a function to check if object has same properties of FormFieldMetadataValueObject
@@ -140,29 +136,24 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
 
     processedList.forEach((item) => {
 
+      item = Object.assign({}, item);
       // In case data is an Instance of WorkspaceItem normalize field value of all the section of type form
       if (item instanceof WorkspaceItem
         || item instanceof WorkflowItem) {
         if (item.sections) {
-          const sectionConfigs = item.sections.page ? (item.submissionDefinition as SubmissionDefinitionsModel).sections.page : [];
           const precessedSection = Object.create({});
           // Iterate over all workspaceitem's sections
           Object.keys(item.sections)
             .forEach((sectionId) => {
-              const sectionConfig: SubmissionSectionModel = sectionConfigs.find((config) => config.id === sectionId);
-              let sectionData = item.sections[sectionId];
-              if (sectionConfig && sectionConfig.sectionType === SectionsType.SubmissionForm) {
-                sectionData = item.item.metadata;
-              }
-              if (typeof sectionData === 'object' && (isNotEmpty(sectionData) &&
+              if (typeof item.sections[sectionId] === 'object' && (isNotEmpty(item.sections[sectionId]) &&
                 // When Upload section is disabled, add to submission only if there are files
-                (!sectionData.hasOwnProperty('files') || isNotEmpty((sectionData as any).files)))) {
+                (!item.sections[sectionId].hasOwnProperty('files') || isNotEmpty((item.sections[sectionId] as any).files)))) {
 
                 const sectiondata = Object.create({});
                 // Iterate over all sections property
-                Object.keys(sectionData)
+                Object.keys(item.sections[sectionId])
                   .forEach((metdadataId) => {
-                    const entry = sectionData[metdadataId];
+                    const entry = item.sections[sectionId][metdadataId];
                     // If entry is not an array, for sure is not a section of type form
                     if (Array.isArray(entry)) {
                       sectiondata[metdadataId] = [];

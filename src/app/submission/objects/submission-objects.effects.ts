@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { union } from 'lodash';
 
-import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
+import { from as observableFrom, Observable, of as observableOf, EMPTY as observableEmpty } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
@@ -46,7 +46,15 @@ import {
 import { SubmissionObjectEntry } from './submission-objects.reducer';
 import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
+import {
+  getRemoteDataPayload,
+  getSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload, getAllSucceededRemoteData, getAllSucceededRemoteDataPayload
+} from '../../core/shared/operators';
+import { MetadataMap } from '../../core/shared/metadata.models';
+import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { ItemDataService } from '../../core/data/item-data.service';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -241,6 +249,57 @@ export class SubmissionObjectEffects {
         catchError(() => observableOf(new DiscardSubmissionErrorAction(action.payload.submissionId))));
     }));
 
+  @Effect() addAllMetadataToSectionData = this.actions$.pipe(
+    ofType(SubmissionObjectActionTypes.UPLOAD_SECTION_DATA),
+    tap((v) => {
+      if ((v as any).payload.sectionId === 'orgUnitStep')
+        console.log('EFFECT', 'in', v)
+    }),
+    mergeMap((action: UpdateSectionDataAction) => {
+      const sectionKeys = Object.keys(action.payload.data);
+
+      // quick sanity check to prevent running the rest of the code if this clearly isn't a metadata section
+      const keysThatMightBeMetadataKeys = sectionKeys.find((key: string) => isNotEmpty(key) && key.indexOf('.') > 0);
+      if (hasValue(keysThatMightBeMetadataKeys)) {
+        const submissionObject$ = this.sods
+          .findById(action.payload.submissionId, followLink('item')).pipe(
+            getFirstSucceededRemoteDataPayload()
+          );
+
+        const item$ = submissionObject$.pipe(
+          switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(
+              getFirstSucceededRemoteDataPayload(),
+          )));
+
+        const metadata$ = item$.pipe(
+          map((item: Item) => item.metadata)
+        );
+
+        const metadataKeys$ = metadata$.pipe(
+          map((metadata: MetadataMap) => hasValue(metadata) ? Object.keys(metadata) : undefined)
+        );
+
+        return metadataKeys$.pipe(
+          switchMap((metadataKeys: string[]) => {
+            if (isNotEmpty(metadataKeys)) {
+              const allSectionKeysInMetadata = sectionKeys.every((key: string) => metadataKeys.includes(key));
+              const allMetadataKeysInSection = metadataKeys.every((key: string) => sectionKeys.includes(key));
+              if (allSectionKeysInMetadata && !allMetadataKeysInSection) {
+                return metadata$.pipe(
+                  switchMap((metadata: MetadataMap) =>
+                    [new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, metadata as any, action.payload.errors)]),
+                );
+              }
+            }
+            return [];
+          })
+        );
+
+      }
+      return [];
+    }),
+    );
+
   /**
    * Show a notification on success and redirect to MyDSpace page
    */
@@ -262,6 +321,7 @@ export class SubmissionObjectEffects {
               private sectionService: SectionsService,
               private store$: Store<any>,
               private submissionService: SubmissionService,
+              private sods: SubmissionObjectDataService,
               private translate: TranslateService) {
   }
 
@@ -328,29 +388,16 @@ export class SubmissionObjectEffects {
 
         const sections: WorkspaceitemSectionsObject = (item.sections && isNotEmpty(item.sections)) ? item.sections : {};
         const sectionsKeys: string[] = union(Object.keys(sections), Object.keys(errorsList));
-        const metadata = (item.item as Item).metadata;
-        const metadataKeys = hasValue(metadata) ? Object.keys(metadata) : undefined;
 
         for (const sectionId of sectionsKeys) {
           const sectionErrors = errorsList[sectionId] || [];
-          let sectionData = sections[sectionId] || {};
+          const sectionData = sections[sectionId] || {};
 
           // When Upload section is disabled, add to submission only if there are files
           if (currentState.sections[sectionId].sectionType === SectionsType.Upload
             && isEmpty((sectionData as WorkspaceitemSectionUploadObject).files)
             && !currentState.sections[sectionId].enabled) {
             continue;
-          }
-
-          if (isNotEmpty(metadataKeys)) {
-            const sectionKeys = Object.keys(sectionData);
-            if (sectionKeys.every((key: string) => metadataKeys.includes(key))) {
-              sectionData = metadata as any;
-              console.log('sectionData', sectionData);
-              //TODO het werkt op deze branch dus ook niet voor andere relaties, zorg er dus voor dat de state opnieuw wordt opgehaald na een change
-              // of gewoon rechtstreeks naar het submission item kijkt.
-
-            }
           }
 
           if (notify && !currentState.sections[sectionId].enabled) {

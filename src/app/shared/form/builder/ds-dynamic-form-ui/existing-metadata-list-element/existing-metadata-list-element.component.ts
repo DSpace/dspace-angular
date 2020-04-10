@@ -25,6 +25,7 @@ import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction, UpdateRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
+import { SaveSubmissionFormAction } from '../../../../../submission/objects/submission-objects.actions';
 
 // tslint:disable:max-classes-per-file
 /**
