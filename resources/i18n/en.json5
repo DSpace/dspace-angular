@@ -761,6 +761,12 @@
 
   "community.edit.tabs.roles.title": "Community Edit - Roles",
 
+  "community.edit.tabs.roles.none": "None",
+
+  "community.edit.tabs.roles.admin.name": "Administrators",
+
+  "community.edit.tabs.roles.admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+
 
 
   "community.form.abstract": "Short Description",

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
@@ -21,16 +21,26 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { DeleteRequest, FindListOptions, FindListRequest, PostRequest, RestRequest } from '../data/request.models';
+import {
+  CreateRequest,
+  DeleteRequest,
+  FindListOptions,
+  FindListRequest,
+  PostRequest
+} from '../data/request.models';
 
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getResponseFromEntry } from '../shared/operators';
+import { configureRequest, getResponseFromEntry} from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { GROUP } from './models/group.resource-type';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { Community } from '../shared/community.model';
+import { Collection } from '../shared/collection.model';
+import { ComcolRole } from '../../shared/comcol-forms/edit-comcol-page/comcol-role/comcol-role';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -56,7 +66,8 @@ export class GroupDataService extends DataService<Group> {
     protected rdbService: RemoteDataBuildService,
     protected store: Store<any>,
     protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService
+    protected halService: HALEndpointService,
+    protected nameService: DSONameService,
   ) {
     super();
   }
@@ -309,4 +320,67 @@ export class GroupDataService extends DataService<Group> {
     return foundUUID;
   }
 
+  /**
+   * Create a group for a given role for a given community or collection.
+   *
+   * @param dso         The community or collection for which to create a group
+   * @param comcolRole  The role for which to create a group
+   */
+  createComcolGroup(dso: Community|Collection, comcolRole: ComcolRole): Observable<RestResponse> {
+
+    const requestId = this.requestService.generateRequestId();
+    const link = comcolRole.getEndpoint(dso);
+    const group = Object.assign(new Group(), {
+      metadata: {
+        'dc.description': [
+          {
+            value: `${this.nameService.getName(dso)} admin group`,
+          }
+        ],
+      },
+    });
+
+    return this.halService.getEndpoint(link).pipe(
+      distinctUntilChanged(),
+      take(1),
+      map((endpoint: string) =>
+        new CreateRequest(
+          requestId,
+          endpoint,
+          JSON.stringify(group),
+        )
+      ),
+      configureRequest(this.requestService),
+      tap(() => this.requestService.removeByHrefSubstring(link)),
+      switchMap((restRequest) => this.requestService.getByUUID(restRequest.uuid)),
+      getResponseFromEntry(),
+    );
+  }
+
+  /**
+   * Delete the group for a given role for a given community or collection.
+   *
+   * @param dso         The community or collection for which to delete the group
+   * @param comcolRole  The role for which to delete the group
+   */
+  deleteComcolGroup(dso: Community|Collection, comcolRole: ComcolRole): Observable<RestResponse> {
+
+    const requestId = this.requestService.generateRequestId();
+    const link = comcolRole.getEndpoint(dso);
+
+    return this.halService.getEndpoint(link).pipe(
+      distinctUntilChanged(),
+      take(1),
+      map((endpoint: string) =>
+        new DeleteRequest(
+          requestId,
+          endpoint,
+        )
+      ),
+      configureRequest(this.requestService),
+      tap(() => this.requestService.removeByHrefSubstring(link)),
+      switchMap((restRequest) => this.requestService.getByUUID(restRequest.uuid)),
+      getResponseFromEntry(),
+    );
+  }
 }
