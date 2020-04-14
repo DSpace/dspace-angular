@@ -47,7 +47,7 @@ export interface ResourcePolicyEvent {
 
 @Component({
   selector: 'ds-resource-policy-form',
-  templateUrl: './resource-policy-form.html',
+  templateUrl: './resource-policy-form.component.html',
 })
 /**
  * Component that show form for adding/editing a resource policy
