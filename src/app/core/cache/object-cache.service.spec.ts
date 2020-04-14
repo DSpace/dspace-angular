@@ -2,36 +2,32 @@ import * as ngrx from '@ngrx/store';
 import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 import { CoreState } from '../core.reducers';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { Item } from '../shared/item.model';
-import {
-  AddPatchObjectCacheAction,
-  AddToObjectCacheAction,
-  ApplyPatchObjectCacheAction,
-  RemoveFromObjectCacheAction
-} from './object-cache.actions';
+import { AddPatchObjectCacheAction, AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
 import { Patch } from './object-cache.reducer';
-
 import { ObjectCacheService } from './object-cache.service';
 import { AddToSSBAction } from './server-sync-buffer.actions';
+import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import { IndexName } from '../index/index.reducer';
+import { HALLink } from '../shared/hal-link.model';
+import { getTestScheduler } from 'jasmine-marbles';
 
-describe('ObjectCacheService', () => {
+fdescribe('ObjectCacheService', () => {
   let service: ObjectCacheService;
   let store: Store<CoreState>;
   let linkServiceStub;
 
   const selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
+  const anotherLink = 'https://another.link/endpoint/1234';
+  const altLink1 = 'https://alternative.link/endpoint/1234';
+  const altLink2 = 'https://alternative.link/endpoint/5678';
   const requestUUID = '4d3a4ce8-a375-4b98-859b-39f0a014d736';
   const timestamp = new Date().getTime();
   const msToLive = 900000;
-  let objectToCache = {
-    type: Item.type,
-    _links: {
-      self: { href: selfLink }
-    }
-  };
+  let objectToCache;
   let cacheEntry;
   let invalidCacheEntry;
   const operations = [{ op: 'replace', path: '/name', value: 'random string' } as Operation];
@@ -40,13 +36,15 @@ describe('ObjectCacheService', () => {
     objectToCache = {
       type: Item.type,
       _links: {
-        self: { href: selfLink }
+        self: { href: selfLink },
+        anotherLink: { href: anotherLink }
       }
     };
     cacheEntry = {
       data: objectToCache,
       timeAdded: timestamp,
-      msToLive: msToLive
+      msToLive: msToLive,
+      alternativeLinks: [altLink1, altLink2]
     };
     invalidCacheEntry = Object.assign({}, cacheEntry, { msToLive: -1 })
   }
@@ -75,40 +73,57 @@ describe('ObjectCacheService', () => {
   });
 
   describe('remove', () => {
+    beforeEach(() => {
+      spyOn(service as any, 'getBySelfLink').and.returnValue(observableOf(cacheEntry));
+      spyOn(service as any, 'isValid').and.returnValue(true);
+    });
+
     it('should dispatch a REMOVE action with the self link of the object to remove', () => {
       service.remove(selfLink);
       expect(store.dispatch).toHaveBeenCalledWith(new RemoveFromObjectCacheAction(selfLink));
     });
+
+    it('should dispatch a REMOVE_BY_SUBSTRING action on the index state for each alternativeLink in the object', () => {
+      service.remove(selfLink);
+      cacheEntry.alternativeLinks.forEach(
+        (link: string) => expect(store.dispatch).toHaveBeenCalledWith(new RemoveFromIndexBySubstringAction(IndexName.ALTERNATIVE_OBJECT_LINK, link)))
+    });
+
+    it('should dispatch a REMOVE_BY_SUBSTRING action on the index state for each _links in the object, except the self link', () => {
+      service.remove(selfLink);
+      Object.entries(objectToCache._links).forEach(([key, value]: [string, HALLink]) => {
+        if (key !== 'self') {
+          expect(store.dispatch).toHaveBeenCalledWith(new RemoveFromIndexBySubstringAction(IndexName.ALTERNATIVE_OBJECT_LINK, value.href))
+        }
+      });
+    });
   });
 
-  describe('getBySelfLink', () => {
-    it('should return an observable of the cached object with the specified self link and type', () => {
+  describe('getObjectBySelfLink', () => {
+    it('should return an observable of the cached object with the specified self link and type', (done) => {
       spyOnProperty(ngrx, 'select').and.callFake(() => {
         return () => {
           return () => observableOf(cacheEntry);
         };
       });
 
-      // due to the implementation of spyOn above, this subscribe will be synchronous
-      service.getObjectBySelfLink(selfLink).pipe(first()).subscribe((o) => {
+      service.getObjectBySelfLink(selfLink).pipe(take(1)).subscribe((o) => {
           expect(o._links.self.href).toBe(selfLink);
-          // this only works if testObj is an instance of TestClass
           expect(o instanceof Item).toBeTruthy();
+          done()
         }
       );
     });
 
-    it('should not return a cached object that has exceeded its time to live', () => {
+    fit('should not return a cached object that has exceeded its time to live', () => {
       spyOnProperty(ngrx, 'select').and.callFake(() => {
         return () => {
           return () => observableOf(invalidCacheEntry);
         };
       });
 
-      let getObsHasFired = false;
-      const subscription = service.getObjectBySelfLink(selfLink).subscribe((o) => getObsHasFired = true);
-      expect(getObsHasFired).toBe(false);
-      subscription.unsubscribe();
+      const result = service.getObjectBySelfLink(selfLink);
+      getTestScheduler().expectObservable(result).toBe('');
     });
   });
 
@@ -169,7 +184,8 @@ describe('ObjectCacheService', () => {
       cacheEntry.patches = [
         {
           operations: operations
-        } as Patch];
+        } as Patch
+      ];
       const result = (service as any).isDirty(cacheEntry);
       expect(result).toBe(true);
     });

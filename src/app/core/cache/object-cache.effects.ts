@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { StoreActionTypes } from '../../store.actions';
-import { AddToObjectCacheAction, ObjectCacheAction, ObjectCacheActionTypes, ResetObjectCacheTimestampsAction } from './object-cache.actions';
-import { hasValue } from '../../shared/empty.util';
+import { ResetObjectCacheTimestampsAction } from './object-cache.actions';
 
 @Injectable()
 export class ObjectCacheEffects {

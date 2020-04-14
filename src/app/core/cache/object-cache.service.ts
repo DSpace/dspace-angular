@@ -3,8 +3,8 @@ import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable, race as observableRace } from 'rxjs';
 
-import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap, } from 'rxjs/operators';
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import { distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap, } from 'rxjs/operators';
+import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
@@ -16,6 +16,9 @@ import { AddPatchObjectCacheAction, AddToObjectCacheAction, ApplyPatchObjectCach
 
 import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
+import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import { IndexName } from '../index/index.reducer';
+import { HALLink } from '../shared/hal-link.model';
 
 /**
  * The base selector function to select the object cache in the store
@@ -68,8 +71,31 @@ export class ObjectCacheService {
    *    The unique href of the object to be removed
    */
   remove(href: string): void {
-
+    this.removeRelatedLinksFromIndex(href);
     this.store.dispatch(new RemoveFromObjectCacheAction(href));
+  }
+
+  private removeRelatedLinksFromIndex(href: string) {
+    const cacheEntry$ = this.getByHref(href);
+    const altLinks$ = cacheEntry$.pipe(map((entry: ObjectCacheEntry) => entry.alternativeLinks), take(1));
+    const childLinks$ = cacheEntry$.pipe(map((entry: ObjectCacheEntry) => {
+        return Object
+          .entries(entry.data._links)
+          .filter(([key, value]: [string, HALLink]) => key !== 'self')
+          .map(([key, value]: [string, HALLink]) => value.href);
+      }),
+      take(1)
+    );
+    this.removeLinksFromAlternativeLinkIndex(altLinks$);
+    this.removeLinksFromAlternativeLinkIndex(childLinks$);
+
+  }
+
+  private removeLinksFromAlternativeLinkIndex(links$: Observable<string[]>) {
+    links$.subscribe((links: string[]) => links.forEach((link: string) => {
+        this.store.dispatch(new RemoveFromIndexBySubstringAction(IndexName.ALTERNATIVE_OBJECT_LINK, link));
+      }
+    ))
   }
 
   /**
@@ -134,7 +160,7 @@ export class ObjectCacheService {
     );
   }
 
-  private getBySelfLink(selfLink: string): Observable<ObjectCacheEntry>  {
+  private getBySelfLink(selfLink: string): Observable<ObjectCacheEntry> {
     return this.store.pipe(
       select(entryFromSelfLinkSelector(selfLink)),
     );
@@ -146,6 +172,7 @@ export class ObjectCacheService {
       switchMap((selfLink) => this.getBySelfLink(selfLink)),
     )
   }
+
   /**
    * Get an observable of the request's uuid with the specified selfLink
    *
