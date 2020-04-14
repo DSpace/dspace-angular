@@ -193,7 +193,7 @@ import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/swi
 import { ClaimedTaskActionsEditMetadataComponent } from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ResourcePoliciesComponent } from './resource-policies/resource-policies.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
-import { ResourcePolicyFormComponent } from './resource-policies/form/resource-policy-form';
+import { ResourcePolicyFormComponent } from './resource-policies/form/resource-policy-form.component';
 import { EpersonGroupListComponent } from './resource-policies/form/eperson-group-list/eperson-group-list.component';
 import { ResourcePolicyTargetResolver } from './resource-policies/resolvers/resource-policy-target.resolver';
 import { ResourcePolicyResolver } from './resource-policies/resolvers/resource-policy.resolver';
