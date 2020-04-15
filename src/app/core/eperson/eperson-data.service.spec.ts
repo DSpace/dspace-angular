@@ -39,43 +39,15 @@ describe('EPersonDataService', () => {
   let requestService: RequestService;
   let scheduler: TestScheduler;
 
-  const epeople = [EPersonMock, EPersonMock2];
+  let epeople;
 
-  const restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
-  const epersonsEndpoint = `${restEndpointURL}/epersons`;
-  let halService: any = new HALEndpointServiceStub(restEndpointURL);
-  const epeople$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [epeople]));
-  const rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons': epeople$ });
-  const objectCache = Object.assign({
-    /* tslint:disable:no-empty */
-    remove: () => {
-    },
-    hasBySelfLinkObservable: () => observableOf(false)
-    /* tslint:enable:no-empty */
-  }) as ObjectCacheService;
+  let restEndpointURL;
+  let epersonsEndpoint;
+  let halService: any;
+  let epeople$;
+  let rdbService;
 
-  TestBed.configureTestingModule({
-    imports: [
-      CommonModule,
-      StoreModule.forRoot({}),
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: MockTranslateLoader
-        }
-      }),
-    ],
-    declarations: [],
-    providers: [],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-  });
-
-  const getRequestEntry$ = (successful: boolean) => {
-    return observableOf({
-      completed: true,
-      response: { isSuccessful: successful, payload: epeople } as any
-    } as RequestEntry)
-  };
+  let getRequestEntry$;
 
   function initTestService() {
     return new EPersonDataService(
@@ -90,7 +62,39 @@ describe('EPersonDataService', () => {
     );
   }
 
+  function init() {
+    getRequestEntry$ = (successful: boolean) => {
+      return observableOf({
+        completed: true,
+        response: { isSuccessful: successful, payload: epeople } as any
+      } as RequestEntry)
+    };
+    restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
+    epersonsEndpoint = `${restEndpointURL}/epersons`;
+    epeople = [EPersonMock, EPersonMock2];
+    epeople$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [epeople]));
+    rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons': epeople$ });
+    halService = new HALEndpointServiceStub(restEndpointURL);
+
+    TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+        StoreModule.forRoot({}),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        }),
+      ],
+      declarations: [],
+      providers: [],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    });
+  }
+
   beforeEach(() => {
+    init();
     requestService = getMockRequestService(getRequestEntry$(true));
     store = new Store<CoreState>(undefined, undefined, undefined);
     service = initTestService();

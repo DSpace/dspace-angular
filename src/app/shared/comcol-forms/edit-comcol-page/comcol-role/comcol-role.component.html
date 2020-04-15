@@ -1,0 +1,42 @@
+<div class="card p-2">
+
+  <div class="card-body d-flex flex-column">
+
+    <div class="d-flex flex-row justify-content-between">
+
+      <div>
+        <p>{{'community.edit.tabs.roles.' + comcolRole.name + '.name' | translate}}</p>
+      </div>
+
+      <ng-container *ngVar="group$ | async as group">
+
+          <div *ngIf="!group">
+            {{'community.edit.tabs.roles.none' | translate}}
+          </div>
+
+          <a *ngIf="group"
+             routerLink="{{editGroupLink$ | async}}">
+            {{group.name}}
+          </a>
+
+          <div *ngIf="!group"
+               class="btn btn-outline-dark create"
+               (click)="create()">create
+          </div>
+
+          <div *ngIf="group"
+               class="btn btn-outline-dark delete"
+               (click)="delete()">delete
+          </div>
+
+      </ng-container>
+
+    </div>
+
+    <div class="mt-2">
+      {{'community.edit.tabs.roles.' + comcolRole.name + '.description' | translate}}
+    </div>
+
+  </div>
+
+</div>

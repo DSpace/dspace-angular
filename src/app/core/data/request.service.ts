@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { Observable, race as observableRace } from 'rxjs';
-import { filter, map, mergeMap, take } from 'rxjs/operators';
+import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
+import { filter, map, mergeMap, take, switchMap, startWith } from 'rxjs/operators';
 import { cloneDeep, remove } from 'lodash';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -110,15 +110,19 @@ export class RequestService {
    * Retrieve a RequestEntry based on their uuid
    */
   getByUUID(uuid: string): Observable<RequestEntry> {
-    return observableRace(
-      this.store.pipe(select(entryFromUUIDSelector(uuid))),
+    return observableCombineLatest([
+      this.store.pipe(
+        select(entryFromUUIDSelector(uuid))
+      ),
       this.store.pipe(
         select(originalRequestUUIDFromRequestUUIDSelector(uuid)),
-        mergeMap((originalUUID) => {
-            return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
+        switchMap((originalUUID) => {
+              return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
           },
-        ))
-    ).pipe(
+        ),
+      ),
+    ]).pipe(
+      map((entries: RequestEntry[]) => entries.find((entry: RequestEntry) => hasValue(entry))),
       map((entry: RequestEntry) => {
         // Headers break after being retrieved from the store (because of lazy initialization)
         // Combining them with a new object fixes this issue
@@ -137,7 +141,13 @@ export class RequestService {
   getByHref(href: string): Observable<RequestEntry> {
     return this.store.pipe(
       select(uuidFromHrefSelector(href)),
-      mergeMap((uuid: string) => this.getByUUID(uuid))
+      mergeMap((uuid: string) => {
+        if (isNotEmpty(uuid)) {
+          return this.getByUUID(uuid);
+        } else {
+          return [undefined];
+        }
+      })
     );
   }
 
