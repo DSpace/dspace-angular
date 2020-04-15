@@ -38,10 +38,11 @@ export class AddToObjectCacheAction implements Action {
    *    the time it was added
    * @param msToLive
    *    the amount of milliseconds before it should expire
-   * @param requestHref
-   *    The href of the request that resulted in this object
+   * @param requestUUID
+   *    The uuid of the request that resulted in this object
    *    This isn't necessarily the same as the object's self
    *    link, it could have been part of a list for example
+   *  @param alternativeLink An optional alternative link to this object
    */
   constructor(objectToCache: CacheableObject, timeAdded: number, msToLive: number, requestUUID: string, alternativeLink?: string) {
     this.payload = { objectToCache, timeAdded, msToLive, requestUUID, alternativeLink };

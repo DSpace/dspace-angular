@@ -27,7 +27,8 @@ export class UUIDIndexEffects {
     );
 
   /**
-   * Adds
+   * Adds an alternative link to an object to the ALTERNATIVE_OBJECT_LINK index
+   * When the self link of the objectToCache is not the same as the alternativeLink
    */
   @Effect() addAlternativeObjectLink$ = this.actions$
     .pipe(

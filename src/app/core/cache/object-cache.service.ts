@@ -58,6 +58,8 @@ export class ObjectCacheService {
    *    The number of milliseconds it should be cached for
    * @param requestUUID
    *    The UUID of the request that resulted in this object
+   * @param alternativeLink
+   *    An optional alternative link to this object
    */
   add(object: CacheableObject, msToLive: number, requestUUID: string, alternativeLink?: string): void {
     object = this.linkService.removeResolvedLinks(object); // Ensure the object we're storing has no resolved links
@@ -110,7 +112,7 @@ export class ObjectCacheService {
     Observable<T> {
     return this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
-      mergeMap((selfLink: string) => this.getObjectBySelfLink<T>(selfLink)
+      mergeMap((selfLink: string) => this.getObjectByHref<T>(selfLink)
       )
     )
   }
@@ -118,13 +120,13 @@ export class ObjectCacheService {
   /**
    * Get an observable of the object with the specified selfLink
    *
-   * @param selfLink
-   *    The selfLink of the object to get
+   * @param href
+   *    The href of the object to get
    * @return Observable<T>
    *    An observable of the requested object
    */
-  getObjectBySelfLink<T extends CacheableObject>(selfLink: string): Observable<T> {
-    return this.getByHref(selfLink).pipe(
+  getObjectByHref<T extends CacheableObject>(href: string): Observable<T> {
+    return this.getByHref(href).pipe(
       map((entry: ObjectCacheEntry) => {
           if (isNotEmpty(entry.patches)) {
             const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
@@ -149,7 +151,7 @@ export class ObjectCacheService {
    * Get an observable of the object cache entry with the specified selfLink
    *
    * @param href
-   *    The selfLink of the object to get
+   *    The href of the object to get
    * @return Observable<ObjectCacheEntry>
    *    An observable of the requested object cache entry
    */
@@ -226,7 +228,7 @@ export class ObjectCacheService {
    */
   getList<T extends CacheableObject>(selfLinks: string[]): Observable<T[]> {
     return observableCombineLatest(
-      selfLinks.map((selfLink: string) => this.getObjectBySelfLink<T>(selfLink))
+      selfLinks.map((selfLink: string) => this.getObjectByHref<T>(selfLink))
     );
   }
 
@@ -255,9 +257,9 @@ export class ObjectCacheService {
    * Check whether the object with the specified self link is cached
    *
    * @param href
-   *    The self link of the object to check
+   *    The href of the object to check
    * @return boolean
-   *    true if the object with the specified self link is cached,
+   *    true if the object with the specified href is cached,
    *    false otherwise
    */
   hasByHref(href: string): boolean {
@@ -271,7 +273,7 @@ export class ObjectCacheService {
   /**
    * Create an observable that emits a new value whenever the availability of the cached object changes.
    * The value it emits is a boolean stating if the object exists in cache or not.
-   * @param href  The self link of the object to observe
+   * @param href The self link of the object to observe
    */
   hasByHrefObservable(href: string): Observable<boolean> {
     return observableCombineLatest(
@@ -307,7 +309,7 @@ export class ObjectCacheService {
   /**
    * Add operations to the existing list of operations for an ObjectCacheEntry
    * Makes sure the ServerSyncBuffer for this ObjectCacheEntry is updated
-   * @param {string} uuid
+   * @param {string} selfLink
    *     the uuid of the ObjectCacheEntry
    * @param {Operation[]} patch
    *     list of operations to perform

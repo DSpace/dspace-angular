@@ -212,7 +212,7 @@ describe('ObjectCacheService', () => {
       const item = Object.assign(new Item(), {
         _links: { self: { href: selfLink } }
       });
-      spyOn(service, 'getObjectBySelfLink').and.returnValue(observableOf(item));
+      spyOn(service, 'getObjectByHref').and.returnValue(observableOf(item));
 
       service.getList([selfLink, selfLink]).pipe(first()).subscribe((arr) => {
         expect(arr[0]._links.self.href).toBe(selfLink);

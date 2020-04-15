@@ -57,13 +57,13 @@ export class RemoteDataBuildService {
     const payload$ =
       observableCombineLatest(
         href$.pipe(
-          switchMap((href: string) => this.objectCache.getObjectBySelfLink<T>(href)),
+          switchMap((href: string) => this.objectCache.getObjectByHref<T>(href)),
           startWith(undefined)),
         requestEntry$.pipe(
           getResourceLinksFromResponse(),
           switchMap((resourceSelfLinks: string[]) => {
             if (isNotEmpty(resourceSelfLinks)) {
-              return this.objectCache.getObjectBySelfLink<T>(resourceSelfLinks[0]);
+              return this.objectCache.getObjectByHref<T>(resourceSelfLinks[0]);
             } else {
               return observableOf(undefined);
             }
