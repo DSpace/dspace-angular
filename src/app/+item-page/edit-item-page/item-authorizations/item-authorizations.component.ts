@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, filter, first, flatMap, map, take } from 'rxjs/operators';
 
-import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import {
   getFirstSucceededRemoteDataPayload,
@@ -35,6 +34,10 @@ interface BundleBitstreamsMapEntry {
  */
 export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
 
+  /**
+   * A map that contains all bitstream of the item's bundles
+   * @type {Observable<Map<string, Observable<PaginatedList<Bitstream>>>>}
+   */
   public bundleBitstreamsMap: Map<string, Observable<PaginatedList<Bitstream>>> = new Map<string, Observable<PaginatedList<Bitstream>>>();
 
   /**
@@ -59,12 +62,10 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    * Initialize instance variables
    *
    * @param {LinkService} linkService
-   * @param {ResourcePolicyService} resourcePolicyService
    * @param {ActivatedRoute} route
    */
   constructor(
     private linkService: LinkService,
-    private resourcePolicyService: ResourcePolicyService,
     private route: ActivatedRoute
   ) {
   }
@@ -86,7 +87,10 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       filter((item: Item) => isNotEmpty(item.bundles)),
       flatMap((item: Item) => item.bundles),
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
-      catchError(() => observableOf(new PaginatedList(null, [])))
+      catchError((error) => {
+        console.error(error);
+        return observableOf(new PaginatedList(null, []))
+      })
     );
 
     this.subs.push(
@@ -133,7 +137,10 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
   private getBundleBitstreams(bundle: Bundle): Observable<PaginatedList<Bitstream>> {
     return bundle.bitstreams.pipe(
       getFirstSucceededRemoteDataPayload(),
-      catchError(() => observableOf(new PaginatedList(null, [])))
+      catchError((error) => {
+        console.error(error);
+        return observableOf(new PaginatedList(null, []))
+      })
     )
   }
 
