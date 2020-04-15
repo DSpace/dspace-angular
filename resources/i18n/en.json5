@@ -2006,6 +2006,8 @@
 
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
 
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
+
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
   "submission.sections.describe.relationship-lookup.selection-tab.settings": "Settings",
