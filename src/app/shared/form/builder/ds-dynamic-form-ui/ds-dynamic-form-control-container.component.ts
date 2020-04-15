@@ -369,7 +369,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     });
     const modalComp = this.modalRef.componentInstance;
 
-    modalComp.query = this.model.value ? this.model.value.value : '';
+    modalComp.query = this.model.value && !this.model.readOnly ? this.model.value.value : '';
     if (hasValue(this.model.value)) {
       this.model.value = '';
       this.onChange({
