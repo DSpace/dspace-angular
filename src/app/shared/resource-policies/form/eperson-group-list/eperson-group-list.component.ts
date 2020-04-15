@@ -52,7 +52,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    * The data service used to make request.
    * It could be EPersonDataService or GroupDataService
    */
-  private dataService: DataService<DSpaceObject>;
+  private readonly dataService: DataService<DSpaceObject>;
 
   /**
    * A list of eperson or group
@@ -71,6 +71,12 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    */
   private subs: Subscription[] = [];
 
+  /**
+   * Initialize instance variables and inject the properly DataService
+   *
+   * @param {DSONameService} dsoNameService
+   * @param {Injector} parentInjector
+   */
   constructor(public dsoNameService: DSONameService, private parentInjector: Injector) {
     const resourceType: ResourceType = (this.isListOfEPerson) ? EPERSON : GROUP;
     const provider = getDataServiceFor(resourceType);
