@@ -10,6 +10,7 @@ export const GroupMock: Group = Object.assign(new Group(), {
     },
     groups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/groups' }
   },
+  _name: 'testgroupname',
   id: 'testgroupid',
   uuid: 'testgroupid',
   type: 'group',

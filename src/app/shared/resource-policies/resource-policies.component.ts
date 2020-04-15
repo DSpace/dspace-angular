@@ -21,6 +21,7 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { dateToString, stringToNgbDateStruct } from '../date.util';
+import { followLink } from '../utils/follow-link-config.model';
 
 interface ResourcePolicyCheckboxEntry {
   id: string;
@@ -111,6 +112,11 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
     this.initResourcePolicyLIst();
   }
 
+  /**
+   * Check if there are any selected resource's policies to be deleted
+   *
+   * @return {Observable<boolean>}
+   */
   canDelete(): Observable<boolean> {
     return observableFrom(this.resourcePoliciesEntries$.value).pipe(
       filter((entry: ResourcePolicyCheckboxEntry) => entry.checked),
@@ -120,25 +126,30 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
     )
   }
 
+  /**
+   * Delete the selected resource's policies
+   */
   deleteSelectedResourcePolicies(): void {
     this.processingDelete$.next(true);
     const policiesToDelete: ResourcePolicyCheckboxEntry[] = this.resourcePoliciesEntries$.value
       .filter((entry: ResourcePolicyCheckboxEntry) => entry.checked);
-    observableFrom(policiesToDelete).pipe(
-      concatMap((entry: ResourcePolicyCheckboxEntry) => this.resourcePolicyService.delete(entry.policy.id)),
-      scan((acc: any, value: any) => [...acc, ...value], []),
-      filter((results: boolean[]) => results.length === policiesToDelete.length),
-      take(1),
-    ).subscribe((results: boolean[]) => {
-      const failureResults = results.filter((result: boolean) => !result);
-      if (isEmpty(failureResults)) {
-        this.notificationsService.success(null, this.translate.get('resource-policies.delete.success.content'));
-      } else {
-        this.notificationsService.error(null, this.translate.get('resource-policies.delete.failure.content'));
-      }
-      this.initResourcePolicyLIst();
-      this.processingDelete$.next(false);
-    })
+    this.subs.push(
+      observableFrom(policiesToDelete).pipe(
+        concatMap((entry: ResourcePolicyCheckboxEntry) => this.resourcePolicyService.delete(entry.policy.id)),
+        scan((acc: any, value: any) => [...acc, ...value], []),
+        filter((results: boolean[]) => results.length === policiesToDelete.length),
+        take(1),
+      ).subscribe((results: boolean[]) => {
+        const failureResults = results.filter((result: boolean) => !result);
+        if (isEmpty(failureResults)) {
+          this.notificationsService.success(null, this.translate.get('resource-policies.delete.success.content'));
+        } else {
+          this.notificationsService.error(null, this.translate.get('resource-policies.delete.failure.content'));
+        }
+        this.initResourcePolicyLIst();
+        this.processingDelete$.next(false);
+      })
+    )
   }
 
   /**
@@ -158,7 +169,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   getEPersonName(policy: ResourcePolicy): Observable<string> {
     // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
-    return this.ePersonService.findByHref(policy._links.eperson.href).pipe(
+    // return this.ePersonService.findByHref(policy._links.eperson.href).pipe(
+    return policy.eperson.pipe(
       filter(() => this.isActive),
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
@@ -173,7 +185,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   getGroupName(policy: ResourcePolicy): Observable<string> {
     // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
-    return this.groupService.findByHref(policy._links.group.href).pipe(
+    // return this.groupService.findByHref(policy._links.group.href).pipe(
+    return policy.group.pipe(
       filter(() => this.isActive),
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       map((group: Group) => this.dsoNameService.getName(group)),
@@ -198,10 +211,12 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   hasEPerson(policy): Observable<boolean> {
     // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
-    return this.ePersonService.findByHref(policy._links.eperson.href).pipe(
+    // return this.ePersonService.findByHref(policy._links.eperson.href).pipe(
+    return policy.eperson.pipe(
       filter(() => this.isActive),
       getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => isNotEmpty(eperson))
+      map((eperson: EPerson) => isNotEmpty(eperson)),
+      startWith(false)
     )
   }
 
@@ -213,17 +228,23 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   hasGroup(policy): Observable<boolean> {
     // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
-    return this.groupService.findByHref(policy._links.group.href).pipe(
+    // return this.groupService.findByHref(policy._links.group.href).pipe(
+    return policy.group.pipe(
       filter(() => this.isActive),
       getFirstSucceededRemoteDataPayload(),
-      map((group: Group) => isNotEmpty(group))
+      map((group: Group) => isNotEmpty(group)),
+      startWith(false)
     )
   }
 
+  /**
+   * Initialize the resource's policies list
+   */
   initResourcePolicyLIst() {
     // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
     this.requestService.removeByHrefSubstring(this.resourceUUID);
-    this.resourcePolicyService.searchByResource(this.resourceUUID).pipe(
+    this.resourcePolicyService.searchByResource(this.resourceUUID, null,
+      followLink('eperson'), followLink('group')).pipe(
       filter(() => this.isActive),
       getSucceededRemoteData(),
       take(1)
@@ -238,6 +259,11 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Return a boolean representing if a delete operation is pending
+   *
+   * @return {Observable<boolean>}
+   */
   isProcessingDelete(): Observable<boolean> {
     return this.processingDelete$.asObservable();
   }
@@ -305,6 +331,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.isActive = false;
+    this.resourcePoliciesEntries$ = null;
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe())
