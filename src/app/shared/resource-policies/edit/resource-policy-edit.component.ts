@@ -9,7 +9,7 @@ import { ResourcePolicyService } from '../../../core/resource-policy/resource-po
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyEvent } from '../form/resource-policy-form';
+import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../+item-page/edit-item-page/edit-item-page.routing.module';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 
@@ -30,6 +30,15 @@ export class ResourcePolicyEditComponent implements OnInit {
    */
   private processing$ = new BehaviorSubject<boolean>(false);
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {NotificationsService} notificationsService
+   * @param {ResourcePolicyService} resourcePolicyService
+   * @param {ActivatedRoute} route
+   * @param {Router} router
+   * @param {TranslateService} translate
+   */
   constructor(
     private notificationsService: NotificationsService,
     private resourcePolicyService: ResourcePolicyService,
@@ -38,6 +47,9 @@ export class ResourcePolicyEditComponent implements OnInit {
     private translate: TranslateService) {
   }
 
+  /**
+   * Initialize the component
+   */
   ngOnInit(): void {
     this.route.data.pipe(
       map((data) => data),
@@ -47,14 +59,27 @@ export class ResourcePolicyEditComponent implements OnInit {
     });
   }
 
+  /**
+   * Return a boolean representing if an operation is pending
+   *
+   * @return {Observable<boolean>}
+   */
   isProcessing(): Observable<boolean> {
     return this.processing$.asObservable();
   }
 
+  /**
+   * Redirect to the authorizations page
+   */
   redirectToAuthorizationsPage() {
     this.router.navigate([`../../${ITEM_EDIT_AUTHORIZATIONS_PATH}`], { relativeTo: this.route });
   }
 
+  /**
+   * Update a resource policy
+   *
+   * @param event The {{ResourcePolicyEvent}} emitted
+   */
   updateResourcePolicy(event: ResourcePolicyEvent) {
     this.processing$.next(true);
     const updatedObject = Object.assign({}, event.object, {
