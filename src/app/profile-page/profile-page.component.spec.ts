@@ -12,12 +12,15 @@ import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { authReducer } from '../core/auth/auth.reducer';
+import { of } from 'rxjs/internal/observable/of';
+import { AuthService } from '../core/auth/auth.service';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
   let fixture: ComponentFixture<ProfilePageComponent>;
 
   const user = Object.assign(new EPerson(), {
+    id: 'userId',
     groups: createSuccessfulRemoteDataObject$(createPaginatedList([]))
   });
   const authState = {
@@ -25,9 +28,12 @@ describe('ProfilePageComponent', () => {
     loaded: true,
     loading: false,
     authToken: new AuthTokenInfo('test_token'),
-    user: user
+    userId: user.id
   };
 
+  const authService = jasmine.createSpyObj('authService', {
+    getAuthenticatedUserFromStore: of(user)
+  });
   const epersonService = jasmine.createSpyObj('epersonService', {
     findById: createSuccessfulRemoteDataObject$(user)
   });
@@ -43,7 +49,8 @@ describe('ProfilePageComponent', () => {
       imports: [StoreModule.forRoot(authReducer), TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
-        { provide: NotificationsService, useValue: notificationsService }
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: AuthService, useValue: authService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

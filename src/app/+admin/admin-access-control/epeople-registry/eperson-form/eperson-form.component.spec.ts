@@ -31,6 +31,8 @@ import { NotificationsServiceStub } from '../../../../shared/testing/notificatio
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../../shared/testing/auth-service-stub';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -125,6 +127,7 @@ describe('EPersonFormComponent', () => {
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
+        { provide: AuthService, useValue: new AuthServiceStub() },
         EPeopleRegistryComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]

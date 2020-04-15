@@ -161,7 +161,9 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
               private authService: AuthService) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
-      this.isImpersonated = this.authService.isImpersonatingUser(eperson.id);
+      if (hasValue(eperson)) {
+        this.isImpersonated = this.authService.isImpersonatingUser(eperson.id);
+      }
     }));
   }
 
