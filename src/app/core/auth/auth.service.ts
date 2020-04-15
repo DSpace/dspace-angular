@@ -513,6 +513,13 @@ export class AuthService {
    */
   stopImpersonating() {
     this.storage.remove(IMPERSONATING_COOKIE);
+  }
+
+  /**
+   * Stop impersonating EPerson and refresh the store/ui
+   */
+  stopImpersonatingAndRefresh() {
+    this.stopImpersonating();
     this.refreshAfterLogout();
   }
 

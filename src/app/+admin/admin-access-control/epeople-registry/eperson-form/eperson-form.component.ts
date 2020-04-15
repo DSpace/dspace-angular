@@ -402,7 +402,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Stop impersonating the EPerson
    */
   stopImpersonating() {
-    this.authService.stopImpersonating();
+    this.authService.stopImpersonatingAndRefresh();
     this.isImpersonated = false;
   }
 

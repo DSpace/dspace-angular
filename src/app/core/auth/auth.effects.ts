@@ -201,6 +201,7 @@ export class AuthEffects {
     .pipe(
       ofType(AuthActionTypes.LOG_OUT),
       switchMap(() => {
+        this.authService.stopImpersonating();
         return this.authService.logout().pipe(
           map((value) => new LogOutSuccessAction()),
           catchError((error) => observableOf(new LogOutErrorAction(error)))
