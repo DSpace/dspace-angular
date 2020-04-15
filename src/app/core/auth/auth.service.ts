@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, startWith, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
@@ -14,9 +14,15 @@ import { AuthRequestService } from './auth-request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
-import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
+import {
+  getAuthenticatedUserId,
+  getAuthenticationToken,
+  getRedirectUrl,
+  isAuthenticated,
+  isTokenRefreshing
+} from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import {
   CheckAuthenticationTokenAction,
@@ -164,11 +170,34 @@ export class AuthService {
   }
 
   /**
-   * Returns the authenticated user
+   * Returns the authenticated user by href
    * @returns {User}
    */
   public retrieveAuthenticatedUserByHref(userHref: string): Observable<EPerson> {
     return this.epersonService.findByHref(userHref).pipe(
+      getAllSucceededRemoteDataPayload()
+    )
+  }
+
+  /**
+   * Returns the authenticated user by id
+   * @returns {User}
+   */
+  public retrieveAuthenticatedUserById(userId: string): Observable<EPerson> {
+    return this.epersonService.findById(userId).pipe(
+      getAllSucceededRemoteDataPayload()
+    )
+  }
+
+  /**
+   * Returns the authenticated user from the store
+   * @returns {User}
+   */
+  public getAuthenticatedUserFromStore(): Observable<EPerson> {
+    return this.store.pipe(
+      select(getAuthenticatedUserId),
+      hasValueOperator(),
+      switchMap((id: string) => this.epersonService.findById(id)),
       getAllSucceededRemoteDataPayload()
     )
   }

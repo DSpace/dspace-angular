@@ -8,7 +8,6 @@ import { createSelector } from '@ngrx/store';
  */
 import { AuthState } from './auth.reducer';
 import { AppState } from '../../app.reducer';
-import { EPerson } from '../eperson/models/eperson.model';
 
 /**
  * Returns the user state.
@@ -36,12 +35,11 @@ const _isAuthenticatedLoaded = (state: AuthState) => state.loaded;
 
 /**
  * Return the users state
- * NOTE: when state is REHYDRATED user object lose prototype so return always a new EPerson object
- * @function _getAuthenticatedUser
+ * @function _getAuthenticatedUserId
  * @param {State} state
- * @returns {EPerson}
+ * @returns {string} User ID
  */
-const _getAuthenticatedUser = (state: AuthState) => Object.assign(new EPerson(), state.user);
+const _getAuthenticatedUserId = (state: AuthState) => state.userId;
 
 /**
  * Returns the authentication error.
@@ -119,13 +117,13 @@ const _getAuthenticationMethods = (state: AuthState) => state.authMethods;
 export const getAuthenticationMethods = createSelector(getAuthState, _getAuthenticationMethods);
 
 /**
- * Returns the authenticated user
- * @function getAuthenticatedUser
+ * Returns the authenticated user id
+ * @function getAuthenticatedUserId
  * @param {AuthState} state
  * @param {any} props
- * @return {User}
+ * @return {string} User ID
  */
-export const getAuthenticatedUser = createSelector(getAuthState, _getAuthenticatedUser);
+export const getAuthenticatedUserId = createSelector(getAuthState, _getAuthenticatedUserId);
 
 /**
  * Returns the authentication error.
