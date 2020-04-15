@@ -183,7 +183,6 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
             let hasMetadataField = false;
             this.reorderables.forEach((reorderable: Reorderable, index: number) => {
               if (reorderable.hasMoved) {
-                console.log('reorderable moved', reorderable);
                 const prevIndex = reorderable.oldIndex;
                 const updatedReorderable = reorderable.update().pipe(take(1));
                 updatedReorderables.push(updatedReorderable);
@@ -192,7 +191,6 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
                   updatedReorderable.subscribe((v) => {
                     const reoMD = reorderable as ReorderableFormFieldMetadataValue;
                     reoMD.model.value = reoMD.metadataValue;
-                    console.log('reoMD', reoMD);
                     this.onChange({
                       $event: { previousIndex: prevIndex },
                       context: { index },

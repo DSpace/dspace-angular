@@ -176,7 +176,6 @@ export class SectionsService {
       filter((sectionObj: SubmissionSectionObject) => hasValue(sectionObj)),
       map((sectionObj: SubmissionSectionObject) => sectionObj),
       distinctUntilChanged(),
-      tap((v) => console.log('sectionStateChange', submissionId, sectionId, v)),
       );
   }
 

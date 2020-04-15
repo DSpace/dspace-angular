@@ -32,7 +32,7 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   /**
    * Whether to show the badge label or not
    */
-  @Input() showLabel: boolean = true;
+  @Input() showLabel = true;
 
   /**
    * The context we matched on to get this component

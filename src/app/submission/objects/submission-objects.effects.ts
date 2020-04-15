@@ -73,7 +73,7 @@ export class SubmissionObjectEffects {
         const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
         const enabled = (sectionDefinition.mandatory) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
         let sectionData;
-        if (sectionDefinition.sectionType != SectionsType.SubmissionForm) {
+        if (sectionDefinition.sectionType !== SectionsType.SubmissionForm) {
           sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
         } else {
           sectionData = action.payload.item.metadata;
@@ -251,10 +251,6 @@ export class SubmissionObjectEffects {
 
   @Effect() addAllMetadataToSectionData = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.UPLOAD_SECTION_DATA),
-    tap((v) => {
-      if ((v as any).payload.sectionId === 'orgUnitStep')
-        console.log('EFFECT', 'in', v)
-    }),
     mergeMap((action: UpdateSectionDataAction) => {
       const sectionKeys = Object.keys(action.payload.data);
 

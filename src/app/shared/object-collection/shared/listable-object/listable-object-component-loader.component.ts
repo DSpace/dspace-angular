@@ -49,7 +49,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
   /**
    * Whether to show the badge label or not
    */
-  @Input() showLabel: boolean = true;
+  @Input() showLabel = true;
 
   /**
    * Directive hook used to place the dynamic child component

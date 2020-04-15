@@ -246,13 +246,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.isRelationship = hasValue(this.model.relationship);
     const isWrapperAroundRelationshipList = hasValue(this.model.relationshipConfig);
 
-    if(this.isRelationship) {
-      console.log('isRelationship', this.model, this.model.value);
-    }
-    if (isWrapperAroundRelationshipList) {
-      console.log('isWrapperAroundRelationshipList', this.model, this.model.value)
-    }
-
     if (this.isRelationship || isWrapperAroundRelationshipList) {
       const config = this.model.relationshipConfig || this.model.relationship;
       const relationshipOptions = Object.assign(new RelationshipOptions(), config);
@@ -303,7 +296,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(
-          tap((v) => console.log('tapvamu', v)),
           switchMap(([item, relationship]: [Item, Relationship]) =>
             relationship.leftItem.pipe(
               getAllSucceededRemoteData(),
