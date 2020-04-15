@@ -47,6 +47,7 @@ import { Store } from '@ngrx/store';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { AppState } from '../../../../../../app.reducer';
 import { followLink } from '../../../../../utils/follow-link-config.model';
+import { ObjectCacheService } from '../../../../../../core/cache/object-cache.service';
 
 @Component({
   selector: 'ds-dynamic-form-array',
@@ -74,6 +75,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
+              protected objectCacheService: ObjectCacheService,
               protected relationshipService: RelationshipService,
               protected changeDetectorRef: ChangeDetectorRef,
               protected submissionObjectService: SubmissionObjectDataService,
@@ -183,7 +185,6 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
             let hasMetadataField = false;
             this.reorderables.forEach((reorderable: Reorderable, index: number) => {
               if (reorderable.hasMoved) {
-                console.log('reorderable moved', reorderable);
                 const prevIndex = reorderable.oldIndex;
                 const updatedReorderable = reorderable.update().pipe(take(1));
                 updatedReorderables.push(updatedReorderable);
@@ -192,7 +193,6 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
                   updatedReorderable.subscribe((v) => {
                     const reoMD = reorderable as ReorderableFormFieldMetadataValue;
                     reoMD.model.value = reoMD.metadataValue;
-                    console.log('reoMD', reoMD);
                     this.onChange({
                       $event: { previousIndex: prevIndex },
                       context: { index },

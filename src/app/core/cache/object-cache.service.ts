@@ -261,6 +261,7 @@ export class ObjectCacheService {
       const timeOutdated = entry.timeAdded + entry.msToLive;
       const isOutDated = new Date().getTime() > timeOutdated;
       if (isOutDated) {
+        console.log('removing', entry.data._links.self.href);
         this.store.dispatch(new RemoveFromObjectCacheAction(entry.data._links.self.href));
       }
       return !isOutDated;
