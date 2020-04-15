@@ -42,6 +42,7 @@ describe('EPersonFormComponent', () => {
 
   let mockEPeople;
   let ePersonDataServiceStub: any;
+  let authService: AuthServiceStub;
 
   beforeEach(async(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
@@ -106,6 +107,7 @@ describe('EPersonFormComponent', () => {
     };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
+    authService = new AuthServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -127,7 +129,7 @@ describe('EPersonFormComponent', () => {
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
-        { provide: AuthService, useValue: new AuthServiceStub() },
+        { provide: AuthService, useValue: authService },
         EPeopleRegistryComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -228,6 +230,42 @@ describe('EPersonFormComponent', () => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
         });
       }));
+    });
+  });
+
+  describe('impersonate', () => {
+    let ePersonId;
+
+    beforeEach(() => {
+      spyOn(authService, 'impersonate').and.callThrough();
+      ePersonId = 'testEPersonId';
+      component.epersonInitial = Object.assign(new EPerson(), {
+        id: ePersonId
+      });
+      component.impersonate();
+    });
+
+    it('should call authService.impersonate', () => {
+      expect(authService.impersonate).toHaveBeenCalledWith(ePersonId);
+    });
+
+    it('should set isImpersonated to true', () => {
+      expect(component.isImpersonated).toBe(true);
+    });
+  });
+
+  describe('stopImpersonating', () => {
+    beforeEach(() => {
+      spyOn(authService, 'stopImpersonatingAndRefresh').and.callThrough();
+      component.stopImpersonating();
+    });
+
+    it('should call authService.stopImpersonatingAndRefresh', () => {
+      expect(authService.stopImpersonatingAndRefresh).toHaveBeenCalled();
+    });
+
+    it('should set isImpersonated to false', () => {
+      expect(component.isImpersonated).toBe(false);
     });
   });
 
