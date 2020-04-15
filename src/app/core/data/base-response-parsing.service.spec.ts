@@ -66,7 +66,7 @@ describe('BaseResponseParsingService', () => {
 
       it('should call objectCache add', () => {
         service.cache(obj, request, {});
-        expect(objectCache.add).toHaveBeenCalledWith(obj, request.responseMsToLive, request.uuid);
+        expect(objectCache.add).toHaveBeenCalledWith(obj, request.responseMsToLive, request.uuid, undefined);
       });
     });
   });

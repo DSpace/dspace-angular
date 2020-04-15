@@ -5,12 +5,12 @@ export function getMockObjectCacheService(): ObjectCacheService {
     'add',
     'remove',
     'getByUUID',
-    'getBySelfLink',
+    'getByHref',
     'getRequestHrefBySelfLink',
     'getRequestHrefByUUID',
     'getList',
     'hasByUUID',
-    'hasBySelfLink'
+    'hasByHref'
   ]);
 
 }

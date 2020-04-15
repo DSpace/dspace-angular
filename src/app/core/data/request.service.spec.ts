@@ -10,19 +10,9 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
-import {
-  DeleteRequest,
-  GetRequest,
-  HeadRequest,
-  OptionsRequest,
-  PatchRequest,
-  PostRequest,
-  PutRequest,
-  RestRequest
-} from './request.models';
+import { DeleteRequest, GetRequest, HeadRequest, OptionsRequest, PatchRequest, PostRequest, PutRequest, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
-import { parseJsonSchemaToCommandDescription } from '@angular/cli/utilities/json-schema';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
