@@ -26,6 +26,9 @@ export class UUIDIndexEffects {
       })
     );
 
+  /**
+   * Adds
+   */
   @Effect() addAlternativeObjectLink$ = this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),

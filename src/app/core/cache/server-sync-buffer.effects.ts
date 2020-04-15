@@ -19,7 +19,6 @@ import { RequestService } from '../data/request.service';
 import { PatchRequest, PutRequest } from '../data/request.models';
 import { ObjectCacheService } from './object-cache.service';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
-import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestRequestMethod } from '../data/rest-request-method';

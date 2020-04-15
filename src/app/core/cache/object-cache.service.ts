@@ -4,7 +4,7 @@ import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable, race as observableRace } from 'rxjs';
 
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap, } from 'rxjs/operators';
-import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
@@ -154,9 +154,12 @@ export class ObjectCacheService {
    *    An observable of the requested object cache entry
    */
   getByHref(href: string): Observable<ObjectCacheEntry> {
-    return observableRace(
-      this.getBySelfLink(href).pipe(filter((entry) => this.isValid(entry))),
-      this.getByAlternativeLink(href).pipe(filter((entry) => this.isValid(entry)))
+    return observableCombineLatest([
+      this.getBySelfLink(href),
+      this.getByAlternativeLink(href)
+    ]).pipe(
+      map((results: ObjectCacheEntry[]) => results.find((entry: ObjectCacheEntry) => this.isValid(entry))),
+      filter((entry: ObjectCacheEntry) => hasValue(entry))
     );
   }
 
