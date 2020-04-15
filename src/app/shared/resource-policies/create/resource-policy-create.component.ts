@@ -10,7 +10,7 @@ import { ResourcePolicyService } from '../../../core/resource-policy/resource-po
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyEvent } from '../form/resource-policy-form';
+import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../+item-page/edit-item-page/edit-item-page.routing.module';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
@@ -36,6 +36,16 @@ export class ResourcePolicyCreateComponent implements OnInit {
    */
   private targetResourceUUID: string;
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {DSONameService} dsoNameService
+   * @param {NotificationsService} notificationsService
+   * @param {ResourcePolicyService} resourcePolicyService
+   * @param {ActivatedRoute} route
+   * @param {Router} router
+   * @param {TranslateService} translate
+   */
   constructor(
     private dsoNameService: DSONameService,
     private notificationsService: NotificationsService,
@@ -45,6 +55,9 @@ export class ResourcePolicyCreateComponent implements OnInit {
     private translate: TranslateService) {
   }
 
+  /**
+   * Initialize the component
+   */
   ngOnInit(): void {
     this.route.data.pipe(
       map((data) => data),
@@ -55,14 +68,27 @@ export class ResourcePolicyCreateComponent implements OnInit {
     });
   }
 
+  /**
+   * Return a boolean representing if an operation is pending
+   *
+   * @return {Observable<boolean>}
+   */
   isProcessing(): Observable<boolean> {
     return this.processing$.asObservable();
   }
 
+  /**
+   * Redirect to the authorizations page
+   */
   redirectToAuthorizationsPage(): void {
     this.router.navigate([`../../${ITEM_EDIT_AUTHORIZATIONS_PATH}`], { relativeTo: this.route });
   }
 
+  /**
+   * Create a new resource policy
+   *
+   * @param event The {{ResourcePolicyEvent}} emitted
+   */
   createResourcePolicy(event: ResourcePolicyEvent): void {
     this.processing$.next(true);
     let response$;
@@ -79,9 +105,8 @@ export class ResourcePolicyCreateComponent implements OnInit {
         this.notificationsService.success(null, this.translate.get('resource-policies.create.page.success.content'));
         this.redirectToAuthorizationsPage();
       } else {
-        this.notificationsService.success(null, this.translate.get('resource-policies.create.page.failure.content'));
+        this.notificationsService.error(null, this.translate.get('resource-policies.create.page.failure.content'));
       }
     })
   }
-
 }
