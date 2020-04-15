@@ -34,7 +34,7 @@ import {
 } from '../../../../../../core/shared/operators';
 import { SubmissionObject } from '../../../../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
-import { hasValue } from '../../../../../empty.util';
+import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import {
   Reorderable,
@@ -181,16 +181,14 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
           this.reorderables = reorderables;
 
           if (shouldPropagateChanges) {
-            const updatedReorderables: Array<Observable<any>> = [];
+            const movedReoRels: Array<Reorderable> = [];
             let hasMetadataField = false;
             this.reorderables.forEach((reorderable: Reorderable, index: number) => {
               if (reorderable.hasMoved) {
-                const prevIndex = reorderable.oldIndex;
-                const updatedReorderable = reorderable.update().pipe(take(1));
-                updatedReorderables.push(updatedReorderable);
                 if (reorderable instanceof ReorderableFormFieldMetadataValue) {
+                  const prevIndex = reorderable.oldIndex;
                   hasMetadataField = true;
-                  updatedReorderable.subscribe((v) => {
+                  reorderable.update().pipe(take(1)).subscribe((v) => {
                     const reoMD = reorderable as ReorderableFormFieldMetadataValue;
                     reoMD.model.value = reoMD.metadataValue;
                     this.onChange({
@@ -202,18 +200,22 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
                       type: DynamicFormControlEventType.Change
                     });
                   });
+                } else if (reorderable instanceof ReorderableRelationship) {
+                  movedReoRels.push(reorderable)
                 }
               }
             });
 
-            observableCombineLatest(updatedReorderables).pipe(
+            if (isNotEmpty(movedReoRels) && hasMetadataField && hasValue(this.model.relationshipConfig)) {
+              // if it's a mix between entities and regular metadata fields,
+              // we need to save, since they use different endpoints and
+              // otherwise they'll get out of sync.
+              this.submissionService.dispatchSave(this.model.submissionId);
+            }
+
+            observableCombineLatest(
+              movedReoRels.map((movedReoRel) => movedReoRel.update().pipe(take(1)))
             ).subscribe(() => {
-              if (hasMetadataField && hasValue(this.model.relationshipConfig)) {
-                // if it's a mix between entities and regular metadata fields,
-                // we need to save after every operation, since they use different
-                // endpoints and otherwise they'll get out of sync.
-                this.submissionService.dispatchSave(this.model.submissionId);
-              }
               this.changeDetectorRef.detectChanges();
             });
           }
