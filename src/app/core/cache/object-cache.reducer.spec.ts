@@ -38,7 +38,7 @@ describe('objectCacheReducer', () => {
         foo: 'bar',
         _links: { self: { href: selfLink1 } },
       },
-      alternativeLink: [altLink1, altLink2],
+      alternativeLinks: [altLink1, altLink2],
       timeAdded: new Date().getTime(),
       msToLive: 900000,
       requestUUID: requestUUID1,
@@ -52,8 +52,7 @@ describe('objectCacheReducer', () => {
         foo: 'baz',
         _links: { self: { href: requestUUID2 } }
       },
-      alternativeLink: [altLink3, altLink4],
-
+      alternativeLinks: [altLink3, altLink4],
       timeAdded: new Date().getTime(),
       msToLive: 900000,
       requestUUID: selfLink2,

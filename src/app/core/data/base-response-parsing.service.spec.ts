@@ -20,7 +20,7 @@ class TestService extends BaseResponseParsingService {
   }
 
   public cache<ObjectDomain>(obj, request: RestRequest, data: any) {
-    super.cache(obj, request, data);
+    super.cache(obj, request, data, undefined);
   }
 }
 
