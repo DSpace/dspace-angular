@@ -105,7 +105,7 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
   /**
    * The context we're currently in (submission)
    */
-  context = Context.SubmissionModal;
+  context = Context.EntitySearchModalWithNameVariants;
 
   /**
    * List ID for selecting local entities

@@ -20,7 +20,7 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 
-@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SubmissionModal)
+@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
   selector: 'ds-person-search-result-list-submission-element',
   styleUrls: ['./person-search-result-list-submission-element.component.scss'],

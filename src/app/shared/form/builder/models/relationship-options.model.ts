@@ -7,7 +7,7 @@ export class RelationshipOptions {
   relationshipType: string;
   filter: string;
   searchConfiguration: string;
-  nameVariants: boolean;
+  nameVariants: string;
 
   get metadataField() {
     return RELATION_METADATA_PREFIX + this.relationshipType

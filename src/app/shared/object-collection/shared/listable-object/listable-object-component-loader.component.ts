@@ -74,6 +74,8 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
     (componentRef.instance as any).linkType = this.linkType;
     (componentRef.instance as any).listID = this.listID;
     (componentRef.instance as any).showLabel = this.showLabel;
+    (componentRef.instance as any).context = this.context;
+    (componentRef.instance as any).viewMode = this.viewMode;
   }
 
   /**

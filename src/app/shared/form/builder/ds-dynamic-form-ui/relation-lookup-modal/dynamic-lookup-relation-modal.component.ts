@@ -126,8 +126,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.selection$.pipe(take(1)).subscribe((selection) =>
       selection.map((s: SearchResult<Item>) => this.addNameVariantSubscription(s))
     );
-    if (this.relationshipOptions.nameVariants) {
-      this.context = Context.SubmissionModal;
+    if (this.relationshipOptions.nameVariants === 'true') {
+      this.context = Context.EntitySearchModalWithNameVariants;
+    } else {
+      this.context = Context.EntitySearchModal;
     }
 
     this.externalSourcesRD$ = this.externalSourceService.findAll();

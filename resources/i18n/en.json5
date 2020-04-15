@@ -1990,6 +1990,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
+
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
@@ -2021,6 +2023,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
 

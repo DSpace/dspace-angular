@@ -7,7 +7,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 
-@listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.SubmissionModal)
+@listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
   selector: 'ds-external-source-entry-list-submission-element',
   styleUrls: ['./external-source-entry-list-submission-element.component.scss'],

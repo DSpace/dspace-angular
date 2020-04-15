@@ -35,6 +35,16 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() showLabel: boolean = true;
 
   /**
+   * The context we matched on to get this component
+   */
+  @Input() context: Context;
+
+  /**
+   * The viewmode we matched on to get this component
+   */
+  @Input() viewMode: ViewMode;
+
+  /**
    * The available link types
    */
   linkTypes = CollectionElementLinkType;
