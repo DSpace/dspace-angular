@@ -33,7 +33,7 @@ export class CommunityRolesComponent implements OnInit {
    */
   getComcolRoles(): ComcolRole[] {
     return [
-      ComcolRole.ADMIN,
+      ComcolRole.COMMUNITY_ADMIN,
     ];
   }
 

@@ -6,32 +6,46 @@ import { SharedModule } from '../../../shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RequestService } from '../../../../core/data/request.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { Community } from '../../../../core/shared/community.model';
 import { ComcolRole } from './comcol-role';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { Group } from '../../../../core/eperson/models/group.model';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Collection } from '../../../../core/shared/collection.model';
 
 describe('ComcolRoleComponent', () => {
 
   let fixture: ComponentFixture<ComcolRoleComponent>;
   let comp: ComcolRoleComponent;
   let de: DebugElement;
+
+  let requestService;
   let groupService;
-  let linkService;
+
+  let group;
+  let statusCode;
 
   beforeEach(() => {
 
-    groupService = jasmine.createSpyObj('groupService', {
-      createComcolGroup: undefined,
-      deleteComcolGroup: undefined,
-    });
+    requestService = {hasByHrefObservable: () => observableOf(true)};
 
-    linkService = {
-      resolveLink: () => undefined,
+    groupService = {
+      findByHref: () => undefined,
+      createComcolGroup: jasmine.createSpy('createComcolGroup'),
+      deleteComcolGroup: jasmine.createSpy('deleteComcolGroup'),
     };
+
+    spyOn(groupService, 'findByHref').and.callFake((link) => {
+      if (link === 'test role link') {
+        return observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          undefined,
+          group,
+          statusCode,
+        ));
+      }
+    });
 
     TestBed.configureTestingModule({
       imports: [
@@ -41,9 +55,7 @@ describe('ComcolRoleComponent', () => {
       ],
       providers: [
         { provide: GroupDataService, useValue: groupService },
-        { provide: LinkService, useValue: linkService },
-        { provide: ChangeDetectorRef, useValue: {} },
-        { provide: RequestService, useValue: {} },
+        { provide: RequestService, useValue: requestService },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -54,20 +66,38 @@ describe('ComcolRoleComponent', () => {
     de = fixture.debugElement;
 
     comp.comcolRole = new ComcolRole(
-      'test name',
-      'test link name',
+      'test role name',
+      'test role endpoint',
     );
 
-    comp.dso = new Community();
+    comp.dso = Object.assign(
+      new Collection(), {
+        _links: {
+          'test role endpoint': {
+            href: 'test role link',
+          }
+        }
+      }
+    );
 
     fixture.detectChanges();
   });
 
   describe('when there is no group yet', () => {
 
-    it('should have a create button but no delete button', () => {
-      expect(de.query(By.css('.btn.create'))).toBeDefined();
-      expect(de.query(By.css('.btn.delete'))).toBeNull();
+    beforeEach(() => {
+      group = null;
+      statusCode = 204;
+      fixture.detectChanges();
+    });
+
+    it('should have a create button but no restrict or delete button', () => {
+      expect(de.query(By.css('.btn.create')))
+        .toBeTruthy();
+      expect(de.query(By.css('.btn.restrict')))
+        .toBeNull();
+      expect(de.query(By.css('.btn.delete')))
+        .toBeNull();
     });
 
     describe('when the create button is pressed', () => {
@@ -82,25 +112,54 @@ describe('ComcolRoleComponent', () => {
     });
   });
 
-  describe('when there is a group yet', () => {
+  describe('when the related group is the Anonymous group', () => {
 
     beforeEach(() => {
-      Object.assign(comp.dso, {
-        'test link name': observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          new Group(),
-        )),
-      });
-
+      group = {
+        name: 'Anonymous'
+      };
+      statusCode = 200;
       fixture.detectChanges();
     });
 
-    it('should have a delete button but no create button', () => {
-      expect(de.query(By.css('.btn.delete'))).toBeDefined();
-      expect(de.query(By.css('.btn.create'))).toBeNull();
+    it('should have a restrict button but no create or delete button', () => {
+      expect(de.query(By.css('.btn.create')))
+        .toBeNull();
+      expect(de.query(By.css('.btn.restrict')))
+        .toBeTruthy();
+      expect(de.query(By.css('.btn.delete')))
+        .toBeNull();
+    });
+
+    describe('when the restrict button is pressed', () => {
+
+      beforeEach(() => {
+        de.query(By.css('.btn.restrict')).nativeElement.click();
+      });
+
+      it('should call the groupService create method', () => {
+        expect(groupService.createComcolGroup).toHaveBeenCalledWith(comp.dso, 'test role link');
+      });
+    });
+  });
+
+  describe('when the related group is a custom group', () => {
+
+    beforeEach(() => {
+      group = {
+        name: 'custom group name'
+      };
+      statusCode = 200;
+      fixture.detectChanges();
+    });
+
+    it('should have a delete button but no create or restrict button', () => {
+      expect(de.query(By.css('.btn.create')))
+        .toBeNull();
+      expect(de.query(By.css('.btn.restrict')))
+        .toBeNull();
+      expect(de.query(By.css('.btn.delete')))
+        .toBeTruthy();
     });
 
     describe('when the delete button is pressed', () => {

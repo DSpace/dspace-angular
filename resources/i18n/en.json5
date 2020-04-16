@@ -761,11 +761,59 @@
 
   "community.edit.tabs.roles.title": "Community Edit - Roles",
 
-  "community.edit.tabs.roles.none": "None",
 
-  "community.edit.tabs.roles.admin.name": "Administrators",
 
-  "community.edit.tabs.roles.admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  "comcol-role.edit.no-group": "None",
+
+  "comcol-role.edit.create": "Create",
+
+  "comcol-role.edit.restrict": "Restrict",
+
+  "comcol-role.edit.delete": "Delete",
+
+
+  "comcol-role.edit.community-admin.name": "Administrators",
+
+  "comcol-role.edit.collection-admin.name": "Administrators",
+
+
+  "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+
+  "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
+
+
+  "comcol-role.edit.submitters.name": "Submitters",
+
+  "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
+
+
+  "comcol-role.edit.item_read.name": "Default item read access",
+
+  "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
+
+  "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
+
+
+  "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
+
+  "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+
+  "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
+
+
+  "comcol-role.edit.editor.name": "Editors",
+
+  "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
+
+
+  "comcol-role.edit.finaleditor.name": "Final editors",
+
+  "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
+
+
+  "comcol-role.edit.reviewer.name": "Reviewers",
+
+  "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
 
 
 
