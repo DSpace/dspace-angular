@@ -22,6 +22,9 @@ import { RequestService } from '../../core/data/request.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { dateToString, stringToNgbDateStruct } from '../date.util';
 import { followLink } from '../utils/follow-link-config.model';
+import { ADMIN_MODULE_PATH } from '../../app-routing.module';
+import { ACCESS_CONTROL_MODULE_PATH } from '../../+admin/admin-routing.module';
+import { GROUP_EDIT_PATH } from '../../+admin/admin-access-control/admin-access-control-routing.module';
 
 interface ResourcePolicyCheckboxEntry {
   id: string;
@@ -307,7 +310,9 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         filter(() => this.isActive),
         getFirstSucceededRemoteDataPayload(),
         map((group: Group) => group.id)
-      ).subscribe((groupUUID) => this.router.navigate(['groups', groupUUID, 'edit']))
+      ).subscribe((groupUUID) => {
+        this.router.navigate([ADMIN_MODULE_PATH, ACCESS_CONTROL_MODULE_PATH, GROUP_EDIT_PATH, groupUUID])
+      })
     )
   }
 

@@ -33,7 +33,7 @@ export function getBitstreamModulePath() {
   return `/${BITSTREAM_MODULE_PATH}`;
 }
 
-const ADMIN_MODULE_PATH = 'admin';
+export const ADMIN_MODULE_PATH = 'admin';
 
 export function getAdminModulePath() {
   return `/${ADMIN_MODULE_PATH}`;
