@@ -43,8 +43,7 @@ export class UUIDIndexEffects {
             alternativeLink,
             selfLink
           )
-        }
-        else {
+        } else {
           return { type: 'NO_ACTION' };
         }
       })

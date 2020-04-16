@@ -43,7 +43,7 @@ describe('ObjectCacheService', () => {
     altLink1 = 'https://alternative.link/endpoint/1234';
     altLink2 = 'https://alternative.link/endpoint/5678';
     requestUUID = '4d3a4ce8-a375-4b98-859b-39f0a014d736';
-    alternativeLink = "https://rest.api/endpoint/5e4f8a5-be98-4c51-9fd8-6bfedcbd59b7/item";
+    alternativeLink = 'https://rest.api/endpoint/5e4f8a5-be98-4c51-9fd8-6bfedcbd59b7/item';
     timestamp = new Date().getTime();
     timestamp2 = new Date().getTime() - 200;
     msToLive = 900000;
@@ -268,7 +268,7 @@ describe('ObjectCacheService', () => {
 
   describe('getByAlternativeLink', () => {
     beforeEach(() => {
-      spyOn(service as any, 'getBySelfLink');
+      spyOn(service as any, 'getBySelfLink').and.returnValue(observableOf(cacheEntry));
     });
     it('should call getBySelfLink with the value returned by the select method', () => {
       spyOnProperty(ngrx, 'select').and.callFake(() => {
