@@ -26,7 +26,6 @@ const initialState: EPeopleRegistryState = {
  * @param action  The EPeopleRegistryAction to perform on the state
  */
 export function ePeopleRegistryReducer(state = initialState, action: EPeopleRegistryAction): EPeopleRegistryState {
-
   switch (action.type) {
 
     case EPeopleRegistryActionTypes.EDIT_EPERSON: {

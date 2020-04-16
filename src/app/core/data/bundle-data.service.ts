@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -18,8 +18,10 @@ import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
-import { FindListOptions } from './request.models';
+import { FindListOptions, GetRequest } from './request.models';
 import { RequestService } from './request.service';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { Bitstream } from '../shared/bitstream.model';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API
@@ -30,6 +32,7 @@ import { RequestService } from './request.service';
 @dataService(BUNDLE)
 export class BundleDataService extends DataService<Bundle> {
   protected linkPath = 'bundles';
+  protected bitstreamsEndpoint = 'bitstreams';
 
   constructor(
     protected requestService: RequestService,
@@ -80,5 +83,35 @@ export class BundleDataService extends DataService<Bundle> {
         }
       }),
     );
+  }
+
+  /**
+   * Get the bitstreams endpoint for a bundle
+   * @param bundleId
+   */
+  getBitstreamsEndpoint(bundleId: string): Observable<string> {
+    return this.getBrowseEndpoint().pipe(
+      switchMap((href: string) => this.halService.getEndpoint(this.bitstreamsEndpoint, `${href}/${bundleId}`))
+    );
+  }
+
+  /**
+   * Get a bundle's bitstreams using paginated search options
+   * @param bundleId        The bundle's ID
+   * @param searchOptions   The search options to use
+   * @param linksToFollow   The {@link FollowLinkConfig}s for the request
+   */
+  getBitstreams(bundleId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    const hrefObs = this.getBitstreamsEndpoint(bundleId).pipe(
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+    );
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.configure(request);
+    });
+
+    return this.rdbService.buildList<Bitstream>(hrefObs, ...linksToFollow);
   }
 }
