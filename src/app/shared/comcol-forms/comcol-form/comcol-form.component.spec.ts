@@ -318,7 +318,6 @@ describe('ComColFormComponent', () => {
     (comp as any).type = Community.type;
     comp.uploaderComponent = {uploader: {}} as any;
 
-    console.log(comp);
     (comp as any).dsoService = dsoService;
     fixture.detectChanges();
     location = (comp as any).location;

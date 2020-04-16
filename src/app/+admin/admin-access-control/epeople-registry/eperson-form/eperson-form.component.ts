@@ -209,7 +209,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.epersonService.getActiveEPerson().pipe(take(1)).subscribe(
       (ePerson: EPerson) => {
-        console.log('onsubmit ep', ePerson)
         const values = {
           metadata: {
             'eperson.firstname': [
@@ -241,7 +240,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * @param values
    */
   createNewEPerson(values) {
-    console.log('createNewEPerson(values)', values)
     const ePersonToCreate = Object.assign(new EPerson(), values);
 
     const response = this.epersonService.tryToCreate(ePersonToCreate);

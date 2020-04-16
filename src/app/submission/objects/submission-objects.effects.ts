@@ -5,11 +5,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { union } from 'lodash';
 
 import { from as observableFrom, Observable, of as observableOf, EMPTY as observableEmpty } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { isEmpty, isNotEmpty, isNotUndefined, hasValue } from '../../shared/empty.util';
@@ -19,7 +19,7 @@ import { SectionsService } from '../sections/sections.service';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
-
+import { isEqual } from 'lodash';
 import {
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
@@ -43,7 +43,7 @@ import {
   SubmissionObjectActionTypes,
   UpdateSectionDataAction
 } from './submission-objects.actions';
-import { SubmissionObjectEntry } from './submission-objects.reducer';
+import { SubmissionObjectEntry, SubmissionSectionObject } from './submission-objects.reducer';
 import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import {
@@ -51,7 +51,7 @@ import {
   getSucceededRemoteData,
   getFirstSucceededRemoteDataPayload, getAllSucceededRemoteData, getAllSucceededRemoteDataPayload
 } from '../../core/shared/operators';
-import { MetadataMap } from '../../core/shared/metadata.models';
+import { MetadataMap, MetadataValue } from '../../core/shared/metadata.models';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -94,7 +94,7 @@ export class SubmissionObjectEffects {
           )
         )
       });
-      return {action: action, definition: definition, mappedActions: mappedActions};
+      return { action: action, definition: definition, mappedActions: mappedActions };
     }),
     mergeMap((result) => {
       return observableFrom(
@@ -176,7 +176,7 @@ export class SubmissionObjectEffects {
   /**
    * Show a notification on error
    */
-  @Effect({dispatch: false}) saveError$ = this.actions$.pipe(
+  @Effect({ dispatch: false }) saveError$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR, SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR),
     withLatestFrom(this.store$),
     tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.save_error_notice'))));
@@ -218,7 +218,7 @@ export class SubmissionObjectEffects {
   /**
    * Show a notification on success and redirect to MyDSpace page
    */
-  @Effect({dispatch: false}) saveForLaterSubmissionSuccess$ = this.actions$.pipe(
+  @Effect({ dispatch: false }) saveForLaterSubmissionSuccess$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'))),
     tap(() => this.submissionService.redirectToMyDSpace()));
@@ -226,7 +226,7 @@ export class SubmissionObjectEffects {
   /**
    * Show a notification on success and redirect to MyDSpace page
    */
-  @Effect({dispatch: false}) depositSubmissionSuccess$ = this.actions$.pipe(
+  @Effect({ dispatch: false }) depositSubmissionSuccess$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.deposit_success_notice'))),
     tap(() => this.submissionService.redirectToMyDSpace()));
@@ -234,7 +234,7 @@ export class SubmissionObjectEffects {
   /**
    * Show a notification on error
    */
-  @Effect({dispatch: false}) depositSubmissionError$ = this.actions$.pipe(
+  @Effect({ dispatch: false }) depositSubmissionError$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_ERROR),
     tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.deposit_error_notice'))));
 
@@ -251,55 +251,35 @@ export class SubmissionObjectEffects {
 
   @Effect() addAllMetadataToSectionData = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.UPLOAD_SECTION_DATA),
-    mergeMap((action: UpdateSectionDataAction) => {
-      const sectionKeys = Object.keys(action.payload.data);
-
-      // quick sanity check to prevent running the rest of the code if this clearly isn't a metadata section
-      const keysThatMightBeMetadataKeys = sectionKeys.find((key: string) => isNotEmpty(key) && key.indexOf('.') > 0);
-      if (hasValue(keysThatMightBeMetadataKeys)) {
-        const submissionObject$ = this.sods
-          .findById(action.payload.submissionId, followLink('item')).pipe(
-            getFirstSucceededRemoteDataPayload()
-          );
-
-        const item$ = submissionObject$.pipe(
-          switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(
-              getFirstSucceededRemoteDataPayload(),
-          )));
-
-        const metadata$ = item$.pipe(
-          map((item: Item) => item.metadata)
-        );
-
-        const metadataKeys$ = metadata$.pipe(
-          map((metadata: MetadataMap) => hasValue(metadata) ? Object.keys(metadata) : undefined)
-        );
-
-        return metadataKeys$.pipe(
-          switchMap((metadataKeys: string[]) => {
-            if (isNotEmpty(metadataKeys)) {
-              const allSectionKeysInMetadata = sectionKeys.every((key: string) => metadataKeys.includes(key));
-              const allMetadataKeysInSection = metadataKeys.every((key: string) => sectionKeys.includes(key));
-              if (allSectionKeysInMetadata && !allMetadataKeysInSection) {
-                return metadata$.pipe(
-                  switchMap((metadata: MetadataMap) =>
-                    [new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, metadata as any, action.payload.errors)]),
-                );
-              }
-            }
-            return [];
-          })
-        );
-
-      }
-      return [];
+    switchMap((action: UpdateSectionDataAction) => {
+      return this.sectionService.getSectionState(action.payload.submissionId, action.payload.sectionId)
+        .pipe(map((section: SubmissionSectionObject) => [action, section]), take(1));
     }),
-    );
+    filter(([action, section]: [UpdateSectionDataAction, SubmissionSectionObject]) => section.sectionType === SectionsType.SubmissionForm),
+    switchMap(([action, section]: [UpdateSectionDataAction, SubmissionSectionObject]) => {
+      const submissionObject$ = this.submissionObjectService
+        .findById(action.payload.submissionId, followLink('item')).pipe(
+          getFirstSucceededRemoteDataPayload()
+        );
+
+      const item$ = submissionObject$.pipe(
+        switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(
+          getFirstSucceededRemoteDataPayload(),
+        )));
+
+      return item$.pipe(
+        map((item: Item) => item.metadata),
+        filter((metadata) => !isEqual(action.payload.data, metadata)),
+        map((metadata: any) => new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, metadata, action.payload.errors))
+      );
+    }),
+  );
 
   /**
    * Show a notification on success and redirect to MyDSpace page
    */
-  @Effect({dispatch: false}) discardSubmissionSuccess$ = this.actions$.pipe(
+  @Effect({ dispatch: false })
+  discardSubmissionSuccess$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.discard_success_notice'))),
     tap(() => this.submissionService.redirectToMyDSpace()));
@@ -307,7 +287,7 @@ export class SubmissionObjectEffects {
   /**
    * Show a notification on error
    */
-  @Effect({dispatch: false}) discardSubmissionError$ = this.actions$.pipe(
+  @Effect({ dispatch: false }) discardSubmissionError$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR),
     tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.discard_error_notice'))));
 
@@ -317,7 +297,7 @@ export class SubmissionObjectEffects {
               private sectionService: SectionsService,
               private store$: Store<any>,
               private submissionService: SubmissionService,
-              private sods: SubmissionObjectDataService,
+              private submissionObjectService: SubmissionObjectDataService,
               private translate: TranslateService) {
   }
 
@@ -332,7 +312,7 @@ export class SubmissionObjectEffects {
 
     if (isNotEmpty(response)) {
       response.forEach((item: WorkspaceItem | WorkflowItem) => {
-        const {errors} = item;
+        const { errors } = item;
 
         if (errors && !isEmpty(errors)) {
           canDeposit = false;
@@ -372,7 +352,7 @@ export class SubmissionObjectEffects {
       response.forEach((item: WorkspaceItem | WorkflowItem) => {
 
         let errorsList = Object.create({});
-        const {errors} = item;
+        const { errors } = item;
 
         if (errors && !isEmpty(errors)) {
           // to avoid dispatching an action for every error, create an array of errors per section
