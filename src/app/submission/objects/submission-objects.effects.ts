@@ -2,24 +2,23 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { union } from 'lodash';
+import { isEqual, union } from 'lodash';
 
-import { from as observableFrom, Observable, of as observableOf, EMPTY as observableEmpty } from 'rxjs';
+import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
 import { catchError, filter, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
-import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { isEmpty, isNotEmpty, isNotUndefined, hasValue } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SectionsType } from '../sections/sections-type';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
-import { isEqual } from 'lodash';
 import {
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
@@ -46,15 +45,9 @@ import {
 import { SubmissionObjectEntry, SubmissionSectionObject } from './submission-objects.reducer';
 import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
-import {
-  getRemoteDataPayload,
-  getSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload, getAllSucceededRemoteData, getAllSucceededRemoteDataPayload
-} from '../../core/shared/operators';
-import { MetadataMap, MetadataValue } from '../../core/shared/metadata.models';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { ItemDataService } from '../../core/data/item-data.service';
 
 @Injectable()
 export class SubmissionObjectEffects {
