@@ -35,7 +35,6 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
    *
    * @param {RequestService} requestService
    * @param {RemoteDataBuildService} rdbService
-   * @param {NormalizedObjectBuildService} linkService
    * @param {Store<CoreState>} store
    * @param {ObjectCacheService} objectCache
    * @param {HALEndpointService} halService
@@ -56,35 +55,16 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
   }
 
   /**
-   * Make a request to approve the given task
+   * Make a request for the given task
    *
    * @param scopeId
    *    The task id
+   * @param body
+   *    The request body
    * @return {Observable<ProcessTaskResponse>}
    *    Emit the server response
    */
-  public approveTask(scopeId: string): Observable<ProcessTaskResponse> {
-    const body = {
-      submit_approve: 'true'
-    };
-    return this.postToEndpoint(this.linkPath, this.requestService.uriEncodeBody(body), scopeId, this.makeHttpOptions());
-  }
-
-  /**
-   * Make a request to reject the given task
-   *
-   * @param reason
-   *    The reason of reject
-   * @param scopeId
-   *    The task id
-   * @return {Observable<ProcessTaskResponse>}
-   *    Emit the server response
-   */
-  public rejectTask(reason: string, scopeId: string): Observable<ProcessTaskResponse> {
-    const body = {
-      submit_reject: 'true',
-      reason
-    };
+  public submitTask(scopeId: string, body: any): Observable<ProcessTaskResponse> {
     return this.postToEndpoint(this.linkPath, this.requestService.uriEncodeBody(body), scopeId, this.makeHttpOptions());
   }
 

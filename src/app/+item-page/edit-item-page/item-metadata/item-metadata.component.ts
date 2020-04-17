@@ -59,8 +59,8 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Initialize the values and updates of the current item's metadata fields
    */
   public initializeUpdates(): void {
-    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.getMetadataAsListExcludingRelationships());
-  }
+    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
+    }
 
   /**
    * Initialize the prefix for notification messages
@@ -81,7 +81,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
-    this.objectUpdatesService.initialize(this.url, this.getMetadataAsListExcludingRelationships(), this.item.lastModified);
+    this.objectUpdatesService.initialize(this.url, this.item.metadataAsList, this.item.lastModified);
   }
 
   /**

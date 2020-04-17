@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
+import { Group } from '../eperson/models/group.model';
+import { GROUP } from '../eperson/models/group.resource-type';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { Collection } from './collection.model';
@@ -32,6 +34,7 @@ export class Community extends DSpaceObject implements ChildHALResource {
     logo: HALLink;
     subcommunities: HALLink;
     parentCommunity: HALLink;
+    adminGroup: HALLink;
     self: HALLink;
   };
 
@@ -62,6 +65,12 @@ export class Community extends DSpaceObject implements ChildHALResource {
    */
   @link(COMMUNITY, false)
   parentCommunity?: Observable<RemoteData<Community>>;
+
+  /**
+   * The administrators group of this community.
+   */
+  @link(GROUP)
+  adminGroup?: Observable<RemoteData<Group>>;
 
   /**
    * The introductory text of this Community
