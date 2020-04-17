@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
 import { Item } from '../../../core/shared/item.model';
