@@ -366,14 +366,7 @@ export class SectionFormOperationsService {
         value, true);
     } else if (previousValue.isPathEqual(this.formBuilder.getPath(event.model)) || hasStoredValue) {
       // Here model has a previous value changed or stored in the server
-      if (!value.hasValue()) {
-        // New value is empty, so dispatch a remove operation
-        if (this.getArrayIndexFromEvent(event) === 0) {
-          this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));
-        } else {
-          this.operationsBuilder.remove(pathCombiner.getPath(path));
-        }
-      } else if (hasValue(event.$event) && hasValue(event.$event.previousIndex)) {
+      if (hasValue(event.$event) && hasValue(event.$event.previousIndex)) {
         if (event.$event.previousIndex < 0) {
           this.operationsBuilder.add(
             pathCombiner.getPath(segmentedPath),
@@ -383,6 +376,13 @@ export class SectionFormOperationsService {
             pathCombiner.getPath(path),
             pathCombiner.getPath(segmentedPath + '/' + event.$event.previousIndex).path
           )
+        }
+      } else if (!value.hasValue()) {
+        // New value is empty, so dispatch a remove operation
+        if (this.getArrayIndexFromEvent(event) === 0) {
+          this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));
+        } else {
+          this.operationsBuilder.remove(pathCombiner.getPath(path));
         }
       } else {
         // New value is not equal from the previous one, so dispatch a replace operation
