@@ -1,13 +1,13 @@
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
-import { spyOnExported } from '../../../testing/utils';
+import { ChangeDetectionStrategy, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
 import * as decorators from './claimed-task-actions-decorator';
 import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
+import { spyOnExported } from '../../../testing/utils.test';
 
 describe('ClaimedTaskActionsLoaderComponent', () => {
   let comp: ClaimedTaskActionsLoaderComponent;

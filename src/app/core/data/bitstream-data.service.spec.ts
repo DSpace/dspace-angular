@@ -2,14 +2,14 @@ import { BitstreamDataService } from './bitstream-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RequestService } from './request.service';
 import { Bitstream } from '../shared/bitstream.model';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../shared/bitstream-format-support-level';
 import { PutRequest } from './request.models';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 
 describe('BitstreamDataService', () => {
   let service: BitstreamDataService;

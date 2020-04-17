@@ -14,16 +14,16 @@ import { GroupDataService } from '../../../../../core/eperson/group-data.service
 import { Group } from '../../../../../core/eperson/models/group.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../../../shared/mocks/mock-form-builder-service';
-import { MockRouter } from '../../../../../shared/mocks/mock-router';
-import { getMockTranslateService } from '../../../../../shared/mocks/mock-translate.service';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { GroupMock, GroupMock2 } from '../../../../../shared/testing/group-mock';
-import { MockTranslateLoader } from '../../../../../shared/testing/mock-translate-loader';
-import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service-stub';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 import { SubgroupsListComponent } from './subgroups-list.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { RouterMock } from '../../../../../shared/mocks/router.mock';
+import { getMockFormBuilderService } from '../../../../../shared/mocks/form-builder-service.mock';
+import { getMockTranslateService } from '../../../../../shared/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
+import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
 
 describe('SubgroupsListComponent', () => {
   let component: SubgroupsListComponent;
@@ -82,7 +82,7 @@ describe('SubgroupsListComponent', () => {
         return observableOf(new RestResponse(true, 200, 'Success'));
       }
     };
-    routerStub = new MockRouter();
+    routerStub = new RouterMock();
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
     TestBed.configureTestingModule({
@@ -90,7 +90,7 @@ describe('SubgroupsListComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],

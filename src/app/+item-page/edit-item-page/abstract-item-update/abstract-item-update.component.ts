@@ -27,12 +27,12 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
   updates$: Observable<FieldUpdates>;
 
   constructor(
-    protected itemService: ItemDataService,
-    protected objectUpdatesService: ObjectUpdatesService,
-    protected router: Router,
-    protected notificationsService: NotificationsService,
-    protected translateService: TranslateService,
-    protected route: ActivatedRoute
+    public itemService: ItemDataService,
+    public objectUpdatesService: ObjectUpdatesService,
+    public router: Router,
+    public notificationsService: NotificationsService,
+    public translateService: TranslateService,
+    public route: ActivatedRoute
   ) {
     super(objectUpdatesService, notificationsService, translateService)
   }

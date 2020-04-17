@@ -23,15 +23,15 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../../shared/mocks/mock-form-builder-service';
-import { MockRouter } from '../../../../shared/mocks/mock-router';
-import { getMockTranslateService } from '../../../../shared/mocks/mock-translate.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { GroupMock, GroupMock2 } from '../../../../shared/testing/group-mock';
-import { MockTranslateLoader } from '../../../../shared/testing/mock-translate-loader';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 import { GroupFormComponent } from './group-form.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -90,13 +90,13 @@ describe('GroupFormComponent', () => {
     };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
-    router = new MockRouter();
+    router = new RouterMock();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],

@@ -47,7 +47,7 @@ export class GroupsRegistryComponent implements OnInit {
   // Current search in groups registry
   currentSearchQuery: string;
 
-  constructor(private groupService: GroupDataService,
+  constructor(public groupService: GroupDataService,
               private ePersonDataService: EPersonDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,

@@ -16,6 +16,11 @@ export const environment: Partial<GlobalConfig> = {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/angular-dspace',
   },
+  item: {
+    edit: {
+      undoTimeout: 10
+    }
+  },
   submission: {
     autosave: {
       // NOTE: which metadata trigger an autosave

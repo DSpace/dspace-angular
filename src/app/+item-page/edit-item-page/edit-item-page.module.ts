@@ -46,7 +46,6 @@ import { ItemVersionHistoryComponent } from './item-version-history/item-version
     EditItemPageComponent,
     ItemOperationComponent,
     AbstractSimpleItemActionComponent,
-    AbstractItemUpdateComponent,
     ModifyItemOverviewComponent,
     ItemWithdrawComponent,
     ItemReinstateComponent,

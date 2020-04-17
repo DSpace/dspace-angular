@@ -15,15 +15,15 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Group } from '../../../core/eperson/models/group.model';
 import { RouteService } from '../../../core/services/route.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { MockRouter } from '../../../shared/mocks/mock-router';
-import { MockTranslateLoader } from '../../../shared/mocks/mock-translate-loader';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson-mock';
 import { GroupMock, GroupMock2 } from '../../../shared/testing/group-mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
-import { routeServiceStub } from '../../../shared/testing/route-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { GroupsRegistryComponent } from './groups-registry.component';
+import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { routeServiceStub } from '../../../shared/testing/route-service.stub';
+import { RouterMock } from '../../../shared/mocks/router.mock';
 
 describe('GroupRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -82,7 +82,7 @@ describe('GroupRegistryComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],
@@ -92,7 +92,7 @@ describe('GroupRegistryComponent', () => {
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: RouteService, useValue: routeServiceStub },
-        { provide: Router, useValue: new MockRouter() },
+        { provide: Router, useValue: new RouterMock() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

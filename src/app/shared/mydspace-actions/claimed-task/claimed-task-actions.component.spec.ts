@@ -15,7 +15,6 @@ import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.se
 import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../testing/utils';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { getMockRequestService } from '../../mocks/request.service.mock';
 import { RequestService } from '../../../core/data/request.service';
@@ -23,6 +22,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { VarDirective } from '../../utils/var.directive';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 
 let component: ClaimedTaskActionsComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsComponent>;

@@ -48,17 +48,17 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
   entityType$: Observable<ItemType>;
 
   constructor(
-    protected itemService: ItemDataService,
-    protected objectUpdatesService: ObjectUpdatesService,
-    protected router: Router,
-    protected notificationsService: NotificationsService,
-    protected translateService: TranslateService,
-    protected route: ActivatedRoute,
-    protected relationshipService: RelationshipService,
-    protected objectCache: ObjectCacheService,
-    protected requestService: RequestService,
-    protected entityTypeService: EntityTypeService,
-    protected cdr: ChangeDetectorRef,
+    public itemService: ItemDataService,
+    public objectUpdatesService: ObjectUpdatesService,
+    public router: Router,
+    public notificationsService: NotificationsService,
+    public translateService: TranslateService,
+    public route: ActivatedRoute,
+    public relationshipService: RelationshipService,
+    public objectCache: ObjectCacheService,
+    public requestService: RequestService,
+    public entityTypeService: EntityTypeService,
+    public cdr: ChangeDetectorRef,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }

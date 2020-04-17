@@ -9,21 +9,18 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { UploadBitstreamComponent } from './upload-bitstream.component';
 import { AuthService } from '../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../shared/testing/auth-service-stub';
 import { Item } from '../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
-import {
-  createPaginatedList,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/testing/utils';
-import { RouterStub } from '../../../shared/testing/router-stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { RequestService } from '../../../core/data/request.service';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 
 describe('UploadBistreamComponent', () => {
   let comp: UploadBitstreamComponent;
