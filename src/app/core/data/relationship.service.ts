@@ -52,7 +52,13 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list';
 import { RemoteData, RemoteDataState } from './remote-data';
-import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
+import {
+  DeleteRequest,
+  FindListOptions,
+  PostRequest,
+  RestRequest,
+  FindByIDRequest
+} from './request.models';
 import { RequestService } from './request.service';
 import has = Reflect.has;
 
@@ -86,6 +92,7 @@ const compareItemsByUUID = (itemCheck: Item) =>
 @dataService(RELATIONSHIP)
 export class RelationshipService extends DataService<Relationship> {
   protected linkPath = 'relationships';
+  protected responseMsToLive = 15 * 60 * 1000;
 
   constructor(protected itemService: ItemDataService,
               protected requestService: RequestService,

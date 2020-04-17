@@ -316,7 +316,9 @@ export abstract class DataService<T extends CacheableObject> {
     ).subscribe((href: string) => {
       this.requestService.removeByHrefSubstring(href);
       const request = new FindListRequest(requestId, href, options);
-      request.responseMsToLive = 10 * 1000;
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
       this.requestService.configure(request);
     });
 
@@ -343,6 +345,9 @@ export abstract class DataService<T extends CacheableObject> {
       find((href: string) => hasValue(href)),
       map((href: string) => {
         const request = new PatchRequest(requestId, href, operations);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
         this.requestService.configure(request);
       })
     ).subscribe();
@@ -362,6 +367,11 @@ export abstract class DataService<T extends CacheableObject> {
     const requestId = this.requestService.generateRequestId();
     const serializedObject = new DSpaceSerializer(object.constructor as GenericConstructor<{}>).serialize(object);
     const request = new PutRequest(requestId, object._links.self.href, serializedObject);
+
+    if (hasValue(this.responseMsToLive)) {
+      request.responseMsToLive = this.responseMsToLive;
+    }
+
     this.requestService.configure(request);
 
     return this.requestService.getByUUID(requestId).pipe(
@@ -411,7 +421,13 @@ export abstract class DataService<T extends CacheableObject> {
 
     const request$ = endpoint$.pipe(
       take(1),
-      map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
+      map((endpoint: string) => {
+        const request = new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso));
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        return request
+      })
     );
 
     // Execute the post request
@@ -460,7 +476,13 @@ export abstract class DataService<T extends CacheableObject> {
 
     const request$ = endpoint$.pipe(
       take(1),
-      map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
+      map((endpoint: string) => {
+        const request = new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso));
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        return request
+      })
     );
 
     // Execute the post request
@@ -508,6 +530,9 @@ export abstract class DataService<T extends CacheableObject> {
           );
         }
         const request = new DeleteByIDRequest(requestId, href, dsoID);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
         this.requestService.configure(request);
       })
     ).subscribe();

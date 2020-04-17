@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { Observable, race as observableRace } from 'rxjs';
-import { filter, map, mergeMap, take, switchMap } from 'rxjs/operators';
+import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
+import { filter, map, mergeMap, take, switchMap, startWith } from 'rxjs/operators';
 import { cloneDeep, remove } from 'lodash';
 import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -110,24 +110,19 @@ export class RequestService {
    * Retrieve a RequestEntry based on their uuid
    */
   getByUUID(uuid: string): Observable<RequestEntry> {
-    return observableRace(
+    return observableCombineLatest([
       this.store.pipe(
-        select(entryFromUUIDSelector(uuid)),
-        hasValueOperator()
+        select(entryFromUUIDSelector(uuid))
       ),
       this.store.pipe(
         select(originalRequestUUIDFromRequestUUIDSelector(uuid)),
         switchMap((originalUUID) => {
-            if (hasValue(originalUUID)) {
               return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
-            } else {
-              return []
-            }
           },
         ),
-        hasValueOperator()
-      )
-    ).pipe(
+      ),
+    ]).pipe(
+      map((entries: RequestEntry[]) => entries.find((entry: RequestEntry) => hasValue(entry))),
       map((entry: RequestEntry) => {
         // Headers break after being retrieved from the store (because of lazy initialization)
         // Combining them with a new object fixes this issue
