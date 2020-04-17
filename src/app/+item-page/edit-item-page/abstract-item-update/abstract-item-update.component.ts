@@ -12,6 +12,10 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { environment } from '../../../../environments/environment';
 
+@Component({
+  selector: 'ds-abstract-item-update',
+  template: ''
+})
 /**
  * Abstract component for managing object updates of an item
  */
