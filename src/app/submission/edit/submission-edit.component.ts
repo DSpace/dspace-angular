@@ -60,7 +60,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @type {Array}
    */
   private subs: Subscription[] = [];
-  private item: Item;
+  public item: Item;
 
   /**
    * Initialize instance variables

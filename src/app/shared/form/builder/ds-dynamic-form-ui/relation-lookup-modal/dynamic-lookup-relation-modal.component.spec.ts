@@ -63,7 +63,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
     selection$ = observableOf([searchResult1, searchResult2]);
     selectableListService = { getSelectableList: () => selection$ };
-    relationship = { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true } as RelationshipOptions;
+    relationship = Object.assign(new RelationshipOptions(), { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true, searchConfiguration: 'personConfig' });
     nameVariant = 'Doe, J.';
     metadataField = 'dc.contributor.author';
     pSearchOptions = new PaginatedSearchOptions({});

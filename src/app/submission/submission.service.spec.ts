@@ -47,6 +47,7 @@ import { getMockSearchService } from '../shared/mocks/mock-search-service';
 import { getMockRequestService } from '../shared/mocks/mock-request.service';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
+import { Item } from '../core/shared/item.model';
 
 describe('SubmissionService test suite', () => {
   const config = MOCK_SUBMISSION_CONFIG;
@@ -441,6 +442,7 @@ describe('SubmissionService test suite', () => {
         selfUrl,
         submissionDefinition,
         {},
+        new Item(),
         []
       );
       const expected = new InitSubmissionFormAction(
@@ -449,6 +451,7 @@ describe('SubmissionService test suite', () => {
         selfUrl,
         submissionDefinition,
         {},
+        new Item(),
         []);
 
       expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
@@ -844,14 +847,17 @@ describe('SubmissionService test suite', () => {
         submissionId,
         selfUrl,
         submissionDefinition,
-        {}
-      );
+        {},
+        new Item()
+      )
+      ;
       const expected = new ResetSubmissionFormAction(
         collectionId,
         submissionId,
         selfUrl,
         {},
-        submissionDefinition
+        submissionDefinition,
+        new Item()
       );
 
       expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);

@@ -103,15 +103,16 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicSwitchModel({ id: 'switch' }),
     new DynamicTextAreaModel({ id: 'textarea' }),
     new DynamicTimePickerModel({ id: 'timepicker' }),
-    new DynamicTypeaheadModel({ id: 'typeahead', metadataFields: [], repeatable: false, submissionId: '1234' }),
+    new DynamicTypeaheadModel({ id: 'typeahead', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
       authorityOptions: authorityOptions,
       metadataFields: [],
       repeatable: false,
-      submissionId: '1234'
+      submissionId: '1234',
+      hasSelectableMetadata: false
     }),
-    new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234' }),
+    new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
       authorityOptions: authorityOptions,
@@ -132,11 +133,12 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       scopeUUID: '',
       submissionScope: '',
       repeatable: false,
-      metadataFields: []
+      metadataFields: [],
+      hasSelectableMetadata: false
     }),
     new DynamicDsDatePickerModel({ id: 'datepicker' }),
-    new DynamicLookupModel({ id: 'lookup', metadataFields: [], repeatable: false, submissionId: '1234' }),
-    new DynamicLookupNameModel({ id: 'lookupName', metadataFields: [], repeatable: false, submissionId: '1234' }),
+    new DynamicLookupModel({ id: 'lookup', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
+    new DynamicLookupNameModel({ id: 'lookupName', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false}),
     new DynamicQualdropModel({ id: 'combobox', readOnly: false, required: false })
   ];
   const testModel = formModel[8];

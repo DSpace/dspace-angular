@@ -1,20 +1,12 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  NgZone,
-  OnInit,
-  Output,
-  QueryList
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, NgZone, OnInit, Output, QueryList } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
   DynamicFormArrayGroupModel,
   DynamicFormControlCustomEvent,
-  DynamicFormControlEvent, DynamicFormControlEventType,
+  DynamicFormControlEvent,
+  DynamicFormControlEventType,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormService,
@@ -22,25 +14,18 @@ import {
   DynamicTemplateDirective
 } from '@ng-dynamic-forms/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take, tap, filter } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { RelationshipService } from '../../../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../core/shared/metadata.models';
-import {
-  getRemoteDataPayload,
-  getSucceededRemoteData
-} from '../../../../../../core/shared/operators';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../../core/shared/operators';
 import { SubmissionObject } from '../../../../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import {
-  Reorderable,
-  ReorderableFormFieldMetadataValue,
-  ReorderableRelationship
-} from '../../existing-metadata-list-element/existing-metadata-list-element.component';
+import { Reorderable, ReorderableFormFieldMetadataValue, ReorderableRelationship } from '../../existing-metadata-list-element/existing-metadata-list-element.component';
 import { DynamicConcatModel } from '../ds-dynamic-concat.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 import { Store } from '@ngrx/store';
@@ -181,13 +166,10 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
           this.reorderables = reorderables;
 
           if (shouldPropagateChanges) {
-            const movedReoRels: Array<Reorderable> = [];
+            const movedReoRels: Reorderable[] = [];
             let hasMetadataField = false;
             this.reorderables.forEach((reorderable: Reorderable, index: number) => {
               if (reorderable.hasMoved) {
-                const prevIndex = reorderable.oldIndex;
-                const updatedReorderable = reorderable.update().pipe(take(1));
-                updatedReorderables.push(updatedReorderable);
                 if (reorderable instanceof ReorderableFormFieldMetadataValue) {
                   const prevIndex = reorderable.oldIndex;
                   hasMetadataField = true;

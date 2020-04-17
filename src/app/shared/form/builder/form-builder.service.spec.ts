@@ -195,11 +195,11 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicColorPickerModel({ id: 'testColorPicker' }),
 
-      new DynamicTypeaheadModel({ id: 'testTypeahead', repeatable: false, metadataFields: [], submissionId: '1234' }),
+      new DynamicTypeaheadModel({ id: 'testTypeahead', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: false }),
 
-      new DynamicScrollableDropdownModel({ id: 'testScrollableDropdown', authorityOptions: authorityOptions, repeatable: false, metadataFields: [], submissionId: '1234' }),
+      new DynamicScrollableDropdownModel({ id: 'testScrollableDropdown', authorityOptions: authorityOptions, repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: false }),
 
-      new DynamicTagModel({ id: 'testTag', repeatable: false, metadataFields: [], submissionId: '1234' }),
+      new DynamicTagModel({ id: 'testTag', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: false }),
 
       new DynamicListCheckboxGroupModel({ id: 'testCheckboxList', authorityOptions: authorityOptions, repeatable: true }),
 
@@ -221,7 +221,7 @@ describe('FormBuilderService test suite', () => {
               authority: 'RPAuthority',
               closed: false,
               metadata: 'dc.contributor.author'
-            }],
+            }]
           } as FormFieldModel]
         } as FormRowModel, {
           fields: [{
@@ -244,14 +244,15 @@ describe('FormBuilderService test suite', () => {
         scopeUUID: '',
         submissionScope: '',
         repeatable: false,
-        metadataFields: []
+        metadataFields: [],
+        hasSelectableMetadata: true
       }),
 
       new DynamicDsDatePickerModel({ id: 'testDate' }),
 
-      new DynamicLookupModel({ id: 'testLookup', repeatable: false, metadataFields: [], submissionId: '1234' }),
+      new DynamicLookupModel({ id: 'testLookup', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: true }),
 
-      new DynamicLookupNameModel({ id: 'testLookupName', repeatable: false, metadataFields: [], submissionId: '1234' }),
+      new DynamicLookupNameModel({ id: 'testLookupName', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: true }),
 
       new DynamicQualdropModel({ id: 'testCombobox', readOnly: false, required: false }),
 
@@ -269,7 +270,8 @@ describe('FormBuilderService test suite', () => {
           },
           required: false,
           metadataKey: 'dc.contributor.author',
-          metadataFields: ['dc.contributor.author']
+          metadataFields: ['dc.contributor.author'],
+          hasSelectableMetadata: true
         },
       ),
     ];
