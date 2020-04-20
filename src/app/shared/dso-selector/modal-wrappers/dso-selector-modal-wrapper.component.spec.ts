@@ -63,11 +63,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
   });
 
   it('should initially set the DSO to the activated route\'s item/collection/community', () => {
-    component.dsoRD
-      .pipe(first())
-      .subscribe((a) => {
-        expect(a).toEqual(itemRD);
-      })
+    expect(component.dsoRD).toEqual(itemRD);
   });
 
   describe('selectObject', () => {
