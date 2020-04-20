@@ -1,14 +1,15 @@
-import {LangSwitchComponent} from './lang-switch.component';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
-import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import { GLOBAL_CONFIG } from '../../../config';
-import {LangConfig} from '../../../config/lang-config.interface';
-import {Observable, of} from 'rxjs';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { MockCookieService } from '../mocks/mock-cookie.service';
-import { CookieService } from '../../core/services/cookie.service';
+
+import { Observable, of } from 'rxjs';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+import { LangSwitchComponent } from './lang-switch.component';
+import { GLOBAL_CONFIG } from '../../../config';
+import { LangConfig } from '../../../config/lang-config.interface';
+import { LocaleService } from '../../core/locale/locale.service';
 
 // This test is completely independent from any message catalogs or keys in the codebase
 // The translation module is instantiated with these bogus messages that we aren't using anyway.
@@ -28,16 +29,19 @@ class CustomLoader implements TranslateLoader {
     });
   }
 }
+
 /* tslint:enable:quotemark */
 /* tslint:enable:object-literal-key-quotes */
 
-let cookie: CookieService;
+let localService: any;
 
 describe('LangSwitchComponent', () => {
 
-  beforeEach(() => {
-    cookie = Object.assign(new MockCookieService());
-  });
+  function getMockLocaleService(): LocaleService {
+    return jasmine.createSpyObj('LocaleService', {
+      setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode')
+    })
+  }
 
   describe('with English and Deutsch activated, English as default', () => {
     let component: LangSwitchComponent;
@@ -65,7 +69,7 @@ describe('LangSwitchComponent', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule, TranslateModule.forRoot(
           {
-            loader: {provide: TranslateLoader, useClass: CustomLoader}
+            loader: { provide: TranslateLoader, useClass: CustomLoader }
           }
         )],
         declarations: [LangSwitchComponent],
@@ -73,7 +77,7 @@ describe('LangSwitchComponent', () => {
         providers: [
           TranslateService,
           { provide: GLOBAL_CONFIG, useValue: mockConfig },
-          { provide: CookieService, useValue: cookie }
+          { provide: LocaleService, useValue: getMockLocaleService() },
         ]
       }).compileComponents()
         .then(() => {
@@ -83,6 +87,7 @@ describe('LangSwitchComponent', () => {
           translate.use('en');
           http = TestBed.get(HttpTestingController);
           fixture = TestBed.createComponent(LangSwitchComponent);
+          localService = TestBed.get(LocaleService);
           component = fixture.componentInstance;
           de = fixture.debugElement;
           langSwitchElement = de.nativeElement;
@@ -111,19 +116,15 @@ describe('LangSwitchComponent', () => {
     describe('when selecting a language', () => {
       beforeEach(() => {
         spyOn(translate, 'use');
-        spyOn(cookie, 'set');
         const langItem = fixture.debugElement.query(By.css('.dropdown-item')).nativeElement;
         langItem.click();
         fixture.detectChanges();
       });
 
-      it('should translate the app', () => {
-        expect(translate.use).toHaveBeenCalled();
+      it('should translate the app and set the client\'s language cookie', () => {
+        expect(localService.setCurrentLanguageCode).toHaveBeenCalled();
       });
 
-      it('should set the client\'s language cookie', () => {
-        expect(cookie.set).toHaveBeenCalled();
-      });
     });
   });
 
@@ -154,7 +155,7 @@ describe('LangSwitchComponent', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule, TranslateModule.forRoot(
           {
-            loader: {provide: TranslateLoader, useClass: CustomLoader}
+            loader: { provide: TranslateLoader, useClass: CustomLoader }
           }
         )],
         declarations: [LangSwitchComponent],
@@ -162,7 +163,7 @@ describe('LangSwitchComponent', () => {
         providers: [
           TranslateService,
           { provide: GLOBAL_CONFIG, useValue: mockConfig },
-          { provide: CookieService, useValue: cookie }
+          { provide: LocaleService, useValue: getMockLocaleService() },
         ]
       }).compileComponents();
       translate = TestBed.get(TranslateService);
