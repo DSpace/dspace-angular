@@ -7,10 +7,10 @@ env:
   COMPOSE_VERSION: 1.24.1
   # The ci step will test the dspace-angular code against DSpace REST.
   # Direct that step to utilize a DSpace REST service that has been started in docker.
-  DSPACE_REST_HOST: localhost
-  DSPACE_REST_PORT: 8080
+  DSPACE_REST_HOST: dspace7.4science.cloud
+  DSPACE_REST_PORT: 443
   DSPACE_REST_NAMESPACE: '/server/api'
-  DSPACE_REST_SSL: false
+  DSPACE_REST_SSL: true
 
 services:
   - xvfb
