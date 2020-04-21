@@ -64,7 +64,7 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
     this.isLoading = false;
   }
 
-  protected getSectionStatus(): Observable<boolean> {
+  public getSectionStatus(): Observable<boolean> {
     return this.sectionData$.pipe(
       map((totalMatches: any) => {
         let output = false;
