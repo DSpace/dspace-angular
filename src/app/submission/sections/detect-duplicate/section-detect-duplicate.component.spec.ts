@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -27,7 +27,6 @@ import { SubmissionFormsConfigService } from '../../../core/config/submission-fo
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
 import {
-  mockLicenseParsedErrors,
   mockSubmissionCollectionId,
   mockSubmissionId
 } from '../../../shared/mocks/mock-submission';
@@ -36,14 +35,17 @@ import { SubmissionSectionDetectDuplicateComponent } from './section-detect-dupl
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { RemoteData } from '../../../core/data/remote-data';
-// import { License } from '../../../core/shared/license.model';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { cold } from 'jasmine-marbles';
-import { SharedModule } from '../../../shared/shared.module';
+import { cold, hot } from 'jasmine-marbles';
 import { DetectDuplicateService } from './detect-duplicate.service';
 import { getMockDetectDuplicateService } from '../../../shared/mocks/mock-detect-duplicate-service';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { License } from '../../../core/shared/license.model';
+import { Collection } from '../../../core/shared/collection.model';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
+import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -105,7 +107,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
   });
 
   const licenseText = 'License text';
-  /*const mockCollection = Object.assign(new Collection(), {
+  const mockCollection = Object.assign(new Collection(), {
     name: 'Community 1-Collection 1',
     id: collectionId,
     metadata: [
@@ -115,7 +117,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
         value: 'Community 1-Collection 1'
       }],
     license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
-  });*/
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -124,12 +126,15 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        SharedModule,
+        NgxPaginationModule,
+        NoopAnimationsModule,
         TranslateModule.forRoot(),
       ],
       declarations: [
         SubmissionSectionDetectDuplicateComponent,
-        TestComponent
+        TestComponent,
+        ObjNgFor,
+        VarDirective,
       ],
       providers: [
         { provide: CollectionDataService, useValue: getMockCollectionDataService() },
@@ -174,7 +179,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
     }));
   });
 
-  fdescribe('', () => {
+  describe('', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionSectionDetectDuplicateComponent);
       comp = fixture.componentInstance;
@@ -185,7 +190,6 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
       formBuilderService = TestBed.get(FormBuilderService);
       formOperationsService = TestBed.get(SectionFormOperationsService);
       collectionDataService = TestBed.get(CollectionDataService);
-
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
     });
 
@@ -194,11 +198,79 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
       comp = null;
       compAsAny = null;
     });
-  });
 
-  // it('should init section properly', () => {
-//
-  // });
+    it('Should init section properly - with workflow', () => {
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+
+      compAsAny.detectDuplicateService.getDuplicateMatchesByScope.and.returnValue(
+        hot('(a|)', {
+         a: { dummy: 1 }
+        })
+      );
+      compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
+      spyOn(compAsAny, 'getSectionStatus').and.returnValue(observableOf(true));
+
+      comp.onSectionInit();
+      fixture.detectChanges();
+
+      expect(comp.isWorkFlow).toBeTruthy();
+      expect(comp.sectionData$).toBeObservable(cold('(a|)', {
+        a: { dummy: 1 }
+      }));
+    });
+
+    it('Should init section properly - with workspace', () => {
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+
+      compAsAny.detectDuplicateService.getDuplicateMatchesByScope.and.returnValue(
+        hot('(a|)', {
+         a: { dummy: 1 }
+        })
+      );
+      compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
+      spyOn(compAsAny, 'getSectionStatus').and.returnValue(observableOf(true));
+
+      comp.onSectionInit();
+      fixture.detectChanges();
+
+      expect(comp.isWorkFlow).toBeFalsy();
+      expect(comp.sectionData$).toBeObservable(cold('(a|)', {
+        a: { dummy: 1 }
+      }));
+    });
+
+    it('Should return TRUE if the sectionData is empty', () => {
+      compAsAny.sectionData$ = observableOf({ matches: []});
+      expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
+        a: true
+      }));
+    });
+
+    it('Should return FALSE if the sectionData is not empty', () => {
+      compAsAny.sectionData$ = observableOf({ matches: [ { dummy: 1 } ] });
+      expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
+        a: false
+      }));
+    });
+
+    it('Should return the length of the sectionData$', () => {
+      compAsAny.sectionData$ = observableOf({ matches: [ { dummy: 1 }, { dummy: 2 }]});
+      expect(compAsAny.getTotalMatches()).toBeObservable(cold('(a|)', {
+        a: 2
+      }));
+    });
+
+    it('config.currentPage should be equal to page', () => {
+      const page = 5;
+      comp.config = new PaginationComponentOptions();
+      comp.setPage(page);
+      expect(comp.config.currentPage).toEqual(page);
+    });
+  });
 
 });
 

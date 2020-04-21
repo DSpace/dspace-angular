@@ -130,7 +130,6 @@ export class DuplicateMatchComponent implements OnInit {
       this.decisionType);
 
     this.dispatchAction(decision);
-
   }
 
   private dispatchAction(decision: DuplicateDecision): void {
@@ -148,7 +147,6 @@ export class DuplicateMatchComponent implements OnInit {
         this.operationsBuilder.add(this.pathCombiner.getPath(pathDecision), payload, false, true);
         this.detectDuplicateService.saveDuplicateDecision(this.submissionId, this.sectionId)
       });
-
   }
 
   openModal(modal) {

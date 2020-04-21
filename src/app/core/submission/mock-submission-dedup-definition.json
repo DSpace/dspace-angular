@@ -1,6 +1,6 @@
 {
   "id" : "detect-duplicate",
-  "header" : "submit.progressbar.detectDuplicate",
+  "header" : "submit.progressbar.detect-duplicate",
   "mandatory" : true,
   "sectionType" : "detect-duplicate",
   "type" : "submissionsection",

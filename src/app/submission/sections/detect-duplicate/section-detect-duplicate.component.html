@@ -1,15 +1,15 @@
 <ds-loading *ngIf="isLoading" message="Loading..."></ds-loading>
 
-<ng-container *ngIf="(totalMatch$ | async) === 0">
+<ng-container *ngIf="(getSectionStatus() | async)">
   <ds-alert [type]="AlertTypeEnum.Info" [content]="('submission.sections.detect-duplicate.disclaimer-no-match' | translate)"></ds-alert>
 </ng-container>
 
-<ng-container *ngIf="(totalMatch$ | async) > 0">
+<ng-container *ngIf="!(getSectionStatus() | async)">
   <ds-alert [type]="AlertTypeEnum.Warning" [content]="(disclaimer | async)"></ds-alert>
 
   <ds-pagination
     [paginationOptions]="config"
-    [collectionSize]="(totalMatch$ | async)"
+    [collectionSize]="(getTotalMatches() | async)"
     [sortOptions]="sortConfig"
     [hideGear]="true"
     [hidePagerWhenSinglePage]="false"

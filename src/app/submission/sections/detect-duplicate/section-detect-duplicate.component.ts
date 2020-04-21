@@ -15,7 +15,6 @@ import { SubmissionScopeType } from '../../../core/submission/submission-scope-t
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { DetectDuplicateService } from './detect-duplicate.service';
 import { SectionsService } from '../sections.service';
-import { hasValue } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-submission-section-detect-duplicate',
@@ -52,21 +51,38 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
     this.config.pageSize = 2;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
 
-    this.isWorkFlow = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkflowItem;
+    if ( this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkflowItem ) {
+      this.isWorkFlow = true;
+      this.disclaimer = this.translate.get('submission.sections.detect-duplicate.disclaimer-ctrl');
+    } else {
+      this.isWorkFlow = false;
+      this.disclaimer = this.translate.get('submission.sections.detect-duplicate.disclaimer');
+    }
 
     this.sectionData$ = this.detectDuplicateService.getDuplicateMatchesByScope(this.submissionId, this.sectionData.id, this.isWorkFlow);
-
-    this.disclaimer = this.isWorkFlow ?
-      this.translate.get('submission.sections.detect-duplicate.disclaimer-ctrl')
-      : this.translate.get('submission.sections.detect-duplicate.disclaimer');
 
     this.isLoading = false;
   }
 
   protected getSectionStatus(): Observable<boolean> {
-    // a sto punto conto gli elementi se == 0 -> TRUE
     return this.sectionData$.pipe(
-      map((totalMatches: number) => totalMatches === 0));
+      map((totalMatches: any) => {
+        let output = false;
+        if ( Object.keys(totalMatches.matches).length === 0 ) {
+          output = true;
+        }
+        return output;
+      })
+    );
+  }
+
+  protected getTotalMatches(): Observable<number> {
+    return this.sectionData$.pipe(
+      map((totalMatches: any) => {
+        const output = Object.keys(totalMatches.matches).length;
+        return output;
+      })
+    );
   }
 
   setPage(page: number) {
@@ -74,9 +90,7 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
   }
 
   onSectionDestroy(): void {
-    if (hasValue(this.sectionData)) {
-      this.sectionData.unsubscribe();
-    }
+    return;
   }
 
 }

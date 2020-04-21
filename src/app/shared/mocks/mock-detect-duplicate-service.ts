@@ -10,6 +10,7 @@ DetectDuplicateService {
   return jasmine.createSpyObj('DetectDuplicateService', {
     getDuplicateMatches: jasmine.createSpy('getDuplicateMatches'),
     getDuplicateTotalMatches: jasmine.createSpy('getDuplicateTotalMatches'),
-    saveDuplicateDecision: jasmine.createSpy('saveDuplicateDecision')
+    saveDuplicateDecision: jasmine.createSpy('saveDuplicateDecision'),
+    getDuplicateMatchesByScope: jasmine.createSpy('getDuplicateMatchesByScope'),
   });
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 
 import { SubmissionState } from '../../submission.reducers';
@@ -16,9 +16,14 @@ export class DetectDuplicateService {
   }
 
   getDuplicateMatches(submissionId: string, sectionId: string) {
-    return this.store.select(submissionSectionDataFromIdSelector(submissionId, sectionId)).pipe(
+    return this.store.pipe(
+      select(submissionSectionDataFromIdSelector(submissionId, sectionId)),
       map((sectionData: WorkspaceitemSectionDetectDuplicateObject) => {
-        return (isEmpty(sectionData)) ? {matches: {}} : sectionData
+        let matches: {};
+        if (isNotEmpty(sectionData)) {
+          matches = sectionData;
+        }
+        return matches;
       }),
       startWith({matches: {}}),
       distinctUntilChanged());
@@ -28,16 +33,19 @@ export class DetectDuplicateService {
     return this.getDuplicateMatches(submissionId, sectionId).pipe(
       map((item: WorkspaceitemSectionDetectDuplicateObject) => {
         const outputObject: WorkspaceitemSectionDetectDuplicateObject = {} as WorkspaceitemSectionDetectDuplicateObject;
-        Object.keys(item)
+        outputObject.matches = {};
+        Object.keys(item.matches)
           .filter((key) => {
+            let output = false;
             if (isWorkFlow) {
-              return isNotEmpty(item[key].workflowDecision);
+               output = isEmpty(item.matches[key].workflowDecision);
             } else {
-              return isNotEmpty(item[key].submitterDecision);
+               output = isEmpty(item.matches[key].submitterDecision);
             }
+            return output;
           })
           .forEach((key) => {
-            outputObject[key] = item[key];
+            outputObject.matches[key] = item.matches[key];
           });
         return outputObject;
       })

@@ -116,6 +116,12 @@ module.exports = {
 
         ]
       }
+    },
+    detectDuplicate: {
+      // NOTE: list of additional item metadata to show for duplicate match presentation list
+      metadataDetailsList: [
+        { label: 'Document type', name: 'dc.type' }
+      ]
     }
   },
   // Angular Universal settings
