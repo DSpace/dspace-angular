@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
-import { Breadcrumb } from './breadcrumbs/breadcrumb/breadcrumb.model';
 import { DSpaceObject } from './core/shared/dspace-object.model';
 import { Community } from './core/shared/community.model';
 import { getCommunityPageRoute } from './+community-page/community-page-routing.module';
@@ -11,7 +10,6 @@ import { Collection } from './core/shared/collection.model';
 import { Item } from './core/shared/item.model';
 import { getItemPageRoute } from './+item-page/item-page-routing.module';
 import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
-import { BrowseByDSOBreadcrumbResolver } from './+browse-by/browse-by-dso-breadcrumb.resolver';
 
 const ITEM_MODULE_PATH = 'items';
 
@@ -30,11 +28,21 @@ const COMMUNITY_MODULE_PATH = 'communities';
 export function getCommunityModulePath() {
   return `/${COMMUNITY_MODULE_PATH}`;
 }
+const BITSTREAM_MODULE_PATH = 'bitstreams';
+export function getBitstreamModulePath() {
+  return `/${BITSTREAM_MODULE_PATH}`;
+}
 
 const ADMIN_MODULE_PATH = 'admin';
 
 export function getAdminModulePath() {
   return `/${ADMIN_MODULE_PATH}`;
+}
+
+const PROFILE_MODULE_PATH = 'profile';
+
+export function getProfileModulePath() {
+  return `/${PROFILE_MODULE_PATH}`;
 }
 
 export function getDSOPath(dso: DSpaceObject): string {
@@ -59,6 +67,7 @@ export function getDSOPath(dso: DSpaceObject): string {
       { path: COMMUNITY_MODULE_PATH, loadChildren: './+community-page/community-page.module#CommunityPageModule' },
       { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
       { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
+      { path: BITSTREAM_MODULE_PATH, loadChildren: './+bitstream-page/bitstream-page.module#BitstreamPageModule' },
       {
         path: 'mydspace',
         loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule',
@@ -78,8 +87,15 @@ export function getDSOPath(dso: DSpaceObject): string {
         path: 'workflowitems',
         loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule'
       },
+      {
+        path: PROFILE_MODULE_PATH,
+        loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard]
+      },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
-    ])
+    ],
+    {
+      onSameUrlNavigation: 'reload',
+    })
   ],
   exports: [RouterModule],
 })

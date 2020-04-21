@@ -52,9 +52,9 @@
       <div class="form-group row">
 
         <div class="col text-right">
-          <button type="reset" class="btn btn-default" (click)="reset()">{{'form.cancel' | translate}}</button>
+          <button type="reset" class="btn btn-default" (click)="reset()">{{cancelLabel | translate}}</button>
           <button type="submit" class="btn btn-primary" (click)="onSubmit()"
-                  [disabled]="!(isValid() | async)">{{'form.submit' | translate}}
+                  [disabled]="!(isValid() | async)">{{submitLabel | translate}}
           </button>
         </div>
       </div>

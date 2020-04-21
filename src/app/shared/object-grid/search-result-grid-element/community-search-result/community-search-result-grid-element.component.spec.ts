@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
@@ -17,6 +18,7 @@ import { CommunitySearchResult } from '../../../object-collection/shared/communi
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CommunitySearchResultGridElementComponent } from './community-search-result-grid-element.component';
+import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 
 let communitySearchResultGridElementComponent: CommunitySearchResultGridElementComponent;
 let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
@@ -62,12 +64,14 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
+        { provide: BitstreamDataService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: BitstreamFormatDataService, useValue: {} },
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]

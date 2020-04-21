@@ -16,8 +16,10 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { ChangeAnalyzer } from './change-analyzer';
 import { DataService } from './data.service';
-import { FindListOptions } from './request.models';
+import { FindListOptions, PatchRequest } from './request.models';
 import { RequestService } from './request.service';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 
 const endpoint = 'https://rest.api/core';
 
@@ -53,8 +55,8 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
 describe('DataService', () => {
   let service: TestService;
   let options: FindListOptions;
-  const requestService = { generateRequestId: () => uuidv4() } as RequestService;
-  const halService = {} as HALEndpointService;
+  const requestService = getMockRequestService();
+  const halService = new HALEndpointServiceStub('url') as any;
   const rdbService = {} as RemoteDataBuildService;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
@@ -285,18 +287,23 @@ describe('DataService', () => {
   });
 
   describe('patch', () => {
-    let operations;
-    let selfLink;
+    const dso = {
+      uuid: 'dso-uuid'
+    };
+    const operations = [
+      Object.assign({
+        op: 'move',
+        from: '/1',
+        path: '/5'
+      }) as Operation
+    ];
 
     beforeEach(() => {
-      operations = [{ op: 'replace', path: '/metadata/dc.title', value: 'random string' } as Operation];
-      selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
-      spyOn(objectCache, 'addPatch');
+      service.patch(dso, operations);
     });
 
-    it('should call addPatch on the object cache with the right parameters', () => {
-      service.patch(selfLink, operations);
-      expect(objectCache.addPatch).toHaveBeenCalledWith(selfLink, operations);
+    it('should configure a PatchRequest', () => {
+      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PatchRequest));
     });
   });
 

@@ -38,7 +38,7 @@
 
   "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
 
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
 
   "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
 
@@ -170,9 +170,137 @@
 
 
 
+  "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
+
+  "admin.access-control.epeople.head": "EPeople",
+
+  "admin.access-control.epeople.search.head": "Search",
+
+  "admin.access-control.epeople.search.scope.name": "Name",
+
+  "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+
+  "admin.access-control.epeople.search.scope.metadata": "Metadata",
+
+  "admin.access-control.epeople.search.button": "Search",
+
+  "admin.access-control.epeople.button.add": "Add EPerson",
+
+  "admin.access-control.epeople.table.id": "ID",
+
+  "admin.access-control.epeople.table.name": "Name",
+
+  "admin.access-control.epeople.table.email": "E-mail",
+
+  "admin.access-control.epeople.table.edit": "Edit",
+
+  "item.access-control.epeople.table.edit.buttons.edit": "Edit",
+
+  "item.access-control.epeople.table.edit.buttons.remove": "Remove",
+
+  "admin.access-control.epeople.no-items": "No EPeople to show.",
+
+  "admin.access-control.epeople.form.create": "Create EPerson",
+
+  "admin.access-control.epeople.form.edit": "Edit EPerson",
+
+  "admin.access-control.epeople.form.firstName": "First name",
+
+  "admin.access-control.epeople.form.lastName": "Last name",
+
+  "admin.access-control.epeople.form.email": "E-mail",
+
+  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+
+  "admin.access-control.epeople.form.canLogIn": "Can log in",
+
+  "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
+
+  "admin.access-control.epeople.form.notification.created.success": "Successfully created EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+
+  "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+
+  "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
+
+
+
+  "admin.search.breadcrumbs": "Administrative Search",
+
+  "admin.search.collection.edit": "Edit",
+
+  "admin.search.community.edit": "Edit",
+
+  "admin.search.item.delete": "Delete",
+
+  "admin.search.item.edit": "Edit",
+
+  "admin.search.item.make-private": "Make Private",
+
+  "admin.search.item.make-public": "Make Public",
+
+  "admin.search.item.move": "Move",
+
+  "admin.search.item.private": "Private",
+
+  "admin.search.item.reinstate": "Reinstate",
+
+  "admin.search.item.withdraw": "Withdraw",
+
+  "admin.search.item.withdrawn": "Withdrawn",
+
+  "admin.search.title": "Administrative Search",
+
+
+
   "auth.errors.invalid-user": "Invalid email address or password.",
 
   "auth.messages.expired": "Your session has expired. Please log in again.",
+
+
+
+  "bitstream.edit.bitstream": "Bitstream: ",
+
+  "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
+
+  "bitstream.edit.form.description.label": "Description",
+
+  "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+
+  "bitstream.edit.form.embargo.label": "Embargo until specific date",
+
+  "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
+
+  "bitstream.edit.form.fileName.label": "Filename",
+
+  "bitstream.edit.form.newFormat.label": "Describe new format",
+
+  "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
+
+  "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
+
+  "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
+
+  "bitstream.edit.form.selectedFormat.label": "Selected Format",
+
+  "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
+
+  "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
+
+  "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
+
+  "bitstream.edit.notifications.saved.title": "Bitstream saved",
+
+  "bitstream.edit.title": "Edit bitstream",
 
 
 
@@ -546,6 +674,8 @@
 
 
 
+  "error.bitstream": "Error fetching bitstream",
+
   "error.browse-by": "Error fetching items",
 
   "error.collection": "Error fetching collection",
@@ -650,6 +780,93 @@
   "home.top-level-communities.head": "Communities in DSpace Cris",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
+
+
+
+
+  "item.bitstreams.upload.bundle": "Bundle",
+
+  "item.bitstreams.upload.bundle.placeholder": "Select a bundle",
+
+  "item.bitstreams.upload.bundle.new": "Create bundle",
+
+  "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+
+  "item.bitstreams.upload.cancel": "Cancel",
+
+  "item.bitstreams.upload.drop-message": "Drop a file to upload",
+
+  "item.bitstreams.upload.item": "Item: ",
+
+  "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
+
+  "item.bitstreams.upload.notifications.bundle.created.title": "Created bundle",
+
+  "item.bitstreams.upload.notifications.upload.failed": "Upload failed. Please verify the content before retrying.",
+
+  "item.bitstreams.upload.title": "Upload bitstream",
+
+
+
+  "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
+
+  "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
+
+  "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
+
+  "item.edit.bitstreams.bundle.load.more": "Load more",
+
+  "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
+
+  "item.edit.bitstreams.discard-button": "Discard",
+
+  "item.edit.bitstreams.edit.buttons.download": "Download",
+
+  "item.edit.bitstreams.edit.buttons.drag": "Drag",
+
+  "item.edit.bitstreams.edit.buttons.edit": "Edit",
+
+  "item.edit.bitstreams.edit.buttons.remove": "Remove",
+
+  "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
+
+  "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
+
+  "item.edit.bitstreams.headers.actions": "Actions",
+
+  "item.edit.bitstreams.headers.bundle": "Bundle",
+
+  "item.edit.bitstreams.headers.description": "Description",
+
+  "item.edit.bitstreams.headers.format": "Format",
+
+  "item.edit.bitstreams.headers.name": "Name",
+
+  "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+
+  "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
+
+  "item.edit.bitstreams.notifications.move.failed.title": "Error moving bitstreams",
+
+  "item.edit.bitstreams.notifications.move.saved.content": "Your move changes to this item's bitstreams and bundles have been saved.",
+
+  "item.edit.bitstreams.notifications.move.saved.title": "Move changes saved",
+
+  "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+
+  "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
+
+  "item.edit.bitstreams.notifications.remove.failed.title": "Error deleting bitstream",
+
+  "item.edit.bitstreams.notifications.remove.saved.content": "Your removal changes to this item's bitstreams have been saved.",
+
+  "item.edit.bitstreams.notifications.remove.saved.title": "Removal changes saved",
+
+  "item.edit.bitstreams.reinstate-button": "Undo",
+
+  "item.edit.bitstreams.save-button": "Save",
+
+  "item.edit.bitstreams.upload-button": "Upload",
 
 
 
@@ -851,7 +1068,7 @@
 
 
 
-  "item.edit.tabs.bitstreams.head": "Item Bitstreams",
+  "item.edit.tabs.bitstreams.head": "Bitstreams",
 
   "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
 
@@ -859,11 +1076,11 @@
 
   "item.edit.tabs.curate.title": "Item Edit - Curate",
 
-  "item.edit.tabs.metadata.head": "Item Metadata",
+  "item.edit.tabs.metadata.head": "Metadata",
 
   "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
 
-  "item.edit.tabs.relationships.head": "Item Relationships",
+  "item.edit.tabs.relationships.head": "Relationships",
 
   "item.edit.tabs.relationships.title": "Item Edit - Relationships",
 
@@ -901,7 +1118,7 @@
 
   "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
 
-  "item.edit.tabs.status.head": "Item Status",
+  "item.edit.tabs.status.head": "Status",
 
   "item.edit.tabs.status.labels.handle": "Handle",
 
@@ -912,6 +1129,12 @@
   "item.edit.tabs.status.labels.lastModified": "Last Modified",
 
   "item.edit.tabs.status.title": "Item Edit -  Status",
+
+  "item.edit.tabs.versionhistory.head": "Version History",
+
+  "item.edit.tabs.versionhistory.title": "Item Edit - Version History",
+
+  "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
 
   "item.edit.tabs.view.head": "View Item",
 
@@ -992,6 +1215,29 @@
   "item.select.table.title": "Title",
 
 
+  "item.version.history.empty": "There are no other versions for this item yet.",
+
+  "item.version.history.head": "Version History",
+
+  "item.version.history.return": "Return",
+
+  "item.version.history.selected": "Selected version",
+
+  "item.version.history.table.version": "Version",
+
+  "item.version.history.table.item": "Item",
+
+  "item.version.history.table.editor": "Editor",
+
+  "item.version.history.table.date": "Date",
+
+  "item.version.history.table.summary": "Summary",
+
+
+
+  "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
+
+
 
   "journal.listelement.badge": "Journal",
 
@@ -1040,6 +1286,10 @@
   "journalvolume.page.volume": "Volume",
 
 
+
+  "loading.bitstream": "Loading bitstream...",
+
+  "loading.bitstreams": "Loading bitstreams...",
 
   "loading.browse-by": "Loading items...",
 
@@ -1121,6 +1371,10 @@
 
 
 
+  "menu.section.admin_search": "Admin Search",
+
+
+
   "menu.section.browse_community": "This Community",
 
   "menu.section.browse_community_by_author": "By Author",
@@ -1171,17 +1425,9 @@
 
 
 
-  "menu.section.find": "Find",
-
-  "menu.section.find_items": "Items",
-
-  "menu.section.find_private_items": "Private Items",
-
-  "menu.section.find_withdrawn_items": "Withdrawn Items",
-
-
-
   "menu.section.icon.access_control": "Access Control menu section",
+
+  "menu.section.icon.admin_search": "Admin search menu section",
 
   "menu.section.icon.control_panel": "Control Panel menu section",
 
@@ -1357,6 +1603,8 @@
 
   "nav.mydspace": "MyDSpace",
 
+  "nav.profile": "Profile",
+
   "nav.search": "Search",
 
   "nav.statistics.header": "Statistics",
@@ -1412,6 +1660,64 @@
   "person.search.results.head": "Person Search Results",
 
   "person.search.title": "DSpace Cris Angular :: Person Search",
+
+
+
+  "profile.breadcrumbs": "Update Profile",
+
+  "profile.card.identify": "Identify",
+
+  "profile.card.security": "Security",
+
+  "profile.form.submit": "Update Profile",
+
+  "profile.groups.head": "Authorization groups you belong to",
+
+  "profile.head": "Update Profile",
+
+  "profile.metadata.form.error.firstname.required": "First Name is required",
+
+  "profile.metadata.form.error.lastname.required": "Last Name is required",
+
+  "profile.metadata.form.label.email": "Email Address",
+
+  "profile.metadata.form.label.firstname": "First Name",
+
+  "profile.metadata.form.label.language": "Language",
+
+  "profile.metadata.form.label.lastname": "Last Name",
+
+  "profile.metadata.form.label.phone": "Contact Telephone",
+
+  "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
+
+  "profile.metadata.form.notifications.success.title": "Profile saved",
+
+  "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
+
+  "profile.notifications.warning.no-changes.title": "No changes",
+
+  "profile.security.form.error.matching-passwords": "The passwords do not match.",
+
+  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
+
+  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+
+  "profile.security.form.label.password": "Password",
+
+  "profile.security.form.label.passwordrepeat": "Retype to confirm",
+
+  "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
+
+  "profile.security.form.notifications.success.title": "Password saved",
+
+  "profile.security.form.notifications.error.title": "Error changing passwords",
+
+  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
+
+  "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
+
+  "profile.title": "Update Profile",
 
 
 
@@ -1502,6 +1808,8 @@
 
   "search.filters.applied.f.dateSubmitted": "Date submitted",
 
+  "search.filters.applied.f.discoverable": "Private",
+
   "search.filters.applied.f.entityType": "Item Type",
 
   "search.filters.applied.f.has_content_in_original_bundle": "Has files",
@@ -1513,9 +1821,14 @@
   "search.filters.applied.f.subject": "Subject",
 
   "search.filters.applied.f.submitter": "Submitter",
+
   "search.filters.applied.f.jobTitle": "Job Title",
+
   "search.filters.applied.f.birthDate.max": "End birth date",
+
   "search.filters.applied.f.birthDate.min": "Start birth date",
+
+  "search.filters.applied.f.withdrawn": "Withdrawn",
 
 
 
@@ -1552,6 +1865,10 @@
   "search.filters.filter.dateSubmitted.head": "Date submitted",
 
   "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
+
+  "search.filters.filter.discoverable.head": "Private",
+
+  "search.filters.filter.withdrawn.head": "Withdrawn",
 
   "search.filters.filter.entityType.head": "Item Type",
 
@@ -1607,6 +1924,25 @@
 
   "search.filters.filter.submitter.placeholder": "Submitter",
 
+
+
+  "search.filters.entityType.JournalIssue": "Journal Issue",
+
+  "search.filters.entityType.JournalVolume": "Journal Volume",
+
+  "search.filters.entityType.OrgUnit": "Organizational Unit",
+
+  "search.filters.has_content_in_original_bundle.true": "Yes",
+
+  "search.filters.has_content_in_original_bundle.false": "No",
+
+  "search.filters.discoverable.true": "No",
+
+  "search.filters.discoverable.false": "Yes",
+
+  "search.filters.withdrawn.true": "Yes",
+
+  "search.filters.withdrawn.false": "No",
 
 
   "search.filters.head": "Filters",
@@ -2080,6 +2416,8 @@
   "treeview.load-more": "Load more",
 
 
+
+  "administrativeView.search.results.head": "Administrative Search",
 
 
   "uploader.browse": "browse",

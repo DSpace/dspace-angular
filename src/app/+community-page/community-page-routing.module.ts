@@ -34,11 +34,17 @@ const COMMUNITY_EDIT_PATH = 'edit';
   imports: [
     RouterModule.forChild([
       {
+        path: COMMUNITY_CREATE_PATH,
+        component: CreateCommunityPageComponent,
+        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard]
+      },
+      {
         path: ':id',
         resolve: {
           dso: CommunityPageResolver,
           breadcrumb: CommunityBreadcrumbResolver
         },
+        runGuardsAndResolvers: 'always',
         children: [
           {
             path: COMMUNITY_EDIT_PATH,
@@ -57,11 +63,6 @@ const COMMUNITY_EDIT_PATH = 'edit';
             pathMatch: 'full',
           }
         ]
-      },
-      {
-        path: COMMUNITY_CREATE_PATH,
-        component: CreateCommunityPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard]
       },
     ])
   ],

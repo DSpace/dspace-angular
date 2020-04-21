@@ -133,6 +133,14 @@ import { PoolTask } from './tasks/models/pool-task-object.model';
 import { TaskObject } from './tasks/models/task-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { ArrayMoveChangeAnalyzer } from './data/array-move-change-analyzer.service';
+import { BitstreamDataService } from './data/bitstream-data.service';
+import { VersionDataService } from './data/version-data.service';
+import { VersionHistoryDataService } from './data/version-history-data.service';
+import { Version } from './shared/version.model';
+import { VersionHistory } from './shared/version-history.model';
+import { WorkflowActionDataService } from './data/workflow-action-data.service';
+import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { AuthorityTreeviewService } from '../shared/authority-treeview/authority-treeview.service';
 import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { Authority } from './integration/models/authority.model';
@@ -231,6 +239,7 @@ const PROVIDERS = [
   DSpaceObjectDataService,
   DSOChangeAnalyzer,
   DefaultChangeAnalyzer,
+  ArrayMoveChangeAnalyzer,
   ObjectSelectService,
   CSSVariableService,
   MenuService,
@@ -242,6 +251,7 @@ const PROVIDERS = [
   TaskResponseParsingService,
   ClaimedTaskDataService,
   PoolTaskDataService,
+  BitstreamDataService,
   DsDynamicTypeBindRelationService,
   EntityTypeService,
   ContentSourceResponseParsingService,
@@ -254,8 +264,11 @@ const PROVIDERS = [
   RelationshipTypeService,
   ExternalSourceService,
   LookupRelationService,
+  VersionDataService,
+  VersionHistoryDataService,
   LicenseDataService,
   ItemTypeDataService,
+  WorkflowActionDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -306,6 +319,9 @@ export const models =
     ItemType,
     ExternalSource,
     ExternalSourceEntry,
+    Version,
+    VersionHistory,
+    WorkflowAction
   ];
 
 @NgModule({

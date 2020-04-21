@@ -20,6 +20,7 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { dateToString, isNgbDateStruct } from '../../../shared/date.util';
 
 /**
  * The service handling all form section operations
@@ -233,6 +234,8 @@ export class SectionFormOperationsService {
         // Language without Authority (input, textArea)
         fieldValue = new FormFieldMetadataValueObject(value, language);
       }
+    } else if (isNgbDateStruct(value)) {
+      fieldValue = new FormFieldMetadataValueObject(dateToString(value))
     } else if (value instanceof FormFieldLanguageValueObject || value instanceof AuthorityEntry || isObject(value)) {
       fieldValue = value;
     } else {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { NgbDatepicker, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbDatepicker, NgbDatepickerConfig, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
   DynamicFormControlComponent,
@@ -29,8 +29,13 @@ export class DsDatePickerInlineComponent extends DynamicFormControlComponent {
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
-              public config: NgbDatepickerConfig) {
+              public config: NgbDatepickerConfig,
+              public formatter: NgbDateParserFormatter) {
 
     super(layoutService, validationService);
+  }
+
+  getInitDate(): string {
+    return this.formatter.format(this.model.value as NgbDateStruct);
   }
 }

@@ -14,7 +14,7 @@ import {
   take,
   tap
 } from 'rxjs/operators';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -44,7 +44,8 @@ import {
   FindByIDRequest,
   FindListOptions,
   FindListRequest,
-  GetRequest
+  GetRequest,
+  PatchRequest
 } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
@@ -306,7 +307,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  protected searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
+  searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
 
     const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
 
@@ -329,12 +330,28 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
-   * Add a new patch to the object cache to a specified object
-   * @param {string} href The selflink of the object that will be patched
+   * Send a patch request for a specified object
+   * @param {T} dso The object to send a patch request for
    * @param {Operation[]} operations The patch operations to be performed
    */
-  patch(href: string, operations: Operation[]) {
-    this.objectCache.addPatch(href, operations);
+  patch(dso: T, operations: Operation[]): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, dso.uuid)));
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PatchRequest(requestId, href, operations);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
   }
 
   /**
@@ -410,6 +427,48 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
+   * Create a new DSpaceObject on the server, and store the response
+   * in the object cache, returns observable of the response to determine success
+   *
+   * @param {DSpaceObject} dso
+   *    The object to create
+   */
+  tryToCreate(dso: T): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+    const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+    );
+
+    const serializedDso = new DSpaceSerializer(getClassForType((dso as any).type)).serialize(dso);
+
+    const request$ = endpoint$.pipe(
+      take(1),
+      map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
+    );
+
+    // Execute the post request
+    request$.pipe(
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    return this.fetchResponse(requestId);
+  }
+
+  /**
+   * Gets the restResponse from the requestService
+   * @param requestId
+   */
+  protected fetchResponse(requestId: string): Observable<RestResponse> {
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: RestResponse) => {
+        return response;
+      })
+    );
+  }
+
+  /**
    * Delete an existing DSpace Object on the server
    * @param dsoID The DSpace Object' id to be removed
    * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
@@ -417,6 +476,39 @@ export abstract class DataService<T extends CacheableObject> {
    * @return an observable that emits true when the deletion was successful, false when it failed
    */
   delete(dsoID: string, copyVirtualMetadata?: string[]): Observable<boolean> {
+    const requestId = this.deleteAndReturnRequestId(dsoID, copyVirtualMetadata);
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response.isSuccessful)
+    );
+  }
+
+  /**
+   * Delete an existing DSpace Object on the server
+   * @param dsoID The DSpace Object' id to be removed
+   * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * Return an observable of the completed response
+   */
+  deleteAndReturnResponse(dsoID: string, copyVirtualMetadata?: string[]): Observable<RestResponse> {
+    const requestId = this.deleteAndReturnRequestId(dsoID, copyVirtualMetadata);
+
+    return this.requestService.getByUUID(requestId).pipe(
+      hasValueOperator(),
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
+  }
+
+  /**
+   * Delete an existing DSpace Object on the server
+   * @param dsoID The DSpace Object' id to be removed
+   * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * Return the delete request's ID
+   */
+  private deleteAndReturnRequestId(dsoID: string, copyVirtualMetadata?: string[]): string {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
@@ -437,10 +529,7 @@ export abstract class DataService<T extends CacheableObject> {
       })
     ).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response.isSuccessful)
-    );
+    return requestId;
   }
 
   /**

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowseService } from '../browse/browse.service';
@@ -20,7 +20,7 @@ import { ITEM } from '../shared/item.resource-type';
 import {
   configureRequest,
   filterSuccessfulResponses,
-  getRequestFromRequestHref,
+  getRequestFromRequestHref, getRequestFromRequestUUID,
   getResponseFromEntry
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -32,6 +32,7 @@ import { RemoteData } from './remote-data';
 import {
   DeleteRequest,
   FindListOptions,
+  GetRequest,
   MappedCollectionsRequest,
   PatchRequest,
   PostRequest,
@@ -40,6 +41,10 @@ import {
 } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { Bundle } from '../shared/bundle.model';
+import { MetadataMap } from '../shared/metadata.models';
+import { BundleDataService } from './bundle-data.service';
 
 @Injectable()
 @dataService(ITEM)
@@ -56,6 +61,7 @@ export class ItemDataService extends DataService<Item> {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOChangeAnalyzer<Item>,
+    protected bundleService: BundleDataService
   ) {
     super();
   }
@@ -180,14 +186,17 @@ export class ItemDataService extends DataService<Item> {
     const patchOperation = [{
       op: 'replace', path: '/withdrawn', value: withdrawn
     }];
+    this.requestService.removeByHrefSubstring('/discover');
+
     return this.getItemWithdrawEndpoint(itemId).pipe(
       distinctUntilChanged(),
       map((endpointURL: string) =>
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
       ),
       configureRequest(this.requestService),
-      map((request: RestRequest) => request.href),
-      getRequestFromRequestHref(this.requestService),
+      map((request: RestRequest) => request.uuid),
+      getRequestFromRequestUUID(this.requestService),
+      filter((requestEntry: RequestEntry) => requestEntry.completed),
       map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
@@ -201,15 +210,88 @@ export class ItemDataService extends DataService<Item> {
     const patchOperation = [{
       op: 'replace', path: '/discoverable', value: discoverable
     }];
+    this.requestService.removeByHrefSubstring('/discover');
+
     return this.getItemDiscoverableEndpoint(itemId).pipe(
       distinctUntilChanged(),
       map((endpointURL: string) =>
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
       ),
       configureRequest(this.requestService),
-      map((request: RestRequest) => request.href),
-      getRequestFromRequestHref(this.requestService),
+      map((request: RestRequest) => request.uuid),
+      getRequestFromRequestUUID(this.requestService),
+      filter((requestEntry: RequestEntry) => requestEntry.completed),
       map((requestEntry: RequestEntry) => requestEntry.response)
+    );
+  }
+
+  /**
+   * Get the endpoint for an item's bundles
+   * @param itemId
+   */
+  public getBundlesEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((url: string) => this.halService.getEndpoint('bundles', `${url}/${itemId}`))
+    );
+  }
+
+  /**
+   * Get an item's bundles using paginated search options
+   * @param itemId          The item's ID
+   * @param searchOptions   The search options to use
+   */
+  public getBundles(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Bundle>>> {
+    const hrefObs = this.getBundlesEndpoint(itemId).pipe(
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+    );
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.configure(request);
+    });
+
+    return this.rdbService.buildList<Bundle>(hrefObs);
+  }
+
+  /**
+   * Create a new bundle on an item
+   * @param itemId      The item's ID
+   * @param bundleName  The new bundle's name
+   * @param metadata    Optional metadata for the bundle
+   */
+  public createBundle(itemId: string, bundleName: string, metadata?: MetadataMap): Observable<RemoteData<Bundle>> {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getBundlesEndpoint(itemId);
+
+    const bundleJson = {
+      name: bundleName,
+      metadata: metadata ? metadata : {}
+    };
+
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href) => {
+      const options: HttpOptions = Object.create({});
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      options.headers = headers;
+      const request = new PostRequest(requestId, href, JSON.stringify(bundleJson), options);
+      this.requestService.configure(request);
+    });
+
+    const selfLink$ = this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: any) => {
+        if (isNotEmpty(response.resourceSelfLinks)) {
+          return response.resourceSelfLinks[0];
+        }
+      }),
+      distinctUntilChanged()
+    ) as Observable<string>;
+
+    return selfLink$.pipe(
+      switchMap((selfLink: string) => this.bundleService.findByHref(selfLink)),
     );
   }
 

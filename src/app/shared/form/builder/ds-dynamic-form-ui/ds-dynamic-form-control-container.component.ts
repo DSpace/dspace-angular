@@ -83,8 +83,10 @@ import {
   DynamicRelationGroupModel
 } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
+import { map, startWith, switchMap, find } from 'rxjs/operators';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { map, startWith, switchMap } from 'rxjs/operators';
 import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
@@ -170,6 +172,9 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
 
     case DYNAMIC_FORM_CONTROL_TYPE_DISABLED:
       return DsDynamicDisabledComponent;
+
+    case DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH:
+      return CustomSwitchComponent;
 
     default:
       return null;
@@ -307,6 +312,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         this.selectableListService.select(this.listId, relatedItems)
       });
     }
+  }
+
+  get isCheckbox(): boolean {
+    return this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX || this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH;
   }
 
   ngOnChanges(changes: SimpleChanges) {

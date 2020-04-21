@@ -10,6 +10,7 @@ import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { selfLinkFromUuidSelector } from '../index/index.selectors';
 import { GenericConstructor } from '../shared/generic-constructor';
+import { getClassForType } from './builders/build-decorators';
 import { LinkService } from './builders/link.service';
 import {
   AddPatchObjectCacheAction,
@@ -20,7 +21,6 @@ import {
 
 import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
-import { getClassForType } from './builders/build-decorators';
 
 /**
  * The base selector function to select the object cache in the store
@@ -48,7 +48,7 @@ export class ObjectCacheService {
   constructor(
     private store: Store<CoreState>,
     private linkService: LinkService
-    ) {
+  ) {
   }
 
   /**

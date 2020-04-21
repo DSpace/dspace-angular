@@ -86,7 +86,11 @@ describe('PoolSearchResultListElementComponent', () => {
 
   it('should init workflowitem properly', (done) => {
     component.workflowitemRD$.subscribe((workflowitemRD) => {
-      expect(linkService.resolveLink).toHaveBeenCalled();
+      expect(linkService.resolveLinks).toHaveBeenCalledWith(
+        component.dso,
+        jasmine.objectContaining({ name: 'workflowitem' }),
+        jasmine.objectContaining({ name: 'action' })
+      );
       expect(workflowitemRD.payload).toEqual(workflowitem);
       done();
     });
