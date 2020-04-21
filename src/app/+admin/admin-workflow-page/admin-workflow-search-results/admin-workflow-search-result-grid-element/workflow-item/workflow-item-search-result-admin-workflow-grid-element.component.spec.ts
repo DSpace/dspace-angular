@@ -16,6 +16,8 @@ import { followLink } from '../../../../../shared/utils/follow-link-config.model
 import { Item } from '../../../../../core/shared/item.model';
 import { PublicationGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
 import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
+import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 
 describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowGridElementComponent;
@@ -24,12 +26,15 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
   let wfi;
   let itemRD$;
   let linkService;
+  let object;
 
   function init() {
     itemRD$ = createSuccessfulRemoteDataObject$(new Item());
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
+    object = new WorkflowItemSearchResult()
     wfi = new WorkflowItem();
     wfi.item = itemRD$;
+    object.indexableObject = wfi;
     linkService = getMockLinkService();
   }
 
@@ -46,6 +51,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
         providers: [
           { provide: LinkService, useValue: linkService },
           { provide: TruncatableService, useValue: {} },
+          { provide: BitstreamDataService, useValue: {} },
         ],
         schemas: [NO_ERRORS_SCHEMA]
       })
@@ -61,7 +67,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
     linkService.resolveLink.and.callFake((a) => a);
     fixture = TestBed.createComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent);
     component = fixture.componentInstance;
-    component.object = wfi;
+    component.object = object;
     component.linkTypes = CollectionElementLinkType;
     component.index = 0;
     component.viewModes = ViewMode;

@@ -4,7 +4,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
@@ -16,8 +15,7 @@ import { getMockLinkService } from '../../../../../shared/mocks/mock-link-servic
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { PublicationGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
-import { AdminSidebarSectionComponent } from '../../../../admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
+import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 
 describe('WorkflowItemAdminWorkflowListElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowListElementComponent;
@@ -26,12 +24,15 @@ describe('WorkflowItemAdminWorkflowListElementComponent', () => {
   let wfi;
   let itemRD$;
   let linkService;
+  let object;
 
   function init() {
     itemRD$ = createSuccessfulRemoteDataObject$(new Item());
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
+    object = new WorkflowItemSearchResult()
     wfi = new WorkflowItem();
     wfi.item = itemRD$;
+    object.indexableObject = wfi;
     linkService = getMockLinkService();
   }
 
@@ -58,7 +59,7 @@ describe('WorkflowItemAdminWorkflowListElementComponent', () => {
     linkService.resolveLink.and.callFake((a) => a);
     fixture = TestBed.createComponent(WorkflowItemSearchResultAdminWorkflowListElementComponent);
     component = fixture.componentInstance;
-    component.object = wfi;
+    component.object = object;
     component.linkTypes = CollectionElementLinkType;
     component.index = 0;
     component.viewModes = ViewMode;
