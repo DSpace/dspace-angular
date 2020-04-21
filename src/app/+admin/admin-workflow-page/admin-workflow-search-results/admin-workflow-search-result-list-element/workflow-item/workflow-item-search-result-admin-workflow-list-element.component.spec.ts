@@ -10,7 +10,7 @@ import { CollectionElementLinkType } from '../../../../../shared/object-collecti
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import { WorkflowItemAdminWorkflowListElementComponent } from './workflow-item-admin-workflow-list-element.component';
+import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './workflow-item-search-result-admin-workflow-list-element.component';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../../../shared/mocks/mock-link-service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
@@ -20,8 +20,8 @@ import { PublicationGridElementComponent } from '../../../../../shared/object-gr
 import { AdminSidebarSectionComponent } from '../../../../admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 
 describe('WorkflowItemAdminWorkflowListElementComponent', () => {
-  let component: WorkflowItemAdminWorkflowListElementComponent;
-  let fixture: ComponentFixture<WorkflowItemAdminWorkflowListElementComponent>;
+  let component: WorkflowItemSearchResultAdminWorkflowListElementComponent;
+  let fixture: ComponentFixture<WorkflowItemSearchResultAdminWorkflowListElementComponent>;
   let id;
   let wfi;
   let itemRD$;
@@ -39,7 +39,7 @@ describe('WorkflowItemAdminWorkflowListElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [WorkflowItemAdminWorkflowListElementComponent],
+        declarations: [WorkflowItemSearchResultAdminWorkflowListElementComponent],
         imports: [
           NoopAnimationsModule,
           TranslateModule.forRoot(),
@@ -56,7 +56,7 @@ describe('WorkflowItemAdminWorkflowListElementComponent', () => {
 
   beforeEach(() => {
     linkService.resolveLink.and.callFake((a) => a);
-    fixture = TestBed.createComponent(WorkflowItemAdminWorkflowListElementComponent);
+    fixture = TestBed.createComponent(WorkflowItemSearchResultAdminWorkflowListElementComponent);
     component = fixture.componentInstance;
     component.object = wfi;
     component.linkTypes = CollectionElementLinkType;

@@ -7,7 +7,7 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { RouterTestingModule } from '@angular/router/testing';
-import { WorkflowItemAdminWorkflowGridElementComponent } from './workflow-item-admin-workflow-grid-element.component';
+import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './workflow-item-search-result-admin-workflow-grid-element.component';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../../../shared/mocks/mock-link-service';
@@ -18,8 +18,8 @@ import { PublicationGridElementComponent } from '../../../../../shared/object-gr
 import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 
 describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
-  let component: WorkflowItemAdminWorkflowGridElementComponent;
-  let fixture: ComponentFixture<WorkflowItemAdminWorkflowGridElementComponent>;
+  let component: WorkflowItemSearchResultAdminWorkflowGridElementComponent;
+  let fixture: ComponentFixture<WorkflowItemSearchResultAdminWorkflowGridElementComponent>;
   let id;
   let wfi;
   let itemRD$;
@@ -37,7 +37,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [WorkflowItemAdminWorkflowGridElementComponent, PublicationGridElementComponent, ListableObjectDirective],
+        declarations: [WorkflowItemSearchResultAdminWorkflowGridElementComponent, PublicationGridElementComponent, ListableObjectDirective],
         imports: [
           NoopAnimationsModule,
           TranslateModule.forRoot(),
@@ -49,7 +49,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA]
       })
-      .overrideComponent(WorkflowItemAdminWorkflowGridElementComponent, {
+      .overrideComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent, {
         set: {
           entryComponents: [PublicationGridElementComponent]
         }
@@ -59,7 +59,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
 
   beforeEach(() => {
     linkService.resolveLink.and.callFake((a) => a);
-    fixture = TestBed.createComponent(WorkflowItemAdminWorkflowGridElementComponent);
+    fixture = TestBed.createComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent);
     component = fixture.componentInstance;
     component.object = wfi;
     component.linkTypes = CollectionElementLinkType;
