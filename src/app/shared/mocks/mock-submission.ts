@@ -290,7 +290,7 @@ export const mockSubmissionRestResponse = [
             sectionType : 'detect-duplicate',
             type : 'submissionsection',
             _links : {
-              self : { href: 'https://dspace7.4science.cloud/server/api/config/submissionsections/detect-duplicate' },
+              self : { href: 'https://dspacecris7.4science.cloud/server/api/config/submissionsections/detect-duplicate' },
               config: ''
             }
           }
