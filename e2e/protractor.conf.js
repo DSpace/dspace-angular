@@ -33,7 +33,7 @@ exports.config = {
     'version': '',
     'platform': 'ANY',
     'chromeOptions': {
-      'args': [ '--headless', '--disable-gpu' ]
+      args: ['--headless', '--no-sandbox', '--disable-gpu']
     }
   },
   // -----------------------------------------------------------------
