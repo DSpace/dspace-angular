@@ -1,10 +1,10 @@
 <div class="d-flex">
     <span class="mr-auto text-contents">
-        <ng-container *ngIf="!relatedItem">
+        <ng-container *ngIf="!(relatedItem$ | async)">
             <ds-loading [showMessage]="false"></ds-loading>
         </ng-container>
-        <ng-container *ngIf="relatedItem">
-            <ds-listable-object-component-loader [showLabel]="false" [viewMode]="viewType" [object]="relatedItem"></ds-listable-object-component-loader>
+        <ng-container *ngIf="(relatedItem$ | async)">
+            <ds-listable-object-component-loader [showLabel]="false" [viewMode]="viewType" [object]="(relatedItem$ | async)"></ds-listable-object-component-loader>
         </ng-container>
     </span>
     <button type="button" class="btn btn-secondary"

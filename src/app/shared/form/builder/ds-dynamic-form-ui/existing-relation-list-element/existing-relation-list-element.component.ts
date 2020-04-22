@@ -10,7 +10,7 @@ import {
 import { FormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../../../../app.reducer';
 import { Item } from '../../../../../core/shared/item.model';
@@ -77,7 +77,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
   @Input() metadataFields: string[];
   @Input() relationshipOptions: RelationshipOptions;
   @Input() submissionId: string;
-  relatedItem: Item;
+  relatedItem$: BehaviorSubject<Item> = new BehaviorSubject<Item>(undefined);
   viewType = ViewMode.ListElement;
   @Output() remove: EventEmitter<any> = new EventEmitter();
 
@@ -108,7 +108,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
         getRemoteDataPayload(),
         filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
       ).subscribe((item: Item) => {
-        this.relatedItem = item;
+        this.relatedItem$.next(item);
       }));
     }
 
@@ -118,8 +118,8 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
    * Removes the selected relationship from the list
    */
   removeSelection() {
-    this.selectableListService.deselectSingle(this.listId, Object.assign(new ItemSearchResult(), { indexableObject: this.relatedItem }));
-    this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem, this.relationshipOptions.relationshipType, this.submissionId));
+    this.selectableListService.deselectSingle(this.listId, Object.assign(new ItemSearchResult(), { indexableObject: this.relatedItem$ }));
+    this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem$.getValue(), this.relationshipOptions.relationshipType, this.submissionId));
   }
 
   /**
