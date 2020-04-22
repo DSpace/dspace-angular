@@ -13,6 +13,7 @@
     "pretest:headless": "yarn run config:test",
     "prebuild:prod": "yarn run config:prod",
     "pree2e": "yarn run config:prod",
+    "pree2e:ci": "yarn run config:prod",
     "start": "yarn run start:prod",
     "serve": "ng serve",
     "start:dev": "npm-run-all --parallel config:dev:watch serve",
