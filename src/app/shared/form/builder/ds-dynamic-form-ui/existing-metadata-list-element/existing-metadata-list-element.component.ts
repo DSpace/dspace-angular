@@ -49,7 +49,9 @@ export abstract class Reorderable {
   /**
    * Update the Reorderable
    */
-  abstract update(): Observable<any>;
+  update(): void {
+    this.oldIndex = this.newIndex;
+  }
 
   /**
    * Returns true if the oldIndex of this Reorderable
@@ -96,14 +98,6 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
     return this.metadataValue.place;
   }
 
-  /**
-   * Update the Reorderable
-   */
-  update(): Observable<FormFieldMetadataValueObject> {
-    this.oldIndex = this.newIndex;
-    return observableOf(this.metadataValue);
-  }
-
 }
 
 /**
@@ -140,23 +134,6 @@ export class ReorderableRelationship extends Reorderable {
     } else {
       return this.relationship.leftPlace
     }
-  }
-
-  /**
-   * Update the Reorderable
-   */
-  update(): Observable<RemoteData<Relationship>> {
-    this.store.dispatch(new UpdateRelationshipAction(this.relationship, this.submissionID));
-    const updatedRelationship$ = this.relationshipService.updatePlace(this).pipe(
-      getSucceededRemoteData()
-    );
-
-    updatedRelationship$.subscribe(() => {
-      this.oldIndex = this.newIndex;
-
-    });
-
-    return updatedRelationship$;
   }
 }
 

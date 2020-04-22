@@ -35,8 +35,8 @@
                                        [model]="_model"
                                        [templates]="templates"
                                        [ngClass]="[getClass('element', 'host', _model), getClass('grid', 'host', _model)]"
-                                       (dfBlur)="update(idx)"
-                                       (dfChange)="update(idx)"
+                                       (dfBlur)="update($event, idx)"
+                                       (dfChange)="update($event, idx)"
                                        (dfFocus)="onFocus($event)"
                                        (ngbEvent)="onCustomEvent($event, null, true)"></ds-dynamic-form-control-container>
 </ng-template>
