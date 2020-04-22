@@ -12,7 +12,7 @@
                 (dfFocus)="onFocus($event)">
             <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
                 <!--Array with repeatable items-->
-                <div *ngIf="!context.notRepeatable && index < 1"
+                <div *ngIf="context.hasSelectableMetadata && !context.notRepeatable && index < 1"
                      class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
                     <div class="btn-group" role="group" aria-label="Add and remove button">
                         <button type="button" class="btn btn-secondary"
