@@ -9,6 +9,7 @@ import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -257,6 +258,7 @@ const COMPONENTS = [
   EditComColPageComponent,
   DeleteComColPageComponent,
   ComcolPageBrowseByComponent,
+  ComcolRoleComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,
