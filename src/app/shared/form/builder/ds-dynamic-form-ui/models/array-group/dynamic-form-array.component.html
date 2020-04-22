@@ -11,7 +11,10 @@
         <div cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="moveSelection($event)">
             <div *ngFor="let groupModel of model.groups; let idx = index"
                  [ngClass]="{'pt-2 pb-2': idx > 0}" cdkDrag cdkDragHandle>
-                <div [formGroupName]="idx" [class]="getClass('element', 'group') + ' ' + getClass('grid', 'group')">
+                <div [formGroupName]="idx"
+                     [class]="getClass('element', 'group') + ' ' + getClass('grid', 'group')"
+                     [ngClass]="{'d-flex align-items-center': idx > 0}"
+                >
                 <ng-container *ngIf="idx > 0">
                     <i class="drag-icon fas fa-grip-vertical fa-fw"></i>
                     <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>

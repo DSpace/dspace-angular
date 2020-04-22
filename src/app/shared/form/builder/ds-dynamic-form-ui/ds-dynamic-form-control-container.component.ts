@@ -395,7 +395,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     const arrayContext: DynamicFormArrayModel = (this.context as DynamicFormArrayGroupModel).context;
     const path = this.formBuilderService.getPath(arrayContext);
     const formArrayControl = this.group.root.get(path) as FormArray;
-
+    console.log('this.listId', this.listId);
     this.formBuilderService.removeFormArrayGroup(this.context.index, formArrayControl, arrayContext);
   }
 

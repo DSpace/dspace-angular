@@ -7,7 +7,8 @@
            [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
     <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
     <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
-    <div [ngClass]="{'form-row': model.hasLanguages || isRelationship, 'd-none': model.hasSelectableMetadata && value?.isVirtual}">
+    <div [ngClass]="{'form-row': model.hasLanguages || isRelationship,
+                      'd-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
         <div [ngClass]="getClass('grid', 'control')">
             <ng-container #componentViewContainer></ng-container>
             <small *ngIf="hasHint && context?.index === 0 && (!showErrorMessages || errorMessages.length === 0)"
@@ -55,14 +56,17 @@
         </ds-existing-metadata-list-element>
         <ds-existing-relation-list-element
                 *ngIf="!model.hasSelectableMetadata"
+                [ngClass]="{'d-block pb-2 pt-2': !context?.index}"
                 [reoRel]="relationshipValue$ | async"
                 [submissionItem]="item$ | async"
                 [listId]="listId"
                 [metadataFields]="model.metadataFields"
                 [submissionId]="model.submissionId"
-                [relationshipOptions]="model.relationship">
+                [relationshipOptions]="model.relationship"
+        >
         </ds-existing-relation-list-element>
     </ng-container>
     <ng-content></ng-content>
 </div>
+
 

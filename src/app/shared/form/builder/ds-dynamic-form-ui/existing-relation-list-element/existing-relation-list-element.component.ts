@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
@@ -53,51 +61,6 @@ export abstract class Reorderable {
   }
 }
 
-/**
- * A Reorderable representation of a FormFieldMetadataValue
- */
-export class ReorderableFormFieldMetadataValue extends Reorderable {
-
-  constructor(
-    public metadataValue: FormFieldMetadataValueObject,
-    public model: DynamicConcatModel,
-    public control: FormControl,
-    public group: DynamicFormArrayGroupModel,
-    oldIndex?: number,
-    newIndex?: number
-  ) {
-    super(oldIndex, newIndex);
-    this.metadataValue = metadataValue;
-  }
-
-  /**
-   * Return the id for this Reorderable
-   */
-  getId(): string {
-    if (hasValue(this.metadataValue.authority)) {
-      return this.metadataValue.authority;
-    } else {
-      // can't use UUIDs, they're generated client side
-      return this.metadataValue.value;
-    }
-  }
-
-  /**
-   * Return the place metadata for this Reorderable
-   */
-  getPlace(): number {
-    return this.metadataValue.place;
-  }
-
-  /**
-   * Update the Reorderable
-   */
-  update(): Observable<FormFieldMetadataValueObject> {
-    this.oldIndex = this.newIndex;
-    return observableOf(this.metadataValue);
-  }
-
-}
 
 /**
  * Represents a single existing relationship value as metadata in submission
@@ -116,6 +79,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
   @Input() submissionId: string;
   relatedItem: Item;
   viewType = ViewMode.ListElement;
+  @Output() remove: EventEmitter<any> = new EventEmitter();
 
   /**
    * List of subscriptions to unsubscribe from
