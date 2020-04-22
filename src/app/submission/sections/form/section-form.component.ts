@@ -276,19 +276,15 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    */
   updateForm(sectionData: WorkspaceitemSectionFormObject, errors: SubmissionSectionError[]): void {
 
-    if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
+    if (hasValue(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
-      if (this.hasMetadataEnrichment(sectionData)) {
-        this.isUpdating = true;
-        this.formModel = null;
-        this.cdr.detectChanges();
-        this.initForm(sectionData);
-        this.checksForErrors(errors);
-        this.isUpdating = false;
-        this.cdr.detectChanges();
-      } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errors)) {
-        this.checksForErrors(errors);
-      }
+      this.isUpdating = true;
+      this.formModel = null;
+      this.cdr.detectChanges();
+      this.initForm(sectionData);
+      this.checksForErrors(errors);
+      this.isUpdating = false;
+      this.cdr.detectChanges();
     } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errors)) {
       this.checksForErrors(errors);
     }

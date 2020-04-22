@@ -1,12 +1,19 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormControl } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel, DynamicFormControlEvent } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, of as observableOf, Subject, Subscription } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { AppState } from '../../../../../app.reducer';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemMetadataRepresentation } from '../../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
@@ -14,8 +21,7 @@ import { MetadataRepresentation } from '../../../../../core/shared/metadata-repr
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import {
   getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getSucceededRemoteData
+  getRemoteDataPayload
 } from '../../../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../../empty.util';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
@@ -24,7 +30,6 @@ import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-v
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction, UpdateRelationshipAction } from '../relation-lookup-modal/relationship.actions';
-import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
 
 // tslint:disable:max-classes-per-file
 /**
@@ -153,7 +158,7 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
   @Input() submissionId: string;
   metadataRepresentation$: BehaviorSubject<MetadataRepresentation> = new BehaviorSubject<MetadataRepresentation>(undefined);
   relatedItem: Item;
-
+  @Output() remove: EventEmitter<any> = new EventEmitter();
   /**
    * List of subscriptions to unsubscribe from
    */
@@ -201,7 +206,8 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
    */
   removeSelection() {
     this.selectableListService.deselectSingle(this.listId, Object.assign(new ItemSearchResult(), { indexableObject: this.relatedItem }));
-    this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem, this.relationshipOptions.relationshipType, this.submissionId))
+    this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem, this.relationshipOptions.relationshipType, this.submissionId));
+    this.remove.emit();
   }
 
   /**

@@ -144,7 +144,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * @param selectableObjects
    */
   select(...selectableObjects: Array<SearchResult<Item>>) {
-    console.log('selectableObjects', selectableObjects);
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = combineLatest(...selectableObjects.map((sri: SearchResult<Item>) => {

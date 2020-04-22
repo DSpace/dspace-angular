@@ -119,6 +119,7 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
 
   onSelect(event) {
     this.group.markAsDirty();
+    console.log('onSelect event', event);
     this.model.valueUpdates.next(event);
     this.change.emit(event);
     this.setCurrentValue(event);

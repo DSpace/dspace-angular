@@ -48,7 +48,9 @@
                 [listId]="listId"
                 [metadataFields]="model.metadataFields"
                 [submissionId]="model.submissionId"
-                [relationshipOptions]="model.relationship">
+                [relationshipOptions]="model.relationship"
+                (remove)="onRemove()"
+        >
         </ds-existing-metadata-list-element>
     </ng-container>
     <ng-content></ng-content>

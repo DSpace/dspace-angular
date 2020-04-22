@@ -13,6 +13,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
+import { hasValue } from '../../../../../empty.util';
 
 @Component({
   selector: 'ds-dynamic-form-array',
@@ -45,24 +46,25 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
     this.model.moveGroup(event.previousIndex, event.currentIndex - event.previousIndex);
     const prevIndex = event.previousIndex - 1;
     const index = event.currentIndex - 1;
-    const $event = {
-      $event: { previousIndex: prevIndex },
-      context: { index },
-      control: (this.control as any).controls[index],
-      group: this.group,
-      model: this.model.groups[index].group[0],
-      type: DynamicFormControlEventType.Change
-    };
 
-    this.onChange($event);
+    if (hasValue(this.model.groups[index]) && hasValue((this.control as any).controls[index])) {
+      const $event = {
+        $event: { previousIndex: prevIndex },
+        context: { index },
+        control: (this.control as any).controls[index],
+        group: this.group,
+        model: this.model.groups[index].group[0],
+        type: DynamicFormControlEventType.Change
+      };
+
+      this.onChange($event);
+      }
   }
 
   update(event: any, index: number) {
     const $event = Object.assign({}, event, {
       context: { index: index - 1}
     });
-
-    console.log('$event', $event);
 
     this.onChange($event)
   }
