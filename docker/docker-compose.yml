@@ -23,4 +23,4 @@ services:
     stdin_open: true
     tty: true
     volumes:
-    - ./environment.dev.js:/app/config/environment.dev.js
+    - ./environment.dev.js:/app/src/environments/environment.dev.ts
