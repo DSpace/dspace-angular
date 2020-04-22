@@ -17,7 +17,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormArray } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -38,7 +38,7 @@ import {
   DynamicFormLayout,
   DynamicFormLayoutService, DynamicFormRelationService,
   DynamicFormValidationService,
-  DynamicTemplateDirective,
+  DynamicTemplateDirective, DynamicFormArrayGroupModel, DynamicFormArrayModel,
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -107,6 +107,8 @@ import { SubmissionService } from '../../../../submission/submission.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { paginatedRelationsToItems } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { RelationshipOptions } from '../models/relationship-options.model';
+import { FormBuilderService } from '../form-builder.service';
+import { modalConfigDefaults } from 'ngx-bootstrap/modal/modal-options.class';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -234,6 +236,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private submissionObjectService: SubmissionObjectDataService,
     private ref: ChangeDetectorRef,
     private formService: FormService,
+    private formBuilderService: FormBuilderService,
     private submissionService: SubmissionService
   ) {
     super(componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
@@ -312,7 +315,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes && !this.isRelationship) {
+    if (changes && !this.isRelationship && hasValue(this.group.get(this.model.id))) {
       super.ngOnChanges(changes);
       if (this.model && this.model.placeholder) {
         this.model.placeholder = this.translateService.instant(this.model.placeholder);
@@ -381,6 +384,19 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.item = this.item;
     modalComp.collection = this.collection;
     modalComp.submissionId = this.model.submissionId;
+    modalComp.selectEvent
+  }
+
+  /**
+   * Callback for the remove event,
+   * remove the current control from its array
+   */
+  onRemove(): void {
+    const arrayContext: DynamicFormArrayModel = (this.context as DynamicFormArrayGroupModel).context;
+    const path = this.formBuilderService.getPath(arrayContext);
+    const formArrayControl = this.group.root.get(path) as FormArray;
+
+    this.formBuilderService.removeFormArrayGroup(this.context.index, formArrayControl, arrayContext);
   }
 
   /**

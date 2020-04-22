@@ -11,7 +11,7 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isUndefined, hasNoValue } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
@@ -276,19 +276,15 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    */
   updateForm(sectionData: WorkspaceitemSectionFormObject, errors: SubmissionSectionError[]): void {
 
-    if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
+    if (hasValue(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
-      if (this.hasMetadataEnrichment(sectionData)) {
-        this.isUpdating = true;
-        this.formModel = null;
-        this.cdr.detectChanges();
-        this.initForm(sectionData);
-        this.checksForErrors(errors);
-        this.isUpdating = false;
-        this.cdr.detectChanges();
-      } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errors)) {
-        this.checksForErrors(errors);
-      }
+      this.isUpdating = true;
+      this.formModel = null;
+      this.cdr.detectChanges();
+      this.initForm(sectionData);
+      this.checksForErrors(errors);
+      this.isUpdating = false;
+      this.cdr.detectChanges();
     } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errors)) {
       this.checksForErrors(errors);
     }
@@ -348,16 +344,19 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-    this.formOperationsService.dispatchOperationsFromEvent(
-      this.pathCombiner,
-      event,
-      this.previousValue,
-      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
-    const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
-    const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
+    // don't handle change events for things with an index < 0, those are template rows.
+    if (hasNoValue(event.context) || hasNoValue(event.context.index) || event.context.index >= 0) {
+      this.formOperationsService.dispatchOperationsFromEvent(
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
+      const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
+      const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-    if (this.EnvConfig.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
-      this.submissionService.dispatchSave(this.submissionId);
+      if (this.EnvConfig.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
+        this.submissionService.dispatchSave(this.submissionId);
+      }
     }
   }
 

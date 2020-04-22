@@ -184,7 +184,7 @@ export class SectionFormOperationsService {
         metadataValueMap.set(groupModel.qualdropId, metadataValueList);
       }
       if (index === fieldIndex) {
-        path = groupModel.qualdropId + '/' + (metadataValueMap.get(groupModel.qualdropId).length - 1)
+        path = groupModel.qualdropId + '/' + (metadataValueList.length - 1)
       }
     });
 
@@ -391,22 +391,13 @@ export class SectionFormOperationsService {
           value);
       }
       previousValue.delete();
-    } else if (value.hasValue()) {
-      // Here model has no previous value but a new one
-      if (isUndefined(this.getArrayIndexFromEvent(event))
-        || this.getArrayIndexFromEvent(event) === 0) {
+    } else if (value.hasValue() && (isUndefined(this.getArrayIndexFromEvent(event))
+        || this.getArrayIndexFromEvent(event) === 0)) {
         // Model is single field or is part of an array model but is the first item,
         // so dispatch an add operation that initialize the values of a specific metadata
         this.operationsBuilder.add(
           pathCombiner.getPath(segmentedPath),
           value, true);
-      } else {
-        // Model is part of an array model but is not the first item,
-        // so dispatch an add operation that add a value to an existent metadata
-        this.operationsBuilder.add(
-          pathCombiner.getPath(path),
-          value);
-      }
     }
   }
 

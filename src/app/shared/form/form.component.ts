@@ -15,7 +15,7 @@ import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
-  DynamicFormLayout,
+  DynamicFormLayout, DYNAMIC_FORM_CONTROL_TYPE_GROUP,
 } from '@ng-dynamic-forms/core';
 import { findIndex } from 'lodash';
 import { FormBuilderService } from './builder/form-builder.service';
@@ -23,6 +23,13 @@ import { Observable, Subscription } from 'rxjs';
 import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { FormEntry, FormError } from './form.reducer';
+import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import {
+  QUALDROP_GROUP_SUFFIX,
+  QUALDROP_VALUE_SUFFIX
+} from './builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+
+const QUALDROP_GROUP_REGEX = new RegExp(`${QUALDROP_GROUP_SUFFIX}_\\d+$`);
 
 /**
  * The default form component.
@@ -316,8 +323,17 @@ export class FormComponent implements OnDestroy, OnInit {
 
     // set that field to the new value
     const model = arrayContext.groups[arrayContext.groups.length - 1].group[0] as any;
-    if (model.type === 'SCROLLABLE_DROPDOWN') {
+    if (model.type === DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN) {
       model.value = Object.values(value)[0];
+    } else if (this.formBuilderService.isQualdropGroup(model)) {
+      const ctrl = formArrayControl.controls[formArrayControl.length - 1];
+      const ctrlKey = Object.keys(ctrl.value).find((key: string) => isNotEmpty(key.match(QUALDROP_GROUP_REGEX)));
+      const valueKey = Object.keys(value).find((key: string) => isNotEmpty(key.match(QUALDROP_GROUP_REGEX)));
+      if (ctrlKey !== valueKey) {
+        Object.defineProperty(value, ctrlKey, Object.getOwnPropertyDescriptor(value, valueKey));
+        delete value[valueKey];
+      }
+      ctrl.setValue(value);
     } else {
       formArrayControl.controls[formArrayControl.length - 1].setValue(value);
     }
