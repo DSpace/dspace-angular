@@ -1,10 +1,9 @@
-#!/usr/bin/env node
+import { projectRoot} from '../webpack/helpers';
 const commander = require('commander');
 const fs = require('fs');
 const JSON5 = require('json5');
 const _cliProgress = require('cli-progress');
 const _ = require('lodash');
-const {projectRoot} = require('../webpack/helpers');
 
 const program = new commander.Command();
 program.version('1.0.0', '-v, --version');
@@ -13,8 +12,8 @@ const NEW_MESSAGE_TODO = '// TODO New key - Add a translation';
 const MESSAGE_CHANGED_TODO = '// TODO Source message changed - Revise the translation';
 const COMMENTS_CHANGED_TODO = '// TODO Source comments changed - Revise the translation';
 
-const DEFAULT_SOURCE_FILE_LOCATION = 'resources/i18n/en.json5';
-const LANGUAGE_FILES_LOCATION = 'resources/i18n';
+const DEFAULT_SOURCE_FILE_LOCATION = 'src/assets/i18n/en.json5';
+const LANGUAGE_FILES_LOCATION = 'src/assets/i18n';
 
 parseCliInput();
 

@@ -39,7 +39,8 @@
     "clean:node": "rimraf node_modules",
     "clean:prod": "yarn run clean:coverage && yarn run clean:doc && yarn run clean:dist && yarn run clean:log && yarn run clean:json && yarn run clean:bld",
     "clean": "yarn run clean:prod && yarn run clean:node && yarn run clean:env",
-    "clean:env": "rimraf src/environments/environment.ts"
+    "clean:env": "rimraf src/environments/environment.ts",
+    "sync-i18n": "ts-node --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts"
   },
   "browser": {
     "fs": false,
@@ -76,6 +77,7 @@
     "bootstrap": "4.3.1",
     "caniuse-lite": "^1.0.30000697",
     "cerialize": "0.1.18",
+    "cli-progress": "^3.8.0",
     "cookie-parser": "1.4.3",
     "core-js": "^3.6.4",
     "debug-loader": "^0.0.1",
