@@ -305,7 +305,6 @@ export abstract class FieldParser {
   }
 
   public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceValueAsObj: boolean = false, groupModel?: boolean) {
-    console.log('modelConfig.id', modelConfig.id);
     if (isNotEmpty(fieldValue)) {
       if (groupModel) {
         // Array, values is an array
