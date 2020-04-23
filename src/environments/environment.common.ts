@@ -9,7 +9,7 @@ export const environment: GlobalConfig = {
   ui: {
     ssl: false,
     host: 'localhost',
-    port: 3000,
+    port: 4000,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
   },

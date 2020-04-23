@@ -66,7 +66,7 @@
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "dspace-angular-cli:build",
-            "port": 3000
+            "port": 4000
           },
           "configurations": {
             "production": {
