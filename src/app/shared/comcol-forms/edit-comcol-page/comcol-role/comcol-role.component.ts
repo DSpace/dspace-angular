@@ -1,16 +1,15 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { Community } from '../../../../core/shared/community.model';
-import { EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { getGroupEditPath } from '../../../../+admin/admin-access-control/admin-access-control-routing.module';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
-import { map } from 'rxjs/operators';
-import { followLink } from '../../../utils/follow-link-config.model';
-import { LinkService } from '../../../../core/cache/builders/link.service';
+import { filter, map } from 'rxjs/operators';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
 import { ComcolRole } from './comcol-role';
 import { RequestService } from '../../../../core/data/request.service';
+import { RemoteData } from '../../../../core/data/remote-data';
 
 /**
  * Component for managing a community or collection role.
@@ -35,24 +34,34 @@ export class ComcolRoleComponent implements OnInit {
   comcolRole: ComcolRole;
 
   constructor(
-    protected groupService: GroupDataService,
-    protected linkService: LinkService,
-    protected cdr: ChangeDetectorRef,
     protected requestService: RequestService,
+    protected groupService: GroupDataService,
   ) {
   }
 
   /**
-   * The group for this role as an observable.
+   * The link to the related group.
+   */
+  get groupLink(): string {
+    return this.dso._links[this.comcolRole.linkName].href;
+  }
+
+  /**
+   * The group for this role, as an observable remote data.
+   */
+  get groupRD$(): Observable<RemoteData<Group>> {
+    return this.groupService.findByHref(this.groupLink).pipe(
+      filter((groupRD) => !!groupRD.statusCode),
+    );
+  }
+
+  /**
+   * The group for this role, as an observable.
    */
   get group$(): Observable<Group> {
-
-    if (!this.dso[this.comcolRole.linkName]) {
-      return EMPTY;
-    }
-
-    return this.dso[this.comcolRole.linkName].pipe(
+    return this.groupRD$.pipe(
       getSucceededRemoteData(),
+      filter((groupRD) => groupRD != null),
       getRemoteDataPayload(),
     );
   }
@@ -67,28 +76,51 @@ export class ComcolRoleComponent implements OnInit {
   }
 
   /**
+   * Return true if there is no group for this ComcolRole, as an observable.
+   */
+  hasNoGroup$(): Observable<boolean> {
+    return this.groupRD$.pipe(
+      map((groupRD) => groupRD.statusCode === 204),
+    )
+  }
+
+  /**
+   * Return true if the group for this ComcolRole is the Anonymous group, as an observable.
+   */
+  hasAnonymousGroup$(): Observable<boolean> {
+    return this.group$.pipe(
+      map((group) => group.name === 'Anonymous'),
+    )
+  }
+
+  /**
+   * Return true if there is a group for this ComcolRole other than the Anonymous group, as an observable.
+   */
+  hasCustomGroup$(): Observable<boolean> {
+    return this.hasAnonymousGroup$().pipe(
+      map((anonymous) => !anonymous),
+    )
+  }
+
+  /**
    * Create a group for this community or collection role.
    */
   create() {
-
-    this.groupService.createComcolGroup(this.dso, this.comcolRole)
-      .subscribe(() => {
-        this.linkService.resolveLink(this.dso, followLink(this.comcolRole.linkName));
-        this.cdr.detectChanges();
-      });
+    this.groupService.createComcolGroup(this.dso, this.groupLink).subscribe();
   }
 
   /**
    * Delete the group for this community or collection role.
    */
   delete() {
-    this.groupService.deleteComcolGroup(this.dso, this.comcolRole)
-      .subscribe(() => {
-        this.cdr.detectChanges();
-      })
+    this.groupService.deleteComcolGroup(this.groupLink).subscribe();
   }
 
   ngOnInit(): void {
-    this.linkService.resolveLink(this.dso, followLink(this.comcolRole.linkName));
+    this.requestService.hasByHrefObservable(this.groupLink)
+      .pipe(
+        filter((hasByHrefObservable) => !hasByHrefObservable),
+      )
+      .subscribe(() => this.groupRD$.subscribe());
   }
 }

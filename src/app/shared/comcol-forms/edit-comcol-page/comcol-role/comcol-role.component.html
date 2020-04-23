@@ -1,40 +1,50 @@
-<div class="card p-2">
+<div class="card p-2 m-3 {{comcolRole.name}}">
 
-  <div class="card-body d-flex flex-column">
+  <div class="card-body d-flex flex-column"
+       *ngVar="group$ | async as group">
 
-    <div class="d-flex flex-row justify-content-between">
+    <div class="d-flex flex-md-row flex-column">
 
-      <div>
-        <p>{{'community.edit.tabs.roles.' + comcolRole.name + '.name' | translate}}</p>
+      <h5 class="w-100 ">
+        {{'comcol-role.edit.' + comcolRole.name + '.name' | translate}}
+      </h5>
+
+      <div class="w-100">
+        <ds-loading *ngIf="!(groupRD$ | async)"></ds-loading>
+        <div *ngIf="hasNoGroup$() | async">
+          {{'comcol-role.edit.no-group' | translate}}
+        </div>
+        <div *ngIf="hasAnonymousGroup$() | async">
+          {{'comcol-role.edit.' + comcolRole.name + '.anonymous-group' | translate}}
+        </div>
+        <a *ngIf="hasCustomGroup$() | async"
+           routerLink="{{editGroupLink$ | async}}">
+          {{group.name}}
+        </a>
       </div>
 
-      <ng-container *ngVar="group$ | async as group">
-
-          <div *ngIf="!group">
-            {{'community.edit.tabs.roles.none' | translate}}
-          </div>
-
-          <a *ngIf="group"
-             routerLink="{{editGroupLink$ | async}}">
-            {{group.name}}
-          </a>
-
-          <div *ngIf="!group"
-               class="btn btn-outline-dark create"
-               (click)="create()">create
-          </div>
-
-          <div *ngIf="group"
-               class="btn btn-outline-dark delete"
-               (click)="delete()">delete
-          </div>
-
-      </ng-container>
+      <div class="ml-md-auto pl-md-2 ml-0 pl-0 pt-2">
+        <div *ngIf="hasNoGroup$() | async"
+             class="btn btn-outline-dark create"
+             (click)="create()">
+          {{'comcol-role.edit.create' | translate}}
+        </div>
+        <div *ngIf="hasAnonymousGroup$() | async"
+             class="btn btn-outline-dark restrict"
+             (click)="create()">
+          {{'comcol-role.edit.restrict' | translate}}
+        </div>
+        <div *ngIf="hasCustomGroup$() | async"
+             class="btn btn-outline-dark delete"
+             (click)="delete()">
+          {{'comcol-role.edit.delete' | translate}}
+        </div>
+      </div>
 
     </div>
 
     <div class="mt-2">
-      {{'community.edit.tabs.roles.' + comcolRole.name + '.description' | translate}}
+      {{'comcol-role.edit.' + comcolRole.name + '.description' | translate}}
     </div>
 
   </div>
