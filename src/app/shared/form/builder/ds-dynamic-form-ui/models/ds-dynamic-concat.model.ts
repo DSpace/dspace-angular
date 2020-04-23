@@ -6,6 +6,7 @@ import { hasNoValue, isNotEmpty } from '../../../../empty.util';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
 export const CONCAT_FIRST_INPUT_SUFFIX = '_CONCAT_FIRST_INPUT';
@@ -21,6 +22,7 @@ export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   metadataFields: string[];
   submissionId: string;
   hasSelectableMetadata: boolean;
+  metadataValue?: MetadataValue;
 }
 
 export class DynamicConcatModel extends DynamicFormGroupModel {
@@ -34,6 +36,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() metadataFields: string[];
   @serializable() submissionId: string;
   @serializable() hasSelectableMetadata: boolean;
+  @serializable() metadataValue: MetadataValue;
 
   isCustomGroup = true;
   valueUpdates: Subject<string>;
@@ -49,6 +52,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.metadataFields = config.metadataFields;
     this.submissionId = config.submissionId;
     this.hasSelectableMetadata = config.hasSelectableMetadata;
+    this.metadataValue = config.metadataValue;
     this.valueUpdates = new Subject<string>();
     this.valueUpdates.subscribe((value: string) => this.value = value);
   }

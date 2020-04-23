@@ -6,6 +6,7 @@ import { AuthorityOptions } from '../../../../../core/integration/models/authori
 import { hasValue } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   authorityOptions?: AuthorityOptions;
@@ -18,6 +19,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   metadataFields: string[];
   submissionId: string;
   hasSelectableMetadata: boolean;
+  metadataValue?: MetadataValue;
 
 }
 
@@ -32,6 +34,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() metadataFields: string[];
   @serializable() submissionId: string;
   @serializable() hasSelectableMetadata: boolean;
+  @serializable() metadataValue: MetadataValue;
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
@@ -43,6 +46,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.relationship = config.relationship;
     this.submissionId = config.submissionId;
     this.hasSelectableMetadata = config.hasSelectableMetadata;
+    this.metadataValue = config.metadataValue;
 
     this.language = config.language;
     if (!this.language) {

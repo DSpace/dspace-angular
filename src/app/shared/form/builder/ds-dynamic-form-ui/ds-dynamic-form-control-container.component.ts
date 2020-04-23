@@ -109,6 +109,7 @@ import { paginatedRelationsToItems } from '../../../../+item-page/simple/item-ty
 import { RelationshipOptions } from '../models/relationship-options.model';
 import { FormBuilderService } from '../form-builder.service';
 import { modalConfigDefaults } from 'ngx-bootstrap/modal/modal-options.class';
+import { models } from '../../../../core/core.module';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -292,7 +293,12 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         this.subs.push(subscription);
       }
 
-      this.value = Object.assign(new MetadataValue(), this.model.value);
+      if (hasValue(this.model.metadataValue)) {
+        this.value = Object.assign(new MetadataValue(), this.model.metadataValue);
+      } else {
+        this.value = Object.assign(new MetadataValue(), this.model.value);
+      }
+
       if (hasValue(this.value) && this.value.isVirtual) {
         const relationship$ = this.relationshipService.findById(this.value.virtualValue, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
           .pipe(

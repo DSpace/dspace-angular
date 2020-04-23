@@ -24,7 +24,7 @@
                 </div>
 
                 <!--Array with non repeatable items - Only delete button-->
-                <div *ngIf="context.notRepeatable && group.context.groups.length > 1 || index > 0 && !group.group[0]?.value?.isVirtual"
+                <div *ngIf="context.notRepeatable && group.context.groups.length > 1 || index > 0 && !(group.group[0]?.value?.isVirtual || group.group[0]?.metadataValue?.isVirtual)"
                      class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
                     <div class="btn-group" role="group" aria-label="Remove button">
                         <button type="button" class="btn btn-secondary"
