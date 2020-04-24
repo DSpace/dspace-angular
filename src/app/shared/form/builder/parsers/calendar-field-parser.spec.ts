@@ -6,7 +6,7 @@ import { ParserOptions } from './parser-options';
 import { CalendarFieldParser } from './calendar-field-parser';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
-fdescribe('CalendarFieldParser test suite', () => {
+describe('CalendarFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
 

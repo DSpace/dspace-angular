@@ -69,7 +69,8 @@ export class DuplicateMatchComponent implements OnInit {
   ngOnInit(): void {
     this.isWorkFlow = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkflowItem;
     this.decisionType = this.isWorkFlow ? DuplicateDecisionType.WORKFLOW : DuplicateDecisionType.WORKSPACE;
-    this.item = Object.assign(new Item(), this.match.matchObject, {metadata: Metadata.toMetadataMap(this.match.matchObject.metadata as any)});
+    // this.item = Object.assign(new Item(), this.match.matchObject, {metadata: Metadata.toMetadataMap(this.match.matchObject.metadata as any)});
+    this.item = Object.assign(new Item(), this.match.matchObject);
 
     this.rejectForm = this.formBuilder.group({
       reason: ['']

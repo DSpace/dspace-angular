@@ -215,7 +215,11 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections',
         action.payload.sectionId).pipe(
-        map((response: SubmissionObject[]) => new SetDuplicateDecisionSuccessAction(action.payload.submissionId, action.payload.sectionId, response)),
+        map((response: SubmissionObject[]) => new SetDuplicateDecisionSuccessAction(
+          action.payload.submissionId,
+          action.payload.sectionId,
+          response)
+        ),
         catchError(() => observableOf(new SetDuplicateDecisionErrorAction(action.payload.submissionId))));
   }));
 

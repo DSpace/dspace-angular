@@ -46,6 +46,8 @@ import { RemoteDataError } from '../core/data/remote-data-error';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/testing/utils';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
+import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
+import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 /**
  * A service that provides methods used in submission process.
@@ -72,6 +74,7 @@ export class SubmissionService {
    * @param {SubmissionRestService} restService
    * @param {Router} router
    * @param {RouteService} routeService
+   * @param {ScrollToService} scrollToService
    * @param {Store<SubmissionState>} store
    * @param {TranslateService} translate
    * @param {SearchService} searchService
@@ -83,6 +86,7 @@ export class SubmissionService {
               protected router: Router,
               protected routeService: RouteService,
               protected store: Store<SubmissionState>,
+              protected scrollToService: ScrollToService,
               protected translate: TranslateService,
               protected searchService: SearchService,
               protected requestService: RequestService) {
@@ -436,6 +440,21 @@ export class SubmissionService {
   }
 
   /**
+   * Return the save-decision status of the submission
+   *
+   * @param submissionId
+   *    The submission id
+   * @return Observable<boolean>
+   *    observable with submission save-decision status
+   */
+  getSubmissionDuplicateDecisionProcessingStatus(submissionId: string): Observable<boolean> {
+    return this.getSubmissionObject(submissionId).pipe(
+      map((state: SubmissionObjectEntry) => state.saveDecisionPending),
+      distinctUntilChanged(),
+      startWith(false));
+  }
+
+  /**
    * Return the visibility status of the specified section
    *
    * @param sectionData
@@ -474,8 +493,20 @@ export class SubmissionService {
    *    The section type
    */
   notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
-    const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', { sectionId });
-    this.notificationsService.info(null, m, null, true);
+    if (sectionType === SectionsType.DetectDuplicate || sectionId === 'detect-duplicate') {
+      this.setActiveSection(submissionId, sectionId);
+      const msg = this.translate.instant('submission.sections.detect-duplicate.duplicate-detected', { sectionId });
+      this.notificationsService.warning(null, msg, new NotificationOptions(10000));
+      const config: ScrollToConfigOptions = {
+        target: sectionId,
+        offset: -70
+      };
+
+      this.scrollToService.scrollTo(config);
+    } else {
+      const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', { sectionId });
+      this.notificationsService.info(null, m, null, true);
+    }
   }
 
   /**

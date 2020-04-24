@@ -551,13 +551,16 @@ export const mockSubmissionObject = {
   id: 826,
   lastModified: '2019-01-09T10:17:33.738+0000',
   sections: {
-    license: {
+    'license': {
       url: null,
       acceptanceDate: null,
       granted: false
     },
-    upload: {
+    'upload': {
       files: []
+    },
+    'detect-duplicate': {
+      matches: {}
     }
   },
   errors: [
