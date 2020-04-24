@@ -3,7 +3,7 @@ import { GroupMock } from './group-mock';
 
 export const EPersonMock: EPerson = Object.assign(new EPerson(), {
   handle: null,
-  groups: [],
+  groups: [GroupMock],
   netid: 'test@test.com',
   lastActive: '2018-05-14T12:25:42.411+0000',
   canLogIn: true,
@@ -49,7 +49,7 @@ export const EPersonMock: EPerson = Object.assign(new EPerson(), {
 
 export const EPersonMock2: EPerson = Object.assign(new EPerson(), {
   handle: null,
-  groups: [GroupMock],
+  groups: [],
   netid: 'test2@test.com',
   lastActive: '2019-05-14T12:25:42.411+0000',
   canLogIn: false,

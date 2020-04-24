@@ -15,7 +15,10 @@
         </button>
       </div>
 
-      <h3 id="search" class="border-bottom pb-2">{{labelPrefix + 'search.head' | translate}}</h3>
+      <h3 id="search" class="border-bottom pb-2">{{labelPrefix + 'search.head' | translate}}
+        <button (click)="clearFormAndResetResult();"
+                class="btn btn-primary float-right">{{labelPrefix + 'button.see-all' | translate}}</button>
+      </h3>
       <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="row">
         <div class="col-12 col-sm-3">
           <select name="scope" id="scope" formControlName="scope" class="form-control" aria-label="Search scope">
@@ -64,12 +67,12 @@
                 <div class="btn-group edit-field">
                   <button (click)="toggleEditEPerson(eperson)"
                           class="btn btn-outline-primary btn-sm access-control-editEPersonButton"
-                          title="{{labelPrefix + 'table.edit.buttons.edit' | translate}}">
+                          title="{{labelPrefix + 'table.edit.buttons.edit' | translate: {name: eperson.name} }}">
                     <i class="fas fa-edit fa-fw"></i>
                   </button>
                   <button (click)="deleteEPerson(eperson)"
                           class="btn btn-outline-danger btn-sm access-control-deleteEPersonButton"
-                          title="{{labelPrefix + 'table.edit.buttons.remove' | translate}}">
+                          title="{{labelPrefix + 'table.edit.buttons.remove' | translate: {name: eperson.name} }}">
                     <i class="fas fa-trash-alt fa-fw"></i>
                   </button>
                 </div>

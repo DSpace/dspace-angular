@@ -159,6 +159,14 @@ module.exports = {
     code: 'pt',
     label: 'Português',
     active: true,
+  }, {
+    code: 'fr',
+    label: 'Français',
+    active: true,
+  }, {
+    code: 'lv',
+    label: 'Latviešu',
+    active: true,
   }],
   // Browse-By Pages
   browseBy: {
