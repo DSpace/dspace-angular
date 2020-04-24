@@ -16,6 +16,9 @@ import { AlertType } from '../../../shared/alert/aletr-type';
 import { DetectDuplicateService } from './detect-duplicate.service';
 import { SectionsService } from '../sections.service';
 
+/**
+ * This component represents a section that contains possible duplications.
+ */
 @Component({
   selector: 'ds-submission-section-detect-duplicate',
   templateUrl: './section-detect-duplicate.component.html',
@@ -24,17 +27,65 @@ import { SectionsService } from '../sections.service';
 
 @renderSectionFor(SectionsType.DetectDuplicate)
 export class SubmissionSectionDetectDuplicateComponent extends SectionModelComponent {
+  /**
+   * The Alert categories.
+   * @type {AlertType}
+   */
   public AlertTypeEnum = AlertType;
+
+  /**
+   * Variable to track if the section is loading.
+   * @type {boolean}
+   */
   public isLoading = true;
+
+  /**
+   * The object containing the list of the possible duplications.
+   * @type {Observable}
+   */
   public sectionData$: Observable<any>;
+
+  /**
+   * The list of the possible duplications.
+   * @type {Object}
+   */
   public matches = {};
 
+  /**
+   * The pagination system configuration for HTML listing.
+   * @type {PaginationComponentOptions}
+   */
   config: PaginationComponentOptions;
+
+  /**
+   * The duplications list sort options.
+   * @type {SortOptions}
+   */
   sortConfig: SortOptions;
 
+  /**
+   * If TRUE the submission scope is the 'workflow'; 'workspace' otherwise.
+   * @type {boolean}
+   */
   isWorkFlow = false;
+
+  /**
+   * The list of the possible duplications.
+   * @type {PaginationComponentOptions}
+   */
   disclaimer: Observable<string>;
 
+  /**
+   * Initialize instance variables.
+   *
+   * @param {DetectDuplicateService} detectDuplicateService
+   * @param {TranslateService} translate
+   * @param {SectionsService} sectionService
+   * @param {SubmissionService} submissionService
+   * @param {string} injectedCollectionId
+   * @param {SectionDataObject} injectedSectionData
+   * @param {string} injectedSubmissionId
+   */
   constructor(protected detectDuplicateService: DetectDuplicateService,
               protected translate: TranslateService,
               protected sectionService: SectionsService,
@@ -45,6 +96,9 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
     super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
+  /**
+   * Initialize all instance variables and retrieve configuration.
+   */
   onSectionInit() {
     this.config = new PaginationComponentOptions();
     this.config.id = 'duplicated_items';
@@ -64,6 +118,12 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
     this.isLoading = false;
   }
 
+  /**
+   * Get section status.
+   *
+   * @return Observable<boolean>
+   *     the section status
+   */
   public getSectionStatus(): Observable<boolean> {
     return this.sectionData$.pipe(
       map((totalMatches: any) => {
@@ -76,6 +136,12 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
     );
   }
 
+  /**
+   * Get the count of the possible duplications.
+   *
+   * @return Observable<number>
+   *     the number of possible duplications
+   */
   protected getTotalMatches(): Observable<number> {
     return this.sectionData$.pipe(
       map((totalMatches: any) => {
@@ -85,10 +151,19 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
     );
   }
 
+  /**
+   * Set the current page for the pagination system
+   *
+   * @param {number} page
+   *    the number of the current page
+   */
   setPage(page: number) {
     this.config.currentPage = page;
   }
 
+  /**
+   * Unsubscribe from all subscriptions, if needed.
+   */
   onSectionDestroy(): void {
     return;
   }
