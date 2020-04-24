@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { SectionsType } from '../sections-type';
@@ -51,7 +51,7 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
     this.config.pageSize = 2;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
 
-    if ( this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkflowItem ) {
+    if (this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkflowItem) {
       this.isWorkFlow = true;
       this.disclaimer = this.translate.get('submission.sections.detect-duplicate.disclaimer-ctrl');
     } else {
@@ -68,7 +68,7 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
     return this.sectionData$.pipe(
       map((totalMatches: any) => {
         let output = false;
-        if ( Object.keys(totalMatches.matches).length === 0 ) {
+        if (Object.keys(totalMatches.matches).length === 0) {
           output = true;
         }
         return output;

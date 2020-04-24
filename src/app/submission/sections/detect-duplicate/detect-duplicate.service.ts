@@ -25,7 +25,7 @@ export class DetectDuplicateService {
         }
         return matches;
       }),
-      startWith({matches: {}}),
+      startWith({ matches: {} }),
       distinctUntilChanged());
   }
 
@@ -38,9 +38,9 @@ export class DetectDuplicateService {
           .filter((key) => {
             let output = false;
             if (isWorkFlow) {
-               output = isEmpty(item.matches[key].workflowDecision);
+              output = isEmpty(item.matches[key].workflowDecision);
             } else {
-               output = isEmpty(item.matches[key].submitterDecision);
+              output = isEmpty(item.matches[key].submitterDecision);
             }
             return output;
           })

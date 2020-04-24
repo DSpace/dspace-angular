@@ -20,7 +20,6 @@ import { SectionsService } from '../../sections.service';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../../config';
 import { DuplicateMatchMetadataDetailConfig } from '../models/duplicate-detail-metadata.model';
 import { DetectDuplicateMatch } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
-import { Metadata } from '../../../../core/shared/metadata.utils';
 
 @Component({
   selector: 'ds-duplicate-match',
