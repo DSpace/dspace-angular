@@ -460,8 +460,9 @@ export class AuthService {
    * Refresh route navigated
    */
   public refreshAfterLogout() {
-    // Hard redirect to home page, so that all state is definitely lost
-    this._window.nativeWindow.location.href = '/home';
+    // Hard redirect to the reload page with a unique number behind it
+    // so that all state is definitely lost
+    this._window.nativeWindow.location.href = `/reload/${new Date().getTime()}`;
   }
 
   /**
