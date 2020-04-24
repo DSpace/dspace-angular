@@ -1,5 +1,4 @@
 import { StoreActionTypes } from './store.actions';
-import { AuthActionTypes } from './core/auth/auth.actions';
 
 // fallback ngrx debugger
 let actionCounter = 0;
@@ -29,26 +28,10 @@ export function universalMetaReducer(reducer) {
   }
 }
 
-// const clearStateActions = [
-//   AuthActionTypes.LOG_OUT_SUCCESS,
-// ];
-//
-// export function clearStateMetaReducer(reducer) {
-//   return function (state, action) {
-//
-//     if (clearStateActions.includes(action.type)) {
-//       state = {};
-//     }
-//
-//     return reducer(state, action);
-//   };
-// }
-
 export const debugMetaReducers = [
   debugMetaReducer
 ];
 
 export const appMetaReducers = [
-  universalMetaReducer,
-  // clearStateMetaReducer
+  universalMetaReducer
 ];
