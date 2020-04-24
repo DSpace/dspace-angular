@@ -46,7 +46,7 @@ import {
 } from '../../shared/mocks/mock-submission';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
-fdescribe('submissionReducer test suite', () => {
+describe('submissionReducer test suite', () => {
 
   const collectionId = mockSubmissionCollectionId;
   const submissionId = mockSubmissionId;
