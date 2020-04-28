@@ -147,7 +147,8 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * @type {Array}
    */
   private subs: Subscription[] = [];
-
+  @Input()
+  private entityType: string;
   /**
    * Initialize instance variables
    *
@@ -219,7 +220,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
         const listCollection$ = communities$.pipe(
           flatMap((communityData: Community) => {
-            return this.collectionDataService.getAuthorizedCollectionByCommunity(communityData.uuid, findOptions).pipe(
+            return this.collectionDataService.getAuthorizedCollectionByCommunityAndEntityType(communityData.uuid, 'relationship.type',this.entityType, findOptions).pipe(
               find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
               mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
               filter((collectionData: Collection) => isNotEmpty(collectionData)),

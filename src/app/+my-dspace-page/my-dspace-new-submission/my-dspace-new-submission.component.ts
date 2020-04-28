@@ -15,6 +15,13 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
+import { CollectionDataService } from "../../core/data/collection-data.service";
+import { SearchParam } from "../../core/cache/models/search-param.model";
+import { RemoteData } from "../../core/data/remote-data";
+import { PaginatedList } from "../../core/data/paginated-list";
+import { Collection } from "../../core/shared/collection.model";
+import {MetadataValue} from "../../core/shared/metadata.models";
+import {Router} from "@angular/router";
 
 /**
  * This component represents the whole mydspace page header
@@ -40,6 +47,8 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    */
   private sub: Subscription;
 
+  private entityTypeSelected: string;
+  private availableEntyTypeList: Set<string>;
   /**
    * Initialize instance variables
    *
@@ -54,8 +63,11 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
               private changeDetectorRef: ChangeDetectorRef,
               private halService: HALEndpointService,
               private notificationsService: NotificationsService,
+              private collectionDataService: CollectionDataService,
+              private router: Router,
               private store: Store<SubmissionState>,
               private translate: TranslateService) {
+    this.availableEntyTypeList = new Set<string>();
   }
 
   /**
@@ -68,6 +80,22 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
         this.changeDetectorRef.detectChanges();
       }
     );
+    this.collectionDataService.getAuthorizedCollection(
+      {searchParams: [new SearchParam('relationship.type', null)]}
+    ).subscribe((x: RemoteData<PaginatedList<Collection>>) => {
+       if(!x || !x.payload || !x.payload.page) {
+         return;
+       }
+       for(let coll of x.payload.page) {
+         let metadataValue: MetadataValue[] = coll.metadata['relationship.type'];
+         if(metadataValue) {
+           for(let value of metadataValue){
+             this.availableEntyTypeList.add(value.value);
+             this.changeDetectorRef.detectChanges();
+           }
+         }
+       }
+    });
   }
 
   /**
@@ -111,6 +139,14 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
+    }
+  }
+
+  newSubmission() {
+    if(!this.entityTypeSelected) {
+      this.router.navigate(['/submit']);
+    } else {
+
     }
   }
 }

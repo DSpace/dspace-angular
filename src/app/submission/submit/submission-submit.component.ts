@@ -32,6 +32,11 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    * @type {string}
    */
   public collectionParam: string;
+  /**
+   * The entity type associated with the submission
+   * * @type {string}
+   */
+  public entityType: string;
 
   /**
    * The submission self url
@@ -77,7 +82,10 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
               private route: ActivatedRoute) {
     this.route
       .queryParams
-      .subscribe((params) => { this.collectionParam = (params.collection); });
+      .subscribe((params) => {
+        this.collectionParam = (params.collection);
+        this.entityType = params.entityType;
+      });
   }
 
   /**
