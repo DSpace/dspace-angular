@@ -339,7 +339,7 @@ describe('SubmissionSectionformComponent test suite', () => {
 
       comp.updateForm(sectionData, parsedSectionErrors);
 
-      expect(comp.initForm).not.toHaveBeenCalled();
+      expect(comp.initForm).toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
       expect(comp.sectionData.data).toEqual(sectionData);
     });

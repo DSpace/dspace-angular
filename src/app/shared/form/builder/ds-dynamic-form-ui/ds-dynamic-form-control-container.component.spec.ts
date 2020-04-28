@@ -73,6 +73,7 @@ import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 import { FormService } from '../../form.service';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { FormBuilderService } from '../form-builder.service';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -180,6 +181,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: RelationshipService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
         { provide: FormService, useValue: {} },
+        { provide: FormBuilderService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         {
           provide: SubmissionObjectDataService,

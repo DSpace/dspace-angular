@@ -390,7 +390,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.item = this.item;
     modalComp.collection = this.collection;
     modalComp.submissionId = this.model.submissionId;
-    modalComp.selectEvent
   }
 
   /**

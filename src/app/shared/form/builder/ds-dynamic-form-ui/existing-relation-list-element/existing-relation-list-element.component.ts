@@ -61,7 +61,6 @@ export abstract class Reorderable {
   }
 }
 
-
 /**
  * Represents a single existing relationship value as metadata in submission
  */
@@ -118,7 +117,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
    * Removes the selected relationship from the list
    */
   removeSelection() {
-    this.selectableListService.deselectSingle(this.listId, Object.assign(new ItemSearchResult(), { indexableObject: this.relatedItem$ }));
+    this.selectableListService.deselectSingle(this.listId, Object.assign(new ItemSearchResult(), { indexableObject: this.relatedItem$.getValue() }));
     this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem$.getValue(), this.relationshipOptions.relationshipType, this.submissionId));
   }
 
