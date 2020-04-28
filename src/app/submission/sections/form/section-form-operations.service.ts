@@ -372,10 +372,14 @@ export class SectionFormOperationsService {
             pathCombiner.getPath(segmentedPath),
             value, true);
         } else {
-          this.operationsBuilder.move(
-            pathCombiner.getPath(path),
-            pathCombiner.getPath(segmentedPath + '/' + event.$event.previousIndex).path
-          )
+          const moveTo = pathCombiner.getPath(path);
+          const moveFrom = pathCombiner.getPath(segmentedPath + '/' + event.$event.previousIndex);
+          if (isNotEmpty(moveFrom.path) && isNotEmpty(moveTo.path) && moveFrom.path !== moveTo.path) {
+            this.operationsBuilder.move(
+              moveTo,
+              moveFrom.path
+            )
+          }
         }
       } else if (!value.hasValue()) {
         // New value is empty, so dispatch a remove operation
