@@ -10,6 +10,7 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
+import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 
 export function getItemPageRoute(itemId: string) {
   return new URLCombiner(getItemModulePath(), itemId).toString();
@@ -20,6 +21,7 @@ export function getItemEditPath(id: string) {
 }
 
 const ITEM_EDIT_PATH = 'edit';
+const UPLOAD_BITSTREAM_PATH = 'bitstreams/new';
 
 @NgModule({
   imports: [
@@ -44,6 +46,11 @@ const ITEM_EDIT_PATH = 'edit';
           {
             path: ITEM_EDIT_PATH,
             loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
+            canActivate: [AuthenticatedGuard]
+          },
+          {
+            path: UPLOAD_BITSTREAM_PATH,
+            component: UploadBitstreamComponent,
             canActivate: [AuthenticatedGuard]
           }
         ],

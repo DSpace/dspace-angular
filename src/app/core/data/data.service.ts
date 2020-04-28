@@ -511,9 +511,9 @@ export abstract class DataService<T extends CacheableObject> {
    * @param dsoID The DSpace Object' id to be removed
    * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
    *                            metadata should be saved as real metadata
-   * @return an observable that emits true when the deletion was successful, false when it failed
+   * @return the RestResponse as an Observable
    */
-  delete(dsoID: string, copyVirtualMetadata?: string[]): Observable<boolean> {
+  delete(dsoID: string, copyVirtualMetadata?: string[]): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
@@ -539,7 +539,7 @@ export abstract class DataService<T extends CacheableObject> {
 
     return this.requestService.getByUUID(requestId).pipe(
       find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response.isSuccessful)
+      map((request: RequestEntry) => request.response)
     );
   }
 

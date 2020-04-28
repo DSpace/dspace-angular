@@ -207,3 +207,13 @@ export const getFirstOccurrence = () =>
     source.pipe(
       map((rd) => Object.assign(rd, { payload: rd.payload.page.length > 0 ? rd.payload.page[0] : undefined }))
     );
+
+/**
+ * Operator for turning the current page of bitstreams into an array
+ */
+export const paginatedListToArray = () =>
+  <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
+    source.pipe(
+      hasValueOperator(),
+      map((objectRD: RemoteData<PaginatedList<T>>) => objectRD.payload.page.filter((object: T) => hasValue(object)))
+    );

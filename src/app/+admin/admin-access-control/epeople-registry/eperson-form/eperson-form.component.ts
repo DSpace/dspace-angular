@@ -7,17 +7,21 @@ import {
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest } from 'rxjs/internal/observable/combineLatest';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription, combineLatest } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { take } from 'rxjs/operators';
 import { RestResponse } from '../../../../core/cache/response.models';
 import { PaginatedList } from '../../../../core/data/paginated-list';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { Group } from '../../../../core/eperson/models/group.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -107,11 +111,26 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   /**
+   * A list of all the groups this EPerson is a member of
+   */
+  groups: Observable<RemoteData<PaginatedList<Group>>>;
+
+  /**
+   * Pagination config used to display the list of groups
+   */
+  config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'groups-ePersonMemberOf-list-pagination',
+    pageSize: 5,
+    currentPage: 1
+  });
+
+  /**
    * Try to retrieve initial active eperson, to fill in checkboxes at component creation
    */
   epersonInitial: EPerson;
 
   constructor(public epersonService: EPersonDataService,
+              public groupsDataService: GroupDataService,
               private formBuilderService: FormBuilderService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,) {
@@ -181,6 +200,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
+        if (eperson != null) {
+          this.groups = this.groupsDataService.findAllByHref(eperson._links.groups.href, {
+            currentPage: 1,
+            elementsPerPage: this.config.pageSize
+          });
+        }
         this.formGroup.patchValue({
           firstName: eperson != null ? eperson.firstMetadataValue('eperson.firstname') : '',
           lastName: eperson != null ? eperson.firstMetadataValue('eperson.lastname') : '',
@@ -320,16 +345,23 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Reset all input-fields to be empty
+   * Event triggered when the user changes page
+   * @param event
    */
-  clearFields() {
-    this.formGroup.patchValue({
-      firstName: '',
-      lastName: '',
-      email: '',
-      canLogin: true,
-      requireCertificate: false
+  onPageChange(event) {
+    this.updateGroups({
+      currentPage: event,
+      elementsPerPage: this.config.pageSize
     });
+  }
+
+  /**
+   * Update the list of groups by fetching it from the rest api or cache
+   */
+  private updateGroups(options) {
+    this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
+      this.groups = this.groupsDataService.findAllByHref(eperson._links.groups.href, options);
+    }));
   }
 
   /**

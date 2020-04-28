@@ -19,6 +19,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
 import {RelationshipService} from '../../../core/data/relationship.service';
 import {EntityTypeService} from '../../../core/data/entity-type.service';
+import { RestResponse } from '../../../core/cache/response.models';
 
 @Component({
   selector: 'ds-item-delete',
@@ -313,8 +314,8 @@ export class ItemDeleteComponent
       ),
     ).subscribe((types) => {
       this.itemDataService.delete(this.item.id, types).pipe(first()).subscribe(
-        (succeeded: boolean) => {
-          this.notify(succeeded);
+        (response: RestResponse) => {
+          this.notify(response.isSuccessful);
         }
       );
     });

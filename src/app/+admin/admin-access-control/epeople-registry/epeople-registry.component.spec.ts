@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -20,6 +21,7 @@ import { getMockTranslateService } from '../../../shared/mocks/mock-translate.se
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson-mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { RouterStub } from '../../../shared/testing/router-stub';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
 
@@ -29,10 +31,11 @@ describe('EPeopleRegistryComponent', () => {
   let translateService: TranslateService;
   let builderService: FormBuilderService;
 
-  const mockEPeople = [EPersonMock, EPersonMock2];
+  let mockEPeople;
   let ePersonDataServiceStub: any;
 
   beforeEach(async(() => {
+    mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
       activeEPerson: null,
       allEpeople: mockEPeople,
@@ -50,6 +53,9 @@ describe('EPeopleRegistryComponent', () => {
           return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
         }
         if (scope === 'metadata') {
+          if (query === '') {
+            return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allEpeople));
+          }
           const result = this.allEpeople.find((ePerson: EPerson) => {
             return (ePerson.name.includes(query) || ePerson.email.includes(query))
           });
@@ -71,6 +77,9 @@ describe('EPeopleRegistryComponent', () => {
       },
       clearEPersonRequests(): void {
         // empty
+      },
+      getEPeoplePageRouterLink(): string {
+        return '/admin/access-control/epeople';
       }
     };
     builderService = getMockFormBuilderService();
@@ -89,7 +98,7 @@ describe('EPeopleRegistryComponent', () => {
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
-        EPeopleRegistryComponent
+        { provide: Router, useValue: new RouterStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

@@ -9,6 +9,7 @@ import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -184,9 +185,14 @@ import { LogInContainerComponent } from './log-in/container/log-in-container.com
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
+import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
+import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
 import { ExistingRelationListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-relation-list-element/existing-relation-list-element.component';
+import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
+import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
+import { ClaimedTaskActionsEditMetadataComponent } from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -248,6 +254,7 @@ const COMPONENTS = [
   EditComColPageComponent,
   DeleteComColPageComponent,
   ComcolPageBrowseByComponent,
+  ComcolRoleComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,
@@ -292,6 +299,8 @@ const COMPONENTS = [
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
+  ClaimedTaskActionsEditMetadataComponent,
+  ClaimedTaskActionsLoaderComponent,
   ItemActionsComponent,
   PoolTaskActionsComponent,
   WorkflowitemActionsComponent,
@@ -346,6 +355,9 @@ const COMPONENTS = [
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   ItemTypeBadgeComponent,
+  BrowseByComponent,
+  AbstractTrackableComponent,
+  CustomSwitchComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
@@ -406,6 +418,7 @@ const ENTRY_COMPONENTS = [
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
+  CustomSwitchComponent,
   ItemMetadataRepresentationListElementComponent,
   SearchResultsComponent,
   CollectionSearchResultGridElementComponent,
@@ -427,7 +440,12 @@ const ENTRY_COMPONENTS = [
   LogInPasswordComponent,
   LogInShibbolethComponent,
   ItemVersionsComponent,
-  ItemVersionsNoticeComponent
+  BundleListElementComponent,
+  ItemVersionsNoticeComponent,
+  ClaimedTaskActionsApproveComponent,
+  ClaimedTaskActionsRejectComponent,
+  ClaimedTaskActionsReturnToPoolComponent,
+  ClaimedTaskActionsEditMetadataComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -455,7 +473,8 @@ const DIRECTIVES = [
   AutoFocusDirective,
   RoleDirective,
   MetadataRepresentationDirective,
-  ListableObjectDirective
+  ListableObjectDirective,
+  ClaimedTaskActionsDirective
 ];
 
 @NgModule({

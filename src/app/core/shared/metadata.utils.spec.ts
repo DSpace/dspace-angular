@@ -7,6 +7,7 @@ import {
   MetadatumViewModel
 } from './metadata.models';
 import { Metadata } from './metadata.utils';
+import { beforeEach } from 'selenium-webdriver/testing';
 
 const mdValue = (value: string, language?: string, authority?: string): MetadataValue => {
   return Object.assign(new MetadataValue(), { uuid: uuidv4(), value: value, language: isUndefined(language) ? null : language, place: 0, authority: isUndefined(authority) ? null : authority, confidence: undefined });
@@ -214,6 +215,28 @@ describe('Metadata', () => {
     };
 
     testToMetadataMap(multiViewModelList, multiMap);
+  });
+
+  describe('setFirstValue method', () => {
+
+    const metadataMap = {
+      'dc.description': [mdValue('Test description')],
+      'dc.title': [mdValue('Test title 1'), mdValue('Test title 2')]
+    };
+
+    const testSetFirstValue = (map: MetadataMap, key: string, value: string) => {
+      describe(`with field ${key} and value ${value}`, () => {
+        Metadata.setFirstValue(map, key, value);
+        it(`should set first value of ${key} to ${value}`, () => {
+          expect(map[key][0].value).toEqual(value);
+        });
+      });
+    };
+
+    testSetFirstValue(metadataMap, 'dc.description', 'New Description');
+    testSetFirstValue(metadataMap, 'dc.title', 'New Title');
+    testSetFirstValue(metadataMap, 'dc.format', 'Completely new field and value');
+
   });
 
 });

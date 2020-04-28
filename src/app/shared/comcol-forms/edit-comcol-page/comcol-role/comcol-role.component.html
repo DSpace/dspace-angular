@@ -1,0 +1,52 @@
+<div class="card p-2 m-3 {{comcolRole.name}}">
+
+  <div class="card-body d-flex flex-column"
+       *ngVar="group$ | async as group">
+
+    <div class="d-flex flex-md-row flex-column">
+
+      <h5 class="w-100 ">
+        {{'comcol-role.edit.' + comcolRole.name + '.name' | translate}}
+      </h5>
+
+      <div class="w-100">
+        <ds-loading *ngIf="!(groupRD$ | async)"></ds-loading>
+        <div *ngIf="hasNoGroup$() | async">
+          {{'comcol-role.edit.no-group' | translate}}
+        </div>
+        <div *ngIf="hasAnonymousGroup$() | async">
+          {{'comcol-role.edit.' + comcolRole.name + '.anonymous-group' | translate}}
+        </div>
+        <a *ngIf="hasCustomGroup$() | async"
+           routerLink="{{editGroupLink$ | async}}">
+          {{group.name}}
+        </a>
+      </div>
+
+      <div class="ml-md-auto pl-md-2 ml-0 pl-0 pt-2">
+        <div *ngIf="hasNoGroup$() | async"
+             class="btn btn-outline-dark create"
+             (click)="create()">
+          {{'comcol-role.edit.create' | translate}}
+        </div>
+        <div *ngIf="hasAnonymousGroup$() | async"
+             class="btn btn-outline-dark restrict"
+             (click)="create()">
+          {{'comcol-role.edit.restrict' | translate}}
+        </div>
+        <div *ngIf="hasCustomGroup$() | async"
+             class="btn btn-outline-dark delete"
+             (click)="delete()">
+          {{'comcol-role.edit.delete' | translate}}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-2">
+      {{'comcol-role.edit.' + comcolRole.name + '.description' | translate}}
+    </div>
+
+  </div>
+
+</div>

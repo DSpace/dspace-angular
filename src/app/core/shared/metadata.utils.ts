@@ -1,4 +1,4 @@
-import { isEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import {
   MetadataMapInterface,
   MetadataValue,
@@ -216,5 +216,20 @@ export class Metadata {
         )
       });
     return metadataMap;
+  }
+
+  /**
+   * Set the first value of a metadata by field key
+   * Creates a new MetadataValue if the field doesn't exist yet
+   * @param mdMap   The map to add/change values in
+   * @param key     The metadata field
+   * @param value   The value to add
+   */
+  public static setFirstValue(mdMap: MetadataMapInterface, key: string, value: string) {
+    if (isNotEmpty(mdMap[key])) {
+      mdMap[key][0].value = value;
+    } else {
+      mdMap[key] = [Object.assign(new MetadataValue(), { value: value })]
+    }
   }
 }
