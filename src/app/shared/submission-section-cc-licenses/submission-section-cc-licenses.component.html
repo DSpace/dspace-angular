@@ -1,0 +1,114 @@
+<div class="mb-2 ccLicense-select">
+  <ds-select
+    [disabled]="!submissionCcLicenses"
+    [label]="'submission.sections.ccLicense.type'">
+
+    <ng-container class="selection">
+      <span *ngIf="!submissionCcLicenses">
+        <i class='fas fa-circle-notch fa-spin'></i>
+      </span>
+      <span *ngIf="getSelectedCcLicense()">
+        {{ getSelectedCcLicense().name }}
+      </span>
+      <span *ngIf="submissionCcLicenses && !getSelectedCcLicense()">
+        {{ 'submission.sections.ccLicense.select' | translate }}
+      </span>
+    </ng-container>
+
+    <ng-container class="menu">
+      <button *ngIf="submissionCcLicenses?.length == 0"
+              class="dropdown-item disabled">
+        {{ 'submission.sections.ccLicense.none' | translate }}
+      </button>
+      <button *ngFor="let license of submissionCcLicenses"
+              class="dropdown-item"
+              (click)="select(license)">
+        {{ license.name }}
+      </button>
+    </ng-container>
+
+  </ds-select>
+</div>
+
+<ng-container *ngIf="getSelectedCcLicense()">
+
+  <div *ngFor="let field of getSelectedCcLicense().fields"
+       class="mb-2">
+
+    <div class="d-flex flex-row mb-2">
+      <div class="label {{ field.id }}">
+        {{ field.label }}
+      </div>
+      <button
+        class="btn btn-outline-info btn-sm ml-2"
+        (click)="openInfoModal(infoModal)">
+        <i class="fas fa-question"></i>
+      </button>
+    </div>
+
+    <ng-template #infoModal>
+
+      <div>
+
+        <div class="modal-header">
+          <div>
+            <h4>
+              {{ field.label }}
+            </h4>
+            <div [innerHTML]="field.description"></div>
+          </div>
+          <button type="button" class="close"
+                  (click)="closeInfoModal()" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div *ngFor="let value of field.enums"
+               class="mb-2">
+            <h5>
+              {{ value.label }}
+            </h5>
+            <div [innerHTML]="value.description"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </ng-template>
+
+    <ds-select *ngIf="field.enums?.length > 5">
+      <ng-container class="selection" *ngVar="getSelectedOption(getSelectedCcLicense(), field.id) as option">
+        <span *ngIf="option">
+          {{ option }}
+        </span>
+        <span *ngIf="!option">
+          {{ 'submission.sections.ccLicense.option.select' | translate }}
+        </span>
+      </ng-container>
+      <ng-container class="menu">
+        <button *ngFor="let value of field.enums"
+                class="dropdown-item"
+                (click)="selectOption(getSelectedCcLicense(), field.id, value.label)">
+          {{ value.label }}
+        </button>
+      </ng-container>
+    </ds-select>
+
+    <ng-container *ngIf="field.enums?.length <= 5">
+      <div *ngFor="let value of field.enums"
+           class="d-flex flex-row m-2"
+           (click)="selectOption(getSelectedCcLicense(), field.id, value.label)">
+        <input type="radio"
+               title="{{ value.label }}"
+               class="mr-1"
+               [checked]="isSelectedOption(getSelectedCcLicense(), field.id, value.label)">
+        <div class="label">
+          {{ value.label }}
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+
+</ng-container>

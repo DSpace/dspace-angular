@@ -2426,6 +2426,14 @@
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Use only for this submission",
 
+  "submission.sections.ccLicense.type": "License Type",
+
+  "submission.sections.ccLicense.select": "Select a license…",
+
+  "submission.sections.ccLicense.none": "No licenses available",
+
+  "submission.sections.ccLicense.option.select": "Select an option…",
+
   "submission.sections.general.add-more": "Add more",
 
   "submission.sections.general.collection": "Collection",
@@ -2456,7 +2464,7 @@
 
 
 
-  "submission.sections.submit.progressbar.cclicense": "Creative commons license",
+  "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
   "submission.sections.submit.progressbar.describe.recycle": "Recycle",
 

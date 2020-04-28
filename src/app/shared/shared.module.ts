@@ -193,6 +193,7 @@ import { ModifyItemOverviewComponent } from '../+item-page/edit-item-page/modify
 import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
 import { ClaimedTaskActionsEditMetadataComponent } from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
+import { DsSelectComponent } from './ds-select/ds-select.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -269,6 +270,7 @@ const COMPONENTS = [
   DsDynamicFormGroupComponent,
   DsDynamicFormArrayComponent,
   DsDatePickerInlineComponent,
+  DsSelectComponent,
   ErrorComponent,
   FormComponent,
   LangSwitchComponent,
