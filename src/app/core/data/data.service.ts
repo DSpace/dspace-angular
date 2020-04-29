@@ -314,7 +314,6 @@ export abstract class DataService<T extends CacheableObject> {
     hrefObs.pipe(
       find((href: string) => hasValue(href))
     ).subscribe((href: string) => {
-      this.requestService.removeByHrefSubstring(href);
       const request = new FindListRequest(requestId, href, options);
       if (hasValue(this.responseMsToLive)) {
         request.responseMsToLive = this.responseMsToLive;
