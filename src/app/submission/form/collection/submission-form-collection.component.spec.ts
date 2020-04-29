@@ -26,6 +26,7 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { SharedModule } from '../../../shared/shared.module';
 
 const subcommunities = [Object.assign(new Community(), {
   name: 'SubCommunity 1',
@@ -223,6 +224,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
+        SharedModule,
         TranslateModule.forRoot()
       ],
       declarations: [
@@ -366,8 +368,8 @@ describe('SubmissionFormCollectionComponent Component', () => {
 
         comp.searchListCollection$ = observableOf(mockCollectionList);
         fixture.detectChanges();
-        dropdowBtn = fixture.debugElement.query(By.css('#collectionControlsMenuButton'));
-        dropdownMenu = fixture.debugElement.query(By.css('#collectionControlsDropdownMenu'));
+        dropdowBtn = fixture.debugElement.query(By.css('#dsSelectMenuButton'));
+        dropdownMenu = fixture.debugElement.query(By.css('#dsSelectDropdownMenu'));
       });
 
       it('should have dropdown menu closed', () => {
