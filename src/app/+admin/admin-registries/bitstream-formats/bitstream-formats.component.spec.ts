@@ -209,7 +209,7 @@ describe('BitstreamFormatsComponent', () => {
           selectBitstreamFormat: {},
           deselectBitstreamFormat: {},
           deselectAllBitstreamFormats: {},
-          delete: observableOf(true),
+          delete: observableOf({ isSuccessful: true }),
           clearBitStreamFormatRequests: observableOf('cleared')
         });
 
