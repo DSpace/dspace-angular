@@ -455,6 +455,7 @@
 
   "collection.edit.logo.upload": "Drop a Collection Logo to upload",
 
+  "collection.form.errors.entitytype.required": "Please choose an option",
 
 
   "collection.edit.notifications.success": "Successfully edited the Collection",
@@ -528,6 +529,8 @@
   "collection.form.tableofcontents": "News (HTML)",
 
   "collection.form.title": "Name",
+
+  "collection.form.entitytype": "Type",
 
 
 
