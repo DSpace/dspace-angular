@@ -79,7 +79,15 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   metadataFields: string;
 
-  query: string;
+  _query: string;
+  set query(q: string) {
+    console.log('set query', q);
+    this._query = q;
+  };
+
+  get query(): string {
+    return this._query;
+  }
 
   /**
    * A map of subscriptions within this component
