@@ -27,6 +27,9 @@ import { SubmissionSectionUploadFileEditComponent } from './sections/upload/file
 import { SubmissionSectionUploadFileViewComponent } from './sections/upload/file/view/section-upload-file-view.component';
 import { SubmissionSectionUploadAccessConditionsComponent } from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
+import { SubmissionSectionDetectDuplicateComponent } from './sections/detect-duplicate/section-detect-duplicate.component';
+import { DuplicateMatchComponent } from './sections/detect-duplicate/duplicate-match/duplicate-match.component';
+import { DetectDuplicateService } from './sections/detect-duplicate/detect-duplicate.service';
 
 @NgModule({
   imports: [
@@ -53,13 +56,17 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
     SubmissionUploadFilesComponent,
     SubmissionSectionUploadFileComponent,
     SubmissionSectionUploadFileEditComponent,
-    SubmissionSectionUploadFileViewComponent
+    SubmissionSectionUploadFileViewComponent,
+    SubmissionSectionDetectDuplicateComponent,
+    DuplicateMatchComponent
   ],
   entryComponents: [
     SubmissionSectionUploadComponent,
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
-    SubmissionSectionContainerComponent],
+    SubmissionSectionContainerComponent,
+    SubmissionSectionDetectDuplicateComponent
+  ],
   exports: [
     SubmissionEditComponent,
     SubmissionFormComponent,
@@ -68,7 +75,8 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
   providers: [
     SectionUploadService,
     SectionsService,
-    SubmissionUploadsConfigService
+    SubmissionUploadsConfigService,
+    DetectDuplicateService
   ]
 })
 

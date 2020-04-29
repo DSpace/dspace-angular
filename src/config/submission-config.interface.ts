@@ -1,4 +1,5 @@
 import { Config } from './config.interface';
+import { DuplicateMatchMetadataDetailConfig } from '../app/submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 
 interface AutosaveConfig extends Config {
   metadata: string[],
@@ -22,7 +23,12 @@ export interface ConfidenceIconConfig extends Config {
   style: string;
 }
 
+interface DetectDuplicateConfig extends Config {
+  metadataDetailsList: DuplicateMatchMetadataDetailConfig[]
+}
+
 export interface SubmissionConfig extends Config {
   autosave: AutosaveConfig,
-  icons: IconsConfig
+  icons: IconsConfig,
+  detectDuplicate: DetectDuplicateConfig
 }

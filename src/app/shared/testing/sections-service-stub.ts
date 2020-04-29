@@ -14,5 +14,5 @@ export class SectionsServiceStub {
   updateSectionData = jasmine.createSpy('updateSectionData');
   setSectionError = jasmine.createSpy('setSectionError');
   setSectionStatus = jasmine.createSpy('setSectionStatus');
-
+  isSectionActive = jasmine.createSpy('isSectionActive');
 }

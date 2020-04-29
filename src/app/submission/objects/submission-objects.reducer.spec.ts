@@ -30,7 +30,9 @@ import {
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
   SectionStatusChangeAction, SubmissionObjectAction,
-  UpdateSectionDataAction
+  UpdateSectionDataAction,
+  SetDuplicateDecisionAction,
+  SetDuplicateDecisionSuccessAction
 } from './submission-objects.actions';
 import { SectionsType } from '../sections/sections-type';
 import {
@@ -38,8 +40,11 @@ import {
   mockSubmissionDefinitionResponse,
   mockSubmissionId,
   mockSubmissionSelfUrl,
-  mockSubmissionState
+  mockSubmissionState,
+  mockDeduplicationMatches,
+  mockSubmissionObject,
 } from '../../shared/mocks/mock-submission';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
 describe('submissionReducer test suite', () => {
 
@@ -64,6 +69,7 @@ describe('submissionReducer test suite', () => {
         sections: Object.create(null),
         isLoading: true,
         savePending: false,
+        saveDecisionPending: false,
         depositPending: false
       }
     };
@@ -637,6 +643,64 @@ describe('submissionReducer test suite', () => {
     const newState = submissionObjectReducer(state, action);
 
     expect(newState[826].sections.upload.data).toEqual(expectedState);
+  });
+
+  it('should set the decision flag to true', () => {
+    const state: SubmissionObjectState = Object.assign({}, initState, {
+      [submissionId]: Object.assign({}, initState[submissionId], {
+        saveDecisionPending: true
+      })
+    });
+
+    const action = new SetDuplicateDecisionAction(submissionId, 'detect-duplicate');
+    const newState = submissionObjectReducer(state, action);
+
+    expect(newState[826].saveDecisionPending).toBeTruthy();
+  });
+
+  it('should set the duplicate decision', () => {
+    const state: SubmissionObjectState = Object.assign({}, initState, {
+      [submissionId]: Object.assign({}, initState[submissionId], {
+        sections: Object.assign({}, initState[submissionId].sections, {
+          'detect-duplicate': Object.assign({}, initState[submissionId].sections['detect-duplicate'], {
+            enabled: true,
+            data: {
+              matches: mockDeduplicationMatches
+            }
+          })
+        })
+      })
+    });
+    const submissionObject = {
+      [submissionId]: {
+        id: parseInt(submissionId, 10),
+        sections: {
+          'detect-duplicate': {
+            matches: mockDeduplicationMatches
+          }
+        }
+      }
+    }
+
+    const action = new SetDuplicateDecisionSuccessAction(submissionId, 'detect-duplicate', submissionObject as any);
+    const newState = submissionObjectReducer(state, action);
+
+    expect(newState[826].sections['detect-duplicate'].enabled).toBeTrue();
+    expect(newState[826].sections['detect-duplicate'].data).toEqual({ matches: mockDeduplicationMatches } as any);
+    expect(newState[826].saveDecisionPending).toBeFalse();
+  });
+
+  it('should set the decision flag to false', () => {
+    const state: SubmissionObjectState = Object.assign({}, initState, {
+      [submissionId]: Object.assign({}, initState[submissionId], {
+        saveDecisionPending: false
+      })
+    });
+
+    const action = new SetDuplicateDecisionSuccessAction(submissionId, 'detect-duplicate', [mockSubmissionObject as any]);
+    const newState = submissionObjectReducer(state, action);
+
+    expect(newState[826].saveDecisionPending).toBeFalsy();
   });
 
 });

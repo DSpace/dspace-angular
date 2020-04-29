@@ -41,6 +41,8 @@ import { getMockSearchService } from '../shared/mocks/mock-search-service';
 import { getMockRequestService } from '../shared/mocks/mock-request.service';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
 
 describe('SubmissionService test suite', () => {
   const config = MOCK_SUBMISSION_CONFIG;
@@ -188,6 +190,7 @@ describe('SubmissionService test suite', () => {
         },
         isLoading: false,
         savePending: false,
+        saveDecisionPending: false,
         depositPending: false
       }
     }
@@ -333,6 +336,7 @@ describe('SubmissionService test suite', () => {
         },
         isLoading: false,
         savePending: false,
+        saveDecisionPending: false,
         depositPending: false
       }
     }
@@ -368,6 +372,7 @@ describe('SubmissionService test suite', () => {
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
+        ScrollToService,
         NotificationsService,
         RouteService,
         SubmissionService,
@@ -744,6 +749,21 @@ describe('SubmissionService test suite', () => {
     });
   });
 
+  describe('getSubmissionDuplicateDecisionProcessingStatus', () => {
+    it('should return submission save-decision status', () => {
+      spyOn((service as any).store, 'select').and.returnValue(hot('-a', {
+        a: subState.objects[826]
+      }));
+
+      const result = service.getSubmissionDuplicateDecisionProcessingStatus('826');
+      const expected = cold('aa', {
+        a: false
+      });
+
+      expect(result).toBeObservable(expected);
+    });
+  });
+
   describe('isSectionHidden', () => {
     it('should return true/false when section is hidden/visible', () => {
       let section: any = {
@@ -801,15 +821,24 @@ describe('SubmissionService test suite', () => {
   });
 
   describe('notifyNewSection', () => {
-    it('should return true/false when section is loading/not loading', fakeAsync(() => {
+    it('should use the correct message when the sectionId is not equal to \'detect-duplicte\'', fakeAsync(() => {
       spyOn((service as any).translate, 'get').and.returnValue(observableOf('test'));
-
       spyOn((service as any).notificationsService, 'info');
 
       service.notifyNewSection(submissionId, sectionId);
       flush();
 
       expect((service as any).notificationsService.info).toHaveBeenCalledWith(null, 'submission.sections.general.metadata-extracted-new-section', null, true);
+    }));
+    it('should use the correct message when the sectionId is equal to \'detect-duplicte\'', fakeAsync(() => {
+      const dtSetctionId = 'detect-duplicate';
+      spyOn((service as any).translate, 'get').and.returnValue(observableOf(dtSetctionId));
+      spyOn((service as any).notificationsService, 'warning');
+
+      service.notifyNewSection(submissionId, dtSetctionId);
+      flush();
+
+      expect((service as any).notificationsService.warning).toHaveBeenCalledWith(null, 'submission.sections.detect-duplicate.duplicate-detected', new NotificationOptions(10000));
     }));
   });
 

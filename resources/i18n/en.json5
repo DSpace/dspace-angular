@@ -2214,6 +2214,46 @@
 
 
 
+  "submission.sections.detect-duplicate.clear-decision": "Undo",
+
+  "submission.sections.detect-duplicate.clear-decision-help": "Click for clear the decision about this pontential duplicate",
+
+  "submission.sections.detect-duplicate.confirm-duplicate": "Confirm (It's a duplicate)",
+
+  "submission.sections.detect-duplicate.confirm-not-duplicate": "Confirm (It's not a duplicate)",
+
+  "submission.sections.detect-duplicate.decision-success-notice": "Choice registered successfully",
+
+  "submission.sections.detect-duplicate.disclaimer": "The system has identified some potential duplicates. Please carefully review the list and flag each occurency with the appropriate choice or discard this submission.",
+
+  "submission.sections.detect-duplicate.disclaimer-ctrl": "The system has identified some potential duplicates. Please carefully review the list and the submitter comments and perform the appropriate action.",
+
+  "submission.sections.detect-duplicate.disclaimer-no-match": "All your feedback on potential duplicates have been registered correctly.",
+
+  "submission.sections.detect-duplicate.duplicate": "It's a duplicate",
+
+  "submission.sections.detect-duplicate.duplicate-ctrl": "Mark the record to merge",
+
+  "submission.sections.detect-duplicate.duplicate-detected": "Potential duplicate detected",
+
+  "submission.sections.detect-duplicate.duplicate-help": "Click here if this is a duplicate of your item",
+
+  "submission.sections.detect-duplicate.note-help": "Please enter your reason for the duplication into the box below.",
+
+  "submission.sections.detect-duplicate.note-placeholder": "Describe the reason of duplication",
+
+  "submission.sections.detect-duplicate.no-decision": "No decision yet",
+
+  "submission.sections.detect-duplicate.not-duplicate": "It's not a duplicate",
+
+  "submission.sections.detect-duplicate.not-duplicate-help": "Click here if this is not a duplicate of your item",
+
+  "submission.sections.detect-duplicate.submitter-decision": "Submitter decision:",
+
+  "submission.sections.detect-duplicate.submitter-note": "Submitter note:",
+
+
+
   "submission.sections.describe.relationship-lookup.close": "Close",
 
   "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",

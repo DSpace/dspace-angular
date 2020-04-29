@@ -260,7 +260,7 @@
   "type": "submissionform",
   "_links": {
     "self": {
-      "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/config/submissionforms/traditionalpageone"
+      "href": "https://dspacecris7.4science.cloud/dspace-spring-rest/api/core/config/submissionforms/traditionalpageone"
     }
   }
 }
