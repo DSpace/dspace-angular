@@ -13,6 +13,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { Collection } from '../../core/shared/collection.model';
 import { RemoteData } from '../../core/data/remote-data';
+import {CollectionDataService} from "../../core/data/collection-data.service";
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -30,6 +31,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    */
   public collectionId: string;
 
+  public entityType: string;
   /**
    * The list of submission's sections
    * @type {WorkspaceitemSectionsObject}
@@ -75,6 +77,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private submissionService: SubmissionService,
+              private collectionDataService: CollectionDataService,
               private translate: TranslateService) {
   }
 
@@ -94,6 +97,10 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
         } else {
           this.submissionId = submissionObjectRD.payload.id.toString();
           this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
+          let metadata = (submissionObjectRD.payload.collection as Collection).metadata['relationship.type'];
+          if(metadata && metadata[0]){
+            this.entityType = metadata[0].value;
+          }
           this.selfUrl = submissionObjectRD.payload._links.self.href;
           this.sections = submissionObjectRD.payload.sections;
           this.submissionDefinition = (submissionObjectRD.payload.submissionDefinition as SubmissionDefinitionsModel);
