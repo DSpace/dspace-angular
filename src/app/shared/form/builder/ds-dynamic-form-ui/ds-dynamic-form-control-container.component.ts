@@ -258,7 +258,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (this.isRelationship || isWrapperAroundRelationshipList) {
       const config = this.model.relationshipConfig || this.model.relationship;
       const relationshipOptions = Object.assign(new RelationshipOptions(), config);
-      this.listId = 'list-' + relationshipOptions.relationshipType;
+      this.listId = `list-${this.model.submissionId}-${relationshipOptions.relationshipType}`;
       this.setItem();
 
       if (isWrapperAroundRelationshipList || !this.model.repeatable) {
