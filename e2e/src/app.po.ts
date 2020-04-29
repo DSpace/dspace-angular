@@ -18,6 +18,6 @@ export class ProtractorPage {
     const loading = element(by.css('.loader'))
     const EC = protractor.ExpectedConditions;
     const notLoading = EC.not(EC.presenceOf(loading));
-    return browser.wait(notLoading, 180000);
+    return browser.wait(notLoading, 10000);
   }
 }

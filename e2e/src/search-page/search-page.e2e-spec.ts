@@ -1,6 +1,5 @@
 import { ProtractorPage } from './search-page.po';
 import { browser } from 'protractor';
-import { promise } from 'selenium-webdriver';
 
 describe('protractor SearchPage', () => {
   let page: ProtractorPage;
@@ -22,9 +21,9 @@ describe('protractor SearchPage', () => {
     page.navigateToSearch()
       .then(() => page.getRandomScopeOption())
       .then((scopeString: string) => {
-        page.navigateToSearchWithScopeParameter(scopeString)
-          .then(() => page.waitUntilNotLoading())
-          .then(() => page.getCurrentScope())
+        page.navigateToSearchWithScopeParameter(scopeString);
+        page.waitUntilNotLoading();
+        page.getCurrentScope()
           .then((s: string) => {
             expect<string>(s).toEqual(scopeString);
           })

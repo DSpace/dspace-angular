@@ -72,7 +72,7 @@ function createServerConfig(host?: string,  port?: string, nameSpace?: string, s
   }
 
   if (hasValue(nameSpace)) {
-    result.host = nameSpace;
+    result.nameSpace = nameSpace;
   }
 
   if (hasValue(port)) {
