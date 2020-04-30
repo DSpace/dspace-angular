@@ -398,14 +398,14 @@ describe('SubmissionService test suite', () => {
 
   describe('createSubmission', () => {
     it('should create a new submission', () => {
-      service.createSubmission();
+      service.createSubmission('Publication');
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
       expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, undefined);
     });
 
     it('should create a new submission with collection', () => {
-      service.createSubmission(collectionId);
+      service.createSubmission('Publication', collectionId);
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
       expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, collectionId);

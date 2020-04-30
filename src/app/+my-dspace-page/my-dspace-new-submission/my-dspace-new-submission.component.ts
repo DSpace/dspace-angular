@@ -48,7 +48,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   private sub: Subscription;
 
   private entityTypeSelected: string;
-  private availableEntyTypeList: Set<string>;
+  availableEntyTypeList: Set<string>;
   /**
    * Initialize instance variables
    *

@@ -32,11 +32,6 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    * @type {string}
    */
   public collectionParam: string;
-  /**
-   * The entity type associated with the submission
-   * * @type {string}
-   */
-  public entityType: string;
 
   /**
    * The submission self url
@@ -62,6 +57,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    */
   protected subs: Subscription[] = [];
 
+  private entityType: string;
   /**
    * Initialize instance variables
    *
@@ -84,8 +80,8 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
       .queryParams
       .subscribe((params) => {
         this.collectionParam = (params.collection);
-        this.entityType = params.entityType;
       });
+    this.entityType = this.router.getCurrentNavigation().extras.state.entityType;
   }
 
   /**
@@ -94,7 +90,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
   ngOnInit() {
     // NOTE execute the code on the browser side only, otherwise it is executed twice
     this.subs.push(
-      this.submissionService.createSubmission(this.collectionParam)
+      this.submissionService.createSubmission(this.entityType, this.collectionParam)
         .subscribe((submissionObject: SubmissionObject) => {
           // NOTE new submission is created on the browser side only
           if (isNotNull(submissionObject)) {

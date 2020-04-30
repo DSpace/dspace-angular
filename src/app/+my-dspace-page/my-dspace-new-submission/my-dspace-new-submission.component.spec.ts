@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import {ChangeDetectorRef, Component, DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -21,6 +21,7 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { SharedModule } from '../../shared/shared.module';
 import { getMockScrollToService } from '../../shared/mocks/mock-scroll-to-service';
 import { UploaderService } from '../../shared/uploader/uploader.service';
+import {By} from '@angular/platform-browser';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 
@@ -84,7 +85,36 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
       expect(app).toBeDefined();
 
     }));
+
+
+    it('should be a dropdown button', inject([MyDSpaceNewSubmissionComponent], (app: MyDSpaceNewSubmissionComponent) => {
+      app.availableEntyTypeList = new Set(['Publication', 'Journal', 'JournalIssue']);
+      const dropdownElement: DebugElement = testFixture.debugElement.query(By.css('.dropdown-menu'));
+      const dropdown = dropdownElement.nativeElement;
+      expect(dropdown.innerHTML).toBeDefined();
+      const dropdownMenuItems: DebugElement[] = dropdownElement.queryAll(By.css('.dropdown-item'));
+      expect(dropdownMenuItems.length).toEqual(3);
+      expect(dropdownMenuItems[0].nativeElement.innerHTML).toContain('Publication');
+      expect(dropdownMenuItems[1].nativeElement.innerHTML).toContain('Journal');
+      expect(dropdownMenuItems[2].nativeElement.innerHTML).toContain('JournalIssue');
+
+    }));
+
+
+    it('should be a single button', inject([MyDSpaceNewSubmissionComponent], (app: MyDSpaceNewSubmissionComponent) => {
+      app.availableEntyTypeList = new Set(['Publication']);
+
+      const addDivElement: DebugElement = testFixture.debugElement.query(By.css('.add'));
+      const addDiv = addDivElement.nativeElement;
+      expect(addDiv.innerHTML).toBeDefined();
+      const buttonElement: DebugElement = addDiv.queryAll(By.css("a"));
+      const button = buttonElement.nativeElement;
+      expect(button.innerHTML).toBeDefined();
+      const dropdownElement: DebugElement = testFixture.debugElement.query(By.css('.dropdown-menu'));
+      expect(dropdownElement).toBeUndefined()
+    }));
   });
+
 
 });
 

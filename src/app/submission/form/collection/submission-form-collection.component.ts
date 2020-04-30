@@ -147,8 +147,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * @type {Array}
    */
   private subs: Subscription[] = [];
-  @Input()
-  private entityType: string;
+
   /**
    * Initialize instance variables
    *
@@ -200,10 +199,19 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     if (hasValue(changes.currentCollectionId)
       && hasValue(changes.currentCollectionId.currentValue)) {
       this.selectedCollectionId = this.currentCollectionId;
-
+      let entityType: string = null;
       this.selectedCollectionName$ = this.collectionDataService.findById(this.currentCollectionId).pipe(
         find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
-        map((collectionRD: RemoteData<Collection>) => collectionRD.payload.name)
+        map((collectionRD: RemoteData<Collection>) => {
+         if(collectionRD.payload.metadata) {
+            const metadataValue = collectionRD.payload.metadata['relationship.type'];
+            if(metadataValue && metadataValue[0]){
+              entityType = metadataValue[0].value;
+            }
+
+         }
+         return collectionRD.payload.name
+        })
       );
 
       const findOptions: FindListOptions = {
@@ -220,7 +228,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
         const listCollection$ = communities$.pipe(
           flatMap((communityData: Community) => {
-            return this.collectionDataService.getAuthorizedCollectionByCommunityAndEntityType(communityData.uuid, 'relationship.type',this.entityType, findOptions).pipe(
+            return this.collectionDataService.getAuthorizedCollectionByCommunityAndEntityType(communityData.uuid, 'relationship.type', entityType, findOptions).pipe(
               find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
               mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
               filter((collectionData: Collection) => isNotEmpty(collectionData)),
