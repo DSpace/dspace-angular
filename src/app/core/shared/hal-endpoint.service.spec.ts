@@ -59,7 +59,6 @@ describe('HALEndpointService', () => {
   });
 
   describe('getRootEndpointMap', () => {
-
     it('should configure a new EndpointMapRequest', () => {
       (service as any).getRootEndpointMap();
       const expected = new EndpointMapRequest(requestService.generateRequestId(), environment.rest.baseUrl);

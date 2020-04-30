@@ -7,17 +7,21 @@ import { ResponseMapMock } from './mocks/response-map.mock';
 describe('EndpointMockingRestService', () => {
   let service: EndpointMockingRestService;
 
-  const serverHttpResponse: HttpResponse<any> = {
-    body: { bar: false },
-    headers: new HttpHeaders(),
-    statusText: '200'
-  } as HttpResponse<any>;
+  let serverHttpResponse: HttpResponse<any>;
 
-  const mockResponseMap: ResponseMapMock = new Map([
-    [ '/foo', { bar: true } ]
-  ]);
+  let mockResponseMap: ResponseMapMock;
 
   beforeEach(() => {
+    serverHttpResponse = {
+      body: { bar: false },
+      headers: new HttpHeaders(),
+      statusText: '200'
+    } as HttpResponse<any>;
+
+    mockResponseMap = new Map([
+      [ '/foo', { bar: true } ]
+    ]);
+
     const httpStub = jasmine.createSpyObj('http', {
       get: observableOf(serverHttpResponse),
       request: observableOf(serverHttpResponse)

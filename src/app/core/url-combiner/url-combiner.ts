@@ -30,6 +30,8 @@ export class URLCombiner {
    *      The combined URL
    */
   toString(): string {
+    debugger;
+
     if (isEmpty(this.parts)) {
       return '';
     } else {
