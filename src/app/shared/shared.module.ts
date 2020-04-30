@@ -198,6 +198,8 @@ import { ResourcePolicyFormComponent } from './resource-policies/form/resource-p
 import { EpersonGroupListComponent } from './resource-policies/form/eperson-group-list/eperson-group-list.component';
 import { ResourcePolicyTargetResolver } from './resource-policies/resolvers/resource-policy-target.resolver';
 import { ResourcePolicyResolver } from './resource-policies/resolvers/resource-policy.resolver';
+import { EpersonSearchBoxComponent } from './resource-policies/form/eperson-group-list/eperson-search-box/eperson-search-box.component';
+import { GroupSearchBoxComponent } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -378,7 +380,9 @@ const COMPONENTS = [
   ItemVersionsNoticeComponent,
   ResourcePoliciesComponent,
   ResourcePolicyFormComponent,
-  EpersonGroupListComponent
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent
 ];
 
 const ENTRY_COMPONENTS = [

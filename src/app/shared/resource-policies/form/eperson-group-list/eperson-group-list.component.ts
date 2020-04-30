@@ -16,11 +16,22 @@ import { getDataServiceFor } from '../../../../core/cache/builders/build-decorat
 import { EPERSON } from '../../../../core/eperson/models/eperson.resource-type';
 import { GROUP } from '../../../../core/eperson/models/group.resource-type';
 import { ResourceType } from '../../../../core/shared/resource-type';
+import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { fadeInOut } from '../../../animations/fade';
+
+export interface SearchEvent {
+  scope: string;
+  query: string
+}
 
 @Component({
   selector: 'ds-eperson-group-list',
   styleUrls: ['./eperson-group-list.component.scss'],
-  templateUrl: './eperson-group-list.component.html'
+  templateUrl: './eperson-group-list.component.html',
+  animations: [
+    fadeInOut
+  ]
 })
 /**
  * Component that shows a list of eperson or group
@@ -44,6 +55,16 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
   @Output() select: EventEmitter<DSpaceObject> = new EventEmitter<DSpaceObject>();
 
   /**
+   * Current search query
+   */
+  public currentSearchQuery = '';
+
+  /**
+   * Current search scope
+   */
+  public currentSearchScope = 'metadata';
+
+  /**
    * Pagination config used to display the list
    */
   public paginationOptions: PaginationComponentOptions = new PaginationComponentOptions();
@@ -52,7 +73,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    * The data service used to make request.
    * It could be EPersonDataService or GroupDataService
    */
-  private readonly dataService: DataService<DSpaceObject>;
+  private dataService: DataService<DSpaceObject>;
 
   /**
    * A list of eperson or group
@@ -78,18 +99,18 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    * @param {Injector} parentInjector
    */
   constructor(public dsoNameService: DSONameService, private parentInjector: Injector) {
-    const resourceType: ResourceType = (this.isListOfEPerson) ? EPERSON : GROUP;
-    const provider = getDataServiceFor(resourceType);
-    this.dataService = Injector.create({
-      providers: [],
-      parent: this.parentInjector
-    }).get(provider);
   }
 
   /**
    * Initialize the component
    */
   ngOnInit(): void {
+    const resourceType: ResourceType = (this.isListOfEPerson) ? EPERSON : GROUP;
+    const provider = getDataServiceFor(resourceType);
+    this.dataService = Injector.create({
+      providers: [],
+      parent: this.parentInjector
+    }).get(provider);
     this.paginationOptions.id = uniqueId('eperson-group-list-pagination');
     this.paginationOptions.pageSize = 5;
 
@@ -97,7 +118,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
       this.entrySelectedId.next(this.initSelected);
     }
 
-    this.updateList(this.paginationOptions);
+    this.updateList(this.paginationOptions, this.currentSearchScope, this.currentSearchQuery);
   }
 
   /**
@@ -134,19 +155,33 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    */
   onPageChange(page: number): void {
     this.paginationOptions.currentPage = page;
-    this.updateList(this.paginationOptions);
+    this.updateList(this.paginationOptions, this.currentSearchScope, this.currentSearchQuery);
+  }
+
+  /**
+   * Method called on search
+   */
+  onSearch(searchEvent: SearchEvent) {
+    this.currentSearchQuery = searchEvent.query;
+    this.currentSearchScope = searchEvent.scope;
+    this.paginationOptions.currentPage = 1;
+    this.updateList(this.paginationOptions, this.currentSearchScope, this.currentSearchQuery);
   }
 
   /**
    * Retrieve a paginate list of eperson or group
    */
-  updateList(config: PaginationComponentOptions): void {
+  updateList(config: PaginationComponentOptions, scope: string, query: string): void {
     const options: FindListOptions = Object.assign({}, new FindListOptions(), {
       elementsPerPage: config.pageSize,
       currentPage: config.currentPage
     });
 
-    this.subs.push(this.dataService.findAll(options).pipe(take(1))
+    const search$: Observable<RemoteData<PaginatedList<DSpaceObject>>> = this.isListOfEPerson ?
+      (this.dataService as EPersonDataService).searchByScope(scope, query, options) :
+      (this.dataService as GroupDataService).searchGroups(query, options);
+
+    this.subs.push(search$.pipe(take(1))
       .subscribe((list: RemoteData<PaginatedList<DSpaceObject>>) => {
         this.list$.next(list)
       })

@@ -1,4 +1,7 @@
-<div class="mt-3">
+<div class="mt-3" @fadeInOut>
+  <ds-eperson-search-box *ngIf="isListOfEPerson" (search)="onSearch($event)"></ds-eperson-search-box>
+  <ds-group-search-box *ngIf="!isListOfEPerson" (search)="onSearch($event)"></ds-group-search-box>
+
   <ds-pagination *ngIf="(getList() | async)?.payload?.totalElements > 0"
                  [paginationOptions]="paginationOptions"
                  [collectionSize]="(getList() | async)?.payload?.totalElements"
