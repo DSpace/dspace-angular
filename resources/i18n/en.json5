@@ -1987,6 +1987,8 @@
 
 
 
+  "resource-policies.add.button": "Add",
+
   "resource-policies.add.for.": "Add a new policy",
 
   "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
@@ -2003,7 +2005,9 @@
 
   "resource-policies.create.page.title": "Create new resource policy",
 
-  "resource-policies.delete.btn": "Delete selected resource policies",
+  "resource-policies.delete.btn": "Delete selected",
+
+  "resource-policies.delete.btn.title": "Delete selected resource policies",
 
   "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
 
