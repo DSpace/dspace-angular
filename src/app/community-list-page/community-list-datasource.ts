@@ -1,3 +1,4 @@
+import { FindListOptions } from '../core/data/request.models';
 import { CommunityListService, FlatNode } from './community-list-service';
 import { CollectionViewer, DataSource } from '@angular/cdk/typings/collections';
 import { BehaviorSubject, Observable, } from 'rxjs';
@@ -21,10 +22,10 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
     return this.communityList$.asObservable();
   }
 
-  loadCommunities(expandedNodes: FlatNode[]) {
+  loadCommunities(findOptions: FindListOptions, expandedNodes: FlatNode[]) {
     this.loading$.next(true);
 
-    this.communityListService.loadCommunities(expandedNodes).pipe(
+    this.communityListService.loadCommunities(findOptions, expandedNodes).pipe(
       take(1),
       finalize(() => this.loading$.next(false)),
     ).subscribe((flatNodes: FlatNode[]) => {
