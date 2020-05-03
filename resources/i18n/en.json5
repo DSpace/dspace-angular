@@ -654,6 +654,9 @@
   "community.sub-community-list.head": "Communities of this Community",
 
 
+  "datafile.listelement.badge": "Data File",
+
+  "datapackage.listelement.badge": "Data Package",
 
   "dso-selector.create.collection.head": "New collection",
 

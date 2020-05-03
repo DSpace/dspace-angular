@@ -210,54 +210,11 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
             }
 
          }
+         this.retrieveCollectionList(changes, entityType);
          return collectionRD.payload.name
         })
       );
 
-      const findOptions: FindListOptions = {
-        elementsPerPage: 1000
-      };
-
-      // Retrieve collection list only when is the first change
-      if (changes.currentCollectionId.isFirstChange()) {
-        // @TODO replace with search/top browse endpoint
-        // @TODO implement community/subcommunity hierarchy
-        const communities$ = this.communityDataService.findAll(findOptions).pipe(
-          find((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
-          mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page));
-
-        const listCollection$ = communities$.pipe(
-          flatMap((communityData: Community) => {
-            return this.collectionDataService.getAuthorizedCollectionByCommunityAndEntityType(communityData.uuid, 'relationship.type', entityType, findOptions).pipe(
-              find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
-              mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
-              filter((collectionData: Collection) => isNotEmpty(collectionData)),
-              map((collectionData: Collection) => ({
-                communities: [{ id: communityData.id, name: communityData.name }],
-                collection: { id: collectionData.id, name: collectionData.name }
-              }))
-            );
-          }),
-          reduce((acc: any, value: any) => [...acc, ...value], []),
-          startWith([])
-        );
-
-        const searchTerm$ = this.searchField.valueChanges.pipe(
-          debounceTime(200),
-          distinctUntilChanged(),
-          startWith('')
-        );
-
-        this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
-          map(([searchTerm, listCollection]) => {
-            this.disabled$.next(isEmpty(listCollection));
-            if (isEmpty(searchTerm)) {
-              return listCollection;
-            } else {
-              return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
-            }
-          }));
-      }
     }
   }
 
@@ -318,5 +275,53 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     if (!isOpen) {
       this.searchField.reset();
     }
+  }
+
+  private retrieveCollectionList(changes: SimpleChanges, entityType: string) {
+    const findOptions: FindListOptions = {
+      elementsPerPage: 1000
+    };
+
+    // Retrieve collection list only when is the first change
+    if (changes.currentCollectionId.isFirstChange()) {
+      // @TODO replace with search/top browse endpoint
+      // @TODO implement community/subcommunity hierarchy
+      const communities$ = this.communityDataService.findAll(findOptions).pipe(
+        find((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
+        mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page));
+
+      const listCollection$ = communities$.pipe(
+        flatMap((communityData: Community) => {
+          return this.collectionDataService.getAuthorizedCollectionByCommunityAndEntityType(communityData.uuid, 'relationship.type', entityType, findOptions).pipe(
+            find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
+            mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
+            filter((collectionData: Collection) => isNotEmpty(collectionData)),
+            map((collectionData: Collection) => ({
+              communities: [{ id: communityData.id, name: communityData.name }],
+              collection: { id: collectionData.id, name: collectionData.name }
+            }))
+          );
+        }),
+        reduce((acc: any, value: any) => [...acc, ...value], []),
+        startWith([])
+      );
+
+      const searchTerm$ = this.searchField.valueChanges.pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        startWith('')
+      );
+
+      this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
+        map(([searchTerm, listCollection]) => {
+          this.disabled$.next(isEmpty(listCollection));
+          if (isEmpty(searchTerm)) {
+            return listCollection;
+          } else {
+            return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
+          }
+        }));
+    }
+
   }
 }

@@ -9,17 +9,18 @@
   <ng-container *ngIf="availableEntyTypeList.size <= 1">
 
     <div class="add">
-      <a class="btn btn-lg btn-primary mt-1 ml-2" [routerLink]="['/submit']" [state]="{ entityType:
+      <button class="btn btn-lg btn-primary mt-1 ml-2" [disabled]="!initialized" [routerLink]="['/submit']" [state]="{
+      entityType:
       availableEntyTypeList[0]}" role="button">
         <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
-      </a>
+      </button>
     </div>
   </ng-container>
   <ng-container *ngIf="availableEntyTypeList.size > 1">
 
-    <div class="add" ngbDropdown>
+    <div class="add" ngbDropdown >
       <button class="btn btn-lg btn-primary  mt-1 ml-2" id="dropdownSubmission" ngbDropdownToggle
-              type="button">
+              type="button"  [disabled]="!initialized">
         <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
         <span class="caret"></span>
       </button>
