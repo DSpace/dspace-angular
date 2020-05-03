@@ -1,25 +1,25 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 
-import { Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+import {Subscription} from 'rxjs';
+import {first} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {TranslateService} from '@ngx-translate/core';
 
-import { SubmissionState } from '../../submission/submission.reducers';
-import { AuthService } from '../../core/auth/auth.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
-import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { NotificationType } from '../../shared/notifications/models/notification-type';
-import { hasValue } from '../../shared/empty.util';
-import { SearchResult } from '../../shared/search/search-result.model';
-import { RemoteData } from "../../core/data/remote-data";
-import { PaginatedList } from "../../core/data/paginated-list";
-import { Router } from "@angular/router";
-import { EntityTypeService } from "../../core/data/entity-type.service";
-import { ItemType } from "../../core/shared/item-relationships/item-type.model";
+import {SubmissionState} from '../../submission/submission.reducers';
+import {AuthService} from '../../core/auth/auth.service';
+import {DSpaceObject} from '../../core/shared/dspace-object.model';
+import {NotificationsService} from '../../shared/notifications/notifications.service';
+import {NotificationOptions} from '../../shared/notifications/models/notification-options.model';
+import {UploaderOptions} from '../../shared/uploader/uploader-options.model';
+import {HALEndpointService} from '../../core/shared/hal-endpoint.service';
+import {NotificationType} from '../../shared/notifications/models/notification-type';
+import {hasValue} from '../../shared/empty.util';
+import {SearchResult} from '../../shared/search/search-result.model';
+import {RemoteData} from '../../core/data/remote-data';
+import {PaginatedList} from '../../core/data/paginated-list';
+import {Router} from '@angular/router';
+import {EntityTypeService} from '../../core/data/entity-type.service';
+import {ItemType} from '../../core/shared/item-relationships/item-type.model';
 
 /**
  * This component represents the whole mydspace page header
@@ -45,7 +45,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    */
   private sub: Subscription;
 
-  initialized: boolean = false;
+  initialized = false;
   private entityTypeSelected: string;
   availableEntyTypeList: Set<string>;
   /**
@@ -84,7 +84,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
       if (!x || !x.payload || !x.payload.page) {
         return;
       }
-      x.payload.page.forEach(type => this.availableEntyTypeList.add(type.label));
+      x.payload.page.forEach((type: ItemType) => this.availableEntyTypeList.add(type.label));
     }, () => {
       this.initialized = true;
     });
@@ -134,11 +134,4 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
     }
   }
 
-  newSubmission() {
-    if(!this.entityTypeSelected) {
-      this.router.navigate(['/submit']);
-    } else {
-
-    }
-  }
 }

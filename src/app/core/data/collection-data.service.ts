@@ -1,43 +1,43 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
-import { INotification } from '../../shared/notifications/models/notification.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { SearchParam } from '../cache/models/search-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
-import { CoreState } from '../core.reducers';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
-import { Collection } from '../shared/collection.model';
-import { COLLECTION } from '../shared/collection.resource-type';
-import { ContentSource } from '../shared/content-source.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {TranslateService} from '@ngx-translate/core';
+import {Observable} from 'rxjs/internal/Observable';
+import {distinctUntilChanged, filter, map, switchMap, take} from 'rxjs/operators';
+import {hasValue, isNotEmpty, isNotEmptyOperator} from '../../shared/empty.util';
+import {NotificationOptions} from '../../shared/notifications/models/notification-options.model';
+import {INotification} from '../../shared/notifications/models/notification.model';
+import {NotificationsService} from '../../shared/notifications/notifications.service';
+import {PaginatedSearchOptions} from '../../shared/search/paginated-search-options.model';
+import {FollowLinkConfig} from '../../shared/utils/follow-link-config.model';
+import {dataService} from '../cache/builders/build-decorators';
+import {RemoteDataBuildService} from '../cache/builders/remote-data-build.service';
+import {SearchParam} from '../cache/models/search-param.model';
+import {ObjectCacheService} from '../cache/object-cache.service';
+import {ContentSourceSuccessResponse, RestResponse} from '../cache/response.models';
+import {CoreState} from '../core.reducers';
+import {HttpOptions} from '../dspace-rest-v2/dspace-rest-v2.service';
+import {DSpaceSerializer} from '../dspace-rest-v2/dspace.serializer';
+import {Collection} from '../shared/collection.model';
+import {COLLECTION} from '../shared/collection.resource-type';
+import {ContentSource} from '../shared/content-source.model';
+import {DSpaceObject} from '../shared/dspace-object.model';
+import {GenericConstructor} from '../shared/generic-constructor';
+import {HALEndpointService} from '../shared/hal-endpoint.service';
+import {Item} from '../shared/item.model';
 import {
   configureRequest,
   filterSuccessfulResponses,
   getRequestFromRequestHref,
   getResponseFromEntry
 } from '../shared/operators';
-import { ComColDataService } from './comcol-data.service';
-import { CommunityDataService } from './community-data.service';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { DSOResponseParsingService } from './dso-response-parsing.service';
-import { PaginatedList } from './paginated-list';
-import { ResponseParsingService } from './parsing.service';
-import { RemoteData } from './remote-data';
+import {ComColDataService} from './comcol-data.service';
+import {CommunityDataService} from './community-data.service';
+import {DSOChangeAnalyzer} from './dso-change-analyzer.service';
+import {DSOResponseParsingService} from './dso-response-parsing.service';
+import {PaginatedList} from './paginated-list';
+import {ResponseParsingService} from './parsing.service';
+import {RemoteData} from './remote-data';
 import {
   ContentSourceRequest,
   FindListOptions,
@@ -45,7 +45,7 @@ import {
   RestRequest,
   UpdateContentSourceRequest
 } from './request.models';
-import { RequestService } from './request.service';
+import {RequestService} from './request.service';
 
 @Injectable()
 @dataService(COLLECTION)
@@ -111,13 +111,13 @@ export class CollectionDataService extends ComColDataService<Collection> {
    */
   getAuthorizedCollectionByCommunityAndEntityType(communityId: string,
                                                   metadata: string,
-                                                  metadatavalue: string = undefined,
+                                                  metadatavalue?: string,
                                                   options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAuthorizedByCommunityAndMetadata';
-    let searchParams =  [new SearchParam('uuid', communityId), new SearchParam('metadata', metadata)];
-    if(metadatavalue)
+    const searchParams =  [new SearchParam('uuid', communityId), new SearchParam('metadata', metadata)];
+    if (metadatavalue) {
       searchParams.push(new SearchParam('metadatavalue', metadatavalue));
-
+    }
     options = Object.assign({}, options, {
       searchParams: searchParams
     });

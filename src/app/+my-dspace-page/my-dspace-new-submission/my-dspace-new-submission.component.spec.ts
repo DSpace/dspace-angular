@@ -86,7 +86,6 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
 
     }));
 
-
     it('should be a dropdown button', inject([MyDSpaceNewSubmissionComponent], (app: MyDSpaceNewSubmissionComponent) => {
       app.availableEntyTypeList = new Set(['Publication', 'Journal', 'JournalIssue']);
       const dropdownElement: DebugElement = testFixture.debugElement.query(By.css('.dropdown-menu'));
@@ -100,21 +99,19 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
 
     }));
 
-
     it('should be a single button', inject([MyDSpaceNewSubmissionComponent], (app: MyDSpaceNewSubmissionComponent) => {
       app.availableEntyTypeList = new Set(['Publication']);
 
       const addDivElement: DebugElement = testFixture.debugElement.query(By.css('.add'));
       const addDiv = addDivElement.nativeElement;
       expect(addDiv.innerHTML).toBeDefined();
-      const buttonElement: DebugElement = addDiv.queryAll(By.css("a"));
+      const buttonElement: DebugElement = addDiv.queryAll(By.css('a'));
       const button = buttonElement.nativeElement;
       expect(button.innerHTML).toBeDefined();
       const dropdownElement: DebugElement = testFixture.debugElement.query(By.css('.dropdown-menu'));
       expect(dropdownElement).toBeUndefined()
     }));
   });
-
 
 });
 

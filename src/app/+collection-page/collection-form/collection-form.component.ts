@@ -6,21 +6,21 @@ import {
   DynamicSelectModel,
   DynamicTextAreaModel
 } from '@ng-dynamic-forms/core';
-import { Collection } from '../../core/shared/collection.model';
-import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
-import { Location } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { RequestService } from '../../core/data/request.service';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { EntityTypeService } from "../../core/data/entity-type.service";
-import { DynamicFormOptionConfig } from "@ng-dynamic-forms/core/lib/model/dynamic-option-control.model";
-import { RemoteData } from "../../core/data/remote-data";
-import { ItemType } from "../../core/shared/item-relationships/item-type.model";
-import { PaginatedList } from "../../core/data/paginated-list";
-import { MetadataValue } from "../../core/shared/metadata.models";
+import {Collection} from '../../core/shared/collection.model';
+import {ComColFormComponent} from '../../shared/comcol-forms/comcol-form/comcol-form.component';
+import {Location} from '@angular/common';
+import {TranslateService} from '@ngx-translate/core';
+import {NotificationsService} from '../../shared/notifications/notifications.service';
+import {CommunityDataService} from '../../core/data/community-data.service';
+import {AuthService} from '../../core/auth/auth.service';
+import {RequestService} from '../../core/data/request.service';
+import {ObjectCacheService} from '../../core/cache/object-cache.service';
+import {EntityTypeService} from '../../core/data/entity-type.service';
+import {DynamicFormOptionConfig} from '@ng-dynamic-forms/core/lib/model/dynamic-option-control.model';
+import {RemoteData} from '../../core/data/remote-data';
+import {ItemType} from '../../core/shared/item-relationships/item-type.model';
+import {PaginatedList} from '../../core/data/paginated-list';
+import {MetadataValue} from '../../core/shared/metadata.models';
 
 /**
  * Form used for creating and editing collections
@@ -107,12 +107,13 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
   ngOnInit() {
 
     let tmp: MetadataValue[];
-    if(this.dso && this.dso.metadata){
+    if (this.dso && this.dso.metadata) {
       tmp = this.dso.metadata['relationship.type'];
     }
     this.entityTypeService.findAll().subscribe((data: RemoteData<PaginatedList<ItemType>>) => {
-      if (!data || !data.payload || !data.payload.page)
+      if (!data || !data.payload || !data.payload.page) {
         return;
+      }
       let index = 0;
       data.payload.page.map((type: ItemType) => {
 
@@ -121,7 +122,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           label: type.label,
           value: type.label
         } as DynamicFormOptionConfig<string>);
-        if(tmp && tmp.length>0 && tmp[0].value === type.label){
+        if (tmp && tmp.length > 0 && tmp[0].value === type.label) {
           this.entityTypeSelection.select(index)
         }
         index++;
