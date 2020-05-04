@@ -26,7 +26,7 @@ export class EditItemTemplatePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.data.pipe(first(), map((data) => data.collection));
+    this.collectionRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
   }
 
   /**

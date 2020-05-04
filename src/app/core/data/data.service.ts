@@ -75,6 +75,13 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * @returns {Observable<string>}
    */
   getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
+    return this.getEndpoint();
+  }
+
+  /**
+   * Get the base endpoint for all requests
+   */
+  protected getEndpoint(): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
 
@@ -238,7 +245,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   getIDHrefObs(resourceID: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
-    return this.getBrowseEndpoint().pipe(
+    return this.getEndpoint().pipe(
       map((endpoint: string) => this.getIDHref(endpoint, resourceID, ...linksToFollow)));
   }
 
@@ -395,7 +402,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    */
   create(dso: T, parentUUID?: string): Observable<RemoteData<T>> {
     const requestId = this.requestService.generateRequestId();
-    const endpoint$ = this.getBrowseEndpoint().pipe(
+    const endpoint$ = this.getEndpoint().pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)

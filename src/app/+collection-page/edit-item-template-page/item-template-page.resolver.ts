@@ -6,6 +6,7 @@ import { ItemTemplateDataService } from '../../core/data/item-template-data.serv
 import { Observable } from 'rxjs/internal/Observable';
 import { find } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 /**
  * This class represents a resolver that requests a specific collection's item template before the route is activated
@@ -23,7 +24,7 @@ export class ItemTemplatePageResolver implements Resolve<RemoteData<Item>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
-    return this.itemTemplateService.findByCollectionID(route.params.id).pipe(
+    return this.itemTemplateService.findByCollectionID(route.params.id, followLink('templateItemOf')).pipe(
       find((RD) => hasValue(RD.error) || RD.hasSucceeded),
     );
   }

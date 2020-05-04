@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -18,6 +17,8 @@ import { HttpClient } from '@angular/common/http';
 import { BrowseService } from '../browse/browse.service';
 import { CollectionDataService } from './collection-data.service';
 import { switchMap } from 'rxjs/operators';
+import { BundleDataService } from './bundle-data.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /* tslint:disable:max-classes-per-file */
 /**
@@ -41,7 +42,6 @@ class DataServiceImpl extends ItemDataService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected bs: BrowseService,
     protected objectCache: ObjectCacheService,
@@ -49,8 +49,9 @@ class DataServiceImpl extends ItemDataService {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOChangeAnalyzer<Item>,
+    protected bundleService: BundleDataService,
     protected collectionService: CollectionDataService) {
-    super(requestService, rdbService, dataBuildService, store, bs, objectCache, halService, notificationsService, http, comparator);
+    super(requestService, rdbService, store, bs, objectCache, halService, notificationsService, http, comparator, bundleService);
   }
 
   /**
@@ -96,10 +97,11 @@ class DataServiceImpl extends ItemDataService {
   /**
    * Set the collection ID and send a find by ID request
    * @param collectionID
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByCollectionID(collectionID: string): Observable<RemoteData<Item>> {
+  findByCollectionID(collectionID: string, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<Item>> {
     this.setCollectionEndpoint(collectionID);
-    return super.findById(collectionID);
+    return super.findById(collectionID, ...linksToFollow);
   }
 
   /**
@@ -119,7 +121,7 @@ class DataServiceImpl extends ItemDataService {
    */
   deleteByCollectionID(item: Item, collectionID: string): Observable<boolean> {
     this.setRegularEndpoint();
-    return super.delete(item);
+    return super.delete(item.uuid);
   }
 }
 
@@ -136,7 +138,6 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected bs: BrowseService,
     protected objectCache: ObjectCacheService,
@@ -144,8 +145,9 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOChangeAnalyzer<Item>,
+    protected bundleService: BundleDataService,
     protected collectionService: CollectionDataService) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, store, bs, objectCache, halService, notificationsService, http, comparator, collectionService);
+    this.dataService = new DataServiceImpl(requestService, rdbService, store, bs, objectCache, halService, notificationsService, http, comparator, bundleService, collectionService);
   }
 
   /**
@@ -165,9 +167,10 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
   /**
    * Find an item template by collection ID
    * @param collectionID
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByCollectionID(collectionID: string): Observable<RemoteData<Item>> {
-    return this.dataService.findByCollectionID(collectionID);
+  findByCollectionID(collectionID: string, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<Item>> {
+    return this.dataService.findByCollectionID(collectionID, ...linksToFollow);
   }
 
   /**
