@@ -124,7 +124,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
             this.item = rd.payload;
             this.checkAndFixMetadataUUIDs();
             this.initializeOriginalFields();
-            this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.getMetadataAsListExcludingRelationships());
+            this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
             this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
           }
         )
@@ -142,13 +142,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
       getSucceededRemoteData(),
       take(1),
       map((remoteData$) => remoteData$.payload.page.map((field: MetadataField) => field.toString())));
-  }
-
-  /**
-   * Get the object's metadata as a list and exclude relationship metadata
-   */
-  getMetadataAsListExcludingRelationships(): MetadatumViewModel[] {
-    return this.item.metadataAsList.filter((metadata: MetadatumViewModel) => !metadata.key.startsWith('relation.') && !metadata.key.startsWith('relationship.'));
   }
 
   /**
