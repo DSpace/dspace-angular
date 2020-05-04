@@ -114,15 +114,9 @@ describe('CommunityListComponent', () => {
 
   beforeEach(async(() => {
     communityListServiceStub = {
-      topPageSize: 2,
-      topCurrentPage: 1,
-      collectionPageSize: 2,
-      subcommunityPageSize: 2,
+      pageSize: 2,
       expandedNodes: [],
       loadingNode: null,
-      getNextPageTopCommunities() {
-        this.topCurrentPage++;
-      },
       getLoadingNodeFromStore() {
         return observableOf(this.loadingNode);
       },
@@ -133,12 +127,12 @@ describe('CommunityListComponent', () => {
         this.expandedNodes = expandedNodes;
         this.loadingNode = loadingNode;
       },
-      loadCommunities(expandedNodes) {
+      loadCommunities(options, expandedNodes) {
         let flatnodes;
         let showMoreTopComNode = false;
         flatnodes = [...mockTopFlatnodesUnexpanded];
-        const currentPage = this.topCurrentPage;
-        const elementsPerPage = this.topPageSize;
+        const currentPage = options.currentPage;
+        const elementsPerPage = this.pageSize;
         let endPageIndex = (currentPage * elementsPerPage);
         if (endPageIndex >= flatnodes.length) {
           endPageIndex = flatnodes.length;
@@ -171,14 +165,14 @@ describe('CommunityListComponent', () => {
                   collFlatnodes = [...collFlatnodes, toFlatNode(coll, observableOf(false), topNode.level + 1, false, topNode)];
                 });
                 if (isNotEmpty(subComFlatnodes)) {
-                  const endSubComIndex = this.subcommunityPageSize * expandedParent.currentCommunityPage;
+                  const endSubComIndex = this.pageSize * expandedParent.currentCommunityPage;
                   flatnodes = [...flatnodes, ...subComFlatnodes.slice(0, endSubComIndex)];
                   if (subComFlatnodes.length > endSubComIndex) {
                     flatnodes = [...flatnodes, showMoreFlatNode('community', topNode.level + 1, expandedParent)];
                   }
                 }
                 if (isNotEmpty(collFlatnodes)) {
-                  const endColIndex = this.collectionPageSize * expandedParent.currentCollectionPage;
+                  const endColIndex = this.pageSize * expandedParent.currentCollectionPage;
                   flatnodes = [...flatnodes, ...collFlatnodes.slice(0, endColIndex)];
                   if (collFlatnodes.length > endColIndex) {
                     flatnodes = [...flatnodes, showMoreFlatNode('collection', topNode.level + 1, expandedParent)];
@@ -225,6 +219,8 @@ describe('CommunityListComponent', () => {
   it('should render a cdk tree with the first elementsPerPage (2) nr of top level communities, unexpanded', () => {
     const expandableNodesFound = fixture.debugElement.queryAll(By.css('.expandable-node a'));
     const childlessNodesFound = fixture.debugElement.queryAll(By.css('.childless-node a'));
+    console.log('expandableNodesFound', expandableNodesFound)
+    console.log('childlessNodesFound', childlessNodesFound)
     const allNodes = [...expandableNodesFound, ...childlessNodesFound];
     expect(allNodes.length).toEqual(2);
     mockTopFlatnodesUnexpanded.slice(0, 2).map((topFlatnode: FlatNode) => {
