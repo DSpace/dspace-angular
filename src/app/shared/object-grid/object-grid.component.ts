@@ -70,6 +70,11 @@ export class ObjectGridComponent implements OnInit {
   @Input() context: Context;
 
   /**
+   * Option for hiding the pagination detail
+   */
+  @Input() hidePaginationDetail = false;
+
+  /**
    * Behavior subject to output the current listable objects
    */
   private _objects$: BehaviorSubject<RemoteData<PaginatedList<ListableObject>>>;

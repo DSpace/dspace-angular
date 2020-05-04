@@ -125,7 +125,7 @@ describe('DeleteComColPageComponent', () => {
     it('should call delete on the data service', () => {
       comp.onConfirm(data1);
       fixture.detectChanges();
-      expect(dsoDataService.delete).toHaveBeenCalledWith(data1);
+      expect(dsoDataService.delete).toHaveBeenCalledWith(data1.id);
     });
   });
 

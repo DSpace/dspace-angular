@@ -33,7 +33,7 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('instance') instance: NgbTypeahead;
+  @ViewChild('instance', {static: false}) instance: NgbTypeahead;
 
   chips: Chips;
   hasAuthority: boolean;

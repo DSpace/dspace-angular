@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { Bitstream } from '../../../../../core/shared/bitstream.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -37,6 +41,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
               private translateService: TranslateService,
               private modalService: NgbModal,
               private itemDataService: ItemDataService,
+              private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService) {
     super(truncatableService);
   }
@@ -94,5 +99,12 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
     const modalComp = modalRef.componentInstance;
     modalComp.value = value;
     return modalRef.result;
+  }
+
+  // TODO refactor to return RemoteData, and thumbnail template to deal with loading
+  getThumbnail(): Observable<Bitstream> {
+    return this.bitstreamDataService.getThumbnailFor(this.dso).pipe(
+      getFirstSucceededRemoteDataPayload()
+    );
   }
 }

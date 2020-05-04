@@ -74,7 +74,7 @@ describe('SubmissionEditComponent Component', () => {
 
     expect(comp.submissionId).toBe(submissionId);
     expect(comp.collectionId).toBe(submissionObject.collection.id);
-    expect(comp.selfUrl).toBe(submissionObject.self);
+    expect(comp.selfUrl).toBe(submissionObject._links.self.href);
     expect(comp.sections).toBe(submissionObject.sections);
     expect(comp.submissionDefinition).toBe(submissionObject.submissionDefinition);
 

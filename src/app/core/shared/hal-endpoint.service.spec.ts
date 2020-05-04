@@ -89,7 +89,7 @@ describe('HALEndpointService', () => {
         .returnValue(hot('a-', { a: 'https://rest.api/test' }));
       const result = service.getEndpoint(linkPath);
 
-      const expected = cold('b-', { b: endpointMap.test });
+      const expected = cold('(b|)', { b: endpointMap.test });
       expect(result).toBeObservable(expected);
     });
 
@@ -97,7 +97,7 @@ describe('HALEndpointService', () => {
       spyOn(service as any, 'getEndpointAt').and
         .returnValue(hot('a-', { a: undefined }));
       const result = service.getEndpoint('unknown');
-      const expected = cold('b-', { b: undefined });
+      const expected = cold('(b|)', { b: undefined });
       expect(result).toBeObservable(expected);
     });
   });

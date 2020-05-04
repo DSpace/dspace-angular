@@ -25,12 +25,14 @@
                  [title]="'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + source.id | translate  : {count: (totalExternal$ | async)[idx]}">
             <ng-template ngbTabContent>
                 <ds-dynamic-lookup-relation-external-source-tab
+                        [label]="label"
                         [listId]="listId"
-                        [repeatable]="repeatable"
+                        [item]="item"
+                        [collection]="collection"
+                        [relationship]="relationshipOptions"
                         [context]="context"
                         [externalSource]="source"
-                        (selectObject)="select($event)"
-                        (deselectObject)="deselect($event)"
+                        (importedObject)="imported($event)"
                         class="d-block pt-3">
                 </ds-dynamic-lookup-relation-external-source-tab>
             </ng-template>

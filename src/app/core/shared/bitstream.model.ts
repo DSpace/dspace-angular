@@ -1,45 +1,60 @@
-import { DSpaceObject } from './dspace-object.model';
-import { RemoteData } from '../data/remote-data';
-import { Item } from './item.model';
-import { BitstreamFormat } from './bitstream-format.model';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
-import { ResourceType } from './resource-type';
+import { link, typedObject } from '../cache/builders/build-decorators';
+import { RemoteData } from '../data/remote-data';
+import { BitstreamFormat } from './bitstream-format.model';
+import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';
+import { BITSTREAM } from './bitstream.resource-type';
+import { DSpaceObject } from './dspace-object.model';
+import { HALLink } from './hal-link.model';
+import { HALResource } from './hal-resource.model';
 
-export class Bitstream extends DSpaceObject {
-  static type = new ResourceType('bitstream');
+@typedObject
+@inheritSerialization(DSpaceObject)
+export class Bitstream extends DSpaceObject implements HALResource {
+  static type = BITSTREAM;
 
   /**
    * The size of this bitstream in bytes
    */
+  @autoserialize
   sizeBytes: number;
 
   /**
    * The description of this Bitstream
    */
+  @autoserialize
   description: string;
 
   /**
    * The name of the Bundle this Bitstream is part of
    */
+  @autoserialize
   bundleName: string;
 
   /**
-   * An array of Bitstream Format of this Bitstream
+   * The {@link HALLink}s for this Bitstream
    */
-  format: Observable<RemoteData<BitstreamFormat>>;
+  @deserialize
+  _links: {
+    self: HALLink;
+    bundle: HALLink;
+    format: HALLink;
+    content: HALLink;
+  };
 
   /**
-   * An array of Items that are direct parents of this Bitstream
+   * The thumbnail for this Bitstream
+   * Needs to be resolved first, but isn't available as a {@link HALLink} yet
+   * Use BitstreamDataService.getThumbnailFor(…) for now.
    */
-  parents: Observable<RemoteData<Item[]>>;
+  thumbnail?: Observable<RemoteData<Bitstream>>;
 
   /**
-   * The Bundle that owns this Bitstream
+   * The BitstreamFormat of this Bitstream
+   * Will be undefined unless the format {@link HALLink} has been resolved.
    */
-  owner: Observable<RemoteData<Item>>;
+  @link(BITSTREAM_FORMAT, false, 'format')
+  format?: Observable<RemoteData<BitstreamFormat>>;
 
-  /**
-   * The URL to retrieve this Bitstream's file
-   */
-  content: string;
 }

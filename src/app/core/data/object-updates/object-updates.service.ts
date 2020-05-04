@@ -8,22 +8,28 @@ import {
   Identifiable,
   OBJECT_UPDATES_TRASH_PATH,
   ObjectUpdatesEntry,
-  ObjectUpdatesState
+  ObjectUpdatesState, OrderPage,
+  VirtualMetadataSource
 } from './object-updates.reducer';
 import { Observable } from 'rxjs';
 import {
-  AddFieldUpdateAction,
+  AddFieldUpdateAction, AddPageToCustomOrderAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
   InitializeFieldsAction,
+  MoveFieldUpdateAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
+  SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction
 } from './object-updates.actions';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
+import { ArrayMoveChangeAnalyzer } from '../array-move-change-analyzer.service';
+import { MoveOperation } from 'fast-json-patch/lib/core';
+import { flatten } from '@angular/compiler';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -37,12 +43,17 @@ function filterByUrlAndUUIDFieldStateSelector(url: string, uuid: string): Memoiz
   return createSelector(filterByUrlObjectUpdatesStateSelector(url), (state: ObjectUpdatesEntry) => state.fieldStates[uuid]);
 }
 
+function virtualMetadataSourceSelector(url: string, source: string): MemoizedSelector<CoreState, VirtualMetadataSource> {
+  return createSelector(filterByUrlObjectUpdatesStateSelector(url), (state: ObjectUpdatesEntry) => state.virtualMetadataSources[source]);
+}
+
 /**
  * Service that dispatches and reads from the ObjectUpdates' state in the store
  */
 @Injectable()
 export class ObjectUpdatesService {
-  constructor(private store: Store<CoreState>) {
+  constructor(private store: Store<CoreState>,
+              private comparator: ArrayMoveChangeAnalyzer<string>) {
 
   }
 
@@ -54,6 +65,28 @@ export class ObjectUpdatesService {
    */
   initialize(url, fields: Identifiable[], lastModified: Date): void {
     this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified));
+  }
+
+  /**
+   * Method to dispatch an InitializeFieldsAction to the store and keeping track of the order objects are stored
+   * @param url The page's URL for which the changes are being mapped
+   * @param fields The initial fields for the page's object
+   * @param lastModified The date the object was last modified
+   * @param pageSize The page size to use for adding pages to the custom order
+   * @param page The first page to populate the custom order with
+   */
+  initializeWithCustomOrder(url, fields: Identifiable[], lastModified: Date, pageSize = 9999, page = 0): void {
+    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified, fields.map((field) => field.uuid), pageSize, page));
+  }
+
+  /**
+   * Method to dispatch an AddPageToCustomOrderAction, adding a new page to an already existing custom order tracking
+   * @param url     The URL for which the changes are being mapped
+   * @param fields  The fields to add a new page for
+   * @param page    The page number (starting from index 0)
+   */
+  addPageToCustomOrder(url, fields: Identifiable[], page: number): void {
+    this.store.dispatch(new AddPageToCustomOrderAction(url, fields, fields.map((field) => field.uuid), page));
   }
 
   /**
@@ -88,25 +121,28 @@ export class ObjectUpdatesService {
    * a FieldUpdates object
    * @param url The URL of the page for which the FieldUpdates should be requested
    * @param initialFields The initial values of the fields
+   * @param ignoreStates  Ignore the fieldStates to loop over the fieldUpdates instead
    */
-  getFieldUpdates(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
+  getFieldUpdates(url: string, initialFields: Identifiable[], ignoreStates?: boolean): Observable<FieldUpdates> {
     const objectUpdates = this.getObjectEntry(url);
-    return objectUpdates.pipe(map((objectEntry) => {
-      const fieldUpdates: FieldUpdates = {};
-      Object.keys(objectEntry.fieldStates).forEach((uuid) => {
-        let fieldUpdate = objectEntry.fieldUpdates[uuid];
-        if (isEmpty(fieldUpdate)) {
-          const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
-          if (hasValue(identifiable)) {
-            fieldUpdate = {field: identifiable, changeType: undefined};
-          }
+    return objectUpdates.pipe(
+      switchMap((objectEntry) => {
+        const fieldUpdates: FieldUpdates = {};
+        if (hasValue(objectEntry)) {
+          Object.keys(ignoreStates ? objectEntry.fieldUpdates : objectEntry.fieldStates).forEach((uuid) => {
+            fieldUpdates[uuid] = objectEntry.fieldUpdates[uuid];
+          });
         }
-        if (hasValue(fieldUpdate)) {
-          fieldUpdates[uuid] = fieldUpdate;
-        }
-      });
-      return fieldUpdates;
-    }))
+        return this.getFieldUpdatesExclusive(url, initialFields).pipe(
+          map((fieldUpdatesExclusive) => {
+            Object.keys(fieldUpdatesExclusive).forEach((uuid) => {
+              fieldUpdates[uuid] = fieldUpdatesExclusive[uuid];
+            });
+            return fieldUpdates;
+          })
+        );
+      }),
+    );
   }
 
   /**
@@ -125,6 +161,31 @@ export class ObjectUpdatesService {
           fieldUpdate = { field: object, changeType: undefined };
         }
         fieldUpdates[object.uuid] = fieldUpdate;
+      }
+      return fieldUpdates;
+    }))
+  }
+
+  /**
+   * Method that combines the state's updates with the initial values (when there's no update),
+   * sorted by their custom order to create a FieldUpdates object
+   * @param url The URL of the page for which the FieldUpdates should be requested
+   * @param initialFields The initial values of the fields
+   * @param page The page to retrieve
+   */
+  getFieldUpdatesByCustomOrder(url: string, initialFields: Identifiable[], page = 0): Observable<FieldUpdates> {
+    const objectUpdates = this.getObjectEntry(url);
+    return objectUpdates.pipe(map((objectEntry) => {
+      const fieldUpdates: FieldUpdates = {};
+      if (hasValue(objectEntry) && hasValue(objectEntry.customOrder) && isNotEmpty(objectEntry.customOrder.newOrderPages) && page < objectEntry.customOrder.newOrderPages.length) {
+        for (const uuid of objectEntry.customOrder.newOrderPages[page].order) {
+          let fieldUpdate = objectEntry.fieldUpdates[uuid];
+          if (isEmpty(fieldUpdate)) {
+            const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
+            fieldUpdate = {field: identifiable, changeType: undefined};
+          }
+          fieldUpdates[uuid] = fieldUpdate;
+        }
       }
       return fieldUpdates;
     }))
@@ -200,6 +261,47 @@ export class ObjectUpdatesService {
   }
 
   /**
+   * Dispatches a MoveFieldUpdateAction
+   * @param url       The page's URL for which the changes are saved
+   * @param from      The index of the object to move
+   * @param to        The index to move the object to
+   * @param fromPage  The page to move the object from
+   * @param toPage    The page to move the object to
+   * @param field     Optional field to add to the fieldUpdates list (useful if we want to track updates across multiple pages)
+   */
+  saveMoveFieldUpdate(url: string, from: number, to: number, fromPage = 0, toPage = 0, field?: Identifiable) {
+    this.store.dispatch(new MoveFieldUpdateAction(url, from, to, fromPage, toPage, field));
+  }
+
+  /**
+   * Check whether the virtual metadata of a given item is selected to be saved as real metadata
+   * @param url           The URL of the page on which the field resides
+   * @param relationship  The id of the relationship for which to check whether the virtual metadata is selected to be
+   *                      saved as real metadata
+   * @param item          The id of the item for which to check whether the virtual metadata is selected to be
+   *                      saved as real metadata
+   */
+  isSelectedVirtualMetadata(url: string, relationship: string, item: string): Observable<boolean> {
+
+    return this.store
+      .pipe(
+        select(virtualMetadataSourceSelector(url, relationship)),
+        map((virtualMetadataSource) => virtualMetadataSource && virtualMetadataSource[item]),
+    );
+  }
+
+  /**
+   * Method to dispatch a SelectVirtualMetadataAction to the store
+   * @param url The page's URL for which the changes are saved
+   * @param relationship the relationship for which virtual metadata is selected
+   * @param uuid the selection identifier, can either be the item uuid or the relationship type uuid
+   * @param selected whether or not to select the virtual metadata to be saved
+   */
+  setSelectedVirtualMetadata(url: string, relationship: string, uuid: string, selected: boolean) {
+    this.store.dispatch(new SelectVirtualMetadataAction(url, relationship, uuid, selected));
+  }
+
+  /**
    * Dispatches a SetEditableFieldUpdateAction to the store to set a field's editable state
    * @param url The URL of the page on which the field resides
    * @param uuid The UUID of the field that should be set
@@ -226,6 +328,15 @@ export class ObjectUpdatesService {
    */
   discardFieldUpdates(url: string, undoNotification: INotification) {
     this.store.dispatch(new DiscardObjectUpdatesAction(url, undoNotification));
+  }
+
+  /**
+   * Method to dispatch a DiscardObjectUpdatesAction to the store with discardAll set to true
+   * @param url The page's URL for which the changes should be discarded
+   * @param undoNotification The notification which is should possibly be canceled
+   */
+  discardAllFieldUpdates(url: string, undoNotification: INotification) {
+    this.store.dispatch(new DiscardObjectUpdatesAction(url, undoNotification, true));
   }
 
   /**
@@ -276,7 +387,7 @@ export class ObjectUpdatesService {
    * @param url The page's url to check for in the store
    */
   hasUpdates(url: string): Observable<boolean> {
-    return this.getObjectEntry(url).pipe(map((objectEntry) => hasValue(objectEntry) && isNotEmpty(objectEntry.fieldUpdates)));
+    return this.getObjectEntry(url).pipe(map((objectEntry) => hasValue(objectEntry) && (isNotEmpty(objectEntry.fieldUpdates) || objectEntry.customOrder.changed)));
   }
 
   /**
@@ -294,4 +405,19 @@ export class ObjectUpdatesService {
   getLastModified(url: string): Observable<Date> {
     return this.getObjectEntry(url).pipe(map((entry: ObjectUpdatesEntry) => entry.lastModified));
   }
+
+  /**
+   * Get move operations based on the custom order
+   * @param url The page's url
+   */
+  getMoveOperations(url: string): Observable<MoveOperation[]> {
+    return this.getObjectEntry(url).pipe(
+      map((objectEntry) => objectEntry.customOrder),
+      map((customOrder) => this.comparator.diff(
+        flatten(customOrder.initialOrderPages.map((orderPage: OrderPage) => orderPage.order)),
+        flatten(customOrder.newOrderPages.map((orderPage: OrderPage) => orderPage.order)))
+      )
+    );
+  }
+
 }

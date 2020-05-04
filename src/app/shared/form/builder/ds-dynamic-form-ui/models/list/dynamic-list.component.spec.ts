@@ -88,7 +88,7 @@ describe('DsDynamicListComponent test suite', () => {
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbModule.forRoot()
+        NgbModule
       ],
       declarations: [
         DsDynamicListComponent,

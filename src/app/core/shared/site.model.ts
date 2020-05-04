@@ -1,11 +1,15 @@
+import { inheritSerialization } from 'cerialize';
+import { typedObject } from '../cache/builders/build-decorators';
 import { DSpaceObject } from './dspace-object.model';
-import { ResourceType } from './resource-type';
+import { SITE } from './site.resource-type';
 
 /**
  * Model class for the Site object
  */
+@typedObject
+@inheritSerialization(DSpaceObject)
 export class Site extends DSpaceObject {
 ​
-  static type = new ResourceType('site');
+  static type = SITE;
 ​
 }

@@ -1,54 +1,75 @@
-import { Observable } from 'rxjs';
-
+import { autoserialize, autoserializeAs, deserialize, deserializeAs } from 'cerialize';
+import { hasNoValue, hasValue, isUndefined } from '../../shared/empty.util';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { typedObject } from '../cache/builders/build-decorators';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { excludeFromEquals } from '../utilities/equals.decorators';
+import { DSPACE_OBJECT } from './dspace-object.resource-type';
+import { GenericConstructor } from './generic-constructor';
+import { HALLink } from './hal-link.model';
 import {
   MetadataMap,
+  MetadataMapSerializer,
   MetadataValue,
   MetadataValueFilter,
   MetadatumViewModel
 } from './metadata.models';
 import { Metadata } from './metadata.utils';
-import { hasNoValue, isUndefined } from '../../shared/empty.util';
-import { CacheableObject } from '../cache/object-cache.reducer';
-import { RemoteData } from '../data/remote-data';
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
-import { GenericConstructor } from './generic-constructor';
 
 /**
  * An abstract model class for a DSpaceObject.
  */
+@typedObject
 export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
-  static type = new ResourceType('dspaceobject');
+  static type = DSPACE_OBJECT;
 
   @excludeFromEquals
+  @deserializeAs('name')
   private _name: string;
-
-  @excludeFromEquals
-  self: string;
 
   /**
    * The human-readable identifier of this DSpaceObject
    */
   @excludeFromEquals
+  @autoserializeAs(String, 'uuid')
   id: string;
 
   /**
    * The universally unique identifier of this DSpaceObject
    */
+  @autoserializeAs(String)
   uuid: string;
 
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
   @excludeFromEquals
+  @autoserialize
   type: ResourceType;
 
   /**
+   * A shorthand to get this DSpaceObject's self link
+   */
+  get self(): string {
+    return this._links.self.href;
+  }
+
+  /**
+   * A shorthand to set this DSpaceObject's self link
+   */
+  set self(v: string) {
+    this._links.self = {
+      href: v
+    };
+  }
+
+  /**
    * The name for this DSpaceObject
+   * @deprecated use {@link DSONameService} instead
    */
   get name(): string {
     return (isUndefined(this._name)) ? this.firstMetadataValue('dc.title') : this._name;
@@ -58,6 +79,9 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    * The name for this DSpaceObject
    */
   set name(name) {
+    if (hasValue(this.firstMetadata('dc.title'))) {
+      this.firstMetadata('dc.title').value = name;
+    }
     this._name = name;
   }
 
@@ -65,7 +89,13 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    * All metadata of this DSpaceObject
    */
   @excludeFromEquals
+  @autoserializeAs(MetadataMapSerializer)
   metadata: MetadataMap;
+
+  @deserialize
+  _links: {
+    self: HALLink;
+  };
 
   /**
    * Retrieve the current metadata as a list of MetadatumViewModels
@@ -73,18 +103,6 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   get metadataAsList(): MetadatumViewModel[] {
     return Metadata.toViewModelList(this.metadata);
   }
-
-  /**
-   * An array of DSpaceObjects that are direct parents of this DSpaceObject
-   */
-  @excludeFromEquals
-  parents: Observable<RemoteData<DSpaceObject[]>>;
-
-  /**
-   * The DSpaceObject that owns this DSpaceObject
-   */
-  @excludeFromEquals
-  owner: Observable<RemoteData<DSpaceObject>>;
 
   /**
    * Gets all matching metadata in this DSpaceObject.

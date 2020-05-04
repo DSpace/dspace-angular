@@ -58,10 +58,10 @@ span.l-10 {-webkit-animation-delay: 0s;animation-delay: 0s;-ms-animation-delay: 
 	100% {opacity: 0;}
 }
 
-@-keyframes loader {
-	0% {-transform: translateX(-30px); opacity: 0;}
+@keyframes loader {
+	0% {transform: translateX(-30px); opacity: 0;}
 	25% {opacity: 1;}
-	50% {-transform: translateX(30px); opacity: 0;}
+	50% {transform: translateX(30px); opacity: 0;}
 	100% {opacity: 0;}
 }
 

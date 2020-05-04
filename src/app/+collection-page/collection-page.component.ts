@@ -62,7 +62,7 @@ export class CollectionPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.collectionRD$ = this.route.data.pipe(
-      map((data) => data.collection as RemoteData<Collection>),
+      map((data) => data.dso as RemoteData<Collection>),
       redirectToPageNotFoundOn404(this.router),
       take(1)
     );

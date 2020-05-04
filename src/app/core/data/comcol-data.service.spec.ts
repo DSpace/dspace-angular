@@ -1,38 +1,31 @@
+import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { Observable, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { GlobalConfig } from '../../../config';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
+import { Community } from '../shared/community.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
-import { FindListOptions, FindByIDRequest } from './request.models';
-import { RequestService } from './request.service';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestEntry } from './request.reducer';
-import {Observable, of as observableOf} from 'rxjs';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { Item } from '../shared/item.model';
-import { Community } from '../shared/community.model';
+import { FindByIDRequest, FindListOptions } from './request.models';
+import { RequestEntry } from './request.reducer';
+import { RequestService } from './request.service';
 
 const LINK_NAME = 'test';
-
-/* tslint:disable:max-classes-per-file */
-class NormalizedTestObject extends NormalizedObject<Item> {
-}
 
 class TestService extends ComColDataService<any> {
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected EnvConfig: GlobalConfig,
     protected cds: CommunityDataService,
@@ -52,8 +45,6 @@ class TestService extends ComColDataService<any> {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
-
 describe('ComColDataService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
@@ -68,7 +59,6 @@ describe('ComColDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const dataBuildService = {} as NormalizedObjectBuildService;
 
   const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const options = Object.assign(new FindListOptions(), {
@@ -102,7 +92,9 @@ describe('ComColDataService', () => {
       getObjectByUUID: cold('d-', {
         d: {
           _links: {
-            [LINK_NAME]: scopedEndpoint
+            [LINK_NAME]: {
+              href: scopedEndpoint
+            }
           }
         }
       })
@@ -113,7 +105,6 @@ describe('ComColDataService', () => {
     return new TestService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       EnvConfig,
       cds,

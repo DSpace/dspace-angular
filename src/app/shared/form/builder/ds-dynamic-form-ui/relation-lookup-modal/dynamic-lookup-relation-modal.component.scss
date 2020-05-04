@@ -1,3 +1,11 @@
 .modal-footer {
     justify-content: space-between;
 }
+
+/* Render child-modals slightly smaller than this modal to avoid complete overlap */
+:host {
+  ::ng-deep .modal-content {
+    width: 90%;
+    margin: 5%;
+  }
+}

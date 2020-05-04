@@ -6,8 +6,10 @@ import {
 } from 'rxjs/operators';
 import { merge as observableMerge, Observable, throwError as observableThrowError, combineLatest as observableCombineLatest } from 'rxjs';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { Community } from '../shared/community.model';
+import { HALLink } from '../shared/hal-link.model';
+import { HALResource } from '../shared/hal-resource.model';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
@@ -70,8 +72,9 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
       const successResponses = responses.pipe(
         filter((response) => response.isSuccessful),
         mergeMap(() => this.objectCache.getObjectByUUID(options.scopeID)),
-        map((nc: NormalizedCommunity) => nc._links[linkPath]),
-        filter((href) => isNotEmpty(href))
+        map((hr: HALResource) => hr._links[linkPath]),
+        filter((halLink: HALLink) => isNotEmpty(halLink)),
+        map((halLink: HALLink) => halLink.href)
       );
 
       return observableMerge(errorResponses, successResponses).pipe(distinctUntilChanged(), share());
@@ -81,7 +84,9 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
   protected abstract getFindByParentHref(parentUUID: string): Observable<string>;
 
   public findByParent(parentUUID: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
-    const href$ = this.buildHrefFromFindOptions(this.getFindByParentHref(parentUUID), [], options);
+    const href$ = this.getFindByParentHref(parentUUID).pipe(
+      map((href: string) => this.buildHrefFromFindOptions(href, options))
+    );
     return this.findList(href$, options);
   }
 

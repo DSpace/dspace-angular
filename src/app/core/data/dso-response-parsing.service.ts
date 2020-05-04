@@ -3,7 +3,6 @@ import { Inject, Injectable } from '@angular/core';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { RestResponse, DSOSuccessResponse } from '../cache/response.models';
 import { RestRequest } from './request.models';
@@ -30,7 +29,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
     if (hasValue(data.payload) && hasValue(data.payload.page) && data.payload.page.totalElements === 0) {
       processRequestDTO = { page: [] };
     } else {
-      processRequestDTO = this.process<NormalizedObject<DSpaceObject>>(data.payload, request);
+      processRequestDTO = this.process<DSpaceObject>(data.payload, request);
     }
     let objectList = processRequestDTO;
 
@@ -42,7 +41,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
     } else if (!Array.isArray(processRequestDTO)) {
       objectList = [processRequestDTO];
     }
-    const selfLinks = objectList.map((no) => no.self);
+    const selfLinks = objectList.map((no) => no._links.self.href);
     return new DSOSuccessResponse(selfLinks, data.statusCode, data.statusText, this.processPageInfo(data.payload))
   }
 

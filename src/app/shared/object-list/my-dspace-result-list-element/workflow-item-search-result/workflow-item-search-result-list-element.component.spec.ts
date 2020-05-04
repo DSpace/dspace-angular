@@ -3,14 +3,18 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { ItemDataService } from '../../../../core/data/item-data.service';
 
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { getMockLinkService } from '../../../mocks/mock-link-service';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
-import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
 
 let component: WorkflowItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultListElementComponent>;
@@ -52,13 +56,18 @@ const item = Object.assign(new Item(), {
 const rd = createSuccessfulRemoteDataObject(item);
 mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: observableOf(rd) });
 
+let linkService;
+
 describe('WorkflowItemSearchResultListElementComponent', () => {
   beforeEach(async(() => {
+    linkService = getMockLinkService();
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [WorkflowItemSearchResultListElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
+        { provide: ItemDataService, useValue: {} },
+        { provide: LinkService, useValue: linkService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(WorkflowItemSearchResultListElementComponent, {
@@ -76,8 +85,12 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should init item properly', () => {
-    expect(component.item).toEqual(item);
+  it('should init item properly', (done) => {
+    component.item$.pipe(take(1)).subscribe((i) => {
+      expect(linkService.resolveLink).toHaveBeenCalled();
+      expect(i).toBe(item);
+      done();
+    });
   });
 
   it('should have properly status', () => {

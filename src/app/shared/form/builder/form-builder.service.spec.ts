@@ -276,7 +276,7 @@ describe('FormBuilderService test suite', () => {
         {
           fields: [
             {
-              input: {type: 'lookup'},
+              input: { type: 'lookup' },
               label: 'Journal',
               mandatory: 'false',
               repeatable: false,
@@ -291,7 +291,7 @@ describe('FormBuilderService test suite', () => {
               languageCodes: []
             } as FormFieldModel,
             {
-              input: {type: 'onebox'},
+              input: { type: 'onebox' },
               label: 'Issue',
               mandatory: 'false',
               repeatable: false,
@@ -304,7 +304,7 @@ describe('FormBuilderService test suite', () => {
               languageCodes: []
             } as FormFieldModel,
             {
-              input: {type: 'name'},
+              input: { type: 'name' },
               label: 'Name',
               mandatory: 'false',
               repeatable: false,
@@ -322,24 +322,24 @@ describe('FormBuilderService test suite', () => {
           fields: [
             {
               hints: 'If the item has any identification numbers or codes associated with↵	it, please enter the types and the actual numbers or codes.',
-              input: {type: 'onebox'},
+              input: { type: 'onebox' },
               label: 'Identifiers',
               languageCodes: [],
               mandatory: 'false',
               repeatable: false,
               selectableMetadata: [
-                {metadata: 'dc.identifier.issn', label: 'ISSN'},
-                {metadata: 'dc.identifier.other', label: 'Other'},
-                {metadata: 'dc.identifier.ismn', label: 'ISMN'},
-                {metadata: 'dc.identifier.govdoc', label: 'Gov\'t Doc #'},
-                {metadata: 'dc.identifier.uri', label: 'URI'},
-                {metadata: 'dc.identifier.isbn', label: 'ISBN'},
-                {metadata: 'dc.identifier.doi', label: 'DOI'},
-                {metadata: 'dc.identifier.pmid', label: 'PubMed ID'},
-                {metadata: 'dc.identifier.arxiv', label: 'arXiv'}
+                { metadata: 'dc.identifier.issn', label: 'ISSN' },
+                { metadata: 'dc.identifier.other', label: 'Other' },
+                { metadata: 'dc.identifier.ismn', label: 'ISMN' },
+                { metadata: 'dc.identifier.govdoc', label: 'Gov\'t Doc #' },
+                { metadata: 'dc.identifier.uri', label: 'URI' },
+                { metadata: 'dc.identifier.isbn', label: 'ISBN' },
+                { metadata: 'dc.identifier.doi', label: 'DOI' },
+                { metadata: 'dc.identifier.pmid', label: 'PubMed ID' },
+                { metadata: 'dc.identifier.arxiv', label: 'arXiv' }
               ]
             }, {
-              input: {type: 'onebox'},
+              input: { type: 'onebox' },
               label: 'Publisher',
               mandatory: 'false',
               repeatable: false,
@@ -356,7 +356,7 @@ describe('FormBuilderService test suite', () => {
         {
           fields: [
             {
-              input: {type: 'onebox'},
+              input: { type: 'onebox' },
               label: 'Conference',
               mandatory: 'false',
               repeatable: false,
@@ -373,10 +373,14 @@ describe('FormBuilderService test suite', () => {
           ]
         } as FormRowModel
       ],
-      self: 'testFormConfiguration.url',
+      self: {
+        href: 'testFormConfiguration.url'
+      },
       type: 'submissionform',
       _links: {
-        self: 'testFormConfiguration.url'
+        self: {
+          href: 'testFormConfiguration.url'
+        }
       }
     } as any;
   });

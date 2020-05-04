@@ -1,8 +1,11 @@
 import {
   DynamicDatePickerModelConfig,
   DynamicFormArrayModelConfig,
+  DynamicFormControlLayout,
+  DynamicFormGroupModelConfig,
   DynamicSelectModelConfig,
-  DynamicFormGroupModelConfig, DynamicFormControlLayout,
+  MATCH_ENABLED,
+  OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 
 export const BITSTREAM_METADATA_FORM_GROUP_CONFIG: DynamicFormGroupModelConfig = {
@@ -15,7 +18,7 @@ export const BITSTREAM_METADATA_FORM_GROUP_LAYOUT: DynamicFormControlLayout = {
       label: 'col-form-label'
   },
   grid: {
-      label: 'col-sm-3'
+    label: 'col-sm-3'
   }
 };
 
@@ -50,10 +53,10 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
   placeholder: 'submission.sections.upload.form.from-placeholder',
   inline: false,
   toggleIcon: 'far fa-calendar-alt',
-  relation: [
+  relations: [
     {
-      action: 'ENABLE',
-      connective: 'OR',
+      match: MATCH_ENABLED,
+      operator: OR_OPERATOR,
       when: []
     }
   ],
@@ -81,10 +84,10 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
   placeholder: 'submission.sections.upload.form.until-placeholder',
   inline: false,
   toggleIcon: 'far fa-calendar-alt',
-  relation: [
+  relations: [
     {
-      action: 'ENABLE',
-      connective: 'OR',
+      match: MATCH_ENABLED,
+      operator: OR_OPERATOR,
       when: []
     }
   ],
@@ -110,10 +113,10 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelCo
   id: 'groupUUID',
   label: 'submission.sections.upload.form.group-label',
   options: [],
-  relation: [
+  relations: [
     {
-      action: 'ENABLE',
-      connective: 'OR',
+      match: MATCH_ENABLED,
+      operator: OR_OPERATOR,
       when: []
     }
   ],

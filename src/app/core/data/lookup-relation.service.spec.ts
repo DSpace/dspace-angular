@@ -10,11 +10,14 @@ import { SearchResult } from '../../shared/search/search-result.model';
 import { Item } from '../shared/item.model';
 import { skip, take } from 'rxjs/operators';
 import { ExternalSource } from '../shared/external-source.model';
+import { RequestService } from './request.service';
+import { of as observableOf } from 'rxjs';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;
   let externalSourceService: ExternalSourceService;
   let searchService: SearchService;
+  let requestService: RequestService;
 
   const totalExternal = 8;
   const optionsWithQuery = new PaginatedSearchOptions({ query: 'test-query' });
@@ -35,15 +38,18 @@ describe('LookupRelationService', () => {
     name: 'orcidV2',
     hierarchical: false
   });
+  const searchServiceEndpoint = 'http://test-rest.com/server/api/core/search';
 
   function init() {
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
       getExternalSourceEntries: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: totalExternal, totalPages: totalExternal, currentPage: 1 }), [{}]))
     });
     searchService = jasmine.createSpyObj('searchService', {
-      search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults))
+      search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),
+      getEndpoint: observableOf(searchServiceEndpoint)
     });
-    service = new LookupRelationService(externalSourceService, searchService);
+    requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
+    service = new LookupRelationService(externalSourceService, searchService, requestService);
   }
 
   beforeEach(() => {
@@ -111,6 +117,16 @@ describe('LookupRelationService', () => {
       result.pipe(skip(1)).subscribe((amount) => {
         expect(amount).toEqual(totalExternal)
       });
+    });
+  });
+
+  describe('removeLocalResultsCache', () => {
+    beforeEach(() => {
+      service.removeLocalResultsCache();
+    });
+
+    it('should call requestService\'s removeByHrefSubstring with the search endpoint', () => {
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(searchServiceEndpoint);
     });
   });
 });

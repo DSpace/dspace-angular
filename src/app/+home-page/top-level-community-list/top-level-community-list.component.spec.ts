@@ -107,7 +107,7 @@ describe('TopLevelCommunityList Component', () => {
         TranslateModule.forRoot(),
         SharedModule,
         RouterTestingModule.withRoutes([]),
-        NgbModule.forRoot(),
+        NgbModule,
         NoopAnimationsModule
       ],
       declarations: [TopLevelCommunityListComponent],

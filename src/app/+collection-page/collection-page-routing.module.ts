@@ -12,6 +12,9 @@ import { getCollectionModulePath } from '../app-routing.module';
 import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
 import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
+import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
+import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
+import { LinkService } from '../core/cache/builders/link.service';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 
@@ -20,7 +23,7 @@ export function getCollectionPageRoute(collectionId: string) {
 }
 
 export function getCollectionEditPath(id: string) {
-  return new URLCombiner(getCollectionModulePath(), COLLECTION_EDIT_PATH.replace(/:id/, id)).toString()
+  return new URLCombiner(getCollectionModulePath(), id, COLLECTION_EDIT_PATH).toString()
 }
 
 export function getCollectionCreatePath() {
@@ -28,8 +31,8 @@ export function getCollectionCreatePath() {
 }
 
 const COLLECTION_CREATE_PATH = 'create';
-const COLLECTION_EDIT_PATH = ':id/edit';
-const ITEMTEMPLATE_PATH = ':id/itemtemplate';
+const COLLECTION_EDIT_PATH = 'edit';
+const ITEMTEMPLATE_PATH = 'itemtemplate';
 
 @NgModule({
   imports: [
@@ -40,51 +43,54 @@ const ITEMTEMPLATE_PATH = ':id/itemtemplate';
         canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
       },
       {
-        path: COLLECTION_EDIT_PATH,
-        loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
-        canActivate: [AuthenticatedGuard]
-      },
-      {
-        path: ':id/delete',
-        pathMatch: 'full',
-        component: DeleteCollectionPageComponent,
-        canActivate: [AuthenticatedGuard],
-        resolve: {
-          dso: CollectionPageResolver
-        }
-      },
-      {
-        path: ITEMTEMPLATE_PATH,
-        component: EditItemTemplatePageComponent,
-        canActivate: [AuthenticatedGuard],
-        resolve: {
-          collection: CollectionPageResolver,
-          item: ItemTemplatePageResolver
-        }
-      },
-      {
         path: ':id',
-        component: CollectionPageComponent,
-        pathMatch: 'full',
         resolve: {
-          collection: CollectionPageResolver
-        }
-      },
-      {
-        path: ':id/edit/mapper',
-        component: CollectionItemMapperComponent,
-        pathMatch: 'full',
-        resolve: {
-          collection: CollectionPageResolver
+          dso: CollectionPageResolver,
+          breadcrumb: CollectionBreadcrumbResolver
         },
-        canActivate: [AuthenticatedGuard]
-      }
+        runGuardsAndResolvers: 'always',
+        children: [
+          {
+            path: COLLECTION_EDIT_PATH,
+            loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
+            canActivate: [AuthenticatedGuard]
+          },
+          {
+            path: 'delete',
+            pathMatch: 'full',
+            component: DeleteCollectionPageComponent,
+            canActivate: [AuthenticatedGuard],
+          },
+          {
+            path: ITEMTEMPLATE_PATH,
+            component: EditItemTemplatePageComponent,
+            canActivate: [AuthenticatedGuard],
+            resolve: {
+              item: ItemTemplatePageResolver
+            }
+          },
+          {
+            path: '',
+            component: CollectionPageComponent,
+            pathMatch: 'full',
+          },
+          {
+            path: '/edit/mapper',
+            component: CollectionItemMapperComponent,
+            pathMatch: 'full',
+            canActivate: [AuthenticatedGuard]
+          }
+        ]
+      },
     ])
   ],
   providers: [
     CollectionPageResolver,
-    CreateCollectionPageGuard,
-    ItemTemplatePageResolver
+    ItemTemplatePageResolver,
+    CollectionBreadcrumbResolver,
+    DSOBreadcrumbsService,
+    LinkService,
+    CreateCollectionPageGuard
   ]
 })
 export class CollectionPageRoutingModule {

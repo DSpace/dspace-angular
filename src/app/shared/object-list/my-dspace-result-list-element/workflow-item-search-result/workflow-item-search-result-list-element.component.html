@@ -1,6 +1,11 @@
-<ds-item-list-preview [item]="item"
-                      [object]="object"
-                      [status]="status"></ds-item-list-preview>
+<ng-container *ngIf="item$ | async">
+  <ds-item-list-preview
+    [item]="item$ | async"
+    [object]="object"
+    [status]="status"></ds-item-list-preview>
 
-<ds-workflowitem-actions [object]="dso"></ds-workflowitem-actions>
-
+  <ds-workflowitem-actions [object]="dso"></ds-workflowitem-actions>
+</ng-container>
+<ds-loading
+  *ngIf="!(item$ | async)"
+  [showMessage]="false"></ds-loading>

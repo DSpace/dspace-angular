@@ -1,10 +1,22 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
-import { SortOption } from './sort-option.model';
-import { ResourceType } from './resource-type';
+import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import { typedObject } from '../cache/builders/build-decorators';
 import { TypedObject } from '../cache/object-cache.reducer';
+import { excludeFromEquals } from '../utilities/equals.decorators';
+import { BROWSE_DEFINITION } from './browse-definition.resource-type';
+import { HALLink } from './hal-link.model';
+import { ResourceType } from './resource-type';
+import { SortOption } from './sort-option.model';
 
+@typedObject
 export class BrowseDefinition implements TypedObject {
-  static type = new ResourceType('browse');
+  static type = BROWSE_DEFINITION;
+
+  /**
+   * The object type
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   @autoserialize
   id: string;
@@ -21,8 +33,14 @@ export class BrowseDefinition implements TypedObject {
   @autoserializeAs('metadata')
   metadataKeys: string[];
 
-  @autoserialize
-  _links: {
-    [name: string]: string
+  get self(): string {
+    return this._links.self.href;
   }
+
+  @deserialize
+  _links: {
+    self: HALLink;
+    entries: HALLink;
+    items: HALLink;
+  };
 }

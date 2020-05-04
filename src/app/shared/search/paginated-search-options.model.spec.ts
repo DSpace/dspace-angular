@@ -27,9 +27,9 @@ describe('PaginatedSearchOptions', () => {
         'query=search query&' +
         'scope=0fde1ecb-82cc-425a-b600-ac3576d76b47&' +
         'dsoType=ITEM&' +
-        'f.test=value,query&' +
-        'f.example=another value,query&' +
-        'f.example=second value,query'
+        'f.test=value&' +
+        'f.example=another value&' +
+        'f.example=second value'
       );
     });
 

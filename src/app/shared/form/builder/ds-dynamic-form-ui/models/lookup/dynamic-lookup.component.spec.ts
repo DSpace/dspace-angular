@@ -160,7 +160,7 @@ describe('Dynamic Lookup component', () => {
         FormsModule,
         InfiniteScrollModule,
         ReactiveFormsModule,
-        NgbModule.forRoot(),
+        NgbModule,
         TranslateModule.forRoot()
       ],
       declarations: [

@@ -1,11 +1,11 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
-import { CollectionPageResolver } from '../collection-page.resolver';
 import { CollectionMetadataComponent } from './collection-metadata/collection-metadata.component';
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
 import { CollectionCurateComponent } from './collection-curate/collection-curate.component';
+import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 /**
  * Routing module that handles the routing for the Edit Collection page administrator functionality
@@ -15,10 +15,11 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
     RouterModule.forChild([
       {
         path: '',
-        component: EditCollectionPageComponent,
         resolve: {
-          dso: CollectionPageResolver
+          breadcrumb: I18nBreadcrumbResolver
         },
+        data: { breadcrumbKey: 'collection.edit' },
+        component: EditCollectionPageComponent,
         children: [
           {
             path: '',
@@ -30,30 +31,28 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
             component: CollectionMetadataComponent,
             data: {
               title: 'collection.edit.tabs.metadata.title',
-              hideReturnButton: true
+              hideReturnButton: true,
+              showBreadcrumbs: true
             }
           },
           {
             path: 'roles',
             component: CollectionRolesComponent,
-            data: { title: 'collection.edit.tabs.roles.title' }
+            data: { title: 'collection.edit.tabs.roles.title', showBreadcrumbs: true }
           },
           {
             path: 'source',
             component: CollectionSourceComponent,
-            data: { title: 'collection.edit.tabs.source.title' }
+            data: { title: 'collection.edit.tabs.source.title', showBreadcrumbs: true }
           },
           {
             path: 'curate',
             component: CollectionCurateComponent,
-            data: { title: 'collection.edit.tabs.curate.title' }
+            data: { title: 'collection.edit.tabs.curate.title', showBreadcrumbs: true }
           }
         ]
       }
     ])
-  ],
-  providers: [
-    CollectionPageResolver,
   ]
 })
 export class EditCollectionPageRoutingModule {

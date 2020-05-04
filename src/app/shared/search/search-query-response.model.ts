@@ -1,6 +1,7 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { NormalizedSearchResult } from './normalized-search-result.model';
+import { SearchResult } from './search-result.model';
 
 /**
  * Class representing the response returned by the server when performing a search request
@@ -51,8 +52,8 @@ export class SearchQueryResponse {
   /**
    * The results for this query
    */
-  @autoserializeAs(NormalizedSearchResult)
-  objects: NormalizedSearchResult[];
+  @autoserializeAs(SearchResult)
+  objects: Array<SearchResult<DSpaceObject>>;
 
   @autoserialize
   facets: any; // TODO

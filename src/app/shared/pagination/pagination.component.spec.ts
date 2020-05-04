@@ -139,7 +139,7 @@ describe('Pagination component', () => {
           }
         }),
         NgxPaginationModule,
-        NgbModule.forRoot(),
+        NgbModule,
         RouterTestingModule.withRoutes([
           { path: 'home', component: TestComponent }
         ])],

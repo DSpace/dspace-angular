@@ -1,6 +1,5 @@
 import { isNotEmpty } from '../empty.util';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import 'core-js/library/fn/object/entries';
 import { SearchFilter } from './search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
@@ -51,7 +50,7 @@ export class SearchOptions {
     if (isNotEmpty(this.filters)) {
       this.filters.forEach((filter: SearchFilter) => {
         filter.values.forEach((value) => {
-          const filterValue = value.includes(',') ? `${value}` : `${value},${filter.operator}`;
+          const filterValue = value.includes(',') ? `${value}` : value + (filter.operator ? ',' + filter.operator : '');
           args.push(`${filter.key}=${filterValue}`)
         });
       });

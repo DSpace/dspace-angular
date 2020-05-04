@@ -18,7 +18,7 @@ import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.ser
 import { ClientCookieService } from '../../app/core/services/client-cookie.service';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { AuthService } from '../../app/core/auth/auth.service';
-import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 
@@ -48,7 +48,7 @@ export function getRequest(transferState: TransferState): any {
       IdlePreload
     }),
     StatisticsModule.forRoot(),
-    Angulartics2Module.forRoot(),
+    Angulartics2RouterlessModule.forRoot(),
     BrowserAnimationsModule,
     DSpaceBrowserTransferStateModule,
     TranslateModule.forRoot({

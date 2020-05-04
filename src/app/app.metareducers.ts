@@ -1,4 +1,3 @@
-import { isNotEmpty } from './shared/empty.util';
 import { StoreActionTypes } from './store.actions';
 
 // fallback ngrx debugger

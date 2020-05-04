@@ -31,7 +31,7 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('instance') instance: NgbTypeahead;
+  @ViewChild('instance', {static: false}) instance: NgbTypeahead;
 
   searching = false;
   searchOptions: IntegrationSearchOptions;

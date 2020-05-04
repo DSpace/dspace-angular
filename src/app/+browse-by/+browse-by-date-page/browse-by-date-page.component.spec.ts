@@ -68,7 +68,7 @@ describe('BrowseByDatePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [BrowseByDatePageComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },

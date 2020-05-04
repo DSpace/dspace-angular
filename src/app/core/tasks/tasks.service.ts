@@ -18,10 +18,6 @@ import { CacheableObject } from '../cache/object-cache.reducer';
  */
 export abstract class TasksService<T extends CacheableObject> extends DataService<T> {
 
-  public getBrowseEndpoint(options: FindListOptions): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath);
-  }
-
   /**
    * Fetch a RestRequest
    *

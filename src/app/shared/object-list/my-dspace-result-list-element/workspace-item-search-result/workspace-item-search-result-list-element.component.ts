@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/operators';
+import { find, map } from 'rxjs/operators';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Item } from '../../../../core/shared/item.model';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { isNotUndefined } from '../../../empty.util';
-import { Item } from '../../../../core/shared/item.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 /**
@@ -28,18 +31,26 @@ export class WorkspaceItemSearchResultListElementComponent extends SearchResultL
   /**
    * The item object that belonging to the result object
    */
-  item: Item;
+  item$: Observable<Item>;
 
   /**
    * Represent item's status
    */
   status = MyDspaceItemStatusType.WORKSPACE;
 
+  constructor(
+    protected truncatableService: TruncatableService,
+    protected linkService: LinkService
+  ) {
+    super(truncatableService);
+  }
+
   /**
    * Initialize all instance variables
    */
   ngOnInit() {
     super.ngOnInit();
+    this.linkService.resolveLink(this.dso, followLink('item'));
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 
@@ -47,10 +58,9 @@ export class WorkspaceItemSearchResultListElementComponent extends SearchResultL
    * Retrieve item from result object
    */
   initItem(item$: Observable<RemoteData<Item>>) {
-    item$.pipe(
-      find((rd: RemoteData<Item>) => rd.hasSucceeded && isNotUndefined(rd.payload))
-    ).subscribe((rd: RemoteData<Item>) => {
-      this.item = rd.payload;
-    });
+    this.item$ = item$.pipe(
+      find((rd: RemoteData<Item>) => rd.hasSucceeded && isNotUndefined(rd.payload)),
+      map((rd: RemoteData<Item>) => rd.payload)
+    );
   }
 }

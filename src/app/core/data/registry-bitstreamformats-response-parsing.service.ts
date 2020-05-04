@@ -1,11 +1,11 @@
+import { Injectable } from '@angular/core';
 import { RegistryBitstreamformatsSuccessResponse, RestResponse } from '../cache/response.models';
-import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { RestRequest } from './request.models';
+import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
+import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
-import { Injectable } from '@angular/core';
+import { RestRequest } from './request.models';
 
 @Injectable()
 export class RegistryBitstreamformatsResponseParsingService implements ResponseParsingService {
@@ -18,7 +18,7 @@ export class RegistryBitstreamformatsResponseParsingService implements ResponseP
     const bitstreamformats = payload._embedded.bitstreamformats;
     payload.bitstreamformats = bitstreamformats;
 
-    const deserialized = new DSpaceRESTv2Serializer(RegistryBitstreamformatsResponse).deserialize(payload);
+    const deserialized = new DSpaceSerializer(RegistryBitstreamformatsResponse).deserialize(payload);
     return new RegistryBitstreamformatsSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(data.payload.page));
   }
 

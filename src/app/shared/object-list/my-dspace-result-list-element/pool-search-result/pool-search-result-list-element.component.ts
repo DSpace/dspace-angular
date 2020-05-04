@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/operators';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { isNotUndefined } from '../../../empty.util';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
@@ -13,6 +11,8 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 
 /**
  * This component renders pool task object for the search result in the list view.
@@ -39,14 +39,17 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   /**
    * The workflowitem object that belonging to the result object
    */
-  public workflowitem: WorkflowItem;
+  public workflowitemRD$: Observable<RemoteData<WorkflowItem>>;
 
   /**
    * The index of this list element
    */
   public index: number;
 
-  constructor(protected truncatableService: TruncatableService) {
+  constructor(
+    protected linkService: LinkService,
+    protected truncatableService: TruncatableService
+  ) {
     super(truncatableService);
   }
 
@@ -55,17 +58,9 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
    */
   ngOnInit() {
     super.ngOnInit();
-    this.initWorkflowItem(this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>);
-  }
-
-  /**
-   * Retrieve workflowitem from result object
-   */
-  initWorkflowItem(wfi$: Observable<RemoteData<WorkflowItem>>) {
-    wfi$.pipe(
-      find((rd: RemoteData<WorkflowItem>) => (rd.hasSucceeded && isNotUndefined(rd.payload)))
-    ).subscribe((rd: RemoteData<WorkflowItem>) => {
-      this.workflowitem = rd.payload;
-    });
+    this.linkService.resolveLinks(this.dso, followLink('workflowitem', null, true,
+      followLink('item'), followLink('submitter')
+    ), followLink('action'));
+    this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
 }

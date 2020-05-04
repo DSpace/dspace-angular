@@ -1,4 +1,4 @@
-import { Component, Injector, Input, OnDestroy } from '@angular/core';
+import { Component, Injector, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject } from 'rxjs';
@@ -62,7 +62,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
       (result) => {
         if (result === 'ok') {
           this.processingDelete$.next(true);
-          this.objectDataService.delete(this.object)
+          this.objectDataService.delete(this.object.id)
             .subscribe((response: boolean) => {
               this.processingDelete$.next(false);
               this.handleActionResponse(response);

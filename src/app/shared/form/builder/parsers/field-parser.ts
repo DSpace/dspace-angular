@@ -49,7 +49,7 @@ export abstract class FieldParser {
         label: this.configData.label,
         initialCount: this.getInitArrayIndex(),
         notRepeatable: !this.configData.repeatable,
-        required: isNotEmpty(this.configData.mandatory),
+        required: JSON.parse( this.configData.mandatory),
         groupFactory: () => {
           let model;
           if ((arrayCounter === 0)) {

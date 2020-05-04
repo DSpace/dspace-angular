@@ -56,14 +56,14 @@ export class PaginatedList<T> {
   }
 
   set first(first: string) {
-    this.pageInfo.first = first;
+    this.pageInfo._links.first = { href: first };
   }
 
   get prev(): string {
     return this.pageInfo.prev;
   }
   set prev(prev: string) {
-    this.pageInfo.prev = prev;
+    this.pageInfo._links.prev = { href: prev };
   }
 
   get next(): string {
@@ -71,7 +71,7 @@ export class PaginatedList<T> {
   }
 
   set next(next: string) {
-    this.pageInfo.next = next;
+    this.pageInfo._links.next = { href: next };
   }
 
   get last(): string {
@@ -79,7 +79,7 @@ export class PaginatedList<T> {
   }
 
   set last(last: string) {
-    this.pageInfo.last = last;
+    this.pageInfo._links.last = { href: last };
   }
 
   get self(): string {
@@ -87,7 +87,7 @@ export class PaginatedList<T> {
   }
 
   set self(self: string) {
-    this.pageInfo.self = self;
+    this.pageInfo._links.self = { href: self };
   }
 
   protected getPageLength() {

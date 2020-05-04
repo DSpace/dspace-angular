@@ -22,14 +22,13 @@ import {
   SaveAndDepositSubmissionAction,
   SaveForLaterSubmissionFormAction,
   SaveForLaterSubmissionFormErrorAction,
-  SaveForLaterSubmissionFormSuccessAction,
   SaveSubmissionFormAction,
   SaveSubmissionFormErrorAction,
   SaveSubmissionFormSuccessAction,
   SaveSubmissionSectionFormAction,
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
-  SectionStatusChangeAction,
+  SectionStatusChangeAction, SubmissionObjectAction,
   UpdateSectionDataAction
 } from './submission-objects.actions';
 import { SectionsType } from '../sections/sections-type';
@@ -117,7 +116,7 @@ describe('submissionReducer test suite', () => {
   });
 
   it('should set to true savePendig flag on save', () => {
-    let action = new SaveSubmissionFormAction(submissionId);
+    let action: SubmissionObjectAction = new SaveSubmissionFormAction(submissionId);
     let newState = submissionObjectReducer(initState, action);
 
     expect(newState[826].savePending).toBeTruthy();
@@ -273,7 +272,7 @@ describe('submissionReducer test suite', () => {
 
   it('should enable submission section properly', () => {
 
-    let action = new EnableSectionAction(submissionId, 'traditionalpagetwo');
+    let action: SubmissionObjectAction = new EnableSectionAction(submissionId, 'traditionalpagetwo');
     let newState = submissionObjectReducer(initState, action);
 
     action = new DisableSectionAction(submissionId, 'traditionalpagetwo');

@@ -10,8 +10,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/request.models';
 import { AuthStatus } from './models/auth-status.model';
-import { NormalizedAuthStatus } from './models/normalized-auth-status.model';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 
 @Injectable()
 export class AuthResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
@@ -25,10 +23,10 @@ export class AuthResponseParsingService extends BaseResponseParsingService imple
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && (data.statusCode === 200)) {
-      const response = this.process<NormalizedObject<AuthStatus>>(data.payload, request);
+      const response = this.process<AuthStatus>(data.payload, request);
       return new AuthStatusResponse(response, data.statusCode, data.statusText);
     } else {
-      return new AuthStatusResponse(data.payload as NormalizedAuthStatus, data.statusCode, data.statusText);
+      return new AuthStatusResponse(data.payload as AuthStatus, data.statusCode, data.statusText);
     }
   }
 }

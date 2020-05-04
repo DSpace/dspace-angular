@@ -54,6 +54,21 @@ export class ObjectCollectionComponent implements OnInit {
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   /**
+   * Whether or not to add an import button to the object elements
+   */
+  @Input() importable = false;
+
+  /**
+   * The config to use for the import button
+   */
+  @Input() importConfig: { buttonLabel: string };
+
+  /**
+   * Send an import event to the parent component
+   */
+  @Output() importObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  /**
    * The link type of the rendered list elements
    */
   @Input() linkType: CollectionElementLinkType;
@@ -62,6 +77,11 @@ export class ObjectCollectionComponent implements OnInit {
    * The context of the rendered list elements
    */
   @Input() context: Context;
+
+  /**
+   * Option for hiding the pagination detail
+   */
+  @Input() hidePaginationDetail = false;
 
   /**
    * the page info of the list

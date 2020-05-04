@@ -3,15 +3,16 @@ import { async, TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { AuthStatusResponse } from '../cache/response.models';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthResponseParsingService } from './auth-response-parsing.service';
-import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
 import { MockStore } from '../../shared/testing/mock-store';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { AuthStatusResponse } from '../cache/response.models';
+import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
+import { AuthResponseParsingService } from './auth-response-parsing.service';
+import { AuthStatus } from './models/auth-status.model';
 
 describe('AuthResponseParsingService', () => {
   let service: AuthResponseParsingService;
+  let linkServiceStub: any;
 
   const EnvConfig: GlobalConfig = { cache: { msToLive: 1000 } } as any;
   let store: any;
@@ -30,7 +31,10 @@ describe('AuthResponseParsingService', () => {
 
   beforeEach(() => {
     store = TestBed.get(Store);
-    objectCacheService = new ObjectCacheService(store as any);
+    linkServiceStub = jasmine.createSpyObj({
+      removeResolvedLinks: {}
+    });
+    objectCacheService = new ObjectCacheService(store as any, linkServiceStub);
     service = new AuthResponseParsingService(EnvConfig, objectCacheService);
   });
 
@@ -141,6 +145,7 @@ describe('AuthResponseParsingService', () => {
     it('should return a AuthStatusResponse if data contains a valid endpoint response', () => {
       const response = service.parse(validRequest2, validResponse2);
       expect(response.constructor).toBe(AuthStatusResponse);
+      expect(linkServiceStub.removeResolvedLinks).toHaveBeenCalled();
     });
 
     it('should return a AuthStatusResponse if data contains an empty 404 endpoint response', () => {

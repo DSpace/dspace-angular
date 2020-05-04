@@ -100,6 +100,13 @@ export class PaginationComponent implements OnDestroy, OnInit {
   @Input() public hidePagerWhenSinglePage = true;
 
   /**
+   * Option for disabling updating and reading route parameters on pagination changes
+   * In other words, changing pagination won't add or update the url parameters on the current page, and the url
+   * parameters won't affect the pagination of this component
+   */
+  @Input() public disableRouteParameterUpdate = false;
+
+  /**
    * Current page.
    */
   public currentPage;
@@ -173,20 +180,35 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.checkConfig(this.paginationOptions);
     this.initializeConfig();
     // Listen to changes
-    this.subs.push(this.route.queryParams
-      .subscribe((queryParams) => {
-        if (this.isEmptyPaginationParams(queryParams)) {
-          this.initializeConfig(queryParams);
+    if (!this.disableRouteParameterUpdate) {
+      this.subs.push(this.route.queryParams
+        .subscribe((queryParams) => {
+          this.initializeParams(queryParams);
+        }));
+    }
+  }
+
+  /**
+   * Initialize the route and current parameters
+   * This method will fix any invalid or missing parameters
+   * @param params
+   */
+  private initializeParams(params) {
+    if (this.isEmptyPaginationParams(params)) {
+      this.initializeConfig(params);
+    } else {
+      this.currentQueryParams = params;
+      const fixedProperties = this.validateParams(params);
+      if (isNotEmpty(fixedProperties)) {
+        if (!this.disableRouteParameterUpdate) {
+          this.fixRoute(fixedProperties);
         } else {
-          this.currentQueryParams = queryParams;
-          const fixedProperties = this.validateParams(queryParams);
-          if (isNotEmpty(fixedProperties)) {
-            this.fixRoute(fixedProperties);
-          } else {
-            this.setFields();
-          }
+          this.initializeParams(fixedProperties);
         }
-      }));
+      } else {
+        this.setFields();
+      }
+    }
   }
 
   private fixRoute(fixedProperties) {
@@ -247,7 +269,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page being navigated to.
    */
   public doPageChange(page: number) {
-    this.updateRoute({ pageId: this.id, page: page.toString() });
+    this.updateParams(Object.assign({}, this.currentQueryParams, { pageId: this.id, page: page.toString() }));
   }
 
   /**
@@ -257,7 +279,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page size being navigated to.
    */
   public doPageSizeChange(pageSize: number) {
-    this.updateRoute({ pageId: this.id, page: 1, pageSize: pageSize });
+    this.updateParams(Object.assign({}, this.currentQueryParams,{ pageId: this.id, page: 1, pageSize: pageSize }));
   }
 
   /**
@@ -267,7 +289,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The sort direction being navigated to.
    */
   public doSortDirectionChange(sortDirection: SortDirection) {
-    this.updateRoute({ pageId: this.id, page: 1, sortDirection: sortDirection });
+    this.updateParams(Object.assign({}, this.currentQueryParams,{ pageId: this.id, page: 1, sortDirection: sortDirection }));
   }
 
   /**
@@ -277,7 +299,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The sort field being navigated to.
    */
   public doSortFieldChange(field: string) {
-    this.updateRoute({ pageId: this.id, page: 1, sortField: field });
+    this.updateParams(Object.assign(this.currentQueryParams,{ pageId: this.id, page: 1, sortField: field }));
   }
 
   /**
@@ -345,6 +367,20 @@ export class PaginationComponent implements OnDestroy, OnInit {
           new SortOptions(this.sortField, this.sortDirection)
         )
       })
+  }
+
+  /**
+   * Update the current query params and optionally update the route
+   * @param params
+   */
+  private updateParams(params: {}) {
+    if (isNotEmpty(difference(params, this.currentQueryParams))) {
+      if (!this.disableRouteParameterUpdate) {
+        this.updateRoute(params);
+      } else {
+        this.initializeParams(params);
+      }
+    }
   }
 
   /**

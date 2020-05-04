@@ -102,7 +102,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
    */
   private getFacetValue(facetValue: FacetValue): string {
     if (this.filterConfig.type === FilterType.authority) {
-      const search = facetValue.search;
+      const search = facetValue._links.search.href;
       const hashes = search.slice(search.indexOf('?') + 1).split('&');
       const params = {};
       hashes.map((hash) => {

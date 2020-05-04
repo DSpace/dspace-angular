@@ -29,7 +29,7 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, NgbModule.forRoot()],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, NgbModule],
       declarations: [TabbedRelatedEntitiesSearchComponent, VarDirective],
       providers: [
         {

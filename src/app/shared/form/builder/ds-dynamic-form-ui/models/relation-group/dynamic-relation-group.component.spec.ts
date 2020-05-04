@@ -113,7 +113,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbModule.forRoot(),
+        NgbModule,
         StoreModule.forRoot({}),
         TranslateModule.forRoot()
       ],

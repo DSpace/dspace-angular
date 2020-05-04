@@ -27,12 +27,12 @@ describe('OrgUnitItemMetadataListElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     fixture = TestBed.createComponent(OrgUnitItemMetadataListElementComponent);
     comp = fixture.componentInstance;
     comp.metadataRepresentation = mockItemMetadataRepresentation;
     fixture.detectChanges();
-  }));
+  });
 
   it('should show the name of the organisation as a link', () => {
     const linkText = fixture.debugElement.query(By.css('a')).nativeElement.textContent;

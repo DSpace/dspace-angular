@@ -1,0 +1,9 @@
+<div class="container-fluid mb-4">{{'profile.security.form.info' | translate}}</div>
+<ds-form *ngIf="formModel"
+         [formId]="'profile-page-security-form-id'"
+         [formModel]="formModel"
+         [formGroup]="formGroup"
+         [displaySubmit]="false">
+</ds-form>
+<div class="container-fluid text-danger" *ngIf="formGroup.hasError('notLongEnough')">{{'profile.security.form.error.password-length' | translate}}</div>
+<div class="container-fluid text-danger" *ngIf="formGroup.hasError('notSame')">{{'profile.security.form.error.matching-passwords' | translate}}</div>

@@ -65,7 +65,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   private selectedChipItem: ChipsItem;
   private subs: Subscription[] = [];
 
-  @ViewChild('formRef') private formRef: FormComponent;
+  @ViewChild('formRef', {static: false}) private formRef: FormComponent;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private authorityService: AuthorityService,

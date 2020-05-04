@@ -12,7 +12,7 @@ import { filter, map, startWith, tap } from 'rxjs/operators';
 import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing.module';
 import { getCommunityPageRoute } from '../../+community-page/community-page-routing.module';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { Router, ActivatedRoute, RouterModule, UrlSegment } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule, UrlSegment, Params } from '@angular/router';
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
 import { hasValue } from '../empty.util';
 
@@ -76,9 +76,8 @@ export class ComcolPageBrowseByComponent implements OnInit {
         }, ...this.allOptions ];
     }
 
-    this.currentOptionId$ = this.route.url.pipe(
-      filter((urlSegments: UrlSegment[]) => hasValue(urlSegments)),
-      map((urlSegments: UrlSegment[]) => urlSegments[urlSegments.length - 1].path)
+    this.currentOptionId$ = this.route.params.pipe(
+      map((params: Params) => params.id)
     );
   }
 

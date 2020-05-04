@@ -64,7 +64,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         FormsModule,
         InfiniteScrollModule,
         ReactiveFormsModule,
-        NgbModule.forRoot(),
+        NgbModule,
         TranslateModule.forRoot()
       ],
       declarations: [

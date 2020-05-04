@@ -2,17 +2,18 @@ import { Component } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/operators';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { isNotUndefined } from '../../../empty.util';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 
 /**
  * This component renders claimed task object for the search result in the list view.
@@ -40,24 +41,23 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   /**
    * The workflowitem object that belonging to the result object
    */
-  public workflowitem: WorkflowItem;
+  public workflowitemRD$: Observable<RemoteData<WorkflowItem>>;
+
+  constructor(
+    protected linkService: LinkService,
+    protected truncatableService: TruncatableService
+  ) {
+    super(truncatableService);
+  }
 
   /**
    * Initialize all instance variables
    */
   ngOnInit() {
     super.ngOnInit();
-    this.initWorkflowItem(this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>);
-  }
-
-  /**
-   * Retrieve workflowitem from result object
-   */
-  initWorkflowItem(wfi$: Observable<RemoteData<WorkflowItem>>) {
-    wfi$.pipe(
-      find((rd: RemoteData<WorkflowItem>) => (rd.hasSucceeded && isNotUndefined(rd.payload)))
-    ).subscribe((rd: RemoteData<WorkflowItem>) => {
-      this.workflowitem = rd.payload;
-    });
+    this.linkService.resolveLinks(this.dso, followLink('workflowitem', null, true,
+      followLink('item'), followLink('submitter')
+    ), followLink('action'));
+    this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
 }

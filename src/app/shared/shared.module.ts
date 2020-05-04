@@ -6,9 +6,10 @@ import { NouisliderModule } from 'ng2-nouislider';
 
 import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -42,13 +43,15 @@ import { SearchResultGridElementComponent } from './object-grid/search-result-gr
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
-import { LogInComponent } from './log-in/log-in.component';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
+import {
+  DsDynamicFormControlContainerComponent,
+  dsDynamicFormControlMapFn
+} from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
@@ -66,7 +69,6 @@ import { DsDynamicFormGroupComponent } from './form/builder/ds-dynamic-form-ui/m
 import { DsDynamicFormArrayComponent } from './form/builder/ds-dynamic-form-ui/models/array-group/dynamic-form-array.component';
 import { DsDynamicRelationGroupComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker-inline/dynamic-date-picker-inline.component';
-import { SortablejsModule } from 'angular-sortablejs';
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
@@ -173,8 +175,23 @@ import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.componen
 import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
+import { SortablejsModule } from 'ngx-sortablejs';
+import { LogInContainerComponent } from './log-in/container/log-in-container.component';
+import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
+import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
+import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
+import { MissingTranslationHelper } from './translate/missing-translation.helper';
+import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
+import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
+import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
+import { ClaimedTaskActionsEditMetadataComponent } from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -192,7 +209,6 @@ const MODULES = [
   NgxPaginationModule,
   ReactiveFormsModule,
   RouterModule,
-  TranslateModule,
   NouisliderModule,
   MomentModule,
   TextMaskModule,
@@ -201,7 +217,11 @@ const MODULES = [
 ];
 
 const ROOT_MODULES = [
-  TooltipModule.forRoot()
+  TranslateModule.forChild({
+    missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+    useDefaultLang: true
+  }),
+  TooltipModule.forRoot(),
 ];
 
 const PIPES = [
@@ -233,6 +253,7 @@ const COMPONENTS = [
   EditComColPageComponent,
   DeleteComColPageComponent,
   ComcolPageBrowseByComponent,
+  ComcolRoleComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,
@@ -277,6 +298,8 @@ const COMPONENTS = [
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
+  ClaimedTaskActionsEditMetadataComponent,
+  ClaimedTaskActionsLoaderComponent,
   ItemActionsComponent,
   PoolTaskActionsComponent,
   WorkflowitemActionsComponent,
@@ -331,11 +354,22 @@ const COMPONENTS = [
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   ItemTypeBadgeComponent,
+  BrowseByComponent,
+  AbstractTrackableComponent,
+  CustomSwitchComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
-  ExistingMetadataListElementComponent
+  ExternalSourceEntryImportModalComponent,
+  ImportableListItemControlComponent,
+  ExistingMetadataListElementComponent,
+  LogInShibbolethComponent,
+  LogInPasswordComponent,
+  LogInContainerComponent,
+  ItemVersionsComponent,
+  PublicationSearchResultListElementComponent,
+  ItemVersionsNoticeComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -382,6 +416,7 @@ const ENTRY_COMPONENTS = [
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
+  CustomSwitchComponent,
   ItemMetadataRepresentationListElementComponent,
   SearchResultsComponent,
   CollectionSearchResultGridElementComponent,
@@ -397,7 +432,17 @@ const ENTRY_COMPONENTS = [
   SearchAuthorityFilterComponent,
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
-  DsDynamicLookupRelationExternalSourceTabComponent
+  DsDynamicLookupRelationExternalSourceTabComponent,
+  ExternalSourceEntryImportModalComponent,
+  LogInPasswordComponent,
+  LogInShibbolethComponent,
+  ItemVersionsComponent,
+  BundleListElementComponent,
+  ItemVersionsNoticeComponent,
+  ClaimedTaskActionsApproveComponent,
+  ClaimedTaskActionsRejectComponent,
+  ClaimedTaskActionsReturnToPoolComponent,
+  ClaimedTaskActionsEditMetadataComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -425,13 +470,14 @@ const DIRECTIVES = [
   AutoFocusDirective,
   RoleDirective,
   MetadataRepresentationDirective,
-  ListableObjectDirective
+  ListableObjectDirective,
+  ClaimedTaskActionsDirective
 ];
 
 @NgModule({
   imports: [
+    ...ROOT_MODULES,
     ...MODULES,
-    ...ROOT_MODULES
   ],
   declarations: [
     ...PIPES,
@@ -439,8 +485,7 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    PublicationSearchResultListElementComponent,
-    ExistingMetadataListElementComponent
+
   ],
   providers: [
     ...PROVIDERS

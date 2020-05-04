@@ -1,5 +1,6 @@
-import { autoserialize } from 'cerialize';
+import { autoserialize, deserialize } from 'cerialize';
 import { CacheableObject } from '../../cache/object-cache.reducer';
+import { HALLink } from '../../shared/hal-link.model';
 
 export abstract class IntegrationModel implements CacheableObject {
 
@@ -12,9 +13,10 @@ export abstract class IntegrationModel implements CacheableObject {
   @autoserialize
   public type: any;
 
-  @autoserialize
+  @deserialize
   public _links: {
-    [name: string]: string
+    self: HALLink,
+    [name: string]: HALLink
   }
 
 }

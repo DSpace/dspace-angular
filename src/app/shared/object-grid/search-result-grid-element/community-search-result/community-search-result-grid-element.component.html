@@ -1,17 +1,18 @@
 <div class="card">
-  <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/communities/', dso.id]" class="card-img-top">
-    <ds-grid-thumbnail [thumbnail]="dso.logo">
-    </ds-grid-thumbnail>
-  </a>
-  <span *ngIf="linkType == linkTypes.None" class="card-img-top">
+    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/communities/', dso.id]" class="card-img-top">
+        <ds-grid-thumbnail [thumbnail]="dso.logo">
+        </ds-grid-thumbnail>
+    </a>
+    <span *ngIf="linkType == linkTypes.None" class="card-img-top">
     <ds-grid-thumbnail [thumbnail]="dso.logo">
     </ds-grid-thumbnail>
   </span>
-  <div class="card-body">
-    <h4 class="card-title">{{dso.name}}</h4>
-    <p *ngIf="dso.shortDescription" class="card-text">{{dso.shortDescription}}</p>
-    <div *ngIf="linkType != linkTypes.None" class="text-center">
-      <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/communities/', dso.id]" class="lead btn btn-primary viewButton">View</a>
+    <div class="card-body">
+        <h4 class="card-title">{{dso.name}}</h4>
+        <p *ngIf="dso.shortDescription" class="card-text">{{dso.shortDescription}}</p>
+        <div *ngIf="linkType != linkTypes.None" class="text-center">
+            <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/communities/', dso.id]" class="lead btn btn-primary viewButton">View</a>
+        </div>
     </div>
-  </div>
+    <ng-content></ng-content>
 </div>

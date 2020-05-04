@@ -1,0 +1,15 @@
+<ng-template dsListableObject>
+</ng-template>
+<div #badges class="position-absolute ml-1">
+    <div *ngIf="dso && !dso.isDiscoverable" class="private-badge">
+        <span class="badge badge-danger">{{ "admin.search.item.private" | translate }}</span>
+    </div>
+    <div *ngIf="dso && dso.isWithdrawn" class="withdrawn-badge">
+        <span class="badge badge-warning">{{ "admin.search.item.withdrawn" | translate }}</span>
+    </div>
+</div>
+<ul #buttons class="list-group list-group-flush">
+  <li class="list-group-item">
+      <ds-item-admin-search-result-actions-element class="d-flex justify-content-between" [item]="dso" [small]="true"></ds-item-admin-search-result-actions-element>
+  </li>
+</ul>

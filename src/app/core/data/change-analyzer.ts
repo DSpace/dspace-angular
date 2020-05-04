@@ -1,4 +1,3 @@
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { Operation } from 'fast-json-patch/lib/core';
 import { CacheableObject } from '../cache/object-cache.reducer';
 
@@ -12,10 +11,10 @@ export interface ChangeAnalyzer<T extends CacheableObject> {
    * Compare two objects and return their differences as a
    * JsonPatch Operation Array
    *
-   * @param {NormalizedObject} object1
+   * @param {CacheableObject} object1
    *    The first object to compare
-   * @param {NormalizedObject} object2
+   * @param {CacheableObject} object2
    *    The second object to compare
    */
-  diff(object1: T | NormalizedObject<T>, object2: T | NormalizedObject<T>): Operation[];
+  diff(object1: T, object2: T): Operation[];
 }

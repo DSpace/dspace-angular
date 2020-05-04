@@ -30,8 +30,8 @@ export class GridThumbnailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (hasValue(this.thumbnail) && this.thumbnail.content) {
-      this.src = this.thumbnail.content;
+    if (hasValue(this.thumbnail) && hasValue(this.thumbnail._links) && this.thumbnail._links.content.href) {
+      this.src = this.thumbnail._links.content.href;
     } else {
       this.src = this.defaultImage
     }

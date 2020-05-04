@@ -1,15 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouteService } from '../../core/services/route.service';
-import { SharedModule } from '../../shared/shared.module';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { DeleteCommunityPageComponent } from './delete-community-page.component';
 import { CommunityDataService } from '../../core/data/community-data.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SharedModule } from '../../shared/shared.module';
+import { DeleteCommunityPageComponent } from './delete-community-page.component';
 
 describe('DeleteCommunityPageComponent', () => {
   let comp: DeleteCommunityPageComponent;

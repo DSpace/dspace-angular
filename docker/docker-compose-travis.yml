@@ -5,7 +5,7 @@ services:
     container_name: dspace
     depends_on:
     - dspacedb
-    image: dspace/dspace:dspace-7_x-jdk8-test
+    image: dspace/dspace:dspace-7_x-test
     networks:
       dspacenet:
     ports:

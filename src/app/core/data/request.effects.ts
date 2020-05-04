@@ -1,12 +1,17 @@
-import { Observable, of as observableOf } from 'rxjs';
 import { Inject, Injectable, Injector } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Observable, of as observableOf } from 'rxjs';
+import { catchError, filter, flatMap, map, take } from 'rxjs/operators';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { StoreActionTypes } from '../../store.actions';
+import { getClassForType } from '../cache/builders/build-decorators';
+import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
 import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
 import {
   RequestActionTypes,
   RequestCompleteAction,
@@ -16,11 +21,6 @@ import {
 import { RequestError, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { catchError, filter, flatMap, map, take, tap } from 'rxjs/operators';
-import { ErrorResponse, RestResponse } from '../cache/response.models';
-import { StoreActionTypes } from '../../store.actions';
-import { getMapsToType } from '../cache/builders/build-decorators';
 
 export const addToResponseCacheAndCompleteAction = (request: RestRequest, envConfig: GlobalConfig) =>
   (source: Observable<RestResponse>): Observable<RequestCompleteAction> =>
@@ -45,7 +45,7 @@ export class RequestEffects {
     flatMap((request: RestRequest) => {
       let body;
       if (isNotEmpty(request.body)) {
-        const serializer = new DSpaceRESTv2Serializer(getMapsToType(request.body.type));
+        const serializer = new DSpaceSerializer(getClassForType(request.body.type));
         body = serializer.serialize(request.body);
       }
       return this.restApi.request(request.method, request.href, body, request.options).pipe(

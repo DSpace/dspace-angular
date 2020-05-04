@@ -14,6 +14,7 @@ import { SearchPageComponent } from './search-page.component';
 import { SidebarFilterService } from '../shared/sidebar/filter/sidebar-filter.service';
 import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 const components = [
   SearchPageComponent,
@@ -28,7 +29,7 @@ const components = [
     CommonModule,
     SharedModule,
     CoreModule.forRoot(),
-    StatisticsModule.forRoot(),
+    StatisticsModule.forRoot()
   ],
   declarations: components,
   providers: [

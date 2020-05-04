@@ -10,13 +10,13 @@
       <ng-container *ngVar="(entriesRD$ | async) as entriesRD">
         <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !entriesRD?.isLoading && entriesRD?.payload?.page?.length > 0" @fadeIn
                                 [objects]="entriesRD"
-                                [selectable]="true"
                                 [selectionConfig]="{ repeatable: repeatable, listId: listId }"
                                 [config]="initialPagination"
                                 [hideGear]="true"
                                 [context]="context"
-                                (deselectObject)="deselectObject.emit($event)"
-                                (selectObject)="selectObject.emit($event)">
+                                [importable]="true"
+                                [importConfig]="importConfig"
+                                (importObject)="import($event)">
         </ds-viewable-collection>
         <ds-loading *ngIf="!entriesRD || !entriesRD?.payload || entriesRD?.isLoading"
                     message="{{'loading.search-results' | translate}}"></ds-loading>

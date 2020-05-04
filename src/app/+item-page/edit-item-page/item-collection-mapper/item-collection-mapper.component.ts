@@ -1,12 +1,18 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
-import { getRemoteDataPayload, getSucceededRemoteData, toDSpaceObjectListRD } from '../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  getSucceededRemoteData,
+  toDSpaceObjectListRD
+} from '../../../core/shared/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, startWith, switchMap, take } from 'rxjs/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -39,7 +45,7 @@ export class ItemCollectionMapperComponent implements OnInit {
    * A view on the tabset element
    * Used to switch tabs programmatically
    */
-  @ViewChild('tabs') tabs;
+  @ViewChild('tabs', {static: false}) tabs;
 
   /**
    * The item to map to collections
@@ -81,6 +87,7 @@ export class ItemCollectionMapperComponent implements OnInit {
               private searchService: SearchService,
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
+              private collectionDataService: CollectionDataService,
               private translateService: TranslateService) {
   }
 
@@ -106,7 +113,8 @@ export class ItemCollectionMapperComponent implements OnInit {
     );
 
     const owningCollectionRD$ = this.itemRD$.pipe(
-      switchMap((itemRD: RemoteData<Item>) => itemRD.payload.owningCollection)
+      getFirstSucceededRemoteDataPayload(),
+      switchMap((item: Item) => this.collectionDataService.findOwningCollectionFor(item))
     );
     const itemCollectionsAndOptions$ = observableCombineLatest(
       this.itemCollectionsRD$,

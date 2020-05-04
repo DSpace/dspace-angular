@@ -67,6 +67,11 @@ export class SearchResultsComponent {
 
   @Input() context: Context;
 
+  /**
+   * Option for hiding the pagination detail
+   */
+  @Input() hidePaginationDetail = false;
+
   @Input() selectionConfig: {repeatable: boolean, listId: string};
 
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();

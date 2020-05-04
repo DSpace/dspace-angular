@@ -1,31 +1,27 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
+import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
+export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
+
+@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_REJECT)
 @Component({
   selector: 'ds-claimed-task-actions-reject',
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
   templateUrl: './claimed-task-actions-reject.component.html',
 })
-
-export class ClaimedTaskActionsRejectComponent implements OnInit {
-
+/**
+ * Component for displaying and processing the reject action on a workflow task item
+ */
+export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
   /**
-   * A boolean representing if a reject operation is pending
+   * This component represents the reject option
    */
-  @Input() processingReject: boolean;
-
-  /**
-   * CSS classes to append to reject button
-   */
-  @Input() wrapperClass: string;
-
-  /**
-   * An event fired when a reject action is confirmed.
-   * Event's payload equals to reject reason.
-   */
-  @Output() reject: EventEmitter<string> = new EventEmitter<string>();
+  option = WORKFLOW_TASK_OPTION_REJECT;
 
   /**
    * The reject form group
@@ -42,8 +38,12 @@ export class ClaimedTaskActionsRejectComponent implements OnInit {
    *
    * @param {FormBuilder} formBuilder
    * @param {NgbModal} modalService
+   * @param claimedTaskService
    */
-  constructor(private formBuilder: FormBuilder, private modalService: NgbModal) {
+  constructor(protected claimedTaskService: ClaimedTaskDataService,
+              private formBuilder: FormBuilder,
+              private modalService: NgbModal) {
+    super(claimedTaskService);
   }
 
   /**
@@ -53,17 +53,23 @@ export class ClaimedTaskActionsRejectComponent implements OnInit {
     this.rejectForm = this.formBuilder.group({
       reason: ['', Validators.required]
     });
-
   }
 
   /**
-   * Close modal and emit reject event
+   * Create the request body for rejecting a workflow task
+   * Includes the reason from the form
    */
-  confirmReject() {
-    this.processingReject = true;
-    this.modalRef.close('Send Button');
+  createbody(): any {
     const reason = this.rejectForm.get('reason').value;
-    this.reject.emit(reason);
+    return Object.assign(super.createbody(), { reason });
+  }
+
+  /**
+   * Submit a reject option for the task
+   */
+  submitTask() {
+    this.modalRef.close('Send Button');
+    super.submitTask();
   }
 
   /**

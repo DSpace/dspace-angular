@@ -2,6 +2,7 @@ import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
+import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
 import { PageInfo } from '../shared/page-info.model';
 import {
   CreateMetadataFieldRequest,
@@ -48,8 +49,6 @@ import {
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { distinctUntilChanged, flatMap, map, take, tap } from 'rxjs/operators';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -57,7 +56,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
-import { getMapsToType } from '../cache/builders/build-decorators';
+import { getClassForType } from '../cache/builders/build-decorators';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -400,7 +399,7 @@ export class RegistryService {
       distinctUntilChanged()
     );
 
-    const serializedSchema = new DSpaceRESTv2Serializer(getMapsToType(MetadataSchema.type)).serialize(schema);
+    const serializedSchema = new DSpaceSerializer(getClassForType(MetadataSchema.type)).serialize(schema);
 
     const request$ = endpoint$.pipe(
       take(1),

@@ -1,15 +1,14 @@
-import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http';
+import { filter, map, take } from 'rxjs/operators';
+
+import { isNotEmpty } from '../../shared/empty.util';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { AuthService, LOGIN_ROUTE } from './auth.service';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { CheckAuthenticationTokenAction } from './auth.actions';
-import { EPerson } from '../eperson/models/eperson.model';
 
 /**
  * The auth service.
@@ -21,7 +20,7 @@ export class ServerAuthService extends AuthService {
    * Returns the authenticated user
    * @returns {User}
    */
-  public authenticatedUser(token: AuthTokenInfo): Observable<EPerson> {
+  public authenticatedUser(token: AuthTokenInfo): Observable<string> {
     // Determine if the user has an existing auth session on the server
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -34,10 +33,9 @@ export class ServerAuthService extends AuthService {
 
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status) => this.rdbService.build(status)),
-      switchMap((status: AuthStatus) => {
+      map((status: AuthStatus) => {
         if (status.authenticated) {
-          return status.eperson.pipe(map((eperson) => eperson.payload));
+          return status._links.eperson.href;
         } else {
           throw(new Error('Not authenticated'));
         }
@@ -45,10 +43,23 @@ export class ServerAuthService extends AuthService {
   }
 
   /**
-   * Checks if token is present into browser storage and is valid. (NB Check is done only on SSR)
+   * Checks if token is present into the request cookie
    */
-  public checkAuthenticationToken() {
-    this.store.dispatch(new CheckAuthenticationTokenAction())
+  public checkAuthenticationCookie(): Observable<AuthStatus> {
+    // Determine if the user has an existing auth session on the server
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Accept', 'application/json');
+    if (isNotEmpty(this.req.protocol) && isNotEmpty(this.req.header('host'))) {
+      const referer = this.req.protocol + '://' + this.req.header('host') + this.req.path;
+      // use to allow the rest server to identify the real origin on SSR
+      headers = headers.append('X-Requested-With', referer);
+    }
+    options.headers = headers;
+    options.withCredentials = true;
+    return this.authRequestService.getRequest('status', options).pipe(
+      map((status: AuthStatus) => Object.assign(new AuthStatus(), status))
+    );
   }
 
   /**

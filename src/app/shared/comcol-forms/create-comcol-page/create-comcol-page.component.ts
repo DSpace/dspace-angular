@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Community } from '../../../core/shared/community.model';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { Observable } from 'rxjs';
-import { RouteService } from '../../../core/services/route.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RemoteData } from '../../../core/data/remote-data';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../empty.util';
-import { take } from 'rxjs/operators';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { DataService } from '../../../core/data/data.service';
-import { ComColDataService } from '../../../core/data/comcol-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { ComColDataService } from '../../../core/data/comcol-data.service';
+import { CommunityDataService } from '../../../core/data/community-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RouteService } from '../../../core/services/route.service';
+import { Community } from '../../../core/shared/community.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { ResourceType } from '../../../core/shared/resource-type';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../empty.util';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 /**
  * Component representing the create page for communities and collections

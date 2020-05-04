@@ -23,6 +23,11 @@ export class SearchLabelComponent implements OnInit {
   removeParameters: Observable<Params>;
 
   /**
+   * The name of the filter without the f. prefix
+   */
+  filterName: string;
+
+  /**
    * Initialize the instance variable
    */
   constructor(
@@ -33,6 +38,7 @@ export class SearchLabelComponent implements OnInit {
   ngOnInit(): void {
     this.searchLink = this.getSearchLink();
     this.removeParameters = this.getRemoveParams();
+    this.filterName = this.getFilterName();
   }
 
   /**
@@ -73,5 +79,9 @@ export class SearchLabelComponent implements OnInit {
     // const pattern = /,[^,]*$/g;
     const pattern = /,authority*$/g;
     return value.replace(pattern, '');
+  }
+
+  private getFilterName(): string {
+    return this.key.startsWith('f.') ? this.key.substring(2) : this.key;
   }
 }

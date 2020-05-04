@@ -1,28 +1,49 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { filter, find, map, switchMap } from 'rxjs/operators';
-import { configureRequest, getSucceededRemoteData } from '../shared/operators';
-import { Observable } from 'rxjs/internal/Observable';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list';
+import { Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { ItemType } from '../shared/item-relationships/item-type.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { filter, find, map, switchMap } from 'rxjs/operators';
+import { AppState } from '../../app.reducer';
 import { isNotUndefined } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { CoreState } from '../core.reducers';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ItemType } from '../shared/item-relationships/item-type.model';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
+import { configureRequest, getSucceededRemoteData } from '../shared/operators';
+import { DataService } from './data.service';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { ItemDataService } from './item-data.service';
+import { PaginatedList } from './paginated-list';
+import { RemoteData } from './remote-data';
 import { FindListOptions, FindListRequest } from './request.models';
+import { RequestService } from './request.service';
 
 /**
- * The service handling all relationship requests
+ * The service handling all relationship type requests
  */
 @Injectable()
-export class RelationshipTypeService {
+@dataService(RELATIONSHIP_TYPE)
+export class RelationshipTypeService extends DataService<RelationshipType> {
   protected linkPath = 'relationshiptypes';
 
-  constructor(protected requestService: RequestService,
+  constructor(protected itemService: ItemDataService,
+              protected requestService: RequestService,
+              protected rdbService: RemoteDataBuildService,
+              protected store: Store<CoreState>,
               protected halService: HALEndpointService,
-              protected rdbService: RemoteDataBuildService) {
+              protected objectCache: ObjectCacheService,
+              protected notificationsService: NotificationsService,
+              protected http: HttpClient,
+              protected comparator: DefaultChangeAnalyzer<RelationshipType>,
+              protected appStore: Store<AppState>) {
+    super()
   }
 
   /**
@@ -41,7 +62,7 @@ export class RelationshipTypeService {
       .pipe(
         map((endpointURL: string) => new FindListRequest(this.requestService.generateRequestId(), endpointURL, options)),
         configureRequest(this.requestService),
-        switchMap(() => this.rdbService.buildList(link$))
+        switchMap(() => this.rdbService.buildList<RelationshipType>(link$, followLink('leftType'), followLink('rightType')))
       ) as Observable<RemoteData<PaginatedList<RelationshipType>>>;
   }
 

@@ -10,7 +10,8 @@ import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { selfLinkFromUuidSelector } from '../index/index.selectors';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { NormalizedObject } from './models/normalized-object.model';
+import { getClassForType } from './builders/build-decorators';
+import { LinkService } from './builders/link.service';
 import {
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
@@ -20,7 +21,6 @@ import {
 
 import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
-import { getMapsToType } from './builders/build-decorators';
 
 /**
  * The base selector function to select the object cache in the store
@@ -45,21 +45,25 @@ const entryFromSelfLinkSelector =
  */
 @Injectable()
 export class ObjectCacheService {
-  constructor(private store: Store<CoreState>) {
+  constructor(
+    private store: Store<CoreState>,
+    private linkService: LinkService
+  ) {
   }
 
   /**
    * Add an object to the cache
    *
-   * @param objectToCache
+   * @param object
    *    The object to add
    * @param msToLive
    *    The number of milliseconds it should be cached for
    * @param requestUUID
    *    The UUID of the request that resulted in this object
    */
-  add(objectToCache: CacheableObject, msToLive: number, requestUUID: string): void {
-    this.store.dispatch(new AddToObjectCacheAction(objectToCache, new Date().getTime(), msToLive, requestUUID));
+  add(object: CacheableObject, msToLive: number, requestUUID: string): void {
+    object = this.linkService.removeResolvedLinks(object); // Ensure the object we're storing has no resolved links
+    this.store.dispatch(new AddToObjectCacheAction(object, new Date().getTime(), msToLive, requestUUID));
   }
 
   /**
@@ -77,14 +81,14 @@ export class ObjectCacheService {
    *
    * @param uuid
    *    The UUID of the object to get
-   * @return Observable<NormalizedObject<T>>
-   *    An observable of the requested object in normalized form
+   * @return Observable<T>
+   *    An observable of the requested object
    */
   getObjectByUUID<T extends CacheableObject>(uuid: string):
-    Observable<NormalizedObject<T>> {
+    Observable<T> {
     return this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
-      mergeMap((selfLink: string) => this.getObjectBySelfLink(selfLink)
+      mergeMap((selfLink: string) => this.getObjectBySelfLink<T>(selfLink)
       )
     )
   }
@@ -94,10 +98,10 @@ export class ObjectCacheService {
    *
    * @param selfLink
    *    The selfLink of the object to get
-   * @return Observable<NormalizedObject<T>>
-   *    An observable of the requested object in normalized form
+   * @return Observable<T>
+   *    An observable of the requested object
    */
-  getObjectBySelfLink<T extends CacheableObject>(selfLink: string): Observable<NormalizedObject<T>> {
+  getObjectBySelfLink<T extends CacheableObject>(selfLink: string): Observable<T> {
     return this.getBySelfLink(selfLink).pipe(
       map((entry: ObjectCacheEntry) => {
           if (isNotEmpty(entry.patches)) {
@@ -110,8 +114,11 @@ export class ObjectCacheService {
         }
       ),
       map((entry: ObjectCacheEntry) => {
-        const type: GenericConstructor<NormalizedObject<T>> = getMapsToType((entry.data as any).type);
-        return Object.assign(new type(), entry.data) as NormalizedObject<T>
+        const type: GenericConstructor<T> = getClassForType((entry.data as any).type);
+        if (typeof type !== 'function') {
+          throw new Error(`${type} is not a valid constructor for ${JSON.stringify(entry.data)}`);
+        }
+        return Object.assign(new type(), entry.data) as T
       })
     );
   }
@@ -180,7 +187,7 @@ export class ObjectCacheService {
    *    The type of the objects to get
    * @return Observable<Array<T>>
    */
-  getList<T extends CacheableObject>(selfLinks: string[]): Observable<Array<NormalizedObject<T>>> {
+  getList<T extends CacheableObject>(selfLinks: string[]): Observable<T[]> {
     return observableCombineLatest(
       selfLinks.map((selfLink: string) => this.getObjectBySelfLink<T>(selfLink))
     );
@@ -254,7 +261,7 @@ export class ObjectCacheService {
       const timeOutdated = entry.timeAdded + entry.msToLive;
       const isOutDated = new Date().getTime() > timeOutdated;
       if (isOutDated) {
-        this.store.dispatch(new RemoveFromObjectCacheAction(entry.data.self));
+        this.store.dispatch(new RemoveFromObjectCacheAction(entry.data._links.self.href));
       }
       return !isOutDated;
     }

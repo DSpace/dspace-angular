@@ -27,7 +27,7 @@ describe('StartsWithDateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [StartsWithDateComponent, EnumKeysPipe],
       providers: [
         { provide: 'startsWithOptions', useValue: options },

@@ -140,10 +140,18 @@ module.exports = {
   }, {
     code: 'nl',
     label: 'Nederlands',
-    active: false,
+    active: true,
   }, {
     code: 'pt',
     label: 'Português',
+    active: true,
+  }, {
+    code: 'fr',
+    label: 'Français',
+    active: true,
+  }, {
+    code: 'lv',
+    label: 'Latviešu',
     active: true,
   }],
   // Browse-By Pages
@@ -181,6 +189,11 @@ module.exports = {
     ]
   },
   item: {
+    edit: {
+      undoTimeout: 10000 // 10 seconds
+    }
+  },
+  collection: {
     edit: {
       undoTimeout: 10000 // 10 seconds
     }

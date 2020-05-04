@@ -1,37 +1,21 @@
+import { deserialize, inheritSerialization } from 'cerialize';
+import { typedObject } from '../cache/builders/build-decorators';
+import { BUNDLE } from './bundle.resource-type';
 import { DSpaceObject } from './dspace-object.model';
-import { Bitstream } from './bitstream.model';
-import { Item } from './item.model';
-import { RemoteData } from '../data/remote-data';
-import { Observable } from 'rxjs';
-import { ResourceType } from './resource-type';
-import { PaginatedList } from '../data/paginated-list';
+import { HALLink } from './hal-link.model';
 
+@typedObject
+@inheritSerialization(DSpaceObject)
 export class Bundle extends DSpaceObject {
-  static type = new ResourceType('bundle');
+  static type = BUNDLE;
 
   /**
-   * The bundle's name
+   * The {@link HALLink}s for this Bundle
    */
-  name: string;
-
-  /**
-   * The primary bitstream of this Bundle
-   */
-  primaryBitstream: Observable<RemoteData<Bitstream>>;
-
-  /**
-   * An array of Items that are direct parents of this Bundle
-   */
-  parents: Observable<RemoteData<Item[]>>;
-
-  /**
-   * The Item that owns this Bundle
-   */
-  owner: Observable<RemoteData<Item>>;
-
-  /**
-   * List of Bitstreams that are part of this Bundle
-   */
-  bitstreams: Observable<RemoteData<PaginatedList<Bitstream>>>;
-
+  @deserialize
+  _links: {
+    self: HALLink;
+    primaryBitstream: HALLink;
+    bitstreams: HALLink;
+  }
 }

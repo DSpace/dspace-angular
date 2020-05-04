@@ -1,122 +1,105 @@
-import { map, startWith, filter, switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
+import { Observable } from 'rxjs/internal/Observable';
+import { isEmpty } from '../../shared/empty.util';
+import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { link, typedObject } from '../cache/builders/build-decorators';
+import { PaginatedList } from '../data/paginated-list';
+import { RemoteData } from '../data/remote-data';
+import { Bundle } from './bundle.model';
+import { BUNDLE } from './bundle.resource-type';
+import { Collection } from './collection.model';
+import { COLLECTION } from './collection.resource-type';
 
 import { DSpaceObject } from './dspace-object.model';
-import { Collection } from './collection.model';
-import { RemoteData } from '../data/remote-data';
-import { Bitstream } from './bitstream.model';
-import { hasValueOperator, isNotEmpty, isEmpty } from '../../shared/empty.util';
-import { PaginatedList } from '../data/paginated-list';
-import { Relationship } from './item-relationships/relationship.model';
-import { ResourceType } from './resource-type';
-import { getAllSucceededRemoteData, getSucceededRemoteData } from './operators';
-import { Bundle } from './bundle.model';
 import { GenericConstructor } from './generic-constructor';
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
+import { HALLink } from './hal-link.model';
+import { Relationship } from './item-relationships/relationship.model';
+import { RELATIONSHIP } from './item-relationships/relationship.resource-type';
+import { ITEM } from './item.resource-type';
+import { ChildHALResource } from './child-hal-resource.model';
+import { Version } from './version.model';
+import { VERSION } from './version.resource-type';
 
 /**
  * Class representing a DSpace Item
  */
-export class Item extends DSpaceObject {
-  static type = new ResourceType('item');
+@typedObject
+@inheritSerialization(DSpaceObject)
+export class Item extends DSpaceObject implements ChildHALResource {
+  static type = ITEM;
 
   /**
    * A string representing the unique handle of this Item
    */
+  @autoserialize
   handle: string;
 
   /**
    * The Date of the last modification of this Item
    */
+  @deserialize
   lastModified: Date;
 
   /**
    * A boolean representing if this Item is currently archived or not
    */
+  @autoserializeAs(Boolean, 'inArchive')
   isArchived: boolean;
 
   /**
    * A boolean representing if this Item is currently discoverable or not
    */
+  @autoserializeAs(Boolean, 'discoverable')
   isDiscoverable: boolean;
 
   /**
    * A boolean representing if this Item is currently withdrawn or not
    */
+  @autoserializeAs(Boolean, 'withdrawn')
   isWithdrawn: boolean;
 
   /**
-   * An array of Collections that are direct parents of this Item
+   * The {@link HALLink}s for this Item
    */
-  parents: Observable<RemoteData<Collection[]>>;
+  @deserialize
+  _links: {
+    mappedCollections: HALLink;
+    relationships: HALLink;
+    bundles: HALLink;
+    owningCollection: HALLink;
+    templateItemOf: HALLink;
+    version: HALLink;
+    self: HALLink;
+  };
 
   /**
-   * The Collection that owns this Item
+   * The owning Collection for this Item
+   * Will be undefined unless the owningCollection {@link HALLink} has been resolved.
    */
-  owningCollection: Observable<RemoteData<Collection>>;
-
-  get owner(): Observable<RemoteData<Collection>> {
-    return this.owningCollection;
-  }
+  @link(COLLECTION)
+  owningCollection?: Observable<RemoteData<Collection>>;
 
   /**
-   * Bitstream bundles within this item
+   * The version this item represents in its history
+   * Will be undefined unless the version {@link HALLink} has been resolved.
    */
-  bundles: Observable<RemoteData<PaginatedList<Bundle>>>;
-
-  relationships: Observable<RemoteData<PaginatedList<Relationship>>>;
-
-  /**
-   * Retrieves the thumbnail of this item
-   * @returns {Observable<Bitstream>} the primaryBitstream of the 'THUMBNAIL' bundle
-   */
-  getThumbnail(): Observable<Bitstream> {
-    // TODO: currently this just picks the first thumbnail
-    // should be adjusted when we have a way to determine
-    // the primary thumbnail from rest
-    return this.getBitstreamsByBundleName('THUMBNAIL').pipe(
-      filter((thumbnails) => isNotEmpty(thumbnails)),
-      map((thumbnails) => thumbnails[0]),)
-  }
+  @link(VERSION)
+  version?: Observable<RemoteData<Version>>;
 
   /**
-   * Retrieves the thumbnail for the given original of this item
-   * @returns {Observable<Bitstream>} the primaryBitstream of the 'THUMBNAIL' bundle
+   * The list of Bundles inside this Item
+   * Will be undefined unless the bundles {@link HALLink} has been resolved.
    */
-  getThumbnailForOriginal(original: Bitstream): Observable<Bitstream> {
-    return this.getBitstreamsByBundleName('THUMBNAIL').pipe(
-      map((files) => {
-        return files.find((thumbnail) => thumbnail.name.startsWith(original.name))
-      }),startWith(undefined),);
-  }
+  @link(BUNDLE, true)
+  bundles?: Observable<RemoteData<PaginatedList<Bundle>>>;
 
   /**
-   * Retrieves all files that should be displayed on the item page of this item
-   * @returns {Observable<Array<Observable<Bitstream>>>} an array of all Bitstreams in the 'ORIGINAL' bundle
+   * The list of Relationships this Item has with others
+   * Will be undefined unless the relationships {@link HALLink} has been resolved.
    */
-  getFiles(): Observable<Bitstream[]> {
-    return this.getBitstreamsByBundleName('ORIGINAL');
-  }
-
-  /**
-   * Retrieves bitstreams by bundle name
-   * @param bundleName The name of the Bundle that should be returned
-   * @returns {Observable<Bitstream[]>} the bitstreams with the given bundleName
-   * TODO now that bitstreams can be paginated this should move to the server
-   * see https://github.com/DSpace/dspace-angular/issues/332
-   */
-  getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
-    return this.bundles.pipe(
-      getSucceededRemoteData(),
-      map((rd: RemoteData<PaginatedList<Bundle>>) => rd.payload.page.find((bundle: Bundle) => bundle.name === bundleName)),
-      hasValueOperator(),
-      switchMap((bundle: Bundle) => bundle.bitstreams),
-      getAllSucceededRemoteData(),
-      map((rd: RemoteData<PaginatedList<Bitstream>>) => rd.payload.page),
-      startWith([])
-    );
-  }
+  @link(RELATIONSHIP, true)
+  relationships?: Observable<RemoteData<PaginatedList<Relationship>>>;
 
   /**
    * Method that returns as which type of object this object should be rendered
@@ -127,5 +110,9 @@ export class Item extends DSpaceObject {
       entityType = DEFAULT_ENTITY_TYPE;
     }
     return [entityType, ...super.getRenderTypes()];
+  }
+
+  getParentLinkKey(): keyof this['_links'] {
+    return 'owningCollection';
   }
 }

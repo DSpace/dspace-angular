@@ -5,6 +5,6 @@
   }
 }
 
-/deep/ .search-controls {
+::ng-deep .search-controls {
     margin-bottom: $spacer;
 }

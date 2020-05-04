@@ -8,7 +8,7 @@
   padding-right: 100%;
 }
 
-:host /deep/ .dropdown-menu {
+:host ::ng-deep .dropdown-menu {
   width: 100% !important;
   max-height: $dropdown-menu-max-height;
   overflow-y: scroll;
@@ -17,10 +17,10 @@
   margin-top: $spacer !important;
 }
 
-:host /deep/ .dropdown-item.active,
-:host /deep/ .dropdown-item:active,
-:host /deep/ .dropdown-item:focus,
-:host /deep/ .dropdown-item:hover {
+:host ::ng-deep .dropdown-item.active,
+:host ::ng-deep .dropdown-item:active,
+:host ::ng-deep .dropdown-item:focus,
+:host ::ng-deep .dropdown-item:hover {
   color: $dropdown-link-hover-color !important;
   background-color: $dropdown-link-hover-bg !important;
 }

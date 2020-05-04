@@ -9,5 +9,5 @@
 <ds-truncatable [id]="metadataRepresentation.id">
   <a [routerLink]="['/items/' + metadataRepresentation.id]"
      [innerHTML]="metadataRepresentation.getValue()"
-     [tooltip]="metadataRepresentation.allMetadata(['dc.description']).length > 0 ? descTemplate : null"></a>
+     [tooltip]="metadataRepresentation.allMetadata(['organization.legalName']).length > 0 ? descTemplate : null"></a>
 </ds-truncatable>

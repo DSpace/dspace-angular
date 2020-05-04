@@ -1,5 +1,5 @@
 :host {
-    /deep/ em {
+    ::ng-deep em {
         font-weight: bold;
         font-style: normal;
     }

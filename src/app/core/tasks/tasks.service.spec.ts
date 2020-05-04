@@ -9,7 +9,6 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { TaskObject } from './models/task-object.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -18,7 +17,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { compare, Operation } from 'fast-json-patch';
-import { NormalizedTaskObject } from './models/normalized-task-object.model';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 
 const LINK_NAME = 'test';
@@ -33,7 +31,6 @@ class TestService extends TasksService<TestTask> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -44,11 +41,8 @@ class TestService extends TasksService<TestTask> {
   }
 }
 
-class NormalizedTestTaskObject extends NormalizedTaskObject<TestTask> {
-}
-
-class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestTaskObject> {
-  diff(object1: NormalizedTestTaskObject, object2: NormalizedTestTaskObject): Operation[] {
+class DummyChangeAnalyzer implements ChangeAnalyzer<TestTask> {
+  diff(object1: TestTask, object2: TestTask): Operation[] {
     return compare((object1 as any).metadata, (object2 as any).metadata);
   }
 
@@ -66,9 +60,6 @@ describe('TasksService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = new DummyChangeAnalyzer() as any;
-  const dataBuildService = {
-    normalize: (object) => object
-  } as NormalizedObjectBuildService;
   const objectCache = {
     addPatch: () => {
       /* empty */
@@ -83,7 +74,6 @@ describe('TasksService', () => {
     return new TestService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       objectCache,
       halService,

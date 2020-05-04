@@ -1,10 +1,12 @@
 # This image will be published as dspace/dspace-angular
 # See https://dspace-labs.github.io/DSpace-Docker-Images/ for usage details
 
-FROM node:8-alpine
+FROM node:12-alpine
 WORKDIR /app
 ADD . /app/
 EXPOSE 3000
 
-RUN yarn install
+# We run yarn install with an increased network timeout (5min) to avoid "ESOCKETTIMEDOUT" errors from hub.docker.com
+# See, for example https://github.com/yarnpkg/yarn/issues/5540
+RUN yarn install --network-timeout 300000
 CMD yarn run watch

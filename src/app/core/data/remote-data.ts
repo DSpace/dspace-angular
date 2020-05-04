@@ -17,7 +17,8 @@ export class RemoteData<T> {
     private responsePending?: boolean,
     private isSuccessful?: boolean,
     public error?: RemoteDataError,
-    public payload?: T
+    public payload?: T,
+    public statusCode?: number,
   ) {
   }
 

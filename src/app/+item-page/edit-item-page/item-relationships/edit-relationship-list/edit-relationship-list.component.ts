@@ -1,13 +1,21 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { FieldUpdate, FieldUpdates } from '../../../../core/data/object-updates/object-updates.reducer';
-import { RelationshipService } from '../../../../core/data/relationship.service';
-import { Item } from '../../../../core/shared/item.model';
-import { map, switchMap } from 'rxjs/operators';
-import { hasValue } from '../../../../shared/empty.util';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import {FieldUpdate, FieldUpdates} from '../../../../core/data/object-updates/object-updates.reducer';
+import {Item} from '../../../../core/shared/item.model';
+import { map, switchMap, tap } from 'rxjs/operators';
+import {hasValue} from '../../../../shared/empty.util';
+import {Relationship} from '../../../../core/shared/item-relationships/relationship.model';
+import {RelationshipType} from '../../../../core/shared/item-relationships/relationship-type.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  getSucceededRemoteData
+} from '../../../../core/shared/operators';
+import { combineLatest as observableCombineLatest } from 'rxjs';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -18,11 +26,14 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
  * A component creating a list of editable relationships of a certain type
  * The relationships are rendered as a list of related items
  */
-export class EditRelationshipListComponent implements OnInit, OnChanges {
+export class EditRelationshipListComponent implements OnInit {
+
   /**
    * The item to display related items for
    */
   @Input() item: Item;
+
+  @Input() itemType: ItemType;
 
   /**
    * The URL to the current page
@@ -33,7 +44,7 @@ export class EditRelationshipListComponent implements OnInit, OnChanges {
   /**
    * The label of the relationship-type we're rendering a list for
    */
-  @Input() relationshipLabel: string;
+  @Input() relationshipType: RelationshipType;
 
   /**
    * The FieldUpdates for the relationships in question
@@ -42,53 +53,43 @@ export class EditRelationshipListComponent implements OnInit, OnChanges {
 
   constructor(
     protected objectUpdatesService: ObjectUpdatesService,
-    protected relationshipService: RelationshipService
+    protected linkService: LinkService
   ) {
   }
 
-  ngOnInit(): void {
-    this.initUpdates();
-  }
+  /**
+   * Get the i18n message key for this relationship type
+   */
+  public getRelationshipMessageKey(): Observable<string> {
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.initUpdates();
+    return this.getLabel().pipe(
+      map((label) => {
+        if (hasValue(label) && label.indexOf('Of') > -1) {
+          return `relationships.${label.substring(0, label.indexOf('Of') + 2)}`
+        } else {
+          return label;
+        }
+      }),
+    );
   }
 
   /**
-   * Initialize the FieldUpdates using the related items
+   * Get the relevant label for this relationship type
    */
-  initUpdates() {
-    this.updates$ = this.getUpdatesByLabel(this.relationshipLabel);
-  }
+  private getLabel(): Observable<string> {
 
-  /**
-   * Transform the item's relationships of a specific type into related items
-   * @param label   The relationship type's label
-   */
-  public getRelatedItemsByLabel(label: string): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.relationshipService.getRelatedItemsByLabel(this.item, label);
-  }
-
-  /**
-   * Get FieldUpdates for the relationships of a specific type
-   * @param label   The relationship type's label
-   */
-  public getUpdatesByLabel(label: string): Observable<FieldUpdates> {
-    return this.getRelatedItemsByLabel(label).pipe(
-      switchMap((itemsRD) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, itemsRD.payload.page))
-    )
-  }
-
-  /**
-   * Get the i18n message key for a relationship
-   * @param label   The relationship type's label
-   */
-  public getRelationshipMessageKey(label: string): string {
-    if (hasValue(label) && label.indexOf('Of') > -1) {
-      return `relationships.${label.substring(0, label.indexOf('Of') + 2)}`
-    } else {
-      return label;
-    }
+    return observableCombineLatest([
+      this.relationshipType.leftType,
+      this.relationshipType.rightType,
+    ].map((itemTypeRD) => itemTypeRD.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+    ))).pipe(
+      map((itemTypes) => [
+        this.relationshipType.leftwardType,
+        this.relationshipType.rightwardType,
+      ][itemTypes.findIndex((itemType) => itemType.id === this.itemType.id)]),
+    );
   }
 
   /**
@@ -98,4 +99,38 @@ export class EditRelationshipListComponent implements OnInit, OnChanges {
     return update && update.field ? update.field.uuid : undefined;
   }
 
+  ngOnInit(): void {
+    this.updates$ = this.item.relationships.pipe(
+      getAllSucceededRemoteData(),
+      map((relationships) => relationships.payload.page.filter((relationship) => relationship)),
+      map((relationships: Relationship[]) =>
+        relationships.map((relationship: Relationship) => {
+          this.linkService.resolveLinks(
+            relationship,
+            followLink('relationshipType'),
+            followLink('leftItem'),
+            followLink('rightItem'),
+          );
+          return relationship;
+        })
+      ),
+      switchMap((itemRelationships: Relationship[]) =>
+        observableCombineLatest(
+          itemRelationships
+            .map((relationship) => relationship.relationshipType.pipe(
+              getSucceededRemoteData(),
+              getRemoteDataPayload(),
+            ))
+        ).pipe(
+          map((relationshipTypes) => itemRelationships.filter(
+            (relationship, index) => relationshipTypes[index].id === this.relationshipType.id)
+          ),
+          map((relationships) => relationships.map((relationship) =>
+            Object.assign(new Relationship(), relationship, {uuid: relationship.id})
+          )),
+        )
+      ),
+      switchMap((initialFields) => this.objectUpdatesService.getFieldUpdates(this.url, initialFields)),
+    );
+  }
 }

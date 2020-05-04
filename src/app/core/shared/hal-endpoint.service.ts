@@ -4,13 +4,14 @@ import {
   map,
   mergeMap,
   startWith,
-  switchMap,
+  switchMap, take,
   tap
 } from 'rxjs/operators';
+import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { EndpointMapRequest } from '../data/request.models';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { Inject, Injectable } from '@angular/core';
 import { GLOBAL_CONFIG } from '../../../config';
@@ -36,7 +37,11 @@ export class HALEndpointService {
   private getEndpointMapAt(href): Observable<EndpointMap> {
     const request = new EndpointMapRequest(this.requestService.generateRequestId(), href);
 
-    this.requestService.configure(request);
+    if (!this.requestService.isCachedOrPending(request)) {
+      // don't bother configuring the request if it's already cached or pending.
+      this.requestService.configure(request);
+    }
+
     return this.requestService.getByHref(request.href).pipe(
       getResponseFromEntry(),
       map((response: EndpointMapSuccessResponse) => response.endpointMap),
@@ -44,7 +49,7 @@ export class HALEndpointService {
   }
 
   public getEndpoint(linkPath: string, startHref?: string): Observable<string> {
-    return this.getEndpointAt(startHref || this.getRootHref(), ...linkPath.split('/'));
+    return this.getEndpointAt(startHref || this.getRootHref(), ...linkPath.split('/')).pipe(take(1));
   }
 
   /**
@@ -71,10 +76,11 @@ export class HALEndpointService {
     ) as Observable<string>;
 
     if (halNames.length === 1) {
-      return nextHref$;
+      return nextHref$.pipe(take(1));
     } else {
       return nextHref$.pipe(
-        switchMap((nextHref) => this.getEndpointAt(nextHref, ...halNames.slice(1)))
+        switchMap((nextHref) => this.getEndpointAt(nextHref, ...halNames.slice(1))),
+        take(1)
       );
     }
   }

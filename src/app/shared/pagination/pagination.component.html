@@ -1,5 +1,5 @@
 <div *ngIf="currentPageState == undefined || currentPageState == currentPage">
-  <div  class="pagination-masked clearfix top">
+  <div *ngIf="(!hidePaginationDetail && collectionSize > 0) || !hideGear" class="pagination-masked clearfix top">
     <div class="row">
       <div *ngIf="!hidePaginationDetail && collectionSize > 0" class="col-auto pagination-info">
           <span class="align-middle hidden-xs-down">{{ 'pagination.showing.label' | translate }}</span>

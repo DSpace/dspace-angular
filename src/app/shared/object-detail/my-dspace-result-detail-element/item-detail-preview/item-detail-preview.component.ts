@@ -2,8 +2,13 @@ import { Component, Input } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 
 import { Item } from '../../../../core/shared/item.model';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteListPayload
+} from '../../../../core/shared/operators';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { fadeInOut } from '../../../animations/fade';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -62,17 +67,11 @@ export class ItemDetailPreviewComponent {
    *
    * @param {FileService} fileService
    * @param {HALEndpointService} halService
+   * @param {BitstreamDataService} bitstreamDataService
    */
   constructor(private fileService: FileService,
-              private halService: HALEndpointService) {
-  }
-
-  /**
-   * Initialize all instance variables
-   */
-  ngOnInit() {
-    this.thumbnail$ = this.item.getThumbnail();
-    this.bitstreams$ = this.item.getFiles();
+              private halService: HALEndpointService,
+              private bitstreamDataService: BitstreamDataService) {
   }
 
   /**
@@ -85,5 +84,21 @@ export class ItemDetailPreviewComponent {
         const fileUrl = `${url}/${uuid}/content`;
         this.fileService.downloadFile(fileUrl);
       });
+  }
+
+  // TODO refactor this method to return RemoteData, and the template to deal with loading and errors
+  public getThumbnail(): Observable<Bitstream> {
+    return this.bitstreamDataService.getThumbnailFor(this.item).pipe(
+      getFirstSucceededRemoteDataPayload()
+    );
+  }
+
+  // TODO refactor this method to return RemoteData, and the template to deal with loading and errors
+  public getFiles(): Observable<Bitstream[]> {
+    return this.bitstreamDataService
+      .findAllByItemAndBundleName(this.item, 'ORIGINAL', { elementsPerPage: Number.MAX_SAFE_INTEGER })
+      .pipe(
+        getFirstSucceededRemoteListPayload()
+      );
   }
 }

@@ -20,7 +20,7 @@ module.exports = (env) => {
             /@ng/,
             /angular2-text-mask/,
             /ng2-file-upload/,
-            /angular-sortablejs/,
+            /ngx-sortablejs/,
             /sortablejs/,
             /ngx/]
         })],

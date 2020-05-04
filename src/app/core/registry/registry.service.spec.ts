@@ -1,30 +1,10 @@
-import { TestBed } from '@angular/core/testing';
-import { RegistryService } from './registry.service';
 import { CommonModule } from '@angular/common';
-import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { RequestEntry } from '../data/request.reducer';
-import { RemoteData } from '../data/remote-data';
-import { PageInfo } from '../shared/page-info.model';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-
-import {
-  RegistryMetadatafieldsSuccessResponse,
-  RegistryMetadataschemasSuccessResponse,
-  RestResponse
-} from '../cache/response.models';
 import { Component } from '@angular/core';
-import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
-import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
-import { map } from 'rxjs/operators';
+import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
-import { MockStore } from '../../shared/testing/mock-store';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 import { TranslateModule } from '@ngx-translate/core';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { map } from 'rxjs/operators';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -37,12 +17,31 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { ResourceType } from '../shared/resource-type';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { MetadataField } from '../metadata/metadata-field.model';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { MockStore } from '../../shared/testing/mock-store';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
-@Component({template: ''})
+import {
+  RegistryMetadatafieldsSuccessResponse,
+  RegistryMetadataschemasSuccessResponse,
+  RestResponse
+} from '../cache/response.models';
+import { RemoteData } from '../data/remote-data';
+import { RequestEntry } from '../data/request.reducer';
+import { RequestService } from '../data/request.service';
+import { MetadataField } from '../metadata/metadata-field.model';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { PageInfo } from '../shared/page-info.model';
+import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
+import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
+import { RegistryService } from './registry.service';
+
+@Component({ template: '' })
 class DummyComponent {
 }
 
@@ -57,15 +56,18 @@ describe('RegistryService', () => {
   const mockSchemasList = [
     Object.assign(new MetadataSchema(), {
       id: 1,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
+      _links: {
+        self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1' }
+      },
       prefix: 'dc',
       namespace: 'http://dublincore.org/documents/dcmi-terms/',
       type: MetadataSchema.type
-}),
+    }),
     Object.assign(new MetadataSchema(), {
-
       id: 2,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
+      _links: {
+        self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2' }
+      },
       prefix: 'mock',
       namespace: 'http://dspace.org/mockschema',
       type: MetadataSchema.type
@@ -73,45 +75,53 @@ describe('RegistryService', () => {
   ];
   const mockFieldsList = [
     Object.assign(new MetadataField(),
-    {
-      id: 1,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/8',
-      element: 'contributor',
-      qualifier: 'advisor',
-      scopeNote: null,
-      schema: mockSchemasList[0],
-      type: MetadataField.type
-    }),
+      {
+        id: 1,
+        _links: {
+          self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/8' }
+        },
+        element: 'contributor',
+        qualifier: 'advisor',
+        scopeNote: null,
+        schema: mockSchemasList[0],
+        type: MetadataField.type
+      }),
     Object.assign(new MetadataField(),
       {
-      id: 2,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/9',
-      element: 'contributor',
-      qualifier: 'author',
-      scopeNote: null,
-      schema: mockSchemasList[0],
-      type: MetadataField.type
-    }),
+        id: 2,
+        _links: {
+          self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/9' }
+        },
+        element: 'contributor',
+        qualifier: 'author',
+        scopeNote: null,
+        schema: mockSchemasList[0],
+        type: MetadataField.type
+      }),
     Object.assign(new MetadataField(),
       {
-      id: 3,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10',
-      element: 'contributor',
-      qualifier: 'editor',
-      scopeNote: 'test scope note',
-      schema: mockSchemasList[1],
-      type: MetadataField.type
-    }),
+        id: 3,
+        _links: {
+          self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10' }
+        },
+        element: 'contributor',
+        qualifier: 'editor',
+        scopeNote: 'test scope note',
+        schema: mockSchemasList[1],
+        type: MetadataField.type
+      }),
     Object.assign(new MetadataField(),
       {
-      id: 4,
-      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/11',
-      element: 'contributor',
-      qualifier: 'illustrator',
-      scopeNote: null,
-      schema: mockSchemasList[1],
-      type: MetadataField.type
-    })
+        id: 4,
+        _links: {
+          self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/11' }
+        },
+        element: 'contributor',
+        qualifier: 'illustrator',
+        scopeNote: null,
+        schema: mockSchemasList[1],
+        type: MetadataField.type
+      })
   ];
 
   const pageInfo = new PageInfo();
@@ -130,7 +140,7 @@ describe('RegistryService', () => {
     toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, payloadObs: Observable<any>) => {
       return observableCombineLatest(requestEntryObs,
         payloadObs).pipe(map(([req, pay]) => {
-          return {req, pay};
+          return { req, pay };
         })
       );
     },
@@ -146,11 +156,11 @@ describe('RegistryService', () => {
         DummyComponent
       ],
       providers: [
-        {provide: RequestService, useValue: getMockRequestService()},
-        {provide: RemoteDataBuildService, useValue: rdbStub},
-        {provide: HALEndpointService, useValue: halServiceStub},
-        {provide: Store, useClass: MockStore},
-        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
+        { provide: RequestService, useValue: getMockRequestService() },
+        { provide: RemoteDataBuildService, useValue: rdbStub },
+        { provide: HALEndpointService, useValue: halServiceStub },
+        { provide: Store, useClass: MockStore },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         RegistryService
       ]
     });
@@ -165,7 +175,7 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadataschemasSuccessResponse(queryResponse, 200, 'OK', pageInfo);
-    const responseEntry = Object.assign(new RequestEntry(), {response: response});
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
       (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
@@ -194,7 +204,7 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadataschemasSuccessResponse(queryResponse, 200, 'OK', pageInfo);
-    const responseEntry = Object.assign(new RequestEntry(), {response: response});
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
       (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
@@ -223,7 +233,7 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadatafieldsSuccessResponse(queryResponse, 200, 'OK', pageInfo);
-    const responseEntry = Object.assign(new RequestEntry(), {response: response});
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
       (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));

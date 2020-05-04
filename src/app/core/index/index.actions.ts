@@ -91,4 +91,4 @@ export class RemoveFromIndexBySubstringAction implements Action {
 /**
  * A type to encompass all HrefIndexActions
  */
-export type IndexAction = AddToIndexAction | RemoveFromIndexByValueAction;
+export type IndexAction = AddToIndexAction | RemoveFromIndexByValueAction | RemoveFromIndexBySubstringAction;

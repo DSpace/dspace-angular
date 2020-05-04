@@ -1,21 +1,19 @@
-import { CollectionsComponent } from './collections.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Collection } from '../../../core/shared/collection.model';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/mock-remote-data-build.service';
-import { Item } from '../../../core/shared/item.model';
-import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/testing/utils';
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { Item } from '../../../core/shared/item.model';
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/mock-remote-data-build.service';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { CollectionsComponent } from './collections.component';
 
 let collectionsComponent: CollectionsComponent;
 let fixture: ComponentFixture<CollectionsComponent>;
+
+let collectionDataServiceStub;
 
 const mockCollection1: Collection = Object.assign(new Collection(), {
   metadata: {
@@ -32,12 +30,22 @@ const succeededMockItem: Item = Object.assign(new Item(), {owningCollection: cre
 const failedMockItem: Item = Object.assign(new Item(), {owningCollection: createFailedRemoteDataObject$(mockCollection1)});
 
 describe('CollectionsComponent', () => {
+  collectionDataServiceStub = {
+    findOwningCollectionFor(item: Item) {
+      if (item === succeededMockItem) {
+        return createSuccessfulRemoteDataObject$(mockCollection1);
+      } else {
+        return createFailedRemoteDataObject$(mockCollection1);
+      }
+    }
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ CollectionsComponent ],
       providers: [
-        { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService()}
+        { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService()},
+        { provide: CollectionDataService, useValue: collectionDataServiceStub },
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]

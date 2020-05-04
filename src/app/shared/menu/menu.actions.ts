@@ -223,4 +223,6 @@ export type MenuAction =
   | ActivateMenuSectionAction
   | DeactivateMenuSectionAction
   | ToggleActiveMenuSectionAction
+  | CollapseMenuPreviewAction
+  | ExpandMenuPreviewAction
 /* tslint:enable:max-classes-per-file */

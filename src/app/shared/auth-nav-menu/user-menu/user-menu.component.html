@@ -1,6 +1,7 @@
 <ds-loading *ngIf="(loading$ | async)"></ds-loading>
 <div *ngIf="!(loading$ | async)">
   <span class="dropdown-item-text">{{(user$ | async)?.name}} ({{(user$ | async)?.email}})</span>
+  <a class="dropdown-item" [routerLink]="[profileRoute]" routerLinkActive="active">{{'nav.profile' | translate}}</a>
   <a class="dropdown-item" [routerLink]="[mydspaceRoute]" routerLinkActive="active">{{'nav.mydspace' | translate}}</a>
   <div class="dropdown-divider"></div>
   <ds-log-out></ds-log-out>

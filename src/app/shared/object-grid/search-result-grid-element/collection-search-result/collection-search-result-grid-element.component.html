@@ -14,4 +14,5 @@
       <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/collections/',  dso.id]" class="lead btn btn-primary viewButton">View</a>
     </div>
   </div>
+  <ng-content></ng-content>
 </div>

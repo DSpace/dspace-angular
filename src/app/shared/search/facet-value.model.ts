@@ -1,9 +1,11 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import { HALLink } from '../../core/shared/hal-link.model';
+import { HALResource } from '../../core/shared/hal-resource.model';
 
 /**
  * Class representing possible values for a certain filter
  */
-export class FacetValue {
+export class FacetValue implements HALResource {
   /**
    * The display label of the facet value
    */
@@ -23,8 +25,11 @@ export class FacetValue {
   count: number;
 
   /**
-   * The REST url to add this filter value
+   * The {@link HALLink}s for this FacetValue
    */
-  @autoserialize
-  search: string;
+  @deserialize
+  _links: {
+    self: HALLink
+    search: HALLink
+  }
 }

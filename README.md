@@ -13,7 +13,7 @@ You can find additional information on the DSpace 7 Angular UI on the [wiki](htt
 Quick start
 -----------
 
-**Ensure you're running [Node](https://nodejs.org) `v8.0.x` or `v10.0.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) >= `v1.x`**
+**Ensure you're running [Node](https://nodejs.org) `v10.x` or `v12.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) >= `v1.x`**
 
 ```bash
 # clone the repo
@@ -65,7 +65,7 @@ Requirements
 ------------
 
 -	[Node.js](https://nodejs.org), [npm](https://www.npmjs.com/), and [yarn](https://yarnpkg.com)
--	Ensure you're running node `v8.x` or `v10.x`, npm >= `v5.x` and yarn >= `v1.x`
+-	Ensure you're running node `v10.x` or `v12.x`, npm >= `v5.x` and yarn >= `v1.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 

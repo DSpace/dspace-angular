@@ -84,7 +84,7 @@ describe('MyDSpacePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule.forRoot()],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule],
       declarations: [MyDSpacePageComponent, RoleDirective],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },

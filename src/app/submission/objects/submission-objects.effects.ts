@@ -1,10 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { union } from 'lodash';
 
 import { from as observableFrom, of as observableOf } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { union } from 'lodash';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
+import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SectionsType } from '../sections/sections-type';
+import { SectionsService } from '../sections/sections.service';
+import { SubmissionState } from '../submission.reducers';
+import { SubmissionService } from '../submission.service';
+import parseSectionErrors from '../utils/parseSectionErrors';
 
 import {
   CompleteInitSubmissionFormAction,
@@ -24,26 +38,12 @@ import {
   SaveSubmissionFormSuccessAction,
   SaveSubmissionSectionFormAction,
   SaveSubmissionSectionFormErrorAction,
-  SaveSubmissionSectionFormSuccessAction, SubmissionObjectAction,
+  SaveSubmissionSectionFormSuccessAction,
+  SubmissionObjectAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction
 } from './submission-objects.actions';
-import { SectionsService } from '../sections/sections.service';
-import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { SubmissionService } from '../submission.service';
-import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { TranslateService } from '@ngx-translate/core';
-import { SubmissionState } from '../submission.reducers';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
-import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
-import parseSectionErrors from '../utils/parseSectionErrors';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
-import { SectionsType } from '../sections/sections-type';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -56,9 +56,10 @@ export class SubmissionObjectEffects {
     map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
-      definition.sections.page.forEach((sectionDefinition: SubmissionSectionModel) => {
-        const sectionId = sectionDefinition._links.self.substr(sectionDefinition._links.self.lastIndexOf('/') + 1);
-        const config = sectionDefinition._links.config || '';
+      definition.sections.page.forEach((sectionDefinition: any) => {
+        const selfLink = sectionDefinition._links.self.href || sectionDefinition._links.self;
+        const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
+        const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
         const enabled = (sectionDefinition.mandatory) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
         const sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
         const sectionErrors = null;
