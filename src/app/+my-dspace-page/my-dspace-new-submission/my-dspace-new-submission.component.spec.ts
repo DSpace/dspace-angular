@@ -21,13 +21,13 @@ import { SharedModule } from '../../shared/shared.module';
 import { getMockScrollToService } from '../../shared/mocks/mock-scroll-to-service';
 import { UploaderService } from '../../shared/uploader/uploader.service';
 import { By } from '@angular/platform-browser';
-import { EntityTypeService } from "../../core/data/entity-type.service";
-import { RemoteData } from "../../core/data/remote-data";
-import { PaginatedList } from "../../core/data/paginated-list";
-import { ItemType } from "../../core/shared/item-relationships/item-type.model";
-import { PageInfo } from "../../core/shared/page-info.model";
-import { ResourceType } from "../../core/shared/resource-type";
-import { of } from "rxjs/internal/observable/of";
+import { EntityTypeService } from '../../core/data/entity-type.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { ResourceType } from '../../core/shared/resource-type';
+import { of } from 'rxjs/internal/observable/of';
 
 const authToken = 'fake-auth-token';
 const authServiceStub = Object.assign(new AuthServiceStub(), {
@@ -52,8 +52,6 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
   describe('', () => {
     let testComp: TestComponent;
     let testFixture: ComponentFixture<TestComponent>;
-    let submissionComponent: MyDSpaceNewSubmissionComponent;
-    let submissionComponentFixture: ComponentFixture<MyDSpaceNewSubmissionComponent>;
 
     // synchronous beforeEach
     beforeEach(() => {
@@ -107,8 +105,6 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
   });
 
   describe('', () => {
-    let testComp: TestComponent;
-    let testFixture: ComponentFixture<TestComponent>;
     let submissionComponent: MyDSpaceNewSubmissionComponent;
     let submissionComponentFixture: ComponentFixture<MyDSpaceNewSubmissionComponent>;
 
@@ -126,8 +122,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
           })
         ],
         declarations: [
-          MyDSpaceNewSubmissionComponent,
-          TestComponent
+          MyDSpaceNewSubmissionComponent
         ],
         providers: [
           { provide: AuthService, useValue: authServiceStub },
@@ -152,7 +147,6 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
       submissionComponentFixture.destroy();
     });
 
-
     it('should be a single button', inject([MyDSpaceNewSubmissionComponent], (app: MyDSpaceNewSubmissionComponent) => {
       submissionComponentFixture.detectChanges();
       const addDivElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.add'));
@@ -167,8 +161,6 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
   });
 
   describe('', () => {
-    let testComp: TestComponent;
-    let testFixture: ComponentFixture<TestComponent>;
     let submissionComponent: MyDSpaceNewSubmissionComponent;
     let submissionComponentFixture: ComponentFixture<MyDSpaceNewSubmissionComponent>;
 
@@ -186,8 +178,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
           })
         ],
         declarations: [
-          MyDSpaceNewSubmissionComponent,
-          TestComponent
+          MyDSpaceNewSubmissionComponent
         ],
         providers: [
           { provide: AuthService, useValue: authServiceStub },
@@ -211,7 +202,6 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
     afterEach(() => {
       submissionComponentFixture.destroy();
     });
-
 
     it('should be a dropdown button', inject([MyDSpaceNewSubmissionComponent], (app: MyDSpaceNewSubmissionComponent) => {
       const dropdownElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.dropdown-menu'));
