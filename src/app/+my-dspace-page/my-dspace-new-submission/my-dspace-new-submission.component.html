@@ -6,19 +6,13 @@
                  (onUploadError)="onUploadError($event)"></ds-uploader>
 
   </div>
-  <ng-container *ngIf="availableEntyTypeList.size <= 1">
-
-    <div class="add">
-      <button class="btn btn-lg btn-primary mt-1 ml-2" [disabled]="!initialized" [routerLink]="['/submit']" [state]="{
-      entityType:
-      availableEntyTypeList[0]}" role="button">
+    <div class="add" *ngIf="!hasMultipleOptions()">
+      <button class="btn btn-lg btn-primary mt-1 ml-2" [disabled]="!initialized" [routerLink]="['/submit']"
+              [state]="{entityType: availableEntyTypeList[0]}" role="button">
         <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
       </button>
     </div>
-  </ng-container>
-  <ng-container *ngIf="availableEntyTypeList.size > 1">
-
-    <div class="add" ngbDropdown >
+    <div class="add" ngbDropdown *ngIf="hasMultipleOptions()">
       <button class="btn btn-lg btn-primary  mt-1 ml-2" id="dropdownSubmission" ngbDropdownToggle
               type="button"  [disabled]="!initialized">
         <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
@@ -30,5 +24,4 @@
             {{entityType}}</a>
       </div>
     </div>
-  </ng-container>
 </div>
