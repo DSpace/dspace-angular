@@ -455,9 +455,6 @@
 
   "collection.edit.logo.upload": "Drop a Collection Logo to upload",
 
-  "collection.form.errors.entitytype.required": "Please choose an option",
-
-
   "collection.edit.notifications.success": "Successfully edited the Collection",
 
   "collection.edit.return": "Return",
@@ -532,6 +529,7 @@
 
   "collection.form.entitytype": "Type",
 
+  "collection.form.errors.entitytype.required": "Please choose an option",
 
 
   "collection.page.browse.recent.head": "Recent Submissions",
