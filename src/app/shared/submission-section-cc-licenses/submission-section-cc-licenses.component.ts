@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { SubmissionCcLicence } from '../../core/shared/submission-cc-license.model';
+import { Field, Option, SubmissionCcLicence } from '../../core/shared/submission-cc-license.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { SubmissionCcLicensesDataService } from '../../core/data/submission-cc-licenses-data.service';
@@ -13,6 +13,7 @@ import { SectionsService } from '../../submission/sections/sections.service';
 import { WorkspaceitemSectionCcLicenseObject } from '../../core/submission/models/workspaceitem-section-cc-license.model';
 import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { isNotEmpty } from '../empty.util';
+import { JsonPatchOperationsBuilder } from '../../core/json-patch/builder/json-patch-operations-builder';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -58,10 +59,28 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    */
   protected modalRef: NgbModalRef;
 
+  /**
+   * The Creative Commons link saved in the workspace item.
+   */
+  get storedCcLicenseLink(): string {
+    return this.data.uri;
+  }
+
+  /**
+   * The accepted state for the selected Creative Commons license.
+   */
+  get accepted(): boolean {
+    if (this.data.accepted === undefined) {
+      return !!this.data.uri;
+    }
+    return this.data.accepted;
+  }
+
   constructor(
     protected modalService: NgbModal,
     protected sectionService: SectionsService,
     protected submissionCcLicensesDataService: SubmissionCcLicensesDataService,
+    protected operationsBuilder: JsonPatchOperationsBuilder,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
     @Inject('submissionIdProvider') public injectedSubmissionId: string
@@ -84,15 +103,16 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    * Select a given Creative Commons license.
    * @param ccLicense the Creative Commons license to select.
    */
-  select(ccLicense: SubmissionCcLicence) {
-    if (!!this.getSelectedCcLicense() && this.getSelectedCcLicense().name === ccLicense.name) {
+  selectCcLicense(ccLicense: SubmissionCcLicence) {
+    if (!!this.getSelectedCcLicense() && this.getSelectedCcLicense().id === ccLicense.id) {
       return;
     }
     this.data.ccLicense = {
-      name: ccLicense.name,
+      id: ccLicense.id,
       fields: {},
     };
-    this.updateSectionStatus();
+    this.data.uri = undefined;
+    this.setAccepted(false);
   }
 
   /**
@@ -102,38 +122,63 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     if (!this.submissionCcLicenses || !this.data.ccLicense) {
       return null;
     }
-    return this.submissionCcLicenses.filter((ccLicense) => ccLicense.name === this.data.ccLicense.name)[0];
+    return this.submissionCcLicenses.filter((ccLicense) => ccLicense.id === this.data.ccLicense.id)[0];
   }
 
   /**
    * Select an option for a given license field.
    * @param ccLicense   the related Creative Commons license.
    * @param field       the field for which to select an option.
-   * @param value       the value of the selected option,.
+   * @param option      the option to select.
    */
-  selectOption(ccLicense: SubmissionCcLicence, field: string, value: string) {
-
-    this.data.ccLicense.fields[field] = value;
-    this.updateSectionStatus();
+  selectOption(ccLicense: SubmissionCcLicence, field: Field, option: Option) {
+    if (this.isSelectedOption(ccLicense, field, option)) {
+      return;
+    }
+    this.data.ccLicense.fields[field.id] = option;
+    this.setAccepted(false);
   }
 
   /**
-   * Get the selected option value for a given license field.
+   * Get the selected option for a given license field.
    * @param ccLicense   the related Creative Commons license.
    * @param field       the field for which to get the selected option value.
    */
-  getSelectedOption(ccLicense: SubmissionCcLicence, field: string): string {
-    return this.data.ccLicense.fields[field];
+  getSelectedOption(ccLicense: SubmissionCcLicence, field: Field): Option {
+    return this.data.ccLicense.fields[field.id];
   }
 
   /**
-   * Whether a given option value is selected for a given license field.
+   * Whether a given option is selected for a given Creative Commons license field.
    * @param ccLicense   the related Creative Commons license.
    * @param field       the field for which to check whether the option is selected.
-   * @param value       the value for which to check whether it is selected.
+   * @param option      the option for which to check whether it is selected.
    */
-  isSelectedOption(ccLicense: SubmissionCcLicence, field: string, value: string): boolean {
-    return this.getSelectedOption(ccLicense, field) === value;
+  isSelectedOption(ccLicense: SubmissionCcLicence, field: Field, option: Option): boolean {
+    return this.getSelectedOption(ccLicense, field) && this.getSelectedOption(ccLicense, field).id === option.id;
+  }
+
+  /**
+   * Get the link to the Creative Commons license corresponding with the selected options.
+   */
+  getCcLicenseLink$(): Observable<string> {
+
+    if (!!this.storedCcLicenseLink) {
+      return observableOf(this.storedCcLicenseLink);
+    }
+    if (!this.getSelectedCcLicense() || this.getSelectedCcLicense().fields.some(
+      (field) => !this.getSelectedOption(this.getSelectedCcLicense(), field))) {
+      return undefined;
+    }
+    const selectedCcLicense = this.getSelectedCcLicense();
+    return this.submissionCcLicensesDataService.getCcLicenseLink(
+      selectedCcLicense,
+      new Map(selectedCcLicense.fields.map(
+        (field) => [field, this.getSelectedOption(selectedCcLicense, field)]
+      )),
+    ).pipe(
+      map((response) => response.content),
+    );
   }
 
   /**
@@ -158,11 +203,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    *     the section status
    */
   getSectionStatus(): Observable<boolean> {
-    return observableOf(
-      !!this.getSelectedCcLicense() && this.getSelectedCcLicense().fields.every(
-      (field) => !!this.getSelectedOption(this.getSelectedCcLicense(), field.id)
-      )
-    );
+    return observableOf(this.accepted);
   }
 
   /**
@@ -176,14 +217,16 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    * Initialize the section.
    */
   onSectionInit(): void {
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.subscriptions.push(
       this.sectionService.getSectionState(this.submissionId, this.sectionData.id).pipe(
         filter((sectionState) => {
           return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
         }),
         distinctUntilChanged(),
-      ).subscribe((sectionState) => {
-        this.sectionData.data = sectionState.data;
+        map((sectionState) => sectionState.data as WorkspaceitemSectionCcLicenseObject),
+      ).subscribe((data) => {
+        this.sectionData.data = data;
       }),
       this.submissionCcLicensesDataService.findAll({elementsPerPage: Number.MAX_SAFE_INTEGER}).pipe(
         getSucceededRemoteData(),
@@ -193,5 +236,34 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         (licenses) => this.submissionCcLicenses = licenses
       ),
     );
+  }
+
+  /**
+   * Set the accepted state for the Creative Commons license.
+   * @param accepted  the accepted state for the cc license.
+   */
+  setAccepted(accepted: boolean) {
+    const path = this.pathCombiner.getPath('uri');
+    if (accepted) {
+      this.getCcLicenseLink$().subscribe((link) => {
+          this.operationsBuilder.add(path, link.toString(), false, true);
+          this.data.accepted = true;
+          this.updateSectionData();
+          this.updateSectionStatus();
+        }
+      );
+    } else {
+      this.operationsBuilder.remove(path);
+      this.data.accepted = false;
+      this.updateSectionData();
+      this.updateSectionStatus();
+    }
+  }
+
+  /**
+   * Update the section data for this section.
+   */
+  updateSectionData() {
+    this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, this.data);
   }
 }

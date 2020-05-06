@@ -19,17 +19,24 @@ export class SubmissionCcLicence extends HALResource {
   type: ResourceType;
 
   @autoserialize
+  id: string;
+
+  @autoserialize
   name: string;
 
   @autoserialize
-  fields: Array<{
-    id: string;
-    label: string;
-    description: string;
-    enums: Array<{
-      id: string;
-      label: string;
-      description: string;
-    }>;
-  }>;
+  fields: Field[];
+}
+
+export interface Field {
+  id: string;
+  label: string;
+  description: string;
+  enums: Option[];
+}
+
+export interface Option {
+  id: string;
+  label: string;
+  description: string;
 }

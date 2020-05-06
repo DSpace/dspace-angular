@@ -2430,9 +2430,15 @@
 
   "submission.sections.ccLicense.select": "Select a license…",
 
+  "submission.sections.ccLicense.change": "Change your license…",
+
   "submission.sections.ccLicense.none": "No licenses available",
 
   "submission.sections.ccLicense.option.select": "Select an option…",
+
+  "submission.sections.ccLicense.link": "You’ve selected the following license:",
+
+  "submission.sections.ccLicense.confirmation": "I grant the license above",
 
   "submission.sections.general.add-more": "Add more",
 

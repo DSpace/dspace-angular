@@ -1,11 +1,15 @@
+import {Option} from '../../shared/submission-cc-license.model';
+
 /**
  * An interface to represent the submission's creative commons license section data.
  */
 export interface WorkspaceitemSectionCcLicenseObject {
-  ccLicense: {
-    name: string;
+  ccLicense?: {
+    id: string;
     fields: {
-      [field: string]: string;
+      [fieldId: string]: Option;
     }
   };
+  uri?: string;
+  accepted?: boolean;
 }

@@ -11,7 +11,12 @@
         {{ getSelectedCcLicense().name }}
       </span>
       <span *ngIf="submissionCcLicenses && !getSelectedCcLicense()">
-        {{ 'submission.sections.ccLicense.select' | translate }}
+        <ng-container *ngIf="storedCcLicenseLink">
+          {{ 'submission.sections.ccLicense.change' | translate }}
+        </ng-container>
+        <ng-container *ngIf="!storedCcLicenseLink">
+          {{ 'submission.sections.ccLicense.select' | translate }}
+        </ng-container>
       </span>
     </ng-container>
 
@@ -22,7 +27,7 @@
       </button>
       <button *ngFor="let license of submissionCcLicenses"
               class="dropdown-item"
-              (click)="select(license)">
+              (click)="selectCcLicense(license)">
         {{ license.name }}
       </button>
     </ng-container>
@@ -78,37 +83,60 @@
     </ng-template>
 
     <ds-select *ngIf="field.enums?.length > 5">
-      <ng-container class="selection" *ngVar="getSelectedOption(getSelectedCcLicense(), field.id) as option">
+      <ng-container class="selection" *ngVar="getSelectedOption(getSelectedCcLicense(), field) as option">
         <span *ngIf="option">
-          {{ option }}
+          {{ option.label }}
         </span>
         <span *ngIf="!option">
           {{ 'submission.sections.ccLicense.option.select' | translate }}
         </span>
       </ng-container>
       <ng-container class="menu">
-        <button *ngFor="let value of field.enums"
+        <button *ngFor="let option of field.enums"
                 class="dropdown-item"
-                (click)="selectOption(getSelectedCcLicense(), field.id, value.label)">
-          {{ value.label }}
+                (click)="selectOption(getSelectedCcLicense(), field, option)">
+          {{ option.label }}
         </button>
       </ng-container>
     </ds-select>
 
     <ng-container *ngIf="field.enums?.length <= 5">
-      <div *ngFor="let value of field.enums"
-           class="d-flex flex-row m-2"
-           (click)="selectOption(getSelectedCcLicense(), field.id, value.label)">
-        <input type="radio"
-               title="{{ value.label }}"
-               class="mr-1"
-               [checked]="isSelectedOption(getSelectedCcLicense(), field.id, value.label)">
-        <div class="label">
-          {{ value.label }}
+      <div *ngFor="let option of field.enums"
+           class="d-flex flex-row m-2">
+        <div (click)="selectOption(getSelectedCcLicense(), field, option)">
+          <input type="radio"
+                 title="{{ option.label }}"
+                 class="mr-1"
+                 [checked]="isSelectedOption(getSelectedCcLicense(), field, option)">
+          <span class="label">{{ option.label }}</span>
         </div>
       </div>
     </ng-container>
 
   </div>
 
+</ng-container>
+
+<ng-container *ngIf="getCcLicenseLink$()">
+  <ng-container *ngVar="getCcLicenseLink$() | async as licenseLink">
+    <div *ngIf="!licenseLink">
+      <i class='fas fa-circle-notch fa-spin m-2'></i>
+    </div>
+    <ng-container *ngIf="licenseLink">
+      <div>
+        {{ 'submission.sections.ccLicense.link' | translate }}
+      </div>
+      <a class="license-link" href="{{ licenseLink }}?target=_blank">
+        {{ licenseLink }}
+      </a>
+      <div class="m-2">
+        <div (click)="setAccepted(!accepted)">
+          <input type="checkbox"
+                 title="accepted"
+                 [checked]="accepted">
+          <span>{{ 'submission.sections.ccLicense.confirmation' | translate }}</span>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
 </ng-container>

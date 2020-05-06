@@ -147,6 +147,7 @@ import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { SubmissionCcLicensesDataService } from './data/submission-cc-licenses-data.service';
 import { SubmissionCcLicence } from './shared/submission-cc-license.model';
+import { StringResponseParsingService } from './data/string-response-parsing.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -214,6 +215,7 @@ const PROVIDERS = [
   BrowseResponseParsingService,
   BrowseEntriesResponseParsingService,
   BrowseItemsResponseParsingService,
+  StringResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
   SubmissionCcLicensesDataService,
