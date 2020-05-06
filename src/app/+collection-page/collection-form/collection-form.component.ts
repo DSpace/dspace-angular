@@ -45,6 +45,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     id: 'entitytype',
     name: 'relationship.type',
     required: true,
+    disabled: false,
     validators: {
       required: null
     },
@@ -110,6 +111,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     if (this.dso && this.dso.metadata) {
       tmp = this.dso.metadata['relationship.type'];
     }
+    //retrieve all entity types to populate a dropdown selection
     this.entityTypeService.findAll().subscribe((data: RemoteData<PaginatedList<ItemType>>) => {
       if (!data || !data.payload || !data.payload.page) {
         return;
@@ -123,7 +125,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           value: type.label
         } as DynamicFormOptionConfig<string>);
         if (tmp && tmp.length > 0 && tmp[0].value === type.label) {
-          this.entityTypeSelection.select(index)
+          this.entityTypeSelection.select(index);
+          this.entityTypeSelection.disabled = true;
         }
         index++;
 

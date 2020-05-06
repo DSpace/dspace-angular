@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import {HttpHeaders, HttpParams} from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { submissionSelector, SubmissionState } from './submission.reducers';
-import { hasValue, isEmpty, isNotUndefined } from '../shared/empty.util';
+import {hasValue, isEmpty, isNotEmpty, isNotUndefined} from '../shared/empty.util';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
