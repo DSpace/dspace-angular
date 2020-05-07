@@ -958,7 +958,7 @@
 
   "form.search": "Search",
 
-  "form.search-help": "Click here to looking for an existing correspondence",
+  "form.search-help": "Click here to look for an existing correspondence",
 
   "form.submit": "Submit",
 
@@ -2474,7 +2474,7 @@
 
   "submission.sections.upload.form.date-required": "Date is required.",
 
-  "submission.sections.upload.form.from-label": "Access grant from",
+  "submission.sections.upload.form.from-label": "Grant access from",
 
   "submission.sections.upload.form.from-placeholder": "From",
 
@@ -2482,7 +2482,7 @@
 
   "submission.sections.upload.form.group-required": "Group is required.",
 
-  "submission.sections.upload.form.until-label": "Access grant until",
+  "submission.sections.upload.form.until-label": "Grant access until",
 
   "submission.sections.upload.form.until-placeholder": "Until",
 
