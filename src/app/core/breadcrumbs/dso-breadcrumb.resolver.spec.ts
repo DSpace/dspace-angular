@@ -1,6 +1,6 @@
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { Collection } from '../shared/collection.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getTestScheduler } from 'jasmine-marbles';
 import { CollectionBreadcrumbResolver } from './collection-breadcrumb.resolver';
 

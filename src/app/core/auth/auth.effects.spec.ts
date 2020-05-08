@@ -27,11 +27,12 @@ import {
   RetrieveAuthMethodsSuccessAction,
   RetrieveTokenAction
 } from './auth.actions';
-import { authMethodsMock, AuthServiceStub } from '../../shared/testing/auth-service-stub';
+import { authMethodsMock, AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from './auth.service';
 import { AuthState } from './auth.reducer';
-import { EPersonMock } from '../../shared/testing/eperson-mock';
+
 import { AuthStatus } from './models/auth-status.model';
+import { EPersonMock } from '../../shared/testing/eperson.mock';
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;

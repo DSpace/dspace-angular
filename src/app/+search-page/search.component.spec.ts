@@ -21,8 +21,8 @@ import { SearchFilterService } from '../core/shared/search/search-filter.service
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { RouteService } from '../core/services/route.service';
-import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
+import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 
 let comp: SearchComponent;

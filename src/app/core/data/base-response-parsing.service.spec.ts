@@ -1,5 +1,4 @@
 import { BaseResponseParsingService } from './base-response-parsing.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { GetRequest, RestRequest } from './request.models';
@@ -9,8 +8,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 class TestService extends BaseResponseParsingService {
   toCache = true;
 
-  constructor(protected EnvConfig: GlobalConfig,
-              protected objectCache: ObjectCacheService) {
+  constructor(protected objectCache: ObjectCacheService) {
     super();
   }
 
@@ -26,24 +24,22 @@ class TestService extends BaseResponseParsingService {
 
 describe('BaseResponseParsingService', () => {
   let service: TestService;
-  let config: GlobalConfig;
   let objectCache: ObjectCacheService;
 
   const requestUUID = 'request-uuid';
   const requestHref = 'request-href';
   const request = new GetRequest(requestUUID, requestHref);
+  let obj: CacheableObject;
 
   beforeEach(() => {
-    config = Object.assign({});
+    obj = undefined;
     objectCache = jasmine.createSpyObj('objectCache', {
       add: {}
     });
-    service = new TestService(config, objectCache);
+    service = new TestService(objectCache);
   });
 
   describe('cache', () => {
-    let obj: CacheableObject;
-
     describe('when the object is undefined', () => {
       it('should not throw an error', () => {
         expect(() => { service.cache(obj, request, {}) }).not.toThrow();

@@ -15,8 +15,8 @@ import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
-import { RouterStub } from '../../../shared/testing/router-stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemMoveComponent } from './item-move.component';
 
 describe('ItemMoveComponent', () => {

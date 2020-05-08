@@ -8,17 +8,16 @@ import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { MockRouter } from '../../shared/mocks/mock-router';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
-import { ENV_CONFIG, GLOBAL_CONFIG } from '../../../config';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { toRemoteData } from '../+browse-by-metadata-page/browse-by-metadata-page.component.spec';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
@@ -71,11 +70,10 @@ describe('BrowseByDatePageComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [BrowseByDatePageComponent, EnumKeysPipe, VarDirective],
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
-        { provide: Router, useValue: new MockRouter() },
+        { provide: Router, useValue: new RouterMock() },
         { provide: ChangeDetectorRef, useValue: mockCdRef }
       ],
       schemas: [NO_ERRORS_SCHEMA]

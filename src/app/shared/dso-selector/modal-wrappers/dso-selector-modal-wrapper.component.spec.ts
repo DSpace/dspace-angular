@@ -14,7 +14,7 @@ import { By } from '@angular/platform-browser';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import { MockComponent } from 'ng-mocks';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 
 describe('DSOSelectorModalWrapperComponent', () => {
   let component: DSOSelectorModalWrapperComponent;

@@ -3,12 +3,12 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createTestComponent } from '../../../../../shared/testing/utils';
-import { mockUploadFiles } from '../../../../../shared/mocks/mock-submission';
+import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
+import { createTestComponent } from '../../../../../shared/testing/utils.test';
 
 describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 

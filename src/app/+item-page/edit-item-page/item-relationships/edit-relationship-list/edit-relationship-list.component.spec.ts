@@ -14,7 +14,7 @@ import { RelationshipType } from '../../../../core/shared/item-relationships/rel
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { getMockLinkService } from '../../../../shared/mocks/mock-link-service';
+import { getMockLinkService } from '../../../../shared/mocks/link-service.mock';
 import { SharedModule } from '../../../../shared/shared.module';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';
 

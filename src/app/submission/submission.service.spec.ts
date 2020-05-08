@@ -8,23 +8,21 @@ import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { cold, getTestScheduler, hot, } from 'jasmine-marbles';
 
-import { MockRouter } from '../shared/mocks/mock-router';
+import { RouterMock } from '../shared/mocks/router.mock';
 import { SubmissionService } from './submission.service';
 import { submissionReducers } from './submission.reducers';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { RouteService } from '../core/services/route.service';
-import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service-stub';
-import { MockActivatedRoute } from '../shared/mocks/mock-active-router';
-import { GLOBAL_CONFIG } from '../../config';
+import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
+import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import {
   mockSubmissionDefinition,
   mockSubmissionRestResponse
-} from '../shared/mocks/mock-submission';
+} from '../shared/mocks/submission.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
-import { MOCK_SUBMISSION_CONFIG } from '../shared/testing/mock-submission-config';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -42,14 +40,15 @@ import { throwError as observableThrowError } from 'rxjs/internal/observable/thr
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../shared/testing/utils';
-import { getMockSearchService } from '../shared/mocks/mock-search-service';
-import { getMockRequestService } from '../shared/mocks/mock-request.service';
+} from '../shared/remote-data.utils';
+import { getMockSearchService } from '../shared/mocks/search-service.mock';
+import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
+import { storeModuleConfig } from '../app.reducer';
+import { environment } from '../../environments/environment';
 
 describe('SubmissionService test suite', () => {
-  const config = MOCK_SUBMISSION_CONFIG;
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
   const submissionId = '826';
   const sectionId = 'test';
@@ -344,7 +343,7 @@ describe('SubmissionService test suite', () => {
     }
   };
   const restService = new SubmissionRestServiceStub();
-  const router = new MockRouter();
+  const router = new RouterMock();
   const selfUrl = 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826';
   const submissionDefinition: any = mockSubmissionDefinition;
 
@@ -359,16 +358,15 @@ describe('SubmissionService test suite', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ submissionReducers } as any),
+        StoreModule.forRoot({ submissionReducers } as any, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: config },
         { provide: Router, useValue: router },
         { provide: SubmissionRestService, useValue: restService },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
@@ -901,7 +899,7 @@ describe('SubmissionService test suite', () => {
 
   describe('startAutoSave', () => {
     it('should start Auto Save', fakeAsync(() => {
-      const duration = config.submission.autosave.timer * (1000 * 60);
+      const duration = environment.submission.autosave.timer * (1000 * 60);
 
       service.startAutoSave('826');
       const sub = (service as any).timer$.subscribe();

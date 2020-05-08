@@ -17,8 +17,8 @@ import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE } from './my-dspace-page.component';
 import { RouteService } from '../core/services/route.service';
-import { routeServiceStub } from '../shared/testing/route-service-stub';
-import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
+import { routeServiceStub } from '../shared/testing/route-service.stub';
+import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service.stub';
 import { SearchService } from '../core/shared/search/search.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
@@ -26,8 +26,8 @@ import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { RoleService } from '../core/roles/role.service';
-import { MockRoleService } from '../shared/mocks/mock-role-service';
-import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
+import { RoleServiceMock } from '../shared/mocks/role-service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;
@@ -118,7 +118,7 @@ describe('MyDSpacePageComponent', () => {
         },
         {
           provide: RoleService,
-          useValue: new MockRoleService()
+          useValue: new RoleServiceMock()
         },
       ],
       schemas: [NO_ERRORS_SCHEMA]

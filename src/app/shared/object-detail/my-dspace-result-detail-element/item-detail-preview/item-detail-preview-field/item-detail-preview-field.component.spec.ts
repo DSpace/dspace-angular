@@ -8,7 +8,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { MockTranslateLoader } from '../../../../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 
 let component: ItemDetailPreviewFieldComponent;
@@ -52,7 +52,7 @@ describe('ItemDetailPreviewFieldComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],
