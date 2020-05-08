@@ -23,11 +23,12 @@ import { join } from 'path';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
+import { environment } from './src/environments/environment';
 
 // Express server
 const app = express();
 
-const PORT = process.env.PORT || 4000;
+const PORT = environment.ui.port || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
