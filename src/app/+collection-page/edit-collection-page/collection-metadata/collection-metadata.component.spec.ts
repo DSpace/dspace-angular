@@ -23,13 +23,17 @@ describe('CollectionMetadataComponent', () => {
   let itemTemplateService: ItemTemplateDataService;
 
   const template = Object.assign(new Item(), {
-    self: 'template-selflink'
+    _links: {
+      self: { href: 'template-selflink' }
+    }
   });
   const collection = Object.assign(new Collection(), {
     uuid: 'collection-id',
     id: 'collection-id',
     name: 'Fake Collection',
-    self: 'collection-selflink'
+    _links: {
+      self: { href: 'collection-selflink' }
+    }
   });
 
   const itemTemplateServiceStub = Object.assign({

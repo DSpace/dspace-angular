@@ -29,7 +29,7 @@ describe('EditItemTemplatePageComponent', () => {
       declarations: [EditItemTemplatePageComponent],
       providers: [
         { provide: ItemTemplateDataService, useValue: {} },
-        { provide: ActivatedRoute, useValue: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } }
+        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
