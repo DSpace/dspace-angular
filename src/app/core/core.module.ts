@@ -143,6 +143,7 @@ import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
+import { LocaleInterceptor } from './locale/locale.interceptor';
 import { AuthorityTreeviewService } from '../shared/authority-treeview/authority-treeview.service';
 import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { Authority } from './integration/models/authority.model';
@@ -271,6 +272,12 @@ const PROVIDERS = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
+    multi: true
+  },
+  // register LocaleInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LocaleInterceptor,
     multi: true
   },
   NotificationsService,
