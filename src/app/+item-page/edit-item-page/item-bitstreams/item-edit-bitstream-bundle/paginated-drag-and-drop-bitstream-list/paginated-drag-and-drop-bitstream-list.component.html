@@ -1,0 +1,30 @@
+<ds-pagination *ngIf="(objectsRD$ | async)?.payload"
+               [hideGear]="true"
+               [hidePagerWhenSinglePage]="true"
+               [hidePaginationDetail]="true"
+               [paginationOptions]="options"
+               [pageInfoState]="(objectsRD$ | async)?.payload"
+               [collectionSize]="(objectsRD$ | async)?.payload?.totalElements"
+               [disableRouteParameterUpdate]="true"
+               (pageChange)="switchPage($event)">
+  <div [id]="bundle.id" class="bundle-bitstreams-list"
+       [ngClass]="{'mb-3': (objectsRD$ | async)?.payload?.totalElements > pageSize}"
+       *ngVar="((updates$ | async) | dsObjectValues) as updateValues" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div class="row bitstream-row" *ngFor="let updateValue of updateValues" cdkDrag
+         [id]="updateValue.field.uuid"
+         [ngClass]="{
+                  'table-warning': updateValue.changeType === 0,
+                  'table-danger': updateValue.changeType === 2,
+                  'table-success': updateValue.changeType === 1,
+                  'bg-white': updateValue.changeType === undefined
+                }">
+      <ds-item-edit-bitstream [fieldUpdate]="updateValue"
+                              [bundleUrl]="bundle.self"
+                              [columnSizes]="columnSizes">
+        <div class="d-flex align-items-center" slot="drag-handle" cdkDragHandle>
+          <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
+        </div>
+      </ds-item-edit-bitstream>
+    </div>
+  </div>
+</ds-pagination>

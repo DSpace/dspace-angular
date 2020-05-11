@@ -342,7 +342,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.access_control_groups',
-          link: ''
+          link: '/admin/access-control/groups'
         } as LinkMenuItemModel,
       },
       {

@@ -10,13 +10,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { cold } from 'jasmine-marbles';
 
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service-stub';
-import { mockSubmissionId, mockSubmissionRestResponse } from '../../../shared/mocks/mock-submission';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { mockSubmissionId, mockSubmissionRestResponse } from '../../../shared/mocks/submission.mock';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service-stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -24,7 +24,7 @@ import { Community } from '../../../core/shared/community.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Collection } from '../../../core/shared/collection.model';
-import { createTestComponent } from '../../../shared/testing/utils';
+import { createTestComponent } from '../../../shared/testing/utils.test';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 
 const subcommunities = [Object.assign(new Community(), {

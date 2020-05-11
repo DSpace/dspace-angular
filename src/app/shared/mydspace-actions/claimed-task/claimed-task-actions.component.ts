@@ -1,13 +1,12 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { isNotUndefined } from '../../empty.util';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -15,6 +14,9 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestService } from '../../../core/data/request.service';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
+import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
+import { WORKFLOW_TASK_OPTION_RETURN_TO_POOL } from './return-to-pool/claimed-task-actions-return-to-pool.component';
 
 /**
  * This component represents actions related to ClaimedTask object.
@@ -37,19 +39,15 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
   public workflowitem$: Observable<WorkflowItem>;
 
   /**
-   * A boolean representing if an approve operation is pending
+   * The workflow action available for this task
    */
-  public processingApprove$ = new BehaviorSubject<boolean>(false);
+  public actionRD$: Observable<RemoteData<WorkflowAction>>;
 
   /**
-   * A boolean representing if a reject operation is pending
+   * The option used to render the "return to pool" component
+   * Every claimed task contains this option
    */
-  public processingReject$ = new BehaviorSubject<boolean>(false);
-
-  /**
-   * A boolean representing if a return to pool operation is pending
-   */
-  public processingReturnToPool$ = new BehaviorSubject<boolean>(false);
+  public returnToPoolOption = WORKFLOW_TASK_OPTION_RETURN_TO_POOL;
 
   /**
    * Initialize instance variables
@@ -60,13 +58,15 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    * @param {TranslateService} translate
    * @param {SearchService} searchService
    * @param {RequestService} requestService
+   * @param workflowActionService
    */
   constructor(protected injector: Injector,
               protected router: Router,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService,
               protected searchService: SearchService,
-              protected requestService: RequestService) {
+              protected requestService: RequestService,
+              protected workflowActionService: WorkflowActionDataService) {
     super(ClaimedTask.type, injector, router, notificationsService, translate, searchService, requestService);
   }
 
@@ -75,6 +75,7 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    */
   ngOnInit() {
     this.initObjects(this.object);
+    this.initAction(this.object);
   }
 
   /**
@@ -90,39 +91,12 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
   }
 
   /**
-   * Approve the task.
+   * Init the WorkflowAction
+   *
+   * @param object
    */
-  approve() {
-    this.processingApprove$.next(true);
-    this.objectDataService.approveTask(this.object.id)
-      .subscribe((res: ProcessTaskResponse) => {
-        this.processingApprove$.next(false);
-        this.handleActionResponse(res.hasSucceeded);
-      });
-  }
-
-  /**
-   * Reject the task.
-   */
-  reject(reason) {
-    this.processingReject$.next(true);
-    this.objectDataService.rejectTask(reason, this.object.id)
-      .subscribe((res: ProcessTaskResponse) => {
-        this.processingReject$.next(false);
-        this.handleActionResponse(res.hasSucceeded);
-      });
-  }
-
-  /**
-   * Return task to the pool.
-   */
-  returnToPool() {
-    this.processingReturnToPool$.next(true);
-    this.objectDataService.returnToPoolTask(this.object.id)
-      .subscribe((res: ProcessTaskResponse) => {
-        this.processingReturnToPool$.next(false);
-        this.handleActionResponse(res.hasSucceeded);
-      });
+  initAction(object: ClaimedTask) {
+    this.actionRD$ = object.action;
   }
 
 }

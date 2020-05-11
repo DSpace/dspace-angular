@@ -11,7 +11,6 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -49,20 +48,19 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
   entityType$: Observable<ItemType>;
 
   constructor(
-    protected itemService: ItemDataService,
-    protected objectUpdatesService: ObjectUpdatesService,
-    protected router: Router,
-    protected notificationsService: NotificationsService,
-    protected translateService: TranslateService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    protected route: ActivatedRoute,
-    protected relationshipService: RelationshipService,
-    protected objectCache: ObjectCacheService,
-    protected requestService: RequestService,
-    protected entityTypeService: EntityTypeService,
-    protected cdr: ChangeDetectorRef,
+    public itemService: ItemDataService,
+    public objectUpdatesService: ObjectUpdatesService,
+    public router: Router,
+    public notificationsService: NotificationsService,
+    public translateService: TranslateService,
+    public route: ActivatedRoute,
+    public relationshipService: RelationshipService,
+    public objectCache: ObjectCacheService,
+    public requestService: RequestService,
+    public entityTypeService: EntityTypeService,
+    public cdr: ChangeDetectorRef,
   ) {
-    super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
+    super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
 
   /**

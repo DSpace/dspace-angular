@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CoreState } from '../core.reducers';
@@ -52,8 +52,7 @@ describe('ClaimedTaskDataService', () => {
     options.headers = headers;
   });
 
-  describe('approveTask', () => {
-
+  describe('submitTask', () => {
     it('should call postToEndpoint method', () => {
       const scopeId = '1234';
       const body = {
@@ -63,33 +62,13 @@ describe('ClaimedTaskDataService', () => {
       spyOn(service, 'postToEndpoint');
       requestService.uriEncodeBody.and.returnValue(body);
 
-      service.approveTask(scopeId);
-
-      expect(service.postToEndpoint).toHaveBeenCalledWith(linkPath, body, scopeId, options);
-    });
-  });
-
-  describe('rejectTask', () => {
-
-    it('should call postToEndpoint method', () => {
-      const scopeId = '1234';
-      const reason = 'test reject';
-      const body = {
-        submit_reject: 'true',
-        reason
-      };
-
-      spyOn(service, 'postToEndpoint');
-      requestService.uriEncodeBody.and.returnValue(body);
-
-      service.rejectTask(reason, scopeId);
+      service.submitTask(scopeId, body);
 
       expect(service.postToEndpoint).toHaveBeenCalledWith(linkPath, body, scopeId, options);
     });
   });
 
   describe('returnToPoolTask', () => {
-
     it('should call deleteById method', () => {
       const scopeId = '1234';
 

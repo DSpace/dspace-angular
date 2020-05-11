@@ -13,6 +13,8 @@ import { HALLink } from '../../shared/hal-link.model';
 import { WorkflowItem } from '../../submission/models/workflowitem.model';
 import { TASK_OBJECT } from './task-object.resource-type';
 import { WORKFLOWITEM } from '../../eperson/models/workflowitem.resource-type';
+import { WORKFLOW_ACTION } from './workflow-action-object.resource-type';
+import { WorkflowAction } from './workflow-action-object.model';
 
 /**
  * An abstract model class for a TaskObject.
@@ -35,12 +37,6 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
   step: string;
 
   /**
-   * The task action type
-   */
-  @autoserialize
-  action: string;
-
-  /**
    * The {@link HALLink}s for this TaskObject
    */
   @deserialize
@@ -49,6 +45,7 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
     owner: HALLink;
     group: HALLink;
     workflowitem: HALLink;
+    action: HALLink;
   };
 
   /**
@@ -70,6 +67,14 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
    * Will be undefined unless the workflowitem {@link HALLink} has been resolved.
    */
   @link(WORKFLOWITEM)
-  workflowitem?: Observable<RemoteData<WorkflowItem>> | WorkflowItem;
+  /* This was changed from 'WorkflowItem | Observable<RemoteData<WorkflowItem>>' to 'any' to prevent issues in templates with async */
+  workflowitem?: any;
+
+  /**
+   * The task action type
+   * Will be undefined unless the group {@link HALLink} has been resolved.
+   */
+  @link(WORKFLOW_ACTION, false, 'action')
+  action: Observable<RemoteData<WorkflowAction>>;
 
 }

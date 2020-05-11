@@ -1,27 +1,18 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  Input, NgZone,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { filter, map, startWith, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing.module';
 import { getCommunityPageRoute } from '../../+community-page/community-page-routing.module';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { Router, ActivatedRoute, RouterModule, UrlSegment, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
-import { hasValue } from '../empty.util';
+import { environment } from '../../../environments/environment';
 
 export interface ComColPageNavOption {
   id: string;
-  label: string,
-  routerLink: string
+  label: string;
+  routerLink: string;
   params?: any;
-};
+}
 
 /**
  * A component to display the "Browse By" section of a Community or Collection page
@@ -48,13 +39,12 @@ export class ComcolPageBrowseByComponent implements OnInit {
   currentOptionId$: Observable<string>;
 
   constructor(
-    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
     private route: ActivatedRoute,
     private router: Router) {
   }
 
   ngOnInit(): void {
-    this.allOptions = this.config.browseBy.types
+    this.allOptions = environment.browseBy.types
       .map((config: BrowseByTypeConfig) => ({
         id: config.id,
         label: `browse.comcol.by.${config.id}`,

@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
 import { ObjectUpdatesService } from './object-updates.service';
 import {
+  AddPageToCustomOrderAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
   InitializeFieldsAction, ReinstateObjectUpdatesAction, RemoveFieldUpdateAction, SelectVirtualMetadataAction,
@@ -12,6 +13,8 @@ import { Notification } from '../../../shared/notifications/models/notification.
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { OBJECT_UPDATES_TRASH_PATH } from './object-updates.reducer';
 import {Relationship} from '../../shared/item-relationships/relationship.model';
+import { MoveOperation } from 'fast-json-patch/lib/core';
+import { ArrayMoveChangeAnalyzer } from '../array-move-change-analyzer.service';
 
 describe('ObjectUpdatesService', () => {
   let service: ObjectUpdatesService;
@@ -44,7 +47,7 @@ describe('ObjectUpdatesService', () => {
     };
     store = new Store<CoreState>(undefined, undefined, undefined);
     spyOn(store, 'dispatch');
-    service = (new ObjectUpdatesService(store));
+    service = new ObjectUpdatesService(store, new ArrayMoveChangeAnalyzer<string>());
 
     spyOn(service as any, 'getObjectEntry').and.returnValue(observableOf(objectEntry));
     spyOn(service as any, 'getFieldState').and.callFake((uuid) => {
@@ -57,6 +60,25 @@ describe('ObjectUpdatesService', () => {
     it('should dispatch an INITIALIZE action with the correct URL, initial identifiables and the last modified date', () => {
       service.initialize(url, identifiables, modDate);
       expect(store.dispatch).toHaveBeenCalledWith(new InitializeFieldsAction(url, identifiables, modDate));
+    });
+  });
+
+  describe('initializeWithCustomOrder', () => {
+    const pageSize = 20;
+    const page = 0;
+
+    it('should dispatch an INITIALIZE action with the correct URL, initial identifiables, last modified , custom order, page size and page', () => {
+      service.initializeWithCustomOrder(url, identifiables, modDate, pageSize, page);
+      expect(store.dispatch).toHaveBeenCalledWith(new InitializeFieldsAction(url, identifiables, modDate, identifiables.map((identifiable) => identifiable.uuid), pageSize, page));
+    });
+  });
+
+  describe('addPageToCustomOrder', () => {
+    const page = 2;
+
+    it('should dispatch an ADD_PAGE_TO_CUSTOM_ORDER action with the correct URL, identifiables, custom order and page number to add', () => {
+      service.addPageToCustomOrder(url, identifiables, page);
+      expect(store.dispatch).toHaveBeenCalledWith(new AddPageToCustomOrderAction(url, identifiables, identifiables.map((identifiable) => identifiable.uuid), page));
     });
   });
 
@@ -73,6 +95,66 @@ describe('ObjectUpdatesService', () => {
 
       result$.subscribe((result) => {
         expect(result).toEqual(expectedResult);
+      });
+    });
+  });
+
+  describe('getFieldUpdatesExclusive', () => {
+    it('should return the list of all fields, including their update if there is one, excluding updates that aren\'t part of the initial values provided', (done) => {
+      const result$ = service.getFieldUpdatesExclusive(url, identifiables);
+      expect((service as any).getObjectEntry).toHaveBeenCalledWith(url);
+
+      const expectedResult = {
+        [identifiable1.uuid]: { field: identifiable1Updated, changeType: FieldChangeType.UPDATE },
+        [identifiable2.uuid]: { field: identifiable2, changeType: undefined }
+      };
+
+      result$.subscribe((result) => {
+        expect(result).toEqual(expectedResult);
+        done();
+      });
+    });
+  });
+
+  describe('getFieldUpdatesByCustomOrder', () => {
+    beforeEach(() => {
+      const fieldStates = {
+        [identifiable1.uuid]: { editable: false, isNew: false, isValid: true },
+        [identifiable2.uuid]: { editable: true, isNew: false, isValid: false },
+        [identifiable3.uuid]: { editable: true, isNew: true, isValid: true },
+      };
+
+      const customOrder = {
+        initialOrderPages: [{
+          order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid]
+        }],
+        newOrderPages: [{
+          order: [identifiable2.uuid, identifiable3.uuid, identifiable1.uuid]
+        }],
+        pageSize: 20,
+        changed: true
+      };
+
+      const objectEntry = {
+        fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}, customOrder
+      };
+
+      (service as any).getObjectEntry.and.returnValue(observableOf(objectEntry))
+    });
+
+    it('should return the list of all fields, including their update if there is one, ordered by their custom order', (done) => {
+      const result$ = service.getFieldUpdatesByCustomOrder(url, identifiables);
+      expect((service as any).getObjectEntry).toHaveBeenCalledWith(url);
+
+      const expectedResult = {
+        [identifiable2.uuid]: { field: identifiable2, changeType: undefined },
+        [identifiable3.uuid]: { field: identifiable3, changeType: FieldChangeType.ADD },
+        [identifiable1.uuid]: { field: identifiable1Updated, changeType: FieldChangeType.UPDATE }
+      };
+
+      result$.subscribe((result) => {
+        expect(result).toEqual(expectedResult);
+        done();
       });
     });
   });
@@ -192,7 +274,11 @@ describe('ObjectUpdatesService', () => {
     });
     describe('when updates are emtpy', () => {
       beforeEach(() => {
-        (service as any).getObjectEntry.and.returnValue(observableOf({}))
+        (service as any).getObjectEntry.and.returnValue(observableOf({
+          customOrder: {
+            changed: false
+          }
+        }))
       });
 
       it('should return false when there are no updates', () => {
@@ -259,4 +345,45 @@ describe('ObjectUpdatesService', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new SelectVirtualMetadataAction(url, relationship.uuid, identifiable1.uuid, true));
     });
   });
+
+  describe('getMoveOperations', () => {
+    beforeEach(() => {
+      const fieldStates = {
+        [identifiable1.uuid]: { editable: false, isNew: false, isValid: true },
+        [identifiable2.uuid]: { editable: true, isNew: false, isValid: false },
+        [identifiable3.uuid]: { editable: true, isNew: true, isValid: true },
+      };
+
+      const customOrder = {
+        initialOrderPages: [{
+          order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid]
+        }],
+        newOrderPages: [{
+          order: [identifiable2.uuid, identifiable3.uuid, identifiable1.uuid]
+        }],
+        pageSize: 20,
+        changed: true
+      };
+
+      const objectEntry = {
+        fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}, customOrder
+      };
+
+      (service as any).getObjectEntry.and.returnValue(observableOf(objectEntry))
+    });
+
+    it('should return the expected move operations', (done) => {
+      const result$ = service.getMoveOperations(url);
+
+      const expectedResult = [
+        { op: 'move', from: '/0', path: '/2' }
+      ] as MoveOperation[];
+
+      result$.subscribe((result) => {
+        expect(result).toEqual(expectedResult);
+        done();
+      });
+    });
+  });
+
 });

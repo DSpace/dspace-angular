@@ -10,7 +10,7 @@ export class ObjectKeysPipe implements PipeTransform {
    * @param value An object
    * @returns {any} Array with all keys the input object
    */
-  transform(value, args: string[]): any {
+  transform(value): any {
     const keys = [];
     Object.keys(value).forEach((k) => keys.push(k));
     return keys;

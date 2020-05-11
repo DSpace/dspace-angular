@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -14,14 +15,15 @@ import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/mock-form-builder-service';
-import { MockTranslateLoader } from '../../../shared/mocks/mock-translate-loader';
-import { getMockTranslateService } from '../../../shared/mocks/mock-translate.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson-mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
+import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -29,10 +31,11 @@ describe('EPeopleRegistryComponent', () => {
   let translateService: TranslateService;
   let builderService: FormBuilderService;
 
-  const mockEPeople = [EPersonMock, EPersonMock2];
+  let mockEPeople;
   let ePersonDataServiceStub: any;
 
   beforeEach(async(() => {
+    mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
       activeEPerson: null,
       allEpeople: mockEPeople,
@@ -50,6 +53,9 @@ describe('EPeopleRegistryComponent', () => {
           return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
         }
         if (scope === 'metadata') {
+          if (query === '') {
+            return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allEpeople));
+          }
           const result = this.allEpeople.find((ePerson: EPerson) => {
             return (ePerson.name.includes(query) || ePerson.email.includes(query))
           });
@@ -71,6 +77,9 @@ describe('EPeopleRegistryComponent', () => {
       },
       clearEPersonRequests(): void {
         // empty
+      },
+      getEPeoplePageRouterLink(): string {
+        return '/admin/access-control/epeople';
       }
     };
     builderService = getMockFormBuilderService();
@@ -80,7 +89,7 @@ describe('EPeopleRegistryComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],
@@ -89,7 +98,7 @@ describe('EPeopleRegistryComponent', () => {
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
-        EPeopleRegistryComponent
+        { provide: Router, useValue: new RouterStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

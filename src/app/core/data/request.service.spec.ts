@@ -4,8 +4,8 @@ import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { BehaviorSubject, EMPTY, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
-import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
+import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
+import { defaultUUID, getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
@@ -22,6 +22,7 @@ import {
 } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
+import { parseJsonSchemaToCommandDescription } from '@angular/cli/utilities/json-schema';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -139,13 +140,21 @@ describe('RequestService', () => {
   describe('getByUUID', () => {
     describe('if the request with the specified UUID exists in the store', () => {
       beforeEach(() => {
+        let callCounter = 0;
+        const responses = [
+          cold('a', { // A direct hit in the request cache
+            a: {
+              completed: true
+            }
+          }),
+          cold('b', { b: undefined }), // No hit in the index
+          cold('c', { c: undefined })  // So no mapped hit in the request cache
+        ];
         selectSpy.and.callFake(() => {
           return () => {
-            return () => hot('a', {
-              a: {
-                completed: true
-              }
-            });
+            const response = responses[callCounter];
+            callCounter++;
+            return () => response;
           };
         });
       });
@@ -162,11 +171,19 @@ describe('RequestService', () => {
       });
     });
 
-    describe('if the request with the specified UUID doesn\'t exist in the store', () => {
+    describe(`if the request with the specified UUID doesn't exist in the store `, () => {
       beforeEach(() => {
+        let callCounter = 0;
+        const responses = [
+          cold('a', { a: undefined }), // No direct hit in the request cache
+          cold('b', { b: undefined }), // No hit in the index
+          cold('c', { c: undefined }), // So no mapped hit in the request cache
+        ];
         selectSpy.and.callFake(() => {
           return () => {
-            return () => hot('a', { a: undefined });
+            const response = responses[callCounter];
+            callCounter++;
+            return () => response;
           };
         });
       });
@@ -174,11 +191,43 @@ describe('RequestService', () => {
       it('should return an Observable of undefined', () => {
         const result = service.getByUUID(testUUID);
 
-        scheduler.expectObservable(result).toBe('b', { b: undefined });
+        scheduler.expectObservable(result).toBe('a', { a: undefined });
       });
     });
 
-  });
+    describe(`if the request with the specified UUID wasn't sent, because it was already cached`, () => {
+      beforeEach(() => {
+        let callCounter = 0;
+        const responses = [
+          cold('a', { a: undefined }), // No direct hit in the request cache with that UUID
+          cold('b', { b: 'otherRequestUUID' }), // A hit in the index, which returns the uuid of the cached request
+          cold('c', {   // the call to retrieve the cached request using the UUID from the index
+            c: {
+              completed: true
+            }
+          })
+        ];
+        selectSpy.and.callFake(() => {
+          return () => {
+            const response = responses[callCounter];
+            callCounter++;
+            return () => response;
+          };
+        });
+      });
+
+      it(`it should return the cached request`, () => {
+        const result = service.getByUUID(testUUID);
+
+        scheduler.expectObservable(result).toBe('c', {
+          c: {
+            completed: true
+          }
+        });
+      });
+    });
+
+    });
 
   describe('getByHref', () => {
     describe('when the request with the specified href exists in the store', () => {

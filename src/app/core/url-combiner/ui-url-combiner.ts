@@ -1,5 +1,5 @@
 import { URLCombiner } from './url-combiner';
-import { GlobalConfig } from '../../../config';
+import { environment } from '../../../environments/environment';
 
 /**
  * Combines a variable number of strings representing parts
@@ -8,7 +8,7 @@ import { GlobalConfig } from '../../../config';
  * TODO write tests once GlobalConfig becomes injectable
  */
 export class UIURLCombiner extends URLCombiner {
-  constructor(EnvConfig: GlobalConfig, ...parts: string[]) {
-    super(EnvConfig.ui.baseUrl, ...parts);
+  constructor(...parts: string[]) {
+    super(environment.ui.baseUrl, ...parts);
   }
 }

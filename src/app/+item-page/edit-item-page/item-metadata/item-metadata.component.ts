@@ -1,19 +1,15 @@
-import { Component, Inject } from '@angular/core';
-import { LinkService } from '../../../core/cache/builders/link.service';
+import { Component } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
-import {
-  Identifiable
-} from '../../../core/data/object-updates/object-updates.reducer';
+import { Identifiable } from '../../../core/data/object-updates/object-updates.reducer';
 import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { TranslateService } from '@ngx-translate/core';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
@@ -37,16 +33,15 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   metadataFields$: Observable<string[]>;
 
   constructor(
-    protected itemService: ItemDataService,
-    protected objectUpdatesService: ObjectUpdatesService,
-    protected router: Router,
-    protected notificationsService: NotificationsService,
-    protected translateService: TranslateService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    protected route: ActivatedRoute,
-    protected metadataFieldService: RegistryService,
+    public itemService: ItemDataService,
+    public objectUpdatesService: ObjectUpdatesService,
+    public router: Router,
+    public notificationsService: NotificationsService,
+    public translateService: TranslateService,
+    public route: ActivatedRoute,
+    public metadataFieldService: RegistryService,
   ) {
-    super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
+    super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
 
   /**
@@ -61,8 +56,8 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Initialize the values and updates of the current item's metadata fields
    */
   public initializeUpdates(): void {
-    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.getMetadataAsListExcludingRelationships());
-  }
+    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
+    }
 
   /**
    * Initialize the prefix for notification messages
@@ -83,7 +78,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
-    this.objectUpdatesService.initialize(this.url, this.getMetadataAsListExcludingRelationships(), this.item.lastModified);
+    this.objectUpdatesService.initialize(this.url, this.item.metadataAsList, this.item.lastModified);
   }
 
   /**

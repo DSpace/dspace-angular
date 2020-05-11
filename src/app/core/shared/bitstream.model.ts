@@ -54,7 +54,7 @@ export class Bitstream extends DSpaceObject implements HALResource {
    * The BitstreamFormat of this Bitstream
    * Will be undefined unless the format {@link HALLink} has been resolved.
    */
-  @link(BITSTREAM_FORMAT)
+  @link(BITSTREAM_FORMAT, false, 'format')
   format?: Observable<RemoteData<BitstreamFormat>>;
 
 }

@@ -14,7 +14,7 @@ import {
   take,
   tap
 } from 'rxjs/operators';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -44,7 +44,8 @@ import {
   FindByIDRequest,
   FindListOptions,
   FindListRequest,
-  GetRequest, PatchRequest
+  GetRequest,
+  PatchRequest
 } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
@@ -475,6 +476,39 @@ export abstract class DataService<T extends CacheableObject> {
    * @return an observable that emits true when the deletion was successful, false when it failed
    */
   delete(dsoID: string, copyVirtualMetadata?: string[]): Observable<boolean> {
+    const requestId = this.deleteAndReturnRequestId(dsoID, copyVirtualMetadata);
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response.isSuccessful)
+    );
+  }
+
+  /**
+   * Delete an existing DSpace Object on the server
+   * @param dsoID The DSpace Object' id to be removed
+   * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * Return an observable of the completed response
+   */
+  deleteAndReturnResponse(dsoID: string, copyVirtualMetadata?: string[]): Observable<RestResponse> {
+    const requestId = this.deleteAndReturnRequestId(dsoID, copyVirtualMetadata);
+
+    return this.requestService.getByUUID(requestId).pipe(
+      hasValueOperator(),
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
+  }
+
+  /**
+   * Delete an existing DSpace Object on the server
+   * @param dsoID The DSpace Object' id to be removed
+   * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * Return the delete request's ID
+   */
+  private deleteAndReturnRequestId(dsoID: string, copyVirtualMetadata?: string[]): string {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
@@ -495,10 +529,7 @@ export abstract class DataService<T extends CacheableObject> {
       })
     ).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response.isSuccessful)
-    );
+    return requestId;
   }
 
   /**

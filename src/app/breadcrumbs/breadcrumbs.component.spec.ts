@@ -5,7 +5,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../shared/testing/mock-translate-loader';
+import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
 import { BreadcrumbConfig } from './breadcrumb/breadcrumb-config.model';
 import { BreadcrumbsService } from '../core/breadcrumbs/breadcrumbs.service';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
@@ -68,7 +68,7 @@ describe('BreadcrumbsComponent', () => {
       imports: [RouterTestingModule.withRoutes([]), TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: MockTranslateLoader
+          useClass: TranslateLoaderMock
         }
       })],
       providers: [

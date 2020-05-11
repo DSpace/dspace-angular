@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { Observable, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowseService } from '../browse/browse.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -47,6 +47,9 @@ describe('ItemDataService', () => {
       return cold('a', { a: itemEndpoint });
     }
   } as HALEndpointService;
+  const bundleService = jasmine.createSpyObj('bundleService', {
+    findByHref: {}
+  });
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
   const options = Object.assign(new FindListOptions(), {
@@ -87,7 +90,8 @@ describe('ItemDataService', () => {
       halEndpointService,
       notificationsService,
       http,
-      comparator
+      comparator,
+      bundleService
     );
   }
 
@@ -205,6 +209,22 @@ describe('ItemDataService', () => {
       service = initTestService();
       spyOn(requestService, 'configure');
       result = service.importExternalSourceEntry(externalSourceEntry, 'collection-id');
+    });
+
+    it('should configure a POST request', () => {
+      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest)));
+    });
+  });
+
+  describe('createBundle', () => {
+    const itemId = '3de6ea60-ec39-419b-ae6f-065930ac1429';
+    const bundleName = 'ORIGINAL';
+    let result;
+
+    beforeEach(() => {
+      service = initTestService();
+      spyOn(requestService, 'configure');
+      result = service.createBundle(itemId, bundleName);
     });
 
     it('should configure a POST request', () => {

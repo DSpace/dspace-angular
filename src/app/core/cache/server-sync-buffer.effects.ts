@@ -1,28 +1,20 @@
 import { delay, exhaustMap, map, switchMap, take } from 'rxjs/operators';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { coreSelector } from '../core.selectors';
-import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
-import {
-  AddToSSBAction,
-  CommitSSBAction,
-  EmptySSBAction,
-  ServerSyncBufferActionTypes
-} from './server-sync-buffer.actions';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
+import { AddToSSBAction, CommitSSBAction, EmptySSBAction, ServerSyncBufferActionTypes } from './server-sync-buffer.actions';
 import { CoreState } from '../core.reducers';
 import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { RequestService } from '../data/request.service';
-import { PatchRequest, PutRequest } from '../data/request.models';
+import { PatchRequest } from '../data/request.models';
 import { ObjectCacheService } from './object-cache.service';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
-import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { environment } from '../../../environments/environment';
 import { ObjectCacheEntry } from './object-cache.reducer';
 import { Operation } from 'fast-json-patch';
 
@@ -39,7 +31,7 @@ export class ServerSyncBufferEffects {
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
       exhaustMap((action: AddToSSBAction) => {
-        const autoSyncConfig = this.EnvConfig.cache.autoSync;
+        const autoSyncConfig = environment.cache.autoSync;
         const timeoutInSeconds = autoSyncConfig.timePerMethod[action.payload.method] || autoSyncConfig.defaultTime;
         return observableOf(new CommitSSBAction(action.payload.method)).pipe(
           delay(timeoutInSeconds * 1000),
@@ -87,7 +79,7 @@ export class ServerSyncBufferEffects {
               return observableOf({ type: 'NO_ACTION' });
             }
           })
-        )
+        );
       })
     );
 
@@ -116,8 +108,7 @@ export class ServerSyncBufferEffects {
   constructor(private actions$: Actions,
               private store: Store<CoreState>,
               private requestService: RequestService,
-              private objectCache: ObjectCacheService,
-              @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
+              private objectCache: ObjectCacheService) {
 
   }
 }

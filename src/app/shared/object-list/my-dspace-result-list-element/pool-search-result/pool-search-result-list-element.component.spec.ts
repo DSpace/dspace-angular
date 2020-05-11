@@ -9,12 +9,12 @@ import { PoolSearchResultListElementComponent } from './pool-search-result-list-
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { LinkService } from '../../../../core/cache/builders/link.service';
-import { getMockLinkService } from '../../../mocks/mock-link-service';
+import { getMockLinkService } from '../../../mocks/link-service.mock';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -86,7 +86,11 @@ describe('PoolSearchResultListElementComponent', () => {
 
   it('should init workflowitem properly', (done) => {
     component.workflowitemRD$.subscribe((workflowitemRD) => {
-      expect(linkService.resolveLink).toHaveBeenCalled();
+      expect(linkService.resolveLinks).toHaveBeenCalledWith(
+        component.dso,
+        jasmine.objectContaining({ name: 'workflowitem' }),
+        jasmine.objectContaining({ name: 'action' })
+      );
       expect(workflowitemRD.payload).toEqual(workflowitem);
       done();
     });
