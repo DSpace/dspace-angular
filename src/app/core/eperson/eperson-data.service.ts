@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch/lib/core';
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, find, map, take } from 'rxjs/operators';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction
@@ -22,7 +22,7 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions, FindListRequest, PatchRequest, } from '../data/request.models';
+import { FindListOptions, FindListRequest, PatchRequest, PostRequest, } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
@@ -165,17 +165,17 @@ export class EPersonDataService extends DataService<EPerson> {
     if (hasValue(oldEPerson.email) && oldEPerson.email !== newEPerson.email) {
       operations = [...operations, {
         op: 'replace', path: '/email', value: newEPerson.email
-      }]
+      }];
     }
     if (hasValue(oldEPerson.requireCertificate) && oldEPerson.requireCertificate !== newEPerson.requireCertificate) {
       operations = [...operations, {
         op: 'replace', path: '/certificate', value: newEPerson.requireCertificate
-      }]
+      }];
     }
     if (hasValue(oldEPerson.canLogIn) && oldEPerson.canLogIn !== newEPerson.canLogIn) {
       operations = [...operations, {
         op: 'replace', path: '/canLogIn', value: newEPerson.canLogIn
-      }]
+      }];
     }
     return operations;
   }
@@ -200,7 +200,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * Method to retrieve the eperson that is currently being edited
    */
   public getActiveEPerson(): Observable<EPerson> {
-    return this.store.pipe(select(editEPersonSelector))
+    return this.store.pipe(select(editEPersonSelector));
   }
 
   /**
@@ -247,6 +247,27 @@ export class EPersonDataService extends DataService<EPerson> {
    */
   public getEPeoplePageRouterLink(): string {
     return '/admin/access-control/epeople';
+  }
+
+  /**
+   * Create a new EPerson using a token
+   * @param eperson
+   * @param token
+   */
+  public createEPersonForToken(eperson: EPerson, token: string) {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getBrowseEndpoint().pipe(
+      map((href: string) => `${href}?token=${token}`));
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PostRequest(requestId, href, eperson);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.fetchResponse(requestId);
+
   }
 
 }

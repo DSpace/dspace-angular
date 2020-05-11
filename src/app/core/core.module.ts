@@ -145,6 +145,8 @@ import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
+import { EpersonRegistrationService } from './data/eperson-registration.service';
+import { Registration } from './shared/registration.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -314,7 +316,8 @@ export const models =
     ExternalSourceEntry,
     Version,
     VersionHistory,
-    WorkflowAction
+    WorkflowAction,
+    Registration
   ];
 
 @NgModule({

@@ -71,6 +71,7 @@ export function getDSOPath(dso: DSpaceObject): string {
       { path: 'community-list', loadChildren: './community-list-page/community-list-page.module#CommunityListPageModule' },
       { path: 'id', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
       { path: 'handle', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
+      { path: 'register', loadChildren: './register-page/register-page.module#RegisterPageModule' },
       { path: COMMUNITY_MODULE_PATH, loadChildren: './+community-page/community-page.module#CommunityPageModule' },
       { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
       { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },

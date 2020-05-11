@@ -15,6 +15,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { ContentSource } from '../shared/content-source.model';
+import { Registration } from '../shared/registration.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -296,6 +297,19 @@ export class FilteredDiscoveryQueryResponse extends RestResponse {
 export class ContentSourceSuccessResponse extends RestResponse {
   constructor(
     public contentsource: ContentSource,
+    public statusCode: number,
+    public statusText: string,
+  ) {
+    super(true, statusCode, statusText);
+  }
+}
+
+/**
+ * A successful response containing a Registration
+ */
+export class RegistrationSuccessResponse extends RestResponse {
+  constructor(
+    public registration: Registration,
     public statusCode: number,
     public statusText: string,
   ) {
