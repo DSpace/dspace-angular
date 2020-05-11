@@ -3,8 +3,8 @@ import { async, TestBed } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { CookieService } from '../services/cookie.service';
-import { MockCookieService } from '../../shared/mocks/mock-cookie.service';
-import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
+import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { LANG_COOKIE, LocaleService } from './locale.service';
 
 describe('LocaleService test suite', () => {
@@ -15,10 +15,6 @@ describe('LocaleService test suite', () => {
   let spyOnGet;
   let spyOnSet;
 
-  const config: any = {
-    defaultLanguage: 'en'
-  };
-
   const langList = ['en', 'it', 'de'];
 
   beforeEach(async(() => {
@@ -27,12 +23,12 @@ describe('LocaleService test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],
       providers: [
-        { provide: CookieService, useValue: new MockCookieService() },
+        { provide: CookieService, useValue: new CookieServiceMock() },
       ]
     });
   }));
@@ -40,7 +36,7 @@ describe('LocaleService test suite', () => {
   beforeEach(() => {
     cookieService = TestBed.get(CookieService);
     translateService = TestBed.get(TranslateService);
-    service = new LocaleService(config, cookieService, translateService);
+    service = new LocaleService(cookieService, translateService);
     serviceAsAny = service;
     spyOnGet = spyOn(cookieService, 'get');
     spyOnSet = spyOn(cookieService, 'set');

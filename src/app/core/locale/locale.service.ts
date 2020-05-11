@@ -1,10 +1,10 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
 import { isEmpty } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { environment } from '../../../environments/environment';
 
 export const LANG_COOKIE = 'language_cookie';
 
@@ -17,7 +17,6 @@ export const LANG_COOKIE = 'language_cookie';
 export class LocaleService {
 
   constructor(
-    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
     private cookie: CookieService,
     private translate: TranslateService) {
   }
@@ -36,7 +35,7 @@ export class LocaleService {
       if (this.translate.getLangs().includes(this.translate.getBrowserLang())) {
         lang = this.translate.getBrowserLang();
       } else {
-        lang = this.config.defaultLanguage;
+        lang = environment.defaultLanguage;
       }
     }
 
