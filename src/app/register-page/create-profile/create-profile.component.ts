@@ -23,7 +23,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   templateUrl: './create-profile.component.html'
 })
 export class CreateProfileComponent implements OnInit {
-  private registration$: Observable<Registration>;
+  registration$: Observable<Registration>;
 
   email: string;
   token: string;
