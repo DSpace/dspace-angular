@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf } from 'rxjs';
@@ -17,9 +17,9 @@ import { DuplicateDecision } from '../models/duplicate-decision.model';
 import { DuplicateDecisionType } from '../models/duplicate-decision-type';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { SectionsService } from '../../sections.service';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../../config';
 import { DuplicateMatchMetadataDetailConfig } from '../models/duplicate-detail-metadata.model';
 import { DetectDuplicateMatch } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
+import { environment } from '../../../../../environments/environment';
 
 /**
  * This component shows a single possible duplication within the duplications section.
@@ -64,7 +64,7 @@ export class DuplicateMatchComponent implements OnInit {
    * The search result object.
    * @type {object}
    */
-  object = {hitHighlights: []};
+  object = { hitHighlights: [] };
 
   /**
    * A possible duplication match object item.
@@ -171,7 +171,6 @@ export class DuplicateMatchComponent implements OnInit {
   /**
    * Initialize instance variables.
    *
-   * @param {GlobalConfig} EnvConfig
    * @param {DetectDuplicateService} detectDuplicateService
    * @param {FormBuilder} formBuilder
    * @param {NgbModal} modalService
@@ -180,15 +179,14 @@ export class DuplicateMatchComponent implements OnInit {
    * @param {SubmissionService} submissionService
    * @param {TranslateService} translate
    */
-  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              private detectDuplicateService: DetectDuplicateService,
+  constructor(private detectDuplicateService: DetectDuplicateService,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private sectionService: SectionsService,
               private submissionService: SubmissionService,
               private translate: TranslateService) {
-    this.metadataList = this.EnvConfig.submission.detectDuplicate.metadataDetailsList || [];
+    this.metadataList = environment.submission.detectDuplicate.metadataDetailsList || [];
   }
 
   /**

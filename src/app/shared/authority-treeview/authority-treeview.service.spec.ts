@@ -6,7 +6,7 @@ import { getTestScheduler, hot } from 'jasmine-marbles';
 
 import { AuthorityTreeviewService } from './authority-treeview.service';
 import { AuthorityService } from '../../core/integration/authority.service';
-import { MockTranslateLoader } from '../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { IntegrationSearchOptions } from '../../core/integration/models/integration-options.model';
 import { LOAD_MORE_NODE, LOAD_MORE_ROOT_NODE, TreeviewFlatNode, TreeviewNode } from './authority-treeview-node.model';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -141,7 +141,7 @@ describe('AuthorityTreeviewService test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

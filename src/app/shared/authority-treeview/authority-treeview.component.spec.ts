@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { createTestComponent } from '../testing/utils';
+import { createTestComponent } from '../testing/utils.test';
 import { IntegrationSearchOptions } from '../../core/integration/models/integration-options.model';
 import { AuthorityTreeviewComponent } from './authority-treeview.component';
 import { AuthorityTreeviewService } from './authority-treeview.service';

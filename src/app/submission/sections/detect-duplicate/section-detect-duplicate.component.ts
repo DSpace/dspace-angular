@@ -142,12 +142,9 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
    * @return Observable<number>
    *     the number of possible duplications
    */
-  protected getTotalMatches(): Observable<number> {
+  getTotalMatches(): Observable<number> {
     return this.sectionData$.pipe(
-      map((totalMatches: any) => {
-        const output = Object.keys(totalMatches.matches).length;
-        return output;
-      })
+      map((totalMatches: any) => Object.keys(totalMatches.matches).length)
     );
   }
 

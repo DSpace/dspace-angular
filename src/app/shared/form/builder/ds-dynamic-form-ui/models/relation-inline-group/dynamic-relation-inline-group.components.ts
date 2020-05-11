@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { of as observableOf } from 'rxjs';
@@ -20,8 +20,6 @@ import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
 import { isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
-import { GlobalConfig } from '../../../../../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { DynamicRowArrayModel, DynamicRowArrayModelConfig } from '../ds-dynamic-row-array-model';
 import { setLayout } from '../../../parsers/parser.utils';
@@ -50,8 +48,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
 
   @ViewChild('formRef', {static: false}) private formRef: FormComponent;
 
-  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              private authorityService: AuthorityService,
+  constructor(private authorityService: AuthorityService,
               private formBuilderService: FormBuilderService,
               private formService: FormService,
               protected layoutService: DynamicFormLayoutService,

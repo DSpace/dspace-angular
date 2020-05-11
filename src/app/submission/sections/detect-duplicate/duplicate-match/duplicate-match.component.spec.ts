@@ -11,20 +11,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { DuplicateMatchComponent } from './duplicate-match.component';
-import { SubmissionServiceStub } from '../../../../shared/testing/submission-service-stub';
+import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../../../submission.service';
 import { SectionsService } from '../../sections.service';
-import { SectionsServiceStub } from '../../../../shared/testing/sections-service-stub';
+import { SectionsServiceStub } from '../../../../shared/testing/sections-service.stub';
 import { DetectDuplicateService } from '../detect-duplicate.service';
 import { getMockDetectDuplicateService } from '../../../../shared/mocks/mock-detect-duplicate-service';
-import { ENV_CONFIG, GLOBAL_CONFIG } from '../../../../../config';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { MockStore } from '../../../../shared/testing/mock-store';
+import { StoreMock } from '../../../../shared/testing/store.mock';
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { DetectDuplicateMatch } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { DuplicateDecisionType } from '../models/duplicate-decision-type';
 import { DuplicateDecision } from '../models/duplicate-decision.model';
-import { createTestComponent } from '../../../../shared/testing/utils';
+import { createTestComponent } from '../../../../shared/testing/utils.test';
 
 const metadata = [
   {
@@ -304,14 +303,13 @@ describe('DuplicateMatchComponent test suite', () => {
         TestComponent,
       ],
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: DetectDuplicateService, useClass: getMockDetectDuplicateService },
         FormBuilder,
         NgbModal,
         JsonPatchOperationsBuilder,
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
-        { provide: Store, useValue: MockStore },
+        { provide: Store, useValue: StoreMock },
         DuplicateMatchComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA]

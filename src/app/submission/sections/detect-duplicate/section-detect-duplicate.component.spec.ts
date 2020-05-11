@@ -3,46 +3,39 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { cold, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import {
-  DynamicCheckboxModel,
-  DynamicFormControlEvent,
-  DynamicFormControlEventType
-} from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$, createTestComponent } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SubmissionService } from '../../submission.service';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service-stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SectionsService } from '../sections.service';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service-stub';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { getMockFormOperationsService } from '../../../shared/mocks/mock-form-operations-service';
-import { getMockFormService } from '../../../shared/mocks/mock-form-service';
+import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { FormService } from '../../../shared/form/form.service';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId
-} from '../../../shared/mocks/mock-submission';
+import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/submission.mock';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionSectionDetectDuplicateComponent } from './section-detect-duplicate.component';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { cold, hot } from 'jasmine-marbles';
 import { DetectDuplicateService } from './detect-duplicate.service';
 import { getMockDetectDuplicateService } from '../../../shared/mocks/mock-detect-duplicate-service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { License } from '../../../core/shared/license.model';
 import { Collection } from '../../../core/shared/collection.model';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -77,15 +70,6 @@ const sectionObject: SectionDataObject = {
   sectionType: SectionsType.License
 };
 
-const dynamicFormControlEvent: DynamicFormControlEvent = {
-  $event: new Event('change'),
-  context: null,
-  control: null,
-  group: null,
-  model: null,
-  type: DynamicFormControlEventType.Change
-};
-
 describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
   let comp: SubmissionSectionDetectDuplicateComponent;
   let compAsAny: any;
@@ -99,7 +83,6 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
 
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
-  const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
   const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
     add: jasmine.createSpy('add'),
     replace: jasmine.createSpy('replace'),
@@ -148,7 +131,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
-        { provide: DetectDuplicateService, useClass: getMockDetectDuplicateService},
+        { provide: DetectDuplicateService, useClass: getMockDetectDuplicateService },
         ChangeDetectorRef,
         FormBuilderService,
         SubmissionSectionDetectDuplicateComponent
@@ -206,7 +189,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
 
       compAsAny.detectDuplicateService.getDuplicateMatchesByScope.and.returnValue(
         hot('(a|)', {
-         a: { dummy: 1 }
+          a: { dummy: 1 }
         })
       );
       compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
@@ -228,7 +211,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
 
       compAsAny.detectDuplicateService.getDuplicateMatchesByScope.and.returnValue(
         hot('(a|)', {
-         a: { dummy: 1 }
+          a: { dummy: 1 }
         })
       );
       compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
@@ -244,21 +227,21 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
     });
 
     it('Should return TRUE if the sectionData is empty', () => {
-      compAsAny.sectionData$ = observableOf({ matches: []});
+      compAsAny.sectionData$ = observableOf({ matches: [] });
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
         a: true
       }));
     });
 
     it('Should return FALSE if the sectionData is not empty', () => {
-      compAsAny.sectionData$ = observableOf({ matches: [ { dummy: 1 } ] });
+      compAsAny.sectionData$ = observableOf({ matches: [{ dummy: 1 }] });
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
         a: false
       }));
     });
 
     it('Should return the length of the sectionData$', () => {
-      compAsAny.sectionData$ = observableOf({ matches: [ { dummy: 1 }, { dummy: 2 }]});
+      compAsAny.sectionData$ = observableOf({ matches: [{ dummy: 1 }, { dummy: 2 }] });
       expect(compAsAny.getTotalMatches()).toBeObservable(cold('(a|)', {
         a: 2
       }));

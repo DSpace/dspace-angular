@@ -1,17 +1,18 @@
 import * as ngrx from '@ngrx/store';
-import { StoreModule, Store } from '@ngrx/store';
-import { TestBed, async } from '@angular/core/testing';
+import { Store, StoreModule } from '@ngrx/store';
+import { async, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold, hot } from 'jasmine-marbles';
+
 import { DetectDuplicateService } from './detect-duplicate.service';
-import { submissionReducers, SubmissionState } from '../../submission.reducers';
+import { submissionReducers } from '../../submission.reducers';
 import {
-  mockSubmissionState,
   mockDeduplicationMatches,
-  mockSubmissionId,
+  mockDeduplicationSubmitterId,
   mockDeduplicationWorkflowId,
-  mockDeduplicationSubmitterId
-} from '../../../shared/mocks/mock-submission';
+  mockSubmissionId,
+  mockSubmissionState
+} from '../../../shared/mocks/submission.mock';
 import { SetDuplicateDecisionAction } from '../../objects/submission-objects.actions';
 
 describe('DetectDuplicateService', () => {
