@@ -2,13 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { WorkflowItemActionPageComponent } from './workflow-item-action-page.component';
-import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
-import { ActivatedRouteStub } from '../shared/testing/active-router-stub';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service-stub';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { RouteService } from '../core/services/route.service';
-import { RouterStub } from '../shared/testing/router-stub';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,6 +11,11 @@ import { WorkflowItem } from '../core/submission/models/workflowitem.model';
 import { Observable, of as observableOf } from 'rxjs';
 import { VarDirective } from '../shared/utils/var.directive';
 import { By } from '@angular/platform-browser';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { RouterStub } from '../shared/testing/router.stub';
+import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 
 const type = 'testType';
 describe('WorkflowItemActionPageComponent', () => {
@@ -42,7 +42,7 @@ describe('WorkflowItemActionPageComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: MockTranslateLoader
+          useClass: TranslateLoaderMock
         }
       })],
       declarations: [TestComponent, VarDirective],

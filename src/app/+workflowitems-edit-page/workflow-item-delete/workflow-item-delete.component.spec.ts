@@ -2,21 +2,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../shared/testing/router-stub';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { RouteService } from '../../core/services/route.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
 import { RequestService } from '../../core/data/request.service';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 
 describe('WorkflowItemDeleteComponent', () => {
   let component: WorkflowItemDeleteComponent;
@@ -42,7 +42,7 @@ describe('WorkflowItemDeleteComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: MockTranslateLoader
+          useClass: TranslateLoaderMock
         }
       })],
       declarations: [WorkflowItemDeleteComponent, VarDirective],

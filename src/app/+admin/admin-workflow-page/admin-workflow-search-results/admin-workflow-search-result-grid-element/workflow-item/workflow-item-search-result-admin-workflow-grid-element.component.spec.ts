@@ -10,14 +10,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './workflow-item-search-result-admin-workflow-grid-element.component';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { getMockLinkService } from '../../../../../shared/mocks/mock-link-service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { PublicationGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
 import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
 
 describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowGridElementComponent;
