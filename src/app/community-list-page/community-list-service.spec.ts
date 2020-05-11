@@ -2,7 +2,7 @@ import { of as observableOf } from 'rxjs';
 import { TestBed, inject, async } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
-import { MockStore } from '../shared/testing/mock-store';
+import { StoreMock } from '../shared/testing/store.mock';
 import { CommunityListService, FlatNode, toFlatNode } from './community-list-service';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
@@ -11,110 +11,121 @@ import { CommunityDataService } from '../core/data/community-data.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$
-} from '../shared/testing/utils';
+} from '../shared/remote-data.utils';
 import { Community } from '../core/shared/community.model';
 import { Collection } from '../core/shared/collection.model';
 import { take } from 'rxjs/operators';
 import { FindListOptions } from '../core/data/request.models';
 
 describe('CommunityListService', () => {
-  let store: MockStore<AppState>;
+  let store: StoreMock<AppState>;
   const standardElementsPerPage = 2;
   let collectionDataServiceStub: any;
   let communityDataServiceStub: any;
-  const mockSubcommunities1Page1 = [Object.assign(new Community(), {
-    id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
-    uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
-  }),
-    Object.assign(new Community(), {
-      id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-      uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-    })
-  ];
-  const mockCollectionsPage1 = [
-    Object.assign(new Collection(), {
-      id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
-      uuid: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
-      name: 'Collection 1'
-    }),
-    Object.assign(new Collection(), {
-      id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
-      uuid: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
-      name: 'Collection 2'
-    })
-  ];
-  const mockCollectionsPage2 = [
-    Object.assign(new Collection(), {
-      id: 'a5159760-f362-4659-9e81-e3253ad91ede',
-      uuid: 'a5159760-f362-4659-9e81-e3253ad91ede',
-      name: 'Collection 3'
-    }),
-    Object.assign(new Collection(), {
-      id: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
-      uuid: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
-      name: 'Collection 4'
-    })
-  ];
-  const mockListOfTopCommunitiesPage1 = [
-    Object.assign(new Community(), {
-      id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
-      uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
-      subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockSubcommunities1Page1)),
-      collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-    }),
-    Object.assign(new Community(), {
-      id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
-      uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
-      subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-      collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
-    }),
-    Object.assign(new Community(), {
-      id: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
-      uuid: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
-      subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-      collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-    }),
-  ];
-  const mockListOfTopCommunitiesPage2 = [
-    Object.assign(new Community(), {
-      id: 'c2e04392-3b8a-4dfa-976d-d76fb1b8a4b6',
-      uuid: 'c2e04392-3b8a-4dfa-976d-d76fb1b8a4b6',
-      subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-      collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-    }),
-  ];
-  const mockTopCommunitiesWithChildrenArraysPage1 = [
-    {
-      id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
-      uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
-      subcommunities: mockSubcommunities1Page1,
-      collections: [],
-    },
-    {
-      id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
-      uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
-      subcommunities: [],
-      collections: [...mockCollectionsPage1, ...mockCollectionsPage2],
-    },
-    {
-      id: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
-      uuid: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
-      subcommunities: [],
-      collections: [],
-    }];
-  const mockTopCommunitiesWithChildrenArraysPage2 = [
-    {
-      id: 'c2e04392-3b8a-4dfa-976d-d76fb1b8a4b6',
-      uuid: 'c2e04392-3b8a-4dfa-976d-d76fb1b8a4b6',
-      subcommunities: [],
-      collections: [],
-    }];
-
-  const allCommunities = [...mockTopCommunitiesWithChildrenArraysPage1, ...mockTopCommunitiesWithChildrenArraysPage2, ...mockSubcommunities1Page1];
 
   let service: CommunityListService;
+  let mockSubcommunities1Page1;
+  let mockCollectionsPage1;
+  let mockCollectionsPage2;
+  let mockListOfTopCommunitiesPage1;
+  let mockListOfTopCommunitiesPage2;
+  let mockTopCommunitiesWithChildrenArraysPage1;
+  let mockTopCommunitiesWithChildrenArraysPage2;
+  let allCommunities;
+  function init() {
+    mockSubcommunities1Page1 = [Object.assign(new Community(), {
+      id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
+      uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
+    }),
+      Object.assign(new Community(), {
+        id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+        uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+      })
+    ];
+    mockCollectionsPage1 = [
+      Object.assign(new Collection(), {
+        id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
+        uuid: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
+        name: 'Collection 1'
+      }),
+      Object.assign(new Collection(), {
+        id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
+        uuid: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
+        name: 'Collection 2'
+      })
+    ];
+    mockCollectionsPage2 = [
+      Object.assign(new Collection(), {
+        id: 'a5159760-f362-4659-9e81-e3253ad91ede',
+        uuid: 'a5159760-f362-4659-9e81-e3253ad91ede',
+        name: 'Collection 3'
+      }),
+      Object.assign(new Collection(), {
+        id: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
+        uuid: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
+        name: 'Collection 4'
+      })
+    ];
+    mockListOfTopCommunitiesPage1 = [
+      Object.assign(new Community(), {
+        id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
+        uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
+        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockSubcommunities1Page1)),
+        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+      }),
+      Object.assign(new Community(), {
+        id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
+        uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
+        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
+      }),
+      Object.assign(new Community(), {
+        id: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
+        uuid: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
+        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+      }),
+    ];
+    mockListOfTopCommunitiesPage2 = [
+      Object.assign(new Community(), {
+        id: 'c2e04392-3b8a-4dfa-976d-d76fb1b8a4b6',
+        uuid: 'c2e04392-3b8a-4dfa-976d-d76fb1b8a4b6',
+        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+      }),
+    ];
+    mockTopCommunitiesWithChildrenArraysPage1 = [
+      {
+        id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
+        uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
+        subcommunities: mockSubcommunities1Page1,
+        collections: [],
+      },
+      {
+        id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
+        uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
+        subcommunities: [],
+        collections: [...mockCollectionsPage1, ...mockCollectionsPage2],
+      },
+      {
+        id: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
+        uuid: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
+        subcommunities: [],
+        collections: [],
+      }];
+    mockTopCommunitiesWithChildrenArraysPage2 = [
+      {
+        id: 'c2e04392-3b8a-4dfa-976d-d76fb1b8a4b6',
+        uuid: 'c2e04392-3b8a-4dfa-976d-d76fb1b8a4b6',
+        subcommunities: [],
+        collections: [],
+      }];
 
-  beforeEach(async(() => {
+    allCommunities = [...mockTopCommunitiesWithChildrenArraysPage1, ...mockTopCommunitiesWithChildrenArraysPage2, ...mockSubcommunities1Page1];
+
+  }
+  beforeEach(() => {
+    init();
     communityDataServiceStub = {
       findTop(options: FindListOptions = {}) {
         const allTopComs = [...mockListOfTopCommunitiesPage1, ...mockListOfTopCommunitiesPage2];
@@ -183,12 +194,12 @@ describe('CommunityListService', () => {
       providers: [CommunityListService,
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
-        { provide: Store, useValue: MockStore },
+        { provide: Store, useValue: StoreMock },
       ],
     });
     store = TestBed.get(Store);
     service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub, store);
-  }));
+  });
 
   it('should create', inject([CommunityListService], (serviceIn: CommunityListService) => {
     expect(serviceIn).toBeTruthy();
@@ -316,7 +327,10 @@ describe('CommunityListService', () => {
   describe('transformListOfCommunities', () => {
     describe('should transform list of communities in a list of flatnodes with possible subcoms and collections as subflatnodes if they\'re expanded', () => {
       describe('list of communities with possible children', () => {
-        const listOfCommunities = mockListOfTopCommunitiesPage1;
+        let listOfCommunities;
+        beforeEach(() => {
+          listOfCommunities = mockListOfTopCommunitiesPage1;
+        });
         let flatNodeList;
         describe('None expanded: should return list containing only flatnodes of the communities in the test list', () => {
           beforeEach(() => {
@@ -469,18 +483,19 @@ describe('CommunityListService', () => {
       });
       describe('topcommunity with collections, expanded, on second page of collections', () => {
         describe('should return list containing flatnodes of that community, its collections of the first two pages', () => {
-          const communityWithCollections = Object.assign(new Community(), {
-            id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
-            uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
-            subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-            collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
-            metadata: {
-              'dc.description': [{ language: 'en_US', value: '2 subcoms, no coll' }],
-              'dc.title': [{ language: 'en_US', value: 'Community 1' }]
-            }
-          });
+          let communityWithCollections;
           let flatNodeList;
           beforeEach(() => {
+            communityWithCollections = Object.assign(new Community(), {
+              id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
+              uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
+              subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+              collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
+              metadata: {
+                'dc.description': [{ language: 'en_US', value: '2 subcoms, no coll' }],
+                'dc.title': [{ language: 'en_US', value: 'Community 1' }]
+              }
+            });
             const communityFlatNode = toFlatNode(communityWithCollections, observableOf(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 2;
             communityFlatNode.currentCommunityPage = 1;

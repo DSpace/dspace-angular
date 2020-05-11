@@ -3,7 +3,7 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { JournalIssueComponent } from './journal-issue.component';
 import { createRelationshipsObservable, getItemPageFieldsTest } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),

@@ -12,11 +12,11 @@ import { Community } from '../../core/shared/community.model';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { FindListOptions } from '../../core/data/request.models';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { HostWindowService } from '../../shared/host-window.service';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service-stub';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 
 describe('CommunityPageSubCollectionList Component', () => {

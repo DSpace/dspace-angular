@@ -11,7 +11,7 @@ import { of as observableOf } from 'rxjs';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { CreateCollectionPageComponent } from './create-collection-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
 describe('CreateCollectionPageComponent', () => {
   let comp: CreateCollectionPageComponent;

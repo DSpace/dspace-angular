@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { SearchService } from '../core/shared/search/search.service';
-import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 
 import { SearchNavbarComponent } from './search-navbar.component';
 
@@ -34,7 +34,7 @@ describe('SearchNavbarComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })],
       declarations: [SearchNavbarComponent],

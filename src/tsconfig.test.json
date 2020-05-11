@@ -1,9 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "sourceMap": true
-  },
-  "angularCompilerOptions": {
-    "entryModule": "./modules/app/browser-app.module#BrowserAppModule"
-  }
-}

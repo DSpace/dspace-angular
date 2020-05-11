@@ -1,6 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { ErrorResponse, RestResponse, EndpointMapSuccessResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { ResponseParsingService } from './parsing.service';
@@ -9,10 +7,6 @@ import { isNotEmpty } from '../../shared/empty.util';
 
 @Injectable()
 export class EndpointMapResponseParsingService implements ResponseParsingService {
-  constructor(
-    @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig,
-  ) {
-  }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links)) {

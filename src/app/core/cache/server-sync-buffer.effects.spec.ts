@@ -5,10 +5,9 @@ import { cold, hot } from 'jasmine-marbles';
 
 import { Observable, of as observableOf } from 'rxjs';
 import * as operators from 'rxjs/operators';
-import { GLOBAL_CONFIG } from '../../../config';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { MockStore } from '../../shared/testing/mock-store';
-import { spyOnOperator } from '../../shared/testing/utils';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { StoreMock } from '../../shared/testing/store.mock';
+import { spyOnOperator } from '../../shared/testing/utils.test';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -17,6 +16,7 @@ import { ObjectCacheService } from './object-cache.service';
 import { CommitSSBAction, EmptySSBAction, ServerSyncBufferActionTypes } from './server-sync-buffer.actions';
 
 import { ServerSyncBufferEffects } from './server-sync-buffer.effects';
+import { storeModuleConfig } from '../../app.reducer';
 
 describe('ServerSyncBufferEffects', () => {
   let ssbEffects: ServerSyncBufferEffects;
@@ -37,12 +37,11 @@ describe('ServerSyncBufferEffects', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot({}, storeModuleConfig),
       ],
       providers: [
         ServerSyncBufferEffects,
         provideMockActions(() => actions),
-        { provide: GLOBAL_CONFIG, useValue: testConfig },
         { provide: RequestService, useValue: getMockRequestService() },
         {
           provide: ObjectCacheService, useValue: {
@@ -62,7 +61,7 @@ describe('ServerSyncBufferEffects', () => {
             }
           }
         },
-        { provide: Store, useClass: MockStore }
+        { provide: Store, useClass: StoreMock }
         // other providers
       ],
     });

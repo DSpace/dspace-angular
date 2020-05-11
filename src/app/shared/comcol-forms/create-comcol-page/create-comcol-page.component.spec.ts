@@ -14,10 +14,10 @@ import { CreateComColPageComponent } from './create-comcol-page.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$
-} from '../../testing/utils';
+} from '../../remote-data.utils';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 
 describe('CreateComColPageComponent', () => {
   let comp: CreateComColPageComponent<DSpaceObject>;

@@ -6,7 +6,7 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from '../item-types/shared/item.component.spec';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';

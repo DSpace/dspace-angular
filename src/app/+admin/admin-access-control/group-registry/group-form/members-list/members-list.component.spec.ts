@@ -16,17 +16,17 @@ import { EPerson } from '../../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../../core/eperson/models/group.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../../../shared/mocks/mock-form-builder-service';
-import { MockRouter } from '../../../../../shared/mocks/mock-router';
-import { getMockTranslateService } from '../../../../../shared/mocks/mock-translate.service';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { EPersonMock, EPersonMock2 } from '../../../../../shared/testing/eperson-mock';
 import { GroupMock, GroupMock2 } from '../../../../../shared/testing/group-mock';
-import { MockTranslateLoader } from '../../../../../shared/testing/mock-translate-loader';
-import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service-stub';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 import { MembersListComponent } from './members-list.component';
+import { EPersonMock, EPersonMock2 } from '../../../../../shared/testing/eperson.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { getMockTranslateService } from '../../../../../shared/mocks/translate.service.mock';
+import { getMockFormBuilderService } from '../../../../../shared/mocks/form-builder-service.mock';
+import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
+import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
+import { RouterMock } from '../../../../../shared/mocks/router.mock';
 
 describe('MembersListComponent', () => {
   let component: MembersListComponent;
@@ -119,7 +119,7 @@ describe('MembersListComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],
@@ -129,7 +129,7 @@ describe('MembersListComponent', () => {
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
-        { provide: Router, useValue: new MockRouter() },
+        { provide: Router, useValue: new RouterMock() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

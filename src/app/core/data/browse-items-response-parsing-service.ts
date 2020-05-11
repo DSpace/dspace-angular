@@ -1,7 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
 
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ErrorResponse, GenericSuccessResponse, RestResponse } from '../cache/response.models';
@@ -20,7 +18,6 @@ export class BrowseItemsResponseParsingService extends BaseResponseParsingServic
   protected toCache = false;
 
   constructor(
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected objectCache: ObjectCacheService,
   ) { super();
   }

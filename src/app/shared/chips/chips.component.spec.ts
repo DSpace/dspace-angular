@@ -8,14 +8,12 @@ import { ChipsComponent } from './chips.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { By } from '@angular/platform-browser';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
-import { createTestComponent } from '../testing/utils';
+import { createTestComponent } from '../testing/utils.test';
 import { AuthorityConfidenceStateDirective } from '../authority-confidence/authority-confidence-state.directive';
 import { TranslateModule } from '@ngx-translate/core';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../config';
-import { MOCK_SUBMISSION_CONFIG } from '../testing/mock-submission-config';
 import { ConfidenceType } from '../../core/integration/models/confidence-type';
 import { SortablejsModule } from 'ngx-sortablejs';
+import { environment } from '../../../environments/environment';
 
 describe('ChipsComponent test suite', () => {
 
@@ -26,7 +24,6 @@ describe('ChipsComponent test suite', () => {
   let html;
   let chips: Chips;
 
-  const envConfig: GlobalConfig = MOCK_SUBMISSION_CONFIG;
   // async beforeEach
   beforeEach(async(() => {
 
@@ -42,7 +39,6 @@ describe('ChipsComponent test suite', () => {
         AuthorityConfidenceStateDirective
       ], // declare the test component
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: envConfig },
         ChangeDetectorRef,
         ChipsComponent,
         UploaderService
@@ -154,7 +150,7 @@ describe('ChipsComponent test suite', () => {
         otherRelatedField: new FormFieldMetadataValueObject('other related test')
       };
 
-      chips = new Chips([item], 'display', 'mainField', envConfig.submission.icons.metadata);
+      chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
       chipsFixture = TestBed.createComponent(ChipsComponent);
       chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
       chipsComp.editable = true;
@@ -177,7 +173,7 @@ describe('ChipsComponent test suite', () => {
 
       icons[0].triggerEventHandler('mouseover', null);
 
-      expect(chipsComp.tipText).toEqual(['main test'])
+      expect(chipsComp.tipText).toEqual(['main test']);
     });
   });
 });

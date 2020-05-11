@@ -14,8 +14,8 @@ import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../mocks/mock-translate-loader';
-import { GLOBAL_CONFIG } from '../../../config';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { storeModuleConfig } from '../../app.reducer';
 
 describe('NotificationsService test', () => {
   const store: Store<Notification> = jasmine.createSpyObj('store', {
@@ -39,17 +39,16 @@ describe('NotificationsService test', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({notificationsReducer}),
+        StoreModule.forRoot({notificationsReducer}, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],
       declarations: [NotificationComponent, NotificationsBoardComponent],
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: envConfig },
         { provide: Store, useValue: store },
         NotificationsService,
         TranslateService

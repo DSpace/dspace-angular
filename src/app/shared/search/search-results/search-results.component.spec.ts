@@ -6,7 +6,7 @@ import { ResourceType } from '../../../core/shared/resource-type';
 import { Community } from '../../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchResultsComponent } from './search-results.component';
-import { QueryParamsDirectiveStub } from '../../testing/query-params-directive-stub';
+import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;

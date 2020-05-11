@@ -11,7 +11,6 @@ import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
-import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../config';
 import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.component';
 import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
@@ -21,7 +20,7 @@ import { AppComponent } from './app.component';
 
 import { appEffects } from './app.effects';
 import { appMetaReducers, debugMetaReducers } from './app.metareducers';
-import { appReducers, AppState } from './app.reducer';
+import { appReducers, AppState, storeModuleConfig } from './app.reducer';
 
 import { CoreModule } from './core/core.module';
 import { ClientCookieService } from './core/services/client-cookie.service';
@@ -39,17 +38,15 @@ import { NotificationComponent } from './shared/notifications/notification/notif
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-
-export function getConfig() {
-  return ENV_CONFIG;
-}
+import { environment } from '../environments/environment';
+import { BrowserModule } from '@angular/platform-browser';
 
 export function getBase() {
-  return ENV_CONFIG.ui.nameSpace;
+  return environment.ui.nameSpace;
 }
 
-export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppState>> {
-  return config.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
+export function getMetaReducers(): Array<MetaReducer<AppState>> {
+  return environment.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
 
 const IMPORTS = [
@@ -63,7 +60,7 @@ const IMPORTS = [
   NgbModule,
   TranslateModule.forRoot(),
   EffectsModule.forRoot(appEffects),
-  StoreModule.forRoot(appReducers),
+  StoreModule.forRoot(appReducers, storeModuleConfig),
   StoreRouterConnectingModule.forRoot(),
 ];
 
@@ -75,15 +72,11 @@ const ENTITY_IMPORTS = [
 IMPORTS.push(
   StoreDevtoolsModule.instrument({
     maxAge: 1000,
-    logOnly: ENV_CONFIG.production,
+    logOnly: environment.production,
   })
 );
 
 const PROVIDERS = [
-  {
-    provide: GLOBAL_CONFIG,
-    useFactory: (getConfig)
-  },
   {
     provide: APP_BASE_HREF,
     useFactory: (getBase)
@@ -91,7 +84,6 @@ const PROVIDERS = [
   {
     provide: USER_PROVIDED_META_REDUCERS,
     useFactory: getMetaReducers,
-    deps: [GLOBAL_CONFIG]
   },
   {
     provide: RouterStateSerializer,
@@ -121,6 +113,7 @@ const EXPORTS = [
 
 @NgModule({
   imports: [
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     ...IMPORTS,
     ...ENTITY_IMPORTS
   ],
