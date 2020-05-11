@@ -473,7 +473,7 @@ const DIRECTIVES = [
   RoleDirective,
   MetadataRepresentationDirective,
   ListableObjectDirective,
-  ClaimedTaskActionsDirective
+  ClaimedTaskActionsDirective,
   FileValueAccessorDirective,
   FileValidator
 ];
