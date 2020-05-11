@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { getTestScheduler, hot } from 'jasmine-marbles';
 
 import { RouteService } from './route.service';
-import { MockRouter } from '../../shared/mocks/mock-router';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { TestScheduler } from 'rxjs/testing';
 import { AddUrlToHistoryAction } from '../history/history.actions';
 
@@ -29,7 +29,7 @@ describe('RouteService', () => {
     select: jasmine.createSpy('select')
   });
 
-  const router = new MockRouter();
+  const router = new RouterMock();
   router.setParams(convertToParamMap(paramObject));
 
   paramObject[paramName1] = paramValue1;

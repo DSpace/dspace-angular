@@ -8,15 +8,15 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { SubmissionEditComponent } from './submission-edit.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { SubmissionService } from '../submission.service';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service-stub';
-import { getMockTranslateService } from '../../shared/mocks/mock-translate.service';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 
-import { RouterStub } from '../../shared/testing/router-stub';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
-import { mockSubmissionObject } from '../../shared/mocks/mock-submission';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('SubmissionEditComponent Component', () => {
 

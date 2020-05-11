@@ -7,7 +7,6 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { LangSwitchComponent } from './lang-switch.component';
-import { GLOBAL_CONFIG } from '../../../config';
 import { LangConfig } from '../../../config/lang-config.interface';
 import { LocaleService } from '../../core/locale/locale.service';
 
@@ -21,10 +20,10 @@ import { LocaleService } from '../../core/locale/locale.service';
 class CustomLoader implements TranslateLoader {
   getTranslation(lang: string): Observable<any> {
     return of({
-      "footer": {
-        "copyright": "copyright © 2002-{{ year }}",
-        "link.dspace": "DSpace software",
-        "link.duraspace": "DuraSpace"
+      'footer': {
+        'copyright': 'copyright © 2002-{{ year }}',
+        'link.dspace': 'DSpace software',
+        'link.duraspace': 'DuraSpace'
       }
     });
   }
@@ -76,7 +75,6 @@ describe('LangSwitchComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           TranslateService,
-          { provide: GLOBAL_CONFIG, useValue: mockConfig },
           { provide: LocaleService, useValue: getMockLocaleService() },
         ]
       }).compileComponents()
@@ -162,8 +160,7 @@ describe('LangSwitchComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           TranslateService,
-          { provide: GLOBAL_CONFIG, useValue: mockConfig },
-          { provide: LocaleService, useValue: getMockLocaleService() },
+          { provide: LocaleService, useValue: getMockLocaleService() }
         ]
       }).compileComponents();
       translate = TestBed.get(TranslateService);

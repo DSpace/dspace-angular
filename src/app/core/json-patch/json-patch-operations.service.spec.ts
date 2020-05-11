@@ -5,12 +5,12 @@ import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
 import { Store, StoreModule } from '@ngrx/store';
 
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
 import { SubmissionPatchRequest } from '../data/request.models';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { JsonPatchOperationsService } from './json-patch-operations.service';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
 import { CoreState } from '../core.reducers';
@@ -21,9 +21,10 @@ import {
   RollbacktPatchOperationsAction,
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
-import { MockStore } from '../../shared/testing/mock-store';
+import { StoreMock } from '../../shared/testing/store.mock';
 import { RequestEntry } from '../data/request.reducer';
 import { catchError } from 'rxjs/operators';
+import { storeModuleConfig } from '../../app.reducer';
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
@@ -101,10 +102,10 @@ describe('JsonPatchOperationsService test suite', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot({}, storeModuleConfig),
       ],
       providers: [
-        { provide: Store, useClass: MockStore }
+        { provide: Store, useClass: StoreMock }
       ]
     }).compileComponents();
   }));

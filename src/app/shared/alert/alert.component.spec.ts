@@ -7,7 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AlertComponent } from './alert.component';
-import { createTestComponent } from '../testing/utils';
+import { createTestComponent } from '../testing/utils.test';
 import { AlertType } from './aletr-type';
 
 describe('AlertComponent test suite', () => {

@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { LangConfig } from '../../../config/lang-config.interface';
+import { environment } from '../../../environments/environment';
 import { LocaleService } from '../../core/locale/locale.service';
 
 @Component({
@@ -25,14 +25,13 @@ export class LangSwitchComponent implements OnInit {
   moreThanOneLanguage: boolean;
 
   constructor(
-    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
     public translate: TranslateService,
     private localeService: LocaleService
   ) {
   }
 
   ngOnInit(): void {
-    this.activeLangs = this.config.languages.filter((MyLangConfig) => MyLangConfig.active === true);
+    this.activeLangs = environment.languages.filter((MyLangConfig) => MyLangConfig.active === true);
     this.moreThanOneLanguage = (this.activeLangs.length > 1);
   }
 

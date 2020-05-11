@@ -15,7 +15,6 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
-import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/search/host-window.reducer';
@@ -30,7 +29,11 @@ import { slideSidebarPadding } from './shared/animations/slide';
 import { HostWindowService } from './shared/host-window.service';
 import { Theme } from '../config/theme.inferface';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+import { environment } from '../environments/environment';
+import { models } from './core/core.module';
 import { LocaleService } from './core/locale/locale.service';
+
+export const LANG_COOKIE = 'language_cookie';
 
 @Component({
   selector: 'ds-app',
@@ -47,9 +50,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   collapsedSidebarWidth: Observable<string>;
   totalSidebarWidth: Observable<string>;
   theme: Observable<Theme> = of({} as any);
+  notificationOptions = environment.notifications;
+  models;
 
   constructor(
-    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     private translate: TranslateService,
     private store: Store<HostWindowState>,
@@ -63,11 +67,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     private windowService: HostWindowService,
     private localeService: LocaleService
   ) {
+    /* Use models object so all decorators are actually called */
+    this.models = models;
     // Load all the languages that are defined as active from the config file
-    translate.addLangs(config.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
+    translate.addLangs(environment.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
 
     // Load the default language from the config file
-    // translate.setDefaultLang(config.defaultLanguage);
+    // translate.setDefaultLang(environment.defaultLanguage);
 
     // set the current language code
     this.localeService.setCurrentLanguageCode();
@@ -77,16 +83,15 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     metadata.listenForRouteChange();
 
-    if (config.debug) {
-      console.info(config);
+    if (environment.debug) {
+      console.info(environment);
     }
     this.storeCSSVariables();
   }
 
   ngOnInit() {
-
-    const env: string = this.config.production ? 'Production' : 'Development';
-    const color: string = this.config.production ? 'red' : 'green';
+    const env: string = environment.production ? 'Production' : 'Development';
+    const color: string = environment.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
 
@@ -108,10 +113,18 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private storeCSSVariables() {
-    const vars = variables.locals || {};
-    Object.keys(vars).forEach((name: string) => {
-      this.cssService.addCSSVariable(name, vars[name]);
-    })
+    this.cssService.addCSSVariable('xlMin', '1200px');
+    this.cssService.addCSSVariable('mdMin', '768px');
+    this.cssService.addCSSVariable('lgMin', '576px');
+    this.cssService.addCSSVariable('smMin', '0');
+    this.cssService.addCSSVariable('adminSidebarActiveBg', '#0f1b28');
+    this.cssService.addCSSVariable('sidebarItemsWidth', '250px');
+    this.cssService.addCSSVariable('collapsedSidebarWidth', '53.234px');
+    this.cssService.addCSSVariable('totalSidebarWidth', '303.234px');
+    // const vars = variables.locals || {};
+    // Object.keys(vars).forEach((name: string) => {
+    //   this.cssService.addCSSVariable(name, vars[name]);
+    // })
   }
 
   ngAfterViewInit() {
@@ -132,7 +145,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  private onResize(event): void {
+  public onResize(event): void {
     this.dispatchWindowSize(event.target.innerWidth, event.target.innerHeight);
   }
 

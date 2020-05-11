@@ -1,0 +1,5 @@
+{
+  "watch": ["src/environments/mock-environment.ts"],
+  "ext": "ts",
+  "exec": "ts-node --project ./tsconfig.ts-node.json scripts/set-mock-env.ts"
+}

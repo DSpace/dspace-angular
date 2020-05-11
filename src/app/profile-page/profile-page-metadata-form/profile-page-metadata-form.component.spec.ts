@@ -5,72 +5,68 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { GLOBAL_CONFIG } from '../../../config';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep } from 'lodash';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('ProfilePageMetadataFormComponent', () => {
   let component: ProfilePageMetadataFormComponent;
   let fixture: ComponentFixture<ProfilePageMetadataFormComponent>;
 
-  const config = {
-    languages: [{
-      code: 'en',
-      label: 'English',
-      active: true,
-    }, {
-      code: 'de',
-      label: 'Deutsch',
-      active: true,
-    }]
-  } as any;
+  let user;
 
-  const user = Object.assign(new EPerson(), {
-    email: 'example@gmail.com',
-    metadata: {
-      'eperson.firstname': [
-        {
-          value: 'John',
-          language: null
-        }
-      ],
-      'eperson.lastname': [
-        {
-          value: 'Doe',
-          language: null
-        }
-      ],
-      'eperson.language': [
-        {
-          value: 'de',
-          language: null
-        }
-      ]
-    }
-  });
+  let epersonService;
+  let notificationsService;
+  let translate;
 
-  const epersonService = jasmine.createSpyObj('epersonService', {
-    update: createSuccessfulRemoteDataObject$(user)
-  });
-  const notificationsService = jasmine.createSpyObj('notificationsService', {
-    success: {},
-    error: {},
-    warning: {}
-  });
-  const translate = {
-    instant: () => 'translated',
-    onLangChange: new EventEmitter()
-  };
+  function init() {
+    user = Object.assign(new EPerson(), {
+      email: 'example@gmail.com',
+      metadata: {
+        'eperson.firstname': [
+          {
+            value: 'John',
+            language: null
+          }
+        ],
+        'eperson.lastname': [
+          {
+            value: 'Doe',
+            language: null
+          }
+        ],
+        'eperson.language': [
+          {
+            value: 'de',
+            language: null
+          }
+        ]
+      }
+    });
+
+    epersonService = jasmine.createSpyObj('epersonService', {
+      update: createSuccessfulRemoteDataObject$(user)
+    });
+    notificationsService = jasmine.createSpyObj('notificationsService', {
+      success: {},
+      error: {},
+      warning: {}
+    });
+    translate = {
+      instant: () => 'translated',
+      onLangChange: new EventEmitter()
+    };
+
+  }
 
   beforeEach(async(() => {
+    init();
     TestBed.configureTestingModule({
       declarations: [ProfilePageMetadataFormComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: config },
         { provide: EPersonDataService, useValue: epersonService },
         { provide: TranslateService, useValue: translate },
         { provide: NotificationsService, useValue: notificationsService },

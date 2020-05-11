@@ -17,9 +17,9 @@ import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { Community } from '../../../core/shared/community.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { hasValue } from '../../empty.util';
-import { AuthServiceMock } from '../../mocks/mock-auth.service';
+import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { VarDirective } from '../../utils/var.directive';
 import { ComColFormComponent } from './comcol-form.component';
 
@@ -318,7 +318,6 @@ describe('ComColFormComponent', () => {
     (comp as any).type = Community.type;
     comp.uploaderComponent = {uploader: {}} as any;
 
-    console.log(comp);
     (comp as any).dsoService = dsoService;
     fixture.detectChanges();
     location = (comp as any).location;

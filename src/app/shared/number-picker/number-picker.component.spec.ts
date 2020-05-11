@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { By } from '@angular/platform-browser';
 import { NumberPickerComponent } from './number-picker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { createTestComponent } from '../testing/utils';
+import { createTestComponent } from '../testing/utils.test';
 
 describe('NumberPickerComponent test suite', () => {
 

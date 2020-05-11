@@ -5,10 +5,10 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { ClaimedTaskActionsApproveComponent } from './claimed-task-actions-approve.component';
-import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
-import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 
 let component: ClaimedTaskActionsApproveComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsApproveComponent>;
@@ -25,7 +25,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

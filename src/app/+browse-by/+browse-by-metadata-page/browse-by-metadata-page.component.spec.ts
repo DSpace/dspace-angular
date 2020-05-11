@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
@@ -19,10 +19,10 @@ import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { Item } from '../../core/shared/item.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Community } from '../../core/shared/community.model';
-import { MockRouter } from '../../shared/mocks/mock-router';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -91,7 +91,7 @@ describe('BrowseByMetadataPageComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
-        { provide: Router, useValue: new MockRouter() }
+        { provide: Router, useValue: new RouterMock() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

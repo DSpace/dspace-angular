@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ObjectNotFoundComponent } from './objectnotfound.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { of as observableOf } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 

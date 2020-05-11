@@ -1,36 +1,33 @@
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { of as observableOf } from 'rxjs';
-import { GlobalConfig } from '../../../../config/global-config.interface';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { EndpointMockingRestService } from './endpoint-mocking-rest.service';
-import { MockResponseMap } from './mocks/mock-response-map';
+import { ResponseMapMock } from './mocks/response-map.mock';
 
 describe('EndpointMockingRestService', () => {
   let service: EndpointMockingRestService;
 
-  const serverHttpResponse: HttpResponse<any> = {
-    body: { bar: false },
-    headers: new HttpHeaders(),
-    statusText: '200'
-  } as HttpResponse<any>;
+  let serverHttpResponse: HttpResponse<any>;
 
-  const mockResponseMap: MockResponseMap = new Map([
-    [ '/foo', { bar: true } ]
-  ]);
+  let mockResponseMap: ResponseMapMock;
 
   beforeEach(() => {
-    const EnvConfig = {
-      rest: {
-        nameSpace: '/api'
-      }
-    } as GlobalConfig;
+    serverHttpResponse = {
+      body: { bar: false },
+      headers: new HttpHeaders(),
+      statusText: '200'
+    } as HttpResponse<any>;
+
+    mockResponseMap = new Map([
+      [ '/foo', { bar: true } ]
+    ]);
 
     const httpStub = jasmine.createSpyObj('http', {
       get: observableOf(serverHttpResponse),
       request: observableOf(serverHttpResponse)
     });
 
-    service = new EndpointMockingRestService(EnvConfig, mockResponseMap, httpStub);
+    service = new EndpointMockingRestService(mockResponseMap, httpStub);
   });
 
   describe('get', () => {

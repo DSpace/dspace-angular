@@ -6,11 +6,12 @@ import { Observable } from 'rxjs/internal/Observable';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { createPaginatedList, createSuccessfulRemoteDataObject } from '../testing/utils';
 import { FieldUpdates } from '../../core/data/object-updates/object-updates.reducer';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { createPaginatedList } from '../testing/utils.test';
 
 class MockAbstractPaginatedDragAndDropListComponent extends AbstractPaginatedDragAndDropListComponent<DSpaceObject> {
 
