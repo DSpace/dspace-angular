@@ -1,10 +1,25 @@
 sudo: required
 dist: bionic
+language: node_js
+
+# Enable caching for yarn & node_modules
+cache:
+  yarn: true
+
+node_js:
+  - "10"
+  - "12"
+
+# Install latest chrome (for e2e headless testing). Run an update if needed.
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+    update: true
 
 env:
-  # Install the latest docker-compose version for ci testing.
-  # The default installation in travis is not compatible with the latest docker-compose file version.
-  COMPOSE_VERSION: 1.24.1
   # The ci step will test the dspace-angular code against DSpace REST.
   # Direct that step to utilize a DSpace REST service that has been started in docker.
   DSPACE_REST_HOST: localhost
@@ -12,47 +27,31 @@ env:
   DSPACE_REST_NAMESPACE: '/server/api'
   DSPACE_REST_SSL: false
 
-services:
-  - xvfb
-
 before_install:
-  # Docker Compose Install
-  - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+  # Check our versions of everything
+  - echo "Check versions"
+  - yarn -v
+  - docker-compose -v
+  - google-chrome-stable --version
 
 install:
-  # update chrome
-  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-  - sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-  - sudo apt-get update
-  - sudo apt-get install google-chrome-stable
   # Start up DSpace 7 using the entities database dump
   - docker-compose -f ./docker/docker-compose-travis.yml up -d
-  # Use the dspace-cli image to populate the assetstore.  Trigger a discovery and oai update
+  # Use the dspace-cli image to populate the assetstore. Triggers a discovery and oai update
   - docker-compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
   - travis_retry yarn install
 
 before_script:
+  - echo "Check Docker containers"
+  - docker container ls
   # The following line could be enabled to verify that the rest server is responding.
-  # Currently, "yarn run build" takes enough time to run to allow the service to be available
-  #- curl http://localhost:8080/
-
-after_script:
-  - docker-compose -f ./docker/docker-compose-travis.yml down
-
-language: node_js
-
-node_js:
-  - "10"
-  - "12"
-
-cache:
-  yarn: true
-
-bundler_args: --retry 5
+  #- echo "Check REST API available (via Docker)"
+  #- curl http://localhost:8080/server/
 
 script:
-  - yarn run build
   - yarn run ci
-  - cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - cat coverage/dspace-angular-cli/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
+after_script:
+  # Shutdown docker after everything runs
+  - docker-compose -f ./docker/docker-compose-travis.yml down

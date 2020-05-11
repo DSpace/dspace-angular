@@ -1,7 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "angularCompilerOptions": {
-    "entryModule": "./modules/app/server-app.module#ServerAppModule",
-    "preserveWhitespaces": true
-  }
-}

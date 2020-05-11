@@ -12,6 +12,7 @@ import {
   FilterInitializeAction,
   FilterToggleAction
 } from './sidebar-filter.actions';
+import { storeModuleConfig } from '../../../app.reducer';
 
 describe('SidebarFilterService', () => {
   let service: SidebarFilterService;
@@ -41,7 +42,7 @@ describe('SidebarFilterService', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ sidebarFilter: sidebarFilterReducer })
+        StoreModule.forRoot({ sidebarFilter: sidebarFilterReducer }, storeModuleConfig)
       ],
       providers: [
         provideMockStore({ initialState }),

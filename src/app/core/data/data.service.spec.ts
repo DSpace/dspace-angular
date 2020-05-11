@@ -3,22 +3,21 @@ import { Store } from '@ngrx/store';
 import { compare, Operation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
-import { Collection } from '../shared/collection.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ChangeAnalyzer } from './change-analyzer';
 import { DataService } from './data.service';
 import { FindListOptions, PatchRequest } from './request.models';
 import { RequestService } from './request.service';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 
 const endpoint = 'https://rest.api/core';
 
@@ -54,23 +53,32 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
 describe('DataService', () => {
   let service: TestService;
   let options: FindListOptions;
-  const requestService = getMockRequestService();
-  const halService = new HALEndpointServiceStub('url') as any;
-  const rdbService = {} as RemoteDataBuildService;
-  const notificationsService = {} as NotificationsService;
-  const http = {} as HttpClient;
-  const comparator = new DummyChangeAnalyzer() as any;
-  const objectCache = {
-    addPatch: () => {
-      /* empty */
-    },
-    getObjectBySelfLink: () => {
-      /* empty */
-    }
-  } as any;
-  const store = {} as Store<CoreState>;
+  let requestService;
+  let halService;
+  let rdbService;
+  let notificationsService;
+  let http;
+  let comparator;
+  let objectCache;
+  let store;
 
   function initTestService(): TestService {
+    requestService = getMockRequestService();
+    halService = new HALEndpointServiceStub('url') as any;
+    rdbService = {} as RemoteDataBuildService;
+    notificationsService = {} as NotificationsService;
+    http = {} as HttpClient;
+    comparator = new DummyChangeAnalyzer() as any;
+    objectCache = {
+
+      addPatch: () => {
+        /* empty */
+      },
+      getObjectBySelfLink: () => {
+        /* empty */
+      }
+    } as any;
+    store = {} as Store<CoreState>;
     return new TestService(
       requestService,
       rdbService,
@@ -84,7 +92,9 @@ describe('DataService', () => {
     );
   }
 
-  service = initTestService();
+  beforeEach(() => {
+    service = initTestService();
+  })
 
   describe('getFindAllHref', () => {
 
@@ -151,67 +161,33 @@ describe('DataService', () => {
     });
 
     it('should include single linksToFollow as embed', () => {
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'bundles' as any,
-      });
       const expected = `${endpoint}?embed=bundles`;
 
-      (service as any).getFindAllHref({}, null, mockFollowLinkConfig).subscribe((value) => {
+      (service as any).getFindAllHref({}, null, followLink('bundles')).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
 
     it('should include multiple linksToFollow as embed', () => {
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'bundles' as any,
-      });
-      const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'owningCollection' as any,
-      });
-      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'templateItemOf' as any,
-      });
       const expected = `${endpoint}?embed=bundles&embed=owningCollection&embed=templateItemOf`;
 
-      (service as any).getFindAllHref({}, null, mockFollowLinkConfig, mockFollowLinkConfig2, mockFollowLinkConfig3).subscribe((value) => {
+      (service as any).getFindAllHref({}, null, followLink('bundles'), followLink('owningCollection'), followLink('templateItemOf')).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
 
     it('should not include linksToFollow with shouldEmbed = false', () => {
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'bundles' as any,
-        shouldEmbed: false,
-      });
-      const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'owningCollection' as any,
-        shouldEmbed: false,
-      });
-      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'templateItemOf' as any,
-      });
       const expected = `${endpoint}?embed=templateItemOf`;
 
-      (service as any).getFindAllHref({}, null, mockFollowLinkConfig, mockFollowLinkConfig2, mockFollowLinkConfig3).subscribe((value) => {
+      (service as any).getFindAllHref({}, null, followLink('bundles', undefined, false), followLink('owningCollection', undefined, false), followLink('templateItemOf')).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
 
     it('should include nested linksToFollow 3lvl', () => {
-      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'relationships' as any,
-      });
-      const mockFollowLinkConfig2: FollowLinkConfig<Collection> = Object.assign(new FollowLinkConfig(), {
-        name: 'itemtemplate' as any,
-        linksToFollow: mockFollowLinkConfig3,
-      });
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'owningCollection' as any,
-        linksToFollow: mockFollowLinkConfig2,
-      });
       const expected = `${endpoint}?embed=owningCollection/itemtemplate/relationships`;
 
-      (service as any).getFindAllHref({}, null, mockFollowLinkConfig).subscribe((value) => {
+      (service as any).getFindAllHref({}, null, followLink('owningCollection', undefined, true, followLink('itemtemplate', undefined, true, followLink('relationships')))).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -227,60 +203,26 @@ describe('DataService', () => {
     });
 
     it('should include single linksToFollow as embed', () => {
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'bundles' as any,
-      });
       const expected = `${endpointMock}/${resourceIdMock}?embed=bundles`;
-      const result = (service as any).getIDHref(endpointMock, resourceIdMock, mockFollowLinkConfig);
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('bundles'));
       expect(result).toEqual(expected);
     });
 
     it('should include multiple linksToFollow as embed', () => {
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'bundles' as any,
-      });
-      const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'owningCollection' as any,
-      });
-      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'templateItemOf' as any,
-      });
       const expected = `${endpointMock}/${resourceIdMock}?embed=bundles&embed=owningCollection&embed=templateItemOf`;
-      const result = (service as any).getIDHref(endpointMock, resourceIdMock, mockFollowLinkConfig, mockFollowLinkConfig2, mockFollowLinkConfig3);
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('bundles'), followLink('owningCollection'), followLink('templateItemOf'));
       expect(result).toEqual(expected);
     });
 
     it('should not include linksToFollow with shouldEmbed = false', () => {
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'bundles' as any,
-        shouldEmbed: false,
-      });
-      const mockFollowLinkConfig2: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'owningCollection' as any,
-        shouldEmbed: false,
-      });
-      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'templateItemOf' as any,
-      });
       const expected = `${endpointMock}/${resourceIdMock}?embed=templateItemOf`;
-      const result = (service as any).getIDHref(endpointMock, resourceIdMock, mockFollowLinkConfig, mockFollowLinkConfig2, mockFollowLinkConfig3);
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('bundles', undefined, false), followLink('owningCollection', undefined, false), followLink('templateItemOf'));
       expect(result).toEqual(expected);
     });
 
     it('should include nested linksToFollow 3lvl', () => {
-      const mockFollowLinkConfig3: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'relationships' as any,
-      });
-      const mockFollowLinkConfig2: FollowLinkConfig<Collection> = Object.assign(new FollowLinkConfig(), {
-        name: 'itemtemplate' as any,
-        linksToFollow: mockFollowLinkConfig3,
-      });
-      const mockFollowLinkConfig: FollowLinkConfig<Item> = Object.assign(new FollowLinkConfig(), {
-        name: 'owningCollection' as any,
-        linksToFollow: mockFollowLinkConfig2,
-      });
       const expected = `${endpointMock}/${resourceIdMock}?embed=owningCollection/itemtemplate/relationships`;
-      const result = (service as any).getIDHref(endpointMock, resourceIdMock, mockFollowLinkConfig);
+      const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('owningCollection', undefined, true, followLink('itemtemplate', undefined, true, followLink('relationships'))));
       expect(result).toEqual(expected);
     });
   });

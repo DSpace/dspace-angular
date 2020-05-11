@@ -74,7 +74,7 @@ export class Chips {
 
   private hasPlaceholder(value) {
     if (isObject(value)) {
-      return value.value === PLACEHOLDER_PARENT_METADATA;
+      return (value as any).value === PLACEHOLDER_PARENT_METADATA;
     } else {
       return value === PLACEHOLDER_PARENT_METADATA;
     }

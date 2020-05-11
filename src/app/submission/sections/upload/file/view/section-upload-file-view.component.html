@@ -15,7 +15,7 @@
     </ng-container>
     <ng-container *ngFor="let entry of getAllMetadataValue(fileDescrKey)">
       <ng-container *ngIf="entry.value !== ''">
-          {{entry.value | dsTruncate:[150]}}
+          {{entry.value | dsTruncate:['150']}}
       </ng-container>
       <ng-container *ngIf="entry.value === ''">
         <span *ngIf="metadata[fileDescrKey].indexOf(entry) === 0" class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{fileDescrKey}}</span>

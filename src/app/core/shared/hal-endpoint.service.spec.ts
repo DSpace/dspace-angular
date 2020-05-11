@@ -1,18 +1,17 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from './hal-endpoint.service';
 import { EndpointMapRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { of as observableOf } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 describe('HALEndpointService', () => {
   let service: HALEndpointService;
   let requestService: RequestService;
-  let envConfig: GlobalConfig;
   let requestEntry;
-
+  let envConfig;
   const endpointMap = {
     test: 'https://rest.api/test',
     foo: 'https://rest.api/foo',
@@ -55,16 +54,14 @@ describe('HALEndpointService', () => {
     } as any;
 
     service = new HALEndpointService(
-      requestService,
-      envConfig
+      requestService
     );
   });
 
   describe('getRootEndpointMap', () => {
-
     it('should configure a new EndpointMapRequest', () => {
       (service as any).getRootEndpointMap();
-      const expected = new EndpointMapRequest(requestService.generateRequestId(), envConfig.rest.baseUrl);
+      const expected = new EndpointMapRequest(requestService.generateRequestId(), environment.rest.baseUrl);
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
@@ -149,8 +146,7 @@ describe('HALEndpointService', () => {
   describe('isEnabledOnRestApi', () => {
     beforeEach(() => {
       service = new HALEndpointService(
-        requestService,
-        envConfig
+        requestService
       );
 
     });

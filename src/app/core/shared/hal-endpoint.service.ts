@@ -1,20 +1,10 @@
-import { Observable, of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
-import {
-  distinctUntilChanged, first,
-  map,
-  mergeMap,
-  startWith,
-  switchMap, take,
-  tap
-} from 'rxjs/operators';
-import { RequestEntry } from '../data/request.reducer';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, map, startWith, switchMap, take } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { EndpointMapRequest } from '../data/request.models';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
-import { Inject, Injectable } from '@angular/core';
-import { GLOBAL_CONFIG } from '../../../config';
+import { Injectable } from '@angular/core';
 import { EndpointMap, EndpointMapSuccessResponse } from '../cache/response.models';
 import { getResponseFromEntry } from './operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -22,12 +12,11 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 @Injectable()
 export class HALEndpointService {
 
-  constructor(private requestService: RequestService,
-              @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
+  constructor(private requestService: RequestService) {
   }
 
   protected getRootHref(): string {
-    return new RESTURLCombiner(this.EnvConfig, '/').toString();
+    return new RESTURLCombiner('/').toString();
   }
 
   protected getRootEndpointMap(): Observable<EndpointMap> {
@@ -60,7 +49,7 @@ export class HALEndpointService {
    */
   private getEndpointAt(href: string, ...halNames: string[]): Observable<string> {
     if (isEmpty(halNames)) {
-      throw new Error('cant\'t fetch the URL without the HAL link names')
+      throw new Error('cant\'t fetch the URL without the HAL link names');
     }
 
     const nextHref$ = this.getEndpointMapAt(href).pipe(
@@ -91,7 +80,7 @@ export class HALEndpointService {
       map((endpointMap: EndpointMap) => isNotEmpty(endpointMap[linkPath])),
       startWith(undefined),
       distinctUntilChanged()
-    )
+    );
   }
 
 }

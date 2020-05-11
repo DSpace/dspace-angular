@@ -5,13 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { authReducer } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson-mock';
+import { EPersonMock } from '../testing/eperson.mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { AppState } from '../../app.reducer';
+import { AppState, storeModuleConfig } from '../../app.reducer';
 import { LogOutComponent } from './log-out.component';
-import { RouterStub } from '../testing/router-stub';
+import { RouterStub } from '../testing/router.stub';
 
 describe('LogOutComponent', () => {
 
@@ -37,7 +37,12 @@ describe('LogOutComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forRoot(authReducer),
+        StoreModule.forRoot(authReducer, {
+          runtimeChecks: {
+            strictStateImmutability: false,
+            strictActionImmutability: false
+          }
+        }),
         TranslateModule.forRoot()
       ],
       declarations: [

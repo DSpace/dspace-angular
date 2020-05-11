@@ -1,9 +1,9 @@
 import { Config } from './config.interface';
 
-export interface ServerConfig extends Config {
-  ssl: boolean;
-  host: string;
-  port: number;
-  nameSpace: string;
-  baseUrl: string;
+export class ServerConfig implements Config {
+  public ssl: boolean;
+  public host: string;
+  public port: number;
+  public nameSpace: string;
+  public baseUrl?: string;
 }

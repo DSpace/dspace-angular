@@ -22,15 +22,15 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../../shared/mocks/mock-form-builder-service';
-import { getMockTranslateService } from '../../../../shared/mocks/mock-translate.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { EPersonMock, EPersonMock2 } from '../../../../shared/testing/eperson-mock';
-import { MockTranslateLoader } from '../../../../shared/testing/mock-translate-loader';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';
+import { EPersonMock, EPersonMock2 } from '../../../../shared/testing/eperson.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -109,7 +109,7 @@ describe('EPersonFormComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],

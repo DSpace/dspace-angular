@@ -4,9 +4,9 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { SubmissionRestService } from './submission-rest.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import {
   SubmissionDeleteRequest,
   SubmissionPatchRequest,

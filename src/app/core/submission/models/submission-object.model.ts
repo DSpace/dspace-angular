@@ -77,7 +77,9 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
    * Will be undefined unless the item {@link HALLink} has been resolved.
    */
   @link(ITEM)
-  item?: Observable<RemoteData<Item>> | Item;
+  /* This was changed from 'Observable<RemoteData<Item>> | Item' to 'any' to prevent issues in templates with async */
+  item?: any;
+
   /**
    * The configuration object that define this submission
    * Will be undefined unless the submissionDefinition {@link HALLink} has been resolved.

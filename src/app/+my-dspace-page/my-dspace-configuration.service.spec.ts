@@ -5,8 +5,8 @@ import { PaginatedSearchOptions } from '../shared/search/paginated-search-option
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { SearchFilter } from '../shared/search/search-filter.model';
-import { ActivatedRouteStub } from '../shared/testing/active-router-stub';
-import { MockRoleService } from '../shared/mocks/mock-role-service';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { cold, hot } from 'jasmine-marbles';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 
@@ -36,7 +36,7 @@ describe('MyDSpaceConfigurationService', () => {
 
   const activatedRoute: any = new ActivatedRouteStub();
 
-  const roleService: any = new MockRoleService();
+  const roleService: any = new RoleServiceMock();
 
   beforeEach(() => {
     service = new MyDSpaceConfigurationService(roleService, spy, activatedRoute);

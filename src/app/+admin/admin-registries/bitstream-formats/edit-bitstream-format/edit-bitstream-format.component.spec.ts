@@ -12,8 +12,8 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service-stub';
-import { RouterStub } from '../../../../shared/testing/router-stub';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../../shared/testing/router.stub';
 import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
 
 describe('EditBitstreamFormatComponent', () => {

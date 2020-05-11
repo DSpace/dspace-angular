@@ -4,11 +4,11 @@ import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task-actions-return-to-pool.component';
-import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 
 let component: ClaimedTaskActionsReturnToPoolComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsReturnToPoolComponent>;
@@ -25,7 +25,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

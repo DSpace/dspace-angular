@@ -9,8 +9,6 @@ import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache
 import { isEmpty, isNotEmpty, isNotNull } from '../../shared/empty.util';
 import { ConfigObject } from '../config/models/config.model';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionObject } from './models/submission-object.model';
@@ -89,8 +87,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
    */
   protected shouldDirectlyAttachEmbeds = true;
 
-  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected objectCache: ObjectCacheService,
+  constructor(protected objectCache: ObjectCacheService,
               protected dsoParser: DSOResponseParsingService
   ) {
     super();

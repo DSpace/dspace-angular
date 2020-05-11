@@ -42,8 +42,8 @@ import {
   mockSubmissionSelfUrl,
   mockSubmissionState,
   mockDeduplicationMatches,
-  mockSubmissionObject,
-} from '../../shared/mocks/mock-submission';
+  mockSubmissionObject
+} from '../../shared/mocks/submission.mock';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
 describe('submissionReducer test suite', () => {
