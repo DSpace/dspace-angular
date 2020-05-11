@@ -12,7 +12,7 @@ import {
 import { SearchFiltersState } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
 import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
 import { FilterType } from '../../../shared/search/filter-type.model';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 

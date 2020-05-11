@@ -101,7 +101,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   /**
    * List of Groups available for every access condition
    */
-  protected availableGroups: Map<string, Group[]>; // Groups for any policy
+  public availableGroups: Map<string, Group[]>; // Groups for any policy
 
   /**
    * Is the upload required

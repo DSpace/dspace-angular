@@ -7,13 +7,13 @@ import { notificationsReducer } from '../notifications.reducers';
 import { Store, StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsBoardComponent } from './notifications-board.component';
-import { AppState } from '../../../app.reducer';
+import { AppState, storeModuleConfig } from '../../../app.reducer';
 import { NotificationComponent } from '../notification/notification.component';
 import { Notification } from '../models/notification.model';
 import { NotificationType } from '../models/notification-type';
 import { uniqueId } from 'lodash';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
-import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 
 describe('NotificationsBoardComponent', () => {
   let comp: NotificationsBoardComponent;
@@ -24,7 +24,12 @@ describe('NotificationsBoardComponent', () => {
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        StoreModule.forRoot({notificationsReducer})],
+        StoreModule.forRoot({notificationsReducer}, {
+          runtimeChecks: {
+            strictStateImmutability: false,
+            strictActionImmutability: false
+          }
+        })],
       declarations: [NotificationsBoardComponent, NotificationComponent], // declare the test component
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },

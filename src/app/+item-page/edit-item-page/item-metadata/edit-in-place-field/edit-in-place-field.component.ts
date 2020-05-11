@@ -85,7 +85,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Method to check the validity of a form control
    * @param ngModel
    */
-  private checkValidity(ngModel: NgModel) {
+  public checkValidity(ngModel: NgModel) {
     ngModel.control.setValue(ngModel.viewModel);
     ngModel.control.updateValueAndValidity();
     this.objectUpdatesService.setValidFieldUpdate(this.url, this.metadata.uuid, ngModel.control.valid);

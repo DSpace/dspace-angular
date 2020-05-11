@@ -1,9 +1,6 @@
 {
-  "watch": [
-    "dist",
-    "config",
-    "src/index.html"
-  ],
-  "ext": "js ts json html",
-  "delay": "50"
+  "watch": ["src/environments"],
+  "ext": "ts",
+  "ignore": ["src/environments/environment.ts", "src/environments/mock-environment.ts"],
+  "exec": "ts-node --project ./tsconfig.ts-node.json scripts/set-env.ts --dev"
 }
