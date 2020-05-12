@@ -29,7 +29,6 @@ import {
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
 import { GlobalConfig } from '../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../config';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SectionDataObject } from './sections/models/section-data.model';
@@ -43,9 +42,10 @@ import { WorkspaceitemSectionsObject } from '../core/submission/models/workspace
 import { RemoteData } from '../core/data/remote-data';
 import { ErrorResponse } from '../core/cache/response.models';
 import { RemoteDataError } from '../core/data/remote-data-error';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/testing/utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
+import { environment } from '../../environments/environment';
 
 /**
  * A service that provides methods used in submission process.
@@ -77,8 +77,7 @@ export class SubmissionService {
    * @param {SearchService} searchService
    * @param {RequestService} requestService
    */
-  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected notificationsService: NotificationsService,
+  constructor(protected notificationsService: NotificationsService,
               protected restService: SubmissionRestService,
               protected router: Router,
               protected routeService: RouteService,
@@ -549,7 +548,7 @@ export class SubmissionService {
     this.stopAutoSave();
     // AUTOSAVE submission
     // Retrieve interval from config and convert to milliseconds
-    const duration = this.EnvConfig.submission.autosave.timer * (1000 * 60);
+    const duration = environment.submission.autosave.timer * (1000 * 60);
     // Dispatch save action after given duration
     this.timer$ = observableTimer(duration, duration);
     this.autoSaveSub = this.timer$

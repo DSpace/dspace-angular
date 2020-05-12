@@ -23,6 +23,7 @@ import {
   ToggleMenuAction
 } from './menu.actions';
 import { MenuSection, menusReducer } from './menu.reducer';
+import { storeModuleConfig } from '../../app.reducer';
 
 describe('MenuService', () => {
   let service: MenuService;
@@ -84,7 +85,7 @@ describe('MenuService', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ menus: menusReducer })
+        StoreModule.forRoot({ menus: menusReducer }, storeModuleConfig)
       ],
       providers: [
         provideMockStore({ initialState }),

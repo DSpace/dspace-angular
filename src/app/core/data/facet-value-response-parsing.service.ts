@@ -1,6 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { FacetValue } from '../../shared/search/facet-value.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { FacetValueSuccessResponse, RestResponse } from '../cache/response.models';
@@ -14,7 +12,6 @@ import { RestRequest } from './request.models';
 export class FacetValueResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
   toCache = false;
   constructor(
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected objectCache: ObjectCacheService,
   ) { super();
   }

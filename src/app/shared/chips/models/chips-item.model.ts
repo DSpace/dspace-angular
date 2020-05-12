@@ -102,7 +102,7 @@ export class ChipsItem {
       const obj = this.objToDisplay ? this._item[this.objToDisplay] : this._item;
 
       if (isObject(obj) && obj) {
-        value = obj[this.fieldToDisplay] || obj.value;
+        value = obj[this.fieldToDisplay] || (obj as any).value;
       } else {
         value = obj;
       }
@@ -113,6 +113,6 @@ export class ChipsItem {
 
   private hasPlaceholder(value: any) {
     return (typeof value === 'string') ? (value === PLACEHOLDER_PARENT_METADATA) :
-      (value as FormFieldMetadataValueObject).hasPlaceholder()
+      (value as FormFieldMetadataValueObject).hasPlaceholder();
   }
 }

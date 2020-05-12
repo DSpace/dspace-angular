@@ -3,8 +3,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { LinkMenuItemComponent } from './link-menu-item.component';
-import { RouterLinkDirectiveStub } from '../../testing/router-link-directive-stub';
-import { GLOBAL_CONFIG } from '../../../../config';
+import { RouterLinkDirectiveStub } from '../../testing/router-link-directive.stub';
+import { environment } from '../../../../environments/environment';
 
 describe('LinkMenuItemComponent', () => {
   let component: LinkMenuItemComponent;
@@ -12,18 +12,10 @@ describe('LinkMenuItemComponent', () => {
   let debugElement: DebugElement;
   let text;
   let link;
-  let nameSpace;
-  let globalConfig;
 
   function init() {
     text = 'HELLO';
     link = 'http://google.com';
-    nameSpace = 'dspace.com/';
-    globalConfig = {
-      ui: {
-        nameSpace: nameSpace
-      }
-    } as any;
   }
   beforeEach(async(() => {
     init();
@@ -32,7 +24,6 @@ describe('LinkMenuItemComponent', () => {
       declarations: [LinkMenuItemComponent, RouterLinkDirectiveStub],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text, link: link } },
-        { provide: GLOBAL_CONFIG, useValue: globalConfig },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -60,6 +51,6 @@ describe('LinkMenuItemComponent', () => {
     const routerLinkQuery = linkDes.map((de) => de.injector.get(RouterLinkDirectiveStub));
 
     expect(routerLinkQuery.length).toBe(1);
-    expect(routerLinkQuery[0].routerLink).toBe(nameSpace + link);
+    expect(routerLinkQuery[0].routerLink).toBe(environment.ui.nameSpace + link);
   });
 });

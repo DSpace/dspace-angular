@@ -8,12 +8,13 @@ import { LookupRelationService } from '../../../../../../../core/data/lookup-rel
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
-import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../../../../../../testing/utils';
 import { Collection } from '../../../../../../../core/shared/collection.model';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ItemDataService } from '../../../../../../../core/data/item-data.service';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
+import { createPaginatedList } from '../../../../../../testing/utils.test';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: ExternalSourceEntryImportModalComponent;

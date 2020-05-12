@@ -9,7 +9,7 @@ import { of as observableOf } from 'rxjs/internal/observable/of';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionMetadataComponent } from './collection-metadata.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 
 describe('CollectionMetadataComponent', () => {
   let comp: CollectionMetadataComponent;

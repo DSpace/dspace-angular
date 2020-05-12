@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
@@ -21,16 +21,26 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { DeleteRequest, FindListOptions, FindListRequest, PostRequest, RestRequest } from '../data/request.models';
+import {
+  CreateRequest,
+  DeleteRequest,
+  FindListOptions,
+  FindListRequest,
+  PostRequest
+} from '../data/request.models';
 
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getResponseFromEntry } from '../shared/operators';
+import { configureRequest, getResponseFromEntry} from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { GROUP } from './models/group.resource-type';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { Community } from '../shared/community.model';
+import { Collection } from '../shared/collection.model';
+import { ComcolRole } from '../../shared/comcol-forms/edit-comcol-page/comcol-role/comcol-role';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -56,7 +66,8 @@ export class GroupDataService extends DataService<Group> {
     protected rdbService: RemoteDataBuildService,
     protected store: Store<any>,
     protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService
+    protected halService: HALEndpointService,
+    protected nameService: DSONameService,
   ) {
     super();
   }
@@ -309,4 +320,56 @@ export class GroupDataService extends DataService<Group> {
     return foundUUID;
   }
 
+  /**
+   * Create a group for a given role for a given community or collection.
+   *
+   * @param dso         The community or collection for which to create a group
+   * @param link        The REST endpoint to create the group
+   */
+  createComcolGroup(dso: Community|Collection, link: string): Observable<RestResponse> {
+
+    const requestId = this.requestService.generateRequestId();
+    const group = Object.assign(new Group(), {
+      metadata: {
+        'dc.description': [
+          {
+            value: `${this.nameService.getName(dso)} admin group`,
+          }
+        ],
+      },
+    });
+
+    this.requestService.configure(
+      new CreateRequest(
+        requestId,
+        link,
+        JSON.stringify(group),
+      ));
+
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      tap(() => this.requestService.removeByHrefSubstring(link)),
+    );
+  }
+
+  /**
+   * Delete the group for a given role for a given community or collection.
+   *
+   * @param link        The REST endpoint to delete the group
+   */
+  deleteComcolGroup(link: string): Observable<RestResponse> {
+
+    const requestId = this.requestService.generateRequestId();
+
+    this.requestService.configure(
+      new DeleteRequest(
+        requestId,
+        link,
+      ));
+
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      tap(() => this.requestService.removeByHrefSubstring(link)),
+    );
+  }
 }

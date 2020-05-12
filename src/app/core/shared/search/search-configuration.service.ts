@@ -13,7 +13,7 @@ import { SortDirection, SortOptions } from '../../cache/models/sort-options.mode
 import { RouteService } from '../../services/route.service';
 import { getSucceededRemoteData } from '../operators';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 /**
  * Service that performs all actions that have to do with the current search configuration

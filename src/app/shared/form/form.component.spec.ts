@@ -19,11 +19,11 @@ import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
 import { FormState } from './form.reducer';
 import { FormChangeAction, FormStatusChangeAction } from './form.actions';
-import { MockStore } from '../testing/mock-store';
+import { StoreMock } from '../testing/store.mock';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
-import { GLOBAL_CONFIG } from '../../../config';
-import { createTestComponent } from '../testing/utils';
+import { createTestComponent } from '../testing/utils.test';
 import { BehaviorSubject } from 'rxjs';
+import { storeModuleConfig } from '../../app.reducer';
 
 let TEST_FORM_MODEL;
 
@@ -32,7 +32,7 @@ let TEST_FORM_MODEL_WITH_ARRAY;
 let config;
 let formState: FormState;
 let html;
-let store: MockStore<FormState>;
+let store: StoreMock<FormState>;
 
 function init() {
   TEST_FORM_MODEL = [
@@ -143,7 +143,7 @@ describe('FormComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        StoreModule.forRoot({}),
+        StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot()
       ],
       declarations: [
@@ -156,8 +156,7 @@ describe('FormComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
-        { provide: GLOBAL_CONFIG, useValue: config },
-        { provide: Store, useClass: MockStore }
+        { provide: Store, useClass: StoreMock }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

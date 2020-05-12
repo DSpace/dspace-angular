@@ -10,14 +10,14 @@ import { RegistryService } from '../../../core/registry/registry.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RestResponse } from '../../../core/cache/response.models';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;

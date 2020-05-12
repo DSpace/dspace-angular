@@ -9,25 +9,26 @@ import { of as observableOf } from 'rxjs';
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { AuthService, IMPERSONATING_COOKIE } from './auth.service';
-import { RouterStub } from '../../shared/testing/router-stub';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+
 import { CookieService } from '../services/cookie.service';
-import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service-stub';
+import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service.stub';
 import { AuthRequestService } from './auth-request.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { EPerson } from '../eperson/models/eperson.model';
-import { EPersonMock } from '../../shared/testing/eperson-mock';
+import { EPersonMock } from '../../shared/testing/eperson.mock';
 import { AppState } from '../../app.reducer';
 import { ClientCookieService } from '../services/client-cookie.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { routeServiceStub } from '../../shared/testing/route-service-stub';
+import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { RouteService } from '../services/route.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../data/remote-data';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { authMethodsMock } from '../../shared/testing/auth-service-stub';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { authMethodsMock } from '../../shared/testing/auth-service.stub';
 import { AuthMethod } from './models/auth.method';
 
 describe('AuthService test', () => {
@@ -81,7 +82,12 @@ describe('AuthService test', () => {
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
-          StoreModule.forRoot({ authReducer }),
+          StoreModule.forRoot({ authReducer }, {
+            runtimeChecks: {
+              strictStateImmutability: false,
+              strictActionImmutability: false
+            }
+          }),
         ],
         declarations: [],
         providers: [
@@ -174,7 +180,12 @@ describe('AuthService test', () => {
       init();
       TestBed.configureTestingModule({
         imports: [
-          StoreModule.forRoot({ authReducer })
+          StoreModule.forRoot({ authReducer }, {
+            runtimeChecks: {
+              strictStateImmutability: false,
+              strictActionImmutability: false
+            }
+          })
         ],
         providers: [
           { provide: AuthRequestService, useValue: authRequest },
@@ -226,7 +237,12 @@ describe('AuthService test', () => {
       init();
       TestBed.configureTestingModule({
         imports: [
-          StoreModule.forRoot({ authReducer })
+          StoreModule.forRoot({ authReducer }, {
+            runtimeChecks: {
+              strictStateImmutability: false,
+              strictActionImmutability: false
+            }
+          })
         ],
         providers: [
           { provide: AuthRequestService, useValue: authRequest },

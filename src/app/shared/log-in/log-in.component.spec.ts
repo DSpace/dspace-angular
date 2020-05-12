@@ -1,22 +1,23 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { Store, StoreModule } from '@ngrx/store';
 
 import { LogInComponent } from './log-in.component';
+import { authReducer } from '../../core/auth/auth.reducer';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { AuthService } from '../../core/auth/auth.service';
-import { authMethodsMock, AuthServiceStub } from '../testing/auth-service-stub';
-import { createTestComponent } from '../testing/utils';
+import { authMethodsMock, AuthServiceStub } from '../testing/auth-service.stub';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared.module';
-import { appReducers } from '../../app.reducer';
-import { NativeWindowService } from '../../core/services/window.service';
 import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../testing/router-stub';
-import { ActivatedRouteStub } from '../testing/active-router-stub';
+import { RouterStub } from '../testing/router.stub';
+import { NativeWindowService } from '../../core/services/window.service';
+import { provideMockStore } from '@ngrx/store/testing';
+import { createTestComponent } from '../testing/utils.test';
 
 describe('LogInComponent', () => {
 
@@ -39,7 +40,12 @@ describe('LogInComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forRoot(appReducers),
+        StoreModule.forRoot(authReducer, {
+          runtimeChecks: {
+            strictStateImmutability: false,
+            strictActionImmutability: false
+          }
+        }),
         SharedModule,
         TranslateModule.forRoot()
       ],

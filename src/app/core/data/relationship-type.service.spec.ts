@@ -1,8 +1,8 @@
 import { of as observableOf } from 'rxjs';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';

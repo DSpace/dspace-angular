@@ -2,6 +2,11 @@
   "extends": [
     "tslint:recommended"
   ],
+  "linterOptions": {
+    "exclude": [
+      "src/environments/environment.ts"
+    ]
+  },
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
@@ -135,7 +140,6 @@
       "check-branch",
       "check-operator"
     ],
-
     "component-class-suffix": true,
     "component-selector": [
       true,
@@ -158,9 +162,9 @@
     "use-life-cycle-interface": false,
     "no-outputs-metadata-property": true,
     "use-pipe-transform-interface": true
-//    "rxjs-collapse-imports": true,
-//    "rxjs-pipeable-operators-only": true,
-//    "rxjs-no-static-observable-methods": true,
-//    "rxjs-proper-imports": true
+    //    "rxjs-collapse-imports": true,
+    //    "rxjs-pipeable-operators-only": true,
+    //    "rxjs-no-static-observable-methods": true,
+    //    "rxjs-proper-imports": true
   }
 }

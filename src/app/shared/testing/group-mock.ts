@@ -1,5 +1,5 @@
 import { Group } from '../../core/eperson/models/group.model';
-import { EPersonMock } from './eperson-mock';
+import { EPersonMock } from './eperson.mock';
 
 export const GroupMock2: Group = Object.assign(new Group(), {
     handle: null,

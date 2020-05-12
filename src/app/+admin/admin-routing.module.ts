@@ -12,6 +12,10 @@ export function getRegistriesModulePath() {
   return new URLCombiner(getAdminModulePath(), REGISTRIES_MODULE_PATH).toString();
 }
 
+export function getAccessControlModulePath() {
+  return new URLCombiner(getAdminModulePath(), ACCESS_CONTROL_MODULE_PATH).toString();
+}
+
 @NgModule({
   imports: [
     RouterModule.forChild([

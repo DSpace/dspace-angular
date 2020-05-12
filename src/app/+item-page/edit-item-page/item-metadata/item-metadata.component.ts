@@ -1,19 +1,15 @@
-import { Component, Inject } from '@angular/core';
-import { LinkService } from '../../../core/cache/builders/link.service';
+import { Component } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
-import {
-  Identifiable
-} from '../../../core/data/object-updates/object-updates.reducer';
+import { Identifiable } from '../../../core/data/object-updates/object-updates.reducer';
 import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { TranslateService } from '@ngx-translate/core';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
@@ -42,11 +38,10 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     public router: Router,
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
-    @Inject(GLOBAL_CONFIG) public EnvConfig: GlobalConfig,
     public route: ActivatedRoute,
     public metadataFieldService: RegistryService,
   ) {
-    super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
+    super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
 
   /**

@@ -9,6 +9,7 @@ import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -71,7 +72,7 @@ import { DsDatePickerInlineComponent } from './form/builder/ds-dynamic-form-ui/m
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
-import { MockAdminGuard } from './mocks/mock-admin-guard.service';
+import { MockAdminGuard } from './mocks/admin-guard.service.mock';
 import { AlertComponent } from './alert/alert.component';
 import { SearchResultDetailElementComponent } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
 import { ClaimedTaskActionsComponent } from './mydspace-actions/claimed-task/claimed-task-actions.component';
@@ -253,6 +254,7 @@ const COMPONENTS = [
   EditComColPageComponent,
   DeleteComColPageComponent,
   ComcolPageBrowseByComponent,
+  ComcolRoleComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,

@@ -8,15 +8,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SubmissionSectionContainerComponent } from './section-container.component';
-import { createTestComponent } from '../../../shared/testing/utils';
+import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SectionsType } from '../sections-type';
 import { SectionsDirective } from '../sections.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionsService } from '../sections.service';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service-stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service-stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SectionDataObject } from '../models/section-data.model';
-import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/mock-submission';
+import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/submission.mock';
 
 const sectionState = {
   header: 'submit.progressbar.describe.stepone',
