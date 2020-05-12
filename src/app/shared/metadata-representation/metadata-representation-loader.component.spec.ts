@@ -4,7 +4,7 @@ import { Context } from '../../core/shared/context.model';
 import { MetadataRepresentation, MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { MetadataRepresentationLoaderComponent } from './metadata-representation-loader.component';
 import { PlainTextMetadataListElementComponent } from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
-import { spyOnExported } from '../testing/utils';
+import { spyOnExported } from '../testing/utils.test';
 import { MetadataRepresentationDirective } from './metadata-representation.directive';
 import * as metadataRepresentationDecorator from './metadata-representation.decorator';
 

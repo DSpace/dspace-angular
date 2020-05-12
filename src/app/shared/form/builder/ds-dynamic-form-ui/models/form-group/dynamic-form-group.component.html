@@ -6,7 +6,6 @@
        [ngClass]="getClass('element','control')">
 
     <ds-dynamic-form-control-container *ngFor="let _model of model.group"
-                                       [formId]="formId"
                                        [group]="control"
                                        [hasErrorMessaging]="model.hasErrorMessages"
                                        [hidden]="_model.hidden"

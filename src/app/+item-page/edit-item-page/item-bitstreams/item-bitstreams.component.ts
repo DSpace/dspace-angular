@@ -8,7 +8,6 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { zip as observableZip, combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
@@ -86,7 +85,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     public router: Router,
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
-    @Inject(GLOBAL_CONFIG) public EnvConfig: GlobalConfig,
     public route: ActivatedRoute,
     public bitstreamService: BitstreamDataService,
     public objectCache: ObjectCacheService,
@@ -94,7 +92,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     public cdRef: ChangeDetectorRef,
     public bundleService: BundleDataService
   ) {
-    super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
+    super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
 
   /**

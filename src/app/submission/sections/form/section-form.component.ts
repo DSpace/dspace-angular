@@ -11,16 +11,12 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { hasValue, isNotEmpty, isUndefined, hasNoValue } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import {
-  SubmissionSectionError,
-  SubmissionSectionObject
-} from '../../objects/submission-objects.reducer';
+import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
-import { GLOBAL_CONFIG } from '../../../../config';
 import { GlobalConfig } from '../../../../config/global-config.interface';
 import { SectionDataObject } from '../models/section-data.model';
 import { renderSectionFor } from '../sections-decorator';
@@ -38,6 +34,7 @@ import { SubmissionObjectDataService } from '../../../core/submission/submission
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { environment } from '../../../../environments/environment';
 
 /**
  * This component represents a section that contains a Form.
@@ -148,7 +145,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
               protected submissionObjectService: SubmissionObjectDataService,
               protected objectCache: ObjectCacheService,
               protected requestService: RequestService,
-              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
@@ -354,7 +350,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
       const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-      if (this.EnvConfig.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
+    if (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
         this.submissionService.dispatchSave(this.submissionId);
       }
     }

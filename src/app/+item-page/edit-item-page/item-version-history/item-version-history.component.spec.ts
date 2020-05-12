@@ -7,7 +7,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 
 describe('ItemVersionHistoryComponent', () => {
   let component: ItemVersionHistoryComponent;

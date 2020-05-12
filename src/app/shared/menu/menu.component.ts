@@ -8,7 +8,6 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasValue } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
-import Timer = NodeJS.Timer;
 
 /**
  * A basic implementation of a MenuComponent
@@ -61,7 +60,7 @@ export class MenuComponent implements OnInit {
   /**
    * Timer to briefly delay the sidebar preview from opening or closing
    */
-  private previewTimer: Timer;
+  private previewTimer;
 
   constructor(protected menuService: MenuService, protected injector: Injector) {
   }
@@ -78,8 +77,8 @@ export class MenuComponent implements OnInit {
       sections.forEach((section: MenuSection) => {
         this.sectionInjectors.set(section.id, this.getSectionDataInjector(section));
         this.getSectionComponent(section).pipe(first()).subscribe((constr) => this.sectionComponents.set(section.id, constr));
-      })
-    })
+      });
+    });
   }
 
   /**

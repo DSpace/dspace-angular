@@ -11,14 +11,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { GLOBAL_CONFIG } from '../../../../config';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
-import { RouterStub } from '../../../shared/testing/router-stub';
 import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { getMockRequestService } from '../../../shared/mocks/mock-request.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
@@ -27,6 +24,8 @@ import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { RestResponse } from '../../../core/cache/response.models';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -158,7 +157,6 @@ describe('ItemBitstreamsComponent', () => {
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
         { provide: NotificationsService, useValue: notificationsService },
-        { provide: GLOBAL_CONFIG, useValue: { item: { edit: { undoTimeout: 10 } } } as any },
         { provide: BitstreamDataService, useValue: bitstreamService },
         { provide: ObjectCacheService, useValue: objectCache },
         { provide: RequestService, useValue: requestService },

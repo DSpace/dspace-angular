@@ -1,5 +1,4 @@
 import { Store } from '@ngrx/store';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ConfigSuccessResponse, ErrorResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
@@ -13,12 +12,11 @@ import { SubmissionSectionModel } from './models/config-submission-section.model
 describe('ConfigResponseParsingService', () => {
   let service: ConfigResponseParsingService;
 
-  const EnvConfig = {} as GlobalConfig;
   const store = {} as Store<CoreState>;
   const objectCacheService = new ObjectCacheService(store, undefined);
   let validResponse;
   beforeEach(() => {
-    service = new ConfigResponseParsingService(EnvConfig, objectCacheService);
+    service = new ConfigResponseParsingService(objectCacheService);
     validResponse = {
       payload: {
         id: 'traditional',

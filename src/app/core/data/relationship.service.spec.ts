@@ -1,9 +1,7 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/mock-remote-data-build.service';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
-import { createSuccessfulRemoteDataObject$, spyOnOperator } from '../../shared/testing/utils';
+import * as ItemRelationshipsUtils from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
@@ -11,12 +9,15 @@ import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
 import { PaginatedList } from './paginated-list';
 import { DeleteRequest, FindListOptions } from './request.models';
-import * as ItemRelationshipsUtils from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { RelationshipService } from './relationship.service';
 import { RequestService } from './request.service';
 import { RemoteData } from './remote-data';
 import { RequestEntry } from './request.reducer';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { spyOnOperator } from '../../shared/testing/utils.test';
 
 describe('RelationshipService', () => {
   let service: RelationshipService;

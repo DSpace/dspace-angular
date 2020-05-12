@@ -112,7 +112,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.zone.run(() => this.cdr.detectChanges());
   };
 
-  private remove() {
+  public remove() {
     if (this.animate) {
       this.setAnimationOut();
       setTimeout(() => {

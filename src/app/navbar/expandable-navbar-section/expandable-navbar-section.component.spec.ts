@@ -2,12 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
 import { By } from '@angular/platform-browser';
-import { MenuServiceStub } from '../../shared/testing/menu-service-stub';
+import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
 import { Component } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service-stub';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ExpandableNavbarSectionComponent', () => {

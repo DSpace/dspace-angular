@@ -7,14 +7,14 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { submissionReducers } from '../submission.reducers';
-import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionService } from '../submission.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service-stub';
-import { getMockTranslateService } from '../../shared/mocks/mock-translate.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { SectionsService } from './sections.service';
-import { mockSectionsData, mockSectionsErrors, mockSubmissionState } from '../../shared/mocks/mock-submission';
+import { mockSectionsData, mockSectionsErrors, mockSubmissionState } from '../../shared/mocks/submission.mock';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -27,7 +27,8 @@ import { FormAddError, FormClearErrorsAction, FormRemoveErrorAction } from '../.
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { SubmissionSectionError } from '../objects/submission-objects.reducer';
-import { getMockScrollToService } from '../../shared/mocks/mock-scroll-to-service';
+import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
+import { storeModuleConfig } from '../../app.reducer';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;
@@ -52,11 +53,11 @@ describe('SectionsService test suite', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ submissionReducers } as any),
+        StoreModule.forRoot({ submissionReducers } as any, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

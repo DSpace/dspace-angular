@@ -5,17 +5,17 @@ import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EPersonMock } from '../../../testing/eperson-mock';
+import { EPersonMock } from '../../../testing/eperson.mock';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../testing/auth-service-stub';
+import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { AppState } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { LogInShibbolethComponent } from './log-in-shibboleth.component';
 import { NativeWindowService } from '../../../../core/services/window.service';
-import { RouterStub } from '../../../testing/router-stub';
-import { ActivatedRouteStub } from '../../../testing/active-router-stub';
+import { RouterStub } from '../../../testing/router.stub';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 
 describe('LogInShibbolethComponent', () => {
@@ -26,17 +26,21 @@ describe('LogInShibbolethComponent', () => {
   let user: EPerson;
   let componentAsAny: any;
   let setHrefSpy;
-  const shibbolethBaseUrl = 'dspace-rest.test/shibboleth?redirectUrl=';
-  const location = shibbolethBaseUrl + 'http://dspace-angular.test/home';
+  let shibbolethBaseUrl;
+  let location;
 
-  const authState = {
-    authenticated: false,
-    loaded: false,
-    loading: false,
-  };
+  let authState;
 
   beforeEach(() => {
     user = EPersonMock;
+    shibbolethBaseUrl = 'dspace-rest.test/shibboleth?redirectUrl=';
+    location = shibbolethBaseUrl + 'http://dspace-angular.test/home';
+
+    authState = {
+      authenticated: false,
+      loaded: false,
+      loading: false,
+    };
   });
 
   beforeEach(async(() => {

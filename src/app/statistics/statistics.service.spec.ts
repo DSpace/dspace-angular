@@ -1,7 +1,7 @@
 import { StatisticsService } from './statistics.service';
 import { RequestService } from '../core/data/request.service';
-import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service-stub';
-import { getMockRequestService } from '../shared/mocks/mock-request.service';
+import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
+import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { TrackRequest } from './track-request.model';
 import { isEqual } from 'lodash';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';

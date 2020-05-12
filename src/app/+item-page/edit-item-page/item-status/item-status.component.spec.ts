@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { Item } from '../../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 
 describe('ItemStatusComponent', () => {
   let comp: ItemStatusComponent;

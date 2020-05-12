@@ -8,10 +8,10 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { LogInPasswordComponent } from './log-in-password.component';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EPersonMock } from '../../../testing/eperson-mock';
+import { EPersonMock } from '../../../testing/eperson.mock';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../testing/auth-service-stub';
+import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { AppState } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';

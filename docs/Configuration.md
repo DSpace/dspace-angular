@@ -8,7 +8,7 @@ Default configuration file is located in `config/` folder. All configuration opt
 Some few configuration options can be overridden by setting environment variables. These and the variable names are listed below.
 
 ## Nodejs server
-When you start dspace-angular on node, it spins up an http server on which it listens for incoming connections. You can define the ip address and port the server should bind itsself to, and if ssl should be enabled not. By default it listens on `localhost:3000`. If you want it to listen on all your network connections, configure it to bind itself to `0.0.0.0`.
+When you start dspace-angular on node, it spins up an http server on which it listens for incoming connections. You can define the ip address and port the server should bind itsself to, and if ssl should be enabled not. By default it listens on `localhost:4000`. If you want it to listen on all your network connections, configure it to bind itself to `0.0.0.0`.
 
 To change this configuration, change the options `ui.host`, `ui.port` and `ui.ssl` in the appropriate configuration file (see above):
 ```
@@ -17,7 +17,7 @@ module.exports = {
   ui: {
     ssl: false,
     host: 'localhost',
-    port: 3000,
+    port: 4000,
     nameSpace: '/'
   }
 };
@@ -27,7 +27,7 @@ Alternately you can set the following environment variables. If any of these are
 ```
   DSPACE_SSL=true
   DSPACE_HOST=localhost
-  DSPACE_PORT=3000
+  DSPACE_PORT=4000
   DSPACE_NAMESPACE=/
 ```
 
@@ -51,7 +51,7 @@ Alternately you can set the following environment variables. If any of these are
 ```
   DSPACE_REST_SSL=true
   DSPACE_REST_HOST=localhost
-  DSPACE_REST_PORT=3000
+  DSPACE_REST_PORT=4000
   DSPACE_REST_NAMESPACE=/
 ```
 

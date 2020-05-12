@@ -30,7 +30,7 @@ import { ConfidenceType } from '../../../../../../core/integration/models/confid
 export class DsDynamicLookupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
-  @Input() model: DynamicLookupModel | DynamicLookupNameModel;
+  @Input() model: any;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();

@@ -9,12 +9,12 @@ import { ClaimedSearchResultListElementComponent } from './claimed-search-result
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { LinkService } from '../../../../core/cache/builders/link.service';
-import { getMockLinkService } from '../../../mocks/mock-link-service';
+import { getMockLinkService } from '../../../mocks/link-service.mock';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;
