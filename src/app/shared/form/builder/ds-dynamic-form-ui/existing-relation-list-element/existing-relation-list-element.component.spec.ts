@@ -7,11 +7,11 @@ import { select, Store } from '@ngrx/store';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../testing/utils';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { of as observableOf } from 'rxjs';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 
 describe('ExistingRelationListElementComponent', () => {
   let component: ExistingRelationListElementComponent;
