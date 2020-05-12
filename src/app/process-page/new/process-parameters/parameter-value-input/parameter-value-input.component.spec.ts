@@ -11,9 +11,9 @@ import { DateValueInputComponent } from './date-value-input/date-value-input.com
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../../../../shared/testing/mock-translate-loader';
 import { FileValueAccessorDirective } from '../../../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../../../shared/utils/require-file.validator';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 
 describe('ParameterValueInputComponent', () => {
   let component: ParameterValueInputComponent;
@@ -40,7 +40,7 @@ describe('ParameterValueInputComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })],
       declarations: [

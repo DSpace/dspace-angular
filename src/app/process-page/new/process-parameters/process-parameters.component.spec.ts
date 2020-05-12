@@ -6,10 +6,10 @@ import { By } from '@angular/platform-browser';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../../../shared/testing/mock-translate-loader';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Script } from '../../scripts/script.model';
 import { ScriptParameter } from '../../scripts/script-parameter.model';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 
 describe('ProcessParametersComponent', () => {
   let component: ProcessParametersComponent;
@@ -36,7 +36,7 @@ describe('ProcessParametersComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })],
       declarations: [ProcessParametersComponent, ParameterSelectComponent],

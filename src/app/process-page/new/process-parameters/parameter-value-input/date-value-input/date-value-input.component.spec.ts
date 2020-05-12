@@ -3,8 +3,8 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { DateValueInputComponent } from './date-value-input.component';
 import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../../../../../shared/mocks/mock-translate-loader';
 import { By } from '@angular/platform-browser';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 
 describe('DateValueInputComponent', () => {
   let component: DateValueInputComponent;
@@ -17,7 +17,7 @@ describe('DateValueInputComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })],
       declarations: [DateValueInputComponent]

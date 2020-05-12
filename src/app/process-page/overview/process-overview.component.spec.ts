@@ -8,9 +8,10 @@ import { ProcessDataService } from '../../core/data/processes/process-data.servi
 import { Process } from '../processes/process.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { By } from '@angular/platform-browser';
 import { ProcessStatus } from '../processes/process-status.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;

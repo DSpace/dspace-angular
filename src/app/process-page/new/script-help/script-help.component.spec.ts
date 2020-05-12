@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { MockTranslateLoader } from '../../../shared/testing/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 
 describe('ScriptHelpComponent', () => {
   let component: ScriptHelpComponent;
@@ -34,7 +34,7 @@ describe('ScriptHelpComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })],
       declarations: [ ScriptHelpComponent ],

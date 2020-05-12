@@ -8,16 +8,13 @@ import { ProcessDetailFieldComponent } from './process-detail-field/process-deta
 import { Process } from '../processes/process.model';
 import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
-import {
-  createPaginatedList,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/testing/utils';
 import { By } from '@angular/platform-browser';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;

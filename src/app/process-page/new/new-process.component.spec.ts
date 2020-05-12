@@ -5,13 +5,13 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NewProcessComponent } from './new-process.component';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { MockTranslateLoader } from '../../shared/testing/mock-translate-loader';
 import { ScriptParameter } from '../scripts/script-parameter.model';
 import { Script } from '../scripts/script.model';
 import { ProcessParameter } from '../processes/process-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 import { of as observableOf } from 'rxjs';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 
 describe('NewProcessComponent', () => {
   let component: NewProcessComponent;
@@ -50,13 +50,13 @@ describe('NewProcessComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })],
       declarations: [NewProcessComponent],
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
-        { provide: NotificationsService, useValue: NotificationsServiceStub },
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

@@ -4,15 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { ScriptsSelectComponent } from './scripts-select.component';
-import { MockTranslateLoader } from '../../../shared/testing/mock-translate-loader';
 import { Script } from '../../scripts/script.model';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../../shared/testing/router-stub';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 
 describe('ScriptsSelectComponent', () => {
   let component: ScriptsSelectComponent;
@@ -39,7 +39,7 @@ describe('ScriptsSelectComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })],
       declarations: [ScriptsSelectComponent],
