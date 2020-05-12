@@ -8,7 +8,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { Store, StoreModule } from '@ngrx/store';
 import { authReducer, AuthState } from '../../core/auth/auth.reducer';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { EPersonMock } from '../testing/eperson-mock';
+import { EPersonMock } from '../testing/eperson.mock';
 import { AppState } from '../../app.reducer';
 import { By } from '@angular/platform-browser';
 
