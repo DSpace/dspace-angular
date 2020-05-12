@@ -19,7 +19,7 @@ import { hasValue } from '../../shared/empty.util';
 import { RequestEntry } from '../data/request.reducer';
 
 /**
- * A service that provides methods to make REST requests with workflowitems endpoint.
+ * A service that provides methods to make REST requests with workflow items endpoint.
  */
 @Injectable()
 @dataService(WorkflowItem.type)
@@ -40,18 +40,30 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
   }
 
   /**
-   * Delete an existing Workspace Item on the server
-   * @param id The Workspace Item's id to be removed
+   * Delete an existing Workflow Item on the server
+   * @param id The Workflow Item's id to be removed
    * @return an observable that emits true when the deletion was successful, false when it failed
    */
   delete(id: string): Observable<boolean> {
     return this.deleteWFI(id, true)
   }
 
+  /**
+   * Send an existing Workflow Item back to the workflow on the server
+   * @param id The Workspace Item's id to be sent back
+   * @return an observable that emits true when sending back the item was successful, false when it failed
+   */
   sendBack(id: string): Observable<boolean> {
     return this.deleteWFI(id, false)
   }
 
+  /**
+   * Method to delete a workflow item from the server
+   * @param id The identifier of the server
+   * @param expunge Whether or not to expunge:
+   * When true, the workflow item and its item will be permanently expunged on the server
+   * When false, the workflow item will be removed, but the item will still be available as a workspace item
+   */
   private deleteWFI(id: string, expunge: boolean): Observable<boolean> {
     const requestId = this.requestService.generateRequestId();
 
