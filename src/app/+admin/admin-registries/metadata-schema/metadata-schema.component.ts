@@ -13,6 +13,8 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 
 @Component({
   selector: 'ds-metadata-schema',
@@ -85,9 +87,9 @@ export class MetadataSchemaComponent implements OnInit {
    * Update the list of fields by fetching it from the rest api or cache
    */
   private updateFields() {
-    this.metadataSchema.subscribe((schemaData) => {
+    this.metadataSchema.pipe(getSucceededRemoteData()).subscribe((schemaData) => {
       const schema = schemaData.payload;
-      this.metadataFields = this.registryService.getMetadataFieldsBySchema(schema, this.config);
+      this.metadataFields = this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config));
       this.namespace = {namespace: schemaData.payload.namespace};
     });
   }

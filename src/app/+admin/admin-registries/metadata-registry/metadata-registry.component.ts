@@ -12,6 +12,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { Route, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -57,7 +58,7 @@ export class MetadataRegistryComponent {
    * Update the list of schemas by fetching it from the rest api or cache
    */
   private updateSchemas() {
-    this.metadataSchemas = this.registryService.getMetadataSchemas(this.config);
+    this.metadataSchemas = this.registryService.getMetadataSchemas(toFindListOptions(this.config));
   }
 
   /**
