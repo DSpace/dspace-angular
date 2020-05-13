@@ -45,6 +45,12 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
     super();
   }
 
+  /**
+   * Find metadata fields belonging to a metadata schema
+   * @param schema        The metadata schema to list fields for
+   * @param options       The options info used to retrieve the fields
+   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
   findBySchema(schema: MetadataSchema, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>) {
     const optionsWithSchema = Object.assign(new FindListOptions(), options, {
       searchParams: [new SearchParam('schema', schema.prefix)]
@@ -52,6 +58,14 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
     return this.searchBy(this.searchBySchemaLinkPath, optionsWithSchema, ...linksToFollow);
   }
 
+  /**
+   * Create or Update a MetadataField
+   *  If the MetadataField contains an id, it is assumed the field already exists and is updated instead
+   *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
+   *  - On creation, a CreateMetadataFieldRequest is used
+   *  - On update, a UpdateMetadataFieldRequest is used
+   * @param field    The MetadataField to create or update
+   */
   createOrUpdateMetadataField(field: MetadataField): Observable<RestResponse> {
     const isUpdate = hasValue(field.id);
     const requestId = this.requestService.generateRequestId();
@@ -97,9 +111,15 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
     );
   }
 
+  /**
+   * Clear all metadata field requests
+   * Used for refreshing lists after adding/updating/removing a metadata field from a metadata schema
+   */
   clearRequests(): Observable<string> {
     return this.getBrowseEndpoint().pipe(
-      tap((href: string) => this.requestService.removeByHrefSubstring(href))
+      tap((href: string) => {
+        this.requestService.removeByHrefSubstring(href);
+      })
     );
   }
 

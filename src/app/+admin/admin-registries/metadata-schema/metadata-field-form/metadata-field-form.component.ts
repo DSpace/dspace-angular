@@ -177,6 +177,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
           });
         }
         this.clearFields();
+        this.registryService.cancelEditMetadataField();
       }
     );
   }
