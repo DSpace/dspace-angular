@@ -42,6 +42,14 @@ export class MetadataSchemaDataService extends DataService<MetadataSchema> {
     super();
   }
 
+  /**
+   * Create or Update a MetadataSchema
+   *  If the MetadataSchema contains an id, it is assumed the schema already exists and is updated instead
+   *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
+   *  - On creation, a CreateMetadataSchemaRequest is used
+   *  - On update, a UpdateMetadataSchemaRequest is used
+   * @param schema    The MetadataSchema to create or update
+   */
   createOrUpdateMetadataSchema(schema: MetadataSchema): Observable<RestResponse> {
     const isUpdate = hasValue(schema.id);
     const requestId = this.requestService.generateRequestId();
@@ -89,6 +97,10 @@ export class MetadataSchemaDataService extends DataService<MetadataSchema> {
     );
   }
 
+  /**
+   * Clear all metadata schema requests
+   * Used for refreshing lists after adding/updating/removing a metadata schema in the registry
+   */
   clearRequests(): Observable<string> {
     return this.getBrowseEndpoint().pipe(
       tap((href: string) => this.requestService.removeByHrefSubstring(href))

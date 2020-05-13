@@ -128,6 +128,7 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
    * Emit the updated/created schema using the EventEmitter submitForm
    */
   onSubmit() {
+    this.registryService.clearMetadataSchemaRequests().subscribe();
     this.registryService.getActiveMetadataSchema().pipe(take(1)).subscribe(
       (schema) => {
         const values = {
@@ -148,6 +149,7 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
           });
         }
         this.clearFields();
+        this.registryService.cancelEditMetadataSchema();
       }
     );
   }

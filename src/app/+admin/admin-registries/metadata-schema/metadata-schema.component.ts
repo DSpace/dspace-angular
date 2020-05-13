@@ -50,7 +50,7 @@ export class MetadataSchemaComponent implements OnInit {
   /**
    * Whether or not the list of MetadataFields needs an update
    */
-  needsUpdate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  needsUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(private registryService: RegistryService,
               private route: ActivatedRoute,
@@ -81,17 +81,16 @@ export class MetadataSchemaComponent implements OnInit {
    */
   onPageChange(event) {
     this.config.currentPage = event;
-    this.needsUpdate.next(true);
+    this.forceUpdateFields();
   }
 
   /**
    * Update the list of fields by fetching it from the rest api or cache
    */
   private updateFields() {
-    this.metadataFields$ = combineLatest(this.metadataSchema$, this.needsUpdate).pipe(
+    this.metadataFields$ = combineLatest(this.metadataSchema$, this.needsUpdate$).pipe(
       switchMap(([schema, update]: [MetadataSchema, boolean]) => {
         if (update) {
-          console.log('reloaded list');
           return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config));
         }
       })
@@ -103,7 +102,7 @@ export class MetadataSchemaComponent implements OnInit {
    * a new REST call
    */
   public forceUpdateFields() {
-    this.registryService.clearMetadataFieldRequests().subscribe(() => this.needsUpdate.next(true));
+    this.needsUpdate$.next(true);
   }
 
   /**
@@ -162,6 +161,7 @@ export class MetadataSchemaComponent implements OnInit {
    * Delete all the selected metadata fields
    */
   deleteFields() {
+    this.registryService.clearMetadataFieldRequests().subscribe();
     this.registryService.getSelectedMetadataFields().pipe(take(1)).subscribe(
       (fields) => {
         const tasks$ = [];
