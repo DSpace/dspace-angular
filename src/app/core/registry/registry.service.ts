@@ -50,10 +50,7 @@ const selectedMetadataFieldsSelector = createSelector(metadataRegistryStateSelec
 @Injectable()
 export class RegistryService {
 
-  constructor(protected requestService: RequestService,
-              private rdb: RemoteDataBuildService,
-              private halService: HALEndpointService,
-              private store: Store<AppState>,
+  constructor(private store: Store<AppState>,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private metadataSchemaService: MetadataSchemaDataService,
