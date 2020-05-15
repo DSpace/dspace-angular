@@ -142,11 +142,13 @@ export class CreateProfileComponent implements OnInit {
       const eperson = Object.assign(new EPerson(), values);
       this.ePersonDataService.createEPersonForToken(eperson, this.token).subscribe((response) => {
         if (response.isSuccessful) {
-          this.notificationsService.success('register-page.create-profile.submit.success.head', 'register-page.create-profile.submit.success.content');
+          this.notificationsService.success(this.translateService.get('register-page.create-profile.submit.success.head'),
+            this.translateService.get('register-page.create-profile.submit.success.content'));
           this.store.dispatch(new AuthenticateAction(this.email, this.password.value));
           this.router.navigate(['/home']);
         } else {
-          this.notificationsService.error('register-page.create-profile.submit.error.head', 'register-page.create-profile.submit.error.content');
+          this.notificationsService.error(this.translateService.get('register-page.create-profile.submit.error.head'),
+            this.translateService.get('register-page.create-profile.submit.error.content'));
         }
       });
 

@@ -2068,13 +2068,13 @@
 
   "register-page.create-profile.submit": "Complete Registration",
 
-  "register-page.create-profile.submit.error.content": "Registration failed",
+  "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
 
-  "register-page.create-profile.submit.error.head": "Something went wrong while registering a new user.",
+  "register-page.create-profile.submit.error.head": "Registration failed",
 
-  "register-page.create-profile.submit.success.content": "Registration completed",
+  "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
 
-  "register-page.create-profile.submit.success.head": "The registration was successful. You have been logged in as the created user.",
+  "register-page.create-profile.submit.success.head": "Registration completed",
 
 
   "register-page.registration.header": "New user registration",

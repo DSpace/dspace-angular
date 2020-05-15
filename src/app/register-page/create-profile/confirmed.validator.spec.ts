@@ -15,7 +15,7 @@ describe('ConfirmedValidator', () => {
     });
   }));
 
-  it('should validate a language according to the iso-639-1 standard', fakeAsync(() => {
+  it('should validate that the password and confirm password match', fakeAsync(() => {
 
     passwordForm.get('password').patchValue('test-password');
     passwordForm.get('confirmPassword').patchValue('test-password-mismatch');
@@ -23,7 +23,7 @@ describe('ConfirmedValidator', () => {
     expect(passwordForm.valid).toBe(false);
   }));
 
-  it('should invalidate a language that does not comply to the iso-639-1 standard', fakeAsync(() => {
+  it('should invalidate that the password and confirm password match', fakeAsync(() => {
     passwordForm.get('password').patchValue('test-password');
     passwordForm.get('confirmPassword').patchValue('test-password');
 
