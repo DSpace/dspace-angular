@@ -78,7 +78,7 @@ function cacheControl(req, res, next) {
   next();
 }
 
-app.use('/', cacheControl, express.static('dist', { index: false }));
+app.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
 
 // TODO: either remove or update mock backend
 // app.get('/data.json', serverApi);
@@ -107,7 +107,7 @@ function ngApp(req, res) {
 
   if (environment.universal.preboot) {
     Zone.current.fork({ name: 'CSR fallback', onHandleError }).run(() => {
-      res.render(DIST_FOLDER, {
+      res.render(DIST_FOLDER + '/index.html', {
         req,
         res,
         preboot: environment.universal.preboot,
@@ -127,7 +127,7 @@ function ngApp(req, res) {
   }
 }
 
-app.get('*.*', ngApp);
+app.get('*', ngApp);
 
 function serverStarted() {
   console.log(`[${new Date().toTimeString()}] Listening at ${environment.ui.baseUrl}`);
