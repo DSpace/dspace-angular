@@ -12,7 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItemType } from './initial-menus-state';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
 
-fdescribe('MenuComponent', () => {
+describe('MenuComponent', () => {
   let comp: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
   let menuService: MenuService;
