@@ -15,7 +15,9 @@ import { Injectable } from '@angular/core';
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DSOBreadcrumbsService implements BreadcrumbsService<ChildHALResource & DSpaceObject> {
   constructor(
     private linkService: LinkService,
