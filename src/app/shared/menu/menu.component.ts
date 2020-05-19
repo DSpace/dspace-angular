@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/initial-menus-state';
 import { MenuSection } from '../../shared/menu/menu.reducer';
-import { first, map } from 'rxjs/operators';
+import { distinctUntilChanged, first, map } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasValue } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
@@ -72,7 +72,7 @@ export class MenuComponent implements OnInit {
     this.menuCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
-    this.sections = this.menuService.getMenuTopSections(this.menuID).pipe(first());
+    this.sections = this.menuService.getMenuTopSections(this.menuID).pipe(distinctUntilChanged((x, y) => x.length === y.length));
     this.sections.subscribe((sections: MenuSection[]) => {
       sections.forEach((section: MenuSection) => {
         this.sectionInjectors.set(section.id, this.getSectionDataInjector(section));

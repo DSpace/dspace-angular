@@ -176,7 +176,9 @@ function removeSection(state: MenusState, action: RemoveMenuSectionAction) {
   const menuState: MenuState = state[action.menuID];
   const id = action.id;
   const newState = removeFromIndex(state, menuState.sections[action.id], action.menuID);
-  const newMenuState = Object.assign({}, newState[action.menuID]);
+  const newMenuState = Object.assign({}, newState[action.menuID], {
+    sections: Object.assign({}, newState[action.menuID].sections)
+  });
   delete newMenuState.sections[id];
   return Object.assign({}, newState, { [action.menuID]: newMenuState });
 }
