@@ -9,7 +9,7 @@ import { of as observableOf } from 'rxjs';
 import { MenuSection } from './menu.reducer';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItemType } from './initial-menus-state';
+import { MenuID, MenuItemType } from './initial-menus-state';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
 
 describe('MenuComponent', () => {
@@ -20,6 +20,8 @@ describe('MenuComponent', () => {
   let routeDataMenuChildSection: MenuSection;
   let route: any;
   let router: any;
+
+  const mockMenuID = 'mock-menuID' as MenuID;
 
   beforeEach(async(() => {
     routeDataMenuSection = {
@@ -47,13 +49,17 @@ describe('MenuComponent', () => {
       root: {
         snapshot: {
           data: {
-            menu: routeDataMenuSection
+            menu: {
+              [mockMenuID]: routeDataMenuSection
+            }
           }
         },
         firstChild: {
           snapshot: {
             data: {
-              menu: routeDataMenuChildSection
+              menu: {
+                [mockMenuID]: routeDataMenuChildSection
+              }
             }
           }
         }
@@ -76,6 +82,7 @@ describe('MenuComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MenuComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
+    comp.menuID = mockMenuID;
     menuService = (comp as any).menuService;
     router = TestBed.get(Router);
     spyOn(comp as any, 'getSectionDataInjector').and.returnValue(MenuSection);

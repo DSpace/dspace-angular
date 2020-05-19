@@ -125,11 +125,11 @@ export class MenuComponent implements OnInit, OnDestroy {
     const data = route.snapshot.data;
     const last: boolean = hasNoValue(route.firstChild);
 
-    if (hasValue(data) && hasValue(data.menu)) {
+    if (hasValue(data) && hasValue(data.menu) && hasValue(data.menu[this.menuID])) {
       if (!last) {
-        return [...data.menu, ...this.resolveMenuSections(route.firstChild)]
+        return [...data.menu[this.menuID], ...this.resolveMenuSections(route.firstChild)]
       } else {
-        return [...data.menu];
+        return [...data.menu[this.menuID]];
       }
     }
 
