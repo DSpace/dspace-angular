@@ -11,4 +11,5 @@ export enum Context {
   AdminMenu = 'adminMenu',
   SubmissionModal = 'submissionModal',
   AdminSearch = 'adminSearch',
+  AdminWorkflowSearch = 'adminWorkflowSearch',
 }
