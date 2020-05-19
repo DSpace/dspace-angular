@@ -7,6 +7,7 @@ import { TextMenuItemModel } from '../shared/menu/menu-item/models/text.model';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { HostWindowService } from '../shared/host-window.service';
 import { environment } from '../../environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 /**
  * Component representing the public navbar
@@ -17,7 +18,7 @@ import { environment } from '../../environments/environment';
   templateUrl: './navbar.component.html',
   animations: [slideMobileNav]
 })
-export class NavbarComponent extends MenuComponent implements OnInit {
+export class NavbarComponent extends MenuComponent {
   /**
    * The menu ID of the Navbar is PUBLIC
    * @type {MenuID.PUBLIC}
@@ -26,14 +27,11 @@ export class NavbarComponent extends MenuComponent implements OnInit {
 
   constructor(protected menuService: MenuService,
               protected injector: Injector,
+              protected route: ActivatedRoute,
+              protected router: Router,
               public windowService: HostWindowService
   ) {
-    super(menuService, injector);
-  }
-
-  ngOnInit(): void {
-    this.createMenu();
-    super.ngOnInit();
+    super(menuService, injector, route, router);
   }
 
   /**

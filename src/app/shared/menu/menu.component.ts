@@ -3,11 +3,13 @@ import { Observable } from 'rxjs/internal/Observable';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/initial-menus-state';
 import { MenuSection } from '../../shared/menu/menu.reducer';
-import { distinctUntilChanged, first, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, switchMap, tap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasValue } from '../empty.util';
+import { hasNoValue, hasValue } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { of as observableOf } from 'rxjs/internal/observable/of';
 
 /**
  * A basic implementation of a MenuComponent
@@ -62,13 +64,17 @@ export class MenuComponent implements OnInit {
    */
   private previewTimer;
 
-  constructor(protected menuService: MenuService, protected injector: Injector) {
+  constructor(protected menuService: MenuService,
+              protected injector: Injector,
+              protected route: ActivatedRoute,
+              protected router: Router) {
   }
 
   /**
    * Sets all instance variables to their initial values
    */
   ngOnInit(): void {
+    this.initSections();
     this.menuCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
@@ -79,6 +85,49 @@ export class MenuComponent implements OnInit {
         this.getSectionComponent(section).pipe(first()).subscribe((constr) => this.sectionComponents.set(section.id, constr));
       });
     });
+  }
+
+  /**
+   * Initialize all menu sections and add them to the menu's store
+   */
+  initSections() {
+    this.router.events.pipe(
+      filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+      tap(() => this.menuService.resetSections(this.menuID)),
+      map(() => this.resolveMenuSections(this.route.root))
+    ).subscribe((sections: MenuSection[]) => {
+      this.createMenu();
+      sections.forEach((section: MenuSection) => {
+        this.menuService.addSection(this.menuID, section);
+      });
+    });
+  }
+
+  /**
+   * Initialize all static menu sections and items for this menu
+   * These sections will be available on any route. Route specific sections should be defined in the route's data instead.
+   */
+  createMenu() {
+    // Override this method to create and add a standard set of menu sections that should be available for the current menu type on all routes
+  }
+
+  /**
+   * Resolve menu sections defined in the current route data (including parent routes)
+   * @param route The route to resolve data for
+   */
+  resolveMenuSections(route: ActivatedRoute): MenuSection[] {
+    const data = route.snapshot.data;
+    const last: boolean = hasNoValue(route.firstChild);
+
+    if (hasValue(data) && hasValue(data.menu)) {
+      if (!last) {
+        return [...data.menu, ...this.resolveMenuSections(route.firstChild)]
+      } else {
+        return [...data.menu];
+      }
+    }
+
+    return !last ? this.resolveMenuSections(route.firstChild) : [];
   }
 
   /**

@@ -21,6 +21,7 @@ export const MenuActionTypes = {
   EXPAND_MENU_PREVIEW: type('dspace/menu/EXPAND_MENU_PREVIEW'),
   ADD_SECTION: type('dspace/menu-section/ADD_SECTION'),
   REMOVE_SECTION: type('dspace/menu-section/REMOVE_SECTION'),
+  RESET_SECTIONS: type('dspace/menu-section/RESET_SECTIONS'),
   SHOW_SECTION: type('dspace/menu-section/SHOW_SECTION'),
   HIDE_SECTION: type('dspace/menu-section/HIDE_SECTION'),
   ACTIVATE_SECTION: type('dspace/menu-section/ACTIVATE_SECTION'),
@@ -108,6 +109,18 @@ export class CollapseMenuPreviewAction implements Action {
  */
 export class ExpandMenuPreviewAction implements Action {
   type = MenuActionTypes.EXPAND_MENU_PREVIEW;
+  menuID: MenuID;
+
+  constructor(menuID: MenuID) {
+    this.menuID = menuID;
+  }
+}
+
+/**
+ * Action used to remove all sections from a certain menu
+ */
+export class ResetMenuSectionsAction implements Action {
+  type = MenuActionTypes.RESET_SECTIONS;
   menuID: MenuID;
 
   constructor(menuID: MenuID) {
@@ -225,4 +238,5 @@ export type MenuAction =
   | ToggleActiveMenuSectionAction
   | CollapseMenuPreviewAction
   | ExpandMenuPreviewAction
+  | ResetMenuSectionsAction
 /* tslint:enable:max-classes-per-file */

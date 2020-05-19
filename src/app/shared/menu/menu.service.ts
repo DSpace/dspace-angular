@@ -14,12 +14,12 @@ import {
   ExpandMenuAction,
   ExpandMenuPreviewAction,
   HideMenuAction,
-  RemoveMenuSectionAction,
+  RemoveMenuSectionAction, ResetMenuSectionsAction,
   ShowMenuAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {
@@ -98,7 +98,7 @@ export class MenuService {
       switchMap((ids: string[]) =>
         observableCombineLatest(ids.map((id: string) => this.getMenuSection(menuID, id)))
       ),
-      map((sections: MenuSection[]) => sections.filter((section: MenuSection) => !mustBeVisible || section.visible))
+      map((sections: MenuSection[]) => sections.filter((section: MenuSection) => hasValue(section) && (!mustBeVisible || section.visible)))
     );
   }
 
@@ -145,6 +145,14 @@ export class MenuService {
    */
   removeSection(menuID: MenuID, sectionID: string) {
     this.store.dispatch(new RemoveMenuSectionAction(menuID, sectionID));
+  }
+
+  /**
+   * Remove all sections within a menu from the store
+   * @param {MenuID} menuID The menu from which the sections are to be removed
+   */
+  resetSections(menuID: MenuID) {
+    this.store.dispatch(new ResetMenuSectionsAction(menuID));
   }
 
   /**
@@ -270,7 +278,7 @@ export class MenuService {
    * @returns {Observable<boolean>} Emits true when the given section is currently active, false when the given section is currently inactive
    */
   isSectionActive(menuID: MenuID, id: string): Observable<boolean> {
-    return this.getMenuSection(menuID, id).pipe(map((section) => section.active));
+    return this.getMenuSection(menuID, id).pipe(hasValueOperator(), map((section) => section.active));
   }
 
   /**
