@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { MenuService } from '../../shared/menu/menu.service';
-import { MenuID } from '../../shared/menu/initial-menus-state';
-import { MenuSection } from '../../shared/menu/menu.reducer';
-import { distinctUntilChanged, filter, first, map, switchMap, tap } from 'rxjs/operators';
+import { MenuService } from './menu.service';
+import { MenuID } from './initial-menus-state';
+import { MenuSection } from './menu.reducer';
+import { distinctUntilChanged, filter, first, map, tap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasNoValue, hasValue } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs/internal/observable/of';
 
 /**
  * A basic implementation of a MenuComponent

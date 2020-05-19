@@ -7,19 +7,65 @@ import { MenuComponent } from './menu.component';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
 import { MenuSection } from './menu.reducer';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MenuItemType } from './initial-menus-state';
+import { LinkMenuItemModel } from './menu-item/models/link.model';
 
-describe('MenuComponent', () => {
+fdescribe('MenuComponent', () => {
   let comp: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
   let menuService: MenuService;
+  let routeDataMenuSection: MenuSection;
+  let routeDataMenuChildSection: MenuSection;
+  let route: any;
+  let router: any;
 
   beforeEach(async(() => {
+    routeDataMenuSection = {
+      id: 'mockSection',
+      active: false,
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.mockSection',
+        link: ''
+      } as LinkMenuItemModel
+    };
+    routeDataMenuChildSection = {
+      id: 'mockChildSection',
+      parentID: 'mockSection',
+      active: false,
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.mockChildSection',
+        link: ''
+      } as LinkMenuItemModel
+    };
+    route = {
+      root: {
+        snapshot: {
+          data: {
+            menu: routeDataMenuSection
+          }
+        },
+        firstChild: {
+          snapshot: {
+            data: {
+              menu: routeDataMenuChildSection
+            }
+          }
+        }
+      }
+    };
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [MenuComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: MenuService, useClass: MenuServiceStub },
+        { provide: ActivatedRoute, useValue: route }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MenuComponent, {
@@ -31,9 +77,34 @@ describe('MenuComponent', () => {
     fixture = TestBed.createComponent(MenuComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     menuService = (comp as any).menuService;
+    router = TestBed.get(Router);
     spyOn(comp as any, 'getSectionDataInjector').and.returnValue(MenuSection);
     spyOn(comp as any, 'getSectionComponent').and.returnValue(observableOf({}));
     fixture.detectChanges();
+  });
+
+  describe('ngOnInit', () => {
+    beforeEach(() => {
+      spyOn(comp, 'resolveMenuSections').and.returnValue([]);
+    });
+
+    it('should call resolveMenuSections on init', () => {
+      router.events = observableOf(new NavigationEnd(0, '', ''));
+      comp.ngOnInit();
+      expect(comp.resolveMenuSections).toHaveBeenCalledWith(route.root);
+    })
+  });
+
+  describe('resolveMenuSections', () => {
+    let result: MenuSection[];
+
+    beforeEach(() => {
+      result = comp.resolveMenuSections(route.root);
+    });
+
+    it('should return the current route\'s menu sections', () => {
+      expect(result).toEqual([routeDataMenuSection, routeDataMenuChildSection])
+    });
   });
 
   describe('toggle', () => {
