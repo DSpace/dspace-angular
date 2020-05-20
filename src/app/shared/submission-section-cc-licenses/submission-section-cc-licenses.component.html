@@ -1,4 +1,4 @@
-<div class="mb-2 ccLicense-select">
+<div class="mb-4 ccLicense-select">
   <ds-select
     [disabled]="!submissionCcLicenses"
     [label]="'submission.sections.ccLicense.type'">
@@ -38,10 +38,10 @@
 <ng-container *ngIf="getSelectedCcLicense()">
 
   <div *ngFor="let field of getSelectedCcLicense().fields"
-       class="mb-2">
+       class="mb-4">
 
-    <div class="d-flex flex-row mb-2">
-      <div class="label {{ field.id }}">
+    <div class="d-flex flex-row">
+      <div class="font-weight-bold {{ field.id }}">
         {{ field.label }}
       </div>
       <button
@@ -55,7 +55,7 @@
 
       <div>
 
-        <div class="modal-header">
+        <div class="modal-header mb-4 ">
           <div>
             <h4>
               {{ field.label }}
@@ -70,11 +70,11 @@
 
         <div class="modal-body">
           <div *ngFor="let value of field.enums"
-               class="mb-2">
+               class="mb-4">
             <h5>
               {{ value.label }}
             </h5>
-            <div [innerHTML]="value.description"></div>
+            <div [innerHTML]="value.description" class="font-weight-light"></div>
           </div>
         </div>
 
@@ -102,13 +102,13 @@
 
     <ng-container *ngIf="field.enums?.length <= 5">
       <div *ngFor="let option of field.enums"
-           class="d-flex flex-row m-2">
+           class="d-flex flex-row m-1">
         <div (click)="selectOption(getSelectedCcLicense(), field, option)">
           <input type="radio"
                  title="{{ option.label }}"
                  class="mr-1"
                  [checked]="isSelectedOption(getSelectedCcLicense(), field, option)">
-          <span class="label">{{ option.label }}</span>
+          <span>{{ option.label }}</span>
         </div>
       </div>
     </ng-container>
@@ -122,11 +122,12 @@
     <div *ngIf="!licenseLink">
       <i class='fas fa-circle-notch fa-spin m-2'></i>
     </div>
-    <ng-container *ngIf="licenseLink">
+    <div *ngIf="licenseLink"
+         class="mt-2 p-4 bg-light text-dark">
       <div>
         {{ 'submission.sections.ccLicense.link' | translate }}
       </div>
-      <a class="license-link" href="{{ licenseLink }}?target=_blank">
+      <a class="license-link" href="{{ licenseLink }}" target="_blank">
         {{ licenseLink }}
       </a>
       <div class="m-2">
@@ -137,6 +138,6 @@
           <span>{{ 'submission.sections.ccLicense.confirmation' | translate }}</span>
         </div>
       </div>
-    </ng-container>
+    </div>
   </ng-container>
 </ng-container>

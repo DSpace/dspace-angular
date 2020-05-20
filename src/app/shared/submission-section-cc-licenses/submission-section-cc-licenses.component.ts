@@ -21,7 +21,7 @@ import { JsonPatchOperationsBuilder } from '../../core/json-patch/builder/json-p
 @Component({
   selector: 'ds-submission-section-cc-licenses',
   templateUrl: './submission-section-cc-licenses.component.html',
-  styleUrls: ['./submission-section-cc-licenses.component.css']
+  styleUrls: ['./submission-section-cc-licenses.component.scss']
 })
 @renderSectionFor(SectionsType.CcLicense)
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent {
@@ -107,11 +107,13 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     if (!!this.getSelectedCcLicense() && this.getSelectedCcLicense().id === ccLicense.id) {
       return;
     }
-    this.data.ccLicense = {
-      id: ccLicense.id,
-      fields: {},
-    };
-    this.data.uri = undefined;
+    this.updateSectionData({
+      ccLicense: {
+        id: ccLicense.id,
+        fields: {},
+      },
+      uri: undefined,
+    });
     this.setAccepted(false);
   }
 
@@ -135,8 +137,15 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     if (this.isSelectedOption(ccLicense, field, option)) {
       return;
     }
-    this.data.ccLicense.fields[field.id] = option;
-    this.setAccepted(false);
+    this.updateSectionData({
+      ccLicense: {
+        id: ccLicense.id,
+        fields: Object.assign({}, this.data.ccLicense.fields, {
+          [field.id]: option
+        }),
+      },
+      accepted: false,
+    });
   }
 
   /**
@@ -227,6 +236,14 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         map((sectionState) => sectionState.data as WorkspaceitemSectionCcLicenseObject),
       ).subscribe((data) => {
         this.sectionData.data = data;
+        const path = this.pathCombiner.getPath('uri');
+        if (this.accepted) {
+          this.getCcLicenseLink$().subscribe((link) => {
+            this.operationsBuilder.add(path, link.toString(), false, true);
+          });
+        } else {
+          this.operationsBuilder.remove(path);
+        }
       }),
       this.submissionCcLicensesDataService.findAll({elementsPerPage: Number.MAX_SAFE_INTEGER}).pipe(
         getSucceededRemoteData(),
@@ -243,27 +260,16 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    * @param accepted  the accepted state for the cc license.
    */
   setAccepted(accepted: boolean) {
-    const path = this.pathCombiner.getPath('uri');
-    if (accepted) {
-      this.getCcLicenseLink$().subscribe((link) => {
-          this.operationsBuilder.add(path, link.toString(), false, true);
-          this.data.accepted = true;
-          this.updateSectionData();
-          this.updateSectionStatus();
-        }
-      );
-    } else {
-      this.operationsBuilder.remove(path);
-      this.data.accepted = false;
-      this.updateSectionData();
-      this.updateSectionStatus();
-    }
+    this.updateSectionData({
+      accepted
+    });
+    this.updateSectionStatus();
   }
 
   /**
    * Update the section data for this section.
    */
-  updateSectionData() {
-    this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, this.data);
+  updateSectionData(data: WorkspaceitemSectionCcLicenseObject) {
+    this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, Object.assign({}, this.data, data));
   }
 }

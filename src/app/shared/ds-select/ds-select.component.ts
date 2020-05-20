@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'ds-select',
   templateUrl: './ds-select.component.html',
-  styleUrls: ['./ds-select.component.css']
+  styleUrls: ['./ds-select.component.scss']
 })
 export class DsSelectComponent {
 
