@@ -20,7 +20,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { StoreMock } from '../../shared/testing/store.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
-import { MetadatafieldSuccessResponse, MetadataschemaSuccessResponse, RestResponse } from '../cache/response.models';
+import { RestResponse } from '../cache/response.models';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { RegistryService } from './registry.service';
@@ -126,7 +126,7 @@ describe('RegistryService', () => {
     metadataSchemaService = jasmine.createSpyObj('metadataSchemaService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(mockSchemasList)),
       findById: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
-      createOrUpdateMetadataSchema: observableOf(new MetadataschemaSuccessResponse(mockSchemasList[0], 200, 'OK')),
+      createOrUpdateMetadataSchema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
       deleteAndReturnResponse: observableOf(new RestResponse(true, 200, 'OK')),
       clearRequests: observableOf('href')
     });
@@ -134,7 +134,7 @@ describe('RegistryService', () => {
     metadataFieldService = jasmine.createSpyObj('metadataFieldService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(mockFieldsList)),
       findById: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
-      createOrUpdateMetadataField: observableOf(new MetadatafieldSuccessResponse(mockFieldsList[0], 200, 'OK')),
+      createOrUpdateMetadataField: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       deleteAndReturnResponse: observableOf(new RestResponse(true, 200, 'OK')),
       clearRequests: observableOf('href')
     });

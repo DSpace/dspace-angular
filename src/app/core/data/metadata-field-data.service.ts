@@ -8,21 +8,18 @@ import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { CreateMetadataFieldRequest, FindListOptions, UpdateMetadataFieldRequest } from './request.models';
+import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { SearchParam } from '../cache/models/search-param.model';
 import { Observable } from 'rxjs/internal/Observable';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { configureRequest, getResponseFromEntry } from '../shared/operators';
-import { MetadatafieldSuccessResponse, RestResponse } from '../cache/response.models';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
+import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
+import { distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { RemoteData } from './remote-data';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadatafields endpoint
@@ -62,52 +59,29 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    * Create or Update a MetadataField
    *  If the MetadataField contains an id, it is assumed the field already exists and is updated instead
    *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
-   *  - On creation, a CreateMetadataFieldRequest is used
-   *  - On update, a UpdateMetadataFieldRequest is used
+   *  - On creation, a CreateRequest is used
+   *  - On update, a PutRequest is used
    * @param field    The MetadataField to create or update
    */
-  createOrUpdateMetadataField(field: MetadataField): Observable<RestResponse> {
+  createOrUpdateMetadataField(field: MetadataField): Observable<RemoteData<MetadataField>> {
     const isUpdate = hasValue(field.id);
-    const requestId = this.requestService.generateRequestId();
-    const endpoint$ = this.getBrowseEndpoint().pipe(
+
+    if (isUpdate) {
+      return this.put(field);
+    } else {
+      return this.create(field, `${field.schema.id}`);
+    }
+  }
+
+  /**
+   * Get the endpoint for creating a new object
+   * @param parentUUID  The parent object's UUID
+   */
+  getCreateHref(parentUUID: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
-      map((endpoint: string) => (isUpdate ? `${endpoint}/${field.id}` : `${endpoint}?schemaId=${field.schema.id}`)),
-      distinctUntilChanged()
-    );
-
-    const request$ = endpoint$.pipe(
-      take(1),
-      map((endpoint: string) => {
-        if (isUpdate) {
-          const options: HttpOptions = Object.create({});
-          let headers = new HttpHeaders();
-          headers = headers.append('Content-Type', 'application/json');
-          options.headers = headers;
-          return new UpdateMetadataFieldRequest(requestId, endpoint, JSON.stringify(field), options);
-        } else {
-          return new CreateMetadataFieldRequest(requestId, endpoint, JSON.stringify(field));
-        }
-      })
-    );
-
-    // Execute the post/put request
-    request$.pipe(
-      configureRequest(this.requestService)
-    ).subscribe();
-
-    // Return response
-    return this.requestService.getByUUID(requestId).pipe(
-      getResponseFromEntry(),
-      map((response: RestResponse) => {
-        if (!response.isSuccessful) {
-          if (hasValue((response as any).errorMessage)) {
-            this.notificationsService.error('Server Error:', (response as any).errorMessage, new NotificationOptions(-1));
-          }
-        } else {
-          return response;
-        }
-      }),
-      isNotEmptyOperator()
+      distinctUntilChanged(),
+      map((endpoint: string) => parentUUID ? `${endpoint}?schemaId=${parentUUID}` : endpoint)
     );
   }
 

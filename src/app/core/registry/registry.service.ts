@@ -12,8 +12,8 @@ import {
   RestResponse
 } from '../cache/response.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
-import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { MetadataRegistryState } from '../../+admin/admin-registries/metadata-registry/metadata-registry.reducers';
@@ -207,18 +207,17 @@ export class RegistryService {
    * Create or Update a MetadataSchema
    *  If the MetadataSchema contains an id, it is assumed the schema already exists and is updated instead
    *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
-   *  - On creation, a CreateMetadataSchemaRequest is used
-   *  - On update, a UpdateMetadataSchemaRequest is used
+   *  - On creation, a CreateRequest is used
+   *  - On update, a PutRequest is used
    * @param schema    The MetadataSchema to create or update
    */
   public createOrUpdateMetadataSchema(schema: MetadataSchema): Observable<MetadataSchema> {
     const isUpdate = hasValue(schema.id);
     return this.metadataSchemaService.createOrUpdateMetadataSchema(schema).pipe(
-      map((response: MetadataschemaSuccessResponse) => {
-        if (isNotEmpty(response.metadataschema)) {
-          this.showNotifications(true, isUpdate, false, {prefix: schema.prefix});
-          return response.metadataschema;
-        }
+      getFirstSucceededRemoteDataPayload(),
+      hasValueOperator(),
+      tap(() => {
+        this.showNotifications(true, isUpdate, false, {prefix: schema.prefix});
       })
     );
   }
@@ -242,19 +241,18 @@ export class RegistryService {
    * Create or Update a MetadataField
    *  If the MetadataField contains an id, it is assumed the field already exists and is updated instead
    *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
-   *  - On creation, a CreateMetadataFieldRequest is used
-   *  - On update, a UpdateMetadataFieldRequest is used
+   *  - On creation, a CreateRequest is used
+   *  - On update, a PutRequest is used
    * @param field    The MetadataField to create or update
    */
   public createOrUpdateMetadataField(field: MetadataField): Observable<MetadataField> {
     const isUpdate = hasValue(field.id);
     return this.metadataFieldService.createOrUpdateMetadataField(field).pipe(
-      map((response: MetadatafieldSuccessResponse) => {
-        if (isNotEmpty(response.metadatafield)) {
-          const fieldString = `${field.schema.prefix}.${field.element}${field.qualifier ? `.${field.qualifier}` : ''}`;
-          this.showNotifications(true, isUpdate, true, {field: fieldString});
-          return response.metadatafield;
-        }
+      getFirstSucceededRemoteDataPayload(),
+      hasValueOperator(),
+      tap(() => {
+        const fieldString = `${field.schema.prefix}.${field.element}${field.qualifier ? `.${field.qualifier}` : ''}`;
+        this.showNotifications(true, isUpdate, true, {field: fieldString});
       })
     );
   }

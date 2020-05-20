@@ -69,8 +69,6 @@ import { ItemDataService } from './data/item-data.service';
 import { LicenseDataService } from './data/license-data.service';
 import { LookupRelationService } from './data/lookup-relation.service';
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
-import { MetadatafieldParsingService } from './data/metadatafield-parsing.service';
-import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
 import { RelationshipTypeService } from './data/relationship-type.service';
@@ -219,8 +217,6 @@ const PROVIDERS = [
   JsonPatchOperationsBuilder,
   AuthorityService,
   IntegrationResponseParsingService,
-  MetadataschemaParsingService,
-  MetadatafieldParsingService,
   UploaderService,
   UUIDService,
   NotificationsService,

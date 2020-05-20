@@ -140,7 +140,7 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
             this.submitForm.emit(newSchema);
           });
         } else {
-          this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), {
+          this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), schema, {
             id: schema.id,
             prefix: (values.prefix ? values.prefix : schema.prefix),
             namespace: (values.namespace ? values.namespace : schema.namespace)

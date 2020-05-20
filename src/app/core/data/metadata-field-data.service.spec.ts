@@ -4,11 +4,13 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RestResponse } from '../cache/response.models';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { CreateMetadataFieldRequest, FindListOptions, UpdateMetadataFieldRequest } from './request.models';
+import { CreateRequest, FindListOptions, PutRequest } from './request.models';
 import { MetadataFieldDataService } from './metadata-field-data.service';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { SearchParam } from '../cache/models/search-param.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('MetadataFieldDataService', () => {
   let metadataFieldService: MetadataFieldDataService;
@@ -16,13 +18,17 @@ describe('MetadataFieldDataService', () => {
   let halService: HALEndpointService;
   let notificationsService: NotificationsService;
   let schema: MetadataSchema;
+  let rdbService: RemoteDataBuildService;
 
   const endpoint = 'api/metadatafield/endpoint';
 
   function init() {
     schema = Object.assign(new MetadataSchema(), {
       prefix: 'dc',
-      namespace: 'namespace'
+      namespace: 'namespace',
+      _links: {
+        self: { href: 'selflink' }
+      }
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
@@ -34,7 +40,10 @@ describe('MetadataFieldDataService', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', {
       error: {}
     });
-    metadataFieldService = new MetadataFieldDataService(requestService, undefined, undefined, halService, undefined, undefined, undefined, notificationsService);
+    rdbService = jasmine.createSpyObj('rdbService', {
+      buildSingle: createSuccessfulRemoteDataObject$(undefined)
+    });
+    metadataFieldService = new MetadataFieldDataService(requestService, rdbService, undefined, halService, undefined, undefined, undefined, notificationsService);
   }
 
   beforeEach(() => {
@@ -62,14 +71,17 @@ describe('MetadataFieldDataService', () => {
       field = Object.assign(new MetadataField(), {
         element: 'identifier',
         qualifier: undefined,
-        schema: schema
+        schema: schema,
+        _links: {
+          self: { href: 'selflink' }
+        }
       });
     });
 
     describe('called with a new metadata field', () => {
-      it('should send a CreateMetadataFieldRequest', (done) => {
+      it('should send a CreateRequest', (done) => {
         metadataFieldService.createOrUpdateMetadataField(field).subscribe(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(CreateMetadataFieldRequest));
+          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(CreateRequest));
           done();
         });
       });
@@ -82,9 +94,9 @@ describe('MetadataFieldDataService', () => {
         });
       });
 
-      it('should send a UpdateMetadataFieldRequest', (done) => {
+      it('should send a PutRequest', (done) => {
         metadataFieldService.createOrUpdateMetadataField(field).subscribe(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(UpdateMetadataFieldRequest));
+          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PutRequest));
           done();
         });
       });

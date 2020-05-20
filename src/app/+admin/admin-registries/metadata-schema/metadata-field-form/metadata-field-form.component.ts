@@ -167,7 +167,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
             this.submitForm.emit(newField);
           });
         } else {
-          this.registryService.createOrUpdateMetadataField(Object.assign(new MetadataField(), {
+          this.registryService.createOrUpdateMetadataField(Object.assign(new MetadataField(), field, {
             id: field.id,
             schema: this.metadataSchema,
             element: (values.element ? values.element : field.element),

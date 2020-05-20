@@ -6,13 +6,16 @@ import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../cache/response.models';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { CreateMetadataSchemaRequest, UpdateMetadataSchemaRequest } from './request.models';
+import { CreateRequest, PutRequest } from './request.models';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('MetadataSchemaDataService', () => {
   let metadataSchemaService: MetadataSchemaDataService;
   let requestService: RequestService;
   let halService: HALEndpointService;
   let notificationsService: NotificationsService;
+  let rdbService: RemoteDataBuildService;
 
   const endpoint = 'api/metadataschema/endpoint';
 
@@ -27,7 +30,10 @@ describe('MetadataSchemaDataService', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', {
       error: {}
     });
-    metadataSchemaService = new MetadataSchemaDataService(requestService, undefined, undefined, halService, undefined, undefined, undefined, notificationsService);
+    rdbService = jasmine.createSpyObj('rdbService', {
+      buildSingle: createSuccessfulRemoteDataObject$(undefined)
+    });
+    metadataSchemaService = new MetadataSchemaDataService(requestService, rdbService, undefined, halService, undefined, undefined, undefined, notificationsService);
   }
 
   beforeEach(() => {
@@ -40,14 +46,17 @@ describe('MetadataSchemaDataService', () => {
     beforeEach(() => {
       schema = Object.assign(new MetadataSchema(), {
         prefix: 'dc',
-        namespace: 'namespace'
+        namespace: 'namespace',
+        _links: {
+          self: { href: 'selflink' }
+        }
       });
     });
 
     describe('called with a new metadata schema', () => {
-      it('should send a CreateMetadataSchemaRequest', (done) => {
+      it('should send a CreateRequest', (done) => {
         metadataSchemaService.createOrUpdateMetadataSchema(schema).subscribe(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(CreateMetadataSchemaRequest));
+          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(CreateRequest));
           done();
         });
       });
@@ -60,9 +69,9 @@ describe('MetadataSchemaDataService', () => {
         });
       });
 
-      it('should send a UpdateMetadataSchemaRequest', (done) => {
+      it('should send a PutRequest', (done) => {
         metadataSchemaService.createOrUpdateMetadataSchema(schema).subscribe(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(UpdateMetadataSchemaRequest));
+          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PutRequest));
           done();
         });
       });

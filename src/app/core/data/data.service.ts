@@ -45,11 +45,12 @@ import {
   FindListOptions,
   FindListRequest,
   GetRequest,
-  PatchRequest
+  PatchRequest, PutRequest
 } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
+import { GenericConstructor } from '../shared/generic-constructor';
 
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
@@ -355,6 +356,28 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
+   * Send a PUT request for the specified object
+   *
+   * @param object The object to send a put request for.
+   */
+  put(object: T): Observable<RemoteData<T>> {
+    const requestId = this.requestService.generateRequestId();
+    const serializedObject = new DSpaceSerializer(object.constructor as GenericConstructor<{}>).serialize(object);
+    const request = new PutRequest(requestId, object._links.self.href, serializedObject);
+
+    if (hasValue(this.responseMsToLive)) {
+      request.responseMsToLive = this.responseMsToLive;
+    }
+
+    this.requestService.configure(request);
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((re: RequestEntry) => hasValue(re) && re.completed),
+      switchMap(() => this.findByHref(object._links.self.href))
+    );
+  }
+
+  /**
    * Add a new patch to the object cache
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} object The given object
@@ -375,6 +398,18 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
+   * Get the endpoint for creating a new object
+   * @param parentUUID  The parent object's UUID
+   */
+  getCreateHref(parentUUID: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
+    );
+  }
+
+  /**
    * Create a new DSpaceObject on the server, and store the response
    * in the object cache
    *
@@ -385,11 +420,7 @@ export abstract class DataService<T extends CacheableObject> {
    */
   create(dso: T, parentUUID: string): Observable<RemoteData<T>> {
     const requestId = this.requestService.generateRequestId();
-    const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
-      isNotEmptyOperator(),
-      distinctUntilChanged(),
-      map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
-    );
+    const endpoint$ = this.getCreateHref(parentUUID);
 
     const serializedDso = new DSpaceSerializer(getClassForType((dso as any).type)).serialize(dso);
 
