@@ -9,16 +9,16 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import {
   createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-  createTestComponent
-} from '../../testing/utils';
+  createSuccessfulRemoteDataObject
+} from '../../remote-data.utils';
+import { createTestComponent } from '../../testing/utils.test';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
 import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
-import { getMockLinkService } from '../../mocks/mock-link-service';
-import { RouterStub } from '../../testing/router-stub';
+import { getMockLinkService } from '../../mocks/link-service.mock';
+import { RouterStub } from '../../testing/router.stub';
 import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { GroupMock } from '../../testing/group-mock';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';

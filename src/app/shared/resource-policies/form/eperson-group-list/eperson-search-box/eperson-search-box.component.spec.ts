@@ -4,7 +4,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createTestComponent } from '../../../../testing/utils';
+import { createTestComponent } from '../../../../testing/utils.test';
 import { EpersonSearchBoxComponent } from './eperson-search-box.component';
 import { SearchEvent } from '../eperson-group-list.component';
 

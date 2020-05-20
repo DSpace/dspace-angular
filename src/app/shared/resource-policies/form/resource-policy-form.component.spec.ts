@@ -10,24 +10,25 @@ import { TestScheduler } from 'rxjs/testing';
 import { delay } from 'rxjs/operators';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject, createTestComponent } from '../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { createTestComponent } from '../../testing/utils.test';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { RequestService } from '../../../core/data/request.service';
-import { getMockRequestService } from '../../mocks/mock-request.service';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
 import { ActionType } from '../../../core/resource-policy/models/action-type.model';
 import { GroupMock } from '../../testing/group-mock';
 import { ResourcePolicyEvent, ResourcePolicyFormComponent } from './resource-policy-form.component';
 import { FormService } from '../../form/form.service';
-import { getMockFormService } from '../../mocks/mock-form-service';
+import { getMockFormService } from '../../mocks/form-service.mock';
 import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
 import { FormComponent } from '../../form/form.component';
 import { stringToNgbDateStruct } from '../../date.util';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
-import { EPersonMock } from '../../testing/eperson-mock';
+import { EPersonMock } from '../../testing/eperson.mock';
 
 export const mockResourcePolicyFormData = {
   name: [

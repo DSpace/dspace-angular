@@ -13,10 +13,9 @@ import { Bundle } from '../../../core/shared/bundle.model';
 import { createMockRDPaginatedObs } from '../item-bitstreams/item-bitstreams.component.spec';
 import { Item } from '../../../core/shared/item.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
-import { getMockLinkService } from '../../../shared/mocks/mock-link-service';
-import { createSuccessfulRemoteDataObject, createTestComponent } from '../../../shared/testing/utils';
-import { getMockResourcePolicyService } from '../../../shared/mocks/mock-resource-policy-service';
-import { RouterStub } from '../../../shared/testing/router-stub';
+import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createTestComponent } from '../../../shared/testing/utils.test';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 
@@ -25,8 +24,7 @@ describe('ItemAuthorizationsComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<ItemAuthorizationsComponent>;
   let de;
-  let routerStub: any;
-  const resourcePolicyService: any = getMockResourcePolicyService();
+
   const linkService: any = getMockLinkService();
 
   const bitstream1 = Object.assign(new Bitstream(), {
@@ -79,18 +77,6 @@ describe('ItemAuthorizationsComponent test suite', () => {
       item: createSuccessfulRemoteDataObject(item)
     })
   };
-
-  const epersonService = jasmine.createSpyObj('epersonService', {
-    findByHref: jasmine.createSpy('findByHref'),
-  });
-
-  const groupService = jasmine.createSpyObj('groupService', {
-    findByHref: jasmine.createSpy('findByHref'),
-  });
-
-  routerStub = Object.assign(new RouterStub(), {
-    url: `url/edit`
-  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

@@ -15,23 +15,24 @@ import { Bundle } from '../../core/shared/bundle.model';
 import { createMockRDPaginatedObs } from '../../+item-page/edit-item-page/item-bitstreams/item-bitstreams.component.spec';
 import { Item } from '../../core/shared/item.model';
 import { LinkService } from '../../core/cache/builders/link.service';
-import { getMockLinkService } from '../mocks/mock-link-service';
-import { createSuccessfulRemoteDataObject, createTestComponent } from '../testing/utils';
+import { getMockLinkService } from '../mocks/link-service.mock';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { createTestComponent } from '../testing/utils.test';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
-import { NotificationsServiceStub } from '../testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { ResourcePolicyService } from '../../core/resource-policy/resource-policy.service';
 import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { RequestService } from '../../core/data/request.service';
-import { getMockRequestService } from '../mocks/mock-request.service';
-import { RouterStub } from '../testing/router-stub';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { RouterStub } from '../testing/router.stub';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ResourcePoliciesComponent } from './resource-policies.component';
 import { PolicyType } from '../../core/resource-policy/models/policy-type.model';
 import { ActionType } from '../../core/resource-policy/models/action-type.model';
-import { EPersonMock } from '../testing/eperson-mock';
+import { EPersonMock } from '../testing/eperson.mock';
 import { GroupMock } from '../testing/group-mock';
 
 describe('ResourcePoliciesComponent test suite', () => {
@@ -183,7 +184,6 @@ describe('ResourcePoliciesComponent test suite', () => {
   const pageInfo = new PageInfo();
   const array = [resourcePolicy, anotherResourcePolicy];
   const paginatedList = new PaginatedList(pageInfo, array);
-  const resourcePolicyRD = createSuccessfulRemoteDataObject(resourcePolicy);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   beforeEach(async(() => {

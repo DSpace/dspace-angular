@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { async } from '@angular/core/testing';
 
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -17,7 +16,7 @@ import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PageInfo } from '../shared/page-info.model';
 import { PaginatedList } from '../data/paginated-list';
-import { createSuccessfulRemoteDataObject } from '../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RequestEntry } from '../data/request.reducer';
 import { RestResponse } from '../cache/response.models';
 
