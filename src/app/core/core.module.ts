@@ -145,9 +145,10 @@ import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
-import { SubmissionCcLicensesDataService } from './data/submission-cc-licenses-data.service';
+import { SubmissionCcLicenseDataService } from './data/submission-cc-license-data.service';
 import { SubmissionCcLicence } from './shared/submission-cc-license.model';
-import { StringResponseParsingService } from './data/string-response-parsing.service';
+import { SubmissionCcLicenceUrl } from './shared/submission-cc-license-url.model';
+import { SubmissionCcLicenseUrlDataService } from './data/submission-cc-license-url-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -215,10 +216,10 @@ const PROVIDERS = [
   BrowseResponseParsingService,
   BrowseEntriesResponseParsingService,
   BrowseItemsResponseParsingService,
-  StringResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
-  SubmissionCcLicensesDataService,
+  SubmissionCcLicenseDataService,
+  SubmissionCcLicenseUrlDataService,
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionRestService,
@@ -302,6 +303,7 @@ export const models =
     WorkflowItem,
     WorkspaceItem,
     SubmissionCcLicence,
+    SubmissionCcLicenceUrl,
     SubmissionDefinitionsModel,
     SubmissionFormsModel,
     SubmissionSectionModel,

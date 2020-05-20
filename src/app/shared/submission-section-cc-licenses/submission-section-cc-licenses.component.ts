@@ -3,7 +3,7 @@ import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { Field, Option, SubmissionCcLicence } from '../../core/shared/submission-cc-license.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { SubmissionCcLicensesDataService } from '../../core/data/submission-cc-licenses-data.service';
+import { SubmissionCcLicenseDataService } from '../../core/data/submission-cc-license-data.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { renderSectionFor } from '../../submission/sections/sections-decorator';
 import { SectionsType } from '../../submission/sections/sections-type';
@@ -79,7 +79,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
   constructor(
     protected modalService: NgbModal,
     protected sectionService: SectionsService,
-    protected submissionCcLicensesDataService: SubmissionCcLicensesDataService,
+    protected submissionCcLicensesDataService: SubmissionCcLicenseDataService,
     protected operationsBuilder: JsonPatchOperationsBuilder,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
@@ -185,8 +185,6 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
       new Map(selectedCcLicense.fields.map(
         (field) => [field, this.getSelectedOption(selectedCcLicense, field)]
       )),
-    ).pipe(
-      map((response) => response.content),
     );
   }
 

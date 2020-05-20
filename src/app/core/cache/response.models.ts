@@ -29,21 +29,6 @@ export class RestResponse {
   }
 }
 
-/**
- * A response containing a string.
- */
-export class StringResponse extends RestResponse {
-
-  constructor(
-    public isSuccessful: boolean,
-    public statusCode: number,
-    public statusText: string,
-    public content: string,
-  ) {
-    super(isSuccessful, statusCode, statusText);
-  }
-}
-
 export class DSOSuccessResponse extends RestResponse {
   constructor(
     public resourceSelfLinks: string[],

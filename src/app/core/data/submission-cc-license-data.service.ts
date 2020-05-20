@@ -9,19 +9,20 @@ import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
-import { SUBMISSION_CC_LICENSE } from '../shared/submission-cc-licences.resource-type';
+import { SUBMISSION_CC_LICENSE } from '../shared/submission-cc-licence.resource-type';
 import { Field, Option, SubmissionCcLicence } from '../shared/submission-cc-license.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { GetRequest } from './request.models';
-import { configureRequest, getResponseFromEntry } from '../shared/operators';
-import { map, switchMap, tap } from 'rxjs/operators';
+import {
+  getRemoteDataPayload,
+  getSucceededRemoteData,
+} from '../shared/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { StringResponse } from '../cache/response.models';
-import { StringResponseParsingService } from './string-response-parsing.service';
+import { SubmissionCcLicenseUrlDataService } from './submission-cc-license-url-data.service';
 
 @Injectable()
 @dataService(SUBMISSION_CC_LICENSE)
-export class SubmissionCcLicensesDataService extends DataService<SubmissionCcLicence> {
+export class SubmissionCcLicenseDataService extends DataService<SubmissionCcLicence> {
 
   protected linkPath = 'submissioncclicenses';
 
@@ -34,6 +35,7 @@ export class SubmissionCcLicensesDataService extends DataService<SubmissionCcLic
     protected rdbService: RemoteDataBuildService,
     protected requestService: RequestService,
     protected store: Store<CoreState>,
+    protected submissionCcLicenseUrlDataService: SubmissionCcLicenseUrlDataService,
   ) {
     super();
   }
@@ -43,9 +45,7 @@ export class SubmissionCcLicensesDataService extends DataService<SubmissionCcLic
    * @param ccLicense   the Creative Commons license type
    * @param options     the selected options of the license fields
    */
-  getCcLicenseLink(ccLicense: SubmissionCcLicence, options: Map<Field, Option>): Observable<StringResponse> {
-
-    const requestId = this.requestService.generateRequestId();
+  getCcLicenseLink(ccLicense: SubmissionCcLicence, options: Map<Field, Option>): Observable<string> {
 
     return this.getSearchByHref(
       'rightsByQuestions',{
@@ -64,18 +64,10 @@ export class SubmissionCcLicensesDataService extends DataService<SubmissionCcLic
         ]
       }
     ).pipe(
-      map((endpoint) => new GetRequest(
-        requestId,
-        endpoint,
-        undefined, {
-          responseType: 'text',
-        },
-      )),
-      tap((request) => request.getResponseParser = () => StringResponseParsingService),
-      configureRequest(this.requestService),
-      switchMap(() => this.requestService.getByUUID(requestId)),
-      getResponseFromEntry(),
-      map((response) => response as StringResponse),
+      switchMap((href) => this.submissionCcLicenseUrlDataService.findByHref(href)),
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((response) => response.url),
     );
   }
 }

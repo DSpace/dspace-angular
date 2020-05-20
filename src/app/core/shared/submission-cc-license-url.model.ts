@@ -3,13 +3,13 @@ import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
 import { HALResource } from './hal-resource.model';
-import { SUBMISSION_CC_LICENSE } from './submission-cc-licence.resource-type';
+import { SUBMISSION_CC_LICENSE_URL } from './submission-cc-licence-link.resource-type';
 
 @typedObject
 @inheritSerialization(HALResource)
-export class SubmissionCcLicence extends HALResource {
+export class SubmissionCcLicenceUrl extends HALResource {
 
-  static type = SUBMISSION_CC_LICENSE;
+  static type = SUBMISSION_CC_LICENSE_URL;
 
   /**
    * The object type
@@ -19,24 +19,5 @@ export class SubmissionCcLicence extends HALResource {
   type: ResourceType;
 
   @autoserialize
-  id: string;
-
-  @autoserialize
-  name: string;
-
-  @autoserialize
-  fields: Field[];
-}
-
-export interface Field {
-  id: string;
-  label: string;
-  description: string;
-  enums: Option[];
-}
-
-export interface Option {
-  id: string;
-  label: string;
-  description: string;
+  url: string;
 }

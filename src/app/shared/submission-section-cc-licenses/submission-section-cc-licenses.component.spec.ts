@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
-import { SUBMISSION_CC_LICENSE } from '../../core/shared/submission-cc-licences.resource-type';
+import { SUBMISSION_CC_LICENSE } from '../../core/shared/submission-cc-licence.resource-type';
 import { of as observableOf } from 'rxjs';
-import { SubmissionCcLicensesDataService } from '../../core/data/submission-cc-licenses-data.service';
+import { SubmissionCcLicenseDataService } from '../../core/data/submission-cc-license-data.service';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from '../shared.module';
@@ -16,7 +16,7 @@ import { PaginatedList } from '../../core/data/paginated-list';
 import { SubmissionCcLicence } from '../../core/shared/submission-cc-license.model';
 import { cold } from 'jasmine-marbles';
 import { JsonPatchOperationsBuilder } from '../../core/json-patch/builder/json-patch-operations-builder';
-import { StringResponse } from '../../core/cache/response.models';
+import { SubmissionCcLicenseUrlDataService } from '../../core/data/submission-cc-license-url-data.service';
 
 describe('SubmissionSectionCcLicensesComponent', () => {
 
@@ -130,7 +130,15 @@ describe('SubmissionSectionCcLicensesComponent', () => {
   ];
 
   const submissionCcLicensesDataService = jasmine.createSpyObj('submissionCcLicensesDataService', {
-    getCcLicenseLink: observableOf(new StringResponse(true, 200, '200', 'test cc license link')),
+    getCcLicenseLink: observableOf(new RemoteData(
+      false,
+      false,
+      true,
+      undefined,
+      {
+        url: 'test cc license link',
+      }
+      )),
     findAll: observableOf(new RemoteData(
       false,
       false,
@@ -141,11 +149,13 @@ describe('SubmissionSectionCcLicensesComponent', () => {
   });
 
   const sectionService = {
-    getSectionState: () => observableOf({
-      data: {}
-    }),
+    getSectionState: () => {
+      return observableOf({});
+    },
     setSectionStatus: () => undefined,
-    updateSectionData: () => undefined,
+    updateSectionData: (submissionId, sectionId, updatedData) => {
+      component.sectionData.data = updatedData;
+    }
   };
 
   const operationsBuilder = jasmine.createSpyObj('operationsBuilder', {
@@ -163,7 +173,8 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         SubmissionSectionCcLicensesComponent,
       ],
       providers: [
-        { provide: SubmissionCcLicensesDataService, useValue: submissionCcLicensesDataService },
+        { provide: SubmissionCcLicenseDataService, useValue: submissionCcLicensesDataService },
+        { provide: SubmissionCcLicenseUrlDataService, useValue: {} },
         { provide: SectionsService, useValue: sectionService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
@@ -212,7 +223,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
       expect(de.query(By.css('div.test-field-id-2b'))).toBeTruthy();
     });
 
-    it('should not display a license link', () => {
+    it('should not display a cc license link', () => {
       expect(de.query(By.css('.license-link'))).toBeNull();
     });
 
@@ -255,10 +266,6 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         beforeEach(() => {
           component.setAccepted(true);
           fixture.detectChanges();
-        });
-
-        it('should call the operations builder add method', () => {
-          expect(operationsBuilder.add).toHaveBeenCalled();
         });
 
         it('should have section status complete', () => {
