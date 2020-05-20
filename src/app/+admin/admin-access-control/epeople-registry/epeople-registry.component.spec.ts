@@ -15,15 +15,15 @@ import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/mock-form-builder-service';
-import { MockTranslateLoader } from '../../../shared/mocks/mock-translate-loader';
-import { getMockTranslateService } from '../../../shared/mocks/mock-translate.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson-mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
-import { RouterStub } from '../../../shared/testing/router-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
+import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -89,7 +89,7 @@ describe('EPeopleRegistryComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],

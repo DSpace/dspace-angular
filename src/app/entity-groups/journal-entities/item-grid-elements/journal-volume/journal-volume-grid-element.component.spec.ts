@@ -1,6 +1,6 @@
 import { Item } from '../../../../core/shared/item.model';
 import { JournalVolumeGridElementComponent } from './journal-volume-grid-element.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { of as observableOf } from 'rxjs';

@@ -10,9 +10,9 @@ import {
 
 import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
-import { AppState } from '../../app.reducer';
+import { AppState, storeModuleConfig } from '../../app.reducer';
 import { formReducer } from './form.reducer';
-import { getMockFormBuilderService } from '../mocks/mock-form-builder-service';
+import { getMockFormBuilderService } from '../mocks/form-builder-service.mock';
 
 describe('FormService test suite', () => {
   const config = {
@@ -91,7 +91,12 @@ describe('FormService test suite', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ formReducer })
+        StoreModule.forRoot({ formReducer }, {
+          runtimeChecks: {
+            strictStateImmutability: false,
+            strictActionImmutability: false
+          }
+        })
       ]
     }).compileComponents();
   }));
@@ -108,7 +113,7 @@ describe('FormService test suite', () => {
       const description: AbstractControl = new FormControl(undefined);
       formGroup = new FormGroup({ author, title, date, description });
       controls = { author, title, date, description };
-      service = new FormService(config, builderService, store);
+      service = new FormService(builderService, store);
     })
   )
   ;

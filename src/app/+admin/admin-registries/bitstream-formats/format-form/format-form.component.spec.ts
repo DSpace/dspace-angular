@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterStub } from '../../../../shared/testing/router-stub';
+import { RouterStub } from '../../../../shared/testing/router.stub';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormatFormComponent } from './format-form.component';

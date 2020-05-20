@@ -9,11 +9,11 @@ import {
 } from '../community-list-service';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Community } from '../../core/shared/community.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { Collection } from '../../core/shared/collection.model';
@@ -199,7 +199,7 @@ describe('CommunityListComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           },
         }),
         CdkTreeModule,

@@ -4,8 +4,6 @@ import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../config';
 import { FilteredDiscoveryQueryResponse, RestResponse } from '../cache/response.models';
 
 /**
@@ -17,7 +15,6 @@ export class FilteredDiscoveryPageResponseParsingService extends BaseResponsePar
   objectFactory = {};
   toCache = false;
   constructor(
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected objectCache: ObjectCacheService,
   ) { super();
   }

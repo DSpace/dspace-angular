@@ -1,6 +1,6 @@
-import { EPersonMock } from '../../../shared/testing/eperson-mock';
 import { EPeopleRegistryCancelEPersonAction, EPeopleRegistryEditEPersonAction } from './epeople-registry.actions';
 import { ePeopleRegistryReducer, EPeopleRegistryState } from './epeople-registry.reducers';
+import { EPersonMock } from '../../../shared/testing/eperson.mock';
 
 const initialState: EPeopleRegistryState = {
   editEPerson: null,

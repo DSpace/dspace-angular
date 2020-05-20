@@ -9,9 +9,9 @@ import { of as observableOf } from 'rxjs';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
 import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { RouterStub } from '../../shared/testing/router-stub';
+import { RouterStub } from '../../shared/testing/router.stub';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
-import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
+import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { RestRequestMethod } from '../data/rest-request-method';
 
 describe(`AuthInterceptor`, () => {

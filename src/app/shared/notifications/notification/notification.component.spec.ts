@@ -14,8 +14,8 @@ import { INotificationBoardOptions } from '../../../../config/notifications-conf
 import { GlobalConfig } from '../../../../config/global-config.interface';
 import { Notification } from '../models/notification.model';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
-import { GLOBAL_CONFIG } from '../../../../config';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { storeModuleConfig } from '../../../app.reducer';
 
 describe('NotificationComponent', () => {
 
@@ -47,16 +47,15 @@ describe('NotificationComponent', () => {
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        StoreModule.forRoot({notificationsReducer}),
+        StoreModule.forRoot({notificationsReducer}, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })],
       declarations: [NotificationComponent], // declare the test component
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: envConfig },
         { provide: Store, useValue: store },
         ChangeDetectorRef,
         NotificationsService,

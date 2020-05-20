@@ -1,5 +1,5 @@
 import { FilteredDiscoveryPageResponseParsingService } from './filtered-discovery-page-response-parsing.service';
-import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
+import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
 import { GetRequest } from './request.models';
@@ -10,7 +10,7 @@ describe('FilteredDiscoveryPageResponseParsingService', () => {
   let service: FilteredDiscoveryPageResponseParsingService;
 
   beforeEach(() => {
-    service = new FilteredDiscoveryPageResponseParsingService(undefined, getMockObjectCacheService());
+    service = new FilteredDiscoveryPageResponseParsingService(getMockObjectCacheService());
   });
 
   describe('parse', () => {

@@ -8,18 +8,8 @@ import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { TestScheduler } from 'rxjs/testing';
-import {
-  EPeopleRegistryCancelEPersonAction,
-  EPeopleRegistryEditEPersonAction
-} from '../../+admin/admin-access-control/epeople-registry/epeople-registry.actions';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/mock-remote-data-build.service';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
-import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson-mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { EPeopleRegistryCancelEPersonAction, EPeopleRegistryEditEPersonAction } from '../../+admin/admin-access-control/epeople-registry/epeople-registry.actions';
 import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { PaginatedList } from '../data/paginated-list';
@@ -32,6 +22,12 @@ import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
 import { EPersonDataService } from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
+import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 
 describe('EPersonDataService', () => {
   let service: EPersonDataService;
@@ -83,7 +79,7 @@ describe('EPersonDataService', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+          useClass: TranslateLoaderMock
           }
         }),
       ],

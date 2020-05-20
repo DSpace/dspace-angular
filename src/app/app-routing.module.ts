@@ -45,6 +45,12 @@ export function getProfileModulePath() {
   return `/${PROFILE_MODULE_PATH}`;
 }
 
+const WORKFLOW_ITEM_MODULE_PATH = 'workflowitems';
+
+export function getWorkflowItemModulePath() {
+  return `/${WORKFLOW_ITEM_MODULE_PATH}`;
+}
+
 export function getDSOPath(dso: DSpaceObject): string {
   switch ((dso as any).type) {
     case Community.type.value:
@@ -73,7 +79,7 @@ export function getDSOPath(dso: DSpaceObject): string {
         loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule',
         canActivate: [AuthenticatedGuard]
       },
-      { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
+      { path: 'search', loadChildren: './+search-page/search-page-routing.module#SearchPageRoutingModule' },
       { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule'},
       { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
@@ -84,7 +90,7 @@ export function getDSOPath(dso: DSpaceObject): string {
         loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule'
       },
       {
-        path: 'workflowitems',
+        path: WORKFLOW_ITEM_MODULE_PATH,
         loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule'
       },
       {

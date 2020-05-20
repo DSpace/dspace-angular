@@ -1,20 +1,20 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import {
   DynamicFormControlModel,
-  DynamicFormService, DynamicFormValueControlModel,
+  DynamicFormValueControlModel,
   DynamicInputModel, DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { LangConfig } from '../../../config/lang-config.interface';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep } from 'lodash';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ds-profile-page-metadata-form',
@@ -102,15 +102,14 @@ export class ProfilePageMetadataFormComponent implements OnInit {
    */
   activeLangs: LangConfig[];
 
-  constructor(@Inject(GLOBAL_CONFIG) protected config: GlobalConfig,
-              protected formBuilderService: FormBuilderService,
+  constructor(protected formBuilderService: FormBuilderService,
               protected translate: TranslateService,
               protected epersonService: EPersonDataService,
               protected notificationsService: NotificationsService) {
   }
 
   ngOnInit(): void {
-    this.activeLangs = this.config.languages.filter((MyLangConfig) => MyLangConfig.active === true);
+    this.activeLangs = environment.languages.filter((MyLangConfig) => MyLangConfig.active === true);
     this.setFormValues();
     this.updateFieldTranslations();
     this.translate.onLangChange
