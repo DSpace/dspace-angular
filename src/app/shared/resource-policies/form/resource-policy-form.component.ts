@@ -149,8 +149,9 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
       const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href).pipe(
         getSucceededRemoteData()
       );
+      const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableRace(epersonRD$, groupRD$);
       this.subs.push(
-        observableRace(epersonRD$, groupRD$).pipe(
+        dsoRD$.pipe(
           filter(() => this.isActive),
         ).subscribe((dsoRD: RemoteData<DSpaceObject>) => {
           this.resourcePolicyGrant = dsoRD.payload;
