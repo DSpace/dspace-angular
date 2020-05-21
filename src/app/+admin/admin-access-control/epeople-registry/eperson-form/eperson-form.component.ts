@@ -7,7 +7,7 @@ import {
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, combineLatest } from 'rxjs';
+import { Subscription, combineLatest, of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { take } from 'rxjs/operators';
 import { RestResponse } from '../../../../core/cache/response.models';
@@ -22,6 +22,7 @@ import { hasValue } from '../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { AuthService } from '../../../../core/auth/auth.service';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -106,6 +107,24 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   @Output() cancelForm: EventEmitter<any> = new EventEmitter();
 
   /**
+   * Observable whether or not the admin is allowed to reset the EPerson's password
+   * TODO: Initialize the observable once the REST API supports this (currently hardcoded to return false)
+   */
+  canReset$: Observable<boolean> = of(false);
+
+  /**
+   * Observable whether or not the admin is allowed to delete the EPerson
+   * TODO: Initialize the observable once the REST API supports this (currently hardcoded to return false)
+   */
+  canDelete$: Observable<boolean> = of(false);
+
+  /**
+   * Observable whether or not the admin is allowed to impersonate the EPerson
+   * TODO: Initialize the observable once the REST API supports this (currently hardcoded to return true)
+   */
+  canImpersonate$: Observable<boolean> = of(true);
+
+  /**
    * List of subscriptions
    */
   subs: Subscription[] = [];
@@ -129,13 +148,22 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   epersonInitial: EPerson;
 
+  /**
+   * Whether or not this EPerson is currently being impersonated
+   */
+  isImpersonated = false;
+
   constructor(public epersonService: EPersonDataService,
               public groupsDataService: GroupDataService,
               private formBuilderService: FormBuilderService,
               private translateService: TranslateService,
-              private notificationsService: NotificationsService,) {
+              private notificationsService: NotificationsService,
+              private authService: AuthService) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
+      if (hasValue(eperson)) {
+        this.isImpersonated = this.authService.isImpersonatingUser(eperson.id);
+      }
     }));
   }
 
@@ -362,6 +390,22 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.groups = this.groupsDataService.findAllByHref(eperson._links.groups.href, options);
     }));
+  }
+
+  /**
+   * Start impersonating the EPerson
+   */
+  impersonate() {
+    this.authService.impersonate(this.epersonInitial.id);
+    this.isImpersonated = true;
+  }
+
+  /**
+   * Stop impersonating the EPerson
+   */
+  stopImpersonating() {
+    this.authService.stopImpersonatingAndRefresh();
+    this.isImpersonated = false;
   }
 
   /**

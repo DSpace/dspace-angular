@@ -170,6 +170,14 @@
 
 
 
+  "admin.access-control.epeople.actions.delete": "Delete EPerson",
+
+  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
+
+  "admin.access-control.epeople.actions.reset": "Reset password",
+
+  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
+
   "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
 
   "admin.access-control.epeople.head": "EPeople",
@@ -1820,6 +1828,8 @@
   "nav.search": "Search",
 
   "nav.statistics.header": "Statistics",
+
+  "nav.stop-impersonating": "Stop impersonating EPerson",
 
 
 

@@ -193,6 +193,7 @@ import { ModifyItemOverviewComponent } from '../+item-page/edit-item-page/modify
 import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
 import { ClaimedTaskActionsEditMetadataComponent } from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
+import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
 import { ResourcePoliciesComponent } from './resource-policies/resource-policies.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { ResourcePolicyFormComponent } from './resource-policies/form/resource-policy-form.component';
@@ -380,6 +381,7 @@ const COMPONENTS = [
   PublicationSearchResultListElementComponent,
   ItemVersionsNoticeComponent,
   ModifyItemOverviewComponent,
+  ImpersonateNavbarComponent,
   ResourcePoliciesComponent,
   ResourcePolicyFormComponent,
   EpersonGroupListComponent,
