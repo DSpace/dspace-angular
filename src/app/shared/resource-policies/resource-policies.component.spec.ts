@@ -245,6 +245,7 @@ describe('ResourcePoliciesComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       linkService.resolveLink.and.callFake((object, link) => object);
+      spyOn(comp, 'canDelete');
 
     });
 
@@ -276,7 +277,7 @@ describe('ResourcePoliciesComponent test suite', () => {
     });
   });
 
-  describe('', () => {
+  describe('canDelete', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(ResourcePoliciesComponent);
       comp = fixture.componentInstance;
@@ -296,27 +297,49 @@ describe('ResourcePoliciesComponent test suite', () => {
       fixture.destroy();
     });
 
+    it('should return false when no row is selected', () => {
+      expect(comp.canDelete()).toBeObservable(cold('(a|)', {
+        a: false
+      }));
+    });
+
+    it('should return true when al least is selected', () => {
+      const checkbox = fixture.debugElement.query(By.css('table > tbody > tr:nth-child(1) input'));
+
+      let event = { target: { checked: true } };
+      checkbox.triggerEventHandler('change', event);
+      expect(comp.canDelete()).toBeObservable(cold('(a|)', {
+        a: true
+      }));
+      event = { target: { checked: false } };
+      checkbox.triggerEventHandler('change', event);
+    });
+  });
+
+  describe('', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ResourcePoliciesComponent);
+      comp = fixture.componentInstance;
+      compAsAny = fixture.componentInstance;
+      linkService.resolveLink.and.callFake((object, link) => object);
+      compAsAny.isActive = true;
+      compAsAny.resourcePoliciesEntries$.next(resourcePolicyEntries);
+      resourcePolicyService.searchByResource.and.returnValue(observableOf({}));
+      spyOn(comp, 'initResourcePolicyLIst').and.callFake(() => ({}));
+      spyOn(comp, 'canDelete');
+      fixture.detectChanges();
+    });
+
+    afterEach(() => {
+      comp = null;
+      compAsAny = null;
+      de = null;
+      fixture.destroy();
+    });
+
     it('should render a table with a row for each policy', () => {
       const rows = fixture.debugElement.queryAll(By.css('table > tbody > tr'));
       expect(rows.length).toBe(2);
-    });
-
-    describe('canDelete', () => {
-      it('should return false when no row is selected', () => {
-        expect(comp.canDelete()).toBeObservable(cold('(a|)', {
-          a: false
-        }));
-      });
-
-      it('should return true when al least is selected', () => {
-        const checkbox = fixture.debugElement.query(By.css('table > tbody > tr:nth-child(1) input'));
-
-        const event = { target: { checked: true } };
-        checkbox.triggerEventHandler('change', event);
-        expect(comp.canDelete()).toBeObservable(cold('(a|)', {
-          a: true
-        }));
-      });
     });
 
     describe('deleteSelectedResourcePolicies', () => {
