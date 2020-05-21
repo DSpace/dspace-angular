@@ -43,6 +43,7 @@ import {
   RetrieveAuthMethodsSuccessAction,
   RetrieveTokenAction
 } from './auth.actions';
+import { hasValue } from '../../shared/empty.util';
 
 @Injectable()
 export class AuthEffects {
@@ -97,8 +98,15 @@ export class AuthEffects {
   public retrieveAuthenticatedEperson$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON),
     switchMap((action: RetrieveAuthenticatedEpersonAction) => {
-      return this.authService.retrieveAuthenticatedUserByHref(action.payload).pipe(
-        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user)),
+      const impersonatedUserID = this.authService.getImpersonateID();
+      let user$: Observable<EPerson>;
+      if (hasValue(impersonatedUserID)) {
+        user$ = this.authService.retrieveAuthenticatedUserById(impersonatedUserID);
+      } else {
+        user$ = this.authService.retrieveAuthenticatedUserByHref(action.payload);
+      }
+      return user$.pipe(
+        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user.id)),
         catchError((error) => observableOf(new RetrieveAuthenticatedEpersonErrorAction(error))));
     })
   );
@@ -193,6 +201,7 @@ export class AuthEffects {
     .pipe(
       ofType(AuthActionTypes.LOG_OUT),
       switchMap(() => {
+        this.authService.stopImpersonating();
         return this.authService.logout().pipe(
           map((value) => new LogOutSuccessAction()),
           catchError((error) => observableOf(new LogOutErrorAction(error)))
