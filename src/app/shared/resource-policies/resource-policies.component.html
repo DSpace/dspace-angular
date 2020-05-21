@@ -1,4 +1,4 @@
-<div *ngIf="(getResourcePolicies() | async)?.length > 0">
+<div *ngIf="(getResourcePolicies() | async)?.length > 0" class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
@@ -74,17 +74,24 @@
         <td *ngIf="!(hasEPerson(entry.policy) | async)"></td>
         <td *ngIf="(hasGroup(entry.policy) | async)">
           {{getGroupName(entry.policy) | async}}
-          <button class="btn btn-link pt-0 pb-0" (click)="redirectToGroupEditPage(entry.policy)">
-            {{'resource-policies.table.headers.edit' | translate}}
-          </button>
         </td>
         <td *ngIf="!(hasGroup(entry.policy) | async)"></td>
         <td>{{formatDate(entry.policy.startDate)}}</td>
         <td>{{formatDate(entry.policy.endDate)}}</td>
         <td class="text-center">
-          <button class="btn btn-outline-primary pt-0 pb-0" (click)="redirectToResourcePolicyEditPage(entry.policy)">
-            <i class="fas fa-edit fa-fw"></i>
-          </button>
+
+          <div class="btn-group edit-field">
+            <button class="btn btn-outline-primary btn-sm"
+                    [title]="'resource-policies.table.headers.edit.policy' | translate"
+                    (click)="redirectToResourcePolicyEditPage(entry.policy)">
+              <i class="fas fa-edit fa-fw"></i>
+            </button>
+            <button class="btn btn-outline-primary btn-sm"
+                    [title]="'resource-policies.table.headers.edit.group' | translate"
+                    (click)="redirectToGroupEditPage(entry.policy)">
+              <i class="fas fa-users fa-fw"></i>
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>

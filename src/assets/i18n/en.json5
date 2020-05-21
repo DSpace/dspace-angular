@@ -2133,6 +2133,10 @@
 
   "resource-policies.table.headers.edit": "Edit",
 
+  "resource-policies.table.headers.edit.group": "Edit group",
+
+  "resource-policies.table.headers.edit.policy": "Edit policy",
+
   "resource-policies.table.headers.eperson": "EPerson",
 
   "resource-policies.table.headers.group": "Group",
