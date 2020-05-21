@@ -19,6 +19,7 @@ import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/res
 import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
 
 export const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
 export const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
@@ -149,6 +150,8 @@ export const ITEM_EDIT_AUTHORIZATIONS_PATH = 'authorizations';
     ])
   ],
   providers: [
+    I18nBreadcrumbResolver,
+    I18nBreadcrumbsService,
     ResourcePolicyResolver,
     ResourcePolicyTargetResolver
   ]
