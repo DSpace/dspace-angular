@@ -112,6 +112,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.isActive = true;
+    this.requestService.removeByHrefSubstring(this.resourceUUID);
     this.initResourcePolicyLIst();
   }
 
@@ -134,6 +135,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   deleteSelectedResourcePolicies(): void {
     this.processingDelete$.next(true);
+    this.requestService.removeByHrefSubstring(this.resourceUUID);
     const policiesToDelete: ResourcePolicyCheckboxEntry[] = this.resourcePoliciesEntries$.value
       .filter((entry: ResourcePolicyCheckboxEntry) => entry.checked);
     this.subs.push(
@@ -244,8 +246,6 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * Initialize the resource's policies list
    */
   initResourcePolicyLIst() {
-    // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
-    this.requestService.removeByHrefSubstring(this.resourceUUID);
     this.resourcePolicyService.searchByResource(this.resourceUUID, null,
       followLink('eperson'), followLink('group')).pipe(
       filter(() => this.isActive),
