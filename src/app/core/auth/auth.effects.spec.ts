@@ -36,7 +36,7 @@ import { AppState, storeModuleConfig } from '../../app.reducer';
 import { StoreActionTypes } from '../../store.actions';
 import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
 
-fdescribe('AuthEffects', () => {
+describe('AuthEffects', () => {
   let authEffects: AuthEffects;
   let actions: Observable<any>;
   let authServiceStub;
