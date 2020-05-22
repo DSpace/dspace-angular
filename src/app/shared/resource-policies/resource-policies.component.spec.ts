@@ -156,18 +156,21 @@ describe('ResourcePoliciesComponent test suite', () => {
     url: `url/edit`
   });
 
-  const resourcePolicyEntries = [
-    {
-      id: resourcePolicy.id,
-      policy: resourcePolicy,
-      checked: false
-    },
-    {
-      id: anotherResourcePolicy.id,
-      policy: anotherResourcePolicy,
-      checked: false
-    }
-  ];
+  const getInitEntries = () => {
+    return [
+      Object.assign({}, {
+        id: resourcePolicy.id,
+        policy: resourcePolicy,
+        checked: false
+      }),
+      Object.assign({}, {
+        id: anotherResourcePolicy.id,
+        policy: anotherResourcePolicy,
+        checked: false
+      })
+    ]
+  }
+
   const resourcePolicySelectedEntries = [
     {
       id: resourcePolicy.id,
@@ -245,8 +248,6 @@ describe('ResourcePoliciesComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       linkService.resolveLink.and.callFake((object, link) => object);
-      spyOn(comp, 'canDelete');
-
     });
 
     afterEach(() => {
@@ -264,6 +265,7 @@ describe('ResourcePoliciesComponent test suite', () => {
     });
 
     it('should init resource policies list properly', () => {
+      const expected = getInitEntries();
       compAsAny.isActive = true;
       resourcePolicyService.searchByResource.and.returnValue(hot('a|', {
         a: paginatedListRD
@@ -273,46 +275,7 @@ describe('ResourcePoliciesComponent test suite', () => {
       scheduler.schedule(() => comp.initResourcePolicyLIst());
       scheduler.flush();
 
-      expect(compAsAny.resourcePoliciesEntries$.value).toEqual(resourcePolicyEntries);
-    });
-  });
-
-  describe('canDelete', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(ResourcePoliciesComponent);
-      comp = fixture.componentInstance;
-      compAsAny = fixture.componentInstance;
-      linkService.resolveLink.and.callFake((object, link) => object);
-      compAsAny.isActive = true;
-      compAsAny.resourcePoliciesEntries$.next(resourcePolicyEntries);
-      resourcePolicyService.searchByResource.and.returnValue(observableOf({}));
-      spyOn(comp, 'initResourcePolicyLIst').and.callFake(() => ({}));
-      fixture.detectChanges();
-    });
-
-    afterEach(() => {
-      comp = null;
-      compAsAny = null;
-      de = null;
-      fixture.destroy();
-    });
-
-    it('should return false when no row is selected', () => {
-      expect(comp.canDelete()).toBeObservable(cold('(a|)', {
-        a: false
-      }));
-    });
-
-    it('should return true when al least is selected', () => {
-      const checkbox = fixture.debugElement.query(By.css('table > tbody > tr:nth-child(1) input'));
-
-      let event = { target: { checked: true } };
-      checkbox.triggerEventHandler('change', event);
-      expect(comp.canDelete()).toBeObservable(cold('(a|)', {
-        a: true
-      }));
-      event = { target: { checked: false } };
-      checkbox.triggerEventHandler('change', event);
+      expect(compAsAny.resourcePoliciesEntries$.value).toEqual(expected);
     });
   });
 
@@ -323,10 +286,10 @@ describe('ResourcePoliciesComponent test suite', () => {
       compAsAny = fixture.componentInstance;
       linkService.resolveLink.and.callFake((object, link) => object);
       compAsAny.isActive = true;
-      compAsAny.resourcePoliciesEntries$.next(resourcePolicyEntries);
+      const initResourcePolicyEntries = getInitEntries();
+      compAsAny.resourcePoliciesEntries$.next(initResourcePolicyEntries);
       resourcePolicyService.searchByResource.and.returnValue(observableOf({}));
       spyOn(comp, 'initResourcePolicyLIst').and.callFake(() => ({}));
-      spyOn(comp, 'canDelete');
       fixture.detectChanges();
     });
 
@@ -335,6 +298,36 @@ describe('ResourcePoliciesComponent test suite', () => {
       compAsAny = null;
       de = null;
       fixture.destroy();
+    });
+
+    describe('canDelete', () => {
+      beforeEach(() => {
+        const initResourcePolicyEntries = getInitEntries();
+        compAsAny.resourcePoliciesEntries$.next(initResourcePolicyEntries);
+        fixture.detectChanges();
+      });
+
+      afterEach(() => {
+        comp = null;
+        compAsAny = null;
+        de = null;
+        fixture.destroy();
+      });
+
+      it('should return false when no row is selected', () => {
+        expect(comp.canDelete()).toBeObservable(cold('(a|)', {
+          a: false
+        }));
+      });
+
+      it('should return true when al least is selected', () => {
+        const checkbox = fixture.debugElement.query(By.css('table > tbody > tr:nth-child(1) input'));
+        const event = { target: { checked: true } };
+        checkbox.triggerEventHandler('change', event);
+        expect(comp.canDelete()).toBeObservable(cold('(a|)', {
+          a: true
+        }));
+      });
     });
 
     it('should render a table with a row for each policy', () => {
@@ -372,9 +365,9 @@ describe('ResourcePoliciesComponent test suite', () => {
     });
 
     it('should get the resource\'s policy list', () => {
-
+      const initResourcePolicyEntries = getInitEntries();
       expect(comp.getResourcePolicies()).toBeObservable(cold('a', {
-        a: resourcePolicyEntries
+        a: initResourcePolicyEntries
       }));
 
     });
