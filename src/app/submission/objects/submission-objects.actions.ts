@@ -39,6 +39,8 @@ export const SubmissionObjectActionTypes = {
   INIT_SECTION: type('dspace/submission/INIT_SECTION'),
   ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
+  DISABLE_SECTION_SUCCESS: type('dspace/submission/DISABLE_SECTION_SUCCESS'),
+  DISABLE_SECTION_ERROR: type('dspace/submission/DISABLE_SECTION_ERROR'),
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
   SECTION_LOADING_STATUS_CHANGE: type('dspace/submission/SECTION_LOADING_STATUS_CHANGE'),
   UPLOAD_SECTION_DATA: type('dspace/submission/UPLOAD_SECTION_DATA'),
@@ -49,6 +51,9 @@ export const SubmissionObjectActionTypes = {
   DISCARD_SUBMISSION: type('dspace/submission/DISCARD_SUBMISSION'),
   DISCARD_SUBMISSION_SUCCESS: type('dspace/submission/DISCARD_SUBMISSION_SUCCESS'),
   DISCARD_SUBMISSION_ERROR: type('dspace/submission/DISCARD_SUBMISSION_ERROR'),
+  SET_DUPLICATE_DECISION: type('dspace/submission/SET_DUPLICATE_DECISION'),
+  SET_DUPLICATE_DECISION_SUCCESS: type('dspace/submission/SET_DUPLICATE_DECISION_SUCCESS'),
+  SET_DUPLICATE_DECISION_ERROR: type('dspace/submission/SET_DUPLICATE_DECISION_ERROR'),
 
   // Upload file types
   NEW_FILE: type('dspace/submission/NEW_FILE'),
@@ -186,6 +191,46 @@ export class DisableSectionAction implements Action {
 
   /**
    * Create a new DisableSectionAction
+   *
+   * @param submissionId
+   *    the submission's ID to remove
+   * @param sectionId
+   *    the section's ID to remove
+   */
+  constructor(submissionId: string, sectionId: string) {
+    this.payload = { submissionId, sectionId };
+  }
+}
+
+export class DisableSectionSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.DISABLE_SECTION_SUCCESS;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+  };
+
+  /**
+   * Create a new DisableSectionSuccessAction
+   *
+   * @param submissionId
+   *    the submission's ID to remove
+   * @param sectionId
+   *    the section's ID to remove
+   */
+  constructor(submissionId: string, sectionId: string) {
+    this.payload = { submissionId, sectionId };
+  }
+}
+
+export class DisableSectionErrorAction implements Action {
+  type = SubmissionObjectActionTypes.DISABLE_SECTION_ERROR;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+  };
+
+  /**
+   * Create a new DisableSectionErrorAction
    *
    * @param submissionId
    *    the submission's ID to remove
@@ -758,6 +803,66 @@ export class DeleteUploadedFileAction implements Action {
   }
 }
 
+export class SetDuplicateDecisionAction implements Action {
+  type = SubmissionObjectActionTypes.SET_DUPLICATE_DECISION;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+  };
+
+  /**
+   * Create a new SetDuplicateDecisionAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param sectionId
+   *    the section's ID
+   */
+  constructor(submissionId: string, sectionId: string) {
+    this.payload = { submissionId, sectionId };
+  }
+}
+
+export class SetDuplicateDecisionSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+    submissionObject: SubmissionObject[];
+  };
+
+  /**
+   * Create a new SetDuplicateDecisionSuccessAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param sectionId
+   *    the section's ID
+   * @param submissionObject
+   *    the submission's Object
+   */
+  constructor(submissionId: string, sectionId: string,  submissionObject: SubmissionObject[]) {
+    this.payload = { submissionId, sectionId, submissionObject };
+  }
+}
+
+export class SetDuplicateDecisionErrorAction implements Action {
+  type = SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_ERROR;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new SetDuplicateDecisionErrorAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -765,6 +870,8 @@ export class DeleteUploadedFileAction implements Action {
  * so that reducers can easily compose action types
  */
 export type SubmissionObjectAction = DisableSectionAction
+  | DisableSectionSuccessAction
+  | DisableSectionErrorAction
   | InitSectionAction
   | EnableSectionAction
   | InitSubmissionFormAction
@@ -797,4 +904,7 @@ export type SubmissionObjectAction = DisableSectionAction
   | SaveSubmissionSectionFormSuccessAction
   | SaveSubmissionSectionFormErrorAction
   | SetActiveSectionAction
+  | SetDuplicateDecisionAction
+  | SetDuplicateDecisionSuccessAction
+  | SetDuplicateDecisionErrorAction
   | DepositSubmissionAction;

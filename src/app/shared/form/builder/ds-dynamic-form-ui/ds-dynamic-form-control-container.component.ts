@@ -1,5 +1,6 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   ContentChildren,
@@ -29,13 +30,16 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicDatePickerModel, DynamicFormComponentService,
+  DynamicDatePickerModel,
+  DynamicFormArrayGroupModel,
+  DynamicFormComponentService,
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormLayout,
-  DynamicFormLayoutService, DynamicFormRelationService,
+  DynamicFormLayoutService,
+  DynamicFormRelationService,
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
@@ -74,11 +78,16 @@ import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.compone
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  DynamicRelationGroupModel
+} from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
 import { map, startWith, switchMap, find } from 'rxjs/operators';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -88,7 +97,11 @@ import { SelectableListService } from '../../../object-list/selectable-list/sele
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { getAllSucceededRemoteData, getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  getSucceededRemoteData
+} from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
@@ -146,7 +159,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
       return DsDynamicTagComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP:
-      return DsDynamicRelationGroupComponent;
+      return (model as DynamicRelationGroupModel).isInlineGroup ? DsDynamicRelationInlineGroupComponent : DsDynamicRelationGroupComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER:
       return DsDatePickerComponent;
@@ -180,6 +193,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
 
   @Input() formId: string;
+  @Input() formGroup: FormGroup;
+  @Input() formModel: DynamicFormControlModel[];
   @Input() asBootstrapFormGroup = true;
   @Input() bindId = true;
   @Input() context: any | null = null;
@@ -220,6 +235,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected dynamicFormComponentService: DynamicFormComponentService,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
+    protected typeBindRelationService: DsDynamicTypeBindRelationService,
     protected translateService: TranslateService,
     protected relationService: DynamicFormRelationService,
     private modalService: NgbModal,
@@ -308,6 +324,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       if (this.model && this.model.placeholder) {
         this.model.placeholder = this.translateService.instant(this.model.placeholder);
       }
+
+      if (this.model.typeBindRelations && this.model.typeBindRelations.length > 0) {
+        this.subscriptions.push(...this.typeBindRelationService.subscribeRelations(this.model, this.control));
+      }
     }
   }
 
@@ -320,6 +340,24 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   ngAfterViewInit() {
     this.showErrorMessagesPreviousStage = this.showErrorMessages;
+  }
+
+  protected createFormControlComponent(): void {
+    super.createFormControlComponent();
+
+    if (this.componentType !== null) {
+      let index;
+
+      if (this.context && this.context instanceof DynamicFormArrayGroupModel) {
+        index = this.context.index;
+      }
+
+      const instance = this.dynamicFormComponentService.getFormControlRef(this.model, index);
+      if (instance) {
+        (instance as any).formModel = this.formModel;
+        (instance as any).formGroup = this.formGroup;
+      }
+    }
   }
 
   /**

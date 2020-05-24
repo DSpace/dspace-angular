@@ -5,6 +5,10 @@ import {
   EPeopleRegistryState
 } from './+admin/admin-access-control/epeople-registry/epeople-registry.reducers';
 import {
+  groupRegistryReducer,
+  GroupRegistryState
+} from './+admin/admin-access-control/group-registry/group-registry.reducers';
+import {
   metadataRegistryReducer,
   MetadataRegistryState
 } from './+admin/admin-registries/metadata-registry/metadata-registry.reducers';
@@ -47,6 +51,7 @@ export interface AppState {
   relationshipLists: NameVariantListsState;
   communityList: CommunityListState;
   epeopleRegistry: EPeopleRegistryState;
+  groupRegistry: GroupRegistryState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -66,6 +71,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   relationshipLists: nameVariantReducer,
   communityList: CommunityListReducer,
   epeopleRegistry: ePeopleRegistryReducer,
+  groupRegistry: groupRegistryReducer,
 };
 
 export const routerStateSelector = (state: AppState) => state.router;
@@ -79,3 +85,10 @@ export function keySelector<T>(key: string, selector): MemoizedSelector<AppState
     }
   });
 }
+
+export const storeModuleConfig = {
+  runtimeChecks: {
+    strictStateImmutability: true,
+    strictActionImmutability: true
+  }
+};

@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../animations/fade';
-import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { hasNoValue, isNotEmpty } from '../../empty.util';
@@ -11,6 +10,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
 
 @Component({
   selector: 'ds-search-results',
@@ -40,7 +40,7 @@ export class SearchResultsComponent {
   /**
    * The current configuration of the search
    */
-  @Input() searchConfig: SearchOptions;
+  @Input() searchConfig: PaginatedSearchOptions;
 
   /**
    * The current sorting configuration of the search

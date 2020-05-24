@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MockRouter } from '../../../../shared/mocks/mock-router';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
@@ -25,7 +25,7 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
     }
   ];
 
-  const router = new MockRouter();
+  const router = new RouterMock();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

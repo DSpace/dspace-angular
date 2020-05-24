@@ -4,9 +4,9 @@ import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task-actions-edit-metadata.component';
-import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
+import { TranslateLoaderMock } from '../../../testing/translate-loader.mock';
 
 let component: ClaimedTaskActionsEditMetadataComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsEditMetadataComponent>;
@@ -20,7 +20,7 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

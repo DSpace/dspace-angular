@@ -10,8 +10,10 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlModel,
   DynamicFormGroupModel,
-  DynamicFormService, DynamicFormValidationService,
-  DynamicPathable, parseReviver,
+  DynamicFormService,
+  DynamicFormValidationService,
+  DynamicPathable,
+  parseReviver,
 } from '@ng-dynamic-forms/core';
 import { isObject, isString, mergeWith } from 'lodash';
 
@@ -20,20 +22,33 @@ import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qua
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP, DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  DynamicRelationGroupModel
+} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
-import { isNgbDateStruct } from '../../date.util';
+import { dateToString, isNgbDateStruct } from '../../date.util';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
+
+  private typeBindModel: DynamicFormControlModel;
 
   constructor(
     validationService: DynamicFormValidationService,
     protected rowParser: RowParser
   ) {
     super(validationService);
+  }
+
+  getTypeBindModel() {
+    return this.typeBindModel
+  }
+
+  setTypeBindModel(model: DynamicFormControlModel) {
+    this.typeBindModel = model;
   }
 
   findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
@@ -109,13 +124,15 @@ export class FormBuilderService extends DynamicFormService {
       const controlLanguage = (controlModel as DsDynamicInputModel).hasLanguages ? (controlModel as DsDynamicInputModel).language : null;
       if (isString(controlValue)) {
         return new FormFieldMetadataValueObject(controlValue, controlLanguage, null, null, controlModelIndex);
+      } else if (isNgbDateStruct(controlValue)) {
+        return new FormFieldMetadataValueObject(dateToString(controlValue))
       } else if (isObject(controlValue)) {
-        const authority = controlValue.authority || controlValue.id || null;
-        const place = controlModelIndex || controlValue.place;
+        const authority = (controlValue as any).authority || (controlValue as any).id || null;
+        const place = controlModelIndex || (controlValue as any).place;
         if (isNgbDateStruct(controlValue)) {
-          return new FormFieldMetadataValueObject(controlValue, controlLanguage, authority, controlValue, place);
+          return new FormFieldMetadataValueObject(controlValue, controlLanguage, authority, controlValue as any, place);
         } else {
-          return new FormFieldMetadataValueObject(controlValue.value, controlLanguage, authority, controlValue.display, place, controlValue.confidence);
+          return new FormFieldMetadataValueObject((controlValue as any).value, controlLanguage, authority, (controlValue as any).display, place, (controlValue as any).confidence);
         }
       }
     };
@@ -175,13 +192,13 @@ export class FormBuilderService extends DynamicFormService {
                   }
                 }
               });
-          })
+          });
         } else if (isNotUndefined((controlModel as any).value) && isNotEmpty((controlModel as any).value)) {
           const controlArrayValue = [];
           // Normalize control value as an array of FormFieldMetadataValueObject
           const values = Array.isArray((controlModel as any).value) ? (controlModel as any).value : [(controlModel as any).value];
           values.forEach((controlValue) => {
-            controlArrayValue.push(normalizeValue(controlModel, controlValue, controlModelIndex))
+            controlArrayValue.push(normalizeValue(controlModel, controlValue, controlModelIndex));
           });
 
           if (controlId && iterateResult.hasOwnProperty(controlId) && isNotNull(iterateResult[controlId])) {
@@ -201,7 +218,7 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
+  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false, typeBindModel = null): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
 
@@ -218,6 +235,13 @@ export class FormBuilderService extends DynamicFormService {
       });
     }
 
+    if (isNull(typeBindModel)) {
+      typeBindModel = this.findById('dc_type', rows);
+    }
+
+    if (typeBindModel !== null) {
+      this.setTypeBindModel(typeBindModel);
+    }
     return rows;
   }
 

@@ -20,7 +20,9 @@ import {
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
   SubmissionObjectActionTypes,
-  UpdateSectionDataAction
+  UpdateSectionDataAction,
+  SetDuplicateDecisionErrorAction,
+  SetDuplicateDecisionSuccessAction
 } from './submission-objects.actions';
 import {
   mockSectionsData,
@@ -33,25 +35,25 @@ import {
   mockSubmissionSelfUrl,
   mockSubmissionState,
   mockSubmissionRestResponse
-} from '../../shared/mocks/mock-submission';
+} from '../../shared/mocks/submission.mock';
 import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service-stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { SectionsService } from '../sections/sections.service';
-import { SectionsServiceStub } from '../../shared/testing/sections-service-stub';
+import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
 import { SubmissionService } from '../submission.service';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service-stub';
-import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
-import { MockStore } from '../../shared/testing/mock-store';
-import { AppState } from '../../app.reducer';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { StoreMock } from '../../shared/testing/store.mock';
+import { AppState, storeModuleConfig } from '../../app.reducer';
 import parseSectionErrors from '../utils/parseSectionErrors';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;
   let actions: Observable<any>;
-  let store: MockStore<AppState>;
+  let store: StoreMock<AppState>;
 
   const notificationsServiceStub = new NotificationsServiceStub();
   const submissionServiceStub = new SubmissionServiceStub();
@@ -66,18 +68,18 @@ describe('SubmissionObjectEffects test suite', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],
       providers: [
         SubmissionObjectEffects,
         TranslateService,
-        { provide: Store, useClass: MockStore },
+        { provide: Store, useClass: StoreMock },
         provideMockActions(() => actions),
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: SectionsService, useClass: SectionsServiceStub },
@@ -676,6 +678,71 @@ describe('SubmissionObjectEffects test suite', () => {
       submissionObjectEffects.saveForLaterSubmissionSuccess$.subscribe(() => {
         expect(notificationsServiceStub.success).toHaveBeenCalled();
         expect(submissionServiceStub.redirectToMyDSpace).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('saveDuplicateDecision$', () => {
+    it('should return a SET_DUPLICATE_DECISION action on success', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SET_DUPLICATE_DECISION,
+          payload: {
+            submissionId: submissionId,
+            sectionId: 'detect-duplicate'
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.returnValue(observableOf(mockSubmissionRestResponse));
+      const expected = cold('--b-', {
+        b: new SetDuplicateDecisionSuccessAction(
+          submissionId,
+          'detect-duplicate',
+          mockSubmissionRestResponse as any,
+        )
+      });
+
+      expect(submissionObjectEffects.saveDuplicateDecision$).toBeObservable(expected);
+    });
+
+    it('should return a SET_DUPLICATE_DECISION_ERROR action on error', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SET_DUPLICATE_DECISION,
+          payload: {
+            submissionId: submissionId,
+            sectionId: 'detect-duplicate'
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.callFake(
+        () => observableThrowError('Error')
+      );
+      const expected = cold('--b-', {
+        b: new SetDuplicateDecisionErrorAction(
+          submissionId
+        )
+      });
+
+      expect(submissionObjectEffects.saveDuplicateDecision$).toBeObservable(expected);
+    });
+  });
+
+  describe('setDuplicateDecisionSuccess$', () => {
+    it('should display a dedup success notification', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS,
+          payload: {
+            submissionId: submissionId
+          }
+        }
+      });
+
+      submissionObjectEffects.setDuplicateDecisionSuccess$.subscribe(() => {
+        expect(notificationsServiceStub.success).toHaveBeenCalled();
       });
     });
   });

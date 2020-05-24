@@ -7,17 +7,15 @@
         <ds-header-navbar-wrapper></ds-header-navbar-wrapper>
 
         <ds-notifications-board
-                [options]="config.notifications">
+                [options]="notificationOptions">
         </ds-notifications-board>
         <main class="main-content">
-            <div class="container">
-                <ds-breadcrumbs></ds-breadcrumbs>
-            </div>
+          <ds-breadcrumbs></ds-breadcrumbs>
 
-            <div class="container" *ngIf="isLoading$ | async">
-                <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
-            </div>
-            <router-outlet></router-outlet>
+          <div class="container" *ngIf="isLoading$ | async">
+              <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
+          </div>
+          <router-outlet></router-outlet>
         </main>
 
         <ds-footer></ds-footer>

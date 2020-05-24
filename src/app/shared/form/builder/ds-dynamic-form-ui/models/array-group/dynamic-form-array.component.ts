@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
   DynamicFormArrayModel,
-  DynamicFormControlCustomEvent, DynamicFormControlEvent,
+  DynamicFormControlCustomEvent, DynamicFormControlEvent, DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
@@ -17,6 +17,7 @@ import {
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
   @Input() bindId = true;
+  @Input() formModel: DynamicFormControlModel[];
   @Input() group: FormGroup;
   @Input() layout: DynamicFormLayout;
   @Input() model: DynamicFormArrayModel;

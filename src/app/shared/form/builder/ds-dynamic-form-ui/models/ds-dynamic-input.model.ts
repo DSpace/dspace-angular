@@ -1,4 +1,11 @@
-import { DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlLayout,
+  DynamicFormControlRelation,
+  DynamicInputModel,
+  DynamicInputModelConfig,
+  serializable
+} from '@ng-dynamic-forms/core';
+
 import { Subject } from 'rxjs';
 
 import { LanguageCode } from '../../models/form-field-language-value.model';
@@ -12,6 +19,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   languageCodes?: LanguageCode[];
   language?: string;
   value?: any;
+  typeBindRelations?: DynamicFormControlRelation[];
   relationship?: RelationshipOptions;
   repeatable: boolean;
   metadataFields: string[];
@@ -24,6 +32,8 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
+  @serializable() typeBindRelations: DynamicFormControlRelation[];
+  @serializable() typeBindHidden = false;
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
   @serializable() metadataFields: string[];
@@ -57,6 +67,8 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.languageUpdates.subscribe((lang: string) => {
       this.language = lang;
     });
+
+    this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
 
     this.authorityOptions = config.authorityOptions;
   }

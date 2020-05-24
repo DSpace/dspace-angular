@@ -3,11 +3,11 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ObjectDetailComponent } from './object-detail.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { createSuccessfulRemoteDataObject } from '../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 describe('ObjectDetailComponent', () => {
@@ -37,7 +37,7 @@ describe('ObjectDetailComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

@@ -18,7 +18,7 @@ import { hasValue, isEmpty, isNotEmpty, isNull, isUndefined } from '../../../../
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { AuthorityEntry } from '../../../../../../core/integration/models/authority-entry.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { ConfidenceType } from '../../../../../../core/integration/models/confidence-type';
 
@@ -30,7 +30,7 @@ import { ConfidenceType } from '../../../../../../core/integration/models/confid
 export class DsDynamicLookupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
-  @Input() model: DynamicLookupModel | DynamicLookupNameModel;
+  @Input() model: any;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -106,7 +106,7 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
   protected setInputsValue(value) {
     if (hasValue(value)) {
       let displayValue = value;
-      if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValue) {
+      if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityEntry) {
         displayValue = value.display;
       }
 
@@ -220,7 +220,7 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
 
   public saveChanges() {
     if (isNotEmpty(this.getCurrentValue())) {
-      const newValue = Object.assign(new AuthorityValue(), this.model.value, {
+      const newValue = Object.assign(new AuthorityEntry(), this.model.value, {
         display: this.getCurrentValue(),
         value: this.getCurrentValue()
       });

@@ -9,6 +9,7 @@ import {
   PLACEHOLDER_PARENT_METADATA
 } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
+import { ParserType } from './parser-type';
 
 export class RelationGroupFieldParser extends FieldParser {
 
@@ -58,6 +59,8 @@ export class RelationGroupFieldParser extends FieldParser {
 
     const model = new DynamicRelationGroupModel(modelConfiguration, cls);
     model.name = this.getFieldId();
+    model.isInlineGroup = (this.configData.input.type === ParserType.InlineGroup);
+
     return model;
   }
 

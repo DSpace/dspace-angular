@@ -1,8 +1,9 @@
 import {
+  AfterViewInit,
   Directive,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   HostListener,
-  Inject,
   Input,
   OnChanges,
   Output,
@@ -12,12 +13,12 @@ import {
 
 import { findIndex } from 'lodash';
 
-import { AuthorityValue } from '../../core/integration/models/authority.value';
+import { AuthorityEntry } from '../../core/integration/models/authority-entry.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../core/integration/models/confidence-type';
 import { isNotEmpty, isNull } from '../empty.util';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { ConfidenceIconConfig } from '../../../config/submission-config.interface';
+import { environment } from '../../../environments/environment';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
@@ -25,12 +26,12 @@ import { ConfidenceIconConfig } from '../../../config/submission-config.interfac
 @Directive({
   selector: '[dsAuthorityConfidenceState]'
 })
-export class AuthorityConfidenceStateDirective implements OnChanges {
+export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit {
 
   /**
    * The metadata value
    */
-  @Input() authorityValue: AuthorityValue | FormFieldMetadataValueObject | string;
+  @Input() authorityValue: AuthorityEntry | FormFieldMetadataValueObject | string;
 
   /**
    * A boolean representing if to show html icon if authority value is empty
@@ -69,7 +70,6 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
    * @param {Renderer2} renderer
    */
   constructor(
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     private elem: ElementRef,
     private renderer: Renderer2
   ) {
@@ -114,7 +114,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
   private getConfidenceByValue(value: any): ConfidenceType {
     let confidence: ConfidenceType = ConfidenceType.CF_UNSET;
 
-    if (isNotEmpty(value) && value instanceof AuthorityValue && value.hasAuthority()) {
+    if (isNotEmpty(value) && value instanceof AuthorityEntry && value.hasAuthority()) {
       confidence = ConfidenceType.CF_ACCEPTED;
     }
 
@@ -135,7 +135,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
       return 'd-none';
     }
 
-    const confidenceIcons: ConfidenceIconConfig[] = this.EnvConfig.submission.icons.authority.confidence;
+    const confidenceIcons: ConfidenceIconConfig[] = environment.submission.icons.authority.confidence;
 
     const confidenceIndex: number = findIndex(confidenceIcons, {value: confidence});
 

@@ -1,5 +1,3 @@
-@import '_themed_custom_variables.scss';
-
 $content-spacing: $spacer * 1.5 !default;
 
 $button-height: $input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2) !default;
@@ -37,3 +35,5 @@ $edit-item-metadata-field-width: 190px !default;
 $edit-item-language-field-width: 43px !default;
 
 $thumbnail-max-width: 175px !default;
+
+$date-picker-input-max-width: 300px;

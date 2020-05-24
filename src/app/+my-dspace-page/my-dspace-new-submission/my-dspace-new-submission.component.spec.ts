@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -8,17 +8,16 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
+import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
-import { createTestComponent } from '../../shared/testing/utils';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { createTestComponent } from '../../shared/testing/utils.test';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission.component';
 import { AppState } from '../../app.reducer';
-import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { SharedModule } from '../../shared/shared.module';
-import { getMockScrollToService } from '../../shared/mocks/mock-scroll-to-service';
+import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
 import { UploaderService } from '../../shared/uploader/uploader.service';
 import { By } from '@angular/platform-browser';
 import { EntityTypeService } from '../../core/data/entity-type.service';

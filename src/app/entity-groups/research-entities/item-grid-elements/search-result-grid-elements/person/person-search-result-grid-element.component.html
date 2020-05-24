@@ -20,7 +20,7 @@
       <ds-item-type-badge [object]="dso"></ds-item-type-badge>
       <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
         <h4 class="card-title"
-            [innerHTML]="firstMetadataValue('person.familyName') + ', ' + firstMetadataValue('person.givenName')"></h4>
+            [innerHTML]="getPersonName()"></h4>
       </ds-truncatable-part>
       <p *ngIf="dso.hasMetadata('person.email')" class="item-email card-text text-muted">
         <ds-truncatable-part [id]="dso.id" [minLines]="1">

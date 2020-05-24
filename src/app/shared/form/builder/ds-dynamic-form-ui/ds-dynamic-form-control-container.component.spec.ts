@@ -62,7 +62,8 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';import { RelationshipService } from '../../../../core/data/relationship.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Store } from '@ngrx/store';
@@ -70,7 +71,14 @@ import { SubmissionObjectDataService } from '../../../../core/submission/submiss
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+
+function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
+  return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
+    getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
+    isFormControlToBeHidden: jasmine.createSpy('isFormControlToBeHidden')
+  });
+}
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -124,8 +132,22 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       submissionId: '1234',
       id: 'relationGroup',
       formConfiguration: [],
+      isInlineGroup: false,
       mandatoryField: '',
       name: 'relationGroup',
+      relationFields: [],
+      scopeUUID: '',
+      submissionScope: '',
+      repeatable: false,
+      metadataFields: []
+    }),
+    new DynamicRelationGroupModel({
+      submissionId: '1234',
+      id: 'inlineRelationGroup',
+      formConfiguration: [],
+      isInlineGroup: true,
+      mandatoryField: '',
+      name: 'inlineRelationGroup',
       relationFields: [],
       scopeUUID: '',
       submissionScope: '',
@@ -169,6 +191,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       providers: [
         DsDynamicFormControlContainerComponent,
         DynamicFormService,
+        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: RelationshipService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
@@ -318,10 +341,11 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(testFn(formModel[19])).toEqual(DsDynamicListComponent);
     expect(testFn(formModel[20])).toEqual(DsDynamicListComponent);
     expect(testFn(formModel[21])).toEqual(DsDynamicRelationGroupComponent);
-    expect(testFn(formModel[22])).toEqual(DsDatePickerComponent);
-    expect(testFn(formModel[23])).toEqual(DsDynamicLookupComponent);
+    expect(testFn(formModel[22])).toEqual(DsDynamicRelationInlineGroupComponent);
+    expect(testFn(formModel[23])).toEqual(DsDatePickerComponent);
     expect(testFn(formModel[24])).toEqual(DsDynamicLookupComponent);
-    expect(testFn(formModel[25])).toEqual(DsDynamicFormGroupComponent);
+    expect(testFn(formModel[25])).toEqual(DsDynamicLookupComponent);
+    expect(testFn(formModel[26])).toEqual(DsDynamicFormGroupComponent);
   });
 
 });

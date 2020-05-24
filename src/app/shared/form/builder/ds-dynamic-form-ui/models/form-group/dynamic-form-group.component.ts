@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, QueryList } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
 import {
   DynamicFormControlComponent,
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
+  DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -19,6 +21,7 @@ import {
 export class DsDynamicFormGroupComponent extends DynamicFormControlComponent {
 
   @Input() bindId = true;
+  @Input() formModel: DynamicFormControlModel[];
   @Input() group: FormGroup;
   @Input() layout: DynamicFormLayout;
   @Input() model: DynamicFormGroupModel;

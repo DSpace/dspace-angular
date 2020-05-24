@@ -1,5 +1,5 @@
 import { Inject, InjectionToken } from '@angular/core';
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isEmpty } from '../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 
 import { uniqueId } from 'lodash';
@@ -9,11 +9,13 @@ import {
   DynamicRowArrayModelConfig
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, MATCH_VISIBLE, OR_OPERATOR } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { ParserOptions } from './parser-options';
+import { ParserType } from './parser-type';
 import { RelationshipOptions } from '../models/relationship-options.model';
+import { dateToISOFormat, isNgbDateStruct } from '../../../date.util';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -36,9 +38,10 @@ export abstract class FieldParser {
 
   public parse() {
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
-      && (this.configData.input.type !== 'list')
-      && (this.configData.input.type !== 'tag')
-      && (this.configData.input.type !== 'group')
+      && (this.configData.input.type !== ParserType.List)
+      && (this.configData.input.type !== ParserType.Tag)
+      && (this.configData.input.type !== ParserType.RelationGroup)
+      && (this.configData.input.type !== ParserType.InlineGroup)
       && isEmpty(this.configData.selectableRelationship)
     ) {
       let arrayCounter = 0;
@@ -182,7 +185,7 @@ export abstract class FieldParser {
     }
   }
 
-  protected initModel(id?: string, label = true, setErrors = true) {
+  protected initModel(id?: string, label = true, labelEmpty = false, setErrors = true) {
 
     const controlModel = Object.create(null);
 
@@ -210,7 +213,7 @@ export abstract class FieldParser {
 
     controlModel.placeholder = this.configData.label;
 
-    controlModel.hint = this.configData.hints;
+    controlModel.hint = this.configData.hints || '&nbsp;';
 
     if (this.configData.mandatory && setErrors) {
       this.markAsRequired(controlModel);
@@ -224,14 +227,21 @@ export abstract class FieldParser {
     if (this.configData.languageCodes && this.configData.languageCodes.length > 0) {
       (controlModel as DsDynamicInputModel).languageCodes = this.configData.languageCodes;
     }
-    /*    (controlModel as DsDynamicInputModel).languageCodes = [{
-            display: 'English',
-            code: 'en_US'
-          },
-          {
-            display: 'Italian',
-            code: 'it_IT'
-          }];*/
+
+    if (isNotEmpty(this.configData.typeBind)) {
+      const bindValues = [];
+      this.configData.typeBind.forEach((value) => {
+        bindValues.push({
+          id: 'dc_type',
+          value: value
+        })
+      });
+      (controlModel as DsDynamicInputModel).typeBindRelations = [{
+        match: MATCH_VISIBLE,
+        operator: OR_OPERATOR,
+        when: bindValues
+      }];
+    }
 
     return controlModel;
   }
@@ -261,7 +271,7 @@ export abstract class FieldParser {
 
   protected setLabel(controlModel, label = true, labelEmpty = false) {
     if (label) {
-      controlModel.label = this.configData.label;
+      controlModel.label = (labelEmpty) ? '&nbsp;' : this.configData.label;
     }
   }
 
@@ -301,7 +311,9 @@ export abstract class FieldParser {
         return;
       }
 
-      if (typeof fieldValue === 'object') {
+      if (isNgbDateStruct(fieldValue)) {
+        modelConfig.value = fieldValue;
+      } else if (typeof fieldValue === 'object') {
         modelConfig.language = fieldValue.language;
         if (forceValueAsObj) {
           modelConfig.value = fieldValue;

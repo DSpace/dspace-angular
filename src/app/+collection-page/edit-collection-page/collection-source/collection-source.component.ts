@@ -26,12 +26,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { cloneDeep } from 'lodash';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { MetadataConfig } from '../../../core/shared/metadata-config.model';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { RequestService } from '../../../core/data/request.service';
+import { environment } from '../../../../environments/environment';
 
 /**
  * Component for managing the content source of the collection
@@ -236,7 +236,6 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
                      protected translate: TranslateService,
                      protected route: ActivatedRoute,
                      protected router: Router,
-                     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
                      protected collectionService: CollectionDataService,
                      protected requestService: RequestService) {
     super(objectUpdatesService, notificationsService, translate);
@@ -247,7 +246,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   ngOnInit(): void {
     this.notificationsPrefix = 'collection.edit.tabs.source.notifications.';
-    this.discardTimeOut = this.EnvConfig.collection.edit.undoTimeout;
+    this.discardTimeOut = environment.collection.edit.undoTimeout;
     this.url = this.router.url;
     if (this.url.indexOf('?') > 0) {
       this.url = this.url.substr(0, this.url.indexOf('?'));

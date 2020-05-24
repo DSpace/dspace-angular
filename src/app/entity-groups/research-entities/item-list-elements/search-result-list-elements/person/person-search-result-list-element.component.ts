@@ -4,6 +4,7 @@ import { ItemSearchResult } from '../../../../../shared/object-collection/shared
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { isNotEmpty } from '../../../../../shared/empty.util';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({
@@ -15,4 +16,13 @@ import { Item } from '../../../../../core/shared/item.model';
  * The component for displaying a list element for an item search result of the type Person
  */
 export class PersonSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+
+  getPersonName(): string {
+    let personName = this.dso.name;
+    if (isNotEmpty(this.firstMetadataValue('person.familyName')) && isNotEmpty(this.firstMetadataValue('person.givenName'))) {
+      personName = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName')
+    }
+
+    return personName
+  }
 }

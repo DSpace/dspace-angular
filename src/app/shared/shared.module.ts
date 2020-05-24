@@ -9,6 +9,7 @@ import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -71,7 +72,7 @@ import { DsDatePickerInlineComponent } from './form/builder/ds-dynamic-form-ui/m
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
-import { MockAdminGuard } from './mocks/mock-admin-guard.service';
+import { MockAdminGuard } from './mocks/admin-guard.service.mock';
 import { AlertComponent } from './alert/alert.component';
 import { SearchResultDetailElementComponent } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
 import { ClaimedTaskActionsComponent } from './mydspace-actions/claimed-task/claimed-task-actions.component';
@@ -172,6 +173,10 @@ import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component'
 import { SidebarDropdownComponent } from './sidebar/sidebar-dropdown.component';
 import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.component';
 import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
+import { AuthorityTreeviewComponent } from './authority-treeview/authority-treeview.component';
+import { MaterialModule } from './material/material.module';
+import { DsDynamicRelationInlineGroupComponent } from './form/builder/ds-dynamic-form-ui/models/relation-inline-group/dynamic-relation-inline-group.components';
+import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
@@ -212,7 +217,8 @@ const MODULES = [
   MomentModule,
   TextMaskModule,
   MenuModule,
-  DragDropModule
+  DragDropModule,
+  MaterialModule
 ];
 
 const ROOT_MODULES = [
@@ -252,6 +258,7 @@ const COMPONENTS = [
   EditComColPageComponent,
   DeleteComColPageComponent,
   ComcolPageBrowseByComponent,
+  ComcolRoleComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,
@@ -262,6 +269,7 @@ const COMPONENTS = [
   DsDynamicTagComponent,
   DsDynamicTypeaheadComponent,
   DsDynamicRelationGroupComponent,
+  DsDynamicRelationInlineGroupComponent,
   DsDatePickerComponent,
   DsDynamicFormGroupComponent,
   DsDynamicFormArrayComponent,
@@ -357,6 +365,7 @@ const COMPONENTS = [
   CustomSwitchComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
+  AuthorityTreeviewComponent,
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
   ExternalSourceEntryImportModalComponent,
@@ -397,6 +406,7 @@ const ENTRY_COMPONENTS = [
   DsDynamicTagComponent,
   DsDynamicTypeaheadComponent,
   DsDynamicRelationGroupComponent,
+  DsDynamicRelationInlineGroupComponent,
   DsDatePickerComponent,
   DsDynamicFormGroupComponent,
   DsDynamicFormArrayComponent,
@@ -414,6 +424,7 @@ const ENTRY_COMPONENTS = [
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
+  AuthorityTreeviewComponent,
   CustomSwitchComponent,
   ItemMetadataRepresentationListElementComponent,
   SearchResultsComponent,

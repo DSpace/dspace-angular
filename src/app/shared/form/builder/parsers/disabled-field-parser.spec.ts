@@ -59,7 +59,6 @@ describe('DisabledFieldParser test suite', () => {
     const parser = new DisabledFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
-    console.log(fieldModel);
     expect(fieldModel.value).toEqual(expectedValue);
   });
 

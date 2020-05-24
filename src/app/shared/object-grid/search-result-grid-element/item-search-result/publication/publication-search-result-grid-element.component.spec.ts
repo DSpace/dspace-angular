@@ -21,7 +21,7 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { PublicationSearchResultGridElementComponent } from './publication-search-result-grid-element.component';

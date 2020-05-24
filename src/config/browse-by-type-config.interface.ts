@@ -14,10 +14,10 @@ export interface  BrowseByTypeConfig extends Config {
   /**
    * The type of Browse-By page to render
    */
-  type: BrowseByType;
+  type: BrowseByType | string;
 
   /**
    * The metadata field to use for rendering starts-with options (only necessary when type is set to BrowseByType.Date)
    */
-  metadataField: string;
+  metadataField?: string;
 }

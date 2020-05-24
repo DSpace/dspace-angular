@@ -1,19 +1,17 @@
 import { Store } from '@ngrx/store';
-import { GlobalConfig } from '../../../config/global-config.interface';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ErrorResponse, IntegrationSuccessResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { PaginatedList } from '../data/paginated-list';
 import { IntegrationRequest } from '../data/request.models';
+import { AuthorityEntry } from './models/authority-entry.model';
 import { PageInfo } from '../shared/page-info.model';
 import { IntegrationResponseParsingService } from './integration-response-parsing.service';
-import { AuthorityValue } from './models/authority.value';
 
 describe('IntegrationResponseParsingService', () => {
   let service: IntegrationResponseParsingService;
 
-  const EnvConfig = {} as GlobalConfig;
   const store = {} as Store<CoreState>;
   const objectCacheService = new ObjectCacheService(store, undefined);
   const name = 'type';
@@ -42,36 +40,36 @@ describe('IntegrationResponseParsingService', () => {
       }
     });
     definitions = new PaginatedList(pageInfo, [
-      Object.assign(new AuthorityValue(), {
-        type: 'authority',
+      Object.assign(new AuthorityEntry(), {
+        type: 'authorityEntry',
         display: 'One',
         id: 'One',
         otherInformation: undefined,
         value: 'One'
       }),
-      Object.assign(new AuthorityValue(), {
-        type: 'authority',
+      Object.assign(new AuthorityEntry(), {
+        type: 'authorityEntry',
         display: 'Two',
         id: 'Two',
         otherInformation: undefined,
         value: 'Two'
       }),
-      Object.assign(new AuthorityValue(), {
-        type: 'authority',
+      Object.assign(new AuthorityEntry(), {
+        type: 'authorityEntry',
         display: 'Three',
         id: 'Three',
         otherInformation: undefined,
         value: 'Three'
       }),
-      Object.assign(new AuthorityValue(), {
-        type: 'authority',
+      Object.assign(new AuthorityEntry(), {
+        type: 'authorityEntry',
         display: 'Four',
         id: 'Four',
         otherInformation: undefined,
         value: 'Four'
       }),
-      Object.assign(new AuthorityValue(), {
-        type: 'authority',
+      Object.assign(new AuthorityEntry(), {
+        type: 'authorityEntry',
         display: 'Five',
         id: 'Five',
         otherInformation: undefined,
@@ -94,35 +92,35 @@ describe('IntegrationResponseParsingService', () => {
               display: 'One',
               id: 'One',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'One'
             },
             {
               display: 'Two',
               id: 'Two',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Two'
             },
             {
               display: 'Three',
               id: 'Three',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Three'
             },
             {
               display: 'Four',
               id: 'Four',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Four'
             },
             {
               display: 'Five',
               id: 'Five',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Five'
             },
           ],
@@ -156,35 +154,35 @@ describe('IntegrationResponseParsingService', () => {
               display: 'One',
               id: 'One',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'One'
             },
             {
               display: 'Two',
               id: 'Two',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Two'
             },
             {
               display: 'Three',
               id: 'Three',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Three'
             },
             {
               display: 'Four',
               id: 'Four',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Four'
             },
             {
               display: 'Five',
               id: 'Five',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Five'
             },
           ],
@@ -198,7 +196,7 @@ describe('IntegrationResponseParsingService', () => {
   }
   beforeEach(() => {
     initVars();
-    service = new IntegrationResponseParsingService(EnvConfig, objectCacheService);
+    service = new IntegrationResponseParsingService(objectCacheService);
   });
 
   describe('parse', () => {

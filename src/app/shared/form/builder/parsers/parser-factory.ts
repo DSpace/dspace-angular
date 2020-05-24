@@ -18,6 +18,8 @@ import { NameFieldParser } from './name-field-parser';
 import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
+import { NumberFieldParser } from './number-field-parser';
+import { CalendarFieldParser } from './calendar-field-parser';
 import { DisabledFieldParser } from './disabled-field-parser';
 
 const fieldParserDeps = [
@@ -33,6 +35,13 @@ const fieldParserDeps = [
 export class ParserFactory {
   public static getProvider(type: ParserType): StaticProvider {
     switch (type) {
+      case ParserType.Calendar: {
+        return {
+          provide: FieldParser,
+          useClass: CalendarFieldParser,
+          deps: [...fieldParserDeps]
+        }
+      }
       case ParserType.Date: {
         return {
           provide: FieldParser,
@@ -47,7 +56,8 @@ export class ParserFactory {
           deps: [...fieldParserDeps]
         }
       }
-      case ParserType.RelationGroup: {
+      case ParserType.RelationGroup:
+      case ParserType.InlineGroup: {
         return {
           provide: FieldParser,
           useClass: RelationGroupFieldParser,
@@ -86,6 +96,13 @@ export class ParserFactory {
         return {
           provide: FieldParser,
           useClass: NameFieldParser,
+          deps: [...fieldParserDeps]
+        }
+      }
+      case ParserType.Number: {
+        return {
+          provide: FieldParser,
+          useClass: NumberFieldParser,
           deps: [...fieldParserDeps]
         }
       }

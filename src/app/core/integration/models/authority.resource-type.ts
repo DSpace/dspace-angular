@@ -8,3 +8,4 @@ import { ResourceType } from '../../shared/resource-type';
  */
 
 export const AUTHORITY_VALUE = new ResourceType('authority');
+export const AUTHORITY_ENTRY = new ResourceType('authorityEntry');

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import {HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { submissionSelector, SubmissionState } from './submission.reducers';
-import {hasValue, isEmpty, isNotEmpty, isNotUndefined} from '../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../shared/empty.util';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -29,7 +29,6 @@ import {
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
 import { GlobalConfig } from '../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../config';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SectionDataObject } from './sections/models/section-data.model';
@@ -43,9 +42,12 @@ import { WorkspaceitemSectionsObject } from '../core/submission/models/workspace
 import { RemoteData } from '../core/data/remote-data';
 import { ErrorResponse } from '../core/cache/response.models';
 import { RemoteDataError } from '../core/data/remote-data-error';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/testing/utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
+import { environment } from '../../environments/environment';
+import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
+import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 /**
  * A service that provides methods used in submission process.
@@ -72,17 +74,18 @@ export class SubmissionService {
    * @param {SubmissionRestService} restService
    * @param {Router} router
    * @param {RouteService} routeService
+   * @param {ScrollToService} scrollToService
    * @param {Store<SubmissionState>} store
    * @param {TranslateService} translate
    * @param {SearchService} searchService
    * @param {RequestService} requestService
    */
-  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected notificationsService: NotificationsService,
+  constructor(protected notificationsService: NotificationsService,
               protected restService: SubmissionRestService,
               protected router: Router,
               protected routeService: RouteService,
               protected store: Store<SubmissionState>,
+              protected scrollToService: ScrollToService,
               protected translate: TranslateService,
               protected searchService: SearchService,
               protected requestService: RequestService) {
@@ -119,6 +122,30 @@ export class SubmissionService {
     const options: HttpOptions = Object.create({});
     options.params = params;
     return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, options, collectionId).pipe(
+      map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
+      catchError(() => observableOf({} as SubmissionObject)))
+  }
+
+  /**
+   * Perform a REST call to create a new workspaceitem for a specified collection and return response
+   *
+   * @param collectionId
+   *    The collection id
+   * @return Observable<SubmissionObject>
+   *    observable of SubmissionObject
+   */
+  createSubmissionForCollection(collectionId: string): Observable<SubmissionObject> {
+    const paramsObj = Object.create({});
+
+    if (isNotEmpty(collectionId)) {
+      paramsObj.collection = collectionId;
+    }
+
+    const params = new HttpParams({fromObject: paramsObj});
+    const options: HttpOptions = Object.create({});
+    options.params = params;
+
+    return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, options).pipe(
       map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
       catchError(() => observableOf({} as SubmissionObject)))
   }
@@ -421,6 +448,21 @@ export class SubmissionService {
   }
 
   /**
+   * Return the save-decision status of the submission
+   *
+   * @param submissionId
+   *    The submission id
+   * @return Observable<boolean>
+   *    observable with submission save-decision status
+   */
+  getSubmissionDuplicateDecisionProcessingStatus(submissionId: string): Observable<boolean> {
+    return this.getSubmissionObject(submissionId).pipe(
+      map((state: SubmissionObjectEntry) => state.saveDecisionPending),
+      distinctUntilChanged(),
+      startWith(false));
+  }
+
+  /**
    * Return the visibility status of the specified section
    *
    * @param sectionData
@@ -459,8 +501,20 @@ export class SubmissionService {
    *    The section type
    */
   notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
-    const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', { sectionId });
-    this.notificationsService.info(null, m, null, true);
+    if (sectionType === SectionsType.DetectDuplicate || sectionId === 'detect-duplicate') {
+      this.setActiveSection(submissionId, sectionId);
+      const msg = this.translate.instant('submission.sections.detect-duplicate.duplicate-detected', { sectionId });
+      this.notificationsService.warning(null, msg, new NotificationOptions(10000));
+      const config: ScrollToConfigOptions = {
+        target: sectionId,
+        offset: -70
+      };
+
+      this.scrollToService.scrollTo(config);
+    } else {
+      const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', { sectionId });
+      this.notificationsService.info(null, m, null, true);
+    }
   }
 
   /**
@@ -558,7 +612,7 @@ export class SubmissionService {
     this.stopAutoSave();
     // AUTOSAVE submission
     // Retrieve interval from config and convert to milliseconds
-    const duration = this.EnvConfig.submission.autosave.timer * (1000 * 60);
+    const duration = environment.submission.autosave.timer * (1000 * 60);
     // Dispatch save action after given duration
     this.timer$ = observableTimer(duration, duration);
     this.autoSaveSub = this.timer$

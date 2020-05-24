@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { union } from 'lodash';
-
 import { from as observableFrom, of as observableOf } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, concatMap, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
@@ -25,6 +26,9 @@ import {
   DepositSubmissionAction,
   DepositSubmissionErrorAction,
   DepositSubmissionSuccessAction,
+  DisableSectionAction,
+  DisableSectionErrorAction,
+  DisableSectionSuccessAction,
   DiscardSubmissionErrorAction,
   DiscardSubmissionSuccessAction,
   InitSectionAction,
@@ -39,6 +43,9 @@ import {
   SaveSubmissionSectionFormAction,
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
+  SetDuplicateDecisionAction,
+  SetDuplicateDecisionErrorAction,
+  SetDuplicateDecisionSuccessAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction
@@ -60,7 +67,8 @@ export class SubmissionObjectEffects {
         const selfLink = sectionDefinition._links.self.href || sectionDefinition._links.self;
         const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
-        const enabled = (sectionDefinition.mandatory) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
+        const enabled = (sectionDefinition.mandatory && sectionDefinition.sectionType !== SectionsType.DetectDuplicate) ||
+          (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
         const sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
         const sectionErrors = null;
         mappedActions.push(
@@ -107,7 +115,7 @@ export class SubmissionObjectEffects {
    */
   @Effect() saveSubmission$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM),
-    switchMap((action: SaveSubmissionFormAction) => {
+    concatMap((action: SaveSubmissionFormAction) => {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
@@ -121,7 +129,7 @@ export class SubmissionObjectEffects {
    */
   @Effect() saveForLaterSubmission$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM),
-    switchMap((action: SaveForLaterSubmissionFormAction) => {
+    concatMap((action: SaveForLaterSubmissionFormAction) => {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
@@ -146,7 +154,7 @@ export class SubmissionObjectEffects {
    */
   @Effect() saveSection$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM),
-    switchMap((action: SaveSubmissionSectionFormAction) => {
+    concatMap((action: SaveSubmissionSectionFormAction) => {
       return this.operationsService.jsonPatchByResourceID(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
@@ -170,7 +178,7 @@ export class SubmissionObjectEffects {
   @Effect() saveAndDeposit$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION),
     withLatestFrom(this.store$),
-    switchMap(([action, currentState]: [SaveAndDepositSubmissionAction, any]) => {
+    concatMap(([action, currentState]: [SaveAndDepositSubmissionAction, any]) => {
       return this.operationsService.jsonPatchByResourceType(
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
@@ -185,6 +193,38 @@ export class SubmissionObjectEffects {
         }),
         catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     }));
+
+  @Effect() removeSection$ = this.actions$.pipe(
+    ofType(SubmissionObjectActionTypes.DISABLE_SECTION),
+    concatMap((action: DisableSectionAction) => {
+      return this.operationsService.jsonPatchByResourceID(
+        this.submissionService.getSubmissionObjectLinkName(),
+        action.payload.submissionId,
+        'sections',
+        action.payload.sectionId).pipe(
+        map(() => new DisableSectionSuccessAction(action.payload.submissionId, action.payload.sectionId)),
+        catchError(() => observableOf(new DisableSectionErrorAction(action.payload.submissionId, action.payload.sectionId))));
+    }));
+
+  @Effect() saveDuplicateDecision$ = this.actions$.pipe(
+    ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION),
+    switchMap((action: SetDuplicateDecisionAction) => {
+      return this.operationsService.jsonPatchByResourceID(
+        this.submissionService.getSubmissionObjectLinkName(),
+        action.payload.submissionId,
+        'sections',
+        action.payload.sectionId).pipe(
+        map((response: SubmissionObject[]) => new SetDuplicateDecisionSuccessAction(
+          action.payload.submissionId,
+          action.payload.sectionId,
+          response)
+        ),
+        catchError(() => observableOf(new SetDuplicateDecisionErrorAction(action.payload.submissionId))));
+  }));
+
+  @Effect({dispatch: false}) setDuplicateDecisionSuccess$ = this.actions$.pipe(
+    ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS),
+    tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.detect-duplicate.decision-success-notice'))));
 
   /**
    * Dispatch a [DepositSubmissionSuccessAction] or a [DepositSubmissionErrorAction] on error

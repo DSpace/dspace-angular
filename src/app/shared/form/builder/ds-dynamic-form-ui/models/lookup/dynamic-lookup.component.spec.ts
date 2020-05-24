@@ -13,22 +13,19 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
+import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
 import { DsDynamicLookupComponent } from './dynamic-lookup.component';
 import { DynamicLookupModel } from './dynamic-lookup.model';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { By } from '@angular/platform-browser';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
-import { createTestComponent } from '../../../../../testing/utils';
+import { AuthorityEntry } from '../../../../../../core/integration/models/authority-entry.model';
+import { createTestComponent } from '../../../../../testing/utils.test';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../../../../config';
-import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
-import { WorkspaceitemsEditPageModule } from '../../../../../../+workspaceitems-edit-page/workspaceitems-edit-page.module';
-import { WorkspaceItem } from '../../../../../../core/submission/models/workspaceitem.model';
+import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 
 let LOOKUP_TEST_MODEL_CONFIG = {
   authorityOptions: {
@@ -82,8 +79,6 @@ let LOOKUP_TEST_GROUP = new FormGroup({
   lookup: new FormControl(),
   lookupName: new FormControl()
 });
-
-const envConfig: GlobalConfig = MOCK_SUBMISSION_CONFIG;
 
 describe('Dynamic Lookup component', () => {
   function init() {
@@ -172,7 +167,6 @@ describe('Dynamic Lookup component', () => {
       providers: [
         ChangeDetectorRef,
         DsDynamicLookupComponent,
-        { provide: GLOBAL_CONFIG, useValue: envConfig },
         { provide: AuthorityService, useValue: authorityService },
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} }
@@ -275,7 +269,7 @@ describe('Dynamic Lookup component', () => {
         it('should select a results entry properly', fakeAsync(() => {
           let de = lookupFixture.debugElement.queryAll(By.css('button'));
           const btnEl = de[0].nativeElement;
-          const selectedValue = Object.assign(new AuthorityValue(), {
+          const selectedValue = Object.assign(new AuthorityEntry(), {
             id: 1,
             display: 'one',
             value: 1
@@ -400,12 +394,12 @@ describe('Dynamic Lookup component', () => {
 
         it('should select a results entry properly', fakeAsync(() => {
           const payload = [
-            Object.assign(new AuthorityValue(), {
+            Object.assign(new AuthorityEntry(), {
               id: 1,
               display: 'Name, Lastname',
               value: 1
             }),
-            Object.assign(new AuthorityValue(), {
+            Object.assign(new AuthorityEntry(), {
               id: 2,
               display: 'NameTwo, LastnameTwo',
               value: 2
@@ -413,7 +407,7 @@ describe('Dynamic Lookup component', () => {
           ];
           let de = lookupFixture.debugElement.queryAll(By.css('button'));
           const btnEl = de[0].nativeElement;
-          const selectedValue = Object.assign(new AuthorityValue(), {
+          const selectedValue = Object.assign(new AuthorityEntry(), {
             id: 1,
             display: 'Name, Lastname',
             value: 1

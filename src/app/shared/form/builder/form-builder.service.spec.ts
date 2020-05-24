@@ -238,6 +238,7 @@ describe('FormBuilderService test suite', () => {
             }]
           } as FormFieldModel]
         } as FormRowModel],
+        isInlineGroup: false,
         mandatoryField: '',
         name: 'testRelationGroup',
         relationFields: [],
@@ -260,6 +261,7 @@ describe('FormBuilderService test suite', () => {
           id: 'testFormRowArray',
           initialCount: 5,
           notRepeatable: false,
+          showButtons: false,
           groupFactory: () => {
             return [
               new DynamicInputModel({id: 'testFormRowArrayGroupInput'})
@@ -465,8 +467,8 @@ describe('FormBuilderService test suite', () => {
     ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicTypeaheadModel).valueUpdates.next('test one');
 
     service.clearAllModelsValue(formModel);
-    expect(((formModel[0] as DynamicRowGroupModel).get(1) as DynamicTypeaheadModel).value).toEqual(undefined)
-    expect(((formModel[2] as DynamicRowGroupModel).get(0) as DynamicTypeaheadModel).value).toEqual(undefined)
+    expect(((formModel[0] as DynamicRowGroupModel).get(1) as DynamicTypeaheadModel).value).toEqual(undefined);
+    expect(((formModel[2] as DynamicRowGroupModel).get(0) as DynamicTypeaheadModel).value).toEqual(undefined);
   });
 
   it('should return true when model has a custom group model as parent', () => {

@@ -16,3 +16,8 @@
   color: $dropdown-link-hover-color !important;
   background-color: $dropdown-link-hover-bg !important;
 }
+
+.treeview .modal-body {
+  max-height: 85vh !important;
+  overflow-y: auto;
+}

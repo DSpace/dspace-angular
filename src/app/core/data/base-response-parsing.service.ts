@@ -4,11 +4,11 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { Serializer } from '../serializer';
 import { PageInfo } from '../shared/page-info.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { RestRequest } from './request.models';
+import { environment } from '../../../environments/environment';
 /* tslint:disable:max-classes-per-file */
 
 /**
@@ -35,7 +35,6 @@ export function isRestPaginatedList(halObj: any): boolean {
 }
 
 export abstract class BaseResponseParsingService {
-  protected abstract EnvConfig: GlobalConfig;
   protected abstract objectCache: ObjectCacheService;
   protected abstract toCache: boolean;
   protected shouldDirectlyAttachEmbeds = false;
@@ -147,17 +146,17 @@ export abstract class BaseResponseParsingService {
       console.warn(`Can't cache incomplete ${type}: ${JSON.stringify(co)}, parsed from (partial) response: ${dataJSON}`);
       return;
     }
-    this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : this.EnvConfig.cache.msToLive.default, request.uuid);
+    this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid);
   }
 
   processPageInfo(payload: any): PageInfo {
-    if (hasValue(payload.page)) {
+    if (hasValue(payload) && hasValue(payload.page)) {
       const pageObj = Object.assign({}, payload.page, { _links: payload._links });
       const pageInfoObject = new DSpaceSerializer(PageInfo).deserialize(pageObj);
       if (pageInfoObject.currentPage >= 0) {
         Object.assign(pageInfoObject, { currentPage: pageInfoObject.currentPage + 1 });
       }
-      return pageInfoObject
+      return pageInfoObject;
     } else {
       return undefined;
     }

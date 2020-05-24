@@ -46,5 +46,8 @@ export class FormFieldModel {
   style: string;
 
   @autoserialize
+  typeBind: string[];
+
+  @autoserialize
   value: any;
 }

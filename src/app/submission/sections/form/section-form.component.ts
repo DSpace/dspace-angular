@@ -17,7 +17,6 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
-import { GLOBAL_CONFIG } from '../../../../config';
 import { GlobalConfig } from '../../../../config/global-config.interface';
 import { SectionDataObject } from '../models/section-data.model';
 import { renderSectionFor } from '../sections-decorator';
@@ -29,6 +28,10 @@ import { SectionsService } from '../sections.service';
 import { difference } from '../../../shared/object.util';
 import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { combineLatest as combineLatestObservable } from 'rxjs';
+import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { RemoteData } from '../../../core/data/remote-data';
+import { environment } from '../../../../environments/environment';
 
 /**
  * This component represents a section that contains a Form.
@@ -132,7 +135,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
               protected translate: TranslateService,
-              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
@@ -326,7 +328,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-    if (this.EnvConfig.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
+    if (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
       this.submissionService.dispatchSave(this.submissionId);
     }
   }

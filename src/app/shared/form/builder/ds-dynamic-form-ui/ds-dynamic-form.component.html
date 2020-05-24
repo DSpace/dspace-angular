@@ -1,5 +1,6 @@
 <ds-dynamic-form-control-container *ngFor="let model of formModel; trackBy: trackByFn"
                                    [formId]="formId"
+                                   [formModel]="formModel"
                                    [group]="formGroup"
                                    [hasErrorMessaging]="model.hasErrorMessages"
                                    [hidden]="model.hidden"

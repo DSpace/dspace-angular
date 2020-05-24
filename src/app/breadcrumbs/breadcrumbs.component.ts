@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
-import { hasNoValue, hasValue, isNotUndefined, isUndefined } from '../shared/empty.util';
+import { hasNoValue, hasValue, isUndefined } from '../shared/empty.util';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, Observable, Subscription, of as observableOf } from 'rxjs';
 
@@ -23,6 +23,11 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
    * Whether or not to show breadcrumbs on this page
    */
   showBreadcrumbs: boolean;
+
+  /**
+   * Whether or not to show breadcrumbs with a fluid container
+   */
+  showBreadcrumbsFluid: boolean;
 
   /**
    * Subscription to unsubscribe from on destroy
@@ -63,6 +68,11 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
         this.showBreadcrumbs = data.showBreadcrumbs;
       } else if (isUndefined(data.breadcrumb)) {
         this.showBreadcrumbs = false;
+      }
+      if (hasValue(data.showBreadcrumbsFluid)) {
+        this.showBreadcrumbsFluid = data.showBreadcrumbsFluid;
+      } else {
+        this.showBreadcrumbsFluid = false;
       }
     }
 
