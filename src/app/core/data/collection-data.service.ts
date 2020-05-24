@@ -114,7 +114,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
     const searchHref = 'findAuthorizedByCommunityAndMetadata';
     const searchParams =  [new SearchParam('uuid', communityId),
                            new SearchParam('metadata', 'relationship.type')];
-      searchParams.push(new SearchParam('metadatavalue', entityType));
+    searchParams.push(new SearchParam('metadatavalue', entityType));
 
     options = Object.assign({}, options, {
       searchParams: searchParams

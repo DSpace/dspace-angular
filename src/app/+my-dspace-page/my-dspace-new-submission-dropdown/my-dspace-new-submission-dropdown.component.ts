@@ -13,7 +13,6 @@ import { NotificationOptions } from '../../shared/notifications/models/notificat
 import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
-import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -43,7 +42,7 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
   /**
    * Subscription to unsubscribe from
    */
-  private sub: Subscription;
+  private subs: Subscription[] = [];
 
   initialized = false;
   availableEntyTypeList: Set<string>;
@@ -72,13 +71,13 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
    * Initialize url and Bearer token
    */
   ngOnInit() {
-    this.sub = this.halService.getEndpoint('workspaceitems').pipe(first()).subscribe((url) => {
+    this.subs.push(this.halService.getEndpoint('workspaceitems').pipe(first()).subscribe((url) => {
         this.uploadFilesOptions.url = url;
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
         this.changeDetectorRef.detectChanges();
       }
-    );
-    this.entityTypeService.getAllAuthorizedRelationshipType().subscribe((x: RemoteData<PaginatedList<ItemType>>) => {
+    ));
+    this.subs.push(this.entityTypeService.getAllAuthorizedRelationshipType().subscribe((x: RemoteData<PaginatedList<ItemType>>) => {
         this.initialized = true;
         if (!x || !x.payload || !x.payload.page) {
           return;
@@ -90,7 +89,7 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
       },
       () => {
         this.initialized = true
-      });
+      }));
   }
 
   /**
@@ -132,8 +131,8 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
    * Unsubscribe from the subscription
    */
   ngOnDestroy(): void {
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
+    for (const s of this.subs) {
+      s.unsubscribe();
     }
   }
 

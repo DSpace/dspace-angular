@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {forkJoin, of, Subscription} from 'rxjs';
@@ -10,10 +10,10 @@ import {NotificationsService} from '../../shared/notifications/notifications.ser
 import {SubmissionService} from '../submission.service';
 import {SubmissionObject} from '../../core/submission/models/submission-object.model';
 import {Collection} from '../../core/shared/collection.model';
-import {CollectionDataService} from "../../core/data/collection-data.service";
-import {find, flatMap, map} from "rxjs/operators";
-import {RemoteData} from "../../core/data/remote-data";
-import {throwError as observableThrowError} from "rxjs/internal/observable/throwError";
+import {CollectionDataService} from '../../core/data/collection-data.service';
+import {find, flatMap, map} from 'rxjs/operators';
+import {RemoteData} from '../../core/data/remote-data';
+import {throwError as observableThrowError} from 'rxjs/internal/observable/throwError';
 
 /**
  * This component allows to submit a new workspaceitem.
@@ -98,14 +98,15 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
     const collObservable = of('')
       .pipe(
         flatMap((collectionParam: string) => {
-          console.log('CollectionPARAM: ' + this.collectionParam)
-          if (!this.collectionParam)
+          if (!this.collectionParam) {
             return of(undefined);
+          }
           return this.collectionDataService.findById(this.collectionParam)
         }),
         find((collectionRD: RemoteData<Collection>) => {
-          if(collectionRD === undefined)
+          if (collectionRD === undefined) {
             return true;
+          }
           return isNotEmpty(collectionRD.payload)
         }),
         map((respData: RemoteData<Collection>) => {
@@ -124,19 +125,19 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
         const collType = values[0];
         const paramType = values[1];
 
-        if (!collType && !paramType) {  //no params provided
+        if (!collType && !paramType) {  // no params provided
           return observableThrowError(new Error('No entity type detected'));
         }
-        if (collType && !paramType) { //only collection param provided
+        if (collType && !paramType) { // only collection param provided
           return of(collType);
         }
-        if (!collType && paramType) { //only entityType param provided
+        if (!collType && paramType) { // only entityType param provided
           return of(paramType);
         }
-        if (collType === paramType) { //both are provided
+        if (collType === paramType) { // both are provided
           return of(collType);
         }
-        //both are provided but are not equal
+        // both are provided but are not equal
         return observableThrowError(new Error('Collection\'s relationship type ' +
           'does not match with input entity type'));
 
@@ -157,7 +158,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
           }
         }
       },
-      (err)=> {
+      (err) => {
         this.notificationsService.info(null, this.translate.get('submission.general.bad_query_params'));
         this.router.navigate(['/mydspace']);
       }

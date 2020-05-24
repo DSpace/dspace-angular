@@ -111,7 +111,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     if (this.dso && this.dso.metadata) {
       tmp = this.dso.metadata['relationship.type'];
     }
-    //retrieve all entity types to populate a dropdown selection
+    // retrieve all entity types to populate a dropdown selection
     this.entityTypeService.findAll().subscribe((data: RemoteData<PaginatedList<ItemType>>) => {
       if (!data || !data.payload || !data.payload.page) {
         return;

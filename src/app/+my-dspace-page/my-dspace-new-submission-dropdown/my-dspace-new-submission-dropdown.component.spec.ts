@@ -26,8 +26,7 @@ import { PaginatedList } from '../../core/data/paginated-list';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ResourceType } from '../../core/shared/resource-type';
-import { of } from 'rxjs/internal/observable/of';
-import {getMockTranslateService} from "../../shared/mocks/translate.service.mock";
+import {getMockTranslateService} from '../../shared/mocks/translate.service.mock';
 
 const authToken = 'fake-auth-token';
 const authServiceStub = Object.assign(new AuthServiceStub(), {
