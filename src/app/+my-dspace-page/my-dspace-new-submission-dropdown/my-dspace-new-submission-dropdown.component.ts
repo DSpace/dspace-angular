@@ -29,7 +29,7 @@ import { ItemType } from '../../core/shared/item-relationships/item-type.model';
   styleUrls: ['./my-dspace-new-submission-dropdown.component.scss'],
   templateUrl: './my-dspace-new-submission-dropdown.component.html'
 })
-export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
+export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit {
   /**
    * Output that emits the workspace item when the upload has completed
    */

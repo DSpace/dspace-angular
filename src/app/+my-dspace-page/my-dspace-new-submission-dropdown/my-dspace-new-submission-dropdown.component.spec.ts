@@ -12,7 +12,7 @@ import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
-import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission.component';
+import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown.component';
 import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
@@ -27,21 +27,16 @@ import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { of } from 'rxjs/internal/observable/of';
+import {getMockTranslateService} from "../../shared/mocks/translate.service.mock";
 
 const authToken = 'fake-auth-token';
 const authServiceStub = Object.assign(new AuthServiceStub(), {
   buildAuthHeader: () => authToken
 });
 
-describe('MyDSpaceNewSubmissionComponent test', () => {
+describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 
-  const translateService = {
-    get: () => of('test-message'),
-    instant: () => of('test-message'),
-    onLangChange: new EventEmitter(),
-    onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
-  };
+  const translateService: any = getMockTranslateService();
   const store: Store<AppState> = jasmine.createSpyObj('store', {
     /* tslint:disable:no-empty */
     dispatch: {},
@@ -66,7 +61,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
           })
         ],
         declarations: [
-          MyDSpaceNewSubmissionComponent,
+          MyDSpaceNewSubmissionDropdownComponent,
           TestComponent
         ],
         providers: [
@@ -79,7 +74,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
 
           { provide: TranslateService, useValue: translateService },
           ChangeDetectorRef,
-          MyDSpaceNewSubmissionComponent,
+          MyDSpaceNewSubmissionDropdownComponent,
           UploaderService
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -96,7 +91,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
       testFixture.destroy();
     });
 
-    it('should create MyDSpaceNewSubmissionComponent', inject([MyDSpaceNewSubmissionComponent], (app: MyDSpaceNewSubmissionComponent) => {
+    it('should create MyDSpaceNewSubmissionDropdownComponent', inject([MyDSpaceNewSubmissionDropdownComponent], (app: MyDSpaceNewSubmissionDropdownComponent) => {
 
       expect(app).toBeDefined();
 
@@ -104,8 +99,8 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
   });
 
   describe('', () => {
-    let submissionComponent: MyDSpaceNewSubmissionComponent;
-    let submissionComponentFixture: ComponentFixture<MyDSpaceNewSubmissionComponent>;
+    let submissionComponent: MyDSpaceNewSubmissionDropdownComponent;
+    let submissionComponentFixture: ComponentFixture<MyDSpaceNewSubmissionDropdownComponent>;
 
     // synchronous beforeEach
     beforeEach(() => {
@@ -121,7 +116,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
           })
         ],
         declarations: [
-          MyDSpaceNewSubmissionComponent
+          MyDSpaceNewSubmissionDropdownComponent
         ],
         providers: [
           { provide: AuthService, useValue: authServiceStub },
@@ -132,12 +127,12 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
           { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService()},
           { provide: TranslateService, useValue: translateService },
           ChangeDetectorRef,
-          MyDSpaceNewSubmissionComponent,
+          MyDSpaceNewSubmissionDropdownComponent,
           UploaderService
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
-      submissionComponentFixture = TestBed.createComponent(MyDSpaceNewSubmissionComponent);
+      submissionComponentFixture = TestBed.createComponent(MyDSpaceNewSubmissionDropdownComponent);
       submissionComponent = submissionComponentFixture.componentInstance;
       submissionComponentFixture.detectChanges();
     });
@@ -146,7 +141,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
       submissionComponentFixture.destroy();
     });
 
-    it('should be a single button', inject([MyDSpaceNewSubmissionComponent], (app: MyDSpaceNewSubmissionComponent) => {
+    it('should be a single button', inject([MyDSpaceNewSubmissionDropdownComponent], (app: MyDSpaceNewSubmissionDropdownComponent) => {
       submissionComponentFixture.detectChanges();
       const addDivElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.add'));
       const addDiv = addDivElement.nativeElement;
@@ -160,8 +155,8 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
   });
 
   describe('', () => {
-    let submissionComponent: MyDSpaceNewSubmissionComponent;
-    let submissionComponentFixture: ComponentFixture<MyDSpaceNewSubmissionComponent>;
+    let submissionComponent: MyDSpaceNewSubmissionDropdownComponent;
+    let submissionComponentFixture: ComponentFixture<MyDSpaceNewSubmissionDropdownComponent>;
 
     // synchronous beforeEach
     beforeEach(() => {
@@ -177,7 +172,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
           })
         ],
         declarations: [
-          MyDSpaceNewSubmissionComponent
+          MyDSpaceNewSubmissionDropdownComponent
         ],
         providers: [
           { provide: AuthService, useValue: authServiceStub },
@@ -188,12 +183,12 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
           { provide: EntityTypeService, useValue: getMockEntityTypeService()},
           { provide: TranslateService, useValue: translateService },
           ChangeDetectorRef,
-          MyDSpaceNewSubmissionComponent,
+          MyDSpaceNewSubmissionDropdownComponent,
           UploaderService
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
-      submissionComponentFixture = TestBed.createComponent(MyDSpaceNewSubmissionComponent);
+      submissionComponentFixture = TestBed.createComponent(MyDSpaceNewSubmissionDropdownComponent);
       submissionComponent = submissionComponentFixture.componentInstance;
       submissionComponentFixture.detectChanges();
     });
@@ -202,7 +197,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
       submissionComponentFixture.destroy();
     });
 
-    it('should be a dropdown button', inject([MyDSpaceNewSubmissionComponent], (app: MyDSpaceNewSubmissionComponent) => {
+    it('should be a dropdown button', inject([MyDSpaceNewSubmissionDropdownComponent], (app: MyDSpaceNewSubmissionDropdownComponent) => {
       const dropdownElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.dropdown-menu'));
       const dropdown = dropdownElement.nativeElement;
       submissionComponentFixture.detectChanges();
