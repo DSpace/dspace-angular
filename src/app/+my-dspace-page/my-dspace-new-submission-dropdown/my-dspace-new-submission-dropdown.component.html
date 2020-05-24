@@ -1,0 +1,27 @@
+<div class="parent mb-3">
+  <div class="upload">
+    <ds-uploader *ngIf="uploadFilesOptions.url !== ''"
+                 [uploadFilesOptions]="uploadFilesOptions"
+                 (onCompleteItem)="onCompleteItem($event)"
+                 (onUploadError)="onUploadError()"></ds-uploader>
+
+  </div>
+  <div class="add" *ngIf="!hasMultipleOptions()">
+    <button class="btn btn-lg btn-primary mt-1 ml-2" [disabled]="!initialized" [routerLink]="['/submit']"
+            [state]="{entityType: availableEntyTypeList[0]}" role="button">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
+    </button>
+  </div>
+  <div class="add" ngbDropdown *ngIf="hasMultipleOptions()">
+    <button class="btn btn-lg btn-primary  mt-1 ml-2" id="dropdownSubmission" ngbDropdownToggle
+            type="button"  [disabled]="!initialized">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
+      <span class="caret"></span>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownSubmission" ngbDropdownMenu>
+      <a class="dropdown-item" *ngFor="let entityType of availableEntyTypeList" [routerLink]="['/submit']"
+         [queryParams]="{ entityType: entityType}">
+        {{entityType}}</a>
+    </div>
+  </div>
+</div>

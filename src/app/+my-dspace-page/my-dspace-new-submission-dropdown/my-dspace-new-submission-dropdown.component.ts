@@ -15,14 +15,19 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { Router } from '@angular/router';
+import { EntityTypeService } from '../../core/data/entity-type.service';
+import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 
 /**
  * This component represents the whole mydspace page header
  */
 @Component({
-  selector: 'ds-my-dspace-new-submission',
-  styleUrls: ['./my-dspace-new-submission.component.scss'],
-  templateUrl: './my-dspace-new-submission.component.html'
+  selector: 'ds-my-dspace-new-submission-dropdown',
+  styleUrls: ['./my-dspace-new-submission-dropdown.component.scss'],
+  templateUrl: './my-dspace-new-submission-dropdown.component.html'
 })
 export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   /**
@@ -40,6 +45,8 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    */
   private sub: Subscription;
 
+  initialized = false;
+  availableEntyTypeList: Set<string>;
   /**
    * Initialize instance variables
    *
@@ -54,8 +61,11 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
               private changeDetectorRef: ChangeDetectorRef,
               private halService: HALEndpointService,
               private notificationsService: NotificationsService,
+              private entityTypeService: EntityTypeService,
+              private router: Router,
               private store: Store<SubmissionState>,
               private translate: TranslateService) {
+    this.availableEntyTypeList = new Set<string>();
   }
 
   /**
@@ -68,6 +78,19 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
         this.changeDetectorRef.detectChanges();
       }
     );
+    this.entityTypeService.getAllAuthorizedRelationshipType().subscribe((x: RemoteData<PaginatedList<ItemType>>) => {
+        this.initialized = true;
+        if (!x || !x.payload || !x.payload.page) {
+          return;
+        }
+        x.payload.page.forEach((type: ItemType) => this.availableEntyTypeList.add(type.label));
+      },
+      () => {
+        this.initialized = true;
+      },
+      () => {
+        this.initialized = true
+      });
   }
 
   /**
@@ -112,5 +135,9 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
     }
+  }
+
+  hasMultipleOptions(): boolean {
+    return this.availableEntyTypeList && this.availableEntyTypeList.size > 1;
   }
 }
