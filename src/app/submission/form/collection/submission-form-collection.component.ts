@@ -21,7 +21,7 @@ import {
   map,
   mergeMap,
   reduce,
-  startWith
+  startWith, tap
 } from 'rxjs/operators';
 
 import {Collection} from '../../../core/shared/collection.model';
@@ -292,7 +292,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
       const listCollection$ = communities$.pipe(
         flatMap((communityData: Community) => {
-          return this.collectionDataService.getAuthorizedCollectionByCommunityAndEntityType(communityData.uuid, 'relationship.type', entityType, findOptions).pipe(
+          return this.collectionDataService.findAuthorizedByRelationshipType(communityData.uuid, entityType, findOptions).pipe(
             find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
             mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
             filter((collectionData: Collection) => isNotEmpty(collectionData)),

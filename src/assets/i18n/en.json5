@@ -2256,6 +2256,8 @@
 
   "submission.edit.title": "Edit Submission",
 
+  "submission.general.bad_query_params": "Relationship types mismatch.",
+
   "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
 
   "submission.general.deposit": "Deposit",
@@ -2274,6 +2276,7 @@
 
   "submission.general.save-later": "Save for later",
 
+  "submission.general.no_query_params": "No relationship types provieded.",
 
 
   "submission.sections.detect-duplicate.clear-decision": "Undo",

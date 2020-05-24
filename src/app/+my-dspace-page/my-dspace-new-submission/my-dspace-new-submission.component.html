@@ -20,7 +20,7 @@
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownSubmission" ngbDropdownMenu>
           <a class="dropdown-item" *ngFor="let entityType of availableEntyTypeList" [routerLink]="['/submit']"
-             [state]="{ entityType: entityType}">
+             [queryParams]="{ entityType: entityType}">
             {{entityType}}</a>
       </div>
     </div>

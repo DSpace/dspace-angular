@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable} from 'rxjs/internal/Observable';
-import {distinctUntilChanged, filter, map, switchMap, take} from 'rxjs/operators';
+import {distinctUntilChanged, filter, flatMap, map, switchMap, take} from 'rxjs/operators';
 import {hasValue, isNotEmpty, isNotEmptyOperator} from '../../shared/empty.util';
 import {NotificationOptions} from '../../shared/notifications/models/notification-options.model';
 import {INotification} from '../../shared/notifications/models/notification.model';
@@ -109,15 +109,13 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollectionByCommunityAndEntityType(communityId: string,
-                                                  metadata: string,
-                                                  metadatavalue?: string,
-                                                  options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
+  findAuthorizedByRelationshipType(communityId: string, entityType: string, options: FindListOptions = {})
+    : Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAuthorizedByCommunityAndMetadata';
-    const searchParams =  [new SearchParam('uuid', communityId), new SearchParam('metadata', metadata)];
-    if (metadatavalue) {
-      searchParams.push(new SearchParam('metadatavalue', metadatavalue));
-    }
+    const searchParams =  [new SearchParam('uuid', communityId),
+                           new SearchParam('metadata', 'relationship.type')];
+      searchParams.push(new SearchParam('metadatavalue', entityType));
+
     options = Object.assign({}, options, {
       searchParams: searchParams
     });

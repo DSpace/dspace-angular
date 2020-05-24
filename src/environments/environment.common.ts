@@ -15,9 +15,9 @@ export const environment: GlobalConfig = {
   },
   // The REST API server settings.
   rest: {
-    ssl: true,
-    host: 'dspacecris7.4science.cloud',
-    port: 443,
+    ssl: false,
+    host: 'localhost',
+    port: 8080,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/server/api',
   },
