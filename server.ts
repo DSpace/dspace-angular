@@ -34,23 +34,50 @@ import { enableProdMode, NgModuleFactory, Type } from '@angular/core';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
 
+/*
+ * Set path for the browser application's dist folder
+ */
 const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const { ServerAppModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap } = require('./dist/server/main');
 
+/*
+ * Create a new express application
+ */
 const app = express();
 
+/*
+ * If production mode is enabled in the environment file:
+ * - Enable Angular's production mode
+ * - Enable compression for response bodies. See [compression](https://github.com/expressjs/compression)
+ */
 if (environment.production) {
   enableProdMode();
   app.use(compression());
 }
 
+/*
+ * Enable request logging
+ * See [morgan](https://github.com/expressjs/morgan)
+ */
 app.use(morgan('dev'));
 
+/*
+ * Add cookie parser middleware
+ * See [morgan](https://github.com/expressjs/cookie-parser)
+ */
 app.use(cookieParser());
+
+/*
+ * Add parser for request bodies
+ * See [morgan](https://github.com/expressjs/body-parser)
+ */
 app.use(bodyParser.json());
 
+/*
+ * Render html pages by running angular server side
+ */
 app.engine('html', (_, options, callback) =>
   ngExpressEngine({
     bootstrap: ServerAppModuleNgFactory,
@@ -68,23 +95,39 @@ app.engine('html', (_, options, callback) =>
   })(_, (options as any), callback)
 );
 
+/*
+ * Register the view engines for html and ejs
+ */
 app.set('view engine', 'ejs');
 app.set('view engine', 'html');
+
+/*
+ * Set views folder path to directory where template files are stored
+ */
 app.set('views', DIST_FOLDER);
 
+/*
+ * Adds a cache control header to the response
+ * The cache control value can be configured in the environments file and defaults to max-age=60
+ */
 function cacheControl(req, res, next) {
   // instruct browser to revalidate
   res.header('Cache-Control', environment.cache.control || 'max-age=60');
   next();
 }
 
+/*
+ * Serve static resources (images, i18n messages, …)
+ */
 app.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
 
-// TODO: either remove or update mock backend
-// app.get('/data.json', serverApi);
-// app.use('/api', createMockApi());
-
+/*
+ * The callback function to serve server side angular
+ */
 function ngApp(req, res) {
+  // Object to be set to window.dspace when CSR is used
+  // this allows us to pass the info in the original request
+  // to the dspace7-angular instance running in the client's browser
   const dspace = {
     originalRequest: {
       headers: req.headers,
@@ -98,14 +141,20 @@ function ngApp(req, res) {
     }
   };
 
+  // callback function for the case when SSR throws an error.
   function onHandleError(parentZoneDelegate, currentZone, targetZone, error) {
     if (!res._headerSent) {
       console.warn('Error in SSR, serving for direct CSR. Error details : ', error);
-      res.sendFile('index.csr.html', { root: DIST_FOLDER });
+      res.sendFile('index.csr.ejs', {
+        root: DIST_FOLDER,
+        scripts: `<script>window.dspace = ${JSON.stringify(dspace)}</script>`
+      });
     }
   }
 
   if (environment.universal.preboot) {
+    // If preboot is enabled, create a new zone for SSR, and
+    // register the error handler for when it throws an error
     Zone.current.fork({ name: 'CSR fallback', onHandleError }).run(() => {
       res.render(DIST_FOLDER + '/index.html', {
         req,
@@ -119,6 +168,8 @@ function ngApp(req, res) {
       });
     });
   } else {
+    // If preboot is disabled, just serve the client side ejs template and pass it the required
+    // variables
     console.log('Universal off, serving for direct CSR');
     res.render('index-csr.ejs', {
       root: DIST_FOLDER,
@@ -127,12 +178,20 @@ function ngApp(req, res) {
   }
 }
 
+// Register the ngApp callback function to handle incoming requests
 app.get('*', ngApp);
 
+/*
+ * Callback function for when the server has started
+ */
 function serverStarted() {
   console.log(`[${new Date().toTimeString()}] Listening at ${environment.ui.baseUrl}`);
 }
 
+/*
+ * Create an HTTPS server with the configured port and host
+ * @param keys SSL credentials
+ */
 function createHttpsServer(keys) {
   https.createServer({
     key: keys.serviceKey,
@@ -142,6 +201,13 @@ function createHttpsServer(keys) {
   });
 }
 
+/*
+ * If SSL is enabled
+ * - Read credentials from configuration files
+ * - Call script to start an HTTPS server with these credentials
+ * When SSL is disabled
+ * - Start an HTTP server on the configured port and host
+ */
 if (environment.ui.ssl) {
   let serviceKey;
   try {
