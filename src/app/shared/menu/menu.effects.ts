@@ -10,6 +10,9 @@ import { Injectable } from '@angular/core';
 import { map, take, tap } from 'rxjs/operators';
 import { MenuID } from './initial-menus-state';
 
+/**
+ * Effects modifying the state of menus
+ */
 @Injectable()
 export class MenuEffects {
 
@@ -18,6 +21,9 @@ export class MenuEffects {
               private route: ActivatedRoute) {
   }
 
+  /**
+   * On route change, build menu sections for every menu type depending on the current route data
+   */
   @Effect({ dispatch: false })
   public buildRouteMenuSections$: Observable<Action> = this.actions$
     .pipe(
@@ -29,6 +35,12 @@ export class MenuEffects {
       })
     );
 
+  /**
+   * Build menu sections depending on the current route
+   * - Adds sections found in the current route data that aren't active yet
+   * - Removes sections that are active, but not present in the current route data
+   * @param menuID  The menu to add/remove sections to/from
+   */
   buildRouteMenuSections(menuID: MenuID) {
     this.menuService.getNonPersistentMenuSections(menuID).pipe(
       map((sections) => sections.map((section) => section.id)),
