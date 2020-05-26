@@ -6,7 +6,7 @@ import {
   MenuAction,
   MenuActionTypes,
   MenuSectionAction,
-  RemoveMenuSectionAction, ResetMenuSectionsAction,
+  RemoveMenuSectionAction,
   ShowMenuSectionAction,
   ToggleActiveMenuSectionAction
 } from './menu.actions';
@@ -58,6 +58,7 @@ export class MenuSection {
   model: MenuItemModel;
   index?: number;
   icon?: string;
+  shouldPersistOnRouteChange? = false;
 }
 
 /**
@@ -117,10 +118,6 @@ export function menusReducer(state: MenusState = initialMenusState, action: Menu
     }
     case MenuActionTypes.SHOW_SECTION: {
       return showSection(state, action as ShowMenuSectionAction);
-    }
-    case MenuActionTypes.RESET_SECTIONS: {
-      const newMenuState = Object.assign({}, menuState, { sections: {} });
-      return Object.assign({}, state, { [action.menuID]: newMenuState });
     }
 
     default: {

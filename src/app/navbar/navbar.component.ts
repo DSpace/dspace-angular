@@ -7,7 +7,6 @@ import { TextMenuItemModel } from '../shared/menu/menu-item/models/text.model';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { HostWindowService } from '../shared/host-window.service';
 import { environment } from '../../environments/environment';
-import { ActivatedRoute, Router } from '@angular/router';
 
 /**
  * Component representing the public navbar
@@ -27,11 +26,14 @@ export class NavbarComponent extends MenuComponent {
 
   constructor(protected menuService: MenuService,
               protected injector: Injector,
-              protected route: ActivatedRoute,
-              protected router: Router,
               public windowService: HostWindowService
   ) {
-    super(menuService, injector, route, router);
+    super(menuService, injector);
+  }
+
+  ngOnInit(): void {
+    this.createMenu();
+    super.ngOnInit();
   }
 
   /**
@@ -91,7 +93,9 @@ export class NavbarComponent extends MenuComponent {
         } as LinkMenuItemModel
       });
     });
-    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
+    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+      shouldPersistOnRouteChange: true
+    })));
 
   }
 

@@ -18,7 +18,6 @@ import { TextMenuItemModel } from '../../shared/menu/menu-item/models/text.model
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 /**
  * Component representing the admin sidebar
@@ -60,19 +59,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
 
   constructor(protected menuService: MenuService,
               protected injector: Injector,
-              protected route: ActivatedRoute,
-              protected router: Router,
               private variableService: CSSVariableService,
               private authService: AuthService,
               private modalService: NgbModal
   ) {
-    super(menuService, injector, route, router);
+    super(menuService, injector);
   }
 
   /**
    * Set and calculate all initial values of the instance variables
    */
   ngOnInit(): void {
+    this.createMenu();
     super.ngOnInit();
     this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
     this.authService.isAuthenticated()
@@ -455,7 +453,9 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         index: 10
       },
     ];
-    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
+    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+      shouldPersistOnRouteChange: true
+    })));
 
   }
 

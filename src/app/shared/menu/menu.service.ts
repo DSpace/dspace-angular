@@ -14,7 +14,7 @@ import {
   ExpandMenuAction,
   ExpandMenuPreviewAction,
   HideMenuAction,
-  RemoveMenuSectionAction, ResetMenuSectionsAction,
+  RemoveMenuSectionAction,
   ShowMenuAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
@@ -130,6 +130,16 @@ export class MenuService {
   }
 
   /**
+   * Retrieve menu sections that shouldn't persist on route change
+   * @param menuID  The ID of the menu the sections reside in
+   */
+  getNonPersistentMenuSections(menuID: MenuID): Observable<MenuSection[]> {
+    return this.getMenu(menuID).pipe(
+      map((state: MenuState) => Object.values(state.sections).filter((section: MenuSection) => !section.shouldPersistOnRouteChange))
+    );
+  }
+
+  /**
    * Add a new section to the store
    * @param {MenuID} menuID The menu to which the new section is to be added
    * @param {MenuSection} section The section to be added
@@ -145,14 +155,6 @@ export class MenuService {
    */
   removeSection(menuID: MenuID, sectionID: string) {
     this.store.dispatch(new RemoveMenuSectionAction(menuID, sectionID));
-  }
-
-  /**
-   * Remove all sections within a menu from the store
-   * @param {MenuID} menuID The menu from which the sections are to be removed
-   */
-  resetSections(menuID: MenuID) {
-    this.store.dispatch(new ResetMenuSectionsAction(menuID));
   }
 
   /**
