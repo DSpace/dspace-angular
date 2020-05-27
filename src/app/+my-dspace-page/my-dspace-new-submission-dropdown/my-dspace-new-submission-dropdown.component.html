@@ -1,11 +1,3 @@
-<div class="parent mb-3">
-  <div class="upload">
-    <ds-uploader *ngIf="uploadFilesOptions.url !== ''"
-                 [uploadFilesOptions]="uploadFilesOptions"
-                 (onCompleteItem)="onCompleteItem($event)"
-                 (onUploadError)="onUploadError()"></ds-uploader>
-
-  </div>
   <div class="add" *ngIf="!hasMultipleOptions()">
     <button class="btn btn-lg btn-primary mt-1 ml-2" [disabled]="!initialized" [routerLink]="['/submit']"
             [state]="{entityType: availableEntyTypeList[0]}" role="button">
@@ -24,4 +16,4 @@
         {{entityType}}</a>
     </div>
   </div>
-</div>
+
