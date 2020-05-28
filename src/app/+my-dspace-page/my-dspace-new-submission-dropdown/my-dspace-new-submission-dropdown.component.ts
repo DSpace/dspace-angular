@@ -78,7 +78,6 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
       }));
   }
 
-
   /**
    * Unsubscribe from the subscription
    */
