@@ -111,7 +111,7 @@ export class SubmissionService {
    * @return Observable<SubmissionObject>
    *    observable of SubmissionObject
    */
-  createSubmission(entityType: string, collectionId?: string): Observable<SubmissionObject> {
+  createSubmission(entityType?: string, collectionId?: string): Observable<SubmissionObject> {
     const paramsObj = Object.create({});
 
     if (isNotEmpty(entityType)) {
