@@ -112,7 +112,6 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.isActive = true;
-    this.requestService.removeByHrefSubstring(this.resourceUUID);
     this.initResourcePolicyLIst();
   }
 
@@ -135,7 +134,6 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   deleteSelectedResourcePolicies(): void {
     this.processingDelete$.next(true);
-    this.requestService.removeByHrefSubstring(this.resourceUUID);
     const policiesToDelete: ResourcePolicyCheckboxEntry[] = this.resourcePoliciesEntries$.value
       .filter((entry: ResourcePolicyCheckboxEntry) => entry.checked);
     this.subs.push(
@@ -258,6 +256,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         checked: false
       }));
       this.resourcePoliciesEntries$.next(entries);
+      // Remove cached request
+      this.requestService.removeByHrefSubstring(this.resourceUUID);
       this.cdr.detectChanges();
     });
   }
