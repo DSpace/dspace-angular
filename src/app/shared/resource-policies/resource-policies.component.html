@@ -86,7 +86,7 @@
                     (click)="redirectToResourcePolicyEditPage(entry.policy)">
               <i class="fas fa-edit fa-fw"></i>
             </button>
-            <button class="btn btn-outline-primary btn-sm"
+            <button *ngIf="(hasGroup(entry.policy) | async)" class="btn btn-outline-primary btn-sm"
                     [title]="'resource-policies.table.headers.edit.group' | translate"
                     (click)="redirectToGroupEditPage(entry.policy)">
               <i class="fas fa-users fa-fw"></i>
