@@ -9,11 +9,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { LangConfig } from '../../../config/lang-config.interface';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core/core.reducers';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { environment } from '../../../environments/environment';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -33,7 +33,6 @@ export class CreateProfileComponent implements OnInit {
   activeLangs: LangConfig[];
 
   constructor(
-    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
     private translateService: TranslateService,
     private ePersonDataService: EPersonDataService,
     private store: Store<CoreState>,
@@ -53,7 +52,7 @@ export class CreateProfileComponent implements OnInit {
       this.email = registration.email;
       this.token = registration.token;
     });
-    this.activeLangs = this.config.languages.filter((MyLangConfig) => MyLangConfig.active === true);
+    this.activeLangs = environment.languages.filter((MyLangConfig) => MyLangConfig.active === true);
 
     this.userInfoForm = this.formBuilder.group({
       firstName: new FormControl('', {

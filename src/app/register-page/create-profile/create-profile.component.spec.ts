@@ -9,16 +9,15 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { RouterStub } from '../../shared/testing/router-stub';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../../core/cache/response.models';
 import { By } from '@angular/platform-browser';
-import { GLOBAL_CONFIG } from '../../../config';
 import { CoreState } from '../../core/core.reducers';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -90,7 +89,6 @@ describe('CreateProfileComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
       declarations: [CreateProfileComponent],
       providers: [
-        {provide: GLOBAL_CONFIG, useValue: mockConfig},
         {provide: Router, useValue: router},
         {provide: ActivatedRoute, useValue: route},
         {provide: Store, useValue: store},

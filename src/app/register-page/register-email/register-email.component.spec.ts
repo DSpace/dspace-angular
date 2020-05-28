@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { RouterStub } from '../../shared/testing/router-stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 import { RestResponse } from '../../core/cache/response.models';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,6 +11,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RegisterEmailComponent } from './register-email.component';
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
 import { By } from '@angular/platform-browser';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
 describe('RegisterEmailComponent', () => {
 
