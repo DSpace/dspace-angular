@@ -17,7 +17,7 @@
     "pree2e": "yarn run config:prod",
     "pree2e:ci": "yarn run config:prod",
     "start": "yarn run start:prod",
-    "serve": "ng serve",
+    "serve": "ts-node --project ./tsconfig.ts-node.json scripts/serve.ts",
     "start:dev": "npm-run-all --parallel config:dev:watch serve",
     "start:prod": "yarn run build:prod && yarn run serve:ssr",
     "build": "ng build",

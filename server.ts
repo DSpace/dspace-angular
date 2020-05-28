@@ -17,26 +17,67 @@
 
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
+import 'rxjs';
 
+import * as fs from 'fs';
+import * as pem from 'pem';
+import * as https from 'https';
+import * as morgan from 'morgan';
 import * as express from 'express';
-import { join } from 'path';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
+import { join } from 'path';
+
+import { enableProdMode, NgModuleFactory, Type } from '@angular/core';
+
+import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
 
-// Express server
-const app = express();
-
-const PORT = environment.ui.port || 4000;
+/*
+ * Set path for the browser application's dist folder
+ */
 const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const { ServerAppModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap } = require('./dist/server/main');
 
+/*
+ * Create a new express application
+ */
+const app = express();
+
+/*
+ * If production mode is enabled in the environment file:
+ * - Enable Angular's production mode
+ * - Enable compression for response bodies. See [compression](https://github.com/expressjs/compression)
+ */
+if (environment.production) {
+  enableProdMode();
+  app.use(compression());
+}
+
+/*
+ * Enable request logging
+ * See [morgan](https://github.com/expressjs/morgan)
+ */
+app.use(morgan('dev'));
+
+/*
+ * Add cookie parser middleware
+ * See [morgan](https://github.com/expressjs/cookie-parser)
+ */
 app.use(cookieParser());
+
+/*
+ * Add parser for request bodies
+ * See [morgan](https://github.com/expressjs/body-parser)
+ */
 app.use(bodyParser.json());
 
+/*
+ * Render html pages by running angular server side
+ */
 app.engine('html', (_, options, callback) =>
   ngExpressEngine({
     bootstrap: ServerAppModuleNgFactory,
@@ -51,25 +92,155 @@ app.engine('html', (_, options, callback) =>
       },
       provideModuleMap(LAZY_MODULE_MAP)
     ],
-  })(_, options, callback)
+  })(_, (options as any), callback)
 );
 
+/*
+ * Register the view engines for html and ejs
+ */
+app.set('view engine', 'ejs');
 app.set('view engine', 'html');
+
+/*
+ * Set views folder path to directory where template files are stored
+ */
 app.set('views', DIST_FOLDER);
 
-// Example Express Rest API endpoints
-// app.get('/api/**', (req, res) => { });
-// Serve static files from /browser
-app.get('*.*', express.static(DIST_FOLDER, {
-  maxAge: '1y'
-}));
+/*
+ * Adds a cache control header to the response
+ * The cache control value can be configured in the environments file and defaults to max-age=60
+ */
+function cacheControl(req, res, next) {
+  // instruct browser to revalidate
+  res.header('Cache-Control', environment.cache.control || 'max-age=60');
+  next();
+}
 
-// All regular routes use the Universal engine
-app.get('*', (req, res) => {
-  res.render('index', { req });
-});
+/*
+ * Serve static resources (images, i18n messages, …)
+ */
+app.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
 
-// Start up the Node server
-app.listen(PORT, () => {
-  console.log(`Node Express server listening on http://localhost:${PORT}`);
-});
+/*
+ * The callback function to serve server side angular
+ */
+function ngApp(req, res) {
+  // Object to be set to window.dspace when CSR is used
+  // this allows us to pass the info in the original request
+  // to the dspace7-angular instance running in the client's browser
+  const dspace = {
+    originalRequest: {
+      headers: req.headers,
+      body: req.body,
+      method: req.method,
+      params: req.params,
+      reportProgress: req.reportProgress,
+      withCredentials: req.withCredentials,
+      responseType: req.responseType,
+      urlWithParams: req.urlWithParams
+    }
+  };
+
+  // callback function for the case when SSR throws an error.
+  function onHandleError(parentZoneDelegate, currentZone, targetZone, error) {
+    if (!res._headerSent) {
+      console.warn('Error in SSR, serving for direct CSR. Error details : ', error);
+      res.sendFile('index.csr.ejs', {
+        root: DIST_FOLDER,
+        scripts: `<script>window.dspace = ${JSON.stringify(dspace)}</script>`
+      });
+    }
+  }
+
+  if (environment.universal.preboot) {
+    // If preboot is enabled, create a new zone for SSR, and
+    // register the error handler for when it throws an error
+    Zone.current.fork({ name: 'CSR fallback', onHandleError }).run(() => {
+      res.render(DIST_FOLDER + '/index.html', {
+        req,
+        res,
+        preboot: environment.universal.preboot,
+        async: environment.universal.async,
+        time: environment.universal.time,
+        baseUrl: environment.ui.nameSpace,
+        originUrl: environment.ui.baseUrl,
+        requestUrl: req.originalUrl
+      });
+    });
+  } else {
+    // If preboot is disabled, just serve the client side ejs template and pass it the required
+    // variables
+    console.log('Universal off, serving for direct CSR');
+    res.render('index-csr.ejs', {
+      root: DIST_FOLDER,
+      scripts: `<script>window.dspace = ${JSON.stringify(dspace)}</script>`
+    });
+  }
+}
+
+// Register the ngApp callback function to handle incoming requests
+app.get('*', ngApp);
+
+/*
+ * Callback function for when the server has started
+ */
+function serverStarted() {
+  console.log(`[${new Date().toTimeString()}] Listening at ${environment.ui.baseUrl}`);
+}
+
+/*
+ * Create an HTTPS server with the configured port and host
+ * @param keys SSL credentials
+ */
+function createHttpsServer(keys) {
+  https.createServer({
+    key: keys.serviceKey,
+    cert: keys.certificate
+  }, app).listen(environment.ui.port, environment.ui.host, () => {
+    serverStarted();
+  });
+}
+
+/*
+ * If SSL is enabled
+ * - Read credentials from configuration files
+ * - Call script to start an HTTPS server with these credentials
+ * When SSL is disabled
+ * - Start an HTTP server on the configured port and host
+ */
+if (environment.ui.ssl) {
+  let serviceKey;
+  try {
+    serviceKey = fs.readFileSync('./config/ssl/key.pem');
+  } catch (e) {
+    console.warn('Service key not found at ./config/ssl/key.pem');
+  }
+
+  let certificate;
+  try {
+    certificate = fs.readFileSync('./config/ssl/cert.pem');
+  } catch (e) {
+    console.warn('Certificate not found at ./config/ssl/key.pem');
+  }
+
+  if (serviceKey && certificate) {
+    createHttpsServer({
+      serviceKey: serviceKey,
+      certificate: certificate
+    });
+  } else {
+
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+    pem.createCertificate({
+      days: 1,
+      selfSigned: true
+    }, (error, keys) => {
+      createHttpsServer(keys);
+    });
+  }
+} else {
+  app.listen(environment.ui.port, environment.ui.host, () => {
+    serverStarted();
+  });
+}
