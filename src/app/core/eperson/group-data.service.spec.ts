@@ -11,7 +11,7 @@ import {
   GroupRegistryEditGroupAction
 } from '../../+admin/admin-access-control/group-registry/group-registry.actions';
 import { GroupMock, GroupMock2 } from '../../shared/testing/group-mock';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { PaginatedList } from '../data/paginated-list';
@@ -103,7 +103,7 @@ describe('GroupDataService', () => {
     it('search with empty query', () => {
       service.searchGroups('');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new SearchParam('query', ''))]
+        searchParams: [Object.assign(new RequestParam('query', ''))]
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options);
     });
@@ -111,7 +111,7 @@ describe('GroupDataService', () => {
     it('search with query', () => {
       service.searchGroups('test');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new SearchParam('query', 'test'))]
+        searchParams: [Object.assign(new RequestParam('query', 'test'))]
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options);
     });
