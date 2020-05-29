@@ -160,7 +160,7 @@
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-responsive-type": "1.0.0",
-    "protractor": "~5.4.0",
+    "protractor": "^7.0.0",
     "protractor-istanbul-plugin": "2.0.0",
     "raw-loader": "0.5.1",
     "rimraf": "^3.0.2",
