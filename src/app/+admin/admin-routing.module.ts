@@ -8,7 +8,7 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 
 const REGISTRIES_MODULE_PATH = 'registries';
-const ACCESS_CONTROL_MODULE_PATH = 'access-control';
+export const ACCESS_CONTROL_MODULE_PATH = 'access-control';
 
 export function getRegistriesModulePath() {
   return new URLCombiner(getAdminModulePath(), REGISTRIES_MODULE_PATH).toString();
