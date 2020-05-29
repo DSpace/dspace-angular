@@ -12,6 +12,10 @@ import { ItemAdminSearchResultGridElementComponent } from './admin-search-page/a
 import { CommunityAdminSearchResultGridElementComponent } from './admin-search-page/admin-search-results/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
 import { CollectionAdminSearchResultGridElementComponent } from './admin-search-page/admin-search-results/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
 import { ItemAdminSearchResultActionsComponent } from './admin-search-page/admin-search-results/item-admin-search-result-actions.component';
+import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-grid-element/workflow-item/workflow-item-search-result-admin-workflow-grid-element.component';
+import { WorkflowItemAdminWorkflowActionsComponent } from './admin-workflow-page/admin-workflow-search-results/workflow-item-admin-workflow-actions.component';
+import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-list-element/workflow-item/workflow-item-search-result-admin-workflow-list-element.component';
+import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 
 @NgModule({
   imports: [
@@ -23,13 +27,19 @@ import { ItemAdminSearchResultActionsComponent } from './admin-search-page/admin
   ],
   declarations: [
     AdminSearchPageComponent,
+    AdminWorkflowPageComponent,
     ItemAdminSearchResultListElementComponent,
     CommunityAdminSearchResultListElementComponent,
     CollectionAdminSearchResultListElementComponent,
     ItemAdminSearchResultGridElementComponent,
     CommunityAdminSearchResultGridElementComponent,
     CollectionAdminSearchResultGridElementComponent,
-    ItemAdminSearchResultActionsComponent
+    ItemAdminSearchResultActionsComponent,
+
+    WorkflowItemSearchResultAdminWorkflowListElementComponent,
+    WorkflowItemSearchResultAdminWorkflowGridElementComponent,
+    WorkflowItemAdminWorkflowActionsComponent
+
   ],
   entryComponents: [
     ItemAdminSearchResultListElementComponent,
@@ -38,7 +48,11 @@ import { ItemAdminSearchResultActionsComponent } from './admin-search-page/admin
     ItemAdminSearchResultGridElementComponent,
     CommunityAdminSearchResultGridElementComponent,
     CollectionAdminSearchResultGridElementComponent,
-    ItemAdminSearchResultActionsComponent
+    ItemAdminSearchResultActionsComponent,
+
+    WorkflowItemSearchResultAdminWorkflowListElementComponent,
+    WorkflowItemSearchResultAdminWorkflowGridElementComponent,
+    WorkflowItemAdminWorkflowActionsComponent
   ]
 })
 export class AdminModule {

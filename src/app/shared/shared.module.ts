@@ -193,9 +193,11 @@ import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/
 import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
+import { ModifyItemOverviewComponent } from '../+item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
 import { ClaimedTaskActionsEditMetadataComponent } from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
+import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -376,7 +378,9 @@ const COMPONENTS = [
   LogInContainerComponent,
   ItemVersionsComponent,
   PublicationSearchResultListElementComponent,
-  ItemVersionsNoticeComponent
+  ItemVersionsNoticeComponent,
+  ModifyItemOverviewComponent,
+  ImpersonateNavbarComponent
 ];
 
 const ENTRY_COMPONENTS = [

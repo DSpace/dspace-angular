@@ -5,6 +5,7 @@ import { EPersonMock } from './eperson.mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { AuthMethod } from '../../core/auth/models/auth.method';
+import { hasValue } from '../empty.util';
 
 export const authMethodsMock = [
   new AuthMethod('password'),
@@ -14,6 +15,7 @@ export const authMethodsMock = [
 export class AuthServiceStub {
 
   token: AuthTokenInfo = new AuthTokenInfo('token_test');
+  impersonating: string;
   private _tokenExpired = false;
   private redirectUrl;
 
@@ -44,6 +46,10 @@ export class AuthServiceStub {
   }
 
   public retrieveAuthenticatedUserByHref(href: string): Observable<EPerson> {
+    return observableOf(EPersonMock);
+  }
+
+  public retrieveAuthenticatedUserById(id: string): Observable<EPerson> {
     return observableOf(EPersonMock);
   }
 
@@ -119,5 +125,33 @@ export class AuthServiceStub {
 
   retrieveAuthMethodsFromAuthStatus(status: AuthStatus) {
     return observableOf(authMethodsMock);
+  }
+
+  impersonate(id: string) {
+    this.impersonating = id;
+  }
+
+  isImpersonating() {
+    return hasValue(this.impersonating);
+  }
+
+  isImpersonatingUser(id: string) {
+    return this.impersonating === id;
+  }
+
+  stopImpersonating() {
+    this.impersonating = undefined;
+  }
+
+  stopImpersonatingAndRefresh() {
+    this.stopImpersonating();
+  }
+
+  getImpersonateID() {
+    return this.impersonating;
+  }
+
+  resetAuthenticationError() {
+    return;
   }
 }
