@@ -11,6 +11,7 @@
       <span class="caret"></span>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownSubmission" ngbDropdownMenu>
+
       <a class="dropdown-item" *ngFor="let entityType of availableEntyTypeList" [routerLink]="['/submit']"
          [queryParams]="{ entityType: entityType}">
         {{entityType}}</a>

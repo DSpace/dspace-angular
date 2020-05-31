@@ -1,41 +1,35 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 
 import { Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
-import { SubmissionState } from '../../submission/submission.reducers';
-import { AuthService } from '../../core/auth/auth.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
-import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { NotificationType } from '../../shared/notifications/models/notification-type';
-import { SearchResult } from '../../shared/search/search-result.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { SubmissionState } from '../../../submission/submission.reducers';
+import { AuthService } from '../../../core/auth/auth.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list';
 import { Router } from '@angular/router';
-import { EntityTypeService } from '../../core/data/entity-type.service';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 
 /**
  * This component represents the whole mydspace page header
  */
 @Component({
-  selector: 'ds-my-dspace-new-submission-dropdown',
-  styleUrls: ['./my-dspace-new-submission-dropdown.component.scss'],
-  templateUrl: './my-dspace-new-submission-dropdown.component.html'
+    selector: 'ds-my-dspace-new-submission-dropdown',
+    styleUrls: ['./my-dspace-new-submission-dropdown.component.scss'],
+    templateUrl: './my-dspace-new-submission-dropdown.component.html'
 })
 export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit {
 
-  /**
-   * Subscription to unsubscribe from
-   */
-  private subs: Subscription[] = [];
+    /**
+     * Subscription to unsubscribe from
+     */
+    private subs: Subscription[] = [];
 
-  initialized = false;
+    initialized = false;
 
   availableEntyTypeList: Set<string>;
   /**

@@ -3,30 +3,33 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { Store } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createTestComponent } from '../../shared/testing/utils.test';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
+import { AuthService } from '../../../core/auth/auth.service';
+import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
+import { createTestComponent } from '../../../shared/testing/utils.test';
 import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown.component';
-import { AppState } from '../../app.reducer';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SharedModule } from '../../shared/shared.module';
-import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
-import { UploaderService } from '../../shared/uploader/uploader.service';
+import { AppState } from '../../../app.reducer';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { SharedModule } from '../../../shared/shared.module';
+import { getMockScrollToService } from '../../../shared/mocks/scroll-to-service.mock';
+import { UploaderService } from '../../../shared/uploader/uploader.service';
 import { By } from '@angular/platform-browser';
-import { EntityTypeService } from '../../core/data/entity-type.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { ResourceType } from '../../core/shared/resource-type';
-import {getMockTranslateService} from '../../shared/mocks/translate.service.mock';
+import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { ResourceType } from '../../../core/shared/resource-type';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { Router } from "@angular/router";
+import { RouterMock } from "../../../shared/mocks/router.mock";
+import { TranslateLoaderMock } from "../../../shared/mocks/translate-loader.mock";
 
 const authToken = 'fake-auth-token';
 const authServiceStub = Object.assign(new AuthServiceStub(), {
@@ -34,8 +37,13 @@ const authServiceStub = Object.assign(new AuthServiceStub(), {
 });
 
 describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
-
-  const translateService: any = getMockTranslateService();
+  const translateService = {
+    get: () => of('test-message'),
+    instant: () => of('test-message'),
+    onLangChange: new EventEmitter(),
+    onTranslationChange: new EventEmitter(),
+    onDefaultLangChange: new EventEmitter()
+  };
   const store: Store<AppState> = jasmine.createSpyObj('store', {
     /* tslint:disable:no-empty */
     dispatch: {},
@@ -55,7 +63,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: translateService
+              useClass: TranslateLoaderMock
             }
           })
         ],
@@ -68,9 +76,9 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
           { provide: NotificationsService, useValue: new NotificationsServiceStub() },
           { provide: ScrollToService, useValue: getMockScrollToService() },
+          { provide: Router, useValue: new RouterMock() },
           { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService()},
           { provide: Store, useValue: store },
-
           { provide: TranslateService, useValue: translateService },
           ChangeDetectorRef,
           MyDSpaceNewSubmissionDropdownComponent,
@@ -110,7 +118,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: translateService
+              useClass: TranslateLoaderMock
             }
           })
         ],
@@ -123,6 +131,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           { provide: NotificationsService, useValue: new NotificationsServiceStub() },
           { provide: ScrollToService, useValue: getMockScrollToService() },
           { provide: Store, useValue: store },
+          { provide: Router, useValue: new RouterMock() },
           { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService()},
           { provide: TranslateService, useValue: translateService },
           ChangeDetectorRef,
@@ -166,7 +175,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: translateService
+              useClass: TranslateLoaderMock
             }
           })
         ],
@@ -179,6 +188,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           { provide: NotificationsService, useValue: new NotificationsServiceStub() },
           { provide: ScrollToService, useValue: getMockScrollToService() },
           { provide: Store, useValue: store },
+          { provide: Router, useValue: new RouterMock() },
           { provide: EntityTypeService, useValue: getMockEntityTypeService()},
           { provide: TranslateService, useValue: translateService },
           ChangeDetectorRef,

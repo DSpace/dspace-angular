@@ -49,6 +49,7 @@ import { storeModuleConfig } from '../app.reducer';
 import { environment } from '../../environments/environment';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
+import {isNotEmpty} from "../shared/empty.util";
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
@@ -401,17 +402,50 @@ describe('SubmissionService test suite', () => {
 
   describe('createSubmission', () => {
     it('should create a new submission', () => {
-      service.createSubmission('Publication');
+      const paramsObj = Object.create({});
+      const params = new HttpParams({fromObject: paramsObj});
+      const options: HttpOptions = Object.create({});
+      options.params = params;
+      service.createSubmission();
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
-      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, undefined);
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, undefined);
+    });
+
+    it('should create a new submission with entity type', () => {
+      const entityType = 'Publication'
+      const paramsObj = Object.create({});
+
+      if (isNotEmpty(entityType)) {
+        paramsObj.entityType = entityType;
+      }
+
+      const params = new HttpParams({fromObject: paramsObj});
+      const options: HttpOptions = Object.create({});
+      options.params = params;
+
+      service.createSubmission('Publication', undefined);
+
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, undefined);
     });
 
     it('should create a new submission with collection', () => {
-      service.createSubmission('Publication', collectionId);
+      const entityType = undefined
+      const paramsObj = Object.create({});
+
+      if (isNotEmpty(entityType)) {
+        paramsObj.entityType = entityType;
+      }
+
+      const params = new HttpParams({fromObject: paramsObj});
+      const options: HttpOptions = Object.create({});
+      options.params = params;
+
+      service.createSubmission(entityType,collectionId);
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
-      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, collectionId);
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, collectionId);
     });
   });
 
