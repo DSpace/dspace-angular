@@ -12,6 +12,8 @@ import { AppState, storeModuleConfig } from '../../../app.reducer';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { cold } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
+import { AuthService } from '../../../core/auth/auth.service';
+import { of } from 'rxjs';
 
 describe('UserMenuComponent', () => {
 
@@ -20,6 +22,13 @@ describe('UserMenuComponent', () => {
   let deUserMenu: DebugElement;
   let authState: AuthState;
   let authStateLoading: AuthState;
+  let authService: AuthService;
+
+  function serviceInit() {
+    authService = jasmine.createSpyObj('authService', {
+      getAuthenticatedUserFromStore: of(EPersonMock)
+    });
+  }
 
   function init() {
     authState = {
@@ -27,18 +36,19 @@ describe('UserMenuComponent', () => {
       loaded: true,
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
-      user: EPersonMock
+      userId: EPersonMock.id
     };
     authStateLoading = {
       authenticated: true,
       loaded: true,
       loading: true,
       authToken: null,
-      user: EPersonMock
+      userId: EPersonMock.id
     };
   }
 
   beforeEach(async(() => {
+    serviceInit();
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(authReducer, {
@@ -53,6 +63,9 @@ describe('UserMenuComponent', () => {
             useClass: TranslateLoaderMock
           }
         })
+      ],
+      providers: [
+        { provide: AuthService, useValue: authService }
       ],
       declarations: [
         UserMenuComponent
@@ -98,7 +111,7 @@ describe('UserMenuComponent', () => {
         b: true
       }));
 
-      expect(component.user$).toBeObservable(cold('c', {
+      expect(component.user$).toBeObservable(cold('(c|)', {
         c: EPersonMock
       }));
 
@@ -137,7 +150,7 @@ describe('UserMenuComponent', () => {
         b: false
       }));
 
-      expect(component.user$).toBeObservable(cold('c', {
+      expect(component.user$).toBeObservable(cold('(c|)', {
         c: EPersonMock
       }));
 

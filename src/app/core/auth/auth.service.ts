@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, startWith, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
@@ -14,9 +14,15 @@ import { AuthRequestService } from './auth-request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
-import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
-import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
+import {
+  getAuthenticatedUserId,
+  getAuthenticationToken,
+  getRedirectUrl,
+  isAuthenticated,
+  isTokenRefreshing
+} from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import {
   CheckAuthenticationTokenAction,
@@ -33,6 +39,7 @@ import { AuthMethod } from './models/auth.method';
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
 export const REDIRECT_COOKIE = 'dsRedirectUrl';
+export const IMPERSONATING_COOKIE = 'dsImpersonatingEPerson';
 
 /**
  * The auth service.
@@ -163,11 +170,34 @@ export class AuthService {
   }
 
   /**
-   * Returns the authenticated user
+   * Returns the authenticated user by href
    * @returns {User}
    */
   public retrieveAuthenticatedUserByHref(userHref: string): Observable<EPerson> {
     return this.epersonService.findByHref(userHref).pipe(
+      getAllSucceededRemoteDataPayload()
+    )
+  }
+
+  /**
+   * Returns the authenticated user by id
+   * @returns {User}
+   */
+  public retrieveAuthenticatedUserById(userId: string): Observable<EPerson> {
+    return this.epersonService.findById(userId).pipe(
+      getAllSucceededRemoteDataPayload()
+    )
+  }
+
+  /**
+   * Returns the authenticated user from the store
+   * @returns {User}
+   */
+  public getAuthenticatedUserFromStore(): Observable<EPerson> {
+    return this.store.pipe(
+      select(getAuthenticatedUserId),
+      hasValueOperator(),
+      switchMap((id: string) => this.epersonService.findById(id)),
       getAllSucceededRemoteDataPayload()
     )
   }
@@ -430,9 +460,9 @@ export class AuthService {
    * Refresh route navigated
    */
   public refreshAfterLogout() {
-    this.router.navigate(['/home']);
-    // Hard redirect to home page, so that all state is definitely lost
-    this._window.nativeWindow.location.href = '/home';
+    // Hard redirect to the reload page with a unique number behind it
+    // so that all state is definitely lost
+    this._window.nativeWindow.location.href = `/reload/${new Date().getTime()}`;
   }
 
   /**
@@ -467,6 +497,53 @@ export class AuthService {
   clearRedirectUrl() {
     this.store.dispatch(new SetRedirectUrlAction(''));
     this.storage.remove(REDIRECT_COOKIE);
+  }
+
+  /**
+   * Start impersonating EPerson
+   * @param epersonId ID of the EPerson to impersonate
+   */
+  impersonate(epersonId: string) {
+    this.storage.set(IMPERSONATING_COOKIE, epersonId);
+    this.refreshAfterLogout();
+  }
+
+  /**
+   * Stop impersonating EPerson
+   */
+  stopImpersonating() {
+    this.storage.remove(IMPERSONATING_COOKIE);
+  }
+
+  /**
+   * Stop impersonating EPerson and refresh the store/ui
+   */
+  stopImpersonatingAndRefresh() {
+    this.stopImpersonating();
+    this.refreshAfterLogout();
+  }
+
+  /**
+   * Get the ID of the EPerson we're currently impersonating
+   * Returns undefined if we're not impersonating anyone
+   */
+  getImpersonateID(): string {
+    return this.storage.get(IMPERSONATING_COOKIE);
+  }
+
+  /**
+   * Whether or not we are currently impersonating an EPerson
+   */
+  isImpersonating(): boolean {
+    return hasValue(this.getImpersonateID());
+  }
+
+  /**
+   * Whether or not we are currently impersonating a specific EPerson
+   * @param epersonId ID of the EPerson to check
+   */
+  isImpersonatingUser(epersonId: string): boolean {
+    return this.getImpersonateID() === epersonId;
   }
 
 }
