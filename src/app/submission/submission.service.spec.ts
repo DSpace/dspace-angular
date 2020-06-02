@@ -49,7 +49,7 @@ import { storeModuleConfig } from '../app.reducer';
 import { environment } from '../../environments/environment';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
-import {isNotEmpty} from "../shared/empty.util";
+import { isNotEmpty } from '../shared/empty.util';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';

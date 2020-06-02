@@ -13,8 +13,8 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { Router } from '@angular/router';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { PageInfo } from "../../../core/shared/page-info.model";
-import { FindListOptions } from "../../../core/data/request.models";
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { FindListOptions } from '../../../core/data/request.models';
 
 /**
  * This component represents the whole mydspace page header
@@ -57,7 +57,7 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
               private translate: TranslateService) {
     this.availableEntyTypeList = new Set<string>();
     this.pageInfo = new PageInfo();
-    this.pageInfo.elementsPerPage = 3;
+    this.pageInfo.elementsPerPage = 10;
     this.pageInfo.currentPage = 1;
   }
 

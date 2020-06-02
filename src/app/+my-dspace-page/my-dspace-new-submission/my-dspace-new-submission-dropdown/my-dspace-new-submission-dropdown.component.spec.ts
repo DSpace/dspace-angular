@@ -26,10 +26,9 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { Router } from "@angular/router";
-import { RouterMock } from "../../../shared/mocks/router.mock";
-import { TranslateLoaderMock } from "../../../shared/mocks/translate-loader.mock";
+import { Router } from '@angular/router';
+import { RouterMock } from '../../../shared/mocks/router.mock';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 
 const authToken = 'fake-auth-token';
 const authServiceStub = Object.assign(new AuthServiceStub(), {

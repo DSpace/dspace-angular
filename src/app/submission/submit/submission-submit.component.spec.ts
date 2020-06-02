@@ -15,7 +15,7 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { SubmissionSubmitComponent } from './submission-submit.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import {CollectionDataService} from "../../core/data/collection-data.service";
+import {CollectionDataService} from '../../core/data/collection-data.service';
 
 describe('SubmissionSubmitComponent Component', () => {
   const collectionDataService: any = jasmine.createSpyObj('collectionDataService', {

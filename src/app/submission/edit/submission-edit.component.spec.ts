@@ -17,7 +17,7 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import {CollectionDataService} from "../../core/data/collection-data.service";
+import {CollectionDataService} from '../../core/data/collection-data.service';
 
 describe('SubmissionEditComponent Component', () => {
 

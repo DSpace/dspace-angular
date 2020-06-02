@@ -1,5 +1,5 @@
 import {of as observableOf} from 'rxjs';
-import {UrlTree} from "@angular/router";
+import {UrlTree} from '@angular/router';
 
 /**
  * Mock for [[RouterService]]
