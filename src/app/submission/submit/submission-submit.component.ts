@@ -81,9 +81,12 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
               private translate: TranslateService,
               private viewContainerRef: ViewContainerRef,
               private route: ActivatedRoute) {
-
-    this.collectionParam = this.route.snapshot.queryParams.collection;
-    this.entityTypeParam = this.route.snapshot.queryParams.entityType;
+    this.route
+      .queryParams
+      .subscribe((params) => {
+        this.collectionParam = (params.collection);
+        this.entityTypeParam = (params.entityType);
+      });
   }
 
   /**

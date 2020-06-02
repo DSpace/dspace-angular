@@ -277,7 +277,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     }
   }
 
-  private retrieveCollectionList(changes: SimpleChanges, entityType: string) {
+  retrieveCollectionList(changes: SimpleChanges, entityType: string) {
     const findOptions: FindListOptions = {
       elementsPerPage: 1000
     };
