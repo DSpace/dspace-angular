@@ -7,13 +7,12 @@ import { RequestService } from '../data/request.service';
 import { IntegrationService } from './integration.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { AuthorityEntry } from './models/authority-entry.model';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { IntegrationSearchOptions } from './models/integration-options.model';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { IntegrationData } from './integration-data';
 import { IntegrationModel } from './models/integration.model';
@@ -65,7 +64,7 @@ export class AuthorityService extends IntegrationService<IntegrationModel> {
   public findEntriesByParent(parentId: string, options: IntegrationSearchOptions): Observable<IntegrationData> {
     const searchHref = 'byParent';
 
-    options.searchParams.push(new SearchParam('id', parentId));
+    options.searchParams.push(new RequestParam('id', parentId));
     return this.searchEntriesBy(searchHref, options);
   }
 
