@@ -3,7 +3,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { isObject } from 'lodash';
 import * as moment from 'moment';
 
-import { isEmpty } from './empty.util';
+import { isNull, isUndefined } from './empty.util';
 
 /**
  * Returns true if the passed value is a NgbDateStruct.
@@ -80,7 +80,7 @@ export function stringToNgbDateStruct(date: string): NgbDateStruct {
  *    the NgbDateStruct object
  */
 export function dateToNgbDateStruct(date?: Date): NgbDateStruct {
-  if (isEmpty(date)) {
+  if (isNull(date) || isUndefined(date)) {
     date = new Date()
   }
 
