@@ -160,6 +160,10 @@ export const environment: GlobalConfig = {
     code: 'lv',
     label: 'Latviešu',
     active: true,
+  },{
+    code: 'fi',
+    label: 'Suomi',
+    active: true,
   }],
   // Browse-By Pages
   browseBy: {

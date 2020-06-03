@@ -1,17 +1,20 @@
-<nav *ngIf="showBreadcrumbs" aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <ng-container *ngTemplateOutlet="breadcrumbs.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'Home', url: '/'}"></ng-container>
-        <ng-container *ngFor="let bc of breadcrumbs; let last = last;">
-            <ng-container *ngTemplateOutlet="!last ? breadcrumb : activeBreadcrumb; context: bc"></ng-container>
-        </ng-container>
-    </ol>
-</nav>
+<ng-container *ngVar="(breadcrumbs$ | async) as breadcrumbs">
+    <nav *ngIf="showBreadcrumbs" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <ng-container
+                    *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'Home', url: '/'}"></ng-container>
+            <ng-container *ngFor="let bc of breadcrumbs; let last = last;">
+                <ng-container *ngTemplateOutlet="!last ? breadcrumb : activeBreadcrumb; context: bc"></ng-container>
+            </ng-container>
+        </ol>
+    </nav>
 
-<ng-template #breadcrumb let-text="text" let-url="url">
-    <li class="breadcrumb-item"><a [routerLink]="url">{{text | translate}}</a></li>
-</ng-template>
+    <ng-template #breadcrumb let-text="text" let-url="url">
+        <li class="breadcrumb-item"><a [routerLink]="url">{{text | translate}}</a></li>
+    </ng-template>
 
-<ng-template #activeBreadcrumb let-text="text" >
-    <li class="breadcrumb-item active" aria-current="page">{{text | translate}}</li>
-</ng-template>
+    <ng-template #activeBreadcrumb let-text="text">
+        <li class="breadcrumb-item active" aria-current="page">{{text | translate}}</li>
+    </ng-template>
+</ng-container>
 
