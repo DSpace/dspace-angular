@@ -112,9 +112,9 @@ export class CollectionDataService extends ComColDataService<Collection> {
   findAuthorizedByRelationshipType(communityId: string, entityType: string, options: FindListOptions = {})
     : Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAuthorizedByCommunityAndMetadata';
-    const searchParams =  [new SearchParam('uuid', communityId),
-                           new SearchParam('metadata', 'relationship.type')];
-    searchParams.push(new SearchParam('metadatavalue', entityType));
+    const searchParams =  [new RequestParam('uuid', communityId),
+                           new RequestParam('metadata', 'relationship.type')];
+    searchParams.push(new RequestParam('metadatavalue', entityType));
 
     options = Object.assign({}, options, {
       searchParams: searchParams
