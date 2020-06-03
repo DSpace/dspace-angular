@@ -17,7 +17,7 @@
     "pree2e": "yarn run config:prod",
     "pree2e:ci": "yarn run config:prod",
     "start": "yarn run start:prod",
-    "serve": "ng serve",
+    "serve": "ts-node --project ./tsconfig.ts-node.json scripts/serve.ts",
     "start:dev": "npm-run-all --parallel config:dev:watch serve",
     "start:prod": "yarn run build:prod && yarn run serve:ssr",
     "build": "ng build",
@@ -43,7 +43,12 @@
     "clean:prod": "yarn run clean:coverage && yarn run clean:doc && yarn run clean:dist && yarn run clean:log && yarn run clean:json && yarn run clean:bld",
     "clean": "yarn run clean:prod && yarn run clean:node && yarn run clean:env",
     "clean:env": "rimraf src/environments/environment.ts",
-    "sync-i18n": "ts-node --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts"
+    "deploy": "pm2 start dist/server.js",
+    "predeploy": "npm run build:prod",
+    "preundeploy": "pm2 stop dist/server.js",
+    "undeploy": "pm2 delete dist/server.js",
+    "postundeploy": "npm run clean:dist",
+    "sync-i18n": "yarn run config:dev && ts-node --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts"
   },
   "browser": {
     "fs": false,

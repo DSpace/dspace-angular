@@ -78,7 +78,7 @@ import { RegistryMetadatafieldsResponseParsingService } from './data/registry-me
 import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
 import { RelationshipTypeService } from './data/relationship-type.service';
 import { RelationshipService } from './data/relationship.service';
-import { ResourcePolicyService } from './data/resource-policy.service';
+import { ResourcePolicyService } from './resource-policy/resource-policy.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { SiteDataService } from './data/site-data.service';
 import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
@@ -114,7 +114,7 @@ import { RelationshipType } from './shared/item-relationships/relationship-type.
 import { Relationship } from './shared/item-relationships/relationship.model';
 import { Item } from './shared/item.model';
 import { License } from './shared/license.model';
-import { ResourcePolicy } from './shared/resource-policy.model';
+import { ResourcePolicy } from './resource-policy/models/resource-policy.model';
 import { SearchConfigurationService } from './shared/search/search-configuration.service';
 import { SearchFilterService } from './shared/search/search-filter.service';
 import { SearchService } from './shared/search/search.service';

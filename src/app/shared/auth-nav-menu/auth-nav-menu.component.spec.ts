@@ -14,6 +14,7 @@ import { HostWindowService } from '../host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { AuthService } from '../../core/auth/auth.service';
+import { of } from 'rxjs/internal/observable/of';
 
 describe('AuthNavMenuComponent', () => {
 
@@ -25,9 +26,19 @@ describe('AuthNavMenuComponent', () => {
   let notAuthState: AuthState;
   let authState: AuthState;
 
+  let authService: AuthService;
+
   let routerState = {
     url: '/home'
   };
+
+  function serviceInit() {
+    authService = jasmine.createSpyObj('authService', {
+      getAuthenticatedUserFromStore: of(EPersonMock),
+      setRedirectUrl: {}
+    });
+  }
+
   function init() {
     notAuthState = {
       authenticated: false,
@@ -39,13 +50,14 @@ describe('AuthNavMenuComponent', () => {
       loaded: true,
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
-      user: EPersonMock
+      userId: EPersonMock.id
     };
   }
   describe('when is a not mobile view', () => {
 
     beforeEach(async(() => {
       const window = new HostWindowServiceStub(800);
+      serviceInit();
 
       // refine the test module by declaring the test component
       TestBed.configureTestingModule({
@@ -64,12 +76,7 @@ describe('AuthNavMenuComponent', () => {
         ],
         providers: [
           { provide: HostWindowService, useValue: window },
-          {
-            provide: AuthService, useValue: {
-              setRedirectUrl: () => { /*empty*/
-              }
-            }
-          }
+          { provide: AuthService, useValue: authService }
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA
@@ -244,6 +251,7 @@ describe('AuthNavMenuComponent', () => {
   describe('when is a mobile view', () => {
     beforeEach(async(() => {
       const window = new HostWindowServiceStub(300);
+      serviceInit();
 
       // refine the test module by declaring the test component
       TestBed.configureTestingModule({
@@ -262,12 +270,7 @@ describe('AuthNavMenuComponent', () => {
         ],
         providers: [
           { provide: HostWindowService, useValue: window },
-          {
-            provide: AuthService, useValue: {
-              setRedirectUrl: () => { /*empty*/
-              }
-            }
-          }
+          { provide: AuthService, useValue: authService }
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA

@@ -2,6 +2,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { isObject } from 'lodash';
 import * as moment from 'moment';
+
 import { isEmpty } from './empty.util';
 
 /**
@@ -14,7 +15,7 @@ import { isEmpty } from './empty.util';
  */
 export function isNgbDateStruct(value: object): boolean {
   return isObject(value) && value.hasOwnProperty('day')
-    && value.hasOwnProperty('month')  && value.hasOwnProperty('year');
+    && value.hasOwnProperty('month') && value.hasOwnProperty('year');
 }
 
 /**
@@ -56,6 +57,18 @@ export function dateToISOFormat(date: Date | NgbDateStruct): string {
  */
 export function ngbDateStructToDate(date: NgbDateStruct): Date {
   return new Date(date.year, (date.month - 1), date.day);
+}
+
+/**
+ * Returns a NgbDateStruct object started from a string representing a date
+ *
+ * @param date
+ *    The Date to convert
+ * @return NgbDateStruct
+ *    the NgbDateStruct object
+ */
+export function stringToNgbDateStruct(date: string): NgbDateStruct {
+  return dateToNgbDateStruct(new Date(date));
 }
 
 /**
