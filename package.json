@@ -17,7 +17,7 @@
     "pree2e": "yarn run config:prod",
     "pree2e:ci": "yarn run config:prod",
     "start": "yarn run start:prod",
-    "serve": "ng serve",
+    "serve": "ts-node --project ./tsconfig.ts-node.json scripts/serve.ts",
     "start:dev": "npm-run-all --parallel config:dev:watch serve",
     "start:prod": "yarn run build:prod && yarn run serve:ssr",
     "build": "ng build",
@@ -43,7 +43,7 @@
     "clean:prod": "yarn run clean:coverage && yarn run clean:doc && yarn run clean:dist && yarn run clean:log && yarn run clean:json && yarn run clean:bld",
     "clean": "yarn run clean:prod && yarn run clean:node && yarn run clean:env",
     "clean:env": "rimraf src/environments/environment.ts",
-    "sync-i18n": "ts-node --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts"
+    "sync-i18n": "yarn run config:dev && ts-node --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts"
   },
   "browser": {
     "fs": false,
@@ -52,6 +52,9 @@
     "https": false
   },
   "private": true,
+  "resolutions": {
+    "minimist": "^1.2.5"
+  },
   "dependencies": {
     "@angular/animations": "~8.2.14",
     "@angular/cdk": "8.2.3",
@@ -146,7 +149,7 @@
     "jasmine-core": "^3.3.0",
     "jasmine-marbles": "0.3.1",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~4.1.0",
+    "karma": "^5.0.9",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "2.0.1",
@@ -157,10 +160,10 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-apply": "0.11.0",
     "postcss-cssnext": "3.1.0",
+    "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-responsive-type": "1.0.0",
-    "postcss-smart-import": "^0.7.6",
-    "protractor": "~5.4.0",
+    "protractor": "^7.0.0",
     "protractor-istanbul-plugin": "2.0.0",
     "raw-loader": "0.5.1",
     "rimraf": "^3.0.2",

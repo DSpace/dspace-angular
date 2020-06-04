@@ -8,9 +8,9 @@ import { CreateRequest, FindListOptions, PutRequest } from './request.models';
 import { MetadataFieldDataService } from './metadata-field-data.service';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { SearchParam } from '../cache/models/search-param.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { RequestParam } from '../cache/models/request-param.model';
 
 describe('MetadataFieldDataService', () => {
   let metadataFieldService: MetadataFieldDataService;
@@ -58,7 +58,7 @@ describe('MetadataFieldDataService', () => {
     it('should call searchBy with the correct arguments', () => {
       metadataFieldService.findBySchema(schema);
       const expectedOptions = Object.assign(new FindListOptions(), {
-        searchParams: [new SearchParam('schema', schema.prefix)]
+        searchParams: [new RequestParam('schema', schema.prefix)]
       });
       expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions);
     });

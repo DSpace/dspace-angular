@@ -33,7 +33,8 @@
       "es2017"
     ],
     "types": [
-      "node"
+      "node",
+      "jasmine"
     ]
   },
   "angularCompilerOptions": {

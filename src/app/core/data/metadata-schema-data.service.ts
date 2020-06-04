@@ -51,7 +51,7 @@ export class MetadataSchemaDataService extends DataService<MetadataSchema> {
     if (isUpdate) {
       return this.put(schema);
     } else {
-      return this.create(schema, undefined);
+      return this.create(schema);
     }
   }
 

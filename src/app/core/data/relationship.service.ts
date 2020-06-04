@@ -21,7 +21,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
@@ -257,7 +257,7 @@ export class RelationshipService extends DataService<Relationship> {
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);
     }
-    const searchParams = [new SearchParam('label', label), new SearchParam('dso', item.id)];
+    const searchParams = [new RequestParam('label', label), new RequestParam('dso', item.id)];
     if (findListOptions.searchParams) {
       findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
     } else {

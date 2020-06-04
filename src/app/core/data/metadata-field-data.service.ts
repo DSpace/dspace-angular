@@ -15,11 +15,11 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { SearchParam } from '../cache/models/search-param.model';
 import { Observable } from 'rxjs/internal/Observable';
-import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { hasValue } from '../../shared/empty.util';
+import { tap } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
+import { RequestParam } from '../cache/models/request-param.model';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadatafields endpoint
@@ -50,7 +50,7 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    */
   findBySchema(schema: MetadataSchema, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>) {
     const optionsWithSchema = Object.assign(new FindListOptions(), options, {
-      searchParams: [new SearchParam('schema', schema.prefix)]
+      searchParams: [new RequestParam('schema', schema.prefix)]
     });
     return this.searchBy(this.searchBySchemaLinkPath, optionsWithSchema, ...linksToFollow);
   }
@@ -69,20 +69,8 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
     if (isUpdate) {
       return this.put(field);
     } else {
-      return this.create(field, `${field.schema.id}`);
+      return this.create(field, new RequestParam('schemaId', field.schema.id));
     }
-  }
-
-  /**
-   * Get the endpoint for creating a new object
-   * @param parentUUID  The parent object's UUID
-   */
-  getCreateHref(parentUUID: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      isNotEmptyOperator(),
-      distinctUntilChanged(),
-      map((endpoint: string) => parentUUID ? `${endpoint}?schemaId=${parentUUID}` : endpoint)
-    );
   }
 
   /**
