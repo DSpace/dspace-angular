@@ -1,0 +1,183 @@
+:host ::ng-deep p {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+:host ::ng-deep .text {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+:host ::ng-deep a, a:hover, a:focus {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+:host ::ng-deep .line {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #ddd;
+  margin: 40px 0;
+}
+
+/* SIDEBAR */
+
+:host ::ng-deep .wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+  perspective: 1500px;
+}
+
+
+:host ::ng-deep #sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
+  transform-origin: bottom left;
+}
+
+:host ::ng-deep #sidebar.active {
+  margin-left: -250px;
+  transform: rotateY(100deg);
+}
+
+:host ::ng-deep #sidebar .sidebar-header {
+  padding: 20px;
+}
+
+:host ::ng-deep #sidebar ul.components {
+  padding: 20px 0;
+  border-bottom: 1px #ced4da solid;
+}
+
+:host ::ng-deep #sidebar ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+:host ::ng-deep #sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+  color: rgba(0, 0, 0, 0.5);
+}
+:host ::ng-deep #sidebar ul li a:hover {
+  color: rgba(0, 0, 0, 0.7);
+  background: #fff;
+}
+
+:host ::ng-deep #sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #fff;
+  background: $cyan;
+}
+
+
+:host ::ng-deep a[data-toggle="collapse"] {
+  position: relative;
+}
+
+:host ::ng-deep .dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+:host ::ng-deep ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+  background: $cyan;
+}
+
+:host ::ng-deep ul.CTAs {
+  padding: 20px;
+}
+
+:host ::ng-deep ul.CTAs a {
+  text-align: center;
+  font-size: 0.9em !important;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+/* CONTENT */
+
+:host ::ng-deep #content {
+  width: 100%;
+  padding: 20px;
+  min-height: 100vh;
+  transition: all 0.3s;
+}
+
+:host ::ng-deep #sidebarCollapse {
+  width: 40px;
+  height: 40px;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+:host ::ng-deep #sidebarCollapse span {
+  width: 80%;
+  height: 2px;
+  margin: 0 auto;
+  display: block;
+  background: #555;
+  transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+  transition-delay: 0.2s;
+}
+
+:host ::ng-deep #sidebarCollapse span:first-of-type {
+  transform: rotate(45deg) translate(2px, 2px);
+}
+:host ::ng-deep #sidebarCollapse span:nth-of-type(2) {
+  opacity: 0;
+}
+:host ::ng-deep #sidebarCollapse span:last-of-type {
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+
+:host ::ng-deep #sidebarCollapse.active span {
+  transform: none;
+  opacity: 1;
+  margin: 5px auto;
+}
+
+:host ::ng-deep .icon-vertical-centered {
+  vertical-align: super;
+}
+
+/* MEDIAQUERIES */
+
+@media (max-width: 768px) {
+  #sidebar {
+      margin-left: -250px;
+      transform: rotateY(90deg);
+  }
+  #sidebar.active {
+      margin-left: 0;
+      transform: none;
+  }
+  #sidebarCollapse span:first-of-type,
+  #sidebarCollapse span:nth-of-type(2),
+  #sidebarCollapse span:last-of-type {
+      transform: none;
+      opacity: 1;
+      margin: 5px auto;
+  }
+  #sidebarCollapse.active span {
+      margin: 0 auto;
+  }
+  #sidebarCollapse.active span:first-of-type {
+      transform: rotate(45deg) translate(2px, 2px);
+  }
+  #sidebarCollapse.active span:nth-of-type(2) {
+      opacity: 0;
+  }
+  #sidebarCollapse.active span:last-of-type {
+      transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+}
