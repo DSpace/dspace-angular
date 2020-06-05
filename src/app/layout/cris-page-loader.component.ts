@@ -39,7 +39,7 @@ export class CrisPageLoaderComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Fetch the component depending on the item type
+   * Fetch the component depending on the item
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(): GenericConstructor<Component> {

@@ -4,6 +4,9 @@ import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
 import { getMetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { Item } from 'src/app/core/shared/item.model';
 
+/**
+ * This component renders the rows of metadata boxes
+ */
 @Component({
   // tslint:disable-next-line: component-selector
   selector: '[ds-row]',

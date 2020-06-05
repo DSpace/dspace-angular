@@ -32,7 +32,9 @@ class DataServiceImpl extends DataService<MetadataComponent> {
     super();
   }
 }
-
+/**
+ * A service responsible for fetching data from the REST API on the metadatacomponents endpoint
+ */
 @Injectable()
 @dataService(METADATACOMPONENT)
 export class MetadataComponentsDataService {

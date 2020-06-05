@@ -14,7 +14,7 @@ const routes: Routes = [
     },
     data: { showBreadcrumbsFluid: true }
   },
-  {
+  { // used for activate specific tab
     path: ':id/:tab',
     component: CrisItemPageComponent,
     resolve: {

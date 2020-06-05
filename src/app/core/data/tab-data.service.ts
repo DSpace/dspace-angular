@@ -37,7 +37,9 @@ class DataServiceImpl extends DataService<Tab> {
     super();
   }
 }
-
+/**
+ * A service responsible for fetching data from the REST API on the tabs endpoint
+ */
 @Injectable()
 @dataService(TAB)
 export class TabDataService {

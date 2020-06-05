@@ -12,11 +12,18 @@ import { Observable } from 'rxjs';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 import { hasValue } from 'src/app/shared/empty.util';
 
+/**
+ * This component renders the metadata boxes of items
+ */
 @Component({
   selector: 'ds-cris-layout-metadata-box',
   templateUrl: './cris-layout-metadata-box.component.html',
   styleUrls: ['./cris-layout-metadata-box.component.scss']
 })
+/**
+ * For overwrite this component create a new one that extends CrisLayoutBoxObj and
+ * add the CrisLayoutBox decorator indicating the type of box to overwrite
+ */
 @CrisLayoutBox(LayoutPage.DEFAULT, LayoutTab.DEFAULT, LayoutBox.METADATA)
 export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxObj implements OnInit {
 

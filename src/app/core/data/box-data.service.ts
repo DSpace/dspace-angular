@@ -37,7 +37,9 @@ class DataServiceImpl extends DataService<Box> {
     super();
   }
 }
-
+/**
+ * A service responsible for fetching data from the REST API on the boxes endpoint
+ */
 @Injectable()
 @dataService(BOX)
 export class BoxDataService {
