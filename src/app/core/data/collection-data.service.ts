@@ -100,7 +100,29 @@ export class CollectionDataService extends ComColDataService<Collection> {
     return this.searchBy(searchHref, options).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
+  /**
+   * Get all collections the user is authorized to submit to, by community and has the metadata
+   *
+   * @param communityId The community id
+   * @param entityType The entity type
+   * @param options The [[FindListOptions]] object
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
+   */
+  findAuthorizedByRelationshipType(communityId: string, entityType: string, options: FindListOptions = {})
+    : Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findAuthorizedByCommunityAndMetadata';
+    const searchParams =  [new RequestParam('uuid', communityId),
+                           new RequestParam('metadata', 'relationship.type')];
+    searchParams.push(new RequestParam('metadatavalue', entityType));
 
+    options = Object.assign({}, options, {
+      searchParams: searchParams
+    });
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
+  }
   /**
    * Find whether there is a collection whom user has authorization to submit to
    *

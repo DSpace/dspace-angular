@@ -9,9 +9,9 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {FormControl} from '@angular/forms';
 
-import { BehaviorSubject, combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable, of as observableOf, Subscription} from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -21,22 +21,22 @@ import {
   map,
   mergeMap,
   reduce,
-  startWith
+  startWith, tap
 } from 'rxjs/operators';
 
-import { Collection } from '../../../core/shared/collection.model';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { Community } from '../../../core/shared/community.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { RemoteData } from '../../../core/data/remote-data';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { SubmissionService } from '../../submission.service';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FindListOptions } from '../../../core/data/request.models';
+import {Collection} from '../../../core/shared/collection.model';
+import {CommunityDataService} from '../../../core/data/community-data.service';
+import {Community} from '../../../core/shared/community.model';
+import {hasValue, isEmpty, isNotEmpty} from '../../../shared/empty.util';
+import {RemoteData} from '../../../core/data/remote-data';
+import {JsonPatchOperationPathCombiner} from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import {JsonPatchOperationsBuilder} from '../../../core/json-patch/builder/json-patch-operations-builder';
+import {PaginatedList} from '../../../core/data/paginated-list';
+import {SubmissionService} from '../../submission.service';
+import {SubmissionObject} from '../../../core/submission/models/submission-object.model';
+import {SubmissionJsonPatchOperationsService} from '../../../core/submission/submission-json-patch-operations.service';
+import {CollectionDataService} from '../../../core/data/collection-data.service';
+import {FindListOptions} from '../../../core/data/request.models';
 
 /**
  * An interface to represent a collection entry
@@ -199,56 +199,22 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     if (hasValue(changes.currentCollectionId)
       && hasValue(changes.currentCollectionId.currentValue)) {
       this.selectedCollectionId = this.currentCollectionId;
-
+      let entityType: string = null;
       this.selectedCollectionName$ = this.collectionDataService.findById(this.currentCollectionId).pipe(
         find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
-        map((collectionRD: RemoteData<Collection>) => collectionRD.payload.name)
+        map((collectionRD: RemoteData<Collection>) => {
+          if (collectionRD.payload.metadata) {
+            const metadataValue = collectionRD.payload.metadata['relationship.type'];
+            if (metadataValue && metadataValue[0]) {
+              entityType = metadataValue[0].value;
+            }
+
+          }
+          this.retrieveCollectionList(changes, entityType);
+          return collectionRD.payload.name
+        })
       );
 
-      const findOptions: FindListOptions = {
-        elementsPerPage: 1000
-      };
-
-      // Retrieve collection list only when is the first change
-      if (changes.currentCollectionId.isFirstChange()) {
-        // @TODO replace with search/top browse endpoint
-        // @TODO implement community/subcommunity hierarchy
-        const communities$ = this.communityDataService.findAll(findOptions).pipe(
-          find((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
-          mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page));
-
-        const listCollection$ = communities$.pipe(
-          flatMap((communityData: Community) => {
-            return this.collectionDataService.getAuthorizedCollectionByCommunity(communityData.uuid, findOptions).pipe(
-              find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
-              mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
-              filter((collectionData: Collection) => isNotEmpty(collectionData)),
-              map((collectionData: Collection) => ({
-                communities: [{ id: communityData.id, name: communityData.name }],
-                collection: { id: collectionData.id, name: collectionData.name }
-              }))
-            );
-          }),
-          reduce((acc: any, value: any) => [...acc, ...value], []),
-          startWith([])
-        );
-
-        const searchTerm$ = this.searchField.valueChanges.pipe(
-          debounceTime(200),
-          distinctUntilChanged(),
-          startWith('')
-        );
-
-        this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
-          map(([searchTerm, listCollection]) => {
-            this.disabled$.next(isEmpty(listCollection));
-            if (isEmpty(searchTerm)) {
-              return listCollection;
-            } else {
-              return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
-            }
-          }));
-      }
     }
   }
 
@@ -309,5 +275,53 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     if (!isOpen) {
       this.searchField.reset();
     }
+  }
+
+  retrieveCollectionList(changes: SimpleChanges, entityType: string) {
+    const findOptions: FindListOptions = {
+      elementsPerPage: 1000
+    };
+
+    // Retrieve collection list only when is the first change
+    if (changes.currentCollectionId.isFirstChange()) {
+      // @TODO replace with search/top browse endpoint
+      // @TODO implement community/subcommunity hierarchy
+      const communities$ = this.communityDataService.findAll(findOptions).pipe(
+        find((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
+        mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page));
+
+      const listCollection$ = communities$.pipe(
+        flatMap((communityData: Community) => {
+          return this.collectionDataService.findAuthorizedByRelationshipType(communityData.uuid, entityType, findOptions).pipe(
+            find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
+            mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
+            filter((collectionData: Collection) => isNotEmpty(collectionData)),
+            map((collectionData: Collection) => ({
+              communities: [{ id: communityData.id, name: communityData.name }],
+              collection: { id: collectionData.id, name: collectionData.name }
+            }))
+          );
+        }),
+        reduce((acc: any, value: any) => [...acc, ...value], []),
+        startWith([])
+      );
+
+      const searchTerm$ = this.searchField.valueChanges.pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        startWith('')
+      );
+
+      this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
+        map(([searchTerm, listCollection]) => {
+          this.disabled$.next(isEmpty(listCollection));
+          if (isEmpty(searchTerm)) {
+            return listCollection;
+          } else {
+            return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
+          }
+        }));
+    }
+
   }
 }
