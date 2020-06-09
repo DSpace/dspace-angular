@@ -193,9 +193,19 @@ import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/
 import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
+import { ModifyItemOverviewComponent } from '../+item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
 import { ClaimedTaskActionsEditMetadataComponent } from './mydspace-actions/claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
+import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
+import { ResourcePoliciesComponent } from './resource-policies/resource-policies.component';
+import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
+import { ResourcePolicyFormComponent } from './resource-policies/form/resource-policy-form.component';
+import { EpersonGroupListComponent } from './resource-policies/form/eperson-group-list/eperson-group-list.component';
+import { ResourcePolicyTargetResolver } from './resource-policies/resolvers/resource-policy-target.resolver';
+import { ResourcePolicyResolver } from './resource-policies/resolvers/resource-policy.resolver';
+import { EpersonSearchBoxComponent } from './resource-policies/form/eperson-group-list/eperson-search-box/eperson-search-box.component';
+import { GroupSearchBoxComponent } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -376,7 +386,14 @@ const COMPONENTS = [
   LogInContainerComponent,
   ItemVersionsComponent,
   PublicationSearchResultListElementComponent,
-  ItemVersionsNoticeComponent
+  ItemVersionsNoticeComponent,
+  ModifyItemOverviewComponent,
+  ImpersonateNavbarComponent,
+  ResourcePoliciesComponent,
+  ResourcePolicyFormComponent,
+  EpersonGroupListComponent,
+  EpersonSearchBoxComponent,
+  GroupSearchBoxComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -466,7 +483,9 @@ const PROVIDERS = [
   {
     provide: DYNAMIC_FORM_CONTROL_MAP_FN,
     useValue: dsDynamicFormControlMapFn
-  }
+  },
+  ResourcePolicyResolver,
+  ResourcePolicyTargetResolver
 ];
 
 const DIRECTIVES = [
@@ -480,7 +499,8 @@ const DIRECTIVES = [
   RoleDirective,
   MetadataRepresentationDirective,
   ListableObjectDirective,
-  ClaimedTaskActionsDirective
+  ClaimedTaskActionsDirective,
+  NgForTrackByIdDirective
 ];
 
 @NgModule({

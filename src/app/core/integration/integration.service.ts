@@ -11,7 +11,7 @@ import { IntegrationSearchOptions } from './models/integration-options.model';
 import { getResponseFromEntry } from '../shared/operators';
 import { DataService } from '../data/data.service';
 import { CacheableObject } from '../cache/object-cache.reducer';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 
 /**
  * An abstract class that provides methods to make REST requests with integration endpoint.
@@ -73,7 +73,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
     }
 
     if (hasValue(options.searchParams)) {
-      options.searchParams.forEach((param: SearchParam) => {
+      options.searchParams.forEach((param: RequestParam) => {
         args.push(`${param.fieldName}=${param.fieldValue}`);
       })
     }
@@ -101,8 +101,8 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
 
     if (hasValue(options.searchParams)) {
       options.searchParams
-        .filter((param: SearchParam) => param.fieldName !== 'query')
-        .forEach((param: SearchParam) => {
+        .filter((param: RequestParam) => param.fieldName !== 'query')
+        .forEach((param: RequestParam) => {
           args.push(`${param.fieldName}=${param.fieldValue}`);
         })
     }
@@ -127,7 +127,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
     const args = [];
 
     if (hasValue(options.searchParams)) {
-      options.searchParams.forEach((param: SearchParam) => {
+      options.searchParams.forEach((param: RequestParam) => {
         args.push(`${param.fieldName}=${param.fieldValue}`);
       })
     }

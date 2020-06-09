@@ -12,7 +12,7 @@ import { PaginatedSearchOptions } from '../../shared/search/paginated-search-opt
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
@@ -94,13 +94,35 @@ export class CollectionDataService extends ComColDataService<Collection> {
   getAuthorizedCollectionByCommunity(communityId: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAuthorizedByCommunity';
     options = Object.assign({}, options, {
-      searchParams: [new SearchParam('uuid', communityId)]
+      searchParams: [new RequestParam('uuid', communityId)]
     });
 
     return this.searchBy(searchHref, options).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
+  /**
+   * Get all collections the user is authorized to submit to, by community and has the metadata
+   *
+   * @param communityId The community id
+   * @param entityType The entity type
+   * @param options The [[FindListOptions]] object
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
+   */
+  findAuthorizedByRelationshipType(communityId: string, entityType: string, options: FindListOptions = {})
+    : Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findAuthorizedByCommunityAndMetadata';
+    const searchParams =  [new RequestParam('uuid', communityId),
+                           new RequestParam('metadata', 'relationship.type')];
+    searchParams.push(new RequestParam('metadatavalue', entityType));
 
+    options = Object.assign({}, options, {
+      searchParams: searchParams
+    });
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
+  }
   /**
    * Find whether there is a collection whom user has authorization to submit to
    *

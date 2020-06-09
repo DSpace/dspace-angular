@@ -1,4 +1,5 @@
-import { of as observableOf } from 'rxjs';
+import {of as observableOf} from 'rxjs';
+import {UrlTree} from '@angular/router';
 
 /**
  * Mock for [[RouterService]]
@@ -17,6 +18,10 @@ export class RouterMock {
   // noinspection TypeScriptUnresolvedFunction
   navigate = jasmine.createSpy('navigate');
   navigateByUrl = jasmine.createSpy('navigateByUrl');
+
+  serializeUrl(url: UrlTree): string {
+    return url ? url.toString() : '';
+  }
 
   setRoute(route) {
     this.routerState.snapshot.url = route;

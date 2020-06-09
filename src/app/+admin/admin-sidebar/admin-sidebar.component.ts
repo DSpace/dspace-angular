@@ -439,6 +439,19 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         icon: 'cogs',
         index: 9
       },
+      /* Workflow */
+      {
+        id: 'workflow',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.workflow',
+          link: '/admin/workflow'
+        } as LinkMenuItemModel,
+        icon: 'user-check',
+        index: 10
+      },
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
 

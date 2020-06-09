@@ -2,7 +2,7 @@ import { findIndex } from 'lodash';
 
 import { SortOptions } from '../../cache/models/sort-options.model';
 import { FindListOptions } from '../../data/request.models';
-import { SearchParam } from '../../cache/models/search-param.model';
+import { RequestParam } from '../../cache/models/request-param.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 
 export class IntegrationSearchOptions extends FindListOptions {
@@ -64,9 +64,9 @@ export class IntegrationSearchOptions extends FindListOptions {
   private setParam(name, value) {
     const paramIndex = findIndex(this.searchParams, {fieldName: name});
     if (isNotEmpty(value) && paramIndex === -1) {
-      this.searchParams.push(new SearchParam(name, value));
+      this.searchParams.push(new RequestParam(name, value));
     } else if (paramIndex !== -1) {
-      this.searchParams[paramIndex] = new SearchParam(name, value);
+      this.searchParams[paramIndex] = new RequestParam(name, value);
     }
   }
 }

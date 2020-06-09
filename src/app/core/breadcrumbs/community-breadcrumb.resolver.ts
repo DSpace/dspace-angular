@@ -8,7 +8,9 @@ import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-con
 /**
  * The class that resolves the BreadcrumbConfig object for a Community
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CommunityBreadcrumbResolver extends DSOBreadcrumbResolver<Community> {
   constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: CommunityDataService) {
     super(breadcrumbService, dataService);
