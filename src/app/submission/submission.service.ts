@@ -108,10 +108,12 @@ export class SubmissionService {
    *
    * @param collectionId
    *    The owning collection id
+   * @param entityType
+   *    The entity type
    * @return Observable<SubmissionObject>
    *    observable of SubmissionObject
    */
-  createSubmission(entityType?: string, collectionId?: string): Observable<SubmissionObject> {
+  createSubmission(collectionId?: string, entityType?: string,): Observable<SubmissionObject> {
     const paramsObj = Object.create({});
 
     if (isNotEmpty(entityType)) {

@@ -1,6 +1,5 @@
   <div class="add" *ngIf="!hasMultipleOptions()">
-    <button class="btn btn-lg btn-primary mt-1 ml-2" [disabled]="!initialized" [routerLink]="['/submit']"
-            [state]="{entityType: availableEntyTypeList[0]}" role="button">
+    <button class="btn btn-lg btn-primary mt-1 ml-2" [disabled]="!initialized" [routerLink]="['/submit']" role="button">
       <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
     </button>
   </div>
@@ -12,8 +11,7 @@
       <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
       <span class="caret"></span>
     </button>
-    <div aria-labelledby="dropdownSubmission"
-         ngbDropdownMenu
+    <div ngbDropdownMenu
          class="dropdown-menu scrollable-dropdown-menu w-100"
          aria-haspopup="true"
          aria-expanded="false"
@@ -26,11 +24,11 @@
            (scrolled)="onScroll()"
            [scrollWindow]="false">
 
-        <button class="dropdown-item disabled" *ngIf="availableEntyTypeList && availableEntyTypeList.size == 0">
+        <button class="dropdown-item disabled" *ngIf="availableEntityTypeList && availableEntityTypeList.length == 0">
           {{'form.no-results' | translate}}
         </button>
 
-        <button class="dropdown-item collection-item text-truncate" *ngFor="let entityType of availableEntyTypeList"
+        <button class="dropdown-item collection-item text-truncate" *ngFor="let entityType of availableEntityTypeList"
                 [routerLink]="['/submit']"
                 [queryParams]="{ entityType: entityType}"
                 title="{{ entityType }}">
@@ -39,5 +37,6 @@
         <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>
 
       </div>
-  </div>
+    </div>
 
+  </div>

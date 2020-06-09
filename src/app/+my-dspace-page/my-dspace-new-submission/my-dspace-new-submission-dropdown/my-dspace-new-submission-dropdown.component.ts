@@ -1,15 +1,17 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
+
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { FindListOptions } from '../../../core/data/request.models';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
- * This component represents the whole mydspace page header
+ * This component represents the new submission dropdown
  */
 @Component({
   selector: 'ds-my-dspace-new-submission-dropdown',
@@ -19,15 +21,29 @@ import { FindListOptions } from '../../../core/data/request.models';
 export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit {
 
   /**
+   * Representing if dropdown list is initialized
+   */
+  initialized = false;
+
+  /**
+   * Representing if dropdown list is loading
+   */
+  loading = false;
+
+  /**
+   * The list of available entity type
+   */
+  availableEntityTypeList: string[];
+
+  /**
+   * Represents the state of a paginated response
+   */
+  pageInfo: PageInfo;
+
+  /**
    * Subscription to unsubscribe from
    */
   private subs: Subscription[] = [];
-
-  initialized = false;
-  loading = false;
-
-  availableEntyTypeList: Set<string>;
-  pageInfo: PageInfo;
 
   /**
    * Initialize instance variables
@@ -37,56 +53,49 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private entityTypeService: EntityTypeService) {
-    this.availableEntyTypeList = new Set<string>();
+    this.availableEntityTypeList = [];
     this.pageInfo = new PageInfo();
     this.pageInfo.elementsPerPage = 10;
     this.pageInfo.currentPage = 1;
   }
 
   /**
-   * Initialize url and Bearer token
+   * Initialize entity type list
    */
   ngOnInit() {
-
     this.loadEntityTypes(this.toPageOptions());
-  }
-
-  private toPageOptions() {
-    return {
-      currentPage: this.pageInfo.currentPage,
-      elementsPerPage: this.pageInfo.elementsPerPage,
-    } as FindListOptions;
   }
 
   /**
    * Unsubscribe from the subscription
    */
   ngOnDestroy(): void {
-    for (const s of this.subs) {
-      s.unsubscribe();
-    }
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 
   loadEntityTypes(pageInfo: FindListOptions) {
     this.loading = true;
-    this.subs.push(this.entityTypeService.getAllAuthorizedRelationshipType(pageInfo).subscribe((x: RemoteData<PaginatedList<ItemType>>) => {
-        this.initialized = true
-        this.loading = false;
-        if (!x || !x.payload || !x.payload.page) {
-          return;
-        }
-        this.pageInfo.totalPages = x.payload.pageInfo.totalPages;
-        x.payload.page.forEach((type: ItemType) => this.availableEntyTypeList.add(type.label));
-        this.changeDetectorRef.detectChanges();
-      },
-      () => {
-        this.initialized = true;
-        this.loading = false;
-      },
-      () => {
-        this.initialized = true;
-        this.loading = false;
-      }));
+    this.subs.push(
+      this.entityTypeService.getAllAuthorizedRelationshipType(pageInfo).pipe(
+        getFirstSucceededRemoteDataPayload()
+      ).subscribe((list: PaginatedList<ItemType>) => {
+          this.initialized = true
+          this.loading = false;
+          this.pageInfo.totalPages = list.pageInfo.totalPages;
+          this.availableEntityTypeList = this.availableEntityTypeList
+            .concat(list.page.map((type) => type.label));
+          this.changeDetectorRef.detectChanges();
+        },
+        () => {
+          this.initialized = true;
+          this.loading = false;
+        },
+        () => {
+          this.initialized = true;
+          this.loading = false;
+        }));
   }
 
   onScroll() {
@@ -97,6 +106,13 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
   }
 
   hasMultipleOptions(): boolean {
-    return this.availableEntyTypeList && this.availableEntyTypeList.size > 1;
+    return this.availableEntityTypeList && this.availableEntityTypeList.length > 1;
+  }
+
+  private toPageOptions() {
+    return {
+      currentPage: this.pageInfo.currentPage,
+      elementsPerPage: this.pageInfo.elementsPerPage,
+    } as FindListOptions;
   }
 }

@@ -13,13 +13,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
-import { RequestService }  from '../../core/data/request.service';
+import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
 import { EntityTypeService } from '../../core/data/entity-type.service';
 import { DynamicFormOptionConfig } from '@ng-dynamic-forms/core/lib/model/dynamic-option-control.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
-import {FindListOptions } from '../../core/data/request.models';
+import { FindListOptions } from '../../core/data/request.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 
 /**
@@ -112,7 +112,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
       tmp = this.dso.metadata['relationship.type'];
     }
     // retrieve all entity types to populate a dropdown selection
-    this.entityTypeService.findAll({elementsPerPage: 100, currentPage: 1} as FindListOptions).pipe(
+    this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 } as FindListOptions).pipe(
       getFirstSucceededRemoteListPayload()
     ).subscribe((data: ItemType[]) => {
       let index = 0;

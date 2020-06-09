@@ -49,7 +49,6 @@ import { storeModuleConfig } from '../app.reducer';
 import { environment } from '../../environments/environment';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
-import { isNotEmpty } from '../shared/empty.util';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
@@ -414,35 +413,23 @@ describe('SubmissionService test suite', () => {
 
     it('should create a new submission with entity type', () => {
       const entityType = 'Publication'
-      const paramsObj = Object.create({});
-
-      if (isNotEmpty(entityType)) {
-        paramsObj.entityType = entityType;
-      }
-
-      const params = new HttpParams({fromObject: paramsObj});
+      const params = new HttpParams({fromObject: {entityType: entityType}});
       const options: HttpOptions = Object.create({});
       options.params = params;
 
-      service.createSubmission('Publication', undefined);
+      service.createSubmission(undefined, 'Publication');
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
       expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, undefined);
     });
 
     it('should create a new submission with collection', () => {
-      const entityType = undefined
       const paramsObj = Object.create({});
-
-      if (isNotEmpty(entityType)) {
-        paramsObj.entityType = entityType;
-      }
-
       const params = new HttpParams({fromObject: paramsObj});
       const options: HttpOptions = Object.create({});
       options.params = params;
 
-      service.createSubmission(entityType,collectionId);
+      service.createSubmission(collectionId);
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
       expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options, collectionId);
@@ -461,6 +448,7 @@ describe('SubmissionService test suite', () => {
 
       service.createSubmissionForCollection('1234');
 
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
       expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options);
     });
   });

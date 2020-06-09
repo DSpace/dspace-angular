@@ -1,5 +1,5 @@
-import {ChangeDetectorRef, Component, DebugElement, EventEmitter, NO_ERRORS_SCHEMA} from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ChangeDetectorRef, Component, DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { Store } from '@ngrx/store';
@@ -21,7 +21,6 @@ import { getMockScrollToService } from '../../../shared/mocks/scroll-to-service.
 import { UploaderService } from '../../../shared/uploader/uploader.service';
 import { By } from '@angular/platform-browser';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
-import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -29,6 +28,7 @@ import { ResourceType } from '../../../core/shared/resource-type';
 import { Router } from '@angular/router';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 const authToken = 'fake-auth-token';
 const authServiceStub = Object.assign(new AuthServiceStub(), {
@@ -76,7 +76,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           { provide: NotificationsService, useValue: new NotificationsServiceStub() },
           { provide: ScrollToService, useValue: getMockScrollToService() },
           { provide: Router, useValue: new RouterMock() },
-          { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService()},
+          { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService() },
           { provide: Store, useValue: store },
           { provide: TranslateService, useValue: translateService },
           ChangeDetectorRef,
@@ -131,7 +131,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           { provide: ScrollToService, useValue: getMockScrollToService() },
           { provide: Store, useValue: store },
           { provide: Router, useValue: new RouterMock() },
-          { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService()},
+          { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService() },
           { provide: TranslateService, useValue: translateService },
           ChangeDetectorRef,
           MyDSpaceNewSubmissionDropdownComponent,
@@ -188,7 +188,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           { provide: ScrollToService, useValue: getMockScrollToService() },
           { provide: Store, useValue: store },
           { provide: Router, useValue: new RouterMock() },
-          { provide: EntityTypeService, useValue: getMockEntityTypeService()},
+          { provide: EntityTypeService, useValue: getMockEntityTypeService() },
           { provide: TranslateService, useValue: translateService },
           ChangeDetectorRef,
           MyDSpaceNewSubmissionDropdownComponent,
@@ -206,9 +206,10 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
     });
 
     it('should be a dropdown button', inject([MyDSpaceNewSubmissionDropdownComponent], (app: MyDSpaceNewSubmissionDropdownComponent) => {
+      submissionComponentFixture.detectChanges();
+
       const dropdownElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.dropdown-menu'));
       const dropdown = dropdownElement.nativeElement;
-      submissionComponentFixture.detectChanges();
       expect(dropdown.innerHTML).toBeDefined();
       const dropdownMenuItems: DebugElement[] = dropdownElement.queryAll(By.css('.dropdown-item'));
       expect(dropdownMenuItems.length).toEqual(3);
@@ -220,7 +221,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 });
 
 export function getMockEntityTypeService(): EntityTypeService {
-  const pageInfo = {elementsPerPage: 20, totalElements: 4, totalPages: 1, currentPage: 0} as PageInfo;
+  const pageInfo = { elementsPerPage: 20, totalElements: 4, totalPages: 1, currentPage: 0 } as PageInfo;
   const type1: ItemType = {
     id: '1',
     label: 'Publication',
@@ -242,15 +243,14 @@ export function getMockEntityTypeService(): EntityTypeService {
     type: new ResourceType('entitytype'),
     _links: undefined
   };
-  const ret = new RemoteData();
-  ret.payload = new PaginatedList(pageInfo, [type1, type2, type3]);
+  const rd$ = createSuccessfulRemoteDataObject$(new PaginatedList(pageInfo, [type1, type2, type3]));
   return jasmine.createSpyObj('entityTypeService', {
-    getAllAuthorizedRelationshipType: observableOf(ret)
+    getAllAuthorizedRelationshipType: rd$
   });
 }
 
 export function getMockEmptyEntityTypeService(): EntityTypeService {
-  const pageInfo = {elementsPerPage: 20, totalElements: 4, totalPages: 1, currentPage: 0} as PageInfo;
+  const pageInfo = { elementsPerPage: 20, totalElements: 4, totalPages: 1, currentPage: 0 } as PageInfo;
   const type1: ItemType = {
     id: '1',
     label: 'Publication',
@@ -258,12 +258,12 @@ export function getMockEmptyEntityTypeService(): EntityTypeService {
     type: new ResourceType('entitytype'),
     _links: undefined
   };
-  const ret = new RemoteData();
-  ret.payload = new PaginatedList(pageInfo, [type1]);
+  const rd$ = createSuccessfulRemoteDataObject$(new PaginatedList(pageInfo, [type1]));
   return jasmine.createSpyObj('entityTypeService', {
-    getAllAuthorizedRelationshipType: observableOf(ret)
+    getAllAuthorizedRelationshipType: rd$
   });
 }
+
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
