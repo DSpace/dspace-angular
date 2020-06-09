@@ -10,9 +10,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
-import { GetRequest } from './request.models';
+import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
-import {switchMap, take, tap} from 'rxjs/operators';
+import { switchMap, take, filter } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
 import {RelationshipType} from '../shared/item-relationships/relationship-type.model';
 import {PaginatedList} from './paginated-list';
@@ -49,6 +49,16 @@ export class EntityTypeService extends DataService<ItemType> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((href) => this.halService.getEndpoint('relationshiptypes', `${href}/${entityTypeId}`))
     );
+  }
+  /**
+   * Get the endpoint for the item type's allowed relationship types
+   * @param entityTypeId
+   */
+  getAllAuthorizedRelationshipType(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<ItemType>>> {
+    const searchHref = 'findAllByAuthorizedCollection';
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((type: RemoteData<PaginatedList<ItemType>>) => !type.isResponsePending));
   }
 
   /**
