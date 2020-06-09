@@ -11,7 +11,7 @@
   - Docker compose file that provides a DSpace CLI container to work with a running DSpace REST container.
 - cli.assetstore.yml
   - Docker compose file that will download and install data into a DSpace REST assetstore.  This script points to a default dataset that will be utilized for CI testing.
-- environment.dev.js
+- environment.dev.ts
   - Environment file for running DSpace Angular in Docker
 - local.cfg
   - Environment file for running the DSpace 7 REST API in Docker.
