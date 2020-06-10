@@ -21,7 +21,7 @@
               "path": "./webpack/webpack.common.ts",
               "mergeStrategies": {
                 "loaders": "prepend"
-              }
+              },
             },
             "outputPath": "dist/browser",
             "index": "src/index.html",

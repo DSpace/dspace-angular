@@ -221,7 +221,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // Redirect to the login route
       this.store.dispatch(new RedirectWhenTokenExpiredAction('auth.messages.expired'));
       return observableOf(null);
-    } else if (!this.isAuthRequest(req) && isNotEmpty(token)) {
+    } else if ((!this.isAuthRequest(req) || this.isLogoutResponse(req)) && isNotEmpty(token)) {
       // Intercept a request that is not to the authentication endpoint
       authService.isTokenExpiring().pipe(
         filter((isExpiring) => isExpiring))
