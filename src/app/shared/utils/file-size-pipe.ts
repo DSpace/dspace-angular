@@ -14,6 +14,6 @@ import * as fileSize from 'filesize';
 @Pipe({ name: 'dsFileSize' })
 export class FileSizePipe implements PipeTransform {
   transform(bytes: number = 0, precision: number = 2): string {
-    return fileSize(bytes, { standard: 'iec', round: precision });
+    return fileSize(bytes, { standard: 'jedec', round: precision });
   }
 }
