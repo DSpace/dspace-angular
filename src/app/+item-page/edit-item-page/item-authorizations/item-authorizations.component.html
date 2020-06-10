@@ -1,0 +1,13 @@
+<div class="container">
+  <ds-alert [type]="'alert-info'" [content]="'item.edit.authorizations.heading'"></ds-alert>
+  <ds-resource-policies [resourceType]="'item'" [resourceUUID]="(getItemUUID() | async)"></ds-resource-policies>
+  <ng-container *ngFor="let bundle of (getItemBundles() | async); trackById">
+    <ds-resource-policies [resourceType]="'bundle'"
+                          [resourceUUID]="bundle.id"></ds-resource-policies>
+    <ng-container *ngFor="let bitstream of (bundleBitstreamsMap.get(bundle.id) | async)?.page; trackById">
+      <ds-resource-policies [resourceType]="'bitstream'"
+                            [resourceUUID]="bitstream.id"></ds-resource-policies>
+    </ng-container>
+  </ng-container>
+</div>
+

@@ -13,7 +13,9 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 /**
  * The class that resolves the BreadcrumbConfig object for a DSpaceObject
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> implements Resolve<BreadcrumbConfig<T>> {
   constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: DataService<T>) {
   }
