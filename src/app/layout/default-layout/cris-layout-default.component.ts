@@ -17,7 +17,6 @@ import { CrisLayoutPage as CrisLayoutPageObj } from '../models/cris-layout-page.
 import { LayoutPage } from '../enums/layout-page.enum';
 import { Router, ActivatedRoute } from '@angular/router';
 import { hasValue } from 'src/app/shared/empty.util';
-import { getItemPageModulePath } from 'src/app/app-routing.module';
 
 /**
  * This component defines the default layout for all DSpace Items.
@@ -65,16 +64,6 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
           this.tabs = next;
           if (hasValue(this.tabs) && this.tabs.length > 0) {
             this.cd.markForCheck();
-          } else {
-            // If for this item configuration not exists
-            // the user is redirected to old detail component
-            this.route.paramMap.subscribe(
-              (paramMap) => {
-                if (hasValue(paramMap) && hasValue(paramMap.get('id'))) {
-                  this.router.navigate( [getItemPageModulePath(), paramMap.get('id')] );
-                }
-              }
-            );
           }
         }
     );

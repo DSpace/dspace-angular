@@ -17,12 +17,6 @@ export function getItemModulePath() {
   return `/${ITEM_MODULE_PATH}`;
 }
 
-const ITEM_PAGE_MODULE_PATH = 'items-page';
-
-export function getItemPageModulePath() {
-  return `/${ITEM_PAGE_MODULE_PATH}`;
-}
-
 const COLLECTION_MODULE_PATH = 'collections';
 
 export function getCollectionModulePath() {
@@ -79,8 +73,7 @@ export function getDSOPath(dso: DSpaceObject): string {
       { path: 'handle', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
       { path: COMMUNITY_MODULE_PATH, loadChildren: './+community-page/community-page.module#CommunityPageModule' },
       { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
-      { path: ITEM_MODULE_PATH, loadChildren: './cris-item-page/cris-item-page.module#CrisItemPageModule' },
-      { path: ITEM_PAGE_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
+      { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
       { path: BITSTREAM_MODULE_PATH, loadChildren: './+bitstream-page/bitstream-page.module#BitstreamPageModule' },
       {
         path: 'mydspace',

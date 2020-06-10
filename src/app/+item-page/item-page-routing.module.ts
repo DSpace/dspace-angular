@@ -11,6 +11,7 @@ import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.reso
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
+import { CrisItemPageTabResolver } from '../cris-item-page/cris-item-page-tab.resolver';
 
 export function getItemPageRoute(itemId: string) {
   return new URLCombiner(getItemModulePath(), itemId).toString();
@@ -30,7 +31,8 @@ const UPLOAD_BITSTREAM_PATH = 'bitstreams/new';
         path: ':id',
         resolve: {
           item: ItemPageResolver,
-          breadcrumb: ItemBreadcrumbResolver
+          breadcrumb: ItemBreadcrumbResolver,
+          tabs: CrisItemPageTabResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
