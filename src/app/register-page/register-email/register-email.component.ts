@@ -42,17 +42,19 @@ export class RegisterEmailComponent implements OnInit {
    * Register an email address
    */
   register() {
-    this.epersonRegistrationService.registerEmail(this.email.value).subscribe((response: RestResponse) => {
-        if (response.isSuccessful) {
-          this.notificationService.success(this.translateService.get('register-page.registration.success.head'),
-            this.translateService.get('register-page.registration.success.content', {email: this.email.value}));
-          this.router.navigate(['/home']);
-        } else {
-          this.notificationService.error(this.translateService.get('register-page.registration.error.head'),
-            this.translateService.get('register-page.registration.error.content', {email: this.email.value}));
+    if (!this.form.invalid) {
+      this.epersonRegistrationService.registerEmail(this.email.value).subscribe((response: RestResponse) => {
+          if (response.isSuccessful) {
+            this.notificationService.success(this.translateService.get('register-page.registration.success.head'),
+              this.translateService.get('register-page.registration.success.content', {email: this.email.value}));
+            this.router.navigate(['/home']);
+          } else {
+            this.notificationService.error(this.translateService.get('register-page.registration.error.head'),
+              this.translateService.get('register-page.registration.error.content', {email: this.email.value}));
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   get email() {

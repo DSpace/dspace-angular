@@ -7,7 +7,7 @@
                    for="email">{{'register-page.create-profile.identification.email' | translate}}</label>
             <span id="email">{{(registration$ |async).email}}</span></div>
     </div>
-    <form [class]="'ng-invalid'" [formGroup]="userInfoForm">
+    <form [class]="'ng-invalid'" [formGroup]="userInfoForm" (ngSubmit)="submitEperson()">
 
         <div class="form-group">
             <div class="row">
@@ -64,13 +64,13 @@
     <h4>{{'register-page.create-profile.security.header' | translate}}</h4>
     <p>{{'register-page.create-profile.security.info' | translate}}</p>
 
-    <form class="form-horizontal" [formGroup]="passwordForm">
+    <form class="form-horizontal" [formGroup]="passwordForm" (ngSubmit)="submitEperson()">
         <div class="form-group">
             <div class="row">
                 <div class="col-12">
                     <label class="font-weight-bold" for="password">{{'register-page.create-profile.security.password' |translate}}</label>
                     <input [type]="'password'"
-                           [className]="(passwordForm.invalid) && (password.dirty || password.touched) && (confirmPassword.dirty || confirmPassword.touched) ? 'form-control is-invalid' :'form-control'"
+                           [className]="(!(isValidPassWord$|async)) && (password.dirty || password.touched) && (confirmPassword.dirty || confirmPassword.touched) ? 'form-control is-invalid' :'form-control'"
                            type="text" id="password" formControlName="password"/>
                 </div>
             </div>
@@ -78,9 +78,9 @@
                 <div class="col-12">
                     <label class="font-weight-bold" for="confirmPassword">{{'register-page.create-profile.security.confirm-password' |translate}}</label>
                     <input [type]="'password'"
-                           [className]="(passwordForm.invalid) && (password.dirty || password.touched) && (confirmPassword.dirty || confirmPassword.touched) ? 'form-control is-invalid' :'form-control'"
+                           [className]="(!(isValidPassWord$|async)) && (password.dirty || password.touched) && (confirmPassword.dirty || confirmPassword.touched) ? 'form-control is-invalid' :'form-control'"
                            id="confirmPassword" formControlName="confirmPassword">
-                    <div *ngIf="passwordForm.invalid && (password.dirty || password.touched) && (confirmPassword.dirty || confirmPassword.touched)"
+                    <div *ngIf="!(isValidPassWord$|async) && (password.dirty || password.touched) && (confirmPassword.dirty || confirmPassword.touched)"
                          class="invalid-feedback show-feedback">
                         {{ 'register-page.create-profile.security.password.error' | translate }}
                     </div>
@@ -92,7 +92,7 @@
     <div class="row">
         <div class="col-12">
             <button
-                    [disabled]="passwordForm.invalid || userInfoForm.invalid"
+                    [disabled]=" !(isValidPassWord$|async) || userInfoForm.invalid"
                     class="btn btn-default btn-primary" (click)="submitEperson()">{{'register-page.create-profile.submit' | translate}}</button>
         </div>
     </div>

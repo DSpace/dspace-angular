@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -31,6 +31,8 @@ export class CreateProfileComponent implements OnInit {
   userInfoForm: FormGroup;
   passwordForm: FormGroup;
   activeLangs: LangConfig[];
+
+  isValidPassWord$: Observable<boolean>;
 
   constructor(
     private translateService: TranslateService,
@@ -68,15 +70,26 @@ export class CreateProfileComponent implements OnInit {
     this.passwordForm = this.formBuilder.group({
       password: new FormControl('', {
         validators: [Validators.required, Validators.minLength(6)],
-        updateOn: 'blur'
+        updateOn: 'change'
       }),
       confirmPassword: new FormControl('', {
         validators: [Validators.required],
-        updateOn: 'blur'
+        updateOn: 'change'
       })
     }, {
       validator: ConfirmedValidator('password', 'confirmPassword')
     });
+
+    this.isValidPassWord$ = this.passwordForm.statusChanges.pipe(
+      debounceTime(300),
+      map((status: string) => {
+        if (status === 'VALID') {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 
   get firstName() {

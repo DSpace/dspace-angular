@@ -32,9 +32,6 @@ import {
   RefreshTokenAction,
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction,
-  RegistrationAction,
-  RegistrationErrorAction,
-  RegistrationSuccessAction,
   RetrieveAuthenticatedEpersonAction,
   RetrieveAuthenticatedEpersonErrorAction,
   RetrieveAuthenticatedEpersonSuccessAction,
@@ -134,18 +131,6 @@ export class AuthEffects {
           }
         }),
         catchError((error) => observableOf(new AuthenticatedErrorAction(error)))
-      );
-    })
-  );
-
-  @Effect()
-  public createUser$: Observable<Action> = this.actions$.pipe(
-    ofType(AuthActionTypes.REGISTRATION),
-    debounceTime(500), // to remove when functionality is implemented
-    switchMap((action: RegistrationAction) => {
-      return this.authService.create(action.payload).pipe(
-        map((user: EPerson) => new RegistrationSuccessAction(user)),
-        catchError((error) => observableOf(new RegistrationErrorAction(error)))
       );
     })
   );

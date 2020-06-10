@@ -2,7 +2,7 @@
     <h2>{{'register-page.registration.header'|translate}}</h2>
     <p>{{'register-page.registration.info' | translate}}</p>
 
-    <form [class]="'ng-invalid'" [formGroup]="form">
+    <form [class]="'ng-invalid'" [formGroup]="form" (ngSubmit)="register()">
 
         <div class="form-group">
             <div class="row">
