@@ -219,8 +219,6 @@ describe('CommunityListComponent', () => {
   it('should render a cdk tree with the first elementsPerPage (2) nr of top level communities, unexpanded', () => {
     const expandableNodesFound = fixture.debugElement.queryAll(By.css('.expandable-node a'));
     const childlessNodesFound = fixture.debugElement.queryAll(By.css('.childless-node a'));
-    console.log('expandableNodesFound', expandableNodesFound)
-    console.log('childlessNodesFound', childlessNodesFound)
     const allNodes = [...expandableNodesFound, ...childlessNodesFound];
     expect(allNodes.length).toEqual(2);
     mockTopFlatnodesUnexpanded.slice(0, 2).map((topFlatnode: FlatNode) => {
