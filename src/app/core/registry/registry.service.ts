@@ -12,7 +12,7 @@ import {
   RestResponse
 } from '../cache/response.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
@@ -79,7 +79,9 @@ export class RegistryService {
     });
     return this.getMetadataSchemas(options).pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((schemas: PaginatedList<MetadataSchema>) => schemas.page.filter((schema) => schema.prefix === schemaName)[0]),
+      map((schemas: PaginatedList<MetadataSchema>) => schemas.page),
+      isNotEmptyOperator(),
+      map((schemas: MetadataSchema[]) => schemas.filter((schema) => schema.prefix === schemaName)[0]),
       flatMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, ...linksToFollow))
     );
   }

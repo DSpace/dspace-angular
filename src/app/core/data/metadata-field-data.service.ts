@@ -13,13 +13,14 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { FindListOptions } from './request.models';
+import { FindListOptions, FindListRequest } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { hasValue } from '../../shared/empty.util';
-import { tap } from 'rxjs/operators';
+import { find, skipWhile, switchMap, tap } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
 import { RequestParam } from '../cache/models/request-param.model';
+import { PaginatedList } from './paginated-list';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadatafields endpoint
@@ -82,6 +83,35 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
       tap((href: string) => {
         this.requestService.removeByHrefSubstring(href);
       })
+    );
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod The search method for the object
+   * @param options The [[FindListOptions]] object
+   * @param linksToFollow The array of [[FollowLinkConfig]]
+   * @return {Observable<RemoteData<PaginatedList<MetadataField>>}
+   *    Return an observable that emits response from the server
+   */
+  searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+    const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
+
+    return hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      tap((href: string) => {
+          this.requestService.removeByHrefSubstring(href);
+          const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
+
+          this.requestService.configure(request);
+        }
+      ),
+      switchMap((href) => this.requestService.getByHref(href)),
+      skipWhile((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
+      switchMap((href) =>
+        this.rdbService.buildList<MetadataField>(hrefObs, ...linksToFollow) as Observable<RemoteData<PaginatedList<MetadataField>>>
+      )
     );
   }
 
