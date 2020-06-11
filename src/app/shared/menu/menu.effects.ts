@@ -16,11 +16,6 @@ import { MenuID } from './initial-menus-state';
 @Injectable()
 export class MenuEffects {
 
-  constructor(private actions$: Actions,
-              private menuService: MenuService,
-              private route: ActivatedRoute) {
-  }
-
   /**
    * On route change, build menu sections for every menu type depending on the current route data
    */
@@ -34,6 +29,11 @@ export class MenuEffects {
         });
       })
     );
+
+  constructor(private actions$: Actions,
+              private menuService: MenuService,
+              private route: ActivatedRoute) {
+  }
 
   /**
    * Build menu sections depending on the current route
