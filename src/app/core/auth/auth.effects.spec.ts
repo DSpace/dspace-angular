@@ -150,7 +150,7 @@ describe('AuthEffects', () => {
 
   describe('authenticatedSuccess$', () => {
 
-    it('should not call removeToken method', (done) => {
+    it('should return a RETRIEVE_AUTHENTICATED_EPERSON action in response to a AUTHENTICATED_SUCCESS action', (done) => {
       spyOn((authEffects as any).authService, 'storeToken');
       actions = hot('--a-', {
         a: {
