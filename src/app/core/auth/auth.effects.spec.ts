@@ -150,7 +150,8 @@ describe('AuthEffects', () => {
 
   describe('authenticatedSuccess$', () => {
 
-    it('should return a RETRIEVE_AUTHENTICATED_EPERSON action in response to a AUTHENTICATED_SUCCESS action', () => {
+    it('should return a RETRIEVE_AUTHENTICATED_EPERSON action in response to a AUTHENTICATED_SUCCESS action', (done) => {
+      spyOn((authEffects as any).authService, 'storeToken');
       actions = hot('--a-', {
         a: {
           type: AuthActionTypes.AUTHENTICATED_SUCCESS, payload: {
@@ -163,8 +164,14 @@ describe('AuthEffects', () => {
 
       const expected = cold('--b-', { b: new RetrieveAuthenticatedEpersonAction(EPersonMock._links.self.href) });
 
+      authEffects.authenticatedSuccess$.subscribe(() => {
+        expect(authServiceStub.storeToken).toHaveBeenCalledWith(token);
+      });
+
       expect(authEffects.authenticatedSuccess$).toBeObservable(expected);
+      done();
     });
+
   });
 
   describe('checkToken$', () => {
