@@ -13,13 +13,13 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { SharedModule } from '../../../shared.module';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {
   let comp: ComcolMetadataComponent<DSpaceObject>;
   let fixture: ComponentFixture<ComcolMetadataComponent<DSpaceObject>>;
-  let dsoDataService: CommunityDataService;
+  let dsoDataService;
   let router: Router;
 
   let community;
@@ -27,7 +27,6 @@ describe('ComColMetadataComponent', () => {
   let communityDataServiceStub;
   let routerStub;
   let routeStub;
-  let isSuccessful = true;
 
   const logoEndpoint = 'rest/api/logo/endpoint';
 
@@ -50,11 +49,7 @@ describe('ComColMetadataComponent', () => {
 
     communityDataServiceStub = {
       update: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
-      patch: () => {
-        return observableOf({
-          isSuccessful,
-        })
-      },
+      patch: () => null,
       getLogoEndpoint: () => observableOf(logoEndpoint)
     };
 
@@ -123,22 +118,38 @@ describe('ComColMetadataComponent', () => {
             /* tslint:enable:no-empty */
           },
           deleteLogo: false,
-        }
+        };
+        spyOn(router, 'navigate');
       });
 
-      it('should navigate when successful', () => {
-        spyOn(router, 'navigate');
-        comp.onSubmit(data);
-        fixture.detectChanges();
-        expect(router.navigate).toHaveBeenCalled();
+      describe('when successful', () => {
+
+        beforeEach(() => {
+          spyOn(dsoDataService, 'patch').and.returnValue(observableOf({
+              isSuccessful: true,
+          }));
+        });
+
+        it('should navigate', () => {
+          comp.onSubmit(data);
+          fixture.detectChanges();
+          expect(router.navigate).toHaveBeenCalled();
+        });
       });
 
-      it('should not navigate on failure', () => {
-        isSuccessful = false;
-        spyOn(router, 'navigate');
-        comp.onSubmit(data);
-        fixture.detectChanges();
-        expect(router.navigate).not.toHaveBeenCalled();
+      describe('on failure', () => {
+
+        beforeEach(() => {
+          spyOn(dsoDataService, 'patch').and.returnValue(observableOf({
+              isSuccessful: false,
+            }));
+        });
+
+        it('should not navigate', () => {
+          comp.onSubmit(data);
+          fixture.detectChanges();
+          expect(router.navigate).not.toHaveBeenCalled();
+        });
       });
     });
 
