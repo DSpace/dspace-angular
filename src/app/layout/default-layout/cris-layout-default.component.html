@@ -1,0 +1,17 @@
+<div>
+  <div class="wrapper">
+      <ds-cris-layout-default-sidebar
+          [sidebarStatus]="sidebarStatus"
+          [tabs]="tabs"
+          (selectedTab)="changeTab($event)">
+      </ds-cris-layout-default-sidebar>
+      <div id="content">
+          <div class="row">
+              <button type="button" class="btn btn-link" (click)="hideShowSidebar()">
+                  <i class="fa fa-chevron-circle-{{sidebarStatus ? 'right' : 'left'}} fa-2x" aria-hidden="true"></i>
+              </button>
+          </div>
+          <ng-template dsCrisLayoutLoader></ng-template>
+      </div>
+  </div>
+</div>

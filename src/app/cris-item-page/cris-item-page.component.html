@@ -1,0 +1,4 @@
+<div *ngVar="(itemRD$ | async) as itemRD">
+  <ds-cris-page-loader [item]="item"></ds-cris-page-loader>
+  <ds-loading *ngIf="itemRD.isLoading" message="{{'loading.item' | translate}}"></ds-loading>
+</div>
