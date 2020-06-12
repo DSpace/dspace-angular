@@ -67,6 +67,10 @@ export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
 
+export const getSucceededRemoteWithNotEmptyData = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded && isNotEmpty(rd.payload)));
+
 /**
  * Get the first successful remotely retrieved object
  *
@@ -81,6 +85,23 @@ export const getFirstSucceededRemoteDataPayload = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(
       getSucceededRemoteData(),
+      getRemoteDataPayload()
+    );
+
+/**
+ * Get the first successful remotely retrieved object with not empty payload
+ *
+ * You usually don't want to use this, it is a code smell.
+ * Work with the RemoteData object instead, that way you can
+ * handle loading and errors correctly.
+ *
+ * These operators were created as a first step in refactoring
+ * out all the instances where this is used incorrectly.
+ */
+export const getFirstSucceededRemoteDataWithNotEmptyPayload = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<T> =>
+    source.pipe(
+      getSucceededRemoteWithNotEmptyData(),
       getRemoteDataPayload()
     );
 

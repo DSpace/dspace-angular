@@ -48,7 +48,7 @@ describe(`AuthInterceptor`, () => {
 
   describe('when has a valid token', () => {
 
-    it('should not add an Authorization header when we’re sending a HTTP request to \'authn\' endpoint', () => {
+    it('should not add an Authorization header when we’re sending a HTTP request to \'authn\' endpoint that is not the logout endpoint', () => {
       service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/authn/login', 'password=password&user=user').subscribe((response) => {
         expect(response).toBeTruthy();
       });
@@ -58,8 +58,19 @@ describe(`AuthInterceptor`, () => {
       const token = httpRequest.request.headers.get('authorization');
       expect(token).toBeNull();
     });
+    it('should add an Authorization header when we’re sending a HTTP request to the\'authn/logout\' endpoint', () => {
+      service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/authn/logout', 'test').subscribe((response) => {
+        expect(response).toBeTruthy();
+      });
 
-    it('should add an Authorization header when we’re sending a HTTP request to \'authn\' endpoint', () => {
+      const httpRequest = httpMock.expectOne(`dspace-spring-rest/api/authn/logout`);
+
+      expect(httpRequest.request.headers.has('authorization'));
+      const token = httpRequest.request.headers.get('authorization');
+      expect(token).toBe('Bearer token_test');
+    });
+
+    it('should add an Authorization header when we’re sending a HTTP request to a non-\'authn\' endpoint', () => {
       service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/submission/workspaceitems', 'test').subscribe((response) => {
         expect(response).toBeTruthy();
       });

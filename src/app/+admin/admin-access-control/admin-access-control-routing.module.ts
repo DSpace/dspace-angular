@@ -6,7 +6,7 @@ import { GroupsRegistryComponent } from './group-registry/groups-registry.compon
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { getAccessControlModulePath } from '../admin-routing.module';
 
-const GROUP_EDIT_PATH = 'groups';
+export const GROUP_EDIT_PATH = 'groups';
 
 export function getGroupEditPath(id: string) {
   return new URLCombiner(getAccessControlModulePath(), GROUP_EDIT_PATH, id).toString();
