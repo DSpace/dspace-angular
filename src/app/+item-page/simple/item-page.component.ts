@@ -14,6 +14,7 @@ import { fadeInOut } from '../../shared/animations/fade';
 import { redirectToPageNotFoundOn404 } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { Tab } from 'src/app/core/layout/models/tab.model';
+import { PaginatedList } from '../../core/data/paginated-list';
 
 /**
  * This component renders a simple item page.
@@ -47,7 +48,7 @@ export class ItemPageComponent implements OnInit {
   /**
    * The configured tabs for layout of current item
    */
-  tabsRD$: Observable<RemoteData<Tab>>;
+  tabsRD$: Observable<RemoteData<PaginatedList<Tab>>>;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,7 +66,7 @@ export class ItemPageComponent implements OnInit {
       redirectToPageNotFoundOn404(this.router)
     );
     this.tabsRD$ = this.route.data.pipe(
-      map((data) => data.tabs as RemoteData<Tab>),
+      map((data) => data.tabs as RemoteData<PaginatedList<Tab>>),
     );
     this.metadataService.processRemoteData(this.itemRD$);
   }

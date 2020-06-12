@@ -3,7 +3,7 @@
     <div *ngIf="hasBitstream()" class="col-2">
       <ds-thumbnail [thumbnail]="getThumbnail() | async" [defaultImage]="'assets/images/person-placeholder.svg'"></ds-thumbnail>
     </div>
-    <div [ngClass]="{ 'col-10': hasBitstream(row) }">
+    <div [ngClass]="{ 'col-10': hasBitstream() }">
       <!-- PRINT ROWS -->
       <div ds-row *ngFor="let row of metadatacomponents?.rows" [row]="row" [item]="item" class="row">
       </div>

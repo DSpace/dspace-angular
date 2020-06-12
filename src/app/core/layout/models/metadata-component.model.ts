@@ -6,7 +6,6 @@ import { HALLink } from '../../shared/hal-link.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 
-/* tslint:disable:max-classes-per-file */
 interface Row {
   fields: Field[];
 }
@@ -23,6 +22,7 @@ interface Field {
   fieldType: string;
   style: string;
 }
+
 /**
  * Describes a type of metadatacomponent
  */
