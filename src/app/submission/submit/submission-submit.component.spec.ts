@@ -15,9 +15,13 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { SubmissionSubmitComponent } from './submission-submit.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import {CollectionDataService} from '../../core/data/collection-data.service';
 
 describe('SubmissionSubmitComponent Component', () => {
-
+  const collectionDataService: any = jasmine.createSpyObj('collectionDataService', {
+    findById: jasmine.createSpy('findById'),
+    getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity')
+  });
   let comp: SubmissionSubmitComponent;
   let fixture: ComponentFixture<SubmissionSubmitComponent>;
   let submissionServiceStub: SubmissionServiceStub;
@@ -38,6 +42,7 @@ describe('SubmissionSubmitComponent Component', () => {
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: CollectionDataService, useValue: collectionDataService },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },

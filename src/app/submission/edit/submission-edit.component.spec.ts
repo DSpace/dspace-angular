@@ -17,6 +17,7 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {CollectionDataService} from '../../core/data/collection-data.service';
 
 describe('SubmissionEditComponent Component', () => {
 
@@ -28,6 +29,11 @@ describe('SubmissionEditComponent Component', () => {
   const submissionId = '826';
   const route: ActivatedRouteStub = new ActivatedRouteStub();
   const submissionObject: any = mockSubmissionObject;
+  const collectionDataService: any = jasmine.createSpyObj('collectionDataService', {
+    findById: jasmine.createSpy('findById'),
+    getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity'),
+    findAuthorizedByRelationshipType: jasmine.createSpy('findAuthorizedByRelationshipType')
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -41,6 +47,7 @@ describe('SubmissionEditComponent Component', () => {
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: CollectionDataService, useValue: collectionDataService },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: route },

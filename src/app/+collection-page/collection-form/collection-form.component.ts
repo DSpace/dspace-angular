@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
+  DynamicSelectModel,
   DynamicTextAreaModel
 } from '@ng-dynamic-forms/core';
 import { Collection } from '../../core/shared/collection.model';
@@ -14,6 +15,12 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { EntityTypeService } from '../../core/data/entity-type.service';
+import { DynamicFormOptionConfig } from '@ng-dynamic-forms/core/lib/model/dynamic-option-control.model';
+import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { MetadataValue } from '../../core/shared/metadata.models';
+import { FindListOptions } from '../../core/data/request.models';
+import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 
 /**
  * Form used for creating and editing collections
@@ -23,7 +30,7 @@ import { ObjectCacheService } from '../../core/cache/object-cache.service';
   styleUrls: ['../../shared/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol-forms/comcol-form/comcol-form.component.html'
 })
-export class CollectionFormComponent extends ComColFormComponent<Collection> {
+export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit {
   /**
    * @type {Collection} A new collection when a collection is being created, an existing Input collection when a collection is being edited
    */
@@ -33,6 +40,19 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
    * @type {Collection.type} This is a collection-type form
    */
   type = Collection.type;
+
+  entityTypeSelection: DynamicSelectModel<string> = new DynamicSelectModel({
+    id: 'entitytype',
+    name: 'relationship.type',
+    required: true,
+    disabled: false,
+    validators: {
+      required: null
+    },
+    errorMessages: {
+      required: 'Please choose a type'
+    },
+  });
 
   /**
    * The dynamic form fields used for creating/editing a collection
@@ -70,10 +90,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
       id: 'license',
       name: 'dc.rights.license',
     }),
-    new DynamicTextAreaModel({
-      id: 'provenance',
-      name: 'dc.description.provenance',
-    }),
+    this.entityTypeSelection,
   ];
 
   public constructor(protected location: Location,
@@ -83,7 +100,35 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
                      protected authService: AuthService,
                      protected dsoService: CommunityDataService,
                      protected requestService: RequestService,
-                     protected objectCache: ObjectCacheService) {
+                     protected objectCache: ObjectCacheService,
+                     protected entityTypeService: EntityTypeService) {
     super(location, formService, translate, notificationsService, authService, requestService, objectCache);
+  }
+
+  ngOnInit() {
+
+    let tmp: MetadataValue[];
+    if (this.dso && this.dso.metadata) {
+      tmp = this.dso.metadata['relationship.type'];
+    }
+    // retrieve all entity types to populate a dropdown selection
+    this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 } as FindListOptions).pipe(
+      getFirstSucceededRemoteListPayload()
+    ).subscribe((data: ItemType[]) => {
+      let index = 0;
+      data.map((type: ItemType) => {
+        this.entityTypeSelection.add({
+          disabled: false,
+          label: type.label,
+          value: type.label
+        } as DynamicFormOptionConfig<string>);
+        if (tmp && tmp.length > 0 && tmp[0].value === type.label) {
+          this.entityTypeSelection.select(index);
+          this.entityTypeSelection.disabled = true;
+        }
+        index++;
+      });
+    });
+    super.ngOnInit();
   }
 }

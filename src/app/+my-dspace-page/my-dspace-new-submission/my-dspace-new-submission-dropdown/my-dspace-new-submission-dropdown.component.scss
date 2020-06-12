@@ -1,0 +1,20 @@
+.parent {
+  display: flex;
+}
+
+.upload {
+  flex: auto;
+}
+
+.add {
+  flex: initial;
+}
+
+.dropdown-menu {
+  width: calc(100% - 0.5rem)
+}
+
+.dropdown-menu-scroll {
+  max-height: 25rem;
+  overflow-y: auto;
+}
