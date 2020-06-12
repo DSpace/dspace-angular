@@ -9,12 +9,12 @@ import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.uti
 import { medataComponent } from 'src/app/shared/testing/metadata-components.mock';
 import { Item } from 'src/app/core/shared/item.model';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrisLayoutLoaderDirective } from 'src/app/layout/directives/cris-layout-loader.directive';
 import { RowComponent } from '../components/row/row.component';
-import { NO_ERRORS_SCHEMA, ComponentFactoryResolver } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { LayoutPage } from 'src/app/layout/enums/layout-page.enum';
 import { By } from '@angular/platform-browser';
 import { MetadataComponentsDataService } from 'src/app/core/layout/metadata-components-data.service';
@@ -23,11 +23,13 @@ import { boxMetadata } from 'src/app/shared/testing/box.mock';
 import { TextComponent } from '../components/text/text.component';
 
 const testType = LayoutPage.DEFAULT;
+
 class TestItem {
   firstMetadataValue(key: string): string {
     return testType;
   }
 }
+
 // tslint:disable-next-line: max-classes-per-file
 class MetadataComponentsDataServiceMock {
   findById(boxShortname: string): Observable<RemoteData<MetadataComponent>> {
@@ -59,8 +61,8 @@ describe('CrisLayoutMetadataBoxComponent', () => {
         }
       }), BrowserAnimationsModule],
       providers: [
-        {provide: MetadataComponentsDataService, useClass: MetadataComponentsDataServiceMock},
-        {provide: BitstreamDataService, useClass: BitstreamDataServiceMock}
+        { provide: MetadataComponentsDataService, useClass: MetadataComponentsDataServiceMock },
+        { provide: BitstreamDataService, useClass: BitstreamDataServiceMock }
       ],
       declarations: [
         CrisLayoutMetadataBoxComponent,

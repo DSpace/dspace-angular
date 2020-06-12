@@ -2,14 +2,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrisPageLoaderComponent } from './cris-page-loader.component';
 import { CrisLayoutDefaultComponent } from './default-layout/cris-layout-default.component';
-import { NO_ERRORS_SCHEMA, ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CrisLayoutLoaderDirective } from './directives/cris-layout-loader.directive';
 import { LayoutPage } from './enums/layout-page.enum';
 import { Item } from '../core/shared/item.model';
 import { spyOnExported } from '../shared/testing/utils.test';
 import * as CrisLayoutDecorators from './decorators/cris-layout-page.decorator';
-import { TabDataService } from '../core/data/tab-data.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { TabDataService } from '../core/layout/tab-data.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FollowLinkConfig } from '../shared/utils/follow-link-config.model';
 import { Tab } from '../core/layout/models/tab.model';
 import { Observable } from 'rxjs';
@@ -21,18 +21,20 @@ import { cold } from 'jasmine-marbles';
 import { tabs } from '../shared/testing/tab.mock';
 
 const testType = LayoutPage.DEFAULT;
+
 class TestItem {
   firstMetadataValue(key: string): string {
     return testType;
   }
 }
+
 // tslint:disable-next-line: max-classes-per-file
 class TabDataServiceMock {
   findByItem(itemUuid: string, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
     return cold('a|', {
       a: createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), tabs)
-        )
+        new PaginatedList(new PageInfo(), tabs)
+      )
     });
   }
 }
@@ -47,11 +49,11 @@ describe('CrisPageLoaderComponent', () => {
       declarations: [CrisPageLoaderComponent, CrisLayoutDefaultComponent, CrisLayoutLoaderDirective],
       providers: [
         ComponentFactoryResolver,
-        {provide: TabDataService, useClass: TabDataServiceMock},
-        {provide: Router, useValue: {}},
-        {provide: ActivatedRoute, useValue: {}},
-        {provide: ComponentFactoryResolver, useValue: {}},
-        {provide: ChangeDetectorRef, useValue: {}}
+        { provide: TabDataService, useClass: TabDataServiceMock },
+        { provide: Router, useValue: {} },
+        { provide: ActivatedRoute, useValue: {} },
+        { provide: ComponentFactoryResolver, useValue: {} },
+        { provide: ChangeDetectorRef, useValue: {} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(CrisPageLoaderComponent, {
