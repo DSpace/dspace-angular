@@ -7,15 +7,15 @@ import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 
 /* tslint:disable:max-classes-per-file */
-class Row {
+interface Row {
   fields: Field[];
 }
-class Bitstream {
+interface Bitstream {
   bundle: string;
   metadataField: string;
   metadataValue: string;
 }
-class Field {
+interface Field {
   metadata?: string;
   bitstream?: Bitstream;
   label: string;

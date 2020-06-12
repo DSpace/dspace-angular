@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 
-import { LayoutRoutingModule } from './layout-routing.module';
 import { CrisLayoutLoaderDirective } from './directives/cris-layout-loader.directive';
 import { CrisPageLoaderComponent } from './cris-page-loader.component';
 import { CrisLayoutDefaultComponent } from './default-layout/cris-layout-default.component';
@@ -27,7 +26,6 @@ import { HeadingComponent } from './default-layout/boxes/components/heading/head
   ],
   imports: [
     CommonModule,
-    LayoutRoutingModule,
     SharedModule
   ],
   entryComponents: [
