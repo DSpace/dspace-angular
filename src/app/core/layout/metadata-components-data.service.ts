@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DataService } from './data.service';
+import { DataService } from '../data/data.service';
 import { MetadataComponent } from '../layout/models/metadata-component.model';
-import { RequestService } from './request.service';
+import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
@@ -9,12 +9,12 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { ChangeAnalyzer } from './change-analyzer';
+import { ChangeAnalyzer } from '../data/change-analyzer';
 import { dataService } from '../cache/builders/build-decorators';
 import { METADATACOMPONENT } from '../layout/models/metadata-component.resource-type';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { Observable } from 'rxjs';
-import { RemoteData } from './remote-data';
+import { RemoteData } from '../data/remote-data';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<MetadataComponent> {

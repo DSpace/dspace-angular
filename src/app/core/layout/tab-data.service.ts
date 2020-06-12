@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Tab } from '../layout/models/tab.model';
-import { DataService } from './data.service';
-import { RequestService } from './request.service';
+import { DataService } from '../data/data.service';
+import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
@@ -9,15 +9,15 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { ChangeAnalyzer } from './change-analyzer';
+import { ChangeAnalyzer } from '../data/change-analyzer';
 import { TAB } from '../layout/models/tab.resource-type';
 import { dataService } from '../cache/builders/build-decorators';
 import { Observable } from 'rxjs';
-import { RemoteData } from './remote-data';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { PaginatedList } from './paginated-list';
+import { RemoteData } from '../data/remote-data';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
+import { PaginatedList } from '../data/paginated-list';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
-import { FindListOptions } from './request.models';
+import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 
 /* tslint:disable:max-classes-per-file */

@@ -12,7 +12,7 @@ import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.uti
 import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { tabs, tabPersonTest } from 'src/app/shared/testing/tab.mock';
 import { ComponentFactoryResolver, ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TabDataService } from 'src/app/core/data/tab-data.service';
+import { TabDataService } from 'src/app/core/layout/tab-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CrisLayoutDefaultTabComponent } from './tab/cris-layout-default-tab.component';
 import * as CrisLayoutTabDecorators from '../decorators/cris-layout-tab.decorator';
@@ -23,7 +23,7 @@ import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
 import { Box } from 'src/app/core/layout/models/box.model';
-import { BoxDataService } from 'src/app/core/data/box-data.service';
+import { BoxDataService } from 'src/app/core/layout/box-data.service';
 
 const testType = LayoutPage.DEFAULT;
 class TestItem {

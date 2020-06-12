@@ -4,7 +4,7 @@ import { CrisLayoutLoaderDirective } from '../../directives/cris-layout-loader.d
 import { CrisLayoutTab as CrisLayoutTabObj } from '../../models/cris-layout-tab.model';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { LayoutTab } from '../../enums/layout-tab.enum';
-import { BoxDataService } from 'src/app/core/data/box-data.service';
+import { BoxDataService } from 'src/app/core/layout/box-data.service';
 import { CrisLayoutTab } from '../../decorators/cris-layout-tab.decorator';
 import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 import { getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';

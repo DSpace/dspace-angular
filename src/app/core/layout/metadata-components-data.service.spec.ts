@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
 import { MetadataComponentsDataService } from './metadata-components-data.service';
-import { RequestService } from './request.service';
+import { RequestService } from '../data/request.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { TestScheduler } from 'rxjs/testing';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestEntry } from './request.reducer';
-import { MetadataComponent } from '../layout/models/metadata-component.model';
+import { RequestEntry } from '../data/request.reducer';
+import { MetadataComponent } from './models/metadata-component.model';
 import { getTestScheduler, cold, hot } from 'jasmine-marbles';
 import { RestResponse } from '../cache/response.models';
-import { METADATACOMPONENT } from '../layout/models/metadata-component.resource-type';
+import { METADATACOMPONENT } from './models/metadata-component.resource-type';
 import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
 import { of } from 'rxjs';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';

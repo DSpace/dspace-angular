@@ -5,7 +5,7 @@ import { LayoutTab } from 'src/app/layout/enums/layout-tab.enum';
 import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
 import { LayoutPage } from 'src/app/layout/enums/layout-page.enum';
 import { MetadataComponent } from 'src/app/core/layout/models/metadata-component.model';
-import { MetadataComponentsDataService } from 'src/app/core/data/metadata-components-data.service';
+import { MetadataComponentsDataService } from 'src/app/core/layout/metadata-components-data.service';
 import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
 import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
 import { Observable } from 'rxjs';

@@ -1,21 +1,21 @@
 import { TabDataService } from './tab-data.service';
 import { TestScheduler } from 'rxjs/testing';
-import { RequestService } from './request.service';
+import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { getTestScheduler, cold, hot } from 'jasmine-marbles';
-import { Tab } from '../layout/models/tab.model';
+import { Tab } from './models/tab.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { RequestEntry } from './request.reducer';
-import { TAB } from '../layout/models/tab.resource-type';
+import { RequestEntry } from '../data/request.reducer';
+import { TAB } from './models/tab.resource-type';
 import { PageInfo } from '../shared/page-info.model';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from '../data/paginated-list';
 import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
 import { RestResponse } from '../cache/response.models';
 import { of } from 'rxjs';
-import { FindListOptions } from './request.models';
+import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 
 describe('TabDataService', () => {

@@ -17,7 +17,7 @@ import { RowComponent } from '../components/row/row.component';
 import { NO_ERRORS_SCHEMA, ComponentFactoryResolver } from '@angular/core';
 import { LayoutPage } from 'src/app/layout/enums/layout-page.enum';
 import { By } from '@angular/platform-browser';
-import { MetadataComponentsDataService } from 'src/app/core/data/metadata-components-data.service';
+import { MetadataComponentsDataService } from 'src/app/core/layout/metadata-components-data.service';
 import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
 import { boxMetadata } from 'src/app/shared/testing/box.mock';
 import { TextComponent } from '../components/text/text.component';
