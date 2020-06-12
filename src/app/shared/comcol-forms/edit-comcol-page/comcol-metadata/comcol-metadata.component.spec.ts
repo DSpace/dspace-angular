@@ -27,6 +27,7 @@ describe('ComColMetadataComponent', () => {
   let communityDataServiceStub;
   let routerStub;
   let routeStub;
+  let isSuccessful = true;
 
   const logoEndpoint = 'rest/api/logo/endpoint';
 
@@ -49,6 +50,11 @@ describe('ComColMetadataComponent', () => {
 
     communityDataServiceStub = {
       update: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
+      patch: () => {
+        return observableOf({
+          isSuccessful,
+        })
+      },
       getLogoEndpoint: () => observableOf(logoEndpoint)
     };
 
@@ -95,21 +101,28 @@ describe('ComColMetadataComponent', () => {
     describe('with an empty queue in the uploader', () => {
       beforeEach(() => {
         data = {
-          dso: Object.assign(new Community(), {
-            metadata: [{
-              key: 'dc.title',
-              value: 'test'
-            }]
-          }),
+          operations: [
+            {
+              op: 'replace',
+              path: '/metadata/dc.title',
+              value: {
+                value: 'test',
+                language: null,
+              },
+            },
+          ],
+          dso: new Community(),
           uploader: {
             options: {
               url: ''
             },
             queue: [],
             /* tslint:disable:no-empty */
-            uploadAll: () => {}
+            uploadAll: () => {
+            }
             /* tslint:enable:no-empty */
-          }
+          },
+          deleteLogo: false,
         }
       });
 
@@ -121,8 +134,8 @@ describe('ComColMetadataComponent', () => {
       });
 
       it('should not navigate on failure', () => {
+        isSuccessful = false;
         spyOn(router, 'navigate');
-        spyOn(dsoDataService, 'update').and.returnValue(createFailedRemoteDataObject$(newCommunity));
         comp.onSubmit(data);
         fixture.detectChanges();
         expect(router.navigate).not.toHaveBeenCalled();

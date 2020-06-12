@@ -767,6 +767,10 @@
 
   "community.edit.notifications.success": "Successfully edited the Community",
 
+  "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
+
+  "community.edit.notifications.error": "An error occured while editing the Community",
+
   "community.edit.return": "Return",
 
 

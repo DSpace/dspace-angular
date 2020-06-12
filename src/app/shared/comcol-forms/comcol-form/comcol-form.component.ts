@@ -25,6 +25,7 @@ import { hasValue, isNotEmpty } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { UploaderOptions } from '../../uploader/uploader-options.model';
 import { UploaderComponent } from '../../uploader/uploader.component';
+import { Operation } from 'fast-json-patch';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -85,7 +86,8 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
   @Output() submitForm: EventEmitter<{
     dso: T,
     uploader: FileUploader,
-    deleteLogo: boolean
+    deleteLogo: boolean,
+    operations: Operation[],
   }> = new EventEmitter();
 
   /**
@@ -189,9 +191,9 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
     const formMetadata = {}  as MetadataMap;
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
       const value: MetadataValue = {
-          value: fieldModel.value as string,
-          language: null
-        } as any;
+        value: fieldModel.value as string,
+        language: null
+      } as any;
       if (formMetadata.hasOwnProperty(fieldModel.name)) {
         formMetadata[fieldModel.name].push(value);
       } else {
@@ -206,10 +208,26 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
       },
       type: Community.type
     });
+
+    const operations: Operation[] = [];
+    this.formModel.forEach((fieldModel: DynamicInputModel) => {
+      if (fieldModel.value !== this.dso.firstMetadataValue(fieldModel.name)) {
+        operations.push({
+          op: 'replace',
+          path: `/metadata/${fieldModel.name}`,
+          value: {
+            value: fieldModel.value,
+            language: null,
+          },
+        });
+      }
+    });
+
     this.submitForm.emit({
       dso: updatedDSO,
       uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
-      deleteLogo: this.markLogoForDeletion
+      deleteLogo: this.markLogoForDeletion,
+      operations: operations,
     });
   }
 
@@ -257,7 +275,9 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * The request was successful, display a success notification
    */
   public onCompleteItem() {
-    this.refreshCache();
+    if (hasValue(this.dso.id)) {
+      this.refreshCache();
+    }
     this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.success'));
     this.finish.emit();
   }
