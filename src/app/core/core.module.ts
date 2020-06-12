@@ -148,11 +148,11 @@ import { AuthorityTreeviewService } from '../shared/authority-treeview/authority
 import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { Authority } from './integration/models/authority.model';
 import { AuthorityEntry } from './integration/models/authority-entry.model';
-import { TabDataService } from './data/tab-data.service';
+import { TabDataService } from './layout/tab-data.service';
 import { Tab } from './layout/models/tab.model';
-import { BoxDataService } from './data/box-data.service';
+import { BoxDataService } from './layout/box-data.service';
 import { Box } from './layout/models/box.model';
-import { MetadataComponentsDataService } from './data/metadata-components-data.service';
+import { MetadataComponentsDataService } from './layout/metadata-components-data.service';
 import { MetadataComponent } from './layout/models/metadata-component.model';
 
 /**

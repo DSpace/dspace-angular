@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { Tab } from '../core/layout/models/tab.model';
-import { TabDataService } from '../core/data/tab-data.service';
+import { TabDataService } from '../core/layout/tab-data.service';
 import { Observable, pipe } from 'rxjs';
 import { find } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';

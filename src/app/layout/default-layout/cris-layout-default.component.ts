@@ -8,7 +8,7 @@ import {
   OnDestroy } from '@angular/core';
 import { Tab } from 'src/app/core/layout/models/tab.model';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
-import { TabDataService } from 'src/app/core/data/tab-data.service';
+import { TabDataService } from 'src/app/core/layout/tab-data.service';
 import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
 import { getCrisLayoutTab } from '../decorators/cris-layout-tab.decorator';
