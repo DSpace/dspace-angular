@@ -98,7 +98,7 @@ export class EpersonRegistrationService {
     return this.requestService.getByUUID(requestId).pipe(
       filterSuccessfulResponses(),
       map((restResponse: RegistrationSuccessResponse) => {
-        return Object.assign(new Registration(), {email: restResponse.registration.email, token: token});
+        return Object.assign(new Registration(), {email: restResponse.registration.email, token: token, user: restResponse.registration.user});
       }),
       take(1),
     );

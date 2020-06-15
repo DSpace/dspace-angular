@@ -1,36 +1,3 @@
-<div class="container">
-    <h2>{{'register-page.registration.header'|translate}}</h2>
-    <p>{{'register-page.registration.info' | translate}}</p>
-
-    <form [class]="'ng-invalid'" [formGroup]="form" (ngSubmit)="register()">
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-12">
-                    <label class="font-weight-bold"
-                           for="email">{{'register-page.registration.email' | translate}}</label>
-                    <input [className]="(email.invalid) && (email.dirty || email.touched) ? 'form-control is-invalid' :'form-control'"
-                           type="text" id="email" formControlName="email"/>
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)"
-                         class="invalid-feedback show-feedback">
-                    <span *ngIf="email.errors && email.errors.required">
-                        {{ 'register-page.registration.email.error.required' | translate }}
-                    </span>
-                    <span *ngIf="email.errors && email.errors.pattern">
-                        {{ 'register-page.registration.email.error.pattern' | translate }}
-                    </span>
-                    </div>
-                </div>
-                <div class="col-12">
-                    {{'register-page.registration.email.hint' |translate}}
-                </div>
-
-            </div>
-
-        </div>
-    </form>
-    
-    <button class="btn btn-primary"
-            [disabled]="form.invalid"
-            (click)="register()">{{'register-page.registration.register'| translate}}</button>
-</div>
+<ds-register-email-form
+        [MESSAGE_PREFIX]="'register-page.registration'">
+</ds-register-email-form>

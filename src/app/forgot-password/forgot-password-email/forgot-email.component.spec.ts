@@ -1,24 +1,23 @@
+import { ForgotEmailComponent } from './forgot-email.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RegisterEmailComponent } from './register-email.component';
 
-describe('RegisterEmailComponent', () => {
-
-  let comp: RegisterEmailComponent;
-  let fixture: ComponentFixture<RegisterEmailComponent>;
+describe('ForgotEmailComponent', () => {
+  let comp: ForgotEmailComponent;
+  let fixture: ComponentFixture<ForgotEmailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [RegisterEmailComponent],
+      declarations: [ForgotEmailComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegisterEmailComponent);
+    fixture = TestBed.createComponent(ForgotEmailComponent);
     comp = fixture.componentInstance;
 
     fixture.detectChanges();

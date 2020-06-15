@@ -52,6 +52,13 @@ export function getRegisterPath() {
 
 }
 
+const FORGOT_PASSWORD_PATH = 'forgot';
+
+export function getForgotPasswordPath() {
+  return `/${FORGOT_PASSWORD_PATH}`;
+
+}
+
 const WORKFLOW_ITEM_MODULE_PATH = 'workflowitems';
 
 export function getWorkflowItemModulePath() {
@@ -79,6 +86,7 @@ export function getDSOPath(dso: DSpaceObject): string {
       { path: 'id', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
       { path: 'handle', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
       { path: REGISTER_PATH, loadChildren: './register-page/register-page.module#RegisterPageModule' },
+      { path: FORGOT_PASSWORD_PATH, loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule' },
       { path: COMMUNITY_MODULE_PATH, loadChildren: './+community-page/community-page.module#CommunityPageModule' },
       { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
       { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },

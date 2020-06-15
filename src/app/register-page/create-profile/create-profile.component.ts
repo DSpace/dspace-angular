@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ConfirmedValidator } from './confirmed.validator';
 import { TranslateService } from '@ngx-translate/core';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -14,6 +13,7 @@ import { CoreState } from '../../core/core.reducers';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { environment } from '../../../environments/environment';
+import { isEmpty } from '../../shared/empty.util';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -28,11 +28,11 @@ export class CreateProfileComponent implements OnInit {
   email: string;
   token: string;
 
-  userInfoForm: FormGroup;
-  passwordForm: FormGroup;
-  activeLangs: LangConfig[];
+  isInValidPassword = true;
+  password: string;
 
-  isValidPassWord$: Observable<boolean>;
+  userInfoForm: FormGroup;
+  activeLangs: LangConfig[];
 
   constructor(
     private translateService: TranslateService,
@@ -67,29 +67,23 @@ export class CreateProfileComponent implements OnInit {
       language: new FormControl(''),
     });
 
-    this.passwordForm = this.formBuilder.group({
-      password: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(6)],
-        updateOn: 'change'
-      }),
-      confirmPassword: new FormControl('', {
-        validators: [Validators.required],
-        updateOn: 'change'
-      })
-    }, {
-      validator: ConfirmedValidator('password', 'confirmPassword')
-    });
+  }
 
-    this.isValidPassWord$ = this.passwordForm.statusChanges.pipe(
-      debounceTime(300),
-      map((status: string) => {
-        if (status === 'VALID') {
-          return true;
-        } else {
-          return false;
-        }
-      })
-    );
+  /**
+   * Sets the validity of the password based on a value emitted from the form
+   * @param $event
+   */
+  setInValid($event: boolean) {
+    this.isInValidPassword = $event || isEmpty(this.password);
+  }
+
+  /**
+   * Sets the value of the password based on a value emitted from the form
+   * @param $event
+   */
+  setPasswordValue($event: string) {
+    this.password = $event;
+    this.isInValidPassword = this.isInValidPassword || isEmpty(this.password);
   }
 
   get firstName() {
@@ -108,20 +102,12 @@ export class CreateProfileComponent implements OnInit {
     return this.userInfoForm.get('language');
   }
 
-  get password() {
-    return this.passwordForm.get('password');
-  }
-
-  get confirmPassword() {
-    return this.passwordForm.get('confirmPassword');
-  }
-
   /**
    * Submits the eperson to the service to be created.
-   * The submission will not be made when the form is not valid.
+   * The submission will not be made when the form or the password is not valid.
    */
   submitEperson() {
-    if (!(this.userInfoForm.invalid || this.passwordForm.invalid)) {
+    if (!(this.userInfoForm.invalid || this.isInValidPassword)) {
       const values = {
         metadata: {
           'eperson.firstname': [
@@ -146,7 +132,7 @@ export class CreateProfileComponent implements OnInit {
           ]
         },
         email: this.email,
-        password: this.password.value,
+        password: this.password,
         canLogIn: true,
         requireCertificate: false
       };
@@ -156,14 +142,14 @@ export class CreateProfileComponent implements OnInit {
         if (response.isSuccessful) {
           this.notificationsService.success(this.translateService.get('register-page.create-profile.submit.success.head'),
             this.translateService.get('register-page.create-profile.submit.success.content'));
-          this.store.dispatch(new AuthenticateAction(this.email, this.password.value));
+          this.store.dispatch(new AuthenticateAction(this.email, this.password));
           this.router.navigate(['/home']);
         } else {
           this.notificationsService.error(this.translateService.get('register-page.create-profile.submit.error.head'),
             this.translateService.get('register-page.create-profile.submit.error.content'));
         }
       });
-
     }
   }
+
 }
