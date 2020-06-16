@@ -64,7 +64,7 @@ describe('RegisterEmailComponent', () => {
       comp.form.patchValue({email: 'invalid'});
       expect(comp.form.invalid).toBeTrue();
     });
-    it('should be invalid when no valid email is present', () => {
+    it('should be valid when a valid email is present', () => {
       comp.form.patchValue({email: 'valid@email.org'});
       expect(comp.form.invalid).toBeFalse();
     });

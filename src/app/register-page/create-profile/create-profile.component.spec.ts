@@ -160,7 +160,7 @@ describe('CreateProfileComponent', () => {
       expect(router.navigate).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
     });
-    it('should submit not submit an eperson when the user info form is invalid', () => {
+    it('should submit not create an eperson when the user info form is invalid', () => {
 
       (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 500, 'Error')));
 
@@ -175,7 +175,7 @@ describe('CreateProfileComponent', () => {
 
       expect(ePersonDataService.createEPersonForToken).not.toHaveBeenCalled();
     });
-    it('should submit not submit an eperson when the password is invalid', () => {
+    it('should submit not create an eperson when the password is invalid', () => {
 
       (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 500, 'Error')));
 
