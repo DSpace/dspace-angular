@@ -10,7 +10,7 @@ import { Community } from 'src/app/core/shared/community.model';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
-
+import { getFirstSucceededRemoteDataPayload, getAllSucceededRemoteData, getSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
 /**
  * An interface to represent a collection entry
  */
@@ -178,17 +178,15 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
     this.searchListCollection$ = this.collectionDataService
       .getAuthorizedCollection(query, findOptions, followLink('parentCommunity'))
       .pipe(
-        find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
+        getSucceededRemoteWithNotEmptyData(),
         mergeMap((collections: RemoteData<PaginatedList<Collection>>) => {
           if ( (this.searchListCollection.length + findOptions.elementsPerPage) >= collections.payload.totalElements ) {
             this.hasNextPage = false;
           }
           return collections.payload.page;
         }),
-        filter((collectionData: Collection) => isNotEmpty(collectionData)),
         mergeMap((collection: Collection) => collection.parentCommunity.pipe(
-          find((communityResponse: RemoteData<Community>) => !communityResponse.isResponsePending && communityResponse.hasSucceeded),
-          mergeMap((communityResponse: RemoteData<Community>) => of(communityResponse.payload)),
+          getFirstSucceededRemoteDataPayload(),
           map((community: Community) => ({
             communities: [{ id: community.id, name: community.name }],
             collection: { id: collection.id, uuid: collection.id, name: collection.name }
