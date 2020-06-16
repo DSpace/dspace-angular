@@ -64,12 +64,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   @Output() collectionChange: EventEmitter<SubmissionObject> = new EventEmitter<SubmissionObject>();
 
   /**
-   * A boolean representing if this dropdown button is disabled
-   * @type {BehaviorSubject<boolean>}
-   */
-  public disabled$ = new BehaviorSubject<boolean>(true);
-
-  /**
    * A boolean representing if a collection change operation is processing
    * @type {BehaviorSubject<boolean>}
    */
