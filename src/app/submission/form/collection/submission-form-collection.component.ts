@@ -7,52 +7,27 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
 
-import { BehaviorSubject, combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
 import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
   find,
-  flatMap,
-  map,
-  mergeMap,
-  reduce,
-  startWith
+  map
 } from 'rxjs/operators';
 
 import { Collection } from '../../../core/shared/collection.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
-import { Community } from '../../../core/shared/community.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FindListOptions } from '../../../core/data/request.models';
-
-/**
- * An interface to represent a collection entry
- */
-interface CollectionListEntryItem {
-  id: string;
-  name: string;
-}
-
-/**
- * An interface to represent an entry in the collection list
- */
-interface CollectionListEntry {
-  communities: CollectionListEntryItem[],
-  collection: CollectionListEntryItem
-}
+import { CollectionDropdownComponent } from 'src/app/shared/collection-dropdown/collection-dropdown.component';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.
@@ -101,18 +76,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   public processingChange$ = new BehaviorSubject<boolean>(false);
 
   /**
-   * The search form control
-   * @type {FormControl}
-   */
-  public searchField: FormControl = new FormControl();
-
-  /**
-   * The collection list obtained from a search
-   * @type {Observable<CollectionListEntry[]>}
-   */
-  public searchListCollection$: Observable<CollectionListEntry[]>;
-
-  /**
    * The selected collection id
    * @type {string}
    */
@@ -147,6 +110,11 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * @type {Array}
    */
   private subs: Subscription[] = [];
+
+  /**
+   * The html child that contains the collections list
+   */
+  @ViewChild(CollectionDropdownComponent, {static: false}) collectionDropdown: CollectionDropdownComponent;
 
   /**
    * Initialize instance variables
@@ -204,51 +172,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
         map((collectionRD: RemoteData<Collection>) => collectionRD.payload.name)
       );
-
-      const findOptions: FindListOptions = {
-        elementsPerPage: 1000
-      };
-
-      // Retrieve collection list only when is the first change
-      if (changes.currentCollectionId.isFirstChange()) {
-        // @TODO replace with search/top browse endpoint
-        // @TODO implement community/subcommunity hierarchy
-        const communities$ = this.communityDataService.findAll(findOptions).pipe(
-          find((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
-          mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page));
-
-        const listCollection$ = communities$.pipe(
-          flatMap((communityData: Community) => {
-            return this.collectionDataService.getAuthorizedCollectionByCommunity(communityData.uuid, findOptions).pipe(
-              find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
-              mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
-              filter((collectionData: Collection) => isNotEmpty(collectionData)),
-              map((collectionData: Collection) => ({
-                communities: [{ id: communityData.id, name: communityData.name }],
-                collection: { id: collectionData.id, name: collectionData.name }
-              }))
-            );
-          }),
-          reduce((acc: any, value: any) => [...acc, ...value], []),
-          startWith([])
-        );
-
-        const searchTerm$ = this.searchField.valueChanges.pipe(
-          debounceTime(200),
-          distinctUntilChanged(),
-          startWith('')
-        );
-
-        this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
-          map(([searchTerm, listCollection]) => {
-            this.disabled$.next(isEmpty(listCollection));
-            if (isEmpty(searchTerm)) {
-              return listCollection;
-            } else {
-              return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
-            }
-          }));
-      }
     }
   }
 
@@ -273,7 +196,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    *    the selected [CollectionListEntryItem]
    */
   onSelect(event) {
-    this.searchField.reset();
     this.processingChange$.next(true);
     this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
     this.subs.push(this.operationsService.jsonPatchByResourceID(
@@ -296,7 +218,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * Reset search form control on dropdown menu close
    */
   onClose() {
-    this.searchField.reset();
+    this.collectionDropdown.reset();
   }
 
   /**
@@ -307,7 +229,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   toggled(isOpen: boolean) {
     if (!isOpen) {
-      this.searchField.reset();
+      this.collectionDropdown.reset();
     }
   }
 }
