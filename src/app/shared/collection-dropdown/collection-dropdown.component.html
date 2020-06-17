@@ -20,7 +20,7 @@
     [infiniteScrollContainer]="'.scrollable-menu'"
     [fromRoot]="true"
     (scrolled)="onScrollDown()">
-    <button class="dropdown-item disabled" *ngIf="searchListCollection?.length == 0 && !isLoadingList">
+    <button class="dropdown-item disabled" *ngIf="searchListCollection?.length == 0 && !(isLoadingList | async)">
       {{'submission.sections.general.no-collection' | translate}}
     </button>
     <button
@@ -35,7 +35,7 @@
         <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.collection.name}}</li>
       </ul>
     </button>
-    <button class="dropdown-item disabled" *ngIf="isLoadingList" >
+    <button class="dropdown-item disabled" *ngIf="(isLoadingList | async)" >
       <ds-loading message="{{'loading.default' | translate}}">
       </ds-loading>
     </button>

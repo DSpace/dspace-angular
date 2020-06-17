@@ -1,8 +1,8 @@
 import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { find, map, mergeMap, filter, reduce, startWith, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { find, map, mergeMap, filter, reduce, startWith, debounceTime, distinctUntilChanged, switchMap, merge, scan } from 'rxjs/operators';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { FindListOptions } from 'src/app/core/data/request.models';
 import { PaginatedList } from 'src/app/core/data/paginated-list';
@@ -11,6 +11,8 @@ import { CollectionDataService } from 'src/app/core/data/collection-data.service
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
 import { getFirstSucceededRemoteDataPayload, getAllSucceededRemoteData, getSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
+import { constructor } from 'lodash';
+import { query } from '@angular/animations';
 /**
  * An interface to represent a collection entry
  */
@@ -74,7 +76,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   /**
    * A boolean representing if the loader is visible or not
    */
-  isLoadingList: boolean;
+  isLoadingList: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * A numeric representig current page
@@ -90,6 +92,8 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * Current seach query used to filter collection list
    */
   currentQuery: string;
+
+  hideLoaderWhenUnsubscribed$ = new Observable(() => () => this.hideShowLoader(false) );
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -118,7 +122,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.subs.push(this.searchField.valueChanges.pipe(
-        debounceTime(200),
+        debounceTime(300),
         distinctUntilChanged(),
         startWith('')
       ).subscribe(
@@ -168,8 +172,8 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * @param query text for filter the collection list
    * @param page page number
    */
-  populateCollectionList(query?: string, page?: number) {
-    this.isLoadingList = true;
+  populateCollectionList(query: string, page: number) {
+    this.isLoadingList.next(true);
     // Set the pagination info
     const findOptions: FindListOptions = {
       elementsPerPage: 10,
@@ -179,7 +183,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
       .getAuthorizedCollection(query, findOptions, followLink('parentCommunity'))
       .pipe(
         getSucceededRemoteWithNotEmptyData(),
-        mergeMap((collections: RemoteData<PaginatedList<Collection>>) => {
+        switchMap((collections: RemoteData<PaginatedList<Collection>>) => {
           if ( (this.searchListCollection.length + findOptions.elementsPerPage) >= collections.payload.totalElements ) {
             this.hasNextPage = false;
           }
@@ -192,12 +196,13 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
             collection: { id: collection.id, uuid: collection.id, name: collection.name }
           })
         ))),
-        reduce((acc: any, value: any) => [...acc, ...value], []),
-        startWith([])
+        scan((acc: any, value: any) => [...acc, ...value], []),
+        startWith([]),
+        merge(this.hideLoaderWhenUnsubscribed$)
         );
     this.subs.push(this.searchListCollection$.subscribe(
       (next) => { this.searchListCollection.push(...next); }, undefined,
-      () => { this.isLoadingList = false; this.changeDetectorRef.detectChanges(); }
+      () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); }
     ));
   }
 
@@ -223,5 +228,13 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
     this.currentQuery = '';
     this.hasNextPage = true;
     this.searchListCollection = [];
+  }
+
+  /**
+   * Hide/Show the collection list loader
+   * @param hideShow true for show, false otherwise
+   */
+  hideShowLoader(hideShow: boolean) {
+    this.isLoadingList.next(hideShow);
   }
 }
