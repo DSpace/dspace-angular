@@ -78,7 +78,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    *    collection list
    */
   getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
-    const searchHref = 'findAuthorized';
+    const searchHref = 'findSubmitAuthorized';
     options = Object.assign({}, options, {
       searchParams: [new RequestParam('query', query)]
     });
@@ -97,7 +97,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    *    collection list
    */
   getAuthorizedCollectionByCommunity(communityId: string, query: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
-    const searchHref = 'findAuthorizedByCommunity';
+    const searchHref = 'findSubmitAuthorizedByCommunity';
     options = Object.assign({}, options, {
       searchParams: [
         new RequestParam('uuid', communityId),
@@ -116,7 +116,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    *    true if the user has at least one collection to submit to
    */
   hasAuthorizedCollection(): Observable<boolean> {
-    const searchHref = 'findAuthorized';
+    const searchHref = 'findSubmitAuthorized';
     const options = new FindListOptions();
     options.elementsPerPage = 1;
 

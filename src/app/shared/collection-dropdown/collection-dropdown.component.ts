@@ -123,7 +123,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
         startWith('')
       ).subscribe(
         (next) => {
-          if (hasValue(next)) {
+          if (hasValue(next) && next !== this.currentQuery) {
             this.resetPagination();
             this.currentQuery = next;
             this.populateCollectionList(this.currentQuery, this.currentPage);

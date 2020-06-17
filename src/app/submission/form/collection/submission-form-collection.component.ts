@@ -88,18 +88,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   protected pathCombiner: JsonPatchOperationPathCombiner;
 
   /**
-   * A boolean representing if dropdown list is scrollable to the bottom
-   * @type {boolean}
-   */
-  private scrollableBottom = false;
-
-  /**
-   * A boolean representing if dropdown list is scrollable to the top
-   * @type {boolean}
-   */
-  private scrollableTop = false;
-
-  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -121,37 +109,10 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * @param {SubmissionService} submissionService
    */
   constructor(protected cdr: ChangeDetectorRef,
-              private communityDataService: CommunityDataService,
               private collectionDataService: CollectionDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private operationsService: SubmissionJsonPatchOperationsService,
               private submissionService: SubmissionService) {
-  }
-
-  /**
-   * Method called on mousewheel event, it prevent the page scroll
-   * when arriving at the top/bottom of dropdown menu
-   *
-   * @param event
-   *     mousewheel event
-   */
-  @HostListener('mousewheel', ['$event']) onMousewheel(event) {
-    if (event.wheelDelta > 0 && this.scrollableTop) {
-      event.preventDefault();
-    }
-    if (event.wheelDelta < 0 && this.scrollableBottom) {
-      event.preventDefault();
-    }
-  }
-
-  /**
-   * Check if dropdown scrollbar is at the top or bottom of the dropdown list
-   *
-   * @param event
-   */
-  onScroll(event) {
-    this.scrollableBottom = (event.target.scrollTop + event.target.clientHeight === event.target.scrollHeight);
-    this.scrollableTop = (event.target.scrollTop === 0);
   }
 
   /**
