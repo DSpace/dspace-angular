@@ -1,8 +1,8 @@
-import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, EventEmitter, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, of, Subscription, BehaviorSubject } from 'rxjs';
-import { hasValue, isNotEmpty } from '../empty.util';
-import { find, map, mergeMap, filter, reduce, startWith, debounceTime, distinctUntilChanged, switchMap, merge, scan } from 'rxjs/operators';
+import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+import { hasValue } from '../empty.util';
+import { map, mergeMap, startWith, debounceTime, distinctUntilChanged, switchMap, merge, scan } from 'rxjs/operators';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { FindListOptions } from 'src/app/core/data/request.models';
 import { PaginatedList } from 'src/app/core/data/paginated-list';
@@ -10,9 +10,8 @@ import { Community } from 'src/app/core/shared/community.model';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
-import { getFirstSucceededRemoteDataPayload, getAllSucceededRemoteData, getSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
-import { constructor } from 'lodash';
-import { query } from '@angular/animations';
+import { getFirstSucceededRemoteDataPayload, getSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
+
 /**
  * An interface to represent a collection entry
  */
