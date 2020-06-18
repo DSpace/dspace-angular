@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, 
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { hasValue } from '../empty.util';
-import { map, mergeMap, startWith, debounceTime, distinctUntilChanged, switchMap, merge, scan } from 'rxjs/operators';
+import { map, mergeMap, startWith, debounceTime, distinctUntilChanged, switchMap, merge, scan, reduce } from 'rxjs/operators';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { FindListOptions } from 'src/app/core/data/request.models';
 import { PaginatedList } from 'src/app/core/data/paginated-list';
@@ -92,8 +92,6 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    */
   currentQuery: string;
 
-  hideLoaderWhenUnsubscribed$ = new Observable(() => () => this.hideShowLoader(false) );
-
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private collectionDataService: CollectionDataService,
@@ -121,7 +119,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.subs.push(this.searchField.valueChanges.pipe(
-        debounceTime(300),
+        debounceTime(500),
         distinctUntilChanged(),
         startWith('')
       ).subscribe(
@@ -195,9 +193,8 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
             collection: { id: collection.id, uuid: collection.id, name: collection.name }
           })
         ))),
-        scan((acc: any, value: any) => [...acc, ...value], []),
-        startWith([]),
-        merge(this.hideLoaderWhenUnsubscribed$)
+        reduce((acc: any, value: any) => [...acc, ...value], []),
+        startWith([])
         );
     this.subs.push(this.searchListCollection$.subscribe(
       (next) => { this.searchListCollection.push(...next); }, undefined,
