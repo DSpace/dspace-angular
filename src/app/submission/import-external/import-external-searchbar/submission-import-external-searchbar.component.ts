@@ -1,13 +1,17 @@
-import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { of as observableOf } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
 import { ExternalSourceService } from '../../../core/data/external-source.service';
-import { catchError, first, tap } from 'rxjs/operators';
 import { ExternalSource } from '../../../core/shared/external-source.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { FindListOptions } from '../../../core/data/request.models';
+import { isEmpty } from '../../../shared/empty.util';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 
 /**
  * Interface for the selected external source element.
@@ -35,6 +39,10 @@ export interface ExternalSourceData {
 })
 export class SubmissionImportExternalSearchbarComponent implements OnInit {
   /**
+   * The init external source value.
+   */
+  @Input() public initExternalSourceValue: string;
+  /**
    * The selected external sources.
    */
   public selectedElement: SourceElement;
@@ -49,7 +57,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
   /**
    * The external sources loading status.
    */
-  public sourceListloading = false;
+  public sourceListLoading = false;
   /**
    * The external source data to use to perform the search.
    */
@@ -72,18 +80,19 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
   constructor(
     private externalService: ExternalSourceService,
     private cdr: ChangeDetectorRef,
-  ) { }
+  ) {
+  }
 
   /**
-   * Component intitialization and retireve first page of external sources.
+   * Component initialization and retrieve first page of external sources.
    */
   ngOnInit() {
     this.searchString = '';
-    this.selectedElement = {id: '', name: 'loading'};
-    this.findListOptions = {
+    this.selectedElement = { id: '', name: 'loading' };
+    this.findListOptions = Object.assign({}, new FindListOptions(), {
       elementsPerPage: 5,
       currentPage: 0,
-    };
+    });
     this.externalService.getAllExternalSources(this.findListOptions).pipe(
       catchError(() => {
         const pageInfo = new PageInfo();
@@ -91,13 +100,17 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
         const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
         return observableOf(paginatedListRD);
       }),
-      first()
-    ).subscribe((externalSource: RemoteData<PaginatedList<ExternalSource>>) => {
-      externalSource.payload.page.forEach((element) => {
-        this.sourceList.push({id: element.id, name: element.name});
-        this.selectedElement = this.sourceList[0];
+      getFirstSucceededRemoteDataPayload()
+    ).subscribe((externalSource: PaginatedList<ExternalSource>) => {
+      let initEntry;
+      externalSource.page.forEach((element) => {
+        this.sourceList.push({ id: element.id, name: element.name });
+        if (isEmpty(initEntry) || this.initExternalSourceValue === element.id) {
+          initEntry = { id: element.id, name: element.name }
+        }
       });
-      this.pageInfo = externalSource.payload.pageInfo;
+      this.selectedElement = initEntry;
+      this.pageInfo = externalSource.pageInfo;
       this.cdr.detectChanges();
     });
   }
@@ -113,9 +126,12 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
    * Load the next pages of external sources.
    */
   onScroll() {
-    if (!this.sourceListloading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
-      this.sourceListloading = true;
-      this.findListOptions.currentPage++;
+    if (!this.sourceListLoading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
+      this.sourceListLoading = true;
+      this.findListOptions = Object.assign({}, new FindListOptions(), {
+        elementsPerPage: 5,
+        currentPage: this.findListOptions.currentPage + 1,
+      });
       this.externalService.getAllExternalSources(this.findListOptions).pipe(
         catchError(() => {
           const pageInfo = new PageInfo();
@@ -123,10 +139,10 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
           const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
           return observableOf(paginatedListRD);
         }),
-        tap(() => this.sourceListloading = false))
+        tap(() => this.sourceListLoading = false))
         .subscribe((externalSource: RemoteData<PaginatedList<ExternalSource>>) => {
           externalSource.payload.page.forEach((element) => {
-            this.sourceList.push({id: element.id, name: element.name});
+            this.sourceList.push({ id: element.id, name: element.name });
           })
           this.pageInfo = externalSource.payload.pageInfo;
           this.cdr.detectChanges();
@@ -138,6 +154,6 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
    * Passes the search parameters to the parent component.
    */
   public search() {
-    this.externalSourceData.emit({sourceId: this.selectedElement.id, query: this.searchString});
+    this.externalSourceData.emit({ sourceId: this.selectedElement.id, query: this.searchString });
   }
 }

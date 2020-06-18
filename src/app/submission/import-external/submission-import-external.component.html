@@ -3,6 +3,7 @@
     <div class="col-md-12">
       <h2 id="header" class="pb-2">{{'submission.import-external.title' | translate}}</h2>
       <ds-submission-import-external-searchbar
+        [initExternalSourceValue]="''"
         (externalSourceData) = "getExternalsourceData($event)">
       </ds-submission-import-external-searchbar>
     </div>
