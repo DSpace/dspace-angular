@@ -42,7 +42,7 @@ export const addAuthenticatedUserUuidIfEmpty = (authService: AuthService) =>
                   map((ePerson) => Object.assign({}, params, { ePersonUuid: ePerson.uuid }))
                 );
               } else {
-                observableOf(params)
+                return observableOf(params)
               }
             })
           );

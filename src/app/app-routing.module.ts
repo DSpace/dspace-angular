@@ -10,6 +10,7 @@ import { Collection } from './core/shared/collection.model';
 import { Item } from './core/shared/item.model';
 import { getItemPageRoute } from './+item-page/item-page-routing.module';
 import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
+import { SiteAdministratorGuard } from './core/data/feature-authorization/site-administrator.guard';
 
 const ITEM_MODULE_PATH = 'items';
 
@@ -82,7 +83,7 @@ export function getDSOPath(dso: DSpaceObject): string {
       },
       { path: 'search', loadChildren: './+search-page/search-page-routing.module#SearchPageRoutingModule' },
       { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule'},
-      { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
+      { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [SiteAdministratorGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
       { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
       { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },

@@ -245,7 +245,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         });
       }));
       this.canImpersonate$ = this.epersonService.getActiveEPerson().pipe(
-        switchMap((eperson) => this.authorizationService.isAuthenticated(eperson.self, undefined, FeatureType.LoginOnBehalfOf))
+        switchMap((eperson) => this.authorizationService.isAuthenticated(FeatureType.LoginOnBehalfOf, eperson.self))
       );
     });
   }

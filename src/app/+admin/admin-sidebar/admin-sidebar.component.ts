@@ -2,7 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest as combineLatestObservable } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { first, map } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
 import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
@@ -18,6 +18,8 @@ import { TextMenuItemModel } from '../../shared/menu/menu-item/models/text.model
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureType } from '../../core/data/feature-authorization/feature-type';
 
 /**
  * Component representing the admin sidebar
@@ -61,7 +63,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
               protected injector: Injector,
               private variableService: CSSVariableService,
               private authService: AuthService,
-              private modalService: NgbModal
+              private modalService: NgbModal,
+              private authorizationService: AuthorizationDataService
   ) {
     super(menuService, injector);
   }
@@ -70,30 +73,32 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Set and calculate all initial values of the instance variables
    */
   ngOnInit(): void {
-    this.createMenu();
-    super.ngOnInit();
-    this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
-    this.authService.isAuthenticated()
-      .subscribe((loggedIn: boolean) => {
-        if (loggedIn) {
-          this.menuService.showMenu(this.menuID);
-        }
-      });
-    this.menuCollapsed.pipe(first())
-      .subscribe((collapsed: boolean) => {
-        this.sidebarOpen = !collapsed;
-        this.sidebarClosed = collapsed;
-      });
-    this.sidebarExpanded = combineLatestObservable(this.menuCollapsed, this.menuPreviewCollapsed)
-      .pipe(
-        map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
-      );
+    this.authorizationService.isAuthenticated(FeatureType.AdministratorOf).pipe(take(1)).subscribe((authorized) => {
+      this.createMenu(authorized);
+      super.ngOnInit();
+      this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
+      this.authService.isAuthenticated()
+        .subscribe((loggedIn: boolean) => {
+          if (loggedIn) {
+            this.menuService.showMenu(this.menuID);
+          }
+        });
+      this.menuCollapsed.pipe(first())
+        .subscribe((collapsed: boolean) => {
+          this.sidebarOpen = !collapsed;
+          this.sidebarClosed = collapsed;
+        });
+      this.sidebarExpanded = combineLatestObservable(this.menuCollapsed, this.menuPreviewCollapsed)
+        .pipe(
+          map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
+        );
+    });
   }
 
   /**
    * Initialize all menu sections and items for this menu
    */
-  createMenu() {
+  createMenu(isAdministratorOfSite: boolean) {
     const menuList = [
       /* News */
       {
@@ -309,7 +314,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       {
         id: 'access_control',
         active: false,
-        visible: true,
+        visible: isAdministratorOfSite,
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.access_control'
@@ -321,7 +326,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         id: 'access_control_people',
         parentID: 'access_control',
         active: false,
-        visible: true,
+        visible: isAdministratorOfSite,
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.access_control_people',
@@ -332,7 +337,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         id: 'access_control_groups',
         parentID: 'access_control',
         active: false,
-        visible: true,
+        visible: isAdministratorOfSite,
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.access_control_groups',
@@ -343,7 +348,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         id: 'access_control_authorizations',
         parentID: 'access_control',
         active: false,
-        visible: true,
+        visible: isAdministratorOfSite,
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.access_control_authorizations',
@@ -354,7 +359,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       {
         id: 'admin_search',
         active: false,
-        visible: true,
+        visible: isAdministratorOfSite,
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.admin_search',
@@ -367,7 +372,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       {
         id: 'registries',
         active: false,
-        visible: true,
+        visible: isAdministratorOfSite,
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.registries'
@@ -379,7 +384,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         id: 'registries_metadata',
         parentID: 'registries',
         active: false,
-        visible: true,
+        visible: isAdministratorOfSite,
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.registries_metadata',
@@ -390,7 +395,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         id: 'registries_format',
         parentID: 'registries',
         active: false,
-        visible: true,
+        visible: isAdministratorOfSite,
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.registries_format',
@@ -443,7 +448,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       {
         id: 'workflow',
         active: false,
-        visible: true,
+        visible: isAdministratorOfSite,
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.workflow',
