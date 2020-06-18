@@ -28,8 +28,7 @@ import { SubmissionSectionUploadFileViewComponent } from './sections/upload/file
 import { SubmissionSectionUploadAccessConditionsComponent } from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 import { storeModuleConfig } from '../app.reducer';
-import { CoreState } from '../core/core.reducers';
-import { SubmissionSectionCcLicensesComponent } from '../shared/submission-section-cc-licenses/submission-section-cc-licenses.component';
+import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 
 @NgModule({
   imports: [

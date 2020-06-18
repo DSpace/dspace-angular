@@ -1,11 +1,10 @@
 <div class="mb-4 ccLicense-select">
   <ds-select
-    [disabled]="!submissionCcLicenses"
-    [label]="'submission.sections.ccLicense.type'">
+    [disabled]="!submissionCcLicenses">
 
     <ng-container class="selection">
       <span *ngIf="!submissionCcLicenses">
-        <i class='fas fa-circle-notch fa-spin'></i>
+        <ds-loading></ds-loading>
       </span>
       <span *ngIf="getSelectedCcLicense()">
         {{ getSelectedCcLicense().name }}
@@ -92,11 +91,13 @@
         </span>
       </ng-container>
       <ng-container class="menu">
-        <button *ngFor="let option of field.enums"
-                class="dropdown-item"
-                (click)="selectOption(getSelectedCcLicense(), field, option)">
-          {{ option.label }}
-        </button>
+        <div class="options-select-menu overflow-auto">
+          <button *ngFor="let option of field.enums"
+                  class="dropdown-item"
+                  (click)="selectOption(getSelectedCcLicense(), field, option)">
+            {{ option.label }}
+          </button>
+        </div>
       </ng-container>
     </ds-select>
 
@@ -120,7 +121,7 @@
 <ng-container *ngIf="getCcLicenseLink$()">
   <ng-container *ngVar="getCcLicenseLink$() | async as licenseLink">
     <div *ngIf="!licenseLink">
-      <i class='fas fa-circle-notch fa-spin m-2'></i>
+      <ds-loading></ds-loading>
     </div>
     <div *ngIf="licenseLink"
          class="mt-2 p-4 bg-light text-dark">

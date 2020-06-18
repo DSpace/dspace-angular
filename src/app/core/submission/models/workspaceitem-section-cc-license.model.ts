@@ -1,4 +1,4 @@
-import {Option} from '../../shared/submission-cc-license.model';
+import { Option } from './submission-cc-license.model';
 
 /**
  * An interface to represent the submission's creative commons license section data.

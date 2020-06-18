@@ -1,19 +1,19 @@
 import { Component, Inject } from '@angular/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { Field, Option, SubmissionCcLicence } from '../../core/shared/submission-cc-license.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
+import { Field, Option, SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { SubmissionCcLicenseDataService } from '../../core/data/submission-cc-license-data.service';
+import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { renderSectionFor } from '../../submission/sections/sections-decorator';
-import { SectionsType } from '../../submission/sections/sections-type';
-import { SectionModelComponent } from '../../submission/sections/models/section.model';
-import { SectionDataObject } from '../../submission/sections/models/section-data.model';
-import { SectionsService } from '../../submission/sections/sections.service';
-import { WorkspaceitemSectionCcLicenseObject } from '../../core/submission/models/workspaceitem-section-cc-license.model';
-import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { isNotEmpty } from '../empty.util';
-import { JsonPatchOperationsBuilder } from '../../core/json-patch/builder/json-patch-operations-builder';
+import { renderSectionFor } from '../sections-decorator';
+import { SectionsType } from '../sections-type';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/models/workspaceitem-section-cc-license.model';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { isNotEmpty } from '../../../shared/empty.util';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 
 /**
  * This component represents the submission section to select the Creative Commons license.

@@ -2537,9 +2537,9 @@
 
   "submission.sections.ccLicense.type": "License Type",
 
-  "submission.sections.ccLicense.select": "Select a license…",
+  "submission.sections.ccLicense.select": "Select a license type…",
 
-  "submission.sections.ccLicense.change": "Change your license…",
+  "submission.sections.ccLicense.change": "Change your license type…",
 
   "submission.sections.ccLicense.none": "No licenses available",
 

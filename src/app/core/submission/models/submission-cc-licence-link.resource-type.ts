@@ -1,4 +1,4 @@
-import { ResourceType } from './resource-type';
+import { ResourceType } from '../../shared/resource-type';
 
 /**
  * The resource type for License

@@ -7,11 +7,11 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DataService } from './data.service';
-import { RequestService } from './request.service';
-import { SUBMISSION_CC_LICENSE } from '../shared/submission-cc-licence.resource-type';
-import { Field, Option, SubmissionCcLicence } from '../shared/submission-cc-license.model';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { DataService } from '../data/data.service';
+import { RequestService } from '../data/request.service';
+import { SUBMISSION_CC_LICENSE } from './models/submission-cc-licence.resource-type';
+import { Field, Option, SubmissionCcLicence } from './models/submission-cc-license.model';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import {
   getRemoteDataPayload,
   getSucceededRemoteData,

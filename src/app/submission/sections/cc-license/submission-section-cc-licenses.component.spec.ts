@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
-import { SUBMISSION_CC_LICENSE } from '../../core/shared/submission-cc-licence.resource-type';
+import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submission-cc-licence.resource-type';
 import { of as observableOf } from 'rxjs';
-import { SubmissionCcLicenseDataService } from '../../core/data/submission-cc-license-data.service';
+import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '../shared.module';
-import { SectionsService } from '../../submission/sections/sections.service';
-import { SectionDataObject } from '../../submission/sections/models/section-data.model';
-import { SectionsType } from '../../submission/sections/sections-type';
-import { RemoteData } from '../../core/data/remote-data';
+import { SharedModule } from '../../../shared/shared.module';
+import { SectionsService } from '../sections.service';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsType } from '../sections-type';
+import { RemoteData } from '../../../core/data/remote-data';
 import { TranslateModule } from '@ngx-translate/core';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { SubmissionCcLicence } from '../../core/shared/submission-cc-license.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import { cold } from 'jasmine-marbles';
-import { JsonPatchOperationsBuilder } from '../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionCcLicenseUrlDataService } from '../../core/data/submission-cc-license-url-data.service';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 
 describe('SubmissionSectionCcLicensesComponent', () => {
 

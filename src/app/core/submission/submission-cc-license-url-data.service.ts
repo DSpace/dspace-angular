@@ -7,11 +7,11 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DataService } from './data.service';
-import { RequestService } from './request.service';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { SubmissionCcLicenceUrl } from '../shared/submission-cc-license-url.model';
-import { SUBMISSION_CC_LICENSE_URL } from '../shared/submission-cc-licence-link.resource-type';
+import { DataService } from '../data/data.service';
+import { RequestService } from '../data/request.service';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
+import { SubmissionCcLicenceUrl } from './models/submission-cc-license-url.model';
+import { SUBMISSION_CC_LICENSE_URL } from './models/submission-cc-licence-link.resource-type';
 
 @Injectable()
 @dataService(SUBMISSION_CC_LICENSE_URL)

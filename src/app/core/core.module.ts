@@ -145,10 +145,10 @@ import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
-import { SubmissionCcLicenseDataService } from './data/submission-cc-license-data.service';
-import { SubmissionCcLicence } from './shared/submission-cc-license.model';
-import { SubmissionCcLicenceUrl } from './shared/submission-cc-license-url.model';
-import { SubmissionCcLicenseUrlDataService } from './data/submission-cc-license-url-data.service';
+import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
+import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
+import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
+import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-license-url-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
