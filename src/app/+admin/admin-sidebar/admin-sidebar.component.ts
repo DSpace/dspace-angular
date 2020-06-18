@@ -73,7 +73,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Set and calculate all initial values of the instance variables
    */
   ngOnInit(): void {
-    this.authorizationService.isAuthenticated(FeatureType.AdministratorOf).pipe(take(1)).subscribe((authorized) => {
+    this.authorizationService.isAuthenticated(FeatureType.AdministratorOf).subscribe((authorized) => {
       this.createMenu(authorized);
       super.ngOnInit();
       this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');

@@ -149,7 +149,7 @@ import { Feature } from './shared/feature.model';
 import { Authorization } from './shared/authorization.model';
 import { FeatureDataService } from './data/feature-authorization/feature-data.service';
 import { AuthorizationDataService } from './data/feature-authorization/authorization-data.service';
-import { SiteAdministratorGuard } from './data/feature-authorization/site-administrator.guard';
+import { SiteAdministratorGuard } from './data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
