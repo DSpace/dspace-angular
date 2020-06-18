@@ -22,6 +22,7 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let fixture: ComponentFixture<PaginatedDragAndDropBitstreamListComponent>;
   let objectUpdatesService: ObjectUpdatesService;
   let bundleService: BundleDataService;
+  let objectValuesPipe: ObjectValuesPipe;
 
   const columnSizes = new ResponsiveTableSizes([
     new ResponsiveColumnSizes(2, 2, 3, 4, 4),
@@ -100,12 +101,15 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
       getBitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
     });
 
+    objectValuesPipe = new ObjectValuesPipe();
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [PaginatedDragAndDropBitstreamListComponent, VarDirective, ObjectValuesPipe],
+      declarations: [PaginatedDragAndDropBitstreamListComponent, VarDirective],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        { provide: BundleDataService, useValue: bundleService }
+        { provide: BundleDataService, useValue: bundleService },
+        { provide: ObjectValuesPipe, useValue: objectValuesPipe }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

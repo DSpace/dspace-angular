@@ -8,6 +8,7 @@ import { switchMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../../../../shared/search/paginated-search-options.model';
 import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';
 
 @Component({
   selector: 'ds-paginated-drag-and-drop-bitstream-list',
@@ -33,8 +34,9 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
 
   constructor(protected objectUpdatesService: ObjectUpdatesService,
               protected elRef: ElementRef,
+              protected objectValuesPipe: ObjectValuesPipe,
               protected bundleService: BundleDataService) {
-    super(objectUpdatesService, elRef);
+    super(objectUpdatesService, elRef, objectValuesPipe);
   }
 
   ngOnInit() {

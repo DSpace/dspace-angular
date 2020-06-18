@@ -1,17 +1,26 @@
-import { FieldUpdates } from '../../core/data/object-updates/object-updates.reducer';
+import { FieldUpdate, FieldUpdates, Identifiable } from '../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../empty.util';
 import { paginatedListToArray } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { ObjectValuesPipe } from '../utils/object-values-pipe';
+import { compareArraysUsing } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { Subscription } from 'rxjs/internal/Subscription';
+
+/**
+ * Operator used for comparing {@link FieldUpdate}s by their field's UUID
+ */
+export const compareArraysUsingFieldUuids = () =>
+  compareArraysUsing((fieldUpdate: FieldUpdate) => (hasValue(fieldUpdate) && hasValue(fieldUpdate.field)) ? fieldUpdate.field.uuid : undefined);
 
 /**
  * An abstract component containing general methods and logic to be able to drag and drop objects within a paginated
@@ -29,7 +38,7 @@ import { PaginationComponent } from '../pagination/pagination.component';
  *
  * An example component extending from this abstract component: PaginatedDragAndDropBitstreamListComponent
  */
-export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpaceObject> {
+export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpaceObject> implements OnDestroy {
   /**
    * A view on the child pagination component
    */
@@ -58,9 +67,15 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   updates$: Observable<FieldUpdates>;
 
   /**
+   * A list of object UUIDs
+   * This is the order the objects will be displayed in
+   */
+  customOrder: string[];
+
+  /**
    * The amount of objects to display per page
    */
-  pageSize = 10;
+  pageSize = 3;
 
   /**
    * The page options to use for fetching the objects
@@ -77,8 +92,21 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
    */
   currentPage$ = new BehaviorSubject<number>(1);
 
+  /**
+   * Whether or not we should display a loading animation
+   * This is used to display a loading page when the user drops a bitstream onto a new page. The loading animation
+   * should stop once the bitstream has moved to the new page and the new page's response has loaded
+   */
+  loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
+
   protected constructor(protected objectUpdatesService: ObjectUpdatesService,
-                        protected elRef: ElementRef) {
+                        protected elRef: ElementRef,
+                        protected objectValuesPipe: ObjectValuesPipe) {
   }
 
   /**
@@ -114,6 +142,14 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
       paginatedListToArray(),
       switchMap((objects: T[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, objects))
     );
+    this.subs.push(
+      this.updates$.pipe(
+        map((fieldUpdates) => this.objectValuesPipe.transform(fieldUpdates)),
+        distinctUntilChanged(compareArraysUsingFieldUuids())
+      ).subscribe((updateValues) => {
+        this.customOrder = updateValues.map((fieldUpdate) => fieldUpdate.field.uuid);
+      })
+    );
   }
 
   /**
@@ -148,19 +184,40 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
       }
     }
 
+    const isNewPage = dragPage !== dropPage;
+    // Move the object in the custom order array if the drop happened within the same page
+    // This allows us to instantly display a change in the order, instead of waiting for the REST API's response first
+    if (!isNewPage && dragIndex !== dropIndex) {
+      moveItemInArray(this.customOrder, dragIndex, dropIndex);
+    }
+
     const redirectPage = dropPage + 1;
     const fromIndex = (dragPage * this.pageSize) + dragIndex;
     const toIndex = (dropPage * this.pageSize) + dropIndex;
-    // Send out a drop event when the field exists and the "from" and "to" indexes are different from each other
+    // Send out a drop event (and navigate to the new page) when the "from" and "to" indexes are different from each other
     if (fromIndex !== toIndex) {
+      if (isNewPage) {
+        this.customOrder = [];
+        this.paginationComponent.doPageChange(redirectPage);
+        this.loading$.next(true);
+      }
       this.dropObject.emit(Object.assign({
         fromIndex,
         toIndex,
         finish: () => {
-          this.currentPage$.next(redirectPage);
-          this.paginationComponent.doPageChange(redirectPage);
+          if (isNewPage) {
+            this.currentPage$.next(redirectPage);
+            this.loading$.next(false);
+          }
         }
       }));
     }
+  }
+
+  /**
+   * unsub all subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnDestroy } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
@@ -88,7 +88,8 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     public objectCache: ObjectCacheService,
     public requestService: RequestService,
     public cdRef: ChangeDetectorRef,
-    public bundleService: BundleDataService
+    public bundleService: BundleDataService,
+    public zone: NgZone
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
@@ -187,18 +188,20 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * @param event   The event containing the index the bitstream came from and was dropped to
    */
   dropBitstream(bundle: Bundle, event: any) {
-    if (hasValue(event) && hasValue(event.fromIndex) && hasValue(event.toIndex) && hasValue(event.finish)) {
-      const moveOperation = Object.assign({
-        op: 'move',
-        from: `/_links/bitstreams/${event.fromIndex}/href`,
-        path: `/_links/bitstreams/${event.toIndex}/href`
-      });
-      this.bundleService.patch(bundle, [moveOperation]).pipe(take(1)).subscribe((response: RestResponse) => {
-        this.displayNotifications('item.edit.bitstreams.notifications.move', [response]);
-        this.requestService.removeByHrefSubstring(bundle.self);
-        event.finish();
-      });
-    }
+    this.zone.runOutsideAngular(() => {
+      if (hasValue(event) && hasValue(event.fromIndex) && hasValue(event.toIndex) && hasValue(event.finish)) {
+        const moveOperation = Object.assign({
+          op: 'move',
+          from: `/_links/bitstreams/${event.fromIndex}/href`,
+          path: `/_links/bitstreams/${event.toIndex}/href`
+        });
+        this.bundleService.patch(bundle, [moveOperation]).pipe(take(1)).subscribe((response: RestResponse) => {
+          this.displayNotifications('item.edit.bitstreams.notifications.move', [response]);
+          this.requestService.removeByHrefSubstring(bundle.self);
+          this.zone.run(() => event.finish());
+        });
+      }
+    });
   }
 
   /**

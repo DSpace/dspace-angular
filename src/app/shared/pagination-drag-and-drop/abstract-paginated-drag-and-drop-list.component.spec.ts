@@ -12,14 +12,16 @@ import { take } from 'rxjs/operators';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
+import { ObjectValuesPipe } from '../utils/object-values-pipe';
 
 class MockAbstractPaginatedDragAndDropListComponent extends AbstractPaginatedDragAndDropListComponent<DSpaceObject> {
 
   constructor(protected objectUpdatesService: ObjectUpdatesService,
               protected elRef: ElementRef,
+              protected objectValuesPipe: ObjectValuesPipe,
               protected mockUrl: string,
               protected mockObjectsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>) {
-    super(objectUpdatesService, elRef);
+    super(objectUpdatesService, elRef, objectValuesPipe);
   }
 
   initializeObjectsRD(): void {
@@ -35,6 +37,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
   let component: MockAbstractPaginatedDragAndDropListComponent;
   let objectUpdatesService: ObjectUpdatesService;
   let elRef: ElementRef;
+  let objectValuesPipe: ObjectValuesPipe;
 
   const url = 'mock-abstract-paginated-drag-and-drop-list-component';
 
@@ -60,11 +63,12 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
         querySelector: {}
       })
     };
+    objectValuesPipe = new ObjectValuesPipe();
     paginationComponent = jasmine.createSpyObj('paginationComponent', {
       doPageChange: {}
     });
     objectsRD$ = new BehaviorSubject(objectsRD);
-    component = new MockAbstractPaginatedDragAndDropListComponent(objectUpdatesService, elRef, url, objectsRD$);
+    component = new MockAbstractPaginatedDragAndDropListComponent(objectUpdatesService, elRef, objectValuesPipe, url, objectsRD$);
     component.paginationComponent = paginationComponent;
     component.ngOnInit();
   });

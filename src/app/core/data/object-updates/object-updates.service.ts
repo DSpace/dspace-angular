@@ -24,7 +24,7 @@ import {
   SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
@@ -125,7 +125,7 @@ export class ObjectUpdatesService {
    */
   getFieldUpdatesExclusive(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
     const objectUpdates = this.getObjectEntry(url);
-    return objectUpdates.pipe(map((objectEntry) => {
+    return objectUpdates.pipe(isNotEmptyOperator(), map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
       for (const object of initialFields) {
         let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
