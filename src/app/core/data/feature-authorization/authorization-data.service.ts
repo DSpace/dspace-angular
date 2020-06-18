@@ -20,7 +20,7 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../remote-data';
 import { PaginatedList } from '../paginated-list';
-import { find, skipWhile, switchMap, tap } from 'rxjs/operators';
+import { find, map, skipWhile, switchMap, tap } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
@@ -48,6 +48,20 @@ export class AuthorizationDataService extends DataService<Authorization> {
     protected siteService: SiteDataService
   ) {
     super();
+  }
+
+  /**
+   * Checks if an {@link EPerson} (or anonymous) has access to a specific object within a {@link Feature}
+   * @param objectUrl     URL to the object to search {@link Authorization}s for.
+   *                      If not provided, the repository's {@link Site} will be used.
+   * @param ePersonUuid   UUID of the {@link EPerson} to search {@link Authorization}s for.
+   *                      If not provided, the UUID of the currently authenticated {@link EPerson} will be used.
+   * @param featureId     ID of the {@link Feature} to check {@link Authorization} for
+   */
+  isAuthenticated(objectUrl?: string, ePersonUuid?: string, featureId?: string): Observable<boolean> {
+    return this.searchByObject(objectUrl, ePersonUuid, featureId).pipe(
+      map((authorizationRD) => (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)))
+    );
   }
 
   /**
