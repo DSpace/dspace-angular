@@ -24,7 +24,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { FeatureType } from '../../../../core/data/feature-authorization/feature-type';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -245,7 +245,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         });
       }));
       this.canImpersonate$ = this.epersonService.getActiveEPerson().pipe(
-        switchMap((eperson) => this.authorizationService.isAuthenticated(eperson.self, undefined, 'loginOnBehalfOf'))
+        switchMap((eperson) => this.authorizationService.isAuthenticated(eperson.self, undefined, FeatureType.LoginOnBehalfOf))
       );
     });
   }

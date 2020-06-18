@@ -25,6 +25,7 @@ import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { addAuthenticatedUserUuidIfEmpty, addSiteObjectUrlIfEmpty } from './authorization-utils';
+import { FeatureType } from './feature-type';
 
 /**
  * A service to retrieve {@link Authorization}s from the REST API
@@ -58,7 +59,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    *                      If not provided, the UUID of the currently authenticated {@link EPerson} will be used.
    * @param featureId     ID of the {@link Feature} to check {@link Authorization} for
    */
-  isAuthenticated(objectUrl?: string, ePersonUuid?: string, featureId?: string): Observable<boolean> {
+  isAuthenticated(objectUrl?: string, ePersonUuid?: string, featureId?: FeatureType): Observable<boolean> {
     return this.searchByObject(objectUrl, ePersonUuid, featureId).pipe(
       map((authorizationRD) => (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)))
     );
@@ -75,7 +76,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    * @param options       {@link FindListOptions} to provide pagination and/or additional arguments
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByObject(objectUrl?: string, ePersonUuid?: string, featureId?: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Authorization>>): Observable<RemoteData<PaginatedList<Authorization>>> {
+  searchByObject(objectUrl?: string, ePersonUuid?: string, featureId?: FeatureType, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Authorization>>): Observable<RemoteData<PaginatedList<Authorization>>> {
     return observableOf(new AuthorizationSearchParams(objectUrl, ePersonUuid, featureId)).pipe(
       addSiteObjectUrlIfEmpty(this.siteService),
       addAuthenticatedUserUuidIfEmpty(this.authService),
@@ -121,7 +122,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    * @param ePersonUuid Optional parameter value to add to {@link RequestParam} "eperson"
    * @param featureId   Optional parameter value to add to {@link RequestParam} "feature"
    */
-  private createSearchOptions(objectUrl: string, options: FindListOptions = {}, ePersonUuid?: string, featureId?: string): FindListOptions {
+  private createSearchOptions(objectUrl: string, options: FindListOptions = {}, ePersonUuid?: string, featureId?: FeatureType): FindListOptions {
     let params = [];
     if (isNotEmpty(options.searchParams)) {
       params = [...options.searchParams];
