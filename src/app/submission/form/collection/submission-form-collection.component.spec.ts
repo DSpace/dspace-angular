@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
+import { mockSubmissionId, mockSubmissionRestResponse } from '../../../shared/mocks/submission.mock';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
 import { CommunityDataService } from '../../../core/data/community-data.service';
@@ -18,12 +18,13 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { hot } from 'jasmine-marbles';
+import { hot, cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { SectionsService } from '../../sections/sections.service';
 import { componentFactoryName } from '@angular/compiler';
+import { Collection } from 'src/app/core/shared/collection.model';
 
-fdescribe('SubmissionFormCollectionComponent Component', () => {
+describe('SubmissionFormCollectionComponent Component', () => {
 
   let comp: SubmissionFormCollectionComponent;
   let compAsAny: any;
@@ -34,6 +35,58 @@ fdescribe('SubmissionFormCollectionComponent Component', () => {
   const submissionId = mockSubmissionId;
   const collectionId = '1234567890-1';
   const definition = 'traditional';
+  const submissionRestResponse = mockSubmissionRestResponse;
+
+  const mockCollectionList = [
+    {
+      communities: [
+        {
+          id: '123456789-1',
+          name: 'Community 1'
+        }
+      ],
+      collection: {
+        id: '1234567890-1',
+        name: 'Community 1-Collection 1'
+      }
+    },
+    {
+      communities: [
+        {
+          id: '123456789-1',
+          name: 'Community 1'
+        }
+      ],
+      collection: {
+        id: '1234567890-2',
+        name: 'Community 1-Collection 2'
+      }
+    },
+    {
+      communities: [
+        {
+          id: '123456789-2',
+          name: 'Community 2'
+        }
+      ],
+      collection: {
+        id: '1234567890-3',
+        name: 'Community 2-Collection 1'
+      }
+    },
+    {
+      communities: [
+        {
+          id: '123456789-2',
+          name: 'Community 2'
+        }
+      ],
+      collection: {
+        id: '1234567890-4',
+        name: 'Community 2-Collection 2'
+      }
+    }
+  ];
 
   const communityDataService: any = jasmine.createSpyObj('communityDataService', {
     findAll: jasmine.createSpy('findAll')
@@ -179,6 +232,32 @@ fdescribe('SubmissionFormCollectionComponent Component', () => {
         fixture.detectChanges();
         const dropDown = fixture.debugElement.query(By.css('#collectionControlsDropdownMenu'));
         expect(dropDown).toBeFalsy();
+      });
+
+      it('should be simulated when the drop-down menu is closed', () => {
+        spyOn(comp, 'onClose');
+        comp.onClose();
+        expect(comp.onClose).toHaveBeenCalled();
+      });
+
+      it('should be simulated when the drop-down menu is toggled', () => {
+        spyOn(comp, 'toggled');
+        comp.toggled(false);
+        expect(comp.toggled).toHaveBeenCalled();
+      });
+
+      it('should ', () => {
+        spyOn(comp.collectionChange, 'emit').and.callThrough();
+        jsonPatchOpServiceStub.jsonPatchByResourceID.and.returnValue(of(submissionRestResponse));
+        comp.ngOnInit();
+        comp.onSelect(mockCollectionList[1]);
+        fixture.detectChanges();
+
+        expect(submissionServiceStub.changeSubmissionCollection).toHaveBeenCalled();
+        expect(comp.selectedCollectionId).toBe(mockCollectionList[1].collection.id);
+        expect(comp.selectedCollectionName$).toBeObservable(cold('(a|)', {
+          a: mockCollectionList[1].collection.name
+        }));
       });
     });
 

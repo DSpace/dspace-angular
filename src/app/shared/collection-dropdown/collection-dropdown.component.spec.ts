@@ -167,6 +167,21 @@ describe('CollectionDropdownComponent', () => {
     });
   }));
 
+  it('should init component with collection list', fakeAsync(() => {
+    spyOn(component.subs, 'push').and.callThrough();
+    spyOn(component, 'resetPagination').and.callThrough();
+    spyOn(component, 'populateCollectionList').and.callThrough();
+    component.ngOnInit();
+    tick();
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(component.subs.push).toHaveBeenCalled();
+      expect(component.resetPagination).toHaveBeenCalled();
+      expect(component.populateCollectionList).toHaveBeenCalled();
+    });
+  }));
+
   it('should emit collectionChange event when selecting a new collection', () => {
     spyOn(component.selectionChange, 'emit').and.callThrough();
     component.ngOnInit();
@@ -177,6 +192,7 @@ describe('CollectionDropdownComponent', () => {
   });
 
   it('should reset collections list after reset of searchField', fakeAsync(() => {
+    spyOn(component.subs, 'push').and.callThrough();
     spyOn(component, 'reset').and.callThrough();
     spyOn(component.searchField, 'setValue').and.callThrough();
     spyOn(component, 'resetPagination').and.callThrough();
@@ -187,7 +203,7 @@ describe('CollectionDropdownComponent', () => {
     el.value = searchedCollection;
     el.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    tick(250);
+    tick(500);
 
     fixture.whenStable().then(() => {
       expect(component.reset).toHaveBeenCalled();
@@ -195,6 +211,31 @@ describe('CollectionDropdownComponent', () => {
       expect(component.resetPagination).toHaveBeenCalled();
       expect(component.currentQuery).toEqual('');
       expect(component.populateCollectionList).toHaveBeenCalledWith(component.currentQuery, component.currentPage);
+      expect(component.searchListCollection).toEqual(collections as any);
+      expect(component.subs.push).toHaveBeenCalled();
     });
   }));
+
+  it('should reset searchField when dropdown menu has been closed', () => {
+    spyOn(component.searchField, 'setValue').and.callThrough();
+    component.reset();
+
+    expect(component.searchField.setValue).toHaveBeenCalled();
+  });
+
+  it('should change loader status', () => {
+    spyOn(component.isLoadingList, 'next').and.callThrough();
+    component.hideShowLoader(true);
+
+    expect(component.isLoadingList.next).toHaveBeenCalledWith(true);
+  });
+
+  it('reset pagination fields', () => {
+    component.resetPagination();
+
+    expect(component.currentPage).toEqual(1);
+    expect(component.currentQuery).toEqual('');
+    expect(component.hasNextPage).toEqual(true);
+    expect(component.searchListCollection).toEqual([]);
+  });
 });

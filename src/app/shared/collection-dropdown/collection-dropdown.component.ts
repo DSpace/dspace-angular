@@ -64,7 +64,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
-  private subs: Subscription[] = [];
+  public subs: Subscription[] = [];
 
   /**
    * The list of collection to render
