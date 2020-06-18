@@ -28,6 +28,7 @@ import { SubmissionObject } from '../../../core/submission/models/submission-obj
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { CollectionDropdownComponent } from 'src/app/shared/collection-dropdown/collection-dropdown.component';
+import { SectionsService } from '../../sections/sections.service';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.
@@ -99,6 +100,12 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   @ViewChild(CollectionDropdownComponent, {static: false}) collectionDropdown: CollectionDropdownComponent;
 
   /**
+   * A boolean representing if the collection section is available
+   * @type {BehaviorSubject<boolean>}
+   */
+  available$: Observable<boolean>;
+
+  /**
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} cdr
@@ -112,7 +119,8 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
               private collectionDataService: CollectionDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private operationsService: SubmissionJsonPatchOperationsService,
-              private submissionService: SubmissionService) {
+              private submissionService: SubmissionService,
+              private sectionsService: SectionsService) {
   }
 
   /**
@@ -135,6 +143,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
+    this.available$ = this.sectionsService.isSectionAvailable(this.submissionId, 'collection');
   }
 
   /**

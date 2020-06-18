@@ -1,5 +1,20 @@
 <div>
-  <div ngbDropdown #collectionControls="ngbDropdown" class="btn-group input-group" (openChange)="toggled($event)">
+  <div
+    *ngIf="!(available$ | async)"
+    class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">{{ 'submission.sections.general.collection' | translate }}</span>
+    </div>
+    <div class="input-group-append">
+      <span class="input-group-text">{{ selectedCollectionName$ | async }}</span>
+    </div>
+  </div>
+  <div
+    ngbDropdown
+    #collectionControls="ngbDropdown"
+    *ngIf="(available$ | async)"
+    class="btn-group input-group"
+    (openChange)="toggled($event)">
     <div class="input-group-prepend">
       <span id="collectionControlsMenuLabel" class="input-group-text">
         {{ 'submission.sections.general.collection' | translate }}
