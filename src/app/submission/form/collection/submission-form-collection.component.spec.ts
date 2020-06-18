@@ -18,8 +18,12 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { hot } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { SectionsService } from '../../sections/sections.service';
+import { componentFactoryName } from '@angular/compiler';
 
-describe('SubmissionFormCollectionComponent Component', () => {
+fdescribe('SubmissionFormCollectionComponent Component', () => {
 
   let comp: SubmissionFormCollectionComponent;
   let compAsAny: any;
@@ -48,6 +52,10 @@ describe('SubmissionFormCollectionComponent Component', () => {
     replace: jasmine.createSpy('replace')
   });
 
+  const sectionsService: any = jasmine.createSpyObj('sectionsService', {
+    isSectionAvailable: of(true)
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -67,6 +75,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
         { provide: CommunityDataService, useValue: communityDataService },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: Store, useValue: store },
+        { provide: SectionsService, useValue: sectionsService },
         ChangeDetectorRef,
         SubmissionFormCollectionComponent
       ],
@@ -160,6 +169,17 @@ describe('SubmissionFormCollectionComponent Component', () => {
         });
       }));
 
+      it('the dropdown menu should be enable', () => {
+        const dropDown = fixture.debugElement.query(By.css('#collectionControlsDropdownMenu'));
+        expect(dropDown).toBeTruthy();
+      });
+
+      it('the dropdown menu should be disabled', () => {
+        comp.available$ = of(false);
+        fixture.detectChanges();
+        const dropDown = fixture.debugElement.query(By.css('#collectionControlsDropdownMenu'));
+        expect(dropDown).toBeFalsy();
+      });
     });
 
   });
