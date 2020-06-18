@@ -28,7 +28,8 @@ import { SubmissionSectionUploadFileViewComponent } from './sections/upload/file
 import { SubmissionSectionUploadAccessConditionsComponent } from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 import { storeModuleConfig } from '../app.reducer';
-import { CoreState } from '../core/core.reducers';
+import { SubmissionImportExternalComponent } from './import-external/submission-import-external.component';
+import { SubmissionImportExternalSearchbarComponent } from './import-external/import-external-searchbar/submission-import-external-searchbar.component';
 
 @NgModule({
   imports: [
@@ -55,7 +56,9 @@ import { CoreState } from '../core/core.reducers';
     SubmissionUploadFilesComponent,
     SubmissionSectionUploadFileComponent,
     SubmissionSectionUploadFileEditComponent,
-    SubmissionSectionUploadFileViewComponent
+    SubmissionSectionUploadFileViewComponent,
+    SubmissionImportExternalComponent,
+    SubmissionImportExternalSearchbarComponent,
   ],
   entryComponents: [
     SubmissionSectionUploadComponent,

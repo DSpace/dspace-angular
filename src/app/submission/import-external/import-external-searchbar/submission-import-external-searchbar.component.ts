@@ -1,0 +1,143 @@
+import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { of as observableOf } from 'rxjs';
+import { ExternalSourceService } from '../../../core/data/external-source.service';
+import { catchError, first, tap } from 'rxjs/operators';
+import { ExternalSource } from '../../../core/shared/external-source.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { FindListOptions } from '../../../core/data/request.models';
+
+/**
+ * Interface for the selected external source element.
+ */
+interface SourceElement {
+  id: string;
+  name: string;
+}
+
+/**
+ * Interface for the external source data to export.
+ */
+export interface ExternalSourceData {
+  query: string;
+  sourceId: string;
+}
+
+/**
+ * This component builds the searchbar for the submission external import.
+ */
+@Component({
+  selector: 'ds-submission-import-external-searchbar',
+  styleUrls: ['./submission-import-external-searchbar.component.scss'],
+  templateUrl: './submission-import-external-searchbar.component.html'
+})
+export class SubmissionImportExternalSearchbarComponent implements OnInit {
+  /**
+   * The selected external sources.
+   */
+  public selectedElement: SourceElement;
+  /**
+   * The list of external sources.
+   */
+  public sourceList: SourceElement[] = [];
+  /**
+   * The string used to search items in the external sources.
+   */
+  public searchString: string;
+  /**
+   * The external sources loading status.
+   */
+  public sourceListloading = false;
+  /**
+   * The external source data to use to perform the search.
+   */
+  @Output() public externalSourceData: EventEmitter<ExternalSourceData> = new EventEmitter<ExternalSourceData>();
+
+  /**
+   * The external sources pagination data.
+   */
+  protected pageInfo: PageInfo;
+  /**
+   * The options for REST data retireval.
+   */
+  protected findListOptions: FindListOptions;
+
+  /**
+   * Initialize the component variables.
+   * @param {ExternalSourceService} externalService
+   * @param {ChangeDetectorRef} cdr
+   */
+  constructor(
+    private externalService: ExternalSourceService,
+    private cdr: ChangeDetectorRef,
+  ) { }
+
+  /**
+   * Component intitialization and retireve first page of external sources.
+   */
+  ngOnInit() {
+    this.searchString = '';
+    this.selectedElement = {id: '', name: 'loading'};
+    this.findListOptions = {
+      elementsPerPage: 5,
+      currentPage: 0,
+    };
+    this.externalService.getAllExternalSources(this.findListOptions).pipe(
+      catchError(() => {
+        const pageInfo = new PageInfo();
+        const paginatedList = new PaginatedList(pageInfo, []);
+        const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+        return observableOf(paginatedListRD);
+      }),
+      first()
+    ).subscribe((externalSource: RemoteData<PaginatedList<ExternalSource>>) => {
+      externalSource.payload.page.forEach((element) => {
+        this.sourceList.push({id: element.id, name: element.name});
+        this.selectedElement = this.sourceList[0];
+      });
+      this.pageInfo = externalSource.payload.pageInfo;
+      this.cdr.detectChanges();
+    });
+  }
+
+  /**
+   * Set the selected external source.
+   */
+  makeSourceSelection(source) {
+    this.selectedElement = source;
+  }
+
+  /**
+   * Load the next pages of external sources.
+   */
+  onScroll() {
+    if (!this.sourceListloading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
+      this.sourceListloading = true;
+      this.findListOptions.currentPage++;
+      this.externalService.getAllExternalSources(this.findListOptions).pipe(
+        catchError(() => {
+          const pageInfo = new PageInfo();
+          const paginatedList = new PaginatedList(pageInfo, []);
+          const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+          return observableOf(paginatedListRD);
+        }),
+        tap(() => this.sourceListloading = false))
+        .subscribe((externalSource: RemoteData<PaginatedList<ExternalSource>>) => {
+          externalSource.payload.page.forEach((element) => {
+            this.sourceList.push({id: element.id, name: element.name});
+          })
+          this.pageInfo = externalSource.payload.pageInfo;
+          this.cdr.detectChanges();
+        })
+    }
+  }
+
+  /**
+   * Passes the search parameters to the parent component.
+   */
+  public search() {
+    this.externalSourceData.emit({sourceId: this.selectedElement.id, query: this.searchString});
+  }
+}

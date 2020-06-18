@@ -11,7 +11,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
-import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, take, flatMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { configureRequest } from '../shared/operators';
@@ -19,6 +19,7 @@ import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * A service handling all external source requests
@@ -57,6 +58,20 @@ export class ExternalSourceService extends DataService<ExternalSource> {
       map((href) => this.getIDHref(href, externalSourceId)),
       switchMap((href) => this.halService.getEndpoint('entries', href))
     );
+  }
+
+  /**
+   * Return the list of external sources.
+   *
+   * @param options
+   *    Find list options object.
+   * @param linksToFollow
+   *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
+   * @return Observable<RemoteData<PaginatedList<ExternalSource>>>
+   *    The list of the external sources.
+   */
+  getAllExternalSources(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ExternalSource>>): Observable<RemoteData<PaginatedList<ExternalSource>>> {
+    return this.findAll(options, ...linksToFollow);
   }
 
   /**
