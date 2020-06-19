@@ -15,13 +15,18 @@ import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;
   let fixture: ComponentFixture<AdminSidebarComponent>;
   const menuService = new MenuServiceStub();
+  let authorizationService: AuthorizationDataService;
 
   beforeEach(async(() => {
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthenticated: observableOf(true)
+    });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [AdminSidebarComponent],
@@ -31,6 +36,7 @@ describe('AdminSidebarComponent', () => {
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ActivatedRoute, useValue: {} },
+        { provide: AuthorizationDataService, useValue: authorizationService },
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/}
