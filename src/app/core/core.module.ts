@@ -145,6 +145,7 @@ import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
+import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -264,6 +265,7 @@ const PROVIDERS = [
   LicenseDataService,
   ItemTypeDataService,
   WorkflowActionDataService,
+  TokenResponseParsingService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

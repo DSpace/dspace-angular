@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
-
-import { DSpaceRESTv2Service, HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { saveAs } from 'file-saver';
+import { Inject, Injectable } from '@angular/core';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { AuthService } from '../auth/auth.service';
+import { take } from 'rxjs/operators';
+import { NativeWindowRef, NativeWindowService } from '../services/window.service';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * Provides utility methods to save files on the client-side.
@@ -12,22 +12,20 @@ import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.
 @Injectable()
 export class FileService {
   constructor(
-    private restService: DSpaceRESTv2Service
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
+    private authService: AuthService
   ) { }
 
   /**
-   * Makes a HTTP Get request to download a file
+   * Combines an URL with a short-lived token and sets the current URL to the newly created one
    *
    * @param url
    *    file url
    */
   downloadFile(url: string) {
-    const headers = new HttpHeaders();
-    const options: HttpOptions = Object.create({headers, responseType: 'blob'});
-    return this.restService.request(RestRequestMethod.GET, url, null, options)
-      .subscribe((data) => {
-        saveAs(data.payload as Blob, this.getFileNameFromResponseContentDisposition(data));
-      });
+    this.authService.getShortlivedToken().pipe(take(1)).subscribe((token) => {
+      this._window.nativeWindow.location.href = hasValue(token) ? new URLCombiner(url, `?token=${token}`).toString() : url;
+    });
   }
 
   /**

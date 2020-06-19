@@ -1,12 +1,19 @@
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
-import { AuthGetRequest, AuthPostRequest, GetRequest, PostRequest, RestRequest } from '../data/request.models';
-import { AuthStatusResponse, ErrorResponse } from '../cache/response.models';
+import {
+  AuthGetRequest,
+  AuthPostRequest,
+  GetRequest,
+  PostRequest,
+  RestRequest,
+  TokenPostRequest
+} from '../data/request.models';
+import { AuthStatusResponse, ErrorResponse, RestResponse, TokenResponse } from '../cache/response.models';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { getResponseFromEntry } from '../shared/operators';
 import { HttpClient } from '@angular/common/http';
@@ -15,6 +22,7 @@ import { HttpClient } from '@angular/common/http';
 export class AuthRequestService {
   protected linkName = 'authn';
   protected browseEndpoint = '';
+  protected shortlivedtokensEndpoint = 'shortlivedtokens';
 
   constructor(protected halService: HALEndpointService,
               protected requestService: RequestService,
@@ -66,5 +74,20 @@ export class AuthRequestService {
       tap((request: GetRequest) => this.requestService.configure(request)),
       mergeMap((request: GetRequest) => this.fetchRequest(request)),
       distinctUntilChanged());
+  }
+
+  /**
+   * Send a POST request to retrieve a short-lived token which provides download access of restricted files
+   */
+  public getShortlivedToken(): Observable<string> {
+    return this.halService.getEndpoint(`${this.linkName}/${this.shortlivedtokensEndpoint}`).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new TokenPostRequest(this.requestService.generateRequestId(), endpointURL)),
+      tap((request: PostRequest) => this.requestService.configure(request)),
+      switchMap((request: PostRequest) => this.requestService.getByUUID(request.uuid)),
+      getResponseFromEntry(),
+      map((response: TokenResponse) => response.token)
+    );
   }
 }
