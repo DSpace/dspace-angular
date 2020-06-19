@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../core/data/request.models';
@@ -31,7 +31,8 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   paginationConfig: FindListOptions;
 
-  constructor(private communityListService: CommunityListService) {
+  constructor(private communityListService: CommunityListService,
+              private zone: NgZone) {
     this.paginationConfig = new FindListOptions();
     this.paginationConfig.elementsPerPage = 2;
     this.paginationConfig.currentPage = 1;
@@ -39,7 +40,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.dataSource = new CommunityListDatasource(this.communityListService);
+    this.dataSource = new CommunityListDatasource(this.communityListService, this.zone);
     this.communityListService.getLoadingNodeFromStore().pipe(take(1)).subscribe((result) => {
       this.loadingNode = result;
     });

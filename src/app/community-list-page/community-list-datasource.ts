@@ -1,3 +1,4 @@
+import { NgZone } from '@angular/core';
 import { FindListOptions } from '../core/data/request.models';
 import { CommunityListService, FlatNode } from './community-list-service';
 import { CollectionViewer, DataSource } from '@angular/cdk/typings/collections';
@@ -15,7 +16,8 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
   private communityList$ = new BehaviorSubject<FlatNode[]>([]);
   public loading$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private communityListService: CommunityListService) {
+  constructor(private communityListService: CommunityListService,
+              private zone: NgZone) {
   }
 
   connect(collectionViewer: CollectionViewer): Observable<FlatNode[]> {
@@ -25,11 +27,13 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
   loadCommunities(findOptions: FindListOptions, expandedNodes: FlatNode[]) {
     this.loading$.next(true);
 
-    this.communityListService.loadCommunities(findOptions, expandedNodes).pipe(
-      take(1),
-      finalize(() => this.loading$.next(false)),
-    ).subscribe((flatNodes: FlatNode[]) => {
-      this.communityList$.next(flatNodes);
+    this.zone.runOutsideAngular(() => {
+      this.communityListService.loadCommunities(findOptions, expandedNodes).pipe(
+        take(1),
+        finalize(() => this.loading$.next(false)),
+      ).subscribe((flatNodes: FlatNode[]) => {
+        this.communityList$.next(flatNodes);
+      });
     });
   }
 
