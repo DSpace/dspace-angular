@@ -8,7 +8,7 @@ import { of as observableOf } from 'rxjs';
 
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
-import { AuthService } from './auth.service';
+import { AuthService, IMPERSONATING_COOKIE } from './auth.service';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 
@@ -331,6 +331,121 @@ describe('AuthService test', () => {
       authService.redirectAfterLoginSuccess(true);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
       expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/');
+    });
+
+    describe('impersonate', () => {
+      const userId = 'testUserId';
+
+      beforeEach(() => {
+        spyOn(authService, 'refreshAfterLogout');
+        authService.impersonate(userId);
+      });
+
+      it('should impersonate user', () => {
+        expect(storage.set).toHaveBeenCalledWith(IMPERSONATING_COOKIE, userId);
+      });
+
+      it('should call refreshAfterLogout', () => {
+        expect(authService.refreshAfterLogout).toHaveBeenCalled();
+      });
+    });
+
+    describe('stopImpersonating', () => {
+      beforeEach(() => {
+        authService.stopImpersonating();
+      });
+
+      it('should impersonate user', () => {
+        expect(storage.remove).toHaveBeenCalledWith(IMPERSONATING_COOKIE);
+      });
+    });
+
+    describe('stopImpersonatingAndRefresh', () => {
+      beforeEach(() => {
+        spyOn(authService, 'refreshAfterLogout');
+        authService.stopImpersonatingAndRefresh();
+      });
+
+      it('should impersonate user', () => {
+        expect(storage.remove).toHaveBeenCalledWith(IMPERSONATING_COOKIE);
+      });
+
+      it('should call refreshAfterLogout', () => {
+        expect(authService.refreshAfterLogout).toHaveBeenCalled();
+      });
+    });
+
+    describe('getImpersonateID', () => {
+      beforeEach(() => {
+        authService.getImpersonateID();
+      });
+
+      it('should impersonate user', () => {
+        expect(storage.get).toHaveBeenCalledWith(IMPERSONATING_COOKIE);
+      });
+    });
+
+    describe('isImpersonating', () => {
+      const userId = 'testUserId';
+      let result: boolean;
+
+      describe('when the cookie doesn\'t contain a value', () => {
+        beforeEach(() => {
+          result = authService.isImpersonating();
+        });
+
+        it('should return false', () => {
+          expect(result).toBe(false);
+        });
+      });
+
+      describe('when the cookie contains a value', () => {
+        beforeEach(() => {
+          storage.get = jasmine.createSpy().and.returnValue(userId);
+          result = authService.isImpersonating();
+        });
+
+        it('should return true', () => {
+          expect(result).toBe(true);
+        });
+      });
+    });
+
+    describe('isImpersonatingUser', () => {
+      const userId = 'testUserId';
+      let result: boolean;
+
+      describe('when the cookie doesn\'t contain a value', () => {
+        beforeEach(() => {
+          result = authService.isImpersonatingUser(userId);
+        });
+
+        it('should return false', () => {
+          expect(result).toBe(false);
+        });
+      });
+
+      describe('when the cookie contains the right value', () => {
+        beforeEach(() => {
+          storage.get = jasmine.createSpy().and.returnValue(userId);
+          result = authService.isImpersonatingUser(userId);
+        });
+
+        it('should return true', () => {
+          expect(result).toBe(true);
+        });
+      });
+
+      describe('when the cookie contains the wrong value', () => {
+        beforeEach(() => {
+          storage.get = jasmine.createSpy().and.returnValue('wrongValue');
+          result = authService.isImpersonatingUser(userId);
+        });
+
+        it('should return false', () => {
+          expect(result).toBe(false);
+        });
+      });
     });
   });
 });

@@ -1,20 +1,18 @@
-import { Observable, of as observableOf } from 'rxjs';
-
-import { catchError, debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { catchError, debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
 // import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 
 // import services
 import { AuthService } from './auth.service';
-
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AppState } from '../../app.reducer';
-import { isAuthenticated } from './selectors';
+import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
 import { StoreActionTypes } from '../../store.actions';
 import { AuthMethod } from './models/auth.method';
 // import actions
@@ -43,6 +41,7 @@ import {
   RetrieveAuthMethodsSuccessAction,
   RetrieveTokenAction
 } from './auth.actions';
+import { hasValue } from '../../shared/empty.util';
 
 @Injectable()
 export class AuthEffects {
@@ -66,7 +65,6 @@ export class AuthEffects {
   @Effect()
   public authenticateSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATE_SUCCESS),
-    tap((action: AuthenticationSuccessAction) => this.authService.storeToken(action.payload)),
     map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload))
   );
 
@@ -83,6 +81,7 @@ export class AuthEffects {
   @Effect()
   public authenticatedSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED_SUCCESS),
+    tap((action: AuthenticatedSuccessAction) => this.authService.storeToken(action.payload.authToken)),
     map((action: AuthenticatedSuccessAction) => new RetrieveAuthenticatedEpersonAction(action.payload.userHref))
   );
 
@@ -97,8 +96,15 @@ export class AuthEffects {
   public retrieveAuthenticatedEperson$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON),
     switchMap((action: RetrieveAuthenticatedEpersonAction) => {
-      return this.authService.retrieveAuthenticatedUserByHref(action.payload).pipe(
-        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user)),
+      const impersonatedUserID = this.authService.getImpersonateID();
+      let user$: Observable<EPerson>;
+      if (hasValue(impersonatedUserID)) {
+        user$ = this.authService.retrieveAuthenticatedUserById(impersonatedUserID);
+      } else {
+        user$ = this.authService.retrieveAuthenticatedUserByHref(action.payload);
+      }
+      return user$.pipe(
+        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user.id)),
         catchError((error) => observableOf(new RetrieveAuthenticatedEpersonErrorAction(error))));
     })
   );
@@ -179,10 +185,11 @@ export class AuthEffects {
   public clearInvalidTokenOnRehydrate$: Observable<any> = this.actions$.pipe(
     ofType(StoreActionTypes.REHYDRATE),
     switchMap(() => {
-      return this.store.pipe(
-        select(isAuthenticated),
+      const isLoaded$ = this.store.pipe(select(isAuthenticatedLoaded));
+      const authenticated$ = this.store.pipe(select(isAuthenticated));
+      return observableCombineLatest(isLoaded$, authenticated$).pipe(
         take(1),
-        filter((authenticated) => !authenticated),
+        filter(([loaded, authenticated]) => loaded && !authenticated),
         tap(() => this.authService.removeToken()),
         tap(() => this.authService.resetAuthenticationError())
       );
@@ -193,6 +200,7 @@ export class AuthEffects {
     .pipe(
       ofType(AuthActionTypes.LOG_OUT),
       switchMap(() => {
+        this.authService.stopImpersonating();
         return this.authService.logout().pipe(
           map((value) => new LogOutSuccessAction()),
           catchError((error) => observableOf(new LogOutErrorAction(error)))

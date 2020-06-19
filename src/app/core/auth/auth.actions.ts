@@ -402,10 +402,10 @@ export class RetrieveAuthenticatedEpersonAction implements Action {
  */
 export class RetrieveAuthenticatedEpersonSuccessAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS;
-  payload: EPerson;
+  payload: string;
 
-  constructor(user: EPerson) {
-    this.payload = user ;
+  constructor(userId: string) {
+    this.payload = userId ;
   }
 }
 

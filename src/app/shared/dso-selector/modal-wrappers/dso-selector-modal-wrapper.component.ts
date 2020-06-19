@@ -1,11 +1,12 @@
 import { Injectable, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { hasValue, isNotEmpty } from '../../empty.util';
 
 export enum SelectorActionType {
   CREATE = 'create',
@@ -21,7 +22,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   /**
    * The current page's DSO
    */
-  @Input() dsoRD$: Observable<RemoteData<DSpaceObject>>;
+  @Input() dsoRD: RemoteData<DSpaceObject>;
 
   /**
    * The type of the DSO that's being edited or created
@@ -45,10 +46,30 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
    * Get de current page's DSO based on the selectorType
    */
   ngOnInit(): void {
-    const typeString = this.selectorType.toString().toLowerCase();
-    this.dsoRD$ = this.route.root.firstChild.firstChild.data.pipe(map((data) => data[typeString]));
+    const matchingRoute = this.findRouteData(
+      (route: ActivatedRouteSnapshot) => hasValue(route.data.dso),
+      this.route.root.snapshot
+    );
+    if (hasValue(matchingRoute)) {
+      this.dsoRD = matchingRoute.data.dso;
+    }
   }
 
+  findRouteData(predicate: (value: ActivatedRouteSnapshot, index?: number, obj?: ActivatedRouteSnapshot[]) => unknown, ...routes: ActivatedRouteSnapshot[]) {
+    const result = routes.find(predicate);
+    if (hasValue(result)) {
+      return result;
+    } else {
+      const nextLevelRoutes = routes
+        .map((route: ActivatedRouteSnapshot) => route.children)
+        .reduce((combined: ActivatedRouteSnapshot[], current: ActivatedRouteSnapshot[]) => [...combined, ...current]);
+      if (isNotEmpty(nextLevelRoutes)) {
+        return this.findRouteData(predicate, ...nextLevelRoutes)
+      } else {
+        return undefined;
+      }
+    }
+  }
   /**
    * Method called when an object has been selected
    * @param dso The selected DSpaceObject

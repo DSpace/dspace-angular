@@ -170,6 +170,14 @@
 
 
 
+  "admin.access-control.epeople.actions.delete": "Delete EPerson",
+
+  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
+
+  "admin.access-control.epeople.actions.reset": "Reset password",
+
+  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
+
   "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
 
   "admin.access-control.epeople.head": "EPeople",
@@ -396,6 +404,20 @@
   "admin.search.item.withdrawn": "Withdrawn",
 
   "admin.search.title": "Administrative Search",
+
+
+
+
+  "admin.workflow.breadcrumbs": "Administer Workflow",
+
+  "admin.workflow.title": "Administer Workflow",
+
+  "admin.workflow.item.workflow": "Workflow",
+
+  "admin.workflow.item.delete": "Delete",
+
+  "admin.workflow.item.send-back": "Send back",
+
 
 
 
@@ -745,6 +767,10 @@
 
   "community.edit.notifications.success": "Successfully edited the Community",
 
+  "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
+
+  "community.edit.notifications.error": "An error occured while editing the Community",
+
   "community.edit.return": "Return",
 
 
@@ -972,6 +998,11 @@
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
 
+
+
+  "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
+
+  "item.edit.authorizations.title": "Edit item's Policies",
 
 
 
@@ -1705,6 +1736,8 @@
   "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
 
 
+  "menu.section.workflow": "Administer Workflow",
+
 
   "mydspace.description": "",
 
@@ -1799,6 +1832,8 @@
   "nav.search": "Search",
 
   "nav.statistics.header": "Statistics",
+
+  "nav.stop-impersonating": "Stop impersonating EPerson",
 
 
 
@@ -2037,6 +2072,100 @@
   "relationships.isVolumeOf": "Journal Volumes",
 
   "relationships.isContributorOf": "Contributors",
+
+
+
+  "resource-policies.add.button": "Add",
+
+  "resource-policies.add.for.": "Add a new policy",
+
+  "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
+
+  "resource-policies.add.for.bundle": "Add a new Bundle policy",
+
+  "resource-policies.add.for.item": "Add a new Item policy",
+
+  "resource-policies.create.page.heading": "Create new resource policy for ",
+
+  "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
+
+  "resource-policies.create.page.success.content": "Operation successful",
+
+  "resource-policies.create.page.title": "Create new resource policy",
+
+  "resource-policies.delete.btn": "Delete selected",
+
+  "resource-policies.delete.btn.title": "Delete selected resource policies",
+
+  "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
+
+  "resource-policies.delete.success.content": "Operation successful",
+
+  "resource-policies.edit.page.heading": "Edit resource policy ",
+
+  "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
+
+  "resource-policies.edit.page.success.content": "Operation successful",
+
+  "resource-policies.edit.page.title": "Edit resource policy",
+
+  "resource-policies.form.action-type.label": "Select the action type",
+
+  "resource-policies.form.action-type.required": "You must select the resource policy action.",
+
+  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be grant of the permission",
+
+  "resource-policies.form.eperson-group-list.select.btn": "Select",
+
+  "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+
+  "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
+
+  "resource-policies.form.eperson-group-list.table.headers.action": "Action",
+
+  "resource-policies.form.eperson-group-list.table.headers.id": "ID",
+
+  "resource-policies.form.eperson-group-list.table.headers.name": "Name",
+
+  "resource-policies.form.date.end.label": "End Date",
+
+  "resource-policies.form.date.start.label": "Start Date",
+
+  "resource-policies.form.description.label": "Description",
+
+  "resource-policies.form.name.label": "Name",
+
+  "resource-policies.form.policy-type.label": "Select the policy type",
+
+  "resource-policies.form.policy-type.required": "You must select the resource policy type.",
+
+  "resource-policies.table.headers.action": "Action",
+
+  "resource-policies.table.headers.date.end": "End Date",
+
+  "resource-policies.table.headers.date.start": "Start Date",
+
+  "resource-policies.table.headers.edit": "Edit",
+
+  "resource-policies.table.headers.edit.group": "Edit group",
+
+  "resource-policies.table.headers.edit.policy": "Edit policy",
+
+  "resource-policies.table.headers.eperson": "EPerson",
+
+  "resource-policies.table.headers.group": "Group",
+
+  "resource-policies.table.headers.id": "ID",
+
+  "resource-policies.table.headers.name": "Name",
+
+  "resource-policies.table.headers.policyType": "type",
+
+  "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
+
+  "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
+
+  "resource-policies.table.headers.title.for.item": "Policies for Item",
 
 
 
@@ -2594,5 +2723,44 @@
   "virtual-metadata.delete-item.modal-head": "The virtual metadata of this relation",
 
   "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
+
+
+
+  "workflowAdmin.search.results.head": "Administer Workflow",
+
+
+
+  "workflow-item.delete.notification.success.title": "Deleted",
+
+  "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
+
+  "workflow-item.delete.notification.error.title": "Something went wrong",
+
+  "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
+
+  "workflow-item.delete.title": "Delete workflow item",
+
+  "workflow-item.delete.header": "Delete workflow item",
+
+  "workflow-item.delete.button.cancel": "Cancel",
+
+  "workflow-item.delete.button.confirm": "Delete",
+
+
+  "workflow-item.send-back.notification.success.title": "Sent back to submitter",
+
+  "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
+
+  "workflow-item.send-back.notification.error.title": "Something went wrong",
+
+  "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
+
+  "workflow-item.send-back.title": "Send workflow item back to submitter",
+
+  "workflow-item.send-back.header": "Send workflow item back to submitter",
+
+  "workflow-item.send-back.button.cancel": "Cancel",
+
+  "workflow-item.send-back.button.confirm": "Send back",
 }
 

@@ -6,9 +6,11 @@ import { ConfigurationSearchPageComponent } from './configuration-search-page.co
 import { SearchPageComponent } from './search-page.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
+import { SearchPageModule } from './search-page.module';
 
 @NgModule({
   imports: [
+    SearchPageModule,
     RouterModule.forChild([{
         path: '',
         resolve: { breadcrumb: I18nBreadcrumbResolver }, data: { title: 'search.title', breadcrumbKey: 'search' },
