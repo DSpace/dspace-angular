@@ -344,7 +344,9 @@ export abstract class DataService<T extends CacheableObject> {
       tap((href: string) => {
           this.requestService.removeByHrefSubstring(href);
           const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
-          request.responseMsToLive = 10 * 1000;
+          if (hasValue(this.responseMsToLive)) {
+            request.responseMsToLive = this.responseMsToLive;
+          }
 
           this.requestService.configure(request);
         }
