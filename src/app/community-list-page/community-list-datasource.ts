@@ -25,14 +25,13 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
   }
 
   loadCommunities(findOptions: FindListOptions, expandedNodes: FlatNode[]) {
-    this.loading$.next(true);
-
     this.zone.runOutsideAngular(() => {
+      this.loading$.next(true);
       this.communityListService.loadCommunities(findOptions, expandedNodes).pipe(
         take(1),
-        finalize(() => this.loading$.next(false)),
+        finalize(() => this.zone.run(() => this.loading$.next(false))),
       ).subscribe((flatNodes: FlatNode[]) => {
-        this.communityList$.next(flatNodes);
+        this.zone.run(() => this.communityList$.next(flatNodes));
       });
     });
   }
