@@ -14,7 +14,7 @@ import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { DataService } from '../data/data.service';
@@ -97,7 +97,7 @@ export class GroupDataService extends DataService<Group> {
    * @param linksToFollow
    */
   public searchGroups(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Group>>): Observable<RemoteData<PaginatedList<Group>>> {
-    const searchParams = [new SearchParam('query', query)];
+    const searchParams = [new RequestParam('query', query)];
     let findListOptions = new FindListOptions();
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);
@@ -121,7 +121,7 @@ export class GroupDataService extends DataService<Group> {
   isMemberOf(groupName: string): Observable<boolean> {
     const searchHref = 'isMemberOf';
     const options = new FindListOptions();
-    options.searchParams = [new SearchParam('groupName', groupName)];
+    options.searchParams = [new RequestParam('groupName', groupName)];
 
     return this.searchBy(searchHref, options).pipe(
       filter((groups: RemoteData<PaginatedList<Group>>) => !groups.isResponsePending),

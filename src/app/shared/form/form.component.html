@@ -38,7 +38,9 @@
 
         </ds-dynamic-form>
 
-        <div *ngIf="displaySubmit">
+        <ng-content></ng-content>
+
+    <div *ngIf="displaySubmit">
             <hr>
             <div class="form-group row">
                 <div class="col text-right">

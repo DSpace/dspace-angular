@@ -14,7 +14,6 @@ import {
   SetRedirectUrlAction
 } from './auth.actions';
 // import models
-import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
@@ -49,8 +48,8 @@ export interface AuthState {
   // true when refreshing token
   refreshing?: boolean;
 
-  // the authenticated user
-  user?: EPerson;
+  // the authenticated user's id
+  userId?: string;
 
   // all authentication Methods enabled at the backend
   authMethods?: AuthMethod[];
@@ -112,7 +111,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         error: undefined,
         loading: false,
         info: undefined,
-        user: (action as RetrieveAuthenticatedEpersonSuccessAction).payload
+        userId: (action as RetrieveAuthenticatedEpersonSuccessAction).payload
       });
 
     case AuthActionTypes.AUTHENTICATE_ERROR:
@@ -144,7 +143,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: false,
         info: undefined,
         refreshing: false,
-        user: undefined
+        userId: undefined
       });
 
     case AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED:
@@ -155,7 +154,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loaded: false,
         loading: false,
         info: (action as RedirectWhenTokenExpiredAction as RedirectWhenAuthenticationIsRequiredAction).payload,
-        user: undefined
+        userId: undefined
       });
 
     case AuthActionTypes.REGISTRATION:
