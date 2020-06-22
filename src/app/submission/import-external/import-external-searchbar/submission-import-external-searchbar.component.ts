@@ -41,7 +41,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
   /**
    * The init external source value.
    */
-  @Input() public initExternalSourceValue: string;
+  @Input() public initExternalSourceData: ExternalSourceData;
   /**
    * The selected external sources.
    */
@@ -49,7 +49,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
   /**
    * The list of external sources.
    */
-  public sourceList: SourceElement[] = [];
+  public sourceList: SourceElement[];
   /**
    * The string used to search items in the external sources.
    */
@@ -87,8 +87,12 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
    * Component initialization and retrieve first page of external sources.
    */
   ngOnInit() {
+    this.selectedElement = {
+      id: '',
+      name: 'loading'
+    };
     this.searchString = '';
-    this.selectedElement = { id: '', name: 'loading' };
+    this.sourceList = [];
     this.findListOptions = Object.assign({}, new FindListOptions(), {
       elementsPerPage: 5,
       currentPage: 0,
@@ -102,14 +106,16 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
       }),
       getFirstSucceededRemoteDataPayload()
     ).subscribe((externalSource: PaginatedList<ExternalSource>) => {
-      let initEntry;
       externalSource.page.forEach((element) => {
         this.sourceList.push({ id: element.id, name: element.name });
-        if (isEmpty(initEntry) || this.initExternalSourceValue === element.id) {
-          initEntry = { id: element.id, name: element.name }
+        if (this.initExternalSourceData.sourceId === element.id) {
+          this.selectedElement = { id: element.id, name: element.name };
+          this.searchString = this.initExternalSourceData.query;
         }
       });
-      this.selectedElement = initEntry;
+      if (this.selectedElement.id === '') {
+        this.selectedElement = this.sourceList[0];
+      }
       this.pageInfo = externalSource.pageInfo;
       this.cdr.detectChanges();
     });

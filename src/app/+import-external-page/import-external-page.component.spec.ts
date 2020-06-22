@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ImportExternalPageComponent } from './import-external-page.component';
 
-fdescribe('ImportExternalPageComponent', () => {
+describe('ImportExternalPageComponent', () => {
   let component: ImportExternalPageComponent;
   let fixture: ComponentFixture<ImportExternalPageComponent>;
 

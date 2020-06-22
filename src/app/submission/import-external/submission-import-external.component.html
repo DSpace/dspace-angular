@@ -3,15 +3,36 @@
     <div class="col-md-12">
       <h2 id="header" class="pb-2">{{'submission.import-external.title' | translate}}</h2>
       <ds-submission-import-external-searchbar
-        [initExternalSourceValue]="''"
+        [initExternalSourceData]="routeData"
         (externalSourceData) = "getExternalsourceData($event)">
       </ds-submission-import-external-searchbar>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-      DATA<br>
-      {{(externalSourceData)?externalSourceData.sourceId:''}} : {{(externalSourceData)?externalSourceData.query:''}}
+    <div *ngIf="routeData.sourceId !== ''" class="col-md-12">
+      <ng-container *ngVar="(entriesRD$ | async) as entriesRD">
+        <h3 *ngIf="entriesRD?.payload?.page?.length !== 0">{{ 'submission.sections.describe.relationship-lookup.selection-tab.title.' + routeData.sourceId | translate}}</h3>
+        <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !(isLoading$ | async) && entriesRD?.payload?.page?.length > 0" @fadeIn
+                                [objects]="entriesRD"
+                                [selectionConfig]="{ repeatable: repeatable, listId: listId }"
+                                [config]="initialPagination"
+                                [hideGear]="true"
+                                [context]="context"
+                                [importable]="true"
+                                [importConfig]="importConfig"
+                                (importObject)="import($event)">
+        </ds-viewable-collection>
+        <ds-loading *ngIf="(isLoading$ | async)"
+                    message="{{'loading.search-results' | translate}}"></ds-loading>
+        <div *ngIf="!(isLoading$ | async) && entriesRD?.payload?.page?.length === 0" id="empty-external-entry-list">
+          {{ 'search.results.empty' | translate }}
+        </div>
+      </ng-container>
+    </div>
+    <div *ngIf="routeData.sourceId === ''" class="col-md-12">
+      <div class="jumbotron">
+        <p class="lead">{{'submission.import-external.page.hint' | translate}}</p>
+      </div>
     </div>
   </div>
   <div class="row">

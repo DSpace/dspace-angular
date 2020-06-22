@@ -30,6 +30,7 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
 import { storeModuleConfig } from '../app.reducer';
 import { SubmissionImportExternalComponent } from './import-external/submission-import-external.component';
 import { SubmissionImportExternalSearchbarComponent } from './import-external/import-external-searchbar/submission-import-external-searchbar.component';
+import { SubmissionImportExternalPreviewComponent } from './import-external/import-external-preview/submission-import-external-preview.component';
 
 @NgModule({
   imports: [
@@ -59,12 +60,15 @@ import { SubmissionImportExternalSearchbarComponent } from './import-external/im
     SubmissionSectionUploadFileViewComponent,
     SubmissionImportExternalComponent,
     SubmissionImportExternalSearchbarComponent,
+    SubmissionImportExternalPreviewComponent
   ],
   entryComponents: [
     SubmissionSectionUploadComponent,
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
-    SubmissionSectionContainerComponent],
+    SubmissionSectionContainerComponent,
+    SubmissionImportExternalPreviewComponent
+  ],
   exports: [
     SubmissionEditComponent,
     SubmissionFormComponent,
