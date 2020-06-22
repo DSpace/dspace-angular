@@ -6,17 +6,19 @@ import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { LocaleService } from './locale.service';
 import { LocaleInterceptor } from './locale.interceptor';
+import { of } from 'rxjs';
 
 describe(`LocaleInterceptor`, () => {
   let service: DSpaceRESTv2Service;
   let httpMock: HttpTestingController;
   let localeService: any;
 
-  function getMockLocaleService(): LocaleService {
-    return jasmine.createSpyObj('LocaleService', {
-      getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode')
-    })
-  }
+  const languageList = ['en;q=1', 'it;q=0.9', 'de;q=0.8', 'fr;q=0.7'];
+
+  const mockLocaleService = jasmine.createSpyObj('LocaleService', {
+    getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    getLanguageCodeList: of(languageList)
+  })
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -28,7 +30,7 @@ describe(`LocaleInterceptor`, () => {
           useClass: LocaleInterceptor,
           multi: true,
         },
-        {provide: LocaleService, useValue: getMockLocaleService()},
+        {provide: LocaleService, useValue: mockLocaleService},
       ],
     });
 
@@ -50,7 +52,8 @@ describe(`LocaleInterceptor`, () => {
 
       expect(httpRequest.request.headers.has('Accept-Language'));
       const lang = httpRequest.request.headers.get('Accept-Language');
-      expect(lang).toBe('en');
+      expect(lang).toBeDefined();
+      expect(lang).toBe(languageList.toString());
     });
 
     it('should add an Accept-Language header when we’re sending an HTTP GET request', () => {
@@ -62,7 +65,8 @@ describe(`LocaleInterceptor`, () => {
 
       expect(httpRequest.request.headers.has('Accept-Language'));
       const lang = httpRequest.request.headers.get('Accept-Language');
-      expect(lang).toBe('en');
+      expect(lang).toBeDefined();
+      expect(lang).toBe(languageList.toString());
     });
 
   });
