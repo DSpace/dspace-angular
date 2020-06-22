@@ -42,6 +42,15 @@ import { Router } from '@angular/router';
  */
 export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   @Output() selectEvent: EventEmitter<ListableObject[]> = new EventEmitter<ListableObject[]>();
+
+  /**
+   * The label to use to display i18n messages (describing the type of relationship)
+   */
+  label: string;
+
+  /**
+   * Options for searching related items
+   */
   relationshipOptions: RelationshipOptions;
 
   /**
