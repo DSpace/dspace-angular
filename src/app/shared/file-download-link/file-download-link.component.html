@@ -1,0 +1,6 @@
+<a *ngIf="!(isAuthenticated$ | async)" [href]="href" [download]="download"><ng-container *ngTemplateOutlet="content"></ng-container></a>
+<a *ngIf="(isAuthenticated$ | async)" [href]="href" [download]="download" (click)="downloadFile()"><ng-container *ngTemplateOutlet="content"></ng-container></a>
+
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>
