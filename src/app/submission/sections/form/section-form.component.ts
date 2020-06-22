@@ -128,7 +128,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    * @param {SubmissionObjectDataService} submissionObjectService
    * @param {ObjectCacheService} objectCache
    * @param {RequestService} requestService
-   * @param {GlobalConfig} EnvConfig
    * @param {string} injectedCollectionId
    * @param {SectionDataObject} injectedSectionData
    * @param {string} injectedSubmissionId
@@ -350,7 +349,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
       const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-    if (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
+      if (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
         this.submissionService.dispatchSave(this.submissionId);
       }
     }
