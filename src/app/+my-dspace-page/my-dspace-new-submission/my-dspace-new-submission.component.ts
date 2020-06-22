@@ -15,6 +15,9 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateItemParentSelectorComponent } from 'src/app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 
 /**
  * This component represents the whole mydspace page header
@@ -55,7 +58,9 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
               private halService: HALEndpointService,
               private notificationsService: NotificationsService,
               private store: Store<SubmissionState>,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private router: Router,
+              private modalService: NgbModal) {
   }
 
   /**
@@ -103,6 +108,14 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    */
   public onUploadError() {
     this.notificationsService.error(null, this.translate.get('mydspace.upload.upload-failed'));
+  }
+
+  /**
+   * Method called on clicking the button "New Submition", It opens a dialog for
+   * select a collection.
+   */
+  openDialog() {
+    this.modalService.open(CreateItemParentSelectorComponent);
   }
 
   /**

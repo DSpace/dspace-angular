@@ -1,0 +1,15 @@
+<div class="parent mb-3">
+  <div class="upload">
+    <ds-uploader *ngIf="uploadFilesOptions.url !== ''"
+                 [uploadFilesOptions]="uploadFilesOptions"
+                 (onCompleteItem)="onCompleteItem($event)"
+                 (onUploadError)="onUploadError()"></ds-uploader>
+
+  </div>
+  <div class="add">
+    <button class="btn btn-lg btn-primary mt-1 ml-2" (click)="openDialog()" role="button">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
+    </button>
+  </div>
+
+</div>
