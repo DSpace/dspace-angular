@@ -86,13 +86,17 @@ export abstract class DataService<T extends CacheableObject> {
    *    Return an observable that emits created HREF
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected getFindAllHref(options: FindListOptions = {}, linkPath?: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
-    let result$: Observable<string>;
+  public getFindAllHref(options: FindListOptions = {}, linkPath?: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
+    let endpoint$: Observable<string>;
     const args = [];
 
-    result$ = this.getBrowseEndpoint(options, linkPath).pipe(distinctUntilChanged());
+    endpoint$ = this.getBrowseEndpoint(options).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      map((href: string) => isNotEmpty(linkPath) ? `${href}/${linkPath}` : href),
+      distinctUntilChanged()
+    );
 
-    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
+    return endpoint$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
   }
 
   /**
@@ -104,7 +108,7 @@ export abstract class DataService<T extends CacheableObject> {
    *    Return an observable that emits created HREF
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected getSearchByHref(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
+  public getSearchByHref(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
     let result$: Observable<string>;
     const args = [];
 
@@ -144,6 +148,11 @@ export abstract class DataService<T extends CacheableObject> {
     }
     if (hasValue(options.startsWith)) {
       args = [...args, `startsWith=${options.startsWith}`];
+    }
+    if (hasValue(options.searchParams)) {
+      options.searchParams.forEach((param: RequestParam) => {
+        args = [...args, `${param.fieldName}=${param.fieldValue}`];
+      })
     }
     args = this.addEmbedParams(args, ...linksToFollow);
     if (isNotEmpty(args)) {
