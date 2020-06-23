@@ -20,6 +20,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './mapped-collections-reponse-parsing.service';
+import { VocabularyEntriesResponseParsingService } from '../submission/vocabularies/vocabulary-entries-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -440,6 +441,15 @@ export class TaskDeleteRequest extends DeleteRequest {
 
 export class MyDSpaceRequest extends GetRequest {
   public responseMsToLive = 10 * 1000;
+}
+
+/**
+ * Request to get vocabulary entries
+ */
+export class VocabularyEntriesRequest extends FindListRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return VocabularyEntriesResponseParsingService;
+  }
 }
 
 export class RequestError extends Error {

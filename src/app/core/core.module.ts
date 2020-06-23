@@ -16,8 +16,8 @@ import { MenuService } from '../shared/menu/menu.service';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest-v2/endpoint-mocking-rest.service';
 import {
   MOCK_RESPONSE_MAP,
-  ResponseMapMock,
-  mockResponseMap
+  mockResponseMap,
+  ResponseMapMock
 } from '../shared/mocks/dspace-rest-v2/mocks/response-map.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
@@ -145,6 +145,9 @@ import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
+import { VocabularyEntry } from './submission/vocabularies/models/vocabulary-entry.model';
+import { Vocabulary } from './submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntriesResponseParsingService } from './submission/vocabularies/vocabulary-entries-response-parsing.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -178,7 +181,7 @@ const PROVIDERS = [
   SiteDataService,
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
-  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient]},
+  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },
   DynamicFormLayoutService,
   DynamicFormService,
   DynamicFormValidationService,
@@ -272,7 +275,8 @@ const PROVIDERS = [
   },
   NotificationsService,
   FilteredDiscoveryPageResponseParsingService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory }
+  { provide: NativeWindowService, useFactory: NativeWindowFactory },
+  VocabularyEntriesResponseParsingService
 ];
 
 /**
@@ -314,7 +318,9 @@ export const models =
     ExternalSourceEntry,
     Version,
     VersionHistory,
-    WorkflowAction
+    WorkflowAction,
+    Vocabulary,
+    VocabularyEntry
   ];
 
 @NgModule({
@@ -333,6 +339,12 @@ export const models =
 })
 
 export class CoreModule {
+  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+    if (isNotEmpty(parentModule)) {
+      throw new Error('CoreModule is already loaded. Import it in the AppModule only');
+    }
+  }
+
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
@@ -340,11 +352,5 @@ export class CoreModule {
         ...PROVIDERS
       ]
     };
-  }
-
-  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
-    if (isNotEmpty(parentModule)) {
-      throw new Error('CoreModule is already loaded. Import it in the AppModule only');
-    }
   }
 }
