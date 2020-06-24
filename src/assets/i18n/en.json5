@@ -1425,6 +1425,28 @@
   "item.page.uri": "URI",
 
 
+  "item.preview.dc.identifier.uri": "Identifier:",
+
+  "item.preview.dc.contributor.author": "Authors:",
+
+  "item.preview.dc.date.issued": "Published date:",
+
+  "item.preview.dc.description.abstract": "Abstract:",
+
+  "item.preview.dc.identifier.other": "Other identifier:",
+
+  "item.preview.dc.language.iso": "Language:",
+
+  "item.preview.dc.subject": "Subjects:",
+
+  "item.preview.dc.title": "Title:",
+
+  "item.preview.person.familyName": "Surname:",
+
+  "item.preview.person.givenName": "Name:",
+
+  "item.preview.person.identifier.orcid": "ORCID:",
+
 
   "item.select.confirm": "Confirm selected",
 
@@ -2440,7 +2462,6 @@
 
   "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
 
-
   "submission.sections.describe.relationship-lookup.close": "Close",
 
   "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
@@ -2574,6 +2595,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
 

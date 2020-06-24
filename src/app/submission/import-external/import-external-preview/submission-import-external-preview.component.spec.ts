@@ -48,8 +48,8 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: SubmissionService, useValue: new SubmissionServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        NgbModal,
-        NgbActiveModal,
+        { provide: NgbModal, useValue: { open: () => {/*comment*/} } },
+        { provide: NgbActiveModal, useValue: { dismiss: () => {/*comment*/} } },
         SubmissionImportExternalPreviewComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -97,7 +97,6 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       const expected = [
         { key: 'dc.identifier.uri', value: Metadata.first(comp.externalSourceEntry.metadata, 'dc.identifier.uri') }
       ];
-      comp.ngOnInit();
       fixture.detectChanges();
 
       expect(comp.metadataList).toEqual(expected);

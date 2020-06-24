@@ -19,7 +19,7 @@
     </div>
     <div *ngFor="let metadata of metadataList" class="row">
       <div class="col-md-12">
-        <strong>{{metadata.key}}</strong>
+        <strong>{{'item.preview.' + metadata.key | translate}}</strong>
         <p>{{metadata.value.value}}</p>
       </div>
     </div>
