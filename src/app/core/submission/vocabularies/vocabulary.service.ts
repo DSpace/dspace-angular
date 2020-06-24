@@ -19,13 +19,13 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { ChangeAnalyzer } from '../../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../../data/default-change-analyzer.service';
 import { PaginatedList } from '../../data/paginated-list';
-import { RequestParam } from '../../cache/models/request-param.model';
 import { Vocabulary } from './models/vocabulary.model';
 import { VOCABULARY } from './models/vocabularies.resource-type';
 import { VocabularyEntry } from './models/vocabulary-entry.model';
 import { hasValue, isNotEmptyOperator } from '../../../shared/empty.util';
 import { configureRequest, filterSuccessfulResponses, getRequestFromRequestHref } from '../../shared/operators';
 import { GenericSuccessResponse } from '../../cache/response.models';
+import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -111,22 +111,13 @@ export class VocabularyService {
   /**
    * Return the {@link VocabularyEntry} list for a given {@link Vocabulary}
    *
-   * @param id              The vocabulary id to retrieve the entries for
-   * @param metadata        The metadata name
-   * @param collectionUUID  The collection UUID
-   * @param options         The {@link FindListOptions} for the request
+   * @param options         The {@link VocabularyFindOptions} for the request
    * @return {Observable<RemoteData<PaginatedList<VocabularyEntry>>>}
    *    Return an observable that emits object list
    */
-  getVocabularyEntries(id: string, metadata: string, collectionUUID: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
-    options = Object.assign({}, options, {
-      searchParams: [
-        new RequestParam('metadata', metadata),
-        new RequestParam('collection', collectionUUID)
-      ]
-    });
+  getVocabularyEntries(options: VocabularyFindOptions): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
 
-    return this.dataService.getFindAllHref(options, `${id}/entries`).pipe(
+    return this.dataService.getFindAllHref(options, `${options.name}/entries`).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       getVocabularyEntriesFor(this.requestService, this.rdbService)
@@ -136,18 +127,12 @@ export class VocabularyService {
   /**
    * Return the controlled {@link Vocabulary} configured for the specified metadata and collection if any.
    *
-   * @param metadata       The metadata name
-   * @param collectionUUID The collection UUID
+   * @param options         The {@link VocabularyFindOptions} for the request
    * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<PaginatedList<Vocabulary>>>}
    *    Return an observable that emits object list
    */
-  searchByMetadataAndCollection(metadata: string, collectionUUID: string, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
-    const options = new FindListOptions();
-    options.searchParams = [
-      new RequestParam('metadata', metadata),
-      new RequestParam('collection', collectionUUID)
-    ];
+  searchByMetadataAndCollection(options: VocabularyFindOptions, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
 
     return this.dataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options).pipe(
       first((href: string) => hasValue(href)),

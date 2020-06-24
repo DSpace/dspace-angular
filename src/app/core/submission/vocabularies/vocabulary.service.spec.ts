@@ -19,6 +19,7 @@ import { RestResponse } from '../../cache/response.models';
 import { VocabularyService } from './vocabulary.service';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;
@@ -95,6 +96,7 @@ describe('VocabularyService', () => {
   const vocabularyId = 'types';
   const metadata = 'dc.type';
   const collectionUUID = '8b39g7ya-5a4b-438b-851f-be1d5b4a1c5a';
+  const vocabularyOptions = new VocabularyFindOptions(collectionUUID, vocabularyId, metadata);
   const searchRequestURL = `https://rest.api/rest/api/submission/vocabularies/search/byMetadataAndCollection?metadata=${metadata}&collection=${collectionUUID}`;
   const entriesRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}`;
 
@@ -223,14 +225,14 @@ describe('VocabularyService', () => {
         new RequestParam('metadata', metadata),
         new RequestParam('collection', collectionUUID)
       ];
-      scheduler.schedule(() => service.searchByMetadataAndCollection(metadata, collectionUUID).subscribe());
+      scheduler.schedule(() => service.searchByMetadataAndCollection(vocabularyOptions).subscribe());
       scheduler.flush();
 
       expect((service as any).dataService.findByHref).toHaveBeenCalledWith(searchRequestURL);
     });
 
     it('should return a RemoteData<Vocabulary> for the search', () => {
-      const result = service.searchByMetadataAndCollection(metadata, collectionUUID);
+      const result = service.searchByMetadataAndCollection(vocabularyOptions);
       const expected = cold('a|', {
         a: vocabularyRD
       });
@@ -251,14 +253,14 @@ describe('VocabularyService', () => {
     it('should configure a new VocabularyEntriesRequest', () => {
       const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesRequestURL);
 
-      scheduler.schedule(() => service.getVocabularyEntries(vocabularyId, metadata, collectionUUID).subscribe());
+      scheduler.schedule(() => service.getVocabularyEntries(vocabularyOptions).subscribe());
       scheduler.flush();
 
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
     it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-      service.getVocabularyEntries(vocabularyId, metadata, collectionUUID);
+      service.getVocabularyEntries(vocabularyOptions);
 
       expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
 

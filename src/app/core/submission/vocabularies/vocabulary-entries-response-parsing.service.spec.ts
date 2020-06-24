@@ -4,7 +4,7 @@ import { DSpaceRESTV2Response } from '../../dspace-rest-v2/dspace-rest-v2-respon
 import { VocabularyEntriesResponseParsingService } from './vocabulary-entries-response-parsing.service';
 import { VocabularyEntriesRequest } from '../../data/request.models';
 
-fdescribe('VocabularyEntriesResponseParsingService', () => {
+describe('VocabularyEntriesResponseParsingService', () => {
   let service: VocabularyEntriesResponseParsingService;
   const metadata = 'dc.type';
   const collectionUUID = '8b39g7ya-5a4b-438b-851f-be1d5b4a1c5a';
