@@ -8,6 +8,7 @@ import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { LANG_COOKIE, LocaleService, LANG_ORIGIN } from './locale.service';
 import { AuthService } from '../auth/auth.service';
 import { AuthServiceMock } from 'src/app/shared/mocks/auth.service.mock';
+import { NativeWindowRef } from '../services/window.service';
 
 describe('LocaleService test suite', () => {
   let service: LocaleService;
@@ -15,6 +16,7 @@ describe('LocaleService test suite', () => {
   let cookieService: CookieService;
   let translateService: TranslateService;
   let authService: AuthService;
+  let window;
   let spyOnGet;
   let spyOnSet;
 
@@ -41,7 +43,8 @@ describe('LocaleService test suite', () => {
     cookieService = TestBed.get(CookieService);
     translateService = TestBed.get(TranslateService);
     authService = TestBed.get(TranslateService);
-    service = new LocaleService(cookieService, translateService, authService);
+    window = new NativeWindowRef();
+    service = new LocaleService(window, cookieService, translateService, authService);
     serviceAsAny = service;
     spyOnGet = spyOn(cookieService, 'get');
     spyOnSet = spyOn(cookieService, 'set');

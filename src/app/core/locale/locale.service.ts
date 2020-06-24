@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { isEmpty, hasValue } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, of as observableOf, combineLatest } from 'rxjs';
+import { map, take, flatMap, tap } from 'rxjs/operators';
+import { NativeWindowService, NativeWindowRef } from '../services/window.service';
 
 export const LANG_COOKIE = 'language_cookie';
 
@@ -33,6 +35,7 @@ const EPERSON_LANG_METADATA = 'eperson.language';
 export class LocaleService {
 
   constructor(
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private cookie: CookieService,
     private translate: TranslateService,
     private authService: AuthService) {
@@ -58,39 +61,61 @@ export class LocaleService {
     return lang;
   }
 
+  /**
+   * Get the languages list of the user in Accept-Language format
+   *
+   * @returns {Observable<string[]>}
+   */
   getLanguageCodeList(): Observable<string[]> {
-    const bs = new BehaviorSubject<string[]>([]);
-    // check if user has set preferred language in UI
-    if (this.translate.currentLang) {
-      bs.next(
-        this.setQuality(
-          [this.translate.currentLang],
-          LANG_ORIGIN.UI,
-          false)
-        );
-    }
-    // check if user is loggedIn and has language associated
-    this.authService.getAuthenticatedUserFromStore().subscribe(
-      (eperson) => {
-        const ePersonLang = eperson.firstMetadataValue(EPERSON_LANG_METADATA);
-        bs.next(
-          this.setQuality(
-            [ePersonLang],
-            LANG_ORIGIN.EPERSON,
-            !isEmpty(this.translate.currentLang))
+    const obs$ = combineLatest([
+      this.authService.isAuthenticated(),
+      this.authService.isAuthenticationLoaded()
+    ]);
+
+    return obs$.pipe(
+      take(1),
+      flatMap(([isAuthenticated, isLoaded]) => {
+        let epersonLang$: Observable<string[]> = observableOf([]);
+        if (isAuthenticated && isLoaded) {
+          epersonLang$ = this.authService.getAuthenticatedUserFromStore().pipe(
+            take(1),
+            map((eperson) => {
+              const languages: string[] = [];
+              const ePersonLang = eperson.firstMetadataValue(EPERSON_LANG_METADATA);
+              if (ePersonLang) {
+                languages.push(...this.setQuality(
+                  [ePersonLang],
+                  LANG_ORIGIN.EPERSON,
+                  !isEmpty(this.translate.currentLang)));
+              }
+              return languages;
+            })
           );
-      }
+        }
+        return epersonLang$.pipe(
+          map((epersonLang: string[]) => {
+            const languages: string[] = [];
+            if (this.translate.currentLang) {
+              languages.push(...this.setQuality(
+                [this.translate.currentLang],
+                LANG_ORIGIN.UI,
+                false));
+            }
+            if (isNotEmpty(epersonLang)) {
+              languages.push(...epersonLang);
+            }
+            if (navigator.languages) {
+              languages.push(...this.setQuality(
+                Object.assign([], navigator.languages),
+                LANG_ORIGIN.BROWSER,
+                !isEmpty(this.translate.currentLang))
+              );
+            }
+            return languages;
+          })
+        )
+      })
     );
-    // get the browser languages
-    if (navigator.languages) {
-      bs.next(
-        this.setQuality(
-          Object.assign([], navigator.languages),
-          LANG_ORIGIN.BROWSER,
-          !isEmpty(this.translate.currentLang))
-        );
-    }
-    return bs;
   }
 
   /**
@@ -129,8 +154,8 @@ export class LocaleService {
    * Returns a new array that contains the languages list with the quality value.
    * The quality factor indicate the relative degree of preference for the language
    * @param languages the languages list
-   * @param origin
-   * @param hasOther
+   * @param origin origin of language list (UI, EPERSON, BROWSER)
+   * @param hasOther true if contains other language, false otherwise
    */
   setQuality(languages: string[], origin: LANG_ORIGIN, hasOther: boolean): string[] {
     const langWithPrior = [];
@@ -153,6 +178,15 @@ export class LocaleService {
         langWithPrior.push(value);
     });
     return langWithPrior;
+  }
+
+  /**
+   * Refresh route navigated
+   */
+  public refreshAfterChangeLanguage() {
+    // Hard redirect to the reload page with a unique number behind it
+    // so that all state is definitely lost
+    this._window.nativeWindow.location.href = `/reload/${new Date().getTime()}`;
   }
 
 }

@@ -230,6 +230,12 @@ describe('AuthService test', () => {
       expect(result).toBe(false);
     });
 
+    it('should return true when authentication is loaded', () => {
+      authService.isAuthenticationLoaded().subscribe((status: boolean) => {
+        expect(status).toBe(true);
+      });
+    });
+
   });
 
   describe('', () => {

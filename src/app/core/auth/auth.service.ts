@@ -21,7 +21,8 @@ import {
   getAuthenticationToken,
   getRedirectUrl,
   isAuthenticated,
-  isTokenRefreshing
+  isTokenRefreshing,
+  isAuthenticatedLoaded
 } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import {
@@ -149,6 +150,14 @@ export class AuthService {
   }
 
   /**
+   * Determines if authentication is loaded
+   * @returns {Observable<boolean>}
+   */
+  public isAuthenticationLoaded(): Observable<boolean> {
+    return this.store.pipe(select(isAuthenticatedLoaded));
+  }
+
+  /**
    * Returns the href link to authenticated user
    * @returns {string}
    */
@@ -197,7 +206,7 @@ export class AuthService {
     return this.store.pipe(
       select(getAuthenticatedUserId),
       hasValueOperator(),
-      switchMap((id: string) => this.epersonService.findById(id)),
+      switchMap((id: string) => { console.log('ID: ', id); return this.epersonService.findById(id) }),
       getAllSucceededRemoteDataPayload()
     )
   }
