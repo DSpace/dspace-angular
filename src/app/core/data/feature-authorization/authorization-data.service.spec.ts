@@ -5,7 +5,7 @@ import { Site } from '../../shared/site.model';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { of as observableOf } from 'rxjs';
 import { FindListOptions } from '../request.models';
-import { FeatureType } from './feature-type';
+import { FeatureID } from './feature-id';
 import { hasValue } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { Authorization } from '../../shared/authorization.model';
@@ -51,7 +51,7 @@ describe('AuthorizationDataService', () => {
     const objectUrl = 'fake-object-url';
     const ePersonUuid = 'fake-eperson-uuid';
 
-    function createExpected(objectUrl: string, ePersonUuid?: string, featureId?: FeatureType): FindListOptions {
+    function createExpected(objectUrl: string, ePersonUuid?: string, featureId?: FeatureID): FindListOptions {
       const searchParams = [new RequestParam('uri', objectUrl)];
       if (hasValue(featureId)) {
         searchParams.push(new RequestParam('feature', featureId));
@@ -74,31 +74,31 @@ describe('AuthorizationDataService', () => {
 
     describe('when no arguments except for a feature are provided and a user is authenticated', () => {
       beforeEach(() => {
-        service.searchByObject(FeatureType.LoginOnBehalfOf).subscribe();
+        service.searchByObject(FeatureID.LoginOnBehalfOf).subscribe();
       });
 
       it('should call searchBy with the site\'s url, authenticated user\'s uuid and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self, ePerson.uuid, FeatureType.LoginOnBehalfOf));
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self, ePerson.uuid, FeatureID.LoginOnBehalfOf));
       });
     });
 
     describe('when a feature and object url are provided, but no user uuid and a user is authenticated', () => {
       beforeEach(() => {
-        service.searchByObject(FeatureType.LoginOnBehalfOf, objectUrl).subscribe();
+        service.searchByObject(FeatureID.LoginOnBehalfOf, objectUrl).subscribe();
       });
 
       it('should call searchBy with the object\'s url, authenticated user\'s uuid and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePerson.uuid, FeatureType.LoginOnBehalfOf));
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePerson.uuid, FeatureID.LoginOnBehalfOf));
       });
     });
 
     describe('when all arguments are provided', () => {
       beforeEach(() => {
-        service.searchByObject(FeatureType.LoginOnBehalfOf, objectUrl, ePersonUuid).subscribe();
+        service.searchByObject(FeatureID.LoginOnBehalfOf, objectUrl, ePersonUuid).subscribe();
       });
 
       it('should call searchBy with the object\'s url, user\'s uuid and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePersonUuid, FeatureType.LoginOnBehalfOf));
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePersonUuid, FeatureID.LoginOnBehalfOf));
       });
     });
 

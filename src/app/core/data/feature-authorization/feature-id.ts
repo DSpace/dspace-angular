@@ -1,7 +1,7 @@
 /**
- * Enum object for all possible {@link Feature} types
+ * Enum object for all possible {@link Feature} IDs
  */
-export enum FeatureType {
+export enum FeatureID {
   LoginOnBehalfOf = 'loginOnBehalfOf',
   AdministratorOf = 'administratorOf'
 }

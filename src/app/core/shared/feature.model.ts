@@ -1,7 +1,8 @@
 import { typedObject } from '../cache/builders/build-decorators';
-import { autoserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { FEATURE } from './feature.resource-type';
 import { DSpaceObject } from './dspace-object.model';
+import { HALLink } from './hal-link.model';
 
 /**
  * Class representing a DSpace Feature
@@ -28,4 +29,9 @@ export class Feature extends DSpaceObject {
    */
   @autoserialize
   resourcetypes: string[];
+
+  @deserialize
+  _links: {
+    self: HALLink;
+  };
 }

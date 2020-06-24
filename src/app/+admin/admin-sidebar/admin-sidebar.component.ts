@@ -19,7 +19,7 @@ import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureType } from '../../core/data/feature-authorization/feature-type';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
 /**
  * Component representing the admin sidebar
@@ -73,32 +73,31 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Set and calculate all initial values of the instance variables
    */
   ngOnInit(): void {
-    this.authorizationService.isAuthenticated(FeatureType.AdministratorOf).subscribe((authorized) => {
-      this.createMenu(authorized);
-      super.ngOnInit();
-      this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
-      this.authService.isAuthenticated()
-        .subscribe((loggedIn: boolean) => {
-          if (loggedIn) {
-            this.menuService.showMenu(this.menuID);
-          }
-        });
-      this.menuCollapsed.pipe(first())
-        .subscribe((collapsed: boolean) => {
-          this.sidebarOpen = !collapsed;
-          this.sidebarClosed = collapsed;
-        });
-      this.sidebarExpanded = combineLatestObservable(this.menuCollapsed, this.menuPreviewCollapsed)
-        .pipe(
-          map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
-        );
-    });
+    this.createMenu();
+    this.createSiteAdministratorMenuSections();
+    super.ngOnInit();
+    this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
+    this.authService.isAuthenticated()
+      .subscribe((loggedIn: boolean) => {
+        if (loggedIn) {
+          this.menuService.showMenu(this.menuID);
+        }
+      });
+    this.menuCollapsed.pipe(first())
+      .subscribe((collapsed: boolean) => {
+        this.sidebarOpen = !collapsed;
+        this.sidebarClosed = collapsed;
+      });
+    this.sidebarExpanded = combineLatestObservable(this.menuCollapsed, this.menuPreviewCollapsed)
+      .pipe(
+        map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
+      );
   }
 
   /**
    * Initialize all menu sections and items for this menu
    */
-  createMenu(isAdministratorOfSite: boolean) {
+  createMenu() {
     const menuList = [
       /* News */
       {
@@ -310,99 +309,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         } as LinkMenuItemModel,
       },
 
-      /* Access Control */
-      {
-        id: 'access_control',
-        active: false,
-        visible: isAdministratorOfSite,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.access_control'
-        } as TextMenuItemModel,
-        icon: 'key',
-        index: 4
-      },
-      {
-        id: 'access_control_people',
-        parentID: 'access_control',
-        active: false,
-        visible: isAdministratorOfSite,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.access_control_people',
-          link: '/admin/access-control/epeople'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'access_control_groups',
-        parentID: 'access_control',
-        active: false,
-        visible: isAdministratorOfSite,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.access_control_groups',
-          link: '/admin/access-control/groups'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'access_control_authorizations',
-        parentID: 'access_control',
-        active: false,
-        visible: isAdministratorOfSite,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.access_control_authorizations',
-          link: ''
-        } as LinkMenuItemModel,
-      },
-      /*  Admin Search */
-      {
-        id: 'admin_search',
-        active: false,
-        visible: isAdministratorOfSite,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.admin_search',
-          link: '/admin/search'
-        } as LinkMenuItemModel,
-        icon: 'search',
-        index: 5
-      },
-      /*  Registries */
-      {
-        id: 'registries',
-        active: false,
-        visible: isAdministratorOfSite,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.registries'
-        } as TextMenuItemModel,
-        icon: 'list',
-        index: 6
-      },
-      {
-        id: 'registries_metadata',
-        parentID: 'registries',
-        active: false,
-        visible: isAdministratorOfSite,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.registries_metadata',
-          link: 'admin/registries/metadata'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'registries_format',
-        parentID: 'registries',
-        active: false,
-        visible: isAdministratorOfSite,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.registries_format',
-          link: 'admin/registries/bitstream-formats'
-        } as LinkMenuItemModel,
-      },
-
       /* Curation tasks */
       {
         id: 'curation_tasks',
@@ -444,24 +350,130 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         icon: 'cogs',
         index: 9
       },
-      /* Workflow */
-      {
-        id: 'workflow',
-        active: false,
-        visible: isAdministratorOfSite,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.workflow',
-          link: '/admin/workflow'
-        } as LinkMenuItemModel,
-        icon: 'user-check',
-        index: 10
-      },
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
       shouldPersistOnRouteChange: true
     })));
+  }
 
+  /**
+   * Create menu sections dependent on whether or not the current user is a site administrator
+   */
+  createSiteAdministratorMenuSections() {
+    this.authorizationService.isAuthenticated(FeatureID.AdministratorOf).subscribe((authorized) => {
+      const menuList = [
+        /* Access Control */
+        {
+          id: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.access_control'
+          } as TextMenuItemModel,
+          icon: 'key',
+          index: 4
+        },
+        {
+          id: 'access_control_people',
+          parentID: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_people',
+            link: '/admin/access-control/epeople'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'access_control_groups',
+          parentID: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_groups',
+            link: '/admin/access-control/groups'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'access_control_authorizations',
+          parentID: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_authorizations',
+            link: ''
+          } as LinkMenuItemModel,
+        },
+        /*  Admin Search */
+        {
+          id: 'admin_search',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.admin_search',
+            link: '/admin/search'
+          } as LinkMenuItemModel,
+          icon: 'search',
+          index: 5
+        },
+        /*  Registries */
+        {
+          id: 'registries',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.registries'
+          } as TextMenuItemModel,
+          icon: 'list',
+          index: 6
+        },
+        {
+          id: 'registries_metadata',
+          parentID: 'registries',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.registries_metadata',
+            link: 'admin/registries/metadata'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'registries_format',
+          parentID: 'registries',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.registries_format',
+            link: 'admin/registries/bitstream-formats'
+          } as LinkMenuItemModel,
+        },
+
+        /* Workflow */
+        {
+          id: 'workflow',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.workflow',
+            link: '/admin/workflow'
+          } as LinkMenuItemModel,
+          icon: 'user-check',
+          index: 10
+        },
+      ];
+
+      menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+        shouldPersistOnRouteChange: true
+      })));
+    });
   }
 
   /**

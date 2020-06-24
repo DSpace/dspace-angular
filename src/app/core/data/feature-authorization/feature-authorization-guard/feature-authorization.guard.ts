@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapshot, UrlSegment } from '@angular/router';
 import { AuthorizationDataService } from '../authorization-data.service';
-import { FeatureType } from '../feature-type';
+import { FeatureID } from '../feature-id';
 import { Observable } from 'rxjs/internal/Observable';
 
 /**
@@ -16,23 +16,21 @@ export abstract class FeatureAuthorizationGuard implements CanActivate, CanLoad 
    * True when user has authorization rights for the feature and object provided
    */
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.authorizationService.isAuthenticated(this.getFeatureType(), this.getObjectUrl(), this.getEPersonUuid());
+    return this.authorizationService.isAuthenticated(this.getFeatureID(), this.getObjectUrl(), this.getEPersonUuid());
   }
 
   /**
    * True when user has authorization rights for the feature and object provided
    */
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
-    return this.authorizationService.isAuthenticated(this.getFeatureType(), this.getObjectUrl(), this.getEPersonUuid());
+    return this.authorizationService.isAuthenticated(this.getFeatureID(), this.getObjectUrl(), this.getEPersonUuid());
   }
 
   /**
    * The type of feature to check authorization for
    * Override this method to define a feature
    */
-  getFeatureType(): FeatureType {
-    return undefined;
-  }
+  abstract getFeatureID(): FeatureID;
 
   /**
    * The URL of the object to check if the user has authorized rights for

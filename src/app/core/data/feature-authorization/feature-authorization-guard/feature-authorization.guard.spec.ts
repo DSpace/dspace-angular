@@ -1,6 +1,6 @@
 import { FeatureAuthorizationGuard } from './feature-authorization.guard';
 import { AuthorizationDataService } from '../authorization-data.service';
-import { FeatureType } from '../feature-type';
+import { FeatureID } from '../feature-id';
 import { of as observableOf } from 'rxjs';
 
 /**
@@ -9,14 +9,14 @@ import { of as observableOf } from 'rxjs';
  */
 class FeatureAuthorizationGuardImpl extends FeatureAuthorizationGuard {
   constructor(protected authorizationService: AuthorizationDataService,
-              protected featureType: FeatureType,
+              protected featureId: FeatureID,
               protected objectUrl: string,
               protected ePersonUuid: string) {
     super(authorizationService);
   }
 
-  getFeatureType(): FeatureType {
-    return this.featureType;
+  getFeatureID(): FeatureID {
+    return this.featureId;
   }
 
   getObjectUrl(): string {
@@ -32,19 +32,19 @@ describe('FeatureAuthorizationGuard', () => {
   let guard: FeatureAuthorizationGuard;
   let authorizationService: AuthorizationDataService;
 
-  let featureType: FeatureType;
+  let featureId: FeatureID;
   let objectUrl: string;
   let ePersonUuid: string;
 
   function init() {
-    featureType = FeatureType.LoginOnBehalfOf;
+    featureId = FeatureID.LoginOnBehalfOf;
     objectUrl = 'fake-object-url';
     ePersonUuid = 'fake-eperson-uuid';
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthenticated: observableOf(true)
     });
-    guard = new FeatureAuthorizationGuardImpl(authorizationService, featureType, objectUrl, ePersonUuid);
+    guard = new FeatureAuthorizationGuardImpl(authorizationService, featureId, objectUrl, ePersonUuid);
   }
 
   beforeEach(() => {
@@ -54,14 +54,14 @@ describe('FeatureAuthorizationGuard', () => {
   describe('canActivate', () => {
     it('should call authorizationService.isAuthenticated with the appropriate arguments', () => {
       guard.canActivate(undefined, undefined).subscribe();
-      expect(authorizationService.isAuthenticated).toHaveBeenCalledWith(featureType, objectUrl, ePersonUuid);
+      expect(authorizationService.isAuthenticated).toHaveBeenCalledWith(featureId, objectUrl, ePersonUuid);
     });
   });
 
   describe('canLoad', () => {
     it('should call authorizationService.isAuthenticated with the appropriate arguments', () => {
       guard.canLoad(undefined, undefined).subscribe();
-      expect(authorizationService.isAuthenticated).toHaveBeenCalledWith(featureType, objectUrl, ePersonUuid);
+      expect(authorizationService.isAuthenticated).toHaveBeenCalledWith(featureId, objectUrl, ePersonUuid);
     });
   });
 });

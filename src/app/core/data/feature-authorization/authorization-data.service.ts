@@ -25,7 +25,7 @@ import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { addAuthenticatedUserUuidIfEmpty, addSiteObjectUrlIfEmpty } from './authorization-utils';
-import { FeatureType } from './feature-type';
+import { FeatureID } from './feature-id';
 
 /**
  * A service to retrieve {@link Authorization}s from the REST API
@@ -59,7 +59,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    *                      If not provided, the UUID of the currently authenticated {@link EPerson} will be used.
    * @param featureId     ID of the {@link Feature} to check {@link Authorization} for
    */
-  isAuthenticated(featureId?: FeatureType, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
+  isAuthenticated(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
     return this.searchByObject(featureId, objectUrl, ePersonUuid).pipe(
       map((authorizationRD) => (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)))
     );
@@ -76,7 +76,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    * @param options       {@link FindListOptions} to provide pagination and/or additional arguments
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByObject(featureId?: FeatureType, objectUrl?: string, ePersonUuid?: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Authorization>>): Observable<RemoteData<PaginatedList<Authorization>>> {
+  searchByObject(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Authorization>>): Observable<RemoteData<PaginatedList<Authorization>>> {
     return observableOf(new AuthorizationSearchParams(objectUrl, ePersonUuid, featureId)).pipe(
       addSiteObjectUrlIfEmpty(this.siteService),
       addAuthenticatedUserUuidIfEmpty(this.authService),
@@ -101,14 +101,12 @@ export class AuthorizationDataService extends DataService<Authorization> {
     return hrefObs.pipe(
       find((href: string) => hasValue(href)),
       tap((href: string) => {
-          this.requestService.removeByHrefSubstring(href);
           const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
 
           this.requestService.configure(request);
         }
       ),
       switchMap((href) => this.requestService.getByHref(href)),
-      skipWhile((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
       switchMap((href) =>
         this.rdbService.buildList<Authorization>(hrefObs, ...linksToFollow) as Observable<RemoteData<PaginatedList<Authorization>>>
       )
@@ -122,7 +120,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    * @param ePersonUuid Optional parameter value to add to {@link RequestParam} "eperson"
    * @param featureId   Optional parameter value to add to {@link RequestParam} "feature"
    */
-  private createSearchOptions(objectUrl: string, options: FindListOptions = {}, ePersonUuid?: string, featureId?: FeatureType): FindListOptions {
+  private createSearchOptions(objectUrl: string, options: FindListOptions = {}, ePersonUuid?: string, featureId?: FeatureID): FindListOptions {
     let params = [];
     if (isNotEmpty(options.searchParams)) {
       params = [...options.searchParams];

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FeatureAuthorizationGuard } from './feature-authorization.guard';
-import { FeatureType } from '../feature-type';
+import { FeatureID } from '../feature-id';
 import { AuthorizationDataService } from '../authorization-data.service';
 
 /**
@@ -18,7 +18,7 @@ export class SiteAdministratorGuard extends FeatureAuthorizationGuard {
   /**
    * Check administrator authorization rights
    */
-  getFeatureType(): FeatureType {
-    return FeatureType.AdministratorOf;
+  getFeatureID(): FeatureID {
+    return FeatureID.AdministratorOf;
   }
 }
