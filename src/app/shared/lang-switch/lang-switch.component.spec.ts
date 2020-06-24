@@ -34,7 +34,7 @@ class CustomLoader implements TranslateLoader {
 
 let localService: any;
 
-fdescribe('LangSwitchComponent', () => {
+describe('LangSwitchComponent', () => {
 
   function getMockLocaleService(): LocaleService {
     return jasmine.createSpyObj('LocaleService', {
