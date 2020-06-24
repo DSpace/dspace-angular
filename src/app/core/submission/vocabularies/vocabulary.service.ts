@@ -26,13 +26,15 @@ import { hasValue, isNotEmptyOperator } from '../../../shared/empty.util';
 import { configureRequest, filterSuccessfulResponses, getRequestFromRequestHref } from '../../shared/operators';
 import { GenericSuccessResponse } from '../../cache/response.models';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
+import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
+import { RequestParam } from '../../cache/models/request-param.model';
 
 /* tslint:disable:max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
  */
-class DataServiceImpl extends DataService<Vocabulary> {
+class VocabularyDataServiceImpl extends DataService<Vocabulary> {
   protected linkPath = 'vocabularies';
 
   constructor(
@@ -50,6 +52,26 @@ class DataServiceImpl extends DataService<Vocabulary> {
 }
 
 /**
+ * A private DataService implementation to delegate specific methods to.
+ */
+class VocabularyEntryDetailDataServiceImpl extends DataService<VocabularyEntryDetail> {
+  protected linkPath = 'vocabularyEntryDetails';
+
+  constructor(
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: ChangeAnalyzer<VocabularyEntryDetail>) {
+    super();
+  }
+
+}
+
+/**
  * A service responsible for fetching/sending data from/to the REST API on the vocabularies endpoint
  */
 @Injectable({
@@ -58,7 +80,9 @@ class DataServiceImpl extends DataService<Vocabulary> {
 @dataService(VOCABULARY)
 export class VocabularyService {
   protected searchByMetadataAndCollectionMethod = 'byMetadataAndCollection';
-  private dataService: DataServiceImpl;
+  protected searchTopMethod = 'top';
+  private vocabularyDataService: VocabularyDataServiceImpl;
+  private vocabularyEntryDetailDataService: VocabularyEntryDetailDataServiceImpl;
 
   constructor(
     protected requestService: RequestService,
@@ -67,8 +91,10 @@ export class VocabularyService {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<Vocabulary>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+    protected comparatorVocabulary: DefaultChangeAnalyzer<Vocabulary>,
+    protected comparatorEntry: DefaultChangeAnalyzer<VocabularyEntryDetail>) {
+    this.vocabularyDataService = new VocabularyDataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorVocabulary);
+    this.vocabularyEntryDetailDataService = new VocabularyEntryDetailDataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorEntry);
   }
 
   /**
@@ -79,8 +105,8 @@ export class VocabularyService {
    * @return {Observable<RemoteData<Vocabulary>>}
    *    Return an observable that emits vocabulary object
    */
-  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<any>> {
-    return this.dataService.findByHref(href, ...linksToFollow);
+  findVocabularyByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<any>> {
+    return this.vocabularyDataService.findByHref(href, ...linksToFollow);
   }
 
   /**
@@ -91,8 +117,8 @@ export class VocabularyService {
    * @return {Observable<RemoteData<Vocabulary>>}
    *    Return an observable that emits vocabulary object
    */
-  findById(id: string, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
-    return this.dataService.findById(id, ...linksToFollow);
+  findVocabularyById(id: string, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
+    return this.vocabularyDataService.findById(id, ...linksToFollow);
   }
 
   /**
@@ -104,8 +130,8 @@ export class VocabularyService {
    * @return {Observable<RemoteData<PaginatedList<Vocabulary>>>}
    *    Return an observable that emits object list
    */
-  findAll(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<PaginatedList<Vocabulary>>> {
-    return this.dataService.findAll(options, ...linksToFollow);
+  findAllVocabularies(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<PaginatedList<Vocabulary>>> {
+    return this.vocabularyDataService.findAll(options, ...linksToFollow);
   }
 
   /**
@@ -117,7 +143,7 @@ export class VocabularyService {
    */
   getVocabularyEntries(options: VocabularyFindOptions): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
 
-    return this.dataService.getFindAllHref(options, `${options.name}/entries`).pipe(
+    return this.vocabularyDataService.getFindAllHref(options, `${options.name}/entries`).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       getVocabularyEntriesFor(this.requestService, this.rdbService)
@@ -132,14 +158,51 @@ export class VocabularyService {
    * @return {Observable<RemoteData<PaginatedList<Vocabulary>>>}
    *    Return an observable that emits object list
    */
-  searchByMetadataAndCollection(options: VocabularyFindOptions, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
+  searchVocabularyByMetadataAndCollection(options: VocabularyFindOptions, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
 
-    return this.dataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options).pipe(
+    return this.vocabularyDataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options).pipe(
       first((href: string) => hasValue(href)),
-      flatMap((href: string) => this.dataService.findByHref(href))
+      flatMap((href: string) => this.vocabularyDataService.findByHref(href))
     )
   }
 
+  /**
+   * Returns an observable of {@link RemoteData} of a {@link VocabularyEntryDetail}, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the {@link VocabularyEntryDetail}
+   * @param href            The url of {@link VocabularyEntryDetail} we want to retrieve
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<VocabularyEntryDetail>>}
+   *    Return an observable that emits vocabulary object
+   */
+  findEntryDetailByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<VocabularyEntryDetail>> {
+    return this.vocabularyEntryDetailDataService.findByHref(href, ...linksToFollow);
+  }
+
+  /**
+   * Returns an observable of {@link RemoteData} of a {@link VocabularyEntryDetail}, based on its ID, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
+   * @param value           The entry value for which to provide detailed information.
+   * @param name            The name of {@link Vocabulary} to which the entry belongs
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<VocabularyEntryDetail>>}
+   *    Return an observable that emits VocabularyEntryDetail object
+   */
+  findEntryDetailByValue(value: string, name: string, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<VocabularyEntryDetail>> {
+    const id = `${name}:${value}`;
+    return this.vocabularyEntryDetailDataService.findById(id, ...linksToFollow);
+  }
+
+  /**
+   * Return the top level {@link VocabularyEntryDetail} list for a given hierarchical vocabulary
+   *
+   * @param name            The name of hierarchical {@link Vocabulary} to which the entries belongs
+   * @param options         The {@link VocabularyFindOptions} for the request
+   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  searchTopEntries(name: string, options: VocabularyFindOptions, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
+    options.searchParams.push(new RequestParam('vocabulary', name));
+    return this.vocabularyEntryDetailDataService.searchBy(this.searchTopMethod, options, ...linksToFollow)
+  }
 }
 
 /**

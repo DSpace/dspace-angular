@@ -11,7 +11,7 @@ import { ListableObject } from '../../../../shared/object-collection/shared/list
 import { GenericConstructor } from '../../../shared/generic-constructor';
 
 /**
- * Model class for a Vocabulary
+ * Model class for a VocabularyEntry
  */
 @typedObject
 export class VocabularyEntry extends ListableObject {
@@ -54,7 +54,7 @@ export class VocabularyEntry extends ListableObject {
   @deserialize
   _links: {
     self: HALLink;
-    vocabularyEntryDetail: HALLink;
+    vocabularyEntryDetail?: HALLink;
   };
 
   /**
