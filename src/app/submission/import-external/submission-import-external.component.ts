@@ -16,7 +16,7 @@ import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
 import { fadeIn } from '../../shared/animations/fade';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import { PageInfo } from '../../core/shared/page-info.model';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.
@@ -100,7 +100,7 @@ export class SubmissionImportExternalComponent implements OnInit {
     this.importConfig = {
       buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
     };
-    this.entriesRD$ = new BehaviorSubject(createSuccessfulRemoteDataObject(createPaginatedList([])));
+    this.entriesRD$ = new BehaviorSubject(createSuccessfulRemoteDataObject(new PaginatedList(new PageInfo(), [])));
     this.isLoading$ = new BehaviorSubject(false);
     combineLatest(
       [
