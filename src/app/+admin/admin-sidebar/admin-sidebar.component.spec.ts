@@ -9,7 +9,6 @@ import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service
 import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service.stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
-
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -25,7 +24,7 @@ describe('AdminSidebarComponent', () => {
 
   beforeEach(async(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthenticated: observableOf(true)
+      isAuthorized: observableOf(true)
     });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],

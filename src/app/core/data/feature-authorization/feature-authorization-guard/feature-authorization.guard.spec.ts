@@ -45,10 +45,10 @@ describe('FeatureAuthorizationGuard', () => {
     ePersonUuid = 'fake-eperson-uuid';
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthenticated: observableOf(true)
+      isAuthorized: observableOf(true)
     });
     router = jasmine.createSpyObj('router', {
-      navigateByUrl: {}
+      parseUrl: {}
     });
     guard = new FeatureAuthorizationGuardImpl(authorizationService, router, featureId, objectUrl, ePersonUuid);
   }

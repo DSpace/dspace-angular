@@ -114,7 +114,7 @@ describe('EPersonFormComponent', () => {
     translateService = getMockTranslateService();
     authService = new AuthServiceStub();
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthenticated: observableOf(true)
+      isAuthorized: observableOf(true)
     });
     groupsDataService = jasmine.createSpyObj('groupsDataService', {
       findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
