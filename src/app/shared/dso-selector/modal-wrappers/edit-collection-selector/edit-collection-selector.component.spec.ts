@@ -33,7 +33,15 @@ describe('EditCollectionSelectorComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
         {
           provide: ActivatedRoute,
-          useValue: { root: { firstChild: { firstChild: { data: observableOf({ collection: collectionRD }) } } } }
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: collectionRD,
+                },
+              },
+            }
+          },
         },
         {
           provide: Router, useValue: router
