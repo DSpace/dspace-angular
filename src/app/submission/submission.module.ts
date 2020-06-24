@@ -75,7 +75,8 @@ import { SubmissionImportExternalCollectionComponent } from './import-external/i
   exports: [
     SubmissionEditComponent,
     SubmissionFormComponent,
-    SubmissionSubmitComponent
+    SubmissionSubmitComponent,
+    SubmissionImportExternalComponent
   ],
   providers: [
     SectionUploadService,

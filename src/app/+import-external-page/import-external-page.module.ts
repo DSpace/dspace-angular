@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
 import { ImportExternalRoutingModule } from './import-external-routing.module';
 import { SubmissionModule } from '../submission/submission.module';
+import { ImportExternalPageComponent } from './import-external-page.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,9 @@ import { SubmissionModule } from '../submission/submission.module';
     ImportExternalRoutingModule,
     SubmissionModule,
   ],
-  declarations: [ ],
+  declarations: [
+    ImportExternalPageComponent
+  ],
   entryComponents: [ ]
 })
 
