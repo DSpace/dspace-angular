@@ -70,7 +70,7 @@ export class SubmissionImportExternalComponent implements OnInit {
   /**
    * The modal for the entry preview
    */
-  modalRef: NgbModalRef;
+  public modalRef: NgbModalRef;
 
   /**
    * Initialize the component variables.

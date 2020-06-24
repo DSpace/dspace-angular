@@ -461,7 +461,8 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
-  ClaimedTaskActionsEditMetadataComponent
+  ClaimedTaskActionsEditMetadataComponent,
+  CollectionDropdownComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

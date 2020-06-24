@@ -2432,6 +2432,10 @@
 
   "submission.import-external.preview.button.import": "Start submission",
 
+  "submission.import-external.preview.error.import.title": "Submission error",
+
+  "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
+
 
   "submission.sections.describe.relationship-lookup.close": "Close",
 

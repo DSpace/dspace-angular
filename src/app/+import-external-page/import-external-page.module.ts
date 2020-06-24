@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { CoreModule } from '../core/core.module';
 import { ImportExternalRoutingModule } from './import-external-routing.module';
-import { SubmissionImportExternalComponent } from '../submission/import-external/submission-import-external.component';
-import { SubmissionImportExternalSearchbarComponent } from '../submission/import-external/import-external-searchbar/submission-import-external-searchbar.component';
 import { SubmissionModule } from '../submission/submission.module';
 
 @NgModule({

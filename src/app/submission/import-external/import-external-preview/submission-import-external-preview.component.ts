@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { Metadata } from '../../../core/shared/metadata.utils';
+import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import { mergeMap } from 'rxjs/operators';
+import { SubmissionService } from '../../submission.service';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 
 /**
  * This component display a preview of an external source item.
@@ -29,10 +36,17 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
    * Initialize the component variables.
    * @param {NgbActiveModal} activeModal
+   * @param {SubmissionService} submissionService
+   * @param {NgbModal} modalService
+   * @param {Router} router
+   * @param {NotificationsService} notificationService
    */
   constructor(
     private activeModal: NgbActiveModal,
-    private modalService: NgbModal
+    private submissionService: SubmissionService,
+    private modalService: NgbModal,
+    private router: Router,
+    private notificationService: NotificationsService
   ) { }
 
   /**
@@ -57,14 +71,30 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
   }
 
   /**
-   * Start the import of an entry by opening up an import modal window.
-   * @param entry The entry to import
+   * Start the import of an entry by opening up a collection choice modal window.
    */
-  public import(entry): void {
-    this.modalRef = this.modalService.open(SubmissionImportExternalPreviewComponent, {
+  public import(): void {
+    this.modalRef = this.modalService.open(SubmissionImportExternalCollectionComponent, {
       size: 'lg',
     });
-    const modalComp = this.modalRef.componentInstance;
-    modalComp.externalSourceEntry = entry;
+    this.closeMetadataModal();
+
+    this.modalRef.componentInstance.selectedEvent.pipe(
+      mergeMap((collectionListEntry: CollectionListEntry) => {
+        return this.submissionService.createSubmissionFromExternalSource(this.externalSourceEntry._links.self.href, collectionListEntry.collection.id);
+      })
+    ).subscribe((submissionObjects: SubmissionObject[]) => {
+      let isValid = false
+      if (submissionObjects.length === 1) {
+        if (submissionObjects[0] !== null) {
+          isValid = true;
+          this.router.navigateByUrl('/workspaceitems/' + submissionObjects[0].id + '/edit');
+        }
+      }
+      if (!isValid) {
+        this.notificationService.error('submission.import-external.preview.error.import.title', 'submission.import-external.preview.error.import.body');
+      }
+      this.modalRef.close();
+    });
   }
 }

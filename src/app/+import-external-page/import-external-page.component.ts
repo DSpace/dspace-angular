@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * Component representing the external import page of the submission.

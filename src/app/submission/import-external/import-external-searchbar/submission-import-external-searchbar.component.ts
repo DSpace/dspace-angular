@@ -10,13 +10,12 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { FindListOptions } from '../../../core/data/request.models';
-import { isEmpty } from '../../../shared/empty.util';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 
 /**
  * Interface for the selected external source element.
  */
-interface SourceElement {
+export interface SourceElement {
   id: string;
   name: string;
 }
@@ -124,14 +123,14 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
   /**
    * Set the selected external source.
    */
-  makeSourceSelection(source) {
+  public makeSourceSelection(source): void {
     this.selectedElement = source;
   }
 
   /**
    * Load the next pages of external sources.
    */
-  onScroll() {
+  public onScroll(): void {
     if (!this.sourceListLoading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
       this.sourceListLoading = true;
       this.findListOptions = Object.assign({}, new FindListOptions(), {
@@ -145,21 +144,21 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
           const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
           return observableOf(paginatedListRD);
         }),
-        tap(() => this.sourceListLoading = false))
-        .subscribe((externalSource: RemoteData<PaginatedList<ExternalSource>>) => {
-          externalSource.payload.page.forEach((element) => {
-            this.sourceList.push({ id: element.id, name: element.name });
-          })
-          this.pageInfo = externalSource.payload.pageInfo;
-          this.cdr.detectChanges();
+        tap(() => this.sourceListLoading = false)
+      ).subscribe((externalSource: RemoteData<PaginatedList<ExternalSource>>) => {
+        externalSource.payload.page.forEach((element) => {
+          this.sourceList.push({ id: element.id, name: element.name });
         })
+        this.pageInfo = externalSource.payload.pageInfo;
+        this.cdr.detectChanges();
+      })
     }
   }
 
   /**
    * Passes the search parameters to the parent component.
    */
-  public search() {
+  public search(): void {
     this.externalSourceData.emit({ sourceId: this.selectedElement.id, query: this.searchString });
   }
 }

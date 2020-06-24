@@ -1,13 +1,18 @@
-// import { Component, NO_ERRORS_SCHEMA, ChangeDetectorRef } from '@angular/core';
-// import { async, TestBed, ComponentFixture, inject } from '@angular/core/testing';
-// import { TranslateModule } from '@ngx-translate/core';
-// import { SubmissionImportExternalSearchbarComponent } from './submission-import-external-searchbar.component';
-// import { ExternalSourceService } from '../../../core/data/external-source.service';
-// import { createTestComponent } from '../../../shared/testing/utils.test';
-// import { getMockExternalSourceService } from '../../../shared/mocks/external-source.service.mock';
-// import { SubmissionModule } from '../../submission.module';
+import { Component, NO_ERRORS_SCHEMA, ChangeDetectorRef } from '@angular/core';
+import { async, TestBed, ComponentFixture, inject } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import { SubmissionImportExternalSearchbarComponent, SourceElement } from './submission-import-external-searchbar.component';
+import { ExternalSourceService } from '../../../core/data/external-source.service';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { getMockExternalSourceService, externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb } from '../../../shared/mocks/external-source.service.mock';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { ExternalSource } from '../../../core/shared/external-source.model';
+import { FindListOptions } from '../../../core/data/request.models';
 
-/*describe('SubmissionImportExternalSearchbarComponent test suite', () => {
+describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   let comp: SubmissionImportExternalSearchbarComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalSearchbarComponent>;
@@ -15,7 +20,6 @@
   beforeEach(async (() => {
     TestBed.configureTestingModule({
       imports: [
-        SubmissionModule,
         TranslateModule.forRoot(),
       ],
       declarations: [
@@ -51,16 +55,25 @@
     it('should create SubmissionImportExternalSearchbarComponent', inject([SubmissionImportExternalSearchbarComponent], (app: SubmissionImportExternalSearchbarComponent) => {
       expect(app).toBeDefined();
     }));
-  });*/
+  });
 
-  /*describe('', () => {
+  describe('', () => {
+    let sourceList: SourceElement[];
+    let paginatedList: PaginatedList<ExternalSource>;
+
     beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionImportExternalSearchbarComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      // compAsAny.externalService.getAllExternalSources.and.returnValue(observableOf([
-
-      // ]));
+      const pageInfo = new PageInfo();
+      paginatedList = new PaginatedList(pageInfo, [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
+      const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+      compAsAny.externalService.getAllExternalSources.and.returnValue(observableOf(paginatedListRD));
+      sourceList = [
+        {id: 'orcid', name: 'orcid'},
+        {id: 'ciencia', name: 'ciencia'},
+        {id: 'my_staff_db', name: 'my_staff_db'},
+      ];
     });
 
     afterEach(() => {
@@ -69,16 +82,61 @@
       compAsAny = null;
     });
 
-    it('Should init component properly', () => {
+    it('Should init component properly (without initExternalSourceData)', () => {
+      comp.initExternalSourceData = { sourceId: '', query: '' };
       comp.ngOnInit();
       fixture.detectChanges();
 
-      expect(comp.selectedElement)
-      expect(compAsAny.pageInfo)
-      expect(comp.sourceList)
+      expect(comp.selectedElement).toEqual(sourceList[0]);
+      expect(compAsAny.pageInfo).toEqual(paginatedList.pageInfo);
+      expect(comp.sourceList).toEqual(sourceList);
     });
-  });*/
-/*
+
+    it('Should init component properly (with initExternalSourceData populated)', () => {
+      comp.initExternalSourceData = { query: 'dummy', sourceId: 'ciencia' };
+      comp.ngOnInit();
+      fixture.detectChanges();
+
+      expect(comp.selectedElement).toEqual(sourceList[1]);
+      expect(compAsAny.pageInfo).toEqual(paginatedList.pageInfo);
+      expect(comp.sourceList).toEqual(sourceList);
+    });
+
+    it('Variable \'selectedElement\' should be assigned', () => {
+      const selectedElement = {id: 'orcid', name: 'orcid'};
+      comp.makeSourceSelection(selectedElement);
+      expect(comp.selectedElement).toEqual(selectedElement);
+    });
+
+    it('Should load additional external sources', () => {
+      comp.sourceListLoading = false;
+      compAsAny.pageInfo = new PageInfo({
+        elementsPerPage: 3,
+        totalElements: 6,
+        totalPages: 2,
+        currentPage: 0
+      });
+      compAsAny.findListOptions = Object.assign({}, new FindListOptions(), {
+        elementsPerPage: 3,
+        currentPage: 0,
+      });
+      comp.sourceList = sourceList;
+      const expected = sourceList.concat(sourceList);
+      comp.onScroll();
+
+      expect(comp.sourceList).toEqual(expected);
+    });
+
+    it('The \'search\' method should call \'emit\'', () => {
+      comp.selectedElement = { id: 'orcidV2', name: 'orcidV2' };
+      comp.searchString = 'dummy';
+      const expected = { sourceId: comp.selectedElement.id, query: comp.searchString };
+      spyOn(comp.externalSourceData, 'emit');
+      comp.search();
+
+      expect(comp.externalSourceData.emit).toHaveBeenCalledWith(expected);
+    });
+  });
 });
 
 // declare a test component
@@ -88,4 +146,4 @@
 })
 class TestComponent {
 
-}*/
+}
