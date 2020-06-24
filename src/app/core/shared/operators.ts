@@ -180,6 +180,19 @@ export const redirectToPageNotFoundOn404 = (router: Router) =>
         }
       }));
 
+/**
+ * Operator that redirects the user to the unauthorized page when the boolean received is false
+ * @param router
+ */
+export const redirectToUnauthorizedOnFalse = (router: Router) =>
+  (source: Observable<boolean>): Observable<boolean> =>
+    source.pipe(
+      tap((authorized: boolean) => {
+        if (!authorized) {
+          router.navigateByUrl('/401', { skipLocationChange: true });
+        }
+      }));
+
 export const getFinishedRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => !rd.isLoading));

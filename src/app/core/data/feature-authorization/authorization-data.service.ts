@@ -26,6 +26,7 @@ import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { addAuthenticatedUserUuidIfEmpty, addSiteObjectUrlIfEmpty } from './authorization-utils';
 import { FeatureID } from './feature-id';
+import { of } from 'rxjs/internal/observable/of';
 
 /**
  * A service to retrieve {@link Authorization}s from the REST API
