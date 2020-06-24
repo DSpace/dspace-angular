@@ -64,6 +64,12 @@ export function getDSOPath(dso: DSpaceObject): string {
   }
 }
 
+const UNAUTHORIZED_PATH = 'unauthorized';
+
+export function getUnauthorizedPath() {
+  return `/${UNAUTHORIZED_PATH}`;
+}
+
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -100,7 +106,7 @@ export function getDSOPath(dso: DSpaceObject): string {
         path: PROFILE_MODULE_PATH,
         loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard]
       },
-      { path: '401', component: UnauthorizedComponent },
+      { path: UNAUTHORIZED_PATH, component: UnauthorizedComponent },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ],
     {

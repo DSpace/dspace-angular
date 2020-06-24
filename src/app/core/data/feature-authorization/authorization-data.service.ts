@@ -60,7 +60,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    *                      If not provided, the UUID of the currently authenticated {@link EPerson} will be used.
    * @param featureId     ID of the {@link Feature} to check {@link Authorization} for
    */
-  isAuthenticated(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
+  isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
     return this.searchByObject(featureId, objectUrl, ePersonUuid).pipe(
       map((authorizationRD) => (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)))
     );

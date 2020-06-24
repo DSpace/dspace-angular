@@ -360,7 +360,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * Create menu sections dependent on whether or not the current user is a site administrator
    */
   createSiteAdministratorMenuSections() {
-    this.authorizationService.isAuthenticated(FeatureID.AdministratorOf).subscribe((authorized) => {
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
       const menuList = [
         /* Access Control */
         {

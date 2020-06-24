@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, find, flatMap, map, take, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
@@ -11,6 +11,7 @@ import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
+import { getUnauthorizedPath } from '../../app-routing.module';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
@@ -181,16 +182,14 @@ export const redirectToPageNotFoundOn404 = (router: Router) =>
       }));
 
 /**
- * Operator that redirects the user to the unauthorized page when the boolean received is false
+ * Operator that returns a UrlTree to the unauthorized page when the boolean received is false
  * @param router
  */
-export const redirectToUnauthorizedOnFalse = (router: Router) =>
-  (source: Observable<boolean>): Observable<boolean> =>
+export const returnUnauthorizedUrlTreeOnFalse = (router: Router) =>
+  (source: Observable<boolean>): Observable<boolean | UrlTree> =>
     source.pipe(
-      tap((authorized: boolean) => {
-        if (!authorized) {
-          router.navigateByUrl('/401', { skipLocationChange: true });
-        }
+      map((authorized: boolean) => {
+        return authorized ? authorized : router.parseUrl(getUnauthorizedPath())
       }));
 
 export const getFinishedRemoteData = () =>

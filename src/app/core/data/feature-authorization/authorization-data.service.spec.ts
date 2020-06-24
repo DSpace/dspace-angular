@@ -51,13 +51,13 @@ describe('AuthorizationDataService', () => {
     const objectUrl = 'fake-object-url';
     const ePersonUuid = 'fake-eperson-uuid';
 
-    function createExpected(objectUrl: string, ePersonUuid?: string, featureId?: FeatureID): FindListOptions {
-      const searchParams = [new RequestParam('uri', objectUrl)];
-      if (hasValue(featureId)) {
-        searchParams.push(new RequestParam('feature', featureId));
+    function createExpected(providedObjectUrl: string, providedEPersonUuid?: string, providedFeatureId?: FeatureID): FindListOptions {
+      const searchParams = [new RequestParam('uri', providedObjectUrl)];
+      if (hasValue(providedFeatureId)) {
+        searchParams.push(new RequestParam('feature', providedFeatureId));
       }
-      if (hasValue(ePersonUuid)) {
-        searchParams.push(new RequestParam('eperson', ePersonUuid));
+      if (hasValue(providedEPersonUuid)) {
+        searchParams.push(new RequestParam('eperson', providedEPersonUuid));
       }
       return Object.assign(new FindListOptions(), { searchParams });
     }
@@ -114,7 +114,7 @@ describe('AuthorizationDataService', () => {
     });
   });
 
-  describe('isAuthenticated', () => {
+  describe('isAuthorized', () => {
     const validPayload = [
       Object.assign(new Authorization())
     ]
@@ -126,7 +126,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should return false', (done) => {
-        service.isAuthenticated().subscribe((result) => {
+        service.isAuthorized().subscribe((result) => {
           expect(result).toEqual(false);
           done();
         });
@@ -139,7 +139,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should return false', (done) => {
-        service.isAuthenticated().subscribe((result) => {
+        service.isAuthorized().subscribe((result) => {
           expect(result).toEqual(false);
           done();
         });
@@ -152,7 +152,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should return true', (done) => {
-        service.isAuthenticated().subscribe((result) => {
+        service.isAuthorized().subscribe((result) => {
           expect(result).toEqual(true);
           done();
         });
