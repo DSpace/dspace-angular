@@ -36,7 +36,7 @@ import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-l
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import { AuthorityOptions } from '../../../core/integration/models/authority-options.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { FormFieldModel } from './models/form-field.model';
 import {
   SubmissionFormsModel
@@ -78,7 +78,7 @@ describe('FormBuilderService test suite', () => {
       ]
     });
 
-    const authorityOptions: AuthorityOptions = {
+    const vocabularyOptions: VocabularyOptions = {
       closed: false,
       metadata: 'list',
       name: 'type_programme',
@@ -197,13 +197,13 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicTypeaheadModel({id: 'testTypeahead', repeatable: false, metadataFields: [], submissionId: '1234'}),
 
-      new DynamicScrollableDropdownModel({id: 'testScrollableDropdown', authorityOptions: authorityOptions, repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicScrollableDropdownModel({id: 'testScrollableDropdown', vocabularyOptions: vocabularyOptions, repeatable: false, metadataFields: [], submissionId: '1234'}),
 
       new DynamicTagModel({id: 'testTag', repeatable: false, metadataFields: [], submissionId: '1234'}),
 
-      new DynamicListCheckboxGroupModel({id: 'testCheckboxList', authorityOptions: authorityOptions, repeatable: true}),
+      new DynamicListCheckboxGroupModel({id: 'testCheckboxList', vocabularyOptions: vocabularyOptions, repeatable: true}),
 
-      new DynamicListRadioGroupModel({id: 'testRadioList', authorityOptions: authorityOptions, repeatable: false}),
+      new DynamicListRadioGroupModel({id: 'testRadioList', vocabularyOptions: vocabularyOptions, repeatable: false}),
 
       new DynamicRelationGroupModel({
         submissionId,
@@ -218,7 +218,7 @@ describe('FormBuilderService test suite', () => {
             mandatoryMessage: 'Required field!',
             repeatable: false,
             selectableMetadata: [{
-              authority: 'RPAuthority',
+              controlledVocabulary: 'RPAuthority',
               closed: false,
               metadata: 'dc.contributor.author'
             }],
@@ -232,7 +232,7 @@ describe('FormBuilderService test suite', () => {
             mandatory: 'false',
             repeatable: false,
             selectableMetadata: [{
-              authority: 'OUAuthority',
+              controlledVocabulary: 'OUAuthority',
               closed: false,
               metadata: 'local.contributor.affiliation'
             }]
@@ -284,7 +284,7 @@ describe('FormBuilderService test suite', () => {
               selectableMetadata: [
                 {
                   metadata: 'journal',
-                  authority: 'JOURNALAuthority',
+                  controlledVocabulary: 'JOURNALAuthority',
                   closed: false
                 }
               ],
@@ -364,7 +364,7 @@ describe('FormBuilderService test suite', () => {
               selectableMetadata: [
                 {
                   metadata: 'conference',
-                  authority: 'EVENTAuthority',
+                  controlledVocabulary: 'EVENTAuthority',
                   closed: false
                 }
               ],

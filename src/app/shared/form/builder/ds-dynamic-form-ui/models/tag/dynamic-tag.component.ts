@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import {
@@ -6,17 +6,21 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import { of as observableOf,  Observable } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, tap, switchMap, map, merge } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { isEqual } from 'lodash';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicTagModel } from './dynamic-tag.model';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { VocabularyFindOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-find-options.model';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { environment } from '../../../../../../../environments/environment';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 @Component({
   selector: 'ds-dynamic-tag',
@@ -32,16 +36,24 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('instance', {static: false}) instance: NgbTypeahead;
+  @ViewChild('instance', { static: false }) instance: NgbTypeahead;
 
   chips: Chips;
   hasAuthority: boolean;
 
   searching = false;
-  searchOptions: IntegrationSearchOptions;
+  searchOptions: VocabularyFindOptions;
   searchFailed = false;
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.changeSearchingStatus(false));
   currentValue: any;
+
+  constructor(private vocabularyService: VocabularyService,
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
+  }
 
   formatter = (x: { display: string }) => x.display;
 
@@ -52,44 +64,33 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return observableOf({list: []});
+          return observableOf({ list: [] });
         } else {
           this.searchOptions.query = term;
-          return this.authorityService.getEntriesByName(this.searchOptions).pipe(
-            map((authorities) => {
-              // @TODO Pagination for authority is not working, to refactor when it will be fixed
-              return {
-                list: authorities.payload,
-                pageInfo: authorities.pageInfo
-              };
-            }),
+          return this.vocabularyService.getVocabularyEntries(this.searchOptions).pipe(
+            getFirstSucceededRemoteDataPayload(),
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf({list: []});
+              return observableOf(new PaginatedList(
+                new PageInfo(),
+                []
+              ));
             }));
         }
       }),
-      map((results) => results.list),
+      map((list: PaginatedList<VocabularyEntry>) => list.page),
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed));
 
-  constructor(private authorityService: AuthorityService,
-              private cdr: ChangeDetectorRef,
-              protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
-  ) {
-    super(layoutService, validationService);
-  }
-
   ngOnInit() {
-    this.hasAuthority = this.model.authorityOptions && hasValue(this.model.authorityOptions.name);
+    this.hasAuthority = this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name);
 
     if (this.hasAuthority) {
-      this.searchOptions = new IntegrationSearchOptions(
-        this.model.authorityOptions.scope,
-        this.model.authorityOptions.name,
-        this.model.authorityOptions.metadata);
+      this.searchOptions = new VocabularyFindOptions(
+        this.model.vocabularyOptions.scope,
+        this.model.vocabularyOptions.name,
+        this.model.vocabularyOptions.metadata);
     }
 
     this.chips = new Chips(
@@ -166,7 +167,7 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
   }
 
   private addTagsToChips() {
-    if (hasValue(this.currentValue) && (!this.hasAuthority || !this.model.authorityOptions.closed)) {
+    if (hasValue(this.currentValue) && (!this.hasAuthority || !this.model.vocabularyOptions.closed)) {
       let res: string[] = [];
       res = this.currentValue.split(',');
 

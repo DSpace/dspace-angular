@@ -86,9 +86,6 @@ import { EPersonDataService } from './eperson/eperson-data.service';
 import { EpersonResponseParsingService } from './eperson/eperson-response-parsing.service';
 import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
-import { AuthorityService } from './integration/authority.service';
-import { IntegrationResponseParsingService } from './integration/integration-response-parsing.service';
-import { AuthorityValue } from './integration/models/authority.value';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
@@ -148,6 +145,8 @@ import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { VocabularyEntry } from './submission/vocabularies/models/vocabulary-entry.model';
 import { Vocabulary } from './submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntriesResponseParsingService } from './submission/vocabularies/vocabulary-entries-response-parsing.service';
+import { VocabularyEntryDetail } from './submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from './submission/vocabularies/vocabulary.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -224,8 +223,6 @@ const PROVIDERS = [
   SubmissionResponseParsingService,
   SubmissionJsonPatchOperationsService,
   JsonPatchOperationsBuilder,
-  AuthorityService,
-  IntegrationResponseParsingService,
   MetadataschemaParsingService,
   MetadatafieldParsingService,
   UploaderService,
@@ -276,6 +273,7 @@ const PROVIDERS = [
   NotificationsService,
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
+  VocabularyService,
   VocabularyEntriesResponseParsingService
 ];
 
@@ -305,7 +303,6 @@ export const models =
     SubmissionSectionModel,
     SubmissionUploadsModel,
     AuthStatus,
-    AuthorityValue,
     BrowseEntry,
     BrowseDefinition,
     ClaimedTask,
@@ -320,7 +317,8 @@ export const models =
     VersionHistory,
     WorkflowAction,
     Vocabulary,
-    VocabularyEntry
+    VocabularyEntry,
+    VocabularyEntryDetail
   ];
 
 @NgModule({

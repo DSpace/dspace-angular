@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Subscription } from 'rxjs';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, Subscription } from 'rxjs';
 import { catchError, distinctUntilChanged } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -11,16 +10,16 @@ import {
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { DynamicLookupModel } from './dynamic-lookup.model';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyFindOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-find-options.model';
 import { hasValue, isEmpty, isNotEmpty, isNull, isUndefined } from '../../../../../empty.util';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
-import { ConfidenceType } from '../../../../../../core/integration/models/confidence-type';
+import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
+import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-dynamic-lookup',
@@ -43,10 +42,10 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
   public pageInfo: PageInfo;
   public optionsList: any;
 
-  protected searchOptions: IntegrationSearchOptions;
+  protected searchOptions: VocabularyFindOptions;
   protected subs: Subscription[] = [];
 
-  constructor(private authorityService: AuthorityService,
+  constructor(private vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService
@@ -59,10 +58,10 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
   };
 
   ngOnInit() {
-    this.searchOptions = new IntegrationSearchOptions(
-      this.model.authorityOptions.scope,
-      this.model.authorityOptions.name,
-      this.model.authorityOptions.metadata,
+    this.searchOptions = new VocabularyFindOptions(
+      this.model.vocabularyOptions.scope,
+      this.model.vocabularyOptions.name,
+      this.model.vocabularyOptions.metadata,
       '',
       this.model.maxOptions,
       1);
@@ -77,6 +76,148 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
           this.setInputsValue(this.model.value);
         }
       }));
+  }
+
+  public formatItemForInput(item: any, field: number): string {
+    if (isUndefined(item) || isNull(item)) {
+      return '';
+    }
+    return (typeof item === 'string') ? item : this.inputFormatter(item, field);
+  }
+
+  public hasAuthorityValue() {
+    return hasValue(this.model.value)
+      && this.model.value.hasAuthority();
+  }
+
+  public hasEmptyValue() {
+    return isNotEmpty(this.getCurrentValue());
+  }
+
+  public clearFields() {
+    // Clear inputs whether there is no results and authority is closed
+    if (this.model.vocabularyOptions.closed) {
+      this.resetFields();
+    }
+  }
+
+  public isEditDisabled() {
+    return !this.hasAuthorityValue();
+  }
+
+  public isInputDisabled() {
+    return (this.model.vocabularyOptions.closed && this.hasAuthorityValue() && !this.editMode);
+  }
+
+  public isLookupName() {
+    return (this.model instanceof DynamicLookupNameModel);
+  }
+
+  public isSearchDisabled() {
+    return isEmpty(this.firstInputValue) || this.editMode;
+  }
+
+  public onBlurEvent(event: Event) {
+    this.blur.emit(event);
+  }
+
+  public onFocusEvent(event) {
+    this.focus.emit(event);
+  }
+
+  public onChange(event) {
+    event.preventDefault();
+    if (!this.model.vocabularyOptions.closed) {
+      if (isNotEmpty(this.getCurrentValue())) {
+        const currentValue = new FormFieldMetadataValueObject(this.getCurrentValue());
+        if (!this.editMode) {
+          this.updateModel(currentValue);
+        }
+      } else {
+        this.remove();
+      }
+    }
+  }
+
+  public onScroll() {
+    if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
+      this.searchOptions.currentPage++;
+      this.search();
+    }
+  }
+
+  public onSelect(event) {
+    this.updateModel(event);
+  }
+
+  public openChange(isOpened: boolean) {
+    if (!isOpened) {
+      if (this.model.vocabularyOptions.closed && !this.hasAuthorityValue()) {
+        this.setInputsValue('');
+      }
+    }
+  }
+
+  public remove() {
+    this.group.markAsPristine();
+    this.model.valueUpdates.next(null);
+    this.change.emit(null);
+  }
+
+  public saveChanges() {
+    if (isNotEmpty(this.getCurrentValue())) {
+      const newValue = Object.assign(new VocabularyEntry(), this.model.value, {
+        display: this.getCurrentValue(),
+        value: this.getCurrentValue()
+      });
+      this.updateModel(newValue);
+    } else {
+      this.remove();
+    }
+    this.switchEditMode();
+  }
+
+  public search() {
+    this.optionsList = null;
+    this.pageInfo = null;
+
+    // Query
+    this.searchOptions.query = this.getCurrentValue();
+
+    this.loading = true;
+    this.subs.push(this.vocabularyService.getVocabularyEntries(this.searchOptions).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      catchError(() =>
+        observableOf(new PaginatedList(
+          new PageInfo(),
+          []
+        ))
+      ),
+      distinctUntilChanged())
+      .subscribe((list: PaginatedList<VocabularyEntry>) => {
+        console.log(list);
+        this.optionsList = list.page;
+        this.pageInfo = list.pageInfo;
+        this.loading = false;
+        this.cdr.detectChanges();
+      }));
+  }
+
+  public switchEditMode() {
+    this.editMode = !this.editMode;
+  }
+
+  public whenClickOnConfidenceNotAccepted(sdRef: NgbDropdown, confidence: ConfidenceType) {
+    if (!this.model.readOnly) {
+      sdRef.open();
+      this.search();
+    }
+  }
+
+  ngOnDestroy() {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 
   protected getCurrentValue(): string {
@@ -106,7 +247,7 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
   protected setInputsValue(value) {
     if (hasValue(value)) {
       let displayValue = value;
-      if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValue) {
+      if (value instanceof FormFieldMetadataValueObject || value instanceof VocabularyEntry) {
         displayValue = value.display;
       }
 
@@ -130,146 +271,5 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
     this.change.emit(value);
     this.optionsList = null;
     this.pageInfo = null;
-  }
-
-  public formatItemForInput(item: any, field: number): string {
-    if (isUndefined(item) || isNull(item)) {
-      return '';
-    }
-    return (typeof item === 'string') ? item : this.inputFormatter(item, field);
-  }
-
-  public hasAuthorityValue() {
-    return hasValue(this.model.value)
-      && this.model.value.hasAuthority();
-  }
-
-  public hasEmptyValue() {
-    return isNotEmpty(this.getCurrentValue());
-  }
-
-  public clearFields() {
-    // Clear inputs whether there is no results and authority is closed
-    if (this.model.authorityOptions.closed) {
-      this.resetFields();
-    }
-  }
-
-  public isEditDisabled() {
-    return !this.hasAuthorityValue();
-  }
-
-  public isInputDisabled() {
-    return (this.model.authorityOptions.closed && this.hasAuthorityValue() && !this.editMode);
-  }
-
-  public isLookupName() {
-    return (this.model instanceof DynamicLookupNameModel);
-  }
-
-  public isSearchDisabled() {
-    return isEmpty(this.firstInputValue) || this.editMode;
-  }
-
-  public onBlurEvent(event: Event) {
-    this.blur.emit(event);
-  }
-
-  public onFocusEvent(event) {
-    this.focus.emit(event);
-  }
-
-  public onChange(event) {
-    event.preventDefault();
-    if (!this.model.authorityOptions.closed) {
-      if (isNotEmpty(this.getCurrentValue())) {
-        const currentValue = new FormFieldMetadataValueObject(this.getCurrentValue());
-        if (!this.editMode) {
-          this.updateModel(currentValue);
-        }
-      } else {
-        this.remove();
-      }
-    }
-  }
-
-  public onScroll() {
-    if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
-      this.searchOptions.currentPage++;
-      this.search();
-    }
-  }
-
-  public onSelect(event) {
-    this.updateModel(event);
-  }
-
-  public openChange(isOpened: boolean) {
-    if (!isOpened) {
-      if (this.model.authorityOptions.closed && !this.hasAuthorityValue()) {
-        this.setInputsValue('');
-      }
-    }
-  }
-
-  public remove() {
-    this.group.markAsPristine();
-    this.model.valueUpdates.next(null);
-    this.change.emit(null);
-  }
-
-  public saveChanges() {
-    if (isNotEmpty(this.getCurrentValue())) {
-      const newValue = Object.assign(new AuthorityValue(), this.model.value, {
-        display: this.getCurrentValue(),
-        value: this.getCurrentValue()
-      });
-      this.updateModel(newValue);
-    } else {
-      this.remove();
-    }
-    this.switchEditMode();
-  }
-
-  public search() {
-    this.optionsList = null;
-    this.pageInfo = null;
-
-    // Query
-    this.searchOptions.query = this.getCurrentValue();
-
-    this.loading = true;
-    this.subs.push(this.authorityService.getEntriesByName(this.searchOptions).pipe(
-      catchError(() => {
-        const emptyResult = new IntegrationData(
-          new PageInfo(),
-          []
-        );
-        return observableOf(emptyResult);
-      }),
-      distinctUntilChanged())
-      .subscribe((object: IntegrationData) => {
-        this.optionsList = object.payload;
-        this.pageInfo = object.pageInfo;
-        this.loading = false;
-        this.cdr.detectChanges();
-      }));
-  }
-
-  public switchEditMode() {
-    this.editMode = !this.editMode;
-  }
-
-  public whenClickOnConfidenceNotAccepted(sdRef: NgbDropdown, confidence: ConfidenceType) {
-    if (!this.model.readOnly) {
-      sdRef.open();
-      this.search();
-    }
-  }
-
-  ngOnDestroy() {
-    this.subs
-      .filter((sub) => hasValue(sub))
-      .forEach((sub) => sub.unsubscribe());
   }
 }

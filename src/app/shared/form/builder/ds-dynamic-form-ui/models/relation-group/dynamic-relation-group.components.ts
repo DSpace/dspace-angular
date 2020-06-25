@@ -1,14 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
@@ -33,12 +23,12 @@ import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.u
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
+import { VocabularyFindOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-find-options.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { environment } from '../../../../../../../environments/environment';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 @Component({
   selector: 'ds-dynamic-relation-group',
@@ -64,9 +54,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   private selectedChipItem: ChipsItem;
   private subs: Subscription[] = [];
 
-  @ViewChild('formRef', {static: false}) private formRef: FormComponent;
+  @ViewChild('formRef', { static: false }) private formRef: FormComponent;
 
-  constructor(private authorityService: AuthorityService,
+  constructor(private vocabularyService: VocabularyService,
               private formBuilderService: FormBuilderService,
               private formService: FormService,
               private cdr: ChangeDetectorRef,
@@ -177,6 +167,12 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     this.clear();
   }
 
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
+  }
+
   private addToChips() {
     if (!this.formRef.formGroup.valid) {
       this.formService.validateAllFormFields(this.formRef.formGroup);
@@ -235,20 +231,16 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
               if (isObject(valueObj[fieldName]) && valueObj[fieldName].hasAuthority() && isNotEmpty(valueObj[fieldName].authority)) {
                 const fieldId = fieldName.replace(/\./g, '_');
                 const model = this.formBuilderService.findById(fieldId, this.formModel);
-                const searchOptions: IntegrationSearchOptions = new IntegrationSearchOptions(
-                  (model as any).authorityOptions.scope,
-                  (model as any).authorityOptions.name,
-                  (model as any).authorityOptions.metadata,
+                return$ = this.vocabularyService.findEntryDetailByValue(
                   valueObj[fieldName].authority,
-                  (model as any).maxOptions,
-                  1);
-
-                return$ = this.authorityService.getEntryByValue(searchOptions).pipe(
-                  map((result: IntegrationData) => Object.assign(
+                  (model as any).vocabularyOptions.name
+                ).pipe(
+                  getFirstSucceededRemoteDataPayload(),
+                  map((entryDetail: VocabularyEntryDetail) => Object.assign(
                     new FormFieldMetadataValueObject(),
                     valueObj[fieldName],
                     {
-                      otherInformation: (result.payload[0] as AuthorityValue).otherInformation
+                      otherInformation: entryDetail.otherInformation
                     })
                   ));
               } else {
@@ -313,12 +305,6 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     if (this.formRef) {
       this.formService.resetForm(this.formRef.formGroup, this.formModel, this.formId);
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subs
-      .filter((sub) => hasValue(sub))
-      .forEach((sub) => sub.unsubscribe());
   }
 
 }

@@ -44,7 +44,7 @@ import { SharedModule } from '../../../shared.module';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
-import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
+import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
 import { DynamicLookupModel } from './models/lookup/dynamic-lookup.model';
 import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
@@ -74,7 +74,7 @@ import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
-  const authorityOptions: AuthorityOptions = {
+  const vocabularyOptions: VocabularyOptions = {
     closed: false,
     metadata: 'list',
     name: 'type_programme',
@@ -104,7 +104,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicTypeaheadModel({ id: 'typeahead', metadataFields: [], repeatable: false, submissionId: '1234' }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
-      authorityOptions: authorityOptions,
+      vocabularyOptions: vocabularyOptions,
       metadataFields: [],
       repeatable: false,
       submissionId: '1234'
@@ -112,12 +112,12 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234' }),
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
-      authorityOptions: authorityOptions,
+      vocabularyOptions: vocabularyOptions,
       repeatable: true
     }),
     new DynamicListRadioGroupModel({
       id: 'radioList',
-      authorityOptions: authorityOptions,
+      vocabularyOptions: vocabularyOptions,
       repeatable: false
     }),
     new DynamicRelationGroupModel({

@@ -10,10 +10,9 @@ import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidation
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
-import { GlobalConfig } from '../../../../../../../config/global-config.interface';
+import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { DsDynamicTypeaheadComponent } from './dynamic-typeahead.component';
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
@@ -31,12 +30,12 @@ function init() {
   });
 
   TYPEAHEAD_TEST_MODEL_CONFIG = {
-    authorityOptions: {
+    vocabularyOptions: {
       closed: false,
       metadata: 'typeahead',
       name: 'EVENTAuthority',
       scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
-    } as AuthorityOptions,
+    } as VocabularyOptions,
     disabled: false,
     id: 'typeahead',
     label: 'Conference',
@@ -49,6 +48,7 @@ function init() {
     value: undefined
   };
 }
+
 describe('DsDynamicTypeaheadComponent test suite', () => {
 
   let testComp: TestComponent;
@@ -59,7 +59,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
 
   // async beforeEach
   beforeEach(async(() => {
-    const authorityServiceStub = new AuthorityServiceStub();
+    const vocabularyServiceStub = new VocabularyServiceStub();
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -79,7 +79,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         DsDynamicTypeaheadComponent,
-        { provide: AuthorityService, useValue: authorityServiceStub },
+        { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} }
       ],
@@ -134,17 +134,17 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
 
       it('should search when 3+ characters typed', fakeAsync(() => {
 
-        spyOn((typeaheadComp as any).authorityService, 'getEntriesByName').and.callThrough();
+        spyOn((typeaheadComp as any).vocabularyService, 'getVocabularyEntries').and.callThrough();
 
         typeaheadComp.search(observableOf('test')).subscribe();
 
         tick(300);
         typeaheadFixture.detectChanges();
 
-        expect((typeaheadComp as any).authorityService.getEntriesByName).toHaveBeenCalled();
+        expect((typeaheadComp as any).vocabularyService.getVocabularyEntries).toHaveBeenCalled();
       }));
 
-      it('should set model.value on input type when AuthorityOptions.closed is false', () => {
+      it('should set model.value on input type when VocabularyOptions.closed is false', () => {
         const inputDe = typeaheadFixture.debugElement.query(By.css('input.form-control'));
         const inputElement = inputDe.nativeElement;
 
@@ -155,8 +155,8 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
 
       });
 
-      it('should not set model.value on input type when AuthorityOptions.closed is true', () => {
-        typeaheadComp.model.authorityOptions.closed = true;
+      it('should not set model.value on input type when VocabularyOptions.closed is true', () => {
+        typeaheadComp.model.vocabularyOptions.closed = true;
         typeaheadFixture.detectChanges();
         const inputDe = typeaheadFixture.debugElement.query(By.css('input.form-control'));
         const inputElement = inputDe.nativeElement;
@@ -184,18 +184,18 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         expect(typeaheadComp.blur.emit).not.toHaveBeenCalled();
       });
 
-      it('should emit change Event onBlur when AuthorityOptions.closed is false and inputValue is changed', () => {
+      it('should emit change Event onBlur when VocabularyOptions.closed is false and inputValue is changed', () => {
         typeaheadComp.inputValue = 'test value';
         typeaheadFixture.detectChanges();
         spyOn(typeaheadComp.blur, 'emit');
         spyOn(typeaheadComp.change, 'emit');
         spyOn(typeaheadComp.instance, 'isPopupOpen').and.returnValue(false);
-        typeaheadComp.onBlur(new Event('blur', ));
+        typeaheadComp.onBlur(new Event('blur',));
         expect(typeaheadComp.change.emit).toHaveBeenCalled();
         expect(typeaheadComp.blur.emit).toHaveBeenCalled();
       });
 
-      it('should not emit change Event onBlur when AuthorityOptions.closed is false and inputValue is not changed', () => {
+      it('should not emit change Event onBlur when VocabularyOptions.closed is false and inputValue is not changed', () => {
         typeaheadComp.inputValue = 'test value';
         typeaheadComp.model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
         (typeaheadComp.model as any).value = 'test value';
@@ -203,12 +203,12 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         spyOn(typeaheadComp.blur, 'emit');
         spyOn(typeaheadComp.change, 'emit');
         spyOn(typeaheadComp.instance, 'isPopupOpen').and.returnValue(false);
-        typeaheadComp.onBlur(new Event('blur', ));
+        typeaheadComp.onBlur(new Event('blur',));
         expect(typeaheadComp.change.emit).not.toHaveBeenCalled();
         expect(typeaheadComp.blur.emit).toHaveBeenCalled();
       });
 
-      it('should not emit change Event onBlur when AuthorityOptions.closed is false and inputValue is null', () => {
+      it('should not emit change Event onBlur when VocabularyOptions.closed is false and inputValue is null', () => {
         typeaheadComp.inputValue = null;
         typeaheadComp.model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
         (typeaheadComp.model as any).value = 'test value';
@@ -216,7 +216,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         spyOn(typeaheadComp.blur, 'emit');
         spyOn(typeaheadComp.change, 'emit');
         spyOn(typeaheadComp.instance, 'isPopupOpen').and.returnValue(false);
-        typeaheadComp.onBlur(new Event('blur', ));
+        typeaheadComp.onBlur(new Event('blur',));
         expect(typeaheadComp.change.emit).not.toHaveBeenCalled();
         expect(typeaheadComp.blur.emit).toHaveBeenCalled();
       });

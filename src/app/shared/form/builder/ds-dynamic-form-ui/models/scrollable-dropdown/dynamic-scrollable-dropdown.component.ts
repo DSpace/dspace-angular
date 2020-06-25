@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { FormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, distinctUntilChanged, first, tap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
@@ -10,13 +10,14 @@ import {
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
 
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { isNull, isUndefined } from '../../../../../empty.util';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyFindOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-find-options.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { PaginatedList } from '../../../../../../core/data/paginated-list';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -37,9 +38,9 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
   public pageInfo: PageInfo;
   public optionsList: any;
 
-  protected searchOptions: IntegrationSearchOptions;
+  protected searchOptions: VocabularyFindOptions;
 
-  constructor(private authorityService: AuthorityService,
+  constructor(private vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService
@@ -48,28 +49,26 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
   }
 
   ngOnInit() {
-    this.searchOptions = new IntegrationSearchOptions(
-      this.model.authorityOptions.scope,
-      this.model.authorityOptions.name,
-      this.model.authorityOptions.metadata,
+    this.searchOptions = new VocabularyFindOptions(
+      this.model.vocabularyOptions.scope,
+      this.model.vocabularyOptions.name,
+      this.model.vocabularyOptions.metadata,
       '',
       this.model.maxOptions,
       1);
-    this.authorityService.getEntriesByName(this.searchOptions).pipe(
-      catchError(() => {
-        const emptyResult = new IntegrationData(
-          new PageInfo(),
-          []
-        );
-        return observableOf(emptyResult);
-      }),
-      first())
-      .subscribe((object: IntegrationData) => {
-        this.optionsList = object.payload;
+    this.vocabularyService.getVocabularyEntries(this.searchOptions).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      catchError(() => observableOf(new PaginatedList(
+        new PageInfo(),
+        []
+        ))
+      ))
+      .subscribe((list: PaginatedList<VocabularyEntry>) => {
+        this.optionsList = list.page;
         if (this.model.value) {
           this.setCurrentValue(this.model.value);
         }
-        this.pageInfo = object.pageInfo;
+        this.pageInfo = list.pageInfo;
         this.cdr.detectChanges();
       });
 
@@ -80,7 +79,7 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
 
   }
 
-  inputFormatter = (x: AuthorityValue): string => x.display || x.value;
+  inputFormatter = (x: VocabularyEntry): string => x.display || x.value;
 
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {
@@ -92,18 +91,17 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
     if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
       this.loading = true;
       this.searchOptions.currentPage++;
-      this.authorityService.getEntriesByName(this.searchOptions).pipe(
-        catchError(() => {
-          const emptyResult = new IntegrationData(
-            new PageInfo(),
-            []
-          );
-          return observableOf(emptyResult);
-        }),
+      this.vocabularyService.getVocabularyEntries(this.searchOptions).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        catchError(() => observableOf(new PaginatedList(
+          new PageInfo(),
+          []
+          ))
+        ),
         tap(() => this.loading = false))
-        .subscribe((object: IntegrationData) => {
-          this.optionsList = this.optionsList.concat(object.payload);
-          this.pageInfo = object.pageInfo;
+        .subscribe((list: PaginatedList<VocabularyEntry>) => {
+          this.optionsList = this.optionsList.concat(list.page);
+          this.pageInfo = list.pageInfo;
           this.cdr.detectChanges();
         })
     }

@@ -10,12 +10,16 @@ import { catchError, debounceTime, distinctUntilChanged, filter, map, merge, swi
 import { Observable, of as observableOf, Subject } from 'rxjs';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { VocabularyFindOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-find-options.model';
 import { isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { ConfidenceType } from '../../../../../../core/integration/models/confidence-type';
+import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
@@ -31,15 +35,23 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('instance', {static: false}) instance: NgbTypeahead;
+  @ViewChild('instance', { static: false }) instance: NgbTypeahead;
 
   searching = false;
-  searchOptions: IntegrationSearchOptions;
+  searchOptions: VocabularyFindOptions;
   searchFailed = false;
   hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.changeSearchingStatus(false));
   click$ = new Subject<string>();
   currentValue: any;
   inputValue: any;
+
+  constructor(private vocabularyService: VocabularyService,
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
+  }
 
   formatter = (x: { display: string }) => {
     return (typeof x === 'object') ? x.display : x
@@ -53,44 +65,33 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return observableOf({list: []});
+          return observableOf({ list: [] });
         } else {
           this.searchOptions.query = term;
-          return this.authorityService.getEntriesByName(this.searchOptions).pipe(
-            map((authorities) => {
-              // @TODO Pagination for authority is not working, to refactor when it will be fixed
-              return {
-                list: authorities.payload,
-                pageInfo: authorities.pageInfo
-              };
-            }),
+          return this.vocabularyService.getVocabularyEntries(this.searchOptions).pipe(
+            getFirstSucceededRemoteDataPayload(),
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf({list: []});
+              return observableOf(new PaginatedList(
+                new PageInfo(),
+                []
+              ));
             }));
         }
       }),
-      map((results) => results.list),
+      map((list: PaginatedList<VocabularyEntry>) => list.page),
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed$)
     )
   };
 
-  constructor(private authorityService: AuthorityService,
-              private cdr: ChangeDetectorRef,
-              protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
-  ) {
-    super(layoutService, validationService);
-  }
-
   ngOnInit() {
     this.currentValue = this.model.value;
-    this.searchOptions = new IntegrationSearchOptions(
-      this.model.authorityOptions.scope,
-      this.model.authorityOptions.name,
-      this.model.authorityOptions.metadata);
+    this.searchOptions = new VocabularyFindOptions(
+      this.model.vocabularyOptions.scope,
+      this.model.vocabularyOptions.name,
+      this.model.vocabularyOptions.metadata);
     this.group.get(this.model.id).valueChanges.pipe(
       filter((value) => this.currentValue !== value))
       .subscribe((value) => {
@@ -104,14 +105,14 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
   }
 
   onInput(event) {
-    if (!this.model.authorityOptions.closed && isNotEmpty(event.target.value)) {
+    if (!this.model.vocabularyOptions.closed && isNotEmpty(event.target.value)) {
       this.inputValue = new FormFieldMetadataValueObject(event.target.value);
     }
   }
 
   onBlur(event: Event) {
     if (!this.instance.isPopupOpen()) {
-      if (!this.model.authorityOptions.closed && isNotEmpty(this.inputValue)) {
+      if (!this.model.vocabularyOptions.closed && isNotEmpty(this.inputValue)) {
         if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
           this.model.valueUpdates.next(this.inputValue);
           this.change.emit(this.inputValue);

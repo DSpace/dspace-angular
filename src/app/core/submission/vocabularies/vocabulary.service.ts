@@ -74,9 +74,7 @@ class VocabularyEntryDetailDataServiceImpl extends DataService<VocabularyEntryDe
 /**
  * A service responsible for fetching/sending data from/to the REST API on the vocabularies endpoint
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 @dataService(VOCABULARY)
 export class VocabularyService {
   protected searchByMetadataAndCollectionMethod = 'byMetadataAndCollection';

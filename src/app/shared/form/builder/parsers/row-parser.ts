@@ -5,7 +5,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { uniqueId } from 'lodash';
 
-import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
+import { VocabularyFindOptions } from '../../../../core/submission/vocabularies/models/vocabulary-find-options.model';
 import { isEmpty } from '../../../empty.util';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
@@ -48,7 +48,7 @@ export class RowParser {
       group: [],
     };
 
-    const authorityOptions = new IntegrationSearchOptions(scopeUUID);
+    const vocabularyOptions = new VocabularyFindOptions(scopeUUID);
 
     const scopedFields: FormFieldModel[] = this.filterScopedFields(rowData.fields, submissionScope);
 
@@ -58,7 +58,7 @@ export class RowParser {
     const parserOptions: ParserOptions = {
       readOnly: readOnly,
       submissionScope: submissionScope,
-      authorityUuid: authorityOptions.uuid
+      collectionUUID: vocabularyOptions.collection
     };
 
     // Iterate over row's fields

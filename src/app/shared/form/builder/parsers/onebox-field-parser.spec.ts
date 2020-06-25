@@ -15,7 +15,7 @@ describe('OneboxFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
-    authorityUuid: null
+    collectionUUID: null
   };
 
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('OneboxFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'title',
-          authority: 'EVENTAuthority',
+          controlledVocabulary: 'EVENTAuthority',
           closed: false
         }
       ],

@@ -1254,7 +1254,7 @@ export const mockUploadConfigResponse = {
               {
                 metadata: 'dc.title',
                 label: null,
-                authority: null,
+                controlledVocabulary: null,
                 closed: null
               }
             ],
@@ -1276,7 +1276,7 @@ export const mockUploadConfigResponse = {
               {
                 metadata: 'dc.description',
                 label: null,
-                authority: null,
+                controlledVocabulary: null,
                 closed: null
               }
             ],
