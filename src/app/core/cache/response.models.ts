@@ -5,11 +5,9 @@ import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../config/models/config.model';
 import { FacetValue } from '../../shared/search/facet-value.model';
 import { SearchFilterConfig } from '../../shared/search/search-filter-config.model';
-import { IntegrationModel } from '../integration/models/integration.model';
 import { RegistryMetadataschemasResponse } from '../registry/registry-metadataschemas-response.model';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
-import { PaginatedList } from '../data/paginated-list';
 import { SubmissionObject } from '../submission/models/submission-object.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
@@ -211,17 +209,6 @@ export class AuthStatusResponse extends RestResponse {
   }
 }
 
-export class IntegrationSuccessResponse extends RestResponse {
-  constructor(
-    public dataDefinition: PaginatedList<IntegrationModel>,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
 export class PostPatchSuccessResponse extends RestResponse {
   constructor(
     public dataDefinition: any,
@@ -302,4 +289,5 @@ export class ContentSourceSuccessResponse extends RestResponse {
     super(true, statusCode, statusText);
   }
 }
+
 /* tslint:enable:max-classes-per-file */

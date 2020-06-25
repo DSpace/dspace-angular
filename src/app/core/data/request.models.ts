@@ -9,7 +9,6 @@ import { ConfigResponseParsingService } from '../config/config-response-parsing.
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
-import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { RestRequestMethod } from './rest-request-method';
 import { RequestParam } from '../cache/models/request-param.model';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
@@ -26,13 +25,14 @@ import { VocabularyEntriesResponseParsingService } from '../submission/vocabular
 
 // uuid and handle requests have separate endpoints
 export enum IdentifierType {
-  UUID ='uuid',
+  UUID = 'uuid',
   HANDLE = 'handle'
 }
 
 export abstract class RestRequest {
   public responseMsToLive = 10 * 1000;
   public forceBypassCache = false;
+
   constructor(
     public uuid: string,
     public href: string,
@@ -42,12 +42,12 @@ export abstract class RestRequest {
   ) {
   }
 
-  getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return DSOResponseParsingService;
-  }
-
   get toCache(): boolean {
     return this.responseMsToLive > 0;
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return DSOResponseParsingService;
   }
 }
 
@@ -59,7 +59,7 @@ export class GetRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.GET, body, options)
   }
 }
@@ -70,7 +70,7 @@ export class PostRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.POST, body)
   }
 }
@@ -81,7 +81,7 @@ export class PutRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.PUT, body)
   }
 }
@@ -92,7 +92,7 @@ export class DeleteRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.DELETE, body)
   }
 }
@@ -103,7 +103,7 @@ export class OptionsRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.OPTIONS, body)
   }
 }
@@ -114,7 +114,7 @@ export class HeadRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.HEAD, body)
   }
 }
@@ -127,7 +127,7 @@ export class PatchRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.PATCH, body)
   }
 }
@@ -242,16 +242,6 @@ export class AuthGetRequest extends GetRequest {
   }
 }
 
-export class IntegrationRequest extends GetRequest {
-  constructor(uuid: string, href: string) {
-    super(uuid, href);
-  }
-
-  getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return IntegrationResponseParsingService;
-  }
-}
-
 /**
  * Request to create a MetadataSchema
  */
@@ -309,6 +299,7 @@ export class UpdateMetadataFieldRequest extends PutRequest {
  */
 export class SubmissionRequest extends GetRequest {
   forceBypassCache = true;
+
   constructor(uuid: string, href: string) {
     super(uuid, href);
   }
@@ -456,4 +447,5 @@ export class RequestError extends Error {
   statusCode: number;
   statusText: string;
 }
+
 /* tslint:enable:max-classes-per-file */
