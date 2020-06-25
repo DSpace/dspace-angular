@@ -75,7 +75,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   /**
    * The amount of objects to display per page
    */
-  pageSize = 2;
+  pageSize = 10;
 
   /**
    * The page options to use for fetching the objects
