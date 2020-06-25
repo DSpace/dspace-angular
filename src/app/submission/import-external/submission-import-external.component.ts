@@ -7,7 +7,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { switchMap, filter } from 'rxjs/operators';
+import { switchMap, filter, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { Context } from '../../core/shared/context.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -116,7 +116,8 @@ export class SubmissionImportExternalComponent implements OnInit {
           return this.searchConfigService.paginatedSearchOptions.pipe(
             switchMap((searchOptions: PaginatedSearchOptions) => {
               return this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions);
-            })
+            }),
+            take(1)
           )
         }),
     ).subscribe((rdData) => {
