@@ -196,9 +196,11 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
           path: `/_links/bitstreams/${event.toIndex}/href`
         });
         this.bundleService.patch(bundle, [moveOperation]).pipe(take(1)).subscribe((response: RestResponse) => {
-          this.displayNotifications('item.edit.bitstreams.notifications.move', [response]);
-          this.requestService.removeByHrefSubstring(bundle.self);
-          this.zone.run(() => event.finish());
+          this.zone.run(() => {
+            this.displayNotifications('item.edit.bitstreams.notifications.move', [response]);
+            this.requestService.removeByHrefSubstring(bundle.self);
+            event.finish();
+          });
         });
       }
     });

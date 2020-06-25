@@ -1,4 +1,4 @@
-import { FieldUpdate, FieldUpdates, Identifiable } from '../../core/data/object-updates/object-updates.reducer';
+import { FieldUpdate, FieldUpdates } from '../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -6,7 +6,7 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
-import { hasValue } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { paginatedListToArray } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -95,9 +95,18 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   /**
    * Whether or not we should display a loading animation
    * This is used to display a loading page when the user drops a bitstream onto a new page. The loading animation
-   * should stop once the bitstream has moved to the new page and the new page's response has loaded
+   * should stop once the bitstream has moved to the new page and the new page's response has loaded and contains the
+   * dropped object on top (see this.stopLoadingWhenFirstIs below)
    */
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * ID of the object the page's first element needs to match in order to stop the loading animation.
+   * This is to ensure the new page is fully loaded containing the latest data from the REST API whenever an object is
+   * dropped on a new page. This allows the component to expect the dropped object to be present on top of the new page,
+   * while displaying a loading animation until this is the case.
+   */
+  stopLoadingWhenFirstIs: string;
 
   /**
    * List of subscriptions
@@ -148,7 +157,15 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
         distinctUntilChanged(compareArraysUsingFieldUuids())
       ).subscribe((updateValues) => {
         this.customOrder = updateValues.map((fieldUpdate) => fieldUpdate.field.uuid);
-      })
+        // Check if stopLoadingWhenFirstIs contains a value. If it does and it equals the first value in customOrder, stop the loading animation.
+        // This is to ensure the page is updated to contain the new values first, before displaying it.
+        if (hasValue(this.stopLoadingWhenFirstIs) && isNotEmpty(this.customOrder) && this.customOrder[0] === this.stopLoadingWhenFirstIs) {
+          this.stopLoadingWhenFirstIs = undefined;
+          this.loading$.next(false);
+        }
+      }),
+      // Disable the pagination when objects are loading
+      this.loading$.subscribe((loading) => this.options.disabled = loading)
     );
   }
 
@@ -197,6 +214,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
     // Send out a drop event (and navigate to the new page) when the "from" and "to" indexes are different from each other
     if (fromIndex !== toIndex) {
       if (isNewPage) {
+        this.stopLoadingWhenFirstIs = this.customOrder[dragIndex];
         this.customOrder = [];
         this.paginationComponent.doPageChange(redirectPage);
         this.loading$.next(true);
@@ -207,7 +225,6 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
         finish: () => {
           if (isNewPage) {
             this.currentPage$.next(redirectPage);
-            this.loading$.next(false);
           }
         }
       }));
