@@ -198,8 +198,11 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
         this.bundleService.patch(bundle, [moveOperation]).pipe(take(1)).subscribe((response: RestResponse) => {
           this.zone.run(() => {
             this.displayNotifications('item.edit.bitstreams.notifications.move', [response]);
-            this.requestService.removeByHrefSubstring(bundle.self);
-            event.finish();
+            // Remove all cached requests from this bundle and call the event's callback when the requests are cleared
+            this.requestService.removeByHrefSubstring(bundle.self).pipe(
+              filter((isCached) => isCached),
+              take(1)
+            ).subscribe(() => event.finish());
           });
         });
       }

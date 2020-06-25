@@ -75,7 +75,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   /**
    * The amount of objects to display per page
    */
-  pageSize = 10;
+  pageSize = 2;
 
   /**
    * The page options to use for fetching the objects
@@ -99,14 +99,6 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
    * dropped object on top (see this.stopLoadingWhenFirstIs below)
    */
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  /**
-   * ID of the object the page's first element needs to match in order to stop the loading animation.
-   * This is to ensure the new page is fully loaded containing the latest data from the REST API whenever an object is
-   * dropped on a new page. This allows the component to expect the dropped object to be present on top of the new page,
-   * while displaying a loading animation until this is the case.
-   */
-  stopLoadingWhenFirstIs: string;
 
   /**
    * List of subscriptions
@@ -157,12 +149,8 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
         distinctUntilChanged(compareArraysUsingFieldUuids())
       ).subscribe((updateValues) => {
         this.customOrder = updateValues.map((fieldUpdate) => fieldUpdate.field.uuid);
-        // Check if stopLoadingWhenFirstIs contains a value. If it does and it equals the first value in customOrder, stop the loading animation.
-        // This is to ensure the page is updated to contain the new values first, before displaying it.
-        if (hasValue(this.stopLoadingWhenFirstIs) && isNotEmpty(this.customOrder) && this.customOrder[0] === this.stopLoadingWhenFirstIs) {
-          this.stopLoadingWhenFirstIs = undefined;
-          this.loading$.next(false);
-        }
+        // We received new values, stop displaying a loading indicator if it's present
+        this.loading$.next(false);
       }),
       // Disable the pagination when objects are loading
       this.loading$.subscribe((loading) => this.options.disabled = loading)
@@ -214,9 +202,6 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
     // Send out a drop event (and navigate to the new page) when the "from" and "to" indexes are different from each other
     if (fromIndex !== toIndex) {
       if (isNewPage) {
-        this.stopLoadingWhenFirstIs = this.customOrder[dragIndex];
-        this.customOrder = [];
-        this.paginationComponent.doPageChange(redirectPage);
         this.loading$.next(true);
       }
       this.dropObject.emit(Object.assign({
@@ -224,7 +209,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
         toIndex,
         finish: () => {
           if (isNewPage) {
-            this.currentPage$.next(redirectPage);
+            this.paginationComponent.doPageChange(redirectPage);
           }
         }
       }));
