@@ -20,4 +20,10 @@ export class CollectionSelectorComponent {
     this.activeModal.close(dso);
   }
 
+  /**
+   * Close the modal
+   */
+  close() {
+    this.activeModal.close();
+  }
 }

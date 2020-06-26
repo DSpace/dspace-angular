@@ -156,4 +156,9 @@ describe('CollectionSelectorComponent', () => {
       expect(component.selectObject).toHaveBeenCalled();
     });
   }));
+
+  it('should close the dialog', () => {
+    component.close();
+    expect((component as any).activeModal.close).toHaveBeenCalled();
+  });
 });

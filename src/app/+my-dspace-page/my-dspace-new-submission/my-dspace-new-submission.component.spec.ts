@@ -24,7 +24,7 @@ import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UploaderComponent } from 'src/app/shared/uploader/uploader.component';
 
-fdescribe('MyDSpaceNewSubmissionComponent test', () => {
+describe('MyDSpaceNewSubmissionComponent test', () => {
 
   const translateService: TranslateService = jasmine.createSpyObj('translateService', {
     get: (key: string): any => { observableOf(key) },
