@@ -18,6 +18,18 @@
     </ds-process-detail-field>
   </div>
 
+  <ds-process-detail-field *ngIf="process && process.startTime" id="process-start-time" [title]="'process.detail.start-time' | translate">
+    <div>{{ process.startTime }}</div>
+  </ds-process-detail-field>
+
+  <ds-process-detail-field *ngIf="process && process.endTime"  id="process-end-time" [title]="'process.detail.end-time' | translate">
+    <div>{{ process.endTime }}</div>
+  </ds-process-detail-field>
+
+  <ds-process-detail-field *ngIf="process && process.processStatus"  id="process-status" [title]="'process.detail.status' | translate">
+    <div>{{ process.processStatus }}</div>
+  </ds-process-detail-field>
+
   <!--<ds-process-detail-field id="process-output" [title]="'process.detail.output'">-->
     <!--<pre class="font-weight-bold text-secondary bg-light p-3">{{'process.detail.output.alert' | translate}}</pre>-->
   <!--</ds-process-detail-field>-->

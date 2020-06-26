@@ -1965,6 +1965,12 @@
 
   "process.detail.title" : "Process: {{ id }} - {{ name }}",
 
+  "process.detail.start-time" : "Start time",
+
+  "process.detail.end-time" : "Finish time",
+
+  "process.detail.status" : "Status",
+
 
 
   "process.overview.table.finish" : "Finish time",
@@ -1982,6 +1988,8 @@
   "process.overview.title": "Processes Overview",
 
   "process.overview.breadcrumbs": "Processes Overview",
+
+  "process.overview.new": "New",
 
 
   "profile.breadcrumbs": "Update Profile",

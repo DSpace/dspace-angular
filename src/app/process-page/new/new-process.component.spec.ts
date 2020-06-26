@@ -12,6 +12,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { of as observableOf } from 'rxjs';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { RequestService } from '../../core/data/request.service';
+import { Router } from '@angular/router';
 
 describe('NewProcessComponent', () => {
   let component: NewProcessComponent;
@@ -57,6 +59,8 @@ describe('NewProcessComponent', () => {
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
+        { provide: RequestService, useValue: {} },
+        { provide: Router, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

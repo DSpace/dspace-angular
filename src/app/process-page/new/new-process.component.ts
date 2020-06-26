@@ -9,7 +9,8 @@ import { RequestEntry } from '../../core/data/request.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
-import { pipe } from 'rxjs';
+import { RequestService } from '../../core/data/request.service';
+import { Router } from '@angular/router';
 
 /**
  * Component to create a new script
@@ -45,7 +46,12 @@ export class NewProcessComponent implements OnInit {
    */
   public missingParameters = [];
 
-  constructor(private scriptService: ScriptDataService, private notificationsService: NotificationsService, private translationService: TranslateService) {
+  constructor(
+    private scriptService: ScriptDataService,
+    private notificationsService: NotificationsService,
+    private translationService: TranslateService,
+    private requestService: RequestService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -75,6 +81,7 @@ export class NewProcessComponent implements OnInit {
           const title = this.translationService.get('process.new.notification.success.title');
           const content = this.translationService.get('process.new.notification.success.content');
           this.notificationsService.success(title, content)
+          this.sendBack();
         } else {
           const title = this.translationService.get('process.new.notification.error.title');
           const content = this.translationService.get('process.new.notification.error.content');
@@ -122,6 +129,13 @@ export class NewProcessComponent implements OnInit {
       }
     }
     return this.missingParameters.length > 0;
+  }
+
+  private sendBack() {
+    this.requestService.removeByHrefSubstring('/processes');
+    /* should subscribe on the previous method to know the action is finished and then navigate,
+    will fix this when the removeByHrefSubstring changes are merged */
+    this.router.navigateByUrl('/processes');
   }
 }
 
