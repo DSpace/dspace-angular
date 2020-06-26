@@ -21,7 +21,8 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalPreviewComponent>;
   let submissionServiceStub: SubmissionServiceStub;
-  const modal = jasmine.createSpyObj('modal', ['close', 'dismiss']);
+  const ngbActiveModal = jasmine.createSpyObj('modal', ['close', 'dismiss']);
+  const ngbModal = jasmine.createSpyObj('modal', ['open']);
   const externalEntry = Object.assign(new ExternalSourceEntry(), {
     id: '0001-0001-0001-0001',
     display: 'John Doe',
@@ -49,8 +50,8 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: SubmissionService, useValue: new SubmissionServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: NgbModal, useValue: { open: () => {/*comment*/} } },
-        { provide: NgbActiveModal, useValue: modal },
+        { provide: NgbModal, useValue: ngbModal },
+        { provide: NgbActiveModal, useValue: ngbActiveModal },
         SubmissionImportExternalPreviewComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -129,7 +130,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
          { id: 'jk11k13o-9v4z-632i-sr88-wq071n0h1d47' }
       ];
       comp.externalSourceEntry = externalEntry;
-      spyOn(compAsAny.modalService, 'open').and.returnValue({componentInstance: { selectedEvent: observableOf(emittedEvent)}});
+      ngbModal.open.and.returnValue({componentInstance: { selectedEvent: observableOf(emittedEvent)}});
       spyOn(comp, 'closeMetadataModal');
       submissionServiceStub.createSubmissionFromExternalSource.and.returnValue(observableOf(submissionObjects));
       spyOn(compAsAny.router, 'navigateByUrl');

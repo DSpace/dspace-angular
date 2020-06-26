@@ -23,6 +23,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
   let comp: SubmissionImportExternalComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalComponent>;
+  const ngbModal = jasmine.createSpyObj('modal', ['open']);
   const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       pageSize: 10,
@@ -48,7 +49,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
-        NgbModal,
+        { provide: NgbModal, useValue: ngbModal },
         SubmissionImportExternalComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -93,7 +94,6 @@ describe('SubmissionImportExternalComponent test suite', () => {
     it('Should init component properly (without route data)', () => {
       const expectedEntries = createSuccessfulRemoteDataObject(createPaginatedList([]));
       spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValue(observableOf(''));
-      comp.ngOnInit();
       fixture.detectChanges();
 
       expect(comp.routeData).toEqual({ sourceId: '', query: '' });
@@ -139,7 +139,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
           ]
         }
       });
-      spyOn(compAsAny.modalService, 'open').and.returnValue({componentInstance: { externalSourceEntry: null}});
+      ngbModal.open.and.returnValue({componentInstance: { externalSourceEntry: null}});
       comp.import(entry);
 
       expect(compAsAny.modalService.open).toHaveBeenCalledWith(SubmissionImportExternalPreviewComponent, { size: 'lg' });
