@@ -77,7 +77,8 @@ export class CreateComColPageComponent<TDomain extends DSpaceObject> implements 
     const uploader = event.uploader;
 
     this.parentUUID$.pipe(take(1)).subscribe((uuid: string) => {
-      this.dsoDataService.create(dso, new RequestParam('parent', uuid))
+      const params = uuid ? [new RequestParam('parent', uuid)] : [];
+      this.dsoDataService.create(dso, ...params)
         .pipe(getSucceededRemoteData())
         .subscribe((dsoRD: RemoteData<TDomain>) => {
           if (isNotUndefined(dsoRD)) {

@@ -25,7 +25,17 @@ export class I18nBreadcrumbResolver implements Resolve<BreadcrumbConfig<string>>
     if (hasNoValue(key)) {
       throw new Error('You provided an i18nBreadcrumbResolver for url \"' + route.url + '\" but no breadcrumbKey in the route\'s data')
     }
-    const fullPath = route.url.join('');
+    const fullPath = this.getResolvedUrl(route);
     return { provider: this.breadcrumbService, key: key, url: fullPath };
+  }
+
+  /**
+   * Resolve the full URL of an ActivatedRouteSnapshot
+   * @param route
+   */
+  getResolvedUrl(route: ActivatedRouteSnapshot): string {
+    return route.pathFromRoot
+      .map((v) => v.url.map((segment) => segment.toString()).join('/'))
+      .join('/');
   }
 }
