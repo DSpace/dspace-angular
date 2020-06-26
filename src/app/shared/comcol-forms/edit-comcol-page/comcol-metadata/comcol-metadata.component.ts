@@ -5,8 +5,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, map, take } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
-import { hasValue, isNotUndefined } from '../../../empty.util';
-import { DataService } from '../../../../core/data/data.service';
+import { hasValue, isEmpty } from '../../../empty.util';
 import { ResourceType } from '../../../../core/shared/resource-type';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -49,26 +48,33 @@ export class ComcolMetadataComponent<TDomain extends DSpaceObject> implements On
    * @param event   The event returned by the community/collection form. Contains the new dso and logo uploader
    */
   onSubmit(event) {
-    const dso = event.dso;
+
     const uploader = event.uploader;
     const deleteLogo = event.deleteLogo;
 
-    this.dsoDataService.update(dso)
-      .pipe(getSucceededRemoteData())
-      .subscribe((dsoRD: RemoteData<TDomain>) => {
-        if (isNotUndefined(dsoRD)) {
-          const newUUID = dsoRD.payload.uuid;
-          if (hasValue(uploader) && uploader.queue.length > 0) {
-            this.dsoDataService.getLogoEndpoint(newUUID).pipe(take(1)).subscribe((href: string) => {
-              uploader.options.url = href;
-              uploader.uploadAll();
-            });
-          } else if (!deleteLogo) {
-            this.router.navigate([this.frontendURL + newUUID]);
-          }
-          this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.notifications.success'));
-        }
+    const newLogo = hasValue(uploader) && uploader.queue.length > 0;
+    if (newLogo) {
+      this.dsoDataService.getLogoEndpoint(event.dso.uuid).pipe(take(1)).subscribe((href: string) => {
+        uploader.options.url = href;
+        uploader.uploadAll();
       });
+    }
+
+    if (!isEmpty(event.operations)) {
+      this.dsoDataService.patch(event.dso, event.operations)
+        .subscribe(async (response) => {
+          if (response.isSuccessful) {
+            if (!newLogo && !deleteLogo) {
+              await this.router.navigate([this.frontendURL + event.dso.uuid]);
+            }
+            this.notificationsService.success(null, this.translate.get(`${this.type.value}.edit.notifications.success`));
+          } else if (response.statusCode === 403) {
+            this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.unauthorized`));
+          } else {
+            this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.error`));
+          }
+        });
+    }
   }
 
   /**

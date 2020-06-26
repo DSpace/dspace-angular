@@ -8,7 +8,9 @@ import { currentPathFromSnapshot } from '../../shared/utils/route.utils';
 /**
  * The class that resolves a BreadcrumbConfig object with an i18n key string for a route
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class I18nBreadcrumbResolver implements Resolve<BreadcrumbConfig<string>> {
   constructor(protected breadcrumbService: I18nBreadcrumbsService) {
   }

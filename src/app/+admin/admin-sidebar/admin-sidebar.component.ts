@@ -445,6 +445,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         icon: 'cogs',
         index: 9
       },
+      /* Processes */
       {
         id: 'processes',
         active: false,
@@ -455,6 +456,19 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           link: '/processes'
         } as LinkMenuItemModel,
         icon: 'terminal',
+        index: 10
+      },
+      /* Workflow */
+      {
+        id: 'workflow',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.workflow',
+          link: '/admin/workflow'
+        } as LinkMenuItemModel,
+        icon: 'user-check',
         index: 10
       },
     ];

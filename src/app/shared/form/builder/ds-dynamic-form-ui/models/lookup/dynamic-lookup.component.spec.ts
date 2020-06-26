@@ -6,11 +6,7 @@ import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@ang
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
-import {
-  DynamicFormLayoutService,
-  DynamicFormsCoreModule,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
@@ -25,7 +21,6 @@ import { createTestComponent } from '../../../../../testing/utils.test';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
-import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 
 let LOOKUP_TEST_MODEL_CONFIG = {
   authorityOptions: {

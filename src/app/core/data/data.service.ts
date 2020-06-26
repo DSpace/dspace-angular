@@ -20,7 +20,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
@@ -45,11 +45,12 @@ import {
   FindListOptions,
   FindListRequest,
   GetRequest,
-  PatchRequest
+  PatchRequest, PutRequest
 } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
+import { GenericConstructor } from '../shared/generic-constructor';
 
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
@@ -111,7 +112,7 @@ export abstract class DataService<T extends CacheableObject> {
     result$ = this.getSearchEndpoint(searchMethod);
 
     if (hasValue(options.searchParams)) {
-      options.searchParams.forEach((param: SearchParam) => {
+      options.searchParams.forEach((param: RequestParam) => {
         args.push(`${param.fieldName}=${param.fieldValue}`);
       })
     }
@@ -153,6 +154,33 @@ export abstract class DataService<T extends CacheableObject> {
     }
   }
 
+  /**
+   * Turn an array of RequestParam into a query string and combine it with the given HREF
+   *
+   * @param href The HREF to which the query string should be appended
+   * @param params Array with additional params to combine with query string
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   *
+   * @return {Observable<string>}
+   * Return an observable that emits created HREF
+   */
+  protected buildHrefWithParams(href: string, params: RequestParam[], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
+
+    let  args = [];
+    if (hasValue(params)) {
+      params.forEach((param: RequestParam) => {
+        args.push(`${param.fieldName}=${param.fieldValue}`);
+      })
+    }
+
+    args = this.addEmbedParams(args, ...linksToFollow);
+
+    if (isNotEmpty(args)) {
+      return new URLCombiner(href, `?${args.join('&')}`).toString();
+    } else {
+      return href;
+    }
+  }
   /**
    * Adds the embed options to the link for the request
    * @param args            params for the query string
@@ -293,9 +321,9 @@ export abstract class DataService<T extends CacheableObject> {
    * @param searchMethod The search method for the object
    */
   protected getSearchEndpoint(searchMethod: string): Observable<string> {
-    return this.halService.getEndpoint(`${this.linkPath}/search`).pipe(
+    return this.halService.getEndpoint(this.linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
-      map((href: string) => `${href}/${searchMethod}`));
+      map((href: string) => `${href}/search/${searchMethod}`));
   }
 
   /**
@@ -316,7 +344,9 @@ export abstract class DataService<T extends CacheableObject> {
       tap((href: string) => {
           this.requestService.removeByHrefSubstring(href);
           const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
-          request.responseMsToLive = 10 * 1000;
+          if (hasValue(this.responseMsToLive)) {
+            request.responseMsToLive = this.responseMsToLive;
+          }
 
           this.requestService.configure(request);
         }
@@ -355,6 +385,28 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
+   * Send a PUT request for the specified object
+   *
+   * @param object The object to send a put request for.
+   */
+  put(object: T): Observable<RemoteData<T>> {
+    const requestId = this.requestService.generateRequestId();
+    const serializedObject = new DSpaceSerializer(object.constructor as GenericConstructor<{}>).serialize(object);
+    const request = new PutRequest(requestId, object._links.self.href, serializedObject);
+
+    if (hasValue(this.responseMsToLive)) {
+      request.responseMsToLive = this.responseMsToLive;
+    }
+
+    this.requestService.configure(request);
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((re: RequestEntry) => hasValue(re) && re.completed),
+      switchMap(() => this.findByHref(object._links.self.href))
+    );
+  }
+
+  /**
    * Add a new patch to the object cache
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} object The given object
@@ -380,15 +432,15 @@ export abstract class DataService<T extends CacheableObject> {
    *
    * @param {DSpaceObject} dso
    *    The object to create
-   * @param {string} parentUUID
-   *    The UUID of the parent to create the new object under
+   * @param {RequestParam[]} params
+   *    Array with additional params to combine with query string
    */
-  create(dso: T, parentUUID: string): Observable<RemoteData<T>> {
+  create(dso: T, ...params: RequestParam[]): Observable<RemoteData<T>> {
     const requestId = this.requestService.generateRequestId();
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
+      map((endpoint: string) => this.buildHrefWithParams(endpoint, params))
     );
 
     const serializedDso = new DSpaceSerializer(getClassForType((dso as any).type)).serialize(dso);
@@ -479,7 +531,7 @@ export abstract class DataService<T extends CacheableObject> {
     const requestId = this.deleteAndReturnRequestId(dsoID, copyVirtualMetadata);
 
     return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
+      find((request: RequestEntry) => isNotEmpty(request) && request.completed),
       map((request: RequestEntry) => request.response.isSuccessful)
     );
   }

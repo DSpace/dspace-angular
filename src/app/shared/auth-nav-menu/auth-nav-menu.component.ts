@@ -9,9 +9,9 @@ import { fadeInOut, fadeOut } from '../animations/fade';
 import { HostWindowService } from '../host-window.service';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { isNotUndefined } from '../empty.util';
-import { getAuthenticatedUser, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
+import { isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { LOGIN_ROUTE, LOGOUT_ROUTE } from '../../core/auth/auth.service';
+import { AuthService, LOGIN_ROUTE, LOGOUT_ROUTE } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'ds-auth-nav-menu',
@@ -41,7 +41,8 @@ export class AuthNavMenuComponent implements OnInit {
   public sub: Subscription;
 
   constructor(private store: Store<AppState>,
-              private windowService: HostWindowService
+              private windowService: HostWindowService,
+              private authService: AuthService
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
@@ -53,7 +54,7 @@ export class AuthNavMenuComponent implements OnInit {
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
 
-    this.user = this.store.pipe(select(getAuthenticatedUser));
+    this.user = this.authService.getAuthenticatedUserFromStore();
 
     this.showAuth = this.store.pipe(
       select(routerStateSelector),
