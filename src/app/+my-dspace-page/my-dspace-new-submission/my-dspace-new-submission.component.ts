@@ -2,10 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, 
 
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-
-import { SubmissionState } from '../../submission/submission.reducers';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -15,7 +12,6 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
-import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateItemParentSelectorComponent } from 'src/app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import { CollectionSelectorComponent } from '../collection-selector/collection-selector.component';
@@ -65,9 +61,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
               private changeDetectorRef: ChangeDetectorRef,
               private halService: HALEndpointService,
               private notificationsService: NotificationsService,
-              private store: Store<SubmissionState>,
               private translate: TranslateService,
-              private router: Router,
               private modalService: NgbModal) {
   }
 
@@ -132,9 +126,9 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method for open dialog after submission file selection
+   * Method invoked after all file are loaded from upload plugin
    */
-  uploadDialogForFileUpload(items) {
+  afterFileLoaded(items) {
     const uploader = this.uploaderComponent.uploader;
     if (hasValue(items) && items.length > 1) {
       this.notificationsService.error(null, this.translate.get('mydspace.upload.upload-failed-moreonefile'));

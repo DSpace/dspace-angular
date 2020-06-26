@@ -875,6 +875,8 @@
 
   "dso-selector.create.item.head": "New item",
 
+  "dso-selector.create.submission.head": "New submission",
+
   "dso-selector.edit.collection.head": "Edit collection",
 
   "dso-selector.edit.community.head": "Edit community",
