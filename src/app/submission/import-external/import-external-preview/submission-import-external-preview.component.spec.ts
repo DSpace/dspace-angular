@@ -21,6 +21,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalPreviewComponent>;
   let submissionServiceStub: SubmissionServiceStub;
+  const modal = jasmine.createSpyObj('modal', ['close', 'dismiss']);
   const externalEntry = Object.assign(new ExternalSourceEntry(), {
     id: '0001-0001-0001-0001',
     display: 'John Doe',
@@ -49,7 +50,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
         { provide: SubmissionService, useValue: new SubmissionServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: NgbModal, useValue: { open: () => {/*comment*/} } },
-        { provide: NgbActiveModal, useValue: { dismiss: () => {/*comment*/} } },
+        { provide: NgbActiveModal, useValue: modal },
         SubmissionImportExternalPreviewComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -103,7 +104,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     });
 
     it('Should close the modal calling \'activeModal.dismiss\'', () => {
-      spyOn(compAsAny.activeModal, 'dismiss');
+      comp.modalRef = jasmine.createSpyObj('modal', ['close', 'dismiss']);
       comp.closeMetadataModal();
 
       expect(compAsAny.activeModal.dismiss).toHaveBeenCalled();

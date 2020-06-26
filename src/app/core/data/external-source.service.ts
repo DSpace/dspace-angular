@@ -11,7 +11,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
-import { distinctUntilChanged, map, switchMap, take, flatMap, catchError } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { configureRequest } from '../shared/operators';
