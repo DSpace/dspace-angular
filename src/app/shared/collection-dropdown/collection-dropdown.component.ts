@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, 
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { hasValue } from '../empty.util';
-import { map, mergeMap, startWith, debounceTime, distinctUntilChanged, switchMap, merge, scan, reduce } from 'rxjs/operators';
+import { map, mergeMap, startWith, debounceTime, distinctUntilChanged, switchMap, reduce } from 'rxjs/operators';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { FindListOptions } from 'src/app/core/data/request.models';
 import { PaginatedList } from 'src/app/core/data/paginated-list';
