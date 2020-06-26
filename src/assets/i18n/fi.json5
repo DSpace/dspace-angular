@@ -172,9 +172,8 @@
   "admin.registries.metadata.title": "DSpace Angular :: Metadatarekisteri",
   
   
-  
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
-  "admin.registries.schema.description": "\"{{namespace}}\"-nimiavaruuden metadataskeema.",
+  "admin.registries.schema.description": "Tämä on \"{{namespace}}\"-nimiavaruuden metadataskeema.",
   
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "Skeeman metadatakentät",
