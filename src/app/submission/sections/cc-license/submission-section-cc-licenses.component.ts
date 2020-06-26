@@ -14,6 +14,7 @@ import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/mo
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionCcLicenseUrlDataService } from "../../../core/submission/submission-cc-license-url-data.service";
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -80,6 +81,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     protected modalService: NgbModal,
     protected sectionService: SectionsService,
     protected submissionCcLicensesDataService: SubmissionCcLicenseDataService,
+    protected submissionCcLicenseUrlDataService: SubmissionCcLicenseUrlDataService,
     protected operationsBuilder: JsonPatchOperationsBuilder,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
@@ -180,7 +182,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
       return undefined;
     }
     const selectedCcLicense = this.getSelectedCcLicense();
-    return this.submissionCcLicensesDataService.getCcLicenseLink(
+    return this.submissionCcLicenseUrlDataService.getCcLicenseLink(
       selectedCcLicense,
       new Map(selectedCcLicense.fields.map(
         (field) => [field, this.getSelectedOption(selectedCcLicense, field)]
