@@ -9,37 +9,21 @@ import { CoreState } from '../core.reducers';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { METADATA_SCHEMA } from '../metadata/metadata-schema.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ChangeAnalyzer } from './change-analyzer';
-
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RequestService } from './request.service';
-
-/* tslint:disable:max-classes-per-file */
-class DataServiceImpl extends DataService<MetadataSchema> {
-  protected linkPath = 'metadataschemas';
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<MetadataSchema>) {
-    super();
-  }
-
-}
+import { Observable } from 'rxjs/internal/Observable';
+import { hasValue } from '../../shared/empty.util';
+import { tap } from 'rxjs/operators';
+import { RemoteData } from './remote-data';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
  */
 @Injectable()
 @dataService(METADATA_SCHEMA)
-export class MetadataSchemaDataService {
-  private dataService: DataServiceImpl;
+export class MetadataSchemaDataService extends DataService<MetadataSchema> {
+  protected linkPath = 'metadataschemas';
 
   constructor(
     protected requestService: RequestService,
@@ -50,6 +34,35 @@ export class MetadataSchemaDataService {
     protected comparator: DefaultChangeAnalyzer<MetadataSchema>,
     protected http: HttpClient,
     protected notificationsService: NotificationsService) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+    super();
   }
+
+  /**
+   * Create or Update a MetadataSchema
+   *  If the MetadataSchema contains an id, it is assumed the schema already exists and is updated instead
+   *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
+   *  - On creation, a CreateRequest is used
+   *  - On update, a PutRequest is used
+   * @param schema    The MetadataSchema to create or update
+   */
+  createOrUpdateMetadataSchema(schema: MetadataSchema): Observable<RemoteData<MetadataSchema>> {
+    const isUpdate = hasValue(schema.id);
+
+    if (isUpdate) {
+      return this.put(schema);
+    } else {
+      return this.create(schema);
+    }
+  }
+
+  /**
+   * Clear all metadata schema requests
+   * Used for refreshing lists after adding/updating/removing a metadata schema in the registry
+   */
+  clearRequests(): Observable<string> {
+    return this.getBrowseEndpoint().pipe(
+      tap((href: string) => this.requestService.removeByHrefSubstring(href))
+    );
+  }
+
 }

@@ -128,6 +128,7 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
    * Emit the updated/created schema using the EventEmitter submitForm
    */
   onSubmit() {
+    this.registryService.clearMetadataSchemaRequests().subscribe();
     this.registryService.getActiveMetadataSchema().pipe(take(1)).subscribe(
       (schema) => {
         const values = {
@@ -139,7 +140,7 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
             this.submitForm.emit(newSchema);
           });
         } else {
-          this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), {
+          this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), schema, {
             id: schema.id,
             prefix: (values.prefix ? values.prefix : schema.prefix),
             namespace: (values.namespace ? values.namespace : schema.namespace)
@@ -148,6 +149,7 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
           });
         }
         this.clearFields();
+        this.registryService.cancelEditMetadataSchema();
       }
     );
   }

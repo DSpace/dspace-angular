@@ -33,7 +33,15 @@ describe('EditCommunitySelectorComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
         {
           provide: ActivatedRoute,
-          useValue: { root: { firstChild: { firstChild: { data: observableOf({ community: communityRD }) } } } }
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: communityRD,
+                },
+              },
+            }
+          },
         },
         {
           provide: Router, useValue: router

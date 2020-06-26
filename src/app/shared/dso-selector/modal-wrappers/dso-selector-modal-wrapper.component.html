@@ -5,6 +5,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <ds-dso-selector [currentDSOId]="(dsoRD$ | async)?.payload.uuid ? 'search.resourceid:' + (dsoRD$ | async)?.payload.uuid : null" [type]="selectorType" (onSelect)="selectObject($event)"></ds-dso-selector>
+    <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid ? 'search.resourceid:' + dsoRD?.payload.uuid : null" [type]="selectorType" (onSelect)="selectObject($event)"></ds-dso-selector>
   </div>
 </div>

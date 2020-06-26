@@ -30,6 +30,7 @@ describe('MetadataFieldFormComponent', () => {
     createOrUpdateMetadataField: (field: MetadataField) => observableOf(field),
     cancelEditMetadataField: () => {},
     cancelEditMetadataSchema: () => {},
+    clearMetadataFieldRequests: () => observableOf(undefined)
   };
   const formBuilderServiceStub = {
     createFormGroup: () => {
