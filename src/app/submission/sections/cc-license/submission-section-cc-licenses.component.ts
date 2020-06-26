@@ -14,7 +14,7 @@ import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/mo
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionCcLicenseUrlDataService } from "../../../core/submission/submission-cc-license-url-data.service";
+import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 
 /**
  * This component represents the submission section to select the Creative Commons license.

@@ -12,11 +12,11 @@ import { RequestService } from '../data/request.service';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { SubmissionCcLicenceUrl } from './models/submission-cc-license-url.model';
 import { SUBMISSION_CC_LICENSE_URL } from './models/submission-cc-licence-link.resource-type';
-import { Field, Option, SubmissionCcLicence } from "./models/submission-cc-license.model";
-import { Observable } from "rxjs";
-import { filter, map, switchMap } from "rxjs/operators";
-import { getRemoteDataPayload, getSucceededRemoteData } from "../shared/operators";
-import { isNotEmpty } from "../../shared/empty.util";
+import { Field, Option, SubmissionCcLicence } from './models/submission-cc-license.model';
+import { Observable } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Injectable()
 @dataService(SUBMISSION_CC_LICENSE_URL)
