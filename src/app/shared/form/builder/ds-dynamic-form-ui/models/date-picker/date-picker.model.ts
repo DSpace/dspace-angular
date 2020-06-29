@@ -17,6 +17,7 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   valueUpdates: Subject<any>;
   malformedDate: boolean;
   hasLanguages = false;
+  repeatable = false;
 
   constructor(config: DynamicDateControlModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);

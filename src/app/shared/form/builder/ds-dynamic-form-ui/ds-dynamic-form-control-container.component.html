@@ -11,7 +11,7 @@
                       'd-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
         <div [ngClass]="getClass('grid', 'control')">
             <ng-container #componentViewContainer></ng-container>
-            <small *ngIf="hasHint && context?.index === 0 && (!showErrorMessages || errorMessages.length === 0)"
+            <small *ngIf="hasHint && (model.repeatable === false || context?.index === 0) && (!showErrorMessages || errorMessages.length === 0)"
                    class="text-muted" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
 
             <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
