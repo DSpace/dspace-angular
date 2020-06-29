@@ -13,7 +13,8 @@ import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-sel
 @Component({
   selector: 'ds-create-item-parent-selector',
   // styleUrls: ['./create-item-parent-selector.component.scss'],
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  // templateUrl: '../dso-selector-modal-wrapper.component.html',
+  templateUrl: './create-item-parent-selector.component.html'
 })
 export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

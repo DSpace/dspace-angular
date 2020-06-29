@@ -4,7 +4,7 @@ import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { map, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { RestResponse } from '../../../core/cache/response.models';
 import { zip } from 'rxjs/internal/observable/zip';
@@ -12,6 +12,8 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { Route, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -37,6 +39,11 @@ export class MetadataRegistryComponent {
     pageSize: 25
   });
 
+  /**
+   * Whether or not the list of MetadataSchemas needs an update
+   */
+  needsUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
   constructor(private registryService: RegistryService,
               private notificationsService: NotificationsService,
               private router: Router,
@@ -50,14 +57,17 @@ export class MetadataRegistryComponent {
    */
   onPageChange(event) {
     this.config.currentPage = event;
-    this.updateSchemas();
+    this.forceUpdateSchemas();
   }
 
   /**
    * Update the list of schemas by fetching it from the rest api or cache
    */
   private updateSchemas() {
-    this.metadataSchemas = this.registryService.getMetadataSchemas(this.config);
+    this.metadataSchemas = this.needsUpdate$.pipe(
+      filter((update) => update === true),
+      switchMap(() => this.registryService.getMetadataSchemas(toFindListOptions(this.config)))
+    );
   }
 
   /**
@@ -65,8 +75,7 @@ export class MetadataRegistryComponent {
    * a new REST call
    */
   public forceUpdateSchemas() {
-    this.registryService.clearMetadataSchemaRequests().subscribe();
-    this.updateSchemas();
+    this.needsUpdate$.next(true);
   }
 
   /**
@@ -125,6 +134,7 @@ export class MetadataRegistryComponent {
    * Delete all the selected metadata schemas
    */
   deleteSchemas() {
+    this.registryService.clearMetadataSchemaRequests().subscribe();
     this.registryService.getSelectedMetadataSchemas().pipe(take(1)).subscribe(
       (schemas) => {
         const tasks$ = [];
