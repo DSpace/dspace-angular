@@ -17,5 +17,5 @@
       </div>
     </div>
   </div>
-  <ds-paginated-drag-and-drop-bitstream-list [bundle]="bundle" [columnSizes]="columnSizes"></ds-paginated-drag-and-drop-bitstream-list>
+  <ds-paginated-drag-and-drop-bitstream-list [bundle]="bundle" [columnSizes]="columnSizes" (dropObject)="dropObject.emit($event)"></ds-paginated-drag-and-drop-bitstream-list>
 </ng-template>

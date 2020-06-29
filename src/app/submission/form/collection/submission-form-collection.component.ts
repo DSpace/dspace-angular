@@ -2,7 +2,6 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  HostListener,
   Input,
   OnChanges,
   OnInit,
@@ -18,7 +17,6 @@ import {
 } from 'rxjs/operators';
 
 import { Collection } from '../../../core/shared/collection.model';
-import { CommunityDataService } from '../../../core/data/community-data.service';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';

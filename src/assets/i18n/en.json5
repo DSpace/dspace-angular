@@ -8,6 +8,10 @@
 
 
 
+  "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
+
+  "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
+
   "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
 
   "admin.registries.bitstream-formats.create.failure.head": "Failure",
@@ -29,6 +33,8 @@
   "admin.registries.bitstream-formats.delete.success.head": "Success",
 
   "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
+
+  "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
 
   "admin.registries.bitstream-formats.edit.description.hint": "",
 
@@ -94,6 +100,8 @@
 
 
 
+  "admin.registries.metadata.breadcrumbs": "Metadata registry",
+
   "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
 
   "admin.registries.metadata.form.create": "Create metadata schema",
@@ -119,6 +127,8 @@
   "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
 
 
+
+  "admin.registries.schema.breadcrumbs": "Metadata schema",
 
   "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
 
@@ -1763,7 +1773,7 @@
 
   "mydspace.description": "",
 
-  "mydspace.general.text-here": "HERE",
+  "mydspace.general.text-here": "here",
 
   "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
 
