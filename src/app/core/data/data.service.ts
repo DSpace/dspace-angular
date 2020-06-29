@@ -45,11 +45,12 @@ import {
   FindListOptions,
   FindListRequest,
   GetRequest,
-  PatchRequest
+  PatchRequest, PutRequest
 } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
+import { GenericConstructor } from '../shared/generic-constructor';
 
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
@@ -343,7 +344,9 @@ export abstract class DataService<T extends CacheableObject> {
       tap((href: string) => {
           this.requestService.removeByHrefSubstring(href);
           const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
-          request.responseMsToLive = 10 * 1000;
+          if (hasValue(this.responseMsToLive)) {
+            request.responseMsToLive = this.responseMsToLive;
+          }
 
           this.requestService.configure(request);
         }
@@ -378,6 +381,28 @@ export abstract class DataService<T extends CacheableObject> {
     return this.requestService.getByUUID(requestId).pipe(
       find((request: RequestEntry) => request.completed),
       map((request: RequestEntry) => request.response)
+    );
+  }
+
+  /**
+   * Send a PUT request for the specified object
+   *
+   * @param object The object to send a put request for.
+   */
+  put(object: T): Observable<RemoteData<T>> {
+    const requestId = this.requestService.generateRequestId();
+    const serializedObject = new DSpaceSerializer(object.constructor as GenericConstructor<{}>).serialize(object);
+    const request = new PutRequest(requestId, object._links.self.href, serializedObject);
+
+    if (hasValue(this.responseMsToLive)) {
+      request.responseMsToLive = this.responseMsToLive;
+    }
+
+    this.requestService.configure(request);
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((re: RequestEntry) => hasValue(re) && re.completed),
+      switchMap(() => this.findByHref(object._links.self.href))
     );
   }
 

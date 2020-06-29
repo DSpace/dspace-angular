@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { Store } from '@ngrx/store';
@@ -21,6 +21,8 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { SharedModule } from '../../shared/shared.module';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
 import { UploaderService } from '../../shared/uploader/uploader.service';
+import { By } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 
@@ -54,6 +56,11 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: ScrollToService, useValue: getMockScrollToService() },
         { provide: Store, useValue: store },
         { provide: TranslateService, useValue: translateService },
+        {
+          provide: NgbModal, useValue: {
+            open: () => {/*comment*/}
+          }
+        },
         ChangeDetectorRef,
         MyDSpaceNewSubmissionComponent,
         UploaderService
@@ -86,6 +93,25 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
     }));
   });
 
+  describe('', () => {
+    let fixture: ComponentFixture<MyDSpaceNewSubmissionComponent>;
+    let comp: MyDSpaceNewSubmissionComponent;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(MyDSpaceNewSubmissionComponent);
+      comp = fixture.componentInstance;
+    });
+
+    it('should call app.openDialog', () => {
+      spyOn(comp, 'openDialog');
+      const submissionButton = fixture.debugElement.query(By.css('button.btn-primary'));
+      submissionButton.triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
+      expect(comp.openDialog).toHaveBeenCalled();
+    });
+  });
 });
 
 // declare a test component
