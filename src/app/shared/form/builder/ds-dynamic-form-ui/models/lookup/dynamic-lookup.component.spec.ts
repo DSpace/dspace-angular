@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { of as observableOf } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -309,7 +310,13 @@ describe('Dynamic Lookup component', () => {
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
           lookupComp.model = new DynamicLookupModel(LOOKUP_TEST_MODEL_CONFIG);
-          lookupComp.model.value = new FormFieldMetadataValueObject('test', null, 'test001');
+          const entry = observableOf(Object.assign(new VocabularyEntry(), {
+            authority: null,
+            value: 'test',
+            display: 'testDisplay'
+          }));
+          spyOn((lookupComp as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
+          (lookupComp.model as any).value = new FormFieldMetadataValueObject('test', null, null, 'testDisplay');
           lookupFixture.detectChanges();
 
           // spyOn(store, 'dispatch');
@@ -318,9 +325,52 @@ describe('Dynamic Lookup component', () => {
           lookupFixture.destroy();
           lookupComp = null;
         });
-        it('should init component properly', () => {
-          expect(lookupComp.firstInputValue).toBe('test');
+        it('should init component properly', fakeAsync(() => {
+          tick();
+          expect(lookupComp.firstInputValue).toBe('testDisplay');
+          expect((lookupComp as any).vocabularyService.getVocabularyEntryByValue).toHaveBeenCalled();
+        }));
+
+        it('should have search button disabled on edit mode', () => {
+          lookupComp.editMode = true;
+          lookupFixture.detectChanges();
+
+          const de = lookupFixture.debugElement.queryAll(By.css('button'));
+          const searchBtnEl = de[0].nativeElement;
+          const saveBtnEl = de[1].nativeElement;
+          expect(searchBtnEl.disabled).toBe(true);
+          expect(saveBtnEl.disabled).toBe(false);
+          expect(saveBtnEl.textContent.trim()).toBe('form.save');
+
         });
+      });
+      describe('and init model value is not empty with authority', () => {
+        beforeEach(() => {
+
+          lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
+          lookupComp = lookupFixture.componentInstance; // FormComponent test instance
+          lookupComp.group = LOOKUP_TEST_GROUP;
+          lookupComp.model = new DynamicLookupModel(LOOKUP_TEST_MODEL_CONFIG);
+          const entry = observableOf(Object.assign(new VocabularyEntry(), {
+            authority: 'test001',
+            value: 'test',
+            display: 'testDisplay'
+          }));
+          spyOn((lookupComp as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
+          lookupComp.model.value = new FormFieldMetadataValueObject('test', null, 'test001', 'testDisplay');
+          lookupFixture.detectChanges();
+
+          // spyOn(store, 'dispatch');
+        });
+        afterEach(() => {
+          lookupFixture.destroy();
+          lookupComp = null;
+        });
+        it('should init component properly', fakeAsync(() => {
+          tick();
+          expect(lookupComp.firstInputValue).toBe('testDisplay');
+          expect((lookupComp as any).vocabularyService.getVocabularyEntryByID).toHaveBeenCalled();
+        }));
 
         it('should have search button disabled on edit mode', () => {
           lookupComp.editMode = true;
@@ -430,6 +480,13 @@ describe('Dynamic Lookup component', () => {
           lookupComp.group = LOOKUP_TEST_GROUP;
           lookupComp.model = new DynamicLookupNameModel(LOOKUP_NAME_TEST_MODEL_CONFIG);
           lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null, 'test001');
+          const entry = observableOf(Object.assign(new VocabularyEntry(), {
+            authority: null,
+            value: 'Name, Lastname',
+            display: 'Name, Lastname'
+          }));
+          spyOn((lookupComp as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
+          (lookupComp.model as any).value = new FormFieldMetadataValueObject('Name, Lastname', null, null, 'Name, Lastname');
           lookupFixture.detectChanges();
 
         });
@@ -437,10 +494,55 @@ describe('Dynamic Lookup component', () => {
           lookupFixture.destroy();
           lookupComp = null;
         });
-        it('should init component properly', () => {
+        it('should init component properly', fakeAsync(() => {
+          tick();
           expect(lookupComp.firstInputValue).toBe('Name');
           expect(lookupComp.secondInputValue).toBe('Lastname');
+          expect((lookupComp as any).vocabularyService.getVocabularyEntryByValue).toHaveBeenCalled();
+        }));
+
+        it('should have search button disabled on edit mode', () => {
+          lookupComp.editMode = true;
+          lookupFixture.detectChanges();
+
+          const de = lookupFixture.debugElement.queryAll(By.css('button'));
+          const searchBtnEl = de[0].nativeElement;
+          const saveBtnEl = de[1].nativeElement;
+          expect(searchBtnEl.disabled).toBe(true);
+          expect(saveBtnEl.disabled).toBe(false);
+          expect(saveBtnEl.textContent.trim()).toBe('form.save');
+
         });
+      });
+
+      describe('and init model value is not empty with authority', () => {
+        beforeEach(() => {
+
+          lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
+          lookupComp = lookupFixture.componentInstance; // FormComponent test instance
+          lookupComp.group = LOOKUP_TEST_GROUP;
+          lookupComp.model = new DynamicLookupNameModel(LOOKUP_NAME_TEST_MODEL_CONFIG);
+          lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null, 'test001');
+          const entry = observableOf(Object.assign(new VocabularyEntry(), {
+            authority: 'test001',
+            value: 'Name, Lastname',
+            display: 'Name, Lastname'
+          }));
+          spyOn((lookupComp as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
+          lookupComp.model.value = new FormFieldMetadataValueObject('Name, Lastname', null, 'test001', 'Name, Lastname');
+          lookupFixture.detectChanges();
+
+        });
+        afterEach(() => {
+          lookupFixture.destroy();
+          lookupComp = null;
+        });
+        it('should init component properly', fakeAsync(() => {
+          tick();
+          expect(lookupComp.firstInputValue).toBe('Name');
+          expect(lookupComp.secondInputValue).toBe('Lastname');
+          expect((lookupComp as any).vocabularyService.getVocabularyEntryByID).toHaveBeenCalled();
+        }));
 
         it('should have search button disabled on edit mode', () => {
           lookupComp.editMode = true;

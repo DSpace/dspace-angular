@@ -19,6 +19,7 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 export let TYPEAHEAD_TEST_GROUP;
 
@@ -134,14 +135,14 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
 
       it('should search when 3+ characters typed', fakeAsync(() => {
 
-        spyOn((typeaheadComp as any).vocabularyService, 'getVocabularyEntries').and.callThrough();
+        spyOn((typeaheadComp as any).vocabularyService, 'getVocabularyEntriesByValue').and.callThrough();
 
         typeaheadComp.search(observableOf('test')).subscribe();
 
         tick(300);
         typeaheadFixture.detectChanges();
 
-        expect((typeaheadComp as any).vocabularyService.getVocabularyEntries).toHaveBeenCalled();
+        expect((typeaheadComp as any).vocabularyService.getVocabularyEntriesByValue).toHaveBeenCalled();
       }));
 
       it('should set model.value on input type when VocabularyOptions.closed is false', () => {
@@ -229,13 +230,20 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
 
     });
 
-    describe('and init model value is not empty', () => {
+    describe('when init model value is not empty', () => {
       beforeEach(() => {
         typeaheadFixture = TestBed.createComponent(DsDynamicTypeaheadComponent);
         typeaheadComp = typeaheadFixture.componentInstance; // FormComponent test instance
         typeaheadComp.group = TYPEAHEAD_TEST_GROUP;
         typeaheadComp.model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
-        (typeaheadComp.model as any).value = new FormFieldMetadataValueObject('test', null, 'test001');
+        const entry = observableOf(Object.assign(new VocabularyEntry(), {
+          authority: null,
+          value: 'test',
+          display: 'testDisplay'
+        }));
+        spyOn((typeaheadComp as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
+        spyOn((typeaheadComp as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
+        (typeaheadComp.model as any).value = new FormFieldMetadataValueObject('test', null, null, 'testDisplay');
         typeaheadFixture.detectChanges();
       });
 
@@ -244,9 +252,11 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         typeaheadComp = null;
       });
 
-      it('should init component properly', () => {
-        expect(typeaheadComp.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, 'test001'));
-      });
+      it('should init component properly', fakeAsync(() => {
+        tick();
+        expect(typeaheadComp.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null, 'testDisplay'));
+        expect((typeaheadComp as any).vocabularyService.getVocabularyEntryByValue).toHaveBeenCalled();
+      }));
 
       it('should emit change Event onChange and currentValue is empty', () => {
         typeaheadComp.currentValue = null;
@@ -257,6 +267,42 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
       });
     });
 
+    describe('when init model value is not empty and has authority', () => {
+      beforeEach(() => {
+        typeaheadFixture = TestBed.createComponent(DsDynamicTypeaheadComponent);
+        typeaheadComp = typeaheadFixture.componentInstance; // FormComponent test instance
+        typeaheadComp.group = TYPEAHEAD_TEST_GROUP;
+        typeaheadComp.model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
+        const entry = observableOf(Object.assign(new VocabularyEntry(), {
+          authority: 'test001',
+          value: 'test001',
+          display: 'test'
+        }));
+        spyOn((typeaheadComp as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
+        spyOn((typeaheadComp as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
+        (typeaheadComp.model as any).value = new FormFieldMetadataValueObject('test', null, 'test001');
+        typeaheadFixture.detectChanges();
+      });
+
+      afterEach(() => {
+        typeaheadFixture.destroy();
+        typeaheadComp = null;
+      });
+
+      it('should init component properly', fakeAsync(() => {
+        tick();
+        expect(typeaheadComp.currentValue).toEqual(new FormFieldMetadataValueObject('test001', null, 'test001', 'test'));
+        expect((typeaheadComp as any).vocabularyService.getVocabularyEntryByID).toHaveBeenCalled();
+      }));
+
+      it('should emit change Event onChange and currentValue is empty', () => {
+        typeaheadComp.currentValue = null;
+        spyOn(typeaheadComp.change, 'emit');
+        typeaheadComp.onChange(new Event('change'));
+        expect(typeaheadComp.change.emit).toHaveBeenCalled();
+        expect(typeaheadComp.model.value).toBeNull();
+      });
+    });
   });
 });
 

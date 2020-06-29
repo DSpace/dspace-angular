@@ -1,18 +1,13 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, merge, switchMap, tap } from 'rxjs/operators';
 import { Observable, of as observableOf, Subject } from 'rxjs';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
-import { VocabularyFindOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-find-options.model';
 import { isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
@@ -20,13 +15,14 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
   styleUrls: ['./dynamic-typeahead.component.scss'],
   templateUrl: './dynamic-typeahead.component.html'
 })
-export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent implements OnInit {
+export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTypeaheadModel;
@@ -37,26 +33,33 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
 
   @ViewChild('instance', { static: false }) instance: NgbTypeahead;
 
+  pageInfo: PageInfo;
   searching = false;
-  searchOptions: VocabularyFindOptions;
   searchFailed = false;
   hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.changeSearchingStatus(false));
   click$ = new Subject<string>();
   currentValue: any;
   inputValue: any;
 
-  constructor(private vocabularyService: VocabularyService,
+  constructor(protected vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService
   ) {
-    super(layoutService, validationService);
+    super(vocabularyService, layoutService, validationService);
   }
 
+  /**
+   * Converts an item from the result list to a `string` to display in the `<input>` field.
+   */
   formatter = (x: { display: string }) => {
     return (typeof x === 'object') ? x.display : x
   };
 
+  /**
+   * Converts a stream of text values from the `<input>` element to the stream of the array of items
+   * to display in the typeahead popup.
+   */
   search = (text$: Observable<string>) => {
     return text$.pipe(
       merge(this.click$),
@@ -67,8 +70,11 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
         if (term === '' || term.length < this.model.minChars) {
           return observableOf({ list: [] });
         } else {
-          this.searchOptions.query = term;
-          return this.vocabularyService.getVocabularyEntries(this.searchOptions).pipe(
+          return this.vocabularyService.getVocabularyEntriesByValue(
+            term,
+            false,
+            this.model.vocabularyOptions,
+            this.pageInfo).pipe(
             getFirstSucceededRemoteDataPayload(),
             tap(() => this.searchFailed = false),
             catchError(() => {
@@ -86,36 +92,49 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
     )
   };
 
+  /**
+   * Initialize the component, setting up the init form value
+   */
   ngOnInit() {
-    this.currentValue = this.model.value;
-    this.searchOptions = new VocabularyFindOptions(
-      this.model.vocabularyOptions.scope,
-      this.model.vocabularyOptions.name,
-      this.model.vocabularyOptions.metadata);
+    if (this.model.value) {
+      this.setCurrentValue(this.model.value, true);
+    }
+
     this.group.get(this.model.id).valueChanges.pipe(
       filter((value) => this.currentValue !== value))
       .subscribe((value) => {
-        this.currentValue = value;
+        this.setCurrentValue(this.model.value);
       });
   }
 
+  /**
+   * Changes the searching status
+   * @param status
+   */
   changeSearchingStatus(status: boolean) {
     this.searching = status;
     this.cdr.detectChanges();
   }
 
+  /**
+   * Update the input value with a FormFieldMetadataValueObject
+   * @param event
+   */
   onInput(event) {
     if (!this.model.vocabularyOptions.closed && isNotEmpty(event.target.value)) {
       this.inputValue = new FormFieldMetadataValueObject(event.target.value);
     }
   }
 
+  /**
+   * Emits a blur event containing a given value.
+   * @param event The value to emit.
+   */
   onBlur(event: Event) {
     if (!this.instance.isPopupOpen()) {
       if (!this.model.vocabularyOptions.closed && isNotEmpty(this.inputValue)) {
         if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
-          this.model.valueUpdates.next(this.inputValue);
-          this.change.emit(this.inputValue);
+          this.dispatchUpdate(this.inputValue);
         }
         this.inputValue = null;
       }
@@ -129,29 +148,60 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
     }
   }
 
+  /**
+   * Updates model value with the current value
+   * @param event The change event.
+   */
   onChange(event: Event) {
     event.stopPropagation();
     if (isEmpty(this.currentValue)) {
-      this.model.valueUpdates.next(null);
-      this.change.emit(null);
+      this.dispatchUpdate(null);
     }
   }
 
-  onFocus(event) {
-    this.focus.emit(event);
-  }
-
+  /**
+   * Updates current value and model value with the selected value.
+   * @param event The value to set.
+   */
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
     this.inputValue = null;
-    this.currentValue = event.item;
-    this.model.valueUpdates.next(event.item);
-    this.change.emit(event.item);
+    this.setCurrentValue(event.item);
+    this.dispatchUpdate(event.item);
   }
 
+  /**
+   * Callback functions for whenClickOnConfidenceNotAccepted event
+   */
   public whenClickOnConfidenceNotAccepted(confidence: ConfidenceType) {
     if (!this.model.readOnly) {
       this.click$.next(this.formatter(this.currentValue));
     }
+  }
+
+  /**
+   * Sets the current value with the given value.
+   * @param value The value to set.
+   * @param init Representing if is init value or not.
+   */
+  setCurrentValue(value: any, init = false): void {
+    let result: string;
+    if (init) {
+      this.getInitValueFromModel()
+        .subscribe((value: FormFieldMetadataValueObject) => {
+          this.currentValue = value;
+        });
+    } else {
+      if (isEmpty(value)) {
+        result = '';
+      } else if (typeof value === 'string') {
+        result = value;
+      } else {
+        result = value.display;
+      }
+
+      this.currentValue = result;
+    }
+
   }
 
 }

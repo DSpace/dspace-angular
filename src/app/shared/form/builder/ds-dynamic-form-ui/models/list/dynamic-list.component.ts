@@ -9,7 +9,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { findKey } from 'lodash';
 
-import { VocabularyFindOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-find-options.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
@@ -18,6 +17,7 @@ import { VocabularyService } from '../../../../../../core/submission/vocabularie
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 export interface ListItem {
   id: string,
@@ -26,12 +26,14 @@ export interface ListItem {
   index: number
 }
 
+/**
+ * Component representing a list input field
+ */
 @Component({
   selector: 'ds-dynamic-list',
   styleUrls: ['./dynamic-list.component.scss'],
   templateUrl: './dynamic-list.component.html'
 })
-
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
@@ -43,7 +45,6 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
 
   public items: ListItem[][] = [];
   protected optionsList: VocabularyEntry[];
-  protected searchOptions: VocabularyFindOptions;
 
   constructor(private vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
@@ -56,14 +57,6 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
 
   ngOnInit() {
     if (this.hasAuthorityOptions()) {
-      // TODO Replace max elements 1000 with a paginated request when pagination bug is resolved
-      this.searchOptions = new VocabularyFindOptions(
-        this.model.vocabularyOptions.scope,
-        this.model.vocabularyOptions.name,
-        this.model.vocabularyOptions.metadata,
-        '',
-        1000, // Max elements
-        1);// Current Page
       this.setOptionsFromAuthority();
     }
   }
@@ -99,7 +92,10 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
   protected setOptionsFromAuthority() {
     if (this.model.vocabularyOptions.name && this.model.vocabularyOptions.name.length > 0) {
       const listGroup = this.group.controls[this.model.id] as FormGroup;
-      this.vocabularyService.getVocabularyEntries(this.searchOptions).pipe(
+      const pageInfo: PageInfo = new PageInfo({
+        elementsPerPage: Number.MAX_VALUE, currentPage: 1
+      } as PageInfo);
+      this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, pageInfo).pipe(
         getFirstSucceededRemoteDataPayload()
       ).subscribe((entries: PaginatedList<VocabularyEntry>) => {
         let groupCounter = 0;

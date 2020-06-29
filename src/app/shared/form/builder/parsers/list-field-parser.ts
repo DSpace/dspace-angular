@@ -1,12 +1,10 @@
 import { FieldParser } from './field-parser';
 import { isNotEmpty } from '../../../empty.util';
-import { VocabularyFindOptions } from '../../../../core/submission/vocabularies/models/vocabulary-find-options.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 
 export class ListFieldParser extends FieldParser {
-  searchOptions: VocabularyFindOptions;
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
     const listModelConfig = this.initModel(null, label);

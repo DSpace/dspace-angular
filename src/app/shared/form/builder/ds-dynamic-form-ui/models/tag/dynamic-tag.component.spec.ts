@@ -142,15 +142,13 @@ describe('DsDynamicTagComponent test suite', () => {
       it('should init component properly', () => {
         chips = new Chips([], 'display');
         expect(tagComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
-
-        expect(tagComp.searchOptions).toBeDefined();
       });
 
       it('should search when 3+ characters typed', fakeAsync(() => {
-        spyOn((tagComp as any).vocabularyService, 'getVocabularyEntries').and.callThrough();
+        spyOn((tagComp as any).vocabularyService, 'getVocabularyEntriesByValue').and.callThrough();
 
         tagComp.search(observableOf('test')).subscribe(() => {
-          expect((tagComp as any).vocabularyService.getVocabularyEntries).toHaveBeenCalled();
+          expect((tagComp as any).vocabularyService.getVocabularyEntriesByValue).toHaveBeenCalled();
         });
       }));
 
@@ -232,7 +230,6 @@ describe('DsDynamicTagComponent test suite', () => {
       it('should init component properly', () => {
         chips = new Chips(modelValue, 'display');
         expect(tagComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
-        expect(tagComp.searchOptions).toBeDefined();
       });
     });
 
@@ -259,7 +256,6 @@ describe('DsDynamicTagComponent test suite', () => {
       it('should init component properly', () => {
         chips = new Chips([], 'display');
         expect(tagComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
-        expect(tagComp.searchOptions).not.toBeDefined();
       });
 
       it('should add an item on ENTER or key press is \',\' or \';\'', fakeAsync(() => {

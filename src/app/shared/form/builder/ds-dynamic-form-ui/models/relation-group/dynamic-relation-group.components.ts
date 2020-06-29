@@ -23,13 +23,15 @@ import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.u
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
-import { VocabularyFindOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-find-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { environment } from '../../../../../../../environments/environment';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
+/**
+ * Component representing a group input field
+ */
 @Component({
   selector: 'ds-dynamic-relation-group',
   styleUrls: ['./dynamic-relation-group.component.scss'],

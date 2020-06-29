@@ -21,8 +21,8 @@
              [placeholder]="model.placeholder | translate"
              [readonly]="model.readOnly"
              (change)="onChange($event)"
-             (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-             (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+             (blur)="onBlur($event); $event.stopPropagation(); sdRef.close();"
+             (focus)="onFocus($event); $event.stopPropagation(); sdRef.close();"
              (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();">
     </div>
 
@@ -40,8 +40,8 @@
               [placeholder]="model.secondPlaceholder | translate"
               [readonly]="model.readOnly"
               (change)="onChange($event)"
-              (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-              (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+              (blur)="onBlur($event); $event.stopPropagation(); sdRef.close();"
+              (focus)="onFocus($event); $event.stopPropagation(); sdRef.close();"
               (click)="$event.stopPropagation(); sdRef.close();">
     </div>
     <div class="col-auto text-center">
