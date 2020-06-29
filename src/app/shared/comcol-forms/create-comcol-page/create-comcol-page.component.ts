@@ -13,6 +13,7 @@ import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { RequestParam } from '../../../core/cache/models/request-param.model';
 
 /**
  * Component representing the create page for communities and collections
@@ -76,7 +77,8 @@ export class CreateComColPageComponent<TDomain extends DSpaceObject> implements 
     const uploader = event.uploader;
 
     this.parentUUID$.pipe(take(1)).subscribe((uuid: string) => {
-      this.dsoDataService.create(dso, uuid)
+      const params = uuid ? [new RequestParam('parent', uuid)] : [];
+      this.dsoDataService.create(dso, ...params)
         .pipe(getSucceededRemoteData())
         .subscribe((dsoRD: RemoteData<TDomain>) => {
           if (isNotUndefined(dsoRD)) {

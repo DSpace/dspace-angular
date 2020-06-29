@@ -12,7 +12,7 @@ import { PaginatedSearchOptions } from '../../shared/search/paginated-search-opt
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
@@ -72,14 +72,18 @@ export class CollectionDataService extends ComColDataService<Collection> {
   /**
    * Get all collections the user is authorized to submit to
    *
+   * @param query limit the returned collection to those with metadata values matching the query terms.
    * @param options The [[FindListOptions]] object
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollection(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
-    const searchHref = 'findAuthorized';
+  getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findSubmitAuthorized';
+    options = Object.assign({}, options, {
+      searchParams: [new RequestParam('query', query)]
+    });
 
-    return this.searchBy(searchHref, options).pipe(
+    return this.searchBy(searchHref, options, ...linksToFollow).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
@@ -87,14 +91,18 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Get all collections the user is authorized to submit to, by community
    *
    * @param communityId The community id
+   * @param query limit the returned collection to those with metadata values matching the query terms.
    * @param options The [[FindListOptions]] object
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollectionByCommunity(communityId: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
-    const searchHref = 'findAuthorizedByCommunity';
+  getAuthorizedCollectionByCommunity(communityId: string, query: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findSubmitAuthorizedByCommunity';
     options = Object.assign({}, options, {
-      searchParams: [new SearchParam('uuid', communityId)]
+      searchParams: [
+        new RequestParam('uuid', communityId),
+        new RequestParam('query', query)
+      ]
     });
 
     return this.searchBy(searchHref, options).pipe(
@@ -108,7 +116,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    *    true if the user has at least one collection to submit to
    */
   hasAuthorizedCollection(): Observable<boolean> {
-    const searchHref = 'findAuthorized';
+    const searchHref = 'findSubmitAuthorized';
     const options = new FindListOptions();
     options.elementsPerPage = 1;
 

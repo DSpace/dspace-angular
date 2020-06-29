@@ -201,8 +201,9 @@ export class RequestService {
    * Remove all request cache providing (part of) the href
    * This also includes href-to-uuid index cache
    * @param href    A substring of the request(s) href
+   * @return        Returns an observable emitting whether or not the cache is removed
    */
-  removeByHrefSubstring(href: string) {
+  removeByHrefSubstring(href: string): Observable<boolean> {
     this.store.pipe(
       select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
       take(1)
@@ -213,6 +214,11 @@ export class RequestService {
     });
     this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((reqHref: string) => reqHref.indexOf(href) < 0);
     this.indexStore.dispatch(new RemoveFromIndexBySubstringAction(IndexName.REQUEST, href));
+
+    return this.store.pipe(
+      select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
+      map((uuids) => isEmpty(uuids))
+    );
   }
 
   /**

@@ -1,20 +1,18 @@
-import { Observable, of as observableOf } from 'rxjs';
-
-import { catchError, debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { catchError, debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
 // import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
 
 // import services
 import { AuthService } from './auth.service';
-
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AppState } from '../../app.reducer';
-import { isAuthenticated } from './selectors';
+import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
 import { StoreActionTypes } from '../../store.actions';
 import { AuthMethod } from './models/auth.method';
 // import actions
@@ -64,7 +62,6 @@ export class AuthEffects {
   @Effect()
   public authenticateSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATE_SUCCESS),
-    tap((action: AuthenticationSuccessAction) => this.authService.storeToken(action.payload)),
     map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload))
   );
 
@@ -81,6 +78,7 @@ export class AuthEffects {
   @Effect()
   public authenticatedSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED_SUCCESS),
+    tap((action: AuthenticatedSuccessAction) => this.authService.storeToken(action.payload.authToken)),
     map((action: AuthenticatedSuccessAction) => new RetrieveAuthenticatedEpersonAction(action.payload.userHref))
   );
 
@@ -172,10 +170,11 @@ export class AuthEffects {
   public clearInvalidTokenOnRehydrate$: Observable<any> = this.actions$.pipe(
     ofType(StoreActionTypes.REHYDRATE),
     switchMap(() => {
-      return this.store.pipe(
-        select(isAuthenticated),
+      const isLoaded$ = this.store.pipe(select(isAuthenticatedLoaded));
+      const authenticated$ = this.store.pipe(select(isAuthenticated));
+      return observableCombineLatest(isLoaded$, authenticated$).pipe(
         take(1),
-        filter((authenticated) => !authenticated),
+        filter(([loaded, authenticated]) => loaded && !authenticated),
         tap(() => this.authService.removeToken()),
         tap(() => this.authService.resetAuthenticationError())
       );

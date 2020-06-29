@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
-import { hasNoValue, hasValue, isNotUndefined, isUndefined } from '../shared/empty.util';
+import { hasNoValue, hasValue, isUndefined } from '../shared/empty.util';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { combineLatest, Observable, Subscription, of as observableOf } from 'rxjs';
+import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 
 /**
  * Component representing the breadcrumbs of a page
@@ -13,21 +13,16 @@ import { combineLatest, Observable, Subscription, of as observableOf } from 'rxj
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss']
 })
-export class BreadcrumbsComponent implements OnInit, OnDestroy {
+export class BreadcrumbsComponent implements OnInit {
   /**
-   * List of breadcrumbs for this page
+   * Observable of the list of breadcrumbs for this page
    */
-  breadcrumbs: Breadcrumb[];
+  breadcrumbs$: Observable<Breadcrumb[]>;
 
   /**
    * Whether or not to show breadcrumbs on this page
    */
   showBreadcrumbs: boolean;
-
-  /**
-   * Subscription to unsubscribe from on destroy
-   */
-  subscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,14 +34,11 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
    * Sets the breadcrumbs on init for this page
    */
   ngOnInit(): void {
-    this.subscription = this.router.events.pipe(
+    this.breadcrumbs$ = this.router.events.pipe(
       filter((e): e is NavigationEnd => e instanceof NavigationEnd),
       tap(() => this.reset()),
-      switchMap(() => this.resolveBreadcrumbs(this.route.root))
-    ).subscribe((breadcrumbs) => {
-        this.breadcrumbs = breadcrumbs;
-      }
-    )
+      switchMap(() => this.resolveBreadcrumbs(this.route.root)),
+    );
   }
 
   /**
@@ -82,19 +74,9 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Unsubscribe from subscription
-   */
-  ngOnDestroy(): void {
-    if (hasValue(this.subscription)) {
-      this.subscription.unsubscribe();
-    }
-  }
-
-  /**
    * Resets the state of the breadcrumbs
    */
   reset() {
-    this.breadcrumbs = [];
     this.showBreadcrumbs = true;
   }
 }
