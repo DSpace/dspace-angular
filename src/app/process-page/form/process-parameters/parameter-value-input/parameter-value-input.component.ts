@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Optional, Output } f
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { controlContainerFactory } from '../../new-process.component';
+import { controlContainerFactory } from '../../process-form.component';
 
 /**
  * Component that renders the correct parameter value input based the script parameter's type
@@ -23,6 +23,8 @@ export class ParameterValueInputComponent {
    */
   @Input() parameter: ScriptParameter;
 
+
+  @Input() initialValue: any;
   /**
    * Emits the value of the input when its updated
    */

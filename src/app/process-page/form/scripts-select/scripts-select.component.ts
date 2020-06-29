@@ -1,14 +1,14 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { Script } from '../../scripts/script.model';
 import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { hasValue } from '../../../shared/empty.util';
-import { ControlContainer, FormControl, NgForm } from '@angular/forms';
-import { controlContainerFactory } from '../new-process.component';
+import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { controlContainerFactory } from '../process-form.component';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
 
@@ -50,6 +50,7 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
 
     this.routeSub = this.route.queryParams
       .pipe(
+        filter((params: Params) => hasNoValue(params.id)),
         map((params: Params) => params[SCRIPT_QUERY_PARAMETER]),
         distinctUntilChanged(),
         switchMap((id: string) =>
@@ -82,9 +83,13 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
     this.router.navigate([],
       {
         queryParams: { [SCRIPT_QUERY_PARAMETER]: value },
-        queryParamsHandling: 'merge'
       }
     );
+  }
+
+  @Input()
+  set script(value: Script) {
+     this._selectedScript = value;
   }
 
   ngOnDestroy(): void {

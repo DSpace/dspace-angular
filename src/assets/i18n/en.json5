@@ -1971,6 +1971,8 @@
 
   "process.detail.status" : "Status",
 
+  "process.detail.create" : "Create similar process",
+
 
 
   "process.overview.table.finish" : "Finish time",

@@ -4,7 +4,7 @@ import { ProcessParameter } from '../../processes/process-parameter.model';
 import { hasValue } from '../../../shared/empty.util';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { ScriptParameter } from '../../scripts/script-parameter.model';
-import { controlContainerFactory } from '../new-process.component';
+import { controlContainerFactory } from '../process-form.component';
 
 /**
  * Component that represents the selected list of parameters for a script
@@ -13,15 +13,18 @@ import { controlContainerFactory } from '../new-process.component';
   selector: 'ds-process-parameters',
   templateUrl: './process-parameters.component.html',
   styleUrls: ['./process-parameters.component.scss'],
-  viewProviders: [ { provide: ControlContainer,
+  viewProviders: [{
+    provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] } ]
+    deps: [[new Optional(), NgForm]]
+  }]
 })
 export class ProcessParametersComponent implements OnChanges {
   /**
    * The currently selected script
    */
   @Input() script: Script;
+  @Input() initialParams: ProcessParameter[];
   /**
    * Emits the parameter values when they're updated
    */
@@ -31,6 +34,12 @@ export class ProcessParametersComponent implements OnChanges {
    * The current parameter values
    */
   parameterValues: ProcessParameter[];
+
+  ngOnInit() {
+    if (hasValue(this.initialParams)) {
+      this.parameterValues = this.initialParams;
+    }
+  }
 
   /**
    * Makes sure the parameters are reset when the script changes
@@ -47,8 +56,12 @@ export class ProcessParametersComponent implements OnChanges {
    * Initializes the first parameter value
    */
   initParameters() {
-    this.parameterValues = [];
-    this.initializeParameter();
+    if (hasValue(this.initialParams)) {
+      this.parameterValues = this.initialParams;
+    } else {
+      this.parameterValues = [];
+      this.initializeParameter();
+    }
   }
 
   /**

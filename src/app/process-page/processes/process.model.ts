@@ -13,6 +13,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
 import { SCRIPT } from '../scripts/script.resource-type';
 import { Script } from '../scripts/script.model';
+import { PaginatedList } from '../../core/data/paginated-list';
 
 /**
  * Object representing a process
@@ -83,7 +84,7 @@ export class Process implements CacheableObject {
 
   /**
    * The Script that created this Process
-   * Will be undefined unless the owningCollection {@link HALLink} has been resolved.
+   * Will be undefined unless the script {@link HALLink} has been resolved.
    */
   @link(SCRIPT)
   script?: Observable<RemoteData<Script>>;

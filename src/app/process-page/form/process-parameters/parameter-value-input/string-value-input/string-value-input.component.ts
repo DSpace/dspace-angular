@@ -1,7 +1,7 @@
-import { Component, Optional } from '@angular/core';
+import { Component, Optional, Input } from '@angular/core';
 import { ValueInputComponent } from '../value-input.component';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { controlContainerFactory } from '../../../new-process.component';
+import { controlContainerFactory } from '../../../process-form.component';
 
 /**
  * Represents the user inputted value of a string parameter
@@ -19,7 +19,12 @@ export class StringValueInputComponent extends ValueInputComponent<string> {
    * The current value of the string
    */
   value: string;
+  @Input() initialValue;
 
+  ngOnInit() {
+    this.value = this.initialValue;
+  }
+  
   setValue(value) {
     this.value = value;
     this.updateValue.emit(value)

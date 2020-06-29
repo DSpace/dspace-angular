@@ -9,7 +9,7 @@
             {{param.nameLong || param.name}}
         </option>
     </select>
-    <ds-parameter-value-input [parameter]="selectedScriptParameter" (updateValue)="selectedParameterValue = $event" class="d-block col" [index]="index"></ds-parameter-value-input>
+    <ds-parameter-value-input [initialValue]="parameterValue.value" [parameter]="selectedScriptParameter" (updateValue)="selectedParameterValue = $event" class="d-block col" [index]="index"></ds-parameter-value-input>
     <button *ngIf="removable" class="btn btn-light col-1 remove-button" (click)="removeParameter.emit(parameterValue);"><span class="fas fa-trash"></span></button>
     <span *ngIf="!removable" class="col-1"></span>
 </div>

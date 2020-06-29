@@ -1,7 +1,0 @@
-<div [ngSwitch]="parameter?.type">
-  <ds-string-value-input *ngSwitchCase="parameterTypes.STRING" (updateValue)="updateValue.emit($event)" [index]="index"></ds-string-value-input>
-  <ds-string-value-input *ngSwitchCase="parameterTypes.OUTPUT" (updateValue)="updateValue.emit($event)" [index]="index"></ds-string-value-input>
-  <ds-date-value-input *ngSwitchCase="parameterTypes.DATE" (updateValue)="updateValue.emit($event)" [index]="index"></ds-date-value-input>
-  <ds-file-value-input *ngSwitchCase="parameterTypes.FILE" (updateValue)="updateValue.emit($event)" [index]="index"></ds-file-value-input>
-  <ds-boolean-value-input *ngSwitchCase="parameterTypes.BOOLEAN" (updateValue)="updateValue.emit($event)" [index]="index"></ds-boolean-value-input>
-</div>
