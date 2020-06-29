@@ -9,7 +9,7 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { RequestService } from '../../data/request.service';
-import { VocabularyEntriesRequest } from '../../data/request.models';
+import { FindListOptions, VocabularyEntriesRequest } from '../../data/request.models';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { PageInfo } from '../../shared/page-info.model';
 import { PaginatedList } from '../../data/paginated-list';
@@ -19,7 +19,7 @@ import { RestResponse } from '../../cache/response.models';
 import { VocabularyService } from './vocabulary.service';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
+import { VocabularyOptions } from './models/vocabulary-options.model';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;
@@ -143,10 +143,18 @@ describe('VocabularyService', () => {
   const vocabularyId = 'types';
   const metadata = 'dc.type';
   const collectionUUID = '8b39g7ya-5a4b-438b-851f-be1d5b4a1c5a';
-  const vocabularyOptions = new VocabularyFindOptions(collectionUUID, vocabularyId, metadata);
+  const entryID = 'dsfsfsdf-5a4b-438b-851f-be1d5b4a1c5a';
   const searchRequestURL = `https://rest.api/rest/api/submission/vocabularies/search/byMetadataAndCollection?metadata=${metadata}&collection=${collectionUUID}`;
   const entriesRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}`;
-
+  const entriesByValueRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}&filter=test&exact=false`;
+  const entryByValueRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}&filter=test&exact=true`;
+  const entryByIDRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}&entryID=${entryID}`;
+  const vocabularyOptions: VocabularyOptions = {
+    name: vocabularyId,
+    metadata: metadata,
+    scope: collectionUUID,
+    closed: false
+  }
   const pageInfo = new PageInfo();
   const array = [vocabulary, hierarchicalVocabulary];
   const arrayEntries = [vocabularyEntryDetail, anotherVocabularyEntryDetail];
@@ -274,11 +282,6 @@ describe('VocabularyService', () => {
 
     describe('searchVocabularyByMetadataAndCollection', () => {
       it('should proxy the call to vocabularyDataService.findVocabularyByHref', () => {
-        const options = new VocabularyFindOptions();
-        options.searchParams = [
-          new RequestParam('metadata', metadata),
-          new RequestParam('collection', collectionUUID)
-        ];
         scheduler.schedule(() => service.searchVocabularyByMetadataAndCollection(vocabularyOptions).subscribe());
         scheduler.flush();
 
@@ -307,17 +310,100 @@ describe('VocabularyService', () => {
       it('should configure a new VocabularyEntriesRequest', () => {
         const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesRequestURL);
 
-        scheduler.schedule(() => service.getVocabularyEntries(vocabularyOptions).subscribe());
+        scheduler.schedule(() => service.getVocabularyEntries(vocabularyOptions, pageInfo).subscribe());
         scheduler.flush();
 
         expect(requestService.configure).toHaveBeenCalledWith(expected);
       });
 
       it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-        service.getVocabularyEntries(vocabularyOptions);
+        service.getVocabularyEntries(vocabularyOptions, pageInfo);
 
         expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
 
+      });
+
+    });
+
+    describe('', () => {
+
+      beforeEach(() => {
+        requestService = getMockRequestService(getRequestEntry$(true));
+        rdbService = getMockRemoteDataBuildService();
+        spyOn(rdbService, 'toRemoteDataObservable').and.callThrough();
+        service = initTestService();
+      });
+
+      describe('getVocabularyEntries', () => {
+        it('should configure a new VocabularyEntriesRequest', () => {
+          const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesRequestURL);
+
+          scheduler.schedule(() => service.getVocabularyEntries(vocabularyOptions, pageInfo).subscribe());
+          scheduler.flush();
+
+          expect(requestService.configure).toHaveBeenCalledWith(expected);
+        });
+
+        it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
+          service.getVocabularyEntries(vocabularyOptions, pageInfo);
+
+          expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
+
+        });
+      });
+
+      describe('getVocabularyEntriesByValue', () => {
+        it('should configure a new VocabularyEntriesRequest', () => {
+          const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesByValueRequestURL);
+
+          scheduler.schedule(() => service.getVocabularyEntriesByValue('test', false, vocabularyOptions, pageInfo).subscribe());
+          scheduler.flush();
+
+          expect(requestService.configure).toHaveBeenCalledWith(expected);
+        });
+
+        it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
+          service.getVocabularyEntriesByValue('test', false, vocabularyOptions, pageInfo);
+
+          expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
+
+        });
+      });
+
+      describe('getVocabularyEntryByValue', () => {
+        it('should configure a new VocabularyEntriesRequest', () => {
+          const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entryByValueRequestURL);
+
+          scheduler.schedule(() => service.getVocabularyEntryByValue('test', vocabularyOptions).subscribe());
+          scheduler.flush();
+
+          expect(requestService.configure).toHaveBeenCalledWith(expected);
+        });
+
+        it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
+          service.getVocabularyEntryByValue('test', vocabularyOptions);
+
+          expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
+
+        });
+      });
+
+      describe('getVocabularyEntryByID', () => {
+        it('should configure a new VocabularyEntriesRequest', () => {
+          const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entryByIDRequestURL);
+
+          scheduler.schedule(() => service.getVocabularyEntryByID(entryID, vocabularyOptions).subscribe());
+          scheduler.flush();
+
+          expect(requestService.configure).toHaveBeenCalledWith(expected);
+        });
+
+        it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
+          service.getVocabularyEntryByID('test', vocabularyOptions);
+
+          expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
+
+        });
       });
 
     });
@@ -400,16 +486,16 @@ describe('VocabularyService', () => {
 
     describe('searchByGroup', () => {
       it('should proxy the call to vocabularyEntryDetailDataService.searchBy', () => {
-        const options = new VocabularyFindOptions();
-        options.searchParams.push(new RequestParam('vocabulary', 'srsc'));
-        scheduler.schedule(() => service.searchTopEntries('srsc', new VocabularyFindOptions()));
+        const options = new FindListOptions();
+        options.searchParams = [new RequestParam('vocabulary', 'srsc')];
+        scheduler.schedule(() => service.searchTopEntries('srsc', pageInfo));
         scheduler.flush();
 
         expect((service as any).vocabularyEntryDetailDataService.searchBy).toHaveBeenCalledWith((service as any).searchTopMethod, options);
       });
 
       it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {
-        const result = service.searchTopEntries('srsc', new VocabularyFindOptions());
+        const result = service.searchTopEntries('srsc', pageInfo);
         const expected = cold('a|', {
           a: entriesPaginatedListRD
         });

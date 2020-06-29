@@ -8,16 +8,15 @@ import { isNotEmpty } from '../../../../shared/empty.util';
  */
 export class VocabularyFindOptions extends FindListOptions {
 
-  constructor(public collection: string = '',
-              public name: string = '',
-              public metadata: string = '',
+  constructor(public collection,
+              public metadata,
               public query: string = '',
+              public filter?: string,
+              public exact?: boolean,
+              public entryID?: string,
               public elementsPerPage?: number,
               public currentPage?: number,
-              public sort?: SortOptions,
-              public filter?: string,
-              public exact?: string,
-              public entryID?: string,
+              public sort?: SortOptions
               ) {
     super();
 
@@ -35,7 +34,7 @@ export class VocabularyFindOptions extends FindListOptions {
       searchParams.push(new RequestParam('filter', filter))
     }
     if (isNotEmpty(exact)) {
-      searchParams.push(new RequestParam('exact', exact))
+      searchParams.push(new RequestParam('exact', exact.toString()))
     }
     if (isNotEmpty(entryID)) {
       searchParams.push(new RequestParam('entryID', entryID))

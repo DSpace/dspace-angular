@@ -22,12 +22,19 @@ import { PaginatedList } from '../../data/paginated-list';
 import { Vocabulary } from './models/vocabulary.model';
 import { VOCABULARY } from './models/vocabularies.resource-type';
 import { VocabularyEntry } from './models/vocabulary-entry.model';
-import { hasValue, isNotEmptyOperator } from '../../../shared/empty.util';
-import { configureRequest, filterSuccessfulResponses, getRequestFromRequestHref } from '../../shared/operators';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
+import {
+  configureRequest,
+  filterSuccessfulResponses,
+  getFirstSucceededRemoteListPayload,
+  getRequestFromRequestHref
+} from '../../shared/operators';
 import { GenericSuccessResponse } from '../../cache/response.models';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
 import { RequestParam } from '../../cache/models/request-param.model';
+import { VocabularyOptions } from './models/vocabulary-options.model';
+import { PageInfo } from '../../shared/page-info.model';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -110,20 +117,20 @@ export class VocabularyService {
   /**
    * Returns an observable of {@link RemoteData} of a {@link Vocabulary}, based on its ID, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the object
-   * @param id              ID of {@link Vocabulary} we want to retrieve
+   * @param name            The name of {@link Vocabulary} we want to retrieve
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<Vocabulary>>}
    *    Return an observable that emits vocabulary object
    */
-  findVocabularyById(id: string, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
-    return this.vocabularyDataService.findById(id, ...linksToFollow);
+  findVocabularyById(name: string, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
+    return this.vocabularyDataService.findById(name, ...linksToFollow);
   }
 
   /**
    * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
    * info should be added to the objects
    *
-   * @param options        Find list options object
+   * @param options       Find list options object
    * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<PaginatedList<Vocabulary>>>}
    *    Return an observable that emits object list
@@ -135,13 +142,25 @@ export class VocabularyService {
   /**
    * Return the {@link VocabularyEntry} list for a given {@link Vocabulary}
    *
-   * @param options         The {@link VocabularyFindOptions} for the request
+   * @param vocabularyOptions  The {@link VocabularyOptions} for the request to which the entries belong
+   * @param pageInfo           The {@link PageInfo} for the request
    * @return {Observable<RemoteData<PaginatedList<VocabularyEntry>>>}
    *    Return an observable that emits object list
    */
-  getVocabularyEntries(options: VocabularyFindOptions): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
+  getVocabularyEntries(vocabularyOptions: VocabularyOptions, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
 
-    return this.vocabularyDataService.getFindAllHref(options, `${options.name}/entries`).pipe(
+    const options: VocabularyFindOptions = new VocabularyFindOptions(
+      vocabularyOptions.scope,
+      vocabularyOptions.metadata,
+      null,
+      null,
+      null,
+      null,
+      pageInfo.elementsPerPage,
+      pageInfo.currentPage
+    );
+
+    return this.vocabularyDataService.getFindAllHref(options, `${vocabularyOptions.name}/entries`).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       getVocabularyEntriesFor(this.requestService, this.rdbService)
@@ -149,14 +168,105 @@ export class VocabularyService {
   }
 
   /**
+   * Return the {@link VocabularyEntry} list for a given {@link Vocabulary}
+   *
+   * @param value              The entry value to retrieve
+   * @param exact              If true force the vocabulary to provide only entries that match exactly with the value
+   * @param vocabularyOptions  The {@link VocabularyOptions} for the request to which the entries belong
+   * @param pageInfo           The {@link PageInfo} for the request
+   * @return {Observable<RemoteData<PaginatedList<VocabularyEntry>>>}
+   *    Return an observable that emits object list
+   */
+  getVocabularyEntriesByValue(value: string, exact: boolean, vocabularyOptions: VocabularyOptions, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
+    const options: VocabularyFindOptions = new VocabularyFindOptions(
+      vocabularyOptions.scope,
+      vocabularyOptions.metadata,
+      null,
+      value,
+      exact,
+      null,
+      pageInfo.elementsPerPage,
+      pageInfo.currentPage
+    );
+
+    return this.vocabularyDataService.getFindAllHref(options, `${vocabularyOptions.name}/entries`).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      getVocabularyEntriesFor(this.requestService, this.rdbService)
+    );
+  }
+
+  /**
+   * Return the {@link VocabularyEntry} list for a given value
+   *
+   * @param value              The entry value to retrieve
+   * @param vocabularyOptions  The {@link VocabularyOptions} for the request to which the entry belongs
+   * @return {Observable<RemoteData<PaginatedList<VocabularyEntry>>>}
+   *    Return an observable that emits {@link VocabularyEntry} object
+   */
+  getVocabularyEntryByValue(value: string, vocabularyOptions: VocabularyOptions): Observable<VocabularyEntry> {
+
+    return this.getVocabularyEntriesByValue(value, true, vocabularyOptions, new PageInfo()).pipe(
+      getFirstSucceededRemoteListPayload(),
+      map((list: VocabularyEntry[]) => {
+        if (isNotEmpty(list)) {
+          return list[0]
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  /**
+   * Return the {@link VocabularyEntry} list for a given ID
+   *
+   * @param ID                 The entry ID to retrieve
+   * @param vocabularyOptions  The {@link VocabularyOptions} for the request to which the entry belongs
+   * @return {Observable<RemoteData<PaginatedList<VocabularyEntry>>>}
+   *    Return an observable that emits {@link VocabularyEntry} object
+   */
+  getVocabularyEntryByID(ID: string, vocabularyOptions: VocabularyOptions): Observable<VocabularyEntry> {
+    const pageInfo = new PageInfo()
+    const options: VocabularyFindOptions = new VocabularyFindOptions(
+      vocabularyOptions.scope,
+      vocabularyOptions.metadata,
+      null,
+      null,
+      null,
+      ID,
+      pageInfo.elementsPerPage,
+      pageInfo.currentPage
+    );
+
+    return this.vocabularyDataService.getFindAllHref(options, `${vocabularyOptions.name}/entries`).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      getVocabularyEntriesFor(this.requestService, this.rdbService),
+      getFirstSucceededRemoteListPayload(),
+      map((list: VocabularyEntry[]) => {
+        if (isNotEmpty(list)) {
+          return list[0]
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  /**
    * Return the controlled {@link Vocabulary} configured for the specified metadata and collection if any.
    *
-   * @param options         The {@link VocabularyFindOptions} for the request
-   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param vocabularyOptions  The {@link VocabularyOptions} for the request
+   * @param linksToFollow      List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<PaginatedList<Vocabulary>>>}
    *    Return an observable that emits object list
    */
-  searchVocabularyByMetadataAndCollection(options: VocabularyFindOptions, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
+  searchVocabularyByMetadataAndCollection(vocabularyOptions: VocabularyOptions, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
+    const options: VocabularyFindOptions = new VocabularyFindOptions(
+      vocabularyOptions.scope,
+      vocabularyOptions.metadata
+    );
 
     return this.vocabularyDataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options).pipe(
       first((href: string) => hasValue(href)),
@@ -193,12 +303,13 @@ export class VocabularyService {
   /**
    * Return the top level {@link VocabularyEntryDetail} list for a given hierarchical vocabulary
    *
-   * @param name            The name of hierarchical {@link Vocabulary} to which the entries belongs
-   * @param options         The {@link VocabularyFindOptions} for the request
+   * @param name           The name of hierarchical {@link Vocabulary} to which the entries belongs
+   * @param pageInfo       The {@link PageInfo} for the request
    * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchTopEntries(name: string, options: VocabularyFindOptions, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
-    options.searchParams.push(new RequestParam('vocabulary', name));
+  searchTopEntries(name: string, pageInfo: PageInfo, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
+    const options = new FindListOptions();
+    options.searchParams = [new RequestParam('vocabulary', name)];
     return this.vocabularyEntryDetailDataService.searchBy(this.searchTopMethod, options, ...linksToFollow)
   }
 }
