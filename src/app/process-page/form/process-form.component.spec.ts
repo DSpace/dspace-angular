@@ -15,7 +15,7 @@ import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { RequestService } from '../../core/data/request.service';
 import { Router } from '@angular/router';
 
-describe('NewProcessComponent', () => {
+describe('ProcessFormComponent', () => {
   let component: ProcessFormComponent;
   let fixture: ComponentFixture<ProcessFormComponent>;
   let scriptService;
@@ -80,7 +80,7 @@ describe('NewProcessComponent', () => {
   });
 
   it('should call invoke on the scriptService on submit', () => {
-    component.submitForm({ invalid: false } as any);
+    component.submitForm({ controls: {} } as any);
     expect(scriptService.invoke).toHaveBeenCalled();
   });
 });

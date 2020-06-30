@@ -85,12 +85,12 @@ export class ProcessFormComponent implements OnInit {
         if (requestEntry.response.isSuccessful) {
           const title = this.translationService.get('process.new.notification.success.title');
           const content = this.translationService.get('process.new.notification.success.content');
-          this.notificationsService.success(title, content)
+          this.notificationsService.success(title, content);
           this.sendBack();
         } else {
           const title = this.translationService.get('process.new.notification.error.title');
           const content = this.translationService.get('process.new.notification.error.content');
-          this.notificationsService.error(title, content)
+          this.notificationsService.error(title, content);
         }
       })
   }
@@ -115,16 +115,18 @@ export class ProcessFormComponent implements OnInit {
    * @param form The NgForm object to validate
    */
   private validateForm(form: NgForm) {
-    if (form.invalid) {
-      Object.keys(form.controls).forEach((key) => {
+    let valid = true;
+    Object.keys(form.controls).forEach((key) => {
+      if (form.controls[key].invalid) {
         form.controls[key].markAsDirty();
-      });
-      return false;
-    }
-    return true;
+        valid = false;
+      }
+    });
+    return valid;
   }
 
   private isRequiredMissing() {
+    this.missingParameters = [];
     const setParams: string[] = this.parameters
       .map((param) => param.name);
     const requiredParams: ScriptParameter[] = this.selectedScript.parameters.filter((param) => param.mandatory);
