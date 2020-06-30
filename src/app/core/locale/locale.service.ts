@@ -7,7 +7,7 @@ import { CookieService } from '../services/cookie.service';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
 import { Observable, of as observableOf, combineLatest } from 'rxjs';
-import { map, take, flatMap, tap } from 'rxjs/operators';
+import { map, take, flatMap } from 'rxjs/operators';
 import { NativeWindowService, NativeWindowRef } from '../services/window.service';
 
 export const LANG_COOKIE = 'language_cookie';
@@ -22,11 +22,6 @@ export enum LANG_ORIGIN {
 };
 
 /**
- * Eperson language metadata
- */
-const EPERSON_LANG_METADATA = 'eperson.language';
-
-/**
  * Service to provide localization handler
  */
 @Injectable({
@@ -34,11 +29,16 @@ const EPERSON_LANG_METADATA = 'eperson.language';
 })
 export class LocaleService {
 
+  /**
+   * Eperson language metadata
+   */
+  EPERSON_LANG_METADATA = 'eperson.language';
+
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
-    private cookie: CookieService,
-    private translate: TranslateService,
-    private authService: AuthService) {
+    protected cookie: CookieService,
+    protected translate: TranslateService,
+    protected authService: AuthService) {
   }
 
   /**
@@ -81,7 +81,7 @@ export class LocaleService {
             take(1),
             map((eperson) => {
               const languages: string[] = [];
-              const ePersonLang = eperson.firstMetadataValue(EPERSON_LANG_METADATA);
+              const ePersonLang = eperson.firstMetadataValue(this.EPERSON_LANG_METADATA);
               if (ePersonLang) {
                 languages.push(...this.setQuality(
                   [ePersonLang],

@@ -4,7 +4,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 
 import { LocaleService } from './locale.service';
-import { reduce, mergeMap, scan } from 'rxjs/operators';
+import { mergeMap, scan } from 'rxjs/operators';
 
 @Injectable()
 export class LocaleInterceptor implements HttpInterceptor {
