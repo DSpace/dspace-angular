@@ -130,6 +130,16 @@ describe('SubmissionSectionCcLicensesComponent', () => {
   ];
 
   const submissionCcLicensesDataService = jasmine.createSpyObj('submissionCcLicensesDataService', {
+    findAll: observableOf(new RemoteData(
+      false,
+      false,
+      true,
+      undefined,
+      new PaginatedList(new PageInfo(), submissionCcLicenses),
+    )),
+  });
+
+  const submissionCcLicenseUrlDataService = jasmine.createSpyObj('submissionCcLicenseUrlDataService', {
     getCcLicenseLink: observableOf(new RemoteData(
       false,
       false,
@@ -139,13 +149,6 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         url: 'test cc license link',
       }
       )),
-    findAll: observableOf(new RemoteData(
-      false,
-      false,
-      true,
-      undefined,
-      new PaginatedList(new PageInfo(), submissionCcLicenses),
-    )),
   });
 
   const sectionService = {
@@ -174,7 +177,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
       ],
       providers: [
         { provide: SubmissionCcLicenseDataService, useValue: submissionCcLicensesDataService },
-        { provide: SubmissionCcLicenseUrlDataService, useValue: {} },
+        { provide: SubmissionCcLicenseUrlDataService, useValue: submissionCcLicenseUrlDataService },
         { provide: SectionsService, useValue: sectionService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
@@ -240,7 +243,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
       });
 
       it('should call the submission cc licenses data service getCcLicenseLink method', () => {
-        expect(submissionCcLicensesDataService.getCcLicenseLink).toHaveBeenCalledWith(
+        expect(submissionCcLicenseUrlDataService.getCcLicenseLink).toHaveBeenCalledWith(
           ccLicence,
           new Map([
             [ccLicence.fields[0], ccLicence.fields[0].enums[1]],
