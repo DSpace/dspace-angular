@@ -1,4 +1,4 @@
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { hasValue } from '../empty.util';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 

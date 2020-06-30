@@ -7,13 +7,10 @@ import { PROCESS } from './process.resource-type';
 import { excludeFromEquals } from '../../core/utilities/equals.decorators';
 import { ResourceType } from '../../core/shared/resource-type';
 import { link, typedObject } from '../../core/cache/builders/build-decorators';
-import { COLLECTION } from '../../core/shared/collection.resource-type';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
 import { SCRIPT } from '../scripts/script.resource-type';
 import { Script } from '../scripts/script.model';
-import { PaginatedList } from '../../core/data/paginated-list';
 
 /**
  * Object representing a process

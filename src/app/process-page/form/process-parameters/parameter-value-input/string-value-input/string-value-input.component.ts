@@ -19,12 +19,16 @@ export class StringValueInputComponent extends ValueInputComponent<string> {
    * The current value of the string
    */
   value: string;
+
+  /**
+   * Initial value of the field
+   */
   @Input() initialValue;
 
   ngOnInit() {
     this.value = this.initialValue;
   }
-  
+
   setValue(value) {
     this.value = value;
     this.updateValue.emit(value)

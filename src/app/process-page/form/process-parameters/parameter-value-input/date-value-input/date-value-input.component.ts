@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional, Input } from '@angular/core';
+import { Component, Input, Optional } from '@angular/core';
 import { ValueInputComponent } from '../value-input.component';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { controlContainerFactory } from '../../../process-form.component';
@@ -19,6 +19,10 @@ export class DateValueInputComponent extends ValueInputComponent<string> {
    * The current value of the date string
    */
   value: string;
+
+  /**
+   * Initial value of the field
+   */
   @Input() initialValue;
 
   ngOnInit() {

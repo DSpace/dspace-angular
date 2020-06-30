@@ -18,13 +18,21 @@ import { Script } from '../scripts/script.model';
   styleUrls: ['./new-process.component.scss'],
 })
 export class NewProcessComponent implements OnInit {
+  /**
+   * Emits preselected process if there is one
+   */
   fromExisting$?: Observable<Process>;
+  /**
+   * Emits preselected script if there is one
+   */
   script$?: Observable<Script>;
 
   constructor(private route: ActivatedRoute, private processService: ProcessDataService, private linkService: LinkService) {
-
   }
 
+  /**
+   * If there's an id parameter, use this the process with this identifier as presets for the form
+   */
   ngOnInit() {
     const id = this.route.snapshot.queryParams.id;
     if (id) {
@@ -37,4 +45,3 @@ export class NewProcessComponent implements OnInit {
     }
   }
 }
-

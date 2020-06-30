@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, Optional } from '@angular/core';
+import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
 import { ProcessParameter } from '../../../processes/process-parameter.model';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
-import { hasNoValue } from '../../../../shared/empty.util';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { controlContainerFactory } from '../../process-form.component';
 

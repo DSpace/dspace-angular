@@ -41,6 +41,9 @@ export class ProcessFormComponent implements OnInit {
    */
   public files: File[] = [];
 
+  /**
+   * Message key for the header of the form
+   */
   @Input() public headerKey: string;
 
   /**

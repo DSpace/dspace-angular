@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Optional, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { ControlContainer, NgForm } from '@angular/forms';
@@ -23,7 +23,9 @@ export class ParameterValueInputComponent {
    */
   @Input() parameter: ScriptParameter;
 
-
+  /**
+   * Initial value for input
+   */
   @Input() initialValue: any;
   /**
    * Emits the value of the input when its updated

@@ -24,7 +24,13 @@ const SCRIPT_QUERY_PARAMETER = 'script';
     deps: [[new Optional(), NgForm]] } ]
 })
 export class ScriptsSelectComponent implements OnInit, OnDestroy {
+  /**
+   * Emits the selected script when the selection changes
+   */
   @Output() select: EventEmitter<Script> = new EventEmitter<Script>();
+  /**
+   * All available scripts
+   */
   scripts$: Observable<Script[]>;
   private _selectedScript: Script;
   private routeSub: Subscription;

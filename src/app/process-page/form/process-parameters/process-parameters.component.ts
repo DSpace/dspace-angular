@@ -24,6 +24,10 @@ export class ProcessParametersComponent implements OnChanges {
    * The currently selected script
    */
   @Input() script: Script;
+
+  /**
+   * Initial parameters on load
+   */
   @Input() initialParams: ProcessParameter[];
   /**
    * Emits the parameter values when they're updated
