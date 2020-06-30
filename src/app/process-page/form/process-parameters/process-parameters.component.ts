@@ -88,6 +88,7 @@ export class ProcessParametersComponent implements OnChanges {
    */
   removeParameter(index: number) {
     this.parameterValues = this.parameterValues.filter((value, i) => i !== index);
+    this.updateParameters.emit(this.parameterValues.filter((param: ProcessParameter) => hasValue(param.name)));
   }
 
   /**
