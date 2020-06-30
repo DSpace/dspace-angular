@@ -450,7 +450,7 @@ describe('CommunityListService', () => {
         });
         let flatNodeList;
         describe('should return list containing only flatnode corresponding to that community', () => {
-          beforeAll((done) => {
+          beforeEach((done) => {
             service.transformCommunity(communityWithSubcoms, 0, null, null)
               .pipe(take(1))
               .subscribe((value) => {
