@@ -204,6 +204,7 @@ import { ResourcePolicyTargetResolver } from './resource-policies/resolvers/reso
 import { ResourcePolicyResolver } from './resource-policies/resolvers/resource-policy.resolver';
 import { EpersonSearchBoxComponent } from './resource-policies/form/eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
+import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -388,7 +389,8 @@ const COMPONENTS = [
   ResourcePolicyFormComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
+  CollectionDropdownComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -509,8 +511,7 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...SHARED_ITEM_PAGE_COMPONENTS,
-
+    ...SHARED_ITEM_PAGE_COMPONENTS
   ],
   providers: [
     ...PROVIDERS

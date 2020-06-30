@@ -1,9 +1,9 @@
 import * as deepFreeze from 'deep-freeze';
 import {
-  AddFieldUpdateAction, AddPageToCustomOrderAction,
+  AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
-  InitializeFieldsAction, MoveFieldUpdateAction,
+  InitializeFieldsAction,
   ReinstateObjectUpdatesAction, RemoveAllObjectUpdatesAction,
   RemoveFieldUpdateAction, RemoveObjectUpdatesAction, SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction, SetValidFieldUpdateAction
@@ -85,16 +85,6 @@ describe('objectUpdatesReducer', () => {
       virtualMetadataSources: {
         [relationship.uuid]: {[identifiable1.uuid]: true}
       },
-      customOrder: {
-        initialOrderPages: [
-          { order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid] }
-        ],
-        newOrderPages: [
-          { order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid] }
-        ],
-        pageSize: 10,
-        changed: false
-      }
     }
   };
 
@@ -121,16 +111,6 @@ describe('objectUpdatesReducer', () => {
       virtualMetadataSources: {
         [relationship.uuid]: {[identifiable1.uuid]: true}
       },
-      customOrder: {
-        initialOrderPages: [
-          { order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid] }
-        ],
-        newOrderPages: [
-          { order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid] }
-        ],
-        pageSize: 10,
-        changed: false
-      }
     },
     [url + OBJECT_UPDATES_TRASH_PATH]: {
       fieldStates: {
@@ -165,16 +145,6 @@ describe('objectUpdatesReducer', () => {
       virtualMetadataSources: {
         [relationship.uuid]: {[identifiable1.uuid]: true}
       },
-      customOrder: {
-        initialOrderPages: [
-          { order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid] }
-        ],
-        newOrderPages: [
-          { order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid] }
-        ],
-        pageSize: 10,
-        changed: false
-      }
     }
   };
 
@@ -243,7 +213,7 @@ describe('objectUpdatesReducer', () => {
   });
 
   it('should initialize all fields when the INITIALIZE action is dispatched, based on the payload', () => {
-    const action = new InitializeFieldsAction(url, [identifiable1, identifiable3], modDate, [identifiable1.uuid, identifiable3.uuid], 10, 0);
+    const action = new InitializeFieldsAction(url, [identifiable1, identifiable3], modDate);
 
     const expectedState = {
       [url]: {
@@ -261,17 +231,7 @@ describe('objectUpdatesReducer', () => {
         },
         fieldUpdates: {},
         virtualMetadataSources: {},
-        lastModified: modDate,
-        customOrder: {
-          initialOrderPages: [
-            { order: [identifiable1.uuid, identifiable3.uuid] }
-          ],
-          newOrderPages: [
-            { order: [identifiable1.uuid, identifiable3.uuid] }
-          ],
-          pageSize: 10,
-          changed: false
-        }
+        lastModified: modDate
       }
     };
     const newState = objectUpdatesReducer(testState, action);
@@ -336,31 +296,5 @@ describe('objectUpdatesReducer', () => {
 
     const newState = objectUpdatesReducer(testState, action);
     expect(newState[url].fieldUpdates[uuid]).toBeUndefined();
-  });
-
-  it('should move the custom order from the state when the MOVE action is dispatched', () => {
-    const action = new MoveFieldUpdateAction(url, 0, 1, 0, 0);
-
-    const newState = objectUpdatesReducer(testState, action);
-    expect(newState[url].customOrder.newOrderPages[0].order[0]).toEqual(testState[url].customOrder.newOrderPages[0].order[1]);
-    expect(newState[url].customOrder.newOrderPages[0].order[1]).toEqual(testState[url].customOrder.newOrderPages[0].order[0]);
-    expect(newState[url].customOrder.changed).toEqual(true);
-  });
-
-  it('should add a new page to the custom order and add empty pages in between when the ADD_PAGE_TO_CUSTOM_ORDER action is dispatched', () => {
-    const identifiable4 = {
-      uuid: 'a23eae5a-7857-4ef9-8e52-989436ad2955',
-      key: 'dc.description.abstract',
-      language: null,
-      value: 'Extra value'
-    };
-    const action = new AddPageToCustomOrderAction(url, [identifiable4], [identifiable4.uuid], 2);
-
-    const newState = objectUpdatesReducer(testState, action);
-    // Confirm the page in between the two pages (index 1) has been filled with 10 (page size) undefined values
-    expect(newState[url].customOrder.newOrderPages[1].order.length).toEqual(10);
-    expect(newState[url].customOrder.newOrderPages[1].order[0]).toBeUndefined();
-    // Verify the new page is correct
-    expect(newState[url].customOrder.newOrderPages[2].order[0]).toEqual(identifiable4.uuid);
   });
 });

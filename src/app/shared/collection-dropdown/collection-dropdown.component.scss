@@ -1,0 +1,15 @@
+.scrollable-menu {
+  height: auto;
+  max-height: $dropdown-menu-max-height;
+  overflow-x: hidden;
+}
+
+.collection-item {
+  border-bottom: $dropdown-border-width solid $dropdown-border-color;
+}
+
+#collectionControlsDropdownMenu {
+  outline: 0;
+  left: 0 !important;
+  box-shadow: $btn-focus-box-shadow;
+}
