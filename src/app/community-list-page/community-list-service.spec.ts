@@ -210,13 +210,16 @@ describe('CommunityListService', () => {
       let flatNodeList;
       describe('None expanded: should return list containing only flatnodes of the test top communities page 1 and 2', () => {
         let findTopSpy;
-        beforeEach(() => {
+        beforeEach((done) => {
           findTopSpy = spyOn(communityDataServiceStub, 'findTop').and.callThrough();
           service.getNextPageTopCommunities();
 
-          const sub = service.loadCommunities(null)
-            .subscribe((value) => flatNodeList = value);
-          sub.unsubscribe();
+          service.loadCommunities(null)
+            .pipe(take(1))
+            .subscribe((value) => {
+              flatNodeList = value;
+              done();
+            });
         });
         it('flatnode list should contain just flatnodes of top community list page 1 and 2', () => {
           expect(findTopSpy).toHaveBeenCalled();
@@ -236,10 +239,13 @@ describe('CommunityListService', () => {
     describe('should transform all communities in a list of flatnodes with possible subcoms and collections as subflatnodes if they\'re expanded', () => {
       let flatNodeList;
       describe('None expanded: should return list containing only flatnodes of the test top communities', () => {
-        beforeEach(() => {
-          const sub = service.loadCommunities(null)
-            .pipe(take(1)).subscribe((value) => flatNodeList = value);
-          sub.unsubscribe();
+        beforeEach((done) => {
+          service.loadCommunities(null)
+            .pipe(take(1))
+            .subscribe((value) => {
+              flatNodeList = value;
+              done();
+            });
         });
         it('length of flatnode list should be as big as top community list', () => {
           expect(flatNodeList.length).toEqual(mockListOfTopCommunitiesPage1.length);
@@ -256,7 +262,7 @@ describe('CommunityListService', () => {
         });
       });
       describe('All top expanded, all page 1: should return list containing flatnodes of the communities in the test list and all its possible page-limited children (subcommunities and collections)', () => {
-        beforeEach(() => {
+        beforeEach((done) => {
           const expandedNodes = [];
           mockListOfTopCommunitiesPage1.map((community: Community) => {
             const communityFlatNode = toFlatNode(community, observableOf(true), 0, true, null);
@@ -264,9 +270,12 @@ describe('CommunityListService', () => {
             communityFlatNode.currentCommunityPage = 1;
             expandedNodes.push(communityFlatNode);
           });
-          const sub = service.loadCommunities(expandedNodes)
-            .pipe(take(1)).subscribe((value) => flatNodeList = value);
-          sub.unsubscribe();
+          service.loadCommunities(expandedNodes)
+            .pipe(take(1))
+            .subscribe((value) => {
+              flatNodeList = value;
+              done();
+            });
         });
         it('length of flatnode list should be as big as top community list and size of its possible page-limited children', () => {
           expect(flatNodeList.length).toEqual(mockListOfTopCommunitiesPage1.length + mockSubcommunities1Page1.length + mockSubcommunities1Page1.length);
@@ -281,14 +290,17 @@ describe('CommunityListService', () => {
         });
       });
       describe('Just first top comm expanded, all page 1: should return list containing flatnodes of the communities in the test list and all its possible page-limited children (subcommunities and collections)', () => {
-        beforeEach(() => {
+        beforeEach((done) => {
           const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[0], observableOf(true), 0, true, null);
           communityFlatNode.currentCollectionPage = 1;
           communityFlatNode.currentCommunityPage = 1;
           const expandedNodes = [communityFlatNode];
-          const sub = service.loadCommunities(expandedNodes)
-            .pipe(take(1)).subscribe((value) => flatNodeList = value);
-          sub.unsubscribe();
+          service.loadCommunities(expandedNodes)
+            .pipe(take(1))
+            .subscribe((value) => {
+              flatNodeList = value;
+              done();
+            });
         });
         it('length of flatnode list should be as big as top community list and size of page-limited children of first top community', () => {
           expect(flatNodeList.length).toEqual(mockListOfTopCommunitiesPage1.length + mockSubcommunities1Page1.length);
@@ -300,14 +312,17 @@ describe('CommunityListService', () => {
         });
       });
       describe('Just second top comm expanded, collections at page 2: should return list containing flatnodes of the communities in the test list and all its possible page-limited children (subcommunities and collections)', () => {
-        beforeEach(() => {
+        beforeEach((done) => {
           const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[1], observableOf(true), 0, true, null);
           communityFlatNode.currentCollectionPage = 2;
           communityFlatNode.currentCommunityPage = 1;
           const expandedNodes = [communityFlatNode];
-          const sub = service.loadCommunities(expandedNodes)
-            .pipe(take(1)).subscribe((value) => flatNodeList = value);
-          sub.unsubscribe();
+          service.loadCommunities(expandedNodes)
+            .pipe(take(1))
+            .subscribe((value) => {
+              flatNodeList = value;
+              done();
+            });
         });
         it('length of flatnode list should be as big as top community list and size of page-limited children of second top community', () => {
           expect(flatNodeList.length).toEqual(mockListOfTopCommunitiesPage1.length + mockCollectionsPage1.length + mockCollectionsPage2.length);
@@ -333,10 +348,13 @@ describe('CommunityListService', () => {
         });
         let flatNodeList;
         describe('None expanded: should return list containing only flatnodes of the communities in the test list', () => {
-          beforeEach(() => {
-            const sub = service.transformListOfCommunities(new PaginatedList(new PageInfo(), listOfCommunities), 0, null, null)
-              .pipe(take(1)).subscribe((value) => flatNodeList = value);
-            sub.unsubscribe();
+          beforeEach((done) => {
+            service.transformListOfCommunities(new PaginatedList(new PageInfo(), listOfCommunities), 0, null, null)
+              .pipe(take(1))
+              .subscribe((value) => {
+                flatNodeList = value;
+                done();
+              });
           });
           it('length of flatnode list should be as big as community test list', () => {
             expect(flatNodeList.length).toEqual(listOfCommunities.length);
@@ -353,7 +371,7 @@ describe('CommunityListService', () => {
           });
         });
         describe('All top expanded, all page 1: should return list containing flatnodes of the communities in the test list and all its possible page-limited children (subcommunities and collections)', () => {
-          beforeEach(() => {
+          beforeEach((done) => {
             const expandedNodes = [];
             listOfCommunities.map((community: Community) => {
               const communityFlatNode = toFlatNode(community, observableOf(true), 0, true, null);
@@ -361,9 +379,12 @@ describe('CommunityListService', () => {
               communityFlatNode.currentCommunityPage = 1;
               expandedNodes.push(communityFlatNode);
             });
-            const sub = service.transformListOfCommunities(new PaginatedList(new PageInfo(), listOfCommunities), 0, null, expandedNodes)
-              .pipe(take(1)).subscribe((value) => flatNodeList = value);
-            sub.unsubscribe();
+            service.transformListOfCommunities(new PaginatedList(new PageInfo(), listOfCommunities), 0, null, expandedNodes)
+              .pipe(take(1))
+              .subscribe((value) => {
+                flatNodeList = value;
+                done();
+              });
           });
           it('length of flatnode list should be as big as community test list and size of its possible children', () => {
             expect(flatNodeList.length).toEqual(listOfCommunities.length + mockSubcommunities1Page1.length + mockSubcommunities1Page1.length);
@@ -397,10 +418,13 @@ describe('CommunityListService', () => {
         });
         let flatNodeList;
         describe('should return list containing only flatnode corresponding to that community', () => {
-          beforeEach(() => {
-            const sub = service.transformCommunity(communityWithNoSubcomsOrColls, 0, null, null)
-              .pipe(take(1)).subscribe((value) => flatNodeList = value);
-            sub.unsubscribe();
+          beforeEach((done) => {
+            service.transformCommunity(communityWithNoSubcomsOrColls, 0, null, null)
+              .pipe(take(1))
+              .subscribe((value) => {
+                flatNodeList = value;
+                done();
+              });
           });
           it('length of flatnode list should be 1', () => {
             expect(flatNodeList.length).toEqual(1);
@@ -426,10 +450,14 @@ describe('CommunityListService', () => {
         });
         let flatNodeList;
         describe('should return list containing only flatnode corresponding to that community', () => {
-          beforeAll(() => {
-            const sub = service.transformCommunity(communityWithSubcoms, 0, null, null)
-              .pipe(take(1)).subscribe((value) => flatNodeList = value);
-            sub.unsubscribe();
+          beforeAll((done) => {
+            service.transformCommunity(communityWithSubcoms, 0, null, null)
+              .pipe(take(1))
+              .subscribe((value) => {
+                flatNodeList = value;
+                done();
+              });
+
           });
           it('length of flatnode list should be 1', () => {
             expect(flatNodeList.length).toEqual(1);
@@ -455,14 +483,17 @@ describe('CommunityListService', () => {
             }
           });
           let flatNodeList;
-          beforeEach(() => {
+          beforeEach((done) => {
             const communityFlatNode = toFlatNode(communityWithSubcoms, observableOf(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 1;
             communityFlatNode.currentCommunityPage = 1;
             const expandedNodes = [communityFlatNode];
-            const sub = service.transformCommunity(communityWithSubcoms, 0, null, expandedNodes)
-              .pipe(take(1)).subscribe((value) => flatNodeList = value);
-            sub.unsubscribe();
+            service.transformCommunity(communityWithSubcoms, 0, null, expandedNodes)
+              .pipe(take(1))
+              .subscribe((value) => {
+                flatNodeList = value;
+                done();
+              });
           });
           it('list of flatnodes is length is  1 + nrOfSubcoms & first flatnode is of expanded test community', () => {
             expect(flatNodeList.length).toEqual(1 + mockSubcommunities1Page1.length);
@@ -485,7 +516,7 @@ describe('CommunityListService', () => {
         describe('should return list containing flatnodes of that community, its collections of the first two pages', () => {
           let communityWithCollections;
           let flatNodeList;
-          beforeEach(() => {
+          beforeEach((done) => {
             communityWithCollections = Object.assign(new Community(), {
               id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
               uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
@@ -500,9 +531,12 @@ describe('CommunityListService', () => {
             communityFlatNode.currentCollectionPage = 2;
             communityFlatNode.currentCommunityPage = 1;
             const expandedNodes = [communityFlatNode];
-            const sub = service.transformCommunity(communityWithCollections, 0, null, expandedNodes)
-              .pipe(take(1)).subscribe((value) => flatNodeList = value);
-            sub.unsubscribe();
+            service.transformCommunity(communityWithCollections, 0, null, expandedNodes)
+              .pipe(take(1))
+              .subscribe((value) => {
+                flatNodeList = value;
+                done();
+              });
           });
           it('list of flatnodes is length is  1 + nrOfCollections & first flatnode is of expanded test community', () => {
             expect(flatNodeList.length).toEqual(1 + mockCollectionsPage1.length + mockCollectionsPage2.length);
@@ -533,7 +567,7 @@ describe('CommunityListService', () => {
 
   describe('getIsExpandable', () => {
     describe('should return true', () => {
-      it('if community has subcommunities', () => {
+      it('if community has subcommunities', (done) => {
         const communityWithSubcoms = Object.assign(new Community(), {
           id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
           uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
@@ -546,9 +580,10 @@ describe('CommunityListService', () => {
         });
         service.getIsExpandable(communityWithSubcoms).pipe(take(1)).subscribe((result) => {
           expect(result).toEqual(true);
+          done();
         });
       });
-      it('if community has collections', () => {
+      it('if community has collections', (done) => {
         const communityWithCollections = Object.assign(new Community(), {
           id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
           uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
@@ -561,11 +596,12 @@ describe('CommunityListService', () => {
         });
         service.getIsExpandable(communityWithCollections).pipe(take(1)).subscribe((result) => {
           expect(result).toEqual(true);
+          done();
         });
       });
     });
     describe('should return false', () => {
-      it('if community has neither subcommunities nor collections', () => {
+      it('if community has neither subcommunities nor collections', (done) => {
         const communityWithNoSubcomsOrColls = Object.assign(new Community(), {
           id: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
           uuid: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
@@ -578,6 +614,7 @@ describe('CommunityListService', () => {
         });
         service.getIsExpandable(communityWithNoSubcomsOrColls).pipe(take(1)).subscribe((result) => {
           expect(result).toEqual(false);
+          done();
         });
       });
     });
