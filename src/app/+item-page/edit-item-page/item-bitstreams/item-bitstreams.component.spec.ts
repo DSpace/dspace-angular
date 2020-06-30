@@ -188,8 +188,21 @@ describe('ItemBitstreamsComponent', () => {
     it('should not call delete on the bitstreamService for the unmarked field', () => {
       expect(bitstreamService.delete).not.toHaveBeenCalledWith(bitstream1.id);
     });
+  });
 
-    it('should send out a patch for the move operations', () => {
+  describe('when dropBitstream is called', () => {
+    const event = {
+      fromIndex: 0,
+      toIndex: 50,
+      // tslint:disable-next-line:no-empty
+      finish: () => {}
+    };
+
+    beforeEach(() => {
+      comp.dropBitstream(bundle, event);
+    });
+
+    it('should send out a patch for the move operation', () => {
       expect(bundleService.patch).toHaveBeenCalled();
     });
   });
