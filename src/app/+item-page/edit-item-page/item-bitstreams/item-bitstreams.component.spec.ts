@@ -191,15 +191,15 @@ describe('ItemBitstreamsComponent', () => {
   });
 
   describe('when dropBitstream is called', () => {
-    const event = {
-      fromIndex: 0,
-      toIndex: 50,
-      // tslint:disable-next-line:no-empty
-      finish: () => {}
-    };
-
-    beforeEach(() => {
-      comp.dropBitstream(bundle, event);
+    beforeEach((done) => {
+      comp.dropBitstream(bundle, {
+        fromIndex: 0,
+        toIndex: 50,
+        // tslint:disable-next-line:no-empty
+        finish: () => {
+          done();
+        }
+      })
     });
 
     it('should send out a patch for the move operation', () => {
