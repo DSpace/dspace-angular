@@ -36,7 +36,8 @@
     <ds-item-edit-bitstream-bundle *ngFor="let bundle of bundles"
                                    [bundle]="bundle"
                                    [item]="item"
-                                   [columnSizes]="columnSizes">
+                                   [columnSizes]="columnSizes"
+                                   (dropObject)="dropBitstream(bundle, $event)">
     </ds-item-edit-bitstream-bundle>
   </div>
   <div *ngIf="bundles?.length === 0"
