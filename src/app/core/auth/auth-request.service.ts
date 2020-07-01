@@ -1,10 +1,8 @@
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
 import { AuthGetRequest, AuthPostRequest, GetRequest, PostRequest, RestRequest } from '../data/request.models';
 import { AuthStatusResponse, ErrorResponse } from '../cache/response.models';
@@ -17,8 +15,7 @@ export class AuthRequestService {
   protected linkName = 'authn';
   protected browseEndpoint = '';
 
-  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected halService: HALEndpointService,
+  constructor(protected halService: HALEndpointService,
               protected requestService: RequestService,
               private http: HttpClient) {
   }
@@ -69,5 +66,4 @@ export class AuthRequestService {
       mergeMap((request: GetRequest) => this.fetchRequest(request)),
       distinctUntilChanged());
   }
-
 }

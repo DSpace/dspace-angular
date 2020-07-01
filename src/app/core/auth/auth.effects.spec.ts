@@ -1,9 +1,9 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, flush, TestBed } from '@angular/core/testing';
 
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Store } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { cold, hot } from 'jasmine-marbles';
-
 import { Observable, of as observableOf, throwError as observableThrow } from 'rxjs';
 
 import { AuthEffects } from './auth.effects';
@@ -27,42 +27,55 @@ import {
   RetrieveAuthMethodsSuccessAction,
   RetrieveTokenAction
 } from './auth.actions';
-import { authMethodsMock, AuthServiceStub } from '../../shared/testing/auth-service-stub';
+import { authMethodsMock, AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from './auth.service';
-import { AuthState } from './auth.reducer';
-import { EPersonMock } from '../../shared/testing/eperson-mock';
+import { authReducer } from './auth.reducer';
 import { AuthStatus } from './models/auth-status.model';
+import { EPersonMock } from '../../shared/testing/eperson.mock';
+import { AppState, storeModuleConfig } from '../../app.reducer';
+import { StoreActionTypes } from '../../store.actions';
+import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;
   let actions: Observable<any>;
   let authServiceStub;
-  const store: Store<AuthState> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
-    dispatch: {},
-    /* tslint:enable:no-empty */
-    select: observableOf(true)
-  });
+  let initialState;
   let token;
+  let store: MockStore<AppState>;
 
   function init() {
     authServiceStub = new AuthServiceStub();
     token = authServiceStub.getToken();
+    initialState = {
+      core: {
+        auth: {
+          authenticated: false,
+          loaded: false,
+          loading: false,
+          authMethods: []
+        }
+      }
+    };
   }
 
   beforeEach(() => {
     init();
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig)
+      ],
       providers: [
         AuthEffects,
+        provideMockStore({ initialState }),
         { provide: AuthService, useValue: authServiceStub },
-        { provide: Store, useValue: store },
         provideMockActions(() => actions),
         // other providers
       ],
     });
 
     authEffects = TestBed.get(AuthEffects);
+    store = TestBed.get(Store);
   });
 
   describe('authenticate$', () => {
@@ -137,7 +150,8 @@ describe('AuthEffects', () => {
 
   describe('authenticatedSuccess$', () => {
 
-    it('should return a RETRIEVE_AUTHENTICATED_EPERSON action in response to a AUTHENTICATED_SUCCESS action', () => {
+    it('should return a RETRIEVE_AUTHENTICATED_EPERSON action in response to a AUTHENTICATED_SUCCESS action', (done) => {
+      spyOn((authEffects as any).authService, 'storeToken');
       actions = hot('--a-', {
         a: {
           type: AuthActionTypes.AUTHENTICATED_SUCCESS, payload: {
@@ -150,8 +164,14 @@ describe('AuthEffects', () => {
 
       const expected = cold('--b-', { b: new RetrieveAuthenticatedEpersonAction(EPersonMock._links.self.href) });
 
+      authEffects.authenticatedSuccess$.subscribe(() => {
+        expect(authServiceStub.storeToken).toHaveBeenCalledWith(token);
+      });
+
       expect(authEffects.authenticatedSuccess$).toBeObservable(expected);
+      done();
     });
+
   });
 
   describe('checkToken$', () => {
@@ -234,7 +254,7 @@ describe('AuthEffects', () => {
           }
         });
 
-        const expected = cold('--b-', { b: new RetrieveAuthenticatedEpersonSuccessAction(EPersonMock) });
+        const expected = cold('--b-', { b: new RetrieveAuthenticatedEpersonSuccessAction(EPersonMock.id) });
 
         expect(authEffects.retrieveAuthenticatedEperson$).toBeObservable(expected);
       });
@@ -360,5 +380,41 @@ describe('AuthEffects', () => {
         expect(authEffects.retrieveMethods$).toBeObservable(expected);
       });
     })
+  });
+
+  describe('clearInvalidTokenOnRehydrate$', () => {
+
+    beforeEach(() => {
+      store.overrideSelector(isAuthenticated, false);
+    });
+
+    describe('when auth loaded is false', () => {
+      it('should not call removeToken method', (done) => {
+        store.overrideSelector(isAuthenticatedLoaded, false);
+        actions = hot('--a-|', { a: { type: StoreActionTypes.REHYDRATE } });
+        spyOn(authServiceStub, 'removeToken');
+
+        authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
+          expect(authServiceStub.removeToken).not.toHaveBeenCalled();
+
+        });
+
+        done();
+      });
+    });
+
+    describe('when auth loaded is true', () => {
+      it('should call removeToken method', fakeAsync(() => {
+        store.overrideSelector(isAuthenticatedLoaded, true);
+        actions = hot('--a-|', { a: { type: StoreActionTypes.REHYDRATE } });
+        spyOn(authServiceStub, 'removeToken');
+
+        authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
+          expect(authServiceStub.removeToken).toHaveBeenCalled();
+          flush();
+        });
+
+      }));
+    });
   });
 });

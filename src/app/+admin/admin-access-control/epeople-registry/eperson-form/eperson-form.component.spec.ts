@@ -22,15 +22,17 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../../shared/mocks/mock-form-builder-service';
-import { getMockTranslateService } from '../../../../shared/mocks/mock-translate.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { EPersonMock, EPersonMock2 } from '../../../../shared/testing/eperson-mock';
-import { MockTranslateLoader } from '../../../../shared/testing/mock-translate-loader';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';
+import { EPersonMock, EPersonMock2 } from '../../../../shared/testing/eperson.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../../shared/testing/auth-service.stub';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -40,6 +42,7 @@ describe('EPersonFormComponent', () => {
 
   let mockEPeople;
   let ePersonDataServiceStub: any;
+  let authService: AuthServiceStub;
 
   beforeEach(async(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
@@ -104,12 +107,13 @@ describe('EPersonFormComponent', () => {
     };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
+    authService = new AuthServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],
@@ -125,6 +129,7 @@ describe('EPersonFormComponent', () => {
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
+        { provide: AuthService, useValue: authService },
         EPeopleRegistryComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -225,6 +230,42 @@ describe('EPersonFormComponent', () => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
         });
       }));
+    });
+  });
+
+  describe('impersonate', () => {
+    let ePersonId;
+
+    beforeEach(() => {
+      spyOn(authService, 'impersonate').and.callThrough();
+      ePersonId = 'testEPersonId';
+      component.epersonInitial = Object.assign(new EPerson(), {
+        id: ePersonId
+      });
+      component.impersonate();
+    });
+
+    it('should call authService.impersonate', () => {
+      expect(authService.impersonate).toHaveBeenCalledWith(ePersonId);
+    });
+
+    it('should set isImpersonated to true', () => {
+      expect(component.isImpersonated).toBe(true);
+    });
+  });
+
+  describe('stopImpersonating', () => {
+    beforeEach(() => {
+      spyOn(authService, 'stopImpersonatingAndRefresh').and.callThrough();
+      component.stopImpersonating();
+    });
+
+    it('should call authService.stopImpersonatingAndRefresh', () => {
+      expect(authService.stopImpersonatingAndRefresh).toHaveBeenCalled();
+    });
+
+    it('should set isImpersonated to false', () => {
+      expect(component.isImpersonated).toBe(false);
     });
   });
 

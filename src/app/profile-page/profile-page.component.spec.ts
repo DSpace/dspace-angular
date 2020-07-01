@@ -5,45 +5,62 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EPerson } from '../core/eperson/models/eperson.model';
-import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { authReducer } from '../core/auth/auth.reducer';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { createPaginatedList } from '../shared/testing/utils.test';
+import { of } from 'rxjs/internal/observable/of';
+import { AuthService } from '../core/auth/auth.service';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
   let fixture: ComponentFixture<ProfilePageComponent>;
+  let user;
+  let authState;
 
-  const user = Object.assign(new EPerson(), {
-    groups: createSuccessfulRemoteDataObject$(createPaginatedList([]))
-  });
-  const authState = {
-    authenticated: true,
-    loaded: true,
-    loading: false,
-    authToken: new AuthTokenInfo('test_token'),
-    user: user
-  };
+  let authService;
+  let epersonService;
+  let notificationsService;
 
-  const epersonService = jasmine.createSpyObj('epersonService', {
-    findById: createSuccessfulRemoteDataObject$(user)
-  });
-  const notificationsService = jasmine.createSpyObj('notificationsService', {
-    success: {},
-    error: {},
-    warning: {}
-  });
+  function init() {
+    user = Object.assign(new EPerson(), {
+      id: 'userId',
+      groups: createSuccessfulRemoteDataObject$(createPaginatedList([]))
+    });
+    authState = {
+      authenticated: true,
+      loaded: true,
+      loading: false,
+      authToken: new AuthTokenInfo('test_token'),
+      userId: user.id
+    };
+
+    authService = jasmine.createSpyObj('authService', {
+      getAuthenticatedUserFromStore: of(user)
+    });
+    epersonService = jasmine.createSpyObj('epersonService', {
+      findById: createSuccessfulRemoteDataObject$(user)
+    });
+    notificationsService = jasmine.createSpyObj('notificationsService', {
+      success: {},
+      error: {},
+      warning: {}
+    });
+  }
 
   beforeEach(async(() => {
+    init();
     TestBed.configureTestingModule({
       declarations: [ProfilePageComponent, VarDirective],
       imports: [StoreModule.forRoot(authReducer), TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
-        { provide: NotificationsService, useValue: notificationsService }
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: AuthService, useValue: authService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

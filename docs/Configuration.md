@@ -1,23 +1,23 @@
 # Configuration
 
-Default configuration file is located in `config/` folder. All configuration options should be listed in the default configuration file `config/environment.default.js`. Please do not change this file directly! To change the default configuration values, create local files that override the parameters you need to change:
+Default configuration file is located in `src/environments/` folder. All configuration options should be listed in the default configuration file `src/environments/environment.common.ts`. Please do not change this file directly! To change the default configuration values, create local files that override the parameters you need to change. You can use `environment.template.ts` as a starting point.
 
--	Create a new `environment.dev.js` file in `config/` for `devel` environment;
--	Create a new `environment.prod.js` file in `config/` for `production` environment;
+-	Create a new `environment.dev.ts` file in `src/environments/` for `development` environment;
+-	Create a new `environment.prod.ts` file in `src/environments/` for `production` environment;
 
 Some few configuration options can be overridden by setting environment variables. These and the variable names are listed below.
 
 ## Nodejs server
-When you start dspace-angular on node, it spins up an http server on which it listens for incoming connections. You can define the ip address and port the server should bind itsself to, and if ssl should be enabled not. By default it listens on `localhost:3000`. If you want it to listen on all your network connections, configure it to bind itself to `0.0.0.0`.
+When you start dspace-angular on node, it spins up an http server on which it listens for incoming connections. You can define the ip address and port the server should bind itsself to, and if ssl should be enabled not. By default it listens on `localhost:4000`. If you want it to listen on all your network connections, configure it to bind itself to `0.0.0.0`.
 
 To change this configuration, change the options `ui.host`, `ui.port` and `ui.ssl` in the appropriate configuration file (see above):
 ```
-module.exports = {
-  // Angular Universal server settings.
+export const environment = {
+  // Angular UI settings.
   ui: {
     ssl: false,
     host: 'localhost',
-    port: 3000,
+    port: 4000,
     nameSpace: '/'
   }
 };
@@ -27,7 +27,7 @@ Alternately you can set the following environment variables. If any of these are
 ```
   DSPACE_SSL=true
   DSPACE_HOST=localhost
-  DSPACE_PORT=3000
+  DSPACE_PORT=4000
   DSPACE_NAMESPACE=/
 ```
 
@@ -35,14 +35,14 @@ Alternately you can set the following environment variables. If any of these are
 dspace-angular connects to your DSpace installation by using its REST endpoint. To do so, you have to define the ip address, port and if ssl should be enabled. You can do this in a configuration file (see above) by adding the following options:
 
 ```
-module.exports = {
+export const environment = {
   // The REST API server settings.
   rest: {
     ssl: true,
-    host: 'dspace7.4science.it',
+    host: 'dspace7.4science.cloud',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    nameSpace: '/dspace-spring-rest/api'
+    nameSpace: '/server/api'
   }
 };
 ```
@@ -50,9 +50,9 @@ module.exports = {
 Alternately you can set the following environment variables. If any of these are set, it will override all configuration files:
 ```
   DSPACE_REST_SSL=true
-  DSPACE_REST_HOST=localhost
-  DSPACE_REST_PORT=3000
-  DSPACE_REST_NAMESPACE=/
+  DSPACE_REST_HOST=dspace7.4science.cloud
+  DSPACE_REST_PORT=443
+  DSPACE_REST_NAMESPACE=/server/api
 ```
 
 ## Supporting analytics services other than Google Analytics

@@ -26,7 +26,7 @@ import {
   SetRedirectUrlAction
 } from './auth.actions';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { EPersonMock } from '../../shared/testing/eperson-mock';
+import { EPersonMock } from '../../shared/testing/eperson.mock';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
@@ -189,7 +189,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EPersonMock
+      userId: EPersonMock.id
     };
 
     const action = new LogOutAction();
@@ -206,7 +206,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EPersonMock
+      userId: EPersonMock.id
     };
 
     const action = new LogOutSuccessAction();
@@ -219,7 +219,7 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       refreshing: false,
-      user: undefined
+      userId: undefined
     };
     expect(newState).toEqual(state);
   });
@@ -232,7 +232,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EPersonMock
+      userId: EPersonMock.id
     };
 
     const action = new LogOutErrorAction(mockError);
@@ -244,7 +244,7 @@ describe('authReducer', () => {
       error: 'Test error message',
       loading: false,
       info: undefined,
-      user: EPersonMock
+      userId: EPersonMock.id
     };
     expect(newState).toEqual(state);
   });
@@ -258,7 +258,7 @@ describe('authReducer', () => {
       loading: true,
       info: undefined
     };
-    const action = new RetrieveAuthenticatedEpersonSuccessAction(EPersonMock);
+    const action = new RetrieveAuthenticatedEpersonSuccessAction(EPersonMock.id);
     const newState = authReducer(initialState, action);
     state = {
       authenticated: true,
@@ -267,7 +267,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EPersonMock
+      userId: EPersonMock.id
     };
     expect(newState).toEqual(state);
   });
@@ -301,7 +301,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EPersonMock
+      userId: EPersonMock.id
     };
     const newTokenInfo = new AuthTokenInfo('Refreshed token');
     const action = new RefreshTokenAction(newTokenInfo);
@@ -313,7 +313,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EPersonMock,
+      userId: EPersonMock.id,
       refreshing: true
     };
     expect(newState).toEqual(state);
@@ -327,7 +327,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EPersonMock,
+      userId: EPersonMock.id,
       refreshing: true
     };
     const newTokenInfo = new AuthTokenInfo('Refreshed token');
@@ -340,7 +340,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EPersonMock,
+      userId: EPersonMock.id,
       refreshing: false
     };
     expect(newState).toEqual(state);
@@ -354,7 +354,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EPersonMock,
+      userId: EPersonMock.id,
       refreshing: true
     };
     const action = new RefreshTokenErrorAction();
@@ -367,7 +367,7 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       refreshing: false,
-      user: undefined
+      userId: undefined
     };
     expect(newState).toEqual(state);
   });
@@ -380,7 +380,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EPersonMock
+      userId: EPersonMock.id
     };
 
     state = {
@@ -390,7 +390,7 @@ describe('authReducer', () => {
       loading: false,
       error: undefined,
       info: 'Message',
-      user: undefined
+      userId: undefined
     };
   });
 

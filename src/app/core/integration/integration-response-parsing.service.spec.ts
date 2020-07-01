@@ -1,5 +1,4 @@
 import { Store } from '@ngrx/store';
-import { GlobalConfig } from '../../../config/global-config.interface';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ErrorResponse, IntegrationSuccessResponse } from '../cache/response.models';
@@ -13,7 +12,6 @@ import { AuthorityValue } from './models/authority.value';
 describe('IntegrationResponseParsingService', () => {
   let service: IntegrationResponseParsingService;
 
-  const EnvConfig = {} as GlobalConfig;
   const store = {} as Store<CoreState>;
   const objectCacheService = new ObjectCacheService(store, undefined);
   const name = 'type';
@@ -198,7 +196,7 @@ describe('IntegrationResponseParsingService', () => {
   }
   beforeEach(() => {
     initVars();
-    service = new IntegrationResponseParsingService(EnvConfig, objectCacheService);
+    service = new IntegrationResponseParsingService(objectCacheService);
   });
 
   describe('parse', () => {

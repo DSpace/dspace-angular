@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
@@ -35,6 +35,13 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    * The bootstrap sizes used for the columns within this table
    */
   @Input() columnSizes: ResponsiveTableSizes;
+
+  /**
+   * Send an event when the user drops an object on the pagination
+   * The event contains details about the index the object came from and is dropped to (across the entirety of the list,
+   * not just within a single page)
+   */
+  @Output() dropObject: EventEmitter<any> = new EventEmitter<any>();
 
   /**
    * The bootstrap sizes used for the Bundle Name column

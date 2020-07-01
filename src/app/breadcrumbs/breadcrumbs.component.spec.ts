@@ -5,10 +5,13 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MockTranslateLoader } from '../shared/testing/mock-translate-loader';
+import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
 import { BreadcrumbConfig } from './breadcrumb/breadcrumb-config.model';
 import { BreadcrumbsService } from '../core/breadcrumbs/breadcrumbs.service';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { VarDirective } from '../shared/utils/var.directive';
 import { getTestScheduler } from 'jasmine-marbles';
 
 class TestBreadcrumbsService implements BreadcrumbsService<string> {
@@ -64,17 +67,16 @@ describe('BreadcrumbsComponent', () => {
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [BreadcrumbsComponent],
+      declarations: [BreadcrumbsComponent, VarDirective],
       imports: [RouterTestingModule.withRoutes([]), TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: MockTranslateLoader
+          useClass: TranslateLoaderMock
         }
-      })],
+      }), NgbModule],
       providers: [
-        { provide: ActivatedRoute, useValue: route }
-
-      ]
+        {provide: ActivatedRoute, useValue: route}
+      ], schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   }));
@@ -92,14 +94,16 @@ describe('BreadcrumbsComponent', () => {
 
   describe('ngOnInit', () => {
     beforeEach(() => {
-      spyOn(component, 'resolveBreadcrumbs').and.returnValue(observableOf([]))
+      spyOn(component, 'resolveBreadcrumbs').and.returnValue(observableOf([]));
     });
 
     it('should call resolveBreadcrumb on init', () => {
       router.events = observableOf(new NavigationEnd(0, '', ''));
       component.ngOnInit();
+      fixture.detectChanges();
+
       expect(component.resolveBreadcrumbs).toHaveBeenCalledWith(route.root);
-    })
+    });
   });
 
   describe('resolveBreadcrumbs', () => {

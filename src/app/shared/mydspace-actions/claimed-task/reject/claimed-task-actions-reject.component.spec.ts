@@ -7,7 +7,7 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ClaimedTaskActionsRejectComponent } from './claimed-task-actions-reject.component';
-import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
@@ -32,7 +32,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         })
       ],

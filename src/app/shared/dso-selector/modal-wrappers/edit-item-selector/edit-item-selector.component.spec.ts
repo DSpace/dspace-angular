@@ -7,10 +7,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EditItemSelectorComponent } from './edit-item-selector.component';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { RouterStub } from '../../../testing/router-stub';
+import { RouterStub } from '../../../testing/router.stub';
 import * as itemRouter from '../../../../+item-page/item-page-routing.module';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 
 describe('EditItemSelectorComponent', () => {
   let component: EditItemSelectorComponent;
@@ -33,7 +33,15 @@ describe('EditItemSelectorComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
         {
           provide: ActivatedRoute,
-          useValue: { root: { firstChild: { firstChild: { data: observableOf({ item: itemRD }) } } } }
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: itemRD,
+                },
+              },
+            }
+          },
         },
         {
           provide: Router, useValue: router

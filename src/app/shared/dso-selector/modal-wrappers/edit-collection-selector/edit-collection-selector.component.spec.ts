@@ -5,12 +5,12 @@ import { of as observableOf } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { RouterStub } from '../../../testing/router-stub';
+import { RouterStub } from '../../../testing/router.stub';
 import * as collectionRouter from '../../../../+collection-page/collection-page-routing.module';
 import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
 import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 
 describe('EditCollectionSelectorComponent', () => {
   let component: EditCollectionSelectorComponent;
@@ -33,7 +33,15 @@ describe('EditCollectionSelectorComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
         {
           provide: ActivatedRoute,
-          useValue: { root: { firstChild: { firstChild: { data: observableOf({ collection: collectionRD }) } } } }
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: collectionRD,
+                },
+              },
+            }
+          },
         },
         {
           provide: Router, useValue: router

@@ -10,17 +10,21 @@ import { BundleDataService } from '../../../../../core/data/bundle-data.service'
 import { createMockRDObs } from '../../item-bitstreams.component.spec';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../../../core/shared/bitstream-format.model';
-import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { take } from 'rxjs/operators';
 import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ResponsiveColumnSizes } from '../../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../../../shared/testing/utils.test';
+import { RequestService } from '../../../../../core/data/request.service';
 
 describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let comp: PaginatedDragAndDropBitstreamListComponent;
   let fixture: ComponentFixture<PaginatedDragAndDropBitstreamListComponent>;
   let objectUpdatesService: ObjectUpdatesService;
   let bundleService: BundleDataService;
+  let objectValuesPipe: ObjectValuesPipe;
+  let requestService: RequestService;
 
   const columnSizes = new ResponsiveTableSizes([
     new ResponsiveColumnSizes(2, 2, 3, 4, 4),
@@ -96,15 +100,24 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     );
 
     bundleService = jasmine.createSpyObj('bundleService', {
-      getBitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
+      getBitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
+      getBitstreamsEndpoint: observableOf('')
+    });
+
+    objectValuesPipe = new ObjectValuesPipe();
+
+    requestService = jasmine.createSpyObj('requestService', {
+      hasByHrefObservable: observableOf(true)
     });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [PaginatedDragAndDropBitstreamListComponent, VarDirective, ObjectValuesPipe],
+      declarations: [PaginatedDragAndDropBitstreamListComponent, VarDirective],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        { provide: BundleDataService, useValue: bundleService }
+        { provide: BundleDataService, useValue: bundleService },
+        { provide: ObjectValuesPipe, useValue: objectValuesPipe },
+        { provide: RequestService, useValue: requestService }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

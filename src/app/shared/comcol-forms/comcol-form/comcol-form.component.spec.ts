@@ -17,11 +17,12 @@ import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { Community } from '../../../core/shared/community.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { hasValue } from '../../empty.util';
-import { AuthServiceMock } from '../../mocks/mock-auth.service';
+import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { VarDirective } from '../../utils/var.directive';
 import { ComColFormComponent } from './comcol-form.component';
+import { Operation } from 'fast-json-patch';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<DSpaceObject>;
@@ -40,11 +41,8 @@ describe('ComColFormComponent', () => {
     }
   };
   const dcTitle = 'dc.title';
-  const dcRandom = 'dc.random';
   const dcAbstract = 'dc.description.abstract';
 
-  const titleMD = { [dcTitle]: [{ value: 'Community Title', language: null }] };
-  const randomMD = { [dcRandom]: [{ value: 'Random metadata excluded from form', language: null }] };
   const abstractMD = { [dcAbstract]: [{ value: 'Community description', language: null }] };
   const newTitleMD = { [dcTitle]: [{ value: 'New Community Title', language: null }] };
   const formModel = [
@@ -112,33 +110,47 @@ describe('ComColFormComponent', () => {
       });
 
       it('should emit the new version of the community', () => {
-        comp.dso = Object.assign(
-          new Community(),
-          {
-            metadata: {
-              ...titleMD,
-              ...randomMD
-            }
-          }
-        );
+        comp.dso = new Community();
         comp.onSubmit();
+
+        const operations: Operation[] = [
+          {
+            op: 'replace',
+            path: '/metadata/dc.title',
+            value: {
+              value: 'New Community Title',
+              language: null,
+            },
+          },
+          {
+            op: 'replace',
+            path: '/metadata/dc.description.abstract',
+            value: {
+              value: 'Community description',
+              language: null,
+            },
+          },
+        ];
 
         expect(comp.submitForm.emit).toHaveBeenCalledWith(
           {
-            dso: Object.assign(
-              {},
-              new Community(),
-              {
+            dso: Object.assign({}, comp.dso, {
                 metadata: {
-                  ...newTitleMD,
-                  ...randomMD,
-                  ...abstractMD
+                  'dc.title': [{
+                    value: 'New Community Title',
+                    language: null,
+                  }],
+                  'dc.description.abstract': [{
+                    value: 'Community description',
+                    language: null,
+                  }],
                 },
-                type: Community.type
-              },
+                type: Community.type,
+              }
             ),
             uploader: undefined,
-            deleteLogo: false
+            deleteLogo: false,
+            operations: operations,
           }
         );
       })
@@ -163,11 +175,6 @@ describe('ComColFormComponent', () => {
 
       it('should emit finish', () => {
         expect(comp.finish.emit).toHaveBeenCalled();
-      });
-
-      it('should remove the object\'s cache', () => {
-        expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalled();
-        expect(objectCacheStub.remove).toHaveBeenCalled();
       });
     });
 
@@ -238,6 +245,11 @@ describe('ComColFormComponent', () => {
 
           it('should display a success notification', () => {
             expect(notificationsService.success).toHaveBeenCalled();
+          });
+
+          it('should remove the object\'s cache', () => {
+            expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalled();
+            expect(objectCacheStub.remove).toHaveBeenCalled();
           });
         });
 
@@ -318,7 +330,6 @@ describe('ComColFormComponent', () => {
     (comp as any).type = Community.type;
     comp.uploaderComponent = {uploader: {}} as any;
 
-    console.log(comp);
     (comp as any).dsoService = dsoService;
     fixture.detectChanges();
     location = (comp as any).location;

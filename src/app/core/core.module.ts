@@ -4,10 +4,10 @@ import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core
 
 import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 
+import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
-import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
+
 import { isNotEmpty } from '../shared/empty.util';
 import { FormBuilderService } from '../shared/form/builder/form-builder.service';
 import { FormService } from '../shared/form/form.service';
@@ -16,9 +16,9 @@ import { MenuService } from '../shared/menu/menu.service';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest-v2/endpoint-mocking-rest.service';
 import {
   MOCK_RESPONSE_MAP,
-  MockResponseMap,
+  ResponseMapMock,
   mockResponseMap
-} from '../shared/mocks/dspace-rest-v2/mocks/mock-response-map';
+} from '../shared/mocks/dspace-rest-v2/mocks/response-map.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
@@ -44,7 +44,7 @@ import { SubmissionDefinitionsConfigService } from './config/submission-definiti
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
 import { coreEffects } from './core.effects';
-import { coreReducers } from './core.reducers';
+import { coreReducers, CoreState } from './core.reducers';
 import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
 import { BrowseEntriesResponseParsingService } from './data/browse-entries-response-parsing.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
@@ -69,16 +69,11 @@ import { ItemDataService } from './data/item-data.service';
 import { LicenseDataService } from './data/license-data.service';
 import { LookupRelationService } from './data/lookup-relation.service';
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
-import { MetadatafieldParsingService } from './data/metadatafield-parsing.service';
-import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
-import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
-import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
-import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
 import { RelationshipTypeService } from './data/relationship-type.service';
 import { RelationshipService } from './data/relationship.service';
-import { ResourcePolicyService } from './data/resource-policy.service';
+import { ResourcePolicyService } from './resource-policy/resource-policy.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { SiteDataService } from './data/site-data.service';
 import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
@@ -116,7 +111,7 @@ import { RelationshipType } from './shared/item-relationships/relationship-type.
 import { Relationship } from './shared/item-relationships/relationship.model';
 import { Item } from './shared/item.model';
 import { License } from './shared/license.model';
-import { ResourcePolicy } from './shared/resource-policy.model';
+import { ResourcePolicy } from './resource-policy/models/resource-policy.model';
 import { SearchConfigurationService } from './shared/search/search-configuration.service';
 import { SearchFilterService } from './shared/search/search-filter.service';
 import { SearchService } from './shared/search/search.service';
@@ -137,6 +132,8 @@ import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
 import { ArrayMoveChangeAnalyzer } from './data/array-move-change-analyzer.service';
 import { BitstreamDataService } from './data/bitstream-data.service';
+import { environment } from '../../environments/environment';
+import { storeModuleConfig } from '../app.reducer';
 import { VersionDataService } from './data/version-data.service';
 import { VersionHistoryDataService } from './data/version-history-data.service';
 import { Version } from './shared/version.model';
@@ -145,22 +142,24 @@ import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { ItemTemplateDataService } from './data/item-template-data.service';
 import { TemplateItem } from './shared/template-item.model';
+import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
+import { MetadataFieldDataService } from './data/metadata-field-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
  * If there is no mock version available for the endpoint, the actual REST response will be used just like in production mode
  */
-export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
-  if (ENV_CONFIG.production) {
+export const restServiceFactory = (mocks: ResponseMapMock, http: HttpClient) => {
+  if (environment.production) {
     return new DSpaceRESTv2Service(http);
   } else {
-    return new EndpointMockingRestService(cfg, mocks, http);
+    return new EndpointMockingRestService(mocks, http);
   }
 };
 
 const IMPORTS = [
   CommonModule,
-  StoreModule.forFeature('core', coreReducers, {}),
+  StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
   EffectsModule.forFeature(coreEffects)
 ];
 
@@ -178,11 +177,7 @@ const PROVIDERS = [
   SiteDataService,
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
-  {
-    provide: DSpaceRESTv2Service,
-    useFactory: restServiceFactory,
-    deps: [GLOBAL_CONFIG, MOCK_RESPONSE_MAP, HttpClient]
-  },
+  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient]},
   DynamicFormLayoutService,
   DynamicFormService,
   DynamicFormValidationService,
@@ -205,9 +200,6 @@ const PROVIDERS = [
   FacetValueResponseParsingService,
   FacetValueMapResponseParsingService,
   FacetConfigResponseParsingService,
-  RegistryMetadataschemasResponseParsingService,
-  RegistryMetadatafieldsResponseParsingService,
-  RegistryBitstreamformatsResponseParsingService,
   MappedCollectionsReponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
@@ -227,8 +219,6 @@ const PROVIDERS = [
   JsonPatchOperationsBuilder,
   AuthorityService,
   IntegrationResponseParsingService,
-  MetadataschemaParsingService,
-  MetadatafieldParsingService,
   UploaderService,
   UUIDService,
   NotificationsService,
@@ -269,6 +259,8 @@ const PROVIDERS = [
   LicenseDataService,
   ItemTypeDataService,
   WorkflowActionDataService,
+  MetadataSchemaDataService,
+  MetadataFieldDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

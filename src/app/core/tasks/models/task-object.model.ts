@@ -67,7 +67,8 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
    * Will be undefined unless the workflowitem {@link HALLink} has been resolved.
    */
   @link(WORKFLOWITEM)
-  workflowitem?: Observable<RemoteData<WorkflowItem>> | WorkflowItem;
+  /* This was changed from 'WorkflowItem | Observable<RemoteData<WorkflowItem>>' to 'any' to prevent issues in templates with async */
+  workflowitem?: any;
 
   /**
    * The task action type

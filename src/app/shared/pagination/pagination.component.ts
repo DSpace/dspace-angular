@@ -150,7 +150,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * A number array that represents options for a context pagination limit.
    */
-  private pageSizeOptions: number[];
+  public pageSizeOptions: number[];
 
   /**
    * Direction in which to sort: ascending or descending

@@ -11,9 +11,8 @@ import {
   DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 
-import { createTestComponent } from '../../../../../shared/testing/utils';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service-stub';
+import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../../../../submission.service';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
@@ -23,14 +22,13 @@ import {
   mockSubmissionId,
   mockUploadConfigResponse,
   mockUploadFiles
-} from '../../../../../shared/mocks/mock-submission';
+} from '../../../../../shared/mocks/submission.mock';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
-import { GLOBAL_CONFIG } from '../../../../../../config';
-import { MOCK_SUBMISSION_CONFIG } from '../../../../../shared/testing/mock-submission-config';
-import { getMockFormService } from '../../../../../shared/mocks/mock-form-service';
+import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
 import { Group } from '../../../../../core/eperson/models/group.model';
+import { createTestComponent } from '../../../../../shared/testing/utils.test';
 
 describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
@@ -40,7 +38,6 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   let submissionServiceStub: SubmissionServiceStub;
   let formbuilderService: any;
 
-  const config = MOCK_SUBMISSION_CONFIG;
   const submissionId = mockSubmissionId;
   const sectionId = 'upload';
   const collectionId = mockSubmissionCollectionId;
@@ -70,7 +67,6 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         TestComponent
       ],
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: config },
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         FormBuilderService,

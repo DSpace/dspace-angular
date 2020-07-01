@@ -34,17 +34,17 @@ import Spy = jasmine.Spy;
 import { PaginationComponent } from './pagination.component';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 
-import { MockTranslateLoader } from '../mocks/mock-translate-loader';
-import { MockHostWindowService } from '../mocks/mock-host-window-service';
-import { MockActivatedRoute } from '../mocks/mock-active-router';
-import { MockRouter } from '../mocks/mock-router';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { HostWindowServiceMock } from '../mocks/host-window-service.mock';
+import { MockActivatedRoute } from '../mocks/active-router.mock';
+import { RouterMock } from '../mocks/router.mock';
 
 import { HostWindowService } from '../host-window.service';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 
-import { GLOBAL_CONFIG, ENV_CONFIG } from '../../../config';
-import { createTestComponent } from '../testing/utils';
+import { createTestComponent } from '../testing/utils.test';
+import { storeModuleConfig } from '../../app.reducer';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
@@ -114,10 +114,10 @@ describe('Pagination component', () => {
   let testFixture: ComponentFixture<TestComponent>;
   let de: DebugElement;
   let html;
-  let hostWindowServiceStub: MockHostWindowService;
+  let hostWindowServiceStub: HostWindowServiceMock;
 
   let activatedRouteStub: MockActivatedRoute;
-  let routerStub: MockRouter;
+  let routerStub: RouterMock;
 
   // Define initial state and test state
   const _initialState = { width: 1600, height: 770 };
@@ -125,17 +125,17 @@ describe('Pagination component', () => {
   // async beforeEach
   beforeEach(async(() => {
     activatedRouteStub = new MockActivatedRoute();
-    routerStub = new MockRouter();
-    hostWindowServiceStub = new MockHostWindowService(_initialState.width);
+    routerStub = new RouterMock();
+    hostWindowServiceStub = new HostWindowServiceMock(_initialState.width);
 
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        StoreModule.forRoot({}),
+        StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
         NgxPaginationModule,
@@ -150,7 +150,6 @@ describe('Pagination component', () => {
       ], // declare the test component
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: Router, useValue: routerStub },
         { provide: HostWindowService, useValue: hostWindowServiceStub },
         ChangeDetectorRef,

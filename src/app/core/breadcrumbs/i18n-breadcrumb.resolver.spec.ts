@@ -14,7 +14,7 @@ describe('I18nBreadcrumbResolver', () => {
     });
 
     it('should resolve the breadcrumb config', () => {
-      const resolvedConfig = resolver.resolve({ data: { breadcrumbKey: i18nKey }, url: [path] } as any, {} as any);
+      const resolvedConfig = resolver.resolve({ data: { breadcrumbKey: i18nKey }, url: [path], pathFromRoot: [{ url: [path] }] } as any, {} as any);
       const expectedConfig = { provider: i18nBreadcrumbService, key: i18nKey, url: path };
       expect(resolvedConfig).toEqual(expectedConfig);
     });

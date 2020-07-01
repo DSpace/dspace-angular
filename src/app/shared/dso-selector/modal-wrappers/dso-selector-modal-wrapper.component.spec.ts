@@ -14,7 +14,7 @@ import { By } from '@angular/platform-browser';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import { MockComponent } from 'ng-mocks';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 
 describe('DSOSelectorModalWrapperComponent', () => {
   let component: DSOSelectorModalWrapperComponent;
@@ -41,8 +41,16 @@ describe('DSOSelectorModalWrapperComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
         {
           provide: ActivatedRoute,
-          useValue: { root: { firstChild: { firstChild: { data: observableOf({ item: itemRD }) } } } }
-        }
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: itemRD,
+                },
+              },
+            }
+          }
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -63,11 +71,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
   });
 
   it('should initially set the DSO to the activated route\'s item/collection/community', () => {
-    component.dsoRD$
-      .pipe(first())
-      .subscribe((a) => {
-        expect(a).toEqual(itemRD);
-      })
+    expect(component.dsoRD).toEqual(itemRD);
   });
 
   describe('selectObject', () => {

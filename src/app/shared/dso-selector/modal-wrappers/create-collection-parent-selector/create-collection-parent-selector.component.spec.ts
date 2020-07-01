@@ -5,12 +5,12 @@ import { of as observableOf } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { RouterStub } from '../../../testing/router-stub';
+import { RouterStub } from '../../../testing/router.stub';
 import * as collectionRouter from '../../../../+collection-page/collection-page-routing.module';
 import { Community } from '../../../../core/shared/community.model';
 import { CreateCollectionParentSelectorComponent } from './create-collection-parent-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 
 describe('CreateCollectionParentSelectorComponent', () => {
   let component: CreateCollectionParentSelectorComponent;
@@ -39,7 +39,15 @@ describe('CreateCollectionParentSelectorComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
         {
           provide: ActivatedRoute,
-          useValue: { root: { firstChild: { firstChild: { data: observableOf({ community: communityRD }) } } } }
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: communityRD,
+                },
+              },
+            }
+          },
         },
         {
           provide: Router, useValue: router

@@ -5,15 +5,16 @@ import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { authReducer, AuthState } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson-mock';
+import { EPersonMock } from '../testing/eperson.mock';
 import { TranslateModule } from '@ngx-translate/core';
-import { AppState } from '../../app.reducer';
+import { AppState, storeModuleConfig } from '../../app.reducer';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';
-import { HostWindowServiceStub } from '../testing/host-window-service-stub';
+import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { HostWindowService } from '../host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { AuthService } from '../../core/auth/auth.service';
+import { of } from 'rxjs/internal/observable/of';
 
 describe('AuthNavMenuComponent', () => {
 
@@ -25,9 +26,19 @@ describe('AuthNavMenuComponent', () => {
   let notAuthState: AuthState;
   let authState: AuthState;
 
+  let authService: AuthService;
+
   let routerState = {
     url: '/home'
   };
+
+  function serviceInit() {
+    authService = jasmine.createSpyObj('authService', {
+      getAuthenticatedUserFromStore: of(EPersonMock),
+      setRedirectUrl: {}
+    });
+  }
+
   function init() {
     notAuthState = {
       authenticated: false,
@@ -39,19 +50,25 @@ describe('AuthNavMenuComponent', () => {
       loaded: true,
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
-      user: EPersonMock
+      userId: EPersonMock.id
     };
   }
   describe('when is a not mobile view', () => {
 
     beforeEach(async(() => {
       const window = new HostWindowServiceStub(800);
+      serviceInit();
 
       // refine the test module by declaring the test component
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          StoreModule.forRoot(authReducer),
+          StoreModule.forRoot(authReducer, {
+            runtimeChecks: {
+              strictStateImmutability: false,
+              strictActionImmutability: false
+            }
+          }),
           TranslateModule.forRoot()
         ],
         declarations: [
@@ -59,12 +76,7 @@ describe('AuthNavMenuComponent', () => {
         ],
         providers: [
           { provide: HostWindowService, useValue: window },
-          {
-            provide: AuthService, useValue: {
-              setRedirectUrl: () => { /*empty*/
-              }
-            }
-          }
+          { provide: AuthService, useValue: authService }
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA
@@ -239,12 +251,18 @@ describe('AuthNavMenuComponent', () => {
   describe('when is a mobile view', () => {
     beforeEach(async(() => {
       const window = new HostWindowServiceStub(300);
+      serviceInit();
 
       // refine the test module by declaring the test component
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          StoreModule.forRoot(authReducer),
+          StoreModule.forRoot(authReducer, {
+            runtimeChecks: {
+              strictStateImmutability: false,
+              strictActionImmutability: false
+            }
+          }),
           TranslateModule.forRoot()
         ],
         declarations: [
@@ -252,12 +270,7 @@ describe('AuthNavMenuComponent', () => {
         ],
         providers: [
           { provide: HostWindowService, useValue: window },
-          {
-            provide: AuthService, useValue: {
-              setRedirectUrl: () => { /*empty*/
-              }
-            }
-          }
+          { provide: AuthService, useValue: authService }
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA

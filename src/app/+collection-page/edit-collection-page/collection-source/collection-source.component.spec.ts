@@ -14,8 +14,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
 import { hasValue } from '../../../shared/empty.util';
 import { FormControl, FormGroup } from '@angular/forms';
-import { RouterStub } from '../../../shared/testing/router-stub';
-import { GLOBAL_CONFIG } from '../../../../config';
+import { RouterStub } from '../../../shared/testing/router.stub';
 import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -128,7 +127,6 @@ describe('CollectionSourceComponent', () => {
         { provide: DynamicFormService, useValue: formService },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: new RemoteData(false, false, true, null, collection) }) } } },
         { provide: Router, useValue: router },
-        { provide: GLOBAL_CONFIG, useValue: { collection: { edit: { undoTimeout: 10 } } } as any },
         { provide: CollectionDataService, useValue: collectionService },
         { provide: RequestService, useValue: requestService }
       ],

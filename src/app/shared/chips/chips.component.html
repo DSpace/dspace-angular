@@ -33,7 +33,7 @@
                  [authorityValue]="c.item[icon.metadata] || c.item"
                  [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"
                  aria-hidden="true"
-                 (dragstart)="tooltip.close();"
+                 (dragstart)="t.close();"
                  (mouseover)="showTooltip(t, i, icon.metadata)"
                  (mouseout)="t.close()"></i>
             </ng-container>

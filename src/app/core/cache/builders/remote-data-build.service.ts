@@ -8,7 +8,7 @@ import {
   isNotEmpty,
   isNotUndefined
 } from '../../../shared/empty.util';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
@@ -150,12 +150,7 @@ export class RemoteDataBuildService {
       filterSuccessfulResponses(),
       map((response: DSOSuccessResponse) => {
         if (hasValue((response as DSOSuccessResponse).pageInfo)) {
-          const resPageInfo = (response as DSOSuccessResponse).pageInfo;
-          if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
-            return Object.assign({}, resPageInfo, { currentPage: resPageInfo.currentPage + 1 });
-          } else {
-            return resPageInfo;
-          }
+          return (response as DSOSuccessResponse).pageInfo;
         }
       })
     );

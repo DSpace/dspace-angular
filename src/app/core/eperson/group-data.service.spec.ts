@@ -10,14 +10,8 @@ import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
 } from '../../+admin/admin-access-control/group-registry/group-registry.actions';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/mock-remote-data-build.service';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
-import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson-mock';
 import { GroupMock, GroupMock2 } from '../../shared/testing/group-mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
-import { SearchParam } from '../cache/models/search-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { PaginatedList } from '../data/paginated-list';
@@ -28,6 +22,12 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
 import { GroupDataService } from './group-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;
@@ -63,7 +63,7 @@ describe('GroupDataService', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: MockTranslateLoader
+            useClass: TranslateLoaderMock
           }
         }),
       ],
@@ -103,7 +103,7 @@ describe('GroupDataService', () => {
     it('search with empty query', () => {
       service.searchGroups('');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new SearchParam('query', ''))]
+        searchParams: [Object.assign(new RequestParam('query', ''))]
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options);
     });
@@ -111,7 +111,7 @@ describe('GroupDataService', () => {
     it('search with query', () => {
       service.searchGroups('test');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new SearchParam('query', 'test'))]
+        searchParams: [Object.assign(new RequestParam('query', 'test'))]
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options);
     });

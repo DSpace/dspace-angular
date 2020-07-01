@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CoreState } from '../core.reducers';

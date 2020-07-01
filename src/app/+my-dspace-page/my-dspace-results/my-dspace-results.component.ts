@@ -8,6 +8,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../../shared/empty.util';
 import { Context } from '../../core/shared/context.model';
 import { SearchResult } from '../../shared/search/search-result.model';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 
 /**
  * Component that represents all results for mydspace page
@@ -30,7 +31,7 @@ export class MyDSpaceResultsComponent {
   /**
    * The current configuration of the search
    */
-  @Input() searchConfig: SearchOptions;
+  @Input() searchConfig: PaginatedSearchOptions;
 
   /**
    * The current view mode for the search results

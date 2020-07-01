@@ -1,17 +1,17 @@
 import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ENV_CONFIG, GLOBAL_CONFIG } from '../../../config';
 import { ActivatedRoute } from '@angular/router';
 import * as decorator from './browse-by-decorator';
 import createSpy = jasmine.createSpy;
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { environment } from '../../../environments/environment';
 
 describe('BrowseBySwitcherComponent', () => {
   let comp: BrowseBySwitcherComponent;
   let fixture: ComponentFixture<BrowseBySwitcherComponent>;
 
-  const types = ENV_CONFIG.browseBy.types;
+  const types = environment.browseBy.types;
 
   const params = new BehaviorSubject(createParamsWithId('initialValue'));
 
@@ -23,7 +23,6 @@ describe('BrowseBySwitcherComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ BrowseBySwitcherComponent ],
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: ActivatedRoute, useValue: activatedRouteStub }
       ],
       schemas: [ NO_ERRORS_SCHEMA ]

@@ -15,22 +15,30 @@ describe('ProfilePageSecurityFormComponent', () => {
   let component: ProfilePageSecurityFormComponent;
   let fixture: ComponentFixture<ProfilePageSecurityFormComponent>;
 
-  const user = Object.assign(new EPerson(), {
-    _links: {
-      self: { href: 'user-selflink' }
-    }
-  });
+  let user;
 
-  const epersonService = jasmine.createSpyObj('epersonService', {
-    patch: observableOf(new RestResponse(true,  200, 'OK'))
-  });
-  const notificationsService = jasmine.createSpyObj('notificationsService', {
-    success: {},
-    error: {},
-    warning: {}
-  });
+  let epersonService;
+  let notificationsService;
+
+  function init() {
+    user = Object.assign(new EPerson(), {
+      _links: {
+        self: { href: 'user-selflink' }
+      }
+    });
+
+    epersonService = jasmine.createSpyObj('epersonService', {
+      patch: observableOf(new RestResponse(true, 200, 'OK'))
+    });
+    notificationsService = jasmine.createSpyObj('notificationsService', {
+      success: {},
+      error: {},
+      warning: {}
+    });
+  }
 
   beforeEach(async(() => {
+    init();
     TestBed.configureTestingModule({
       declarations: [ProfilePageSecurityFormComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],

@@ -16,14 +16,13 @@ import {
   FormRemoveAction, FormRemoveErrorAction,
   FormStatusChangeAction
 } from './form.actions';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { FormEntry } from './form.reducer';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FormService {
 
   constructor(
-    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
     private formBuilderService: FormBuilderService,
     private store: Store<AppState>) {
   }
@@ -147,11 +146,11 @@ export class FormService {
         validator = this.getValidatorNameFromMap(splitArray[splitArray.length - 1]);
       }
     }
-    return (this.config.form.validatorMap.hasOwnProperty(validator)) ? this.config.form.validatorMap[validator] : validator;
+    return (environment.form.validatorMap.hasOwnProperty(validator)) ? environment.form.validatorMap[validator] : validator;
   }
 
   public initForm(formId: string, model: DynamicFormControlModel[], valid: boolean) {
-    this.store.dispatch(new FormInitAction(formId, this.formBuilderService.getValueFromModel(model), valid))
+    this.store.dispatch(new FormInitAction(formId, this.formBuilderService.getValueFromModel(model), valid));
   }
 
   public setStatusChanged(formId: string, valid: boolean) {
