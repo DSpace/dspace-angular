@@ -1,0 +1,101 @@
+<div class="container">
+    <h2>{{'register-page.create-profile.header' | translate}}</h2>
+    <h4>{{'register-page.create-profile.identification.header' | translate}}</h4>
+    <div class="row">
+        <div class="col-12">
+            <label class="font-weight-bold"
+                   for="email">{{'register-page.create-profile.identification.email' | translate}}</label>
+            <span id="email">{{(registration$ |async).email}}</span></div>
+    </div>
+    <form [class]="'ng-invalid'" [formGroup]="userInfoForm" (ngSubmit)="submitEperson()">
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12">
+                    <label class="font-weight-bold"
+                           for="firstName">{{'register-page.create-profile.identification.first-name' | translate}}</label>
+                    <input [className]="(firstName.invalid) && (firstName.dirty || firstName.touched) ? 'form-control is-invalid' :'form-control'"
+                           type="text" id="firstName" formControlName="firstName"/>
+                    <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                         class="invalid-feedback show-feedback">
+                    <span *ngIf="firstName.errors && firstName.errors.required">
+                        {{ 'register-page.create-profile.identification.first-name.error' | translate }}
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label class="font-weight-bold"
+                           for="lastName">{{'register-page.create-profile.identification.last-name' | translate}}</label>
+                    <input
+                            [className]="(lastName.invalid) && (lastName.dirty || lastName.touched) ? 'form-control is-invalid' :'form-control'"
+                            id="lastName" formControlName="lastName">
+                    <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                         class="invalid-feedback show-feedback">
+                    <span *ngIf="lastName.errors && lastName.errors.required">
+                        {{ 'register-page.create-profile.identification.last-name.error' | translate }}
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label class="font-weight-bold"
+                           for="contactPhone">{{'register-page.create-profile.identification.contact' | translate}}</label>
+                    <input class="form-control" id="contactPhone" formControlName="contactPhone">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label class="font-weight-bold"
+                           for="language">{{'register-page.create-profile.identification.language' |translate}}</label>
+
+                    <select id="language" formControlName="language" class="form-control">
+                        <option [value]="''"></option>
+                        <option *ngFor="let lang of activeLangs" [value]="lang.code">{{lang.label}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <h4>{{'register-page.create-profile.security.header' | translate}}</h4>
+    <p>{{'register-page.create-profile.security.info' | translate}}</p>
+
+    <form class="form-horizontal" [formGroup]="passwordForm" (ngSubmit)="submitEperson()">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12">
+                    <label class="font-weight-bold" for="password">{{'register-page.create-profile.security.password' |translate}}</label>
+                    <input [type]="'password'"
+                           [className]="(!(isValidPassWord$|async)) && (password.dirty || password.touched) && (confirmPassword.dirty || confirmPassword.touched) ? 'form-control is-invalid' :'form-control'"
+                           type="text" id="password" formControlName="password"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label class="font-weight-bold" for="confirmPassword">{{'register-page.create-profile.security.confirm-password' |translate}}</label>
+                    <input [type]="'password'"
+                           [className]="(!(isValidPassWord$|async)) && (password.dirty || password.touched) && (confirmPassword.dirty || confirmPassword.touched) ? 'form-control is-invalid' :'form-control'"
+                           id="confirmPassword" formControlName="confirmPassword">
+                    <div *ngIf="!(isValidPassWord$|async) && (password.dirty || password.touched) && (confirmPassword.dirty || confirmPassword.touched)"
+                         class="invalid-feedback show-feedback">
+                        {{ 'register-page.create-profile.security.password.error' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-12">
+            <button
+                    [disabled]=" !(isValidPassWord$|async) || userInfoForm.invalid"
+                    class="btn btn-default btn-primary" (click)="submitEperson()">{{'register-page.create-profile.submit' | translate}}</button>
+        </div>
+    </div>
+
+
+</div>

@@ -271,18 +271,6 @@ export class AuthService {
   }
 
   /**
-   * Create a new user
-   * @returns {User}
-   */
-  public create(user: EPerson): Observable<EPerson> {
-    // Normally you would do an HTTP request to POST the user
-    // details and then return the new user object
-    // but, let's just return the new user for this example.
-    // this._authenticated = true;
-    return observableOf(user);
-  }
-
-  /**
    * End session
    * @returns {Observable<boolean>}
    */
