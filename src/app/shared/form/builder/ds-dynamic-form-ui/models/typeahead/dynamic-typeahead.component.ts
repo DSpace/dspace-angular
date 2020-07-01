@@ -2,13 +2,23 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, View
 import { FormGroup } from '@angular/forms';
 
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { catchError, debounceTime, distinctUntilChanged, filter, map, merge, switchMap, tap } from 'rxjs/operators';
-import { Observable, of as observableOf, Subject } from 'rxjs';
-import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  merge,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
+import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
+import { NgbModal, NgbModalRef, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
-import { isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
@@ -16,6 +26,9 @@ import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
@@ -40,10 +53,15 @@ export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent im
   click$ = new Subject<string>();
   currentValue: any;
   inputValue: any;
+  preloadLevel: number;
+
+  private vocabulary$: Observable<Vocabulary>;
+  private subs: Subscription[] = [];
 
   constructor(protected vocabularyService: VocabularyService,
-              private cdr: ChangeDetectorRef,
+              protected cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
+              protected modalService: NgbModal,
               protected validationService: DynamicFormValidationService
   ) {
     super(vocabularyService, layoutService, validationService);
@@ -100,6 +118,10 @@ export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent im
       this.setCurrentValue(this.model.value, true);
     }
 
+    this.vocabulary$ = this.vocabularyService.findVocabularyById(this.model.vocabularyOptions.name).pipe(
+      getFirstSucceededRemoteDataPayload()
+    );
+
     this.group.get(this.model.id).valueChanges.pipe(
       filter((value) => this.currentValue !== value))
       .subscribe((value) => {
@@ -114,6 +136,15 @@ export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent im
   changeSearchingStatus(status: boolean) {
     this.searching = status;
     this.cdr.detectChanges();
+  }
+
+  /**
+   * Checks if configured vocabulary is Hierarchical or not
+   */
+  isHierarchicalVocabulary(): Observable<boolean> {
+    return this.vocabulary$.pipe(
+      map((result: Vocabulary) => result.hierarchical)
+    );
   }
 
   /**
@@ -169,6 +200,28 @@ export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent im
     this.dispatchUpdate(event.item);
   }
 
+  openTree(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    this.subs.push(this.vocabulary$.pipe(
+      map((vocabulary: Vocabulary) => vocabulary.preloadLevel),
+      take(1)
+    ).subscribe((preloadLevel) => {
+      const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewComponent, { size: 'lg', windowClass: 'treeview' });
+      modalRef.componentInstance.vocabularyOptions = this.model.vocabularyOptions;
+      modalRef.componentInstance.preloadLevel = preloadLevel;
+      modalRef.componentInstance.selectedItem = this.currentValue ? this.currentValue : '';
+      modalRef.result.then((result: VocabularyEntryDetail) => {
+        if (result) {
+          this.currentValue = result;
+          this.dispatchUpdate(result);
+        }
+      }, () => {
+        return;
+      });
+    }))
+  }
+
   /**
    * Callback functions for whenClickOnConfidenceNotAccepted event
    */
@@ -202,6 +255,12 @@ export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent im
       this.currentValue = result;
     }
 
+  }
+
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 
 }
