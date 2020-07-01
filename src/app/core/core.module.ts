@@ -146,6 +146,7 @@ import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
+import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -265,6 +266,7 @@ const PROVIDERS = [
   ProcessFilesResponseParsingService,
   MetadataSchemaDataService,
   MetadataFieldDataService,
+  TokenResponseParsingService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

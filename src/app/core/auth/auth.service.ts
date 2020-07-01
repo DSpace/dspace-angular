@@ -546,4 +546,14 @@ export class AuthService {
     return this.getImpersonateID() === epersonId;
   }
 
+  /**
+   * Get a short-lived token for appending to download urls of restricted files
+   * Returns null if the user isn't authenticated
+   */
+  getShortlivedToken(): Observable<string> {
+    return this.isAuthenticated().pipe(
+      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null))
+    );
+  }
+
 }

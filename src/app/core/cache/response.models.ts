@@ -166,6 +166,20 @@ export class AuthStatusResponse extends RestResponse {
   }
 }
 
+/**
+ * A REST Response containing a token
+ */
+export class TokenResponse extends RestResponse {
+  constructor(
+    public token: string,
+    public isSuccessful: boolean,
+    public statusCode: number,
+    public statusText: string
+  ) {
+    super(isSuccessful, statusCode, statusText);
+  }
+}
+
 export class IntegrationSuccessResponse extends RestResponse {
   constructor(
     public dataDefinition: PaginatedList<IntegrationModel>,

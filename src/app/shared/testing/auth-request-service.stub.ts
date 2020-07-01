@@ -9,6 +9,7 @@ import { EPersonMock } from './eperson.mock';
 export class AuthRequestServiceStub {
   protected mockUser: EPerson = EPersonMock;
   protected mockTokenInfo = new AuthTokenInfo('test_token');
+  protected mockShortLivedToken = 'test-shortlived-token';
 
   public postToEndpoint(method: string, body: any, options?: HttpOptions): Observable<any> {
     const authStatusStub: AuthStatus = new AuthStatus();
@@ -81,5 +82,9 @@ export class AuthRequestServiceStub {
       obj[pair[0]] = pair[1]
     }
     return obj;
+  }
+
+  public getShortlivedToken() {
+    return observableOf(this.mockShortLivedToken);
   }
 }
