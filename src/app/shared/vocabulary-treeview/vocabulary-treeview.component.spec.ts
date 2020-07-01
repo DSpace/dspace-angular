@@ -16,6 +16,7 @@ import { TreeviewFlatNode } from './vocabulary-treeview-node.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 
@@ -37,7 +38,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
     getData: jasmine.createSpy('getData'),
     loadMore: jasmine.createSpy('loadMore'),
     loadMoreRoot: jasmine.createSpy('loadMoreRoot'),
-    isSearching: jasmine.createSpy('isSearching'),
+    isLoading: jasmine.createSpy('isLoading'),
     searchByQuery: jasmine.createSpy('searchByQuery'),
     restoreNodes: jasmine.createSpy('restoreNodes'),
     cleanTree: jasmine.createSpy('cleanTree'),
@@ -100,7 +101,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([]));
-      vocabularyTreeviewServiceStub.isSearching.and.returnValue(observableOf(false));
+      vocabularyTreeviewServiceStub.isLoading.and.returnValue(observableOf(false));
       comp.vocabularyOptions = vocabularyOptions;
       comp.selectedItem = null;
     });
@@ -118,19 +119,27 @@ describe('VocabularyTreeviewComponent test suite', () => {
     });
 
     it('should should init component properly with init value as FormFieldMetadataValueObject', () => {
-      comp.selectedItem = new FormFieldMetadataValueObject('test', null, 'auth001');
+      const currentValue = new FormFieldMetadataValueObject();
+      currentValue.value = 'testValue';
+      currentValue.otherInformation = {
+        id: 'entryID'
+      };
+      comp.selectedItem = currentValue;
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), 'auth001');
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), 'entryID');
     });
 
-    it('should should init component properly with init value as AuthorityEntry', () => {
-      const authority = new VocabularyEntryDetail();
-      authority.id = 'auth001';
-      comp.selectedItem = authority;
+    it('should should init component properly with init value as VocabularyEntry', () => {
+      const currentValue = new VocabularyEntry();
+      currentValue.value = 'testValue';
+      currentValue.otherInformation = {
+        id: 'entryID'
+      };
+      comp.selectedItem = currentValue;
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), 'auth001');
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), 'entryID');
     });
 
     it('should call loadMore function', () => {

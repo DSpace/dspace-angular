@@ -6,6 +6,7 @@ import { PaginatedList } from '../../core/data/paginated-list';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { RemoteData } from '../../core/data/remote-data';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { Vocabulary } from '../../core/submission/vocabularies/models/vocabulary.model';
 
 export class VocabularyServiceStub {
 
@@ -36,5 +37,9 @@ export class VocabularyServiceStub {
 
   getVocabularyEntryByID(id: string, vocabularyOptions: VocabularyOptions): Observable<VocabularyEntry> {
     return observableOf(Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 }));
+  }
+
+  findVocabularyById(id: string): Observable<RemoteData<Vocabulary>> {
+    return;
   }
 }

@@ -119,7 +119,8 @@ export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent im
     }
 
     this.vocabulary$ = this.vocabularyService.findVocabularyById(this.model.vocabularyOptions.name).pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
+      distinctUntilChanged()
     );
 
     this.group.get(this.model.id).valueChanges.pipe(

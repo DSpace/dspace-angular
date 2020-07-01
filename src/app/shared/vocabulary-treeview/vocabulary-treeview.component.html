@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{'treeview.header' | translate}}</h4>
+  <h4 class="modal-title">{{'vocabulary-treeview.header' | translate}}</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -13,19 +13,19 @@
           <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()">
           <div class="input-group-append" id="button-addon4">
             <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
-              {{'treeview.search.form.search' | translate}}
+              {{'vocabulary-treeview.search.form.search' | translate}}
             </button>
             <button class="btn btn-outline-secondary" type="button" (click)="reset()">
-              {{'treeview.search.form.reset' | translate}}
+              {{'vocabulary-treeview.search.form.reset' | translate}}
             </button>
           </div>
         </div>
       </div>
     </div>
     <div class="treeview-container">
-      <ds-loading *ngIf="searching | async" [showMessage]="false"></ds-loading>
-      <h4 *ngIf="!(searching | async) && dataSource.data.length === 0" class="text-center text-muted mt-4" >
-        <span>{{'treeview.search.no-result' | translate}}</span>
+      <ds-loading *ngIf="loading | async" [showMessage]="false"></ds-loading>
+      <h4 *ngIf="!(loading | async) && dataSource.data.length === 0" class="text-center text-muted mt-4" >
+        <span>{{'vocabulary-treeview.search.no-result' | translate}}</span>
       </h4>
       <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
         <!-- Leaf node -->
@@ -62,13 +62,13 @@
 
         <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMore" cdkTreeNodePadding>
           <button class="btn btn-outline-secondary btn-sm" (click)="loadMore(node.loadMoreParentItem)">
-            {{'treeview.load-more' | translate}}...
+            {{'vocabulary-treeview.load-more' | translate}}...
           </button>
         </cdk-tree-node>
 
         <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMoreRoot">
           <button class="btn btn-outline-secondary btn-sm" (click)="loadMoreRoot(node)">
-            {{'treeview.load-more' | translate}}...
+            {{'vocabulary-treeview.load-more' | translate}}...
           </button>
         </cdk-tree-node>
       </cdk-tree>

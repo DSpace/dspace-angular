@@ -353,9 +353,25 @@ export class VocabularyService {
    * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
   searchTopEntries(name: string, pageInfo: PageInfo, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
-    const options = new FindListOptions();
+    const options: VocabularyFindOptions = new VocabularyFindOptions(
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      pageInfo.elementsPerPage,
+      pageInfo.currentPage
+    );
     options.searchParams = [new RequestParam('vocabulary', name)];
     return this.vocabularyEntryDetailDataService.searchBy(this.searchTopMethod, options, ...linksToFollow)
+  }
+
+  /**
+   * Clear all search Top Requests
+   */
+  clearSearchTopRequests(): void {
+    this.requestService.removeByHrefSubstring(`search/${this.searchTopMethod}`);
   }
 }
 

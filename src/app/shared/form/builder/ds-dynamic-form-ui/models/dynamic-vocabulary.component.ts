@@ -59,12 +59,13 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       }
       initValue$ = initEntry$.pipe(map((initEntry: VocabularyEntry) => {
         if (isNotEmpty(initEntry)) {
-          return new FormFieldMetadataValueObject(
-            initEntry.value,
-            null,
-            initEntry.authority,
-            initEntry.display
-          );
+          // Integrate FormFieldMetadataValueObject with retrieved information
+          return Object.assign(new FormFieldMetadataValueObject(), this.model.value, {
+              value: initEntry.value,
+              authority: initEntry.authority,
+              display: initEntry.display,
+              otherInformation: initEntry.otherInformation
+          });
         } else {
           return this.model.value as any;
         }

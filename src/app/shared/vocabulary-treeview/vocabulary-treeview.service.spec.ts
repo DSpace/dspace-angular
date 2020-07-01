@@ -50,39 +50,47 @@ describe('VocabularyTreeviewService test suite', () => {
   let nodeMapWithChildren: Map<string, TreeviewNode>;
   let searchNodeMap: Map<string, TreeviewNode>;
   let vocabularyOptions;
+  let pageInfo: PageInfo;
 
   const vocabularyServiceStub = jasmine.createSpyObj('VocabularyService', {
     getVocabularyEntriesByValue: jasmine.createSpy('getVocabularyEntriesByValue'),
     getEntryDetailParent: jasmine.createSpy('getEntryDetailParent'),
     findEntryDetailByValue: jasmine.createSpy('findEntryDetailByValue'),
     searchTopEntries: jasmine.createSpy('searchTopEntries'),
-    getEntryDetailChildren: jasmine.createSpy('getEntryDetailChildren')
+    getEntryDetailChildren: jasmine.createSpy('getEntryDetailChildren'),
+    clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests')
   });
 
   function init() {
 
+    pageInfo = Object.assign(new PageInfo(), {
+      elementsPerPage: 1,
+      totalElements: 3,
+      totalPages: 1,
+      currentPage: 1
+    });
     loadMoreNode = new TreeviewNode(LOAD_MORE_NODE, false, new PageInfo(), item);
     loadMoreRootNode = new TreeviewNode(LOAD_MORE_ROOT_NODE, false, new PageInfo(), null);
     loadMoreRootFlatNode = new TreeviewFlatNode(LOAD_MORE_ROOT_NODE, 1, false, new PageInfo(), null);
     item = new VocabularyEntryDetail();
     item.id = item.value = item.display = 'root1';
-    item.otherInformation = { children: 'root1-child1::root1-child2', id: 'root1' };
-    itemNode = new TreeviewNode(item, true);
+    item.otherInformation = { hasChildren: 'true', id: 'root1' };
+    itemNode = new TreeviewNode(item, true, pageInfo);
     searchItemNode = new TreeviewNode(item, true, new PageInfo(), null, true);
 
     item2 = new VocabularyEntryDetail();
     item2.id = item2.value = item2.display = 'root2';
     item2.otherInformation = { id: 'root2' };
-    itemNode2 = new TreeviewNode(item2);
+    itemNode2 = new TreeviewNode(item2, false, pageInfo);
 
     item3 = new VocabularyEntryDetail();
     item3.id = item3.value = item3.display = 'root3';
     item3.otherInformation = { id: 'root3' };
-    itemNode3 = new TreeviewNode(item3);
+    itemNode3 = new TreeviewNode(item3, false, pageInfo);
 
     child = new VocabularyEntryDetail();
     child.id = child.value = child.display = 'root1-child1';
-    child.otherInformation = { parent: 'root1', children: 'root1-child1-child1', id: 'root1-child1' };
+    child.otherInformation = { parent: 'root1', hasChildren: 'true', id: 'root1-child1' };
     childNode = new TreeviewNode(child);
     searchChildNode = new TreeviewNode(child, true, new PageInfo(), item, true);
 
@@ -167,12 +175,6 @@ describe('VocabularyTreeviewService test suite', () => {
 
   describe('initialize', () => {
     it('should set vocabularyName and call retrieveTopNodes method', () => {
-      const pageInfo = Object.assign(new PageInfo(), {
-        elementsPerPage: 1,
-        totalElements: 3,
-        totalPages: 1,
-        currentPage: 1
-      });
       serviceAsAny.vocabularyService.searchTopEntries.and.returnValue(hot('-a', {
         a: createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, [item, item2, item3]))
       }));
@@ -181,16 +183,12 @@ describe('VocabularyTreeviewService test suite', () => {
       scheduler.flush();
 
       expect(serviceAsAny.vocabularyName).toEqual(vocabularyOptions.name);
+      expect(serviceAsAny.pageInfo).toEqual(pageInfo);
+      console.log(serviceAsAny.dataChange.value[0].pageInfo, itemNode.pageInfo);
       expect(serviceAsAny.dataChange.value).toEqual([itemNode, itemNode2, itemNode3]);
     });
 
     it('should set initValueHierarchy', () => {
-      const pageInfo = Object.assign(new PageInfo(), {
-        elementsPerPage: 1,
-        totalElements: 3,
-        totalPages: 1,
-        currentPage: 1
-      });
       serviceAsAny.vocabularyService.searchTopEntries.and.returnValue(hot('-c', {
         a: createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, [item, item2, item3]))
       }));
@@ -239,7 +237,7 @@ describe('VocabularyTreeviewService test suite', () => {
     });
 
     it('should add children nodes properly', () => {
-      const pageInfo = Object.assign(new PageInfo(), {
+      pageInfo = Object.assign(new PageInfo(), {
         elementsPerPage: 1,
         totalElements: 2,
         totalPages: 2,
@@ -260,7 +258,7 @@ describe('VocabularyTreeviewService test suite', () => {
     });
 
     it('should add loadMore node properly', () => {
-      const pageInfo = Object.assign(new PageInfo(), {
+      pageInfo = Object.assign(new PageInfo(), {
         elementsPerPage: 1,
         totalElements: 2,
         totalPages: 2,
@@ -285,7 +283,7 @@ describe('VocabularyTreeviewService test suite', () => {
 
   describe('searchByQuery', () => {
     it('should set tree data properly after a search', () => {
-      const pageInfo = Object.assign(new PageInfo(), {
+      pageInfo = Object.assign(new PageInfo(), {
         elementsPerPage: 1,
         totalElements: 1,
         totalPages: 1,

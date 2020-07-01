@@ -182,8 +182,8 @@ export abstract class FieldParser {
       fieldIds.forEach((id) => {
         if (this.initFormValues.hasOwnProperty(id)) {
           const valueObj: FormFieldMetadataValueObject = Object.assign(new FormFieldMetadataValueObject(), this.initFormValues[id][innerIndex]);
-          // valueObj.metadata = id;
-          // valueObj.value = this.initFormValues[id][innerIndex];
+          // Set metadata name, used for Qualdrop fields
+          valueObj.metadata = id;
           values.push(valueObj);
         }
       });

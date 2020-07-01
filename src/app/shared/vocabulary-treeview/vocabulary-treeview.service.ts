@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { flatMap, map, merge, scan, take, tap } from 'rxjs/operators';
+import { flatMap, map, merge, scan } from 'rxjs/operators';
 import { findIndex } from 'lodash';
 
 import { LOAD_MORE_NODE, LOAD_MORE_ROOT_NODE, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
@@ -56,14 +56,18 @@ export class VocabularyTreeviewService {
   private initValueHierarchy: string[] = [];
 
   /**
-   * A boolean representing if a search operation is pending
+   * A boolean representing if any operation is pending
    */
-  private searching = new BehaviorSubject<boolean>(false);
+  private loading = new BehaviorSubject<boolean>(false);
 
   /**
-   * An observable to change the searching status
+   * The {@link PageInfo} object
    */
-  private hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.searching.next(false));
+  private pageInfo: PageInfo;
+  /**
+   * An observable to change the loading status
+   */
+  private hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.loading.next(false));
 
   /**
    * Initialize instance variables
@@ -92,8 +96,10 @@ export class VocabularyTreeviewService {
    * @param initValueId The entry id of the node to mark as selected, if any
    */
   initialize(options: VocabularyOptions, pageInfo: PageInfo, initValueId?: string): void {
+    this.loading.next(true);
     this.vocabularyOptions = options;
     this.vocabularyName = options.name;
+    this.pageInfo = pageInfo;
     if (isNotEmpty(initValueId)) {
       this.getNodeHierarchyById(initValueId)
         .subscribe((hierarchy: string[]) => {
@@ -160,17 +166,17 @@ export class VocabularyTreeviewService {
   }
 
   /**
-   * Check if a search operation is pending
+   * Check if any operation is pending
    */
-  isSearching(): Observable<boolean> {
-    return this.searching;
+  isLoading(): Observable<boolean> {
+    return this.loading;
   }
 
   /**
    * Perform a search operation by query
    */
   searchByQuery(query: string) {
-    this.searching.next(true);
+    this.loading.next(true);
     if (isEmpty(this.storedNodes)) {
       this.storedNodes = this.dataChange.value;
       this.storedNodeMap = this.nodeMap;
@@ -192,7 +198,7 @@ export class VocabularyTreeviewService {
       merge(this.hideSearchingWhenUnsubscribed$)
     ).subscribe((nodes: TreeviewNode[]) => {
       this.dataChange.next(nodes);
-      this.searching.next(false);
+      this.loading.next(false);
     })
   }
 
@@ -200,7 +206,7 @@ export class VocabularyTreeviewService {
    * Reset tree state with the one before the search
    */
   restoreNodes() {
-    this.searching.next(false);
+    this.loading.next(false);
     this.dataChange.next(this.storedNodes);
     this.nodeMap = this.storedNodeMap;
 
@@ -224,8 +230,8 @@ export class VocabularyTreeviewService {
     const entryDetail: VocabularyEntryDetail = Object.assign(new VocabularyEntryDetail(), entry, {
       id: entryId
     });
-    const hasChildren = entry.hasOtherInformation() && isNotEmpty((entry.otherInformation as any).children);
-    const pageInfo: PageInfo = new PageInfo();
+    const hasChildren = entry.hasOtherInformation() && (entry.otherInformation as any)!.hasChildren == 'true';
+    const pageInfo: PageInfo = this.pageInfo;
     const isInInitValueHierarchy = this.initValueHierarchy.includes(entryId);
     const result = new TreeviewNode(
       entryDetail,
@@ -295,8 +301,10 @@ export class VocabularyTreeviewService {
     this.vocabularyService.searchTopEntries(this.vocabularyName, pageInfo).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe((list: PaginatedList<VocabularyEntryDetail>) => {
-      const newNodes: TreeviewNode[] = list.page.map((entry: VocabularyEntryDetail) => this._generateNode(entry))
+      this.vocabularyService.clearSearchTopRequests();
+      const newNodes: TreeviewNode[] = list.page.map((entry: VocabularyEntryDetail) => this._generateNode(entry));
       nodes.push(...newNodes);
+
       if ((list.pageInfo.currentPage + 1) <= list.pageInfo.totalPages) {
         // Need a new load more node
         const newPageInfo: PageInfo = Object.assign(new PageInfo(), list.pageInfo, {
@@ -306,6 +314,7 @@ export class VocabularyTreeviewService {
         loadMoreNode.updatePageInfo(newPageInfo);
         nodes.push(loadMoreNode);
       }
+      this.loading.next(false);
       // Notify the change.
       this.dataChange.next(nodes);
     });
@@ -328,8 +337,7 @@ export class VocabularyTreeviewService {
     if (isNotEmpty(children)) {
       const newChildren = children
         .filter((entry: TreeviewNode) => {
-          const ii = findIndex(node.children, (nodeEntry) => nodeEntry.item.id === entry.item.id);
-          return ii === -1;
+          return findIndex(node.children, (nodeEntry) => nodeEntry.item.id === entry.item.id) === -1;
         });
       newChildren.forEach((entry: TreeviewNode) => {
         entry.loadMoreParentItem = node.item

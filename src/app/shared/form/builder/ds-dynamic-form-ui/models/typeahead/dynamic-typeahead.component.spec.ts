@@ -20,6 +20,7 @@ import { createTestComponent } from '../../../../../testing/utils.test';
 import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 
 export let TYPEAHEAD_TEST_GROUP;
 
@@ -34,7 +35,7 @@ function init() {
     vocabularyOptions: {
       closed: false,
       metadata: 'typeahead',
-      name: 'EVENTAuthority',
+      name: 'vocabulary',
       scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
     } as VocabularyOptions,
     disabled: false,
@@ -50,13 +51,47 @@ function init() {
   };
 }
 
-describe('DsDynamicTypeaheadComponent test suite', () => {
+fdescribe('DsDynamicTypeaheadComponent test suite', () => {
 
   let testComp: TestComponent;
   let typeaheadComp: DsDynamicTypeaheadComponent;
   let testFixture: ComponentFixture<TestComponent>;
   let typeaheadFixture: ComponentFixture<DsDynamicTypeaheadComponent>;
+  let service: any;
   let html;
+  let vocabulary = {
+    id: 'vocabulary',
+    name: 'vocabulary',
+    scrollable: true,
+    hierarchical: false,
+    preloadLevel: 0,
+    type: 'vocabulary',
+    _links: {
+      self: {
+        url: 'self'
+      },
+      entries: {
+        url: 'entries'
+      }
+    }
+  }
+
+  let hierarchicalVocabulary = {
+    id: 'hierarchicalVocabulary',
+    name: 'hierarchicalVocabulary',
+    scrollable: true,
+    hierarchical: true,
+    preloadLevel: 2,
+    type: 'vocabulary',
+    _links: {
+      self: {
+        url: 'self'
+      },
+      entries: {
+        url: 'entries'
+      }
+    }
+  }
 
   // async beforeEach
   beforeEach(async(() => {
@@ -113,7 +148,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
     }));
   });
 
-  describe('', () => {
+  describe('not hiearchical', () => {
     describe('when init model value is empty', () => {
       beforeEach(() => {
 
@@ -121,6 +156,8 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         typeaheadComp = typeaheadFixture.componentInstance; // FormComponent test instance
         typeaheadComp.group = TYPEAHEAD_TEST_GROUP;
         typeaheadComp.model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
+        service = (typeaheadComp as any).vocabularyService;
+        spyOn(service, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
         typeaheadFixture.detectChanges();
       });
 

@@ -144,6 +144,7 @@ import { Vocabulary } from './submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntriesResponseParsingService } from './submission/vocabularies/vocabulary-entries-response-parsing.service';
 import { VocabularyEntryDetail } from './submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from './submission/vocabularies/vocabulary.service';
+import { VocabularyTreeviewService } from '../shared/vocabulary-treeview/vocabulary-treeview.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -268,7 +269,8 @@ const PROVIDERS = [
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   VocabularyService,
-  VocabularyEntriesResponseParsingService
+  VocabularyEntriesResponseParsingService,
+  VocabularyTreeviewService
 ];
 
 /**

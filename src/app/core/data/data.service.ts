@@ -115,12 +115,6 @@ export abstract class DataService<T extends CacheableObject> {
 
     result$ = this.getSearchEndpoint(searchMethod);
 
-    if (hasValue(options.searchParams)) {
-      options.searchParams.forEach((param: RequestParam) => {
-        args.push(`${param.fieldName}=${param.fieldValue}`);
-      })
-    }
-
     return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
   }
 
@@ -351,7 +345,7 @@ export abstract class DataService<T extends CacheableObject> {
     return hrefObs.pipe(
       find((href: string) => hasValue(href)),
       tap((href: string) => {
-          this.requestService.removeByHrefSubstring(href);
+          this.requestService.removeByHrefSubstring(searchMethod);
           const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
           if (hasValue(this.responseMsToLive)) {
             request.responseMsToLive = this.responseMsToLive;

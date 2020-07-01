@@ -16,6 +16,7 @@ import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 /**
  * Component that show a hierarchical vocabulary in a tree view
@@ -78,9 +79,9 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   searchText: string;
 
   /**
-   * A boolean representing if a search operation is pending
+   * A boolean representing if tree is loading
    */
-  searching: Observable<boolean>;
+  loading: Observable<boolean>;
 
   /**
    * An event fired when a vocabulary entry is selected.
@@ -198,7 +199,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       })
     );
 
-    const descriptionLabel = 'tree.description.' + this.vocabularyOptions.name;
+    const descriptionLabel = 'vocabulary-treeview.tree.description.' + this.vocabularyOptions.name;
     this.description = this.translate.get(descriptionLabel).pipe(
       filter((msg) => msg !== descriptionLabel),
       startWith('')
@@ -207,13 +208,13 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
-    this.searching = this.vocabularyTreeviewService.isSearching();
+    this.loading = this.vocabularyTreeviewService.isLoading();
 
     this.isAuthenticated.pipe(
       find((isAuth) => isAuth)
     ).subscribe(() => {
-      const valueId: string = (this.selectedItem) ? (this.selectedItem.authority || this.selectedItem.id) : null;
-      this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), valueId);
+      const entryId: string = (this.selectedItem) ? this.getEntryId(this.selectedItem) : null;
+      this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), entryId);
     });
   }
 
@@ -291,5 +292,12 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+  }
+
+  /**
+   * Return an id for a given {@link VocabularyEntry}
+   */
+  private getEntryId(entry: VocabularyEntry): string {
+    return entry.authority || entry.otherInformation.id || undefined;
   }
 }

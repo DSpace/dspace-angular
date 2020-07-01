@@ -11,6 +11,7 @@ export interface OtherInformation {
  * A class representing a specific input-form field's value
  */
 export class FormFieldMetadataValueObject implements MetadataValueInterface {
+  metadata?: string;
   value: any;
   display: string;
   language: any;
@@ -43,6 +44,9 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
     }
 
     this.place = place;
+    if (isNotEmpty(metadata)) {
+      this.metadata = metadata;
+    }
 
     this.otherInformation = otherInformation;
   }
