@@ -5,7 +5,6 @@ import { RestResponse } from '../cache/response.models';
 import { RequestService } from './request.service';
 import { of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -39,12 +38,16 @@ describe('ItemTemplateDataService', () => {
       responseCacheEntry.response = new RestResponse(true, 200, 'OK');
       return observableOf(responseCacheEntry);
     },
+    getByUUID(uuid: string) {
+      const responseCacheEntry = new RequestEntry();
+      responseCacheEntry.response = new RestResponse(true, 200, 'OK');
+      return observableOf(responseCacheEntry);
+    },
     commit(method?: RestRequestMethod) {
       // Do nothing
     }
   } as RequestService;
   const rdbService = {} as RemoteDataBuildService;
-  const dataBuildService = {} as NormalizedObjectBuildService;
   const store = {} as Store<CoreState>;
   const bs = {} as BrowseService;
   const objectCache = {
@@ -77,7 +80,6 @@ describe('ItemTemplateDataService', () => {
     service = new ItemTemplateDataService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       bs,
       objectCache,
@@ -85,6 +87,7 @@ describe('ItemTemplateDataService', () => {
       notificationsService,
       http,
       comparator,
+      undefined,
       collectionService
     );
     itemService = (service as any).dataService;
@@ -119,10 +122,10 @@ describe('ItemTemplateDataService', () => {
   });
 
   describe('create', () => {
-    it('should call create on the item service implementation', () => {
-      spyOn(itemService, 'create');
+    it('should call createTemplate on the item service implementation', () => {
+      spyOn(itemService, 'createTemplate');
       service.create(item, scopeID);
-      expect(itemService.create).toHaveBeenCalled();
+      expect(itemService.createTemplate).toHaveBeenCalled();
     });
   });
 

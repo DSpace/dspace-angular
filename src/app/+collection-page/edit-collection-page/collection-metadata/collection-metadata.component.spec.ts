@@ -14,7 +14,7 @@ import { ItemTemplateDataService } from '../../../core/data/item-template-data.s
 import { Collection } from '../../../core/shared/collection.model';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 describe('CollectionMetadataComponent', () => {
   let comp: CollectionMetadataComponent;

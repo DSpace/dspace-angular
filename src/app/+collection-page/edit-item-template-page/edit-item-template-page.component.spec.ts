@@ -7,10 +7,10 @@ import { CommonModule } from '@angular/common';
 import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { createSuccessfulRemoteDataObject } from '../../shared/testing/utils';
 import { Collection } from '../../core/shared/collection.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { getCollectionEditPath } from '../collection-page-routing.module';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 
 describe('EditItemTemplatePageComponent', () => {
   let comp: EditItemTemplatePageComponent;
