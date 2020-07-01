@@ -24,7 +24,7 @@ export class FileService {
    */
   downloadFile(url: string) {
     this.authService.getShortlivedToken().pipe(take(1)).subscribe((token) => {
-      this._window.nativeWindow.location.href = hasValue(token) ? new URLCombiner(url, `?token=${token}`).toString() : url;
+      this._window.nativeWindow.location.href = hasValue(token) ? new URLCombiner(url, `?authentication-token=${token}`).toString() : url;
     });
   }
 
