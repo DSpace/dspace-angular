@@ -2,25 +2,27 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { NouisliderModule } from 'ng2-nouislider';
-
 import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
-
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FileUploadModule } from 'ng2-file-upload';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { TextMaskModule } from 'angular2-text-mask';
+import { MomentModule } from 'ngx-moment';
+import { TooltipModule } from 'ngx-bootstrap';
+
 import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
-
-import { FileUploadModule } from 'ng2-file-upload';
-
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
 import { ConsolePipe } from './utils/console.pipe';
-
 import { CollectionListElementComponent } from './object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './object-list/community-list-element/community-list-element.component';
 import { SearchResultListElementComponent } from './object-list/search-result-list-element/search-result-list-element.component';
@@ -53,9 +55,6 @@ import {
   dsDynamicFormControlMapFn
 } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
-import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
-import { TextMaskModule } from 'angular2-text-mask';
 import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
@@ -95,13 +94,11 @@ import { EmphasizePipe } from './utils/emphasize.pipe';
 import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
-import { MomentModule } from 'ngx-moment';
 import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
 import { MenuModule } from './menu/menu.module';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import { PlainTextMetadataListElementComponent } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 import { ItemMetadataListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
-import { TooltipModule } from 'ngx-bootstrap';
 import { MetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 import { ComColFormComponent } from './comcol-forms/comcol-form/comcol-form.component';
 import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/create-comcol-page.component';
@@ -177,7 +174,6 @@ import { SelectableListItemControlComponent } from './object-collection/shared/s
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { ItemVersionsComponent } from './item/item-versions/item-versions.component';
 import { SortablejsModule } from 'ngx-sortablejs';
@@ -202,6 +198,7 @@ import { ResourcePolicyTargetResolver } from './resource-policies/resolvers/reso
 import { ResourcePolicyResolver } from './resource-policies/resolvers/resource-policy.resolver';
 import { EpersonSearchBoxComponent } from './resource-policies/form/eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
+import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -223,7 +220,8 @@ const MODULES = [
   MomentModule,
   TextMaskModule,
   MenuModule,
-  DragDropModule
+  DragDropModule,
+  CdkTreeModule
 ];
 
 const ROOT_MODULES = [
@@ -386,7 +384,8 @@ const COMPONENTS = [
   ResourcePolicyFormComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
+  VocabularyTreeviewComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -459,7 +458,8 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
-  ClaimedTaskActionsEditMetadataComponent
+  ClaimedTaskActionsEditMetadataComponent,
+  VocabularyTreeviewComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
