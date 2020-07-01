@@ -115,6 +115,75 @@ describe('VocabularyService', () => {
     }
   };
 
+  const vocabularyEntryParentDetail: any = {
+    authority: 'authorityId2',
+    display: 'testParent',
+    value: 'testParent',
+    otherInformation: {
+      id: 'authorityId2',
+      hasChildren: 'true',
+      note: 'Familjeforskning'
+    },
+    type: 'vocabularyEntryDetail',
+    _links: {
+      self: {
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:VR131402'
+      },
+      parent: {
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:parent'
+      },
+      children: {
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children'
+      }
+    }
+  };
+
+  const vocabularyEntryChildDetail: any = {
+    authority: 'authoritytestChild1',
+    display: 'testChild1',
+    value: 'testChild1',
+    otherInformation: {
+      id: 'authoritytestChild1',
+      hasChildren: 'true',
+      note: 'Familjeforskning'
+    },
+    type: 'vocabularyEntryDetail',
+    _links: {
+      self: {
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:authoritytestChild1'
+      },
+      parent: {
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:parent'
+      },
+      children: {
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children'
+      }
+    }
+  };
+
+  const vocabularyEntryChild2Detail: any = {
+    authority: 'authoritytestChild2',
+    display: 'testChild2',
+    value: 'testChild2',
+    otherInformation: {
+      id: 'authoritytestChild2',
+      hasChildren: 'true',
+      note: 'Familjeforskning'
+    },
+    type: 'vocabularyEntryDetail',
+    _links: {
+      self: {
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:authoritytestChild2'
+      },
+      parent: {
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:parent'
+      },
+      children: {
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children'
+      }
+    }
+  };
+
   const anotherVocabularyEntryDetail: any = {
     authority: 'authorityId1',
     display: 'children',
@@ -138,7 +207,10 @@ describe('VocabularyService', () => {
 
   const endpointURL = `https://rest.api/rest/api/submission/vocabularies`;
   const requestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}`;
+  const entryDetailEndpointURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails`;
   const entryDetailRequestURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:SCB110/${hierarchicalVocabulary.id}:testValue`;
+  const entryDetailParentRequestURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:SCB110/${hierarchicalVocabulary.id}:testValue/parent`;
+  const entryDetailChildrenRequestURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:SCB110/${hierarchicalVocabulary.id}:testValue/children`;
   const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
   const vocabularyId = 'types';
   const metadata = 'dc.type';
@@ -158,10 +230,14 @@ describe('VocabularyService', () => {
   const pageInfo = new PageInfo();
   const array = [vocabulary, hierarchicalVocabulary];
   const arrayEntries = [vocabularyEntryDetail, anotherVocabularyEntryDetail];
+  const childrenEntries = [vocabularyEntryChildDetail, vocabularyEntryChild2Detail];
   const paginatedList = new PaginatedList(pageInfo, array);
   const entriesPaginatedList = new PaginatedList(pageInfo, arrayEntries);
+  const childrenPaginatedList = new PaginatedList(pageInfo, childrenEntries);
   const vocabularyRD = createSuccessfulRemoteDataObject(vocabulary);
   const vocabularyEntryDetailRD = createSuccessfulRemoteDataObject(vocabularyEntryDetail);
+  const vocabularyEntryDetailParentRD = createSuccessfulRemoteDataObject(vocabularyEntryParentDetail);
+  const vocabularyEntryChildrenRD = createSuccessfulRemoteDataObject(childrenPaginatedList);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
   const entriesPaginatedListRD = createSuccessfulRemoteDataObject(entriesPaginatedList);
   const getRequestEntry$ = (successful: boolean) => {
@@ -429,10 +505,10 @@ describe('VocabularyService', () => {
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {
-          a: vocabularyEntryDetailRD
+          a: vocabularyEntryDetailParentRD
         }),
         buildList: hot('a|', {
-          a: entriesPaginatedListRD
+          a: vocabularyEntryChildrenRD
         }),
       });
 
@@ -444,6 +520,7 @@ describe('VocabularyService', () => {
       spyOn((service as any).vocabularyEntryDetailDataService, 'searchBy').and.callThrough();
       spyOn((service as any).vocabularyEntryDetailDataService, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
       spyOn((service as any).vocabularyEntryDetailDataService, 'getFindAllHref').and.returnValue(observableOf(entriesRequestURL));
+      spyOn((service as any).vocabularyEntryDetailDataService, 'getBrowseEndpoint').and.returnValue(observableOf(entryDetailEndpointURL));
     });
 
     afterEach(() => {
@@ -461,7 +538,7 @@ describe('VocabularyService', () => {
       it('should return a RemoteData<VocabularyEntryDetail> for the object with the given URL', () => {
         const result = service.findEntryDetailByHref(entryDetailRequestURL);
         const expected = cold('a|', {
-          a: vocabularyEntryDetailRD
+          a: vocabularyEntryDetailParentRD
         });
         expect(result).toBeObservable(expected);
       });
@@ -478,13 +555,47 @@ describe('VocabularyService', () => {
       it('should return a RemoteData<VocabularyEntryDetail> for the object with the given id', () => {
         const result = service.findEntryDetailByValue('testValue', hierarchicalVocabulary.id);
         const expected = cold('a|', {
-          a: vocabularyEntryDetailRD
+          a: vocabularyEntryDetailParentRD
         });
         expect(result).toBeObservable(expected);
       });
     });
 
-    describe('searchByGroup', () => {
+    describe('getEntryDetailParent', () => {
+      it('should proxy the call to vocabularyDataService.getEntryDetailParent', () => {
+        scheduler.schedule(() => service.getEntryDetailParent('testValue', hierarchicalVocabulary.id));
+        scheduler.flush();
+
+        expect((service as any).vocabularyEntryDetailDataService.findByHref).toHaveBeenCalledWith(entryDetailParentRequestURL);
+      });
+
+      it('should return a RemoteData<VocabularyEntryDetail> for the object with the given URL', () => {
+        const result = service.getEntryDetailParent('testValue', hierarchicalVocabulary.id);
+        const expected = cold('a|', {
+          a: vocabularyEntryDetailParentRD
+        });
+        expect(result).toBeObservable(expected);
+      });
+    });
+
+    describe('getEntryDetailChildren', () => {
+      it('should proxy the call to vocabularyDataService.getEntryDetailChildren', () => {
+        scheduler.schedule(() => service.getEntryDetailChildren('testValue', hierarchicalVocabulary.id, new PageInfo()));
+        scheduler.flush();
+
+        expect((service as any).vocabularyEntryDetailDataService.findAllByHref).toHaveBeenCalledWith(entryDetailChildrenRequestURL);
+      });
+
+      it('should return a RemoteData<PaginatedList<ResourcePolicy>> for the object with the given URL', () => {
+        const result = service.getEntryDetailChildren('testValue', hierarchicalVocabulary.id, new PageInfo());
+        const expected = cold('a|', {
+          a: vocabularyEntryChildrenRD
+        });
+        expect(result).toBeObservable(expected);
+      });
+    });
+
+    describe('searchByTop', () => {
       it('should proxy the call to vocabularyEntryDetailDataService.searchBy', () => {
         const options = new FindListOptions();
         options.searchParams = [new RequestParam('vocabulary', 'srsc')];
@@ -494,10 +605,10 @@ describe('VocabularyService', () => {
         expect((service as any).vocabularyEntryDetailDataService.searchBy).toHaveBeenCalledWith((service as any).searchTopMethod, options);
       });
 
-      it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {
+      it('should return a RemoteData<PaginatedList<ResourcePolicy>> for the search', () => {
         const result = service.searchTopEntries('srsc', pageInfo);
         const expected = cold('a|', {
-          a: entriesPaginatedListRD
+          a: vocabularyEntryChildrenRD
         });
         expect(result).toBeObservable(expected);
       });

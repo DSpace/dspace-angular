@@ -14,6 +14,12 @@ export class VocabularyEntryDetail extends VocabularyEntry {
   static type = VOCABULARY_ENTRY_DETAIL;
 
   /**
+   * The unique id of the entry
+   */
+  @autoserialize
+  id: string;
+
+  /**
    * In an hierarchical vocabulary representing if entry is selectable as value
    */
   @autoserialize

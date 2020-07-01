@@ -168,7 +168,7 @@ export class VocabularyService {
   }
 
   /**
-   * Return the {@link VocabularyEntry} list for a given {@link Vocabulary}
+   * Return the {@link VocabularyEntry} list for a given value
    *
    * @param value              The entry value to retrieve
    * @param exact              If true force the vocabulary to provide only entries that match exactly with the value
@@ -298,6 +298,51 @@ export class VocabularyService {
   findEntryDetailByValue(value: string, name: string, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<VocabularyEntryDetail>> {
     const id = `${name}:${value}`;
     return this.vocabularyEntryDetailDataService.findById(id, ...linksToFollow);
+  }
+
+  /**
+   * Returns the parent detail entry for a given detail entry, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
+   * @param value           The entry value for which to provide parent.
+   * @param name            The name of {@link Vocabulary} to which the entry belongs
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>>}
+   *    Return an observable that emits a PaginatedList of VocabularyEntryDetail
+   */
+  getEntryDetailParent(value: string, name: string, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<VocabularyEntryDetail>> {
+    const linkPath = `${name}:${value}/parent`;
+
+    return this.vocabularyEntryDetailDataService.getBrowseEndpoint().pipe(
+      map((href: string) => `${href}/${linkPath}`),
+      flatMap((href) => this.vocabularyEntryDetailDataService.findByHref(href, ...linksToFollow))
+    );
+  }
+
+  /**
+   * Returns the list of children detail entries for a given detail entry, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
+   * @param value           The entry value for which to provide children list.
+   * @param name            The name of {@link Vocabulary} to which the entry belongs
+   * @param pageInfo        The {@link PageInfo} for the request
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>>}
+   *    Return an observable that emits a PaginatedList of VocabularyEntryDetail
+   */
+  getEntryDetailChildren(value: string, name: string, pageInfo: PageInfo, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
+    const linkPath = `${name}:${value}/children`;
+    const options: VocabularyFindOptions = new VocabularyFindOptions(
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      pageInfo.elementsPerPage,
+      pageInfo.currentPage
+    );
+    return this.vocabularyEntryDetailDataService.getFindAllHref(options, linkPath).pipe(
+      flatMap((href) => this.vocabularyEntryDetailDataService.findAllByHref(href, options, ...linksToFollow))
+    );
   }
 
   /**
