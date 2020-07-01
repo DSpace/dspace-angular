@@ -28,6 +28,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { EPERSON } from './models/eperson.resource-type';
+import { RequestEntry } from '../data/request.reducer';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -268,6 +269,35 @@ export class EPersonDataService extends DataService<EPerson> {
 
     return this.fetchResponse(requestId);
 
+  }
+
+  /**
+   * Sends a patch request to update an epersons password based on a forgot password token
+   * @param uuid      Uuid of the eperson
+   * @param token     The forgot password token
+   * @param password  The new password value
+   */
+  patchPasswordWithToken(uuid: string, token: string, password: string): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+
+    const operation = Object.assign({ op: 'replace', path: '/password', value: password });
+
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, uuid)),
+      map((href: string) => `${href}?token=${token}`));
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PatchRequest(requestId, href, [operation]);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
   }
 
 }

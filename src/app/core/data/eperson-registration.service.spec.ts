@@ -16,6 +16,10 @@ describe('EpersonRegistrationService', () => {
   const registration = new Registration();
   registration.email = 'test@mail.org';
 
+  const registrationWithUser = new Registration();
+  registrationWithUser.email = 'test@mail.org';
+  registrationWithUser.user = 'test-uuid';
+
   beforeEach(() => {
     halService = new HALEndpointServiceStub('rest-url');
 
@@ -65,7 +69,7 @@ describe('EpersonRegistrationService', () => {
     beforeEach(() => {
       (requestService.getByUUID as jasmine.Spy).and.returnValue(
         cold('a',
-          {a: Object.assign(new RequestEntry(), {response: new RegistrationSuccessResponse(registration, 200, 'Success')})})
+          {a: Object.assign(new RequestEntry(), {response: new RegistrationSuccessResponse(registrationWithUser, 200, 'Success')})})
       );
     });
     it('should return a registration corresponding to the provided token', () => {
@@ -73,8 +77,9 @@ describe('EpersonRegistrationService', () => {
 
       expect(expected).toBeObservable(cold('(a|)', {
         a: Object.assign(new Registration(), {
-          email: registration.email,
-          token: 'test-token'
+          email: registrationWithUser.email,
+          token: 'test-token',
+          user: registrationWithUser.user
         })
       }));
 

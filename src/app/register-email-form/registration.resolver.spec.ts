@@ -9,7 +9,7 @@ describe('RegistrationResolver', () => {
   let epersonRegistrationService: EpersonRegistrationService;
 
   const token = 'test-token';
-  const registration = Object.assign(new Registration(), {email: 'test@email.org', token: token});
+  const registration = Object.assign(new Registration(), {email: 'test@email.org', token: token, user:'user-uuid'});
 
   beforeEach(() => {
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
@@ -25,6 +25,7 @@ describe('RegistrationResolver', () => {
           (resolved) => {
             expect(resolved.token).toEqual(token);
             expect(resolved.email).toEqual('test@email.org');
+            expect(resolved.user).toEqual('user-uuid');
           }
         );
     });

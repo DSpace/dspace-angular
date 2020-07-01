@@ -105,15 +105,11 @@ describe('CreateProfileComponent', () => {
       const lastName = fixture.debugElement.queryAll(By.css('input#lastName'))[0].nativeElement;
       const contactPhone = fixture.debugElement.queryAll(By.css('input#contactPhone'))[0].nativeElement;
       const language = fixture.debugElement.queryAll(By.css('select#language'))[0].nativeElement;
-      const password = fixture.debugElement.queryAll(By.css('input#password'))[0].nativeElement;
-      const confirmPassword = fixture.debugElement.queryAll(By.css('input#confirmPassword'))[0].nativeElement;
 
       expect(firstName).toBeDefined();
       expect(lastName).toBeDefined();
       expect(contactPhone).toBeDefined();
       expect(language).toBeDefined();
-      expect(password).toBeDefined();
-      expect(confirmPassword).toBeDefined();
     });
   });
 
@@ -124,8 +120,8 @@ describe('CreateProfileComponent', () => {
       comp.lastName.patchValue('Last');
       comp.contactPhone.patchValue('Phone');
       comp.language.patchValue('en');
-      comp.password.patchValue('password');
-      comp.confirmPassword.patchValue('password');
+      comp.password = 'password';
+      comp.isInValidPassword = false;
 
       comp.submitEperson();
 
@@ -143,8 +139,8 @@ describe('CreateProfileComponent', () => {
       comp.lastName.patchValue('Last');
       comp.contactPhone.patchValue('Phone');
       comp.language.patchValue('en');
-      comp.password.patchValue('password');
-      comp.confirmPassword.patchValue('password');
+      comp.password = 'password';
+      comp.isInValidPassword = false;
 
       comp.submitEperson();
 
@@ -153,5 +149,36 @@ describe('CreateProfileComponent', () => {
       expect(router.navigate).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
     });
+    it('should submit not create an eperson when the user info form is invalid', () => {
+
+      (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 500, 'Error')));
+
+      comp.firstName.patchValue('');
+      comp.lastName.patchValue('Last');
+      comp.contactPhone.patchValue('Phone');
+      comp.language.patchValue('en');
+      comp.password = 'password';
+      comp.isInValidPassword = false;
+
+      comp.submitEperson();
+
+      expect(ePersonDataService.createEPersonForToken).not.toHaveBeenCalled();
+    });
+    it('should submit not create an eperson when the password is invalid', () => {
+
+      (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 500, 'Error')));
+
+      comp.firstName.patchValue('First');
+      comp.lastName.patchValue('Last');
+      comp.contactPhone.patchValue('Phone');
+      comp.language.patchValue('en');
+      comp.password = 'password';
+      comp.isInValidPassword = true;
+
+      comp.submitEperson();
+
+      expect(ePersonDataService.createEPersonForToken).not.toHaveBeenCalled();
+    });
+
   });
 });

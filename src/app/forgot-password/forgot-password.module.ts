@@ -1,31 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
-import { RegisterPageRoutingModule } from './register-page-routing.module';
-import { RegisterEmailComponent } from './register-email/register-email.component';
-import { CreateProfileComponent } from './create-profile/create-profile.component';
+import { ForgotEmailComponent } from './forgot-password-email/forgot-email.component';
+import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
 import { RegisterEmailFormModule } from '../register-email-form/register-email-form.module';
+import { ForgotPasswordFormComponent } from './forgot-password-form/forgot-password-form.component';
 import { ProfilePageModule } from '../profile-page/profile-page.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    RegisterPageRoutingModule,
+    ForgotPasswordRoutingModule,
     RegisterEmailFormModule,
     ProfilePageModule,
   ],
   declarations: [
-    RegisterEmailComponent,
-    CreateProfileComponent
+    ForgotEmailComponent,
+    ForgotPasswordFormComponent
   ],
   providers: [],
   entryComponents: []
 })
 
 /**
- * Module related to components used to register a new user
+ * Module related to the Forgot Password components
  */
-export class RegisterPageModule {
+export class ForgotPasswordModule {
 
 }
