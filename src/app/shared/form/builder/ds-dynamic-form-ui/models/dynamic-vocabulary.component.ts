@@ -31,9 +31,9 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
 
   public abstract pageInfo: PageInfo;
 
-  constructor(protected vocabularyService: VocabularyService,
-              protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+  protected constructor(protected vocabularyService: VocabularyService,
+                        protected layoutService: DynamicFormLayoutService,
+                        protected validationService: DynamicFormValidationService
   ) {
     super(layoutService, validationService);
   }
@@ -74,7 +74,6 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     }
     return initValue$;
   }
-
 
   /**
    * Emits a blur event containing a given value.

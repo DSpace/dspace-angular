@@ -270,7 +270,6 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
     return isNotEmpty(this.searchText);
   }
 
-
   /**
    * Reset tree resulting from a previous search
    */

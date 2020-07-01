@@ -23,5 +23,4 @@ export class VocabularyEntriesResponseParsingService extends EntriesResponsePars
     return VocabularyEntry;
   }
 
-
 }

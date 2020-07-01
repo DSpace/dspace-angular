@@ -16,7 +16,6 @@ import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
-import { DynamicLookupModel } from './dynamic-lookup.model';
 
 /**
  * Component representing a lookup or lookup-name input field
@@ -29,7 +28,7 @@ import { DynamicLookupModel } from './dynamic-lookup.model';
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
-  @Input() model: DynamicLookupModel | DynamicLookupNameModel;
+  @Input() model: any;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -272,7 +271,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
   public setCurrentValue(value: any, init = false) {
     if (init) {
       this.getInitValueFromModel()
-        .subscribe((value: FormFieldMetadataValueObject) => this.setDisplayInputValue(value.display));
+        .subscribe((formValue: FormFieldMetadataValueObject) => this.setDisplayInputValue(formValue.display));
     } else if (hasValue(value)) {
       if (value instanceof FormFieldMetadataValueObject || value instanceof VocabularyEntry) {
         this.setDisplayInputValue(value.display);

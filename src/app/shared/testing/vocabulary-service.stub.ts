@@ -7,7 +7,6 @@ import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { RemoteData } from '../../core/data/remote-data';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 
-
 export class VocabularyServiceStub {
 
   private _payload = [

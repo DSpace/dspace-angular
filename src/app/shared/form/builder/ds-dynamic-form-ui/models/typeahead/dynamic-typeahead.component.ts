@@ -187,8 +187,8 @@ export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent im
     let result: string;
     if (init) {
       this.getInitValueFromModel()
-        .subscribe((value: FormFieldMetadataValueObject) => {
-          this.currentValue = value;
+        .subscribe((formValue: FormFieldMetadataValueObject) => {
+          this.currentValue = formValue;
         });
     } else {
       if (isEmpty(value)) {

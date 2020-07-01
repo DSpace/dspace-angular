@@ -22,6 +22,7 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
   @serializable() vocabularyOptions: VocabularyOptions;
   @serializable() repeatable: boolean;
   @serializable() groupLength: number;
+  @serializable() _value: VocabularyEntry[];
   isListGroup = true;
   valueUpdates: Subject<any>;
 
@@ -38,7 +39,9 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
     this.valueUpdates.next(config.value);
   }
 
-  @serializable() _value: VocabularyEntry[];
+  get hasAuthority(): boolean {
+    return this.vocabularyOptions && hasValue(this.vocabularyOptions.name);
+  }
 
   get value() {
     return this._value;
@@ -54,9 +57,5 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
         this._value = newValue
       }
     }
-  }
-
-  get hasAuthority(): boolean {
-    return this.vocabularyOptions && hasValue(this.vocabularyOptions.name);
   }
 }

@@ -148,7 +148,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
 
     if (init) {
       result = this.getInitValueFromModel().pipe(
-        map((value: FormFieldMetadataValueObject) => value.display)
+        map((formValue: FormFieldMetadataValueObject) => formValue.display)
       );
     } else {
       if (isEmpty(value)) {
