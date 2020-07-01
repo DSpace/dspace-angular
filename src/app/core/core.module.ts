@@ -140,6 +140,7 @@ import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
+import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
 
@@ -308,7 +309,8 @@ export const models =
     ExternalSourceEntry,
     Version,
     VersionHistory,
-    WorkflowAction
+    WorkflowAction,
+    Registration
   ];
 
 @NgModule({

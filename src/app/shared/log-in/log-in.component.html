@@ -8,6 +8,6 @@
   </ng-container>
 
   <div class="dropdown-divider"></div>
-  <a class="dropdown-item" href="#">{{"login.form.new-user" | translate}}</a>
-  <a class="dropdown-item" href="#">{{"login.form.forgot-password" | translate}}</a>
+  <a class="dropdown-item" [routerLink]="[getRegisterPath()]">{{"login.form.new-user" | translate}}</a>
+  <a class="dropdown-item" [routerLink]="[getForgotPath()]">{{"login.form.forgot-password" | translate}}</a>
 </div>
