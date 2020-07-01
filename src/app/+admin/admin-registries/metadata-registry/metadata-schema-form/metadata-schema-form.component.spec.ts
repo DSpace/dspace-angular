@@ -21,7 +21,8 @@ describe('MetadataSchemaFormComponent', () => {
   const registryServiceStub = {
     getActiveMetadataSchema: () => observableOf(undefined),
     createOrUpdateMetadataSchema: (schema: MetadataSchema) => observableOf(schema),
-    cancelEditMetadataSchema: () => {}
+    cancelEditMetadataSchema: () => {},
+    clearMetadataSchemaRequests: () => observableOf(undefined)
   };
   const formBuilderServiceStub = {
     createFormGroup: () => {

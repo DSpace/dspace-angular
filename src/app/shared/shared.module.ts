@@ -198,6 +198,7 @@ import { ResourcePolicyTargetResolver } from './resource-policies/resolvers/reso
 import { ResourcePolicyResolver } from './resource-policies/resolvers/resource-policy.resolver';
 import { EpersonSearchBoxComponent } from './resource-policies/form/eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
+import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 
 const MODULES = [
@@ -385,6 +386,7 @@ const COMPONENTS = [
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
+  CollectionDropdownComponent,
   VocabularyTreeviewComponent
 ];
 
@@ -504,8 +506,7 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...SHARED_ITEM_PAGE_COMPONENTS,
-
+    ...SHARED_ITEM_PAGE_COMPONENTS
   ],
   providers: [
     ...PROVIDERS

@@ -5,9 +5,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../config/models/config.model';
 import { FacetValue } from '../../shared/search/facet-value.model';
 import { SearchFilterConfig } from '../../shared/search/search-filter-config.model';
-import { RegistryMetadataschemasResponse } from '../registry/registry-metadataschemas-response.model';
-import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
-import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
+import { PaginatedList } from '../data/paginated-list';
 import { SubmissionObject } from '../submission/models/submission-object.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
@@ -30,48 +28,6 @@ export class RestResponse {
 export class DSOSuccessResponse extends RestResponse {
   constructor(
     public resourceSelfLinks: string[],
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-/**
- * A successful response containing a list of MetadataSchemas wrapped in a RegistryMetadataschemasResponse
- */
-export class RegistryMetadataschemasSuccessResponse extends RestResponse {
-  constructor(
-    public metadataschemasResponse: RegistryMetadataschemasResponse,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-/**
- * A successful response containing a list of MetadataFields wrapped in a RegistryMetadatafieldsResponse
- */
-export class RegistryMetadatafieldsSuccessResponse extends RestResponse {
-  constructor(
-    public metadatafieldsResponse: RegistryMetadatafieldsResponse,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-/**
- * A successful response containing a list of BitstreamFormats wrapped in a RegistryBitstreamformatsResponse
- */
-export class RegistryBitstreamformatsSuccessResponse extends RestResponse {
-  constructor(
-    public bitstreamformatsResponse: RegistryBitstreamformatsResponse,
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo
@@ -289,5 +245,4 @@ export class ContentSourceSuccessResponse extends RestResponse {
     super(true, statusCode, statusText);
   }
 }
-
 /* tslint:enable:max-classes-per-file */

@@ -88,10 +88,12 @@ export class BundleDataService extends DataService<Bundle> {
   /**
    * Get the bitstreams endpoint for a bundle
    * @param bundleId
+   * @param searchOptions
    */
-  getBitstreamsEndpoint(bundleId: string): Observable<string> {
+  getBitstreamsEndpoint(bundleId: string, searchOptions?: PaginatedSearchOptions): Observable<string> {
     return this.getBrowseEndpoint().pipe(
-      switchMap((href: string) => this.halService.getEndpoint(this.bitstreamsEndpoint, `${href}/${bundleId}`))
+      switchMap((href: string) => this.halService.getEndpoint(this.bitstreamsEndpoint, `${href}/${bundleId}`)),
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
     );
   }
 
@@ -102,9 +104,8 @@ export class BundleDataService extends DataService<Bundle> {
    * @param linksToFollow   The {@link FollowLinkConfig}s for the request
    */
   getBitstreams(bundleId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
-    const hrefObs = this.getBitstreamsEndpoint(bundleId).pipe(
-      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
-    );
+    const hrefObs = this.getBitstreamsEndpoint(bundleId, searchOptions);
+
     hrefObs.pipe(
       take(1)
     ).subscribe((href) => {
