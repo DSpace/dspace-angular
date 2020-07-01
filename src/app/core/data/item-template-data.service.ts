@@ -109,7 +109,7 @@ class DataServiceImpl extends ItemDataService {
    * @param item
    * @param collectionID
    */
-  create(item: Item, collectionID: string): Observable<RemoteData<Item>> {
+  createTemplate(item: Item, collectionID: string): Observable<RemoteData<Item>> {
     this.setCollectionEndpoint(collectionID);
     return super.create(item);
   }
@@ -179,7 +179,7 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
    * @param collectionID
    */
   create(item: Item, collectionID: string): Observable<RemoteData<Item>> {
-    return this.dataService.create(item, collectionID);
+    return this.dataService.createTemplate(item, collectionID);
   }
 
   /**
