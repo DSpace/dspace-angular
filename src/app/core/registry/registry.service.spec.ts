@@ -190,21 +190,6 @@ describe('RegistryService', () => {
     });
   });
 
-  describe('when requesting metadatafields', () => {
-    let result;
-
-    beforeEach(() => {
-      result = registryService.getAllMetadataFields();
-    });
-
-    it('should call metadataFieldService.findAll', (done) => {
-      result.subscribe(() => {
-        expect(metadataFieldService.findAll).toHaveBeenCalled();
-        done();
-      });
-    });
-  });
-
   describe('when dispatching to the store', () => {
     beforeEach(() => {
       spyOn(mockStore, 'dispatch');

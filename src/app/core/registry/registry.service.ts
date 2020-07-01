@@ -38,6 +38,7 @@ import { MetadataSchemaDataService } from '../data/metadata-schema-data.service'
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
 import { FollowLinkConfig, followLink } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -104,11 +105,11 @@ export class RegistryService {
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @returns an observable that emits a remote data object with a page of metadata fields
    */
+  // TODO this is temporarily disabled. The performance is too bad.
+  // It is used down the line for validation. That validation will have to be rewritten against a new rest endpoint.
+  // Not by downloading the list of all fields.
   public getAllMetadataFields(options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    if (hasNoValue(options)) {
-      options = {currentPage: 1, elementsPerPage: 10000} as any;
-    }
-    return this.metadataFieldService.findAll(options, ...linksToFollow);
+    return createSuccessfulRemoteDataObject$(new PaginatedList<MetadataField>(null, []));
   }
 
   public editMetadataSchema(schema: MetadataSchema) {
@@ -308,15 +309,10 @@ export class RegistryService {
    * @param query {string} The query to filter the field names by
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
+  // TODO this is temporarily disabled. The performance is too bad.
+  // Querying metadatafields will need to be implemented as a search endpoint on the rest api,
+  // not by downloading everything and preforming the query client side.
   queryMetadataFields(query: string): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return this.getAllMetadataFields(undefined, followLink('schema')).pipe(
-      map((rd: RemoteData<PaginatedList<MetadataField>>) => {
-        const filteredFields: MetadataField[] = rd.payload.page.filter(
-          (field: MetadataField) => field.toString().indexOf(query) >= 0
-        );
-        const page: PaginatedList<MetadataField> = new PaginatedList<MetadataField>(new PageInfo(), filteredFields);
-        return Object.assign({}, rd, { payload: page });
-      })
-    );
+    return createSuccessfulRemoteDataObject$(new PaginatedList<MetadataField>(null, []));
   }
 }
