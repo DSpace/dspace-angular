@@ -21,6 +21,7 @@ import { find, skipWhile, switchMap, tap } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PaginatedList } from './paginated-list';
+import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadatafields endpoint
@@ -54,24 +55,6 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
       searchParams: [new RequestParam('schema', schema.prefix)]
     });
     return this.searchBy(this.searchBySchemaLinkPath, optionsWithSchema, ...linksToFollow);
-  }
-
-  /**
-   * Create or Update a MetadataField
-   *  If the MetadataField contains an id, it is assumed the field already exists and is updated instead
-   *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
-   *  - On creation, a CreateRequest is used
-   *  - On update, a PutRequest is used
-   * @param field    The MetadataField to create or update
-   */
-  createOrUpdateMetadataField(field: MetadataField): Observable<RemoteData<MetadataField>> {
-    const isUpdate = hasValue(field.id);
-
-    if (isUpdate) {
-      return this.put(field);
-    } else {
-      return this.create(field, new RequestParam('schemaId', field.schema.id));
-    }
   }
 
   /**

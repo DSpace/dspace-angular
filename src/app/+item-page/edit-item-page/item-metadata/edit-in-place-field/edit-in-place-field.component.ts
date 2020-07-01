@@ -58,7 +58,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
 
   constructor(
-    private metadataFieldService: RegistryService,
+    private registryService: RegistryService,
     private objectUpdatesService: ObjectUpdatesService,
   ) {
   }
@@ -128,13 +128,13 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   findMetadataFieldSuggestions(query: string): void {
     if (isNotEmpty(query)) {
-      this.metadataFieldService.queryMetadataFields(query).pipe(
+      this.registryService.queryMetadataFields(query).pipe(
         // getSucceededRemoteData(),
         take(1),
         map((data) => data.payload.page)
       ).subscribe(
         (fields: MetadataField[]) => this.metadataFieldSuggestions.next(
-          fields.filter((field: MetadataField) => field.schema.prefix !== 'relation' && field.schema.prefix !== 'relationship').map((field: MetadataField) => {
+          fields.map((field: MetadataField) => {
             return {
               displayValue: field.toString().split('.').join('.&#8203;'),
               value: field.toString()

@@ -64,45 +64,6 @@ describe('MetadataFieldDataService', () => {
     });
   });
 
-  describe('createOrUpdateMetadataField', () => {
-    let field: MetadataField;
-
-    beforeEach(() => {
-      field = Object.assign(new MetadataField(), {
-        element: 'identifier',
-        qualifier: undefined,
-        schema: schema,
-        _links: {
-          self: { href: 'selflink' }
-        }
-      });
-    });
-
-    describe('called with a new metadata field', () => {
-      it('should send a CreateRequest', (done) => {
-        metadataFieldService.createOrUpdateMetadataField(field).subscribe(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(CreateRequest));
-          done();
-        });
-      });
-    });
-
-    describe('called with an existing metadata field', () => {
-      beforeEach(() => {
-        field = Object.assign(field, {
-          id: 'id-of-existing-field'
-        });
-      });
-
-      it('should send a PutRequest', (done) => {
-        metadataFieldService.createOrUpdateMetadataField(field).subscribe(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PutRequest));
-          done();
-        });
-      });
-    });
-  });
-
   describe('clearRequests', () => {
     it('should remove requests on the data service\'s endpoint', (done) => {
       metadataFieldService.clearRequests().subscribe(() => {

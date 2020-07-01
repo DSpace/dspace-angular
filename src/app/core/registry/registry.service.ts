@@ -36,7 +36,8 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig, followLink } from '../../shared/utils/follow-link-config.model';
+import { RequestParam } from '../cache/models/request-param.model';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -68,11 +69,11 @@ export class RegistryService {
   }
 
   /**
-   * Retrieves a metadata schema by its name
-   * @param schemaName The name of the schema to find
+   * Retrieves a metadata schema by its prefix
+   * @param prefix The prefux of the schema to find
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataSchemaByName(schemaName: string, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<MetadataSchema>> {
+  public getMetadataSchemaByPrefix(prefix: string, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<MetadataSchema>> {
     // Temporary options to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
     const options: FindListOptions = Object.assign(new FindListOptions(), {
       elementsPerPage: 10000
@@ -81,7 +82,7 @@ export class RegistryService {
       getFirstSucceededRemoteDataPayload(),
       map((schemas: PaginatedList<MetadataSchema>) => schemas.page),
       isNotEmptyOperator(),
-      map((schemas: MetadataSchema[]) => schemas.filter((schema) => schema.prefix === schemaName)[0]),
+      map((schemas: MetadataSchema[]) => schemas.filter((schema) => schema.prefix === prefix)[0]),
       flatMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, ...linksToFollow))
     );
   }
@@ -240,24 +241,36 @@ export class RegistryService {
   }
 
   /**
-   * Create or Update a MetadataField
-   *  If the MetadataField contains an id, it is assumed the field already exists and is updated instead
-   *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
-   *  - On creation, a CreateRequest is used
-   *  - On update, a PutRequest is used
-   * @param field    The MetadataField to create or update
+   * Create a MetadataField
+   *
+   * @param field    The MetadataField to create
+   * @param schema   The MetadataSchema to create the field in
    */
-  public createOrUpdateMetadataField(field: MetadataField): Observable<MetadataField> {
-    const isUpdate = hasValue(field.id);
-    return this.metadataFieldService.createOrUpdateMetadataField(field).pipe(
+  public createMetadataField(field: MetadataField, schema: MetadataSchema): Observable<MetadataField> {
+    return this.metadataFieldService.create(field, new RequestParam('schemaId', schema.id)).pipe(
       getFirstSucceededRemoteDataPayload(),
       hasValueOperator(),
       tap(() => {
-        const fieldString = `${field.schema.prefix}.${field.element}${field.qualifier ? `.${field.qualifier}` : ''}`;
-        this.showNotifications(true, isUpdate, true, {field: fieldString});
+        this.showNotifications(true, false, true, {field: field.toString()});
       })
     );
   }
+
+  /**
+   * Update a MetadataField
+   *
+   * @param field    The MetadataField to update
+   */
+  public updateMetadataField(field: MetadataField): Observable<MetadataField> {
+    return this.metadataFieldService.put(field).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      hasValueOperator(),
+      tap(() => {
+        this.showNotifications(true, true, true, {field: field.toString()});
+      })
+    );
+  }
+
 
   /**
    * Method to delete a metadata field
@@ -296,12 +309,12 @@ export class RegistryService {
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
   queryMetadataFields(query: string): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return this.getAllMetadataFields().pipe(
+    return this.getAllMetadataFields(undefined, followLink('schema')).pipe(
       map((rd: RemoteData<PaginatedList<MetadataField>>) => {
         const filteredFields: MetadataField[] = rd.payload.page.filter(
           (field: MetadataField) => field.toString().indexOf(query) >= 0
         );
-        const page: PaginatedList<MetadataField> = new PaginatedList<MetadataField>(new PageInfo(), filteredFields)
+        const page: PaginatedList<MetadataField> = new PaginatedList<MetadataField>(new PageInfo(), filteredFields);
         return Object.assign({}, rd, { payload: page });
       })
     );
