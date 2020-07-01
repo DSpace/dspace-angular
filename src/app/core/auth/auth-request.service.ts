@@ -1,9 +1,8 @@
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
 import {
   AuthGetRequest,
@@ -13,7 +12,7 @@ import {
   RestRequest,
   TokenPostRequest
 } from '../data/request.models';
-import { AuthStatusResponse, ErrorResponse, RestResponse, TokenResponse } from '../cache/response.models';
+import { AuthStatusResponse, ErrorResponse, TokenResponse } from '../cache/response.models';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { getResponseFromEntry } from '../shared/operators';
 import { HttpClient } from '@angular/common/http';
