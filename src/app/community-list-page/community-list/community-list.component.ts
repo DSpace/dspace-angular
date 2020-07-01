@@ -1,5 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/request.models';
 import { CommunityListService, FlatNode } from '../community-list-service';
 import { CommunityListDatasource } from '../community-list-datasource';
 import { FlatTreeControl } from '@angular/cdk/tree';
@@ -27,17 +29,24 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   dataSource: CommunityListDatasource;
 
-  constructor(private communityListService: CommunityListService) {
+  paginationConfig: FindListOptions;
+
+  constructor(private communityListService: CommunityListService,
+              private zone: NgZone) {
+    this.paginationConfig = new FindListOptions();
+    this.paginationConfig.elementsPerPage = 2;
+    this.paginationConfig.currentPage = 1;
+    this.paginationConfig.sort = new SortOptions('dc.title', SortDirection.ASC);
   }
 
   ngOnInit() {
-    this.dataSource = new CommunityListDatasource(this.communityListService);
+    this.dataSource = new CommunityListDatasource(this.communityListService, this.zone);
     this.communityListService.getLoadingNodeFromStore().pipe(take(1)).subscribe((result) => {
       this.loadingNode = result;
     });
     this.communityListService.getExpandedNodesFromStore().pipe(take(1)).subscribe((result) => {
       this.expandedNodes = [...result];
-      this.dataSource.loadCommunities(this.expandedNodes);
+      this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes);
     });
   }
 
@@ -74,7 +83,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
         node.currentCommunityPage = 1;
       }
     }
-    this.dataSource.loadCommunities(this.expandedNodes);
+    this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes);
   }
 
   /**
@@ -94,10 +103,10 @@ export class CommunityListComponent implements OnInit, OnDestroy {
         const parentNodeInExpandedNodes = this.expandedNodes.find((node2: FlatNode) => node.parent.id === node2.id);
         parentNodeInExpandedNodes.currentCommunityPage++;
       }
-      this.dataSource.loadCommunities(this.expandedNodes);
+      this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes);
     } else {
-      this.communityListService.getNextPageTopCommunities();
-      this.dataSource.loadCommunities(this.expandedNodes);
+      this.paginationConfig.currentPage++;
+      this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes);
     }
   }
 
