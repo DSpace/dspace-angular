@@ -109,6 +109,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     if (!!this.getSelectedCcLicense() && this.getSelectedCcLicense().id === ccLicense.id) {
       return;
     }
+    this.setAccepted(false);
     this.updateSectionData({
       ccLicense: {
         id: ccLicense.id,
@@ -116,7 +117,6 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
       },
       uri: undefined,
     });
-    this.setAccepted(false);
   }
 
   /**
