@@ -62,17 +62,6 @@ describe('CreateProfileComponent', () => {
   const eperson = Object.assign(new EPerson(), values);
 
   beforeEach(async(() => {
-    const mockConfig = {
-      languages: [{
-        code: 'en',
-        label: 'English',
-        active: true,
-      }, {
-        code: 'de',
-        label: 'Deutsch',
-        active: false
-      }]
-    };
     route = {data: observableOf({registration: registration})};
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();

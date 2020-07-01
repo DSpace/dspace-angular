@@ -86,7 +86,7 @@ export class EpersonRegistrationService {
       find((href: string) => hasValue(href)),
       map((href: string) => {
         const request = new GetRequest(requestId, href);
-        const parser = Object.assign(request, {
+        Object.assign(request, {
           getResponseParser(): GenericConstructor<ResponseParsingService> {
             return RegistrationResponseParsingService;
           }
