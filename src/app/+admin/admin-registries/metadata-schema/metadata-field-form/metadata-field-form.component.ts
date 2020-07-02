@@ -153,6 +153,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
    * Emit the updated/created field using the EventEmitter submitForm
    */
   onSubmit() {
+    this.registryService.clearMetadataFieldRequests().subscribe();
     this.registryService.getActiveMetadataField().pipe(take(1)).subscribe(
       (field) => {
         const values = {
@@ -166,7 +167,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
             this.submitForm.emit(newField);
           });
         } else {
-          this.registryService.createOrUpdateMetadataField(Object.assign(new MetadataField(), {
+          this.registryService.createOrUpdateMetadataField(Object.assign(new MetadataField(), field, {
             id: field.id,
             schema: this.metadataSchema,
             element: (values.element ? values.element : field.element),
@@ -177,6 +178,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
           });
         }
         this.clearFields();
+        this.registryService.cancelEditMetadataField();
       }
     );
   }

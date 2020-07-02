@@ -50,3 +50,5 @@ if (hasValue(environment.universal) && environment.universal.preboot === false) 
 } else {
   document.addEventListener('DOMContentLoaded', () => bootloader(main));
 }
+
+import 'zone.js/dist/zone';

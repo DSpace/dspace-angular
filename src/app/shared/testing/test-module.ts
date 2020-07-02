@@ -22,7 +22,11 @@ import { RouterLinkDirectiveStub } from './router-link-directive.stub';
     MySimpleItemActionComponent,
     RouterLinkDirectiveStub,
     NgComponentOutletDirectiveStub
-  ], schemas: [
+  ],
+  exports: [
+    QueryParamsDirectiveStub
+  ],
+  schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]
 })

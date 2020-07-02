@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="d-flex">
+        <h2 class="flex-grow-1">{{'process.overview.title' | translate}}</h2>
+        <button class="btn btn-lg btn-success " routerLink="/processes/new"><i class="fas fa-plus pr-2"></i>{{'process.overview.new' | translate}}</button>
+    </div>
+    <ds-pagination *ngIf="(processesRD$ | async)?.payload?.totalElements > 0"
+                   [paginationOptions]="pageConfig"
+                   [pageInfoState]="(processesRD$ | async)?.payload"
+                   [collectionSize]="(processesRD$ | async)?.payload?.totalElements"
+                   [hideGear]="true"
+                   [hidePagerWhenSinglePage]="true"
+                   (pageChange)="onPageChange($event)">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">{{'process.overview.table.id' | translate}}</th>
+                    <th scope="col">{{'process.overview.table.name' | translate}}</th>
+                    <th scope="col">{{'process.overview.table.user' | translate}}</th>
+                    <th scope="col">{{'process.overview.table.start' | translate}}</th>
+                    <th scope="col">{{'process.overview.table.finish' | translate}}</th>
+                    <th scope="col">{{'process.overview.table.status' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let process of (processesRD$ | async)?.payload?.page">
+                    <td><a [routerLink]="['/processes/', process.processId]">{{process.processId}}</a></td>
+                    <td><a [routerLink]="['/processes/', process.processId]">{{process.scriptName}}</a></td>
+                    <td *ngVar="(getEpersonName(process.userId) | async) as ePersonName">{{ePersonName}}</td>
+                    <td>{{process.startTime | date:dateFormat}}</td>
+                    <td>{{process.endTime | date:dateFormat}}</td>
+                    <td>{{process.processStatus}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </ds-pagination>
+</div>

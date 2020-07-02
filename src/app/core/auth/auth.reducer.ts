@@ -115,7 +115,6 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       });
 
     case AuthActionTypes.AUTHENTICATE_ERROR:
-    case AuthActionTypes.REGISTRATION_ERROR:
       return Object.assign({}, state, {
         authenticated: false,
         authToken: undefined,
@@ -156,18 +155,6 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         info: (action as RedirectWhenTokenExpiredAction as RedirectWhenAuthenticationIsRequiredAction).payload,
         userId: undefined
       });
-
-    case AuthActionTypes.REGISTRATION:
-      return Object.assign({}, state, {
-        authenticated: false,
-        authToken: undefined,
-        error: undefined,
-        loading: true,
-        info: undefined
-      });
-
-    case AuthActionTypes.REGISTRATION_SUCCESS:
-      return state;
 
     case AuthActionTypes.REFRESH_TOKEN:
       return Object.assign({}, state, {

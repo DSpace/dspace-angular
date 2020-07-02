@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
 import { hasNoValue } from '../../shared/empty.util';
+import { currentPathFromSnapshot } from '../../shared/utils/route.utils';
 
 /**
  * The class that resolves a BreadcrumbConfig object with an i18n key string for a route
@@ -25,7 +26,7 @@ export class I18nBreadcrumbResolver implements Resolve<BreadcrumbConfig<string>>
     if (hasNoValue(key)) {
       throw new Error('You provided an i18nBreadcrumbResolver for url \"' + route.url + '\" but no breadcrumbKey in the route\'s data')
     }
-    const fullPath = route.url.join('');
+    const fullPath = currentPathFromSnapshot(route);
     return { provider: this.breadcrumbService, key: key, url: fullPath };
   }
 }
