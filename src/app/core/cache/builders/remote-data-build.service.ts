@@ -150,12 +150,7 @@ export class RemoteDataBuildService {
       filterSuccessfulResponses(),
       map((response: DSOSuccessResponse) => {
         if (hasValue((response as DSOSuccessResponse).pageInfo)) {
-          const resPageInfo = (response as DSOSuccessResponse).pageInfo;
-          if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
-            return Object.assign({}, resPageInfo, { currentPage: resPageInfo.currentPage + 1 });
-          } else {
-            return resPageInfo;
-          }
+          return (response as DSOSuccessResponse).pageInfo;
         }
       })
     );

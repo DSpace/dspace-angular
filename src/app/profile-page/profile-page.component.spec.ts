@@ -13,8 +13,9 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { authReducer } from '../core/auth/auth.reducer';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { createPaginatedList } from '../shared/testing/utils.test';
-import { of } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { AuthService } from '../core/auth/auth.service';
+import { RestResponse } from '../core/cache/response.models';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -40,10 +41,11 @@ describe('ProfilePageComponent', () => {
     };
 
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: of(user)
+      getAuthenticatedUserFromStore: observableOf(user)
     });
     epersonService = jasmine.createSpyObj('epersonService', {
-      findById: createSuccessfulRemoteDataObject$(user)
+      findById: createSuccessfulRemoteDataObject$(user),
+      patch: observableOf(Object.assign(new RestResponse(true, 200, 'Success')))
     });
     notificationsService = jasmine.createSpyObj('notificationsService', {
       success: {},
@@ -84,9 +86,7 @@ describe('ProfilePageComponent', () => {
         component.metadataForm = jasmine.createSpyObj('metadataForm', {
           updateProfile: false
         });
-        component.securityForm = jasmine.createSpyObj('securityForm', {
-          updateSecurity: true
-        });
+        spyOn(component, 'updateSecurity').and.returnValue(true);
         component.updateProfile();
       });
 
@@ -99,9 +99,6 @@ describe('ProfilePageComponent', () => {
       beforeEach(() => {
         component.metadataForm = jasmine.createSpyObj('metadataForm', {
           updateProfile: true
-        });
-        component.securityForm = jasmine.createSpyObj('securityForm', {
-          updateSecurity: false
         });
         component.updateProfile();
       });
@@ -116,9 +113,6 @@ describe('ProfilePageComponent', () => {
         component.metadataForm = jasmine.createSpyObj('metadataForm', {
           updateProfile: true
         });
-        component.securityForm = jasmine.createSpyObj('securityForm', {
-          updateSecurity: true
-        });
         component.updateProfile();
       });
 
@@ -132,14 +126,67 @@ describe('ProfilePageComponent', () => {
         component.metadataForm = jasmine.createSpyObj('metadataForm', {
           updateProfile: false
         });
-        component.securityForm = jasmine.createSpyObj('securityForm', {
-          updateSecurity: false
-        });
         component.updateProfile();
       });
 
       it('should display a warning', () => {
         expect(notificationsService.warning).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('updateSecurity', () => {
+    describe('when no password value present', () => {
+      let result;
+
+      beforeEach(() => {
+        component.setPasswordValue('');
+
+        result = component.updateSecurity();
+      });
+
+      it('should return false', () => {
+        expect(result).toEqual(false);
+      });
+
+      it('should not call epersonService.patch', () => {
+        expect(epersonService.patch).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when password is filled in, but the password is invalid', () => {
+      let result;
+
+      beforeEach(() => {
+        component.setPasswordValue('test');
+        component.setInvalid(true);
+        result = component.updateSecurity();
+      });
+
+      it('should return true', () => {
+        expect(result).toEqual(true);
+        expect(epersonService.patch).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when password is filled in, and is valid', () => {
+      let result;
+      let operations;
+
+      beforeEach(() => {
+        component.setPasswordValue('testest');
+        component.setInvalid(false);
+
+        operations = [{op: 'replace', path: '/password', value: 'testest'}];
+        result = component.updateSecurity();
+      });
+
+      it('should return true', () => {
+        expect(result).toEqual(true);
+      });
+
+      it('should return call epersonService.patch', () => {
+        expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
       });
     });
   });
