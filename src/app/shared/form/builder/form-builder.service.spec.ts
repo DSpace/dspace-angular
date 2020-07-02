@@ -34,7 +34,7 @@ import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scro
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
-import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+import { DynamicOneboxModel } from './ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { FormFieldModel } from './models/form-field.model';
@@ -195,7 +195,7 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicColorPickerModel({id: 'testColorPicker'}),
 
-      new DynamicTypeaheadModel({id: 'testTypeahead', repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicOneboxModel({id: 'testOnebox', repeatable: false, metadataFields: [], submissionId: '1234'}),
 
       new DynamicScrollableDropdownModel({id: 'testScrollableDropdown', vocabularyOptions: vocabularyOptions, repeatable: false, metadataFields: [], submissionId: '1234'}),
 
@@ -433,7 +433,7 @@ describe('FormBuilderService test suite', () => {
 
     expect(formModel[2] instanceof DynamicRowGroupModel).toBe(true);
     expect((formModel[2] as DynamicRowGroupModel).group.length).toBe(1);
-    expect((formModel[2] as DynamicRowGroupModel).get(0) instanceof DynamicTypeaheadModel).toBe(true);
+    expect((formModel[2] as DynamicRowGroupModel).get(0) instanceof DynamicOneboxModel).toBe(true);
   });
 
   it('should return form\'s fields value from form model', () => {
@@ -449,7 +449,7 @@ describe('FormBuilderService test suite', () => {
     };
     expect(service.getValueFromModel(formModel)).toEqual(value);
 
-    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicTypeaheadModel).valueUpdates.next('test one');
+    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).valueUpdates.next('test one');
     value = {
       issue: [new FormFieldMetadataValueObject('test')],
       conference: [new FormFieldMetadataValueObject('test one')]
@@ -462,11 +462,11 @@ describe('FormBuilderService test suite', () => {
     const value = {} as any;
 
     ((formModel[0] as DynamicRowGroupModel).get(1) as DsDynamicInputModel).valueUpdates.next('test');
-    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicTypeaheadModel).valueUpdates.next('test one');
+    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).valueUpdates.next('test one');
 
     service.clearAllModelsValue(formModel);
-    expect(((formModel[0] as DynamicRowGroupModel).get(1) as DynamicTypeaheadModel).value).toEqual(undefined)
-    expect(((formModel[2] as DynamicRowGroupModel).get(0) as DynamicTypeaheadModel).value).toEqual(undefined)
+    expect(((formModel[0] as DynamicRowGroupModel).get(1) as DynamicOneboxModel).value).toEqual(undefined)
+    expect(((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).value).toEqual(undefined)
   });
 
   it('should return true when model has a custom group model as parent', () => {

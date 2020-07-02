@@ -1,5 +1,6 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   ContentChildren,
@@ -29,13 +30,15 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicDatePickerModel, DynamicFormComponentService,
+  DynamicDatePickerModel,
+  DynamicFormComponentService,
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormLayout,
-  DynamicFormLayoutService, DynamicFormRelationService,
+  DynamicFormLayoutService,
+  DynamicFormRelationService,
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
@@ -56,7 +59,7 @@ import {
   ReorderableRelationship
 } from './existing-metadata-list-element/existing-metadata-list-element.component';
 
-import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './models/onebox/dynamic-onebox.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
@@ -68,7 +71,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-l
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
 import { DsDynamicListComponent } from './models/list/dynamic-list.component';
-import { DsDynamicTypeaheadComponent } from './models/typeahead/dynamic-typeahead.component';
+import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
@@ -78,7 +81,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-grou
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
-import { map, startWith, switchMap, find } from 'rxjs/operators';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -88,7 +91,11 @@ import { SelectableListService } from '../../../object-list/selectable-list/sele
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { getAllSucceededRemoteData, getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  getSucceededRemoteData
+} from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
@@ -136,8 +143,8 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
     case DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER:
       return DynamicNGBootstrapTimePickerComponent;
 
-    case DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD:
-      return DsDynamicTypeaheadComponent;
+    case DYNAMIC_FORM_CONTROL_TYPE_ONEBOX:
+      return DsDynamicOneboxComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN:
       return DsDynamicScrollableDropdownComponent;

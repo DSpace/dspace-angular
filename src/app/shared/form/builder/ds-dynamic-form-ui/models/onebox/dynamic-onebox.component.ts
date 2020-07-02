@@ -17,7 +17,7 @@ import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import { NgbModal, NgbModalRef, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
+import { DynamicOneboxModel } from './dynamic-onebox.model';
 import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
@@ -31,14 +31,14 @@ import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 @Component({
-  selector: 'ds-dynamic-typeahead',
-  styleUrls: ['./dynamic-typeahead.component.scss'],
-  templateUrl: './dynamic-typeahead.component.html'
+  selector: 'ds-dynamic-onebox',
+  styleUrls: ['./dynamic-onebox.component.scss'],
+  templateUrl: './dynamic-onebox.component.html'
 })
-export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent implements OnInit {
+export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
-  @Input() model: DynamicTypeaheadModel;
+  @Input() model: DynamicOneboxModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -76,7 +76,7 @@ export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent im
 
   /**
    * Converts a stream of text values from the `<input>` element to the stream of the array of items
-   * to display in the typeahead popup.
+   * to display in the onebox popup.
    */
   search = (text$: Observable<string>) => {
     return text$.pipe(
