@@ -9,7 +9,7 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { RequestService } from '../../data/request.service';
-import { FindListOptions, VocabularyEntriesRequest } from '../../data/request.models';
+import { VocabularyEntriesRequest } from '../../data/request.models';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { PageInfo } from '../../shared/page-info.model';
 import { PaginatedList } from '../../data/paginated-list';
@@ -64,55 +64,6 @@ describe('VocabularyService', () => {
       entries: {
         href: 'https://rest.api/rest/api/submission/vocabularies/types/entries'
       },
-    }
-  };
-
-  const vocabularyEntry: any = {
-    display: 'testValue1',
-    value: 'testValue1',
-    otherInformation: {},
-    type: 'vocabularyEntry'
-  };
-
-  const vocabularyEntryWithAuthority: any = {
-    authority: 'authorityId1',
-    display: 'testValue1',
-    value: 'testValue1',
-    otherInformation: {
-      id: 'VR131402',
-      parent: 'Research Subject Categories::SOCIAL SCIENCES::Social sciences::Social work',
-      hasChildren: 'false',
-      note: 'Familjeforskning'
-    },
-    type: 'vocabularyEntry',
-    _links: {
-      vocabularyEntryDetail: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:VR131402'
-      }
-    }
-  };
-
-  const vocabularyEntryDetail: any = {
-    authority: 'authorityId1',
-    display: 'testValue1',
-    value: 'testValue1',
-    otherInformation: {
-      id: 'VR131402',
-      parent: 'Research Subject Categories::SOCIAL SCIENCES::Social sciences::Social work',
-      hasChildren: 'true',
-      note: 'Familjeforskning'
-    },
-    type: 'vocabularyEntryDetail',
-    _links: {
-      self: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:VR131402'
-      },
-      parent: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:parent'
-      },
-      children: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children'
-      }
     }
   };
 
@@ -185,27 +136,6 @@ describe('VocabularyService', () => {
     }
   };
 
-  const anotherVocabularyEntryDetail: any = {
-    authority: 'authorityId1',
-    display: 'children',
-    value: 'children',
-    otherInformation: {
-      id: 'VR131402',
-      parent: 'Research Subject Categories::SOCIAL SCIENCES::Social sciences::Social work',
-      hasChildren: 'false',
-      note: 'Familjeforskning'
-    },
-    type: 'vocabularyEntryDetail',
-    _links: {
-      self: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children'
-      },
-      parent: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:testValue1'
-      }
-    }
-  };
-
   const endpointURL = `https://rest.api/rest/api/submission/vocabularies`;
   const requestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}`;
   const entryDetailEndpointURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails`;
@@ -230,17 +160,13 @@ describe('VocabularyService', () => {
   }
   const pageInfo = new PageInfo();
   const array = [vocabulary, hierarchicalVocabulary];
-  const arrayEntries = [vocabularyEntryDetail, anotherVocabularyEntryDetail];
   const childrenEntries = [vocabularyEntryChildDetail, vocabularyEntryChild2Detail];
   const paginatedList = new PaginatedList(pageInfo, array);
-  const entriesPaginatedList = new PaginatedList(pageInfo, arrayEntries);
   const childrenPaginatedList = new PaginatedList(pageInfo, childrenEntries);
   const vocabularyRD = createSuccessfulRemoteDataObject(vocabulary);
-  const vocabularyEntryDetailRD = createSuccessfulRemoteDataObject(vocabularyEntryDetail);
   const vocabularyEntryDetailParentRD = createSuccessfulRemoteDataObject(vocabularyEntryParentDetail);
   const vocabularyEntryChildrenRD = createSuccessfulRemoteDataObject(childrenPaginatedList);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-  const entriesPaginatedListRD = createSuccessfulRemoteDataObject(entriesPaginatedList);
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful, payload: vocabulary } as any
@@ -371,33 +297,6 @@ describe('VocabularyService', () => {
           a: vocabularyRD
         });
         expect(result).toBeObservable(expected);
-      });
-
-    });
-
-    describe('getVocabularyEntries', () => {
-
-      beforeEach(() => {
-        requestService = getMockRequestService(getRequestEntry$(true));
-        rdbService = getMockRemoteDataBuildService();
-        spyOn(rdbService, 'toRemoteDataObservable').and.callThrough();
-        service = initTestService();
-      });
-
-      it('should configure a new VocabularyEntriesRequest', () => {
-        const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesRequestURL);
-
-        scheduler.schedule(() => service.getVocabularyEntries(vocabularyOptions, pageInfo).subscribe());
-        scheduler.flush();
-
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
-      });
-
-      it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-        service.getVocabularyEntries(vocabularyOptions, pageInfo);
-
-        expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
-
       });
 
     });
