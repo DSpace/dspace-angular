@@ -2,7 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest as combineLatestObservable } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { first, map, take } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
 import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';

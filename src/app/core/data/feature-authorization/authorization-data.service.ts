@@ -20,13 +20,12 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../remote-data';
 import { PaginatedList } from '../paginated-list';
-import { find, map, skipWhile, switchMap, tap } from 'rxjs/operators';
+import { find, map, switchMap, tap } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { addAuthenticatedUserUuidIfEmpty, addSiteObjectUrlIfEmpty } from './authorization-utils';
 import { FeatureID } from './feature-id';
-import { of } from 'rxjs/internal/observable/of';
 
 /**
  * A service to retrieve {@link Authorization}s from the REST API
