@@ -7,6 +7,7 @@ import { ServerSyncBufferEffects } from './cache/server-sync-buffer.effects';
 import { ObjectUpdatesEffects } from './data/object-updates/object-updates.effects';
 import { RouteEffects } from './services/route.effects';
 import { RouterEffects } from './router/router.effects';
+import { MenuEffects } from '../shared/menu/menu.effects';
 
 export const coreEffects = [
   RequestEffects,
@@ -17,5 +18,6 @@ export const coreEffects = [
   ServerSyncBufferEffects,
   ObjectUpdatesEffects,
   RouteEffects,
-  RouterEffects
+  RouterEffects,
+  MenuEffects
 ];
