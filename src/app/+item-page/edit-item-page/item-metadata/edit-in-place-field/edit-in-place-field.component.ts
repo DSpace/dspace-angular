@@ -75,7 +75,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sends a new change update for this field to the object updates service
    */
   update(ngModel?: NgModel) {
-    this.objectUpdatesService.saveChangeFieldUpdate(this.url, this.metadata);
+    this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(this.metadata));
     if (hasValue(ngModel)) {
       this.checkValidity(ngModel);
     }
@@ -103,7 +103,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sends a new remove update for this field to the object updates service
    */
   remove() {
-    this.objectUpdatesService.saveRemoveFieldUpdate(this.url, this.metadata);
+    this.objectUpdatesService.saveRemoveFieldUpdate(this.url, cloneDeep(this.metadata));
   }
 
   /**
