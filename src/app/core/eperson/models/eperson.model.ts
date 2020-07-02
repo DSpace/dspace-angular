@@ -58,6 +58,12 @@ export class EPerson extends DSpaceObject {
   public selfRegistered: boolean;
 
   /**
+   * The password of this EPerson
+   */
+  @autoserialize
+  public password: string;
+
+  /**
    * Getter to retrieve the EPerson's full name as a string
    */
   get name(): string {

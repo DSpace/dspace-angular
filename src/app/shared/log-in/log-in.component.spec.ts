@@ -1,7 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Store, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 
 import { LogInComponent } from './log-in.component';
 import { authReducer } from '../../core/auth/auth.reducer';
@@ -13,11 +13,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared.module';
 import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../testing/router.stub';
+import { ActivatedRoute } from '@angular/router';
 import { NativeWindowService } from '../../core/services/window.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { createTestComponent } from '../testing/utils.test';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LogInComponent', () => {
 
@@ -46,6 +46,7 @@ describe('LogInComponent', () => {
             strictActionImmutability: false
           }
         }),
+        RouterTestingModule,
         SharedModule,
         TranslateModule.forRoot()
       ],
@@ -55,7 +56,7 @@ describe('LogInComponent', () => {
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
-        { provide: Router, useValue: new RouterStub() },
+        // { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         provideMockStore({ initialState }),
         LogInComponent
