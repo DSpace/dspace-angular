@@ -65,7 +65,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
   let vocabularyServiceStub: any;
   let html;
   let modal;
-  let vocabulary = {
+  const vocabulary = {
     id: 'vocabulary',
     name: 'vocabulary',
     scrollable: true,
@@ -82,7 +82,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
     }
   }
 
-  let hierarchicalVocabulary = {
+  const hierarchicalVocabulary = {
     id: 'hierarchicalVocabulary',
     name: 'hierarchicalVocabulary',
     scrollable: true,

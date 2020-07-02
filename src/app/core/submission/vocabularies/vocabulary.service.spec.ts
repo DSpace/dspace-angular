@@ -607,7 +607,6 @@ describe('VocabularyService', () => {
       });
     });
 
-
     describe('searchByTop', () => {
       it('should proxy the call to vocabularyEntryDetailDataService.searchBy', () => {
         const options: VocabularyFindOptions = new VocabularyFindOptions(

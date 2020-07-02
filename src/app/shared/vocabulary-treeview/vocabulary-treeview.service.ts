@@ -230,7 +230,7 @@ export class VocabularyTreeviewService {
     const entryDetail: VocabularyEntryDetail = Object.assign(new VocabularyEntryDetail(), entry, {
       id: entryId
     });
-    const hasChildren = entry.hasOtherInformation() && (entry.otherInformation as any)!.hasChildren == 'true';
+    const hasChildren = entry.hasOtherInformation() && (entry.otherInformation as any)!.hasChildren === 'true';
     const pageInfo: PageInfo = this.pageInfo;
     const isInInitValueHierarchy = this.initValueHierarchy.includes(entryId);
     const result = new TreeviewNode(
