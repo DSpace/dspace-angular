@@ -18,6 +18,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './mapped-collections-reponse-parsing.service';
+import { TokenResponseParsingService } from '../auth/token-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -236,6 +237,15 @@ export class AuthGetRequest extends GetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return AuthResponseParsingService;
+  }
+}
+
+/**
+ * A POST request for retrieving a token
+ */
+export class TokenPostRequest extends PostRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return TokenResponseParsingService;
   }
 }
 

@@ -970,6 +970,62 @@
   "footer.link.duraspace": "DuraSpace",
 
 
+  "forgot-email.form.header": "Forgot Password",
+
+  "forgot-email.form.info": "Enter Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+
+  "forgot-email.form.email": "Email Address *",
+
+  "forgot-email.form.email.error.required": "Please fill in an email address",
+
+  "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
+
+  "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
+
+  "forgot-email.form.submit": "Submit",
+
+  "forgot-email.form.success.head": "Verification email sent",
+
+  "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+
+  "forgot-email.form.error.head": "Error when trying to register email",
+
+  "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
+
+
+
+  "forgot-password.title": "Forgot Password",
+
+  "forgot-password.form.head": "Forgot Password",
+
+  "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+
+  "forgot-password.form.card.security": "Security",
+
+  "forgot-password.form.identification.header": "Identify",
+
+  "forgot-password.form.identification.email": "Email address: ",
+
+  "forgot-password.form.label.password": "Password",
+
+  "forgot-password.form.label.passwordrepeat": "Retype to confirm",
+
+  "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+
+  "forgot-password.form.error.matching-passwords": "The passwords do not match.",
+
+  "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
+
+  "forgot-password.form.notification.error.title": "Error when trying to submit new password",
+
+  "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
+
+  "forgot-password.form.notification.success.title": "Password reset completed",
+
+  "forgot-password.form.submit": "Submit password",
+
+
+
   "form.add": "Add",
 
   "form.add-help": "Click here to add the current entry and to add another one",
@@ -2078,6 +2134,74 @@
   "publication.search.results.head": "Publication Search Results",
 
   "publication.search.title": "DSpace Angular :: Publication Search",
+
+
+  "register-email.title": "New user registration",
+
+  "register-page.create-profile.header": "Create Profile",
+
+  "register-page.create-profile.identification.header": "Identify",
+
+  "register-page.create-profile.identification.email": "Email Address",
+
+  "register-page.create-profile.identification.first-name": "First Name *",
+
+  "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
+
+  "register-page.create-profile.identification.last-name": "Last Name *",
+
+  "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
+
+  "register-page.create-profile.identification.contact": "Contact Telephone",
+
+  "register-page.create-profile.identification.language": "Language",
+
+  "register-page.create-profile.security.header": "Security",
+
+  "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
+
+  "register-page.create-profile.security.label.password": "Password *",
+
+  "register-page.create-profile.security.label.passwordrepeat": "Retype to confirm *",
+
+  "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
+
+  "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
+
+  "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
+
+  "register-page.create-profile.submit": "Complete Registration",
+
+  "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
+
+  "register-page.create-profile.submit.error.head": "Registration failed",
+
+  "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
+
+  "register-page.create-profile.submit.success.head": "Registration completed",
+
+
+  "register-page.registration.header": "New user registration",
+
+  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+
+  "register-page.registration.email": "Email Address *",
+
+  "register-page.registration.email.error.required": "Please fill in an email address",
+
+  "register-page.registration.email.error.pattern": "Please fill in a valid email address",
+
+  "register-page.registration.email.hint": "This address will be verified and used as your login name.",
+
+  "register-page.registration.submit": "Register",
+
+  "register-page.registration.success.head": "Verification email sent",
+
+  "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
+
+  "register-page.registration.error.head": "Error when trying to register email",
+
+  "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
 
 
 
