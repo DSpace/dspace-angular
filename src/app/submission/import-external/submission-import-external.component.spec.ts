@@ -110,7 +110,6 @@ describe('SubmissionImportExternalComponent test suite', () => {
         })
       });
       spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValue(observableOf('dummy'));
-      comp.ngOnInit();
       fixture.detectChanges();
 
       expect(comp.routeData).toEqual({ sourceId: 'dummy', query: 'dummy' });

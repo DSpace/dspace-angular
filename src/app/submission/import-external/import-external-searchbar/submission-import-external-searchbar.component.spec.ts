@@ -84,7 +84,6 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 
     it('Should init component properly (without initExternalSourceData)', () => {
       comp.initExternalSourceData = { sourceId: '', query: '' };
-      comp.ngOnInit();
       fixture.detectChanges();
 
       expect(comp.selectedElement).toEqual(sourceList[0]);
@@ -94,7 +93,6 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 
     it('Should init component properly (with initExternalSourceData populated)', () => {
       comp.initExternalSourceData = { query: 'dummy', sourceId: 'ciencia' };
-      comp.ngOnInit();
       fixture.detectChanges();
 
       expect(comp.selectedElement).toEqual(sourceList[1]);
