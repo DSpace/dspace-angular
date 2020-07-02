@@ -22,12 +22,13 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions, FindListRequest, PatchRequest, } from '../data/request.models';
+import { FindListOptions, FindListRequest, PatchRequest, PostRequest, } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { EPERSON } from './models/eperson.resource-type';
+import { RequestEntry } from '../data/request.reducer';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -165,17 +166,17 @@ export class EPersonDataService extends DataService<EPerson> {
     if (hasValue(oldEPerson.email) && oldEPerson.email !== newEPerson.email) {
       operations = [...operations, {
         op: 'replace', path: '/email', value: newEPerson.email
-      }]
+      }];
     }
     if (hasValue(oldEPerson.requireCertificate) && oldEPerson.requireCertificate !== newEPerson.requireCertificate) {
       operations = [...operations, {
         op: 'replace', path: '/certificate', value: newEPerson.requireCertificate
-      }]
+      }];
     }
     if (hasValue(oldEPerson.canLogIn) && oldEPerson.canLogIn !== newEPerson.canLogIn) {
       operations = [...operations, {
         op: 'replace', path: '/canLogIn', value: newEPerson.canLogIn
-      }]
+      }];
     }
     return operations;
   }
@@ -200,7 +201,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * Method to retrieve the eperson that is currently being edited
    */
   public getActiveEPerson(): Observable<EPerson> {
-    return this.store.pipe(select(editEPersonSelector))
+    return this.store.pipe(select(editEPersonSelector));
   }
 
   /**
@@ -247,6 +248,56 @@ export class EPersonDataService extends DataService<EPerson> {
    */
   public getEPeoplePageRouterLink(): string {
     return '/admin/access-control/epeople';
+  }
+
+  /**
+   * Create a new EPerson using a token
+   * @param eperson
+   * @param token
+   */
+  public createEPersonForToken(eperson: EPerson, token: string) {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getBrowseEndpoint().pipe(
+      map((href: string) => `${href}?token=${token}`));
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PostRequest(requestId, href, eperson);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.fetchResponse(requestId);
+
+  }
+
+  /**
+   * Sends a patch request to update an epersons password based on a forgot password token
+   * @param uuid      Uuid of the eperson
+   * @param token     The forgot password token
+   * @param password  The new password value
+   */
+  patchPasswordWithToken(uuid: string, token: string, password: string): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+
+    const operation = Object.assign({ op: 'replace', path: '/password', value: password });
+
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, uuid)),
+      map((href: string) => `${href}?token=${token}`));
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PatchRequest(requestId, href, [operation]);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
   }
 
   /**

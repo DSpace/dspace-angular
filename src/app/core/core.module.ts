@@ -69,13 +69,8 @@ import { ItemDataService } from './data/item-data.service';
 import { LicenseDataService } from './data/license-data.service';
 import { LookupRelationService } from './data/lookup-relation.service';
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
-import { MetadatafieldParsingService } from './data/metadatafield-parsing.service';
-import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
-import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
-import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
-import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
 import { RelationshipTypeService } from './data/relationship-type.service';
 import { RelationshipService } from './data/relationship.service';
 import { ResourcePolicyService } from './resource-policy/resource-policy.service';
@@ -150,6 +145,10 @@ import { Authorization } from './shared/authorization.model';
 import { FeatureDataService } from './data/feature-authorization/feature-data.service';
 import { AuthorizationDataService } from './data/feature-authorization/authorization-data.service';
 import { SiteAdministratorGuard } from './data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { Registration } from './shared/registration.model';
+import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
+import { MetadataFieldDataService } from './data/metadata-field-data.service';
+import { TokenResponseParsingService } from './auth/token-response-parsing.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -206,9 +205,6 @@ const PROVIDERS = [
   FacetValueResponseParsingService,
   FacetValueMapResponseParsingService,
   FacetConfigResponseParsingService,
-  RegistryMetadataschemasResponseParsingService,
-  RegistryMetadatafieldsResponseParsingService,
-  RegistryBitstreamformatsResponseParsingService,
   MappedCollectionsReponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
@@ -228,8 +224,6 @@ const PROVIDERS = [
   JsonPatchOperationsBuilder,
   AuthorityService,
   IntegrationResponseParsingService,
-  MetadataschemaParsingService,
-  MetadatafieldParsingService,
   UploaderService,
   UUIDService,
   NotificationsService,
@@ -272,6 +266,9 @@ const PROVIDERS = [
   FeatureDataService,
   AuthorizationDataService,
   SiteAdministratorGuard,
+  MetadataSchemaDataService,
+  MetadataFieldDataService,
+  TokenResponseParsingService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -324,7 +321,8 @@ export const models =
     VersionHistory,
     WorkflowAction,
     Feature,
-    Authorization
+    Authorization,
+    Registration
   ];
 
 @NgModule({
