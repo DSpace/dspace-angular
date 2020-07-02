@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { Field, Option, SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { renderSectionFor } from '../sections-decorator';
@@ -235,15 +235,19 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         distinctUntilChanged(),
         map((sectionState) => sectionState.data as WorkspaceitemSectionCcLicenseObject),
       ).subscribe((data) => {
-        this.sectionData.data = data;
-        const path = this.pathCombiner.getPath('uri');
-        if (this.accepted) {
-          this.getCcLicenseLink$().subscribe((link) => {
-            this.operationsBuilder.add(path, link.toString(), false, true);
-          });
-        } else {
-          this.operationsBuilder.remove(path);
+        if (this.data.accepted !== data.accepted) {
+          const path = this.pathCombiner.getPath('uri');
+          if (data.accepted) {
+            this.getCcLicenseLink$().pipe(
+              take(1),
+            ).subscribe((link) => {
+              this.operationsBuilder.add(path, link.toString(), false, true);
+            });
+          } else if (!!this.data.uri) {
+            this.operationsBuilder.remove(path);
+          }
         }
+        this.sectionData.data = data;
       }),
       this.submissionCcLicensesDataService.findAll({elementsPerPage: Number.MAX_SAFE_INTEGER}).pipe(
         getSucceededRemoteData(),
