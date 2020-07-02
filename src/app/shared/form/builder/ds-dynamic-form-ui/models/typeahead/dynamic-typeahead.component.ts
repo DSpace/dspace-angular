@@ -201,6 +201,10 @@ export class DsDynamicTypeaheadComponent extends DsDynamicVocabularyComponent im
     this.dispatchUpdate(event.item);
   }
 
+  /**
+   * Open modal to show tree for hierarchical vocabulary
+   * @param event The click event fired
+   */
   openTree(event) {
     event.preventDefault();
     event.stopImmediatePropagation();

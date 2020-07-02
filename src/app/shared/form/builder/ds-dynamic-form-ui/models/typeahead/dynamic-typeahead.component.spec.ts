@@ -5,7 +5,7 @@ import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@ang
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -21,6 +21,10 @@ import { AuthorityConfidenceStateDirective } from '../../../../../authority-conf
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
+import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { TestScheduler } from 'rxjs/testing';
+import { getTestScheduler } from 'jasmine-marbles';
 
 export let TYPEAHEAD_TEST_GROUP;
 
@@ -51,14 +55,16 @@ function init() {
   };
 }
 
-fdescribe('DsDynamicTypeaheadComponent test suite', () => {
+describe('DsDynamicTypeaheadComponent test suite', () => {
 
+  let scheduler: TestScheduler;
   let testComp: TestComponent;
   let typeaheadComp: DsDynamicTypeaheadComponent;
   let testFixture: ComponentFixture<TestComponent>;
   let typeaheadFixture: ComponentFixture<DsDynamicTypeaheadComponent>;
-  let service: any;
+  let vocabularyServiceStub: any;
   let html;
+  let modal;
   let vocabulary = {
     id: 'vocabulary',
     name: 'vocabulary',
@@ -95,7 +101,15 @@ fdescribe('DsDynamicTypeaheadComponent test suite', () => {
 
   // async beforeEach
   beforeEach(async(() => {
-    const vocabularyServiceStub = new VocabularyServiceStub();
+    vocabularyServiceStub = new VocabularyServiceStub();
+    modal = jasmine.createSpyObj('modal', ['open', 'close', 'dismiss']);
+/*    jasmine.createSpyObj('modal',
+      {
+        open: jasmine.createSpy('open'),
+        close: jasmine.createSpy('close'),
+        dismiss: jasmine.createSpy('dismiss'),
+      }
+    );*/
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -104,20 +118,23 @@ fdescribe('DsDynamicTypeaheadComponent test suite', () => {
         FormsModule,
         NgbModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        CdkTreeModule
       ],
       declarations: [
         DsDynamicTypeaheadComponent,
         TestComponent,
         AuthorityConfidenceStateDirective,
-        ObjNgFor
+        ObjNgFor,
+        VocabularyTreeviewComponent
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
         DsDynamicTypeaheadComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: {} },
-        { provide: DynamicFormValidationService, useValue: {} }
+        { provide: DynamicFormValidationService, useValue: {} },
+        { provide: NgbModal, useValue: modal }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -135,6 +152,7 @@ fdescribe('DsDynamicTypeaheadComponent test suite', () => {
                             (change)="onValueChange($event)"
                             (focus)="onFocus($event)"></ds-dynamic-typeahead>`;
 
+      spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
     });
@@ -143,12 +161,15 @@ fdescribe('DsDynamicTypeaheadComponent test suite', () => {
       testFixture.destroy();
     });
     it('should create DsDynamicTypeaheadComponent', inject([DsDynamicTypeaheadComponent], (app: DsDynamicTypeaheadComponent) => {
-
       expect(app).toBeDefined();
     }));
   });
 
-  describe('not hiearchical', () => {
+  describe('Has not hierarchical vocabulary', () => {
+    beforeEach(() => {
+      spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
+    });
+
     describe('when init model value is empty', () => {
       beforeEach(() => {
 
@@ -156,8 +177,6 @@ fdescribe('DsDynamicTypeaheadComponent test suite', () => {
         typeaheadComp = typeaheadFixture.componentInstance; // FormComponent test instance
         typeaheadComp.group = TYPEAHEAD_TEST_GROUP;
         typeaheadComp.model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
-        service = (typeaheadComp as any).vocabularyService;
-        spyOn(service, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
         typeaheadFixture.detectChanges();
       });
 
@@ -340,6 +359,77 @@ fdescribe('DsDynamicTypeaheadComponent test suite', () => {
         expect(typeaheadComp.model.value).toBeNull();
       });
     });
+  });
+
+  describe('Has hierarchical vocabulary', () => {
+    beforeEach(() => {
+      scheduler = getTestScheduler();
+      spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(hierarchicalVocabulary));
+    });
+
+    describe('when init model value is empty', () => {
+      beforeEach(() => {
+
+        typeaheadFixture = TestBed.createComponent(DsDynamicTypeaheadComponent);
+        typeaheadComp = typeaheadFixture.componentInstance; // FormComponent test instance
+        typeaheadComp.group = TYPEAHEAD_TEST_GROUP;
+        typeaheadComp.model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
+        typeaheadFixture.detectChanges();
+      });
+
+      afterEach(() => {
+        typeaheadFixture.destroy();
+        typeaheadComp = null;
+      });
+
+      it('should init component properly', () => {
+        expect(typeaheadComp.currentValue).not.toBeDefined();
+      });
+
+      it('should open tree properly', () => {
+        scheduler.schedule(() => typeaheadComp.openTree(new Event('click')));
+        scheduler.flush();
+
+        expect((typeaheadComp as any).modalService.open).toHaveBeenCalled();
+      });
+    });
+
+    describe('when init model value is not empty', () => {
+      beforeEach(() => {
+        typeaheadFixture = TestBed.createComponent(DsDynamicTypeaheadComponent);
+        typeaheadComp = typeaheadFixture.componentInstance; // FormComponent test instance
+        typeaheadComp.group = TYPEAHEAD_TEST_GROUP;
+        typeaheadComp.model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
+        const entry = observableOf(Object.assign(new VocabularyEntry(), {
+          authority: null,
+          value: 'test',
+          display: 'testDisplay'
+        }));
+        spyOn((typeaheadComp as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
+        spyOn((typeaheadComp as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
+        (typeaheadComp.model as any).value = new FormFieldMetadataValueObject('test', null, null, 'testDisplay');
+        typeaheadFixture.detectChanges();
+      });
+
+      afterEach(() => {
+        typeaheadFixture.destroy();
+        typeaheadComp = null;
+      });
+
+      it('should init component properly', fakeAsync(() => {
+        tick();
+        expect(typeaheadComp.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null, 'testDisplay'));
+        expect((typeaheadComp as any).vocabularyService.getVocabularyEntryByValue).toHaveBeenCalled();
+      }));
+
+      it('should open tree properly', () => {
+        scheduler.schedule(() => typeaheadComp.openTree(new Event('click')));
+        scheduler.flush();
+
+        expect((typeaheadComp as any).modalService.open).toHaveBeenCalled();
+      });
+    });
+
   });
 });
 

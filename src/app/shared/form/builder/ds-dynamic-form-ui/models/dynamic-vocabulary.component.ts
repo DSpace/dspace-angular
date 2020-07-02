@@ -64,7 +64,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
               value: initEntry.value,
               authority: initEntry.authority,
               display: initEntry.display,
-              otherInformation: initEntry.otherInformation
+              otherInformation: initEntry.otherInformation || null
           });
         } else {
           return this.model.value as any;
