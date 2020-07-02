@@ -206,6 +206,7 @@ import { EpersonSearchBoxComponent } from './resource-policies/form/eperson-grou
 import { GroupSearchBoxComponent } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
+import { DsSelectComponent } from './ds-select/ds-select.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -282,6 +283,7 @@ const COMPONENTS = [
   DsDynamicFormGroupComponent,
   DsDynamicFormArrayComponent,
   DsDatePickerInlineComponent,
+  DsSelectComponent,
   ErrorComponent,
   FormComponent,
   LangSwitchComponent,

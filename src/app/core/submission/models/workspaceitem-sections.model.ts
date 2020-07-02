@@ -1,6 +1,7 @@
 import { WorkspaceitemSectionFormObject } from './workspaceitem-section-form.model';
 import { WorkspaceitemSectionLicenseObject } from './workspaceitem-section-license.model';
 import { WorkspaceitemSectionUploadObject } from './workspaceitem-section-upload.model';
+import { WorkspaceitemSectionCcLicenseObject } from './workspaceitem-section-cc-license.model';
 
 /**
  * An interface to represent submission's section object.
@@ -17,4 +18,5 @@ export type WorkspaceitemSectionDataType
   = WorkspaceitemSectionUploadObject
   | WorkspaceitemSectionFormObject
   | WorkspaceitemSectionLicenseObject
+  | WorkspaceitemSectionCcLicenseObject
   | string;

@@ -148,6 +148,10 @@ import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
 import { TokenResponseParsingService } from './auth/token-response-parsing.service';
+import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
+import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
+import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
+import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-license-url-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -214,6 +218,8 @@ const PROVIDERS = [
   BrowseItemsResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
+  SubmissionCcLicenseDataService,
+  SubmissionCcLicenseUrlDataService,
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionRestService,
@@ -300,6 +306,8 @@ export const models =
     License,
     WorkflowItem,
     WorkspaceItem,
+    SubmissionCcLicence,
+    SubmissionCcLicenceUrl,
     SubmissionDefinitionsModel,
     SubmissionFormsModel,
     SubmissionSectionModel,
