@@ -2,18 +2,10 @@ import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
-import { PageInfo } from '../shared/page-info.model';
 import { FindListOptions } from '../data/request.models';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestService } from '../data/request.service';
-import {
-  MetadatafieldSuccessResponse,
-  MetadataschemaSuccessResponse,
-  RestResponse
-} from '../cache/response.models';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { hasNoValue, hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import { RestResponse } from '../cache/response.models';
+import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
+import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { MetadataRegistryState } from '../../+admin/admin-registries/metadata-registry/metadata-registry.reducers';
@@ -36,7 +28,7 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
-import { FollowLinkConfig, followLink } from '../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
@@ -271,7 +263,6 @@ export class RegistryService {
       })
     );
   }
-
 
   /**
    * Method to delete a metadata field
