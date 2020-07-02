@@ -144,6 +144,8 @@ import { ScriptDataService } from './data/processes/script-data.service';
 import { ProcessFilesResponseParsingService } from './data/process-files-response-parsing.service';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
+import { ItemTemplateDataService } from './data/item-template-data.service';
+import { TemplateItem } from './shared/template-item.model';
 import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
@@ -254,6 +256,7 @@ const PROVIDERS = [
   BitstreamDataService,
   EntityTypeService,
   ContentSourceResponseParsingService,
+  ItemTemplateDataService,
   SearchService,
   SidebarService,
   SearchFilterService,
@@ -329,6 +332,7 @@ export const models =
     Version,
     VersionHistory,
     WorkflowAction,
+    TemplateItem,
     Registration
   ];
 

@@ -682,6 +682,28 @@
 
 
 
+  "collection.edit.template.add-button": "Add",
+
+  "collection.edit.template.breadcrumbs": "Item template",
+
+  "collection.edit.template.cancel": "Cancel",
+
+  "collection.edit.template.delete-button": "Delete",
+
+  "collection.edit.template.edit-button": "Edit",
+
+  "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
+
+  "collection.edit.template.label": "Template item",
+
+  "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
+
+  "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
+
+  "collection.edit.template.title": "Edit Template Item",
+
+
+
   "collection.form.abstract": "Short Description",
 
   "collection.form.description": "Introductory text (HTML)",
@@ -1223,6 +1245,8 @@
   "item.edit.metadata.edit.buttons.undo": "Undo changes",
 
   "item.edit.metadata.edit.buttons.unedit": "Stop editing",
+
+  "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
 
   "item.edit.metadata.headers.edit": "Edit",
 
