@@ -252,22 +252,6 @@
   
   
   
-  // "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  
-  // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  
-  // "admin.access-control.epeople.actions.reset": "Reset password",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.reset": "Reset password",
-  
-  // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  // TODO New key - Add a translation
-  "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  
   // "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
   // TODO New key - Add a translation
   "admin.access-control.epeople.title": "DSpace Angular :: EPeople",
@@ -716,30 +700,6 @@
   // "admin.search.title": "Administrative Search",
   // TODO New key - Add a translation
   "admin.search.title": "Administrative Search",
-  
-  
-  
-  
-  // "admin.workflow.breadcrumbs": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.breadcrumbs": "Administer Workflow",
-  
-  // "admin.workflow.title": "Administer Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.title": "Administer Workflow",
-  
-  // "admin.workflow.item.workflow": "Workflow",
-  // TODO New key - Add a translation
-  "admin.workflow.item.workflow": "Workflow",
-  
-  // "admin.workflow.item.delete": "Delete",
-  // TODO New key - Add a translation
-  "admin.workflow.item.delete": "Delete",
-  
-  // "admin.workflow.item.send-back": "Send back",
-  // TODO New key - Add a translation
-  "admin.workflow.item.send-back": "Send back",
-  
   
   
   
@@ -1349,104 +1309,6 @@
   
   
   
-  // "comcol-role.edit.no-group": "None",
-  // TODO New key - Add a translation
-  "comcol-role.edit.no-group": "None",
-  
-  // "comcol-role.edit.create": "Create",
-  // TODO New key - Add a translation
-  "comcol-role.edit.create": "Create",
-  
-  // "comcol-role.edit.restrict": "Restrict",
-  // TODO New key - Add a translation
-  "comcol-role.edit.restrict": "Restrict",
-  
-  // "comcol-role.edit.delete": "Delete",
-  // TODO New key - Add a translation
-  "comcol-role.edit.delete": "Delete",
-  
-  
-  // "comcol-role.edit.community-admin.name": "Administrators",
-  // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.name": "Administrators",
-  
-  // "comcol-role.edit.collection-admin.name": "Administrators",
-  // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.name": "Administrators",
-  
-  
-  // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  
-  // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
-  
-  
-  // "comcol-role.edit.submitters.name": "Submitters",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.name": "Submitters",
-  
-  // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  
-  
-  // "comcol-role.edit.item_read.name": "Default item read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.name": "Default item read access",
-  
-  // "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.description": "E-People and Groups that can read new items submitted to this collection. Changes to this role are not retroactive. Existing items in the system will still be viewable by those who had read access at the time of their addition.",
-  
-  // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
-  
-  
-  // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
-  
-  // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  
-  // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  
-  
-  // "comcol-role.edit.editor.name": "Editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.editor.name": "Editors",
-  
-  // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-  
-  
-  // "comcol-role.edit.finaleditor.name": "Final editors",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.name": "Final editors",
-  
-  // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  
-  
-  // "comcol-role.edit.reviewer.name": "Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.name": "Reviewers",
-  
-  // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
-  
-  
-  
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Korte beschrijving",
   
@@ -1499,10 +1361,6 @@
   
   // "dso-selector.create.item.head": "New item",
   "dso-selector.create.item.head": "Nieuw item",
-  
-  // "dso-selector.create.submission.head": "New submission",
-  // TODO New key - Add a translation
-  "dso-selector.create.submission.head": "New submission",
   
   // "dso-selector.edit.collection.head": "Edit collection",
   "dso-selector.edit.collection.head": "Bewerk collectie",
@@ -1665,9 +1523,9 @@
   // "form.search": "Search",
   "form.search": "Zoek",
   
-  // "form.search-help": "Click here to look for an existing correspondence",
+  // "form.search-help": "Click here to looking for an existing correspondence",
   // TODO New key - Add a translation
-  "form.search-help": "Click here to look for an existing correspondence",
+  "form.search-help": "Click here to looking for an existing correspondence",
   
   // "form.submit": "Submit",
   "form.submit": "Verstuur",
@@ -1686,15 +1544,6 @@
   // "home.top-level-communities.help": "Select a community to browse its collections.",
   "home.top-level-communities.help": "Selecteer een community om diens collecties te verkennen.",
   
-  
-  
-  // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-  // TODO New key - Add a translation
-  "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-  
-  // "item.edit.authorizations.title": "Edit item's Policies",
-  // TODO New key - Add a translation
-  "item.edit.authorizations.title": "Edit item's Policies",
   
   
   
@@ -2830,16 +2679,11 @@
   "menu.section.toggle.statistics_task": "Sectie statistiektaken aan/uit",
   
   
-  // "menu.section.workflow": "Administer Workflow",
-  // TODO New key - Add a translation
-  "menu.section.workflow": "Administer Workflow",
-  
   
   // "mydspace.description": "",
   "mydspace.description": "",
   
-  // "mydspace.general.text-here": "here",
-  // TODO Source message changed - Revise the translation
+  // "mydspace.general.text-here": "HERE",
   "mydspace.general.text-here": "HIER",
   
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
@@ -2938,14 +2782,6 @@
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
   "mydspace.upload.upload-failed": "Er is een fout opgetreden bij het aanmaken van de nieuwe workspace. Controleer alstublieft de inhoud voordat u het opnieuw probeert.",
   
-  // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
-  // TODO New key - Add a translation
-  "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
-  
-  // "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
-  // TODO New key - Add a translation
-  "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
-  
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
   "mydspace.upload.upload-multiple-successful": "{{qty}} nieuwe workspace items aangemaakt.",
   
@@ -2984,10 +2820,6 @@
   
   // "nav.statistics.header": "Statistics",
   "nav.statistics.header": "Statistieken",
-  
-  // "nav.stop-impersonating": "Stop impersonating EPerson",
-  // TODO New key - Add a translation
-  "nav.stop-impersonating": "Stop impersonating EPerson",
   
   
   
@@ -3063,120 +2895,6 @@
   
   // "person.search.title": "DSpace Angular :: Person Search",
   "person.search.title": "DSpace Angular :: Persoon zoeken",
-  
-  
-  
-  // "profile.breadcrumbs": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.breadcrumbs": "Update Profile",
-  
-  // "profile.card.identify": "Identify",
-  // TODO New key - Add a translation
-  "profile.card.identify": "Identify",
-  
-  // "profile.card.security": "Security",
-  // TODO New key - Add a translation
-  "profile.card.security": "Security",
-  
-  // "profile.form.submit": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.form.submit": "Update Profile",
-  
-  // "profile.groups.head": "Authorization groups you belong to",
-  // TODO New key - Add a translation
-  "profile.groups.head": "Authorization groups you belong to",
-  
-  // "profile.head": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.head": "Update Profile",
-  
-  // "profile.metadata.form.error.firstname.required": "First Name is required",
-  // TODO New key - Add a translation
-  "profile.metadata.form.error.firstname.required": "First Name is required",
-  
-  // "profile.metadata.form.error.lastname.required": "Last Name is required",
-  // TODO New key - Add a translation
-  "profile.metadata.form.error.lastname.required": "Last Name is required",
-  
-  // "profile.metadata.form.label.email": "Email Address",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.email": "Email Address",
-  
-  // "profile.metadata.form.label.firstname": "First Name",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.firstname": "First Name",
-  
-  // "profile.metadata.form.label.language": "Language",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.language": "Language",
-  
-  // "profile.metadata.form.label.lastname": "Last Name",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.lastname": "Last Name",
-  
-  // "profile.metadata.form.label.phone": "Contact Telephone",
-  // TODO New key - Add a translation
-  "profile.metadata.form.label.phone": "Contact Telephone",
-  
-  // "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
-  // TODO New key - Add a translation
-  "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
-  
-  // "profile.metadata.form.notifications.success.title": "Profile saved",
-  // TODO New key - Add a translation
-  "profile.metadata.form.notifications.success.title": "Profile saved",
-  
-  // "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
-  // TODO New key - Add a translation
-  "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
-  
-  // "profile.notifications.warning.no-changes.title": "No changes",
-  // TODO New key - Add a translation
-  "profile.notifications.warning.no-changes.title": "No changes",
-  
-  // "profile.security.form.error.matching-passwords": "The passwords do not match.",
-  // TODO New key - Add a translation
-  "profile.security.form.error.matching-passwords": "The passwords do not match.",
-  
-  // "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-  // TODO New key - Add a translation
-  "profile.security.form.error.password-length": "The password should be at least 6 characters long.",
-  
-  // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  // TODO New key - Add a translation
-  "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-  
-  // "profile.security.form.label.password": "Password",
-  // TODO New key - Add a translation
-  "profile.security.form.label.password": "Password",
-  
-  // "profile.security.form.label.passwordrepeat": "Retype to confirm",
-  // TODO New key - Add a translation
-  "profile.security.form.label.passwordrepeat": "Retype to confirm",
-  
-  // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
-  
-  // "profile.security.form.notifications.success.title": "Password saved",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.success.title": "Password saved",
-  
-  // "profile.security.form.notifications.error.title": "Error changing passwords",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.title": "Error changing passwords",
-  
-  // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
-  
-  // "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
-  // TODO New key - Add a translation
-  "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
-  
-  // "profile.title": "Update Profile",
-  // TODO New key - Add a translation
-  "profile.title": "Update Profile",
   
   
   
@@ -3395,192 +3113,6 @@
   // "relationships.isContributorOf": "Contributors",
   // TODO New key - Add a translation
   "relationships.isContributorOf": "Contributors",
-  
-  
-  
-  // "resource-policies.add.button": "Add",
-  // TODO New key - Add a translation
-  "resource-policies.add.button": "Add",
-  
-  // "resource-policies.add.for.": "Add a new policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.": "Add a new policy",
-  
-  // "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
-  
-  // "resource-policies.add.for.bundle": "Add a new Bundle policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.bundle": "Add a new Bundle policy",
-  
-  // "resource-policies.add.for.item": "Add a new Item policy",
-  // TODO New key - Add a translation
-  "resource-policies.add.for.item": "Add a new Item policy",
-  
-  // "resource-policies.create.page.heading": "Create new resource policy for ",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.heading": "Create new resource policy for ",
-  
-  // "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
-  
-  // "resource-policies.create.page.success.content": "Operation successful",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.success.content": "Operation successful",
-  
-  // "resource-policies.create.page.title": "Create new resource policy",
-  // TODO New key - Add a translation
-  "resource-policies.create.page.title": "Create new resource policy",
-  
-  // "resource-policies.delete.btn": "Delete selected",
-  // TODO New key - Add a translation
-  "resource-policies.delete.btn": "Delete selected",
-  
-  // "resource-policies.delete.btn.title": "Delete selected resource policies",
-  // TODO New key - Add a translation
-  "resource-policies.delete.btn.title": "Delete selected resource policies",
-  
-  // "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
-  // TODO New key - Add a translation
-  "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
-  
-  // "resource-policies.delete.success.content": "Operation successful",
-  // TODO New key - Add a translation
-  "resource-policies.delete.success.content": "Operation successful",
-  
-  // "resource-policies.edit.page.heading": "Edit resource policy ",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.heading": "Edit resource policy ",
-  
-  // "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
-  
-  // "resource-policies.edit.page.success.content": "Operation successful",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.success.content": "Operation successful",
-  
-  // "resource-policies.edit.page.title": "Edit resource policy",
-  // TODO New key - Add a translation
-  "resource-policies.edit.page.title": "Edit resource policy",
-  
-  // "resource-policies.form.action-type.label": "Select the action type",
-  // TODO New key - Add a translation
-  "resource-policies.form.action-type.label": "Select the action type",
-  
-  // "resource-policies.form.action-type.required": "You must select the resource policy action.",
-  // TODO New key - Add a translation
-  "resource-policies.form.action-type.required": "You must select the resource policy action.",
-  
-  // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be grant of the permission",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.label": "The eperson or group that will be grant of the permission",
-  
-  // "resource-policies.form.eperson-group-list.select.btn": "Select",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.select.btn": "Select",
-  
-  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
-  
-  // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
-  
-  // "resource-policies.form.eperson-group-list.table.headers.action": "Action",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.table.headers.action": "Action",
-  
-  // "resource-policies.form.eperson-group-list.table.headers.id": "ID",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.table.headers.id": "ID",
-  
-  // "resource-policies.form.eperson-group-list.table.headers.name": "Name",
-  // TODO New key - Add a translation
-  "resource-policies.form.eperson-group-list.table.headers.name": "Name",
-  
-  // "resource-policies.form.date.end.label": "End Date",
-  // TODO New key - Add a translation
-  "resource-policies.form.date.end.label": "End Date",
-  
-  // "resource-policies.form.date.start.label": "Start Date",
-  // TODO New key - Add a translation
-  "resource-policies.form.date.start.label": "Start Date",
-  
-  // "resource-policies.form.description.label": "Description",
-  // TODO New key - Add a translation
-  "resource-policies.form.description.label": "Description",
-  
-  // "resource-policies.form.name.label": "Name",
-  // TODO New key - Add a translation
-  "resource-policies.form.name.label": "Name",
-  
-  // "resource-policies.form.policy-type.label": "Select the policy type",
-  // TODO New key - Add a translation
-  "resource-policies.form.policy-type.label": "Select the policy type",
-  
-  // "resource-policies.form.policy-type.required": "You must select the resource policy type.",
-  // TODO New key - Add a translation
-  "resource-policies.form.policy-type.required": "You must select the resource policy type.",
-  
-  // "resource-policies.table.headers.action": "Action",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.action": "Action",
-  
-  // "resource-policies.table.headers.date.end": "End Date",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.date.end": "End Date",
-  
-  // "resource-policies.table.headers.date.start": "Start Date",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.date.start": "Start Date",
-  
-  // "resource-policies.table.headers.edit": "Edit",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.edit": "Edit",
-  
-  // "resource-policies.table.headers.edit.group": "Edit group",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.edit.group": "Edit group",
-  
-  // "resource-policies.table.headers.edit.policy": "Edit policy",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.edit.policy": "Edit policy",
-  
-  // "resource-policies.table.headers.eperson": "EPerson",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.eperson": "EPerson",
-  
-  // "resource-policies.table.headers.group": "Group",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.group": "Group",
-  
-  // "resource-policies.table.headers.id": "ID",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.id": "ID",
-  
-  // "resource-policies.table.headers.name": "Name",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.name": "Name",
-  
-  // "resource-policies.table.headers.policyType": "type",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.policyType": "type",
-  
-  // "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
-  
-  // "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
-  
-  // "resource-policies.table.headers.title.for.item": "Policies for Item",
-  // TODO New key - Add a translation
-  "resource-policies.table.headers.title.for.item": "Policies for Item",
   
   
   
@@ -4310,8 +3842,7 @@
   // "submission.sections.upload.form.date-required": "Date is required.",
   "submission.sections.upload.form.date-required": "De datum is verplicht.",
   
-  // "submission.sections.upload.form.from-label": "Grant access from",
-  // TODO Source message changed - Revise the translation
+  // "submission.sections.upload.form.from-label": "Access grant from",
   "submission.sections.upload.form.from-label": "Toegang vanaf",
   
   // "submission.sections.upload.form.from-placeholder": "From",
@@ -4323,8 +3854,7 @@
   // "submission.sections.upload.form.group-required": "Group is required.",
   "submission.sections.upload.form.group-required": "Groep is verplicht.",
   
-  // "submission.sections.upload.form.until-label": "Grant access until",
-  // TODO Source message changed - Revise the translation
+  // "submission.sections.upload.form.until-label": "Access grant until",
   "submission.sections.upload.form.until-label": "Toegang tot",
   
   // "submission.sections.upload.form.until-placeholder": "Until",
@@ -4490,79 +4020,6 @@
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
   // TODO New key - Add a translation
   "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
-  
-  
-  
-  // "workflowAdmin.search.results.head": "Administer Workflow",
-  // TODO New key - Add a translation
-  "workflowAdmin.search.results.head": "Administer Workflow",
-  
-  
-  
-  // "workflow-item.delete.notification.success.title": "Deleted",
-  // TODO New key - Add a translation
-  "workflow-item.delete.notification.success.title": "Deleted",
-  
-  // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  // TODO New key - Add a translation
-  "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  
-  // "workflow-item.delete.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workflow-item.delete.notification.error.title": "Something went wrong",
-  
-  // "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
-  // TODO New key - Add a translation
-  "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
-  
-  // "workflow-item.delete.title": "Delete workflow item",
-  // TODO New key - Add a translation
-  "workflow-item.delete.title": "Delete workflow item",
-  
-  // "workflow-item.delete.header": "Delete workflow item",
-  // TODO New key - Add a translation
-  "workflow-item.delete.header": "Delete workflow item",
-  
-  // "workflow-item.delete.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.delete.button.cancel": "Cancel",
-  
-  // "workflow-item.delete.button.confirm": "Delete",
-  // TODO New key - Add a translation
-  "workflow-item.delete.button.confirm": "Delete",
-  
-  
-  // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.notification.success.title": "Sent back to submitter",
-  
-  // "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
-  
-  // "workflow-item.send-back.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.notification.error.title": "Something went wrong",
-  
-  // "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
-  
-  // "workflow-item.send-back.title": "Send workflow item back to submitter",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.title": "Send workflow item back to submitter",
-  
-  // "workflow-item.send-back.header": "Send workflow item back to submitter",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.header": "Send workflow item back to submitter",
-  
-  // "workflow-item.send-back.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.button.cancel": "Cancel",
-  
-  // "workflow-item.send-back.button.confirm": "Send back",
-  // TODO New key - Add a translation
-  "workflow-item.send-back.button.confirm": "Send back",
   
   
 
