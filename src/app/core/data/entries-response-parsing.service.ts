@@ -23,12 +23,12 @@ export abstract class EntriesResponseParsingService<T extends CacheableObject> e
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload)) {
-      let browseEntries = [];
+      let entries = [];
       if (isNotEmpty(data.payload._embedded) && Array.isArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]])) {
         const serializer = new DSpaceSerializer(this.getSerializerModel());
-        browseEntries = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
+        entries = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
       }
-      return new GenericSuccessResponse(browseEntries, data.statusCode, data.statusText, this.processPageInfo(data.payload));
+      return new GenericSuccessResponse(entries, data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(
         Object.assign(
