@@ -104,7 +104,7 @@ DSPACE_REST_SSL # Whether the angular REST uses SSL [true/false]
 
 The same settings can also be overwritten by setting system environment variables instead, E.g.:
 ```bash 
-export DSPACE_HOST=https://dspace7.4science.cloud/server
+export DSPACE_HOST=dspace7.4science.cloud
 ```
 
 The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides **`environment.(prod, dev or test).ts`** overrides **`environment.common.ts`**
