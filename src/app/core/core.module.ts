@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-
 import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -138,6 +137,11 @@ import { VersionDataService } from './data/version-data.service';
 import { VersionHistoryDataService } from './data/version-history-data.service';
 import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
+import { Script } from '../process-page/scripts/script.model';
+import { Process } from '../process-page/processes/process.model';
+import { ProcessDataService } from './data/processes/process-data.service';
+import { ScriptDataService } from './data/processes/script-data.service';
+import { ProcessFilesResponseParsingService } from './data/process-files-response-parsing.service';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { Registration } from './shared/registration.model';
@@ -258,6 +262,9 @@ const PROVIDERS = [
   LicenseDataService,
   ItemTypeDataService,
   WorkflowActionDataService,
+  ProcessDataService,
+  ScriptDataService,
+  ProcessFilesResponseParsingService,
   MetadataSchemaDataService,
   MetadataFieldDataService,
   TokenResponseParsingService,
@@ -309,6 +316,8 @@ export const models =
     ItemType,
     ExternalSource,
     ExternalSourceEntry,
+    Script,
+    Process,
     Version,
     VersionHistory,
     WorkflowAction,
