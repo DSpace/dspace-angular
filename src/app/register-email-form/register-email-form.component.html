@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>{{MESSAGE_PREFIX + '.header'|translate}}</h2>
+    <p>{{MESSAGE_PREFIX + '.info' | translate}}</p>
+
+    <form [class]="'ng-invalid'" [formGroup]="form" (ngSubmit)="register()">
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12">
+                    <label class="font-weight-bold"
+                           for="email">{{MESSAGE_PREFIX + '.email' | translate}}</label>
+                    <input [className]="(email.invalid) && (email.dirty || email.touched) ? 'form-control is-invalid' :'form-control'"
+                           type="text" id="email" formControlName="email"/>
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                         class="invalid-feedback show-feedback">
+                    <span *ngIf="email.errors && email.errors.required">
+                        {{ MESSAGE_PREFIX + '.email.error.required' | translate }}
+                    </span>
+                    <span *ngIf="email.errors && email.errors.pattern">
+                        {{ MESSAGE_PREFIX + '.email.error.pattern' | translate }}
+                    </span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    {{MESSAGE_PREFIX + '.email.hint' |translate}}
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+    
+    <button class="btn btn-primary"
+            [disabled]="form.invalid"
+            (click)="register()">{{MESSAGE_PREFIX + '.submit'| translate}}</button>
+</div>

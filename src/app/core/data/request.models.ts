@@ -17,6 +17,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './mapped-collections-reponse-parsing.service';
+import { TokenResponseParsingService } from '../auth/token-response-parsing.service';
 import { VocabularyEntriesResponseParsingService } from '../submission/vocabularies/vocabulary-entries-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
@@ -30,7 +31,6 @@ export enum IdentifierType {
 export abstract class RestRequest {
   public responseMsToLive = 10 * 1000;
   public forceBypassCache = false;
-
   constructor(
     public uuid: string,
     public href: string,
@@ -40,12 +40,12 @@ export abstract class RestRequest {
   ) {
   }
 
-  get toCache(): boolean {
-    return this.responseMsToLive > 0;
-  }
-
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return DSOResponseParsingService;
+  }
+
+  get toCache(): boolean {
+    return this.responseMsToLive > 0;
   }
 }
 
@@ -241,11 +241,19 @@ export class AuthGetRequest extends GetRequest {
 }
 
 /**
+ * A POST request for retrieving a token
+ */
+export class TokenPostRequest extends PostRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return TokenResponseParsingService;
+  }
+}
+
+/**
  * Class representing a submission HTTP GET request object
  */
 export class SubmissionRequest extends GetRequest {
   forceBypassCache = true;
-
   constructor(uuid: string, href: string) {
     super(uuid, href);
   }
@@ -393,5 +401,4 @@ export class RequestError extends Error {
   statusCode: number;
   statusText: string;
 }
-
 /* tslint:enable:max-classes-per-file */
