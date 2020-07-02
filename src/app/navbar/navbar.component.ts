@@ -17,7 +17,7 @@ import { environment } from '../../environments/environment';
   templateUrl: './navbar.component.html',
   animations: [slideMobileNav]
 })
-export class NavbarComponent extends MenuComponent implements OnInit {
+export class NavbarComponent extends MenuComponent {
   /**
    * The menu ID of the Navbar is PUBLIC
    * @type {MenuID.PUBLIC}
@@ -93,7 +93,9 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         } as LinkMenuItemModel
       });
     });
-    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
+    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+      shouldPersistOnRouteChange: true
+    })));
 
   }
 

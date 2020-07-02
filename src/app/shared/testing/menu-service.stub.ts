@@ -59,6 +59,9 @@ export class MenuServiceStub {
   removeSection(): void { /***/
   };
 
+  resetSections(): void { /***/
+  };
+
   isMenuVisible(id: MenuID): Observable<boolean> {
     return observableOf(true)
   };

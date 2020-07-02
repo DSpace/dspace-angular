@@ -1,17 +1,14 @@
 import { async, inject, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { Store, StoreModule } from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { of as observableOf } from 'rxjs';
-
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { AuthService, IMPERSONATING_COOKIE } from './auth.service';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-
 import { CookieService } from '../services/cookie.service';
 import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service.stub';
 import { AuthRequestService } from './auth-request.service';
@@ -49,6 +46,7 @@ describe('AuthService test', () => {
   let storage: CookieService;
   let token: AuthTokenInfo;
   let authenticatedState;
+  let unAuthenticatedState;
   let linkService;
 
   function init() {
@@ -66,6 +64,13 @@ describe('AuthService test', () => {
       loading: false,
       authToken: token,
       user: EPersonMock
+    };
+    unAuthenticatedState = {
+      authenticated: false,
+      loaded: true,
+      loading: false,
+      authToken: undefined,
+      user: undefined
     };
     authRequest = new AuthRequestServiceStub();
     routeStub = new ActivatedRouteStub();
@@ -211,6 +216,12 @@ describe('AuthService test', () => {
     it('should return true when user is logged in', () => {
       authService.isAuthenticated().subscribe((status: boolean) => {
         expect(status).toBe(true);
+      });
+    });
+
+    it('should return the shortlived token when user is logged in', () => {
+      authService.getShortlivedToken().subscribe((shortlivedToken: string) => {
+        expect(shortlivedToken).toEqual(authRequest.mockShortLivedToken);
       });
     });
 
@@ -445,6 +456,46 @@ describe('AuthService test', () => {
         it('should return false', () => {
           expect(result).toBe(false);
         });
+      });
+    });
+  });
+
+  describe('when user is not logged in', () => {
+    beforeEach(async(() => {
+      init();
+      TestBed.configureTestingModule({
+        imports: [
+          StoreModule.forRoot({ authReducer }, {
+            runtimeChecks: {
+              strictStateImmutability: false,
+              strictActionImmutability: false
+            }
+          })
+        ],
+        providers: [
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
+          { provide: RouteService, useValue: routeServiceStub },
+          { provide: RemoteDataBuildService, useValue: linkService },
+          CookieService,
+          AuthService
+        ]
+      }).compileComponents();
+    }));
+
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService) => {
+      store
+        .subscribe((state) => {
+          (state as any).core = Object.create({});
+          (state as any).core.auth = unAuthenticatedState;
+        });
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store);
+    }));
+
+    it('should return null for the shortlived token', () => {
+      authService.getShortlivedToken().subscribe((shortlivedToken: string) => {
+        expect(shortlivedToken).toBeNull();
       });
     });
   });

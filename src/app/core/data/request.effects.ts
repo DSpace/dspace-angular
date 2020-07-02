@@ -11,12 +11,7 @@ import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.
 
 import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
-import {
-  RequestActionTypes,
-  RequestCompleteAction,
-  RequestExecuteAction,
-  ResetResponseTimestampsAction
-} from './request.actions';
+import { RequestActionTypes, RequestCompleteAction, RequestExecuteAction, ResetResponseTimestampsAction } from './request.actions';
 import { RequestError, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
@@ -42,12 +37,12 @@ export class RequestEffects {
     filter((entry: RequestEntry) => hasValue(entry)),
     map((entry: RequestEntry) => entry.request),
     flatMap((request: RestRequest) => {
-      let body;
-      if (isNotEmpty(request.body)) {
+      let body = request.body;
+      if (isNotEmpty(request.body) && !request.isMultipart) {
         const serializer = new DSpaceSerializer(getClassForType(request.body.type));
         body = serializer.serialize(request.body);
       }
-      return this.restApi.request(request.method, request.href, body, request.options).pipe(
+      return this.restApi.request(request.method, request.href, body, request.options, request.isMultipart).pipe(
         map((data: DSpaceRESTV2Response) => this.injector.get(request.getResponseParser()).parse(request, data)),
         addToResponseCacheAndCompleteAction(request),
         catchError((error: RequestError) => observableOf(new ErrorResponse(error)).pipe(
