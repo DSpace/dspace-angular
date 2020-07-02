@@ -13,15 +13,11 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { FindListOptions, FindListRequest } from './request.models';
+import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs/internal/Observable';
-import { hasValue } from '../../shared/empty.util';
-import { find, skipWhile, switchMap, tap } from 'rxjs/operators';
-import { RemoteData } from './remote-data';
+import { tap } from 'rxjs/operators';
 import { RequestParam } from '../cache/models/request-param.model';
-import { PaginatedList } from './paginated-list';
-import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadatafields endpoint

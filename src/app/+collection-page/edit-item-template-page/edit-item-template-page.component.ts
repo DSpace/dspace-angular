@@ -22,7 +22,7 @@ export class EditItemTemplatePageComponent implements OnInit {
   collectionRD$: Observable<RemoteData<Collection>>;
 
   constructor(protected route: ActivatedRoute,
-              protected itemTemplateService: ItemTemplateDataService) {
+              public itemTemplateService: ItemTemplateDataService) {
   }
 
   ngOnInit(): void {

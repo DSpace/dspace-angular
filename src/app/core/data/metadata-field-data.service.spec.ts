@@ -4,9 +4,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RestResponse } from '../cache/response.models';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { CreateRequest, FindListOptions, PutRequest } from './request.models';
+import { FindListOptions } from './request.models';
 import { MetadataFieldDataService } from './metadata-field-data.service';
-import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
