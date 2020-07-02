@@ -684,19 +684,23 @@
 
   "collection.edit.template.add-button": "Add",
 
+  "collection.edit.template.breadcrumbs": "Item template",
+
   "collection.edit.template.cancel": "Cancel",
 
   "collection.edit.template.delete-button": "Delete",
 
   "collection.edit.template.edit-button": "Edit",
 
-  "collection.edit.template.label": "Item template",
+  "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
+
+  "collection.edit.template.label": "Template item",
 
   "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
 
   "collection.edit.template.notifications.delete.success": "Successfully deleted the item template",
 
-  "collection.edit.template.title": "Edit Template Item for Collection \"{{ collection }}\"",
+  "collection.edit.template.title": "Edit Template Item",
 
 
 

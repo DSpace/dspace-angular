@@ -15,6 +15,7 @@ import { CollectionItemMapperComponent } from './collection-item-mapper/collecti
 import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 
@@ -66,8 +67,10 @@ const ITEMTEMPLATE_PATH = 'itemtemplate';
             component: EditItemTemplatePageComponent,
             canActivate: [AuthenticatedGuard],
             resolve: {
-              item: ItemTemplatePageResolver
-            }
+              item: ItemTemplatePageResolver,
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'collection.edit.template.title', breadcrumbKey: 'collection.edit.template' }
           },
           {
             path: '',
