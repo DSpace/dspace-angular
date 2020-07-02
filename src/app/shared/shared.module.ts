@@ -202,6 +202,7 @@ import { ResourcePolicyTargetResolver } from './resource-policies/resolvers/reso
 import { ResourcePolicyResolver } from './resource-policies/resolvers/resource-policy.resolver';
 import { EpersonSearchBoxComponent } from './resource-policies/form/eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
+import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 
@@ -390,6 +391,7 @@ const COMPONENTS = [
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
+  FileDownloadLinkComponent,
   CollectionDropdownComponent
 ];
 
@@ -463,7 +465,8 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
   ClaimedTaskActionsReturnToPoolComponent,
-  ClaimedTaskActionsEditMetadataComponent
+  ClaimedTaskActionsEditMetadataComponent,
+  FileDownloadLinkComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

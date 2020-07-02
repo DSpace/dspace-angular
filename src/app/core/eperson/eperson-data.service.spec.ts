@@ -14,7 +14,7 @@ import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { DeleteByIDRequest, FindListOptions, PatchRequest } from '../data/request.models';
+import { DeleteByIDRequest, FindListOptions, PatchRequest, PostRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -287,6 +287,25 @@ describe('EPersonDataService', () => {
 
     it('should send DeleteRequest', () => {
       const expected = new DeleteByIDRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, EPersonMock.uuid);
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
+    });
+  });
+
+  describe('createEPersonForToken', () => {
+    it('should sent a postRquest with an eperson to the token endpoint', () => {
+      service.createEPersonForToken(EPersonMock, 'test-token');
+
+      const expected = new PostRequest(requestService.generateRequestId(), epersonsEndpoint + '?token=test-token', EPersonMock);
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
+    });
+  });
+  describe('patchPasswordWithToken', () => {
+    it('should sent a patch request with an uuid, token and new password to the epersons endpoint', () => {
+      service.patchPasswordWithToken('test-uuid', 'test-token','test-password');
+
+      const operation = Object.assign({ op: 'replace', path: '/password', value: 'test-password' });
+      const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/test-uuid?token=test-token', [operation]);
+
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
   });

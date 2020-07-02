@@ -1,21 +1,19 @@
-import { of as observableOf } from 'rxjs';
-import { TestBed, inject, async } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
+import { of as observableOf } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { AppState } from '../app.reducer';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { PaginatedList } from '../core/data/paginated-list';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { StoreMock } from '../shared/testing/store.mock';
 import { CommunityListService, FlatNode, toFlatNode } from './community-list-service';
 import { CollectionDataService } from '../core/data/collection-data.service';
-import { PaginatedList } from '../core/data/paginated-list';
-import { PageInfo } from '../core/shared/page-info.model';
 import { CommunityDataService } from '../core/data/community-data.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
-} from '../shared/remote-data.utils';
 import { Community } from '../core/shared/community.model';
 import { Collection } from '../core/shared/collection.model';
-import { take } from 'rxjs/operators';
 import { FindListOptions } from '../core/data/request.models';
+import { PageInfo } from '../core/shared/page-info.model';
 
 describe('CommunityListService', () => {
   let store: StoreMock<AppState>;
@@ -212,9 +210,11 @@ describe('CommunityListService', () => {
         let findTopSpy;
         beforeEach((done) => {
           findTopSpy = spyOn(communityDataServiceStub, 'findTop').and.callThrough();
-          service.getNextPageTopCommunities();
 
-          service.loadCommunities(null)
+          service.loadCommunities({
+            currentPage: 2,
+            sort: new SortOptions('dc.title', SortDirection.ASC)
+          }, null)
             .pipe(take(1))
             .subscribe((value) => {
               flatNodeList = value;
@@ -240,7 +240,10 @@ describe('CommunityListService', () => {
       let flatNodeList;
       describe('None expanded: should return list containing only flatnodes of the test top communities', () => {
         beforeEach((done) => {
-          service.loadCommunities(null)
+          service.loadCommunities({
+            currentPage: 1,
+            sort: new SortOptions('dc.title', SortDirection.ASC)
+          }, null)
             .pipe(take(1))
             .subscribe((value) => {
               flatNodeList = value;
@@ -270,7 +273,10 @@ describe('CommunityListService', () => {
             communityFlatNode.currentCommunityPage = 1;
             expandedNodes.push(communityFlatNode);
           });
-          service.loadCommunities(expandedNodes)
+          service.loadCommunities({
+            currentPage: 1,
+            sort: new SortOptions('dc.title', SortDirection.ASC)
+          }, expandedNodes)
             .pipe(take(1))
             .subscribe((value) => {
               flatNodeList = value;
@@ -295,7 +301,10 @@ describe('CommunityListService', () => {
           communityFlatNode.currentCollectionPage = 1;
           communityFlatNode.currentCommunityPage = 1;
           const expandedNodes = [communityFlatNode];
-          service.loadCommunities(expandedNodes)
+          service.loadCommunities({
+            currentPage: 1,
+            sort: new SortOptions('dc.title', SortDirection.ASC)
+          }, expandedNodes)
             .pipe(take(1))
             .subscribe((value) => {
               flatNodeList = value;
@@ -317,7 +326,10 @@ describe('CommunityListService', () => {
           communityFlatNode.currentCollectionPage = 2;
           communityFlatNode.currentCommunityPage = 1;
           const expandedNodes = [communityFlatNode];
-          service.loadCommunities(expandedNodes)
+          service.loadCommunities({
+            currentPage: 1,
+            sort: new SortOptions('dc.title', SortDirection.ASC)
+          }, expandedNodes)
             .pipe(take(1))
             .subscribe((value) => {
               flatNodeList = value;
