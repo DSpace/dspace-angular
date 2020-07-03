@@ -142,6 +142,7 @@ describe('ItemBitstreamsComponent', () => {
       parent: {
         data: observableOf({ item: createMockRD(item) })
       },
+      data: observableOf({}),
       url: url
     });
     bundleService = jasmine.createSpyObj('bundleService', {

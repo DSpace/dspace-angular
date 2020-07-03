@@ -2,18 +2,10 @@ import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
-import { PageInfo } from '../shared/page-info.model';
 import { FindListOptions } from '../data/request.models';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestService } from '../data/request.service';
-import {
-  MetadatafieldSuccessResponse,
-  MetadataschemaSuccessResponse,
-  RestResponse
-} from '../cache/response.models';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { hasNoValue, hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import { RestResponse } from '../cache/response.models';
+import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
+import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { MetadataRegistryState } from '../../+admin/admin-registries/metadata-registry/metadata-registry.reducers';
@@ -37,6 +29,8 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RequestParam } from '../cache/models/request-param.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -68,11 +62,11 @@ export class RegistryService {
   }
 
   /**
-   * Retrieves a metadata schema by its name
-   * @param schemaName The name of the schema to find
+   * Retrieves a metadata schema by its prefix
+   * @param prefix The prefux of the schema to find
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataSchemaByName(schemaName: string, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<MetadataSchema>> {
+  public getMetadataSchemaByPrefix(prefix: string, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<MetadataSchema>> {
     // Temporary options to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
     const options: FindListOptions = Object.assign(new FindListOptions(), {
       elementsPerPage: 10000
@@ -81,7 +75,7 @@ export class RegistryService {
       getFirstSucceededRemoteDataPayload(),
       map((schemas: PaginatedList<MetadataSchema>) => schemas.page),
       isNotEmptyOperator(),
-      map((schemas: MetadataSchema[]) => schemas.filter((schema) => schema.prefix === schemaName)[0]),
+      map((schemas: MetadataSchema[]) => schemas.filter((schema) => schema.prefix === prefix)[0]),
       flatMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, ...linksToFollow))
     );
   }
@@ -103,11 +97,11 @@ export class RegistryService {
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @returns an observable that emits a remote data object with a page of metadata fields
    */
+  // TODO this is temporarily disabled. The performance is too bad.
+  // It is used down the line for validation. That validation will have to be rewritten against a new rest endpoint.
+  // Not by downloading the list of all fields.
   public getAllMetadataFields(options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    if (hasNoValue(options)) {
-      options = {currentPage: 1, elementsPerPage: 10000} as any;
-    }
-    return this.metadataFieldService.findAll(options, ...linksToFollow);
+    return createSuccessfulRemoteDataObject$(new PaginatedList<MetadataField>(null, []));
   }
 
   public editMetadataSchema(schema: MetadataSchema) {
@@ -240,21 +234,32 @@ export class RegistryService {
   }
 
   /**
-   * Create or Update a MetadataField
-   *  If the MetadataField contains an id, it is assumed the field already exists and is updated instead
-   *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
-   *  - On creation, a CreateRequest is used
-   *  - On update, a PutRequest is used
-   * @param field    The MetadataField to create or update
+   * Create a MetadataField
+   *
+   * @param field    The MetadataField to create
+   * @param schema   The MetadataSchema to create the field in
    */
-  public createOrUpdateMetadataField(field: MetadataField): Observable<MetadataField> {
-    const isUpdate = hasValue(field.id);
-    return this.metadataFieldService.createOrUpdateMetadataField(field).pipe(
+  public createMetadataField(field: MetadataField, schema: MetadataSchema): Observable<MetadataField> {
+    return this.metadataFieldService.create(field, new RequestParam('schemaId', schema.id)).pipe(
       getFirstSucceededRemoteDataPayload(),
       hasValueOperator(),
       tap(() => {
-        const fieldString = `${field.schema.prefix}.${field.element}${field.qualifier ? `.${field.qualifier}` : ''}`;
-        this.showNotifications(true, isUpdate, true, {field: fieldString});
+        this.showNotifications(true, false, true, {field: field.toString()});
+      })
+    );
+  }
+
+  /**
+   * Update a MetadataField
+   *
+   * @param field    The MetadataField to update
+   */
+  public updateMetadataField(field: MetadataField): Observable<MetadataField> {
+    return this.metadataFieldService.put(field).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      hasValueOperator(),
+      tap(() => {
+        this.showNotifications(true, true, true, {field: field.toString()});
       })
     );
   }
@@ -295,15 +300,10 @@ export class RegistryService {
    * @param query {string} The query to filter the field names by
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
+  // TODO this is temporarily disabled. The performance is too bad.
+  // Querying metadatafields will need to be implemented as a search endpoint on the rest api,
+  // not by downloading everything and preforming the query client side.
   queryMetadataFields(query: string): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return this.getAllMetadataFields().pipe(
-      map((rd: RemoteData<PaginatedList<MetadataField>>) => {
-        const filteredFields: MetadataField[] = rd.payload.page.filter(
-          (field: MetadataField) => field.toString().indexOf(query) >= 0
-        );
-        const page: PaginatedList<MetadataField> = new PaginatedList<MetadataField>(new PageInfo(), filteredFields)
-        return Object.assign({}, rd, { payload: page });
-      })
-    );
+    return createSuccessfulRemoteDataObject$(new PaginatedList<MetadataField>(null, []));
   }
 }
