@@ -17,6 +17,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './mapped-collections-reponse-parsing.service';
+import { ProcessFilesResponseParsingService } from './process-files-response-parsing.service';
 import { TokenResponseParsingService } from '../auth/token-response-parsing.service';
 import { VocabularyEntriesResponseParsingService } from '../submission/vocabularies/vocabulary-entries-response-parsing.service';
 
@@ -31,6 +32,8 @@ export enum IdentifierType {
 export abstract class RestRequest {
   public responseMsToLive = 10 * 1000;
   public forceBypassCache = false;
+  public isMultipart = false;
+
   constructor(
     public uuid: string,
     public href: string,
@@ -69,6 +72,21 @@ export class PostRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
+    super(uuid, href, RestRequestMethod.POST, body)
+  }
+}
+
+/**
+ * Request representing a multipart post request
+ */
+export class MultipartPostRequest extends RestRequest {
+  public isMultipart = true;
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any,
+    public options?: HttpOptions
+  )  {
     super(uuid, href, RestRequestMethod.POST, body)
   }
 }
@@ -205,6 +223,15 @@ export class MappedCollectionsRequest extends GetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return MappedCollectionsReponseParsingService;
+  }
+}
+
+/**
+ * Request to fetch the files of a process
+ */
+export class ProcessFilesRequest extends GetRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return ProcessFilesResponseParsingService;
   }
 }
 
