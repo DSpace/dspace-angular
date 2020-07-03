@@ -142,6 +142,7 @@ describe('ItemBitstreamsComponent', () => {
       parent: {
         data: observableOf({ item: createMockRD(item) })
       },
+      data: observableOf({}),
       url: url
     });
     bundleService = jasmine.createSpyObj('bundleService', {
@@ -188,8 +189,21 @@ describe('ItemBitstreamsComponent', () => {
     it('should not call deleteAndReturnResponse on the bitstreamService for the unmarked field', () => {
       expect(bitstreamService.deleteAndReturnResponse).not.toHaveBeenCalledWith(bitstream1.id);
     });
+  });
 
-    it('should send out a patch for the move operations', () => {
+  describe('when dropBitstream is called', () => {
+    beforeEach((done) => {
+      comp.dropBitstream(bundle, {
+        fromIndex: 0,
+        toIndex: 50,
+        // tslint:disable-next-line:no-empty
+        finish: () => {
+          done();
+        }
+      })
+    });
+
+    it('should send out a patch for the move operation', () => {
       expect(bundleService.patch).toHaveBeenCalled();
     });
   });

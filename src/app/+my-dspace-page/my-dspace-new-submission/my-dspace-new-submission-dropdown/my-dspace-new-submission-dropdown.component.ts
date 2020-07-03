@@ -9,6 +9,8 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { FindListOptions } from '../../../core/data/request.models';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateItemParentSelectorComponent } from 'src/app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 
 /**
  * This component represents the new submission dropdown
@@ -52,7 +54,8 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
    * @param {entityTypeService} entityTypeService
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private entityTypeService: EntityTypeService) {
+              private entityTypeService: EntityTypeService,
+              private modalService: NgbModal) {
     this.availableEntityTypeList = [];
     this.pageInfo = new PageInfo();
     this.pageInfo.elementsPerPage = 10;
@@ -114,5 +117,17 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
       currentPage: this.pageInfo.currentPage,
       elementsPerPage: this.pageInfo.elementsPerPage,
     } as FindListOptions;
+  }
+
+  /**
+   * Method called on clicking the button "New Submition", It opens a dialog for
+   * select a collection.
+   */
+  openDialog(idx: number) {
+    const modalRef = this.modalService.open(CreateItemParentSelectorComponent);
+    modalRef.componentInstance.metadata = 'relationship.type';
+    if (hasValue(this.availableEntityTypeList) && this.availableEntityTypeList.length > 0) {
+      modalRef.componentInstance.metadatavalue = this.availableEntityTypeList[idx];
+    }
   }
 }

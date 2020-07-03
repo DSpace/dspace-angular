@@ -1,5 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,18 +14,10 @@ describe('ProfilePageSecurityFormComponent', () => {
   let component: ProfilePageSecurityFormComponent;
   let fixture: ComponentFixture<ProfilePageSecurityFormComponent>;
 
-  let user;
-
   let epersonService;
   let notificationsService;
 
   function init() {
-    user = Object.assign(new EPerson(), {
-      _links: {
-        self: { href: 'user-selflink' }
-      }
-    });
-
     epersonService = jasmine.createSpyObj('epersonService', {
       patch: observableOf(new RestResponse(true, 200, 'OK'))
     });
@@ -43,8 +34,8 @@ describe('ProfilePageSecurityFormComponent', () => {
       declarations: [ProfilePageSecurityFormComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: EPersonDataService, useValue: epersonService },
-        { provide: NotificationsService, useValue: notificationsService },
+        {provide: EPersonDataService, useValue: epersonService},
+        {provide: NotificationsService, useValue: notificationsService},
         FormBuilderService
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -54,65 +45,35 @@ describe('ProfilePageSecurityFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProfilePageSecurityFormComponent);
     component = fixture.componentInstance;
-    component.user = user;
     fixture.detectChanges();
   });
 
-  describe('updateSecurity', () => {
-    describe('when no values changed', () => {
-      let result;
-
+  describe('On value change', () => {
+    describe('when the password has changed', () => {
       beforeEach(() => {
-        result = component.updateSecurity();
+        component.formGroup.patchValue({password: 'password'});
+        component.formGroup.patchValue({passwordrepeat: 'password'});
       });
 
-      it('should return false', () => {
-        expect(result).toEqual(false);
-      });
+      it('should emit the value and validity on password change with invalid validity', fakeAsync(() => {
+        spyOn(component.passwordValue, 'emit');
+        spyOn(component.isInvalid, 'emit');
+        component.formGroup.patchValue({password: 'new-password'});
 
-      it('should not call epersonService.patch', () => {
-        expect(epersonService.patch).not.toHaveBeenCalled();
-      });
-    });
+        tick(300);
 
-    describe('when password is filled in, but the confirm field is empty', () => {
-      let result;
+        expect(component.passwordValue.emit).toHaveBeenCalledWith('new-password');
+        expect(component.isInvalid.emit).toHaveBeenCalledWith(true);
+      }));
 
-      beforeEach(() => {
-        setModelValue('password', 'test');
-        result = component.updateSecurity();
-      });
+      it('should emit the value on password change', fakeAsync(() => {
+        spyOn(component.passwordValue, 'emit');
+        component.formGroup.patchValue({password: 'new-password'});
 
-      it('should return true', () => {
-        expect(result).toEqual(true);
-      });
-    });
+        tick(300);
 
-    describe('when both password fields are filled in, long enough and equal', () => {
-      let result;
-      let operations;
-
-      beforeEach(() => {
-        setModelValue('password', 'testest');
-        setModelValue('passwordrepeat', 'testest');
-        operations = [{ op: 'replace', path: '/password', value: 'testest' }];
-        result = component.updateSecurity();
-      });
-
-      it('should return true', () => {
-        expect(result).toEqual(true);
-      });
-
-      it('should return call epersonService.patch', () => {
-        expect(epersonService.patch).toHaveBeenCalledWith(user, operations);
-      });
+        expect(component.passwordValue.emit).toHaveBeenCalledWith('new-password');
+      }));
     });
   });
-
-  function setModelValue(id: string, value: string) {
-    component.formGroup.patchValue({
-      [id]: value
-    });
-    component.formGroup.markAllAsTouched();
-  }
 });

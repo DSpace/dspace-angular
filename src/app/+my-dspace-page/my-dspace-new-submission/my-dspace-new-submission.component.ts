@@ -2,10 +2,8 @@ import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output }
 
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
-import { SubmissionState } from '../../submission/submission.reducers';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -54,7 +52,6 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
               private changeDetectorRef: ChangeDetectorRef,
               private halService: HALEndpointService,
               private notificationsService: NotificationsService,
-              private store: Store<SubmissionState>,
               private translate: TranslateService) {
   }
 

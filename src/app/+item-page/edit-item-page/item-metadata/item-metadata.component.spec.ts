@@ -122,6 +122,7 @@ describe('ItemMetadataComponent', () => {
         commitUpdates: {}
       });
       routeStub = {
+        data: observableOf({}),
         parent: {
           data: observableOf({ item: createSuccessfulRemoteDataObject(item) })
         }

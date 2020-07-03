@@ -218,6 +218,27 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
       expect(dropdownMenuItems[2].nativeElement.innerHTML).toContain('DataPackage');
     }));
   });
+
+  // TODO add test open dialog
+  /*describe('', () => {
+    let fixture: ComponentFixture<MyDSpaceNewSubmissionComponent>;
+    let comp: MyDSpaceNewSubmissionComponent;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(MyDSpaceNewSubmissionComponent);
+      comp = fixture.componentInstance;
+    });
+
+    it('should call app.openDialog', () => {
+      spyOn(comp, 'openDialog');
+      const submissionButton = fixture.debugElement.query(By.css('button.btn-primary'));
+      submissionButton.triggerEventHandler('click', {
+        preventDefault: () => {
+        }
+      });
+      expect(comp.openDialog).toHaveBeenCalled();
+    });
+  });*/
 });
 
 export function getMockEntityTypeService(): EntityTypeService {

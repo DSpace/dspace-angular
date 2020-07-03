@@ -9,6 +9,9 @@ import { ResourceType } from '../shared/resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { METADATA_FIELD } from './metadata-field.resource-type';
 import { MetadataSchema } from './metadata-schema.model';
+import { RemoteData } from '../data/remote-data';
+import { Observable } from 'rxjs';
+import { METADATA_SCHEMA } from './metadata-schema.resource-type';
 
 /**
  * Class the represents a metadata field
@@ -61,16 +64,15 @@ export class MetadataField extends ListableObject implements HALResource {
    * The MetadataSchema for this MetadataField
    * Will be undefined unless the schema {@link HALLink} has been resolved.
    */
-  // TODO the responseparsingservice assumes schemas are always embedded. This should use remotedata, and be a link instead.
-  // @link(METADATA_SCHEMA)
-  schema?: MetadataSchema;
+  @link(METADATA_SCHEMA)
+  schema?: Observable<RemoteData<MetadataSchema>>;
 
   /**
    * Method to print this metadata field as a string
    * @param separator The separator between the schema, element and qualifier in the string
    */
   toString(separator: string = '.'): string {
-    let key = this.schema.prefix + separator + this.element;
+    let key = this.element;
     if (isNotEmpty(this.qualifier)) {
       key += separator + this.qualifier;
     }

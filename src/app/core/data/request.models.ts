@@ -18,6 +18,8 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './mapped-collections-reponse-parsing.service';
+import { ProcessFilesResponseParsingService } from './process-files-response-parsing.service';
+import { TokenResponseParsingService } from '../auth/token-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -30,6 +32,8 @@ export enum IdentifierType {
 export abstract class RestRequest {
   public responseMsToLive = 10 * 1000;
   public forceBypassCache = false;
+  public isMultipart = false;
+
   constructor(
     public uuid: string,
     public href: string,
@@ -62,6 +66,21 @@ export class GetRequest extends RestRequest {
 }
 
 export class PostRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any,
+    public options?: HttpOptions
+  )  {
+    super(uuid, href, RestRequestMethod.POST, body)
+  }
+}
+
+/**
+ * Request representing a multipart post request
+ */
+export class MultipartPostRequest extends RestRequest {
+  public isMultipart = true;
   constructor(
     public uuid: string,
     public href: string,
@@ -207,6 +226,15 @@ export class MappedCollectionsRequest extends GetRequest {
   }
 }
 
+/**
+ * Request to fetch the files of a process
+ */
+export class ProcessFilesRequest extends GetRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return ProcessFilesResponseParsingService;
+  }
+}
+
 export class ConfigRequest extends GetRequest {
   constructor(uuid: string, href: string, public options?: HttpOptions) {
     super(uuid, href, null, options);
@@ -236,6 +264,15 @@ export class AuthGetRequest extends GetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return AuthResponseParsingService;
+  }
+}
+
+/**
+ * A POST request for retrieving a token
+ */
+export class TokenPostRequest extends PostRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return TokenResponseParsingService;
   }
 }
 

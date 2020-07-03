@@ -13,6 +13,8 @@ import { AuthService } from '../../core/auth/auth.service';
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
 
 describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;
@@ -21,13 +23,14 @@ describe('AdminSidebarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [AdminSidebarComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
+        { provide: ActivatedRoute, useValue: {} },
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/}
