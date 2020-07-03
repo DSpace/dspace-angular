@@ -198,107 +198,115 @@ describe('VocabularyService', () => {
       halService = jasmine.createSpyObj('halService', {
         getEndpoint: cold('a', { a: endpointURL })
       });
-
-      responseCacheEntry = new RequestEntry();
-      responseCacheEntry.response = new RestResponse(true, 200, 'Success');
-
-      requestService = jasmine.createSpyObj('requestService', {
-        generateRequestId: requestUUID,
-        configure: true,
-        removeByHrefSubstring: {},
-        getByHref: observableOf(responseCacheEntry),
-        getByUUID: observableOf(responseCacheEntry),
-      });
-      rdbService = jasmine.createSpyObj('rdbService', {
-        buildSingle: hot('a|', {
-          a: vocabularyRD
-        }),
-        buildList: hot('a|', {
-          a: paginatedListRD
-        }),
-      });
-
-      service = initTestService();
-
-      spyOn((service as any).vocabularyDataService, 'findById').and.callThrough();
-      spyOn((service as any).vocabularyDataService, 'findAll').and.callThrough();
-      spyOn((service as any).vocabularyDataService, 'findByHref').and.callThrough();
-      spyOn((service as any).vocabularyDataService, 'searchBy').and.callThrough();
-      spyOn((service as any).vocabularyDataService, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
-      spyOn((service as any).vocabularyDataService, 'getFindAllHref').and.returnValue(observableOf(entriesRequestURL));
     });
 
     afterEach(() => {
       service = null;
     });
 
-    describe('findVocabularyById', () => {
-      it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
-        scheduler.schedule(() => service.findVocabularyById(vocabularyId));
-        scheduler.flush();
+    describe('', () => {
+      beforeEach(() => {
+        responseCacheEntry = new RequestEntry();
+        responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
-        expect((service as any).vocabularyDataService.findById).toHaveBeenCalledWith(vocabularyId);
-      });
-
-      it('should return a RemoteData<Vocabulary> for the object with the given id', () => {
-        const result = service.findVocabularyById(vocabularyId);
-        const expected = cold('a|', {
-          a: vocabularyRD
+        requestService = jasmine.createSpyObj('requestService', {
+          generateRequestId: requestUUID,
+          configure: true,
+          removeByHrefSubstring: {},
+          getByHref: observableOf(responseCacheEntry),
+          getByUUID: observableOf(responseCacheEntry),
         });
-        expect(result).toBeObservable(expected);
-      });
-    });
-
-    describe('findVocabularyByHref', () => {
-      it('should proxy the call to vocabularyDataService.findVocabularyByHref', () => {
-        scheduler.schedule(() => service.findVocabularyByHref(requestURL));
-        scheduler.flush();
-
-        expect((service as any).vocabularyDataService.findByHref).toHaveBeenCalledWith(requestURL);
-      });
-
-      it('should return a RemoteData<Vocabulary> for the object with the given URL', () => {
-        const result = service.findVocabularyByHref(requestURL);
-        const expected = cold('a|', {
-          a: vocabularyRD
+        rdbService = jasmine.createSpyObj('rdbService', {
+          buildSingle: hot('a|', {
+            a: vocabularyRD
+          }),
+          buildList: hot('a|', {
+            a: paginatedListRD
+          }),
         });
-        expect(result).toBeObservable(expected);
+
+        service = initTestService();
+
+        spyOn((service as any).vocabularyDataService, 'findById').and.callThrough();
+        spyOn((service as any).vocabularyDataService, 'findAll').and.callThrough();
+        spyOn((service as any).vocabularyDataService, 'findByHref').and.callThrough();
+        spyOn((service as any).vocabularyDataService, 'searchBy').and.callThrough();
+        spyOn((service as any).vocabularyDataService, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
+        spyOn((service as any).vocabularyDataService, 'getFindAllHref').and.returnValue(observableOf(entriesRequestURL));
       });
-    });
 
-    describe('findAllVocabularies', () => {
-      it('should proxy the call to vocabularyDataService.findAllVocabularies', () => {
-        scheduler.schedule(() => service.findAllVocabularies());
-        scheduler.flush();
-
-        expect((service as any).vocabularyDataService.findAll).toHaveBeenCalled();
+      afterEach(() => {
+        service = null;
       });
 
-      it('should return a RemoteData<PaginatedList<Vocabulary>>', () => {
-        const result = service.findAllVocabularies();
-        const expected = cold('a|', {
-          a: paginatedListRD
+      describe('findVocabularyById', () => {
+        it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
+          scheduler.schedule(() => service.findVocabularyById(vocabularyId));
+          scheduler.flush();
+
+          expect((service as any).vocabularyDataService.findById).toHaveBeenCalledWith(vocabularyId);
         });
-        expect(result).toBeObservable(expected);
-      });
-    });
 
-    describe('searchVocabularyByMetadataAndCollection', () => {
-      it('should proxy the call to vocabularyDataService.findVocabularyByHref', () => {
-        scheduler.schedule(() => service.searchVocabularyByMetadataAndCollection(vocabularyOptions).subscribe());
-        scheduler.flush();
-
-        expect((service as any).vocabularyDataService.findByHref).toHaveBeenCalledWith(searchRequestURL);
-      });
-
-      it('should return a RemoteData<Vocabulary> for the search', () => {
-        const result = service.searchVocabularyByMetadataAndCollection(vocabularyOptions);
-        const expected = cold('a|', {
-          a: vocabularyRD
+        it('should return a RemoteData<Vocabulary> for the object with the given id', () => {
+          const result = service.findVocabularyById(vocabularyId);
+          const expected = cold('a|', {
+            a: vocabularyRD
+          });
+          expect(result).toBeObservable(expected);
         });
-        expect(result).toBeObservable(expected);
       });
 
+      describe('findVocabularyByHref', () => {
+        it('should proxy the call to vocabularyDataService.findVocabularyByHref', () => {
+          scheduler.schedule(() => service.findVocabularyByHref(requestURL));
+          scheduler.flush();
+
+          expect((service as any).vocabularyDataService.findByHref).toHaveBeenCalledWith(requestURL);
+        });
+
+        it('should return a RemoteData<Vocabulary> for the object with the given URL', () => {
+          const result = service.findVocabularyByHref(requestURL);
+          const expected = cold('a|', {
+            a: vocabularyRD
+          });
+          expect(result).toBeObservable(expected);
+        });
+      });
+
+      describe('findAllVocabularies', () => {
+        it('should proxy the call to vocabularyDataService.findAllVocabularies', () => {
+          scheduler.schedule(() => service.findAllVocabularies());
+          scheduler.flush();
+
+          expect((service as any).vocabularyDataService.findAll).toHaveBeenCalled();
+        });
+
+        it('should return a RemoteData<PaginatedList<Vocabulary>>', () => {
+          const result = service.findAllVocabularies();
+          const expected = cold('a|', {
+            a: paginatedListRD
+          });
+          expect(result).toBeObservable(expected);
+        });
+      });
+
+      describe('searchVocabularyByMetadataAndCollection', () => {
+        it('should proxy the call to vocabularyDataService.findVocabularyByHref', () => {
+          scheduler.schedule(() => service.searchVocabularyByMetadataAndCollection(vocabularyOptions).subscribe());
+          scheduler.flush();
+
+          expect((service as any).vocabularyDataService.findByHref).toHaveBeenCalledWith(searchRequestURL);
+        });
+
+        it('should return a RemoteData<Vocabulary> for the search', () => {
+          const result = service.searchVocabularyByMetadataAndCollection(vocabularyOptions);
+          const expected = cold('a|', {
+            a: vocabularyRD
+          });
+          expect(result).toBeObservable(expected);
+        });
+
+      });
     });
 
     describe('', () => {
@@ -383,6 +391,7 @@ describe('VocabularyService', () => {
       });
 
     });
+
   });
 
   describe('vocabularyEntryDetails endpoint', () => {
