@@ -69,6 +69,7 @@ describe('SubmissionSubmitComponent Component', () => {
     expect(comp.submissionId.toString()).toEqual(submissionId);
     expect(comp.collectionId).toBe(submissionObject.collection.id);
     expect(comp.selfUrl).toBe(submissionObject._links.self.href);
+    expect(comp.sections).toBe(submissionObject.sections);
     expect(comp.submissionDefinition).toBe(submissionObject.submissionDefinition);
 
   }));
