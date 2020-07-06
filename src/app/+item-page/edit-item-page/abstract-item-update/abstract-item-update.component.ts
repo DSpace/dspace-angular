@@ -11,6 +11,7 @@ import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { environment } from '../../../../environments/environment';
+import { combineLatest as observableCombineLatest } from 'rxjs';
 
 @Component({
   selector: 'ds-abstract-item-update',
@@ -45,11 +46,12 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    * Initialize common properties between item-update components
    */
   ngOnInit(): void {
-    this.route.parent.data.pipe(map((data) => data.item))
-      .pipe(
-        first(),
-        map((data: RemoteData<Item>) => data.payload)
-      ).subscribe((item: Item) => {
+    observableCombineLatest(this.route.data, this.route.parent.data).pipe(
+      map(([data, parentData]) => Object.assign({}, data, parentData)),
+      map((data) => data.item),
+      first(),
+      map((data: RemoteData<Item>) => data.payload)
+    ).subscribe((item: Item) => {
       this.item = item;
       this.postItemInit();
     });

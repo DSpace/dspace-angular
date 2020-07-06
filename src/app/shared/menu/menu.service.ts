@@ -19,7 +19,7 @@ import {
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {
@@ -98,7 +98,7 @@ export class MenuService {
       switchMap((ids: string[]) =>
         observableCombineLatest(ids.map((id: string) => this.getMenuSection(menuID, id)))
       ),
-      map((sections: MenuSection[]) => sections.filter((section: MenuSection) => !mustBeVisible || section.visible))
+      map((sections: MenuSection[]) => sections.filter((section: MenuSection) => hasValue(section) && (!mustBeVisible || section.visible)))
     );
   }
 
@@ -126,6 +126,16 @@ export class MenuService {
     return this.store.pipe(
       select(menuByIDSelector(menuID)),
       select(menuSectionByIDSelector(sectionId)),
+    );
+  }
+
+  /**
+   * Retrieve menu sections that shouldn't persist on route change
+   * @param menuID  The ID of the menu the sections reside in
+   */
+  getNonPersistentMenuSections(menuID: MenuID): Observable<MenuSection[]> {
+    return this.getMenu(menuID).pipe(
+      map((state: MenuState) => Object.values(state.sections).filter((section: MenuSection) => !section.shouldPersistOnRouteChange))
     );
   }
 
@@ -270,7 +280,7 @@ export class MenuService {
    * @returns {Observable<boolean>} Emits true when the given section is currently active, false when the given section is currently inactive
    */
   isSectionActive(menuID: MenuID, id: string): Observable<boolean> {
-    return this.getMenuSection(menuID, id).pipe(map((section) => section.active));
+    return this.getMenuSection(menuID, id).pipe(hasValueOperator(), map((section) => section.active));
   }
 
   /**

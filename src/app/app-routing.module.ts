@@ -115,6 +115,7 @@ export function getDSOPath(dso: DSpaceObject): string {
         path: PROFILE_MODULE_PATH,
         loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard]
       },
+      { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard] },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ],
     {

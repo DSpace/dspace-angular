@@ -140,6 +140,7 @@ describe('ItemRelationshipsComponent', () => {
       findById: observableOf(new RemoteData(false, false, true, undefined, item))
     });
     routeStub = {
+      data: observableOf({}),
       parent: {
         data: observableOf({ item: new RemoteData(false, false, true, null, item) })
       }

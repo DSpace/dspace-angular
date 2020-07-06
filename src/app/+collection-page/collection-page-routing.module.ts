@@ -9,10 +9,13 @@ import { CreateCollectionPageGuard } from './create-collection-page/create-colle
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getCollectionModulePath } from '../app-routing.module';
+import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
+import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
 import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 
@@ -30,6 +33,7 @@ export function getCollectionCreatePath() {
 
 const COLLECTION_CREATE_PATH = 'create';
 const COLLECTION_EDIT_PATH = 'edit';
+const ITEMTEMPLATE_PATH = 'itemtemplate';
 
 @NgModule({
   imports: [
@@ -59,6 +63,16 @@ const COLLECTION_EDIT_PATH = 'edit';
             canActivate: [AuthenticatedGuard],
           },
           {
+            path: ITEMTEMPLATE_PATH,
+            component: EditItemTemplatePageComponent,
+            canActivate: [AuthenticatedGuard],
+            resolve: {
+              item: ItemTemplatePageResolver,
+              breadcrumb: I18nBreadcrumbResolver
+            },
+            data: { title: 'collection.edit.template.title', breadcrumbKey: 'collection.edit.template' }
+          },
+          {
             path: '',
             component: CollectionPageComponent,
             pathMatch: 'full',
@@ -75,6 +89,7 @@ const COLLECTION_EDIT_PATH = 'edit';
   ],
   providers: [
     CollectionPageResolver,
+    ItemTemplatePageResolver,
     CollectionBreadcrumbResolver,
     DSOBreadcrumbsService,
     LinkService,

@@ -32,6 +32,7 @@ import { SubmissionImportExternalComponent } from './import-external/submission-
 import { SubmissionImportExternalSearchbarComponent } from './import-external/import-external-searchbar/submission-import-external-searchbar.component';
 import { SubmissionImportExternalPreviewComponent } from './import-external/import-external-preview/submission-import-external-preview.component';
 import { SubmissionImportExternalCollectionComponent } from './import-external/import-external-collection/submission-import-external-collection.component';
+import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 
 @NgModule({
   imports: [
@@ -47,8 +48,8 @@ import { SubmissionImportExternalCollectionComponent } from './import-external/i
     SubmissionSectionUploadComponent,
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
+    SubmissionSectionCcLicensesComponent,
     SectionsDirective,
-    SubmissionSectionContainerComponent,
     SubmissionEditComponent,
     SubmissionFormSectionAddComponent,
     SubmissionFormCollectionComponent,
@@ -56,6 +57,7 @@ import { SubmissionImportExternalCollectionComponent } from './import-external/i
     SubmissionFormFooterComponent,
     SubmissionSubmitComponent,
     SubmissionUploadFilesComponent,
+    SubmissionSectionContainerComponent,
     SubmissionSectionUploadFileComponent,
     SubmissionSectionUploadFileEditComponent,
     SubmissionSectionUploadFileViewComponent,
@@ -70,7 +72,8 @@ import { SubmissionImportExternalCollectionComponent } from './import-external/i
     SubmissionSectionLicenseComponent,
     SubmissionSectionContainerComponent,
     SubmissionImportExternalPreviewComponent,
-    SubmissionImportExternalCollectionComponent
+    SubmissionImportExternalCollectionComponent,
+    SubmissionSectionCcLicensesComponent
   ],
   exports: [
     SubmissionEditComponent,

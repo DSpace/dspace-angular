@@ -62,10 +62,10 @@ export class EndpointMockingRestService extends DSpaceRESTv2Service {
    * @return Observable<DSpaceRESTV2Response>
    *      An Observable<DSpaceRESTV2Response> containing the response from the server
    */
-  request(method: RestRequestMethod, url: string, body?: any, options?: HttpOptions): Observable<DSpaceRESTV2Response> {
+  request(method: RestRequestMethod, url: string, body?: any, options?: HttpOptions, isMultipart?: boolean): Observable<DSpaceRESTV2Response> {
     const mockData = this.getMockData(url);
     if (isEmpty(mockData)) {
-      return super.request(method, url, body, options);
+      return super.request(method, url, body, options, isMultipart);
     } else {
       return this.toMockResponse$(mockData);
     }
