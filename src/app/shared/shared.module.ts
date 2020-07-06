@@ -189,6 +189,8 @@ import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/
 import { BundleListElementComponent } from './object-list/bundle-list-element/bundle-list-element.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
+import { FileValidator } from './utils/require-file.validator';
+import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
 import { ModifyItemOverviewComponent } from '../+item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
@@ -204,6 +206,7 @@ import { EpersonSearchBoxComponent } from './resource-policies/form/eperson-grou
 import { GroupSearchBoxComponent } from './resource-policies/form/eperson-group-list/group-search-box/group-search-box.component';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
+import { DsSelectComponent } from './ds-select/ds-select.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -280,6 +283,7 @@ const COMPONENTS = [
   DsDynamicFormGroupComponent,
   DsDynamicFormArrayComponent,
   DsDatePickerInlineComponent,
+  DsSelectComponent,
   ErrorComponent,
   FormComponent,
   LangSwitchComponent,
@@ -495,6 +499,9 @@ const DIRECTIVES = [
   RoleDirective,
   MetadataRepresentationDirective,
   ListableObjectDirective,
+  ClaimedTaskActionsDirective,
+  FileValueAccessorDirective,
+  FileValidator,
   ClaimedTaskActionsDirective,
   NgForTrackByIdDirective
 ];

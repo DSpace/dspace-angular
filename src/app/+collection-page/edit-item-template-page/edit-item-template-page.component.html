@@ -1,0 +1,9 @@
+<div class="container" *ngVar="(collectionRD$ | async)?.payload as collection">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom">{{ 'collection.edit.template.head' | translate:{ collection: collection?.name } }}</h2>
+      <ds-item-metadata [updateService]="itemTemplateService"></ds-item-metadata>
+      <button [routerLink]="getCollectionEditUrl(collection)" class="btn btn-outline-secondary">{{ 'collection.edit.template.cancel' | translate }}</button>
+    </div>
+  </div>
+</div>
