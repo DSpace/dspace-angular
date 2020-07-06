@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf, of } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs/internal/observable/of';
 import { getTestScheduler } from 'jasmine-marbles';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -103,16 +103,14 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       const expected = [
         { key: 'dc.identifier.uri', value: Metadata.first(comp.externalSourceEntry.metadata, 'dc.identifier.uri') }
       ];
-      scheduler.schedule(() => comp.ngOnInit());
-      scheduler.flush();
+      fixture.detectChanges();
 
       expect(comp.metadataList).toEqual(expected);
     });
 
     it('Should close the modal calling \'activeModal.dismiss\'', () => {
       comp.modalRef = jasmine.createSpyObj('modal', ['close', 'dismiss']);
-      scheduler.schedule(() => comp.closeMetadataModal());
-      scheduler.flush();
+      comp.closeMetadataModal();
 
       expect(compAsAny.activeModal.dismiss).toHaveBeenCalled();
     });
@@ -136,7 +134,10 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
          { id: 'jk11k13o-9v4z-632i-sr88-wq071n0h1d47' }
       ];
       comp.externalSourceEntry = externalEntry;
-      ngbModal.open.and.returnValue({componentInstance: { selectedEvent: observableOf(emittedEvent)}});
+      ngbModal.open.and.returnValue({
+        componentInstance: { selectedEvent: observableOf(emittedEvent)},
+        close: (): void => { /* empty */ }
+      });
       spyOn(comp, 'closeMetadataModal');
       submissionServiceStub.createSubmissionFromExternalSource.and.returnValue(observableOf(submissionObjects));
       spyOn(compAsAny.router, 'navigateByUrl');
