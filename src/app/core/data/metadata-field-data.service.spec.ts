@@ -4,9 +4,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RestResponse } from '../cache/response.models';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { CreateRequest, FindListOptions, PutRequest } from './request.models';
+import { FindListOptions } from './request.models';
 import { MetadataFieldDataService } from './metadata-field-data.service';
-import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -61,45 +60,6 @@ describe('MetadataFieldDataService', () => {
         searchParams: [new RequestParam('schema', schema.prefix)]
       });
       expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions);
-    });
-  });
-
-  describe('createOrUpdateMetadataField', () => {
-    let field: MetadataField;
-
-    beforeEach(() => {
-      field = Object.assign(new MetadataField(), {
-        element: 'identifier',
-        qualifier: undefined,
-        schema: schema,
-        _links: {
-          self: { href: 'selflink' }
-        }
-      });
-    });
-
-    describe('called with a new metadata field', () => {
-      it('should send a CreateRequest', (done) => {
-        metadataFieldService.createOrUpdateMetadataField(field).subscribe(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(CreateRequest));
-          done();
-        });
-      });
-    });
-
-    describe('called with an existing metadata field', () => {
-      beforeEach(() => {
-        field = Object.assign(field, {
-          id: 'id-of-existing-field'
-        });
-      });
-
-      it('should send a PutRequest', (done) => {
-        metadataFieldService.createOrUpdateMetadataField(field).subscribe(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PutRequest));
-          done();
-        });
-      });
     });
   });
 

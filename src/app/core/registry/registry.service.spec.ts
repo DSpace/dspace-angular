@@ -82,7 +82,7 @@ describe('RegistryService', () => {
           element: 'contributor',
           qualifier: 'advisor',
           scopeNote: null,
-          schema: mockSchemasList[0],
+          schema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
           type: MetadataField.type
         }),
       Object.assign(new MetadataField(),
@@ -94,7 +94,7 @@ describe('RegistryService', () => {
           element: 'contributor',
           qualifier: 'author',
           scopeNote: null,
-          schema: mockSchemasList[0],
+          schema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
           type: MetadataField.type
         }),
       Object.assign(new MetadataField(),
@@ -106,7 +106,7 @@ describe('RegistryService', () => {
           element: 'contributor',
           qualifier: 'editor',
           scopeNote: 'test scope note',
-          schema: mockSchemasList[1],
+          schema: createSuccessfulRemoteDataObject$(mockSchemasList[1]),
           type: MetadataField.type
         }),
       Object.assign(new MetadataField(),
@@ -118,7 +118,7 @@ describe('RegistryService', () => {
           element: 'contributor',
           qualifier: 'illustrator',
           scopeNote: null,
-          schema: mockSchemasList[1],
+          schema: createSuccessfulRemoteDataObject$(mockSchemasList[1]),
           type: MetadataField.type
         })
     ];
@@ -134,7 +134,8 @@ describe('RegistryService', () => {
     metadataFieldService = jasmine.createSpyObj('metadataFieldService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(mockFieldsList)),
       findById: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
-      createOrUpdateMetadataField: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
+      create: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
+      put: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       deleteAndReturnResponse: observableOf(new RestResponse(true, 200, 'OK')),
       clearRequests: observableOf('href')
     });
@@ -178,27 +179,12 @@ describe('RegistryService', () => {
     let result;
 
     beforeEach(() => {
-      result = registryService.getMetadataSchemaByName(mockSchemasList[0].prefix);
+      result = registryService.getMetadataSchemaByPrefix(mockSchemasList[0].prefix);
     });
 
     it('should call metadataSchemaService.findById with the correct ID', (done) => {
       result.subscribe(() => {
         expect(metadataSchemaService.findById).toHaveBeenCalledWith(`${mockSchemasList[0].id}`);
-        done();
-      });
-    });
-  });
-
-  describe('when requesting metadatafields', () => {
-    let result;
-
-    beforeEach(() => {
-      result = registryService.getAllMetadataFields();
-    });
-
-    it('should call metadataFieldService.findAll', (done) => {
-      result.subscribe(() => {
-        expect(metadataFieldService.findAll).toHaveBeenCalled();
         done();
       });
     });
@@ -325,14 +311,29 @@ describe('RegistryService', () => {
     });
   });
 
-  describe('when createOrUpdateMetadataField is called', () => {
+  describe('when createMetadataField is called', () => {
     let result: Observable<MetadataField>;
 
     beforeEach(() => {
-      result = registryService.createOrUpdateMetadataField(mockFieldsList[0]);
+      result = registryService.createMetadataField(mockFieldsList[0], mockSchemasList[0]);
     });
 
-    it('should return the created/updated metadata field', (done) => {
+    it('should return the created metadata field', (done) => {
+      result.subscribe((field: MetadataField) => {
+        expect(field).toEqual(mockFieldsList[0]);
+        done();
+      });
+    });
+  });
+
+  describe('when updateMetadataField is called', () => {
+    let result: Observable<MetadataField>;
+
+    beforeEach(() => {
+      result = registryService.updateMetadataField(mockFieldsList[0]);
+    });
+
+    it('should return the updated metadata field', (done) => {
       result.subscribe((field: MetadataField) => {
         expect(field).toEqual(mockFieldsList[0]);
         done();

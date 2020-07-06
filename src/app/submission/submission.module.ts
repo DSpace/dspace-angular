@@ -28,7 +28,7 @@ import { SubmissionSectionUploadFileViewComponent } from './sections/upload/file
 import { SubmissionSectionUploadAccessConditionsComponent } from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 import { storeModuleConfig } from '../app.reducer';
-import { CoreState } from '../core/core.reducers';
+import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 
 @NgModule({
   imports: [
@@ -44,8 +44,8 @@ import { CoreState } from '../core/core.reducers';
     SubmissionSectionUploadComponent,
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
+    SubmissionSectionCcLicensesComponent,
     SectionsDirective,
-    SubmissionSectionContainerComponent,
     SubmissionEditComponent,
     SubmissionFormSectionAddComponent,
     SubmissionFormCollectionComponent,
@@ -53,6 +53,7 @@ import { CoreState } from '../core/core.reducers';
     SubmissionFormFooterComponent,
     SubmissionSubmitComponent,
     SubmissionUploadFilesComponent,
+    SubmissionSectionContainerComponent,
     SubmissionSectionUploadFileComponent,
     SubmissionSectionUploadFileEditComponent,
     SubmissionSectionUploadFileViewComponent
@@ -61,7 +62,9 @@ import { CoreState } from '../core/core.reducers';
     SubmissionSectionUploadComponent,
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
-    SubmissionSectionContainerComponent],
+    SubmissionSectionContainerComponent,
+    SubmissionSectionCcLicensesComponent,
+  ],
   exports: [
     SubmissionEditComponent,
     SubmissionFormComponent,

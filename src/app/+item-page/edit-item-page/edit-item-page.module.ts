@@ -78,6 +78,9 @@ import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
   providers: [
     BundleDataService,
     ObjectValuesPipe
+  ],
+  exports: [
+    ItemMetadataComponent
   ]
 })
 export class EditItemPageModule {

@@ -69,10 +69,12 @@ export class DSpaceRESTv2Service {
    *    an optional body for the request
    * @param options
    *    the HttpOptions object
+   * @param isMultipart
+   *     true when this concerns a multipart request
    * @return {Observable<string>}
    *      An Observable<string> containing the response from the server
    */
-  request(method: RestRequestMethod, url: string, body?: any, options?: HttpOptions): Observable<DSpaceRESTV2Response> {
+  request(method: RestRequestMethod, url: string, body?: any, options?: HttpOptions, isMultipart?: boolean): Observable<DSpaceRESTV2Response> {
     const requestOptions: HttpOptions = {};
     requestOptions.body = body;
     if (method === RestRequestMethod.POST && isNotEmpty(body) && isNotEmpty(body.name)) {
@@ -98,7 +100,7 @@ export class DSpaceRESTv2Service {
       requestOptions.withCredentials = options.withCredentials;
     }
 
-    if (!requestOptions.headers.has('Content-Type')) {
+    if (!requestOptions.headers.has('Content-Type') && !isMultipart) {
       // Because HttpHeaders is immutable, the set method returns a new object instead of updating the existing headers
       requestOptions.headers = requestOptions.headers.set('Content-Type', DEFAULT_CONTENT_TYPE);
     }

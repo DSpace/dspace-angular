@@ -149,11 +149,17 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             this.modalService.open(CreateItemParentSelectorComponent);
           }
         } as OnClickMenuItemModel,
-        // model: {
-        //   type: MenuItemType.LINK,
-        //   text: 'menu.section.new_item',
-        //   link: '/submit'
-        // } as LinkMenuItemModel,
+      },
+      {
+        id: 'new_process',
+        parentID: 'new',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.new_process',
+          link: '/processes/new'
+        } as LinkMenuItemModel,
       },
       {
         id: 'new_item_version',
@@ -350,6 +356,20 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         icon: 'cogs',
         index: 9
       },
+
+      /* Processes */
+      {
+        id: 'processes',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.processes',
+          link: '/processes'
+        } as LinkMenuItemModel,
+        icon: 'terminal',
+        index: 10
+      },
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
       shouldPersistOnRouteChange: true
@@ -466,7 +486,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             link: '/admin/workflow'
           } as LinkMenuItemModel,
           icon: 'user-check',
-          index: 10
+          index: 11
         },
       ];
 

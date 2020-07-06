@@ -58,7 +58,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
 
   constructor(
-    private metadataFieldService: RegistryService,
+    private registryService: RegistryService,
     private objectUpdatesService: ObjectUpdatesService,
   ) {
   }
@@ -75,7 +75,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sends a new change update for this field to the object updates service
    */
   update(ngModel?: NgModel) {
-    this.objectUpdatesService.saveChangeFieldUpdate(this.url, this.metadata);
+    this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(this.metadata));
     if (hasValue(ngModel)) {
       this.checkValidity(ngModel);
     }
@@ -103,7 +103,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sends a new remove update for this field to the object updates service
    */
   remove() {
-    this.objectUpdatesService.saveRemoveFieldUpdate(this.url, this.metadata);
+    this.objectUpdatesService.saveRemoveFieldUpdate(this.url, cloneDeep(this.metadata));
   }
 
   /**
@@ -123,11 +123,12 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   /**
    * Requests all metadata fields that contain the query string in their key
    * Then sets all found metadata fields as metadataFieldSuggestions
+   * Ignores fields from metadata schemas "relation" and "relationship"
    * @param query The query to look for
    */
   findMetadataFieldSuggestions(query: string): void {
     if (isNotEmpty(query)) {
-      this.metadataFieldService.queryMetadataFields(query).pipe(
+      this.registryService.queryMetadataFields(query).pipe(
         // getSucceededRemoteData(),
         take(1),
         map((data) => data.payload.page)
