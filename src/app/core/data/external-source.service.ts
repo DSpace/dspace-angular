@@ -61,34 +61,6 @@ export class ExternalSourceService extends DataService<ExternalSource> {
   }
 
   /**
-   * Return a single external source.
-   *
-   * @param id
-   *    The external source id.
-   * @param linksToFollow
-   *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
-   * @return Observable<RemoteData<ExternalSource>>
-   *    The list of the external sources.
-   */
-  getExternalSource(id: string, ...linksToFollow: Array<FollowLinkConfig<ExternalSource>>): Observable<RemoteData<ExternalSource>> {
-    return this.findById(id, ...linksToFollow);
-  }
-
-  /**
-   * Return the list of external sources.
-   *
-   * @param options
-   *    Find list options object.
-   * @param linksToFollow
-   *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
-   * @return Observable<RemoteData<PaginatedList<ExternalSource>>>
-   *    The list of the external sources.
-   */
-  getAllExternalSources(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ExternalSource>>): Observable<RemoteData<PaginatedList<ExternalSource>>> {
-    return this.findAll(options, ...linksToFollow);
-  }
-
-  /**
    * Get the entries for an external source
    * @param externalSourceId  The id of the external source to fetch entries for
    * @param searchOptions     The search options to limit results to

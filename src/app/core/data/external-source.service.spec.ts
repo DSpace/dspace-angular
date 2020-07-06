@@ -74,21 +74,4 @@ describe('ExternalSourceService', () => {
       });
     });
   });
-
-  describe('getAllExternalSources', () => {
-    it('should call findAll', () => {
-      spyOn(service, 'findAll');
-      service.getAllExternalSources();
-      expect(service.findAll).toHaveBeenCalled();
-    });
-  });
-
-  describe('getExternalSource', () => {
-    it('should call findById', () => {
-      const externalSourceId = 'orcidV2';
-      spyOn(service, 'findById');
-      service.getExternalSource(externalSourceId);
-      expect(service.findById).toHaveBeenCalledWith(externalSourceId);
-    });
-  });
 });

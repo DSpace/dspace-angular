@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { ExternalSourceService } from '../../../core/data/external-source.service';
@@ -11,6 +11,7 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { FindListOptions } from '../../../core/data/request.models';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { HostWindowService } from '../../../shared/host-window.service';
 
 /**
  * Interface for the selected external source element.
@@ -58,6 +59,10 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
    */
   public sourceListLoading = false;
   /**
+   * Emits true if were on a small screen
+   */
+  public isXsOrSm$: Observable<boolean>;
+  /**
    * The external source data to use to perform the search.
    */
   @Output() public externalSourceData: EventEmitter<ExternalSourceData> = new EventEmitter<ExternalSourceData>();
@@ -75,10 +80,12 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
    * Initialize the component variables.
    * @param {ExternalSourceService} externalService
    * @param {ChangeDetectorRef} cdr
+   * @param {HostWindowService} windowService
    */
   constructor(
     private externalService: ExternalSourceService,
     private cdr: ChangeDetectorRef,
+    protected windowService: HostWindowService
   ) {
   }
 
@@ -96,7 +103,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
       elementsPerPage: 5,
       currentPage: 0,
     });
-    this.externalService.getAllExternalSources(this.findListOptions).pipe(
+    this.externalService.findAll(this.findListOptions).pipe(
       catchError(() => {
         const pageInfo = new PageInfo();
         const paginatedList = new PaginatedList(pageInfo, []);
@@ -118,6 +125,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
       this.pageInfo = externalSource.pageInfo;
       this.cdr.detectChanges();
     });
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
   /**
@@ -137,7 +145,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
         elementsPerPage: 5,
         currentPage: this.findListOptions.currentPage + 1,
       });
-      this.externalService.getAllExternalSources(this.findListOptions).pipe(
+      this.externalService.findAll(this.findListOptions).pipe(
         catchError(() => {
           const pageInfo = new PageInfo();
           const paginatedList = new PaginatedList(pageInfo, []);

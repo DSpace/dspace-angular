@@ -11,6 +11,8 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ExternalSource } from '../../../core/shared/external-source.model';
 import { FindListOptions } from '../../../core/data/request.models';
+import { HostWindowService } from '../../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 
 describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   let comp: SubmissionImportExternalSearchbarComponent;
@@ -29,6 +31,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       providers: [
         { provide: ExternalSourceService, useClass: getMockExternalSourceService },
         ChangeDetectorRef,
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         SubmissionImportExternalSearchbarComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -68,7 +71,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       const pageInfo = new PageInfo();
       paginatedList = new PaginatedList(pageInfo, [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
       const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-      compAsAny.externalService.getAllExternalSources.and.returnValue(observableOf(paginatedListRD));
+      compAsAny.externalService.findAll.and.returnValue(observableOf(paginatedListRD));
       sourceList = [
         {id: 'orcid', name: 'orcid'},
         {id: 'ciencia', name: 'ciencia'},

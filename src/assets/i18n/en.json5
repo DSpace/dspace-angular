@@ -1859,7 +1859,9 @@
 
   "mydspace.new-submission": "New submission",
 
-  "mydspace.new-submission-external": "Import from external source",
+  "mydspace.new-submission-external": "Import metadata from external source",
+
+  "mydspace.new-submission-external-short": "Import metadata",
 
   "mydspace.results.head": "Your submissions",
 
@@ -2562,7 +2564,7 @@
 
   "submission.import-external.title": "Import metadata from an external source",
 
-  "submission.import-external.page.hint": "Search items using external sources.",
+  "submission.import-external.page.hint": "No search performed yet. Search items using external sources.",
 
   "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
 

@@ -7,11 +7,13 @@
 
   </div>
   <div class="add">
-    <button class="btn btn-lg btn-primary mt-1 ml-2" (click)="openDialog()" role="button">
-      <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
+    <button class="btn btn-lg btn-primary mt-1 ml-2" (click)="openDialog()" role="button" title="{{'mydspace.new-submission' | translate}}">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> <span *ngIf="!(isXsOrSm$ | async)">{{'mydspace.new-submission' | translate}}</span>
     </button>
-    <a class="btn btn-lg btn-primary mt-1 ml-2" [routerLink]="['/import-external']" role="button">
-      <i class="fa fa-file-import" aria-hidden="true"></i> {{'mydspace.new-submission-external' | translate}}
+  </div>
+  <div class="add">
+    <a class="btn btn-lg btn-primary mt-1 ml-2" [routerLink]="['/import-external']" role="button" title="{{'mydspace.new-submission-external' | translate}}">
+      <i class="fa fa-file-import" aria-hidden="true"></i> <span *ngIf="!(isXsOrSm$ | async)">{{'mydspace.new-submission-external-short' | translate}}</span>
     </a>
   </div>
 

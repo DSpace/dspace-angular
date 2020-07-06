@@ -23,6 +23,8 @@ import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.moc
 import { UploaderService } from '../../shared/uploader/uploader.service';
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HostWindowService } from '../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 
@@ -63,7 +65,8 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         },
         ChangeDetectorRef,
         MyDSpaceNewSubmissionComponent,
-        UploaderService
+        UploaderService,
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

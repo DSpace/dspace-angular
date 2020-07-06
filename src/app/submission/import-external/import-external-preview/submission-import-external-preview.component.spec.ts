@@ -3,7 +3,9 @@ import { async, TestBed, ComponentFixture, inject } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf, of } from 'rxjs/internal/observable/of';
+import { getTestScheduler } from 'jasmine-marbles';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RouterStub } from '../../../shared/testing/router.stub';
@@ -21,6 +23,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalPreviewComponent>;
   let submissionServiceStub: SubmissionServiceStub;
+  let scheduler: TestScheduler;
   const ngbActiveModal = jasmine.createSpyObj('modal', ['close', 'dismiss']);
   const ngbModal = jasmine.createSpyObj('modal', ['open']);
   const externalEntry = Object.assign(new ExternalSourceEntry(), {
@@ -38,6 +41,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
   });
 
   beforeEach(async (() => {
+    scheduler = getTestScheduler();
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot()
@@ -134,7 +138,8 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       spyOn(comp, 'closeMetadataModal');
       submissionServiceStub.createSubmissionFromExternalSource.and.returnValue(observableOf(submissionObjects));
       spyOn(compAsAny.router, 'navigateByUrl');
-      comp.import();
+      scheduler.schedule(() => comp.import());
+      scheduler.flush();
 
       expect(compAsAny.modalService.open).toHaveBeenCalledWith(SubmissionImportExternalCollectionComponent, { size: 'lg' });
       expect(comp.closeMetadataModal).toHaveBeenCalled();
