@@ -79,7 +79,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create SubmissionImportExternalComponent', inject([SubmissionImportExternalPreviewComponent], (app: SubmissionImportExternalPreviewComponent) => {
+    it('should create SubmissionImportExternalPreviewComponent', inject([SubmissionImportExternalPreviewComponent], (app: SubmissionImportExternalPreviewComponent) => {
       expect(app).toBeDefined();
     }));
   });
@@ -103,14 +103,16 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       const expected = [
         { key: 'dc.identifier.uri', value: Metadata.first(comp.externalSourceEntry.metadata, 'dc.identifier.uri') }
       ];
-      fixture.detectChanges();
+      scheduler.schedule(() => comp.ngOnInit());
+      scheduler.flush();
 
       expect(comp.metadataList).toEqual(expected);
     });
 
     it('Should close the modal calling \'activeModal.dismiss\'', () => {
       comp.modalRef = jasmine.createSpyObj('modal', ['close', 'dismiss']);
-      comp.closeMetadataModal();
+      scheduler.schedule(() => comp.closeMetadataModal());
+      scheduler.flush();
 
       expect(compAsAny.activeModal.dismiss).toHaveBeenCalled();
     });
