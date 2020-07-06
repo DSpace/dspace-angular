@@ -57,6 +57,12 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   @Input() submissionId;
 
   /**
+   * The entity type input used to create a new submission
+   * @type {string}
+   */
+  @Input() entityType: string;
+
+  /**
    * An event fired when a different collection is selected.
    * Event's payload equals to new SubmissionObject.
    */
@@ -104,6 +110,10 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   available$: Observable<boolean>;
 
   /**
+   * Metadata name to filter collection list
+   */
+  metadata: string;
+  /**
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} cdr
@@ -142,6 +152,9 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
     this.available$ = this.sectionsService.isSectionAvailable(this.submissionId, 'collection');
+    if (this.entityType) {
+      this.metadata = 'relationship.type';
+    }
   }
 
   /**

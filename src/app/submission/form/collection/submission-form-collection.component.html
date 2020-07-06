@@ -36,6 +36,8 @@
          id="collectionControlsDropdownMenu"
          aria-labelledby="collectionControlsMenuButton">
       <ds-collection-dropdown
+        [metadata]="metadata"
+        [metadatavalue]="entityType"
         (selectionChange)="onSelect($event)">
       </ds-collection-dropdown>
     </div>

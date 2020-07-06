@@ -56,6 +56,12 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   @Input() submissionId: string;
 
   /**
+   * The entity type input used to create a new submission
+   * @type {string}
+   */
+  @Input() entityType: string;
+
+  /**
    * The configuration id that define this submission
    * @type {string}
    */
