@@ -10,6 +10,7 @@ import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core'
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
+import { ExportMetadataSelectorComponent } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -397,7 +398,8 @@ const COMPONENTS = [
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
   FileDownloadLinkComponent,
-  CollectionDropdownComponent
+  CollectionDropdownComponent,
+  ExportMetadataSelectorComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -474,6 +476,7 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsEditMetadataComponent,
   FileDownloadLinkComponent,
   CurationFormComponent,
+  ExportMetadataSelectorComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

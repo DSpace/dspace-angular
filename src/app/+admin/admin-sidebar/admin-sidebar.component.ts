@@ -2,8 +2,13 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest as combineLatestObservable } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { first, map } from 'rxjs/operators';
+import { of } from 'rxjs/internal/observable/of';
+import { first, map, take } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
+import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { Script } from '../../process-page/scripts/script.model';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
 import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import { CreateCommunityParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
@@ -11,6 +16,10 @@ import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/mod
 import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+import {
+  ExportMetadataSelectorComponent,
+  METADATA_EXPORT_SCRIPT_NAME
+} from '../../shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { MenuID, MenuItemType } from '../../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick.model';
@@ -64,7 +73,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
               private variableService: CSSVariableService,
               private authService: AuthService,
               private modalService: NgbModal,
-              private authorizationService: AuthorizationDataService
+              private authorizationService: AuthorizationDataService,
+              private scriptDataService: ScriptDataService,
   ) {
     super(menuService, injector);
   }
@@ -75,6 +85,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   ngOnInit(): void {
     this.createMenu();
     this.createSiteAdministratorMenuSections();
+    this.createExportMenuSections();
     super.ngOnInit();
     this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
     this.authService.isAuthenticated()
@@ -259,61 +270,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           link: ''
         } as LinkMenuItemModel,
       },
-      /* Export */
-      {
-        id: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.export'
-        } as TextMenuItemModel,
-        icon: 'sign-out-alt',
-        index: 3
-      },
-      {
-        id: 'export_community',
-        parentID: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.export_community',
-          link: ''
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'export_collection',
-        parentID: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.export_collection',
-          link: ''
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'export_item',
-        parentID: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.export_item',
-          link: ''
-        } as LinkMenuItemModel,
-      }, {
-        id: 'export_metadata',
-        parentID: 'export',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.export_metadata',
-          link: ''
-        } as LinkMenuItemModel,
-      },
 
       /* Statistics */
       {
@@ -360,6 +316,85 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
       shouldPersistOnRouteChange: true
     })));
+  }
+
+  /**
+   * Create menu sections dependent on whether or not the current user is a site administrator and on whether or not
+   * the export scripts exist and the current user is allowed to execute them
+   */
+  createExportMenuSections() {
+    const isAuthorized$: Observable<boolean> = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
+    isAuthorized$.subscribe((authorized: boolean) => {
+      if (authorized) {
+        const metadataExportScriptExists$ = this.scriptDataService.scripWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME);
+        metadataExportScriptExists$.subscribe((metadataExportScriptExists: boolean) => {
+          const menuList = [
+            /* Export */
+            {
+              id: 'export',
+              active: false,
+              visible: true,
+              model: {
+                type: MenuItemType.TEXT,
+                text: 'menu.section.export'
+              } as TextMenuItemModel,
+              icon: 'sign-out-alt',
+              index: 3
+            },
+            {
+              id: 'export_community',
+              parentID: 'export',
+              active: false,
+              visible: true,
+              model: {
+                type: MenuItemType.LINK,
+                text: 'menu.section.export_community',
+                link: ''
+              } as LinkMenuItemModel,
+            },
+            {
+              id: 'export_collection',
+              parentID: 'export',
+              active: false,
+              visible: true,
+              model: {
+                type: MenuItemType.LINK,
+                text: 'menu.section.export_collection',
+                link: ''
+              } as LinkMenuItemModel,
+            },
+            {
+              id: 'export_item',
+              parentID: 'export',
+              active: false,
+              visible: true,
+              model: {
+                type: MenuItemType.LINK,
+                text: 'menu.section.export_item',
+                link: ''
+              } as LinkMenuItemModel,
+            },
+            {
+              id: 'export_metadata',
+              parentID: 'export',
+              active: true,
+              visible: authorized && metadataExportScriptExists,
+              model: {
+                type: MenuItemType.ONCLICK,
+                text: 'menu.section.export_metadata',
+                function: () => {
+                  this.modalService.open(ExportMetadataSelectorComponent);
+                }
+              } as OnClickMenuItemModel,
+            },
+          ];
+          menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+            shouldPersistOnRouteChange: true
+          })));
+        });
+      }
+    });
+
   }
 
   /**

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../shared/operators';
 import { DataService } from '../data.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
@@ -12,6 +13,7 @@ import { Script } from '../../../process-page/scripts/script.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { find, map, switchMap } from 'rxjs/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
+import { PaginatedList } from '../paginated-list';
 import { MultipartPostRequest, RestRequest } from '../request.models';
 import { RequestService } from '../request.service';
 import { Observable } from 'rxjs';
@@ -57,5 +59,24 @@ export class ScriptDataService extends DataService<Script> {
       form.append('file', file);
     });
     return form;
+  }
+
+  /**
+   * Check whether a script with given name exist; user needs to be allowed to execute script for this to to not throw a 401 Unauthorized
+   * @param scriptName    script we want to check exists (and we can execute)
+   */
+  public scripWithNameExistsAndCanExecute(scriptName: string): Observable<boolean> {
+    return this.findAll().pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((scriptsRD: PaginatedList<Script>) => {
+        let found = false;
+        scriptsRD.page.forEach((script: Script) => {
+          if (script.id === scriptName) {
+            found = true;
+          }
+        });
+        return found;
+      }));
   }
 }
