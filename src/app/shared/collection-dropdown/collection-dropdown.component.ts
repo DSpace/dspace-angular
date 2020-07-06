@@ -92,7 +92,14 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    */
   currentQuery: string;
 
+  /**
+   * If present this value is used to filter collection list
+   */
   @Input() metadata: string;
+
+  /**
+   * If present this value is used to filter collection list
+   */
   @Input() metadatavalue: string;
 
   constructor(

@@ -37,6 +37,9 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
         ['collection']: dso.uuid,
       }
     };
+    if (this.metadatavalue) {
+      navigationExtras.queryParams.entityType = this.metadatavalue;
+    }
     this.router.navigate(['/submit'], navigationExtras);
   }
 }

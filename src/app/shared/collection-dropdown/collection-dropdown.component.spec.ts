@@ -114,6 +114,14 @@ class CollectionDataServiceMock {
           new PaginatedList(new PageInfo(), collections)
         )
     );
+  };
+
+  getAuthorizedCollectionAndMetadata(query: string, metadata: string, metadatavalue: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
+    return of(
+        createSuccessfulRemoteDataObject(
+          new PaginatedList(new PageInfo(), collections)
+        )
+    );
   }
 }
 
@@ -238,4 +246,16 @@ describe('CollectionDropdownComponent', () => {
     expect(component.hasNextPage).toEqual(true);
     expect(component.searchListCollection).toEqual([]);
   });
+
+  it('should invoke the method getAuthorizedCollectionAndMetadata of CollectionDataService', fakeAsync(() => {
+    spyOn((component as any).collectionDataService, 'getAuthorizedCollectionAndMetadata');
+    component.metadata = 'relationship.type';
+    component.metadatavalue = 'rel';
+    component.ngOnInit();
+    tick();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect((component as any).collectionDataService.getAuthorizedCollectionAndMetadata).toHaveBeenCalled();
+    });
+  }));
 });

@@ -91,6 +91,8 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Get all collections the user is authorized to submit to
    *
    * @param query limit the returned collection to those with metadata values matching the query terms.
+   * @param metadata limit the returned collection to those that have the metadata contained in this parameter.
+   * @param metadatavalue limit the returned collection to those with metadata value matching this parameter.
    * @param options The [[FindListOptions]] object
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list

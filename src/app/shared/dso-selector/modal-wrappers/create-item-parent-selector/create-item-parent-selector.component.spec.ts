@@ -1,10 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router.stub';
 import { Collection } from '../../../../core/shared/collection.model';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
@@ -71,4 +69,10 @@ describe('CreateItemParentSelectorComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['/submit'], { queryParams: { collection: collection.uuid } });
   });
 
+  it('should call navigate on the router with entityType parameter', () => {
+    const entityType = 'Person';
+    component.metadatavalue = entityType;
+    component.navigate(collection);
+    expect(router.navigate).toHaveBeenCalledWith(['/submit'], { queryParams: { collection: collection.uuid, entityType: entityType } });
+  });
 });

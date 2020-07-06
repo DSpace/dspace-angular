@@ -217,28 +217,18 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
       expect(dropdownMenuItems[1].nativeElement.innerHTML).toContain('Journal');
       expect(dropdownMenuItems[2].nativeElement.innerHTML).toContain('DataPackage');
     }));
+
+    it('should invoke openDialog method', () => {
+      spyOn(submissionComponent, 'openDialog');
+      const dropdownElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.dropdown-menu'));
+      const dropdownMenuItems: DebugElement = dropdownElement.query(By.css('.dropdown-item:first-child'));
+      dropdownMenuItems.triggerEventHandler('click', {
+        preventDefault: () => {/****/}
+      });
+      expect(submissionComponent.openDialog).toHaveBeenCalled();
+    });
   });
 
-  // TODO add test open dialog
-  /*describe('', () => {
-    let fixture: ComponentFixture<MyDSpaceNewSubmissionComponent>;
-    let comp: MyDSpaceNewSubmissionComponent;
-
-    beforeEach(() => {
-      fixture = TestBed.createComponent(MyDSpaceNewSubmissionComponent);
-      comp = fixture.componentInstance;
-    });
-
-    it('should call app.openDialog', () => {
-      spyOn(comp, 'openDialog');
-      const submissionButton = fixture.debugElement.query(By.css('button.btn-primary'));
-      submissionButton.triggerEventHandler('click', {
-        preventDefault: () => {
-        }
-      });
-      expect(comp.openDialog).toHaveBeenCalled();
-    });
-  });*/
 });
 
 export function getMockEntityTypeService(): EntityTypeService {
