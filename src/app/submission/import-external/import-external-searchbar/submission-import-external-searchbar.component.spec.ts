@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA, ChangeDetectorRef } from '@angular/core';
-import { async, TestBed, ComponentFixture, inject } from '@angular/core/testing';
+import { async, TestBed, ComponentFixture, inject, fakeAsync, tick } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { SubmissionImportExternalSearchbarComponent, SourceElement } from './submission-import-external-searchbar.component';
@@ -13,13 +13,17 @@ import { ExternalSource } from '../../../core/shared/external-source.model';
 import { FindListOptions } from '../../../core/data/request.models';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
+import { getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
 
 describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   let comp: SubmissionImportExternalSearchbarComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalSearchbarComponent>;
+  let scheduler: TestScheduler;
 
   beforeEach(async (() => {
+    scheduler = getTestScheduler();
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -85,23 +89,25 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       compAsAny = null;
     });
 
-    it('Should init component properly (without initExternalSourceData)', () => {
+    it('Should init component properly (without initExternalSourceData)', fakeAsync(() => {
       comp.initExternalSourceData = { sourceId: '', query: '' };
       fixture.detectChanges();
+      tick();
 
       expect(comp.selectedElement).toEqual(sourceList[0]);
       expect(compAsAny.pageInfo).toEqual(paginatedList.pageInfo);
       expect(comp.sourceList).toEqual(sourceList);
-    });
+    }));
 
-    it('Should init component properly (with initExternalSourceData populated)', () => {
+    it('Should init component properly (with initExternalSourceData populated)', fakeAsync(() => {
       comp.initExternalSourceData = { query: 'dummy', sourceId: 'ciencia' };
       fixture.detectChanges();
+      tick();
 
       expect(comp.selectedElement).toEqual(sourceList[1]);
       expect(compAsAny.pageInfo).toEqual(paginatedList.pageInfo);
       expect(comp.sourceList).toEqual(sourceList);
-    });
+    }));
 
     it('Variable \'selectedElement\' should be assigned', () => {
       const selectedElement = {id: 'orcid', name: 'orcid'};
@@ -123,7 +129,9 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       });
       comp.sourceList = sourceList;
       const expected = sourceList.concat(sourceList);
-      comp.onScroll();
+
+      scheduler.schedule(() => comp.onScroll());
+      scheduler.flush();
 
       expect(comp.sourceList).toEqual(expected);
     });
