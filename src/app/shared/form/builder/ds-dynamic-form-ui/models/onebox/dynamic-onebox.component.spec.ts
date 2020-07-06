@@ -3,7 +3,10 @@ import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/c
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { CdkTreeModule } from '@angular/cdk/tree';
 
+import { TestScheduler } from 'rxjs/testing';
+import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
@@ -22,13 +25,22 @@ import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
-import { CdkTreeModule } from '@angular/cdk/tree';
-import { TestScheduler } from 'rxjs/testing';
-import { getTestScheduler } from 'jasmine-marbles';
 
 export let ONEBOX_TEST_GROUP;
 
 export let ONEBOX_TEST_MODEL_CONFIG;
+
+/* tslint:disable:max-classes-per-file */
+
+// Mock class for NgbModalRef
+export class MockNgbModalRef {
+  componentInstance = {
+    vocabularyOptions: undefined,
+    preloadLevel: undefined,
+    selectedItem: undefined
+  };
+  result: Promise<any> = new Promise((resolve, reject) => resolve(true));
+}
 
 function init() {
   ONEBOX_TEST_GROUP = new FormGroup({
@@ -63,6 +75,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
   let testFixture: ComponentFixture<TestComponent>;
   let oneboxCompFixture: ComponentFixture<DsDynamicOneboxComponent>;
   let vocabularyServiceStub: any;
+  let modalService: any;
   let html;
   let modal;
   const vocabulary = {
@@ -102,14 +115,14 @@ describe('DsDynamicOneboxComponent test suite', () => {
   // async beforeEach
   beforeEach(async(() => {
     vocabularyServiceStub = new VocabularyServiceStub();
-    modal = jasmine.createSpyObj('modal', ['open', 'close', 'dismiss']);
-/*    jasmine.createSpyObj('modal',
+    // modal = jasmine.createSpyObj('modal', ['open', 'close', 'dismiss']);
+    modal = jasmine.createSpyObj('modal',
       {
-        open: jasmine.createSpy('open'),
+        open: jasmine.createSpy('open').and.returnValue(new MockNgbModalRef()),
         close: jasmine.createSpy('close'),
         dismiss: jasmine.createSpy('dismiss'),
       }
-    );*/
+    );
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -365,13 +378,13 @@ describe('DsDynamicOneboxComponent test suite', () => {
     beforeEach(() => {
       scheduler = getTestScheduler();
       spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(hierarchicalVocabulary));
+      oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
+      oneboxComponent = oneboxCompFixture.componentInstance; // FormComponent test instance
+      modalService = TestBed.get(NgbModal);
     });
 
     describe('when init model value is empty', () => {
       beforeEach(() => {
-
-        oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
-        oneboxComponent = oneboxCompFixture.componentInstance; // FormComponent test instance
         oneboxComponent.group = ONEBOX_TEST_GROUP;
         oneboxComponent.model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
         oneboxCompFixture.detectChanges();
@@ -396,8 +409,6 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
     describe('when init model value is not empty', () => {
       beforeEach(() => {
-        oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
-        oneboxComponent = oneboxCompFixture.componentInstance; // FormComponent test instance
         oneboxComponent.group = ONEBOX_TEST_GROUP;
         oneboxComponent.model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
         const entry = observableOf(Object.assign(new VocabularyEntry(), {
@@ -445,3 +456,5 @@ class TestComponent {
   model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
 
 }
+
+/* tslint:enable:max-classes-per-file */
