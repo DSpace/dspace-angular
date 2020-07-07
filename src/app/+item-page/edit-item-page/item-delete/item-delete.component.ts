@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {filter, first, map, switchMap, take} from 'rxjs/operators';
+import { defaultIfEmpty, filter, first, map, switchMap, take } from 'rxjs/operators';
 import {AbstractSimpleItemActionComponent} from '../simple-item-action/abstract-simple-item-action.component';
 import {getItemEditPath} from '../../item-page-routing.module';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +19,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
 import {RelationshipService} from '../../../core/data/relationship.service';
 import {EntityTypeService} from '../../../core/data/entity-type.service';
+import { LinkService } from "../../../core/cache/builders/link.service";
+import { followLink } from "../../../shared/utils/follow-link-config.model";
 
 @Component({
   selector: 'ds-item-delete',
@@ -80,6 +82,7 @@ export class ItemDeleteComponent
               protected objectUpdatesService: ObjectUpdatesService,
               protected relationshipService: RelationshipService,
               protected entityTypeService: EntityTypeService,
+              protected linkService: LinkService,
   ) {
     super(
       route,
@@ -187,6 +190,7 @@ export class ItemDeleteComponent
             observableCombineLatest(
               relationships.map((relationship) => this.getRelationshipType(relationship))
             ).pipe(
+              defaultIfEmpty([]),
               map((types) => relationships.filter(
                 (relationship, index) => relationshipType.id === types[index].id
               )),
@@ -205,6 +209,12 @@ export class ItemDeleteComponent
    */
   private getRelationshipType(relationship: Relationship): Observable<RelationshipType> {
 
+    this.linkService.resolveLinks(
+      relationship,
+      followLink('relationshipType'),
+      followLink('leftItem'),
+      followLink('rightItem'),
+    );
     return relationship.relationshipType.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -305,6 +315,7 @@ export class ItemDeleteComponent
         combineLatest(
           types.map((type) => this.isSelected(type))
         ).pipe(
+          defaultIfEmpty([]),
           map((selection) => types.filter(
             (type, index) => selection[index]
           )),
