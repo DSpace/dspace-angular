@@ -380,7 +380,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
     ).pipe(
-      filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
+      // TODO uncomment when #635 (https://github.com/DSpace/dspace-angular/issues/635) is fixed; otherwise even in production mode, the metadata export button is only available after a refresh (and not in dev mode)
+      // filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
       take(1)
     ).subscribe(() => {
       this.menuService.addSection(this.menuID, {
