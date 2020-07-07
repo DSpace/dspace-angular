@@ -1,9 +1,9 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest as combineLatestObservable } from 'rxjs';
+import { combineLatest as observableCombineLatest } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
-import { first, map, take } from 'rxjs/operators';
+import { first, map, take, tap, filter } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
@@ -99,7 +99,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         this.sidebarOpen = !collapsed;
         this.sidebarClosed = collapsed;
       });
-    this.sidebarExpanded = combineLatestObservable(this.menuCollapsed, this.menuPreviewCollapsed)
+    this.sidebarExpanded = observableCombineLatest(this.menuCollapsed, this.menuPreviewCollapsed)
       .pipe(
         map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
       );
@@ -323,78 +323,81 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * the export scripts exist and the current user is allowed to execute them
    */
   createExportMenuSections() {
-    const isAuthorized$: Observable<boolean> = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
-    isAuthorized$.subscribe((authorized: boolean) => {
-      if (authorized) {
-        const metadataExportScriptExists$ = this.scriptDataService.scripWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME);
-        metadataExportScriptExists$.subscribe((metadataExportScriptExists: boolean) => {
-          const menuList = [
-            /* Export */
-            {
-              id: 'export',
-              active: false,
-              visible: true,
-              model: {
-                type: MenuItemType.TEXT,
-                text: 'menu.section.export'
-              } as TextMenuItemModel,
-              icon: 'sign-out-alt',
-              index: 3
-            },
-            {
-              id: 'export_community',
-              parentID: 'export',
-              active: false,
-              visible: true,
-              model: {
-                type: MenuItemType.LINK,
-                text: 'menu.section.export_community',
-                link: ''
-              } as LinkMenuItemModel,
-            },
-            {
-              id: 'export_collection',
-              parentID: 'export',
-              active: false,
-              visible: true,
-              model: {
-                type: MenuItemType.LINK,
-                text: 'menu.section.export_collection',
-                link: ''
-              } as LinkMenuItemModel,
-            },
-            {
-              id: 'export_item',
-              parentID: 'export',
-              active: false,
-              visible: true,
-              model: {
-                type: MenuItemType.LINK,
-                text: 'menu.section.export_item',
-                link: ''
-              } as LinkMenuItemModel,
-            },
-            {
-              id: 'export_metadata',
-              parentID: 'export',
-              active: true,
-              visible: (authorized && metadataExportScriptExists),
-              model: {
-                type: MenuItemType.ONCLICK,
-                text: 'menu.section.export_metadata',
-                function: () => {
-                  this.modalService.open(ExportMetadataSelectorComponent);
-                }
-              } as OnClickMenuItemModel,
-            },
-          ];
-          menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
-            shouldPersistOnRouteChange: true
-          })));
-        });
-      }
-    });
+    const menuList = [
+      /* Export */
+      {
+        id: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.export'
+        } as TextMenuItemModel,
+        icon: 'sign-out-alt',
+        index: 3,
+        shouldPersistOnRouteChange: true
+      },
+      {
+        id: 'export_community',
+        parentID: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.export_community',
+          link: ''
+        } as LinkMenuItemModel,
+        shouldPersistOnRouteChange: true
+      },
+      {
+        id: 'export_collection',
+        parentID: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.export_collection',
+          link: ''
+        } as LinkMenuItemModel,
+        shouldPersistOnRouteChange: true
+      },
+      {
+        id: 'export_item',
+        parentID: 'export',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.export_item',
+          link: ''
+        } as LinkMenuItemModel,
+        shouldPersistOnRouteChange: true
+      },
+    ];
+    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
 
+    observableCombineLatest(
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
+    ).pipe(
+      filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
+      take(1)
+    ).subscribe(() => {
+      this.menuService.addSection(this.menuID, {
+        id: 'export_metadata',
+        parentID: 'export',
+        active: true,
+        visible: true,
+        model: {
+          type: MenuItemType.ONCLICK,
+          text: 'menu.section.export_metadata',
+          function: () => {
+            this.modalService.open(ExportMetadataSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+    });
   }
 
   /**

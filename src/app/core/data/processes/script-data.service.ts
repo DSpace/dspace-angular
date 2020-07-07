@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { getSucceededRemoteData } from '../../shared/operators';
+import {
+  getSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload
+} from '../../shared/operators';
 import { DataService } from '../data.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
@@ -11,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from '../default-change-analyzer.service';
 import { Script } from '../../../process-page/scripts/script.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
-import { find, map, switchMap } from 'rxjs/operators';
+import { find, map, switchMap, filter } from 'rxjs/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { RemoteData } from '../remote-data';
 import { MultipartPostRequest, RestRequest } from '../request.models';
@@ -20,6 +23,7 @@ import { Observable } from 'rxjs';
 import { RequestEntry } from '../request.reducer';
 import { dataService } from '../../cache/builders/build-decorators';
 import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
+import { hasValue } from '../../../shared/empty.util';
 
 @Injectable()
 @dataService(SCRIPT)
@@ -65,11 +69,11 @@ export class ScriptDataService extends DataService<Script> {
    * Check whether a script with given name exist; user needs to be allowed to execute script for this to to not throw a 401 Unauthorized
    * @param scriptName    script we want to check exists (and we can execute)
    */
-  public scripWithNameExistsAndCanExecute(scriptName: string): Observable<boolean> {
+  public scriptWithNameExistsAndCanExecute(scriptName: string): Observable<boolean> {
     return this.findById(scriptName).pipe(
-      getSucceededRemoteData(),
-      map((scriptRD: RemoteData<Script>) => {
-        return (scriptRD.hasSucceeded);
+      find((rd: RemoteData<Script>) => hasValue(rd.payload) || hasValue(rd.error)),
+      map((rd: RemoteData<Script>) => {
+        return hasValue(rd.payload);
       }));
   }
 }
