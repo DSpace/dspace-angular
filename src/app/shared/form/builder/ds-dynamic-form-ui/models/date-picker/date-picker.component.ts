@@ -20,10 +20,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicDsDatePickerModel;
-  // @Input()
-  // minDate;
-  // @Input()
-  // maxDate;
 
   @Output() selected = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();
@@ -65,7 +61,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     this.initialMonth = now.getMonth() + 1;
     this.initialDay = now.getDate();
 
-    if (this.model.value && this.model.value !== null) {
+    if (this.model && this.model.value !== null) {
       const values = this.model.value.toString().split(DS_DATE_PICKER_SEPARATOR);
       if (values.length > 0) {
         this.initialYear = parseInt(values[0], 10);

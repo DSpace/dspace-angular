@@ -2,9 +2,12 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { DsDynamicRelationGroupComponent } from './dynamic-relation-group.components';
 import { DynamicRelationGroupModel, DynamicRelationGroupModelConfig } from './dynamic-relation-group.model';
@@ -13,18 +16,14 @@ import { FormFieldModel } from '../../../models/form-field.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
-import { Store, StoreModule } from '@ngrx/store';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { StoreMock } from '../../../../../testing/store.mock';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
-import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { storeModuleConfig } from '../../../../../../app.reducer';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
@@ -47,7 +46,7 @@ function init() {
         mandatoryMessage: 'Required field!',
         repeatable: false,
         selectableMetadata: [{
-          authority: 'RPAuthority',
+          controlledVocabulary: 'RPAuthority',
           closed: false,
           metadata: 'dc.contributor.author'
         }],
@@ -61,7 +60,7 @@ function init() {
         mandatory: 'false',
         repeatable: false,
         selectableMetadata: [{
-          authority: 'OUAuthority',
+          controlledVocabulary: 'OUAuthority',
           closed: false,
           metadata: 'local.contributor.affiliation'
         }]
@@ -129,7 +128,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
-        { provide: AuthorityService, useValue: new AuthorityServiceStub() },
+        { provide: VocabularyService, useValue: new VocabularyServiceStub() },
         { provide: Store, useClass: StoreMock }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

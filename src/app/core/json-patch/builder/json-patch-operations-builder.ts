@@ -9,7 +9,7 @@ import { JsonPatchOperationPathObject } from './json-patch-operation-path-combin
 import { Injectable } from '@angular/core';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { dateToISOFormat } from '../../../shared/date.util';
-import { AuthorityEntry } from '../../integration/models/authority-entry.model';
+import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 
@@ -106,7 +106,7 @@ export class JsonPatchOperationsBuilder {
       operationValue = value;
     } else if (value instanceof Date) {
       operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value));
-    } else if (value instanceof AuthorityEntry) {
+    } else if (value instanceof VocabularyEntry) {
       operationValue = this.prepareAuthorityValue(value);
     } else if (value instanceof FormFieldLanguageValueObject) {
       operationValue = new FormFieldMetadataValueObject(value.value, value.language);
@@ -127,8 +127,8 @@ export class JsonPatchOperationsBuilder {
 
   protected prepareAuthorityValue(value: any) {
     let operationValue: any = null;
-    if (isNotEmpty(value.id)) {
-      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.id);
+    if (isNotEmpty(value.authority)) {
+      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.authority);
     } else {
       operationValue = new FormFieldMetadataValueObject(value.value, value.language);
     }

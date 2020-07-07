@@ -5,7 +5,7 @@ import { hasValue, isNotEmpty } from '../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { MetadataIconConfig } from '../../../../config/submission-config.interface';
 import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
-import { AuthorityEntry } from '../../../core/integration/models/authority-entry.model';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 export class Chips {
   chipsItems: BehaviorSubject<ChipsItem[]>;
@@ -102,7 +102,7 @@ export class Chips {
 
   private getChipsIcons(item) {
     const icons = [];
-    if (typeof item === 'string' || item instanceof FormFieldMetadataValueObject || item instanceof AuthorityEntry) {
+    if (typeof item === 'string' || item instanceof FormFieldMetadataValueObject || item instanceof VocabularyEntry) {
       return icons;
     }
 

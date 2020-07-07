@@ -1,5 +1,5 @@
 import { isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
-import { ConfidenceType } from '../../../../core/integration/models/confidence-type';
+import { ConfidenceType } from '../../../../core/shared/confidence-type';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { MetadataValueInterface } from '../../../../core/shared/metadata.models';
 
@@ -7,6 +7,9 @@ export interface OtherInformation {
   [name: string]: string
 }
 
+/**
+ * A class representing a specific input-form field's value
+ */
 export class FormFieldMetadataValueObject implements MetadataValueInterface {
   metadata?: string;
   value: any;
@@ -15,7 +18,6 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   authority: string;
   confidence: ConfidenceType;
   place: number;
-  closed: boolean;
   label: string;
   otherInformation: OtherInformation;
 

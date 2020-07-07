@@ -2,25 +2,25 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { DsDynamicListComponent } from './dynamic-list.component';
-import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
-import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
-import { FormBuilderService } from '../../../form-builder.service';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import {
   DynamicFormControlLayout,
   DynamicFormLayoutService,
   DynamicFormsCoreModule,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
+
+import { DsDynamicListComponent } from './dynamic-list.component';
+import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
+import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { FormBuilderService } from '../../../form-builder.service';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
-import { By } from '@angular/platform-browser';
-import { AuthorityEntry } from '../../../../../../core/integration/models/authority-entry.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
 
 export const LAYOUT_TEST = {
@@ -35,12 +35,12 @@ export const LIST_TEST_GROUP = new FormGroup({
 });
 
 export const LIST_CHECKBOX_TEST_MODEL_CONFIG = {
-  authorityOptions: {
+  vocabularyOptions: {
     closed: false,
     metadata: 'listCheckbox',
     name: 'type_programme',
     scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
-  } as AuthorityOptions,
+  } as VocabularyOptions,
   disabled: false,
   id: 'listCheckbox',
   label: 'Programme',
@@ -52,12 +52,12 @@ export const LIST_CHECKBOX_TEST_MODEL_CONFIG = {
 };
 
 export const LIST_RADIO_TEST_MODEL_CONFIG = {
-  authorityOptions: {
+  vocabularyOptions: {
     closed: false,
     metadata: 'listRadio',
     name: 'type_programme',
     scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
-  } as AuthorityOptions,
+  } as VocabularyOptions,
   disabled: false,
   id: 'listRadio',
   label: 'Programme',
@@ -77,7 +77,7 @@ describe('DsDynamicListComponent test suite', () => {
   let html;
   let modelValue;
 
-  const authorityServiceStub = new AuthorityServiceStub();
+  const vocabularyServiceStub = new VocabularyServiceStub();
 
   // async beforeEach
   beforeEach(async(() => {
@@ -99,9 +99,9 @@ describe('DsDynamicListComponent test suite', () => {
         DsDynamicListComponent,
         DynamicFormValidationService,
         FormBuilderService,
-        {provide: AuthorityService, useValue: authorityServiceStub},
-        {provide: DynamicFormLayoutService, useValue: {}},
-        {provide: DynamicFormValidationService, useValue: {}}
+        { provide: VocabularyService, useValue: vocabularyServiceStub },
+        { provide: DynamicFormLayoutService, useValue: {} },
+        { provide: DynamicFormValidationService, useValue: {} }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -147,20 +147,16 @@ describe('DsDynamicListComponent test suite', () => {
       });
 
       it('should init component properly', () => {
-        const results$ = authorityServiceStub.getEntriesByName({} as  any);
-
-        results$.subscribe((results) => {
-          expect((listComp as any).optionsList).toEqual(results.payload);
-          expect(listComp.items.length).toBe(1);
-          expect(listComp.items[0].length).toBe(2);
-        })
+        expect((listComp as any).optionsList).toEqual(vocabularyServiceStub.getList());
+        expect(listComp.items.length).toBe(1);
+        expect(listComp.items[0].length).toBe(2);
       });
 
       it('should set model value properly when a checkbox option is selected', () => {
         const de = listFixture.debugElement.queryAll(By.css('div.custom-checkbox'));
         const items = de[0].queryAll(By.css('input.custom-control-input'));
         const item = items[0];
-        modelValue = [Object.assign(new AuthorityEntry(), {id: 1, display: 'one', value: 1})];
+        modelValue = [Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 })];
 
         item.nativeElement.click();
 
@@ -187,7 +183,7 @@ describe('DsDynamicListComponent test suite', () => {
         listComp = listFixture.componentInstance; // FormComponent test instance
         listComp.group = LIST_TEST_GROUP;
         listComp.model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);
-        modelValue = [Object.assign(new AuthorityEntry(), {id: 1, display: 'one', value: 1})];
+        modelValue = [Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 })];
         listComp.model.value = modelValue;
         listFixture.detectChanges();
       });
@@ -198,13 +194,9 @@ describe('DsDynamicListComponent test suite', () => {
       });
 
       it('should init component properly', () => {
-        const results$ = authorityServiceStub.getEntriesByName({} as  any);
-
-        results$.subscribe((results) => {
-          expect((listComp as any).optionsList).toEqual(results.payload);
-          expect(listComp.model.value).toEqual(modelValue);
-          expect((listComp.model as DynamicListCheckboxGroupModel).group[0].value).toBeTruthy();
-        })
+        expect((listComp as any).optionsList).toEqual(vocabularyServiceStub.getList());
+        expect(listComp.model.value).toEqual(modelValue);
+        expect((listComp.model as DynamicListCheckboxGroupModel).group[0].value).toBeTruthy();
       });
 
       it('should set model value properly when a checkbox option is deselected', () => {
@@ -237,20 +229,16 @@ describe('DsDynamicListComponent test suite', () => {
       });
 
       it('should init component properly', () => {
-        const results$ = authorityServiceStub.getEntriesByName({} as  any);
-
-        results$.subscribe((results) => {
-          expect((listComp as any).optionsList).toEqual(results.payload);
-          expect(listComp.items.length).toBe(1);
-          expect(listComp.items[0].length).toBe(2);
-        })
+        expect((listComp as any).optionsList).toEqual(vocabularyServiceStub.getList());
+        expect(listComp.items.length).toBe(1);
+        expect(listComp.items[0].length).toBe(2);
       });
 
       it('should set model value when a radio option is selected', () => {
         const de = listFixture.debugElement.queryAll(By.css('div.custom-radio'));
         const items = de[0].queryAll(By.css('input.custom-control-input'));
         const item = items[0];
-        modelValue = Object.assign(new AuthorityEntry(), {id: 1, display: 'one', value: 1});
+        modelValue = Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 });
 
         item.nativeElement.click();
 
@@ -265,7 +253,7 @@ describe('DsDynamicListComponent test suite', () => {
         listComp = listFixture.componentInstance; // FormComponent test instance
         listComp.group = LIST_TEST_GROUP;
         listComp.model = new DynamicListRadioGroupModel(LIST_RADIO_TEST_MODEL_CONFIG, LAYOUT_TEST);
-        modelValue = Object.assign(new AuthorityEntry(), {id: 1, display: 'one', value: 1});
+        modelValue = Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 });
         listComp.model.value = modelValue;
         listFixture.detectChanges();
       });
@@ -276,13 +264,9 @@ describe('DsDynamicListComponent test suite', () => {
       });
 
       it('should init component properly', () => {
-        const results$ = authorityServiceStub.getEntriesByName({} as  any);
-
-        results$.subscribe((results) => {
-          expect((listComp as any).optionsList).toEqual(results.payload);
-          expect(listComp.model.value).toEqual(modelValue);
-          expect((listComp.model as DynamicListRadioGroupModel).options[0].value).toBeTruthy();
-        })
+        expect((listComp as any).optionsList).toEqual(vocabularyServiceStub.getList());
+        expect(listComp.model.value).toEqual(modelValue);
+        expect((listComp.model as DynamicListRadioGroupModel).options[0].value).toBeTruthy();
       });
     });
   });

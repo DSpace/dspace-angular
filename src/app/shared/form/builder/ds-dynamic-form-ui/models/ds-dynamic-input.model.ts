@@ -5,17 +5,16 @@ import {
   DynamicInputModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-
 import { Subject } from 'rxjs';
 
 import { LanguageCode } from '../../models/form-field-language-value.model';
-import { AuthorityOptions } from '../../../../../core/integration/models/authority-options.model';
+import { VocabularyOptions } from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { hasValue } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
-  authorityOptions?: AuthorityOptions;
+  vocabularyOptions?: VocabularyOptions;
   languageCodes?: LanguageCode[];
   language?: string;
   value?: any;
@@ -28,7 +27,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
 
 export class DsDynamicInputModel extends DynamicInputModel {
 
-  @serializable() authorityOptions: AuthorityOptions;
+  @serializable() vocabularyOptions: VocabularyOptions;
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
@@ -51,7 +50,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
 
     this.language = config.language;
     if (!this.language) {
-      // TypeAhead
+      // Onebox
       if (config.value instanceof FormFieldMetadataValueObject) {
         this.language = config.value.language;
       } else if (Array.isArray(config.value)) {
@@ -70,11 +69,11 @@ export class DsDynamicInputModel extends DynamicInputModel {
 
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
 
-    this.authorityOptions = config.authorityOptions;
+    this.vocabularyOptions = config.vocabularyOptions;
   }
 
   get hasAuthority(): boolean {
-    return this.authorityOptions && hasValue(this.authorityOptions.name);
+    return this.vocabularyOptions && hasValue(this.vocabularyOptions.name);
   }
 
   get hasLanguages(): boolean {
@@ -95,7 +94,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
 
   set languageCodes(languageCodes: LanguageCode[]) {
     this._languageCodes = languageCodes;
-    if (!this.language || this.language === null || this.language === '') {
+    if (!this.language || this.language === '') {
       this.language = this.languageCodes ? this.languageCodes[0].code : null;
     }
   }

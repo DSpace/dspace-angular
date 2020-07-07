@@ -8,10 +8,6 @@ import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dyna
 
 import { DsDatePickerComponent } from './date-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
-import { FormBuilderService } from '../../../form-builder.service';
-
-import { FormComponent } from '../../../../form.component';
-import { FormService } from '../../../../form.service';
 import { createTestComponent } from '../../../../../testing/utils.test';
 
 export const DATE_TEST_GROUP = new FormGroup({
@@ -20,7 +16,7 @@ export const DATE_TEST_GROUP = new FormGroup({
 
 export const DATE_TEST_MODEL_CONFIG = {
   disabled: false,
-  errorMessages: {required: 'You must enter at least the year.'},
+  errorMessages: { required: 'You must enter at least the year.' },
   id: 'date',
   label: 'Date',
   name: 'date',
@@ -52,8 +48,8 @@ describe('DsDatePickerComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         DsDatePickerComponent,
-        {provide: DynamicFormLayoutService, useValue: {}},
-        {provide: DynamicFormValidationService, useValue: {}}
+        { provide: DynamicFormLayoutService, useValue: {} },
+        { provide: DynamicFormValidationService, useValue: {} }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
