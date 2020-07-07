@@ -1,0 +1,165 @@
+import { of as observableOf } from 'rxjs';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import { Collection } from '../../../../core/shared/collection.model';
+import { Community } from '../../../../core/shared/community.model';
+import { Item } from '../../../../core/shared/item.model';
+import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { ExportMetadataSelectorComponent, METADATA_EXPORT_SCRIPT_NAME } from './export-metadata-selector.component';
+
+describe('ExportMetadataSelectorComponent', () => {
+  let component: ExportMetadataSelectorComponent;
+  let fixture: ComponentFixture<ExportMetadataSelectorComponent>;
+  let debugElement: DebugElement;
+
+  let router;
+  let notificationService: NotificationsServiceStub;
+  let scriptService;
+
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018'
+  });
+
+  const mockCollection1: Collection = Object.assign(new Collection(), {
+    id: 'test-collection-1-1',
+    name: 'test-collection-1',
+    handle: 'fake/test-collection-1',
+  });
+
+  const mockCommunity = Object.assign(new Community(), {
+    id: 'test-uuid',
+    handle: 'fake/test-community-1',
+  });
+
+  const itemRD = createSuccessfulRemoteDataObject(mockItem);
+  const modalStub = jasmine.createSpyObj('modalStub', ['close']);
+
+  beforeEach(async(() => {
+    notificationService = new NotificationsServiceStub();
+    router = jasmine.createSpyObj('router', {
+      navigateByUrl: jasmine.createSpy('navigateByUrl')
+    });
+    scriptService = jasmine.createSpyObj('scriptService',
+      {
+        invoke: observableOf({
+          response:
+            {
+              isSuccessful: true,
+              resourceSelfLinks: ['https://localhost:8080/api/core/processes/45']
+            }
+        })
+      }
+    );
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      declarations: [ExportMetadataSelectorComponent],
+      providers: [
+        { provide: NgbActiveModal, useValue: modalStub },
+        { provide: NotificationsService, useValue: notificationService },
+        { provide: ScriptDataService, useValue: scriptService },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: itemRD,
+                },
+              },
+            }
+          },
+        },
+        {
+          provide: Router, useValue: router
+        }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
+
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ExportMetadataSelectorComponent);
+    component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  describe('if item is selected', () => {
+    beforeEach(() => {
+      component.navigate(mockItem);
+    });
+    it('should show error notification', () => {
+      expect(notificationService.error).toHaveBeenCalled();
+    });
+  });
+
+  describe('if collection is selected', () => {
+    beforeEach(() => {
+      component.navigate(mockCollection1);
+    });
+    it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
+      const parameterValues: ProcessParameter[] = [
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockCollection1.handle }),
+        Object.assign(new ProcessParameter(), { name: '-f', value: mockCollection1.uuid + '.csv' }),
+      ];
+      expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
+    });
+    it('success notification is shown', () => {
+      expect(notificationService.success).toHaveBeenCalled();
+    });
+    it('redirected to process page', () => {
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/processes/45');
+    });
+  });
+
+  describe('if community is selected', () => {
+    beforeEach(() => {
+      component.navigate(mockCommunity);
+    });
+    it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
+      const parameterValues: ProcessParameter[] = [
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockCommunity.handle }),
+        Object.assign(new ProcessParameter(), { name: '-f', value: mockCommunity.uuid + '.csv' }),
+      ];
+      expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
+    });
+    it('success notification is shown', () => {
+      expect(notificationService.success).toHaveBeenCalled();
+    });
+    it('redirected to process page', () => {
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/processes/45');
+    });
+  });
+
+  describe('if community/collection is selected; but script invoke fails', () => {
+    beforeEach(() => {
+      jasmine.getEnv().allowRespy(true);
+      spyOn(scriptService, 'invoke').and.returnValue(observableOf({
+        response:
+          {
+            isSuccessful: false,
+          }
+      }));
+      component.navigate(mockCommunity);
+    });
+    it('error notification is shown', () => {
+      expect(notificationService.error).toHaveBeenCalled();
+    });
+  });
+
+});

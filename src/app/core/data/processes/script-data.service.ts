@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../shared/operators';
+import { getSucceededRemoteData } from '../../shared/operators';
 import { DataService } from '../data.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
@@ -13,7 +13,7 @@ import { Script } from '../../../process-page/scripts/script.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { find, map, switchMap } from 'rxjs/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
-import { PaginatedList } from '../paginated-list';
+import { RemoteData } from '../remote-data';
 import { MultipartPostRequest, RestRequest } from '../request.models';
 import { RequestService } from '../request.service';
 import { Observable } from 'rxjs';
@@ -66,17 +66,10 @@ export class ScriptDataService extends DataService<Script> {
    * @param scriptName    script we want to check exists (and we can execute)
    */
   public scripWithNameExistsAndCanExecute(scriptName: string): Observable<boolean> {
-    return this.findAll().pipe(
+    return this.findById(scriptName).pipe(
       getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((scriptsRD: PaginatedList<Script>) => {
-        let found = false;
-        scriptsRD.page.forEach((script: Script) => {
-          if (script.id === scriptName) {
-            found = true;
-          }
-        });
-        return found;
+      map((scriptRD: RemoteData<Script>) => {
+        return (scriptRD.hasSucceeded);
       }));
   }
 }

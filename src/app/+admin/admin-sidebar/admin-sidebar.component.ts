@@ -378,7 +378,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
               id: 'export_metadata',
               parentID: 'export',
               active: true,
-              visible: authorized && metadataExportScriptExists,
+              visible: (authorized && metadataExportScriptExists),
               model: {
                 type: MenuItemType.ONCLICK,
                 text: 'menu.section.export_metadata',
