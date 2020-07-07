@@ -12,7 +12,7 @@ describe('NumberFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: null,
-    authorityUuid: null
+    collectionUUID: null
   };
 
   beforeEach(() => {

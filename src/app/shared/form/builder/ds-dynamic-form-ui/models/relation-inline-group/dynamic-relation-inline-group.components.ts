@@ -20,7 +20,6 @@ import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
 import { isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { DynamicRowArrayModel, DynamicRowArrayModelConfig } from '../ds-dynamic-row-array-model';
 import { setLayout } from '../../../parsers/parser.utils';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
@@ -48,8 +47,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
 
   @ViewChild('formRef', {static: false}) private formRef: FormComponent;
 
-  constructor(private authorityService: AuthorityService,
-              private formBuilderService: FormBuilderService,
+  constructor(private formBuilderService: FormBuilderService,
               private formService: FormService,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService
