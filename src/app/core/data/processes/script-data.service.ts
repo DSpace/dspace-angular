@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-  getSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload
-} from '../../shared/operators';
 import { DataService } from '../data.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
@@ -14,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from '../default-change-analyzer.service';
 import { Script } from '../../../process-page/scripts/script.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
-import { find, map, switchMap, filter } from 'rxjs/operators';
+import { find, map, switchMap } from 'rxjs/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { RemoteData } from '../remote-data';
 import { MultipartPostRequest, RestRequest } from '../request.models';
@@ -24,6 +20,9 @@ import { RequestEntry } from '../request.reducer';
 import { dataService } from '../../cache/builders/build-decorators';
 import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
 import { hasValue } from '../../../shared/empty.util';
+
+export const METADATA_IMPORT_SCRIPT_NAME: string = 'metadata-import';
+export const METADATA_EXPORT_SCRIPT_NAME: string = 'metadata-export';
 
 @Injectable()
 @dataService(SCRIPT)

@@ -2,13 +2,13 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
-import { first, map, take, tap, filter } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Script } from '../../process-page/scripts/script.model';
+import {
+  METADATA_EXPORT_SCRIPT_NAME,
+  METADATA_IMPORT_SCRIPT_NAME,
+  ScriptDataService
+} from '../../core/data/processes/script-data.service';
 import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
 import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import { CreateCommunityParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
@@ -17,8 +17,7 @@ import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal
 import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import {
-  ExportMetadataSelectorComponent,
-  METADATA_EXPORT_SCRIPT_NAME
+  ExportMetadataSelectorComponent
 } from '../../shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { MenuID, MenuItemType } from '../../shared/menu/initial-menus-state';
 import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
@@ -86,6 +85,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     this.createMenu();
     this.createSiteAdministratorMenuSections();
     this.createExportMenuSections();
+    this.createImportMenuSections();
     super.ngOnInit();
     this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
     this.authService.isAuthenticated()
@@ -236,39 +236,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         } as OnClickMenuItemModel,
       },
 
-      /* Import */
+      /* Curation tasks */
       {
-        id: 'import',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.import'
-        } as TextMenuItemModel,
-        icon: 'sign-in-alt',
-        index: 2
-      },
-      {
-        id: 'import_metadata',
-        parentID: 'import',
+        id: 'curation_tasks',
         active: false,
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'menu.section.import_metadata',
+          text: 'menu.section.curation_task',
           link: ''
         } as LinkMenuItemModel,
-      },
-      {
-        id: 'import_batch',
-        parentID: 'import',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.import_batch',
-          link: ''
-        } as LinkMenuItemModel,
+        icon: 'filter',
+        index: 7
       },
 
       /* Statistics */
@@ -396,6 +375,63 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             this.modalService.open(ExportMetadataSelectorComponent);
           }
         } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+    });
+  }
+
+  /**
+   * Create menu sections dependent on whether or not the current user is a site administrator and on whether or not
+   * the import scripts exist and the current user is allowed to execute them
+   */
+  createImportMenuSections() {
+    const menuList = [
+      /* Import */
+      {
+        id: 'import',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.TEXT,
+          text: 'menu.section.import'
+        } as TextMenuItemModel,
+        icon: 'sign-in-alt',
+        index: 2
+      },
+      {
+        id: 'import_batch',
+        parentID: 'import',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.import_batch',
+          link: ''
+        } as LinkMenuItemModel,
+      }
+    ];
+    menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+      shouldPersistOnRouteChange: true
+    })));
+
+    observableCombineLatest(
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)
+    ).pipe(
+      // TODO uncomment when #635 (https://github.com/DSpace/dspace-angular/issues/635) is fixed
+      // filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
+      take(1)
+    ).subscribe(() => {
+      this.menuService.addSection(this.menuID, {
+        id: 'import_metadata',
+        parentID: 'import',
+        active: true,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.import_metadata',
+          link: '/admin/metadata-import'
+        } as LinkMenuItemModel,
         shouldPersistOnRouteChange: true
       });
     });

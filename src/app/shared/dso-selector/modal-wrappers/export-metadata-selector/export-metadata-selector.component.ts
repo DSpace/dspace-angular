@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { take, map } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestEntry } from '../../../../core/data/request.reducer';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
@@ -15,8 +15,6 @@ import { ProcessParameter } from '../../../../process-page/processes/process-par
 import { isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
-
-export const METADATA_EXPORT_SCRIPT_NAME: string = 'metadata-export';
 
 /**
  * Component to wrap a list of existing dso's inside a modal

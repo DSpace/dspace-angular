@@ -1,0 +1,34 @@
+<div class="container">
+  <h2 id="header">{{'admin.metadata-import.page.header' | translate}}</h2>
+  <p>{{'admin.metadata-import.page.help' | translate}}</p>
+
+  <div ng2FileDrop
+       class="ds-document-drop-zone position-fixed h-100 w-100"
+       [class.ds-document-drop-zone-active]="(isOverDocumentDropZone | async)"
+       [uploader]="uploader"
+       (onFileDrop)="setFile($event)"
+       (fileOver)="fileOverDocument($event)">
+  </div>
+  <div *ngIf="(isOverDocumentDropZone | async)"
+       class="ds-document-drop-zone-inner position-fixed h-100 w-100 p-2">
+    <div
+      class="ds-document-drop-zone-inner-content position-relative d-flex flex-column justify-content-center text-center h-100 w-100">
+      <p class="text-primary">{{'admin.metadata-import.page.dropMsg' | translate}}</p>
+    </div>
+  </div>
+  <div class="well ds-base-drop-zone mt-1 mb-3 text-muted">
+    <label for="file-upload" class="d-flex align-items-center m-0">
+      <span class="btn btn-light">
+          {{'process.new.parameter.file.upload-button' | translate}}
+      </span>
+      <span class="file-name ml-1">{{fileObject?.name}}</span>
+    </label>
+    <input requireFile #file="ngModel" type="file" name="file-upload" id="file-upload" class="form-control-file d-none"
+           [ngModel]="fileObject" (ngModelChange)="setFile($event)"/>
+  </div>
+
+  <button class="btn btn-secondary"
+          (click)="this.onReturn();">{{'admin.metadata-import.page.button.return' | translate}}</button>
+  <button class="btn btn-primary"
+          (click)="this.importMetadata();">{{'admin.metadata-import.page.button.proceed' | translate}}</button>
+</div>

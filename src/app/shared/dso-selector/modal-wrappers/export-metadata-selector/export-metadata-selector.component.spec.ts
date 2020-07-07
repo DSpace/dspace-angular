@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -13,7 +13,7 @@ import { ProcessParameter } from '../../../../process-page/processes/process-par
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { ExportMetadataSelectorComponent, METADATA_EXPORT_SCRIPT_NAME } from './export-metadata-selector.component';
+import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 
 describe('ExportMetadataSelectorComponent', () => {
   let component: ExportMetadataSelectorComponent;
