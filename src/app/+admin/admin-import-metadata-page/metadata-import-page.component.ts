@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { uniqueId } from 'lodash';
 import { FileUploader } from 'ng2-file-upload';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map, take, tap } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { METADATA_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RequestEntry } from '../../core/data/request.reducer';
@@ -99,7 +99,6 @@ export class MetadataImportPageComponent implements OnInit {
    * @param files
    */
   setFile(files) {
-    console.log('setfiles', files)
     this.fileObject = files.length > 0 ? files[0] : undefined;
   }
 

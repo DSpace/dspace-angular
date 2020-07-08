@@ -27,8 +27,8 @@
            [ngModel]="fileObject" (ngModelChange)="setFile($event)"/>
   </div>
 
-  <button class="btn btn-secondary"
+  <button class="btn btn-secondary" id="backButton"
           (click)="this.onReturn();">{{'admin.metadata-import.page.button.return' | translate}}</button>
-  <button class="btn btn-primary"
+  <button class="btn btn-primary" id="proceedButton"
           (click)="this.importMetadata();">{{'admin.metadata-import.page.button.proceed' | translate}}</button>
 </div>
