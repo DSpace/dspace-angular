@@ -30,7 +30,7 @@ describe('ExportMetadataSelectorComponent', () => {
     lastModified: '2018'
   });
 
-  const mockCollection1: Collection = Object.assign(new Collection(), {
+  const mockCollection: Collection = Object.assign(new Collection(), {
     id: 'test-collection-1-1',
     name: 'test-collection-1',
     handle: 'fake/test-collection-1',
@@ -100,26 +100,36 @@ describe('ExportMetadataSelectorComponent', () => {
   });
 
   describe('if item is selected', () => {
-    beforeEach(() => {
-      component.navigate(mockItem);
+    let scriptRequestSucceeded;
+    beforeEach((done) => {
+      component.navigate(mockItem).subscribe((succeeded: boolean) => {
+        scriptRequestSucceeded = succeeded;
+        done()
+      });
     });
     it('should show error notification', () => {
       expect(notificationService.error).toHaveBeenCalled();
+      expect(scriptRequestSucceeded).toBeFalse();
     });
   });
 
   describe('if collection is selected', () => {
-    beforeEach(() => {
-      component.navigate(mockCollection1);
+    let scriptRequestSucceeded;
+    beforeEach((done) => {
+      component.navigate(mockCollection).subscribe((succeeded: boolean) => {
+        scriptRequestSucceeded = succeeded;
+        done()
+      });
     });
     it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
       const parameterValues: ProcessParameter[] = [
-        Object.assign(new ProcessParameter(), { name: '-i', value: mockCollection1.handle }),
-        Object.assign(new ProcessParameter(), { name: '-f', value: mockCollection1.uuid + '.csv' }),
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockCollection.handle }),
+        Object.assign(new ProcessParameter(), { name: '-f', value: mockCollection.uuid + '.csv' }),
       ];
       expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
     });
     it('success notification is shown', () => {
+      expect(scriptRequestSucceeded).toBeTrue();
       expect(notificationService.success).toHaveBeenCalled();
     });
     it('redirected to process page', () => {
@@ -128,8 +138,12 @@ describe('ExportMetadataSelectorComponent', () => {
   });
 
   describe('if community is selected', () => {
-    beforeEach(() => {
-      component.navigate(mockCommunity);
+    let scriptRequestSucceeded;
+    beforeEach((done) => {
+      component.navigate(mockCommunity).subscribe((succeeded: boolean) => {
+        scriptRequestSucceeded = succeeded;
+        done()
+      });
     });
     it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
       const parameterValues: ProcessParameter[] = [
@@ -139,6 +153,7 @@ describe('ExportMetadataSelectorComponent', () => {
       expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
     });
     it('success notification is shown', () => {
+      expect(scriptRequestSucceeded).toBeTrue();
       expect(notificationService.success).toHaveBeenCalled();
     });
     it('redirected to process page', () => {
@@ -147,7 +162,8 @@ describe('ExportMetadataSelectorComponent', () => {
   });
 
   describe('if community/collection is selected; but script invoke fails', () => {
-    beforeEach(() => {
+    let scriptRequestSucceeded;
+    beforeEach((done) => {
       jasmine.getEnv().allowRespy(true);
       spyOn(scriptService, 'invoke').and.returnValue(observableOf({
         response:
@@ -155,9 +171,13 @@ describe('ExportMetadataSelectorComponent', () => {
             isSuccessful: false,
           }
       }));
-      component.navigate(mockCommunity);
+      component.navigate(mockCommunity).subscribe((succeeded: boolean) => {
+        scriptRequestSucceeded = succeeded;
+        done()
+      });
     });
     it('error notification is shown', () => {
+      expect(scriptRequestSucceeded).toBeFalse();
       expect(notificationService.error).toHaveBeenCalled();
     });
   });

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+import { take, map } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestEntry } from '../../../../core/data/request.reducer';
 import { Collection } from '../../../../core/shared/collection.model';
@@ -39,11 +41,14 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
    * If the dso is a collection or community: start export-metadata script & navigate to process if successful
    * Otherwise show error message
    */
-  navigate(dso: DSpaceObject) {
+  navigate(dso: DSpaceObject): Observable<boolean> {
     if (dso instanceof Collection || dso instanceof Community) {
-      this.startScriptNotifyAndRedirect(dso, dso.handle);
+      const startScriptSucceeded = this.startScriptNotifyAndRedirect(dso, dso.handle);
+      startScriptSucceeded.pipe(take(1)).subscribe();
+      return startScriptSucceeded;
     } else {
       this.notificationsService.error(this.translationService.get('dso-selector.export-metadata.notValidDSO'));
+      return observableOf(false);
     }
   }
 
@@ -52,28 +57,31 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
    * Otherwise show error message
    * @param dso   Dso to export
    */
-  private startScriptNotifyAndRedirect(dso: DSpaceObject, handle: string) {
+  private startScriptNotifyAndRedirect(dso: DSpaceObject, handle: string): Observable<boolean> {
     const parameterValues: ProcessParameter[] = [
       Object.assign(new ProcessParameter(), { name: '-i', value: handle }),
       Object.assign(new ProcessParameter(), { name: '-f', value: dso.uuid + '.csv' }),
     ];
-    this.scriptDataService.invoke(METADATA_EXPORT_SCRIPT_NAME, parameterValues, [])
-      .pipe(take(1))
-      .subscribe((requestEntry: RequestEntry) => {
-        if (requestEntry.response.isSuccessful) {
-          const title = this.translationService.get('process.new.notification.success.title');
-          const content = this.translationService.get('process.new.notification.success.content');
-          this.notificationsService.success(title, content);
-          const response: any = requestEntry.response;
-          if (isNotEmpty(response.resourceSelfLinks)) {
-            const processNumber = response.resourceSelfLinks[0].split('/').pop();
-            this.router.navigateByUrl('/processes/' + processNumber);
+    return this.scriptDataService.invoke(METADATA_EXPORT_SCRIPT_NAME, parameterValues, [])
+      .pipe(
+        take(1),
+        map((requestEntry: RequestEntry) => {
+          if (requestEntry.response.isSuccessful) {
+            const title = this.translationService.get('process.new.notification.success.title');
+            const content = this.translationService.get('process.new.notification.success.content');
+            this.notificationsService.success(title, content);
+            const response: any = requestEntry.response;
+            if (isNotEmpty(response.resourceSelfLinks)) {
+              const processNumber = response.resourceSelfLinks[0].split('/').pop();
+              this.router.navigateByUrl('/processes/' + processNumber);
+            }
+            return true;
+          } else {
+            const title = this.translationService.get('process.new.notification.error.title');
+            const content = this.translationService.get('process.new.notification.error.content');
+            this.notificationsService.error(title, content);
+            return false;
           }
-        } else {
-          const title = this.translationService.get('process.new.notification.error.title');
-          const content = this.translationService.get('process.new.notification.error.content');
-          this.notificationsService.error(title, content);
-        }
-      });
+        }));
   }
 }

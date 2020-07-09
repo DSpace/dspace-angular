@@ -13,6 +13,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, startWith, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -75,6 +76,11 @@ export class DSOSelectorComponent implements OnInit {
    * Time to wait before sending a search request to the server when a user types something
    */
   debounceTime = 500;
+
+  /**
+   * The available link types
+   */
+  linkTypes = CollectionElementLinkType;
 
   constructor(private searchService: SearchService) {
   }
