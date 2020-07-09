@@ -158,13 +158,17 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     const normValue = Object.create({});
     if (isNotEmpty(valueObj)) {
       Object.keys(valueObj).forEach((metadata) => {
-        if (!(valueObj[metadata] as FormFieldMetadataValueObject).hasPlaceholder()) {
+        if (!this.hasPlaceholder(valueObj[metadata])) {
           normValue[metadata] = [valueObj[metadata]];
         }
       });
     }
 
     return normValue;
+  }
+
+  private hasPlaceholder(value: string|FormFieldMetadataValueObject): boolean {
+    return (value instanceof FormFieldMetadataValueObject) ? value.hasPlaceholder() : (isNotEmpty(value) && value === PLACEHOLDER_PARENT_METADATA)
   }
 
   private removeItemFromModelValue(removeIndex) {
