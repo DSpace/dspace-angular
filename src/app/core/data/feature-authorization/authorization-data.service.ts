@@ -16,7 +16,7 @@ import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
 import { AuthService } from '../../auth/auth.service';
 import { SiteDataService } from '../site-data.service';
 import { FindListOptions, FindListRequest } from '../request.models';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../remote-data';
 import { PaginatedList } from '../paginated-list';
@@ -24,7 +24,11 @@ import { find, map, switchMap, tap } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
-import { addAuthenticatedUserUuidIfEmpty, addSiteObjectUrlIfEmpty } from './authorization-utils';
+import {
+  addAuthenticatedUserUuidIfEmpty,
+  addSiteObjectUrlIfEmpty,
+  oneAuthorizationMatchesFeature
+} from './authorization-utils';
 import { FeatureID } from './feature-id';
 
 /**
@@ -60,8 +64,15 @@ export class AuthorizationDataService extends DataService<Authorization> {
    * @param featureId     ID of the {@link Feature} to check {@link Authorization} for
    */
   isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
-    return this.searchByObject(featureId, objectUrl, ePersonUuid).pipe(
-      map((authorizationRD) => (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)))
+    return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, followLink('feature')).pipe(
+      map((authorizationRD) => {
+        if (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)) {
+          return authorizationRD.payload.page;
+        } else {
+          return [];
+        }
+      }),
+      oneAuthorizationMatchesFeature(featureId)
     );
   }
 

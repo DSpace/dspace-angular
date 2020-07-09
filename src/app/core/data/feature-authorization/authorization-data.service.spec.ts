@@ -12,6 +12,7 @@ import { Authorization } from '../../shared/authorization.model';
 import { RemoteData } from '../remote-data';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { Feature } from '../../shared/feature.model';
 
 describe('AuthorizationDataService', () => {
   let service: AuthorizationDataService;
@@ -115,9 +116,31 @@ describe('AuthorizationDataService', () => {
   });
 
   describe('isAuthorized', () => {
+    const featureID = FeatureID.AdministratorOf;
     const validPayload = [
-      Object.assign(new Authorization())
-    ]
+      Object.assign(new Authorization(), {
+        feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
+          id: 'invalid-feature'
+        }))
+      }),
+      Object.assign(new Authorization(), {
+        feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
+          id: featureID
+        }))
+      })
+    ];
+    const invalidPayload = [
+      Object.assign(new Authorization(), {
+        feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
+          id: 'invalid-feature'
+        }))
+      }),
+      Object.assign(new Authorization(), {
+        feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
+          id: 'another-invalid-feature'
+        }))
+      })
+    ];
     const emptyPayload = [];
 
     describe('when searchByObject returns a 401', () => {
@@ -126,7 +149,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should return false', (done) => {
-        service.isAuthorized().subscribe((result) => {
+        service.isAuthorized(featureID).subscribe((result) => {
           expect(result).toEqual(false);
           done();
         });
@@ -139,7 +162,20 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should return false', (done) => {
-        service.isAuthorized().subscribe((result) => {
+        service.isAuthorized(featureID).subscribe((result) => {
+          expect(result).toEqual(false);
+          done();
+        });
+      });
+    });
+
+    describe('when searchByObject returns an invalid list', () => {
+      beforeEach(() => {
+        spyOn(service, 'searchByObject').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(invalidPayload)));
+      });
+
+      it('should return true', (done) => {
+        service.isAuthorized(featureID).subscribe((result) => {
           expect(result).toEqual(false);
           done();
         });
@@ -152,7 +188,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should return true', (done) => {
-        service.isAuthorized().subscribe((result) => {
+        service.isAuthorized(featureID).subscribe((result) => {
           expect(result).toEqual(true);
           done();
         });

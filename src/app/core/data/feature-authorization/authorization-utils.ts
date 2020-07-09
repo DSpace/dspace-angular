@@ -2,9 +2,13 @@ import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { SiteDataService } from '../site-data.service';
-import { hasNoValue } from '../../../shared/empty.util';
-import { of as observableOf } from 'rxjs';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
+import { Authorization } from '../../shared/authorization.model';
+import { Feature } from '../../shared/feature.model';
+import { FeatureID } from './feature-id';
+import { getFirstSucceededRemoteDataPayload } from '../../shared/operators';
 
 /**
  * Operator accepting {@link AuthorizationSearchParams} and adding the current {@link Site}'s selflink to the parameter's
@@ -50,4 +54,31 @@ export const addAuthenticatedUserUuidIfEmpty = (authService: AuthService) =>
           return observableOf(params);
         }
       })
+    );
+
+/**
+ * Operator checking if at least one of the provided {@link Authorization}s contains a {@link Feature} that matches the
+ * provided {@link FeatureID}
+ * Note: This expects the {@link Authorization}s to contain a resolved link to their {@link Feature}. If they don't,
+ * this observable will always emit false.
+ * @param featureID
+ * @returns true if at least one {@link Feature} matches, false if none do
+ */
+export const oneAuthorizationMatchesFeature = (featureID: FeatureID) =>
+  (source: Observable<Authorization[]>): Observable<boolean> =>
+    source.pipe(
+      switchMap((authorizations: Authorization[]) => {
+        if (isNotEmpty(authorizations)) {
+          return observableCombineLatest(
+            ...authorizations
+              .filter((authorization: Authorization) => hasValue(authorization.feature))
+              .map((authorization: Authorization) => authorization.feature.pipe(
+                getFirstSucceededRemoteDataPayload()
+              ))
+          );
+        } else {
+          return observableOf([]);
+        }
+      }),
+      map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID).length > 0)
     );
