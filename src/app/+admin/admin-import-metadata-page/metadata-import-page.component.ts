@@ -5,13 +5,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { uniqueId } from 'lodash';
 import { FileUploader } from 'ng2-file-upload';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map, take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { METADATA_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RequestEntry } from '../../core/data/request.reducer';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { of as observableOf } from 'rxjs';
 import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
@@ -117,32 +117,35 @@ export class MetadataImportPageComponent implements OnInit {
       this.notificationsService.error(this.translate.get('admin.metadata-import.page.error.addFile'));
     } else {
       this.currentUserEmail$.pipe(
-        filter((email: string) => hasValue(email)),
+        switchMap((email: string) => {
+          if (isNotEmpty(email)) {
+            const parameterValues: ProcessParameter[] = [
+              Object.assign(new ProcessParameter(), { name: '-e', value: email }),
+              Object.assign(new ProcessParameter(), { name: '-f', value: this.fileObject.name }),
+            ];
+            return this.scriptDataService.invoke(METADATA_IMPORT_SCRIPT_NAME, parameterValues, [this.fileObject])
+              .pipe(
+                take(1),
+                map((requestEntry: RequestEntry) => {
+                  if (requestEntry.response.isSuccessful) {
+                    const title = this.translate.get('process.new.notification.success.title');
+                    const content = this.translate.get('process.new.notification.success.content');
+                    this.notificationsService.success(title, content);
+                    const response: any = requestEntry.response;
+                    if (isNotEmpty(response.resourceSelfLinks)) {
+                      const processNumber = response.resourceSelfLinks[0].split('/').pop();
+                      this.router.navigateByUrl('/processes/' + processNumber);
+                    }
+                  } else {
+                    const title = this.translate.get('process.new.notification.error.title');
+                    const content = this.translate.get('process.new.notification.error.content');
+                    this.notificationsService.error(title, content);
+                  }
+                }));
+          }
+        }),
         take(1)
-      ).subscribe((email: string) => {
-        const parameterValues: ProcessParameter[] = [
-          Object.assign(new ProcessParameter(), { name: '-e', value: email }),
-          Object.assign(new ProcessParameter(), { name: '-f', value: this.fileObject.name }),
-        ];
-        this.scriptDataService.invoke(METADATA_IMPORT_SCRIPT_NAME, parameterValues, [this.fileObject])
-          .pipe(take(1))
-          .subscribe((requestEntry: RequestEntry) => {
-            if (requestEntry.response.isSuccessful) {
-              const title = this.translate.get('process.new.notification.success.title');
-              const content = this.translate.get('process.new.notification.success.content');
-              this.notificationsService.success(title, content);
-              const response: any = requestEntry.response;
-              if (isNotEmpty(response.resourceSelfLinks)) {
-                const processNumber = response.resourceSelfLinks[0].split('/').pop();
-                this.router.navigateByUrl('/processes/' + processNumber);
-              }
-            } else {
-              const title = this.translate.get('process.new.notification.error.title');
-              const content = this.translate.get('process.new.notification.error.content');
-              this.notificationsService.error(title, content);
-            }
-          });
-      });
+      ).subscribe();
     }
   }
 }

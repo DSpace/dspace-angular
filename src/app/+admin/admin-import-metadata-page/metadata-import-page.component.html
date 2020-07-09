@@ -17,14 +17,18 @@
     </div>
   </div>
   <div class="well ds-base-drop-zone mt-1 mb-3 text-muted">
-    <label for="file-upload" class="d-flex align-items-center m-0">
-      <span class="btn btn-light">
-          {{'process.new.parameter.file.upload-button' | translate}}
-      </span>
-      <span class="file-name ml-1">{{fileObject?.name}}</span>
-    </label>
-    <input requireFile #file="ngModel" type="file" name="file-upload" id="file-upload" class="form-control-file d-none"
-           [ngModel]="fileObject" (ngModelChange)="setFile($event)"/>
+    <p class="text-center m-0 p-0 d-flex justify-content-center align-items-center"
+       *ngIf="fileObject!=null">  {{ fileObject.name }} </p>
+    <p class="text-center m-0 p-0 d-flex justify-content-center align-items-center">
+      <span><i class="fas fa-cloud-upload"
+               aria-hidden="true"></i> {{ (fileObject == null ? 'admin.metadata-import.page.dropMsg' : 'admin.metadata-import.page.dropMsgReplace') | translate}} {{'uploader.or' | translate}}</span>
+      <label class="btn btn-link m-0 p-0 ml-1">
+        <input class="form-control-file d-none" requireFile #file="ngModel" type="file" name="file-upload"
+               id="file-upload"
+               [ngModel]="fileObject" (ngModelChange)="setFile($event)">
+        {{'uploader.browse' | translate}}
+      </label>
+    </p>
   </div>
 
   <button class="btn btn-secondary" id="backButton"

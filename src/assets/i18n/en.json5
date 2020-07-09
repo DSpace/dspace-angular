@@ -450,7 +450,9 @@
 
   "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
 
-  "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to upload",
+  "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
+
+  "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
 
   "admin.metadata-import.page.button.return": "Return",
 
