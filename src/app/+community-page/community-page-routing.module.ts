@@ -12,6 +12,7 @@ import { getCommunityModulePath } from '../app-routing.module';
 import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
+import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
 
 export const COMMUNITY_PARENT_PARAMETER = 'parent';
 
@@ -49,7 +50,7 @@ const COMMUNITY_EDIT_PATH = 'edit';
           {
             path: COMMUNITY_EDIT_PATH,
             loadChildren: './edit-community-page/edit-community-page.module#EditCommunityPageModule',
-            canActivate: [AuthenticatedGuard]
+            canActivate: [CommunityPageAdministratorGuard]
           },
           {
             path: 'delete',
@@ -71,7 +72,8 @@ const COMMUNITY_EDIT_PATH = 'edit';
     CommunityBreadcrumbResolver,
     DSOBreadcrumbsService,
     LinkService,
-    CreateCommunityPageGuard
+    CreateCommunityPageGuard,
+    CommunityPageAdministratorGuard
   ]
 })
 export class CommunityPageRoutingModule {

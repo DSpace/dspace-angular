@@ -16,6 +16,7 @@ import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-bre
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 
@@ -54,7 +55,7 @@ const ITEMTEMPLATE_PATH = 'itemtemplate';
           {
             path: COLLECTION_EDIT_PATH,
             loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
-            canActivate: [AuthenticatedGuard]
+            canActivate: [CollectionPageAdministratorGuard]
           },
           {
             path: 'delete',
@@ -93,7 +94,8 @@ const ITEMTEMPLATE_PATH = 'itemtemplate';
     CollectionBreadcrumbResolver,
     DSOBreadcrumbsService,
     LinkService,
-    CreateCollectionPageGuard
+    CreateCollectionPageGuard,
+    CollectionPageAdministratorGuard
   ]
 })
 export class CollectionPageRoutingModule {
