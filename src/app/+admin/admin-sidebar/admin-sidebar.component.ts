@@ -315,20 +315,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         } as LinkMenuItemModel,
       },
 
-      /* Curation tasks */
-      {
-        id: 'curation_tasks',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.curation_task',
-          link: ''
-        } as LinkMenuItemModel,
-        icon: 'filter',
-        index: 7
-      },
-
       /* Statistics */
       {
         id: 'statistics_task',
@@ -473,6 +459,20 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             text: 'menu.section.registries_format',
             link: 'admin/registries/bitstream-formats'
           } as LinkMenuItemModel,
+        },
+
+        /* Curation tasks */
+        {
+          id: 'curation_tasks',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.curation_task',
+            link: ''
+          } as LinkMenuItemModel,
+          icon: 'filter',
+          index: 7
         },
 
         /* Workflow */
