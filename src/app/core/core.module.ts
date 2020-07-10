@@ -159,6 +159,7 @@ import { SubmissionCcLicenseDataService } from './submission/submission-cc-licen
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
 import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
 import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-license-url-data.service';
+import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -282,6 +283,7 @@ const PROVIDERS = [
   FeatureDataService,
   AuthorizationDataService,
   SiteAdministratorGuard,
+  SiteRegisterGuard,
   MetadataSchemaDataService,
   MetadataFieldDataService,
   TokenResponseParsingService,

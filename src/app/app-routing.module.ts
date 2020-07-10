@@ -12,6 +12,7 @@ import { getItemPageRoute } from './+item-page/item-page-routing.module';
 import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
 import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 
 const ITEM_MODULE_PATH = 'items';
 
@@ -93,7 +94,7 @@ export function getUnauthorizedPath() {
       { path: 'community-list', loadChildren: './community-list-page/community-list-page.module#CommunityListPageModule' },
       { path: 'id', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
       { path: 'handle', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
-      { path: REGISTER_PATH, loadChildren: './register-page/register-page.module#RegisterPageModule' },
+      { path: REGISTER_PATH, loadChildren: './register-page/register-page.module#RegisterPageModule', canActivate: [SiteRegisterGuard] },
       { path: FORGOT_PASSWORD_PATH, loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule' },
       { path: COMMUNITY_MODULE_PATH, loadChildren: './+community-page/community-page.module#CommunityPageModule' },
       { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },

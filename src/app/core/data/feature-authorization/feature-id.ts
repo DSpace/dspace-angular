@@ -6,4 +6,5 @@ export enum FeatureID {
   AdministratorOf = 'administratorOf',
   WithdrawItem = 'withdrawItem',
   ReinstateItem = 'reinstateItem',
+  EPersonRegistration = 'epersonRegistration',
 }

@@ -9,6 +9,8 @@ import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } fr
 import { CoreState } from '../../core/core.reducers';
 import { AuthService } from '../../core/auth/auth.service';
 import { getForgotPasswordPath, getRegisterPath } from '../../app-routing.module';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
 /**
  * /users/sign-in
@@ -51,8 +53,14 @@ export class LogInComponent implements OnInit, OnDestroy {
    */
   private alive = true;
 
+  /**
+   * Whether or not the current user (or anonymous) is authorized to register an account
+   */
+  canRegister$: Observable<boolean>;
+
   constructor(private store: Store<CoreState>,
-              private authService: AuthService,) {
+              private authService: AuthService,
+              private authorizationService: AuthorizationDataService) {
   }
 
   ngOnInit(): void {
@@ -77,6 +85,7 @@ export class LogInComponent implements OnInit, OnDestroy {
         }
       );
 
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
   }
 
   ngOnDestroy(): void {
