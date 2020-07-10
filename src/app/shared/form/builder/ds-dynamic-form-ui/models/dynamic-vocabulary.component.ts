@@ -10,11 +10,12 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf } from 'rxjs';
 
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { isNotEmpty } from '../../../../empty.util';
+import { isNotEmpty, hasValue } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { FormBuilderService } from '../../form-builder.service';
 
 /**
  * An abstract class to be extended by form components that handle vocabulary
@@ -33,7 +34,8 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
 
   protected constructor(protected vocabularyService: VocabularyService,
                         protected layoutService: DynamicFormLayoutService,
-                        protected validationService: DynamicFormValidationService
+                        protected validationService: DynamicFormValidationService,
+                        protected formBuilderService: FormBuilderService
   ) {
     super(layoutService, validationService);
   }
@@ -99,6 +101,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   dispatchUpdate(updateValue: any) {
     this.model.valueUpdates.next(updateValue);
     this.change.emit(updateValue);
+    this.updateOtherInformations(updateValue);
   }
 
   /**
@@ -115,5 +118,26 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       totalElements: totalElements,
       totalPages: totalPages
     });
+  }
+
+  /**
+   * When the model was update check if new value contains otherInformation property and
+   * try to populate related fields
+   * @param value
+   */
+  updateOtherInformations(value: any) {
+    if (hasValue(value) &&
+        (value instanceof VocabularyEntry || value instanceof FormFieldMetadataValueObject) ) {
+      const otherInformation = value.otherInformation;
+      if (hasValue(otherInformation)) {
+        for (const key in otherInformation) {
+          if (otherInformation.hasOwnProperty(key)) {
+            const fieldId = key.replace('data-', '');
+            const newValue = otherInformation[key];
+            this.formBuilderService.updateValue(fieldId, newValue);
+          }
+        }
+      }
+    }
   }
 }

@@ -16,6 +16,7 @@ import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { FormBuilderService } from '../../../form-builder.service';
 
 /**
  * Component representing a lookup or lookup-name input field
@@ -46,9 +47,10 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
   constructor(protected vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
+              protected formBuilderService: FormBuilderService
   ) {
-    super(vocabularyService, layoutService, validationService);
+    super(vocabularyService, layoutService, validationService, formBuilderService);
   }
 
   /**

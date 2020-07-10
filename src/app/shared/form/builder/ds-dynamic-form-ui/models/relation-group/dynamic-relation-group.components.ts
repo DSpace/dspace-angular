@@ -89,6 +89,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       {},
       this.model.submissionScope,
       this.model.readOnly);
+    this.formBuilderService.addFormModel(this.formId, this.formModel);
     this.initChipsFromModelValue();
   }
 
@@ -173,6 +174,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+    this.formBuilderService.removeFormModel(this.formId);
   }
 
   private addToChips() {

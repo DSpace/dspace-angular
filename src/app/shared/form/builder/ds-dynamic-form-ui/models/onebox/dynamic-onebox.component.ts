@@ -29,6 +29,7 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { FormBuilderService } from '../../../form-builder.service';
 
 @Component({
   selector: 'ds-dynamic-onebox',
@@ -62,9 +63,10 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
               protected cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected modalService: NgbModal,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
+              protected formBuilderService: FormBuilderService
   ) {
-    super(vocabularyService, layoutService, validationService);
+    super(vocabularyService, layoutService, validationService, formBuilderService);
   }
 
   /**

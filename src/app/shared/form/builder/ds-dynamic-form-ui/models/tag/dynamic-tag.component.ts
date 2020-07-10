@@ -17,6 +17,7 @@ import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { FormBuilderService } from '../../../form-builder.service';
 
 /**
  * Component representing a tag input field
@@ -50,9 +51,10 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   constructor(protected vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
+              protected formBuilderService: FormBuilderService
   ) {
-    super(vocabularyService, layoutService, validationService);
+    super(vocabularyService, layoutService, validationService, formBuilderService);
   }
 
   /**
