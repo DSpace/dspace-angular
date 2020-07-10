@@ -5,13 +5,18 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { CookieService } from '../services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { LANG_COOKIE, LocaleService } from './locale.service';
+import { LANG_COOKIE, LocaleService, LANG_ORIGIN } from './locale.service';
+import { AuthService } from '../auth/auth.service';
+import { AuthServiceMock } from 'src/app/shared/mocks/auth.service.mock';
+import { NativeWindowRef } from '../services/window.service';
 
 describe('LocaleService test suite', () => {
   let service: LocaleService;
   let serviceAsAny: any;
   let cookieService: CookieService;
   let translateService: TranslateService;
+  let authService: AuthService;
+  let window;
   let spyOnGet;
   let spyOnSet;
 
@@ -29,6 +34,7 @@ describe('LocaleService test suite', () => {
       ],
       providers: [
         { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: AuthService, userValue: AuthServiceMock }
       ]
     });
   }));
@@ -36,7 +42,9 @@ describe('LocaleService test suite', () => {
   beforeEach(() => {
     cookieService = TestBed.get(CookieService);
     translateService = TestBed.get(TranslateService);
-    service = new LocaleService(cookieService, translateService);
+    authService = TestBed.get(TranslateService);
+    window = new NativeWindowRef();
+    service = new LocaleService(window, cookieService, translateService, authService);
     serviceAsAny = service;
     spyOnGet = spyOn(cookieService, 'get');
     spyOnSet = spyOn(cookieService, 'set');
@@ -97,6 +105,21 @@ describe('LocaleService test suite', () => {
       service.setCurrentLanguageCode();
       expect(translateService.use).toHaveBeenCalledWith( 'es');
       expect(service.saveLanguageCodeToCookie).toHaveBeenCalledWith('es');
+    });
+  });
+
+  describe('', () => {
+    it('should set quality to current language list', () => {
+      const langListWithQuality = ['en;q=1', 'it;q=0.9', 'de;q=0.8'];
+      spyOn(service, 'setQuality').and.returnValue(langListWithQuality);
+      service.setQuality(langList, LANG_ORIGIN.BROWSER, false);
+      expect(service.setQuality).toHaveBeenCalledWith(langList, LANG_ORIGIN.BROWSER, false);
+    });
+
+    it('should return the list of language with quality factor', () => {
+      spyOn(service, 'getLanguageCodeList');
+      service.getLanguageCodeList();
+      expect(service.getLanguageCodeList).toHaveBeenCalled();
     });
   });
 });

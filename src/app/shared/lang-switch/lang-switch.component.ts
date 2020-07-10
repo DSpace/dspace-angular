@@ -55,6 +55,7 @@ export class LangSwitchComponent implements OnInit {
    */
   useLang(lang: string) {
     this.localeService.setCurrentLanguageCode(lang);
+    this.localeService.refreshAfterChangeLanguage();
   }
 
 }
