@@ -81,7 +81,6 @@ export class ItemStatusComponent implements OnInit {
       if (item.isWithdrawn) {
         this.authorizationService.isAuthorized(FeatureID.ReinstateItem, item.self).pipe(distinctUntilChanged()).subscribe((authorized) => {
           if (authorized) {
-            console.log('added reinstate');
             this.operations[index] = new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate');
           } else {
             this.operations[index] = undefined;
@@ -91,7 +90,6 @@ export class ItemStatusComponent implements OnInit {
       } else {
         this.authorizationService.isAuthorized(FeatureID.WithdrawItem, item.self).pipe(distinctUntilChanged()).subscribe((authorized) => {
           if (authorized) {
-            console.log('added withdraw');
             this.operations[index] = new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw');
           } else {
             this.operations[index] = undefined;

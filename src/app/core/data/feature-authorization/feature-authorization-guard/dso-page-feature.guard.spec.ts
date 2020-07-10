@@ -1,24 +1,31 @@
-import { DsoPageAdministratorGuard } from './dso-page-administrator.guard';
 import { AuthorizationDataService } from '../authorization-data.service';
-import { Resolve, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../../remote-data';
 import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { DsoPageFeatureGuard } from './dso-page-feature.guard';
+import { FeatureID } from '../feature-id';
+import { Observable } from 'rxjs/internal/Observable';
 
 /**
  * Test implementation of abstract class DsoPageAdministratorGuard
  */
-class DsoPageAdministratorGuardImpl extends DsoPageAdministratorGuard<any> {
+class DsoPageFeatureGuardImpl extends DsoPageFeatureGuard<any> {
   constructor(protected resolver: Resolve<RemoteData<any>>,
               protected authorizationService: AuthorizationDataService,
-              protected router: Router) {
+              protected router: Router,
+              protected featureID: FeatureID) {
     super(resolver, authorizationService, router);
+  }
+
+  getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
+    return observableOf(this.featureID);
   }
 }
 
 describe('DsoPageAdministratorGuard', () => {
-  let guard: DsoPageAdministratorGuard<any>;
+  let guard: DsoPageFeatureGuard<any>;
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let resolver: Resolve<RemoteData<any>>;
@@ -38,7 +45,7 @@ describe('DsoPageAdministratorGuard', () => {
     resolver = jasmine.createSpyObj('resolver', {
       resolve: createSuccessfulRemoteDataObject$(object)
     });
-    guard = new DsoPageAdministratorGuardImpl(resolver, authorizationService, router);
+    guard = new DsoPageFeatureGuardImpl(resolver, authorizationService, router, undefined);
   }
 
   beforeEach(() => {

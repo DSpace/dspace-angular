@@ -1,30 +1,21 @@
-import { FeatureAuthorizationGuard } from './feature-authorization.guard';
-import { AuthorizationDataService } from '../authorization-data.service';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { FeatureID } from '../feature-id';
-import { of as observableOf } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../remote-data';
+import { AuthorizationDataService } from '../authorization-data.service';
+import { Observable } from 'rxjs/internal/Observable';
 import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
 import { map } from 'rxjs/operators';
+import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { FeatureAuthorizationGuard } from './feature-authorization.guard';
 
 /**
- * Abstract Guard for preventing unauthorized access to {@link DSpaceObject} pages that require administrator rights
+ * Abstract Guard for preventing unauthorized access to {@link DSpaceObject} pages that require rights for a specific feature
  * This guard utilizes a resolver to retrieve the relevant object to check authorizations for
  */
-export abstract class DsoPageAdministratorGuard<T extends DSpaceObject> extends FeatureAuthorizationGuard {
+export abstract class DsoPageFeatureGuard<T extends DSpaceObject> extends FeatureAuthorizationGuard {
   constructor(protected resolver: Resolve<RemoteData<T>>,
               protected authorizationService: AuthorizationDataService,
               protected router: Router) {
     super(authorizationService, router);
-  }
-
-  /**
-   * Check administrator authorization rights
-   */
-  getFeatureID(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
-    return observableOf(FeatureID.AdministratorOf);
   }
 
   /**
