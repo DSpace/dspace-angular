@@ -6,6 +6,7 @@ import { type } from '../../shared/ngrx/type';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
+import { EPerson } from '../eperson/models/eperson.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),
@@ -356,10 +357,10 @@ export class RetrieveAuthenticatedEpersonAction implements Action {
  */
 export class RetrieveAuthenticatedEpersonSuccessAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS;
-  payload: string;
+  payload: EPerson;
 
-  constructor(userId: string) {
-    this.payload = userId ;
+  constructor(user: EPerson) {
+    this.payload = user ;
   }
 }
 

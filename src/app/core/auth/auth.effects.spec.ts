@@ -254,7 +254,7 @@ describe('AuthEffects', () => {
           }
         });
 
-        const expected = cold('--b-', { b: new RetrieveAuthenticatedEpersonSuccessAction(EPersonMock.id) });
+        const expected = cold('--b-', { b: new RetrieveAuthenticatedEpersonSuccessAction(EPersonMock) });
 
         expect(authEffects.retrieveAuthenticatedEperson$).toBeObservable(expected);
       });

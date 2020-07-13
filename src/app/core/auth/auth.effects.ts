@@ -101,7 +101,7 @@ export class AuthEffects {
         user$ = this.authService.retrieveAuthenticatedUserByHref(action.payload);
       }
       return user$.pipe(
-        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user.id)),
+        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user)),
         catchError((error) => observableOf(new RetrieveAuthenticatedEpersonErrorAction(error))));
     })
   );

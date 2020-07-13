@@ -17,7 +17,7 @@ import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
 import {
-  getAuthenticatedUserId,
+  getAuthenticatedUser,
   getAuthenticationToken,
   getRedirectUrl,
   isAuthenticated,
@@ -204,10 +204,7 @@ export class AuthService {
    */
   public getAuthenticatedUserFromStore(): Observable<EPerson> {
     return this.store.pipe(
-      select(getAuthenticatedUserId),
-      hasValueOperator(),
-      switchMap((id: string) => this.epersonService.findById(id)),
-      getAllSucceededRemoteDataPayload()
+      select(getAuthenticatedUser)
     )
   }
 

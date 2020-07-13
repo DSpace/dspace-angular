@@ -50,7 +50,7 @@ describe('AuthNavMenuComponent', () => {
       loaded: true,
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
-      userId: EPersonMock.id
+      user: EPersonMock
     };
   }
   describe('when is a not mobile view', () => {
