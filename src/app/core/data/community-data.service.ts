@@ -24,7 +24,7 @@ import { RequestService } from './request.service';
 @dataService(COMMUNITY)
 export class CommunityDataService extends ComColDataService<Community> {
   protected linkPath = 'communities';
-  protected topLinkPath = 'communities/search/top';
+  protected topLinkPath = 'search/top';
   protected cds = this;
 
   constructor(
