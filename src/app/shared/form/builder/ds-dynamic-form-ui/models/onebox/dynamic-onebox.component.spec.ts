@@ -25,6 +25,7 @@ import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { FormBuilderService } from '../../../form-builder.service';
 
 export let ONEBOX_TEST_GROUP;
 
@@ -147,7 +148,8 @@ describe('DsDynamicOneboxComponent test suite', () => {
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} },
-        { provide: NgbModal, useValue: modal }
+        { provide: NgbModal, useValue: modal },
+        { provide: FormBuilderService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

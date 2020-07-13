@@ -14,6 +14,7 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { RequestService } from '../../core/data/request.service';
 import { Router } from '@angular/router';
+import { RouterMock } from 'src/app/shared/mocks/router.mock';
 
 describe('ProcessFormComponent', () => {
   let component: ProcessFormComponent;
@@ -59,8 +60,8 @@ describe('ProcessFormComponent', () => {
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeBySubstring']) },
-        { provide: Router, useValue: {} },
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeBySubstring', 'removeByHrefSubstring']) },
+        { provide: Router, useClass: RouterMock },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

@@ -16,6 +16,7 @@ import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropd
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent, hasClass } from '../../../../../testing/utils.test';
+import { FormBuilderService } from '../../../form-builder.service';
 
 export const SD_TEST_GROUP = new FormGroup({
   dropdown: new FormControl(),
@@ -76,7 +77,8 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         DsDynamicScrollableDropdownComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: {} },
-        { provide: DynamicFormValidationService, useValue: {} }
+        { provide: DynamicFormValidationService, useValue: {} },
+        { provide: FormBuilderService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

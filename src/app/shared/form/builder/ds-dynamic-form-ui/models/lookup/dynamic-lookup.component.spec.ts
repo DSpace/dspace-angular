@@ -22,6 +22,7 @@ import { createTestComponent } from '../../../../../testing/utils.test';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { FormBuilderService } from '../../../form-builder.service';
 
 let LOOKUP_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
@@ -164,7 +165,8 @@ describe('Dynamic Lookup component', () => {
         DsDynamicLookupComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: {} },
-        { provide: DynamicFormValidationService, useValue: {} }
+        { provide: DynamicFormValidationService, useValue: {} },
+        { provide: FormBuilderService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

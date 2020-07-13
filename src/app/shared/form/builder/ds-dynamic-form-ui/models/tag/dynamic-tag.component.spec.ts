@@ -21,6 +21,7 @@ import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
+import { FormBuilderService } from '../../../form-builder.service';
 
 function createKeyUpEvent(key: number) {
   /* tslint:disable:no-empty */
@@ -93,7 +94,8 @@ describe('DsDynamicTagComponent test suite', () => {
         DsDynamicTagComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: {} },
-        { provide: DynamicFormValidationService, useValue: {} }
+        { provide: DynamicFormValidationService, useValue: {} },
+        { provide: FormBuilderService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

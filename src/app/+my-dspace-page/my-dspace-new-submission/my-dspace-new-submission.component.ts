@@ -118,14 +118,6 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method called on clicking the button "New Submition", It opens a dialog for
-   * select a collection.
-   */
-  openDialog() {
-    this.modalService.open(CreateItemParentSelectorComponent);
-  }
-
-  /**
    * Method invoked after all file are loaded from upload plugin
    */
   afterFileLoaded(items) {
