@@ -204,7 +204,9 @@ export class AuthService {
    */
   public getAuthenticatedUserFromStore(): Observable<EPerson> {
     return this.store.pipe(
-      select(getAuthenticatedUser)
+      select(getAuthenticatedUser),
+      map ((eperson) => Object.assign(new EPerson(), eperson)),
+      take(1)
     )
   }
 
