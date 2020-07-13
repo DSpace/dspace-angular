@@ -142,7 +142,7 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
     [action.payload.objectToCache._links.self.href]: {
       data: action.payload.objectToCache,
       timeAdded: action.payload.timeAdded,
-      msToLive: (hasValue(existing) ? existing.msToLive : action.payload.msToLive),
+      msToLive: action.payload.msToLive,
       requestUUID: action.payload.requestUUID,
       isDirty: (hasValue(existing) ? isNotEmpty(existing.patches) : false),
       patches: (hasValue(existing) ? existing.patches : [])
