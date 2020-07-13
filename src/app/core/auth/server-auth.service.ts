@@ -27,9 +27,6 @@ export class ServerAuthService extends AuthService {
 
     headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
-    // NB this is used to pass server client IP check.
-    const clientIp = this.req.get('x-forwarded-for') || this.req.connection.remoteAddress;
-    headers = headers.append('X-Forwarded-For', clientIp);
 
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
