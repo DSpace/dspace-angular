@@ -44,7 +44,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    * The entity type input to create a new submission
    * @type {string}
    */
-  private entityTypeParam: string;
+  public entityTypeParam: string;
 
   /**
    * The submission self url
