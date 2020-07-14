@@ -51,7 +51,7 @@ before_script:
 
 script:
   # build app and run all tests
-  - yarn run ci
+  - travis_wait yarn run ci
 
 after_script:
   # Shutdown docker after everything runs
