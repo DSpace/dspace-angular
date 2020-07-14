@@ -25,6 +25,8 @@ import { ServerSubmissionService } from '../../app/submission/server-submission.
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
+import { ServerLocaleService } from 'src/app/core/locale/server-locale.service';
+import { LocaleService } from 'src/app/core/locale/locale.service';
 
 export function createTranslateLoader() {
   return new TranslateJson5UniversalLoader('dist/server/assets/i18n/', '.json5');
@@ -73,6 +75,10 @@ export function createTranslateLoader() {
     {
       provide: SubmissionService,
       useClass: ServerSubmissionService
+    },
+    {
+      provide: LocaleService,
+      useClass: ServerLocaleService
     }
   ]
 })

@@ -60,7 +60,7 @@ describe('ProcessFormComponent', () => {
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeBySubstring', 'removeByHrefSubstring']) },
-        { provide: Router, useValue: {} },
+        { provide: Router, useValue: jasmine.createSpyObj('router', ['navigateByUrl']) },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
