@@ -10,6 +10,7 @@ import { getItemEditPath, getItemPageRoute } from '../../item-page-routing.modul
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../../shared/empty.util';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-item-status',
@@ -43,7 +44,7 @@ export class ItemStatusComponent implements OnInit {
    * The possible actions that can be performed on the item
    *  key: id   value: url to action's component
    */
-  operations: ItemOperation[];
+  operations$: BehaviorSubject<ItemOperation[]> = new BehaviorSubject<ItemOperation[]>([]);
 
   /**
    * The keys of the actions (to loop over)
@@ -51,8 +52,7 @@ export class ItemStatusComponent implements OnInit {
   actionsKeys;
 
   constructor(private route: ActivatedRoute,
-              private authorizationService: AuthorizationDataService,
-              private changeDetection: ChangeDetectorRef) {
+              private authorizationService: AuthorizationDataService) {
   }
 
   ngOnInit(): void {
@@ -72,38 +72,43 @@ export class ItemStatusComponent implements OnInit {
           i18n example: 'item.edit.tabs.status.buttons.<key>.label'
         The value is supposed to be a href for the button
       */
-      this.operations = [];
-      this.operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations'));
-      this.operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper'));
-      this.operations.push(undefined);
+      const operations = [];
+      operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations'));
+      operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper'));
+      operations.push(undefined);
       // Store the index of the "withdraw" or "reinstate" operation, because it's added asynchronously
-      const index = this.operations.length - 1;
+      const indexOfWithdrawReinstate = operations.length - 1;
+      if (item.isDiscoverable) {
+        operations.push(new ItemOperation('private', this.getCurrentUrl(item) + '/private'));
+      } else {
+        operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public'));
+      }
+      operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete'));
+      operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move'));
+
+      this.operations$.next(operations);
+
       if (item.isWithdrawn) {
         this.authorizationService.isAuthorized(FeatureID.ReinstateItem, item.self).pipe(distinctUntilChanged()).subscribe((authorized) => {
+          const newOperations = [...this.operations$.value];
           if (authorized) {
-            this.operations[index] = new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate');
+            newOperations[indexOfWithdrawReinstate] = new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate');
           } else {
-            this.operations[index] = undefined;
+            newOperations[indexOfWithdrawReinstate] = undefined;
           }
-          this.changeDetection.detectChanges();
+          this.operations$.next(newOperations);
         });
       } else {
         this.authorizationService.isAuthorized(FeatureID.WithdrawItem, item.self).pipe(distinctUntilChanged()).subscribe((authorized) => {
+          const newOperations = [...this.operations$.value];
           if (authorized) {
-            this.operations[index] = new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw');
+            newOperations[indexOfWithdrawReinstate] = new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw');
           } else {
-            this.operations[index] = undefined;
+            newOperations[indexOfWithdrawReinstate] = undefined;
           }
-          this.changeDetection.detectChanges();
+          this.operations$.next(newOperations);
         });
       }
-      if (item.isDiscoverable) {
-        this.operations.push(new ItemOperation('private', this.getCurrentUrl(item) + '/private'));
-      } else {
-        this.operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public'));
-      }
-      this.operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete'));
-      this.operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move'));
     });
 
   }
