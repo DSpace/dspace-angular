@@ -51,7 +51,10 @@ before_script:
 
 script:
   # build app and run all tests
-  - travis_wait yarn run ci
+  - ng lint
+  - travis_wait yarn run build:prod
+  - yarn test:headless
+  - yarn run e2e:ci
 
 after_script:
   # Shutdown docker after everything runs
