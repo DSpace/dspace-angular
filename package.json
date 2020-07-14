@@ -1,5 +1,5 @@
 {
-  "name": "dspace-angular-cli",
+  "name": "dspace-angular",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -23,7 +23,7 @@
     "build": "ng build",
     "build:prod": "yarn run build:ssr",
     "build:ssr": "yarn run build:client-and-server-bundles && yarn run compile:server",
-    "build:client-and-server-bundles": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --prod && ng run dspace-angular-cli:server:production --bundleDependencies all",
+    "build:client-and-server-bundles": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --prod && ng run dspace-angular:server:production --bundleDependencies all",
     "test:watch": "npm-run-all --parallel config:test:watch test",
     "test": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng test --sourceMap=true --watch=true",
     "test:headless": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng test --watch=false --sourceMap=true --browsers=ChromeHeadless --code-coverage",
