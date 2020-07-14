@@ -32,7 +32,6 @@
     "e2e:ci": "ng e2e --protractor-config=./e2e/protractor-ci.conf.js",
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
     "serve:ssr": "node dist/server",
-    "ci": "ng lint && yarn run build:prod && yarn test:headless && yarn run e2e:ci",
     "clean:coverage": "rimraf coverage",
     "clean:dist": "rimraf dist",
     "clean:doc": "rimraf doc",
