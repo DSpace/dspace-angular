@@ -9,27 +9,28 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
-import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
+import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { AuthorityEntry } from '../../../../../../core/integration/models/authority-entry.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent, hasClass } from '../../../../../testing/utils.test';
+import { FormBuilderService } from '../../../form-builder.service';
 
 export const SD_TEST_GROUP = new FormGroup({
   dropdown: new FormControl(),
 });
 
 export const SD_TEST_MODEL_CONFIG = {
-  authorityOptions: {
+  vocabularyOptions: {
     closed: false,
     metadata: 'dropdown',
     name: 'common_iso_languages',
     scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
-  } as AuthorityOptions,
+  } as VocabularyOptions,
   disabled: false,
-  errorMessages: {required: 'Required field.'},
+  errorMessages: { required: 'Required field.' },
   id: 'dropdown',
   label: 'Language',
   maxOptions: 10,
@@ -52,7 +53,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
   let html;
   let modelValue;
 
-  const authorityServiceStub = new AuthorityServiceStub();
+  const vocabularyServiceStub = new VocabularyServiceStub();
 
   // async beforeEach
   beforeEach(async(() => {
@@ -74,9 +75,10 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
       providers: [
         ChangeDetectorRef,
         DsDynamicScrollableDropdownComponent,
-        {provide: AuthorityService, useValue: authorityServiceStub},
-        {provide: DynamicFormLayoutService, useValue: {}},
-        {provide: DynamicFormValidationService, useValue: {}}
+        { provide: VocabularyService, useValue: vocabularyServiceStub },
+        { provide: DynamicFormLayoutService, useValue: {} },
+        { provide: DynamicFormValidationService, useValue: {} },
+        { provide: FormBuilderService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -121,11 +123,8 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
       });
 
       it('should init component properly', () => {
-        const results$ = authorityServiceStub.getEntriesByName({} as  any);
         expect(scrollableDropdownComp.optionsList).toBeDefined();
-        results$.subscribe((results) => {
-          expect(scrollableDropdownComp.optionsList).toEqual(results.payload);
-        })
+        expect(scrollableDropdownComp.optionsList).toEqual(vocabularyServiceStub.getList());
       });
 
       it('should display dropdown menu entries', () => {
@@ -154,7 +153,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
       }));
 
       it('should select a results entry properly', fakeAsync(() => {
-        const selectedValue = Object.assign(new AuthorityEntry(), {id: 1, display: 'one', value: 1});
+        const selectedValue = Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 });
 
         let de: any = scrollableDropdownFixture.debugElement.query(By.css('input.custom-select'));
         let btnEl = de.nativeElement;
@@ -192,7 +191,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         scrollableDropdownFixture = TestBed.createComponent(DsDynamicScrollableDropdownComponent);
         scrollableDropdownComp = scrollableDropdownFixture.componentInstance; // FormComponent test instance
         scrollableDropdownComp.group = SD_TEST_GROUP;
-        modelValue = Object.assign(new AuthorityEntry(), {id: 1, display: 'one', value: 1});
+        modelValue = Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 });
         scrollableDropdownComp.model = new DynamicScrollableDropdownModel(SD_TEST_MODEL_CONFIG);
         scrollableDropdownComp.model.value = modelValue;
         scrollableDropdownFixture.detectChanges();
@@ -204,12 +203,9 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
       });
 
       it('should init component properly', () => {
-        const results$ = authorityServiceStub.getEntriesByName({} as  any);
         expect(scrollableDropdownComp.optionsList).toBeDefined();
-        results$.subscribe((results) => {
-          expect(scrollableDropdownComp.optionsList).toEqual(results.payload);
-          expect(scrollableDropdownComp.model.value).toEqual(modelValue);
-        })
+        expect(scrollableDropdownComp.optionsList).toEqual(vocabularyServiceStub.getList());
+        expect(scrollableDropdownComp.model.value).toEqual(modelValue);
       });
     });
   });

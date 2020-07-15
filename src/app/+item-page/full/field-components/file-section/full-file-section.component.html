@@ -21,9 +21,9 @@
             </dl>
         </div>
         <div class="col-2">
-            <a [href]="file._links.content.href" [download]="file.name">
+            <ds-file-download-link [href]="file._links.content.href" [download]="file.name">
                 {{"item.page.filesection.download" | translate}}
-            </a>
+            </ds-file-download-link>
         </div>
     </div>
 </ds-metadata-field-wrapper>

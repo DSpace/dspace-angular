@@ -37,9 +37,9 @@ const _isAuthenticatedLoaded = (state: AuthState) => state.loaded;
  * Return the users state
  * @function _getAuthenticatedUserId
  * @param {State} state
- * @returns {string} User ID
+ * @returns {string} User
  */
-const _getAuthenticatedUserId = (state: AuthState) => state.userId;
+const _getAuthenticatedUser = (state: AuthState) => state.user;
 
 /**
  * Returns the authentication error.
@@ -118,12 +118,12 @@ export const getAuthenticationMethods = createSelector(getAuthState, _getAuthent
 
 /**
  * Returns the authenticated user id
- * @function getAuthenticatedUserId
+ * @function getAuthenticatedUser
  * @param {AuthState} state
  * @param {any} props
  * @return {string} User ID
  */
-export const getAuthenticatedUserId = createSelector(getAuthState, _getAuthenticatedUserId);
+export const getAuthenticatedUser = createSelector(getAuthState, _getAuthenticatedUser);
 
 /**
  * Returns the authentication error.

@@ -5,13 +5,13 @@ import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../config/models/config.model';
 import { FacetValue } from '../../shared/search/facet-value.model';
 import { SearchFilterConfig } from '../../shared/search/search-filter-config.model';
-import { IntegrationModel } from '../integration/models/integration.model';
 import { PaginatedList } from '../data/paginated-list';
 import { SubmissionObject } from '../submission/models/submission-object.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { ContentSource } from '../shared/content-source.model';
+import { Registration } from '../shared/registration.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -166,14 +166,17 @@ export class AuthStatusResponse extends RestResponse {
   }
 }
 
-export class IntegrationSuccessResponse extends RestResponse {
+/**
+ * A REST Response containing a token
+ */
+export class TokenResponse extends RestResponse {
   constructor(
-    public dataDefinition: PaginatedList<IntegrationModel>,
+    public token: string,
+    public isSuccessful: boolean,
     public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
+    public statusText: string
   ) {
-    super(true, statusCode, statusText);
+    super(isSuccessful, statusCode, statusText);
   }
 }
 
@@ -251,6 +254,19 @@ export class FilteredDiscoveryQueryResponse extends RestResponse {
 export class ContentSourceSuccessResponse extends RestResponse {
   constructor(
     public contentsource: ContentSource,
+    public statusCode: number,
+    public statusText: string,
+  ) {
+    super(true, statusCode, statusText);
+  }
+}
+
+/**
+ * A successful response containing a Registration
+ */
+export class RegistrationSuccessResponse extends RestResponse {
+  constructor(
+    public registration: Registration,
     public statusCode: number,
     public statusText: string,
   ) {

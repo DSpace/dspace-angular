@@ -28,7 +28,7 @@ describe('ImpersonateNavbarComponent', () => {
       loaded: true,
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
-      userId: EPersonMock.id
+      user: EPersonMock
     };
 
     TestBed.configureTestingModule({

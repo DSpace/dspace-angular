@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { catchError, debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 // import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
@@ -30,9 +30,6 @@ import {
   RefreshTokenAction,
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction,
-  RegistrationAction,
-  RegistrationErrorAction,
-  RegistrationSuccessAction,
   RetrieveAuthenticatedEpersonAction,
   RetrieveAuthenticatedEpersonErrorAction,
   RetrieveAuthenticatedEpersonSuccessAction,
@@ -104,7 +101,7 @@ export class AuthEffects {
         user$ = this.authService.retrieveAuthenticatedUserByHref(action.payload);
       }
       return user$.pipe(
-        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user.id)),
+        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user)),
         catchError((error) => observableOf(new RetrieveAuthenticatedEpersonErrorAction(error))));
     })
   );
@@ -132,18 +129,6 @@ export class AuthEffects {
           }
         }),
         catchError((error) => observableOf(new AuthenticatedErrorAction(error)))
-      );
-    })
-  );
-
-  @Effect()
-  public createUser$: Observable<Action> = this.actions$.pipe(
-    ofType(AuthActionTypes.REGISTRATION),
-    debounceTime(500), // to remove when functionality is implemented
-    switchMap((action: RegistrationAction) => {
-      return this.authService.create(action.payload).pipe(
-        map((user: EPerson) => new RegistrationSuccessAction(user)),
-        catchError((error) => observableOf(new RegistrationErrorAction(error)))
       );
     })
   );

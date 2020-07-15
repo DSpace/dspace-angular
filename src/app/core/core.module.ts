@@ -16,8 +16,8 @@ import { MenuService } from '../shared/menu/menu.service';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest-v2/endpoint-mocking-rest.service';
 import {
   MOCK_RESPONSE_MAP,
-  ResponseMapMock,
-  mockResponseMap
+  mockResponseMap,
+  ResponseMapMock
 } from '../shared/mocks/dspace-rest-v2/mocks/response-map.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
@@ -81,14 +81,13 @@ import { EPersonDataService } from './eperson/eperson-data.service';
 import { EpersonResponseParsingService } from './eperson/eperson-response-parsing.service';
 import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
-import { AuthorityService } from './integration/authority.service';
-import { IntegrationResponseParsingService } from './integration/integration-response-parsing.service';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
 import { MetadataService } from './metadata/metadata.service';
 import { RegistryService } from './registry/registry.service';
 import { RoleService } from './roles/role.service';
+
 import { ApiService } from './services/api.service';
 import { ServerResponseService } from './services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from './services/window.service';
@@ -136,21 +135,37 @@ import { VersionDataService } from './data/version-data.service';
 import { VersionHistoryDataService } from './data/version-history-data.service';
 import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
+import { Script } from '../process-page/scripts/script.model';
+import { Process } from '../process-page/processes/process.model';
+import { ProcessDataService } from './data/processes/process-data.service';
+import { ScriptDataService } from './data/processes/script-data.service';
+import { ProcessFilesResponseParsingService } from './data/process-files-response-parsing.service';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
+import { ItemTemplateDataService } from './data/item-template-data.service';
+import { TemplateItem } from './shared/template-item.model';
+import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
 import { LocaleInterceptor } from './locale/locale.interceptor';
-import { AuthorityTreeviewService } from '../shared/authority-treeview/authority-treeview.service';
 import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { Authority } from './integration/models/authority.model';
-import { AuthorityEntry } from './integration/models/authority-entry.model';
 import { TabDataService } from './layout/tab-data.service';
 import { Tab } from './layout/models/tab.model';
 import { BoxDataService } from './layout/box-data.service';
 import { Box } from './layout/models/box.model';
 import { MetadataComponentsDataService } from './layout/metadata-components-data.service';
 import { MetadataComponent } from './layout/models/metadata-component.model';
+import { TokenResponseParsingService } from './auth/token-response-parsing.service';
+import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
+import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
+import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
+import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-license-url-data.service';
+import { VocabularyEntry } from './submission/vocabularies/models/vocabulary-entry.model';
+import { Vocabulary } from './submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntriesResponseParsingService } from './submission/vocabularies/vocabulary-entries-response-parsing.service';
+import { VocabularyEntryDetail } from './submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from './submission/vocabularies/vocabulary.service';
+import { VocabularyTreeviewService } from '../shared/vocabulary-treeview/vocabulary-treeview.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -184,7 +199,7 @@ const PROVIDERS = [
   SiteDataService,
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
-  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient]},
+  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },
   DynamicFormLayoutService,
   DynamicFormService,
   DynamicFormValidationService,
@@ -217,6 +232,8 @@ const PROVIDERS = [
   BrowseItemsResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
+  SubmissionCcLicenseDataService,
+  SubmissionCcLicenseUrlDataService,
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionRestService,
@@ -224,8 +241,6 @@ const PROVIDERS = [
   SubmissionResponseParsingService,
   SubmissionJsonPatchOperationsService,
   JsonPatchOperationsBuilder,
-  AuthorityService,
-  IntegrationResponseParsingService,
   UploaderService,
   UUIDService,
   NotificationsService,
@@ -252,6 +267,7 @@ const PROVIDERS = [
   DsDynamicTypeBindRelationService,
   EntityTypeService,
   ContentSourceResponseParsingService,
+  ItemTemplateDataService,
   SearchService,
   SidebarService,
   SearchFilterService,
@@ -266,8 +282,12 @@ const PROVIDERS = [
   LicenseDataService,
   ItemTypeDataService,
   WorkflowActionDataService,
+  ProcessDataService,
+  ScriptDataService,
+  ProcessFilesResponseParsingService,
   MetadataSchemaDataService,
   MetadataFieldDataService,
+  TokenResponseParsingService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -283,10 +303,12 @@ const PROVIDERS = [
   NotificationsService,
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
-  AuthorityTreeviewService,
   TabDataService,
   BoxDataService,
-  MetadataComponentsDataService
+  MetadataComponentsDataService,
+  VocabularyService,
+  VocabularyEntriesResponseParsingService,
+  VocabularyTreeviewService
 ];
 
 /**
@@ -310,13 +332,13 @@ export const models =
     License,
     WorkflowItem,
     WorkspaceItem,
+    SubmissionCcLicence,
+    SubmissionCcLicenceUrl,
     SubmissionDefinitionsModel,
     SubmissionFormsModel,
     SubmissionSectionModel,
     SubmissionUploadsModel,
     AuthStatus,
-    Authority,
-    AuthorityEntry,
     BrowseEntry,
     BrowseDefinition,
     ClaimedTask,
@@ -327,12 +349,19 @@ export const models =
     ItemType,
     ExternalSource,
     ExternalSourceEntry,
+    Script,
+    Process,
     Version,
     VersionHistory,
     WorkflowAction,
+    TemplateItem,
+    Registration,
     Tab,
     Box,
-    MetadataComponent
+    MetadataComponent,
+    Vocabulary,
+    VocabularyEntry,
+    VocabularyEntryDetail
   ];
 
 @NgModule({

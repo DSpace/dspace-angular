@@ -17,6 +17,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operato
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-metadata-schema',
@@ -71,7 +72,7 @@ export class MetadataSchemaComponent implements OnInit {
    * @param params
    */
   initialize(params) {
-    this.metadataSchema$ = this.registryService.getMetadataSchemaByName(params.schemaName).pipe(getFirstSucceededRemoteDataPayload());
+    this.metadataSchema$ = this.registryService.getMetadataSchemaByPrefix(params.schemaName).pipe(getFirstSucceededRemoteDataPayload());
     this.updateFields();
   }
 
@@ -91,7 +92,7 @@ export class MetadataSchemaComponent implements OnInit {
     this.metadataFields$ = combineLatest(this.metadataSchema$, this.needsUpdate$).pipe(
       switchMap(([schema, update]: [MetadataSchema, boolean]) => {
         if (update) {
-          return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config));
+          return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), followLink('schema'));
         }
       })
     );

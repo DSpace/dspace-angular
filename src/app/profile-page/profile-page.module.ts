@@ -12,6 +12,9 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     CommonModule,
     SharedModule
   ],
+  exports: [
+    ProfilePageSecurityFormComponent
+  ],
   declarations: [
     ProfilePageComponent,
     ProfilePageMetadataFormComponent,

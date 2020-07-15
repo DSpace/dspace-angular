@@ -17,8 +17,10 @@ export function getMockFormBuilderService(): FormBuilderService {
     isQualdropGroup: false,
     isModelInCustomGroup: true,
     isRelationGroup: true,
-    hasArrayGroupValue: true
-
+    hasArrayGroupValue: true,
+    removeFormModel: {},
+    addFormModel: {},
+    updateValue: {}
   });
 
 }

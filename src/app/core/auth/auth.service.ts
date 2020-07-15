@@ -17,11 +17,12 @@ import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
 import {
-  getAuthenticatedUserId,
+  getAuthenticatedUser,
   getAuthenticationToken,
   getRedirectUrl,
   isAuthenticated,
-  isTokenRefreshing
+  isTokenRefreshing,
+  isAuthenticatedLoaded
 } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import {
@@ -149,6 +150,14 @@ export class AuthService {
   }
 
   /**
+   * Determines if authentication is loaded
+   * @returns {Observable<boolean>}
+   */
+  public isAuthenticationLoaded(): Observable<boolean> {
+    return this.store.pipe(select(isAuthenticatedLoaded));
+  }
+
+  /**
    * Returns the href link to authenticated user
    * @returns {string}
    */
@@ -195,10 +204,9 @@ export class AuthService {
    */
   public getAuthenticatedUserFromStore(): Observable<EPerson> {
     return this.store.pipe(
-      select(getAuthenticatedUserId),
-      hasValueOperator(),
-      switchMap((id: string) => this.epersonService.findById(id)),
-      getAllSucceededRemoteDataPayload()
+      select(getAuthenticatedUser),
+      map ((eperson) => Object.assign(new EPerson(), eperson)),
+      take(1)
     )
   }
 
@@ -268,18 +276,6 @@ export class AuthService {
       authMethods = status.authMethods;
     }
     return observableOf(authMethods);
-  }
-
-  /**
-   * Create a new user
-   * @returns {User}
-   */
-  public create(user: EPerson): Observable<EPerson> {
-    // Normally you would do an HTTP request to POST the user
-    // details and then return the new user object
-    // but, let's just return the new user for this example.
-    // this._authenticated = true;
-    return observableOf(user);
   }
 
   /**
@@ -544,6 +540,16 @@ export class AuthService {
    */
   isImpersonatingUser(epersonId: string): boolean {
     return this.getImpersonateID() === epersonId;
+  }
+
+  /**
+   * Get a short-lived token for appending to download urls of restricted files
+   * Returns null if the user isn't authenticated
+   */
+  getShortlivedToken(): Observable<string> {
+    return this.isAuthenticated().pipe(
+      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null))
+    );
   }
 
 }

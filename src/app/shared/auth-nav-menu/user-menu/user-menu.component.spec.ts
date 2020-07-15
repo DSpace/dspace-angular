@@ -36,14 +36,14 @@ describe('UserMenuComponent', () => {
       loaded: true,
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
-      userId: EPersonMock.id
+      user: EPersonMock
     };
     authStateLoading = {
       authenticated: true,
       loaded: true,
       loading: true,
       authToken: null,
-      userId: EPersonMock.id
+      user: EPersonMock
     };
   }
 

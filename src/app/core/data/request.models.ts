@@ -9,7 +9,6 @@ import { ConfigResponseParsingService } from '../config/config-response-parsing.
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
-import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { RestRequestMethod } from './rest-request-method';
 import { RequestParam } from '../cache/models/request-param.model';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
@@ -18,18 +17,23 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './mapped-collections-reponse-parsing.service';
+import { ProcessFilesResponseParsingService } from './process-files-response-parsing.service';
+import { TokenResponseParsingService } from '../auth/token-response-parsing.service';
+import { VocabularyEntriesResponseParsingService } from '../submission/vocabularies/vocabulary-entries-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
 // uuid and handle requests have separate endpoints
 export enum IdentifierType {
-  UUID ='uuid',
+  UUID = 'uuid',
   HANDLE = 'handle'
 }
 
 export abstract class RestRequest {
   public responseMsToLive = 10 * 1000;
   public forceBypassCache = false;
+  public isMultipart = false;
+
   constructor(
     public uuid: string,
     public href: string,
@@ -56,12 +60,27 @@ export class GetRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.GET, body, options)
   }
 }
 
 export class PostRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any,
+    public options?: HttpOptions
+  ) {
+    super(uuid, href, RestRequestMethod.POST, body)
+  }
+}
+
+/**
+ * Request representing a multipart post request
+ */
+export class MultipartPostRequest extends RestRequest {
+  public isMultipart = true;
   constructor(
     public uuid: string,
     public href: string,
@@ -78,7 +97,7 @@ export class PutRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.PUT, body)
   }
 }
@@ -89,7 +108,7 @@ export class DeleteRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.DELETE, body)
   }
 }
@@ -100,7 +119,7 @@ export class OptionsRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.OPTIONS, body)
   }
 }
@@ -111,7 +130,7 @@ export class HeadRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.HEAD, body)
   }
 }
@@ -124,7 +143,7 @@ export class PatchRequest extends RestRequest {
     public href: string,
     public body?: any,
     public options?: HttpOptions
-  )  {
+  ) {
     super(uuid, href, RestRequestMethod.PATCH, body)
   }
 }
@@ -207,6 +226,15 @@ export class MappedCollectionsRequest extends GetRequest {
   }
 }
 
+/**
+ * Request to fetch the files of a process
+ */
+export class ProcessFilesRequest extends GetRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return ProcessFilesResponseParsingService;
+  }
+}
+
 export class ConfigRequest extends GetRequest {
   constructor(uuid: string, href: string, public options?: HttpOptions) {
     super(uuid, href, null, options);
@@ -239,13 +267,12 @@ export class AuthGetRequest extends GetRequest {
   }
 }
 
-export class IntegrationRequest extends GetRequest {
-  constructor(uuid: string, href: string) {
-    super(uuid, href);
-  }
-
+/**
+ * A POST request for retrieving a token
+ */
+export class TokenPostRequest extends PostRequest {
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return IntegrationResponseParsingService;
+    return TokenResponseParsingService;
   }
 }
 
@@ -386,6 +413,15 @@ export class TaskDeleteRequest extends DeleteRequest {
 
 export class MyDSpaceRequest extends GetRequest {
   public responseMsToLive = 10 * 1000;
+}
+
+/**
+ * Request to get vocabulary entries
+ */
+export class VocabularyEntriesRequest extends FindListRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return VocabularyEntriesResponseParsingService;
+  }
 }
 
 export class RequestError extends Error {

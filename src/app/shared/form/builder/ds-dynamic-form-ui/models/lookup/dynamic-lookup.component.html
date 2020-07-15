@@ -21,8 +21,8 @@
              [placeholder]="model.placeholder | translate"
              [readonly]="model.readOnly"
              (change)="onChange($event)"
-             (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-             (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+             (blur)="onBlur($event); $event.stopPropagation(); sdRef.close();"
+             (focus)="onFocus($event); $event.stopPropagation(); sdRef.close();"
              (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();">
     </div>
 
@@ -40,8 +40,8 @@
               [placeholder]="model.secondPlaceholder | translate"
               [readonly]="model.readOnly"
               (change)="onChange($event)"
-              (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-              (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+              (blur)="onBlur($event); $event.stopPropagation(); sdRef.close();"
+              (focus)="onFocus($event); $event.stopPropagation(); sdRef.close();"
               (click)="$event.stopPropagation(); sdRef.close();">
     </div>
     <div class="col-auto text-center">
@@ -114,9 +114,11 @@
 <ng-template #hasInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
     <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
-    <li class="list-item text-truncate text-secondary" *ngFor="let item of entry.otherInformation | dsObjNgFor" >
-      {{ 'form.other-information.' + item.key | translate }} : {{item.value}}
-    </li>
+    <ng-container *ngFor="let item of entry.otherInformation | dsObjNgFor">
+      <li *ngIf="!item.key.startsWith('data-')" class="list-item text-truncate text-secondary"  >
+        {{ 'form.other-information.' + item.key | translate }} : {{item.value}}
+      </li>
+    </ng-container>
   </ul>
 </ng-template>
 

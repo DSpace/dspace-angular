@@ -17,7 +17,7 @@ export class RelationGroupFieldParser extends FieldParser {
     const modelConfiguration: DynamicRelationGroupModelConfig = this.initModel(null, label);
 
     modelConfiguration.submissionId = this.submissionId;
-    modelConfiguration.scopeUUID = this.parserOptions.authorityUuid;
+    modelConfiguration.scopeUUID = this.parserOptions.collectionUUID;
     modelConfiguration.submissionScope = this.parserOptions.submissionScope;
     if (this.configData && this.configData.rows && this.configData.rows.length > 0) {
       modelConfiguration.formConfiguration = this.configData.rows;

@@ -3,7 +3,8 @@
     <ds-uploader *ngIf="uploadFilesOptions.url !== ''"
                  [uploadFilesOptions]="uploadFilesOptions"
                  (onCompleteItem)="onCompleteItem($event)"
-                 (onUploadError)="onUploadError()"></ds-uploader>
+                 (onUploadError)="onUploadError($event)"
+                 (onFileSelected)="afterFileLoaded($event)"></ds-uploader>
 
   </div>
   <ds-my-dspace-new-submission-dropdown></ds-my-dspace-new-submission-dropdown>

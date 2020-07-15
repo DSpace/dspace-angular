@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, ViewChild, OnDestroy } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { Observable, Subscription } from 'rxjs';
@@ -42,7 +42,7 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './section-form.component.html',
 })
 @renderSectionFor(SectionsType.SubmissionForm)
-export class SubmissionSectionformComponent extends SectionModelComponent {
+export class SubmissionSectionformComponent extends SectionModelComponent implements OnDestroy {
 
   /**
    * The form id
@@ -223,6 +223,8 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         sectionData,
         this.submissionService.getSubmissionScope()
       );
+      // Add created model to formBulderService
+      this.formBuilderService.addFormModel(this.sectionData.id, this.formModel);
     } catch (e) {
       const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
       const sectionError: SubmissionSectionError = {
@@ -408,5 +410,11 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    */
   isFieldToRemove(fieldId, index) {
     return this.fieldsOnTheirWayToBeRemoved.has(fieldId) && this.fieldsOnTheirWayToBeRemoved.get(fieldId).includes(index);
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    // Remove this model from formBulderService
+    this.formBuilderService.removeFormModel(this.sectionData.id);
   }
 }

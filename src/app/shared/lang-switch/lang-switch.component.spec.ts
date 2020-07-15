@@ -38,7 +38,8 @@ describe('LangSwitchComponent', () => {
 
   function getMockLocaleService(): LocaleService {
     return jasmine.createSpyObj('LocaleService', {
-      setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode')
+      setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode'),
+      refreshAfterChangeLanguage: jasmine.createSpy('refreshAfterChangeLanguage')
     })
   }
 
@@ -121,6 +122,7 @@ describe('LangSwitchComponent', () => {
 
       it('should translate the app and set the client\'s language cookie', () => {
         expect(localService.setCurrentLanguageCode).toHaveBeenCalled();
+        expect(localService.refreshAfterChangeLanguage).toHaveBeenCalled();
       });
 
     });

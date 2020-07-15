@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { MenuService } from '../../shared/menu/menu.service';
-import { MenuID } from '../../shared/menu/initial-menus-state';
-import { MenuSection } from '../../shared/menu/menu.reducer';
-import { first, map } from 'rxjs/operators';
+import { MenuService } from './menu.service';
+import { MenuID } from './initial-menus-state';
+import { MenuSection } from './menu.reducer';
+import { distinctUntilChanged, first, map } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasValue } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 /**
  * A basic implementation of a MenuComponent
@@ -16,7 +17,7 @@ import { getComponentForMenu } from './menu-section.decorator';
   selector: 'ds-menu',
   template: ''
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
   /**
    * The ID of the Menu (See MenuID)
    */
@@ -62,6 +63,12 @@ export class MenuComponent implements OnInit {
    */
   private previewTimer;
 
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  subs: Subscription[] = [];
+
   constructor(protected menuService: MenuService, protected injector: Injector) {
   }
 
@@ -72,13 +79,13 @@ export class MenuComponent implements OnInit {
     this.menuCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
-    this.sections = this.menuService.getMenuTopSections(this.menuID).pipe(first());
-    this.sections.subscribe((sections: MenuSection[]) => {
+    this.sections = this.menuService.getMenuTopSections(this.menuID).pipe(distinctUntilChanged((x, y) => JSON.stringify(x) === JSON.stringify(y)));
+    this.subs.push(this.sections.subscribe((sections: MenuSection[]) => {
       sections.forEach((section: MenuSection) => {
         this.sectionInjectors.set(section.id, this.getSectionDataInjector(section));
         this.getSectionComponent(section).pipe(first()).subscribe((constr) => this.sectionComponents.set(section.id, constr));
       });
-    });
+    }));
   }
 
   /**
@@ -163,5 +170,14 @@ export class MenuComponent implements OnInit {
       providers: [{ provide: 'sectionDataProvider', useFactory: () => (section), deps: [] }],
       parent: this.injector
     });
+  }
+
+  /**
+   * Unsubscribe from open subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 }

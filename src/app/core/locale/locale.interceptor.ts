@@ -4,6 +4,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 
 import { LocaleService } from './locale.service';
+import { mergeMap, scan } from 'rxjs/operators';
 
 @Injectable()
 export class LocaleInterceptor implements HttpInterceptor {
@@ -18,14 +19,17 @@ export class LocaleInterceptor implements HttpInterceptor {
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let newReq: HttpRequest<any>;
-
-    // Clone the request to add the new header.
-    newReq = req.clone({
-      headers: req.headers
-        .set('Accept-Language', this.localeService.getCurrentLanguageCode())
-    });
-
-    // Pass on the new request instead of the original request.
-    return next.handle(newReq);
+    return this.localeService.getLanguageCodeList()
+      .pipe(
+        scan((acc: any, value: any) => [...acc, ...value], []),
+        mergeMap((languages) => {
+          // Clone the request to add the new header.
+          newReq = req.clone({
+            headers: req.headers
+              .set('Accept-Language', languages.toString())
+          });
+          // Pass on the new request instead of the original request.
+          return next.handle(newReq);
+        }))
   }
 }

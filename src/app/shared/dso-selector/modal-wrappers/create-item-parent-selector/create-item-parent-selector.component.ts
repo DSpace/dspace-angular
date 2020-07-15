@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -13,12 +13,16 @@ import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-sel
 @Component({
   selector: 'ds-create-item-parent-selector',
   // styleUrls: ['./create-item-parent-selector.component.scss'],
-  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  // templateUrl: '../dso-selector-modal-wrapper.component.html',
+  templateUrl: './create-item-parent-selector.component.html'
 })
 export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;
   selectorType = DSpaceObjectType.COLLECTION;
   action = SelectorActionType.CREATE;
+
+  @Input() metadata: string;
+  @Input() metadatavalue: string;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);
@@ -33,6 +37,9 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
         ['collection']: dso.uuid,
       }
     };
+    if (this.metadatavalue) {
+      navigationExtras.queryParams.entityType = this.metadatavalue;
+    }
     this.router.navigate(['/submit'], navigationExtras);
   }
 }

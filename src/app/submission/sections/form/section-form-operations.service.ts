@@ -15,11 +15,12 @@ import { FormFieldPreviousValueObject } from '../../../shared/form/builder/model
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { AuthorityEntry } from '../../../core/integration/models/authority-entry.model';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { dateToString, isNgbDateStruct } from '../../../shared/date.util';
 
 /**
@@ -223,12 +224,12 @@ export class SectionFormOperationsService {
       if ((event.model as DsDynamicInputModel).hasAuthority) {
         if (Array.isArray(value)) {
           value.forEach((authority, index) => {
-            authority = Object.assign(new AuthorityEntry(), authority, { language });
+            authority = Object.assign(new VocabularyEntry(), authority, { language });
             value[index] = authority;
           });
           fieldValue = value;
         } else {
-          fieldValue = Object.assign(new AuthorityEntry(), value, { language });
+          fieldValue = Object.assign(new VocabularyEntry(), value, { language });
         }
       } else {
         // Language without Authority (input, textArea)
@@ -236,7 +237,8 @@ export class SectionFormOperationsService {
       }
     } else if (isNgbDateStruct(value)) {
       fieldValue = new FormFieldMetadataValueObject(dateToString(value))
-    } else if (value instanceof FormFieldLanguageValueObject || value instanceof AuthorityEntry || isObject(value)) {
+    } else if (value instanceof FormFieldLanguageValueObject || value instanceof VocabularyEntry
+      || value instanceof VocabularyEntryDetail || isObject(value)) {
       fieldValue = value;
     } else {
       fieldValue = new FormFieldMetadataValueObject(value);

@@ -28,6 +28,7 @@ import { SubmissionSectionUploadFileViewComponent } from './sections/upload/file
 import { SubmissionSectionUploadAccessConditionsComponent } from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 import { storeModuleConfig } from '../app.reducer';
+import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 import { CoreState } from '../core/core.reducers';
 import { SubmissionSectionDetectDuplicateComponent } from './sections/detect-duplicate/section-detect-duplicate.component';
 import { DuplicateMatchComponent } from './sections/detect-duplicate/duplicate-match/duplicate-match.component';
@@ -47,6 +48,7 @@ import { DetectDuplicateService } from './sections/detect-duplicate/detect-dupli
     SubmissionSectionUploadComponent,
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
+    SubmissionSectionCcLicensesComponent,
     SectionsDirective,
     SubmissionSectionContainerComponent,
     SubmissionEditComponent,
@@ -56,6 +58,7 @@ import { DetectDuplicateService } from './sections/detect-duplicate/detect-dupli
     SubmissionFormFooterComponent,
     SubmissionSubmitComponent,
     SubmissionUploadFilesComponent,
+    SubmissionSectionContainerComponent,
     SubmissionSectionUploadFileComponent,
     SubmissionSectionUploadFileEditComponent,
     SubmissionSectionUploadFileViewComponent,
@@ -67,6 +70,7 @@ import { DetectDuplicateService } from './sections/detect-duplicate/detect-dupli
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
     SubmissionSectionContainerComponent,
+    SubmissionSectionCcLicensesComponent,
     SubmissionSectionDetectDuplicateComponent
   ],
   exports: [

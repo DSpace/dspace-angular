@@ -28,8 +28,6 @@ import { FormComponent } from '../../../../form.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { AuthorityServiceStub } from '../../../../../testing/authority-service.stub';
 import { StoreMock } from '../../../../../testing/store.mock';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
@@ -55,7 +53,7 @@ function init() {
         mandatoryMessage: 'Required field!',
         repeatable: false,
         selectableMetadata: [{
-          authority: 'RPAuthority',
+          controlledVocabulary: 'RPAuthority',
           closed: false,
           metadata: 'dc.contributor.author'
         }],
@@ -67,7 +65,7 @@ function init() {
         mandatory: 'false',
         repeatable: false,
         selectableMetadata: [{
-          authority: 'OUAuthority',
+          controlledVocabulary: 'OUAuthority',
           closed: false,
           metadata: 'local.contributor.affiliation'
         }]
@@ -137,7 +135,6 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
-        { provide: AuthorityService, useValue: new AuthorityServiceStub() },
         { provide: Store, useClass: StoreMock }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

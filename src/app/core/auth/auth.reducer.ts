@@ -17,6 +17,7 @@ import {
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
+import { EPerson } from '../eperson/models/eperson.model';
 
 /**
  * The auth state.
@@ -49,7 +50,7 @@ export interface AuthState {
   refreshing?: boolean;
 
   // the authenticated user's id
-  userId?: string;
+  user?: EPerson;
 
   // all authentication Methods enabled at the backend
   authMethods?: AuthMethod[];
@@ -111,11 +112,10 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         error: undefined,
         loading: false,
         info: undefined,
-        userId: (action as RetrieveAuthenticatedEpersonSuccessAction).payload
+        user: (action as RetrieveAuthenticatedEpersonSuccessAction).payload
       });
 
     case AuthActionTypes.AUTHENTICATE_ERROR:
-    case AuthActionTypes.REGISTRATION_ERROR:
       return Object.assign({}, state, {
         authenticated: false,
         authToken: undefined,
@@ -143,7 +143,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: false,
         info: undefined,
         refreshing: false,
-        userId: undefined
+        user: undefined
       });
 
     case AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED:
@@ -154,20 +154,8 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loaded: false,
         loading: false,
         info: (action as RedirectWhenTokenExpiredAction as RedirectWhenAuthenticationIsRequiredAction).payload,
-        userId: undefined
+        user: undefined
       });
-
-    case AuthActionTypes.REGISTRATION:
-      return Object.assign({}, state, {
-        authenticated: false,
-        authToken: undefined,
-        error: undefined,
-        loading: true,
-        info: undefined
-      });
-
-    case AuthActionTypes.REGISTRATION_SUCCESS:
-      return state;
 
     case AuthActionTypes.REFRESH_TOKEN:
       return Object.assign({}, state, {

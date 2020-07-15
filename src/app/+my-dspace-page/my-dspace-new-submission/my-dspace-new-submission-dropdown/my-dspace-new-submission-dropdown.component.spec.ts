@@ -217,7 +217,18 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
       expect(dropdownMenuItems[1].nativeElement.innerHTML).toContain('Journal');
       expect(dropdownMenuItems[2].nativeElement.innerHTML).toContain('DataPackage');
     }));
+
+    it('should invoke openDialog method', () => {
+      spyOn(submissionComponent, 'openDialog');
+      const dropdownElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.dropdown-menu'));
+      const dropdownMenuItems: DebugElement = dropdownElement.query(By.css('.dropdown-item:first-child'));
+      dropdownMenuItems.triggerEventHandler('click', {
+        preventDefault: () => {/****/}
+      });
+      expect(submissionComponent.openDialog).toHaveBeenCalled();
+    });
   });
+
 });
 
 export function getMockEntityTypeService(): EntityTypeService {
