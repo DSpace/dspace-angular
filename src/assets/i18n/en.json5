@@ -925,7 +925,7 @@
 
 
 
-  "curation.form.task-select.label": "Task: *",
+  "curation.form.task-select.label": "Task:",
 
   "curation.form.submit": "Start",
 
@@ -937,7 +937,7 @@
 
   "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
 
-  "curation.form.handle.label": "Handle of DSpace Object: *",
+  "curation.form.handle.label": "Handle:",
 
   "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
 
