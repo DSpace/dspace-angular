@@ -2683,7 +2683,7 @@
 
   "submission.import-external.title": "Import metadata from an external source",
 
-  "submission.import-external.page.hint": "No search performed yet. Search items using external sources.",
+  "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
 
   "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
 

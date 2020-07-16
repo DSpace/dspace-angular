@@ -30,9 +30,9 @@
       </ng-container>
     </div>
     <div *ngIf="routeData.sourceId === ''" class="col-md-12">
-      <div class="jumbotron">
+      <ds-alert [type]="'alert-info'">
         <p class="lead">{{'submission.import-external.page.hint' | translate}}</p>
-      </div>
+      </ds-alert>
     </div>
   </div>
   <div class="row">
