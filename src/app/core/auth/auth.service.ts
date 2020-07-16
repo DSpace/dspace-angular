@@ -21,7 +21,8 @@ import {
   getAuthenticationToken,
   getRedirectUrl,
   isAuthenticated,
-  isTokenRefreshing
+  isTokenRefreshing,
+  isAuthenticatedLoaded
 } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import {
@@ -146,6 +147,14 @@ export class AuthService {
    */
   public isAuthenticated(): Observable<boolean> {
     return this.store.pipe(select(isAuthenticated));
+  }
+
+  /**
+   * Determines if authentication is loaded
+   * @returns {Observable<boolean>}
+   */
+  public isAuthenticationLoaded(): Observable<boolean> {
+    return this.store.pipe(select(isAuthenticatedLoaded));
   }
 
   /**
