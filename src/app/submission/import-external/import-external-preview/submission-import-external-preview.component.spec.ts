@@ -1,10 +1,10 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, TestBed, ComponentFixture, inject } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf, of } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs/internal/observable/of';
 import { getTestScheduler } from 'jasmine-marbles';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -40,7 +40,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
   });
 
-  beforeEach(async (() => {
+  beforeEach(async(() => {
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
       imports: [
@@ -117,7 +117,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       expect(compAsAny.activeModal.dismiss).toHaveBeenCalled();
     });
 
-    it('Should start the import process opening a modal', () => {
+    it('Should start the import process opening a modal', (done) => {
       const emittedEvent: CollectionListEntry = {
         communities: [
           {
@@ -133,10 +133,15 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
         }
       };
       const submissionObjects = [
-         { id: 'jk11k13o-9v4z-632i-sr88-wq071n0h1d47' }
+        { id: 'jk11k13o-9v4z-632i-sr88-wq071n0h1d47' }
       ];
       comp.externalSourceEntry = externalEntry;
-      ngbModal.open.and.returnValue({componentInstance: { selectedEvent: observableOf(emittedEvent)}});
+      ngbModal.open.and.returnValue({
+        componentInstance: { selectedEvent: observableOf(emittedEvent) },
+        close: () => {
+          return;
+        }
+      });
       spyOn(comp, 'closeMetadataModal');
       submissionServiceStub.createSubmissionFromExternalSource.and.returnValue(observableOf(submissionObjects));
       spyOn(compAsAny.router, 'navigateByUrl');
@@ -147,6 +152,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       expect(comp.closeMetadataModal).toHaveBeenCalled();
       expect(compAsAny.submissionService.createSubmissionFromExternalSource).toHaveBeenCalledWith(externalEntry._links.self.href, emittedEvent.collection.id);
       expect(compAsAny.router.navigateByUrl).toHaveBeenCalledWith('/workspaceitems/' + submissionObjects[0].id + '/edit');
+      done();
     });
   });
 });
