@@ -38,11 +38,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   @Input() url: string;
 
   /**
-   * List of strings with all metadata field keys available
-   */
-  @Input() metadataFields: string[];
-
-  /**
    * The metadatum of this field
    */
   metadata: MetadatumViewModel;
@@ -65,7 +60,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   constructor(
     private registryService: RegistryService,
     private objectUpdatesService: ObjectUpdatesService,
-    private metadataSchemaService: MetadataSchemaDataService
   ) {
   }
 

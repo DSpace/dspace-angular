@@ -8,7 +8,8 @@
            [ngClass]="{'is-invalid': !valid}"
            [dsDebounce]="debounceTime" (onDebounce)="find($event)"
            [placeholder]="placeholder"
-           [ngModelOptions]="{standalone: true}" autocomplete="off"/>
+           [ngModelOptions]="{standalone: true}" autocomplete="off"
+           dsMetadataFieldValidator />
     <input type="submit" class="d-none"/>
     <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
         <div class="dropdown-list">

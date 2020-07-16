@@ -33,7 +33,6 @@
         <tr *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate"
             ds-edit-in-place-field
             [fieldUpdate]="updateValue || {}"
-            [metadataFields]="metadataFields$ | async"
             [url]="url"
             [ngClass]="{
                 'table-warning': updateValue.changeType === 0,

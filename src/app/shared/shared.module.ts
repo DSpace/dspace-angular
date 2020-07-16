@@ -21,6 +21,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
+import { MetadataFieldValidator } from './utils/metadatafield-validator.directive';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
 import { ConsolePipe } from './utils/console.pipe';
 
@@ -516,7 +517,8 @@ const DIRECTIVES = [
   FileValueAccessorDirective,
   FileValidator,
   ClaimedTaskActionsDirective,
-  NgForTrackByIdDirective
+  NgForTrackByIdDirective,
+  MetadataFieldValidator
 ];
 
 @NgModule({

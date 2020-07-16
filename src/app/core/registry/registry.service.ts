@@ -90,20 +90,6 @@ export class RegistryService {
     return this.metadataFieldService.findBySchema(schema, options, ...linksToFollow);
   }
 
-  /**
-   * Retrieve all existing metadata fields as a paginated list
-   * @param options Options to determine which page of metadata fields should be requested
-   * When no options are provided, all metadata fields are requested in one large page
-   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   * @returns an observable that emits a remote data object with a page of metadata fields
-   */
-  // TODO this is temporarily disabled. The performance is too bad.
-  // It is used down the line for validation. That validation will have to be rewritten against a new rest endpoint.
-  // Not by downloading the list of all fields.
-  public getAllMetadataFields(options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return createSuccessfulRemoteDataObject$(new PaginatedList<MetadataField>(null, []));
-  }
-
   public editMetadataSchema(schema: MetadataSchema) {
     this.store.dispatch(new MetadataRegistryEditSchemaAction(schema));
   }

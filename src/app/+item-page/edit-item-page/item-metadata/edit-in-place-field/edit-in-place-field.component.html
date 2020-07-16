@@ -12,7 +12,6 @@
                                   (dsClickOutside)="checkValidity(suggestionControl)"
                                   (findSuggestions)="findMetadataFieldSuggestions($event)"
                                   #suggestionControl="ngModel"
-                                  [dsInListValidator]="metadataFields"
                                   [valid]="(valid | async) !== false"
                                   dsAutoFocus autoFocusSelector=".suggestion_input"
                                   [ngModelOptions]="{standalone: true}"

@@ -42,11 +42,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    */
   @Input() updateService: UpdateDataService<Item>;
 
-  /**
-   * Observable with a list of strings with all existing metadata field keys
-   */
-  metadataFields$: Observable<string[]>;
-
   constructor(
     public itemService: ItemDataService,
     public objectUpdatesService: ObjectUpdatesService,
@@ -54,7 +49,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
     public route: ActivatedRoute,
-    public metadataFieldService: RegistryService,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
@@ -64,7 +58,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.metadataFields$ = this.findMetadataFields();
     if (hasNoValue(this.updateService)) {
       this.updateService = this.itemService;
     }
@@ -128,16 +121,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
         this.notificationsService.error(this.getNotificationTitle('invalid'), this.getNotificationContent('invalid'));
       }
     });
-  }
-
-  /**
-   * Method to request all metadata fields and convert them to a list of strings
-   */
-  findMetadataFields(): Observable<string[]> {
-    return this.metadataFieldService.getAllMetadataFields().pipe(
-      getSucceededRemoteData(),
-      take(1),
-      map((remoteData$) => remoteData$.payload.page.map((field: MetadataField) => field.toString())));
   }
 
   /**
