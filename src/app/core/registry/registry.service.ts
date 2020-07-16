@@ -297,13 +297,10 @@ export class RegistryService {
 
   /**
    * Retrieve a filtered paginated list of metadata fields
-   * @param query {string} The query to filter the field names by
+   * @param query {string} The query to use for the metadata field name, can be partial (e.g. "dc.ti")
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
-  // TODO this is temporarily disabled. The performance is too bad.
-  // Querying metadatafields will need to be implemented as a search endpoint on the rest api,
-  // not by downloading everything and preforming the query client side.
-  queryMetadataFields(query: string): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return createSuccessfulRemoteDataObject$(new PaginatedList<MetadataField>(null, []));
+  queryMetadataFields(query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+    return this.metadataFieldService.findByFieldName(null, null, null, query, options, ...linksToFollow);
   }
 }

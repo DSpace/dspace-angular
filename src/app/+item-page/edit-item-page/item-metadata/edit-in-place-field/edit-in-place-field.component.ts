@@ -1,9 +1,13 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { MetadataSchemaDataService } from '../../../../core/data/metadata-schema-data.service';
+import { PaginatedList } from '../../../../core/data/paginated-list';
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { cloneDeep } from 'lodash';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -11,6 +15,7 @@ import { NgModel } from '@angular/forms';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -60,6 +65,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   constructor(
     private registryService: RegistryService,
     private objectUpdatesService: ObjectUpdatesService,
+    private metadataSchemaService: MetadataSchemaDataService
   ) {
   }
 
@@ -128,23 +134,51 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   findMetadataFieldSuggestions(query: string): void {
     if (isNotEmpty(query)) {
-      this.registryService.queryMetadataFields(query).pipe(
-        // getSucceededRemoteData(),
+      this.registryService.queryMetadataFields(query, null, followLink('schema')).pipe(
+        getSucceededRemoteData(),
         take(1),
-        map((data) => data.payload.page)
-      ).subscribe(
-        (fields: MetadataField[]) => this.metadataFieldSuggestions.next(
-          fields.map((field: MetadataField) => {
-            return {
-              displayValue: field.toString().split('.').join('.&#8203;'),
-              value: field.toString()
-            };
-          })
-        )
-      );
+        map((data) => data.payload.page),
+        switchMap((fields: MetadataField[]) => {
+            return fields.map((field: MetadataField, index: number) => {
+              // Resolve the metadata field's schema if not already the case, to be able to form complete MD field name
+              if (!hasValue(field.schemaResolved)) {
+                field.schema.pipe(
+                  getSucceededRemoteData(),
+                  getRemoteDataPayload(),
+                  map((schema: MetadataSchema) => {
+                    field.schemaResolved = schema;
+                    if (index == fields.length - 1) {
+                      this.setInputSuggestions(fields);
+                    }
+                  }),
+                  take(1)
+                ).subscribe()
+              } else {
+                this.setInputSuggestions(fields);
+              }
+            });
+          }
+        ),
+        take(1)).subscribe();
     } else {
       this.metadataFieldSuggestions.next([]);
     }
+  }
+
+  /**
+   * Set the list of input suggestion with the given Metadata fields, which all require a resolved MetadataSchema
+   * @param fields  list of Metadata fields, which all require a resolved MetadataSchema
+   */
+  setInputSuggestions(fields: MetadataField[]) {
+    this.metadataFieldSuggestions.next(
+      fields.map((field: MetadataField) => {
+        const fieldNameWhole = field.schemaResolved.prefix + '.' + field.toString();
+        return {
+          displayValue: fieldNameWhole.split('.').join('.&#8203;'),
+          value: fieldNameWhole
+        };
+      })
+    );
   }
 
   /**

@@ -1,10 +1,13 @@
 import { autoserialize, deserialize } from 'cerialize';
-import { isNotEmpty } from '../../shared/empty.util';
+import { map } from 'rxjs/operators';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { link, typedObject } from '../cache/builders/build-decorators';
+import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
 import { ResourceType } from '../shared/resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { METADATA_FIELD } from './metadata-field.resource-type';
@@ -67,9 +70,11 @@ export class MetadataField extends ListableObject implements HALResource {
   @link(METADATA_SCHEMA)
   schema?: Observable<RemoteData<MetadataSchema>>;
 
+  schemaResolved?: MetadataSchema;
+
   /**
-   * Method to print this metadata field as a string
-   * @param separator The separator between the schema, element and qualifier in the string
+   * Method to print this metadata field as a string without the schema
+   * @param separator The separator between element and qualifier in the string
    */
   toString(separator: string = '.'): string {
     let key = this.element;
@@ -77,6 +82,28 @@ export class MetadataField extends ListableObject implements HALResource {
       key += separator + this.qualifier;
     }
     return key;
+  }
+
+  /**
+   * Method to print this metadata field as a string
+   * @param separator The separator between the schema, element and qualifier in the string
+   */
+  toStringWithSchema(separator: string = '.', schemaService: MetadataSchemaDataService): Observable<string> {
+    let schemaObject: Observable<RemoteData<MetadataSchema>> = this.schema;
+    if (!hasValue(this.schema)) {
+      schemaObject = schemaService.findByHref(this._links.schema.href);
+    }
+    return schemaObject.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((schemaPayload: MetadataSchema) => {
+        let key = this.element;
+        if (isNotEmpty(this.qualifier)) {
+          key += separator + this.qualifier;
+        }
+        return schemaPayload.namespace + separator + key;
+      })
+    )
   }
 
   /**

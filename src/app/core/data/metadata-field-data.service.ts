@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '../../shared/empty.util';
 import { dataService } from '../cache/builders/build-decorators';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
@@ -27,6 +28,7 @@ import { RequestParam } from '../cache/models/request-param.model';
 export class MetadataFieldDataService extends DataService<MetadataField> {
   protected linkPath = 'metadatafields';
   protected searchBySchemaLinkPath = 'bySchema';
+  protected searchByFieldNameLinkPath = 'byFieldName';
 
   constructor(
     protected requestService: RequestService,
@@ -51,6 +53,29 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
       searchParams: [new RequestParam('schema', schema.prefix)]
     });
     return this.searchBy(this.searchBySchemaLinkPath, optionsWithSchema, ...linksToFollow);
+  }
+
+  /**
+   * Find metadata fields with either the partial metadata field name (e.g. "dc.ti") as query or an exact match to
+   * at least the schema, element or qualifier
+   * @param schema    optional; an exact match of the prefix of the metadata schema (e.g. "dc", "dcterms", "eperson")
+   * @param element   optional; an exact match of the field's element (e.g. "contributor", "title")
+   * @param qualifier optional; an exact match of the field's qualifier (e.g. "author", "alternative")
+   * @param query     optional (if any of schema, element or qualifier used) - part of the fully qualified field,
+   *                  should start with the start of the schema (e.g. "dc.ti")
+   * @param options   The options info used to retrieve the fields
+   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  findByFieldName(schema: string, element: string, qualifier: string, query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>) {
+    const optionParams = Object.assign(new FindListOptions(), options, {
+      searchParams: [
+        new RequestParam('schema', hasValue(schema) ? schema : ''),
+        new RequestParam('element', hasValue(element) ? element : ''),
+        new RequestParam('qualifier', hasValue(qualifier) ? qualifier : ''),
+        new RequestParam('query', hasValue(query) ? query : '')
+      ]
+    });
+    return this.searchBy(this.searchByFieldNameLinkPath, optionParams, ...linksToFollow);
   }
 
   /**
