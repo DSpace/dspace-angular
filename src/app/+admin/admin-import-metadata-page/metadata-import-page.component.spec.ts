@@ -20,7 +20,7 @@ import { FileValueAccessorDirective } from '../../shared/utils/file-value-access
 import { FileValidator } from '../../shared/utils/require-file.validator';
 import { MetadataImportPageComponent } from './metadata-import-page.component';
 
-fdescribe('MetadataImportPageComponent', () => {
+describe('MetadataImportPageComponent', () => {
   let comp: MetadataImportPageComponent;
   let fixture: ComponentFixture<MetadataImportPageComponent>;
 
