@@ -1,9 +1,11 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SubmissionState } from '../../submission/submission.reducers';
 import { AuthService } from '../../core/auth/auth.service';
@@ -15,10 +17,7 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateItemParentSelectorComponent } from 'src/app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { HostWindowService } from '../../shared/host-window.service';
+import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 
 /**
  * This component represents the whole mydspace page header
@@ -40,11 +39,6 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   public uploadFilesOptions: UploaderOptions = new UploaderOptions();
 
   /**
-   * Emits true if were on a small screen
-   */
-  public isXsOrSm$: Observable<boolean>;
-
-  /**
    * Subscription to unsubscribe from
    */
   private sub: Subscription;
@@ -60,7 +54,6 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    * @param {TranslateService} translate
    * @param {Router} router
    * @param {NgbModal} modalService
-   * @param {HostWindowService} windowService
    */
   constructor(private authService: AuthService,
               private changeDetectorRef: ChangeDetectorRef,
@@ -69,8 +62,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
               private store: Store<SubmissionState>,
               private translate: TranslateService,
               private router: Router,
-              private modalService: NgbModal,
-              protected windowService: HostWindowService) {
+              private modalService: NgbModal) {
   }
 
   /**
@@ -83,7 +75,6 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
         this.changeDetectorRef.detectChanges();
       }
     );
-    this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
   /**
