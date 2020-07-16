@@ -212,5 +212,19 @@ export const environment: GlobalConfig = {
   },
   theme: {
     name: 'default',
-  }
+  },
+  curationTasks: [
+    {
+      name: 'profileformats',
+      label: 'curation-task.task.profileformats.label'
+    },
+    {
+      name: 'requiredmetadata',
+      label: 'curation-task.task.requiredmetadata.label'
+    },
+    {
+      name: 'checklinks',
+      label: 'curation-task.task.checklinks.label'
+    }
+  ]
 };
