@@ -142,6 +142,7 @@ import { ScriptDataService } from './data/processes/script-data.service';
 import { ProcessFilesResponseParsingService } from './data/process-files-response-parsing.service';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
+import { LocaleInterceptor } from './locale/locale.interceptor';
 import { ItemTemplateDataService } from './data/item-template-data.service';
 import { TemplateItem } from './shared/template-item.model';
 import { Registration } from './shared/registration.model';
@@ -283,6 +284,12 @@ const PROVIDERS = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
+    multi: true
+  },
+  // register LocaleInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LocaleInterceptor,
     multi: true
   },
   NotificationsService,
