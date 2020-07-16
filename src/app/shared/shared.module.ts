@@ -11,6 +11,7 @@ import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { ExportMetadataSelectorComponent } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -308,6 +309,7 @@ const COMPONENTS = [
   ThumbnailComponent,
   GridThumbnailComponent,
   UploaderComponent,
+  FileDropzoneNoUploaderComponent,
   ItemListPreviewComponent,
   MyDSpaceItemStatusComponent,
   ItemSubmitterComponent,

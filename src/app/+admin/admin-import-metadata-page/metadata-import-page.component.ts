@@ -1,9 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { uniqueId } from 'lodash';
-import { FileUploader } from 'ng2-file-upload';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, switchMap, take } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
@@ -13,32 +11,16 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { of as observableOf } from 'rxjs';
-import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
 
 @Component({
   selector: 'ds-metadata-import-page',
-  templateUrl: './metadata-import-page.component.html',
-  styleUrls: ['./metadata-import-page.component.scss']
+  templateUrl: './metadata-import-page.component.html'
 })
 
 /**
  * Component that represents a metadata import page for administrators
  */
 export class MetadataImportPageComponent implements OnInit {
-
-  public isOverDocumentDropZone: Observable<boolean>;
-  public uploader: FileUploader;
-  public uploaderId: string;
-
-  /**
-   * The uploader configuration options
-   * @type {UploaderOptions}
-   */
-  uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
-    // URL needs to contain something to not produce any errors. We are using onFileDrop; not the uploader
-    url: 'placeholder',
-  });
 
   /**
    * The current value of the file
@@ -59,47 +41,20 @@ export class MetadataImportPageComponent implements OnInit {
   }
 
   /**
+   * Set file
+   * @param file
+   */
+  setFile(file) {
+    this.fileObject = file;
+  }
+
+  /**
    * Method provided by Angular. Invoked after the constructor.
    */
   ngOnInit() {
     this.currentUserEmail$ = this.authService.getAuthenticatedUserFromStore().pipe(
       map((user: EPerson) => user.email)
     );
-    this.uploaderId = 'ds-drag-and-drop-uploader' + uniqueId();
-    this.isOverDocumentDropZone = observableOf(false);
-    window.addEventListener('drop', (e: DragEvent) => {
-      return e && e.preventDefault();
-    }, false);
-    this.uploader = new FileUploader({
-      // required, but using onFileDrop, not uploader
-      url: 'placeholder',
-    });
-  }
-
-  @HostListener('window:dragover', ['$event'])
-  onDragOver(event: any) {
-    // Show drop area on the page
-    event.preventDefault();
-    if ((event.target as any).tagName !== 'HTML') {
-      this.isOverDocumentDropZone = observableOf(true);
-    }
-  }
-
-  /**
-   * Called when files are dragged on the window document drop area.
-   */
-  public fileOverDocument(isOver: boolean) {
-    if (!isOver) {
-      this.isOverDocumentDropZone = observableOf(isOver);
-    }
-  }
-
-  /**
-   * Set (CSV) file
-   * @param files
-   */
-  setFile(files) {
-    this.fileObject = files.length > 0 ? files[0] : undefined;
   }
 
   /**

@@ -20,7 +20,7 @@ import { FileValueAccessorDirective } from '../../shared/utils/file-value-access
 import { FileValidator } from '../../shared/utils/require-file.validator';
 import { MetadataImportPageComponent } from './metadata-import-page.component';
 
-describe('MetadataImportPageComponent', () => {
+fdescribe('MetadataImportPageComponent', () => {
   let comp: MetadataImportPageComponent;
   let fixture: ComponentFixture<MetadataImportPageComponent>;
 
@@ -106,7 +106,7 @@ describe('MetadataImportPageComponent', () => {
 
     beforeEach(() => {
       fileMock = new File([''], 'filename.txt', { type: 'text/plain' });
-      comp.setFile([fileMock]);
+      comp.setFile(fileMock);
     });
 
     describe('if proceed button is pressed', () => {
