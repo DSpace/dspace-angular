@@ -75,8 +75,9 @@ describe('ProcessFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', (done) => {
     expect(component).toBeTruthy();
+    done();
   });
 
   it('should call invoke on the scriptService on submit', () => {
