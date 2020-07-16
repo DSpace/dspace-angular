@@ -150,8 +150,6 @@ export class VocabularyService {
   getVocabularyEntries(vocabularyOptions: VocabularyOptions, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
 
     const options: VocabularyFindOptions = new VocabularyFindOptions(
-      vocabularyOptions.scope,
-      vocabularyOptions.metadata,
       null,
       null,
       null,
@@ -179,8 +177,6 @@ export class VocabularyService {
    */
   getVocabularyEntriesByValue(value: string, exact: boolean, vocabularyOptions: VocabularyOptions, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
     const options: VocabularyFindOptions = new VocabularyFindOptions(
-      vocabularyOptions.scope,
-      vocabularyOptions.metadata,
       null,
       value,
       exact,
@@ -229,8 +225,6 @@ export class VocabularyService {
   getVocabularyEntryByID(ID: string, vocabularyOptions: VocabularyOptions): Observable<VocabularyEntry> {
     const pageInfo = new PageInfo()
     const options: VocabularyFindOptions = new VocabularyFindOptions(
-      vocabularyOptions.scope,
-      vocabularyOptions.metadata,
       null,
       null,
       null,
@@ -335,8 +329,6 @@ export class VocabularyService {
       null,
       null,
       null,
-      null,
-      null,
       pageInfo.elementsPerPage,
       pageInfo.currentPage
     );
@@ -354,8 +346,6 @@ export class VocabularyService {
    */
   searchTopEntries(name: string, pageInfo: PageInfo, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
     const options: VocabularyFindOptions = new VocabularyFindOptions(
-      null,
-      null,
       null,
       null,
       null,
