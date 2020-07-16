@@ -67,8 +67,8 @@ export class MetadataImportPageComponent implements OnInit {
     );
     this.uploaderId = 'ds-drag-and-drop-uploader' + uniqueId();
     this.isOverDocumentDropZone = observableOf(false);
-    window.addEventListener('drop', e => {
-      e && e.preventDefault();
+    window.addEventListener('drop', (e: DragEvent) => {
+      return e && e.preventDefault();
     }, false);
     this.uploader = new FileUploader({
       // required, but using onFileDrop, not uploader

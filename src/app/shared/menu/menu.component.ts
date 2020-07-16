@@ -86,7 +86,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         // So this switchMap is equivalent to a subscribe with a forEach inside
         switchMap((sections: MenuSection[]) => sections),
         switchMap((section: MenuSection) => this.getSectionComponent(section).pipe(
-          map((component:  GenericConstructor<MenuSectionComponent>) =>  ({ section, component }))
+          map((component: GenericConstructor<MenuSectionComponent>) =>  ({ section, component }))
         )),
         distinctUntilChanged((x,y) => x.section.id === y.section.id)
       ).subscribe(({ section, component}) => {

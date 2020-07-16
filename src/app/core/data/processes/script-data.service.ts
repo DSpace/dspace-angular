@@ -21,8 +21,8 @@ import { dataService } from '../../cache/builders/build-decorators';
 import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
 import { hasValue } from '../../../shared/empty.util';
 
-export const METADATA_IMPORT_SCRIPT_NAME: string = 'metadata-import';
-export const METADATA_EXPORT_SCRIPT_NAME: string = 'metadata-export';
+export const METADATA_IMPORT_SCRIPT_NAME = 'metadata-import';
+export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
 
 @Injectable()
 @dataService(SCRIPT)

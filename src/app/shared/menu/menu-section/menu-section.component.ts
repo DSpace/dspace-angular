@@ -18,7 +18,7 @@ import { BehaviorSubject } from 'rxjs';
   selector: 'ds-menu-section',
   template: ''
 })
-export class MenuSectionComponent implements OnInit, OnDestroy{
+export class MenuSectionComponent implements OnInit, OnDestroy {
 
   /**
    * Observable that emits whether or not this section is currently active
@@ -42,7 +42,6 @@ export class MenuSectionComponent implements OnInit, OnDestroy{
     injector: Injector,
     component: GenericConstructor<MenuSectionComponent>
   }>> = new BehaviorSubject(new Map());
-
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy

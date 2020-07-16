@@ -99,7 +99,7 @@ export class DSOSelectorComponent implements OnInit {
             return this.searchService.search(
               new PaginatedSearchOptions({
                 query: query,
-                dsoType: this.type != DSpaceObjectType.DSPACEOBJECT ? this.type : null,
+                dsoType: this.type !== DSpaceObjectType.DSPACEOBJECT ? this.type : null,
                 pagination: this.defaultPagination
               })
             )
