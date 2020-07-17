@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
+import { catchError, filter, find, map, skipWhile, switchMap, take, tap } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
@@ -21,18 +21,12 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import {
-  CreateRequest,
-  DeleteRequest,
-  FindListOptions,
-  FindListRequest,
-  PostRequest
-} from '../data/request.models';
+import { CreateRequest, DeleteRequest, FindListOptions, FindListRequest, PostRequest } from '../data/request.models';
 
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { configureRequest, getResponseFromEntry} from '../shared/operators';
+import { getRemoteDataPayload, getResponseFromEntry } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 import { dataService } from '../cache/builders/build-decorators';
@@ -40,7 +34,6 @@ import { GROUP } from './models/group.resource-type';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { Community } from '../shared/community.model';
 import { Collection } from '../shared/collection.model';
-import { ComcolRole } from '../../shared/comcol-forms/edit-comcol-page/comcol-role/comcol-role';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -53,10 +46,10 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
 })
 @dataService(GROUP)
 export class GroupDataService extends DataService<Group> {
-  protected linkPath = 'groups';
-  protected browseEndpoint = '';
   public ePersonsEndpoint = 'epersons';
   public subgroupsEndpoint = 'subgroups';
+  protected linkPath = 'groups';
+  protected browseEndpoint = '';
 
   constructor(
     protected comparator: DSOChangeAnalyzer<Group>,
@@ -124,9 +117,42 @@ export class GroupDataService extends DataService<Group> {
     options.searchParams = [new RequestParam('groupName', groupName)];
 
     return this.searchBy(searchHref, options).pipe(
-      filter((groups: RemoteData<PaginatedList<Group>>) => !groups.isResponsePending),
-      take(1),
-      map((groups: RemoteData<PaginatedList<Group>>) => groups.payload.totalElements > 0)
+      getRemoteDataPayload(),
+      map((groups: PaginatedList<Group>) => groups.totalElements > 0),
+      catchError(() => observableOf(false)),
+    );
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod The search method for the object
+   * @param options The [[FindListOptions]] object
+   * @param linksToFollow The array of [[FollowLinkConfig]]
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Group>>): Observable<RemoteData<PaginatedList<Group>>> {
+
+    const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
+
+    return hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      tap((href: string) => {
+          this.requestService.removeByHrefSubstring(href);
+          const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
+          if (hasValue(this.responseMsToLive)) {
+            request.responseMsToLive = this.responseMsToLive;
+          }
+
+          this.requestService.configure(request);
+        }
+      ),
+      switchMap((href) => this.requestService.getByHref(href)),
+      skipWhile((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
+      switchMap((href) =>
+        this.rdbService.buildList<Group>(hrefObs, ...linksToFollow) as Observable<RemoteData<PaginatedList<Group>>>
+      )
     );
   }
 
@@ -222,19 +248,6 @@ export class GroupDataService extends DataService<Group> {
   }
 
   /**
-   * Gets the restResponse from the requestService
-   * @param requestId
-   */
-  protected fetchResponse(requestId: string): Observable<RestResponse> {
-    return this.requestService.getByUUID(requestId).pipe(
-      getResponseFromEntry(),
-      map((response: RestResponse) => {
-        return response;
-      })
-    );
-  }
-
-  /**
    * Method to retrieve the group that is currently being edited
    */
   public getActiveGroup(): Observable<Group> {
@@ -326,7 +339,7 @@ export class GroupDataService extends DataService<Group> {
    * @param dso         The community or collection for which to create a group
    * @param link        The REST endpoint to create the group
    */
-  createComcolGroup(dso: Community|Collection, link: string): Observable<RestResponse> {
+  createComcolGroup(dso: Community | Collection, link: string): Observable<RestResponse> {
 
     const requestId = this.requestService.generateRequestId();
     const group = Object.assign(new Group(), {
@@ -370,6 +383,19 @@ export class GroupDataService extends DataService<Group> {
     return this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry(),
       tap(() => this.requestService.removeByHrefSubstring(link)),
+    );
+  }
+
+  /**
+   * Gets the restResponse from the requestService
+   * @param requestId
+   */
+  protected fetchResponse(requestId: string): Observable<RestResponse> {
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: RestResponse) => {
+        return response;
+      })
     );
   }
 }
