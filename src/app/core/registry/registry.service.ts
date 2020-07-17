@@ -30,7 +30,6 @@ import { MetadataSchemaDataService } from '../data/metadata-schema-data.service'
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -137,6 +136,7 @@ export class RegistryService {
   public getSelectedMetadataSchemas(): Observable<MetadataSchema[]> {
     return this.store.pipe(select(selectedMetadataSchemasSelector));
   }
+
   /**
    * Method to start editing a metadata field, dispatches an edit field action
    * @param field The field that's being edited
@@ -151,12 +151,14 @@ export class RegistryService {
   public cancelEditMetadataField() {
     this.store.dispatch(new MetadataRegistryCancelFieldAction());
   }
+
   /**
    * Method to retrieve the metadata field that are currently being edited
    */
   public getActiveMetadataField(): Observable<MetadataField> {
     return this.store.pipe(select(editMetadataFieldSelector));
   }
+
   /**
    * Method to select a metadata field, dispatches a select field action
    * @param field The field that's being selected
@@ -164,6 +166,7 @@ export class RegistryService {
   public selectMetadataField(field: MetadataField) {
     this.store.dispatch(new MetadataRegistrySelectFieldAction(field));
   }
+
   /**
    * Method to deselect a metadata field, dispatches a deselect field action
    * @param field The field that's it being deselected
@@ -171,6 +174,7 @@ export class RegistryService {
   public deselectMetadataField(field: MetadataField) {
     this.store.dispatch(new MetadataRegistryDeselectFieldAction(field));
   }
+
   /**
    * Method to deselect all currently selected metadata fields, dispatches a deselect all field action
    */
@@ -199,7 +203,7 @@ export class RegistryService {
       getFirstSucceededRemoteDataPayload(),
       hasValueOperator(),
       tap(() => {
-        this.showNotifications(true, isUpdate, false, {prefix: schema.prefix});
+        this.showNotifications(true, isUpdate, false, { prefix: schema.prefix });
       })
     );
   }
@@ -230,7 +234,7 @@ export class RegistryService {
       getFirstSucceededRemoteDataPayload(),
       hasValueOperator(),
       tap(() => {
-        this.showNotifications(true, false, true, {field: field.toString()});
+        this.showNotifications(true, false, true, { field: field.toString() });
       })
     );
   }
@@ -245,7 +249,7 @@ export class RegistryService {
       getFirstSucceededRemoteDataPayload(),
       hasValueOperator(),
       tap(() => {
-        this.showNotifications(true, true, true, {field: field.toString()});
+        this.showNotifications(true, true, true, { field: field.toString() });
       })
     );
   }
@@ -257,6 +261,7 @@ export class RegistryService {
   public deleteMetadataField(id: number): Observable<RestResponse> {
     return this.metadataFieldService.delete(`${id}`);
   }
+
   /**
    * Method that clears a cached metadata field request and returns its REST url
    */
@@ -283,10 +288,11 @@ export class RegistryService {
 
   /**
    * Retrieve a filtered paginated list of metadata fields
-   * @param query {string} The query to use for the metadata field name, can be partial (e.g. "dc.ti")
+   * @param query {string} The query to use for the metadata field name, can be part of the fully qualified field,
+   * should start with the start of the schema, element or qualifier (e.g. “dc.ti”, “contributor”, “auth”, “contributor.ot”)
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
   queryMetadataFields(query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return this.metadataFieldService.findByFieldName(null, null, null, query, options, ...linksToFollow);
+    return this.metadataFieldService.searchByFieldNameParams(null, null, null, query, options, ...linksToFollow);
   }
 }

@@ -2,6 +2,7 @@ import { SortOptions } from '../cache/models/sort-options.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { BrowseEntriesResponseParsingService } from './browse-entries-response-parsing.service';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
+import { MetadatafieldParsingService } from './metadatafield-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
@@ -428,5 +429,15 @@ export class MyDSpaceRequest extends GetRequest {
 export class RequestError extends Error {
   statusCode: number;
   statusText: string;
+}
+
+export class GetMetadataFieldRequest extends GetRequest {
+  constructor(uuid: string, href: string, public options?: HttpOptions) {
+    super(uuid, href, null, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadatafieldParsingService;
+  }
 }
 /* tslint:enable:max-classes-per-file */

@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { MetadataFieldDataService } from '../../../../core/data/metadata-field-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
@@ -29,13 +30,18 @@ const mdSchema = Object.assign(new MetadataSchema(), { prefix: 'dc' })
 const mdField1 = Object.assign(new MetadataField(), {
   schema: mdSchema,
   element: 'contributor',
-  qualifier: 'author'
+  qualifier: 'author',
+  schemaResolved: mdSchema,
 });
-const mdField2 = Object.assign(new MetadataField(), { schema: mdSchema, element: 'title' });
+const mdField2 = Object.assign(new MetadataField(), {
+  schema: mdSchema,
+  element: 'title',
+  schemaResolved: mdSchema, });
 const mdField3 = Object.assign(new MetadataField(), {
   schema: mdSchema,
   element: 'description',
-  qualifier: 'abstract'
+  qualifier: 'abstract',
+  schemaResolved: mdSchema,
 });
 
 const metadatum = Object.assign(new MetadatumViewModel(), {
@@ -51,7 +57,7 @@ const fieldUpdate = {
 };
 let scheduler: TestScheduler;
 
-describe('EditInPlaceFieldComponent', () => {
+fdescribe('EditInPlaceFieldComponent', () => {
 
   beforeEach(async(() => {
     scheduler = getTestScheduler();
@@ -79,6 +85,7 @@ describe('EditInPlaceFieldComponent', () => {
       providers: [
         { provide: RegistryService, useValue: metadataFieldService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: MetadataFieldDataService, useValue: {} }
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ]
@@ -192,9 +199,9 @@ describe('EditInPlaceFieldComponent', () => {
 
     const metadataFieldSuggestions: InputSuggestion[] =
       [
-        { displayValue: mdField1.toString().split('.').join('.&#8203;'), value: mdField1.toString() },
-        { displayValue: mdField2.toString().split('.').join('.&#8203;'), value: mdField2.toString() },
-        { displayValue: mdField3.toString().split('.').join('.&#8203;'), value: mdField3.toString() }
+        { displayValue: (mdField1.schemaResolved.prefix + '.' + mdField1.toString()).split('.').join('.&#8203;'), value: (mdField1.schemaResolved.prefix + '.' + mdField1.toString()) },
+        { displayValue: (mdField2.schemaResolved.prefix + '.' + mdField2.toString()).split('.').join('.&#8203;'), value: (mdField2.schemaResolved.prefix + '.' + mdField2.toString()) },
+        { displayValue: (mdField3.schemaResolved.prefix + '.' + mdField3.toString()).split('.').join('.&#8203;'), value: (mdField3.schemaResolved.prefix + '.' + mdField3.toString()) }
       ];
 
     beforeEach(() => {

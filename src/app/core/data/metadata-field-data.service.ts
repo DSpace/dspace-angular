@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { dataService } from '../cache/builders/build-decorators';
+import { RestResponse } from '../cache/response.models';
+import { configureRequest } from '../shared/operators';
 import { DataService } from './data.service';
+import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
@@ -14,10 +17,14 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { FindListOptions } from './request.models';
+import {
+  FindListOptions,
+  GetMetadataFieldRequest,
+  RestRequest
+} from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs/internal/Observable';
-import { tap } from 'rxjs/operators';
+import { distinctUntilChanged, find, map, switchMap, tap } from 'rxjs/operators';
 import { RequestParam } from '../cache/models/request-param.model';
 
 /**
@@ -62,11 +69,11 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    * @param element   optional; an exact match of the field's element (e.g. "contributor", "title")
    * @param qualifier optional; an exact match of the field's qualifier (e.g. "author", "alternative")
    * @param query     optional (if any of schema, element or qualifier used) - part of the fully qualified field,
-   *                  should start with the start of the schema (e.g. "dc.ti")
+   * should start with the start of the schema, element or qualifier (e.g. “dc.ti”, “contributor”, “auth”, “contributor.ot”)
    * @param options   The options info used to retrieve the fields
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByFieldName(schema: string, element: string, qualifier: string, query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>) {
+  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>) {
     const optionParams = Object.assign(new FindListOptions(), options, {
       searchParams: [
         new RequestParam('schema', hasValue(schema) ? schema : ''),
@@ -76,6 +83,30 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
       ]
     });
     return this.searchBy(this.searchByFieldNameLinkPath, optionParams, ...linksToFollow);
+  }
+
+  /**
+   * Finds a specific metadata field by name. There's always at most one metadata field per name.
+   * If the metadata field can be found it is in the response, otherwise the response will have code 404
+   * @param exactFieldName  Exact metadata field name (ex. dc.title, dc.contributor.other)
+   */
+  findByExactFieldName(exactFieldName: string): Observable<RestResponse> {
+    const request$ = this.halService.getEndpoint(this.linkPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpoint: string) => `${endpoint}/name/${exactFieldName}`),
+      map((endpointURL: string) => new GetMetadataFieldRequest(this.requestService.generateRequestId(), endpointURL)),
+      configureRequest(this.requestService)
+    );
+
+    const requestEntry$ = request$.pipe(
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+
+    return requestEntry$.pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
   }
 
   /**

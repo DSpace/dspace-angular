@@ -1,5 +1,6 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { InputSuggestion } from '../input-suggestions.model';
 
@@ -21,11 +22,27 @@ import { InputSuggestion } from '../input-suggestions.model';
 /**
  * Component representing a form with a autocomplete functionality
  */
-export class FilterInputSuggestionsComponent extends InputSuggestionsComponent {
+export class FilterInputSuggestionsComponent extends InputSuggestionsComponent implements OnInit{
+
+  form: FormGroup;
+
   /**
    * The suggestions that should be shown
    */
   @Input() suggestions: InputSuggestion[] = [];
+
+  constructor(private metadataFieldValidator: MetadataFieldValidator) {
+    super();
+  }
+
+  ngOnInit() {
+    this.form = new FormGroup({
+      metadataNameField: new FormControl('', {
+        asyncValidators: [this.metadataFieldValidator.validate.bind(this.metadataFieldValidator)],
+        validators: [Validators.required]
+      })
+    });
+  }
 
   onSubmit(data) {
     this.value = data;

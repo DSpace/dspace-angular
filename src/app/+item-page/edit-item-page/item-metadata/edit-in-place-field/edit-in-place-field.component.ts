@@ -1,13 +1,11 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { MetadataSchemaDataService } from '../../../../core/data/metadata-schema-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { cloneDeep } from 'lodash';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
