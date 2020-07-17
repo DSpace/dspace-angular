@@ -1,14 +1,11 @@
 import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { distinctUntilChanged, flatMap, map, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, flatMap, map, switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getSucceededRemoteData
-} from '../../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 
 /**

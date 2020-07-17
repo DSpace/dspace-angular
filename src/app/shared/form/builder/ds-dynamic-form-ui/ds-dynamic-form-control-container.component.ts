@@ -17,7 +17,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -30,15 +30,20 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicDatePickerModel, DynamicFormComponentService,
+  DynamicDatePickerModel,
+  DynamicFormArrayGroupModel,
+  DynamicFormArrayModel,
+  DynamicFormComponentService,
   DynamicFormControl,
   DynamicFormControlContainerComponent,
-  DynamicFormControlEvent, DynamicFormControlEventType,
+  DynamicFormControlEvent,
+  DynamicFormControlEventType,
   DynamicFormControlModel,
   DynamicFormLayout,
-  DynamicFormLayoutService, DynamicFormRelationService,
+  DynamicFormLayoutService,
+  DynamicFormRelationService,
   DynamicFormValidationService,
-  DynamicTemplateDirective, DynamicFormArrayGroupModel, DynamicFormArrayModel,
+  DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -60,7 +65,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/dat
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../../empty.util';
+import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
@@ -75,7 +80,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-grou
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
-import { map, startWith, switchMap, find, take, tap } from 'rxjs/operators';
+import { find, map, startWith, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -85,12 +90,7 @@ import { SelectableListService } from '../../../object-list/selectable-list/sele
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getSucceededRemoteData,
-  getAllSucceededRemoteDataPayload, getPaginatedListPayload, getFirstSucceededRemoteDataPayload
-} from '../../../../core/shared/operators';
+import { getAllSucceededRemoteData, getFirstSucceededRemoteDataPayload, getPaginatedListPayload, getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
@@ -110,8 +110,6 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { paginatedRelationsToItems } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { RelationshipOptions } from '../models/relationship-options.model';
 import { FormBuilderService } from '../form-builder.service';
-import { modalConfigDefaults } from 'ngx-bootstrap/modal/modal-options.class';
-import { models } from '../../../../core/core.module';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {

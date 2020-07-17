@@ -58,7 +58,6 @@ export abstract class FieldParser {
         hasSelectableMetadata: isNotEmpty(this.configData.selectableMetadata),
         groupFactory: () => {
           let model;
-          let isFirstModelInArray = true;
           if ((arrayCounter === 0)) {
             model = this.modelFactory();
             arrayCounter++;
@@ -70,7 +69,6 @@ export abstract class FieldParser {
                 fieldValue = '';
               } else {
                 fieldValue = this.getInitFieldValue(arrayCounter - 1, fieldArrayCounter - 1);
-                isFirstModelInArray = false;
               }
               fieldArrayCounter++;
               if (fieldArrayCounter === fieldArrayOfValueLength + 1) {

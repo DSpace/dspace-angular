@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, switchMap } from 'rxjs/operators';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined
-} from '../../../shared/empty.util';
+import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list';
@@ -15,12 +9,7 @@ import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
-import {
-  filterSuccessfulResponses,
-  getRequestFromRequestHref,
-  getRequestFromRequestUUID,
-  getResourceLinksFromResponse
-} from '../../shared/operators';
+import { filterSuccessfulResponses, getRequestFromRequestHref, getRequestFromRequestUUID, getResourceLinksFromResponse } from '../../shared/operators';
 import { PageInfo } from '../../shared/page-info.model';
 import { CacheableObject } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';

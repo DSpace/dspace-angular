@@ -72,7 +72,6 @@ function addToServerSyncQueue(state: ServerSyncBufferState, action: AddToSSBActi
   } else {
     return state;
   }
-  return state;
 }
 
 /**

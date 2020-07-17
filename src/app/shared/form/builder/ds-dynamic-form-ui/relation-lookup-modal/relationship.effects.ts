@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { debounceTime, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import { debounceTime, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
 import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, UpdateRelationshipAction, UpdateRelationshipNameVariantAction } from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
-import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
+import { hasNoValue, hasValue } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
@@ -18,7 +18,7 @@ import { Store } from '@ngrx/store';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../../core/data/request.service';
 import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
-import { CommitPatchOperationsAction, JsonPatchOperationsActionTypes, PatchOperationsActions } from '../../../../../core/json-patch/json-patch-operations.actions';
+import { JsonPatchOperationsActionTypes } from '../../../../../core/json-patch/json-patch-operations.actions';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 

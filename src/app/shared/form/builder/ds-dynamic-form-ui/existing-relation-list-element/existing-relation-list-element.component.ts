@@ -1,16 +1,6 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  EventEmitter
-} from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../../../../app.reducer';
 import { Item } from '../../../../../core/shared/item.model';
@@ -18,15 +8,10 @@ import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../
 import { hasValue, isNotEmpty } from '../../../../empty.util';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
-import {
-  SaveSubmissionFormAction
-} from '../../../../../submission/objects/submission-objects.actions';
 
 // tslint:disable:max-classes-per-file
 /**
