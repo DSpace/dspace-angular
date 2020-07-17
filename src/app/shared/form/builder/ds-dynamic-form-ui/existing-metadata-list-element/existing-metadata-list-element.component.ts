@@ -1,14 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { DynamicFormArrayGroupModel, DynamicFormControlEvent } from '@ng-dynamic-forms/core';
+import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -19,17 +11,14 @@ import { Item } from '../../../../../core/shared/item.model';
 import { ItemMetadataRepresentation } from '../../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataRepresentation } from '../../../../../core/shared/metadata-representation/metadata-representation.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload
-} from '../../../../../core/shared/operators';
+import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../../empty.util';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
-import { RemoveRelationshipAction, UpdateRelationshipAction } from '../relation-lookup-modal/relationship.actions';
+import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 
 // tslint:disable:max-classes-per-file
 /**

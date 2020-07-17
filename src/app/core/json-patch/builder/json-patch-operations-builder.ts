@@ -1,13 +1,9 @@
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
-import {
-  NewPatchAddOperationAction, NewPatchMoveOperationAction,
-  NewPatchRemoveOperationAction,
-  NewPatchReplaceOperationAction
-} from '../json-patch-operations.actions';
+import { NewPatchAddOperationAction, NewPatchMoveOperationAction, NewPatchRemoveOperationAction, NewPatchReplaceOperationAction } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
 import { Injectable } from '@angular/core';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { dateToISOFormat } from '../../../shared/date.util';
 import { AuthorityValue } from '../../integration/models/authority.value';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';

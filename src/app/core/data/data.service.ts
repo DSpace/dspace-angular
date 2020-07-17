@@ -2,18 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  find,
-  first,
-  map,
-  mergeMap,
-  skipWhile,
-  switchMap,
-  take,
-  tap
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, first, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -28,24 +17,12 @@ import { CoreState } from '../core.reducers';
 import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import {
-  configureRequest,
-  getRemoteDataPayload,
-  getResponseFromEntry,
-  getSucceededRemoteData
-} from '../shared/operators';
+import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { ChangeAnalyzer } from './change-analyzer';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
-import {
-  CreateRequest,
-  DeleteByIDRequest,
-  FindByIDRequest,
-  FindListOptions,
-  FindListRequest,
-  GetRequest, PatchRequest, PutRequest
-} from './request.models';
+import { CreateRequest, DeleteByIDRequest, FindByIDRequest, FindListOptions, FindListRequest, GetRequest, PatchRequest, PutRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';

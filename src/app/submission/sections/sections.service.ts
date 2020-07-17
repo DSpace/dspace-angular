@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { combineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
@@ -17,17 +17,8 @@ import {
   SectionStatusChangeAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
-import {
-  SubmissionObjectEntry,
-  SubmissionSectionError,
-  SubmissionSectionObject
-} from '../objects/submission-objects.reducer';
-import {
-  submissionObjectFromIdSelector,
-  submissionSectionDataFromIdSelector,
-  submissionSectionErrorsFromIdSelector,
-  submissionSectionFromIdSelector
-} from '../selectors';
+import { SubmissionObjectEntry, SubmissionSectionError, SubmissionSectionObject } from '../objects/submission-objects.reducer';
+import { submissionObjectFromIdSelector, submissionSectionDataFromIdSelector, submissionSectionErrorsFromIdSelector, submissionSectionFromIdSelector } from '../selectors';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { FormAddError, FormClearErrorsAction, FormRemoveErrorAction } from '../../shared/form/form.actions';
