@@ -1,0 +1,15 @@
+<ngb-accordion [activeIds]="activeIds">
+  <div class="card">
+    <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
+      <ng-template ngbPanelContent>
+        <ds-configuration-search-page
+          [fixedFilterQuery]="searchFilter"
+          [configuration]="configuration"
+          [configuration$]="configuration$"
+          [searchEnabled]="searchEnabled"
+          [sideBarWidth]="sideBarWidth">
+        </ds-configuration-search-page>
+      </ng-template>
+    </ngb-panel>
+  </div>
+</ngb-accordion>

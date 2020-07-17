@@ -166,6 +166,8 @@ import { VocabularyEntriesResponseParsingService } from './submission/vocabulari
 import { VocabularyEntryDetail } from './submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from './submission/vocabularies/vocabulary.service';
 import { VocabularyTreeviewService } from '../shared/vocabulary-treeview/vocabulary-treeview.service';
+import { SearchcomponentService } from './layout/searchcomponent.service';
+import { SearchComponent } from './layout/models/search-component.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -308,7 +310,8 @@ const PROVIDERS = [
   MetadataComponentsDataService,
   VocabularyService,
   VocabularyEntriesResponseParsingService,
-  VocabularyTreeviewService
+  VocabularyTreeviewService,
+  SearchcomponentService
 ];
 
 /**
@@ -361,7 +364,8 @@ export const models =
     MetadataComponent,
     Vocabulary,
     VocabularyEntry,
-    VocabularyEntryDetail
+    VocabularyEntryDetail,
+    SearchComponent
   ];
 
 @NgModule({

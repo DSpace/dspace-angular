@@ -44,6 +44,9 @@ describe('BoxDataService', () => {
     _links: {
       self: {
         href: 'https://rest.api/rest/api/boxes/1'
+      },
+      configuration: {
+        href: 'https://rest.api/rest/api/boxes/1/configuration'
       }
     }
   };
@@ -65,6 +68,9 @@ describe('BoxDataService', () => {
     _links: {
       self: {
         href: 'https://rest.api/rest/api/boxes/2'
+      },
+      configuration: {
+        href: 'https://rest.api/rest/api/boxes/2/configuration'
       }
     }
   };
@@ -86,6 +92,9 @@ describe('BoxDataService', () => {
     _links: {
       self: {
         href: 'https://rest.api/rest/api/boxes/3'
+      },
+      configuration: {
+        href: 'https://rest.api/rest/api/boxes/3/configuration'
       }
     }
   };

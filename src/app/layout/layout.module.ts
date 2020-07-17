@@ -11,6 +11,10 @@ import { CrisLayoutMetadataBoxComponent } from './default-layout/boxes/metadata/
 import { RowComponent } from './default-layout/boxes/components/row/row.component';
 import { TextComponent } from './default-layout/boxes/components/text/text.component';
 import { HeadingComponent } from './default-layout/boxes/components/heading/heading.component';
+import { CrisLayoutSearchBoxComponent } from './default-layout/boxes/search/cris-layout-search-box.component';
+import { SearchPageModule } from '../+search-page/search-page.module';
+import { WorkspaceItemSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workspace-item-search-result/workspace-item-search-result-list-element.component';
+import { MyDSpacePageModule } from '../+my-dspace-page/my-dspace-page.module';
 
 @NgModule({
   declarations: [
@@ -22,16 +26,20 @@ import { HeadingComponent } from './default-layout/boxes/components/heading/head
     CrisLayoutMetadataBoxComponent,
     RowComponent,
     TextComponent,
-    HeadingComponent
+    HeadingComponent,
+    CrisLayoutSearchBoxComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    SearchPageModule,
+    MyDSpacePageModule
   ],
   entryComponents: [
     CrisLayoutDefaultComponent,
     CrisLayoutDefaultTabComponent,
     CrisLayoutMetadataBoxComponent,
+    CrisLayoutSearchBoxComponent,
     TextComponent,
     HeadingComponent
   ],
