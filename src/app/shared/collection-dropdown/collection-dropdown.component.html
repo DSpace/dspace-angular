@@ -11,14 +11,13 @@
 <div
     class="scrollable-menu"
     aria-labelledby="dropdownMenuButton"
-    (scroll)="onScroll($event)">
-  <div
+    (scroll)="onScroll($event)"
     infiniteScroll
-    [infiniteScrollDistance]="2"
+    [infiniteScrollDistance]="5"
     [infiniteScrollThrottle]="300"
     [infiniteScrollUpDistance]="1.5"
-    [infiniteScrollContainer]="'.scrollable-menu'"
     [fromRoot]="true"
+    [scrollWindow]="false"
     (scrolled)="onScrollDown()">
     <button class="dropdown-item disabled" *ngIf="searchListCollection?.length == 0 && !(isLoadingList | async)">
       {{'submission.sections.general.no-collection' | translate}}
@@ -39,5 +38,5 @@
       <ds-loading message="{{'loading.default' | translate}}">
       </ds-loading>
     </button>
-  </div>
+
 </div>
