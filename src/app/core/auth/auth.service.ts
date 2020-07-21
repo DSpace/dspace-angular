@@ -423,6 +423,7 @@ export class AuthService {
         } else {
           // If redirectUrl is empty use history.
           this.routeService.getHistory().pipe(
+            filter((history) => history.length > 0),
             take(1)
           ).subscribe((history) => {
             let redirUrl;
