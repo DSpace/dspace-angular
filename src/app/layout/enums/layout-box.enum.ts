@@ -5,5 +5,6 @@
  */
 export enum LayoutBox {
   METADATA = 'metadata',
-  SEARCH = 'search'
+  SEARCH = 'search',
+  RELATION = 'relation'
 }

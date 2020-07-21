@@ -47,7 +47,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
 
   @ViewChild('instance', { static: false }) instance: NgbTypeahead;
 
-  pageInfo: PageInfo;
+  pageInfo: PageInfo = new PageInfo();
   searching = false;
   searchFailed = false;
   hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.changeSearchingStatus(false));

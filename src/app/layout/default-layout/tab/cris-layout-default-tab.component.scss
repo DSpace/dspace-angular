@@ -1,0 +1,10 @@
+:host ::ng-deep .card {
+  margin-bottom: 0.5rem;
+  overflow: unset;
+}
+
+:host ::ng-deep .card:first-of-type {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-bottom-left-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.25rem !important;
+}

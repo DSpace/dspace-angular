@@ -9,6 +9,7 @@ import { CrisLayoutTab } from '../../decorators/cris-layout-tab.decorator';
 import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 import { getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
 import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
@@ -43,7 +44,7 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
 
   ngOnInit() {
     this.showLoader = true;
-    this.boxService.findByItem(this.item.id, this.tab.id)
+    this.boxService.findByItem(this.item.id, this.tab.id, followLink('configuration'))
       .pipe(getFirstSucceededRemoteListPayload())
       .subscribe(
         (next) => {
@@ -69,7 +70,6 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
       const componentRef = viewContainerRef.createComponent(componentFactory);
       (componentRef.instance as any).item = this.item;
       (componentRef.instance as any).box = box;
-      (componentRef.instance as any).cd.detectChanges();
       this.componentRef.push(componentRef);
     });
   }

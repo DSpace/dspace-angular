@@ -3149,5 +3149,9 @@
   "workflow-item.send-back.button.cancel": "Cancel",
 
   "workflow-item.send-back.button.confirm": "Send back",
+
+  "relation.rp.researchoutputs.search.results.head": "Related Publications",
+
+  "relation.rp.projects.search.results.head": "Related Projects",
 }
 
