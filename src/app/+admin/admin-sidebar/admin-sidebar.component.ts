@@ -18,6 +18,8 @@ import { TextMenuItemModel } from '../../shared/menu/menu-item/models/text.model
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
 /**
  * Component representing the admin sidebar
@@ -61,7 +63,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
               protected injector: Injector,
               private variableService: CSSVariableService,
               private authService: AuthService,
-              private modalService: NgbModal
+              private modalService: NgbModal,
+              private authorizationService: AuthorizationDataService
   ) {
     super(menuService, injector);
   }
@@ -71,6 +74,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   ngOnInit(): void {
     this.createMenu();
+    this.createSiteAdministratorMenuSections();
     super.ngOnInit();
     this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
     this.authService.isAuthenticated()
@@ -311,113 +315,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         } as LinkMenuItemModel,
       },
 
-      /* Access Control */
-      {
-        id: 'access_control',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.access_control'
-        } as TextMenuItemModel,
-        icon: 'key',
-        index: 4
-      },
-      {
-        id: 'access_control_people',
-        parentID: 'access_control',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.access_control_people',
-          link: '/admin/access-control/epeople'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'access_control_groups',
-        parentID: 'access_control',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.access_control_groups',
-          link: '/admin/access-control/groups'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'access_control_authorizations',
-        parentID: 'access_control',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.access_control_authorizations',
-          link: ''
-        } as LinkMenuItemModel,
-      },
-      /*  Admin Search */
-      {
-        id: 'admin_search',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.admin_search',
-          link: '/admin/search'
-        } as LinkMenuItemModel,
-        icon: 'search',
-        index: 5
-      },
-      /*  Registries */
-      {
-        id: 'registries',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.registries'
-        } as TextMenuItemModel,
-        icon: 'list',
-        index: 6
-      },
-      {
-        id: 'registries_metadata',
-        parentID: 'registries',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.registries_metadata',
-          link: 'admin/registries/metadata'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'registries_format',
-        parentID: 'registries',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.registries_format',
-          link: 'admin/registries/bitstream-formats'
-        } as LinkMenuItemModel,
-      },
-
-      /* Curation tasks */
-      {
-        id: 'curation_tasks',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.curation_task',
-          link: ''
-        } as LinkMenuItemModel,
-        icon: 'filter',
-        index: 7
-      },
-
       /* Statistics */
       {
         id: 'statistics_task',
@@ -445,6 +342,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         icon: 'cogs',
         index: 9
       },
+
       /* Processes */
       {
         id: 'processes',
@@ -458,24 +356,144 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         icon: 'terminal',
         index: 10
       },
-      /* Workflow */
-      {
-        id: 'workflow',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.workflow',
-          link: '/admin/workflow'
-        } as LinkMenuItemModel,
-        icon: 'user-check',
-        index: 10
-      },
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
       shouldPersistOnRouteChange: true
     })));
+  }
 
+  /**
+   * Create menu sections dependent on whether or not the current user is a site administrator
+   */
+  createSiteAdministratorMenuSections() {
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
+      const menuList = [
+        /* Access Control */
+        {
+          id: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.access_control'
+          } as TextMenuItemModel,
+          icon: 'key',
+          index: 4
+        },
+        {
+          id: 'access_control_people',
+          parentID: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_people',
+            link: '/admin/access-control/epeople'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'access_control_groups',
+          parentID: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_groups',
+            link: '/admin/access-control/groups'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'access_control_authorizations',
+          parentID: 'access_control',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_authorizations',
+            link: ''
+          } as LinkMenuItemModel,
+        },
+        /*  Admin Search */
+        {
+          id: 'admin_search',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.admin_search',
+            link: '/admin/search'
+          } as LinkMenuItemModel,
+          icon: 'search',
+          index: 5
+        },
+        /*  Registries */
+        {
+          id: 'registries',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.registries'
+          } as TextMenuItemModel,
+          icon: 'list',
+          index: 6
+        },
+        {
+          id: 'registries_metadata',
+          parentID: 'registries',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.registries_metadata',
+            link: 'admin/registries/metadata'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'registries_format',
+          parentID: 'registries',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.registries_format',
+            link: 'admin/registries/bitstream-formats'
+          } as LinkMenuItemModel,
+        },
+
+        /* Curation tasks */
+        {
+          id: 'curation_tasks',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.curation_task',
+            link: ''
+          } as LinkMenuItemModel,
+          icon: 'filter',
+          index: 7
+        },
+
+        /* Workflow */
+        {
+          id: 'workflow',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.workflow',
+            link: '/admin/workflow'
+          } as LinkMenuItemModel,
+          icon: 'user-check',
+          index: 11
+        },
+      ];
+
+      menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
+        shouldPersistOnRouteChange: true
+      })));
+    });
   }
 
   /**

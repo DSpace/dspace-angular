@@ -33,6 +33,9 @@ import { NotificationsServiceStub } from '../../../../shared/testing/notificatio
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../../shared/testing/auth-service.stub';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -43,6 +46,8 @@ describe('EPersonFormComponent', () => {
   let mockEPeople;
   let ePersonDataServiceStub: any;
   let authService: AuthServiceStub;
+  let authorizationService: AuthorizationDataService;
+  let groupsDataService: GroupDataService;
 
   beforeEach(async(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
@@ -108,6 +113,13 @@ describe('EPersonFormComponent', () => {
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
     authService = new AuthServiceStub();
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true)
+    });
+    groupsDataService = jasmine.createSpyObj('groupsDataService', {
+      findAllByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      getGroupRegistryRouterLink: ''
+    });
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -130,6 +142,8 @@ describe('EPersonFormComponent', () => {
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: GroupDataService, useValue: groupsDataService },
         EPeopleRegistryComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
