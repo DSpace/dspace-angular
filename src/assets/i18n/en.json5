@@ -1378,6 +1378,8 @@
 
   "item.edit.relationships.save-button": "Save",
 
+  "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
+
 
 
   "item.edit.tabs.bitstreams.head": "Bitstreams",

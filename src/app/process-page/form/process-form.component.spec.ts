@@ -19,6 +19,7 @@ describe('ProcessFormComponent', () => {
   let component: ProcessFormComponent;
   let fixture: ComponentFixture<ProcessFormComponent>;
   let scriptService;
+  let router;
   let parameterValues;
   let script;
 
@@ -41,7 +42,10 @@ describe('ProcessFormComponent', () => {
             }
         })
       }
-    )
+    );
+    router = {
+      navigateByUrl: () => undefined,
+    };
   }
 
   beforeEach(async(() => {
