@@ -289,15 +289,15 @@ export class VocabularyService {
   /**
    * Returns an observable of {@link RemoteData} of a {@link VocabularyEntryDetail}, based on its ID, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the object
-   * @param value           The entry value for which to provide detailed information.
+   * @param id              The entry id for which to provide detailed information.
    * @param name            The name of {@link Vocabulary} to which the entry belongs
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<VocabularyEntryDetail>>}
    *    Return an observable that emits VocabularyEntryDetail object
    */
-  findEntryDetailByValue(value: string, name: string, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<VocabularyEntryDetail>> {
-    const id = `${name}:${value}`;
-    return this.vocabularyEntryDetailDataService.findById(id, ...linksToFollow);
+  findEntryDetailById(id: string, name: string, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<VocabularyEntryDetail>> {
+    const findId = `${name}:${id}`;
+    return this.vocabularyEntryDetailDataService.findById(findId, ...linksToFollow);
   }
 
   /**

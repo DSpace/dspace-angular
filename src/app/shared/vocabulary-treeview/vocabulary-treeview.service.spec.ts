@@ -57,7 +57,7 @@ describe('VocabularyTreeviewService test suite', () => {
   const vocabularyServiceStub = jasmine.createSpyObj('VocabularyService', {
     getVocabularyEntriesByValue: jasmine.createSpy('getVocabularyEntriesByValue'),
     getEntryDetailParent: jasmine.createSpy('getEntryDetailParent'),
-    findEntryDetailByValue: jasmine.createSpy('findEntryDetailByValue'),
+    findEntryDetailById: jasmine.createSpy('findEntryDetailById'),
     searchTopEntries: jasmine.createSpy('searchTopEntries'),
     getEntryDetailChildren: jasmine.createSpy('getEntryDetailChildren'),
     clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests')
@@ -202,7 +202,7 @@ describe('VocabularyTreeviewService test suite', () => {
       serviceAsAny.vocabularyService.searchTopEntries.and.returnValue(hot('-c', {
         a: createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, [item, item2, item3]))
       }));
-      serviceAsAny.vocabularyService.findEntryDetailByValue.and.returnValue(
+      serviceAsAny.vocabularyService.findEntryDetailById.and.returnValue(
         hot('-a', {
           a: createSuccessfulRemoteDataObject(child2)
         })
@@ -303,7 +303,7 @@ describe('VocabularyTreeviewService test suite', () => {
         a: createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, [childEntry3]))
       }));
 
-      serviceAsAny.vocabularyService.findEntryDetailByValue.and.returnValue(hot('-a', {
+      serviceAsAny.vocabularyService.findEntryDetailById.and.returnValue(hot('-a', {
         a: createSuccessfulRemoteDataObject(child3)
       }));
 
