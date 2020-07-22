@@ -22,7 +22,7 @@ import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocab
  * Component that show a hierarchical vocabulary in a tree view
  */
 @Component({
-  selector: 'ds-authority-treeview',
+  selector: 'ds-vocabulary-treeview',
   templateUrl: './vocabulary-treeview.component.html',
   styleUrls: ['./vocabulary-treeview.component.scss']
 })
