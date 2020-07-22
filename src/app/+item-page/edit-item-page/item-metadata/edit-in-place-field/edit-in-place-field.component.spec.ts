@@ -17,6 +17,7 @@ import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { SharedModule } from '../../../../shared/shared.module';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { EditInPlaceFieldComponent } from './edit-in-place-field.component';
 
 let comp: EditInPlaceFieldComponent;
@@ -57,7 +58,7 @@ const fieldUpdate = {
 };
 let scheduler: TestScheduler;
 
-fdescribe('EditInPlaceFieldComponent', () => {
+describe('EditInPlaceFieldComponent', () => {
 
   beforeEach(async(() => {
     scheduler = getTestScheduler();
@@ -211,7 +212,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
     it('it should call queryMetadataFields on the metadataFieldService with the correct query', () => {
 
-      expect(metadataFieldService.queryMetadataFields).toHaveBeenCalledWith(query);
+      expect(metadataFieldService.queryMetadataFields).toHaveBeenCalledWith(query, null, followLink('schema'));
     });
 
     it('it should set metadataFieldSuggestions to the right value', () => {

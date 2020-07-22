@@ -8,6 +8,7 @@
          [ngClass]="{'is-invalid': !valid}"
          [dsDebounce]="debounceTime" (onDebounce)="find($event)"
          [placeholder]="placeholder"
+         ng-model-options="{standalone: true}"
          autocomplete="off">
   <input type="submit" class="d-none"/>
   <small class="text-danger"

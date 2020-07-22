@@ -5,7 +5,7 @@
         </div>
         <div *ngIf="(editable | async)" class="field-container">
             <ds-filter-input-suggestions [suggestions]="(metadataFieldSuggestions | async)"
-                                  [(ngModel)]="metadata.key"
+                                         [(ngModel)]="metadata.key"
                                   (submitSuggestion)="update(suggestionControl)"
                                   (clickSuggestion)="update(suggestionControl)"
                                   (typeSuggestion)="update(suggestionControl)"
@@ -17,6 +17,8 @@
                                   [ngModelOptions]="{standalone: true}"
             ></ds-filter-input-suggestions>
         </div>
+        <small class="text-danger"
+               *ngIf="(valid | async) === false">{{"item.edit.metadata.metadatafield.invalid" | translate}}</small>
     </div>
 </td>
 <td class="w-100">

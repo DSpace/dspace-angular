@@ -37,7 +37,7 @@ export class FilterInputSuggestionsComponent extends InputSuggestionsComponent i
 
   ngOnInit() {
     this.form = new FormGroup({
-      metadataNameField: new FormControl('', {
+      metadataNameField: new FormControl(this._value, {
         asyncValidators: [this.metadataFieldValidator.validate.bind(this.metadataFieldValidator)],
         validators: [Validators.required]
       })
