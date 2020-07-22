@@ -242,6 +242,9 @@ export class SubmissionObjectEffects {
         catchError(() => observableOf(new DiscardSubmissionErrorAction(action.payload.submissionId))));
     }));
 
+  /**
+   * Adds all metadata an item to the SubmissionForm sections of the submission
+   */
   @Effect() addAllMetadataToSectionData = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.UPLOAD_SECTION_DATA),
     switchMap((action: UpdateSectionDataAction) => {

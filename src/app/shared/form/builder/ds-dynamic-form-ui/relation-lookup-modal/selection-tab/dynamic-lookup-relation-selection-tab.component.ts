@@ -29,6 +29,9 @@ import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.uti
  * Tab for inside the lookup model that represents the currently selected relationships
  */
 export class DsDynamicLookupRelationSelectionTabComponent {
+  /**
+   * A string that describes the type of relationship
+   */
   @Input() relationshipType: string;
 
   /**

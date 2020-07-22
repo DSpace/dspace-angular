@@ -115,6 +115,9 @@ export class RelationshipEffects {
       )
     );
 
+  /**
+   * Save the latest submission ID, to make sure it's updated when the patch is finished
+   */
   @Effect({ dispatch: false }) updateRelationshipActions$ = this.actions$
     .pipe(
       ofType(RelationshipActionTypes.UPDATE_RELATIONSHIP),
@@ -123,7 +126,10 @@ export class RelationshipEffects {
       })
     );
 
-  @Effect() commitServerSyncBuffer = this.actions$
+  /**
+   * Save the submission object with ID updateAfterPatchSubmissionId
+   */
+  @Effect() saveSubmissionSection = this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.EMPTY, JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS),
       filter(() => hasValue(this.updateAfterPatchSubmissionId)),
@@ -174,7 +180,11 @@ export class RelationshipEffects {
     });
   }
 
-  refreshWorkspaceItemInCache(submissionId: string): Observable<SubmissionObject> {
+  /**
+   * Make sure the SubmissionObject is refreshed in the cache after being used
+   * @param submissionId The ID of the submission object
+   */
+  private refreshWorkspaceItemInCache(submissionId: string): Observable<SubmissionObject> {
     return this.submissionObjectService.getHrefByID(submissionId).pipe(take(1)).pipe(
       switchMap((href: string) => {
         this.objectCache.remove(href);
