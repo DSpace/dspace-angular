@@ -21,7 +21,6 @@ import { WorkspaceItem } from './models/workspaceitem.model';
 @dataService(WorkspaceItem.type)
 export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
   protected linkPath = 'workspaceitems';
-  protected responseMsToLive = 10 * 1000;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkspaceItem>,

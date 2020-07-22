@@ -1,0 +1,52 @@
+@import './../../../../../../../styles/variables';
+
+:host {
+  display: block;
+}
+
+.cdk-drag {
+    margin-left: -(2 * $spacer);
+    margin-right: -(0.5 * $spacer);
+    padding-right: (0.5 * $spacer);
+    .drag-icon {
+        visibility: hidden;
+        width: (2 * $spacer);
+        color: $gray-600;
+        margin: $btn-padding-y 0;
+        line-height: $btn-line-height;
+        text-indent: 0.5 * $spacer
+    }
+
+    &:hover, &:focus {
+        cursor: grab;
+        .drag-icon {
+            visibility: visible;
+        }
+    }
+
+}
+
+.cdk-drop-list-dragging {
+    .cdk-drag {
+        cursor: grabbing;
+        .drag-icon {
+            visibility: hidden;
+        }
+    }
+}
+
+.cdk-drag-preview {
+    background-color: white;
+    border-radius: $border-radius-sm;
+    margin-left: 0;
+    box-shadow: 0 5px 5px 0px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    .drag-icon {
+        visibility: visible;
+    }
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}

@@ -1,29 +1,25 @@
-<div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
+<div [class.form-group]="asBootstrapFormGroup"
      [formGroup]="group"
      [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
-
     <label *ngIf="!isCheckbox && hasLabel"
            [for]="model.id"
            [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
            [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
-
     <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
-
-    <div [ngClass]="{'form-row': model.hasLanguages || hasRelationLookup }">
+    <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
+    <div [ngClass]="{'form-row': model.hasLanguages || isRelationship,
+                      'd-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
         <div [ngClass]="getClass('grid', 'control')">
-
             <ng-container #componentViewContainer></ng-container>
-
-            <small *ngIf="hasHint && (!showErrorMessages || errorMessages.length === 0)"
+            <small *ngIf="hasHint && (model.repeatable === false || context?.index === 0) && (!showErrorMessages || errorMessages.length === 0)"
                    class="text-muted" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
 
             <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
-                <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate:model.validators }}</small>
+                <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate: model.validators }}</small>
             </div>
 
         </div>
-
-        <div *ngIf="model.languageCodes && model.languageCodes.length > 0" class="col-xs-2">
+        <div *ngIf="model.languageCodes && model.languageCodes.length > 0" class="col-xs-2" >
             <select
                     #language="ngModel"
                     [disabled]="model.readOnly"
@@ -36,32 +32,41 @@
                 <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
             </select>
         </div>
-
-        <div *ngIf="hasRelationLookup" class="col-auto text-center">
+        <div *ngIf="isRelationship" class="col-auto text-center" [class.invisible]="context?.index > 0">
             <button class="btn btn-secondary"
-                    type="submit"
+                    type="button"
                     ngbTooltip="{{'form.lookup-help' | translate}}"
                     placement="top"
                     (click)="openLookup(); $event.stopPropagation();">{{'form.lookup' | translate}}
             </button>
         </div>
     </div>
-
     <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
-
+    <ng-container *ngIf="value?.isVirtual">
+        <ds-existing-metadata-list-element
+                *ngIf="model.hasSelectableMetadata"
+                [reoRel]="relationshipValue$ | async"
+                [submissionItem]="item$ | async"
+                [listId]="listId"
+                [metadataFields]="model.metadataFields"
+                [submissionId]="model.submissionId"
+                [relationshipOptions]="model.relationship"
+                (remove)="onRemove()"
+        >
+        </ds-existing-metadata-list-element>
+        <ds-existing-relation-list-element
+                *ngIf="!model.hasSelectableMetadata"
+                [ngClass]="{'d-block pb-2 pt-2': !context?.index}"
+                [reoRel]="relationshipValue$ | async"
+                [submissionItem]="item$ | async"
+                [listId]="listId"
+                [metadataFields]="model.metadataFields"
+                [submissionId]="model.submissionId"
+                [relationshipOptions]="model.relationship"
+        >
+        </ds-existing-relation-list-element>
+    </ng-container>
     <ng-content></ng-content>
-
-
-    <div *ngIf="hasRelationLookup" class="mt-3">
-        <ul class="list-unstyled" cdkDropList (cdkDropListDropped)="moveSelection($event)">
-            <ds-existing-metadata-list-element cdkDrag
-                                               *ngFor="let reorderable of reorderables; trackBy: trackReorderable"
-                                               [reoRel]="reorderable"
-                                               [submissionItem]="item"
-                                               [listId]="listId"
-                                               [metadataFields]="model.metadataFields"
-                                               [relationshipOptions]="model.relationship">
-            </ds-existing-metadata-list-element>
-        </ul>
-    </div>
 </div>
+
+

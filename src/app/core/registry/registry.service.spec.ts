@@ -127,7 +127,7 @@ describe('RegistryService', () => {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(mockSchemasList)),
       findById: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
       createOrUpdateMetadataSchema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
-      deleteAndReturnResponse: observableOf(new RestResponse(true, 200, 'OK')),
+      delete: observableOf(new RestResponse(true, 200, 'OK')),
       clearRequests: observableOf('href')
     });
 
@@ -136,7 +136,7 @@ describe('RegistryService', () => {
       findById: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       create: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       put: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
-      deleteAndReturnResponse: observableOf(new RestResponse(true, 200, 'OK')),
+      delete: observableOf(new RestResponse(true, 200, 'OK')),
       clearRequests: observableOf('href')
     });
   }

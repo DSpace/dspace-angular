@@ -80,7 +80,8 @@ function init() {
     submissionScope: undefined,
     validators: { required: null },
     repeatable: false,
-    metadataFields: []
+    metadataFields: [],
+    hasSelectableMetadata: false
   } as DynamicRelationGroupModelConfig;
 
   FORM_GROUP_TEST_GROUP = new FormGroup({

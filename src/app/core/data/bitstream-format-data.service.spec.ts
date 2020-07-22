@@ -281,7 +281,7 @@ describe('BitstreamFormatDataService', () => {
       format.uuid = 'format-uuid';
       format.id = 'format-id';
 
-      const expected = cold('(b|)', {b: true});
+      const expected = cold('(b|)', { b: responseCacheEntry.response });
       const result = service.delete(format.id);
 
       expect(result).toBeObservable(expected);
