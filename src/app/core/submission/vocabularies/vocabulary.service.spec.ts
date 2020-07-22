@@ -481,16 +481,16 @@ describe('VocabularyService', () => {
       });
     });
 
-    describe('findEntryDetailByValue', () => {
+    describe('findEntryDetailById', () => {
       it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
-        scheduler.schedule(() => service.findEntryDetailByValue('testValue', hierarchicalVocabulary.id));
+        scheduler.schedule(() => service.findEntryDetailById('testValue', hierarchicalVocabulary.id));
         scheduler.flush();
         const expectedId = `${hierarchicalVocabulary.id}:testValue`
         expect((service as any).vocabularyEntryDetailDataService.findById).toHaveBeenCalledWith(expectedId);
       });
 
       it('should return a RemoteData<VocabularyEntryDetail> for the object with the given id', () => {
-        const result = service.findEntryDetailByValue('testValue', hierarchicalVocabulary.id);
+        const result = service.findEntryDetailById('testValue', hierarchicalVocabulary.id);
         const expected = cold('a|', {
           a: vocabularyEntryDetailParentRD
         });

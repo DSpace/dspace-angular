@@ -188,7 +188,7 @@ export class VocabularyTreeviewService {
       getFirstSucceededRemoteListPayload(),
       flatMap((result: VocabularyEntry[]) => (result.length > 0) ? result : observableOf(null)),
       flatMap((entry: VocabularyEntry) =>
-        this.vocabularyService.findEntryDetailByValue(entry.otherInformation.id, this.vocabularyName).pipe(
+        this.vocabularyService.findEntryDetailById(entry.otherInformation.id, this.vocabularyName).pipe(
           getFirstSucceededRemoteDataPayload()
         )
       ),
@@ -289,7 +289,7 @@ export class VocabularyTreeviewService {
    * @return Observable<VocabularyEntryDetail>
    */
   private getById(entryId: string): Observable<VocabularyEntryDetail> {
-    return this.vocabularyService.findEntryDetailByValue(entryId, this.vocabularyName).pipe(
+    return this.vocabularyService.findEntryDetailById(entryId, this.vocabularyName).pipe(
       getFirstSucceededRemoteDataPayload()
     );
   }
