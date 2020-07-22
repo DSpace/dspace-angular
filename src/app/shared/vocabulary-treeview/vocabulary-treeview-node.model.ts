@@ -34,6 +34,7 @@ export class TreeviewFlatNode {
   constructor(public item: VocabularyEntryDetail,
               public level = 1,
               public expandable = false,
+              public childrenLoaded = false,
               public pageInfo: PageInfo = new PageInfo(),
               public loadMoreParentItem: VocabularyEntryDetail | null = null,
               public isSearchNode = false,
