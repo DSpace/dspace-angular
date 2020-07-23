@@ -1,5 +1,5 @@
 <ds-metadata-field-wrapper [label]="label | translate">
     <span *ngFor="let mdValue of mdValues; let last=last;">
-        {{mdValue.value}}<span *ngIf="!last" [innerHTML]="separator"></span>
+        {{mdValue?.value}}<span *ngIf="!last" [innerHTML]="separator"></span>
     </span>
 </ds-metadata-field-wrapper>
