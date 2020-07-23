@@ -665,7 +665,7 @@ describe('SectionFormOperationsService test suite', () => {
       spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/1');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
       spyOn(service, 'getFieldValueFromChangeEvent').and.returnValue(new FormFieldMetadataValueObject('test'));
-      spyOn(service, 'getArrayIndexFromEvent').and.returnValue(1);
+      spyOn(service, 'getArrayIndexFromEvent').and.returnValue(0);
       spyOn(serviceAsAny, 'getValueMap');
       spyOn(serviceAsAny, 'dispatchOperationsFromMap');
       formBuilderService.isQualdropGroup.and.returnValue(false);
@@ -676,8 +676,10 @@ describe('SectionFormOperationsService test suite', () => {
       serviceAsAny.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, false);
 
       expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath('path/1'),
-        new FormFieldMetadataValueObject('test'));
+        pathCombiner.getPath('path'),
+        new FormFieldMetadataValueObject('test'),
+        true
+      );
     });
   });
 

@@ -224,7 +224,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param ePerson The EPerson to delete
    */
   public deleteEPerson(ePerson: EPerson): Observable<boolean> {
-    return this.delete(ePerson.id);
+    return this.delete(ePerson.id).pipe(map((response: RestResponse) => response.isSuccessful));
   }
 
   /**

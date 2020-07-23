@@ -15,7 +15,7 @@ import { VocabularyOptions } from '../../../../../../core/submission/vocabularie
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { DsDynamicLookupComponent } from './dynamic-lookup.component';
-import { DynamicLookupModel } from './dynamic-lookup.model';
+import { DynamicLookupModel, DynamicLookupModelConfig } from './dynamic-lookup.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
@@ -23,7 +23,7 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 
-let LOOKUP_TEST_MODEL_CONFIG = {
+let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
   vocabularyOptions: {
     closed: false,
     metadata: 'lookup',
@@ -40,11 +40,11 @@ let LOOKUP_TEST_MODEL_CONFIG = {
   readOnly: false,
   required: true,
   repeatable: true,
-  separator: ',',
   validators: { required: null },
   value: undefined,
   metadataFields: [],
-  submissionId: '1234'
+  submissionId: '1234',
+  hasSelectableMetadata: false
 };
 
 let LOOKUP_NAME_TEST_MODEL_CONFIG = {
@@ -64,11 +64,11 @@ let LOOKUP_NAME_TEST_MODEL_CONFIG = {
   readOnly: false,
   required: true,
   repeatable: true,
-  separator: ',',
   validators: { required: null },
   value: undefined,
   metadataFields: [],
-  submissionId: '1234'
+  submissionId: '1234',
+  hasSelectableMetadata: false
 };
 
 let LOOKUP_TEST_GROUP = new FormGroup({
@@ -95,11 +95,11 @@ describe('Dynamic Lookup component', () => {
       readOnly: false,
       required: true,
       repeatable: true,
-      separator: ',',
       validators: { required: null },
       value: undefined,
       metadataFields: [],
-      submissionId: '1234'
+      submissionId: '1234',
+      hasSelectableMetadata: false
     };
 
     LOOKUP_NAME_TEST_MODEL_CONFIG = {
@@ -119,11 +119,11 @@ describe('Dynamic Lookup component', () => {
       readOnly: false,
       required: true,
       repeatable: true,
-      separator: ',',
       validators: { required: null },
       value: undefined,
       metadataFields: [],
-      submissionId: '1234'
+      submissionId: '1234',
+      hasSelectableMetadata: false
     };
 
     LOOKUP_TEST_GROUP = new FormGroup({

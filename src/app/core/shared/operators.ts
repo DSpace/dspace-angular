@@ -66,7 +66,7 @@ export const getPaginatedListPayload = () =>
 
 export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
+    source.pipe(filter((rd: RemoteData<T>) => rd.hasSucceeded), take(1));
 
 export const getSucceededRemoteWithNotEmptyData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>

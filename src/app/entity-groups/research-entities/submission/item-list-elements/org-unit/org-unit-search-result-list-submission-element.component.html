@@ -1,10 +1,15 @@
 <div class="d-flex">
-    <div class="person-thumbnail pr-2">
-        <ds-thumbnail [thumbnail]="getThumbnail() | async" [defaultImage]="'assets/images/orgunit-placeholder.svg'"></ds-thumbnail>
-    </div>
+<!--    <div class="person-thumbnail pr-2">-->
+<!--        <ds-thumbnail [thumbnail]="getThumbnail() | async" [defaultImage]="'assets/images/orgunit-placeholder.svg'"></ds-thumbnail>-->
+<!--    </div>-->
     <div class="flex-grow-1">
-        <ds-org-unit-input-suggestions [suggestions]="allSuggestions" [(ngModel)]="selectedName" (clickSuggestion)="select($event)"
+        <ds-org-unit-input-suggestions *ngIf="useNameVariants" [suggestions]="allSuggestions" [(ngModel)]="selectedName" (clickSuggestion)="select($event)"
                                        (submitSuggestion)="selectCustom($event)"></ds-org-unit-input-suggestions>
+
+      <div *ngIf="!useNameVariants"
+            class="lead"
+            [innerHTML]="firstMetadataValue('organization.legalName')"></div>
+
         <span class="text-muted">
         <span *ngIf="dso.allMetadata('organization.address.addressLocality').length > 0"
               class="item-list-address-locality">

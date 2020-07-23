@@ -187,6 +187,7 @@ import { MissingTranslationHelper } from './translate/missing-translation.helper
 import { ItemVersionsNoticeComponent } from './item/item-versions/notice/item-versions-notice.component';
 import { FileValidator } from './utils/require-file.validator';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
+import { ExistingRelationListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-relation-list-element/existing-relation-list-element.component';
 import { ModifyItemOverviewComponent } from '../+item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { ClaimedTaskActionsLoaderComponent } from './mydspace-actions/claimed-task/switcher/claimed-task-actions-loader.component';
 import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
@@ -378,6 +379,7 @@ const COMPONENTS = [
   ExternalSourceEntryImportModalComponent,
   ImportableListItemControlComponent,
   ExistingMetadataListElementComponent,
+  ExistingRelationListElementComponent,
   LogInShibbolethComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
@@ -458,6 +460,7 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
   ExternalSourceEntryImportModalComponent,
+  ExistingRelationListElementComponent,
   LogInPasswordComponent,
   LogInShibbolethComponent,
   ItemVersionsComponent,

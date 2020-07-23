@@ -231,6 +231,8 @@ describe('VocabularyService', () => {
     describe('', () => {
       beforeEach(() => {
         responseCacheEntry = new RequestEntry();
+        responseCacheEntry.request = { href: 'https://rest.api/' } as any;
+        responseCacheEntry.completed = true;
         responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
         requestService = jasmine.createSpyObj('requestService', {
@@ -430,6 +432,8 @@ describe('VocabularyService', () => {
       });
 
       responseCacheEntry = new RequestEntry();
+      responseCacheEntry.request = { href: 'https://rest.api/' } as any;
+      responseCacheEntry.completed = true;
       responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
       requestService = jasmine.createSpyObj('requestService', {

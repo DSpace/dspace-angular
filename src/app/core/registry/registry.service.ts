@@ -223,7 +223,7 @@ export class RegistryService {
    * @param id The id of the metadata schema to delete
    */
   public deleteMetadataSchema(id: number): Observable<RestResponse> {
-    return this.metadataSchemaService.deleteAndReturnResponse(`${id}`);
+    return this.metadataSchemaService.delete(`${id}`);
   }
 
   /**
@@ -269,7 +269,7 @@ export class RegistryService {
    * @param id The id of the metadata field to delete
    */
   public deleteMetadataField(id: number): Observable<RestResponse> {
-    return this.metadataFieldService.deleteAndReturnResponse(`${id}`);
+    return this.metadataFieldService.delete(`${id}`);
   }
   /**
    * Method that clears a cached metadata field request and returns its REST url

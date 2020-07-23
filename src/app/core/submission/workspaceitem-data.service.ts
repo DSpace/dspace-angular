@@ -8,7 +8,6 @@ import { CoreState } from '../core.reducers';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindListOptions } from '../data/request.models';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
@@ -21,7 +20,6 @@ import { WorkspaceItem } from './models/workspaceitem.model';
 @dataService(WorkspaceItem.type)
 export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
   protected linkPath = 'workspaceitems';
-  protected responseMsToLive = 10 * 1000;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkspaceItem>,

@@ -2,20 +2,18 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Item } from '../../../../../../core/shared/item.model';
-import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
 import { SearchResult } from '../../../../../search/search-result.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../../../core/data/remote-data';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { hasValue, isNotEmpty } from '../../../../../empty.util';
-import { concat, map, multicast, switchMap, take, takeWhile, tap } from 'rxjs/operators';
-import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
+import { hasValue } from '../../../../../empty.util';
+import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../../../../core/shared/operators';
 import { RouteService } from '../../../../../../core/services/route.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
@@ -47,6 +45,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * The ID of the list to add/remove selected items to/from
    */
   @Input() listId: string;
+  @Input() query: string;
 
   /**
    * Is the selection repeatable?
@@ -101,10 +100,10 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   /**
    * The initial pagination to use
    */
-  initialPagination = Object.assign(new PaginationComponentOptions(), {
-    id: 'submission-relation-list',
+  initialPagination = {
+    page: 1,
     pageSize: 5
-  });
+  };
 
   /**
    * The type of links to display
@@ -129,10 +128,8 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.resetRoute();
     this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
     this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
-
-    this.someSelected$ = this.selection$.pipe(map((selection) => isNotEmpty(selection)));
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
-      switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options))
+      switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options).pipe(startWith(undefined)))
     );
   }
 
@@ -141,7 +138,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    */
   resetRoute() {
     this.router.navigate([], {
-      queryParams: Object.assign({}, { pageSize: this.initialPagination.pageSize }, this.route.snapshot.queryParams, { page: 1 })
+      queryParams: Object.assign({ query: this.query }, this.route.snapshot.queryParams, this.initialPagination),
     });
   }
 

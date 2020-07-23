@@ -70,7 +70,8 @@ export const RESOURCE_POLICY_FORM_NAME_CONFIG: DsDynamicInputModelConfig = {
   label: 'resource-policies.form.name.label',
   metadataFields: [],
   repeatable: false,
-  submissionId: ''
+  submissionId: '',
+  hasSelectableMetadata: false
 };
 
 export const RESOURCE_POLICY_FORM_DESCRIPTION_CONFIG: DsDynamicTextAreaModelConfig = {
@@ -79,7 +80,8 @@ export const RESOURCE_POLICY_FORM_DESCRIPTION_CONFIG: DsDynamicTextAreaModelConf
   metadataFields: [],
   repeatable: false,
   rows: 10,
-  submissionId: ''
+  submissionId: '',
+  hasSelectableMetadata: false
 };
 
 export const RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG: DynamicSelectModelConfig<any> = {

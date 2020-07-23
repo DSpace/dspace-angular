@@ -1,4 +1,4 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable, Subscription, zip as observableZip } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../../empty.util';
@@ -11,24 +11,19 @@ import { ListableObject } from '../../../../object-collection/shared/listable-ob
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getSucceededRemoteData
-} from '../../../../../core/shared/operators';
-import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipAction } from './relationship.actions';
+import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
+import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipNameVariantAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { ExternalSourceService } from '../../../../../core/data/external-source.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -46,6 +41,8 @@ import { ExternalSourceService } from '../../../../../core/data/external-source.
  * Represents a modal where the submitter can select items to be added as a certain relationship type to the object being submitted
  */
 export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
+  @Output() selectEvent: EventEmitter<ListableObject[]> = new EventEmitter<ListableObject[]>();
+
   /**
    * The label to use to display i18n messages (describing the type of relationship)
    */
@@ -91,12 +88,15 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   metadataFields: string;
 
+  query: string;
+
   /**
    * A map of subscriptions within this component
    */
   subMap: {
     [uuid: string]: Subscription
   } = {};
+  submissionId: string;
 
   /**
    * A list of the available external sources configured for this relationship
@@ -122,8 +122,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     private lookupRelationService: LookupRelationService,
     private searchConfigService: SearchConfigurationService,
     private zone: NgZone,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router,
   ) {
+
   }
 
   ngOnInit(): void {
@@ -133,8 +135,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.selection$.pipe(take(1)).subscribe((selection) =>
       selection.map((s: SearchResult<Item>) => this.addNameVariantSubscription(s))
     );
-    if (this.relationshipOptions.nameVariants) {
-      this.context = Context.SubmissionModal;
+    if (this.relationshipOptions.nameVariants === 'true') {
+      this.context = Context.EntitySearchModalWithNameVariants;
+    } else {
+      this.context = Context.EntitySearchModal;
     }
 
     this.externalSourcesRD$ = this.externalSourceService.findAll();
@@ -170,7 +174,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         obs
           .subscribe((arr: any[]) => {
             return arr.forEach((object: any) => {
-                this.store.dispatch(new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, object.nameVariant));
+              const addRelationshipAction = new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant);
+              this.store.dispatch(addRelationshipAction);
               }
             );
           })
@@ -185,7 +190,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     const nameVariant$ = this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid);
     this.subMap[sri.indexableObject.uuid] = nameVariant$.pipe(
       skip(1),
-    ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant)))
+    ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipNameVariantAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, this.submissionId, nameVariant)))
   }
 
   /**
@@ -196,46 +201,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();
-        this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType));
+        this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType, this.submissionId));
       })
     );
-  }
-
-  /**
-   * Set existing name variants for items by the item's virtual metadata
-   */
-  private setExistingNameVariants() {
-    const virtualMDs: MetadataValue[] = this.item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual);
-
-    const relatedItemPairs$: Observable<Array<[Item, Item]>> =
-      combineLatest(virtualMDs.map((md: MetadataValue) => this.relationshipService.findById(md.virtualValue).pipe(getSucceededRemoteData(), getRemoteDataPayload())))
-        .pipe(
-          switchMap((relationships: Relationship[]) => combineLatest(relationships.map((relationship: Relationship) =>
-              combineLatest(
-                relationship.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
-                relationship.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
-              ))
-            )
-          )
-        );
-
-    const relatedItems$: Observable<Item[]> = relatedItemPairs$.pipe(
-      map((relatedItemPairs: Array<[Item, Item]>) => {
-        return relatedItemPairs
-          .map(([left, right]: [Item, Item]) => left.uuid === this.item.uuid ? left : right)
-      })
-    );
-
-    relatedItems$.pipe(take(1)).subscribe((relatedItems) => {
-        let index = 0;
-        virtualMDs.forEach(
-          (md: MetadataValue) => {
-            this.relationshipService.setNameVariant(this.listId, relatedItems[index].uuid, md.value);
-            index++;
-          }
-        );
-      }
-    )
   }
 
   /**
@@ -270,6 +238,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   ngOnDestroy() {
+    this.router.navigate([], {});
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
 }

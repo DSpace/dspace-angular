@@ -1,23 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {
-  ExistingMetadataListElementComponent,
-  ReorderableRelationship
-} from './existing-metadata-list-element.component';
+import { ExistingRelationListElementComponent } from './existing-relation-list-element.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { Store } from '@ngrx/store';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { of as observableOf } from 'rxjs';
+import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 
-describe('ExistingMetadataListElementComponent', () => {
-  let component: ExistingMetadataListElementComponent;
-  let fixture: ComponentFixture<ExistingMetadataListElementComponent>;
+describe('ExistingRelationListElementComponent', () => {
+  let component: ExistingRelationListElementComponent;
+  let fixture: ComponentFixture<ExistingRelationListElementComponent>;
   let selectionService;
   let store;
   let listID;
@@ -60,7 +58,7 @@ describe('ExistingMetadataListElementComponent', () => {
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ExistingMetadataListElementComponent],
+      declarations: [ExistingRelationListElementComponent],
       providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
@@ -71,7 +69,7 @@ describe('ExistingMetadataListElementComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExistingMetadataListElementComponent);
+    fixture = TestBed.createComponent(ExistingRelationListElementComponent);
     component = fixture.componentInstance;
     component.listId = listID;
     component.submissionItem = submissionItem;

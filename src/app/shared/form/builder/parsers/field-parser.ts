@@ -3,7 +3,7 @@ import { Inject, InjectionToken } from '@angular/core';
 import { uniqueId } from 'lodash';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
@@ -40,36 +40,51 @@ export abstract class FieldParser {
       && (this.configData.input.type !== 'list')
       && (this.configData.input.type !== 'tag')
       && (this.configData.input.type !== 'group')
-      && isEmpty(this.configData.selectableRelationship)
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
 
+      let metadataKey;
+
+      if (Array.isArray(this.configData.selectableMetadata) && this.configData.selectableMetadata.length === 1) {
+        metadataKey = this.configData.selectableMetadata[0].metadata;
+      }
       const config = {
         id: uniqueId() + '_array',
         label: this.configData.label,
         initialCount: this.getInitArrayIndex(),
         notRepeatable: !this.configData.repeatable,
+        relationshipConfig: this.configData.selectableRelationship,
         required: JSON.parse(this.configData.mandatory),
+        submissionId: this.submissionId,
+        metadataKey,
+        metadataFields: this.getAllFieldIds(),
+        hasSelectableMetadata: isNotEmpty(this.configData.selectableMetadata),
         groupFactory: () => {
           let model;
           if ((arrayCounter === 0)) {
             model = this.modelFactory();
             arrayCounter++;
           } else {
-            const fieldArrayOfValueLenght = this.getInitValueCount(arrayCounter - 1);
+            const fieldArrayOfValueLength = this.getInitValueCount(arrayCounter - 1);
             let fieldValue = null;
-            if (fieldArrayOfValueLenght > 0) {
-              fieldValue = this.getInitFieldValue(arrayCounter - 1, fieldArrayCounter++);
-              if (fieldArrayCounter === fieldArrayOfValueLenght) {
+            if (fieldArrayOfValueLength > 0) {
+              if (fieldArrayCounter === 0) {
+                fieldValue = '';
+              } else {
+                fieldValue = this.getInitFieldValue(arrayCounter - 1, fieldArrayCounter - 1);
+              }
+              fieldArrayCounter++;
+              if (fieldArrayCounter === fieldArrayOfValueLength + 1) {
                 fieldArrayCounter = 0;
                 arrayCounter++;
               }
             }
             model = this.modelFactory(fieldValue, false);
+            model.id = `${model.id}_${fieldArrayCounter}`;
           }
           setLayout(model, 'element', 'host', 'col');
-          if (model.hasLanguages) {
+          if (model.hasLanguages || isNotEmpty(model.relationship)) {
             setLayout(model, 'grid', 'control', 'col');
           }
           return [model];
@@ -86,6 +101,7 @@ export abstract class FieldParser {
 
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
+      model.submissionId = this.submissionId;
       if (model.hasLanguages || isNotEmpty(model.relationship)) {
         setLayout(model, 'grid', 'control', 'col');
       }
@@ -117,7 +133,9 @@ export abstract class FieldParser {
       }
 
       if (typeof fieldValue === 'object') {
+        modelConfig.metadataValue = fieldValue;
         modelConfig.language = fieldValue.language;
+        modelConfig.place = fieldValue.place;
         if (forceValueAsObj) {
           modelConfig.value = fieldValue;
         } else {
@@ -194,9 +212,10 @@ export abstract class FieldParser {
   }
 
   protected getInitArrayIndex() {
+    let fieldCount = 0;
     const fieldIds: any = this.getAllFieldIds();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds)) {
-      return this.initFormValues[fieldIds].length;
+      fieldCount = this.initFormValues[fieldIds].filter((value) => hasValue(value) && hasValue(value.value)).length;
     } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
       let counter = 0;
       fieldIds.forEach((id) => {
@@ -204,10 +223,9 @@ export abstract class FieldParser {
           counter = counter + this.initFormValues[id].length;
         }
       });
-      return (counter === 0) ? 1 : counter;
-    } else {
-      return 1;
+      fieldCount = counter;
     }
+    return (fieldCount === 0) ? 1 : fieldCount + 1
   }
 
   protected getFieldId(): string {
@@ -225,11 +243,11 @@ export abstract class FieldParser {
         return ids;
       }
     } else {
-      return [this.configData.selectableRelationship.relationshipType];
+      return ['relation.' + this.configData.selectableRelationship.relationshipType];
     }
   }
 
-  protected initModel(id?: string, label = true, setErrors = true) {
+  protected initModel(id?: string, label = true, setErrors = true, hint = true) {
 
     const controlModel = Object.create(null);
 
@@ -249,15 +267,16 @@ export abstract class FieldParser {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);
     }
     controlModel.repeatable = this.configData.repeatable;
-    controlModel.metadataFields = isNotEmpty(this.configData.selectableMetadata) ? this.configData.selectableMetadata.map((metadataObject) => metadataObject.metadata) : [];
+    controlModel.metadataFields = this.getAllFieldIds() || [];
+    controlModel.hasSelectableMetadata = isNotEmpty(this.configData.selectableMetadata);
     controlModel.submissionId = this.submissionId;
 
     // Set label
     this.setLabel(controlModel, label);
-
+    if (hint) {
+      controlModel.hint = this.configData.hints;
+    }
     controlModel.placeholder = this.configData.label;
-
-    controlModel.hint = this.configData.hints;
 
     if (this.configData.mandatory && setErrors) {
       this.markAsRequired(controlModel);
@@ -286,7 +305,6 @@ export abstract class FieldParser {
       {},
       controlModel.errorMessages,
       { pattern: 'error.validation.pattern' });
-
   }
 
   protected markAsRequired(controlModel) {

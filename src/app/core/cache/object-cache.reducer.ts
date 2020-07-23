@@ -1,7 +1,5 @@
-import { autoserialize, deserialize } from 'cerialize';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
-import { excludeFromEquals } from '../utilities/equals.decorators';
 import {
   ObjectCacheAction,
   ObjectCacheActionTypes,
@@ -14,12 +12,6 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheEntry } from './cache-entry';
 import { ResourceType } from '../shared/resource-type';
 import { applyPatch, Operation } from 'fast-json-patch';
-
-export enum DirtyType {
-  Created = 'Created',
-  Updated = 'Updated',
-  Deleted = 'Deleted'
-}
 
 /**
  * An interface to represent a JsonPatch
@@ -72,6 +64,7 @@ export class ObjectCacheEntry implements CacheEntry {
   patches: Patch[] = [];
   isDirty: boolean;
 }
+
 /* tslint:enable:max-classes-per-file */
 
 /**

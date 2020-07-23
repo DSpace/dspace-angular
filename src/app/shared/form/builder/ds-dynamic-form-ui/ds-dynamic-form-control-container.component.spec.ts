@@ -71,6 +71,9 @@ import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { FormService } from '../../form.service';
+import { SubmissionService } from '../../../../submission/submission.service';
+import { FormBuilderService } from '../form-builder.service';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -101,15 +104,16 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicSwitchModel({ id: 'switch' }),
     new DynamicTextAreaModel({ id: 'textarea' }),
     new DynamicTimePickerModel({ id: 'timepicker' }),
-    new DynamicOneboxModel({ id: 'onebox', metadataFields: [], repeatable: false, submissionId: '1234' }),
+    new DynamicOneboxModel({ id: 'typeahead', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
       vocabularyOptions: vocabularyOptions,
       metadataFields: [],
       repeatable: false,
-      submissionId: '1234'
+      submissionId: '1234',
+      hasSelectableMetadata: false
     }),
-    new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234' }),
+    new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
       vocabularyOptions: vocabularyOptions,
@@ -130,11 +134,12 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       scopeUUID: '',
       submissionScope: '',
       repeatable: false,
-      metadataFields: []
+      metadataFields: [],
+      hasSelectableMetadata: false
     }),
     new DynamicDsDatePickerModel({ id: 'datepicker' }),
-    new DynamicLookupModel({ id: 'lookup', metadataFields: [], repeatable: false, submissionId: '1234' }),
-    new DynamicLookupNameModel({ id: 'lookupName', metadataFields: [], repeatable: false, submissionId: '1234' }),
+    new DynamicLookupModel({ id: 'lookup', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
+    new DynamicLookupNameModel({ id: 'lookupName', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false}),
     new DynamicQualdropModel({ id: 'combobox', readOnly: false, required: false })
   ];
   const testModel = formModel[8];
@@ -175,6 +180,9 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: Store, useValue: {} },
         { provide: RelationshipService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
+        { provide: FormService, useValue: {} },
+        { provide: FormBuilderService, useValue: {} },
+        { provide: SubmissionService, useValue: {} },
         {
           provide: SubmissionObjectDataService,
           useValue: {
@@ -220,7 +228,6 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(component.group instanceof FormGroup).toBe(true);
     expect(component.model instanceof DynamicFormControlModel).toBe(true);
     expect(component.hasErrorMessaging).toBe(false);
-    expect(component.asBootstrapFormGroup).toBe(true);
 
     expect(component.onControlValueChanges).toBeDefined();
     expect(component.onModelDisabledUpdates).toBeDefined();
