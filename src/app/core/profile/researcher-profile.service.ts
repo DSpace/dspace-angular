@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Store } from '@ngrx/store';
 import { ReplaceOperation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
 import { catchError, flatMap, map, take, tap } from 'rxjs/operators';
+
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -14,17 +16,18 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { ItemDataService } from '../data/item-data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import { getFirstSucceededRemoteDataPayload, getFinishedRemoteData } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 
+/* tslint:disable:max-classes-per-file */
 
 /**
  * A private DataService implementation to delegate specific methods to.
  */
 class ResearcherProfileServiceImpl extends DataService<ResearcherProfile> {
     protected linkPath = 'profiles';
-  
+
     constructor(
       protected requestService: RequestService,
       protected rdbService: RemoteDataBuildService,
@@ -36,7 +39,7 @@ class ResearcherProfileServiceImpl extends DataService<ResearcherProfile> {
       protected comparator: DefaultChangeAnalyzer<ResearcherProfile>) {
       super();
     }
-  
+
 }
 
 /**
@@ -44,10 +47,12 @@ class ResearcherProfileServiceImpl extends DataService<ResearcherProfile> {
  */
 @Injectable()
 @dataService(RESEARCHER_PROFILE)
-export class ResearcherProfileService{
-    
-    private dataService: ResearcherProfileServiceImpl;
-    
+export class ResearcherProfileService {
+
+    dataService: ResearcherProfileServiceImpl;
+
+    responseMsToLive: number = 10 * 1000;
+
     constructor(
         protected requestService: RequestService,
         protected rdbService: RemoteDataBuildService,
@@ -58,50 +63,72 @@ export class ResearcherProfileService{
         protected http: HttpClient,
         protected comparator: DefaultChangeAnalyzer<ResearcherProfile>,
         protected itemService: ItemDataService ) {
-            
-            this.dataService = new ResearcherProfileServiceImpl(requestService, rdbService, store, objectCache, halService, 
+
+            this.dataService = new ResearcherProfileServiceImpl(requestService, rdbService, store, objectCache, halService,
                 notificationsService, http, comparator);
 
     }
 
-    findById(id: string) : Observable<ResearcherProfile> {
-        return this.dataService.findById ( id )
-            .pipe ( tap( x => console.log("FIND BY ID:",x)),getFirstSucceededRemoteDataPayload(),
-            catchError((error) => {
-                console.log("ERROR", error);
-                return observableOf(null);
-            }))     
+    /**
+     * Find the researcher profile with the given uuid.
+     *
+     * @param uuid the profile uuid
+     */
+    findById(uuid: string): Observable<ResearcherProfile> {
+        return this.dataService.findById ( uuid )
+            .pipe ( getFinishedRemoteData(),
+                map((remoteData) => remoteData.payload),
+                tap((profile) => this.requestService.removeByHrefSubstring('cris/profiles/' + uuid)));
     }
 
-    create () : Observable<ResearcherProfile> {
+    /**
+     * Create a new researcher profile for the current user.
+     */
+    create(): Observable<ResearcherProfile> {
         return this.dataService.create( new ResearcherProfile())
-            .pipe ( tap( profile => console.log("CREATE:",profile)),
-                getFirstSucceededRemoteDataPayload() );
+            .pipe ( getFinishedRemoteData(),
+                map((remoteData) => remoteData.payload));
     }
 
-    deleteById ( researcherProfile: ResearcherProfile) : Observable<boolean>{
+    /**
+     * Delete a researcher profile.
+     *
+     * @param researcherProfile the profile to delete
+     */
+    delete( researcherProfile: ResearcherProfile): Observable<boolean> {
         return this.dataService.delete(researcherProfile.id)
             .pipe( take(1),
-             tap( deleted => {
-                 if ( deleted){
-                     this.objectCache.remove(researcherProfile._links.self.href);
+             tap( (deleted) => {
+                 if ( deleted) {
+                     this.requestService.removeByHrefSubstring(researcherProfile._links.self.href);
                  }
              }));
     }
 
-    findRelatedItemId ( researcherProfile: ResearcherProfile ) : Observable<string>{
+    /**
+     * Find the item id related to the given researcher profile.
+     *
+     * @param researcherProfile the profile to find for
+     */
+    findRelatedItemId( researcherProfile: ResearcherProfile ): Observable<string> {
         return this.itemService.findByHref ( researcherProfile._links.item.href)
             .pipe (getFirstSucceededRemoteDataPayload(),
             catchError((error) => {
                 console.debug(error);
                 return observableOf(null);
             }),
-            map(item => item != null ? item.id : null ));
+            map((item) => item != null ? item.id : null ));
     }
 
-    setVisibility(researcherProfile : ResearcherProfile, visible : boolean) : Observable<ResearcherProfile>{
-        
-        const replaceOperation : ReplaceOperation<Boolean> = { 
+    /**
+     * Change the visibility of the given researcher profile setting the given value.
+     *
+     * @param researcherProfile the profile to update
+     * @param visible the visibility value to set
+     */
+    setVisibility(researcherProfile: ResearcherProfile, visible: boolean): Observable<ResearcherProfile> {
+
+        const replaceOperation: ReplaceOperation<boolean> = {
             path: '/visible',
             op: 'replace',
             value: visible
@@ -110,6 +137,5 @@ export class ResearcherProfileService{
         return this.dataService.patch(researcherProfile, [replaceOperation])
             .pipe (flatMap( (response ) => this.findById(researcherProfile.id)));
     }
-
 
 }

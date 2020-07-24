@@ -5,7 +5,6 @@ import { EPerson } from 'src/app/core/eperson/models/eperson.model';
 import { ResearcherProfile } from 'src/app/core/profile/model/researcher-profile.model';
 import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
 
-
 @Component({
     selector: 'ds-profile-page-researcher-form',
     templateUrl: './profile-page-researcher-form.component.html'
@@ -14,11 +13,11 @@ import { ResearcherProfileService } from 'src/app/core/profile/researcher-profil
  * Component for a user to create/delete or change his researcher profile.
  */
 export class ProfilePageResearcherFormComponent implements OnInit {
-    
+
     /**
      * The user to display the form for.
      */
-    @Input() 
+    @Input()
     user: EPerson;
 
     /**
@@ -30,71 +29,99 @@ export class ProfilePageResearcherFormComponent implements OnInit {
      * A boolean representing if a delete operation is pending
      * @type {BehaviorSubject<boolean>}
      */
-    private processingDelete$ = new BehaviorSubject<boolean>(false);
+    processingDelete$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     /**
      * A boolean representing if a create delete operation is pending
      * @type {BehaviorSubject<boolean>}
      */
-    private processingCreate$ = new BehaviorSubject<boolean>(false);
+    processingCreate$: BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(false);
 
-    constructor( protected researcherProfileService : ResearcherProfileService,
-                 protected router: Router){
+    constructor( protected researcherProfileService: ResearcherProfileService,
+                 protected router: Router) {
 
     }
 
+    /**
+     * Initialize the component searching the current user researcher profile.
+     */
     ngOnInit(): void {
         this.researcherProfileService.findById(this.user.id)
-            .subscribe ( researcherProfile => {
-                if ( researcherProfile != null){
+            .subscribe ( (researcherProfile) => {
+                if ( researcherProfile != null) {
                     this.researcherProfile$.next(researcherProfile);
                 }
             });
-
     }
 
-    createProfile() : void {
+    /**
+     * Create a new profile for the current user.
+     */
+    createProfile(): void {
         this.processingCreate$.next(true);
         this.researcherProfileService.create()
-            .subscribe ( researcherProfile => {
-                console.log("CREATED");
+            .subscribe ( (researcherProfile) => {
                 this.researcherProfile$.next(researcherProfile);
                 this.processingCreate$.next(false);
             });
     }
 
-    viewProfile( researcherProfile : ResearcherProfile ) : void {
+    /**
+     * Navigate to the items section to show the profile item details.
+     *
+     * @param researcherProfile the current researcher profile
+     */
+    viewProfile( researcherProfile: ResearcherProfile ): void {
         this.researcherProfileService.findRelatedItemId(researcherProfile)
-            .subscribe( itemId => {
-                if(itemId != null){
-                    this.router.navigate(["items",itemId]);
+            .subscribe( (itemId) => {
+                if (itemId != null) {
+                    this.router.navigate(['items',itemId]);
                 }
             });
     }
 
-    deleteProfile( researcherProfile : ResearcherProfile) : void {
+    /**
+     * Delete the given researcher profile.
+     *
+     * @param researcherProfile the profile to delete
+     */
+    deleteProfile( researcherProfile: ResearcherProfile): void {
         this.processingDelete$.next(true);
-        this.researcherProfileService.deleteById(researcherProfile)
-            .subscribe ( deleted => {
-                console.log("DELETED:",deleted);
-                if ( deleted ){
+        this.researcherProfileService.delete(researcherProfile)
+            .subscribe ( (deleted) => {
+                if ( deleted ) {
                     this.researcherProfile$.next(null);
                 }
                 this.processingDelete$.next(false);
             });
     }
 
-    toggleProfileVisibility(researcherProfile : ResearcherProfile) : void {
+    /**
+     * Toggle the visibility of the given researcher profile.
+     *
+     * @param researcherProfile the profile to update
+     */
+    toggleProfileVisibility(researcherProfile: ResearcherProfile): void {
         this.researcherProfileService.setVisibility(researcherProfile, !researcherProfile.visible)
-            .subscribe ( researcherProfile => this.researcherProfile$.next(researcherProfile));
+            .subscribe ( (updatedProfile) => this.researcherProfile$.next(updatedProfile));
     }
 
+    /**
+     * Return a boolean representing if a delete operation is pending.
+     *
+     * @return {Observable<boolean>}
+     */
     isProcessingDelete(): Observable<boolean> {
         return this.processingDelete$.asObservable();
     }
 
+    /**
+     * Return a boolean representing if a create operation is pending.
+     *
+     * @return {Observable<boolean>}
+     */
     isProcessingCreate(): Observable<boolean> {
         return this.processingCreate$.asObservable();
     }
-    
+
 }
