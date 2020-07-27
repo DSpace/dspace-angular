@@ -10,6 +10,7 @@ import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core'
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
+import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { ExportMetadataSelectorComponent } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
@@ -401,7 +402,8 @@ const COMPONENTS = [
   GroupSearchBoxComponent,
   FileDownloadLinkComponent,
   CollectionDropdownComponent,
-  ExportMetadataSelectorComponent
+  ExportMetadataSelectorComponent,
+  ConfirmationModalComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -478,7 +480,8 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsEditMetadataComponent,
   FileDownloadLinkComponent,
   CurationFormComponent,
-  ExportMetadataSelectorComponent
+  ExportMetadataSelectorComponent,
+  ConfirmationModalComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

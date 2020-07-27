@@ -995,6 +995,16 @@
 
 
 
+  "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
+
+  "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
+
+  "confirmation-modal.export-metadata.cancel": "Cancel",
+
+  "confirmation-modal.export-metadata.confirm": "Export",
+
+
+
   "error.bitstream": "Error fetching bitstream",
 
   "error.browse-by": "Error fetching items",
