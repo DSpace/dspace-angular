@@ -1,5 +1,13 @@
 {
 
+  "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
+
+  "401.link.home-page": "Take me to the home page",
+
+  "401.unauthorized": "unauthorized",
+
+
+
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
 
   "404.link.home-page": "Take me to the home page",
@@ -1377,6 +1385,8 @@
   "item.edit.relationships.reinstate-button": "Undo",
 
   "item.edit.relationships.save-button": "Save",
+
+  "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
 
 
 
@@ -2793,13 +2803,13 @@
 
   "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Author": "Local Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Issue": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Volume": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
 
@@ -2809,23 +2819,27 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Search for Funding Agencies",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding": "Search for Funding",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
 
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.title.Journal Issue": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
 
-  "submission.sections.describe.relationship-lookup.title.Journal Volume": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
 
-  "submission.sections.describe.relationship-lookup.title.Journal": "Journals",
+  "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
 
-  "submission.sections.describe.relationship-lookup.title.Author": "Authors",
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
 
-  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
 
-  "submission.sections.describe.relationship-lookup.title.Funding": "Funding",
+  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
+
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
@@ -2833,13 +2847,19 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Author": "Selected Authors",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Volume": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Issue": "Selected Issue",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
 

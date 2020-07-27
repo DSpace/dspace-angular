@@ -33,8 +33,8 @@ describe('ObjectCollectionComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(ObjectCollectionComponent);
     objectCollectionComponent = fixture.componentInstance;
-
   }));
+
   it('should only show the grid component when the viewmode is set to grid', () => {
     objectCollectionComponent.currentMode$ = observableOf(ViewMode.GridElement);
 

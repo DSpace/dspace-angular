@@ -73,7 +73,12 @@ describe('CollectionDataService', () => {
 
   describe('when the requests are successful', () => {
     beforeEach(() => {
-      createService();
+      createService(observableOf({
+        request: {
+          href: 'https://rest.api/request'
+        },
+        completed: true
+      }));
     });
 
     describe('when calling getContentSource', () => {
@@ -133,7 +138,7 @@ describe('CollectionDataService', () => {
       });
 
       it('should return a RemoteData<PaginatedList<Colletion>> for the getAuthorizedCollection', () => {
-        const result = service.getAuthorizedCollection(queryString)
+        const result = service.getAuthorizedCollection(queryString);
         const expected = cold('a|', {
           a: paginatedListRD
         });
@@ -148,7 +153,7 @@ describe('CollectionDataService', () => {
       });
 
       it('should return a RemoteData<PaginatedList<Colletion>> for the getAuthorizedCollectionByCommunity', () => {
-        const result = service.getAuthorizedCollectionByCommunity(communityId, queryString)
+        const result = service.getAuthorizedCollectionByCommunity(communityId, queryString);
         const expected = cold('a|', {
           a: paginatedListRD
         });

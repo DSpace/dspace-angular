@@ -15,7 +15,7 @@ describe('DsDynamicDisabledComponent', () => {
   let model;
 
   function init() {
-    model = new DynamicDisabledModel({ value: 'test', repeatable: false, metadataFields: [], submissionId: '1234', id: '1' });
+    model = new DynamicDisabledModel({ value: 'test', repeatable: false, metadataFields: [], submissionId: '1234', id: '1', hasSelectableMetadata: false });
   }
 
   beforeEach(async(() => {
@@ -52,7 +52,6 @@ describe('DsDynamicDisabledComponent', () => {
 
   it('should have a disabled input', () => {
     const input = de.query(By.css('input'));
-    console.log(input.nativeElement.getAttribute('disabled'));
     expect(input.nativeElement.getAttribute('disabled')).toEqual('');
   });
 });

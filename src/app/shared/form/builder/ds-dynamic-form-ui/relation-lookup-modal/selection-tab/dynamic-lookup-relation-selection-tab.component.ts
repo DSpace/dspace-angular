@@ -30,9 +30,9 @@ import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.uti
  */
 export class DsDynamicLookupRelationSelectionTabComponent {
   /**
-   * The label to use to display i18n messages (describing the type of relationship)
+   * A string that describes the type of relationship
    */
-  @Input() label: string;
+  @Input() relationshipType: string;
 
   /**
    * The ID of the list to add/remove selected items to/from

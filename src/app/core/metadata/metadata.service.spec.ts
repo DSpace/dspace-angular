@@ -168,7 +168,8 @@ describe('MetadataService', () => {
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         Meta,
         Title,
-        ItemDataService,
+        // tslint:disable-next-line:no-empty
+        { provide: ItemDataService, useValue: { findById: () => {} } },
         BrowseService,
         MetadataService
       ],

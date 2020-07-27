@@ -1,13 +1,9 @@
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
-import {
-  NewPatchAddOperationAction,
-  NewPatchRemoveOperationAction,
-  NewPatchReplaceOperationAction
-} from '../json-patch-operations.actions';
+import { NewPatchAddOperationAction, NewPatchMoveOperationAction, NewPatchRemoveOperationAction, NewPatchReplaceOperationAction } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
 import { Injectable } from '@angular/core';
-import { isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { dateToISOFormat } from '../../../shared/date.util';
 import { AuthorityValue } from '../../integration/models/authority.value';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
@@ -53,12 +49,35 @@ export class JsonPatchOperationsBuilder {
    *    a boolean representing if the value to be added is a plain text value
    */
   replace(path: JsonPatchOperationPathObject, value, plain = false) {
+    if (hasNoValue(value) || (typeof value === 'object' && hasNoValue(value.value))) {
+      this.remove(path);
+    } else {
+      this.store.dispatch(
+        new NewPatchReplaceOperationAction(
+          path.rootElement,
+          path.subRootElement,
+          path.path,
+          this.prepareValue(value, plain, false)));
+    }
+  }
+
+  /**
+   * Dispatch a new NewPatchMoveOperationAction
+   *
+   * @param path
+   *    the new path tho move to
+   * @param prevPath
+   *    the original path to move from
+   */
+  move(path: JsonPatchOperationPathObject, prevPath: string) {
     this.store.dispatch(
-      new NewPatchReplaceOperationAction(
+      new NewPatchMoveOperationAction(
         path.rootElement,
         path.subRootElement,
-        path.path,
-        this.prepareValue(value, plain, false)));
+        prevPath,
+        path.path
+      )
+    );
   }
 
   /**
