@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,7 +16,10 @@ import { RegistryService } from '../../../../core/registry/registry.service';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { SharedModule } from '../../../../shared/shared.module';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../../shared/remote-data.utils';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { EditInPlaceFieldComponent } from './edit-in-place-field.component';
 
@@ -27,22 +30,21 @@ let el: HTMLElement;
 let metadataFieldService;
 let objectUpdatesService;
 let paginatedMetadataFields;
-const mdSchema = Object.assign(new MetadataSchema(), { prefix: 'dc' })
+const mdSchema = Object.assign(new MetadataSchema(), { prefix: 'dc' });
+const mdSchemaRD$ = createSuccessfulRemoteDataObject$(mdSchema);
 const mdField1 = Object.assign(new MetadataField(), {
-  schema: mdSchema,
+  schema: mdSchemaRD$,
   element: 'contributor',
-  qualifier: 'author',
-  schemaResolved: mdSchema,
+  qualifier: 'author'
 });
 const mdField2 = Object.assign(new MetadataField(), {
-  schema: mdSchema,
-  element: 'title',
-  schemaResolved: mdSchema, });
+  schema: mdSchemaRD$,
+  element: 'title'
+});
 const mdField3 = Object.assign(new MetadataField(), {
-  schema: mdSchema,
+  schema: mdSchemaRD$,
   element: 'description',
   qualifier: 'abstract',
-  schemaResolved: mdSchema,
 });
 
 const metadatum = Object.assign(new MetadatumViewModel(), {
@@ -58,7 +60,7 @@ const fieldUpdate = {
 };
 let scheduler: TestScheduler;
 
-describe('EditInPlaceFieldComponent', () => {
+fdescribe('EditInPlaceFieldComponent', () => {
 
   beforeEach(async(() => {
     scheduler = getTestScheduler();
@@ -200,18 +202,18 @@ describe('EditInPlaceFieldComponent', () => {
 
     const metadataFieldSuggestions: InputSuggestion[] =
       [
-        { displayValue: (mdField1.schemaResolved.prefix + '.' + mdField1.toString()).split('.').join('.&#8203;'), value: (mdField1.schemaResolved.prefix + '.' + mdField1.toString()) },
-        { displayValue: (mdField2.schemaResolved.prefix + '.' + mdField2.toString()).split('.').join('.&#8203;'), value: (mdField2.schemaResolved.prefix + '.' + mdField2.toString()) },
-        { displayValue: (mdField3.schemaResolved.prefix + '.' + mdField3.toString()).split('.').join('.&#8203;'), value: (mdField3.schemaResolved.prefix + '.' + mdField3.toString()) }
+        { displayValue: ('dc.' + mdField1.toString()).split('.').join('.&#8203;'), value: ('dc.' + mdField1.toString()) },
+        { displayValue: ('dc.' + mdField2.toString()).split('.').join('.&#8203;'), value: ('dc.' + mdField2.toString()) },
+        { displayValue: ('dc.' + mdField3.toString()).split('.').join('.&#8203;'), value: ('dc.' + mdField3.toString()) }
       ];
 
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       comp.findMetadataFieldSuggestions(query);
-
-    });
+      tick();
+      fixture.detectChanges();
+    }));
 
     it('it should call queryMetadataFields on the metadataFieldService with the correct query', () => {
-
       expect(metadataFieldService.queryMetadataFields).toHaveBeenCalledWith(query, null, followLink('schema'));
     });
 

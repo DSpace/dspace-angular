@@ -1,17 +1,15 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import { metadataFieldsToString } from '../../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { cloneDeep } from 'lodash';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { NgModel } from '@angular/forms';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
-import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
@@ -124,34 +122,14 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Ignores fields from metadata schemas "relation" and "relationship"
    * @param query The query to look for
    */
-  findMetadataFieldSuggestions(query: string): void {
+  findMetadataFieldSuggestions(query: string) {
     if (isNotEmpty(query)) {
-      this.registryService.queryMetadataFields(query, null, followLink('schema')).pipe(
-        getSucceededRemoteData(),
-        take(1),
-        map((data) => data.payload.page),
-        switchMap((fields: MetadataField[]) => {
-            return fields.map((field: MetadataField, index: number) => {
-              // Resolve the metadata field's schema if not already the case, to be able to form complete MD field name
-              if (!hasValue(field.schemaResolved)) {
-                field.schema.pipe(
-                  getSucceededRemoteData(),
-                  getRemoteDataPayload(),
-                  map((schema: MetadataSchema) => {
-                    field.schemaResolved = schema;
-                    if (index == fields.length - 1) {
-                      this.setInputSuggestions(fields);
-                    }
-                  }),
-                  take(1)
-                ).subscribe()
-              } else {
-                this.setInputSuggestions(fields);
-              }
-            });
-          }
-        ),
-        take(1)).subscribe();
+      return this.registryService.queryMetadataFields(query, null, followLink('schema')).pipe(
+        metadataFieldsToString(),
+        take(1))
+        .subscribe((fieldNames: string[]) => {
+          this.setInputSuggestions(fieldNames);
+        })
     } else {
       this.metadataFieldSuggestions.next([]);
     }
@@ -161,13 +139,12 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Set the list of input suggestion with the given Metadata fields, which all require a resolved MetadataSchema
    * @param fields  list of Metadata fields, which all require a resolved MetadataSchema
    */
-  setInputSuggestions(fields: MetadataField[]) {
+  setInputSuggestions(fields: string[]) {
     this.metadataFieldSuggestions.next(
-      fields.map((field: MetadataField) => {
-        const fieldNameWhole = field.schemaResolved.prefix + '.' + field.toString();
+      fields.map((fieldName: string) => {
         return {
-          displayValue: fieldNameWhole.split('.').join('.&#8203;'),
-          value: fieldNameWhole
+          displayValue: fieldName.split('.').join('.&#8203;'),
+          value: fieldName
         };
       })
     );

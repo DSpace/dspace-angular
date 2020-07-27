@@ -70,8 +70,6 @@ export class MetadataField extends ListableObject implements HALResource {
   @link(METADATA_SCHEMA)
   schema?: Observable<RemoteData<MetadataSchema>>;
 
-  schemaResolved?: MetadataSchema;
-
   /**
    * Method to print this metadata field as a string without the schema
    * @param separator The separator between element and qualifier in the string
@@ -82,28 +80,6 @@ export class MetadataField extends ListableObject implements HALResource {
       key += separator + this.qualifier;
     }
     return key;
-  }
-
-  /**
-   * Method to print this metadata field as a string
-   * @param separator The separator between the schema, element and qualifier in the string
-   */
-  toStringWithSchema(separator: string = '.', schemaService: MetadataSchemaDataService): Observable<string> {
-    let schemaObject: Observable<RemoteData<MetadataSchema>> = this.schema;
-    if (!hasValue(this.schema)) {
-      schemaObject = schemaService.findByHref(this._links.schema.href);
-    }
-    return schemaObject.pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((schemaPayload: MetadataSchema) => {
-        let key = this.element;
-        if (isNotEmpty(this.qualifier)) {
-          key += separator + this.qualifier;
-        }
-        return schemaPayload.namespace + separator + key;
-      })
-    )
   }
 
   /**
