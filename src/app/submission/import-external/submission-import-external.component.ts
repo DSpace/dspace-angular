@@ -94,7 +94,7 @@ export class SubmissionImportExternalComponent implements OnInit {
   ngOnInit(): void {
     this.label      = 'Journal';
     this.listId     = 'list-submission-external-sources';
-    this.context    = Context.SubmissionModal;
+    this.context    = Context.EntitySearchModalWithNameVariants;
     this.repeatable = false;
     this.routeData  = { sourceId: '', query: '' };
     this.importConfig = {
