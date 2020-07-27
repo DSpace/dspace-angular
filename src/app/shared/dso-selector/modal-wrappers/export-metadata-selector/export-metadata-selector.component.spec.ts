@@ -1,24 +1,45 @@
 import { of as observableOf } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { DebugElement, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgbActiveModal, NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
+import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 
+
+// No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
+@NgModule({
+  imports: [ NgbModalModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useClass: TranslateLoaderMock
+      }
+    }),
+  ],
+  exports: [],
+  declarations: [ConfirmationModalComponent],
+  providers: [],
+  entryComponents: [ConfirmationModalComponent],
+})
+class ModelTestModule { }
+
 describe('ExportMetadataSelectorComponent', () => {
   let component: ExportMetadataSelectorComponent;
   let fixture: ComponentFixture<ExportMetadataSelectorComponent>;
   let debugElement: DebugElement;
+  let modalRef;
 
   let router;
   let notificationService: NotificationsServiceStub;
@@ -61,7 +82,7 @@ describe('ExportMetadataSelectorComponent', () => {
       }
     );
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
       declarations: [ExportMetadataSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
@@ -92,6 +113,9 @@ describe('ExportMetadataSelectorComponent', () => {
     fixture = TestBed.createComponent(ExportMetadataSelectorComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
+    const modalService = TestBed.get(NgbModal);
+    modalRef = modalService.open(ConfirmationModalComponent);
+    modalRef.componentInstance.response = observableOf(true);
     fixture.detectChanges();
   });
 
@@ -116,6 +140,7 @@ describe('ExportMetadataSelectorComponent', () => {
   describe('if collection is selected', () => {
     let scriptRequestSucceeded;
     beforeEach((done) => {
+      spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       component.navigate(mockCollection).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
         done()
@@ -140,6 +165,7 @@ describe('ExportMetadataSelectorComponent', () => {
   describe('if community is selected', () => {
     let scriptRequestSucceeded;
     beforeEach((done) => {
+      spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       component.navigate(mockCommunity).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
         done()
@@ -164,6 +190,7 @@ describe('ExportMetadataSelectorComponent', () => {
   describe('if community/collection is selected; but script invoke fails', () => {
     let scriptRequestSucceeded;
     beforeEach((done) => {
+      spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       jasmine.getEnv().allowRespy(true);
       spyOn(scriptService, 'invoke').and.returnValue(observableOf({
         response:

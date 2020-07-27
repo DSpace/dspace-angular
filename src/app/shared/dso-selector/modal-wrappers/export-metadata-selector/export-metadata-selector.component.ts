@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { take, map } from 'rxjs/operators';
+import { take, map, switchMap } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
-import { AuthService } from '../../../../core/auth/auth.service';
 import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestEntry } from '../../../../core/data/request.reducer';
 import { Collection } from '../../../../core/shared/collection.model';
@@ -47,21 +46,25 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
     if (dso instanceof Collection || dso instanceof Community) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
       modalRef.componentInstance.dso = dso;
-      modalRef.componentInstance.headerLabel = "confirmation-modal.export-metadata.header";
-      modalRef.componentInstance.infoLabel = "confirmation-modal.export-metadata.info";
-      modalRef.componentInstance.cancelLabel = "confirmation-modal.export-metadata.cancel";
-      modalRef.componentInstance.confirmLabel = "confirmation-modal.export-metadata.confirm";
-
-      modalRef.componentInstance.response.subscribe((confirm: boolean) => {
+      modalRef.componentInstance.headerLabel = 'confirmation-modal.export-metadata.header';
+      modalRef.componentInstance.infoLabel = 'confirmation-modal.export-metadata.info';
+      modalRef.componentInstance.cancelLabel = 'confirmation-modal.export-metadata.cancel';
+      modalRef.componentInstance.confirmLabel = 'confirmation-modal.export-metadata.confirm';
+      const resp$ =  modalRef.componentInstance.response.pipe(switchMap((confirm: boolean) => {
         if (confirm) {
-          const startScriptSucceeded = this.startScriptNotifyAndRedirect(dso, dso.handle);
-          startScriptSucceeded.pipe(take(1)).subscribe();
-          return startScriptSucceeded;
+          const startScriptSucceeded$ = this.startScriptNotifyAndRedirect(dso, dso.handle);
+          return startScriptSucceeded$.pipe(
+            switchMap((r: boolean) => {
+              return observableOf(r);
+            })
+          )
         } else {
           const modalRef = this.modalService.open(ExportMetadataSelectorComponent);
           modalRef.componentInstance.dsoRD = createSuccessfulRemoteDataObject(dso);
         }
-      });
+      }));
+      resp$.subscribe();
+      return resp$;
     } else {
       this.notificationsService.error(this.translationService.get('dso-selector.export-metadata.notValidDSO'));
       return observableOf(false);

@@ -46,27 +46,27 @@ describe('ConfirmationModalComponent', () => {
 
   describe('confirmPressed', () => {
     beforeEach(() => {
-      spyOn(component.response, 'emit');
+      spyOn(component.response, 'next');
       component.confirmPressed();
     });
     it('should call the close method on the active modal', () => {
       expect(modalStub.close).toHaveBeenCalled();
     });
-    it('event emitter should emit true', () => {
-      expect(component.response.emit).toHaveBeenCalledWith(true);
+    it('behaviour subject should have true as next', () => {
+      expect(component.response.next).toHaveBeenCalledWith(true);
     });
   });
 
   describe('cancelPressed', () => {
     beforeEach(() => {
-      spyOn(component.response, 'emit');
+      spyOn(component.response, 'next');
       component.cancelPressed();
     });
     it('should call the close method on the active modal', () => {
       expect(modalStub.close).toHaveBeenCalled();
     });
-    it('event emitter should emit false', () => {
-      expect(component.response.emit).toHaveBeenCalledWith(false);
+    it('behaviour subject should have false as next', () => {
+      expect(component.response.next).toHaveBeenCalledWith(false);
     });
   });
 
@@ -85,7 +85,7 @@ describe('ConfirmationModalComponent', () => {
   describe('when the click method emits on cancel button', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'close');
-      spyOn(component.response, 'emit');
+      spyOn(component.response, 'next');
       debugElement.query(By.css('button.cancel')).triggerEventHandler('click', {});
       tick();
       fixture.detectChanges();
@@ -93,15 +93,15 @@ describe('ConfirmationModalComponent', () => {
     it('should call the close method on the component', () => {
       expect(component.close).toHaveBeenCalled();
     });
-    it('event emitter should emit false', () => {
-      expect(component.response.emit).toHaveBeenCalledWith(false);
+    it('behaviour subject should have false as next', () => {
+      expect(component.response.next).toHaveBeenCalledWith(false);
     });
   });
 
   describe('when the click method emits on confirm button', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'close');
-      spyOn(component.response, 'emit');
+      spyOn(component.response, 'next');
       debugElement.query(By.css('button.confirm')).triggerEventHandler('click', {});
       tick();
       fixture.detectChanges();
@@ -109,8 +109,8 @@ describe('ConfirmationModalComponent', () => {
     it('should call the close method on the component', () => {
       expect(component.close).toHaveBeenCalled();
     });
-    it('event emitter should emit true', () => {
-      expect(component.response.emit).toHaveBeenCalledWith(true);
+    it('behaviour subject should have true as next', () => {
+      expect(component.response.next).toHaveBeenCalledWith(true);
     });
   });
 

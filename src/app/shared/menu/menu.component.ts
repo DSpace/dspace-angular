@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { MenuService } from './menu.service';
 import { MenuID } from './initial-menus-state';
 import { MenuSection } from './menu.reducer';
-import { distinctUntilChanged, first, map, tap, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasValue } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
