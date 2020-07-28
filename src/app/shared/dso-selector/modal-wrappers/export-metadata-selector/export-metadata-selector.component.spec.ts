@@ -17,7 +17,6 @@ import { NotificationsServiceStub } from '../../../testing/notifications-service
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 
-
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
   imports: [ NgbModalModule,

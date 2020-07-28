@@ -59,8 +59,8 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
             })
           )
         } else {
-          const modalRef = this.modalService.open(ExportMetadataSelectorComponent);
-          modalRef.componentInstance.dsoRD = createSuccessfulRemoteDataObject(dso);
+          const modalRefExport = this.modalService.open(ExportMetadataSelectorComponent);
+          modalRefExport.componentInstance.dsoRD = createSuccessfulRemoteDataObject(dso);
         }
       }));
       resp$.subscribe();

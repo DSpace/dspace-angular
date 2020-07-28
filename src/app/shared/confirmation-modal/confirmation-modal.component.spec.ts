@@ -73,7 +73,10 @@ describe('ConfirmationModalComponent', () => {
   describe('when the click method emits on close button', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'close');
-      debugElement.query(By.css('button.close')).triggerEventHandler('click', {});
+      debugElement.query(By.css('button.close')).triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
       tick();
       fixture.detectChanges();
     }));
@@ -86,7 +89,10 @@ describe('ConfirmationModalComponent', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'close');
       spyOn(component.response, 'next');
-      debugElement.query(By.css('button.cancel')).triggerEventHandler('click', {});
+      debugElement.query(By.css('button.cancel')).triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
       tick();
       fixture.detectChanges();
     }));
@@ -102,7 +108,10 @@ describe('ConfirmationModalComponent', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'close');
       spyOn(component.response, 'next');
-      debugElement.query(By.css('button.confirm')).triggerEventHandler('click', {});
+      debugElement.query(By.css('button.confirm')).triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
       tick();
       fixture.detectChanges();
     }));
