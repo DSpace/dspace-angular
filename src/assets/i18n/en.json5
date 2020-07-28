@@ -718,9 +718,14 @@
 
   "collection.form.title": "Name",
 
-  "collection.form.entitytype": "Type",
+  "collection.form.entityType": "Entity Type",
 
-  "collection.form.errors.entitytype.required": "Please choose an option",
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  "collection.form.submissionDefinition": "Submission definition",
+
 
 
   "collection.page.browse.recent.head": "Recent Submissions",

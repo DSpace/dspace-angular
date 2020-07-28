@@ -65,9 +65,10 @@ export abstract class ConfigService {
     return result;
   }
 
-  public getConfigAll(): Observable<ConfigData> {
+  public getConfigAll(options: FindListOptions = {}): Observable<ConfigData> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
+      map((href: string) => this.getConfigSearchHref(href, options)),
       distinctUntilChanged(),
       map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL)),
       tap((request: RestRequest) => this.requestService.configure(request)),
