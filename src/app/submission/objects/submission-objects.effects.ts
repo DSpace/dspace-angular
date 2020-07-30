@@ -72,6 +72,8 @@ export class SubmissionObjectEffects {
         if (sectionDefinition.sectionType !== SectionsType.SubmissionForm) {
           sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
         } else {
+          // Normalize item metadata before to init section
+          // TODO to review after https://github.com/DSpace/dspace-angular/issues/818 is resolved
           sectionData = normalizeSectionData(action.payload.item.metadata);
         }
         const sectionErrors = null;
@@ -271,6 +273,8 @@ export class SubmissionObjectEffects {
           map((item: Item) => item.metadata),
           map((metadata: any) => {
             if (!this.isEqual(action.payload.data, normalizeSectionData(metadata))) {
+              // Normalize item metadata before to update section
+              // TODO to review after https://github.com/DSpace/dspace-angular/issues/818 is resolved
               return new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, normalizeSectionData(metadata), action.payload.errors)
             } else {
               return new UpdateSectionDataSuccessAction();
