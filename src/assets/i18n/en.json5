@@ -917,11 +917,17 @@
 
 
 
+  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+
+  "curation-task.task.noop.label": "NOOP",
+
   "curation-task.task.profileformats.label": "Profile Bitstream Formats",
 
   "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
 
-  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+  "curation-task.task.translate.label": "Microsoft Translator",
+
+  "curation-task.task.vscan.label": "Virus Scan",
 
 
 

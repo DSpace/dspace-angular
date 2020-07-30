@@ -17,6 +17,8 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
 describe('CurationFormComponent', () => {
   let comp: CurationFormComponent;
@@ -24,6 +26,7 @@ describe('CurationFormComponent', () => {
 
   let scriptDataService: ScriptDataService;
   let processDataService: ProcessDataService;
+  let configurationDataService: ConfigurationDataService;
   let authService: AuthService;
   let notificationsService;
   let router;
@@ -49,6 +52,17 @@ describe('CurationFormComponent', () => {
       getAuthenticatedUserFromStore: observableOf(Object.assign(new EPerson(), {email: 'test@mail'}))
     });
 
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'plugin.named.org.dspace.curate.CurationTask',
+        values: [
+          'org.dspace.ctask.general.ProfileFormats = profileformats',
+          'org.dspace.ctask.general.RequiredMetadata = requiredmetadata',
+          'org.dspace.ctask.general.MetadataValueLinkChecker = checklinks'
+        ]
+      }))
+    });
+
     notificationsService = new NotificationsServiceStub();
     router = new RouterStub();
 
@@ -61,6 +75,7 @@ describe('CurationFormComponent', () => {
         {provide: AuthService, useValue: authService},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: Router, useValue: router},
+        {provide: ConfigurationDataService, useValue: configurationDataService},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();

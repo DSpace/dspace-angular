@@ -1,12 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { environment } from '../../environments/environment';
-import { CurationTask } from '../../config/curation-task.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getResponseFromEntry } from '../core/shared/operators';
 import { DSOSuccessResponse } from '../core/cache/response.models';
 import { AuthService } from '../core/auth/auth.service';
-import { filter, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,6 +13,12 @@ import { RemoteData } from '../core/data/remote-data';
 import { Router } from '@angular/router';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
 import { Process } from '../process-page/processes/process.model';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { Observable } from 'rxjs';
+import { find } from 'rxjs/internal/operators/find';
+
+export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
 
 /**
  * Component responsible for rendering the Curation Task form
@@ -25,7 +29,8 @@ import { Process } from '../process-page/processes/process.model';
 })
 export class CurationFormComponent implements OnInit {
 
-  tasks: CurationTask[];
+  config: Observable<RemoteData<ConfigurationProperty>>;
+  tasks: string[];
   form: FormGroup;
 
   @Input()
@@ -33,6 +38,7 @@ export class CurationFormComponent implements OnInit {
 
   constructor(
     private scriptDataService: ScriptDataService,
+    private configurationDataService: ConfigurationDataService,
     private processDataService: ProcessDataService,
     private authService: AuthService,
     private notificationsService: NotificationsService,
@@ -42,11 +48,18 @@ export class CurationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tasks = environment.curationTasks;
-
     this.form = new FormGroup({
-      task: new FormControl(this.tasks[0]),
+      task: new FormControl(''),
       handle: new FormControl('')
+    });
+
+    this.config = this.configurationDataService.findByPropertyName(CURATION_CFG);
+    this.config.pipe(
+      find((rd: RemoteData<ConfigurationProperty>) => rd.hasSucceeded),
+      map((rd: RemoteData<ConfigurationProperty>) => rd.payload)
+    ).subscribe((configProperties) => {
+      this.tasks = configProperties.values.map((value) => value.split('=')[1].trim());
+      this.form.get('task').patchValue(this.tasks[0]);
     });
   }
 
@@ -65,7 +78,7 @@ export class CurationFormComponent implements OnInit {
    * Navigate to the process page on success
    */
   submit() {
-    const taskName = (this.form.get('task').value as CurationTask).name;
+    const taskName = this.form.get('task').value;
     let handle;
     if (this.hasHandleValue()) {
       handle = this.dsoHandle;
