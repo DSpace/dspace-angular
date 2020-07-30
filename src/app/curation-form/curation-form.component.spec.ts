@@ -57,8 +57,10 @@ describe('CurationFormComponent', () => {
         name: 'plugin.named.org.dspace.curate.CurationTask',
         values: [
           'org.dspace.ctask.general.ProfileFormats = profileformats',
+          '',
           'org.dspace.ctask.general.RequiredMetadata = requiredmetadata',
-          'org.dspace.ctask.general.MetadataValueLinkChecker = checklinks'
+          'org.dspace.ctask.general.MetadataValueLinkChecker = checklinks',
+          'value-to-be-skipped'
         ]
       }))
     });

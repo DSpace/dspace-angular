@@ -8,7 +8,7 @@ import { filter, map, switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { hasValue, isEmpty } from '../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
 import { RemoteData } from '../core/data/remote-data';
 import { Router } from '@angular/router';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
@@ -58,7 +58,9 @@ export class CurationFormComponent implements OnInit {
       find((rd: RemoteData<ConfigurationProperty>) => rd.hasSucceeded),
       map((rd: RemoteData<ConfigurationProperty>) => rd.payload)
     ).subscribe((configProperties) => {
-      this.tasks = configProperties.values.map((value) => value.split('=')[1].trim());
+      this.tasks = configProperties.values
+        .filter((value) => isNotEmpty(value) && value.includes('='))
+        .map((value) => value.split('=')[1].trim());
       this.form.get('task').patchValue(this.tasks[0]);
     });
   }
