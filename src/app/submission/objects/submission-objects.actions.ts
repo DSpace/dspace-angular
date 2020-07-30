@@ -42,7 +42,8 @@ export const SubmissionObjectActionTypes = {
   DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
   SECTION_LOADING_STATUS_CHANGE: type('dspace/submission/SECTION_LOADING_STATUS_CHANGE'),
-  UPLOAD_SECTION_DATA: type('dspace/submission/UPLOAD_SECTION_DATA'),
+  UPDATE_SECTION_DATA: type('dspace/submission/UPDATE_SECTION_DATA'),
+  UPDATE_SECTION_DATA_SUCCESS: type('dspace/submission/UPDATE_SECTION_DATA_SUCCESS'),
   SAVE_AND_DEPOSIT_SUBMISSION: type('dspace/submission/SAVE_AND_DEPOSIT_SUBMISSION'),
   DEPOSIT_SUBMISSION: type('dspace/submission/DEPOSIT_SUBMISSION'),
   DEPOSIT_SUBMISSION_SUCCESS: type('dspace/submission/DEPOSIT_SUBMISSION_SUCCESS'),
@@ -199,7 +200,7 @@ export class DisableSectionAction implements Action {
 }
 
 export class UpdateSectionDataAction implements Action {
-  type = SubmissionObjectActionTypes.UPLOAD_SECTION_DATA;
+  type = SubmissionObjectActionTypes.UPDATE_SECTION_DATA;
   payload: {
     submissionId: string;
     sectionId: string;
@@ -225,6 +226,10 @@ export class UpdateSectionDataAction implements Action {
               errors: SubmissionSectionError[]) {
     this.payload = { submissionId, sectionId, data, errors };
   }
+}
+
+export class UpdateSectionDataSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.UPDATE_SECTION_DATA_SUCCESS;
 }
 
 export class RemoveSectionErrorsAction implements Action {

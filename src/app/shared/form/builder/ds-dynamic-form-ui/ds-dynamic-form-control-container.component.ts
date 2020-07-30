@@ -116,6 +116,7 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { paginatedRelationsToItems } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { RelationshipOptions } from '../models/relationship-options.model';
 import { FormBuilderService } from '../form-builder.service';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -303,9 +304,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       }
 
       if (hasValue(this.model.metadataValue)) {
-        this.value = Object.assign(new MetadataValue(), this.model.metadataValue);
+        this.value = Object.assign(new FormFieldMetadataValueObject(), this.model.metadataValue);
       } else {
-        this.value = Object.assign(new MetadataValue(), this.model.value);
+        this.value = Object.assign(new FormFieldMetadataValueObject(), this.model.value);
       }
 
       if (hasValue(this.value) && this.value.isVirtual) {
