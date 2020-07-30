@@ -51,24 +51,51 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
     this.otherInformation = otherInformation;
   }
 
+  /**
+   * Returns true if this this object has an authority value
+   */
   hasAuthority(): boolean {
     return isNotEmpty(this.authority);
   }
 
+  /**
+   * Returns true if this this object has a value
+   */
   hasValue(): boolean {
     return isNotEmpty(this.value);
   }
 
+  /**
+   * Returns true if this this object has otherInformation property with value
+   */
   hasOtherInformation(): boolean {
     return isNotEmpty(this.otherInformation);
   }
 
+  /**
+   * Returns true if this object value contains a placeholder
+   */
   hasPlaceholder() {
     return this.hasValue() && this.value === PLACEHOLDER_PARENT_METADATA;
   }
 
+  /**
+   * Returns true if this Metadatum's authority key starts with 'virtual::'
+   */
   get isVirtual(): boolean {
     return hasValue(this.authority) && this.authority.startsWith(VIRTUAL_METADATA_PREFIX);
+  }
+
+  /**
+   * If this is a virtual Metadatum, it returns everything in the authority key after 'virtual::'.
+   * Returns undefined otherwise.
+   */
+  get virtualValue(): string {
+    if (this.isVirtual) {
+      return this.authority.substring(this.authority.indexOf(VIRTUAL_METADATA_PREFIX) + VIRTUAL_METADATA_PREFIX.length);
+    } else {
+      return undefined;
+    }
   }
 
   toString() {
