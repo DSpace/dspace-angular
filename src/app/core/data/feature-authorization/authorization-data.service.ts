@@ -90,7 +90,6 @@ export class AuthorizationDataService extends DataService<Authorization> {
   searchByObject(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Authorization>>): Observable<RemoteData<PaginatedList<Authorization>>> {
     return observableOf(new AuthorizationSearchParams(objectUrl, ePersonUuid, featureId)).pipe(
       addSiteObjectUrlIfEmpty(this.siteService),
-      addAuthenticatedUserUuidIfEmpty(this.authService),
       switchMap((params: AuthorizationSearchParams) => {
         return this.searchBy(this.searchByObjectPath, this.createSearchOptions(params.objectUrl, options, params.ePersonUuid, params.featureId), ...linksToFollow);
       })
