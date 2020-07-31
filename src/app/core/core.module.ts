@@ -160,6 +160,8 @@ import { SubmissionCcLicenseDataService } from './submission/submission-cc-licen
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
 import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
 import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-license-url-data.service';
+import { ConfigurationDataService } from './data/configuration-data.service';
+import { ConfigurationProperty } from './shared/configuration-property.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -245,6 +247,7 @@ const PROVIDERS = [
   UploaderService,
   FileService,
   DSpaceObjectDataService,
+  ConfigurationDataService,
   DSOChangeAnalyzer,
   DefaultChangeAnalyzer,
   ArrayMoveChangeAnalyzer,
@@ -350,7 +353,8 @@ export const models =
     TemplateItem,
     Feature,
     Authorization,
-    Registration
+    Registration,
+    ConfigurationProperty
   ];
 
 @NgModule({

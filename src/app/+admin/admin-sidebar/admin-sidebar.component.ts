@@ -469,7 +469,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.curation_task',
-            link: ''
+            link: 'admin/curation-tasks'
           } as LinkMenuItemModel,
           icon: 'filter',
           index: 7
