@@ -187,6 +187,7 @@ describe('VocabularyService', () => {
   const paginatedListEntries = new PaginatedList(pageInfo, arrayEntries);
   const childrenPaginatedList = new PaginatedList(pageInfo, childrenEntries);
   const vocabularyRD = createSuccessfulRemoteDataObject(vocabulary);
+  const vocabularyRD$ = createSuccessfulRemoteDataObject$(vocabulary);
   const vocabularyEntriesRD = createSuccessfulRemoteDataObject$(paginatedListEntries);
   const vocabularyEntryDetailParentRD = createSuccessfulRemoteDataObject(vocabularyEntryParentDetail);
   const vocabularyEntryChildrenRD = createSuccessfulRemoteDataObject(childrenPaginatedList);
@@ -342,9 +343,11 @@ describe('VocabularyService', () => {
         rdbService = getMockRemoteDataBuildService(undefined, vocabularyEntriesRD);
         spyOn(rdbService, 'toRemoteDataObservable').and.callThrough();
         service = initTestService();
+        spyOn(service, 'findVocabularyById').and.returnValue(vocabularyRD$);
       });
 
       describe('getVocabularyEntries', () => {
+
         it('should configure a new VocabularyEntriesRequest', () => {
           const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesRequestURL);
 
@@ -363,6 +366,7 @@ describe('VocabularyService', () => {
       });
 
       describe('getVocabularyEntriesByValue', () => {
+
         it('should configure a new VocabularyEntriesRequest', () => {
           const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesByValueRequestURL);
 
@@ -382,6 +386,7 @@ describe('VocabularyService', () => {
       });
 
       describe('getVocabularyEntryByValue', () => {
+
         it('should configure a new VocabularyEntriesRequest', () => {
           const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entryByValueRequestURL);
 

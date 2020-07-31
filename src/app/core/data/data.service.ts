@@ -112,7 +112,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    *    Return an observable that emits created HREF
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = [], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
+  public buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = [], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
     let args = [...extraArgs];
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {

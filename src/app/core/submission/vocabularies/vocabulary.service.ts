@@ -26,6 +26,7 @@ import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.
 import {
   configureRequest,
   filterSuccessfulResponses,
+  getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload,
   getRequestFromRequestHref
 } from '../../shared/operators';
@@ -158,11 +159,13 @@ export class VocabularyService {
       pageInfo.currentPage
     );
 
-    return this.vocabularyDataService.getFindAllHref(options, `${vocabularyOptions.name}/entries`).pipe(
+    return this.findVocabularyById(vocabularyOptions.name).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((vocabulary: Vocabulary) => this.vocabularyDataService.buildHrefFromFindOptions(vocabulary._links.entries.href, options)),
       isNotEmptyOperator(),
       distinctUntilChanged(),
       getVocabularyEntriesFor(this.requestService, this.rdbService)
-    );
+    )
   }
 
   /**
@@ -185,11 +188,13 @@ export class VocabularyService {
       pageInfo.currentPage
     );
 
-    return this.vocabularyDataService.getFindAllHref(options, `${vocabularyOptions.name}/entries`).pipe(
+    return this.findVocabularyById(vocabularyOptions.name).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((vocabulary: Vocabulary) => this.vocabularyDataService.buildHrefFromFindOptions(vocabulary._links.entries.href, options)),
       isNotEmptyOperator(),
       distinctUntilChanged(),
       getVocabularyEntriesFor(this.requestService, this.rdbService)
-    );
+    )
   }
 
   /**
@@ -233,7 +238,9 @@ export class VocabularyService {
       pageInfo.currentPage
     );
 
-    return this.vocabularyDataService.getFindAllHref(options, `${vocabularyOptions.name}/entries`).pipe(
+    return this.findVocabularyById(vocabularyOptions.name).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((vocabulary: Vocabulary) => this.vocabularyDataService.buildHrefFromFindOptions(vocabulary._links.entries.href, options)),
       isNotEmptyOperator(),
       distinctUntilChanged(),
       getVocabularyEntriesFor(this.requestService, this.rdbService),
