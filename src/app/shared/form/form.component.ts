@@ -11,6 +11,7 @@ import { FormService } from './form.service';
 import { FormEntry, FormError } from './form.reducer';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { QUALDROP_GROUP_SUFFIX } from './builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 
 const QUALDROP_GROUP_REGEX = new RegExp(`${QUALDROP_GROUP_SUFFIX}_\\d+$`);
 
@@ -316,7 +317,7 @@ export class FormComponent implements OnDestroy, OnInit {
 
     // set that field to the new value
     const model = arrayContext.groups[arrayContext.groups.length - 1].group[0] as any;
-    if (model.type === DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN) {
+    if (model.type === DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN || model.type === DYNAMIC_FORM_CONTROL_TYPE_ONEBOX) {
       model.value = Object.values(value)[0];
     } else if (this.formBuilderService.isQualdropGroup(model)) {
       const ctrl = formArrayControl.controls[formArrayControl.length - 1];

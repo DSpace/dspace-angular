@@ -46,7 +46,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
 
   @ViewChild('instance', { static: false }) instance: NgbTypeahead;
 
-  pageInfo: PageInfo;
+  pageInfo: PageInfo = new PageInfo();
   searching = false;
   searchFailed = false;
   hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.changeSearchingStatus(false));
@@ -247,6 +247,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       this.getInitValueFromModel()
         .subscribe((formValue: FormFieldMetadataValueObject) => {
           this.currentValue = formValue;
+          this.cdr.detectChanges();
         });
     } else {
       if (isEmpty(value)) {
@@ -258,6 +259,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       }
 
       this.currentValue = result;
+      this.cdr.detectChanges();
     }
 
   }
