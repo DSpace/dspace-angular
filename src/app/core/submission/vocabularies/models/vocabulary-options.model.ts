@@ -11,12 +11,12 @@ export class VocabularyOptions {
   /**
    * The metadata field name (e.g. "dc.type") for which the vocabulary is used:
    */
-  metadata: string;
+  metadata?: string;
 
   /**
    * The uuid of the collection where the item is being submitted
    */
-  scope: string;
+  scope?: string;
 
   /**
    * A boolean representing if value is closely related to a vocabulary entry or not
@@ -24,8 +24,8 @@ export class VocabularyOptions {
   closed: boolean;
 
   constructor(name: string,
-              metadata: string,
-              scope: string,
+              metadata?: string,
+              scope?: string,
               closed: boolean = false) {
     this.name = name;
     this.metadata = metadata;
