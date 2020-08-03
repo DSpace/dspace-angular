@@ -16,6 +16,7 @@ import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './adm
 import { WorkflowItemAdminWorkflowActionsComponent } from './admin-workflow-page/admin-workflow-search-results/workflow-item-admin-workflow-actions.component';
 import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-list-element/workflow-item/workflow-item-search-result-admin-workflow-list-element.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
+import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow
     CommunityAdminSearchResultGridElementComponent,
     CollectionAdminSearchResultGridElementComponent,
     ItemAdminSearchResultActionsComponent,
+    AdminCurationTasksComponent,
 
     WorkflowItemSearchResultAdminWorkflowListElementComponent,
     WorkflowItemSearchResultAdminWorkflowGridElementComponent,

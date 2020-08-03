@@ -205,6 +205,7 @@ import { FileDownloadLinkComponent } from './file-download-link/file-download-li
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
+import { CurationFormComponent } from '../curation-form/curation-form.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -471,7 +472,8 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsReturnToPoolComponent,
   ClaimedTaskActionsEditMetadataComponent,
   FileDownloadLinkComponent,
-  VocabularyTreeviewComponent
+  VocabularyTreeviewComponent,
+  CurationFormComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -529,7 +531,8 @@ const DIRECTIVES = [
     ...PIPES,
     ...COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    ...DIRECTIVES
+    ...DIRECTIVES,
+    CurationFormComponent
   ],
   entryComponents: [
     ...ENTRY_COMPONENTS
