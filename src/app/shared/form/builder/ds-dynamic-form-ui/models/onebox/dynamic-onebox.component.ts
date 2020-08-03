@@ -123,11 +123,11 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       distinctUntilChanged()
     );
 
-    this.group.get(this.model.id).valueChanges.pipe(
+    this.subs.push(this.group.get(this.model.id).valueChanges.pipe(
       filter((value) => this.currentValue !== value))
       .subscribe((value) => {
         this.setCurrentValue(this.model.value);
-      });
+      }));
   }
 
   /**
