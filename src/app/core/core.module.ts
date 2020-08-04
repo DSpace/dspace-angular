@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
+import { ProcessOutput } from '../process-page/processes/process-output.model';
 
 import { isNotEmpty } from '../shared/empty.util';
 import { FormBuilderService } from '../shared/form/builder/form-builder.service';
@@ -70,6 +71,7 @@ import { LookupRelationService } from './data/lookup-relation.service';
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
+import { ProcessOutputDataService } from './data/process-output-data.service';
 import { RelationshipTypeService } from './data/relationship-type.service';
 import { RelationshipService } from './data/relationship.service';
 import { ResourcePolicyService } from './resource-policy/resource-policy.service';
@@ -281,6 +283,7 @@ const PROVIDERS = [
   ItemTypeDataService,
   WorkflowActionDataService,
   ProcessDataService,
+  ProcessOutputDataService,
   ScriptDataService,
   ProcessFilesResponseParsingService,
   FeatureDataService,
@@ -347,6 +350,7 @@ export const models =
     ExternalSourceEntry,
     Script,
     Process,
+    ProcessOutput,
     Version,
     VersionHistory,
     WorkflowAction,

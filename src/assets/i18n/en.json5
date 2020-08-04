@@ -2085,7 +2085,7 @@
 
   "process.detail.output" : "Process Output",
 
-  "process.detail.output.alert" : "Work in progress - Process output is not available yet",
+  "process.detail.logs.none": "This process has no output logs (yet)",
 
   "process.detail.output-files" : "Output Files",
 

@@ -1,5 +1,7 @@
+import { ProcessOutputDataService } from '../../core/data/process-output-data.service';
+import { ProcessOutput } from '../processes/process-output.model';
 import { ProcessDetailComponent } from './process-detail.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -21,13 +23,20 @@ describe('ProcessDetailComponent', () => {
   let fixture: ComponentFixture<ProcessDetailComponent>;
 
   let processService: ProcessDataService;
+  let processOutputService: ProcessOutputDataService;
   let nameService: DSONameService;
 
   let process: Process;
   let fileName: string;
   let files: Bitstream[];
 
+  let processOutput;
+
   function init() {
+    processOutput = Object.assign(new ProcessOutput(), {
+        logs: ['Process started', 'Process completed']
+      }
+    );
     process = Object.assign(new Process(), {
       processId: 1,
       scriptName: 'script-name',
@@ -40,7 +49,15 @@ describe('ProcessDetailComponent', () => {
           name: '-i',
           value: 'identifier'
         }
-      ]
+      ],
+      _links: {
+        self: {
+          href: 'https://rest.api/processes/1'
+        },
+        output: {
+          href: 'https://rest.api/processes/1/output'
+        }
+      }
     });
     fileName = 'fake-file-name';
     files = [
@@ -62,6 +79,9 @@ describe('ProcessDetailComponent', () => {
     processService = jasmine.createSpyObj('processService', {
       getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files))
     });
+    processOutputService = jasmine.createSpyObj('processOutputService', {
+      findByHref: createSuccessfulRemoteDataObject$(processOutput)
+    });
     nameService = jasmine.createSpyObj('nameService', {
       getName: fileName
     });
@@ -75,6 +95,7 @@ describe('ProcessDetailComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) } },
         { provide: ProcessDataService, useValue: processService },
+        { provide: ProcessOutputDataService, useValue: processOutputService },
         { provide: DSONameService, useValue: nameService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -103,5 +124,33 @@ describe('ProcessDetailComponent', () => {
     const processFiles = fixture.debugElement.query(By.css('#process-files')).nativeElement;
     expect(processFiles.textContent).toContain(fileName);
   });
+
+  it('should display the process\'s output logs', () => {
+    const outputProcess = fixture.debugElement.query(By.css('#process-output pre')).nativeElement;
+    expect(outputProcess.textContent).toContain('Process started');
+  });
+
+  describe('if process has no output logs (yet)', () => {
+    beforeEach(fakeAsync(() => {
+        jasmine.getEnv().allowRespy(true);
+        const emptyProcessOutput = Object.assign(new ProcessOutput(), {
+          logs: []
+        });
+        spyOn(processOutputService, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(emptyProcessOutput));
+        fixture = TestBed.createComponent(ProcessDetailComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      })
+    );
+    it('should not display the process\'s output logs', () => {
+      const outputProcess = fixture.debugElement.query(By.css('#process-output pre'));
+      expect(outputProcess).toBeNull();
+    });
+    it('should display message saying there are no output logs', () => {
+      const noOutputProcess = fixture.debugElement.query(By.css('#no-output-logs-message')).nativeElement;
+      expect(noOutputProcess).toBeDefined();
+    });
+    }
+  )
 
 });
