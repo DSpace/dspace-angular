@@ -35,11 +35,8 @@
     </ds-process-detail-field>
 
   <ds-process-detail-field id="process-output" [title]="'process.detail.output'">
-    <pre class="font-weight-bold text-secondary bg-light p-2" *ngIf="(outputLogs$ | async)?.length > 0">
-      <ng-container>
-        {{ (outputLogs$ | async)?.join('\n\t') }}
-      </ng-container>
-    </pre>
+    <pre class="font-weight-bold text-secondary bg-light p-3"
+         *ngIf="(outputLogs$ | async)?.length > 0">{{ (outputLogs$ | async)?.join('\n') }}</pre>
     <p id="no-output-logs-message" *ngIf="!(outputLogs$ | async) || (outputLogs$ | async).length == 0">
       {{ 'process.detail.logs.none' | translate }}
     </p>
