@@ -30,24 +30,27 @@ describe('CollectionRolesComponent', () => {
             undefined,
             Object.assign(new Collection(), {
               _links: {
-                'irrelevant': {
+                irrelevant: {
                   href: 'irrelevant link',
                 },
-                'adminGroup': {
+                adminGroup: {
                   href: 'adminGroup link',
                 },
-                'submittersGroup': {
+                submittersGroup: {
                   href: 'submittersGroup link',
                 },
-                'itemReadGroup': {
+                itemReadGroup: {
                   href: 'itemReadGroup link',
                 },
-                'bitstreamReadGroup': {
+                bitstreamReadGroup: {
                   href: 'bitstreamReadGroup link',
                 },
-                'workflowGroups/test': {
-                  href: 'test workflow group link',
-                },
+                workflowGroups: [
+                  {
+                    name: 'test',
+                    href: 'test workflow group link',
+                  },
+                ],
               },
             }),
           ),

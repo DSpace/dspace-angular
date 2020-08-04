@@ -41,6 +41,11 @@ export class Collection extends DSpaceObject implements ChildHALResource {
     defaultAccessConditions: HALLink;
     logo: HALLink;
     parentCommunity: HALLink;
+    workflowGroups: HALLink[];
+    adminGroup: HALLink;
+    submittersGroup: HALLink;
+    itemReadGroup: HALLink;
+    bitstreamReadGroup: HALLink;
     self: HALLink;
   };
 
@@ -71,12 +76,6 @@ export class Collection extends DSpaceObject implements ChildHALResource {
    */
   @link(COMMUNITY, false)
   parentCommunity?: Observable<RemoteData<Community>>;
-
-  /**
-   * The administrators group of this community.
-   */
-  @link(GROUP)
-  adminGroup?: Observable<RemoteData<Group>>;
 
   /**
    * The introductory text of this Collection

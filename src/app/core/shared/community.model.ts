@@ -67,12 +67,6 @@ export class Community extends DSpaceObject implements ChildHALResource {
   parentCommunity?: Observable<RemoteData<Community>>;
 
   /**
-   * The administrators group of this community.
-   */
-  @link(GROUP)
-  adminGroup?: Observable<RemoteData<Group>>;
-
-  /**
    * The introductory text of this Community
    * Corresponds to the metadata field dc.description
    */
