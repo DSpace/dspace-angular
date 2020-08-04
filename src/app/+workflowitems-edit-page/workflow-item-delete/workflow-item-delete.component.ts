@@ -7,6 +7,8 @@ import { RouteService } from '../../core/services/route.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
+import { map } from 'rxjs/operators';
+import { RestResponse } from '../../core/cache/response.models';
 
 @Component({
   selector: 'ds-workflow-item-delete',
@@ -39,6 +41,6 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageComponent
    */
   sendRequest(id: string): Observable<boolean> {
     this.requestService.removeByHrefSubstring('/discover');
-    return this.workflowItemService.delete(id);
+    return this.workflowItemService.delete(id).pipe(map((response: RestResponse) => response.isSuccessful));
   }
 }

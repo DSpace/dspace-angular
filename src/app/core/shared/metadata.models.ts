@@ -3,7 +3,7 @@ import { autoserialize, Serialize, Deserialize } from 'cerialize';
 import { hasValue } from '../../shared/empty.util';
 /* tslint:disable:max-classes-per-file */
 
-const VIRTUAL_METADATA_PREFIX = 'virtual::';
+export const VIRTUAL_METADATA_PREFIX = 'virtual::';
 
 /** A single metadata value and its properties. */
 export interface MetadataValueInterface {

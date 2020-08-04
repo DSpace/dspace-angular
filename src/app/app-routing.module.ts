@@ -10,6 +10,8 @@ import { Collection } from './core/shared/collection.model';
 import { Item } from './core/shared/item.model';
 import { getItemPageRoute } from './+item-page/item-page-routing.module';
 import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
+import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 const ITEM_MODULE_PATH = 'items';
 
@@ -45,6 +47,20 @@ export function getProfileModulePath() {
   return `/${PROFILE_MODULE_PATH}`;
 }
 
+const REGISTER_PATH = 'register';
+
+export function getRegisterPath() {
+  return `/${REGISTER_PATH}`;
+
+}
+
+const FORGOT_PASSWORD_PATH = 'forgot';
+
+export function getForgotPasswordPath() {
+  return `/${FORGOT_PASSWORD_PATH}`;
+
+}
+
 const WORKFLOW_ITEM_MODULE_PATH = 'workflowitems';
 
 export function getWorkflowItemModulePath() {
@@ -62,6 +78,12 @@ export function getDSOPath(dso: DSpaceObject): string {
   }
 }
 
+const UNAUTHORIZED_PATH = 'unauthorized';
+
+export function getUnauthorizedPath() {
+  return `/${UNAUTHORIZED_PATH}`;
+}
+
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -71,6 +93,8 @@ export function getDSOPath(dso: DSpaceObject): string {
       { path: 'community-list', loadChildren: './community-list-page/community-list-page.module#CommunityListPageModule' },
       { path: 'id', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
       { path: 'handle', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
+      { path: REGISTER_PATH, loadChildren: './register-page/register-page.module#RegisterPageModule' },
+      { path: FORGOT_PASSWORD_PATH, loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule' },
       { path: COMMUNITY_MODULE_PATH, loadChildren: './+community-page/community-page.module#CommunityPageModule' },
       { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
       { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
@@ -82,7 +106,7 @@ export function getDSOPath(dso: DSpaceObject): string {
       },
       { path: 'search', loadChildren: './+search-page/search-page-routing.module#SearchPageRoutingModule' },
       { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule'},
-      { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
+      { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [SiteAdministratorGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
       { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
       { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },
@@ -98,6 +122,8 @@ export function getDSOPath(dso: DSpaceObject): string {
         path: PROFILE_MODULE_PATH,
         loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard]
       },
+      { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard] },
+      { path: UNAUTHORIZED_PATH, component: UnauthorizedComponent },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ],
     {

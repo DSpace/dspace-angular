@@ -195,5 +195,5 @@ export const environment: Partial<GlobalConfig> = {
   },
   theme: {
     name: 'default',
-  }
+  },
 };

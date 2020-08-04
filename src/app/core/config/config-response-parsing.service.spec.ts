@@ -177,6 +177,7 @@ describe('ConfigResponseParsingService', () => {
       Object.assign(new SubmissionDefinitionModel(), {
         isDefault: true,
         name: 'traditional',
+        id: 'traditional',
         type: 'submissiondefinition',
         _links: {
           sections: { href: 'https://rest.api/config/submissiondefinitions/traditional/sections' },
@@ -187,6 +188,7 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.describe.stepone',
             mandatory: true,
             sectionType: 'submission-form',
+            id: 'traditionalpageone',
             visibility: {
               main: null,
               other: 'READONLY'
@@ -201,6 +203,7 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.describe.steptwo',
             mandatory: true,
             sectionType: 'submission-form',
+            id: 'traditionalpagetwo',
             visibility: {
               main: null,
               other: 'READONLY'
@@ -215,6 +218,7 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.upload',
             mandatory: false,
             sectionType: 'upload',
+            id: 'upload',
             visibility: {
               main: null,
               other: 'READONLY'
@@ -229,6 +233,7 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.license',
             mandatory: true,
             sectionType: 'license',
+            id: 'license',
             visibility: {
               main: null,
               other: 'READONLY'

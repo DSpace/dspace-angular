@@ -24,6 +24,8 @@ import { PaginatedList } from '../data/paginated-list';
 import { ActionType } from './models/action-type.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { isNotEmpty } from '../../shared/empty.util';
+import { map } from 'rxjs/operators';
+import { RestResponse } from '../cache/response.models';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -100,7 +102,7 @@ export class ResourcePolicyService {
    * @return an observable that emits true when the deletion was successful, false when it failed
    */
   delete(resourcePolicyID: string): Observable<boolean> {
-    return this.dataService.delete(resourcePolicyID);
+    return this.dataService.delete(resourcePolicyID).pipe(map((response: RestResponse) => response.isSuccessful));
   }
 
   /**

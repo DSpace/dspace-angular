@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/DSpace/dspace-angular.svg?branch=master)](https://travis-ci.org/DSpace/dspace-angular) [![Coverage Status](https://coveralls.io/repos/github/DSpace/dspace-angular/badge.svg?branch=master)](https://coveralls.io/github/DSpace/dspace-angular?branch=master) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
+[![Build Status](https://travis-ci.com/DSpace/dspace-angular.svg?branch=main)](https://travis-ci.com/DSpace/dspace-angular) [![Coverage Status](https://coveralls.io/repos/github/DSpace/dspace-angular/badge.svg?branch=main)](https://coveralls.io/github/DSpace/dspace-angular?branch=main) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
 
 dspace-angular
 ==============
@@ -104,7 +104,7 @@ DSPACE_REST_SSL # Whether the angular REST uses SSL [true/false]
 
 The same settings can also be overwritten by setting system environment variables instead, E.g.:
 ```bash 
-export DSPACE_HOST=https://dspace7.4science.cloud/server
+export DSPACE_HOST=dspace7.4science.cloud
 ```
 
 The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides **`environment.(prod, dev or test).ts`** overrides **`environment.common.ts`**

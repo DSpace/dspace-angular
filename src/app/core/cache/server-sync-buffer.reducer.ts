@@ -9,7 +9,7 @@ import { RestRequestMethod } from '../data/rest-request-method';
 
 /**
  * An entry in the ServerSyncBufferState
- * href: unique href of an ObjectCacheEntry
+ * href: unique href of an ServerSyncBufferEntry
  * method: RestRequestMethod type
  */
 export class ServerSyncBufferEntry {
@@ -48,6 +48,7 @@ export function serverSyncBufferReducer(state = initialState, action: ServerSync
     case ServerSyncBufferActionTypes.EMPTY: {
       return emptyServerSyncQueue(state, action as EmptySSBAction);
     }
+
     default: {
       return state;
     }

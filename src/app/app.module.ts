@@ -40,6 +40,7 @@ import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -123,6 +124,7 @@ const EXPORTS = [
   declarations: [
     ...DECLARATIONS,
     BreadcrumbsComponent,
+    UnauthorizedComponent,
   ],
   exports: [
     ...EXPORTS

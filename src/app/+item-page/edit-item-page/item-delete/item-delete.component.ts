@@ -1,24 +1,27 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {filter, first, map, switchMap, take} from 'rxjs/operators';
-import {AbstractSimpleItemActionComponent} from '../simple-item-action/abstract-simple-item-action.component';
-import {getItemEditPath} from '../../item-page-routing.module';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {combineLatest as observableCombineLatest, combineLatest, Observable} from 'rxjs';
-import {RelationshipType} from '../../../core/shared/item-relationships/relationship-type.model';
-import {VirtualMetadata} from '../virtual-metadata/virtual-metadata.component';
-import {Relationship} from '../../../core/shared/item-relationships/relationship.model';
-import {getRemoteDataPayload, getSucceededRemoteData} from '../../../core/shared/operators';
-import {hasValue, isNotEmpty} from '../../../shared/empty.util';
-import {Item} from '../../../core/shared/item.model';
-import {MetadataValue} from '../../../core/shared/metadata.models';
-import {ViewMode} from '../../../core/shared/view-mode.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {ItemDataService} from '../../../core/data/item-data.service';
-import {TranslateService} from '@ngx-translate/core';
-import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
-import {RelationshipService} from '../../../core/data/relationship.service';
-import {EntityTypeService} from '../../../core/data/entity-type.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { defaultIfEmpty, filter, first, map, switchMap, take } from 'rxjs/operators';
+import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import { getItemEditPath } from '../../item-page-routing.module';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { combineLatest as observableCombineLatest, combineLatest, Observable, of as observableOf } from 'rxjs';
+import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
+import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { Item } from '../../../core/shared/item.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { RelationshipService } from '../../../core/data/relationship.service';
+import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { LinkService } from '../../../core/cache/builders/link.service';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { RestResponse } from '../../../core/cache/response.models';
 
 @Component({
   selector: 'ds-item-delete',
@@ -80,6 +83,7 @@ export class ItemDeleteComponent
               protected objectUpdatesService: ObjectUpdatesService,
               protected relationshipService: RelationshipService,
               protected entityTypeService: EntityTypeService,
+              protected linkService: LinkService,
   ) {
     super(
       route,
@@ -98,30 +102,33 @@ export class ItemDeleteComponent
     super.ngOnInit();
     this.url = this.router.url;
 
-    this.types$ = this.entityTypeService.getEntityTypeByLabel(
-      this.item.firstMetadataValue('relationship.type')
-    ).pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      switchMap((entityType) => this.entityTypeService.getEntityTypeRelationships(entityType.id)),
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((relationshipTypes) => relationshipTypes.page),
-      switchMap((types) =>
-        combineLatest(types.map((type) => this.getRelationships(type))).pipe(
-          map((relationships) =>
-            types.reduce<RelationshipType[]>((includedTypes, type, index) => {
-              if (!includedTypes.some((includedType) => includedType.id === type.id)
-                && !(relationships[index].length === 0)) {
-                return [...includedTypes, type];
-              } else {
-                return includedTypes;
-              }
-            }, [])
-          ),
-        )
-      ),
-    );
+    const label = this.item.firstMetadataValue('relationship.type');
+    if (label !== undefined) {
+      this.types$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
+        getSucceededRemoteData(),
+        getRemoteDataPayload(),
+        switchMap((entityType) => this.entityTypeService.getEntityTypeRelationships(entityType.id)),
+        getSucceededRemoteData(),
+        getRemoteDataPayload(),
+        map((relationshipTypes) => relationshipTypes.page),
+        switchMap((types) =>
+          combineLatest(types.map((type) => this.getRelationships(type))).pipe(
+            map((relationships) =>
+              types.reduce<RelationshipType[]>((includedTypes, type, index) => {
+                if (!includedTypes.some((includedType) => includedType.id === type.id)
+                  && !(relationships[index].length === 0)) {
+                  return [...includedTypes, type];
+                } else {
+                  return includedTypes;
+                }
+              }, [])
+            ),
+          )
+        ),
+      );
+    } else {
+      this.types$ = observableOf([]);
+    }
 
     this.types$.pipe(
       take(1),
@@ -187,6 +194,7 @@ export class ItemDeleteComponent
             observableCombineLatest(
               relationships.map((relationship) => this.getRelationshipType(relationship))
             ).pipe(
+              defaultIfEmpty([]),
               map((types) => relationships.filter(
                 (relationship, index) => relationshipType.id === types[index].id
               )),
@@ -205,6 +213,12 @@ export class ItemDeleteComponent
    */
   private getRelationshipType(relationship: Relationship): Observable<RelationshipType> {
 
+    this.linkService.resolveLinks(
+      relationship,
+      followLink('relationshipType'),
+      followLink('leftItem'),
+      followLink('rightItem'),
+    );
     return relationship.relationshipType.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -305,6 +319,7 @@ export class ItemDeleteComponent
         combineLatest(
           types.map((type) => this.isSelected(type))
         ).pipe(
+          defaultIfEmpty([]),
           map((selection) => types.filter(
             (type, index) => selection[index]
           )),
@@ -313,8 +328,8 @@ export class ItemDeleteComponent
       ),
     ).subscribe((types) => {
       this.itemDataService.delete(this.item.id, types).pipe(first()).subscribe(
-        (succeeded: boolean) => {
-          this.notify(succeeded);
+        (response: RestResponse) => {
+          this.notify(response.isSuccessful);
         }
       );
     });

@@ -10,7 +10,6 @@ import { AuthorityValue } from '../../core/integration/models/authority.value';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormRowModel } from '../../core/config/models/config-submission-form.model';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 
 export const qualdropSelectConfig = {
   name: 'dc.identifier_QUALDROP_METADATA',
@@ -56,7 +55,8 @@ export const qualdropInputConfig = {
   repeatable: false,
   value: 'test',
   submissionId: '1234',
-  metadataFields: []
+  metadataFields: [],
+  hasSelectableMetadata: false
 };
 
 export const mockQualdropSelectModel = new DynamicSelectModel(qualdropSelectConfig);
@@ -76,10 +76,15 @@ const rowArrayQualdropConfig = {
   id: 'row_QUALDROP_GROUP',
   initialCount: 1,
   notRepeatable: true,
+  relationshipConfig: undefined,
   groupFactory: () => {
     return [MockQualdropModel];
   },
-  required: false
+  required: false,
+  submissionId: '1234',
+  metadataKey: 'dc.some.key',
+  metadataFields: ['dc.some.key'],
+  hasSelectableMetadata: false
 } as DynamicRowArrayModelConfig;
 
 export const MockRowArrayQualdropModel: DynamicRowArrayModel = new DynamicRowArrayModel(rowArrayQualdropConfig);
@@ -136,7 +141,8 @@ const relationGroupConfig = {
       'issue test 2'
     ],
   },
-  metadataFields: []
+  metadataFields: [],
+  hasSelectableMetadata: false
 };
 
 export const MockRelationModel: DynamicRelationGroupModel = new DynamicRelationGroupModel(relationGroupConfig);
@@ -165,7 +171,8 @@ export const inputWithLanguageAndAuthorityConfig = {
     id: 'testWithLanguageAndAuthority',
   },
   submissionId: '1234',
-  metadataFields: []
+  metadataFields: [],
+  hasSelectableMetadata: false
 };
 
 export const mockInputWithLanguageAndAuthorityModel = new DsDynamicInputModel(inputWithLanguageAndAuthorityConfig);
@@ -189,7 +196,8 @@ export const inputWithLanguageConfig = {
   repeatable: false,
   value: 'testWithLanguage',
   submissionId: '1234',
-  metadataFields: []
+  metadataFields: [],
+  hasSelectableMetadata: false
 };
 
 export const mockInputWithLanguageModel = new DsDynamicInputModel(inputWithLanguageConfig);
@@ -218,7 +226,8 @@ export const inputWithLanguageAndAuthorityArrayConfig = {
     id: 'testLanguageAndAuthorityArray',
   }],
   submissionId: '1234',
-  metadataFields: []
+  metadataFields: [],
+  hasSelectableMetadata: false
 };
 
 export const mockInputWithLanguageAndAuthorityArrayModel = new DsDynamicInputModel(inputWithLanguageAndAuthorityArrayConfig);
@@ -231,7 +240,8 @@ export const inputWithFormFieldValueConfig = {
   repeatable: false,
   value: new FormFieldMetadataValueObject('testWithFormFieldValue'),
   submissionId: '1234',
-  metadataFields: []
+  metadataFields: [],
+  hasSelectableMetadata: false
 };
 
 export const mockInputWithFormFieldValueModel = new DsDynamicInputModel(inputWithFormFieldValueConfig);
@@ -244,7 +254,8 @@ export const inputWithAuthorityValueConfig = {
   repeatable: false,
   value: Object.assign({}, new AuthorityValue(), { value: 'testWithAuthorityValue', id: 'testWithAuthorityValue', display: 'testWithAuthorityValue' }),
   submissionId: '1234',
-  metadataFields: []
+  metadataFields: [],
+  hasSelectableMetadata: false
 };
 
 export const mockInputWithAuthorityValueModel = new DsDynamicInputModel(inputWithAuthorityValueConfig);
@@ -257,7 +268,8 @@ export const inputWithObjectValueConfig = {
   repeatable: false,
   value: { value: 'testWithObjectValue', id: 'testWithObjectValue', display: 'testWithObjectValue' },
   submissionId: '1234',
-  metadataFields: []
+  metadataFields: [],
+  hasSelectableMetadata: false
 };
 
 export const mockInputWithObjectValueModel = new DsDynamicInputModel(inputWithObjectValueConfig);
@@ -274,7 +286,8 @@ export const fileFormEditInputConfig = {
   disabled: false,
   repeatable: false,
   submissionId: '1234',
-  metadataFields: []
+  metadataFields: [],
+  hasSelectableMetadata: false
 };
 
 export const mockFileFormEditInputModel = new DsDynamicInputModel(fileFormEditInputConfig);

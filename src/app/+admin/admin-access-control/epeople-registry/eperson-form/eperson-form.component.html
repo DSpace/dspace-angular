@@ -20,7 +20,7 @@
   <button class="btn btn-light" [disabled]="!(canDelete$ | async)">
     <i class="fa fa-trash"></i> {{'admin.access-control.epeople.actions.delete' | translate}}
   </button>
-  <button *ngIf="!isImpersonated" class="btn btn-light" [disabled]="!(canImpersonate$ | async)" (click)="impersonate()">
+  <button *ngIf="!isImpersonated" class="btn btn-light" [ngClass]="{'d-none' : !(canImpersonate$ | async)}" (click)="impersonate()">
     <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
   </button>
   <button *ngIf="isImpersonated" class="btn btn-light" (click)="stopImpersonating()">

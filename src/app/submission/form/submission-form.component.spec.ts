@@ -20,6 +20,7 @@ import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
+import { Item } from '../../core/shared/item.model';
 
 describe('SubmissionFormComponent Component', () => {
 
@@ -66,7 +67,7 @@ describe('SubmissionFormComponent Component', () => {
         <ds-submission-form [collectionId]="collectionId"
                                    [selfUrl]="selfUrl"
                                    [submissionDefinition]="submissionDefinition"
-                                   [submissionId]="submissionId"></ds-submission-form>`;
+                                   [submissionId]="submissionId" [item]="item"></ds-submission-form>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -118,6 +119,7 @@ describe('SubmissionFormComponent Component', () => {
       comp.submissionDefinition = submissionDefinition;
       comp.selfUrl = selfUrl;
       comp.sections = sectionsData;
+      comp.item = new Item();
 
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
       submissionServiceStub.getSubmissionSections.and.returnValue(observableOf(sectionsList));
@@ -143,6 +145,7 @@ describe('SubmissionFormComponent Component', () => {
         selfUrl,
         submissionDefinition,
         sectionsData,
+        comp.item,
         null);
       expect(submissionServiceStub.startAutoSave).toHaveBeenCalled();
     });
@@ -153,6 +156,7 @@ describe('SubmissionFormComponent Component', () => {
       comp.submissionDefinition = submissionDefinition;
       comp.selfUrl = selfUrl;
       comp.sections = sectionsData;
+      comp.item = new Item();
 
       comp.onCollectionChange(submissionObjectNew);
 
@@ -168,7 +172,9 @@ describe('SubmissionFormComponent Component', () => {
         submissionId,
         selfUrl,
         submissionObjectNew.submissionDefinition,
-        submissionObjectNew.sections);
+        submissionObjectNew.sections,
+        comp.item,
+      );
     });
 
     it('should update only collection id on collection change when submission definition is not changed', () => {
@@ -178,6 +184,7 @@ describe('SubmissionFormComponent Component', () => {
       comp.submissionDefinition = submissionDefinition;
       comp.selfUrl = selfUrl;
       comp.sections = sectionsData;
+      comp.item = new Item();
 
       comp.onCollectionChange({
         collection: {

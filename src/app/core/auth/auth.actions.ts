@@ -3,7 +3,6 @@ import { Action } from '@ngrx/store';
 // import type function
 import { type } from '../../shared/ngrx/type';
 // import models
-import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
@@ -31,9 +30,6 @@ export const AuthActionTypes = {
   LOG_OUT: type('dspace/auth/LOG_OUT'),
   LOG_OUT_ERROR: type('dspace/auth/LOG_OUT_ERROR'),
   LOG_OUT_SUCCESS: type('dspace/auth/LOG_OUT_SUCCESS'),
-  REGISTRATION: type('dspace/auth/REGISTRATION'),
-  REGISTRATION_ERROR: type('dspace/auth/REGISTRATION_ERROR'),
-  REGISTRATION_SUCCESS: type('dspace/auth/REGISTRATION_SUCCESS'),
   SET_REDIRECT_URL: type('dspace/auth/SET_REDIRECT_URL'),
   RETRIEVE_AUTHENTICATED_EPERSON: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON'),
   RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS'),
@@ -264,48 +260,6 @@ export class RetrieveTokenAction implements Action {
 }
 
 /**
- * Sign up.
- * @class RegistrationAction
- * @implements {Action}
- */
-export class RegistrationAction implements Action {
-  public type: string = AuthActionTypes.REGISTRATION;
-  payload: EPerson;
-
-  constructor(user: EPerson) {
-    this.payload = user;
-  }
-}
-
-/**
- * Sign up error.
- * @class RegistrationErrorAction
- * @implements {Action}
- */
-export class RegistrationErrorAction implements Action {
-  public type: string = AuthActionTypes.REGISTRATION_ERROR;
-  payload: Error;
-
-  constructor(payload: Error) {
-    this.payload = payload;
-  }
-}
-
-/**
- * Sign up success.
- * @class RegistrationSuccessAction
- * @implements {Action}
- */
-export class RegistrationSuccessAction implements Action {
-  public type: string = AuthActionTypes.REGISTRATION_SUCCESS;
-  payload: EPerson;
-
-  constructor(user: EPerson) {
-    this.payload = user;
-  }
-}
-
-/**
  * Add uthentication message.
  * @class AddAuthenticationMessageAction
  * @implements {Action}
@@ -439,9 +393,6 @@ export type AuthActions
   | CheckAuthenticationTokenCookieAction
   | RedirectWhenAuthenticationIsRequiredAction
   | RedirectWhenTokenExpiredAction
-  | RegistrationAction
-  | RegistrationErrorAction
-  | RegistrationSuccessAction
   | AddAuthenticationMessageAction
   | RefreshTokenAction
   | RefreshTokenErrorAction
