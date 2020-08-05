@@ -250,10 +250,7 @@ export class SectionFormOperationsService {
       fieldValue = new FormFieldMetadataValueObject(value);
     }
 
-    // make a copy of fieldvalue for returning,
-    // so any changes to it can't influence the original.
-    // fixes #817
-    return deepClone(fieldValue);
+    return fieldValue;
   }
 
   /**
@@ -314,7 +311,7 @@ export class SectionFormOperationsService {
     event: DynamicFormControlEvent
   ): void {
     const path = this.getFieldPathSegmentedFromChangeEvent(event);
-    const value = this.getFieldValueFromChangeEvent(event);
+    const value = deepClone(this.getFieldValueFromChangeEvent(event));
     if (isNotEmpty(value)) {
       value.place = this.getArrayIndexFromEvent(event);
       if (hasValue(event.group) && hasValue(event.group.value)) {
