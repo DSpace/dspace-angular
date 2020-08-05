@@ -299,12 +299,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     const bitstream$ = this.bitstreamRD$.pipe(
       getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      switchMap((bitstream: Bitstream) => this.bitstreamService.findById(bitstream.id, followLink('format')).pipe(
-        getAllSucceededRemoteData(),
-        getRemoteDataPayload(),
-        filter((bs: Bitstream) => hasValue(bs)))
-      )
+      getRemoteDataPayload()
     );
 
     const allFormats$ = this.bitstreamFormatsRD$.pipe(

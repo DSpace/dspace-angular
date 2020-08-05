@@ -36,7 +36,8 @@ export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
      */
     get followLinks(): Array<FollowLinkConfig<Bitstream>> {
         return [
-            followLink('bundle', undefined, true, followLink('item'))
+            followLink('bundle', undefined, true, followLink('item')),
+            followLink('format')
         ];
     }
 }
