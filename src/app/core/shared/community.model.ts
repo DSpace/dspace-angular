@@ -3,8 +3,6 @@ import { Observable } from 'rxjs';
 import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { Group } from '../eperson/models/group.model';
-import { GROUP } from '../eperson/models/group.resource-type';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { Collection } from './collection.model';

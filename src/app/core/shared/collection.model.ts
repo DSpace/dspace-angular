@@ -15,8 +15,6 @@ import { RESOURCE_POLICY } from '../resource-policy/models/resource-policy.resou
 import { COMMUNITY } from './community.resource-type';
 import { Community } from './community.model';
 import { ChildHALResource } from './child-hal-resource.model';
-import { GROUP } from '../eperson/models/group.resource-type';
-import { Group } from '../eperson/models/group.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
