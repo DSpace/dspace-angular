@@ -24,7 +24,7 @@ import {
   SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { Operation } from 'fast-json-patch';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';

@@ -13,11 +13,11 @@ import { RelationshipService } from '../../../../core/data/relationship.service'
 import {Item} from '../../../../core/shared/item.model';
 import {
   defaultIfEmpty, filter, flatMap,
-  map, startWith,
+  map,
   switchMap,
   take, tap,
 } from 'rxjs/operators';
-import { hasValue, isNotEmptyOperator } from '../../../../shared/empty.util';
+import { hasValue } from '../../../../shared/empty.util';
 import {Relationship} from '../../../../core/shared/item-relationships/relationship.model';
 import {RelationshipType} from '../../../../core/shared/item-relationships/relationship-type.model';
 import {

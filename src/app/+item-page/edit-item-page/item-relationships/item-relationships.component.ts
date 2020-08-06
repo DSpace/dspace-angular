@@ -22,11 +22,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
-import { isNotEmptyOperator } from '../../../shared/empty.util';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 
