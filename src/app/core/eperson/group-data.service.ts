@@ -40,7 +40,6 @@ import { GROUP } from './models/group.resource-type';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { Community } from '../shared/community.model';
 import { Collection } from '../shared/collection.model';
-import { ComcolRole } from '../../shared/comcol-forms/edit-comcol-page/comcol-role/comcol-role';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -324,16 +323,17 @@ export class GroupDataService extends DataService<Group> {
    * Create a group for a given role for a given community or collection.
    *
    * @param dso         The community or collection for which to create a group
+   * @param role        The name of the role for which to create a group
    * @param link        The REST endpoint to create the group
    */
-  createComcolGroup(dso: Community|Collection, link: string): Observable<RestResponse> {
+  createComcolGroup(dso: Community|Collection, role: string, link: string): Observable<RestResponse> {
 
     const requestId = this.requestService.generateRequestId();
     const group = Object.assign(new Group(), {
       metadata: {
         'dc.description': [
           {
-            value: `${this.nameService.getName(dso)} admin group`,
+            value: `${this.nameService.getName(dso)} ${role} group`,
           }
         ],
       },

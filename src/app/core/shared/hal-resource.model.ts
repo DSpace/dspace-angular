@@ -22,6 +22,6 @@ export class HALResource {
     /**
      * {@link HALLink}s to related {@link HALResource}s
      */
-    [k: string]: HALLink;
+    [k: string]: HALLink | HALLink[];
   };
 }
