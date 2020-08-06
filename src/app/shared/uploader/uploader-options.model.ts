@@ -18,6 +18,11 @@ export class UploaderOptions {
   autoUpload = true;
 
   /**
+   * Set the max number of files that can be loaded
+   */
+  maxFileNumber: number;
+
+  /**
    * The request method to use for the file upload request
    */
   method: RestRequestMethod = RestRequestMethod.POST;
