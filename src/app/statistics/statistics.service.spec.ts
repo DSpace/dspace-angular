@@ -82,7 +82,7 @@ describe('StatisticsService', () => {
     const mockSearch: any = new SearchOptions({
       query: 'mock-query',
       configuration: 'mock-configuration',
-      dsoType: DSpaceObjectType.ITEM,
+      dsoTypes: [DSpaceObjectType.ITEM],
       scope: 'mock-scope'
     });
 
@@ -112,7 +112,7 @@ describe('StatisticsService', () => {
     const body = JSON.parse(request.body);
 
     it('should specify the dsoType', () => {
-      expect(body.dsoType).toBe('item');
+      expect(body.dsoTypes).toBe('item');
     });
 
     it('should specify the scope', () => {

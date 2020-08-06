@@ -68,8 +68,9 @@ export class StatisticsService {
     if (hasValue(searchOptions.configuration)) {
       Object.assign(body, { configuration: searchOptions.configuration })
     }
-    if (hasValue(searchOptions.dsoType)) {
-      Object.assign(body, { dsoType: searchOptions.dsoType.toLowerCase() })
+    if (isNotEmpty(searchOptions.dsoTypes)) {
+      // TODO: check if backend statistics search even can handle multiple dsoTypes in body
+      Object.assign(body, { dsoTypes: searchOptions.dsoTypes.map( dsoType => dsoType.toLowerCase() ) })
     }
     if (hasValue(searchOptions.scope)) {
       Object.assign(body, { scope: searchOptions.scope })

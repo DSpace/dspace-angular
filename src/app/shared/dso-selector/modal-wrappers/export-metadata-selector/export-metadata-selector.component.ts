@@ -28,7 +28,7 @@ import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-sel
 })
 export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;
-  selectorType = DSpaceObjectType.DSPACEOBJECT;
+  selectorTypes = [DSpaceObjectType.COLLECTION, DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.EXPORT_METADATA;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router,
