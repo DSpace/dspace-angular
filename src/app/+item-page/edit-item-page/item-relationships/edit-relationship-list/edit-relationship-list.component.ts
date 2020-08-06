@@ -94,10 +94,18 @@ export class EditRelationshipListComponent implements OnInit {
    */
   public getRelationshipMessageKey(): Observable<string> {
 
-    return this.getLabel().pipe(
-      map((label) => {
-        if (hasValue(label) && label.indexOf('Of') > -1) {
-          return `relationships.${label.substring(0, label.indexOf('Of') + 2)}`
+    return observableCombineLatest(
+      this.getLabel(),
+      this.relatedEntityType$,
+    ).pipe(
+      map(([label, relatedEntityType]) => {
+        if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
+          const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
+          if (relationshipLabel !== relatedEntityType.label) {
+            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`
+          } else {
+            return `relationships.is${relationshipLabel}Of`
+          }
         } else {
           return label;
         }
@@ -192,18 +200,21 @@ export class EditRelationshipListComponent implements OnInit {
 
     this.selectableListService.deselectAll(this.listId);
     this.updates$.pipe(
-      switchMap((updates) => observableCombineLatest(
-        Object.values(updates)
-          .filter((update) => update.changeType !== FieldChangeType.REMOVE)
-          .map((update) => {
-            const field = update.field as RelationshipIdentifiable;
-            if (field.relationship) {
-              return this.getRelatedItem(field.relationship);
-            } else {
-              return of(field.relatedItem);
-            }
-          })
-      )),
+      switchMap((updates) =>
+        Object.values(updates).length > 0 ?
+          observableCombineLatest(
+            Object.values(updates)
+              .filter((update) => update.changeType !== FieldChangeType.REMOVE)
+              .map((update) => {
+                const field = update.field as RelationshipIdentifiable;
+                if (field.relationship) {
+                  return this.getRelatedItem(field.relationship);
+                } else {
+                  return of(field.relatedItem);
+                }
+              })
+          ) : of([])
+      ),
       take(1),
       map((items) => items.map((item) => {
         const searchResult = new ItemSearchResult();
@@ -254,7 +265,6 @@ export class EditRelationshipListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listId = 'edit-relationship-' + this.itemType.id;
 
     this.relatedEntityType$ =
       observableCombineLatest([
@@ -267,6 +277,12 @@ export class EditRelationshipListComponent implements OnInit {
         map((relatedTypes) => relatedTypes.find((relatedType) => relatedType.uuid !== this.itemType.uuid)),
       );
 
+    this.relatedEntityType$.pipe(
+      take(1)
+    ).subscribe(
+      (relatedEntityType) => this.listId = `edit-relationship-${this.itemType.id}-${relatedEntityType.id}`
+    );
+
     this.updates$ = this.getItemRelationships().pipe(
       switchMap((relationships) =>
         observableCombineLatest(
@@ -274,15 +290,15 @@ export class EditRelationshipListComponent implements OnInit {
         ).pipe(
           defaultIfEmpty([]),
           map((isLeftItemArray) => isLeftItemArray.map((isLeftItem, index) => {
-              const relationship = relationships[index];
-              const nameVariant = isLeftItem ? relationship.rightwardValue : relationship.leftwardValue;
-              return {
-                uuid: relationship.id,
-                type: this.relationshipType,
-                relationship,
-                nameVariant,
-              } as RelationshipIdentifiable
-            })),
+            const relationship = relationships[index];
+            const nameVariant = isLeftItem ? relationship.rightwardValue : relationship.leftwardValue;
+            return {
+              uuid: relationship.id,
+              type: this.relationshipType,
+              relationship,
+              nameVariant,
+            } as RelationshipIdentifiable
+          })),
         )),
       switchMap((initialFields) => this.objectUpdatesService.getFieldUpdates(this.url, initialFields).pipe(
         map((fieldUpdates) => {

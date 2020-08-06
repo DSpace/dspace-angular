@@ -51,6 +51,9 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    */
   @Input() showLabel = true;
 
+  /**
+   * The value to display for this element
+   */
   @Input() value: string;
 
   /**

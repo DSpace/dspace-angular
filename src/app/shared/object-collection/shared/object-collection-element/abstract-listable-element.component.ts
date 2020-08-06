@@ -24,6 +24,9 @@ export class AbstractListableElementComponent<T extends ListableObject> {
    */
   @Input() listID: string;
 
+  /**
+   * The value to display for this element
+   */
   @Input() value: string;
 
   /**

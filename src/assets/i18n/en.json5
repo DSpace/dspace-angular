@@ -2537,6 +2537,10 @@
 
   "relationships.isAuthorOf": "Authors",
 
+  "relationships.isAuthorOf.Person": "Authors (persons)",
+
+  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+
   "relationships.isIssueOf": "Journal Issues",
 
   "relationships.isJournalIssueOf": "Journal Issue",

@@ -129,7 +129,7 @@ export class ObjectUpdatesService {
    */
   getFieldUpdatesExclusive(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
     const objectUpdates = this.getObjectEntry(url);
-    return objectUpdates.pipe(isNotEmptyOperator(), map((objectEntry) => {
+    return objectUpdates.pipe(map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
       for (const object of initialFields) {
         let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
