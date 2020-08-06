@@ -10,6 +10,7 @@ import {
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { SectionsType } from '../sections/sections-type';
+import { Item } from '../../core/shared/item.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -273,6 +274,7 @@ export class InitSubmissionFormAction implements Action {
     selfUrl: string;
     submissionDefinition: SubmissionDefinitionsModel;
     sections: WorkspaceitemSectionsObject;
+    item: Item;
     errors: SubmissionSectionError[];
   };
 
@@ -297,8 +299,9 @@ export class InitSubmissionFormAction implements Action {
               selfUrl: string,
               submissionDefinition: SubmissionDefinitionsModel,
               sections: WorkspaceitemSectionsObject,
+              item: Item,
               errors: SubmissionSectionError[]) {
-    this.payload = { collectionId, submissionId, selfUrl, submissionDefinition, sections, errors };
+    this.payload = { collectionId, submissionId, selfUrl, submissionDefinition, sections, item, errors };
   }
 }
 
@@ -378,6 +381,7 @@ export class SaveSubmissionFormSuccessAction implements Action {
   payload: {
     submissionId: string;
     submissionObject: SubmissionObject[];
+    notify?: boolean
   };
 
   /**
@@ -388,8 +392,8 @@ export class SaveSubmissionFormSuccessAction implements Action {
    * @param submissionObject
    *    the submission's Object
    */
-  constructor(submissionId: string, submissionObject: SubmissionObject[]) {
-    this.payload = { submissionId, submissionObject };
+  constructor(submissionId: string, submissionObject: SubmissionObject[], notify?: boolean) {
+    this.payload = { submissionId, submissionObject, notify };
   }
 }
 
@@ -435,6 +439,7 @@ export class SaveSubmissionSectionFormSuccessAction implements Action {
   payload: {
     submissionId: string;
     submissionObject: SubmissionObject[];
+    notify?: boolean
   };
 
   /**
@@ -445,8 +450,8 @@ export class SaveSubmissionSectionFormSuccessAction implements Action {
    * @param submissionObject
    *    the submission's Object
    */
-  constructor(submissionId: string, submissionObject: SubmissionObject[]) {
-    this.payload = { submissionId, submissionObject };
+  constructor(submissionId: string, submissionObject: SubmissionObject[], notify?: boolean) {
+    this.payload = { submissionId, submissionObject, notify };
   }
 }
 
@@ -475,6 +480,7 @@ export class ResetSubmissionFormAction implements Action {
     selfUrl: string;
     sections: WorkspaceitemSectionsObject;
     submissionDefinition: SubmissionDefinitionsModel;
+    item: Item;
   };
 
   /**
@@ -491,8 +497,8 @@ export class ResetSubmissionFormAction implements Action {
    * @param submissionDefinition
    *    the submission's form definition
    */
-  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject, submissionDefinition: SubmissionDefinitionsModel) {
-    this.payload = { collectionId, submissionId, selfUrl, sections, submissionDefinition };
+  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject, submissionDefinition: SubmissionDefinitionsModel, item: Item) {
+    this.payload = { collectionId, submissionId, selfUrl, sections, submissionDefinition, item };
   }
 }
 

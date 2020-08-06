@@ -1,7 +1,7 @@
-import { isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
 import { ConfidenceType } from '../../../../core/integration/models/confidence-type';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { MetadataValueInterface } from '../../../../core/shared/metadata.models';
+import { MetadataValueInterface, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
 
 export interface OtherInformation {
   [name: string]: string
@@ -63,5 +63,13 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
 
   hasPlaceholder() {
     return this.hasValue() && this.value === PLACEHOLDER_PARENT_METADATA;
+  }
+
+  get isVirtual(): boolean {
+    return hasValue(this.authority) && this.authority.startsWith(VIRTUAL_METADATA_PREFIX);
+  }
+
+  toString() {
+    return this.display || this.value;
   }
 }

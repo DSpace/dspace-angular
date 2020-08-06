@@ -144,6 +144,7 @@ import { ScriptDataService } from './data/processes/script-data.service';
 import { ProcessFilesResponseParsingService } from './data/process-files-response-parsing.service';
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
+import { LocaleInterceptor } from './locale/locale.interceptor';
 import { ItemTemplateDataService } from './data/item-template-data.service';
 import { TemplateItem } from './shared/template-item.model';
 import { Feature } from './shared/feature.model';
@@ -159,6 +160,8 @@ import { SubmissionCcLicenseDataService } from './submission/submission-cc-licen
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
 import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
 import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-license-url-data.service';
+import { ConfigurationDataService } from './data/configuration-data.service';
+import { ConfigurationProperty } from './shared/configuration-property.model';
 import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 
 /**
@@ -245,6 +248,7 @@ const PROVIDERS = [
   UploaderService,
   FileService,
   DSpaceObjectDataService,
+  ConfigurationDataService,
   DSOChangeAnalyzer,
   DefaultChangeAnalyzer,
   ArrayMoveChangeAnalyzer,
@@ -291,6 +295,12 @@ const PROVIDERS = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
+    multi: true
+  },
+  // register LocaleInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LocaleInterceptor,
     multi: true
   },
   NotificationsService,
@@ -345,7 +355,8 @@ export const models =
     TemplateItem,
     Feature,
     Authorization,
-    Registration
+    Registration,
+    ConfigurationProperty
   ];
 
 @NgModule({

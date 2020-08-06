@@ -16,7 +16,9 @@
           <div class="mb-4">
             <router-outlet></router-outlet>
           </div>
-          <a *ngIf="!hideReturnButton" [routerLink]="getPageUrl((dsoRD$ | async)?.payload)" class="btn btn-outline-secondary">{{ type + '.edit.return' | translate }}</a>
+          <div class="col-12">
+            <a *ngIf="!hideReturnButton" [routerLink]="getPageUrl((dsoRD$ | async)?.payload)" class="btn btn-outline-secondary">{{ type + '.edit.return' | translate }}</a>
+          </div>
         </div>
       </div>
     </div>

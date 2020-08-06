@@ -148,7 +148,7 @@ describe('WorkspaceitemActionsComponent', () => {
 
   it('should display a success notification on delete success', async(() => {
     spyOn((component as any).modalService, 'open').and.returnValue({result: Promise.resolve('ok')});
-    mockDataService.delete.and.returnValue(observableOf(true));
+    mockDataService.delete.and.returnValue(observableOf({ isSuccessful: true }));
     spyOn(component, 'reload');
 
     component.confirmDiscard('ok');

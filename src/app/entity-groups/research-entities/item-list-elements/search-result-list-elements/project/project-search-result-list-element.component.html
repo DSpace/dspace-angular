@@ -1,5 +1,5 @@
 <ds-truncatable [id]="dso.id">
-    <ds-item-type-badge [object]="dso"></ds-item-type-badge>
+    <ds-item-type-badge *ngIf="showLabel" [object]="dso"></ds-item-type-badge>
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
        [routerLink]="['/items/' + dso.id]" class="lead"
        [innerHTML]="firstMetadataValue('dc.title')"></a>

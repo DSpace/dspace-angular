@@ -14,7 +14,11 @@
 
   "404.page-not-found": "page not found",
 
+  "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
+  "admin.curation-tasks.title": "System curation tasks",
+
+  "admin.curation-tasks.header": "System curation tasks",
 
   "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
 
@@ -560,6 +564,8 @@
 
   "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
 
+  "collection.curate.header": "Curate Collection: {{collection}}",
+
   "collection.delete.cancel": "Cancel",
 
   "collection.delete.confirm": "Confirm",
@@ -770,6 +776,8 @@
 
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
 
+  "community.curate.header": "Curate Community: {{community}}",
+
   "community.delete.cancel": "Cancel",
 
   "community.delete.confirm": "Confirm",
@@ -906,6 +914,38 @@
   "community.sub-collection-list.head": "Collections of this Community",
 
   "community.sub-community-list.head": "Communities of this Community",
+
+
+
+  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+
+  "curation-task.task.noop.label": "NOOP",
+
+  "curation-task.task.profileformats.label": "Profile Bitstream Formats",
+
+  "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
+
+  "curation-task.task.translate.label": "Microsoft Translator",
+
+  "curation-task.task.vscan.label": "Virus Scan",
+
+
+
+  "curation.form.task-select.label": "Task:",
+
+  "curation.form.submit": "Start",
+
+  "curation.form.submit.success.head": "The curation task has been started successfully",
+
+  "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
+
+  "curation.form.submit.error.head": "Running the curation task failed",
+
+  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+
+  "curation.form.handle.label": "Handle:",
+
+  "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
 
 
 
@@ -1385,6 +1425,8 @@
   "item.edit.relationships.reinstate-button": "Undo",
 
   "item.edit.relationships.save-button": "Save",
+
+  "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
 
 
 
@@ -2738,13 +2780,13 @@
 
   "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Author": "Local Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Issue": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Volume": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
 
@@ -2754,23 +2796,27 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Search for Funding Agencies",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding": "Search for Funding",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
 
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.title.Journal Issue": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
 
-  "submission.sections.describe.relationship-lookup.title.Journal Volume": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
 
-  "submission.sections.describe.relationship-lookup.title.Journal": "Journals",
+  "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
 
-  "submission.sections.describe.relationship-lookup.title.Author": "Authors",
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
 
-  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
 
-  "submission.sections.describe.relationship-lookup.title.Funding": "Funding",
+  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
+
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
@@ -2778,13 +2824,19 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Author": "Selected Authors",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Volume": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Issue": "Selected Issue",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
 

@@ -11,6 +11,7 @@ import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { RestResponse } from '../../../core/cache/response.models';
 
 /**
  * This component renders a list of bitstream formats
@@ -64,7 +65,7 @@ export class BitstreamFormatsComponent implements OnInit {
         const tasks$ = [];
         for (const format of formats) {
           if (hasValue(format.id)) {
-            tasks$.push(this.bitstreamFormatService.delete(format.id));
+            tasks$.push(this.bitstreamFormatService.delete(format.id).pipe(map((response: RestResponse) => response.isSuccessful)));
           }
         }
         zip(...tasks$).subscribe((results: boolean[]) => {
