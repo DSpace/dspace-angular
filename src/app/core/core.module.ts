@@ -145,6 +145,7 @@ import { ProcessFilesResponseParsingService } from './data/process-files-respons
 import { WorkflowActionDataService } from './data/workflow-action-data.service';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { LocaleInterceptor } from './locale/locale.interceptor';
+import { XsrfInterceptor } from './xsrf/xsrf.interceptor';
 import { ItemTemplateDataService } from './data/item-template-data.service';
 import { TemplateItem } from './shared/template-item.model';
 import { Feature } from './shared/feature.model';
@@ -299,6 +300,12 @@ const PROVIDERS = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: LocaleInterceptor,
+    multi: true
+  },
+  // register XsrfInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: XsrfInterceptor,
     multi: true
   },
   NotificationsService,
