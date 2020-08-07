@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs/operators';
+import {filter, map, mergeMap, switchMap} from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import {
@@ -36,7 +36,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { getItemEditPath } from '../../+item-page/item-page-routing.module';
+import {getItemEditPath, getItemPageRoute} from '../../+item-page/item-page-routing.module';
+import {Bundle} from "../../core/shared/bundle.model";
+import {Item} from "../../core/shared/item.model";
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -503,7 +505,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     if (hasValue(this.itemId)) {
       this.router.navigate([getItemEditPath(this.itemId), 'bitstreams']);
     } else {
-      this.location.back();
+      this.bitstream.bundle.pipe(getFirstSucceededRemoteDataPayload(),
+          mergeMap((bundle: Bundle) => bundle.item.pipe(getFirstSucceededRemoteDataPayload(), map((item: Item) => item.uuid))))
+          .subscribe((item) => {
+            this.router.navigate(([getItemPageRoute(item)]));
+          });
     }
   }
 
