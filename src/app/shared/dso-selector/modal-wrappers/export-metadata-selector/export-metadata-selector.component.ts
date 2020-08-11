@@ -66,7 +66,6 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
       resp$.subscribe();
       return resp$;
     } else {
-      this.notificationsService.error(this.translationService.get('dso-selector.export-metadata.notValidDSO'));
       return observableOf(false);
     }
   }
