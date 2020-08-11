@@ -208,6 +208,7 @@ import { GroupSearchBoxComponent } from './resource-policies/form/eperson-group-
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
+import { CurationFormComponent } from '../curation-form/curation-form.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -472,7 +473,8 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsReturnToPoolComponent,
   ClaimedTaskActionsEditMetadataComponent,
   CollectionDropdownComponent,
-  FileDownloadLinkComponent
+  FileDownloadLinkComponent,
+  CurationFormComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -530,7 +532,8 @@ const DIRECTIVES = [
     ...PIPES,
     ...COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    ...DIRECTIVES
+    ...DIRECTIVES,
+    CurationFormComponent
   ],
   entryComponents: [
     ...ENTRY_COMPONENTS

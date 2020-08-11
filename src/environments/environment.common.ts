@@ -215,5 +215,5 @@ export const environment: GlobalConfig = {
   },
   theme: {
     name: 'default',
-  }
+  },
 };

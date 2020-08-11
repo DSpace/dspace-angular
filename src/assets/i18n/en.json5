@@ -14,7 +14,11 @@
 
   "404.page-not-found": "page not found",
 
+  "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
+  "admin.curation-tasks.title": "System curation tasks",
+
+  "admin.curation-tasks.header": "System curation tasks",
 
   "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
 
@@ -560,6 +564,8 @@
 
   "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
 
+  "collection.curate.header": "Curate Collection: {{collection}}",
+
   "collection.delete.cancel": "Cancel",
 
   "collection.delete.confirm": "Confirm",
@@ -770,6 +776,8 @@
 
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
 
+  "community.curate.header": "Curate Community: {{community}}",
+
   "community.delete.cancel": "Cancel",
 
   "community.delete.confirm": "Confirm",
@@ -909,6 +917,38 @@
 
 
 
+  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+
+  "curation-task.task.noop.label": "NOOP",
+
+  "curation-task.task.profileformats.label": "Profile Bitstream Formats",
+
+  "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
+
+  "curation-task.task.translate.label": "Microsoft Translator",
+
+  "curation-task.task.vscan.label": "Virus Scan",
+
+
+
+  "curation.form.task-select.label": "Task:",
+
+  "curation.form.submit": "Start",
+
+  "curation.form.submit.success.head": "The curation task has been started successfully",
+
+  "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
+
+  "curation.form.submit.error.head": "Running the curation task failed",
+
+  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+
+  "curation.form.handle.label": "Handle:",
+
+  "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
+
+
+
   "dso-selector.create.collection.head": "New collection",
 
   "dso-selector.create.community.head": "New community",
@@ -918,6 +958,8 @@
   "dso-selector.create.community.top-level": "Create a new top-level community",
 
   "dso-selector.create.item.head": "New item",
+
+  "dso-selector.create.submission.head": "New submission",
 
   "dso-selector.edit.collection.head": "Edit collection",
 
@@ -1940,6 +1982,10 @@
   "mydspace.title": "MyDSpace",
 
   "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
+
+  "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
+
+  "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
 
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
 
