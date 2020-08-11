@@ -56,18 +56,14 @@ export class FileSectionComponent implements OnInit {
     } else {
       this.currentPage++;
     }
-    console.log(this.isLastPage);
-    console.log(this.currentPage);
-    this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', { currentPage: this.currentPage, elementsPerPage: 1 }).pipe(
+    this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', { currentPage: this.currentPage }).pipe(
         filter((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasValue(bitstreamsRD)),
         takeWhile((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasNoValue(bitstreamsRD.payload) && hasNoValue(bitstreamsRD.error), true)
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
       const current: Bitstream[] = this.bitstreams$.getValue();
       this.bitstreams$.next([...current, ...bitstreamsRD.payload.page]);
       this.isLoading = false;
-      this.isLastPage = hasNoValue(bitstreamsRD.payload.next);
-      console.log("lel");
-      console.log(this.isLastPage);
+      this.isLastPage = this.currentPage === bitstreamsRD.payload.totalPages;
     });
   }
 }
