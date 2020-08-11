@@ -29,7 +29,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   originals$: Observable<RemoteData<PaginatedList<Bitstream>>>;
   licenses$: Observable<RemoteData<PaginatedList<Bitstream>>>;
 
-  pageSize = 5;
+  pageSize = 2;
   originalOptions = Object.assign(new PaginationComponentOptions(),{
     id: 'original-bitstreams-options',
     currentPage: 1,
