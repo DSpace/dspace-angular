@@ -109,12 +109,10 @@ export abstract class FieldParser {
     }
   }
 
-  public setVocabularyOptions(controlModel, scope) {
+  public setVocabularyOptions(controlModel) {
     if (isNotEmpty(this.configData.selectableMetadata) && isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
       controlModel.vocabularyOptions = new VocabularyOptions(
         this.configData.selectableMetadata[0].controlledVocabulary,
-        this.configData.selectableMetadata[0].metadata,
-        scope,
         this.configData.selectableMetadata[0].closed
       )
     }

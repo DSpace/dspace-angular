@@ -175,8 +175,6 @@ describe('VocabularyService', () => {
   const entryByIDRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?entryID=${entryID}`;
   const vocabularyOptions: VocabularyOptions = {
     name: vocabularyId,
-    metadata: metadata,
-    scope: collectionUUID,
     closed: false
   }
   const pageInfo = new PageInfo();
@@ -315,24 +313,6 @@ describe('VocabularyService', () => {
           });
           expect(result).toBeObservable(expected);
         });
-      });
-
-      describe('searchVocabularyByMetadataAndCollection', () => {
-        it('should proxy the call to vocabularyDataService.findVocabularyByHref', () => {
-          scheduler.schedule(() => service.searchVocabularyByMetadataAndCollection(vocabularyOptions).subscribe());
-          scheduler.flush();
-
-          expect((service as any).vocabularyDataService.findByHref).toHaveBeenCalledWith(searchRequestURL);
-        });
-
-        it('should return a RemoteData<Vocabulary> for the search', () => {
-          const result = service.searchVocabularyByMetadataAndCollection(vocabularyOptions);
-          const expected = cold('a|', {
-            a: vocabularyRD
-          });
-          expect(result).toBeObservable(expected);
-        });
-
       });
     });
 

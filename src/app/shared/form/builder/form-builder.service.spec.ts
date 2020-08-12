@@ -79,10 +79,8 @@ describe('FormBuilderService test suite', () => {
     });
 
     const vocabularyOptions: VocabularyOptions = {
-      closed: false,
-      metadata: 'list',
       name: 'type_programme',
-      scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+      closed: false
     };
 
     testModel = [

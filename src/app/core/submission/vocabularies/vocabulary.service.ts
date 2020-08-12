@@ -256,26 +256,6 @@ export class VocabularyService {
   }
 
   /**
-   * Return the controlled {@link Vocabulary} configured for the specified metadata and collection if any.
-   *
-   * @param vocabularyOptions  The {@link VocabularyOptions} for the request
-   * @param linksToFollow      List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
-   * @return {Observable<RemoteData<PaginatedList<Vocabulary>>>}
-   *    Return an observable that emits object list
-   */
-  searchVocabularyByMetadataAndCollection(vocabularyOptions: VocabularyOptions, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
-    const options: VocabularyFindOptions = new VocabularyFindOptions(
-      vocabularyOptions.scope,
-      vocabularyOptions.metadata
-    );
-
-    return this.vocabularyDataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options).pipe(
-      first((href: string) => hasValue(href)),
-      flatMap((href: string) => this.vocabularyDataService.findByHref(href))
-    )
-  }
-
-  /**
    * Returns an observable of {@link RemoteData} of a {@link VocabularyEntryDetail}, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the {@link VocabularyEntryDetail}
    * @param href            The url of {@link VocabularyEntryDetail} we want to retrieve

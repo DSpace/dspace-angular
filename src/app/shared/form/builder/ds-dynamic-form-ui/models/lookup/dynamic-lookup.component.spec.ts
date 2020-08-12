@@ -25,10 +25,8 @@ import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 
 let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
   vocabularyOptions: {
-    closed: false,
-    metadata: 'lookup',
     name: 'RPAuthority',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    closed: false
   } as VocabularyOptions,
   disabled: false,
   errorMessages: { required: 'Required field.' },
@@ -49,10 +47,8 @@ let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
 
 let LOOKUP_NAME_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
-    closed: false,
-    metadata: 'lookup-name',
     name: 'RPAuthority',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    closed: false
   } as VocabularyOptions,
   disabled: false,
   errorMessages: { required: 'Required field.' },
@@ -80,10 +76,8 @@ describe('Dynamic Lookup component', () => {
   function init() {
     LOOKUP_TEST_MODEL_CONFIG = {
       vocabularyOptions: {
-        closed: false,
-        metadata: 'lookup',
         name: 'RPAuthority',
-        scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+        closed: false
       } as VocabularyOptions,
       disabled: false,
       errorMessages: { required: 'Required field.' },
@@ -104,10 +98,8 @@ describe('Dynamic Lookup component', () => {
 
     LOOKUP_NAME_TEST_MODEL_CONFIG = {
       vocabularyOptions: {
-        closed: false,
-        metadata: 'lookup-name',
         name: 'RPAuthority',
-        scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+        closed: false
       } as VocabularyOptions,
       disabled: false,
       errorMessages: { required: 'Required field.' },

@@ -152,7 +152,7 @@ const relationGroupConfig = {
 export const MockRelationModel: DynamicRelationGroupModel = new DynamicRelationGroupModel(relationGroupConfig);
 
 export const inputWithLanguageAndAuthorityConfig = {
-  vocabularyOptions: new VocabularyOptions('testAuthority', 'testWithAuthority', 'scope'),
+  vocabularyOptions: new VocabularyOptions('testAuthority', false),
   languageCodes: [
     {
       display: 'English',
@@ -207,7 +207,7 @@ export const inputWithLanguageConfig = {
 export const mockInputWithLanguageModel = new DsDynamicInputModel(inputWithLanguageConfig);
 
 export const inputWithLanguageAndAuthorityArrayConfig = {
-  vocabularyOptions: new VocabularyOptions('testAuthority', 'testWithAuthority', 'scope'),
+  vocabularyOptions: new VocabularyOptions('testAuthority', false),
   languageCodes: [
     {
       display: 'English',

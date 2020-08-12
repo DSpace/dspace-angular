@@ -156,7 +156,7 @@ describe('VocabularyTreeviewService test suite', () => {
     searchNodeMap = new Map<string, TreeviewNode>([
       [item.id, searchItemNode],
     ]);
-    vocabularyOptions = new VocabularyOptions('vocabularyTest', 'metadata.test', '123456');
+    vocabularyOptions = new VocabularyOptions('vocabularyTest', false);
   }
 
   beforeEach(async(() => {

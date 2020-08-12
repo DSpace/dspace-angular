@@ -11,7 +11,7 @@ export class LookupNameFieldParser extends FieldParser {
     if (this.configData.selectableMetadata[0].controlledVocabulary) {
       const lookupModelConfig: DynamicLookupNameModelConfig = this.initModel(null, label);
 
-      this.setVocabularyOptions(lookupModelConfig, this.parserOptions.collectionUUID);
+      this.setVocabularyOptions(lookupModelConfig);
 
       this.setValues(lookupModelConfig, fieldValue, true);
 

@@ -24,9 +24,7 @@ export const SD_TEST_GROUP = new FormGroup({
 export const SD_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
     closed: false,
-    metadata: 'dropdown',
-    name: 'common_iso_languages',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    name: 'common_iso_languages'
   } as VocabularyOptions,
   disabled: false,
   errorMessages: { required: 'Required field.' },
