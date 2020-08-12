@@ -21,11 +21,9 @@ export const copyWebpackOptions = [
   }, {
     from: path.join(__dirname, '..', 'src', 'assets', 'i18n'),
     to: path.join('assets', 'i18n')
-  }
-  ];
+];
 
 export const commonExports = {
-  target: 'web',
   plugins: [
     new CopyWebpackPlugin(copyWebpackOptions),
     new HtmlWebpackPlugin({
@@ -37,9 +35,6 @@ export const commonExports = {
       defaultAttribute: 'defer'
     })
   ],
-  node: {
-    module: 'empty'
-  },
   module: {
     rules: [
       {
@@ -99,5 +94,3 @@ export const commonExports = {
     ],
   }
 };
-
-module.exports = commonExports;
