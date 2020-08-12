@@ -21,6 +21,10 @@ export const copyWebpackOptions = [
   }, {
     from: path.join(__dirname, '..', 'src', 'assets', 'i18n'),
     to: path.join('assets', 'i18n')
+  }, {
+    from: path.join(__dirname, '..', 'src', 'robots.txt'),
+    to: path.join('robots.txt')
+  }
 ];
 
 export const commonExports = {
