@@ -54,6 +54,13 @@ import(environmentFilePath)
 function generateEnvironmentFile(file: GlobalConfig): void {
   file.production = production;
   buildBaseUrls(file);
+
+  // TODO remove workaround in beta 5
+  if (file.rest.nameSpace.match("(.*)/api/?$") !== null) {
+    const newValue = getNameSpace(file.rest.nameSpace);
+    console.log(colors.white.bgMagenta.bold(`The rest.nameSpace property in your environment file or in your DSPACE_REST_NAMESPACE environment variable ends with '/api'.\nThis is deprecated. As '/api' isn't configurable on the rest side, it shouldn't be repeated in every environment file.\nPlease change the rest nameSpace to '${newValue}'`));
+  }
+
   const contents = `export const environment = ` + JSON.stringify(file);
   writeFile(targetPath, contents, (err) => {
     if (err) {
@@ -112,5 +119,16 @@ function getPort(port: number): string {
 }
 
 function getNameSpace(nameSpace: string): string {
-  return nameSpace ? nameSpace.charAt(0) === '/' ? nameSpace : '/' + nameSpace : '';
+  // TODO remove workaround in beta 5
+  const apiMatches = nameSpace.match("(.*)/api/?$");
+  if (apiMatches != null) {
+    let newValue = '/'
+    if (hasValue(apiMatches[1])) {
+      newValue = apiMatches[1];
+    }
+    return newValue;
+  }
+  else {
+    return nameSpace ? nameSpace.charAt(0) === '/' ? nameSpace : '/' + nameSpace : '';
+  }
 }
