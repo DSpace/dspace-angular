@@ -121,7 +121,6 @@ export const environment: GlobalConfig = {
   },
   // Angular Universal settings
   universal: {
-    preboot: true,
     async: true,
     time: false
   },

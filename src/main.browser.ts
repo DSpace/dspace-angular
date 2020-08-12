@@ -45,7 +45,7 @@ function addGoogleAnalytics() {
 }
 
 // support async tag or hmr
-if (hasValue(environment.universal) && environment.universal.preboot === false) {
+if (environment.production === false) {
   bootloader(main);
 } else {
   document.addEventListener('DOMContentLoaded', () => bootloader(main));

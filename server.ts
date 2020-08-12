@@ -165,7 +165,6 @@ function ngApp(req, res) {
       res.render(DIST_FOLDER + '/index.html', {
         req,
         res,
-        preboot: environment.universal.preboot,
         async: environment.universal.async,
         time: environment.universal.time,
         baseUrl: environment.ui.nameSpace,
