@@ -2,6 +2,12 @@
   <div class="container" *ngIf="user">
     <h3 class="mb-4">{{'profile.head' | translate}}</h3>
     <div class="card mb-4">
+      <div class="card-header">{{'profile.card.researcher' | translate}}</div>
+      <div class="card-body">
+        <ds-profile-page-researcher-form [user]="user"></ds-profile-page-researcher-form>
+      </div>
+    </div>
+    <div class="card mb-4">
       <div class="card-header">{{'profile.card.identify' | translate}}</div>
       <div class="card-body">
         <ds-profile-page-metadata-form [user]="user"></ds-profile-page-metadata-form>
