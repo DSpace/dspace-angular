@@ -79,7 +79,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       const html = `
-        <ds-authority-treeview [vocabularyOptions]="vocabularyOptions" [preloadLevel]="preloadLevel"></ds-authority-treeview>`;
+        <ds-vocabulary-treeview [vocabularyOptions]="vocabularyOptions" [preloadLevel]="preloadLevel"></ds-vocabulary-treeview>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;

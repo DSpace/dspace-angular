@@ -13,7 +13,7 @@ import { VocabularyEntriesRequest } from '../../data/request.models';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { PageInfo } from '../../shared/page-info.model';
 import { PaginatedList } from '../../data/paginated-list';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RequestEntry } from '../../data/request.reducer';
 import { RestResponse } from '../../cache/response.models';
 import { VocabularyService } from './vocabulary.service';
@@ -65,6 +65,27 @@ describe('VocabularyService', () => {
         href: 'https://rest.api/rest/api/submission/vocabularies/types/entries'
       },
     }
+  };
+
+  const vocabularyEntry: any = {
+    display: 'testValue1',
+    value: 'testValue1',
+    otherInformation: {},
+    type: 'vocabularyEntry'
+  };
+
+  const vocabularyEntry2: any = {
+    display: 'testValue2',
+    value: 'testValue2',
+    otherInformation: {},
+    type: 'vocabularyEntry'
+  };
+
+  const vocabularyEntry3: any = {
+    display: 'testValue3',
+    value: 'testValue3',
+    otherInformation: {},
+    type: 'vocabularyEntry'
   };
 
   const vocabularyEntryParentDetail: any = {
@@ -148,10 +169,10 @@ describe('VocabularyService', () => {
   const collectionUUID = '8b39g7ya-5a4b-438b-851f-be1d5b4a1c5a';
   const entryID = 'dsfsfsdf-5a4b-438b-851f-be1d5b4a1c5a';
   const searchRequestURL = `https://rest.api/rest/api/submission/vocabularies/search/byMetadataAndCollection?metadata=${metadata}&collection=${collectionUUID}`;
-  const entriesRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}`;
-  const entriesByValueRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}&filter=test&exact=false`;
-  const entryByValueRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}&filter=test&exact=true`;
-  const entryByIDRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}&entryID=${entryID}`;
+  const entriesRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries`;
+  const entriesByValueRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?filter=test&exact=false`;
+  const entryByValueRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?filter=test&exact=true`;
+  const entryByIDRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?entryID=${entryID}`;
   const vocabularyOptions: VocabularyOptions = {
     name: vocabularyId,
     metadata: metadata,
@@ -160,16 +181,19 @@ describe('VocabularyService', () => {
   }
   const pageInfo = new PageInfo();
   const array = [vocabulary, hierarchicalVocabulary];
+  const arrayEntries = [vocabularyEntry, vocabularyEntry2, vocabularyEntry3];
   const childrenEntries = [vocabularyEntryChildDetail, vocabularyEntryChild2Detail];
   const paginatedList = new PaginatedList(pageInfo, array);
+  const paginatedListEntries = new PaginatedList(pageInfo, arrayEntries);
   const childrenPaginatedList = new PaginatedList(pageInfo, childrenEntries);
   const vocabularyRD = createSuccessfulRemoteDataObject(vocabulary);
+  const vocabularyEntriesRD = createSuccessfulRemoteDataObject$(paginatedListEntries);
   const vocabularyEntryDetailParentRD = createSuccessfulRemoteDataObject(vocabularyEntryParentDetail);
   const vocabularyEntryChildrenRD = createSuccessfulRemoteDataObject(childrenPaginatedList);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-  const getRequestEntry$ = (successful: boolean) => {
+  const getRequestEntries$ = (successful: boolean) => {
     return observableOf({
-      response: { isSuccessful: successful, payload: vocabulary } as any
+      response: { isSuccessful: successful, payload: arrayEntries } as any
     } as RequestEntry)
   };
   objectCache = {} as ObjectCacheService;
@@ -312,8 +336,8 @@ describe('VocabularyService', () => {
     describe('', () => {
 
       beforeEach(() => {
-        requestService = getMockRequestService(getRequestEntry$(true));
-        rdbService = getMockRemoteDataBuildService();
+        requestService = getMockRequestService(getRequestEntries$(true));
+        rdbService = getMockRemoteDataBuildService(undefined, vocabularyEntriesRD);
         spyOn(rdbService, 'toRemoteDataObservable').and.callThrough();
         service = initTestService();
       });
@@ -329,10 +353,10 @@ describe('VocabularyService', () => {
         });
 
         it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-          service.getVocabularyEntries(vocabularyOptions, pageInfo);
+          scheduler.schedule(() => service.getVocabularyEntries(vocabularyOptions, pageInfo));
+          scheduler.flush();
 
           expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
-
         });
       });
 
@@ -347,7 +371,8 @@ describe('VocabularyService', () => {
         });
 
         it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-          service.getVocabularyEntriesByValue('test', false, vocabularyOptions, pageInfo);
+          scheduler.schedule(() => service.getVocabularyEntriesByValue('test', false, vocabularyOptions, pageInfo));
+          scheduler.flush();
 
           expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
 
@@ -365,7 +390,8 @@ describe('VocabularyService', () => {
         });
 
         it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-          service.getVocabularyEntryByValue('test', vocabularyOptions);
+          scheduler.schedule(() => service.getVocabularyEntryByValue('test', vocabularyOptions));
+          scheduler.flush();
 
           expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
 
@@ -383,7 +409,8 @@ describe('VocabularyService', () => {
         });
 
         it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-          service.getVocabularyEntryByID('test', vocabularyOptions);
+          scheduler.schedule(() => service.getVocabularyEntryByID('test', vocabularyOptions));
+          scheduler.flush();
 
           expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
 
@@ -454,16 +481,16 @@ describe('VocabularyService', () => {
       });
     });
 
-    describe('findEntryDetailByValue', () => {
+    describe('findEntryDetailById', () => {
       it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
-        scheduler.schedule(() => service.findEntryDetailByValue('testValue', hierarchicalVocabulary.id));
+        scheduler.schedule(() => service.findEntryDetailById('testValue', hierarchicalVocabulary.id));
         scheduler.flush();
         const expectedId = `${hierarchicalVocabulary.id}:testValue`
         expect((service as any).vocabularyEntryDetailDataService.findById).toHaveBeenCalledWith(expectedId);
       });
 
       it('should return a RemoteData<VocabularyEntryDetail> for the object with the given id', () => {
-        const result = service.findEntryDetailByValue('testValue', hierarchicalVocabulary.id);
+        const result = service.findEntryDetailById('testValue', hierarchicalVocabulary.id);
         const expected = cold('a|', {
           a: vocabularyEntryDetailParentRD
         });
@@ -495,8 +522,6 @@ describe('VocabularyService', () => {
           null,
           null,
           null,
-          null,
-          null,
           pageInfo.elementsPerPage,
           pageInfo.currentPage
         );
@@ -518,8 +543,6 @@ describe('VocabularyService', () => {
     describe('searchByTop', () => {
       it('should proxy the call to vocabularyEntryDetailDataService.searchBy', () => {
         const options: VocabularyFindOptions = new VocabularyFindOptions(
-          null,
-          null,
           null,
           null,
           null,

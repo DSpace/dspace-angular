@@ -1,7 +1,7 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CdkTreeModule } from '@angular/cdk/tree';
 
@@ -114,12 +114,12 @@ describe('DsDynamicOneboxComponent test suite', () => {
   }
 
   // async beforeEach
-  beforeEach(async(() => {
+  beforeEach(() => {
     vocabularyServiceStub = new VocabularyServiceStub();
-    // modal = jasmine.createSpyObj('modal', ['open', 'close', 'dismiss']);
+
     modal = jasmine.createSpyObj('modal',
       {
-        open: jasmine.createSpy('open').and.returnValue(new MockNgbModalRef()),
+        open: jasmine.createSpy('open'),
         close: jasmine.createSpy('close'),
         dismiss: jasmine.createSpy('dismiss'),
       }
@@ -152,9 +152,9 @@ describe('DsDynamicOneboxComponent test suite', () => {
         { provide: FormBuilderService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    });
+    }).compileComponents();
 
-  }));
+    });
 
   describe('', () => {
     // synchronous beforeEach
@@ -383,6 +383,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
       oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
       oneboxComponent = oneboxCompFixture.componentInstance; // FormComponent test instance
       modalService = TestBed.get(NgbModal);
+      modalService.open.and.returnValue(new MockNgbModalRef());
     });
 
     describe('when init model value is empty', () => {
@@ -397,15 +398,17 @@ describe('DsDynamicOneboxComponent test suite', () => {
         oneboxComponent = null;
       });
 
-      it('should init component properly', () => {
+      it('should init component properly', fakeAsync(() => {
+        tick();
         expect(oneboxComponent.currentValue).not.toBeDefined();
-      });
+      }));
 
-      it('should open tree properly', () => {
+      it('should open tree properly', (done) => {
         scheduler.schedule(() => oneboxComponent.openTree(new Event('click')));
         scheduler.flush();
 
         expect((oneboxComponent as any).modalService.open).toHaveBeenCalled();
+        done();
       });
     });
 
@@ -435,11 +438,12 @@ describe('DsDynamicOneboxComponent test suite', () => {
         expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByValue).toHaveBeenCalled();
       }));
 
-      it('should open tree properly', () => {
+      it('should open tree properly', (done) => {
         scheduler.schedule(() => oneboxComponent.openTree(new Event('click')));
         scheduler.flush();
 
         expect((oneboxComponent as any).modalService.open).toHaveBeenCalled();
+        done();
       });
     });
 

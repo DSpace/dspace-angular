@@ -19,8 +19,18 @@ import { EntityTypeService } from '../../core/data/entity-type.service';
 import { DynamicFormOptionConfig } from '@ng-dynamic-forms/core/lib/model/dynamic-option-control.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
-import { FindListOptions } from '../../core/data/request.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
+import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
+import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { Observable } from 'rxjs/internal/Observable';
+import { SubmissionDefinitionModel } from '../../core/config/models/config-submission-definition.model';
+import { map } from 'rxjs/operators';
+import {
+  collectionFormEntityTypeSelectionConfig,
+  collectionFormModels,
+  collectionFormSubmissionDefinitionSelectionConfig
+} from './collection-form.models';
+import { PaginatedList } from '../../core/data/paginated-list';
 
 /**
  * Form used for creating and editing collections
@@ -41,57 +51,23 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
    */
   type = Collection.type;
 
-  entityTypeSelection: DynamicSelectModel<string> = new DynamicSelectModel({
-    id: 'entitytype',
-    name: 'relationship.type',
-    required: true,
-    disabled: false,
-    validators: {
-      required: null
-    },
-    errorMessages: {
-      required: 'Please choose a type'
-    },
-  });
+  /**
+   * The dynamic form field used for entity type selection
+   * @type {DynamicSelectModel<string>}
+   */
+  entityTypeSelection: DynamicSelectModel<string> = new DynamicSelectModel(collectionFormEntityTypeSelectionConfig);
+
+  /**
+   * The dynamic form field used for submission definition selection
+   * @type {DynamicSelectModel<string>}
+   */
+  submissionDefinitionSelection: DynamicSelectModel<string> = new DynamicSelectModel(collectionFormSubmissionDefinitionSelectionConfig);
 
   /**
    * The dynamic form fields used for creating/editing a collection
    * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
    */
-  formModel: DynamicFormControlModel[] = [
-    new DynamicInputModel({
-      id: 'title',
-      name: 'dc.title',
-      required: true,
-      validators: {
-        required: null
-      },
-      errorMessages: {
-        required: 'Please enter a name for this title'
-      },
-    }),
-    new DynamicTextAreaModel({
-      id: 'description',
-      name: 'dc.description',
-    }),
-    new DynamicTextAreaModel({
-      id: 'abstract',
-      name: 'dc.description.abstract',
-    }),
-    new DynamicTextAreaModel({
-      id: 'rights',
-      name: 'dc.rights',
-    }),
-    new DynamicTextAreaModel({
-      id: 'tableofcontents',
-      name: 'dc.description.tableofcontents',
-    }),
-    new DynamicTextAreaModel({
-      id: 'license',
-      name: 'dc.rights.license',
-    }),
-    this.entityTypeSelection,
-  ];
+  formModel: DynamicFormControlModel[];
 
   public constructor(protected location: Location,
                      protected formService: DynamicFormService,
@@ -101,34 +77,61 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected dsoService: CommunityDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
-                     protected entityTypeService: EntityTypeService) {
+                     protected entityTypeService: EntityTypeService,
+                     protected submissionDefinitionService: SubmissionDefinitionsConfigService) {
     super(location, formService, translate, notificationsService, authService, requestService, objectCache);
   }
 
   ngOnInit() {
 
-    let tmp: MetadataValue[];
+    let currentRelationshipValue: MetadataValue[];
+    let currentDefinitionValue: MetadataValue[];
     if (this.dso && this.dso.metadata) {
-      tmp = this.dso.metadata['relationship.type'];
+      currentRelationshipValue = this.dso.metadata['relationship.type'];
+      currentDefinitionValue = this.dso.metadata['cris.submission.definition'];
     }
-    // retrieve all entity types to populate a dropdown selection
-    this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 } as FindListOptions).pipe(
+
+    const entities$: Observable<ItemType[]> = this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
       getFirstSucceededRemoteListPayload()
-    ).subscribe((data: ItemType[]) => {
-      let index = 0;
-      data.map((type: ItemType) => {
-        this.entityTypeSelection.add({
-          disabled: false,
-          label: type.label,
-          value: type.label
-        } as DynamicFormOptionConfig<string>);
-        if (tmp && tmp.length > 0 && tmp[0].value === type.label) {
-          this.entityTypeSelection.select(index);
-          this.entityTypeSelection.disabled = true;
-        }
-        index++;
-      });
+    );
+
+    const definitions$: Observable<SubmissionDefinitionModel[]> = this.submissionDefinitionService
+      .getConfigAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
+        map((result: any) => result.payload as PaginatedList<SubmissionDefinitionModel>),
+        map((result: PaginatedList<SubmissionDefinitionModel>) => result.page)
+      );
+    combineLatest([])
+
+    // retrieve all entity types and submission definitions to populate the dropdowns selection
+    combineLatest([entities$, definitions$])
+      .subscribe(([entityTypes, definitions]: [ItemType[], SubmissionDefinitionModel[]]) => {
+
+        entityTypes.forEach((type: ItemType, index: number) => {
+          this.entityTypeSelection.add({
+            disabled: false,
+            label: type.label,
+            value: type.label
+          } as DynamicFormOptionConfig<string>);
+          if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
+            this.entityTypeSelection.select(index);
+            this.entityTypeSelection.disabled = true;
+          }
+        });
+
+        definitions.forEach((definition: SubmissionDefinitionModel, index: number) => {
+          this.submissionDefinitionSelection.add({
+            disabled: false,
+            label: definition.name,
+            value: definition.name
+          } as DynamicFormOptionConfig<string>);
+          if (currentDefinitionValue && currentDefinitionValue.length > 0 && currentDefinitionValue[0].value === definition.name) {
+            this.submissionDefinitionSelection.select(index);
+          }
+        });
+
+        this.formModel = [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection];
+        super.ngOnInit();
     });
-    super.ngOnInit();
+
   }
 }

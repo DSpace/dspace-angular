@@ -18,6 +18,9 @@ export const boxMetadata: Box = {
   _links: {
     self: {
       href: 'https://rest.api/rest/api/boxes/1'
+    },
+    configuration: {
+      href: 'https://rest.api/rest/api/boxes/1'
     }
   }
 };
@@ -39,6 +42,9 @@ export const boxSearch: Box = {
   _links: {
     self: {
       href: 'https://rest.api/rest/api/boxes/2'
+    },
+    configuration: {
+      href: 'https://rest.api/rest/api/boxes/1'
     }
   }
 };
@@ -60,6 +66,9 @@ export const boxMetrics: Box = {
   _links: {
     self: {
       href: 'https://rest.api/rest/api/boxes/3'
+    },
+    configuration: {
+      href: 'https://rest.api/rest/api/boxes/1'
     }
   }
 };

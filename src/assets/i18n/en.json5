@@ -294,6 +294,10 @@
 
   "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
 
+  "admin.access-control.groups.notification.edit.success": "Successfully edited group \"{{name}}\"",
+
+  "admin.access-control.groups.notification.edit.failure": "Failed to edit group \"{{name}}\"",
+
 
   "admin.access-control.groups.form.head.create": "Create group",
 
@@ -718,9 +722,14 @@
 
   "collection.form.title": "Name",
 
-  "collection.form.entitytype": "Type",
+  "collection.form.entityType": "Entity Type",
 
-  "collection.form.errors.entitytype.required": "Please choose an option",
+  "collection.form.errors.entityType.required": "Please choose an entity type for this collection",
+
+  "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
+
+  "collection.form.submissionDefinition": "Submission definition",
+
 
 
   "collection.page.browse.recent.head": "Recent Submissions",
@@ -2148,6 +2157,8 @@
 
   "profile.card.security": "Security",
 
+  "profile.card.researcher": "Researcher Profile",
+
   "profile.form.submit": "Update Profile",
 
   "profile.groups.head": "Authorization groups you belong to",
@@ -2335,6 +2346,28 @@
   "relationships.isVolumeOf": "Journal Volumes",
 
   "relationships.isContributorOf": "Contributors",
+
+  
+
+  "researcher.profile.action.processing" : "Processing...",
+
+  "researcher.profile.associated": "Researcher profile associated",
+
+  "researcher.profile.create.new": "Create new",
+
+  "researcher.profile.delete": "Delete",
+
+  "researcher.profile.expose": "Expose",
+
+  "researcher.profile.hide": "Hide",
+
+  "researcher.profile.not.associated": "Researcher profile not yet associated",
+
+  "researcher.profile.view": "View",
+
+  "researcher.profile.private.visibility" : "PRIVATE",
+
+  "researcher.profile.public.visibility" : "PUBLIC",
 
 
 

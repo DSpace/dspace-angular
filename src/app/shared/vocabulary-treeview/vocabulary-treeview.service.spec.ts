@@ -13,6 +13,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 describe('VocabularyTreeviewService test suite', () => {
 
@@ -34,6 +35,7 @@ describe('VocabularyTreeviewService test suite', () => {
   let childNode: TreeviewNode;
   let child2: VocabularyEntryDetail;
   let childNode2: TreeviewNode;
+  let childEntry3: VocabularyEntry;
   let child3: VocabularyEntryDetail;
   let childNode3: TreeviewNode;
   let searchItemNode: TreeviewNode;
@@ -55,7 +57,7 @@ describe('VocabularyTreeviewService test suite', () => {
   const vocabularyServiceStub = jasmine.createSpyObj('VocabularyService', {
     getVocabularyEntriesByValue: jasmine.createSpy('getVocabularyEntriesByValue'),
     getEntryDetailParent: jasmine.createSpy('getEntryDetailParent'),
-    findEntryDetailByValue: jasmine.createSpy('findEntryDetailByValue'),
+    findEntryDetailById: jasmine.createSpy('findEntryDetailById'),
     searchTopEntries: jasmine.createSpy('searchTopEntries'),
     getEntryDetailChildren: jasmine.createSpy('getEntryDetailChildren'),
     clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests')
@@ -71,37 +73,46 @@ describe('VocabularyTreeviewService test suite', () => {
     });
     loadMoreNode = new TreeviewNode(LOAD_MORE_NODE, false, new PageInfo(), item);
     loadMoreRootNode = new TreeviewNode(LOAD_MORE_ROOT_NODE, false, new PageInfo(), null);
-    loadMoreRootFlatNode = new TreeviewFlatNode(LOAD_MORE_ROOT_NODE, 1, false, new PageInfo(), null);
+    loadMoreRootFlatNode = new TreeviewFlatNode(LOAD_MORE_ROOT_NODE, 1, false, false, new PageInfo(), null);
     item = new VocabularyEntryDetail();
-    item.id = item.value = item.display = 'root1';
+    item.id = 'vocabularyTest:root1';
+    item.value = item.display = 'root1';
     item.otherInformation = { hasChildren: 'true', id: 'root1' };
     itemNode = new TreeviewNode(item, true, pageInfo);
     searchItemNode = new TreeviewNode(item, true, new PageInfo(), null, true);
 
     item2 = new VocabularyEntryDetail();
-    item2.id = item2.value = item2.display = 'root2';
+    item2.id = 'vocabularyTest:root2';
+    item2.value = item2.display = 'root2';
     item2.otherInformation = { id: 'root2' };
     itemNode2 = new TreeviewNode(item2, false, pageInfo);
 
     item3 = new VocabularyEntryDetail();
-    item3.id = item3.value = item3.display = 'root3';
+    item3.id = 'vocabularyTest:root3';
+    item3.value = item3.display = 'root3';
     item3.otherInformation = { id: 'root3' };
     itemNode3 = new TreeviewNode(item3, false, pageInfo);
 
     child = new VocabularyEntryDetail();
-    child.id = child.value = child.display = 'root1-child1';
+    child.id = 'vocabularyTest:root1-child1';
+    child.value = child.display = 'root1-child1';
     child.otherInformation = { parent: 'root1', hasChildren: 'true', id: 'root1-child1' };
     childNode = new TreeviewNode(child);
     searchChildNode = new TreeviewNode(child, true, new PageInfo(), item, true);
 
+    childEntry3 = new VocabularyEntry();
+    childEntry3.value = childEntry3.display = 'root1-child1-child1';
+    childEntry3.otherInformation = { parent: 'root1-child1', id: 'root1-child1-child1' };
     child3 = new VocabularyEntryDetail();
-    child3.id = child3.value = child3.display = 'root1-child1-child1';
+    child3.id = 'vocabularyTest:root1-child1-child1';
+    child3.value = child3.display = 'root1-child1-child1';
     child3.otherInformation = { parent: 'root1-child1', id: 'root1-child1-child1' };
     childNode3 = new TreeviewNode(child3);
     searchChildNode3 = new TreeviewNode(child3, false, new PageInfo(), child, true);
 
     child2 = new VocabularyEntryDetail();
-    child2.id = child2.value = child2.display = 'root1-child2';
+    child2.id = 'vocabularyTest:root1-child2';
+    child2.value = child2.display = 'root1-child2';
     child2.otherInformation = { parent: 'root1', id: 'root1-child2' };
     childNode2 = new TreeviewNode(child2, true);
     initValueChildNode2 = new TreeviewNode(child2, false, new PageInfo(), item, false, true);
@@ -184,7 +195,6 @@ describe('VocabularyTreeviewService test suite', () => {
 
       expect(serviceAsAny.vocabularyName).toEqual(vocabularyOptions.name);
       expect(serviceAsAny.pageInfo).toEqual(pageInfo);
-      console.log(serviceAsAny.dataChange.value[0].pageInfo, itemNode.pageInfo);
       expect(serviceAsAny.dataChange.value).toEqual([itemNode, itemNode2, itemNode3]);
     });
 
@@ -192,7 +202,7 @@ describe('VocabularyTreeviewService test suite', () => {
       serviceAsAny.vocabularyService.searchTopEntries.and.returnValue(hot('-c', {
         a: createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, [item, item2, item3]))
       }));
-      serviceAsAny.vocabularyService.findEntryDetailByValue.and.returnValue(
+      serviceAsAny.vocabularyService.findEntryDetailById.and.returnValue(
         hot('-a', {
           a: createSuccessfulRemoteDataObject(child2)
         })
@@ -290,7 +300,11 @@ describe('VocabularyTreeviewService test suite', () => {
         currentPage: 1
       });
       serviceAsAny.vocabularyService.getVocabularyEntriesByValue.and.returnValue(hot('-a', {
-        a: createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, [child3]))
+        a: createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, [childEntry3]))
+      }));
+
+      serviceAsAny.vocabularyService.findEntryDetailById.and.returnValue(hot('-a', {
+        a: createSuccessfulRemoteDataObject(child3)
       }));
 
       serviceAsAny.vocabularyService.getEntryDetailParent.and.returnValues(
@@ -305,6 +319,7 @@ describe('VocabularyTreeviewService test suite', () => {
 
       scheduler.schedule(() => service.searchByQuery(vocabularyOptions));
       scheduler.flush();
+
       searchChildNode.childrenChange.next([searchChildNode3]);
       searchItemNode.childrenChange.next([searchChildNode]);
       expect(serviceAsAny.dataChange.value.length).toEqual(1);

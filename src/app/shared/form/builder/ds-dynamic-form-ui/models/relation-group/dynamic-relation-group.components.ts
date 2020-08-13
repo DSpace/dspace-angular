@@ -235,7 +235,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
               if (isObject(valueObj[fieldName]) && valueObj[fieldName].hasAuthority() && isNotEmpty(valueObj[fieldName].authority)) {
                 const fieldId = fieldName.replace(/\./g, '_');
                 const model = this.formBuilderService.findById(fieldId, this.formModel);
-                return$ = this.vocabularyService.findEntryDetailByValue(
+                return$ = this.vocabularyService.findEntryDetailById(
                   valueObj[fieldName].authority,
                   (model as any).vocabularyOptions.name
                 ).pipe(

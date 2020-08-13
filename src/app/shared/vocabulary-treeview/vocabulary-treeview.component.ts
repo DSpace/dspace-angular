@@ -22,7 +22,7 @@ import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocab
  * Component that show a hierarchical vocabulary in a tree view
  */
 @Component({
-  selector: 'ds-authority-treeview',
+  selector: 'ds-vocabulary-treeview',
   templateUrl: './vocabulary-treeview.component.html',
   styleUrls: ['./vocabulary-treeview.component.scss']
 })
@@ -143,6 +143,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       node.item,
       level,
       node.hasChildren,
+      (node.hasChildren && isNotEmpty(node.children)),
       node.pageInfo,
       node.loadMoreParentItem,
       node.isSearchNode,
@@ -150,7 +151,9 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
     );
     this.nodeMap.set(node.item.id, newNode);
 
-    if ((((level + 1) < this.preloadLevel) && newNode.expandable) || newNode.isSearchNode || newNode.isInInitValueHierarchy) {
+    if ((((level + 1) < this.preloadLevel) && newNode.childrenLoaded)
+      || (newNode.isSearchNode && newNode.childrenLoaded)
+      || newNode.isInInitValueHierarchy) {
       if (!newNode.isSearchNode) {
         this.loadChildren(newNode);
       }

@@ -8,9 +8,7 @@ import { isNotEmpty } from '../../../../shared/empty.util';
  */
 export class VocabularyFindOptions extends FindListOptions {
 
-  constructor(public collection,
-              public metadata,
-              public query: string = '',
+  constructor(public query: string = '',
               public filter?: string,
               public exact?: boolean,
               public entryID?: string,
@@ -21,12 +19,7 @@ export class VocabularyFindOptions extends FindListOptions {
     super();
 
     const searchParams = [];
-    if (isNotEmpty(metadata)) {
-      searchParams.push(new RequestParam('metadata', metadata))
-    }
-    if (isNotEmpty(collection)) {
-      searchParams.push(new RequestParam('collection', collection))
-    }
+
     if (isNotEmpty(query)) {
       searchParams.push(new RequestParam('query', query))
     }

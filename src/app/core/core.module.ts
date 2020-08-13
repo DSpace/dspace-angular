@@ -168,6 +168,8 @@ import { VocabularyService } from './submission/vocabularies/vocabulary.service'
 import { VocabularyTreeviewService } from '../shared/vocabulary-treeview/vocabulary-treeview.service';
 import { SearchcomponentService } from './layout/searchcomponent.service';
 import { SearchComponent } from './layout/models/search-component.model';
+import { ResearcherProfileService } from './profile/researcher-profile.service';
+import { ResearcherProfile } from './profile/model/researcher-profile.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -311,7 +313,8 @@ const PROVIDERS = [
   VocabularyService,
   VocabularyEntriesResponseParsingService,
   VocabularyTreeviewService,
-  SearchcomponentService
+  SearchcomponentService,
+  ResearcherProfileService
 ];
 
 /**
@@ -365,7 +368,8 @@ export const models =
     Vocabulary,
     VocabularyEntry,
     VocabularyEntryDetail,
-    SearchComponent
+    SearchComponent,
+    ResearcherProfile
   ];
 
 @NgModule({
