@@ -10,7 +10,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { take } from 'rxjs/operators';
+import { take, first } from 'rxjs/operators';
 import { RestResponse } from '../../../../core/cache/response.models';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
@@ -225,14 +225,24 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * // TODO
+   * Edit the group information with new values
    * @param group
    * @param values
    */
   editGroup(group: Group, values) {
-    // TODO (backend)
-    console.log('TODO implement editGroup', values);
-    this.notificationsService.error('TODO implement editGroup (not yet implemented in backend) ');
+    this.groupDataService
+        .updateGroup(group, values)
+        .pipe(first())
+        .subscribe((response: any) => {
+          console.log(response);
+          if (response.isSuccessful) {
+            this.notificationsService.success(
+              this.translateService.get('admin.access-control.groups.notification.edit.success', { name: group.name }));
+          } else {
+            this.notificationsService.error(
+              this.translateService.get('admin.access-control.groups.notification.edit.failure', { name: group.name }));
+          }
+        });
   }
 
   /**

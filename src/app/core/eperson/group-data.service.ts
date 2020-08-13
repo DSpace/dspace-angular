@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, filter, find, map, skipWhile, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, find, map, skipWhile, switchMap, take, tap, distinctUntilChanged } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
@@ -21,12 +21,12 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { CreateRequest, DeleteRequest, FindListOptions, FindListRequest, PostRequest } from '../data/request.models';
+import { CreateRequest, DeleteRequest, FindListOptions, FindListRequest, PostRequest, PatchRequest, RestRequest } from '../data/request.models';
 
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getRemoteDataPayload, getResponseFromEntry } from '../shared/operators';
+import { getRemoteDataPayload, getResponseFromEntry, configureRequest, getRequestFromRequestUUID } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 import { dataService } from '../cache/builders/build-decorators';
@@ -34,6 +34,7 @@ import { GROUP } from './models/group.resource-type';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { Community } from '../shared/community.model';
 import { Collection } from '../shared/collection.model';
+import { RequestEntry } from '../data/request.reducer';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -172,7 +173,7 @@ export class GroupDataService extends DataService<Group> {
   public createOrUpdateGroup(group: Group): Observable<RemoteData<Group>> {
     const isUpdate = hasValue(group.id);
     if (isUpdate) {
-      return this.updateGroup(group);
+      return null; // this.updateGroup(group);
     } else {
       return this.create(group, null);
     }
@@ -182,9 +183,34 @@ export class GroupDataService extends DataService<Group> {
    * // TODO
    * @param {DSpaceObject} ePerson The given object
    */
-  updateGroup(group: Group): Observable<RemoteData<Group>> {
-    // TODO
-    return null;
+  updateGroup(group: Group, values): Observable<RestResponse> {
+    const patchOperation = [];
+    if (!group.permanent &&
+      hasValue(values.name) &&
+      group.name !== values.name) {
+      patchOperation.push({
+        op: 'replace', path: '/name', value: values.name
+      });
+    }
+    if (hasValue(values.metadata['dc.description'])) {
+      patchOperation.push({
+        op: 'replace',
+        path: '/metadata/dc.description',
+        value: values.metadata['dc.description']
+      });
+    }
+
+    return this.getGroupEndpoint(group.uuid).pipe(
+      distinctUntilChanged(),
+      map((endpointURL: string) =>
+        new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
+      ),
+      configureRequest(this.requestService),
+      map((request: RestRequest) => request.uuid),
+      getRequestFromRequestUUID(this.requestService),
+      filter((requestEntry: RequestEntry) => requestEntry.completed),
+      map((requestEntry: RequestEntry) => requestEntry.response)
+    );
   }
 
   /**
@@ -396,6 +422,16 @@ export class GroupDataService extends DataService<Group> {
       map((response: RestResponse) => {
         return response;
       })
+    );
+  }
+
+  /**
+   * Get the endpoint for group
+   * @param groupId
+   */
+  public getGroupEndpoint(groupId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, groupId))
     );
   }
 }
