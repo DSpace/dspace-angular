@@ -294,6 +294,10 @@
 
   "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
 
+  "admin.access-control.groups.notification.edit.success": "Successfully edited group \"{{name}}\"",
+
+  "admin.access-control.groups.notification.edit.failure": "Failed to edit group \"{{name}}\"",
+
 
   "admin.access-control.groups.form.head.create": "Create group",
 
