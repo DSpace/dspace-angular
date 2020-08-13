@@ -36,7 +36,6 @@ class DataServiceImpl extends DataService<ProcessOutput> {
   }
 }
 
-// @ts-ignore
 /**
  * A service to retrieve output from processes from the REST API.
  */
