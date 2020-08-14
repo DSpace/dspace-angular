@@ -166,22 +166,17 @@ export class GroupDataService extends DataService<Group> {
   }
 
   /**
-   * Create or Update a group
-   *  If the group contains an id, it is assumed the eperson already exists and is updated instead
-   * @param group    The group to create or update
+   * Create a group
+   * @param group    The group to create
    */
-  public createOrUpdateGroup(group: Group): Observable<RemoteData<Group>> {
-    const isUpdate = hasValue(group.id);
-    if (isUpdate) {
-      return null; // this.updateGroup(group);
-    } else {
-      return this.create(group, null);
-    }
+  public createGroup(group: Group): Observable<RemoteData<Group>> {
+    return this.create(group, null);
   }
 
   /**
-   * // TODO
-   * @param {DSpaceObject} ePerson The given object
+   * Update a group
+   * @param {DSpaceObject} group The group to update
+   * @param {Array} values
    */
   updateGroup(group: Group, values): Observable<RestResponse> {
     const patchOperation = [];
