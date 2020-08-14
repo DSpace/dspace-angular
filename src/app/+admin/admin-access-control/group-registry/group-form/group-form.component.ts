@@ -230,8 +230,23 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * @param values
    */
   editGroup(group: Group, values) {
+    const editedGroup = Object.assign(new Group(), {
+      id: group.id,
+      metadata: {
+        'dc.description': [
+          {
+            value: this.groupDescription ? this.groupDescription.value : group.firstMetadataValue('dc.description')
+          }
+        ]
+      },
+      name: (hasValue(values.name) ? values.name : group.name),
+      permanent: (hasValue(values.permanent) ? values.permanent : group.permanent),
+      handle: (hasValue(values.handle) ? values.handle : group.handle),
+      _links: group._links,
+    });
+
     this.groupDataService
-        .updateGroup(group, values)
+        .updateGroup(editedGroup)
         .pipe(first())
         .subscribe((response: any) => {
           console.log(response);
