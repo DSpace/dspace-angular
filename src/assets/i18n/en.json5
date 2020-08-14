@@ -959,6 +959,8 @@
 
   "dso-selector.create.item.head": "New item",
 
+  "dso-selector.create.submission.head": "New submission",
+
   "dso-selector.edit.collection.head": "Edit collection",
 
   "dso-selector.edit.community.head": "Edit community",
@@ -1954,6 +1956,10 @@
   "mydspace.title": "MyDSpace",
 
   "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
+
+  "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
+
+  "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
 
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
 
