@@ -238,6 +238,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           if (response.isSuccessful) {
             this.notificationsService.success(
               this.translateService.get('admin.access-control.groups.notification.edit.success', { name: group.name }));
+            this.router.navigate(['groups']);
           } else {
             this.notificationsService.error(
               this.translateService.get('admin.access-control.groups.notification.edit.failure', { name: group.name }));
