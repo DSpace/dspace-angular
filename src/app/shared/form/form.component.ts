@@ -319,6 +319,12 @@ export class FormComponent implements OnDestroy, OnInit {
     const model = arrayContext.groups[arrayContext.groups.length - 1].group[0] as any;
     if (model.type === DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN || model.type === DYNAMIC_FORM_CONTROL_TYPE_ONEBOX) {
       model.value = Object.values(value)[0];
+      const ctrl = formArrayControl.controls[formArrayControl.length - 1];
+      const ctrlValue = ctrl.value;
+      const ctrlValueKey = Object.keys(ctrlValue)[0];
+      ctrl.setValue({
+        [ctrlValueKey]: model.value
+      });
     } else if (this.formBuilderService.isQualdropGroup(model)) {
       const ctrl = formArrayControl.controls[formArrayControl.length - 1];
       const ctrlKey = Object.keys(ctrl.value).find((key: string) => isNotEmpty(key.match(QUALDROP_GROUP_REGEX)));

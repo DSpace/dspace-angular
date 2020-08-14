@@ -317,16 +317,17 @@ export class GroupDataService extends DataService<Group> {
    * Create a group for a given role for a given community or collection.
    *
    * @param dso         The community or collection for which to create a group
+   * @param role        The name of the role for which to create a group
    * @param link        The REST endpoint to create the group
    */
-  createComcolGroup(dso: Community|Collection, link: string): Observable<RestResponse> {
+  createComcolGroup(dso: Community|Collection, role: string, link: string): Observable<RestResponse> {
 
     const requestId = this.requestService.generateRequestId();
     const group = Object.assign(new Group(), {
       metadata: {
         'dc.description': [
           {
-            value: `${this.nameService.getName(dso)} admin group`,
+            value: `${this.nameService.getName(dso)} ${role} group`,
           }
         ],
       },
