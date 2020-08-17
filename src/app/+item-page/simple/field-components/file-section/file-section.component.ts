@@ -33,7 +33,7 @@ export class FileSectionComponent implements OnInit {
 
   isLastPage: boolean;
 
-  pageSize: number = 5;
+  pageSize = 5;
 
   constructor(
     protected bitstreamDataService: BitstreamDataService
