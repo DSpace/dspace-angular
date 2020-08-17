@@ -1526,7 +1526,7 @@
 
   "item.page.bitstreams.view-more": "Show more",
 
-  "item.page.bitstreams.view-less": "Show less",
+  "item.page.bitstreams.collapse": "Collapse",
 
   "item.page.filesection.original.bundle" : "Original bundle",
 

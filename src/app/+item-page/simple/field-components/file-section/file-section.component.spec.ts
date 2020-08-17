@@ -139,7 +139,7 @@ describe('FileSectionComponent', () => {
         })
 
         it('should contain a view less link', () => {
-            const viewLess = fixture.debugElement.query(By.css('.bitstream-view-less'));
+            const viewLess = fixture.debugElement.query(By.css('.bitstream-collapse'));
             expect(viewLess).toBeDefined();
         })
 
@@ -158,7 +158,7 @@ describe('FileSectionComponent', () => {
                 pageInfo: pageInfo
             });
             bitstreamDataService.findAllByItemAndBundleName.and.returnValue(createSuccessfulRemoteDataObject$(PaginatedList));
-            const viewLess = fixture.debugElement.query(By.css('.bitstream-view-less'));
+            const viewLess = fixture.debugElement.query(By.css('.bitstream-collapse'));
             viewLess.triggerEventHandler('click', null);
             expect(bitstreamDataService.findAllByItemAndBundleName).toHaveBeenCalled();
             expect(comp.currentPage).toBe(1);
