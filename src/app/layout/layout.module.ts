@@ -13,8 +13,8 @@ import { TextComponent } from './default-layout/boxes/components/text/text.compo
 import { HeadingComponent } from './default-layout/boxes/components/heading/heading.component';
 import { CrisLayoutSearchBoxComponent } from './default-layout/boxes/search/cris-layout-search-box.component';
 import { SearchPageModule } from '../+search-page/search-page.module';
-import { WorkspaceItemSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workspace-item-search-result/workspace-item-search-result-list-element.component';
 import { MyDSpacePageModule } from '../+my-dspace-page/my-dspace-page.module';
+import { LongtextComponent } from './default-layout/boxes/components/longtext/longtext.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import { MyDSpacePageModule } from '../+my-dspace-page/my-dspace-page.module';
     RowComponent,
     TextComponent,
     HeadingComponent,
-    CrisLayoutSearchBoxComponent
+    CrisLayoutSearchBoxComponent,
+    LongtextComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +42,8 @@ import { MyDSpacePageModule } from '../+my-dspace-page/my-dspace-page.module';
     CrisLayoutMetadataBoxComponent,
     CrisLayoutSearchBoxComponent,
     TextComponent,
-    HeadingComponent
+    HeadingComponent,
+    LongtextComponent
   ],
   exports: [
     CrisPageLoaderComponent,

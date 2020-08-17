@@ -1,6 +1,7 @@
 export enum FieldRendetingType {
   TEXT = 'TEXT',
-  HEADING = 'HEADING'
+  HEADING = 'HEADING',
+  LONGTEXT = 'LONGTEXT'
 };
 
 const fieldType = new Map();
