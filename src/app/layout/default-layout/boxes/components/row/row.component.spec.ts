@@ -18,7 +18,7 @@ class TestItem {
   }
 }
 
-describe('RowComponent', () => {
+fdescribe('RowComponent', () => {
   let component: RowComponent;
   let fixture: ComponentFixture<RowComponent>;
 
@@ -57,6 +57,7 @@ describe('RowComponent', () => {
 
   describe('When the component is rendered', () => {
     it('should call the getMetadataBoxFieldRendering function with the right types', () => {
+      component.getComponent('text');
       expect(BoxDecorators.getMetadataBoxFieldRendering).toHaveBeenCalledWith('text');
     })
   });

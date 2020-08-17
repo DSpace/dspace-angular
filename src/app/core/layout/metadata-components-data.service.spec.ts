@@ -106,7 +106,7 @@ describe('MetadataComponentsDataService', () => {
       scheduler.schedule(() => service.findById(medataComponentID));
       scheduler.flush();
 
-      expect((service as any).dataService.findById).toHaveBeenCalledWith(medataComponentID);
+      expect((service as any).dataService.findById).toHaveBeenCalledWith(medataComponentID.toString());
     });
 
     it('should return a RemoteData<MetadataComponent> for the object with the given id', () => {
