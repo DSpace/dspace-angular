@@ -3,6 +3,7 @@ import { CrisLayoutLoaderDirective } from 'src/app/layout/directives/cris-layout
 import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
 import { getMetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { Item } from 'src/app/core/shared/item.model';
+import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
 
 /**
  * This component renders the rows of metadata boxes
@@ -31,7 +32,7 @@ export class RowComponent implements OnInit {
     const viewContainerRef = this.crisLayoutLoader.viewContainerRef;
     viewContainerRef.clear();
     fields.forEach((field) => {
-      if (field.fieldType === 'metadata') {
+      if (field.fieldType === LayoutBox.METADATA) {
         const metadataFactory = this.componentFactoryResolver.resolveComponentFactory(
           this.getComponent(field.rendering)
         );

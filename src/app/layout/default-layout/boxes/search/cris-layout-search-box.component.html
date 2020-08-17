@@ -3,6 +3,7 @@
     <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
       <ng-template ngbPanelContent>
         <ds-configuration-search-page
+          *ngIf="configReady"
           [fixedFilterQuery]="searchFilter"
           [configuration]="configuration"
           [configuration$]="configuration$"

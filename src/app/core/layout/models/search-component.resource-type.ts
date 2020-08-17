@@ -7,4 +7,4 @@ import { ResourceType } from '../../shared/resource-type';
  * dependencies in webpack.
  */
 
-export const SEARCH_COMPONENT = new ResourceType('searchcomponent');
+export const SEARCH_COMPONENT = new ResourceType('boxrelationconfiguration');

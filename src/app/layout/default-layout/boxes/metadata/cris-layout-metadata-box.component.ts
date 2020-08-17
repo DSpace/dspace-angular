@@ -42,7 +42,7 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxObj implements 
 
   ngOnInit() {
     super.ngOnInit();
-    this.metadatacomponentsService.findById(this.box.shortname)
+    this.metadatacomponentsService.findById(this.box.id)
       .pipe(getAllSucceededRemoteDataPayload())
       .subscribe(
         (next) => {
