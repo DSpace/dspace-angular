@@ -4,10 +4,10 @@ import { BitstreamDataService } from '../../../../core/data/bitstream-data.servi
 
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import {filter, takeWhile} from 'rxjs/operators';
-import {RemoteData} from '../../../../core/data/remote-data';
-import {hasNoValue, hasValue} from '../../../../shared/empty.util';
-import {PaginatedList} from '../../../../core/data/paginated-list';
+import { filter, takeWhile } from 'rxjs/operators';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { hasNoValue, hasValue } from '../../../../shared/empty.util';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 
 /**
  * This component renders the file section of the item
@@ -33,6 +33,8 @@ export class FileSectionComponent implements OnInit {
 
   isLastPage: boolean;
 
+  pageSize: number = 5;
+
   constructor(
     protected bitstreamDataService: BitstreamDataService
   ) {
@@ -56,7 +58,7 @@ export class FileSectionComponent implements OnInit {
     } else {
       this.currentPage++;
     }
-    this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', { currentPage: this.currentPage }).pipe(
+    this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', { currentPage: this.currentPage, elementsPerPage: this.pageSize }).pipe(
         filter((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasValue(bitstreamsRD)),
         takeWhile((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasNoValue(bitstreamsRD.payload) && hasNoValue(bitstreamsRD.error), true)
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {

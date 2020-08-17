@@ -1,14 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';
-import {PaginationComponentOptions} from '../../../../shared/pagination/pagination-component-options.model';
-import {PaginatedList} from '../../../../core/data/paginated-list';
-import {RemoteData} from '../../../../core/data/remote-data';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { PaginatedList } from '../../../../core/data/paginated-list';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { switchMap } from "rxjs/operators";
 
 /**
  * This component renders the file section of the item
@@ -55,23 +56,23 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   }
 
   initialize(): void {
-    this.originalCurrentPage$.subscribe((value) => {
-      this.originals$ = this.bitstreamDataService.findAllByItemAndBundleName(
-          this.item,
-          'ORIGINAL',
-          { elementsPerPage: this.pageSize, currentPage: value },
-          followLink( 'format')
-      );
-    });
+    this.originals$ = this.originalCurrentPage$.pipe(
+        switchMap((pageNumber: number) => this.bitstreamDataService.findAllByItemAndBundleName(
+            this.item,
+            'ORIGINAL',
+            { elementsPerPage: this.pageSize, currentPage: pageNumber },
+            followLink( 'format')
+        ))
+    );
 
-    this.licenseCurrentPage$.subscribe((value) => {
-      this.licenses$ = this.bitstreamDataService.findAllByItemAndBundleName(
-          this.item,
-          'LICENSE',
-          { elementsPerPage: this.pageSize, currentPage: value },
-          followLink( 'format')
-      );
-    });
+    this.licenses$ = this.licenseCurrentPage$.pipe(
+        switchMap((pageNumber: number) => this.bitstreamDataService.findAllByItemAndBundleName(
+            this.item,
+            'LICENSE',
+            { elementsPerPage: this.pageSize, currentPage: pageNumber },
+            followLink( 'format')
+        ))
+    );
 
   }
 

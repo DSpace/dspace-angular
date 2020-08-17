@@ -135,12 +135,12 @@ describe('FileSectionComponent', () => {
 
         it('should not contain a view more link', () => {
             const viewMore = fixture.debugElement.query(By.css('.bitstream-view-more'));
-            expect(viewMore).toBeFalsy();
+            expect(viewMore).toBeNull();
         })
 
         it('should contain a view less link', () => {
             const viewLess = fixture.debugElement.query(By.css('.bitstream-view-less'));
-            expect(viewLess).toBeTruthy();
+            expect(viewLess).toBeDefined();
         })
 
         it('clicking on the view less link should reset the pages and call getNextPage()', () => {
