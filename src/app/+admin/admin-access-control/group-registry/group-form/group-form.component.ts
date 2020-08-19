@@ -240,7 +240,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       _links: group._links,
     });
 
-    if ( this.groupDescription ) {
+    if ( this.groupDescription && this.groupDescription.value) {
       this.addOrReplaceMetadataValue(group, editedGroup, 'dc.description', this.groupDescription.value);
     }
 
