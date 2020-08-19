@@ -418,7 +418,7 @@ export class GroupDataService extends DataService<Group> {
    * @param newGroup
    */
   private generateOperations(oldGroup: Group, newGroup: Group): Operation[] {
-    let operations = this.comparator.diff(oldGroup, newGroup).filter((operation: Operation) => operation.path.match(/\/metadata\/[\w\.]+\/\d+\/value/));
+    let operations = this.comparator.diff(oldGroup, newGroup);
     if (hasValue(oldGroup.name) && oldGroup.name !== newGroup.name) {
       operations = [...operations, {
         op: 'replace', path: '/name', value: newGroup.name

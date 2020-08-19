@@ -18,7 +18,7 @@ class TestItem {
   }
 }
 
-fdescribe('RowComponent', () => {
+describe('RowComponent', () => {
   let component: RowComponent;
   let fixture: ComponentFixture<RowComponent>;
 
