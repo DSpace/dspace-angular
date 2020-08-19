@@ -11,6 +11,7 @@ import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.reso
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
+import { UserAgreementGuard } from '../core/user-agreement/user-agreement.guard';
 
 export function getItemPageRoute(itemId: string) {
   return new URLCombiner(getItemModulePath(), itemId).toString();
@@ -46,12 +47,12 @@ const UPLOAD_BITSTREAM_PATH = 'bitstreams/new';
           {
             path: ITEM_EDIT_PATH,
             loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
-            canActivate: [AuthenticatedGuard]
+            canActivate: [AuthenticatedGuard, UserAgreementGuard]
           },
           {
             path: UPLOAD_BITSTREAM_PATH,
             component: UploadBitstreamComponent,
-            canActivate: [AuthenticatedGuard]
+            canActivate: [AuthenticatedGuard, UserAgreementGuard]
           }
         ],
       }

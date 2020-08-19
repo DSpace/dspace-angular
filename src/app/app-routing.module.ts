@@ -12,6 +12,7 @@ import { getItemPageRoute } from './+item-page/item-page-routing.module';
 import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
 import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { UserAgreementGuard } from './core/user-agreement/user-agreement.guard';
 
 const ITEM_MODULE_PATH = 'items';
 
@@ -84,6 +85,12 @@ export function getUnauthorizedPath() {
   return `/${UNAUTHORIZED_PATH}`;
 }
 
+const INFO_MODULE_PATH = 'info';
+
+export function getInfoModulePath() {
+  return `/${INFO_MODULE_PATH}`;
+}
+
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -102,11 +109,11 @@ export function getUnauthorizedPath() {
       {
         path: 'mydspace',
         loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule',
-        canActivate: [AuthenticatedGuard]
+        canActivate: [AuthenticatedGuard, UserAgreementGuard]
       },
       { path: 'search', loadChildren: './+search-page/search-page-routing.module#SearchPageRoutingModule' },
       { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule'},
-      { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [SiteAdministratorGuard] },
+      { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [SiteAdministratorGuard, UserAgreementGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
       { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
       { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },
@@ -120,9 +127,10 @@ export function getUnauthorizedPath() {
       },
       {
         path: PROFILE_MODULE_PATH,
-        loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard]
+        loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard, UserAgreementGuard]
       },
-      { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard] },
+      { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard, UserAgreementGuard] },
+      { path: INFO_MODULE_PATH, loadChildren: './info/info.module#InfoModule' },
       { path: UNAUTHORIZED_PATH, component: UnauthorizedComponent },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ],

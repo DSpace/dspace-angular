@@ -3,13 +3,14 @@ import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { SubmissionEditComponent } from '../submission/edit/submission-edit.component';
+import { UserAgreementGuard } from '../core/user-agreement/user-agreement.guard';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [AuthenticatedGuard, UserAgreementGuard],
         path: ':id/edit',
         component: SubmissionEditComponent,
         data: { title: 'submission.edit.title' }

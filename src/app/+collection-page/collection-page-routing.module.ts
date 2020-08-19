@@ -16,6 +16,7 @@ import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-bre
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { UserAgreementGuard } from '../core/user-agreement/user-agreement.guard';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 
@@ -41,7 +42,7 @@ const ITEMTEMPLATE_PATH = 'itemtemplate';
       {
         path: COLLECTION_CREATE_PATH,
         component: CreateCollectionPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
+        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard, UserAgreementGuard]
       },
       {
         path: ':id',
@@ -54,18 +55,18 @@ const ITEMTEMPLATE_PATH = 'itemtemplate';
           {
             path: COLLECTION_EDIT_PATH,
             loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
-            canActivate: [AuthenticatedGuard]
+            canActivate: [AuthenticatedGuard, UserAgreementGuard]
           },
           {
             path: 'delete',
             pathMatch: 'full',
             component: DeleteCollectionPageComponent,
-            canActivate: [AuthenticatedGuard],
+            canActivate: [AuthenticatedGuard, UserAgreementGuard],
           },
           {
             path: ITEMTEMPLATE_PATH,
             component: EditItemTemplatePageComponent,
-            canActivate: [AuthenticatedGuard],
+            canActivate: [AuthenticatedGuard, UserAgreementGuard],
             resolve: {
               item: ItemTemplatePageResolver,
               breadcrumb: I18nBreadcrumbResolver
@@ -81,7 +82,7 @@ const ITEMTEMPLATE_PATH = 'itemtemplate';
             path: '/edit/mapper',
             component: CollectionItemMapperComponent,
             pathMatch: 'full',
-            canActivate: [AuthenticatedGuard]
+            canActivate: [AuthenticatedGuard, UserAgreementGuard]
           }
         ]
       },
