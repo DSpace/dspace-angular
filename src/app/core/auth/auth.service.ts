@@ -206,7 +206,7 @@ export class AuthService {
     return this.store.pipe(
       select(getAuthenticatedUserId),
       hasValueOperator(),
-      switchMap((id: string) => this.epersonService.findById(id)),
+      switchMap((id: string) => this.epersonService.findById(id) ),
       getAllSucceededRemoteDataPayload()
     )
   }

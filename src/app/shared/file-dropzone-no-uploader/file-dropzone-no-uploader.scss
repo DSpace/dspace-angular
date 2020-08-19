@@ -1,0 +1,29 @@
+.ds-base-drop-zone {
+  border: 2px dashed $gray-600;
+}
+
+.ds-document-drop-zone {
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.ds-document-drop-zone-active {
+  z-index: $drop-zone-area-z-index !important;
+}
+
+.ds-document-drop-zone-inner {
+  background-color: rgba($white, 0.7);
+  z-index: $drop-zone-area-inner-z-index;
+  top: 0;
+  left: 0;
+}
+
+.ds-document-drop-zone-inner-content {
+  border: 4px dashed map-get($theme-colors, primary);
+  z-index: $drop-zone-area-inner-z-index;
+}
+
+.ds-document-drop-zone-inner-content p {
+  font-size: ($font-size-lg * 2.5);
+}
