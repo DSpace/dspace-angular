@@ -1,14 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { CookieService } from '../services/cookie.service';
-import { AuthService } from '../auth/auth.service';
-import { map } from 'rxjs/operators';
-import { hasValue } from '../../shared/empty.util';
 import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/operators';
-
-export const USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
-export const USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';
+import { UserAgreementService } from './user-agreement.service';
+import { tap } from 'rxjs/operators';
 
 /**
  * A guard redirecting users to the end agreement page when they haven't accepted the latest user agreement
@@ -16,22 +11,24 @@ export const USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';
 @Injectable()
 export class UserAgreementGuard implements CanActivate {
 
-  constructor(protected cookie: CookieService,
-              protected authService: AuthService,
+  constructor(protected userAgreementService: UserAgreementService,
               protected router: Router) {
   }
 
   /**
    * True when the user has accepted the agreements
+   * The user will be redirected to the End User Agreement page if they haven't accepted it before
+   * A redirect URL will be provided with the navigation so the component can redirect the user back to the blocked route
+   * when they're finished accepting the agreement
    */
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | boolean {
-    if (this.cookie.get(USER_AGREEMENT_COOKIE) === true) {
-      return true;
-    } else {
-      return this.authService.getAuthenticatedUserFromStore().pipe(
-        map((user) => hasValue(user) && user.hasMetadata(USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(USER_AGREEMENT_METADATA_FIELD).value === 'true'),
-        returnEndUserAgreementUrlTreeOnFalse(this.router)
-      );
-    }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
+    return this.userAgreementService.hasCurrentUserAcceptedAgreement().pipe(
+      returnEndUserAgreementUrlTreeOnFalse(this.router),
+      tap((result) => {
+        if (result instanceof UrlTree) {
+          this.router.navigateByUrl(result, { state: { redirect: state.url } })
+        }
+      })
+    );
   }
 }

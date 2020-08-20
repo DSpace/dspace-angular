@@ -5,5 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './end-user-agreement-content.component.html',
   styleUrls: ['./end-user-agreement-content.component.scss']
 })
+/**
+ * Component displaying the contents of the End User Agreement
+ */
 export class EndUserAgreementContentComponent {
 }

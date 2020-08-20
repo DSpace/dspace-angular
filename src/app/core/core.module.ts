@@ -163,6 +163,7 @@ import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-li
 import { ConfigurationDataService } from './data/configuration-data.service';
 import { ConfigurationProperty } from './shared/configuration-property.model';
 import { UserAgreementGuard } from './user-agreement/user-agreement.guard';
+import { UserAgreementService } from './user-agreement/user-agreement.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -291,6 +292,7 @@ const PROVIDERS = [
   MetadataFieldDataService,
   TokenResponseParsingService,
   UserAgreementGuard,
+  UserAgreementService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
