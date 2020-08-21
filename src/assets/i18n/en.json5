@@ -1600,6 +1600,13 @@
 
   "item.page.uri": "URI",
 
+  "item.page.bitstreams.view-more": "Show more",
+
+  "item.page.bitstreams.collapse": "Collapse",
+
+  "item.page.filesection.original.bundle" : "Original bundle",
+
+  "item.page.filesection.license.bundle" : "License bundle",
 
 
   "item.select.confirm": "Confirm selected",
