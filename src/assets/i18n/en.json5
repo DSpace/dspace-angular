@@ -937,6 +937,41 @@
 
 
 
+  "cookies.consent.app.title.token_item": "User Token",
+
+  "cookies.consent.app.description.token_item": "User login identification",
+
+
+
+  "cookies.consent.app.title.impersonation": "Impersonation",
+
+  "cookies.consent.app.description.impersonation": "Switching users",
+
+
+
+  "cookies.consent.app.title.klaro": "Klaro",
+
+  "cookies.consent.app.description.klaro": "Cookie consent preferences",
+
+
+
+
+  "cookies.consent.app.title.has_agreed_end_user": "Has agreed end user",
+
+  "cookies.consent.app.description.has_agreed_end_user": "",
+
+
+
+  "cookies.consent.purpose.authentication": "Authentication",
+
+  "cookies.consent.purpose.statistics": "Statistics",
+
+  "cookies.consent.purpose.preferences": "Preferences",
+
+  "cookies.consent.purpose.acknowledgement": "Acknowledgement",
+
+
+
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",

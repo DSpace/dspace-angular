@@ -23,6 +23,7 @@ import { SubmissionService } from '../../app/submission/submission.service';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
 import { BrowserHardRedirectService } from '../../app/core/services/browser-hard-redirect.service';
+import { CookiesService } from '../../app/shared/cookies/cookies.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -82,6 +83,10 @@ export function locationProvider(): Location {
     {
       provide: CookieService,
       useClass: ClientCookieService
+    },
+    {
+      provide: CookiesService,
+      useClass: CookiesService
     },
     {
       provide: SubmissionService,

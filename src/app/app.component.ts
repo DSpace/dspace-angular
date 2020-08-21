@@ -5,7 +5,7 @@ import {
   Component,
   HostListener,
   Inject,
-  OnInit,
+  OnInit, Optional,
   ViewEncapsulation
 } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
@@ -31,8 +31,7 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
 import { LocaleService } from './core/locale/locale.service';
-
-export const LANG_COOKIE = 'language_cookie';
+import { CookiesService } from './shared/cookies/cookies.service';
 
 @Component({
   selector: 'ds-app',
@@ -69,7 +68,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
-    private localeService: LocaleService
+    private localeService: LocaleService,
+    @Optional() private cookiesService: CookiesService
   ) {
     /* Use models object so all decorators are actually called */
     this.models = models;
@@ -91,6 +91,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.info(environment);
     }
     this.storeCSSVariables();
+
+    this.cookiesService.initialize();
   }
 
   ngOnInit() {
