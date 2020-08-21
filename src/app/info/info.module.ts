@@ -4,6 +4,8 @@ import { SharedModule } from '../shared/shared.module';
 import { EndUserAgreementComponent } from './end-user-agreement/end-user-agreement.component';
 import { InfoRoutingModule } from './info-routing.module';
 import { EndUserAgreementContentComponent } from './end-user-agreement/end-user-agreement-content/end-user-agreement-content.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { PrivacyContentComponent } from './privacy/privacy-content/privacy-content.component';
 
 @NgModule({
   imports: [
@@ -13,7 +15,9 @@ import { EndUserAgreementContentComponent } from './end-user-agreement/end-user-
   ],
   declarations: [
     EndUserAgreementComponent,
-    EndUserAgreementContentComponent
+    EndUserAgreementContentComponent,
+    PrivacyComponent,
+    PrivacyContentComponent
   ]
 })
 export class InfoModule {

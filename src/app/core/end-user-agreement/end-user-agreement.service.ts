@@ -10,14 +10,14 @@ import { Metadata } from '../shared/metadata.utils';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { getSucceededRemoteData } from '../shared/operators';
 
-export const USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
-export const USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';
+export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
+export const END_USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';
 
 /**
  * Service for checking and managing the status of the current end user agreement
  */
 @Injectable()
-export class UserAgreementService {
+export class EndUserAgreementService {
 
   constructor(protected cookie: CookieService,
               protected authService: AuthService,
@@ -28,14 +28,14 @@ export class UserAgreementService {
    * Whether or not the current user has accepted the End User Agreement
    */
   hasCurrentUserAcceptedAgreement(): Observable<boolean> {
-    if (this.cookie.get(USER_AGREEMENT_COOKIE) === true) {
+    if (this.isCookieAccepted()) {
       return observableOf(true);
     } else {
       return this.authService.isAuthenticated().pipe(
         switchMap((authenticated) => {
           if (authenticated) {
             return this.authService.getAuthenticatedUserFromStore().pipe(
-              map((user) => hasValue(user) && user.hasMetadata(USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(USER_AGREEMENT_METADATA_FIELD).value === 'true')
+              map((user) => hasValue(user) && user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true')
             );
           } else {
             return observableOf(false);
@@ -58,19 +58,41 @@ export class UserAgreementService {
           return this.authService.getAuthenticatedUserFromStore().pipe(
             switchMap((user) => {
               const updatedUser = cloneDeep(user);
-              Metadata.setFirstValue(updatedUser.metadata, USER_AGREEMENT_METADATA_FIELD, String(accepted));
+              Metadata.setFirstValue(updatedUser.metadata, END_USER_AGREEMENT_METADATA_FIELD, String(accepted));
               return this.ePersonService.update(updatedUser);
             }),
             getSucceededRemoteData(),
             map((rd) => hasValue(rd.payload))
           );
         } else {
-          this.cookie.set(USER_AGREEMENT_COOKIE, accepted);
+          this.setCookieAccepted(accepted);
           return observableOf(true);
         }
       }),
       take(1)
     );
+  }
+
+  /**
+   * Is the End User Agreement accepted in the cookie?
+   */
+  isCookieAccepted(): boolean {
+    return this.cookie.get(END_USER_AGREEMENT_COOKIE) === true;
+  }
+
+  /**
+   * Set the cookie's End User Agreement accepted state
+   * @param accepted
+   */
+  setCookieAccepted(accepted: boolean) {
+    this.cookie.set(END_USER_AGREEMENT_COOKIE, accepted);
+  }
+
+  /**
+   * Remove the End User Agreement cookie
+   */
+  removeCookieAccepted() {
+    this.cookie.remove(END_USER_AGREEMENT_COOKIE);
   }
 
 }

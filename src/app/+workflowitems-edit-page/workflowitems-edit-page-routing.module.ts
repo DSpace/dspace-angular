@@ -8,7 +8,7 @@ import { getWorkflowItemModulePath } from '../app-routing.module';
 import { WorkflowItemDeleteComponent } from './workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back/workflow-item-send-back.component';
-import { UserAgreementGuard } from '../core/user-agreement/user-agreement.guard';
+import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agreement.guard';
 
 export function getWorkflowItemPageRoute(wfiId: string) {
   return new URLCombiner(getWorkflowItemModulePath(), wfiId).toString();
@@ -38,19 +38,19 @@ const WORKFLOW_ITEM_SEND_BACK_PATH = 'sendback';
         resolve: { wfi: WorkflowItemPageResolver },
         children: [
           {
-            canActivate: [AuthenticatedGuard, UserAgreementGuard],
+            canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
             path: WORKFLOW_ITEM_EDIT_PATH,
             component: SubmissionEditComponent,
             data: { title: 'submission.edit.title' }
           },
           {
-            canActivate: [AuthenticatedGuard, UserAgreementGuard],
+            canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
             path: WORKFLOW_ITEM_DELETE_PATH,
             component: WorkflowItemDeleteComponent,
             data: { title: 'workflow-item.delete.title' }
           },
           {
-            canActivate: [AuthenticatedGuard, UserAgreementGuard],
+            canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
             path: WORKFLOW_ITEM_SEND_BACK_PATH,
             component: WorkflowItemSendBackComponent,
             data: { title: 'workflow-item.send-back.title' }

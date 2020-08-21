@@ -4,7 +4,7 @@ import { RegisterEmailComponent } from './register-email/register-email.componen
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { ItemPageResolver } from '../+item-page/item-page.resolver';
 import { RegistrationResolver } from '../register-email-form/registration.resolver';
-import { UserAgreementGuard } from '../core/user-agreement/user-agreement.guard';
+import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agreement.guard';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { UserAgreementGuard } from '../core/user-agreement/user-agreement.guard'
         path: ':token',
         component: CreateProfileComponent,
         resolve: {registration: RegistrationResolver},
-        canActivate: [UserAgreementGuard]
+        canActivate: [EndUserAgreementGuard]
       }
     ])
   ],

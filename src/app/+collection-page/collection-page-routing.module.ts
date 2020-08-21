@@ -16,7 +16,7 @@ import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-bre
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { UserAgreementGuard } from '../core/user-agreement/user-agreement.guard';
+import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agreement.guard';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 
@@ -42,7 +42,7 @@ const ITEMTEMPLATE_PATH = 'itemtemplate';
       {
         path: COLLECTION_CREATE_PATH,
         component: CreateCollectionPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard, UserAgreementGuard]
+        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard, EndUserAgreementGuard]
       },
       {
         path: ':id',
@@ -55,18 +55,18 @@ const ITEMTEMPLATE_PATH = 'itemtemplate';
           {
             path: COLLECTION_EDIT_PATH,
             loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
-            canActivate: [AuthenticatedGuard, UserAgreementGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementGuard]
           },
           {
             path: 'delete',
             pathMatch: 'full',
             component: DeleteCollectionPageComponent,
-            canActivate: [AuthenticatedGuard, UserAgreementGuard],
+            canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
           },
           {
             path: ITEMTEMPLATE_PATH,
             component: EditItemTemplatePageComponent,
-            canActivate: [AuthenticatedGuard, UserAgreementGuard],
+            canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
             resolve: {
               item: ItemTemplatePageResolver,
               breadcrumb: I18nBreadcrumbResolver
@@ -82,7 +82,7 @@ const ITEMTEMPLATE_PATH = 'itemtemplate';
             path: '/edit/mapper',
             component: CollectionItemMapperComponent,
             pathMatch: 'full',
-            canActivate: [AuthenticatedGuard, UserAgreementGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementGuard]
           }
         ]
       },

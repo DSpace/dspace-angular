@@ -162,8 +162,8 @@ import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-licens
 import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-license-url-data.service';
 import { ConfigurationDataService } from './data/configuration-data.service';
 import { ConfigurationProperty } from './shared/configuration-property.model';
-import { UserAgreementGuard } from './user-agreement/user-agreement.guard';
-import { UserAgreementService } from './user-agreement/user-agreement.service';
+import { EndUserAgreementGuard } from './end-user-agreement/end-user-agreement.guard';
+import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -291,8 +291,8 @@ const PROVIDERS = [
   MetadataSchemaDataService,
   MetadataFieldDataService,
   TokenResponseParsingService,
-  UserAgreementGuard,
-  UserAgreementService,
+  EndUserAgreementGuard,
+  EndUserAgreementService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

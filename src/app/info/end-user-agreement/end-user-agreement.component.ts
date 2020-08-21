@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { LogOutAction } from '../../core/auth/auth.actions';
-import { UserAgreementService } from '../../core/user-agreement/user-agreement.service';
+import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue } from '../../shared/empty.util';
@@ -25,7 +25,7 @@ export class EndUserAgreementComponent implements OnInit {
    */
   accepted = false;
 
-  constructor(protected userAgreementService: UserAgreementService,
+  constructor(protected endUserAgreementService: EndUserAgreementService,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService,
               protected authService: AuthService,
@@ -44,7 +44,7 @@ export class EndUserAgreementComponent implements OnInit {
    * Initialize the "accepted" property of this component by checking if the current user has accepted it before
    */
   initAccepted() {
-    this.userAgreementService.hasCurrentUserAcceptedAgreement().subscribe((accepted) => {
+    this.endUserAgreementService.hasCurrentUserAcceptedAgreement().subscribe((accepted) => {
       this.accepted = accepted;
     });
   }
@@ -54,7 +54,7 @@ export class EndUserAgreementComponent implements OnInit {
    * Set the End User Agreement, display a notification and (optionally) redirect the user back to their original destination
    */
   submit() {
-    this.userAgreementService.setUserAcceptedAgreement(this.accepted).subscribe((success) => {
+    this.endUserAgreementService.setUserAcceptedAgreement(this.accepted).subscribe((success) => {
       if (success) {
         this.notificationsService.success(this.translate.instant('info.end-user-agreement.accept.success'));
         const redirect = window.history.state.redirect;

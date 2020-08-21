@@ -12,7 +12,7 @@ import { getCommunityModulePath } from '../app-routing.module';
 import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
-import { UserAgreementGuard } from '../core/user-agreement/user-agreement.guard';
+import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agreement.guard';
 
 export const COMMUNITY_PARENT_PARAMETER = 'parent';
 
@@ -37,7 +37,7 @@ const COMMUNITY_EDIT_PATH = 'edit';
       {
         path: COMMUNITY_CREATE_PATH,
         component: CreateCommunityPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard, UserAgreementGuard]
+        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard, EndUserAgreementGuard]
       },
       {
         path: ':id',
@@ -50,13 +50,13 @@ const COMMUNITY_EDIT_PATH = 'edit';
           {
             path: COMMUNITY_EDIT_PATH,
             loadChildren: './edit-community-page/edit-community-page.module#EditCommunityPageModule',
-            canActivate: [AuthenticatedGuard, UserAgreementGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementGuard]
           },
           {
             path: 'delete',
             pathMatch: 'full',
             component: DeleteCommunityPageComponent,
-            canActivate: [AuthenticatedGuard, UserAgreementGuard],
+            canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
           },
           {
             path: '',
