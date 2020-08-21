@@ -18,6 +18,10 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import {
+  END_USER_AGREEMENT_METADATA_FIELD,
+  EndUserAgreementService
+} from '../../core/end-user-agreement/end-user-agreement.service';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -28,40 +32,80 @@ describe('CreateProfileComponent', () => {
   let ePersonDataService: EPersonDataService;
   let notificationsService;
   let store: Store<CoreState>;
+  let endUserAgreementService: EndUserAgreementService;
 
   const registration = Object.assign(new Registration(), {email: 'test@email.org', token: 'test-token'});
 
-  const values = {
-    metadata: {
-      'eperson.firstname': [
-        {
-          value: 'First'
-        }
-      ],
-      'eperson.lastname': [
-        {
-          value: 'Last'
-        },
-      ],
-      'eperson.phone': [
-        {
-          value: 'Phone'
-        }
-      ],
-      'eperson.language': [
-        {
-          value: 'en'
-        }
-      ]
-    },
-    email: 'test@email.org',
-    password: 'password',
-    canLogIn: true,
-    requireCertificate: false
-  };
-  const eperson = Object.assign(new EPerson(), values);
+  let values;
+  let eperson: EPerson;
+  let valuesWithAgreement;
+  let epersonWithAgreement: EPerson;
 
   beforeEach(async(() => {
+    values = {
+      metadata: {
+        'eperson.firstname': [
+          {
+            value: 'First'
+          }
+        ],
+          'eperson.lastname': [
+          {
+            value: 'Last'
+          },
+        ],
+          'eperson.phone': [
+          {
+            value: 'Phone'
+          }
+        ],
+          'eperson.language': [
+          {
+            value: 'en'
+          }
+        ]
+      },
+      email: 'test@email.org',
+        password: 'password',
+      canLogIn: true,
+      requireCertificate: false
+    };
+    eperson = Object.assign(new EPerson(), values);
+    valuesWithAgreement = {
+      metadata: {
+        'eperson.firstname': [
+          {
+            value: 'First'
+          }
+        ],
+        'eperson.lastname': [
+          {
+            value: 'Last'
+          },
+        ],
+        'eperson.phone': [
+          {
+            value: 'Phone'
+          }
+        ],
+        'eperson.language': [
+          {
+            value: 'en'
+          }
+        ],
+        [END_USER_AGREEMENT_METADATA_FIELD]: [
+          {
+            value: 'true'
+          }
+        ]
+      },
+      email: 'test@email.org',
+      password: 'password',
+      canLogIn: true,
+      requireCertificate: false
+    };
+    epersonWithAgreement = Object.assign(new EPerson(), valuesWithAgreement);
+
     route = {data: observableOf({registration: registration})};
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
@@ -74,6 +118,11 @@ describe('CreateProfileComponent', () => {
       dispatch: {},
     });
 
+    endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
+      isCookieAccepted: false,
+      removeCookieAccepted: {}
+    });
+
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
       declarations: [CreateProfileComponent],
@@ -84,6 +133,7 @@ describe('CreateProfileComponent', () => {
         {provide: EPersonDataService, useValue: ePersonDataService},
         {provide: FormBuilder, useValue: new FormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
+        {provide: EndUserAgreementService, useValue: endUserAgreementService},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -129,6 +179,41 @@ describe('CreateProfileComponent', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
       expect(notificationsService.success).toHaveBeenCalled();
+    });
+
+    describe('when the end-user-agreement cookie is accepted', () => {
+      beforeEach(() => {
+        (endUserAgreementService.isCookieAccepted as jasmine.Spy).and.returnValue(true);
+      });
+
+      it('should submit an eperson with agreement metadata for creation and log in on success', () => {
+        comp.firstName.patchValue('First');
+        comp.lastName.patchValue('Last');
+        comp.contactPhone.patchValue('Phone');
+        comp.language.patchValue('en');
+        comp.password = 'password';
+        comp.isInValidPassword = false;
+
+        comp.submitEperson();
+
+        expect(ePersonDataService.createEPersonForToken).toHaveBeenCalledWith(epersonWithAgreement, 'test-token');
+        expect(store.dispatch).toHaveBeenCalledWith(new AuthenticateAction('test@email.org', 'password'));
+        expect(router.navigate).toHaveBeenCalledWith(['/home']);
+        expect(notificationsService.success).toHaveBeenCalled();
+      });
+
+      it('should remove the cookie', () => {
+        comp.firstName.patchValue('First');
+        comp.lastName.patchValue('Last');
+        comp.contactPhone.patchValue('Phone');
+        comp.language.patchValue('en');
+        comp.password = 'password';
+        comp.isInValidPassword = false;
+
+        comp.submitEperson();
+
+        expect(endUserAgreementService.removeCookieAccepted).toHaveBeenCalled();
+      });
     });
 
     it('should submit an eperson for creation and stay on page on error', () => {
