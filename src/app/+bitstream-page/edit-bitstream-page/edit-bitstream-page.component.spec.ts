@@ -23,11 +23,10 @@ import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { RestResponse } from '../../core/cache/response.models';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
-  createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$
 } from "../../shared/remote-data.utils";
-import {getItemPageRoute} from "../../+item-page/item-page-routing.module";
 import {RouterStub} from "../../shared/testing/router.stub";
+import {getItemEditPath, getItemPageRoute} from "../../+item-page/item-page-routing.module";
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -114,7 +113,7 @@ describe('EditBitstreamPageComponent', () => {
       _links: {
         self: 'bitstream-selflink'
       },
-      bundle: createFailedRemoteDataObject$({
+      bundle: createSuccessfulRemoteDataObject$({
         item: createSuccessfulRemoteDataObject$({
           uuid: 'some-uuid'
         })
@@ -233,9 +232,23 @@ describe('EditBitstreamPageComponent', () => {
     });
   });
   describe('when the cancel button is clicked', () => {
-    it('should redirect to the item page', () => {
+    it('should call navigateToItemEditBitstreams method', () => {
+      spyOn(comp, 'navigateToItemEditBitstreams');
       comp.onCancel();
-      spyOn(routerStub, 'navigate');
+      expect(comp.navigateToItemEditBitstreams).toHaveBeenCalled();
+    });
+  });
+  describe('when navigateToItemEditBitstreams is called, and the component has an itemId', () => {
+    it('should redirect to the item edit path bitstream page', () => {
+      comp.itemId = 'some-uuid'
+      comp.navigateToItemEditBitstreams();
+      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditPath('some-uuid'), 'bitstreams']);
+    });
+  });
+  describe('when navigateToItemEditBitstreams is called, and the component does not have an itemId', () => {
+    it('should redirect to the item page', () => {
+      comp.itemId = undefined;
+      comp.navigateToItemEditBitstreams();
       expect(routerStub.navigate).toHaveBeenCalledWith([getItemPageRoute('some-uuid')]);
     });
   });
