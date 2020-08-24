@@ -15,6 +15,8 @@ import { CrisLayoutSearchBoxComponent } from './default-layout/boxes/search/cris
 import { SearchPageModule } from '../+search-page/search-page.module';
 import { MyDSpacePageModule } from '../+my-dspace-page/my-dspace-page.module';
 import { LongtextComponent } from './default-layout/boxes/components/longtext/longtext.component';
+import { DateComponent } from './default-layout/boxes/components/date/date.component';
+import { DsDatePipe } from './pipes/ds-date.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { LongtextComponent } from './default-layout/boxes/components/longtext/lo
     TextComponent,
     HeadingComponent,
     CrisLayoutSearchBoxComponent,
-    LongtextComponent
+    LongtextComponent,
+    DateComponent,
+    DsDatePipe
   ],
   imports: [
     CommonModule,
@@ -43,7 +47,8 @@ import { LongtextComponent } from './default-layout/boxes/components/longtext/lo
     CrisLayoutSearchBoxComponent,
     TextComponent,
     HeadingComponent,
-    LongtextComponent
+    LongtextComponent,
+    DateComponent
   ],
   exports: [
     CrisPageLoaderComponent,
