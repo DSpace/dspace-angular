@@ -18,6 +18,7 @@ import { LongtextComponent } from './default-layout/boxes/components/longtext/lo
 import { DateComponent } from './default-layout/boxes/components/date/date.component';
 import { DsDatePipe } from './pipes/ds-date.pipe';
 import { LinkComponent } from './default-layout/boxes/components/link/link.component';
+import { LinkLabelComponent } from './default-layout/boxes/components/link-label/link-label.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LinkComponent } from './default-layout/boxes/components/link/link.compo
     LongtextComponent,
     DateComponent,
     DsDatePipe,
-    LinkComponent
+    LinkComponent,
+    LinkLabelComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { LinkComponent } from './default-layout/boxes/components/link/link.compo
     HeadingComponent,
     LongtextComponent,
     DateComponent,
-    LinkComponent
+    LinkComponent,
+    LinkLabelComponent
   ],
   exports: [
     CrisPageLoaderComponent,

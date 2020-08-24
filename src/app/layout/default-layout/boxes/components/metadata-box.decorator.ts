@@ -3,7 +3,8 @@ export enum FieldRendetingType {
   HEADING = 'HEADING',
   LONGTEXT = 'LONGTEXT',
   DATE = 'DATE',
-  LINK = 'LINK'
+  LINK = 'LINK',
+  LINK_LABEL = 'LINK.LABEL'
 };
 
 const fieldType = new Map();
