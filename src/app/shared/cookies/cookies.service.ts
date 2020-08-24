@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import * as Klaro from 'klaro'
 import { BehaviorSubject } from 'rxjs';
 import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
-import { IMPERSONATING_COOKIE, REDIRECT_COOKIE } from '../../core/auth/auth.service';
+import { AuthService, IMPERSONATING_COOKIE, REDIRECT_COOKIE } from '../../core/auth/auth.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
 import { take } from 'rxjs/operators';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 
 export const HAS_AGREED_END_USER = 'hasAgreedEndUser';
 export const KLARO = 'klaro';
@@ -24,6 +25,8 @@ export class CookiesService {
   message$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   klaroConfig = {
+    storageName: 'klaro-anonymous',
+
     privacyPolicy: '/info/privacy',
 
     /*
@@ -193,18 +196,37 @@ export class CookiesService {
     ]
   };
 
-  constructor(private translateService: TranslateService) {
+  constructor(
+    private translateService: TranslateService,
+    private authService: AuthService,
+  ) {
   }
 
   initialize() {
+    this.authService.getAuthenticatedUserFromStore()
+      .subscribe((user: EPerson) => {
+        this.klaroConfig.storageName = 'klaro-' + (user.uuid);
+
+      });
+    /**
+     * Add all message keys for apps and purposes
+     */
     this.addAppMessages();
 
+    /**
+     * Make sure the fallback language is english
+     */
     this.translateService.setDefaultLang(environment.defaultLanguage);
+
+    /**
+     * Subscribe on a message to make sure the translation service is ready
+     * Translate all keys in the translation section of the configuration
+     * Show the configuration if the configuration has not been confirmed
+     */
     this.translateService.get('loading.default').pipe(take(1)).subscribe(() => {
       this.translateConfiguration();
-      if (!Klaro.getManager(this.klaroConfig).confirmed) {
-        Klaro.show(this.klaroConfig, false);
-      }
+      Klaro.renderKlaro(this.klaroConfig, false);
+      Klaro.initialize();
     })
   }
 
@@ -220,10 +242,16 @@ export class CookiesService {
     return cookiePurposeMessagePrefix + purpose;
   }
 
+  /**
+   * Show the cookie consent form
+   */
   showSettings() {
     Klaro.show(this.klaroConfig);
   }
 
+  /**
+   * Add message keys for all apps and purposes
+   */
   addAppMessages() {
     this.klaroConfig.apps.forEach((app) => {
       this.klaroConfig.translations.en[app.name] = { title: this.getTitleTranslation(app.name), description: this.getDescriptionTranslation(app.name) };
@@ -233,6 +261,9 @@ export class CookiesService {
     });
   }
 
+  /**
+   * Translate the translation section from the Klaro configuration
+   */
   translateConfiguration() {
     this.translate(this.klaroConfig.translations.en);
   }
