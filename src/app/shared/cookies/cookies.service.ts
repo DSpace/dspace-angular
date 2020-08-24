@@ -5,6 +5,8 @@ import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
 import { IMPERSONATING_COOKIE, REDIRECT_COOKIE } from '../../core/auth/auth.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../../environments/environment';
+import { take } from 'rxjs/operators';
 
 export const HAS_AGREED_END_USER = 'hasAgreedEndUser';
 export const KLARO = 'klaro';
@@ -22,6 +24,8 @@ export class CookiesService {
   message$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   klaroConfig = {
+    privacyPolicy: '/info/privacy',
+
     /*
     Setting 'hideLearnMore' to 'true' will hide the "learn more / customize" link in
     the consent notice. We strongly advise against using this under most
@@ -43,7 +47,7 @@ export class CookiesService {
     */
     cookieExpiresAfterDays: 365,
 
-    htmlText: true,
+    htmlTexts: true,
 
     /*
     You can overwrite existing translations and add translations for your app
@@ -53,8 +57,33 @@ export class CookiesService {
     */
     translations: {
       en: {
+        acceptAll: 'cookies.consent.accept-all',
+        acceptSelected: 'cookies.consent.accept-selected',
+        app: {
+          optOut: {
+            description: 'cookies.consent.app.opt-out.description',
+            title: 'cookies.consent.app.opt-out.title'
+          },
+          purpose: 'cookies.consent.app.purpose',
+          purposes: 'cookies.consent.app.purposes',
+          required: {
+            description: 'cookies.consent.app.required.description',
+            title: 'cookies.consent.app.required.title'
+          }
+        },
+        close: 'cookies.consent.close',
+        decline: 'cookies.consent.decline',
         consentNotice: {
-          description: 'We collect and process your personal information for the following purposes: {purposes}.<br>To learn more, please read our {privacyPolicy}'
+          description: 'cookies.consent.content-notice.description',
+          learnMore: 'cookies.consent.content-notice.learnMore'
+        },
+        consentModal: {
+          description: 'cookies.consent.content-modal.description',
+          privacyPolicy: {
+            name: 'cookies.consent.content-modal.privacy-policy.name',
+            text: 'cookies.consent.content-modal.privacy-policy.text'
+          },
+          title: 'cookies.consent.content-modal.title'
         },
         purposes: {}
       }
@@ -168,25 +197,53 @@ export class CookiesService {
   }
 
   initialize() {
+    this.addAppMessages();
+
+    this.translateService.setDefaultLang(environment.defaultLanguage);
+    this.translateService.get('loading.default').pipe(take(1)).subscribe(() => {
+      this.translateConfiguration();
+      if (!Klaro.getManager(this.klaroConfig).confirmed) {
+        Klaro.show(this.klaroConfig, false);
+      }
+    })
+  }
+
+  private getTitleTranslation(title: string) {
+    return cookieNameMessagePrefix + title;
+  }
+
+  private getDescriptionTranslation(description: string) {
+    return cookieDescriptionMessagePrefix + description;
+  }
+
+  private getPurposeTranslation(purpose: string) {
+    return cookiePurposeMessagePrefix + purpose;
+  }
+
+  showSettings() {
+    Klaro.show(this.klaroConfig);
+  }
+
+  addAppMessages() {
     this.klaroConfig.apps.forEach((app) => {
       this.klaroConfig.translations.en[app.name] = { title: this.getTitleTranslation(app.name), description: this.getDescriptionTranslation(app.name) };
       app.purposes.forEach((purpose) => {
         this.klaroConfig.translations.en.purposes[purpose] = this.getPurposeTranslation(purpose);
       })
     });
-
-    Klaro.show(this.klaroConfig);
   }
 
-  private getTitleTranslation(title: string) {
-    return this.translateService.instant(cookieNameMessagePrefix + title);
+  translateConfiguration() {
+    this.translate(this.klaroConfig.translations.en);
   }
 
-  private getDescriptionTranslation(description: string) {
-    return this.translateService.instant(cookieDescriptionMessagePrefix + description);
-  }
-
-  private getPurposeTranslation(purpose: string) {
-    return this.translateService.instant(cookiePurposeMessagePrefix + purpose);
+  private translate(object) {
+    if (typeof (object) === 'string') {
+      return this.translateService.instant(object);
+    }
+    Object.entries(object).forEach(([key, value]: [string, any]) => {
+      object[key] = this.translate(value);
+    });
+    return object;
   }
 }

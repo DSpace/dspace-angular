@@ -937,6 +937,38 @@
 
 
 
+  "cookies.consent.accept-all": "Accept all",
+
+  "cookies.consent.accept-selected": "Accept selected",
+
+  "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
+
+  "cookies.consent.app.opt-out.title": "(opt-out)",
+
+  "cookies.consent.app.purpose": "purpose",
+
+  "cookies.consent.app.required.description": "This application is always required",
+
+  "cookies.consent.app.required.title": "(always required)",
+
+  "cookies.consent.close": "Close",
+
+  "cookies.consent.decline": "Decline",
+
+  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}. <br/> To learn more, please read our {privacyPolicy}.",
+
+  "cookies.consent.content-notice.learnMore": "Customize",
+
+  "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
+
+  "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
+
+  "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
+
+  "cookies.consent.content-modal.title": "Information that we collect",
+
+
+
   "cookies.consent.app.title.token_item": "User Token",
 
   "cookies.consent.app.description.token_item": "User login identification",
@@ -949,16 +981,33 @@
 
 
 
+  "cookies.consent.app.title.redirect": "Redirect",
+
+  "cookies.consent.app.description.redirect": "",
+
+
+
+  "cookies.consent.app.title.language": "Language",
+
+  "cookies.consent.app.description.language": "",
+
+
+
   "cookies.consent.app.title.klaro": "Klaro",
 
   "cookies.consent.app.description.klaro": "Cookie consent preferences",
 
 
 
-
   "cookies.consent.app.title.has_agreed_end_user": "Has agreed end user",
 
   "cookies.consent.app.description.has_agreed_end_user": "",
+
+
+
+  "cookies.consent.app.title.google-analytics": "Google Analytics",
+
+  "cookies.consent.app.description.google-analytics": "",
 
 
 
@@ -1085,6 +1134,13 @@
   "footer.link.dspace": "DSpace software",
 
   "footer.link.duraspace": "DuraSpace",
+
+  "footer.link.cookies": "Cookie settings",
+
+  "footer.link.privacy-policy": "Privacy policy",
+
+  "footer.link.end-user-agreement":"End User Agreement",
+
 
 
   "forgot-email.form.header": "Forgot Password",

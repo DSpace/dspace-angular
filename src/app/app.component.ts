@@ -71,6 +71,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private localeService: LocaleService,
     @Optional() private cookiesService: CookiesService
   ) {
+
     /* Use models object so all decorators are actually called */
     this.models = models;
     // Load all the languages that are defined as active from the config file
@@ -82,6 +83,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     // set the current language code
     this.localeService.setCurrentLanguageCode();
 
+    this.cookiesService.initialize();
+
     angulartics2GoogleAnalytics.startTracking();
     angulartics2DSpace.startTracking();
 
@@ -92,7 +95,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
     this.storeCSSVariables();
 
-    this.cookiesService.initialize();
   }
 
   ngOnInit() {
@@ -147,6 +149,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.isLoading$.next(false);
       }
     });
+    this.translate.get('loading.default').subscribe(t => console.log(t));
   }
 
   @HostListener('window:resize', ['$event'])
