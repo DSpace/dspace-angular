@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-fdescribe('LinkLabelComponent', () => {
+describe('LinkLabelComponent', () => {
   let component: LinkLabelComponent;
   let fixture: ComponentFixture<LinkLabelComponent>;
 
