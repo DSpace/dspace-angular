@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.decorator';
 import { RenderingTypeModel } from '../rendering-type.model';
-import { LocaleService } from 'src/app/core/locale/locale.service';
 
 /**
  * This component renders the date metadata fields
