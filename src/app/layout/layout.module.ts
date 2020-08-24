@@ -17,6 +17,7 @@ import { MyDSpacePageModule } from '../+my-dspace-page/my-dspace-page.module';
 import { LongtextComponent } from './default-layout/boxes/components/longtext/longtext.component';
 import { DateComponent } from './default-layout/boxes/components/date/date.component';
 import { DsDatePipe } from './pipes/ds-date.pipe';
+import { LinkComponent } from './default-layout/boxes/components/link/link.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DsDatePipe } from './pipes/ds-date.pipe';
     CrisLayoutSearchBoxComponent,
     LongtextComponent,
     DateComponent,
-    DsDatePipe
+    DsDatePipe,
+    LinkComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +50,8 @@ import { DsDatePipe } from './pipes/ds-date.pipe';
     TextComponent,
     HeadingComponent,
     LongtextComponent,
-    DateComponent
+    DateComponent,
+    LinkComponent
   ],
   exports: [
     CrisPageLoaderComponent,
