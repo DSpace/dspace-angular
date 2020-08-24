@@ -1,21 +1,10 @@
-<div id="module" class="{{style}}">
-  <div
-    *ngIf="hasLabel"
-    class="font-weight-bold">
-    {{label}}
-  </div>
-  <p [ngClass]="{'collapse': collapsed }" id="longtext" #textcontainer>
-    {{metadataValue}}
-    Bacon ipsum dolor amet doner picanha tri-tip biltong leberkas salami meatball tongue filet mignon landjaeger tail. Kielbasa salami tenderloin picanha spare ribs, beef ribs strip steak jerky cow. Pork chop chicken ham hock beef ribs turkey jerky. Shoulder
-    beef capicola doner, tongue tail sausage short ribs andouille. Rump frankfurter landjaeger t-bone, kielbasa doner ham hock shankle venison. Cupim capicola kielbasa t-bone, ball tip chicken andouille venison pork chop doner bacon beef ribs kevin shankle.
-    Short loin leberkas tenderloin ground round shank, brisket strip steak ham hock ham.
-  </p>
-  <button
-    *ngIf="collapsable"
-    (click)="toggle($event)"
-    class="btn btn-link"
-    role="button"
-    aria-controls="longtext">
-    {{buttonText | async}}
-  </button>
+<div class="{{style}}">
+  <ds-truncatable [id]="field.id">
+    <span *ngIf="hasLabel" class="lbl font-weight-bold">
+      {{label}}
+    </span>
+    <ds-truncatable-part [id]="field.id" [minLines]="3">
+      {{metadataValue}}
+    </ds-truncatable-part>
+  </ds-truncatable>
 </div>

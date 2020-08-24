@@ -14,44 +14,4 @@ import { Observable } from 'rxjs';
   styleUrls: ['./longtext.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRendetingType.LONGTEXT)
-export class LongtextComponent extends RenderingTypeModel implements AfterViewInit {
-  /**
-   * This parameter defines the status of the component (collapsed/expanded)
-   */
-  collapsed = true;
-  /**
-   * This parameter defines if the component contains more text to show
-   */
-  collapsable = false;
-  /**
-   * Reference to html element that will contains the text to show
-   */
-  @ViewChild('textcontainer', { static: false }) textContainer: ElementRef;
-
-  constructor(private translateService: TranslateService) {
-    super();
-  }
-
-  ngAfterViewInit(): void {
-    // Check if the content is in overflow
-    this.collapsable = this.textContainer.nativeElement.scrollHeight > this.textContainer.nativeElement.clientHeight;
-  }
-
-  /**
-   * Hide/Show more content if exists
-   */
-  toggle() {
-    this.collapsed = !this.collapsed;
-  }
-
-  /**
-   * Returns the label to show in button
-   */
-  get buttonText(): Observable<any> {
-    let label = 'layout.field.longtext.button.less';
-    if (this.collapsed) {
-      label = 'layout.field.longtext.button.more';
-    }
-    return this.translateService.get(label);
-  }
-}
+export class LongtextComponent extends RenderingTypeModel { }
