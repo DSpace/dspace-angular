@@ -1,5 +1,6 @@
 import { Input } from '@angular/core';
 import { hasValue } from 'src/app/shared/empty.util';
+import { Item } from 'src/app/core/shared/item.model';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -10,7 +11,7 @@ export class RenderingTypeModel {
   /**
    * Current DSpace item
    */
-  @Input() item;
+  @Input() item: Item;
   /**
    * Current field
    */

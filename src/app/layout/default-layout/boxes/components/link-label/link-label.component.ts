@@ -3,7 +3,7 @@ import { MetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.d
 import { RenderingTypeModel } from '../rendering-type.model';
 
 /**
- * This component renders the links metadata fields.
+ * This component renders the links.label metadata fields.
  * The metadata value is used for href and label for text
  */
 @Component({

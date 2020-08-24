@@ -4,6 +4,8 @@ import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
 import { getMetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { Item } from 'src/app/core/shared/item.model';
 import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
+import { LinkI18nComponent } from '../link-i18n/link-i18n.component';
+import { Box } from 'src/app/core/layout/models/box.model';
 
 /**
  * This component renders the rows of metadata boxes
@@ -17,6 +19,7 @@ import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
 export class RowComponent implements OnInit {
 
   @Input() item: Item;
+  @Input() box: Box;
   @Input() row: any;
 
   /**
@@ -39,6 +42,9 @@ export class RowComponent implements OnInit {
         const metadataRef = viewContainerRef.createComponent(metadataFactory);
         (metadataRef.instance as any).item = this.item;
         (metadataRef.instance as any).field = field;
+        if (metadataRef.instance instanceof LinkI18nComponent) {
+          (metadataRef.instance as any).box = this.box;
+        }
       }
     });
   }

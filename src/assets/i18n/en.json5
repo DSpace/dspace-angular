@@ -3187,8 +3187,6 @@
 
   "relation.rp.projects.search.results.head": "Related Projects",
 
-  "layout.field.longtext.button.more": "Show more",
-
-  "layout.field.longtext.button.less": "Show less"
+  "layout.i18n.link.default": "link"
 }
 

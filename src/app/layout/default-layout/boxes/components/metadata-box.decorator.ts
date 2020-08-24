@@ -4,7 +4,8 @@ export enum FieldRendetingType {
   LONGTEXT = 'LONGTEXT',
   DATE = 'DATE',
   LINK = 'LINK',
-  LINK_LABEL = 'LINK.LABEL'
+  LINK_LABEL = 'LINK.LABEL',
+  LINK_I18N = 'LINK.I18N'
 };
 
 const fieldType = new Map();
