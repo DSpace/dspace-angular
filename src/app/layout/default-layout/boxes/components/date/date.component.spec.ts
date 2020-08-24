@@ -8,7 +8,7 @@ import { DsDatePipe } from 'src/app/layout/pipes/ds-date.pipe';
 import { TranslateService } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 
-fdescribe('DateComponent', () => {
+describe('DateComponent', () => {
   let component: DateComponent;
   let fixture: ComponentFixture<DateComponent>;
 
