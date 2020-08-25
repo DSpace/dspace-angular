@@ -1,0 +1,21 @@
+<div class="container">
+    <h2>{{ 'explore.search-section.' + sectionId + '.title' | translate }}</h2>
+    <form class="container" [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
+        <div formArrayName="queryArray" *ngFor="let queryStatement of queryArray.controls; let i = index; let isLast = last">
+            <div [formGroupName]="i" class="row mb-2">
+                <select name="filter" id="filter" formControlName="filter" class="form-control col-md-4 mr-3 mb-2">
+                    <option *ngFor="let filter of (filters | async)" [value]="filter">{{'explore.index.' + filter | translate}}</option>
+                </select>
+                <input type="text" name="query" id="query" formControlName="query" class="form-control col-md-5 mr-3 mb-2"/>
+                <select *ngIf="!isLast" name="operation" id="operation" formControlName="operation" class="form-control col-md-2 mb-2">
+                    <option *ngFor="let operation of operations" [value]="operation">{{operation}}</option>
+                </select>
+                <button *ngIf="isLast" type="button" class="btn btn-info col-md-2 mb-2" (click)="addQueryStatement()">+</button>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary float-right">{{'explore.search-section.search-button' | translate}}</button>
+            <button type="button" class="btn btn-outline float-right" (click)="onReset()">{{'explore.search-section.reset-button' | translate}}</button>
+        </div> 
+    </form>
+</div>

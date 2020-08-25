@@ -493,7 +493,19 @@
 
   "browse.metadata.dateissued": "Issue Date",
 
+  "browse.metadata.ouname" : "Name",
+
+  "browse.metadata.pjtitle" : "Title",
+
+  "browse.metadata.rodept": "Department",
+
+  "browse.metadata.rpdept": "Department",
+
+  "browse.metadata.rpname": "Name",
+
   "browse.metadata.subject": "Subject",
+
+  "browse.metadata.type": "Type",
 
   "browse.metadata.title": "Title",
 
@@ -501,7 +513,19 @@
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
 
+  "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
+
+  "browse.metadata.pjtitle.breadcrumbs" : "Browse by Title",
+
+  "browse.metadata.rodept.breadcrumbs": "Browse by Department",
+
+  "browse.metadata.rpdept.breadcrumbs" : "Browse by Department",
+
+  "browse.metadata.rpname.breadcrumbs": "Browse by Name",
+
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+
+  "browse.metadata.type.breadcrumbs": "Browse by Type",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -976,6 +1000,118 @@
 
   "error.validation.filerequired": "The file upload is mandatory",
 
+  
+  "explore.browse-section.title" : "Browse",
+
+  "explore.facet-section.title" : "Discover",
+
+  "explore.index.all" : "All",
+
+  "explore.index.author" : "Author",
+
+  "explore.index.birthDate" : "Birthday",
+
+  "explore.index.dateIssued" : "Date issued",
+
+  "explore.index.dateissued" : "Date issued",
+
+  "explore.index.dc.date.accessioned" : "Date accesioned",
+
+  "explore.index.dc.title" : "Title",
+
+  "explore.index.entityType" : "Entity type",
+
+  "explore.index.familyName" : "Family name",
+
+  "explore.index.givenName" : "Given name",
+
+  "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
+
+  "explore.index.isAuthorOfPublication" : "Publication's author",
+
+  "explore.index.isJournalOfPublication" : "Publication's journal",
+
+  "explore.index.isOrgUnitOfPerson" : "Person's organization",
+
+  "explore.index.isOrgUnitOfProject" : "Project's organization",
+
+  "explore.index.isOrgUnitOfPublication" : "Publication's organization",
+
+  "explore.index.isPersonOfOrgUnit" : "Organization's person",
+
+  "explore.index.isPersonOfProject" : "Project's person",
+
+  "explore.index.isProjectOfOrgUnit" : "Organization's project",
+
+  "explore.index.isProjectOfPerson" : "Person's project",
+
+  "explore.index.isProjectOfPublication" : "Publication's project",
+
+  "explore.index.isPublicationOfAuthor" : "Author's publication",
+
+  "explore.index.isPublicationOfJournalIssue" : "Journal issue's publication",
+
+  "explore.index.isPublicationOfOrgUnit" : "Organization's publication",
+
+  "explore.index.isPublicationOfProject" : "Project's publication",
+
+  "explore.index.itemidentifier" : "Item identifier",
+
+  "explore.index.jobTitle" : "Job title",
+
+  "explore.index.knowsLanguage" : "Knows languages",
+
+  "explore.index.organizationAddressCountry" : "Organization address country",
+
+  "explore.index.organizationAddressLocality" : "Organization address locality",
+
+  "explore.index.organizationFoundingDate" : "Organization founding date",
+
+  "explore.index.organizationLegalName" : "Organization legal name",
+
+  "explore.index.original_bundle_descriptions" : "Original bundle descriptions",
+
+  "explore.index.original_bundle_filenames" : "Original bundle filenames",
+
+  "explore.index.ouname" : "Name",
+
+  "explore.index.pjtitle" : "Title",
+
+  "explore.index.projectinvestigators" : "Project investigators",
+
+  "explore.index.rodept" : "Department",
+
+  "explore.index.rpdept" : "Department",
+
+  "explore.index.rpname" : "Name",
+
+  "explore.index.subject" : "Subject",
+
+  "explore.index.title" : "Title",
+
+  "explore.index.type" : "Type",
+
+  "explore.search-section.fundings.title": "Search Projects",
+
+  "explore.search-section.orgunits.title": "Search Organizations",
+
+  "explore.search-section.publications.title": "Search Research Outputs",
+
+  "explore.search-section.researcherprofiles.title": "Search Researchers",
+
+  "explore.search-section.search-button": "Search",
+
+  "explore.search-section.reset-button": "Reset",
+
+  "explore.fundings.breadcrumbs": "Projects",
+
+  "explore.orgunits.breadcrumbs": "Organizations",
+
+  "explore.publications.breadcrumbs": "Research Outputs",
+
+  "explore.researcherprofiles.breadcrumbs": "Researchers",
+
+  "explore.title": "Explore section",
 
 
   "footer.copyright": "copyright © 2002-{{ year }}",
@@ -1710,17 +1846,15 @@
 
   "menu.section.browse_community_by_title": "By Title",
 
-  "menu.section.browse_global": "All of DSpace",
+  "menu.section.explore_publications": "Research Outputs",
 
-  "menu.section.browse_global_by_author": "By Author",
+  "menu.section.explore_researcherprofiles": "Researchers",
 
-  "menu.section.browse_global_by_dateissued": "By Issue Date",
+  "menu.section.explore_orgunits": "Organizations",
 
-  "menu.section.browse_global_by_subject": "By Subject",
+  "menu.section.explore_fundings": "Projects",
 
-  "menu.section.browse_global_by_title": "By Title",
-
-  "menu.section.browse_global_communities_and_collections": "Communities & Collections",
+  "menu.section.communities_and_collections": "Communities & Collections",
 
 
 

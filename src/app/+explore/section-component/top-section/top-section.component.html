@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="card mb-4">
+        <div class="card-header">{{ 'explore.index.' + topSection.sortField | translate }}</div>
+        <div class="card-body">
+            <div class="container">
+                <div *ngFor="let topObject of ( topObjects | async )" class="border p-3">
+                    <a [routerLink]="getItemPage(topObject.id)">{{topObject.name}} </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

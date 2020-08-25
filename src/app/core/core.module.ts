@@ -170,6 +170,9 @@ import { SearchcomponentService } from './layout/searchcomponent.service';
 import { SearchComponent } from './layout/models/search-component.model';
 import { ResearcherProfileService } from './profile/researcher-profile.service';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
+import { SectionDataService } from './layout/section-data.service';
+import { Section } from './layout/models/section.model';
+import { SearchConfigResponseParsingService } from './data/search-config-response-parsing.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -226,6 +229,7 @@ const PROVIDERS = [
   FacetValueResponseParsingService,
   FacetValueMapResponseParsingService,
   FacetConfigResponseParsingService,
+  SearchConfigResponseParsingService,
   MappedCollectionsReponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
@@ -314,7 +318,8 @@ const PROVIDERS = [
   VocabularyEntriesResponseParsingService,
   VocabularyTreeviewService,
   SearchcomponentService,
-  ResearcherProfileService
+  ResearcherProfileService,
+  SectionDataService
 ];
 
 /**
@@ -369,7 +374,8 @@ export const models =
     VocabularyEntry,
     VocabularyEntryDetail,
     SearchComponent,
-    ResearcherProfile
+    ResearcherProfile,
+    Section
   ];
 
 @NgModule({

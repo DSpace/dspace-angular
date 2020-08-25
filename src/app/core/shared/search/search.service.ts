@@ -4,7 +4,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { first, map, switchMap, tap } from 'rxjs/operators';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { LinkService } from '../../cache/builders/link.service';
-import { FacetConfigSuccessResponse, FacetValueSuccessResponse, SearchSuccessResponse } from '../../cache/response.models';
+import { FacetConfigSuccessResponse, FacetValueSuccessResponse, SearchSuccessResponse, SearchConfigSuccessResponse } from '../../cache/response.models';
 import { PaginatedList } from '../../data/paginated-list';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
@@ -35,12 +35,20 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { configureRequest, filterSuccessfulResponses, getResponseFromEntry, getSucceededRemoteData } from '../operators';
 import { RouteService } from '../../services/route.service';
 import { RequestEntry } from '../../data/request.reducer';
+import { SearchConfigResponseParsingService } from '../../data/search-config-response-parsing.service';
+import { SearchConfig } from 'src/app/shared/search/search-filters/search-config.model';
 
 /**
  * Service that performs all general actions that have to do with the search page
  */
 @Injectable()
 export class SearchService implements OnDestroy {
+  
+  /**
+   * Endpoint link path for retrieving search configurations
+   */
+  private configurationLinkPath = 'discover/search';
+
   /**
    * Endpoint link path for retrieving general search results
    */
@@ -50,6 +58,11 @@ export class SearchService implements OnDestroy {
    * Endpoint link path for retrieving facet config incl values
    */
   private facetLinkPathPrefix = 'discover/facets/';
+
+  /**
+   * Endpoint link path for retrieving configured facets with their respective values
+   */
+  private searchFacetLinkPath = 'discover/search/facets/';
 
   /**
    * The ResponseParsingService constructor name
@@ -324,6 +337,53 @@ export class SearchService implements OnDestroy {
   }
 
   /**
+   * Request the filter configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
+   */
+  searchFacets(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+    const requestObs = this.halService.getEndpoint(this.searchFacetLinkPath).pipe(
+      map((url: string) => {
+        const args: string[] = [];
+
+        if (isNotEmpty(scope)) {
+          args.push(`scope=${scope}`);
+        }
+
+        if (isNotEmpty(configurationName)) {
+          args.push(`configuration=${configurationName}`);
+        }
+
+        if (isNotEmpty(args)) {
+          url = new URLCombiner(url, `?${args.join('&')}`).toString();
+        }
+
+        const request = new this.request(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return FacetConfigResponseParsingService;
+          }
+        });
+      }),
+      configureRequest(this.requestService)
+    );
+
+    const requestEntryObs = requestObs.pipe(
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+
+    // get search results from response cache
+    const facetConfigObs: Observable<SearchFilterConfig[]> = requestEntryObs.pipe(
+      getResponseFromEntry(),
+      map((response: FacetConfigSuccessResponse) =>
+        response.results.map((result: any) => Object.assign(new SearchFilterConfig(), result)))
+    );
+
+    return this.rdb.toRemoteDataObservable(requestEntryObs, facetConfigObs);
+  }
+
+  /**
    * Request a list of DSpaceObjects that can be used as a scope, based on the current scope
    * @param {string} scopeId UUID of the current scope, if the scope is empty, the repository wide scopes will be returned
    * @returns {Observable<DSpaceObject[]>} Emits a list of DSpaceObjects which represent possible scopes
@@ -395,6 +455,51 @@ export class SearchService implements OnDestroy {
 
         this.router.navigate(hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], navigationExtras);
       })
+  }
+
+  /**
+   * Request the search configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
+   */
+  getSearchConfigurationFor( scope?: string, configurationName?: string ) {
+    const requestObs = this.halService.getEndpoint(this.configurationLinkPath).pipe(
+      map((url: string) => {
+        const args: string[] = [];
+
+        if (isNotEmpty(scope)) {
+          args.push(`scope=${scope}`);
+        }
+
+        if (isNotEmpty(configurationName)) {
+          args.push(`configuration=${configurationName}`);
+        }
+
+        if (isNotEmpty(args)) {
+          url = new URLCombiner(url, `?${args.join('&')}`).toString();
+        }
+
+        const request = new this.request(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return SearchConfigResponseParsingService;
+          }
+        });
+      }),
+      configureRequest(this.requestService)
+    );
+
+    const requestEntryObs = requestObs.pipe(
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+
+    // get search results from response cache
+    const searchConfigObs: Observable<SearchConfig> = requestEntryObs.pipe(
+      getResponseFromEntry(),
+      map((response: SearchConfigSuccessResponse) => Object.assign(new SearchConfig(), response.results)));
+
+    return this.rdb.toRemoteDataObservable(requestEntryObs, searchConfigObs);
   }
 
   /**

@@ -19,6 +19,9 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject {
   @autoserialize
   hitHighlights: MetadataMap;
 
+   @deserialize
+  _embedded: {indexableObject: T};
+
   /**
    * The {@link HALLink}s for this SearchResult
    */

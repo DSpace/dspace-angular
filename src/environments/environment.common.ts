@@ -211,6 +211,30 @@ export const environment: GlobalConfig = {
       {
         id: 'subject',
         type: BrowseByType.Metadata
+      },
+      {
+        id: 'rodept',
+        type: BrowseByType.Metadata
+      },
+      {
+        id: 'type',
+        type: BrowseByType.Metadata
+      },
+      {
+        id: 'rpname',
+        type: BrowseByType.Title
+      },
+      {
+        id: 'rpdept',
+        type: BrowseByType.Metadata
+      },
+      {
+        id: 'ouname',
+        type: BrowseByType.Title
+      },
+      {
+        id: 'pjtitle',
+        type: BrowseByType.Title
       }
     ]
   },

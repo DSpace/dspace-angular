@@ -1,0 +1,12 @@
+<div class="container">
+    <div *ngFor="let sectionComponents of ( sectionComponentRows | async )">
+        <div class="row mb-3">
+            <div *ngFor="let sectionComponent of sectionComponents" [ngSwitch]="sectionComponent.componentType" [ngClass]="sectionComponent.style">
+                <ds-top-section *ngSwitchCase="'top'" [sectionId] = sectionId [topSection] = sectionComponent ></ds-top-section>
+                <ds-browse-section *ngSwitchCase="'browse'" [sectionId] = sectionId [browseSection] = sectionComponent ></ds-browse-section>
+                <ds-search-section *ngSwitchCase="'search'" [sectionId] = sectionId [searchSection] = sectionComponent ></ds-search-section>
+                <ds-facet-section *ngSwitchCase="'facet'" [sectionId] = sectionId [facetSection] = sectionComponent ></ds-facet-section>
+            </div>
+        </div>
+    </div>
+</div>

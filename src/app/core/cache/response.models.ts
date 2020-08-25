@@ -12,6 +12,7 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { ContentSource } from '../shared/content-source.model';
 import { Registration } from '../shared/registration.model';
+import { SearchConfig } from 'src/app/shared/search/search-filters/search-config.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -77,6 +78,16 @@ export class SearchSuccessResponse extends RestResponse {
 export class FacetConfigSuccessResponse extends RestResponse {
   constructor(
     public results: SearchFilterConfig[],
+    public statusCode: number,
+    public statusText: string,
+  ) {
+    super(true, statusCode, statusText);
+  }
+}
+
+export class SearchConfigSuccessResponse extends RestResponse {
+  constructor(
+    public results: SearchConfig,
     public statusCode: number,
     public statusText: string,
   ) {
