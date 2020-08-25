@@ -56,7 +56,7 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxObj implements 
   retrieveBitstream(metadatacomponents: MetadataComponent) {
     metadatacomponents.rows.forEach((row) => {
       row.fields.forEach((field) => {
-        if (field.fieldType === 'bitstream') {
+        if (field.fieldType.toLowerCase() === 'bitstream') {
           this.bitstream.push(field);
           return;
         }
