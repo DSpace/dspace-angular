@@ -2,6 +2,9 @@ import { Inject, Injectable } from '@angular/core';
 import { Request, Response } from 'express';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
+/**
+ * Service for performing hard redirects within the server app module
+ */
 @Injectable()
 export class ServerHardRedirectService {
 
@@ -11,6 +14,10 @@ export class ServerHardRedirectService {
   ) {
   }
 
+  /**
+   * Perform a hard redirect to URL
+   * @param url
+   */
   redirect(url: string) {
 
     if (url === this.req.url) {
@@ -45,6 +52,9 @@ export class ServerHardRedirectService {
     }
   }
 
+  /**
+   * Get the origin of a request
+   */
   getOriginFromUrl() {
 
     return new URL(`${this.req.protocol}://${this.req.get('hostname')}`).toString();
