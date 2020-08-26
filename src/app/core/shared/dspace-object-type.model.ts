@@ -4,4 +4,5 @@ export enum DSpaceObjectType {
   ITEM = 'ITEM',
   COLLECTION = 'COLLECTION',
   COMMUNITY = 'COMMUNITY',
+  DSPACEOBJECT = 'DSPACEOBJECT',
 }

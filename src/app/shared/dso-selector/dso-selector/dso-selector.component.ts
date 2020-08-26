@@ -13,6 +13,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, startWith, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -76,6 +77,11 @@ export class DSOSelectorComponent implements OnInit {
    */
   debounceTime = 500;
 
+  /**
+   * The available link types
+   */
+  linkTypes = CollectionElementLinkType;
+
   constructor(private searchService: SearchService) {
   }
 
@@ -93,7 +99,7 @@ export class DSOSelectorComponent implements OnInit {
             return this.searchService.search(
               new PaginatedSearchOptions({
                 query: query,
-                dsoType: this.type,
+                dsoType: this.type !== DSpaceObjectType.DSPACEOBJECT ? this.type : null,
                 pagination: this.defaultPagination
               })
             )

@@ -16,7 +16,7 @@ export class HALEndpointService {
   }
 
   protected getRootHref(): string {
-    return new RESTURLCombiner('/').toString();
+    return new RESTURLCombiner('/api').toString();
   }
 
   protected getRootEndpointMap(): Observable<EndpointMap> {

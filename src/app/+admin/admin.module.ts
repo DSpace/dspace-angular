@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { AdminAccessControlModule } from './admin-access-control/admin-access-control.module';
+import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
 import { AdminRegistriesModule } from './admin-registries/admin-registries.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
@@ -40,7 +41,9 @@ import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curati
 
     WorkflowItemSearchResultAdminWorkflowListElementComponent,
     WorkflowItemSearchResultAdminWorkflowGridElementComponent,
-    WorkflowItemAdminWorkflowActionsComponent
+    WorkflowItemAdminWorkflowActionsComponent,
+
+    MetadataImportPageComponent
 
   ],
   entryComponents: [
@@ -54,7 +57,9 @@ import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curati
 
     WorkflowItemSearchResultAdminWorkflowListElementComponent,
     WorkflowItemSearchResultAdminWorkflowGridElementComponent,
-    WorkflowItemAdminWorkflowActionsComponent
+    WorkflowItemAdminWorkflowActionsComponent,
+
+    MetadataImportPageComponent
   ]
 })
 export class AdminModule {
