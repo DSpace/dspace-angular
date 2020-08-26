@@ -26,7 +26,7 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { UploaderComponent } from 'src/app/shared/uploader/uploader.component';
 
-fdescribe('MyDSpaceNewSubmissionComponent test', () => {
+describe('MyDSpaceNewSubmissionComponent test', () => {
 
   const translateService: TranslateService = jasmine.createSpyObj('translateService', {
     get: (key: string): any => { observableOf(key) },
