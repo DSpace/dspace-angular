@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
  */
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'div[ds-longtext]',
+  selector: 'div[ds-longtext].container',
   templateUrl: './longtext.component.html',
   styleUrls: ['./longtext.component.scss']
 })

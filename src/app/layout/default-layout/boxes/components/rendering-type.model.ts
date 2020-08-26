@@ -1,6 +1,7 @@
 import { Input } from '@angular/core';
 import { hasValue } from 'src/app/shared/empty.util';
 import { Item } from 'src/app/core/shared/item.model';
+import { Field } from 'src/app/core/layout/models/metadata-component.model';
 
 /**
  * This class defines the basic model to extends for create a new
@@ -15,7 +16,13 @@ export class RenderingTypeModel {
   /**
    * Current field
    */
-  @Input() field;
+  @Input() field: Field;
+  /**
+   * Defines the subtype of a rendering.
+   * ex. for type identifier.doi this property
+   * contains the subtype doi
+   */
+  @Input() subtype: string;
 
   getMetadatavalue(key: string): any {
     return key ? this.item.firstMetadataValue(key) : '';
@@ -24,7 +31,7 @@ export class RenderingTypeModel {
   /**
    * Returns the value of the metadata to show
    */
-  get metadataValue(): any {
+  get metadataValue(): string {
     return this.item.firstMetadataValue(this.field.metadata);
   }
 

@@ -7,6 +7,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DsDatePipe } from 'src/app/layout/pipes/ds-date.pipe';
 import { TranslateService } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
+import { Field } from 'src/app/core/layout/models/metadata-component.model';
 
 describe('DateComponent', () => {
   let component: DateComponent;
@@ -23,12 +24,12 @@ describe('DateComponent', () => {
     }
   });
 
-  const testField = Object.assign({}, {
+  const testField = Object.assign({
     id: 1,
     label: 'Field Label',
     style: 'col-md-6',
     metadata: 'person.birthDate'
-  });
+  }) as Field;
 
   const translateServiceInstace = Object.assign({
     get: (key: string) => {

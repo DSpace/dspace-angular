@@ -7,6 +7,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from 'src/app/core/shared/item.model';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { Field } from 'src/app/core/layout/models/metadata-component.model';
 
 describe('LongtextComponent', () => {
   let component: LongtextComponent;
@@ -24,12 +25,12 @@ describe('LongtextComponent', () => {
     }
   });
 
-  const testField = Object.assign({}, {
+  const testField = Object.assign({
     id: 1,
     label: 'Field Label',
     style: 'col-md-6',
     metadata: 'dc.title'
-  });
+  }) as Field;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
