@@ -56,6 +56,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   preloadLevel: number;
 
   private vocabulary$: Observable<Vocabulary>;
+  private isHierarchicalVocabulary$: Observable<boolean>;
   private subs: Subscription[] = [];
 
   constructor(protected vocabularyService: VocabularyService,
@@ -123,6 +124,10 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       distinctUntilChanged()
     );
 
+    this.isHierarchicalVocabulary$ = this.vocabulary$.pipe(
+      map((result: Vocabulary) => result.hierarchical)
+    );
+
     this.subs.push(this.group.get(this.model.id).valueChanges.pipe(
       filter((value) => this.currentValue !== value))
       .subscribe((value) => {
@@ -143,9 +148,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * Checks if configured vocabulary is Hierarchical or not
    */
   isHierarchicalVocabulary(): Observable<boolean> {
-    return this.vocabulary$.pipe(
-      map((result: Vocabulary) => result.hierarchical)
-    );
+    return this.isHierarchicalVocabulary$;
   }
 
   /**
