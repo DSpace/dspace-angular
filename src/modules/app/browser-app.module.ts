@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -21,6 +21,8 @@ import { AuthService } from '../../app/core/auth/auth.service';
 import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
+import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
+import { BrowserHardRedirectService } from '../../app/core/services/browser-hard-redirect.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -31,6 +33,13 @@ export function createTranslateLoader(http: HttpClient) {
 export function getRequest(transferState: TransferState): any {
   return transferState.get<any>(REQ_KEY, {});
 }
+
+export const LocationToken = new InjectionToken('Location');
+
+export function locationProvider(): Location {
+  return window.location;
+}
+
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -78,7 +87,15 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: SubmissionService,
       useClass: SubmissionService
-    }
+    },
+    {
+      provide: HardRedirectService,
+      useClass: BrowserHardRedirectService,
+    },
+    {
+      provide: LocationToken,
+      useFactory: locationProvider,
+    },
   ]
 })
 export class BrowserAppModule {

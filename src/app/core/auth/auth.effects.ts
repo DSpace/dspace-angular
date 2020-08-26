@@ -202,13 +202,6 @@ export class AuthEffects {
     );
 
   @Effect({ dispatch: false })
-  public redirectToLogin$: Observable<Action> = this.actions$
-    .pipe(ofType(AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED),
-      tap(() => this.authService.removeToken()),
-      tap(() => this.authService.redirectToLogin())
-    );
-
-  @Effect({ dispatch: false })
   public redirectToLoginTokenExpired$: Observable<Action> = this.actions$
     .pipe(
       ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED),

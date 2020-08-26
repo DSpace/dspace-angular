@@ -1,21 +1,27 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Route,
+  Router,
+  RouterStateSnapshot,
+  UrlTree
+} from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
 import { CoreState } from '../core.reducers';
 import { isAuthenticated } from './selectors';
-import { AuthService } from './auth.service';
-import { RedirectWhenAuthenticationIsRequiredAction } from './auth.actions';
+import { AuthService, LOGIN_ROUTE } from './auth.service';
 
 /**
  * Prevent unauthorized activating and loading of routes
  * @class AuthenticatedGuard
  */
 @Injectable()
-export class AuthenticatedGuard implements CanActivate, CanLoad {
+export class AuthenticatedGuard implements CanActivate {
 
   /**
    * @constructor
@@ -24,46 +30,38 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
 
   /**
    * True when user is authenticated
+   * UrlTree with redirect to login page when user isn't authenticated
    * @method canActivate
    */
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     const url = state.url;
     return this.handleAuth(url);
   }
 
   /**
    * True when user is authenticated
+   * UrlTree with redirect to login page when user isn't authenticated
    * @method canActivateChild
    */
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     return this.canActivate(route, state);
   }
 
-  /**
-   * True when user is authenticated
-   * @method canLoad
-   */
-  canLoad(route: Route): Observable<boolean> {
-    const url = `/${route.path}`;
-
-    return this.handleAuth(url);
-  }
-
-  private handleAuth(url: string): Observable<boolean> {
+  private handleAuth(url: string): Observable<boolean | UrlTree> {
     // get observable
     const observable = this.store.pipe(select(isAuthenticated));
 
     // redirect to sign in page if user is not authenticated
-    observable.pipe(
-      // .filter(() => isEmpty(this.router.routerState.snapshot.url) || this.router.routerState.snapshot.url === url)
-      take(1))
-      .subscribe((authenticated) => {
-        if (!authenticated) {
+    return observable.pipe(
+      map((authenticated) => {
+        if (authenticated) {
+          return authenticated;
+        } else {
           this.authService.setRedirectUrl(url);
-          this.store.dispatch(new RedirectWhenAuthenticationIsRequiredAction('Login required'));
+          this.authService.removeToken();
+          return this.router.createUrlTree([LOGIN_ROUTE]);
         }
-    });
-
-    return observable;
+      })
+    );
   }
 }

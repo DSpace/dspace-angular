@@ -36,6 +36,7 @@ import { RouteService } from '../services/route.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { getAllSucceededRemoteDataPayload } from '../shared/operators';
 import { AuthMethod } from './models/auth.method';
+import { HardRedirectService } from '../services/hard-redirect.service';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -62,7 +63,8 @@ export class AuthService {
               protected router: Router,
               protected routeService: RouteService,
               protected storage: CookieService,
-              protected store: Store<AppState>
+              protected store: Store<AppState>,
+              protected hardRedirectService: HardRedirectService
   ) {
     this.store.pipe(
       select(isAuthenticated),
@@ -440,26 +442,18 @@ export class AuthService {
   }
 
   protected navigateToRedirectUrl(redirectUrl: string) {
-    const url = decodeURIComponent(redirectUrl);
-    // in case the user navigates directly to /login (via bookmark, etc), or the route history is not found.
-    if (isEmpty(url) || url.startsWith(LOGIN_ROUTE)) {
-      this.router.navigateByUrl('/');
-      /* TODO Reenable hard redirect when REST API can handle x-forwarded-for, see https://github.com/DSpace/DSpace/pull/2207 */
-      // this._window.nativeWindow.location.href = '/';
-    } else {
-      /* TODO Reenable hard redirect when REST API can handle x-forwarded-for, see https://github.com/DSpace/DSpace/pull/2207 */
-      // this._window.nativeWindow.location.href = url;
-      this.router.navigateByUrl(url);
+    let url = `/reload/${new Date().getTime()}`;
+    if (isNotEmpty(redirectUrl) && !redirectUrl.startsWith(LOGIN_ROUTE)) {
+      url += `?redirect=${encodeURIComponent(redirectUrl)}`;
     }
+    this.hardRedirectService.redirect(url);
   }
 
   /**
    * Refresh route navigated
    */
   public refreshAfterLogout() {
-    // Hard redirect to the reload page with a unique number behind it
-    // so that all state is definitely lost
-    this._window.nativeWindow.location.href = `/reload/${new Date().getTime()}`;
+    this.navigateToRedirectUrl(undefined);
   }
 
   /**
