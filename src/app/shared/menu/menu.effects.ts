@@ -68,13 +68,30 @@ export class MenuEffects {
    */
   resolveRouteMenuSections(route: ActivatedRoute, menuID: MenuID): MenuSection[] {
     const data = route.snapshot.data;
+    const params = route.snapshot.params;
     const last: boolean = hasNoValue(route.firstChild);
 
     if (hasValue(data) && hasValue(data.menu) && hasValue(data.menu[menuID])) {
+
+      const menuSections = data.menu[menuID];
+      [...menuSections]
+        .forEach((menuSection) => {
+
+        if (hasValue(menuSection.model) && hasValue(menuSection.model.link)) {
+          let substitute: RegExpMatchArray;
+          do {
+            substitute = menuSection.model.link.match(/\/:(.*?)\//);
+            if (substitute) {
+              menuSection.model.link = menuSection.model.link.replace(substitute[0], `/${params[substitute[1]]}/`);
+            }
+          } while (substitute);
+        }
+      });
+
       if (!last) {
-        return [...data.menu[menuID], ...this.resolveRouteMenuSections(route.firstChild, menuID)]
+        return [...menuSections, ...this.resolveRouteMenuSections(route.firstChild, menuID)]
       } else {
-        return [...data.menu[menuID]];
+        return [...menuSections];
       }
     }
 

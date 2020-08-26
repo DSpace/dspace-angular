@@ -64,19 +64,6 @@ export class NavbarComponent extends MenuComponent {
           link: `/community-list`
         } as LinkMenuItemModel
       },
-
-      /* Statistics */
-      {
-        id: 'statistics',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.statistics',
-          link: ''
-        } as LinkMenuItemModel,
-        index: 2
-      },
     ];
     // Read the different Browse-By types from config and add them to the browse menu
     const types = environment.browseBy.types;
