@@ -480,7 +480,7 @@ const ENTRY_COMPONENTS = [
   FileDownloadLinkComponent,
   CurationFormComponent,
   ExportMetadataSelectorComponent,
-  ConfirmationModalComponent
+  ConfirmationModalComponent,
   VocabularyTreeviewComponent
 ];
 
