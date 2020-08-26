@@ -16,7 +16,7 @@
         [infiniteScrollThrottle]="50"
         (scrolled)="onScroll()"
         [scrollWindow]="false">
-        <button ngbDropdownItem class="dropdown-item text-truncate" title="{{'submission.import-external.source.' + source.name | translate}}" (click)="makeSourceSelection(source)" *ngFor="let source of sourceList">{{'submission.import-external.source.' + source.name | translate}}</button>
+        <button ngbDropdownItem class="dropdown-item text-truncate" title="{{'submission.import-external.source.' + source?.name | translate}}" (click)="makeSourceSelection(source)" *ngFor="let source of sourceList">{{'submission.import-external.source.' + source.name | translate}}</button>
         <div ngbDropdownItem class="scrollable-dropdown-loading text-center" *ngIf="sourceListLoading"><p>{{'submission.import-external.source.loading' | translate}}</p></div>
       </div>
     </div>
