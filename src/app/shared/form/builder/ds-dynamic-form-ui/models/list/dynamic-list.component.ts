@@ -55,20 +55,35 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     super(layoutService, validationService);
   }
 
+  /**
+   * Initialize the component, setting up the field options
+   */
   ngOnInit() {
-    if (this.hasAuthorityOptions()) {
-      this.setOptionsFromAuthority();
+    if (this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name)) {
+      this.setOptionsFromVocabulary();
     }
   }
 
+  /**
+   * Emits a blur event containing a given value.
+   * @param event The value to emit.
+   */
   onBlur(event: Event) {
     this.blur.emit(event);
   }
 
+  /**
+   * Emits a focus event containing a given value.
+   * @param event The value to emit.
+   */
   onFocus(event: Event) {
     this.focus.emit(event);
   }
 
+  /**
+   * Updates model value with the current value
+   * @param event The change event.
+   */
   onChange(event: Event) {
     const target = event.target as any;
     if (this.model.repeatable) {
@@ -89,7 +104,10 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     this.change.emit(event);
   }
 
-  protected setOptionsFromAuthority() {
+  /**
+   * Setting up the field options from vocabulary
+   */
+  protected setOptionsFromVocabulary() {
     if (this.model.vocabularyOptions.name && this.model.vocabularyOptions.name.length > 0) {
       const listGroup = this.group.controls[this.model.id] as FormGroup;
       const pageInfo: PageInfo = new PageInfo({
@@ -138,9 +156,4 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     }
   }
 
-  protected hasAuthorityOptions() {
-    return (hasValue(this.model.vocabularyOptions.scope)
-      && hasValue(this.model.vocabularyOptions.name)
-      && hasValue(this.model.vocabularyOptions.metadata));
-  }
 }
