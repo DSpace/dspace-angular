@@ -89,25 +89,25 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       compAsAny = null;
     });
 
-    it('Should init component properly (without initExternalSourceData)', fakeAsync(() => {
+    it('Should init component properly (without initExternalSourceData)', () => {
       comp.initExternalSourceData = { sourceId: '', query: '' };
-      fixture.detectChanges();
-      tick();
+      scheduler.schedule(() => fixture.detectChanges());
+      scheduler.flush();
 
       expect(comp.selectedElement).toEqual(sourceList[0]);
       expect(compAsAny.pageInfo).toEqual(paginatedList.pageInfo);
       expect(comp.sourceList).toEqual(sourceList);
-    }));
+    });
 
-    it('Should init component properly (with initExternalSourceData populated)', fakeAsync(() => {
+    it('Should init component properly (with initExternalSourceData populated)', () => {
       comp.initExternalSourceData = { query: 'dummy', sourceId: 'ciencia' };
-      fixture.detectChanges();
-      tick();
+      scheduler.schedule(() => fixture.detectChanges());
+      scheduler.flush();
 
       expect(comp.selectedElement).toEqual(sourceList[1]);
       expect(compAsAny.pageInfo).toEqual(paginatedList.pageInfo);
       expect(comp.sourceList).toEqual(sourceList);
-    }));
+    });
 
     it('Variable \'selectedElement\' should be assigned', () => {
       const selectedElement = {id: 'orcid', name: 'orcid'};
