@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CookiesService } from './cookies.service';
+import { KlaroService } from './klaro.service';
 
-describe('CookiesService', () => {
+describe('KlaroService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CookiesService = TestBed.get(CookiesService);
+    const service: KlaroService = TestBed.get(KlaroService);
     expect(service).toBeTruthy();
   });
 });

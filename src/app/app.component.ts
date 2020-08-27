@@ -31,7 +31,8 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
 import { LocaleService } from './core/locale/locale.service';
-import { CookiesService } from './shared/cookies/cookies.service';
+import { KlaroService } from './shared/cookies/klaro.service';
+import { hasValue } from './shared/empty.util';
 
 @Component({
   selector: 'ds-app',
@@ -69,7 +70,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private menuService: MenuService,
     private windowService: HostWindowService,
     private localeService: LocaleService,
-    @Optional() private cookiesService: CookiesService
+    @Optional() private cookiesService: KlaroService
   ) {
 
     /* Use models object so all decorators are actually called */
@@ -83,7 +84,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     // set the current language code
     this.localeService.setCurrentLanguageCode();
 
-    this.cookiesService.initialize();
+    this.initializeKlaro();
 
     angulartics2GoogleAnalytics.startTracking();
     angulartics2DSpace.startTracking();
@@ -163,4 +164,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     );
   }
 
+  private initializeKlaro() {
+    if (hasValue(this.cookiesService)) {
+      this.cookiesService.initialize()
+    }
+  }
 }

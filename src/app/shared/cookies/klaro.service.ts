@@ -1,26 +1,23 @@
 import { Injectable } from '@angular/core';
 import * as Klaro from 'klaro'
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
 import { AuthService, IMPERSONATING_COOKIE, REDIRECT_COOKIE } from '../../core/auth/auth.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
-import { take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
 
-export const HAS_AGREED_END_USER = 'hasAgreedEndUser';
-export const KLARO = 'klaro';
-
+export const HAS_AGREED_END_USER = 'dsHasAgreedEndUser';
+export const COOKIE_MDFIELD = 'dspace.agreements.cookies';
 const cookieNameMessagePrefix = 'cookies.consent.app.title.';
 const cookieDescriptionMessagePrefix = 'cookies.consent.app.description.';
 const cookiePurposeMessagePrefix = 'cookies.consent.purpose.';
 
-@Injectable({
-  providedIn: 'root'
-})
-
-export class CookiesService {
+@Injectable()
+export class KlaroService {
 
   message$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
@@ -129,7 +126,7 @@ export class CookiesService {
         purposes: ['acknowledgement'],
         required: true,
         cookies: [
-          KLARO
+          [/^klaro-.+$/],
         ]
       },
       {
@@ -183,6 +180,7 @@ export class CookiesService {
         passed as the second parameter.
         */
         callback: (consent, app) => {
+          console.log(consent, app);
           this.message$.next('User consent for app ' + app.name + ': consent=' + consent);
         },
         /*
@@ -193,41 +191,72 @@ export class CookiesService {
         */
         onlyOnce: true,
       },
-    ]
+    ],
+    /*
+    You can define an optional callback function that will be called each time the
+    consent state for any given app changes. The consent value will be passed as the
+    first parameter to the function (true=consented). The `app` config will be
+    passed as the second parameter.
+    */
+    callback: (consent, app) => {
+
+      /*
+      You can define an optional callback function that will be called each time the
+      consent state for any given app changes. The consent value will be passed as the
+      first parameter to the function (true=consented). The `app` config will be
+      passed as the second parameter.
+      */
+      console.log(
+        'User consent for app ' + app.name + ': consent=' + consent
+      );
+      // this.updateUserCookieConsent();
+    },
   };
 
   constructor(
     private translateService: TranslateService,
-    private authService: AuthService,
-  ) {
+    private authService: AuthService) {
   }
 
   initialize() {
-    this.authService.getAuthenticatedUserFromStore()
-      .subscribe((user: EPerson) => {
-        this.klaroConfig.storageName = 'klaro-' + (user.uuid);
-
-      });
-    /**
-     * Add all message keys for apps and purposes
-     */
-    this.addAppMessages();
 
     /**
      * Make sure the fallback language is english
      */
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
-    /**
-     * Subscribe on a message to make sure the translation service is ready
-     * Translate all keys in the translation section of the configuration
-     * Show the configuration if the configuration has not been confirmed
-     */
-    this.translateService.get('loading.default').pipe(take(1)).subscribe(() => {
-      this.translateConfiguration();
-      Klaro.renderKlaro(this.klaroConfig, false);
-      Klaro.initialize();
-    })
+    const storageName$: Observable<string> = this.authService.isAuthenticated()
+      .pipe(
+        take(1),
+        switchMap((loggedIn: boolean) => {
+          if (loggedIn) {
+            return this.authService.getAuthenticatedUserFromStore().pipe(map((user: EPerson) => 'klaro-' + user.uuid), take(1))
+          } else {
+            return observableOf('klaro-anonymous')
+          }
+        })
+      );
+    const translationServiceReady$ = this.translateService.get('loading.default').pipe(take(1));
+
+    observableCombineLatest(storageName$, translationServiceReady$)
+      .subscribe(([name, translation]: string[]) => {
+        this.klaroConfig.storageName = name;
+
+        /**
+         * Add all message keys for apps and purposes
+         */
+        this.addAppMessages();
+
+        /**
+         * Subscribe on a message to make sure the translation service is ready
+         * Translate all keys in the translation section of the configuration
+         * Show the configuration if the configuration has not been confirmed
+         */
+        this.translateConfiguration();
+        Klaro.renderKlaro(this.klaroConfig, false);
+        Klaro.initialize();
+      });
+
   }
 
   private getTitleTranslation(title: string) {
@@ -276,5 +305,13 @@ export class CookiesService {
       object[key] = this.translate(value);
     });
     return object;
+  }
+
+  getSettingsForUser(user: EPerson) {
+    return JSON.parse(user.firstMetadataValue(COOKIE_MDFIELD));
+  }
+
+  setSettingsForUser(user: EPerson, config: object) {
+    return user.setMetadata(COOKIE_MDFIELD, undefined, JSON.stringify(config));
   }
 }
