@@ -30,6 +30,10 @@ import { Vocabulary } from '../../../../../../core/submission/vocabularies/model
 import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
+/**
+ * Component representing a onebox input field.
+ * If field has a Hierarchical Vocabulary configured, it's rendered with vocabulary tree
+ */
 @Component({
   selector: 'ds-dynamic-onebox',
   styleUrls: ['./dynamic-onebox.component.scss'],
