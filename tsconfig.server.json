@@ -15,6 +15,6 @@
     "src/**/*.stub.ts",
     "src/**/testing/*",
     "src/**/mocks/*",
-    "node_modules/klaro"
+    "node_modules/klaro/*"
   ],
 }

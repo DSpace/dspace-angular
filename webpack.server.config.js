@@ -25,7 +25,13 @@ module.exports = {
   module: {
     noParse: /polyfills-.*\.js/,
     rules: [
-      { test: /\.ts$/, loader: 'ts-loader',
+    {
+      test: /\.js$/,
+      exclude: [/node_modules\/klaro/],
+    },
+
+      {
+        test: /\.ts$/, loader: 'ts-loader',
         options: {
           configFile: "tsconfig.server.json"
         } },
