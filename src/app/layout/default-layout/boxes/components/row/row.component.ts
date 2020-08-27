@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { CrisLayoutLoaderDirective } from 'src/app/layout/directives/cris-layout-loader.directive';
 import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
-import { getMetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { getMetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.decorator';
 import { Item } from 'src/app/core/shared/item.model';
 import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
 import { Box } from 'src/app/core/layout/models/box.model';
 import { Row } from 'src/app/core/layout/models/metadata-component.model';
+import { hasValue } from 'src/app/shared/empty.util';
 
 /**
  * This component renders the rows of metadata boxes
@@ -45,8 +46,9 @@ export class RowComponent implements OnInit {
     viewContainerRef.clear();
     fields.forEach((field) => {
       if (field.fieldType === LayoutBox.METADATA) {
+        // If the rendering type is null renders its as a text field
+        let rendering = hasValue(field.rendering) ? field.rendering : FieldRendetingType.TEXT;
         // Check if the current rendering has subtype
-        let rendering = field.rendering;
         let subtype: string;
         if (field.rendering.indexOf('.') > -1) {
           const values = field.rendering.split('.');
