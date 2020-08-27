@@ -112,8 +112,6 @@ describe('StatisticsService', () => {
     const body = JSON.parse(request.body);
 
     it('should specify the dsoType', () => {
-      // TODO: change when backend statistics search even can handle multiple dsoTypes in body
-      // expect(body.dsoTypes).toBe(['item']);
       expect(body.dsoType).toBe('item');
     });
 
