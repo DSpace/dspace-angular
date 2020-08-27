@@ -226,5 +226,19 @@ export const environment: GlobalConfig = {
   },
   theme: {
     name: 'default',
-  }
+  },
+  urn: [
+    {
+      name: 'doi',
+      baseUrl: 'https://doi.org/'
+    },
+    {
+      name: 'dhl',
+      baseUrl: 'https://hdl.handle.net/'
+    },
+    {
+      name: 'mailto',
+      baseUrl: 'mailto:'
+    }
+  ]
 };

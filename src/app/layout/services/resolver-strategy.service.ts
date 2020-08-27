@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from 'src/app/shared/empty.util';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,13 @@ export class ResolverStrategyService {
     /**
      * Set the list of managed URN
      */
-    // TODO this data should retrived by a REST service
     this.urn2baseurl = new Map();
-    this.urn2baseurl.set('hdl', 'https://hdl.handle.net/');
-    this.urn2baseurl.set('doi', 'https://doi.org/');
-    this.urn2baseurl.set('mailto', 'mailto:');
+    const urnList = environment.urn;
+    if (hasValue(urnList)) {
+      for (const urn of urnList) {
+        this.urn2baseurl.set(urn.name, urn.baseUrl);
+      }
+    }
   }
 
   /**
