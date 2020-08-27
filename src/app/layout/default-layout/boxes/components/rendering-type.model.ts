@@ -50,9 +50,23 @@ export class RenderingTypeModel {
   }
 
   /**
-   * Returns a string representing the style of field if exists
+   * Returns a string representing the style of field container if exists
    */
-  get style(): string {
+  get containerStyle(): string {
     return this.field.style;
+  }
+
+  /**
+   * Returns a string representing the style of field label if exists
+   */
+  get labelStyle(): string {
+    return this.field.styleLabel;
+  }
+
+  /**
+   * Returns a string representing the style of field value if exists
+   */
+  get valueStyle(): string {
+    return this.field.styleValue;
   }
 }

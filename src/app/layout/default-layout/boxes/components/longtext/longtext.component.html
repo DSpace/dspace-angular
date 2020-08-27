@@ -1,6 +1,6 @@
-<div class="{{style}}">
+<div class="{{containerStyle}}">
   <ds-truncatable [id]="field.id">
-    <span *ngIf="hasLabel" class="lbl font-weight-bold">
+    <span *ngIf="hasLabel" class="lbl font-weight-bold {{labelStyle}}">
       {{label}}
     </span>
     <ds-truncatable-part [id]="field.id" [minLines]="3">

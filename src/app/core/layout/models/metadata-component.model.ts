@@ -17,10 +17,12 @@ export interface Bitstream {
 export interface Field {
   metadata?: string;
   bitstream?: Bitstream;
-  label: string;
+  label?: string;
   rendering: string;
   fieldType: string;
-  style: string;
+  style?: string;
+  styleLabel?: string;
+  styleValue?: string;
 }
 
 /**
