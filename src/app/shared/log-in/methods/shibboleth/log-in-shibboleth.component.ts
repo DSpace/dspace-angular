@@ -12,6 +12,8 @@ import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/
 import { RouteService } from '../../../../core/services/route.service';
 import { NativeWindowRef, NativeWindowService } from '../../../../core/services/window.service';
 import { isNotNull } from '../../../empty.util';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 
 @Component({
   selector: 'ds-log-in-shibboleth',
@@ -51,12 +53,16 @@ export class LogInShibbolethComponent implements OnInit {
    * @param {AuthMethod} injectedAuthMethodModel
    * @param {NativeWindowRef} _window
    * @param {RouteService} route
+   * @param {AuthService} authService
+   * @param {HardRedirectService} hardRedirectService
    * @param {Store<State>} store
    */
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private route: RouteService,
+    private authService: AuthService,
+    private hardRedirectService: HardRedirectService,
     private store: Store<CoreState>
   ) {
     this.authMethod = injectedAuthMethodModel;
@@ -75,6 +81,7 @@ export class LogInShibbolethComponent implements OnInit {
   }
 
   redirectToShibboleth() {
+    this.authService.setRedirectUrlIfNotSet(this.hardRedirectService.getCurrentRoute())
     let newLocationUrl = this.location;
     const currentUrl = this._window.nativeWindow.location.href;
     const myRegexp = /\?redirectUrl=(.*)/g;

@@ -30,19 +30,14 @@ describe('ServerHardRedirectService', () => {
     })
   });
 
-  describe('when requesting the origin', () => {
+  describe('when requesting the current route', () => {
 
     beforeEach(() => {
-      mockRequest.protocol = 'test-protocol';
-      mockRequest.get.and.callFake((name) => {
-        if (name === 'hostname') {
-          return 'test-host';
-        }
-      });
+      mockRequest.originalUrl = 'original/url';
     });
 
     it('should return the location origin', () => {
-      expect(service.getOriginFromUrl()).toEqual('test-protocol://test-host');
+      expect(service.getCurrentRoute()).toEqual(mockRequest.originalUrl);
     });
   });
 });

@@ -18,6 +18,7 @@ import { NativeWindowService } from '../../core/services/window.service';
 import { provideMockStore } from '@ngrx/store/testing';
 import { createTestComponent } from '../testing/utils.test';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
 
 describe('LogInComponent', () => {
 
@@ -33,8 +34,13 @@ describe('LogInComponent', () => {
       }
     }
   };
+  let hardRedirectService: HardRedirectService;
 
   beforeEach(async(() => {
+    hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
+      redirect: {},
+      getCurrentRoute: {}
+    });
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
       imports: [
@@ -58,6 +64,7 @@ describe('LogInComponent', () => {
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         // { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: HardRedirectService, useValue: hardRedirectService },
         provideMockStore({ initialState }),
         LogInComponent
       ],

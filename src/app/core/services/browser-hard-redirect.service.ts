@@ -1,11 +1,12 @@
-import {Inject, Injectable} from '@angular/core';
-import {LocationToken} from '../../../modules/app/browser-app.module';
+import { Inject, Injectable } from '@angular/core';
+import { LocationToken } from '../../../modules/app/browser-app.module';
+import { HardRedirectService } from './hard-redirect.service';
 
 /**
  * Service for performing hard redirects within the browser app module
  */
 @Injectable()
-export class BrowserHardRedirectService {
+export class BrowserHardRedirectService implements HardRedirectService {
 
   constructor(
     @Inject(LocationToken) protected location: Location,
@@ -23,7 +24,7 @@ export class BrowserHardRedirectService {
   /**
    * Get the origin of a request
    */
-  getOriginFromUrl() {
-    return this.location.origin;
+  getCurrentRoute() {
+    return this.location.pathname + this.location.search;
   }
 }

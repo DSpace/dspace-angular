@@ -1,4 +1,7 @@
-<div class="outer-wrapper">
+<div class="text-center ds-full-screen-loader d-flex align-items-center flex-column justify-content-center" *ngIf="!(hasAuthFinishedLoading$ | async)">
+  <ds-loading [showMessage]="false"></ds-loading>
+</div>
+<div class="outer-wrapper" *ngIf="hasAuthFinishedLoading$ | async">
     <ds-admin-sidebar></ds-admin-sidebar>
     <div class="inner-wrapper"  [@slideSidebarPadding]="{
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),

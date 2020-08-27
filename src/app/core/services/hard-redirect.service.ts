@@ -15,7 +15,8 @@ export abstract class HardRedirectService {
   abstract redirect(url: string);
 
   /**
-   * Get the origin of a request
+   * Get the current route, with query params included
+   * e.g. /search?page=1&query=open%20access&f.dateIssued.min=1980&f.dateIssued.max=2020
    */
-  abstract getOriginFromUrl();
+  abstract getCurrentRoute();
 }

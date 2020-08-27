@@ -9,11 +9,11 @@ import {
 } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, find, switchMap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
 import { CoreState } from '../core.reducers';
-import { isAuthenticated } from './selectors';
+import { isAuthenticated, isAuthenticationLoading } from './selectors';
 import { AuthService, LOGIN_ROUTE } from './auth.service';
 
 /**
@@ -48,11 +48,10 @@ export class AuthenticatedGuard implements CanActivate {
   }
 
   private handleAuth(url: string): Observable<boolean | UrlTree> {
-    // get observable
-    const observable = this.store.pipe(select(isAuthenticated));
-
     // redirect to sign in page if user is not authenticated
-    return observable.pipe(
+    return this.store.pipe(select(isAuthenticationLoading)).pipe(
+      find((isLoading: boolean) => isLoading === false),
+      switchMap(() => this.store.pipe(select(isAuthenticated))),
       map((authenticated) => {
         if (authenticated) {
           return authenticated;

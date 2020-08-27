@@ -5,7 +5,8 @@ describe('BrowserHardRedirectService', () => {
 
   const mockLocation = {
     href: undefined,
-    origin: 'test origin',
+    pathname: '/pathname',
+    search: '/search',
   } as Location;
 
   const service: BrowserHardRedirectService = new BrowserHardRedirectService(mockLocation);
@@ -31,10 +32,10 @@ describe('BrowserHardRedirectService', () => {
     })
   });
 
-  describe('when requesting the origin', () => {
+  describe('when requesting the current route', () => {
 
     it('should return the location origin', () => {
-      expect(service.getOriginFromUrl()).toEqual('test origin');
+      expect(service.getCurrentRoute()).toEqual(mockLocation.pathname + mockLocation.search);
     });
   });
 });

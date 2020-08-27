@@ -14,7 +14,15 @@ import { AuthRequestService } from './auth-request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  hasNoValue
+} from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
 import {
   getAuthenticatedUserId,
@@ -413,35 +421,19 @@ export class AuthService {
   /**
    * Redirect to the route navigated before the login
    */
-  public redirectAfterLoginSuccess(isStandalonePage: boolean) {
+  public redirectAfterLoginSuccess() {
     this.getRedirectUrl().pipe(
       take(1))
       .subscribe((redirectUrl) => {
-
-        if (isNotEmpty(redirectUrl)) {
+        if (hasValue(redirectUrl)) {
           this.clearRedirectUrl();
-          this.router.onSameUrlNavigation = 'reload';
           this.navigateToRedirectUrl(redirectUrl);
-        } else {
-          // If redirectUrl is empty use history.
-          this.routeService.getHistory().pipe(
-            take(1)
-          ).subscribe((history) => {
-            let redirUrl;
-            if (isStandalonePage) {
-              // For standalone login pages, use the previous route.
-              redirUrl = history[history.length - 2] || '';
-            } else {
-              redirUrl = history[history.length - 1] || '';
-            }
-            this.navigateToRedirectUrl(redirUrl);
-          });
         }
       });
 
   }
 
-  protected navigateToRedirectUrl(redirectUrl: string) {
+  public navigateToRedirectUrl(redirectUrl: string) {
     let url = `/reload/${new Date().getTime()}`;
     if (isNotEmpty(redirectUrl) && !redirectUrl.startsWith(LOGIN_ROUTE)) {
       url += `?redirect=${encodeURIComponent(redirectUrl)}`;
@@ -460,12 +452,16 @@ export class AuthService {
    * Get redirect url
    */
   getRedirectUrl(): Observable<string> {
-    const redirectUrl = this.storage.get(REDIRECT_COOKIE);
-    if (isNotEmpty(redirectUrl)) {
-      return observableOf(redirectUrl);
-    } else {
-      return this.store.pipe(select(getRedirectUrl));
-    }
+    return this.store.pipe(
+      select(getRedirectUrl),
+      map((urlFromStore: string) => {
+        if (hasValue(urlFromStore)) {
+          return urlFromStore;
+        } else {
+          return this.storage.get(REDIRECT_COOKIE);
+        }
+      })
+    );
   }
 
   /**
@@ -480,6 +476,16 @@ export class AuthService {
     const options: CookieAttributes = { expires: expires };
     this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
+  }
+
+  setRedirectUrlIfNotSet(newRedirectUrl: string) {
+    this.getRedirectUrl().pipe(
+      take(1))
+      .subscribe((currentRedirectUrl) => {
+        if (hasNoValue(currentRedirectUrl)) {
+          this.setRedirectUrl(newRedirectUrl);
+        }
+      })
   }
 
   /**

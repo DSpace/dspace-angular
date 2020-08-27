@@ -323,35 +323,30 @@ describe('AuthService test', () => {
     });
 
     it('should set redirect url to previous page', () => {
-      spyOn(routeServiceMock, 'getHistory').and.callThrough();
-      authService.redirectAfterLoginSuccess(true);
-      expect(routeServiceMock.getHistory).toHaveBeenCalled();
+      (storage.get as jasmine.Spy).and.returnValue('/collection/123');
+      authService.redirectAfterLoginSuccess();
       // Reload with redirect URL set to /collection/123
       expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*\\?redirect=' + encodeURIComponent('/collection/123'))));
     });
 
     it('should set redirect url to current page', () => {
-      spyOn(routeServiceMock, 'getHistory').and.callThrough();
-      authService.redirectAfterLoginSuccess(false);
-      expect(routeServiceMock.getHistory).toHaveBeenCalled();
+      (storage.get as jasmine.Spy).and.returnValue('/home');
+      authService.redirectAfterLoginSuccess();
       // Reload with redirect URL set to /home
       expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*\\?redirect=' + encodeURIComponent('/home'))));
     });
 
-    it('should redirect to / and not to /login', () => {
-      spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['/login', '/login']));
-      authService.redirectAfterLoginSuccess(true);
-      expect(routeServiceMock.getHistory).toHaveBeenCalled();
+    it('should redirect to regular reload and not to /login', () => {
+      (storage.get as jasmine.Spy).and.returnValue('/login');
+      authService.redirectAfterLoginSuccess();
       // Reload without a redirect URL
       expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*(?!\\?)$')));
     });
 
-    it('should redirect to / when no redirect url is found', () => {
-      spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['']));
-      authService.redirectAfterLoginSuccess(true);
-      expect(routeServiceMock.getHistory).toHaveBeenCalled();
+    it('should not redirect when no redirect url is found', () => {
+      authService.redirectAfterLoginSuccess();
       // Reload without a redirect URL
-      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*(?!\\?)$')));
+      expect(hardRedirectService.redirect).not.toHaveBeenCalled();
     });
 
     describe('impersonate', () => {

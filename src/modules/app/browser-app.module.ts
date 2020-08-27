@@ -40,7 +40,6 @@ export function locationProvider(): Location {
   return window.location;
 }
 
-
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
