@@ -419,20 +419,9 @@ export class AuthService {
   }
 
   /**
-   * Redirect to the route navigated before the login
+   * Perform a hard redirect to the URL
+   * @param redirectUrl
    */
-  public redirectAfterLoginSuccess() {
-    this.getRedirectUrl().pipe(
-      take(1))
-      .subscribe((redirectUrl) => {
-        if (hasValue(redirectUrl)) {
-          this.clearRedirectUrl();
-          this.navigateToRedirectUrl(redirectUrl);
-        }
-      });
-
-  }
-
   public navigateToRedirectUrl(redirectUrl: string) {
     let url = `/reload/${new Date().getTime()}`;
     if (isNotEmpty(redirectUrl) && !redirectUrl.startsWith(LOGIN_ROUTE)) {
