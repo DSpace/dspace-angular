@@ -51,7 +51,8 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} changeDetectorRef
-   * @param {entityTypeService} entityTypeService
+   * @param {EntityTypeService} entityTypeService
+   * @param {NgbModal} modalService
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private entityTypeService: EntityTypeService,
