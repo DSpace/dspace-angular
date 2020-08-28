@@ -17,7 +17,7 @@
                      [class]="arrayButtonsStyle">
                     <div class="btn-group" role="group" aria-label="Add and remove button">
                         <button type="button" class="btn btn-secondary"
-                                [disabled]="isItemReadOnly(context, index)"
+                                [disabled]="isItemReadOnly(context, index) || !group?.group[index]?.value"
                                 (click)="insertItem($event, group.context, group.index)">
                             <i class="fas fa-plus" aria-hidden="true"></i>
                         </button>
