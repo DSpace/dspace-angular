@@ -78,37 +78,6 @@ export class AuthService {
       select(isAuthenticated),
       startWith(false)
     ).subscribe((authenticated: boolean) => this._authenticated = authenticated);
-
-    // If current route is different from the one setted in authentication guard
-    // and is not the login route, clear redirect url and messages
-    const routeUrl$ = this.store.pipe(
-      select(routerStateSelector),
-      filter((routerState: RouterReducerState) => isNotUndefined(routerState)
-        && isNotUndefined(routerState.state) && isNotEmpty(routerState.state.url)),
-      filter((routerState: RouterReducerState) => !this.isLoginRoute(routerState.state.url)),
-      map((routerState: RouterReducerState) => routerState.state.url)
-    );
-    const redirectUrl$ = this.store.pipe(select(getRedirectUrl), distinctUntilChanged());
-    routeUrl$.pipe(
-      withLatestFrom(redirectUrl$),
-      map(([routeUrl, redirectUrl]) => [routeUrl, redirectUrl])
-    ).pipe(filter(([routeUrl, redirectUrl]) => isNotEmpty(redirectUrl) && (routeUrl !== redirectUrl)))
-      .subscribe(() => {
-        this.clearRedirectUrl();
-      });
-  }
-
-  /**
-   * Check if is a login page route
-   *
-   * @param {string} url
-   * @returns {Boolean}.
-   */
-  protected isLoginRoute(url: string) {
-    const urlTree: UrlTree = this.router.parseUrl(url);
-    const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
-    const segment = '/' + g.toString();
-    return segment === LOGIN_ROUTE;
   }
 
   /**
