@@ -18,7 +18,7 @@
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "customWebpackConfig": {
-              "path": "./webpack/webpack.common.ts",
+              "path": "./webpack/webpack.browser.ts",
               "mergeStrategies": {
                 "loaders": "prepend"
               }
@@ -30,7 +30,8 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
-              "src/assets"
+              "src/assets",
+              "src/robots.txt"
             ],
             "styles": [
               "src/styles.scss"
@@ -84,7 +85,7 @@
           "builder": "@angular-builders/custom-webpack:karma",
           "options": {
             "customWebpackConfig": {
-              "path": "./webpack/webpack.common.ts",
+              "path": "./webpack/webpack.test.ts",
               "mergeStrategies": {
                 "loaders": "prepend"
               }

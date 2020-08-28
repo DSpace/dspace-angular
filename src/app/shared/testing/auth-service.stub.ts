@@ -154,4 +154,12 @@ export class AuthServiceStub {
   resetAuthenticationError() {
     return;
   }
+
+  setRedirectUrlIfNotSet(url: string) {
+    return;
+  }
+
+  redirectAfterLoginSuccess() {
+    return;
+  }
 }

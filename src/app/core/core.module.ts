@@ -162,6 +162,7 @@ import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-licens
 import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-license-url-data.service';
 import { ConfigurationDataService } from './data/configuration-data.service';
 import { ConfigurationProperty } from './shared/configuration-property.model';
+import { ReloadGuard } from './reload/reload.guard';
 import { EndUserAgreementGuard } from './end-user-agreement/end-user-agreement.guard';
 import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
 
@@ -291,6 +292,7 @@ const PROVIDERS = [
   MetadataSchemaDataService,
   MetadataFieldDataService,
   TokenResponseParsingService,
+  ReloadGuard,
   EndUserAgreementGuard,
   EndUserAgreementService,
   // register AuthInterceptor as HttpInterceptor

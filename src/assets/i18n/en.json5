@@ -442,6 +442,26 @@
 
 
 
+  "admin.metadata-import.breadcrumbs": "Import Metadata",
+
+  "admin.metadata-import.title": "Import Metadata",
+
+  "admin.metadata-import.page.header": "Import Metadata",
+
+  "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+
+  "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
+
+  "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+
+  "admin.metadata-import.page.button.return": "Return",
+
+  "admin.metadata-import.page.button.proceed": "Proceed",
+
+  "admin.metadata-import.page.error.addFile": "Select file first!",
+
+
+
 
   "auth.errors.invalid-user": "Invalid email address or password.",
 
@@ -967,9 +987,23 @@
 
   "dso-selector.edit.item.head": "Edit item",
 
+  "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
+
+  "dso-selector.export-metadata.notValidDSO": "You can only export metadata for collections and communities",
+
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
+
+
+
+  "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
+
+  "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
+
+  "confirmation-modal.export-metadata.cancel": "Cancel",
+
+  "confirmation-modal.export-metadata.confirm": "Export",
 
 
 
@@ -1590,6 +1624,13 @@
 
   "item.page.uri": "URI",
 
+  "item.page.bitstreams.view-more": "Show more",
+
+  "item.page.bitstreams.collapse": "Collapse",
+
+  "item.page.filesection.original.bundle" : "Original bundle",
+
+  "item.page.filesection.license.bundle" : "License bundle",
 
 
   "item.select.confirm": "Confirm selected",
@@ -3118,6 +3159,6 @@
 
   "workflow-item.send-back.button.cancel": "Cancel",
 
-  "workflow-item.send-back.button.confirm": "Send back",
+  "workflow-item.send-back.button.confirm": "Send back"
 }
 

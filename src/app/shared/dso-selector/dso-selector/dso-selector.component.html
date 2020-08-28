@@ -15,6 +15,7 @@
             class="list-group-item list-group-item-action border-0 list-entry"
             title="{{ listEntry.indexableObject.name }}"
             (click)="onSelect.emit(listEntry.indexableObject)" #listEntryElement>
-        <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"></ds-listable-object-component-loader>
+      <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
+                                           [linkType]=linkTypes.None></ds-listable-object-component-loader>
     </button>
 </div>

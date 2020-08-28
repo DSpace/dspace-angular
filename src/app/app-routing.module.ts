@@ -12,6 +12,7 @@ import { getItemPageRoute } from './+item-page/item-page-routing.module';
 import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
 import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ReloadGuard } from './core/reload/reload.guard';
 import { EndUserAgreementGuard } from './core/end-user-agreement/end-user-agreement.guard';
 
 const ITEM_MODULE_PATH = 'items';
@@ -95,7 +96,7 @@ export function getInfoModulePath() {
   imports: [
     RouterModule.forRoot([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'reload/:rnd', redirectTo: '/home', pathMatch: 'full' },
+      { path: 'reload/:rnd', component: PageNotFoundComponent, pathMatch: 'full', canActivate: [ReloadGuard] },
       { path: 'home', loadChildren: './+home-page/home-page.module#HomePageModule', data: { showBreadcrumbs: false } },
       { path: 'community-list', loadChildren: './community-list-page/community-list-page.module#CommunityListPageModule' },
       { path: 'id', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },

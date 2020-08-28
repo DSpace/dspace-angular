@@ -62,7 +62,7 @@ export interface AuthState {
 const initialState: AuthState = {
   authenticated: false,
   loaded: false,
-  loading: false,
+  loading: undefined,
   authMethods: []
 };
 
@@ -199,6 +199,11 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.SET_REDIRECT_URL:
       return Object.assign({}, state, {
         redirectUrl: (action as SetRedirectUrlAction).payload,
+      });
+
+    case AuthActionTypes.REDIRECT_AFTER_LOGIN_SUCCESS:
+      return Object.assign({}, state, {
+        loading: true,
       });
 
     default:
