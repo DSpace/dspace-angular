@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+/**
+ * This component displays the dialog that shows the list of selectable collections
+ * on the MyDSpace page
+ */
 @Component({
   selector: 'ds-collection-selector',
   templateUrl: './collection-selector.component.html',

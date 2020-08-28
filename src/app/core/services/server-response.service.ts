@@ -20,6 +20,10 @@ export class ServerResponseService {
     return this;
   }
 
+  setUnauthorized(message = 'Unauthorized'): this {
+    return this.setStatus(401, message)
+  }
+
   setNotFound(message = 'Not found'): this {
     return this.setStatus(404, message)
   }

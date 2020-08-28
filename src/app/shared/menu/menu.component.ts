@@ -3,12 +3,14 @@ import { Observable } from 'rxjs/internal/Observable';
 import { MenuService } from './menu.service';
 import { MenuID } from './initial-menus-state';
 import { MenuSection } from './menu.reducer';
-import { distinctUntilChanged, first, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasValue } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { BehaviorSubject } from 'rxjs';
+import { compareArraysUsingIds } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 /**
  * A basic implementation of a MenuComponent
@@ -44,14 +46,12 @@ export class MenuComponent implements OnInit, OnDestroy {
   sections: Observable<MenuSection[]>;
 
   /**
-   * List of Injectors for each dynamically rendered menu section
+   * Map of components and injectors for each dynamically rendered menu section
    */
-  sectionInjectors: Map<string, Injector> = new Map<string, Injector>();
-
-  /**
-   * List of child Components for each dynamically rendered menu section
-   */
-  sectionComponents: Map<string, GenericConstructor<MenuSectionComponent>> = new Map<string, GenericConstructor<MenuSectionComponent>>();
+  sectionMap$: BehaviorSubject<Map<string, {
+    injector: Injector,
+    component: GenericConstructor<MenuSectionComponent>
+  }>> = new BehaviorSubject(new Map());
 
   /**
    * Prevent unnecessary rerendering
@@ -79,13 +79,25 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.menuCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
-    this.sections = this.menuService.getMenuTopSections(this.menuID).pipe(distinctUntilChanged((x, y) => JSON.stringify(x) === JSON.stringify(y)));
-    this.subs.push(this.sections.subscribe((sections: MenuSection[]) => {
-      sections.forEach((section: MenuSection) => {
-        this.sectionInjectors.set(section.id, this.getSectionDataInjector(section));
-        this.getSectionComponent(section).pipe(first()).subscribe((constr) => this.sectionComponents.set(section.id, constr));
-      });
-    }));
+    this.sections = this.menuService.getMenuTopSections(this.menuID).pipe(distinctUntilChanged(compareArraysUsingIds()));
+    this.subs.push(
+      this.sections.pipe(
+        // if you return an array from a switchMap it will emit each element as a separate event.
+        // So this switchMap is equivalent to a subscribe with a forEach inside
+        switchMap((sections: MenuSection[]) => sections),
+        switchMap((section: MenuSection) => this.getSectionComponent(section).pipe(
+          map((component: GenericConstructor<MenuSectionComponent>) =>  ({ section, component }))
+        )),
+        distinctUntilChanged((x,y) => x.section.id === y.section.id)
+      ).subscribe(({ section, component}) => {
+        const nextMap = this.sectionMap$.getValue();
+        nextMap.set(section.id, {
+          injector: this.getSectionDataInjector(section),
+          component
+        });
+        this.sectionMap$.next(nextMap);
+      })
+    );
   }
 
   /**

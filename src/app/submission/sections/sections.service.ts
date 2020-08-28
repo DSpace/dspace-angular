@@ -17,17 +17,8 @@ import {
   SectionStatusChangeAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
-import {
-  SubmissionObjectEntry,
-  SubmissionSectionError,
-  SubmissionSectionObject
-} from '../objects/submission-objects.reducer';
-import {
-  submissionObjectFromIdSelector,
-  submissionSectionDataFromIdSelector,
-  submissionSectionErrorsFromIdSelector,
-  submissionSectionFromIdSelector
-} from '../selectors';
+import { SubmissionObjectEntry, SubmissionSectionError, SubmissionSectionObject } from '../objects/submission-objects.reducer';
+import { submissionObjectFromIdSelector, submissionSectionDataFromIdSelector, submissionSectionErrorsFromIdSelector, submissionSectionFromIdSelector } from '../selectors';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { FormAddError, FormClearErrorsAction, FormRemoveErrorAction } from '../../shared/form/form.actions';
@@ -175,7 +166,8 @@ export class SectionsService {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
       filter((sectionObj: SubmissionSectionObject) => hasValue(sectionObj)),
       map((sectionObj: SubmissionSectionObject) => sectionObj),
-      distinctUntilChanged());
+      distinctUntilChanged(),
+      );
   }
 
   /**
@@ -321,10 +313,6 @@ export class SectionsService {
         take(1),
         filter(([available, enabled]: [boolean, boolean]) => available))
         .subscribe(([available, enabled]: [boolean, boolean]) => {
-          if (!enabled) {
-            const msg = this.translate.instant('submission.sections.general.metadata-extracted-new-section', {sectionId});
-            this.notificationsService.info(null, msg, null, true);
-          }
           this.store.dispatch(new UpdateSectionDataAction(submissionId, sectionId, data, errors));
         });
     }

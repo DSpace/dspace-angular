@@ -9,6 +9,9 @@ import { RestRequest } from './request.models';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { GenericConstructor } from '../shared/generic-constructor';
 
+/**
+ * An abstract class to extend, responsible for parsing data for an entries response
+ */
 export abstract class EntriesResponseParsingService<T extends CacheableObject> extends BaseResponseParsingService implements ResponseParsingService {
 
   protected toCache = false;
@@ -19,8 +22,17 @@ export abstract class EntriesResponseParsingService<T extends CacheableObject> e
     super();
   }
 
+  /**
+   * Abstract method to implement that must return the dspace serializer Constructor to use during parse
+   */
   abstract getSerializerModel(): GenericConstructor<T>;
 
+  /**
+   * Parse response
+   *
+   * @param request
+   * @param data
+   */
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload)) {
       let entries = [];

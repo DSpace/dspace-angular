@@ -7,7 +7,6 @@
        [ngClass]="getClass('element','control')">
 
     <ds-dynamic-form-control-container *ngFor="let _model of model.group"
-                                       [asBootstrapFormGroup]="true"
                                        [formGroup]="group"
                                        [formModel]="formModel"
                                        [group]="control"
@@ -22,5 +21,4 @@
                                        (dfFocus)="onFocus($event)"
                                        (ngbEvent)="onCustomEvent($event, null, true)"></ds-dynamic-form-control-container>
   </div>
-
 </ng-container>

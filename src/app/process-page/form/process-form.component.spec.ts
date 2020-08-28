@@ -21,6 +21,7 @@ describe('ProcessFormComponent', () => {
   let component: ProcessFormComponent;
   let fixture: ComponentFixture<ProcessFormComponent>;
   let scriptService;
+  let router;
   let parameterValues;
   let script;
   let scheduler: TestScheduler;
@@ -47,14 +48,9 @@ describe('ProcessFormComponent', () => {
         })
       }
     );
-
-    requestService = jasmine.createSpyObj('requestService', {
-      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring')
-    });
-
-    router = jasmine.createSpyObj('requestService', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
-    });
+    router = {
+      navigateByUrl: () => undefined,
+    };
   }
 
   beforeEach(() => {
@@ -72,8 +68,8 @@ describe('ProcessFormComponent', () => {
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        { provide: RequestService, useValue: requestService },
-        { provide: Router, useValue: router },
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeBySubstring', 'removeByHrefSubstring']) },
+        { provide: Router, useValue: jasmine.createSpyObj('router', ['navigateByUrl']) },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

@@ -1,11 +1,14 @@
-<li *ngIf="metadataRepresentation">
-    <button type="button" class="close float-left" aria-label="Move button" cdkDragHandle>
-        <i aria-hidden="true" class="fas fa-arrows-alt fa-xs"></i>
+<div class="d-flex">
+    <span class="mr-auto text-contents">
+        <ng-container *ngIf="!(metadataRepresentation$ | async)">
+            <ds-loading [showMessage]="false"></ds-loading>
+        </ng-container>
+        <ng-container *ngIf="(metadataRepresentation$ | async)">
+            <ds-metadata-representation-loader [mdRepresentation]="metadataRepresentation$ | async"></ds-metadata-representation-loader>
+        </ng-container>
+    </span>
+    <button type="button" class="btn btn-secondary"
+            (click)="removeSelection()">
+        <i class="fas fa-trash" aria-hidden="true"></i>
     </button>
-    <button type="button" class="close float-left" aria-label="Close button" (click)="removeSelection()">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <span class="d-inline-block align-middle ml-1">
-              <ds-metadata-representation-loader [mdRepresentation]="metadataRepresentation"></ds-metadata-representation-loader>
-          </span>
-</li>
+</div>

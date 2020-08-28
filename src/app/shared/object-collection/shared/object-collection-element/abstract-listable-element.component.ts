@@ -30,6 +30,21 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() index: number;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel = true;
+
+  /**
+   * The context we matched on to get this component
+   */
+  @Input() context: Context;
+
+  /**
+   * The viewmode we matched on to get this component
+   */
+  @Input() viewMode: ViewMode;
+
+  /**
    * The available link types
    */
   linkTypes = CollectionElementLinkType;

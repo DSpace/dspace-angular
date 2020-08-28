@@ -5,8 +5,7 @@ import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
-import { getFinishedRemoteData } from '../../core/shared/operators';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, find } from 'rxjs/operators';
 import { Observable, of as observableOf } from 'rxjs';
 
 /**
@@ -29,18 +28,16 @@ export class CreateCommunityPageGuard implements CanActivate {
       return observableOf(true);
     }
 
-    const parent: Observable<RemoteData<Community>> = this.communityService.findById(parentID)
+    return this.communityService.findById(parentID)
       .pipe(
-        getFinishedRemoteData(),
-      );
-
-    return parent.pipe(
-      map((communityRD: RemoteData<Community>) => hasValue(communityRD) && communityRD.hasSucceeded && hasValue(communityRD.payload)),
-      tap((isValid: boolean) => {
-        if (!isValid) {
-          this.router.navigate(['/404']);
+        find((communityRD: RemoteData<Community>) => hasValue(communityRD.payload) || hasValue(communityRD.error)),
+        map((communityRD: RemoteData<Community>) => hasValue(communityRD) && communityRD.hasSucceeded && hasValue(communityRD.payload)),
+        tap((isValid: boolean) => {
+          if (!isValid) {
+            this.router.navigate(['/404']);
+          }
         }
-      })
+      )
     );
   }
 }

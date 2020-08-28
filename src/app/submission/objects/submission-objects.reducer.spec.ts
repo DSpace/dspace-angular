@@ -44,6 +44,7 @@ import {
   mockDeduplicationMatches,
   mockSubmissionObject
 } from '../../shared/mocks/submission.mock';
+import { Item } from '../../core/shared/item.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
 describe('submissionReducer test suite', () => {
@@ -74,7 +75,7 @@ describe('submissionReducer test suite', () => {
       }
     };
 
-    const action = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, []);
+    const action = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), []);
     const newState = submissionObjectReducer({}, action);
 
     expect(newState).toEqual(expectedState);
@@ -107,7 +108,7 @@ describe('submissionReducer test suite', () => {
       }
     };
 
-    const action = new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, {}, submissionDefinition);
+    const action = new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, {}, submissionDefinition, new Item());
     const newState = submissionObjectReducer(initState, action);
 
     expect(newState).toEqual(expectedState);
@@ -249,7 +250,7 @@ describe('submissionReducer test suite', () => {
       removePending: false
     } as any;
 
-    let action: any = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, []);
+    let action: any = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), []);
     let newState = submissionObjectReducer({}, action);
 
     action = new InitSectionAction(

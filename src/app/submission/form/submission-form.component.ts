@@ -14,6 +14,7 @@ import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SubmissionService } from '../submission.service';
+import { Item } from '../../core/shared/item.model';
 
 /**
  * This component represents the submission form.
@@ -30,6 +31,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * @type {string}
    */
   @Input() collectionId: string;
+  @Input() item: Item;
 
   /**
    * The list of submission's sections
@@ -156,6 +158,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
               this.selfUrl,
               this.submissionDefinition,
               this.sections,
+              this.item,
               null);
             this.changeDetectorRef.detectChanges();
           })
@@ -197,7 +200,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         this.submissionId,
         submissionObject._links.self.href,
         this.submissionDefinition,
-        this.sections);
+        this.sections,
+        this.item);
     } else {
       this.changeDetectorRef.detectChanges();
     }

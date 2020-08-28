@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dspace-angular-cli": {
+    "dspace-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -18,10 +18,10 @@
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "customWebpackConfig": {
-              "path": "./webpack/webpack.common.ts",
+              "path": "./webpack/webpack.browser.ts",
               "mergeStrategies": {
                 "loaders": "prepend"
-              },
+              }
             },
             "outputPath": "dist/browser",
             "index": "src/index.html",
@@ -30,7 +30,8 @@
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
-              "src/assets"
+              "src/assets",
+              "src/robots.txt"
             ],
             "styles": [
               "src/styles.scss"
@@ -65,26 +66,26 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "dspace-angular-cli:build",
+            "browserTarget": "dspace-angular:build",
             "port": 4000
           },
           "configurations": {
             "production": {
-              "browserTarget": "dspace-angular-cli:build:production"
+              "browserTarget": "dspace-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dspace-angular-cli:build"
+            "browserTarget": "dspace-angular:build"
           }
         },
         "test": {
           "builder": "@angular-builders/custom-webpack:karma",
           "options": {
             "customWebpackConfig": {
-              "path": "./webpack/webpack.common.ts",
+              "path": "./webpack/webpack.test.ts",
               "mergeStrategies": {
                 "loaders": "prepend"
               }
@@ -119,11 +120,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "dspace-angular-cli:serve"
+            "devServerTarget": "dspace-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "dspace-angular-cli:serve:production"
+              "devServerTarget": "dspace-angular:serve:production"
             }
           }
         },
@@ -153,5 +154,5 @@
       }
     }
   },
-  "defaultProject": "dspace-angular-cli"
+  "defaultProject": "dspace-angular"
 }

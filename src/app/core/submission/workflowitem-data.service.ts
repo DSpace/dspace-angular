@@ -9,7 +9,7 @@ import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { WorkflowItem } from './models/workflowitem.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteByIDRequest, FindListOptions } from '../data/request.models';
+import { DeleteByIDRequest } from '../data/request.models';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import { find, map } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { RequestEntry } from '../data/request.reducer';
+import { RestResponse } from '../cache/response.models';
 
 /**
  * A service that provides methods to make REST requests with workflow items endpoint.
@@ -44,7 +45,7 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
    * @param id The Workflow Item's id to be removed
    * @return an observable that emits true when the deletion was successful, false when it failed
    */
-  delete(id: string): Observable<boolean> {
+  delete(id: string): Observable<RestResponse> {
     return this.deleteWFI(id, true)
   }
 
@@ -54,7 +55,7 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
    * @return an observable that emits true when sending back the item was successful, false when it failed
    */
   sendBack(id: string): Observable<boolean> {
-    return this.deleteWFI(id, false)
+    return this.deleteWFI(id, false).pipe(map((response: RestResponse) => response.isSuccessful));
   }
 
   /**
@@ -64,7 +65,7 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
    * When true, the workflow item and its item will be permanently expunged on the server
    * When false, the workflow item will be removed, but the item will still be available as a workspace item
    */
-  private deleteWFI(id: string, expunge: boolean): Observable<boolean> {
+  private deleteWFI(id: string, expunge: boolean): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
@@ -82,7 +83,7 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
 
     return this.requestService.getByUUID(requestId).pipe(
       find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response.isSuccessful)
+      map((request: RequestEntry) => request.response)
     );
   }
 }

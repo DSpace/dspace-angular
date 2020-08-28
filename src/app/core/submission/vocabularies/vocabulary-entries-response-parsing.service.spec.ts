@@ -60,16 +60,16 @@ describe('VocabularyEntriesResponseParsingService', () => {
         },
         _links: {
           first: {
-            href: 'https://rest.api/discover/browses/author/entries?page=0&size=5'
+            href: 'https://rest.api/rest/api/submission/vocabularies/types/entries/first?page=0&size=5'
           },
           self: {
-            href: 'https://rest.api/discover/browses/author/entries'
+            href: 'https://rest.api/rest/api/submission/vocabularies/types/entries'
           },
           next: {
-            href: 'https://rest.api/discover/browses/author/entries?page=1&size=5'
+            href: 'https://rest.api/rest/api/submission/vocabularies/types/entries/next?page=1&size=5'
           },
           last: {
-            href: 'https://rest.api/discover/browses/author/entries?page=9&size=5'
+            href: 'https://rest.api/rest/api/submission/vocabularies/types/entries/last?page=9&size=5'
           }
         },
         page: {

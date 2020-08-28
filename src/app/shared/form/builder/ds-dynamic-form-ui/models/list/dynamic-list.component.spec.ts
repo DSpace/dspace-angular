@@ -36,10 +36,8 @@ export const LIST_TEST_GROUP = new FormGroup({
 
 export const LIST_CHECKBOX_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
-    closed: false,
-    metadata: 'listCheckbox',
     name: 'type_programme',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    closed: false
   } as VocabularyOptions,
   disabled: false,
   id: 'listCheckbox',
@@ -53,10 +51,8 @@ export const LIST_CHECKBOX_TEST_MODEL_CONFIG = {
 
 export const LIST_RADIO_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
-    closed: false,
-    metadata: 'listRadio',
     name: 'type_programme',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    closed: false
   } as VocabularyOptions,
   disabled: false,
   id: 'listRadio',

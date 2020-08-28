@@ -1,19 +1,20 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import {Subscription} from 'rxjs';
-import {filter, switchMap} from 'rxjs/operators';
-import {TranslateService} from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { filter, switchMap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
-import {WorkspaceitemSectionsObject} from '../../core/submission/models/workspaceitem-sections.model';
-import {hasValue, isEmpty, isNotNull} from '../../shared/empty.util';
-import {SubmissionDefinitionsModel} from '../../core/config/models/config-submission-definitions.model';
-import {SubmissionService} from '../submission.service';
-import {NotificationsService} from '../../shared/notifications/notifications.service';
-import {SubmissionObject} from '../../core/submission/models/submission-object.model';
-import {Collection} from '../../core/shared/collection.model';
-import {RemoteData} from '../../core/data/remote-data';
-import {CollectionDataService} from '../../core/data/collection-data.service';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { hasValue, isEmpty, isNotNull } from '../../shared/empty.util';
+import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { SubmissionService } from '../submission.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { Collection } from '../../core/shared/collection.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -61,6 +62,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @type {Array}
    */
   private subs: Subscription[] = [];
+  public item: Item;
 
   /**
    * Initialize instance variables
@@ -103,6 +105,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
           }
           this.selfUrl = submissionObjectRD.payload._links.self.href;
           this.sections = submissionObjectRD.payload.sections;
+          this.item = submissionObjectRD.payload.item as Item;
           this.submissionDefinition = (submissionObjectRD.payload.submissionDefinition as SubmissionDefinitionsModel);
           this.changeDetectorRef.detectChanges();
         }

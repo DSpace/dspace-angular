@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
 import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined
-} from '../../../shared/empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list';
@@ -15,12 +9,7 @@ import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
-import {
-  filterSuccessfulResponses,
-  getRequestFromRequestHref,
-  getRequestFromRequestUUID,
-  getResourceLinksFromResponse
-} from '../../shared/operators';
+import { filterSuccessfulResponses, getRequestFromRequestHref, getRequestFromRequestUUID, getResourceLinksFromResponse } from '../../shared/operators';
 import { PageInfo } from '../../shared/page-info.model';
 import { CacheableObject } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
@@ -98,7 +87,8 @@ export class RemoteDataBuildService {
         let error: RemoteDataError;
         const response = reqEntry ? reqEntry.response : undefined;
         if (hasValue(response)) {
-          isSuccessful = response.isSuccessful;
+          isSuccessful = response.statusCode === 204 ||
+            response.statusCode >= 200 && response.statusCode < 300 && hasValue(payload);
           const errorMessage = isSuccessful === false ? (response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
             error = new RemoteDataError(
@@ -149,13 +139,13 @@ export class RemoteDataBuildService {
     const pageInfo$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
       map((response: DSOSuccessResponse) => {
-        if (hasValue((response as DSOSuccessResponse).pageInfo)) {
-          return (response as DSOSuccessResponse).pageInfo;
+        if (hasValue(response.pageInfo)) {
+          return Object.assign(new PageInfo(), response.pageInfo);
         }
       })
     );
 
-    const payload$ = observableCombineLatest(tDomainList$, pageInfo$).pipe(
+    const payload$ = observableCombineLatest([tDomainList$, pageInfo$]).pipe(
       map(([tDomainList, pageInfo]) => {
         return new PaginatedList(pageInfo, tDomainList);
       })

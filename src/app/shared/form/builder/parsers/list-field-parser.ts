@@ -24,7 +24,7 @@ export class ListFieldParser extends FieldParser {
           }
         });
       }
-      this.setVocabularyOptions(listModelConfig, this.parserOptions.collectionUUID);
+      this.setVocabularyOptions(listModelConfig);
     }
 
     let listModel;

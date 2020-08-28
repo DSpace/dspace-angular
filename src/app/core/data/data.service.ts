@@ -2,19 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  find,
-  first,
-  map,
-  mergeMap,
-  skipWhile,
-  switchMap,
-  take,
-  tap
-} from 'rxjs/operators';
-import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { distinctUntilChanged, filter, find, first, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -28,25 +17,12 @@ import { CoreState } from '../core.reducers';
 import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import {
-  configureRequest,
-  getRemoteDataPayload,
-  getResponseFromEntry,
-  getSucceededRemoteData
-} from '../shared/operators';
+import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { ChangeAnalyzer } from './change-analyzer';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
-import {
-  CreateRequest,
-  DeleteByIDRequest,
-  FindByIDRequest,
-  FindListOptions,
-  FindListRequest,
-  GetRequest,
-  PatchRequest, PutRequest
-} from './request.models';
+import { CreateRequest, DeleteByIDRequest, FindByIDRequest, FindListOptions, FindListRequest, GetRequest, PatchRequest, PutRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
@@ -136,7 +112,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    *    Return an observable that emits created HREF
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = [], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
+  public buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = [], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
     let args = [...extraArgs];
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
@@ -356,26 +332,24 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    *    Return an observable that emits response from the server
    */
   searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
-
+    const requestId = this.requestService.generateRequestId();
     const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
 
-    return hrefObs.pipe(
-      find((href: string) => hasValue(href)),
-      tap((href: string) => {
-          this.requestService.removeByHrefSubstring(searchMethod);
-          const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
-          if (hasValue(this.responseMsToLive)) {
-            request.responseMsToLive = this.responseMsToLive;
-          }
+    hrefObs.pipe(
+      find((href: string) => hasValue(href))
+    ).subscribe((href: string) => {
+      const request = new FindListRequest(requestId, href, options);
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
+      this.requestService.configure(request);
+    });
 
-          this.requestService.configure(request);
-        }
+    return this.requestService.getByUUID(requestId).pipe(
+      find((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
+      switchMap((requestEntry) =>
+        this.rdbService.buildList<T>(requestEntry.request.href, ...linksToFollow)
       ),
-      switchMap((href) => this.requestService.getByHref(href)),
-      skipWhile((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
-      switchMap((href) =>
-        this.rdbService.buildList<T>(hrefObs, ...linksToFollow) as Observable<RemoteData<PaginatedList<T>>>
-      )
     );
   }
 
@@ -394,6 +368,9 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
       find((href: string) => hasValue(href)),
       map((href: string) => {
         const request = new PatchRequest(requestId, href, operations);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
         this.requestService.configure(request);
       })
     ).subscribe();
@@ -467,7 +444,13 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
 
     const request$ = endpoint$.pipe(
       take(1),
-      map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
+      map((endpoint: string) => {
+        const request = new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso));
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        return request
+      })
     );
 
     // Execute the post request
@@ -516,7 +499,13 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
 
     const request$ = endpoint$.pipe(
       take(1),
-      map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
+      map((endpoint: string) => {
+        const request = new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso));
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        return request
+      })
     );
 
     // Execute the post request
@@ -545,42 +534,9 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * @param dsoID The DSpace Object' id to be removed
    * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
    *                            metadata should be saved as real metadata
-   * @return an observable that emits true when the deletion was successful, false when it failed
+   * @return the RestResponse as an Observable
    */
-  delete(dsoID: string, copyVirtualMetadata?: string[]): Observable<boolean> {
-    const requestId = this.deleteAndReturnRequestId(dsoID, copyVirtualMetadata);
-
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => isNotEmpty(request) && request.completed),
-      map((request: RequestEntry) => request.response.isSuccessful)
-    );
-  }
-
-  /**
-   * Delete an existing DSpace Object on the server
-   * @param dsoID The DSpace Object' id to be removed
-   * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
-   *                            metadata should be saved as real metadata
-   * Return an observable of the completed response
-   */
-  deleteAndReturnResponse(dsoID: string, copyVirtualMetadata?: string[]): Observable<RestResponse> {
-    const requestId = this.deleteAndReturnRequestId(dsoID, copyVirtualMetadata);
-
-    return this.requestService.getByUUID(requestId).pipe(
-      hasValueOperator(),
-      find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response)
-    );
-  }
-
-  /**
-   * Delete an existing DSpace Object on the server
-   * @param dsoID The DSpace Object' id to be removed
-   * @param copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
-   *                            metadata should be saved as real metadata
-   * Return the delete request's ID
-   */
-  private deleteAndReturnRequestId(dsoID: string, copyVirtualMetadata?: string[]): string {
+  delete(dsoID: string, copyVirtualMetadata?: string[]): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.getIDHrefObs(dsoID);
@@ -596,11 +552,17 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
           );
         }
         const request = new DeleteByIDRequest(requestId, href, dsoID);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
         this.requestService.configure(request);
       })
     ).subscribe();
 
-    return requestId;
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
   }
 
   /**
@@ -611,4 +573,15 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     this.requestService.commit(method);
   }
 
+  /**
+   * Return the links to traverse from the root of the api to the
+   * endpoint this DataService represents
+   *
+   * e.g. if the api root links to 'foo', and the endpoint at 'foo'
+   * links to 'bar' the linkPath for the BarDataService would be
+   * 'foo/bar'
+   */
+  getLinkPath(): string {
+    return this.linkPath;
+  }
 }
