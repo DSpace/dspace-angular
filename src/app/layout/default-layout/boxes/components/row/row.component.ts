@@ -67,7 +67,7 @@ export class RowComponent implements OnInit {
     });
   }
 
-  private getComponent(fieldRenderingType: string): GenericConstructor<Component> {
+  getComponent(fieldRenderingType: string): GenericConstructor<Component> {
     return getMetadataBoxFieldRendering(fieldRenderingType);
   }
 

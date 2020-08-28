@@ -399,7 +399,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     ).subscribe();
 
     return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
+      find((request: RequestEntry) => request && request.completed),
       map((request: RequestEntry) => request.response)
     );
   }

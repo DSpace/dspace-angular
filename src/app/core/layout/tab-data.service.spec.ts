@@ -84,8 +84,8 @@ describe('TabDataService', () => {
     }
   };
 
-  const endpointURL = `https://rest.api/rest/api/boxes`;
-  const requestURL = `https://rest.api/rest/api/boxes/${tabPersonProfile.id}`;
+  const endpointURL = `https://rest.api/rest/api/tabs`;
+  const requestURL = `https://rest.api/rest/api/tabs/${tabPersonProfile.id}`;
   const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
   const itemUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
   const entityType = 'Person';
