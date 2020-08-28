@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, Output, QueryList } from '@angular/core
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
-  DynamicFormArrayModel,
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
+  DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,

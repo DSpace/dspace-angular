@@ -19,6 +19,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteDataPayload, getFinishedRemoteData } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
 import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
+import { RestResponse } from '../cache/response.models';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -95,14 +96,16 @@ export class ResearcherProfileService {
      *
      * @param researcherProfile the profile to delete
      */
-    delete( researcherProfile: ResearcherProfile): Observable<boolean> {
-        return this.dataService.delete(researcherProfile.id)
-            .pipe( take(1),
-             tap( (deleted) => {
-                 if ( deleted) {
-                     this.requestService.removeByHrefSubstring(researcherProfile._links.self.href);
-                 }
-             }));
+    delete(researcherProfile: ResearcherProfile): Observable<boolean> {
+      return this.dataService.delete(researcherProfile.id).pipe(
+        take(1),
+        tap((response: RestResponse) => {
+          if (response.isSuccessful) {
+            this.requestService.removeByHrefSubstring(researcherProfile._links.self.href);
+          }
+        }),
+        map((response: RestResponse) => response.isSuccessful)
+      );
     }
 
     /**

@@ -171,7 +171,7 @@ export class SectionFormOperationsService {
    *    the field path
    */
   public getQualdropItemPathFromEvent(event: DynamicFormControlEvent): string {
-    const arrayIndex = this.getArrayIndexFromEvent(event);
+    const fieldIndex = this.getArrayIndexFromEvent(event);
     const metadataValueMap = new Map();
     let path = null;
 
