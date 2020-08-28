@@ -97,7 +97,7 @@
     "json5": "^2.1.0",
     "jsonschema": "1.2.2",
     "jwt-decode": "^2.2.0",
-    "klaro": "^0.5.34",
+    "klaro": "^0.6.3",
     "moment": "^2.22.1",
     "morgan": "^1.9.1",
     "ng-mocks": "^8.1.0",

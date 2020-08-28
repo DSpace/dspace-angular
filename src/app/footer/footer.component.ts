@@ -1,6 +1,6 @@
 import { Component, Optional } from '@angular/core';
-import { KlaroService } from '../shared/cookies/klaro.service';
 import { hasValue } from '../shared/empty.util';
+import { KlaroService } from '../shared/cookies/klaro.service';
 
 @Component({
   selector: 'ds-footer',

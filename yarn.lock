@@ -6165,10 +6165,10 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-klaro@^0.5.34:
-  version "0.5.34"
-  resolved "https://registry.yarnpkg.com/klaro/-/klaro-0.5.34.tgz#0b524be96a1bb177fe88ff2603e1be75f494fc98"
-  integrity sha512-M6KHqlBWpMyYoxOK1icoJMeYsaPT7YhzJIAQ3wdxZWGgBc0sV7xQsf0PsgMUVnuTD0AeC58QegCGEv0qYeq4gw==
+klaro@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/klaro/-/klaro-0.6.3.tgz#b2aaa810d17f073c9a1b5eab618a9f13d5f40fa3"
+  integrity sha512-rRP37FaJaHHSScHIe3YUdMZJ1asxOF5+C/RMrFB2RzhAUfGVMM5/GiucECM3Si1lhW2LL0xGVymE8JhYZl2Bjg==
 
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"

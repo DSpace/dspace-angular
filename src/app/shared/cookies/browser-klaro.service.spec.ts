@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { KlaroService } from './klaro.service';
+import { BrowserKlaroService } from './browser-klaro.service';
 
 describe('KlaroService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: KlaroService = TestBed.get(KlaroService);
+    const service: BrowserKlaroService = TestBed.get(BrowserKlaroService);
     expect(service).toBeTruthy();
   });
 });

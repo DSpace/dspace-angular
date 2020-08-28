@@ -31,8 +31,8 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
 import { LocaleService } from './core/locale/locale.service';
-import { KlaroService } from './shared/cookies/klaro.service';
 import { hasValue } from './shared/empty.util';
+import { KlaroService } from './shared/cookies/klaro.service';
 
 @Component({
   selector: 'ds-app',

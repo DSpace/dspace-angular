@@ -18,15 +18,6 @@ module.exports = Object.assign({}, commonExports, {
   recordsOutputPath: projectRoot('webpack.records.json'),
   entry: buildRoot('./main.server.ts'),
   target: 'node',
-  module: {
-    rules: [
-      ...commonExports.module.rules,
-      {
-        test: /\.js$/,
-        exclude: [/node_modules\/klaro/],
-      }
-    ]
-  },
   externals: [nodeExternals({
     whitelist: [
       /@angular/,
