@@ -322,31 +322,28 @@ describe('AuthService test', () => {
       expect(storage.remove).toHaveBeenCalled();
     });
 
-    it('should set redirect url to previous page', () => {
-      (storage.get as jasmine.Spy).and.returnValue('/collection/123');
-      authService.redirectAfterLoginSuccess();
+    it('should redirect to reload with redirect url', () => {
+      authService.navigateToRedirectUrl('/collection/123');
       // Reload with redirect URL set to /collection/123
       expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*\\?redirect=' + encodeURIComponent('/collection/123'))));
     });
 
-    it('should set redirect url to current page', () => {
-      (storage.get as jasmine.Spy).and.returnValue('/home');
-      authService.redirectAfterLoginSuccess();
+    it('should redirect to reload with /home', () => {
+      authService.navigateToRedirectUrl('/home');
       // Reload with redirect URL set to /home
       expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*\\?redirect=' + encodeURIComponent('/home'))));
     });
 
     it('should redirect to regular reload and not to /login', () => {
-      (storage.get as jasmine.Spy).and.returnValue('/login');
-      authService.redirectAfterLoginSuccess();
+      authService.navigateToRedirectUrl('/login');
       // Reload without a redirect URL
       expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*(?!\\?)$')));
     });
 
-    it('should not redirect when no redirect url is found', () => {
-      authService.redirectAfterLoginSuccess();
+    it('should redirect to regular reload when no redirect url is found', () => {
+      authService.navigateToRedirectUrl(undefined);
       // Reload without a redirect URL
-      expect(hardRedirectService.redirect).not.toHaveBeenCalled();
+      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*(?!\\?)$')));
     });
 
     describe('impersonate', () => {
