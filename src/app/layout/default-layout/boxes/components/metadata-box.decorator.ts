@@ -4,7 +4,8 @@ export enum FieldRendetingType {
   LONGTEXT = 'LONGTEXT',
   DATE = 'DATE',
   LINK = 'LINK',
-  IDENTIFIER = 'IDENTIFIER'
+  IDENTIFIER = 'IDENTIFIER',
+  CRISREF = 'CRISREF'
 };
 
 const fieldType = new Map();

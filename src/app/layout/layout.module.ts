@@ -19,6 +19,7 @@ import { DateComponent } from './default-layout/boxes/components/date/date.compo
 import { DsDatePipe } from './pipes/ds-date.pipe';
 import { LinkComponent } from './default-layout/boxes/components/link/link.component';
 import { IdentifierComponent } from './default-layout/boxes/components/identifier/identifier.component';
+import { CrisrefComponent } from './default-layout/boxes/components/crisref/crisref.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { IdentifierComponent } from './default-layout/boxes/components/identifie
     DateComponent,
     DsDatePipe,
     LinkComponent,
-    IdentifierComponent
+    IdentifierComponent,
+    CrisrefComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,8 @@ import { IdentifierComponent } from './default-layout/boxes/components/identifie
     LongtextComponent,
     DateComponent,
     LinkComponent,
-    IdentifierComponent
+    IdentifierComponent,
+    CrisrefComponent
   ],
   exports: [
     CrisPageLoaderComponent,

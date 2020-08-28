@@ -17,7 +17,7 @@ export class ResolverStrategyService {
      * Set the list of managed URN
      */
     this.urn2baseurl = new Map();
-    const urnList = environment.urn;
+    const urnList = environment.layout.urn;
     if (hasValue(urnList)) {
       for (const urn of urnList) {
         this.urn2baseurl.set(urn.name, urn.baseUrl);

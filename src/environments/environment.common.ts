@@ -227,18 +227,34 @@ export const environment: GlobalConfig = {
   theme: {
     name: 'default',
   },
-  urn: [
-    {
-      name: 'doi',
-      baseUrl: 'https://doi.org/'
-    },
-    {
-      name: 'dhl',
-      baseUrl: 'https://hdl.handle.net/'
-    },
-    {
-      name: 'mailto',
-      baseUrl: 'mailto:'
-    }
-  ]
+  layout: {
+    urn: [
+      {
+        name: 'doi',
+        baseUrl: 'https://doi.org/'
+      },
+      {
+        name: 'dhl',
+        baseUrl: 'https://hdl.handle.net/'
+      },
+      {
+        name: 'mailto',
+        baseUrl: 'mailto:'
+      }
+    ],
+    crisRef: [
+      {
+        entityType: 'DEFAULT',
+        icon: 'fa fa-info'
+      },
+      {
+        entityType: 'PERSON',
+        icon: 'fa fa-user'
+      },
+      {
+        entityType: 'ORGUNIT',
+        icon: 'fa fa-university'
+      }
+    ]
+  }
 };

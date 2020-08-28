@@ -17,7 +17,8 @@ enum TYPES {
  * The metadata value is used for href and text
  */
 @Component({
-  selector: 'ds-link',
+  // tslint:disable-next-line: component-selector
+  selector: 'span[ds-link]',
   templateUrl: './link.component.html',
   styleUrls: ['./link.component.scss']
 })
