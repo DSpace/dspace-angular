@@ -2,23 +2,26 @@ import { EndUserAgreementGuard } from './end-user-agreement.guard';
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { Router, UrlTree } from '@angular/router';
 import { of as observableOf } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 describe('EndUserAgreementGuard', () => {
   let guard: EndUserAgreementGuard;
 
   let endUserAgreementService: EndUserAgreementService;
+  let authService: AuthService;
   let router: Router;
 
   beforeEach(() => {
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       hasCurrentUserAcceptedAgreement: observableOf(true)
     });
+    authService = jasmine.createSpyObj('authService', ['setRedirectUrl']);
     router = jasmine.createSpyObj('router', {
       navigateByUrl: {},
       parseUrl: new UrlTree()
     });
 
-    guard = new EndUserAgreementGuard(endUserAgreementService, router);
+    guard = new EndUserAgreementGuard(endUserAgreementService, authService, router);
   });
 
   describe('canActivate', () => {
@@ -39,7 +42,8 @@ describe('EndUserAgreementGuard', () => {
       it('should navigate the user with a redirect url', (done) => {
         const redirect = 'redirect/url';
         guard.canActivate(undefined, Object.assign({ url: redirect })).subscribe(() => {
-          expect(router.navigateByUrl).toHaveBeenCalledWith(jasmine.anything(), { state: { redirect } });
+          expect(authService.setRedirectUrl).toHaveBeenCalledWith(redirect);
+          expect(router.navigateByUrl).toHaveBeenCalled();
           done();
         });
       });

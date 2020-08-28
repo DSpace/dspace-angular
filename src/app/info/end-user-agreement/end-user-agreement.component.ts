@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth/auth.service';
-import { take } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
@@ -8,7 +8,8 @@ import { LogOutAction } from '../../core/auth/auth.actions';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { hasValue } from '../../shared/empty.util';
+import { of as observableOf } from 'rxjs';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-end-user-agreement',
@@ -54,15 +55,20 @@ export class EndUserAgreementComponent implements OnInit {
    * Set the End User Agreement, display a notification and (optionally) redirect the user back to their original destination
    */
   submit() {
-    this.endUserAgreementService.setUserAcceptedAgreement(this.accepted).subscribe((success) => {
-      if (success) {
-        this.notificationsService.success(this.translate.instant('info.end-user-agreement.accept.success'));
-        const redirect = window.history.state.redirect;
-        if (hasValue(redirect)) {
-          this.router.navigateByUrl(redirect);
+    this.endUserAgreementService.setUserAcceptedAgreement(this.accepted).pipe(
+      switchMap((success) => {
+        if (success) {
+          this.notificationsService.success(this.translate.instant('info.end-user-agreement.accept.success'));
+          return this.authService.getRedirectUrl();
+        } else {
+          this.notificationsService.error(this.translate.instant('info.end-user-agreement.accept.error'));
+          return observableOf(undefined);
         }
-      } else {
-        this.notificationsService.error(this.translate.instant('info.end-user-agreement.accept.error'));
+      }),
+      take(1)
+    ).subscribe((redirectUrl) => {
+      if (isNotEmpty(redirectUrl)) {
+        this.router.navigateByUrl(redirectUrl);
       }
     });
   }

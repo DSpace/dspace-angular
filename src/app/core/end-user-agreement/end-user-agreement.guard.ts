@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/operators';
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { tap } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 
 /**
  * A guard redirecting users to the end agreement page when they haven't accepted the latest user agreement
@@ -12,6 +13,7 @@ import { tap } from 'rxjs/operators';
 export class EndUserAgreementGuard implements CanActivate {
 
   constructor(protected endUserAgreementService: EndUserAgreementService,
+              protected authService: AuthService,
               protected router: Router) {
   }
 
@@ -26,7 +28,8 @@ export class EndUserAgreementGuard implements CanActivate {
       returnEndUserAgreementUrlTreeOnFalse(this.router),
       tap((result) => {
         if (result instanceof UrlTree) {
-          this.router.navigateByUrl(result, { state: { redirect: state.url } })
+          this.authService.setRedirectUrl(state.url);
+          this.router.navigateByUrl(result);
         }
       })
     );

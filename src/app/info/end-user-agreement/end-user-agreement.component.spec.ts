@@ -24,19 +24,19 @@ describe('EndUserAgreementComponent', () => {
   let redirectUrl;
 
   function init() {
+    redirectUrl = 'redirect/url';
+
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       hasCurrentUserAcceptedAgreement: observableOf(false),
       setUserAcceptedAgreement: observableOf(true)
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
+      getRedirectUrl: observableOf(redirectUrl)
     });
     store = jasmine.createSpyObj('store', ['dispatch']);
     router = jasmine.createSpyObj('router', ['navigate', 'navigateByUrl']);
-
-    redirectUrl = 'redirect/url';
-    window.history.pushState({ redirect: redirectUrl }, '');
   }
 
   beforeEach(async(() => {
