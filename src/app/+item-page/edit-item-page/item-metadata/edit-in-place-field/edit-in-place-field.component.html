@@ -45,12 +45,12 @@
 </td>
 <td class="text-center">
     <div class="btn-group edit-field">
-        <button [disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)"
+        <button [disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)"
                 (click)="setEditable(true)" class="btn btn-outline-primary btn-sm"
                 title="{{'item.edit.metadata.edit.buttons.edit' | translate}}">
             <i class="fas fa-edit fa-fw"></i>
         </button>
-        <button [disabled]="!(canSetUneditable() | async)" *ngIf="(editable | async)"
+        <button [disabled]="!(canSetUneditable() | async)" *ngIf="(editable | async)"
                 (click)="setEditable(false)" class="btn btn-outline-success btn-sm"
                 title="{{'item.edit.metadata.edit.buttons.unedit' | translate}}">
             <i class="fas fa-check fa-fw"></i>

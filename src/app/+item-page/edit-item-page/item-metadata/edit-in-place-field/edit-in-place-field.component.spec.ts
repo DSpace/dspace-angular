@@ -22,6 +22,9 @@ import {
 } from '../../../../shared/remote-data.utils';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { EditInPlaceFieldComponent } from './edit-in-place-field.component';
+import { FilterInputSuggestionsComponent } from '../../../../shared/input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import { MockComponent, MockDirective } from 'ng-mocks';
+import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
 
 let comp: EditInPlaceFieldComponent;
 let fixture: ComponentFixture<EditInPlaceFieldComponent>;
@@ -83,8 +86,12 @@ fdescribe('EditInPlaceFieldComponent', () => {
     );
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, SharedModule, TranslateModule.forRoot()],
-      declarations: [EditInPlaceFieldComponent],
+      imports: [FormsModule, TranslateModule.forRoot()],
+      declarations: [
+        EditInPlaceFieldComponent,
+        MockDirective(DebounceDirective),
+        MockComponent(FilterInputSuggestionsComponent)
+      ],
       providers: [
         { provide: RegistryService, useValue: metadataFieldService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
@@ -104,13 +111,12 @@ fdescribe('EditInPlaceFieldComponent', () => {
     comp.url = url;
     comp.fieldUpdate = fieldUpdate;
     comp.metadata = metadatum;
-
-    fixture.detectChanges();
   });
 
   describe('update', () => {
     beforeEach(() => {
       comp.update();
+      fixture.detectChanges();
     });
 
     it('it should call saveChangeFieldUpdate on the objectUpdatesService with the correct url and metadata', () => {
@@ -122,6 +128,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
     const editable = false;
     beforeEach(() => {
       comp.setEditable(editable);
+      fixture.detectChanges();
     });
 
     it('it should call setEditableFieldUpdate on the objectUpdatesService with the correct url and uuid and false', () => {
@@ -131,7 +138,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
   describe('editable is true', () => {
     beforeEach(() => {
-      comp.editable = observableOf(true);
+      objectUpdatesService.isEditable.and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
     it('the div should contain input fields or textareas', () => {
@@ -143,7 +150,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
   describe('editable is false', () => {
     beforeEach(() => {
-      comp.editable = observableOf(false);
+      objectUpdatesService.isEditable.and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
     it('the div should contain no input fields or textareas', () => {
@@ -155,7 +162,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
   describe('isValid is true', () => {
     beforeEach(() => {
-      comp.valid = observableOf(true);
+      objectUpdatesService.isValid.and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
     it('the div should not contain an error message', () => {
@@ -167,10 +174,10 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
   describe('isValid is false', () => {
     beforeEach(() => {
-      comp.valid = observableOf(false);
+      objectUpdatesService.isValid.and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
-    it('the div should contain no input fields or textareas', () => {
+    it('there should be an error message', () => {
       const errorMessages = de.queryAll(By.css('small.text-danger'));
       expect(errorMessages.length).toBeGreaterThan(0);
 
@@ -180,6 +187,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
   describe('remove', () => {
     beforeEach(() => {
       comp.remove();
+      fixture.detectChanges();
     });
 
     it('it should call saveRemoveFieldUpdate on the objectUpdatesService with the correct url and metadata', () => {
@@ -190,6 +198,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
   describe('removeChangesFromField', () => {
     beforeEach(() => {
       comp.removeChangesFromField();
+      fixture.detectChanges();
     });
 
     it('it should call removeChangesFromField on the objectUpdatesService with the correct url and uuid', () => {
@@ -226,7 +235,8 @@ fdescribe('EditInPlaceFieldComponent', () => {
   describe('canSetEditable', () => {
     describe('when editable is currently true', () => {
       beforeEach(() => {
-        comp.editable = observableOf(true);
+        objectUpdatesService.isEditable.and.returnValue(observableOf(true));
+        fixture.detectChanges();
       });
 
       it('canSetEditable should return an observable emitting false', () => {
@@ -237,12 +247,14 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
     describe('when editable is currently false', () => {
       beforeEach(() => {
-        comp.editable = observableOf(false);
+        objectUpdatesService.isEditable.and.returnValue(observableOf(false));
+        fixture.detectChanges();
       });
 
       describe('when the fieldUpdate\'s changeType is currently not REMOVE', () => {
         beforeEach(() => {
           comp.fieldUpdate.changeType = FieldChangeType.ADD;
+          fixture.detectChanges();
         });
         it('canSetEditable should return an observable emitting true', () => {
           const expected = '(a|)';
@@ -253,6 +265,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
       describe('when the fieldUpdate\'s changeType is currently REMOVE', () => {
         beforeEach(() => {
           comp.fieldUpdate.changeType = FieldChangeType.REMOVE;
+          fixture.detectChanges();
         });
         it('canSetEditable should return an observable emitting false', () => {
           const expected = '(a|)';
@@ -265,7 +278,8 @@ fdescribe('EditInPlaceFieldComponent', () => {
   describe('canSetUneditable', () => {
     describe('when editable is currently true', () => {
       beforeEach(() => {
-        comp.editable = observableOf(true);
+        objectUpdatesService.isEditable.and.returnValue(observableOf(true));
+        fixture.detectChanges();
       });
 
       it('canSetUneditable should return an observable emitting true', () => {
@@ -276,7 +290,8 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
     describe('when editable is currently false', () => {
       beforeEach(() => {
-        comp.editable = observableOf(false);
+        objectUpdatesService.isEditable.and.returnValue(observableOf(false));
+        fixture.detectChanges();
       });
 
       it('canSetUneditable should return an observable emitting false', () => {
@@ -288,7 +303,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
   describe('when canSetEditable emits true', () => {
     beforeEach(() => {
-      comp.editable = observableOf(false);
+      objectUpdatesService.isEditable.and.returnValue(observableOf(false));
       spyOn(comp, 'canSetEditable').and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
@@ -300,7 +315,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
   describe('when canSetEditable emits false', () => {
     beforeEach(() => {
-      comp.editable = observableOf(false);
+      objectUpdatesService.isEditable.and.returnValue(observableOf(false));
       spyOn(comp, 'canSetEditable').and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
@@ -312,7 +327,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
   describe('when canSetUneditable emits true', () => {
     beforeEach(() => {
-      comp.editable = observableOf(true);
+      objectUpdatesService.isEditable.and.returnValue(observableOf(true));
       spyOn(comp, 'canSetUneditable').and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
@@ -324,7 +339,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
   describe('when canSetUneditable emits false', () => {
     beforeEach(() => {
-      comp.editable = observableOf(true);
+      objectUpdatesService.isEditable.and.returnValue(observableOf(true));
       spyOn(comp, 'canSetUneditable').and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
@@ -382,6 +397,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
     describe('when the fieldUpdate\'s changeType is currently not REMOVE or ADD', () => {
       beforeEach(() => {
         comp.fieldUpdate.changeType = FieldChangeType.UPDATE;
+        fixture.detectChanges();
       });
       it('canRemove should return an observable emitting true', () => {
         const expected = '(a|)';
@@ -392,6 +408,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
     describe('when the fieldUpdate\'s changeType is currently ADD', () => {
       beforeEach(() => {
         comp.fieldUpdate.changeType = FieldChangeType.ADD;
+        fixture.detectChanges();
       });
       it('canRemove should return an observable emitting false', () => {
         const expected = '(a|)';
@@ -404,7 +421,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
 
     describe('when editable is currently true', () => {
       beforeEach(() => {
-        comp.editable = observableOf(true);
+        objectUpdatesService.isEditable.and.returnValue(observableOf(true));
         comp.fieldUpdate.changeType = undefined;
         fixture.detectChanges();
       });
@@ -418,6 +435,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
       describe('when the fieldUpdate\'s changeType is currently ADD, UPDATE or REMOVE', () => {
         beforeEach(() => {
           comp.fieldUpdate.changeType = FieldChangeType.ADD;
+          fixture.detectChanges();
         });
 
         it('canUndo should return an observable emitting true', () => {
@@ -429,6 +447,7 @@ fdescribe('EditInPlaceFieldComponent', () => {
       describe('when the fieldUpdate\'s changeType is currently undefined', () => {
         beforeEach(() => {
           comp.fieldUpdate.changeType = undefined;
+          fixture.detectChanges();
         });
 
         it('canUndo should return an observable emitting false', () => {
