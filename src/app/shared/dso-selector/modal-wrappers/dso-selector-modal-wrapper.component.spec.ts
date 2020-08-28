@@ -124,7 +124,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
 })
 class TestComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;
-  selectorType = DSpaceObjectType.ITEM;
+  selectorTypes = [DSpaceObjectType.ITEM];
   action = SelectorActionType.EDIT;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute) {

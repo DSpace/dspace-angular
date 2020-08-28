@@ -20,7 +20,7 @@ import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-sel
 })
 export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;
-  selectorType = DSpaceObjectType.COMMUNITY;
+  selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {

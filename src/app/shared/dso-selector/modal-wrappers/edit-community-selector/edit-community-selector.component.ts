@@ -21,7 +21,7 @@ import {
 
 export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;
-  selectorType = DSpaceObjectType.COMMUNITY;
+  selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.EDIT;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {

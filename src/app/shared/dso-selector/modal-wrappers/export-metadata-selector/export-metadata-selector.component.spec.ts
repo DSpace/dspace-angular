@@ -130,9 +130,8 @@ describe('ExportMetadataSelectorComponent', () => {
         done()
       });
     });
-    it('should show error notification', () => {
-      expect(notificationService.error).toHaveBeenCalled();
-      expect(scriptRequestSucceeded).toBeFalse();
+    it('should not invoke metadata-export script', () => {
+      expect(scriptService.invoke).not.toHaveBeenCalled();
     });
   });
 
