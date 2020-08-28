@@ -9,8 +9,8 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommunityAdminSearchResultListElementComponent } from './community-admin-search-result-list-element.component';
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
-import { getCommunityEditPath } from '../../../../../+community-page/community-page-routing.module';
 import { Community } from '../../../../../core/shared/community.model';
+import { getCommunityEditRoute } from '../../../../../+community-page/community-page-routing-paths';
 
 describe('CommunityAdminSearchResultListElementComponent', () => {
   let component: CommunityAdminSearchResultListElementComponent;
@@ -55,6 +55,6 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
   it('should render an edit button with the correct link', () => {
     const a = fixture.debugElement.query(By.css('a'));
     const link = a.nativeElement.href;
-    expect(link).toContain(getCommunityEditPath(id));
+    expect(link).toContain(getCommunityEditRoute(id));
   })
 });

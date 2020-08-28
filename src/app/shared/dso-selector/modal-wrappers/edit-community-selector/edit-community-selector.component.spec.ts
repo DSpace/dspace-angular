@@ -6,7 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router.stub';
-import * as communityRouter from '../../../../+community-page/community-page-routing.module';
+import * as communityRouterPaths from '../../../../+community-page/community-page-routing-paths';
 import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 import { Community } from '../../../../core/shared/community.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
@@ -53,7 +53,7 @@ describe('EditCommunitySelectorComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOnProperty(communityRouter, 'getCommunityEditPath').and.callFake(() => {
+    spyOnProperty(communityRouterPaths, 'getCommunityEditRoute').and.callFake(() => {
         return () => editPath;
     });
 

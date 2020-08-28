@@ -36,7 +36,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { getItemEditPath } from '../../+item-page/item-page-routing.module';
+import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -506,7 +506,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   navigateToItemEditBitstreams() {
     if (hasValue(this.itemId)) {
-      this.router.navigate([getItemEditPath(this.itemId), 'bitstreams']);
+      this.router.navigate([getItemEditRoute(this.itemId), 'bitstreams']);
     } else {
       this.location.back();
     }

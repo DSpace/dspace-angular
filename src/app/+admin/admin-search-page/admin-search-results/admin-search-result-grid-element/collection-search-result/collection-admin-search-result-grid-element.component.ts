@@ -4,8 +4,8 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { Context } from '../../../../../core/shared/context.model';
 import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
 import { Collection } from '../../../../../core/shared/collection.model';
-import { getCollectionEditPath } from '../../../../../+collection-page/collection-page-routing.module';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
+import { getCollectionEditRoute } from '../../../../../+collection-page/collection-page-routing-paths';
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({
@@ -21,6 +21,6 @@ export class CollectionAdminSearchResultGridElementComponent extends SearchResul
 
   ngOnInit() {
     super.ngOnInit();
-    this.editPath = getCollectionEditPath(this.dso.uuid);
+    this.editPath = getCollectionEditRoute(this.dso.uuid);
   }
 }

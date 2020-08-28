@@ -8,7 +8,7 @@ import { AuthMethod } from '../../core/auth/models/auth.method';
 import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
 import { AuthService } from '../../core/auth/auth.service';
-import { getForgotPasswordPath, getRegisterPath } from '../../app-routing.module';
+import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
 
 /**
  * /users/sign-in
@@ -83,11 +83,11 @@ export class LogInComponent implements OnInit, OnDestroy {
     this.alive = false;
   }
 
-  getRegisterPath() {
-    return getRegisterPath();
+  getRegisterRoute() {
+    return getRegisterRoute();
   }
 
-  getForgotPath() {
-    return getForgotPasswordPath();
+  getForgotRoute() {
+    return getForgotPasswordRoute();
   }
 }
