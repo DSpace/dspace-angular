@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { getItemEditPath } from '../../../+item-page/item-page-routing.module';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { getItemEditRoute } from '../../../+item-page/item-page-routing-paths';
 import {
-  ITEM_EDIT_DELETE_PATH,
   ITEM_EDIT_MOVE_PATH,
-  ITEM_EDIT_PRIVATE_PATH,
+  ITEM_EDIT_DELETE_PATH,
   ITEM_EDIT_PUBLIC_PATH,
+  ITEM_EDIT_PRIVATE_PATH,
   ITEM_EDIT_REINSTATE_PATH,
   ITEM_EDIT_WITHDRAW_PATH
-} from '../../../+item-page/edit-item-page/edit-item-page.routing.module';
+} from '../../../+item-page/edit-item-page/edit-item-page.routing-paths';
 
 @Component({
   selector: 'ds-item-admin-search-result-actions-element',
@@ -33,49 +33,49 @@ export class ItemAdminSearchResultActionsComponent {
   /**
    * Returns the path to the edit page of this item
    */
-  getEditPath(): string {
-    return getItemEditPath(this.item.uuid)
+  getEditRoute(): string {
+    return getItemEditRoute(this.item.uuid)
   }
 
   /**
    * Returns the path to the move page of this item
    */
-  getMovePath(): string {
-    return new URLCombiner(this.getEditPath(), ITEM_EDIT_MOVE_PATH).toString();
+  getMoveRoute(): string {
+    return new URLCombiner(this.getEditRoute(), ITEM_EDIT_MOVE_PATH).toString();
   }
 
   /**
    * Returns the path to the delete page of this item
    */
-  getDeletePath(): string {
-    return new URLCombiner(this.getEditPath(), ITEM_EDIT_DELETE_PATH).toString();
+  getDeleteRoute(): string {
+    return new URLCombiner(this.getEditRoute(), ITEM_EDIT_DELETE_PATH).toString();
   }
 
   /**
    * Returns the path to the withdraw page of this item
    */
-  getWithdrawPath(): string {
-    return new URLCombiner(this.getEditPath(), ITEM_EDIT_WITHDRAW_PATH).toString();
+  getWithdrawRoute(): string {
+    return new URLCombiner(this.getEditRoute(), ITEM_EDIT_WITHDRAW_PATH).toString();
   }
 
   /**
    * Returns the path to the reinstate page of this item
    */
-  getReinstatePath(): string {
-    return new URLCombiner(this.getEditPath(), ITEM_EDIT_REINSTATE_PATH).toString();
+  getReinstateRoute(): string {
+    return new URLCombiner(this.getEditRoute(), ITEM_EDIT_REINSTATE_PATH).toString();
   }
 
   /**
    * Returns the path to the page where the user can make this item private
    */
-  getPrivatePath(): string {
-    return new URLCombiner(this.getEditPath(), ITEM_EDIT_PRIVATE_PATH).toString();
+  getPrivateRoute(): string {
+    return new URLCombiner(this.getEditRoute(), ITEM_EDIT_PRIVATE_PATH).toString();
   }
 
   /**
    * Returns the path to the page where the user can make this item public
    */
-  getPublicPath(): string {
-    return new URLCombiner(this.getEditPath(), ITEM_EDIT_PUBLIC_PATH).toString();
+  getPublicRoute(): string {
+    return new URLCombiner(this.getEditRoute(), ITEM_EDIT_PUBLIC_PATH).toString();
   }
 }

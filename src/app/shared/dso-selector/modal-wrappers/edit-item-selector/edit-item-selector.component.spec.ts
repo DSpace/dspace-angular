@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EditItemSelectorComponent } from './edit-item-selector.component';
 import { Item } from '../../../../core/shared/item.model';
 import { RouterStub } from '../../../testing/router.stub';
-import * as itemRouter from '../../../../+item-page/item-page-routing.module';
+import * as itemRouterPaths from '../../../../+item-page/item-page-routing-paths';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 
@@ -51,7 +51,7 @@ describe('EditItemSelectorComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOnProperty(itemRouter, 'getItemEditPath').and.callFake(() => {
+    spyOnProperty(itemRouterPaths, 'getItemEditRoute').and.callFake(() => {
         return () => editPath;
     });
 
