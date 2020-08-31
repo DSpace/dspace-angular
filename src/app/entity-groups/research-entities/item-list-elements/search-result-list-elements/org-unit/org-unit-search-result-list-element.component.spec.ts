@@ -23,7 +23,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
             value: 'This is just another title'
           }
         ],
-        'dc.description': [
+        'dc.description.abstract': [
           {
             language: 'en_US',
             value: 'A description about the OrgUnit'

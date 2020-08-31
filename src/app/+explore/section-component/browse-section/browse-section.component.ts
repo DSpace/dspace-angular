@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BrowseSection } from 'src/app/core/layout/models/section.model';
 
 /**

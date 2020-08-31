@@ -1,5 +1,6 @@
-  import { FilterType } from './filter-type.model';
   import { autoserialize, autoserializeAs } from 'cerialize';
+  import { FacetValue } from './facet-value.model';
+  import { FilterType } from './filter-type.model';
 
   /**
    * The configuration for a search filter
@@ -47,6 +48,12 @@
      */
     @autoserialize
     minValue: string;
+
+    /**
+     * The embedded facet values.
+     */
+    @autoserialize
+    _embedded: { values: FacetValue[] };
 
     /**
      * Name of this configuration that can be used in a url

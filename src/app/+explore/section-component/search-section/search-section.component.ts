@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { SearchSection } from 'src/app/core/layout/models/section.model';
-import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SearchService } from 'src/app/core/shared/search/search.service';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SearchSection } from 'src/app/core/layout/models/section.model';
 import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
-import { map, tap } from 'rxjs/operators';
+import { SearchService } from 'src/app/core/shared/search/search.service';
 
 /**
  * Component representing the Search component section.
@@ -54,12 +54,19 @@ export class SearchSectionComponent implements OnInit {
         this.addQueryStatement();
     }
 
+    /**
+     * Navigate to the search page with the composed query.
+     * @param data the query statements
+     */
     onSubmit(data: {queryArray: QueryStatement[]}) {
         const query = this.composeQuery(data.queryArray);
         const configurationName = this.searchSection.discoveryConfigurationName;
         this.router.navigate([this.searchService.getSearchLink()], { queryParams: { page: 1, configuration: configurationName, query: query }});
     }
 
+    /**
+     * Reset the form.
+     */
     onReset() {
         this.queryArray.controls.splice(0,this.queryArray.controls.length);
         this.addQueryStatement();
@@ -67,6 +74,9 @@ export class SearchSectionComponent implements OnInit {
         this.addQueryStatement();
     }
 
+    /**
+     * Initialize the form group.
+     */
     createFormGroup(): FormGroup {
         return this.formBuilder.group({
             filter: this.allFilter,
@@ -100,10 +110,13 @@ export class SearchSectionComponent implements OnInit {
 
         // Remove last operation
         const lastOperationIndex = query.lastIndexOf(' ');
-        return query.substring(0, lastOperationIndex);
+        return query.substring(0, lastOperationIndex).trim();
     }
 }
 
+/**
+ * Interface related to the form model.
+ */
 interface QueryStatement {
     filter: string;
     query: string;
