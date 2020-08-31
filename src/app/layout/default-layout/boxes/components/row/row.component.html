@@ -1,1 +1,6 @@
-<ng-template dsCrisLayoutLoader></ng-template>
+<div [ngClass]="{'col-2': hasThumbnail}">
+  <ng-template #thumbnailContainer dsCrisLayoutLoader></ng-template>
+</div>
+<div [ngClass]="{'col-10': hasThumbnail, 'col': !hasThumbnail, 'p-0': !hasThumbnail}">
+  <ng-template #metadataContainer dsCrisLayoutLoader></ng-template>
+</div>

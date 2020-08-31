@@ -7,7 +7,7 @@ import { RenderingTypeModel } from '../rendering-type.model';
  */
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'span[ds-text].container',
+  selector: 'span[ds-text]',
   templateUrl: './text.component.html',
   styleUrls: ['./text.component.scss']
 })

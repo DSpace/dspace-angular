@@ -7,7 +7,7 @@ import { RenderingTypeModel } from '../rendering-type.model';
  */
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'span[ds-date].container',
+  selector: 'span[ds-date]',
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.scss']
 })

@@ -5,7 +5,9 @@ export enum FieldRendetingType {
   DATE = 'DATE',
   LINK = 'LINK',
   IDENTIFIER = 'IDENTIFIER',
-  CRISREF = 'CRISREF'
+  CRISREF = 'CRISREF',
+  THUMBNAIL = 'THUMBNAIL',
+  ATTACHMENT = 'ATTACHMENT'
 };
 
 const fieldType = new Map();
