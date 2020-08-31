@@ -2,9 +2,9 @@
   <span
     *ngIf="hasLabel"
     class="font-weight-bold {{labelStyle}}">
-    {{label | translate}}
+    {{label}}
   </span>
   <span class="txt-value {{valueStyle}}">
-    {{metadataValue}}
+    {{ metadataValue | dsDate }}
   </span>
 </span>

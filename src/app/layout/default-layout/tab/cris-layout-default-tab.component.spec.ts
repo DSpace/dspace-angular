@@ -15,22 +15,14 @@ import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrisLayoutLoaderDirective } from '../../directives/cris-layout-loader.directive';
 import { CrisLayoutMetadataBoxComponent } from '../boxes/metadata/cris-layout-metadata-box.component';
-import { ComponentFactoryResolver, NO_ERRORS_SCHEMA, ChangeDetectorRef } from '@angular/core';
+import { ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from 'src/app/core/shared/item.model';
 import * as CrisLayoutBoxDecorators from '../../decorators/cris-layout-box.decorator';
 import { spyOnExported } from 'src/app/shared/testing/utils.test';
-import { LayoutTab } from '../../enums/layout-tab.enum';
 import { BoxDataService } from 'src/app/core/layout/box-data.service';
 import { tabPersonTest } from 'src/app/shared/testing/tab.mock';
 import { MetadataComponentsDataService } from 'src/app/core/layout/metadata-components-data.service';
-import { ObjectCacheService } from 'src/app/core/cache/object-cache.service';
-import { UUIDService } from 'src/app/core/shared/uuid.service';
-import { Store, StateObservable, ActionsSubject } from '@ngrx/store';
-import { RemoteDataBuildService } from 'src/app/core/cache/builders/remote-data-build.service';
 import { MetadataComponent } from 'src/app/core/layout/models/metadata-component.model';
-import { StoreMock } from 'src/app/shared/testing/store.mock';
-import { getMockUUIDService } from 'src/app/shared/mocks/uuid.service.mock';
-import { getMockObjectCacheService } from 'src/app/shared/mocks/object-cache.service.mock';
 import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
 
 const testType = LayoutPage.DEFAULT;

@@ -1,0 +1,13 @@
+<span class="{{containerStyle}}">
+  <span class="{{labelStyle}}">{{label}}</span>
+  <span class="{{valueStyle}}">
+    <a
+      *ngFor="let ref of references"
+      class="btn-link"
+      href="{{ref.link}}"
+      rel="noopener noreferrer"
+      [routerLink]="['/items/' + ref.id]">
+      {{ref.value}} <i class="{{ref.icon}}"></i>
+    </a>
+  </span>
+</span>
