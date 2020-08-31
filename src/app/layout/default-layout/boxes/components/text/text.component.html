@@ -1,10 +1,10 @@
-<span>
+<span class="{{containerStyle}}">
   <span
-    *ngIf="field.label"
-    class="font-weight-bold">
-    {{field.label | translate}}
+    *ngIf="hasLabel"
+    class="font-weight-bold {{labelStyle}}">
+    {{label | translate}}
   </span>
-  <span class="txt-value {{field.style}}">
-    {{getMetadatavalue(field.metadata)}}
+  <span class="txt-value {{valueStyle}}">
+    {{metadataValue}}
   </span>
 </span>

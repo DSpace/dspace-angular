@@ -1,12 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { FacetSection } from 'src/app/core/layout/models/section.model';
+import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
 import { SearchService } from 'src/app/core/shared/search/search.service';
-import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
-import { map, tap } from 'rxjs/operators';
 import { SearchFilterConfig } from 'src/app/shared/search/search-filter-config.model';
-import { observable, combineLatest, Observable, BehaviorSubject } from 'rxjs';
-import { SearchOptions } from 'src/app/shared/search/search-options.model';
-import { FacetValue } from 'src/app/shared/search/facet-value.model';
 
 /**
  * Component representing the Facet component section.
@@ -25,7 +22,7 @@ export class FacetSectionComponent implements OnInit {
 
     discoveryConfiguration: string;
 
-    facets: Facet[] = [];
+    facets: SearchFilterConfig[] = [];
     facets$ = new BehaviorSubject(this.facets);
 
     constructor(public searchService: SearchService) {
@@ -33,33 +30,17 @@ export class FacetSectionComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.discoveryConfiguration = this.facetSection.discoveryConfigurationName;
-        this.searchService.searchFacets(null, this.discoveryConfiguration)
-            .pipe( getFirstSucceededRemoteDataPayload() )
-            .subscribe((facetConfigs) => this.setupFacets(facetConfigs));
-    }
-
-    /**
-     * Setup the facets starting from the search filter configurations.
-     *
-     * @param facetConfigs the search filter configurations
-     */
-    setupFacets( facetConfigs: SearchFilterConfig[] ) {
-        const subs = facetConfigs
-            .map((facetConfig) => this.searchService.getFacetValuesFor(facetConfig, 1,new SearchOptions({configuration: this.discoveryConfiguration})))
-            .map ( (obs) => obs.pipe(getFirstSucceededRemoteListPayload()));
-
-        combineLatest(subs)
-            .subscribe( (facetValues) => {
-                for ( const facetValue of facetValues) {
-                    const config = facetConfigs[facetValues.indexOf(facetValue)];
-                    this.facets.push({
-                        config: config,
-                        values: facetValue
-                    })
-                    this.facets$.next(this.facets);
-                }
-            });
+      this.discoveryConfiguration = this.facetSection.discoveryConfigurationName;
+      this.searchService.searchFacets(null, this.discoveryConfiguration)
+        .pipe( getFirstSucceededRemoteDataPayload() )
+        .subscribe((facetConfigs) => {
+          for (const config of facetConfigs) {
+            if (config._embedded.values.length > 0) {
+              this.facets.push(config);
+              this.facets$.next(this.facets);
+            }
+          }
+        });
     }
 
     /**
@@ -68,31 +49,23 @@ export class FacetSectionComponent implements OnInit {
      * @param facet the facet
      * @param value the facet value
      */
-    getSearchQueryParams(facet: Facet, value: string) {
+    getSearchQueryParams(facet: SearchFilterConfig, value: string) {
         const queryParams = {
             configuration: this.facetSection.discoveryConfigurationName,
             page: 1
         };
-        if ( facet.config.type === 'date') {
+        if ( facet.type === 'date') {
             const dates = value.split('-');
             if ( dates.length === 2) {
-                queryParams[facet.config.paramName + '.min'] = dates[0].trim();
-                queryParams[facet.config.paramName + '.max'] = dates[1].trim();
+                queryParams[facet.paramName + '.min'] = dates[0].trim();
+                queryParams[facet.paramName + '.max'] = dates[1].trim();
             } else {
-                queryParams[facet.config.paramName] = dates[0].trim();
+                queryParams[facet.paramName] = dates[0].trim();
             }
         } else {
-            queryParams[facet.config.paramName] = value;
+            queryParams[facet.paramName] = value;
         }
         return queryParams;
     }
 
-}
-
-/**
- * A facet configuration with it's values.
- */
-interface Facet {
-    config: SearchFilterConfig;
-    values: FacetValue[];
 }

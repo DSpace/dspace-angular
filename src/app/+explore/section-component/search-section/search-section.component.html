@@ -10,12 +10,12 @@
                 <select *ngIf="!isLast" name="operation" id="operation" formControlName="operation" class="form-control col-md-2 mb-2">
                     <option *ngFor="let operation of operations" [value]="operation">{{operation}}</option>
                 </select>
-                <button *ngIf="isLast" type="button" class="btn btn-info col-md-2 mb-2" (click)="addQueryStatement()">+</button>
+                <button *ngIf="isLast" id="addButton" type="button" class="btn btn-info col-md-2 mb-2" (click)="addQueryStatement()">+</button>
             </div>
         </div>
         <div>
-            <button type="submit" class="btn btn-primary float-right">{{'explore.search-section.search-button' | translate}}</button>
-            <button type="button" class="btn btn-outline float-right" (click)="onReset()">{{'explore.search-section.reset-button' | translate}}</button>
+            <button type="submit" id="searchButton" class="btn btn-primary float-right">{{'explore.search-section.search-button' | translate}}</button>
+            <button type="button" id="resetButton" class="btn btn-outline float-right" (click)="onReset()">{{'explore.search-section.reset-button' | translate}}</button>
         </div> 
     </form>
 </div>

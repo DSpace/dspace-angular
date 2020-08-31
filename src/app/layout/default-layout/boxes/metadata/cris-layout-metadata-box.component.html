@@ -3,13 +3,18 @@
     <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
       <ng-template ngbPanelContent>
         <div class="{{box.style}}">
-          <div>
-            <div *ngIf="hasBitstream()" class="col-2">
+          <div [ngClass]="{ 'row': hasThumbnail }">
+            <div *ngIf="hasThumbnail" class="col-2">
               <ds-thumbnail [thumbnail]="getThumbnail() | async" [defaultImage]="'assets/images/person-placeholder.svg'"></ds-thumbnail>
             </div>
-            <div [ngClass]="{ 'col-10': hasBitstream() }">
+            <div [ngClass]="{ 'col-10': hasThumbnail }">
               <!-- PRINT ROWS -->
-              <div ds-row *ngFor="let row of metadatacomponents?.rows" [row]="row" [item]="item" class="row">
+              <div ds-row 
+                *ngFor="let row of metadatacomponents?.rows"
+                [row]="row"
+                [item]="item"
+                [box]="box"
+                class="row">
               </div>
             </div>
           </div>

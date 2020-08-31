@@ -3421,5 +3421,7 @@
   "relation.rp.researchoutputs.search.results.head": "Related Publications",
 
   "relation.rp.projects.search.results.head": "Related Projects",
+
+  "layout.i18n.link.default": "link"
 }
 

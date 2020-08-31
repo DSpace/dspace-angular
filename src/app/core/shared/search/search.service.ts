@@ -43,7 +43,7 @@ import { SearchConfig } from 'src/app/shared/search/search-filters/search-config
  */
 @Injectable()
 export class SearchService implements OnDestroy {
-  
+
   /**
    * Endpoint link path for retrieving search configurations
    */
@@ -463,7 +463,7 @@ export class SearchService implements OnDestroy {
    * @param {string} configurationName the name of the configuration
    * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
    */
-  getSearchConfigurationFor( scope?: string, configurationName?: string ) {
+  getSearchConfigurationFor( scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
     const requestObs = this.halService.getEndpoint(this.configurationLinkPath).pipe(
       map((url: string) => {
         const args: string[] = [];

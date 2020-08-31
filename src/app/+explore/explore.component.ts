@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {  map, take } from 'rxjs/operators';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SectionComponent } from '../core/layout/models/section.model';
 import { SectionDataService } from '../core/layout/section-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
-import { Observable } from 'rxjs';
-import { SectionComponent } from '../core/layout/models/section.model';
-import { Title } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component representing the explore section.

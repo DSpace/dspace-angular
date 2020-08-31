@@ -202,4 +202,34 @@ export const environment: Partial<GlobalConfig> = {
   theme: {
     name: 'default',
   },
+  layout: {
+    urn: [
+      {
+        name: 'doi',
+        baseUrl: 'https://doi.org/'
+      },
+      {
+        name: 'hdl',
+        baseUrl: 'https://hdl.handle.net/'
+      },
+      {
+        name: 'mailto',
+        baseUrl: 'mailto:'
+      }
+    ],
+    crisRef: [
+      {
+        entityType: 'DEFAULT',
+        icon: 'fa fa-info'
+      },
+      {
+        entityType: 'PERSON',
+        icon: 'fa fa-user'
+      },
+      {
+        entityType: 'ORGUNIT',
+        icon: 'fa fa-university'
+      }
+    ]
+  }
 };

@@ -1,17 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { TopSection } from 'src/app/core/layout/models/section.model';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { PaginatedSearchOptions } from 'src/app/shared/search/paginated-search-options.model';
-import { SortOptions, SortDirection } from 'src/app/core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
-import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
-import { filter, map, tap } from 'rxjs/operators';
-import { RequestEntry } from 'src/app/core/data/request.reducer';
-import { SearchResult } from 'src/app/shared/search/search-result.model';
-import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
-import { SearchQueryResponse } from 'src/app/shared/search/search-query-response.model';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { getItemPageRoute } from 'src/app/+item-page/item-page-routing.module';
+import { SortDirection, SortOptions } from 'src/app/core/cache/models/sort-options.model';
+import { TopSection } from 'src/app/core/layout/models/section.model';
+import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
+import { SearchService } from 'src/app/core/shared/search/search.service';
+import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from 'src/app/shared/search/paginated-search-options.model';
+import { SearchQueryResponse } from 'src/app/shared/search/search-query-response.model';
 
 /**
  * Component representing the Top component section.

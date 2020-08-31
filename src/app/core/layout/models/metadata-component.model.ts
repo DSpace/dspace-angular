@@ -6,21 +6,23 @@ import { HALLink } from '../../shared/hal-link.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 
-interface Row {
+export interface Row {
   fields: Field[];
 }
-interface Bitstream {
+export interface Bitstream {
   bundle: string;
   metadataField: string;
   metadataValue: string;
 }
-interface Field {
+export interface Field {
   metadata?: string;
   bitstream?: Bitstream;
-  label: string;
+  label?: string;
   rendering: string;
   fieldType: string;
-  style: string;
+  style?: string;
+  styleLabel?: string;
+  styleValue?: string;
 }
 
 /**

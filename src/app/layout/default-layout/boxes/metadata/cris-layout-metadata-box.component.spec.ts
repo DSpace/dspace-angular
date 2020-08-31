@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrisLayoutMetadataBoxComponent } from './cris-layout-metadata-box.component';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { MetadataComponent } from 'src/app/core/layout/models/metadata-component.model';
-import { cold } from 'jasmine-marbles';
 import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
 import { medataComponent } from 'src/app/shared/testing/metadata-components.mock';
 import { Item } from 'src/app/core/shared/item.model';
@@ -21,6 +20,7 @@ import { MetadataComponentsDataService } from 'src/app/core/layout/metadata-comp
 import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
 import { boxMetadata } from 'src/app/shared/testing/box.mock';
 import { TextComponent } from '../components/text/text.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const testType = LayoutPage.DEFAULT;
 
@@ -33,18 +33,18 @@ class TestItem {
 // tslint:disable-next-line: max-classes-per-file
 class MetadataComponentsDataServiceMock {
   findById(boxShortname: string): Observable<RemoteData<MetadataComponent>> {
-    return cold('a|', {
-      a: createSuccessfulRemoteDataObject(medataComponent)
-    });
+    return of(
+      createSuccessfulRemoteDataObject(medataComponent)
+    );
   }
 }
 
 // tslint:disable-next-line: max-classes-per-file
 class BitstreamDataServiceMock {
   getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
-    return cold('a|', {
-      a: createSuccessfulRemoteDataObject({})
-    });
+    return of(
+      createSuccessfulRemoteDataObject(null)
+    );
   }
 }
 
@@ -59,7 +59,9 @@ describe('CrisLayoutMetadataBoxComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock
         }
-      }), BrowserAnimationsModule],
+      }),
+      BrowserAnimationsModule,
+      SharedModule],
       providers: [
         { provide: MetadataComponentsDataService, useClass: MetadataComponentsDataServiceMock },
         { provide: BitstreamDataService, useClass: BitstreamDataServiceMock }
@@ -89,6 +91,7 @@ describe('CrisLayoutMetadataBoxComponent', () => {
 
   it('check rows rendering', () => {
     const rowsFound = fixture.debugElement.queryAll(By.css('div[ds-row]'));
+
     expect(rowsFound.length).toEqual(2);
   });
 });
