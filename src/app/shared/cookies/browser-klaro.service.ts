@@ -176,17 +176,6 @@ export class BrowserKlaroService extends KlaroService {
           //     */
           //     'piwik_ignore',
         ],
-
-        /*
-        You can define an optional callback function that will be called each time the
-        consent state for the given app changes. The consent value will be passed as the
-        first parameter to the function (true=consented). The `app` config will be
-        passed as the second parameter.
-        */
-        callback: (consent, app) => {
-          console.log(consent, app);
-          this.message$.next('User consent for app ' + app.name + ': consent=' + consent);
-        },
         /*
         If 'onlyOnce' is set to 'true', the app will only be executed once regardless
         how often the user toggles it on and off. This is relevant e.g. for tracking
@@ -217,6 +206,7 @@ export class BrowserKlaroService extends KlaroService {
       .pipe(
         take(1),
         switchMap((loggedIn: boolean) => {
+          console.log('loggedIn', loggedIn);
           if (loggedIn) {
             return this.authService.getAuthenticatedUserFromStore();
           }
@@ -232,6 +222,13 @@ export class BrowserKlaroService extends KlaroService {
         if (hasValue(user)) {
           this.klaroConfig.callback = (consent, app) => this.updateSettingsForUsers(user);
           this.klaroConfig.storageName = this.getStorageName(user.uuid);
+
+          const anonCookie = this.cookieService.get(this.getStorageName('anonymous'));
+          if (hasValue(this.getSettingsForUser(user))) {
+            this.restoreSettingsForUsers(user);
+          } else if (hasValue(anonCookie)) {
+            this.cookieService.set(this.getStorageName(user.uuid), anonCookie);
+          }
         }
 
         /**

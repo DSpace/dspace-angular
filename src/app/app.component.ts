@@ -1,4 +1,4 @@
-import { delay, map, distinctUntilChanged } from 'rxjs/operators';
+import { delay, map, distinctUntilChanged, filter, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -84,7 +84,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     // set the current language code
     this.localeService.setCurrentLanguageCode();
 
-    this.initializeKlaro();
 
     angulartics2GoogleAnalytics.startTracking();
     angulartics2DSpace.startTracking();
@@ -103,6 +102,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       map((isBlocking: boolean) => isBlocking === false),
       distinctUntilChanged()
     );
+    this.isNotAuthBlocking$
+      .pipe(
+        filter((notBlocking: boolean) => notBlocking),
+        take(1)
+      ).subscribe(() => this.initializeKlaro());
+
     const env: string = environment.production ? 'Production' : 'Development';
     const color: string = environment.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
@@ -150,7 +155,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.isLoading$.next(false);
       }
     });
-    this.translate.get('loading.default').subscribe(t => console.log(t));
   }
 
   @HostListener('window:resize', ['$event'])
