@@ -28,7 +28,7 @@ export class FacetSectionComponent implements OnInit {
     facets: Facet[] = [];
     facets$ = new BehaviorSubject(this.facets);
 
-    constructor(private searchService: SearchService) {
+    constructor(public searchService: SearchService) {
 
     }
 
