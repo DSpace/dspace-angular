@@ -8,7 +8,7 @@ import { Field } from 'src/app/core/layout/models/metadata-component.model';
 import { By } from '@angular/platform-browser';
 import { ResolverStrategyService } from 'src/app/layout/services/resolver-strategy.service';
 
-fdescribe('IdentifierComponent', () => {
+describe('IdentifierComponent', () => {
   let component: IdentifierComponent;
   let fixture: ComponentFixture<IdentifierComponent>;
   let service: ResolverStrategyService;
