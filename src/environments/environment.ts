@@ -1,27 +1,26 @@
-import { GlobalConfig } from '../config/global-config.interface';
-import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
+// This configuration is only used for unit tests, end-to-end tests use environment.prod.ts
 import { BrowseByType } from '../app/+browse-by/+browse-by-switcher/browse-by-decorator';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
+import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
+import { GlobalConfig } from '../config/global-config.interface';
 
-export const environment: GlobalConfig = {
-  production: true,
-  // Angular Universal server settings.
-  ui: {
-    ssl: false,
-    host: 'localhost',
-    port: 4000,
-    // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    nameSpace: '/',
-  },
-  // The REST API server settings.
+export const environment: Partial<GlobalConfig> = {
   rest: {
     ssl: true,
-    host: 'dspacecris7.4science.cloud',
+    host: 'rest.com',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    nameSpace: '/server/api',
+    nameSpace: '/api',
+    baseUrl: 'https://rest.api/'
   },
-  // Caching settings
+  ui: {
+    ssl: false,
+    host: 'dspace.com',
+    port: 80,
+    // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
+    nameSpace: '/angular-dspace',
+  },
+    // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default
     msToLive: {
@@ -64,28 +63,18 @@ export const environment: GlobalConfig = {
     },
     icons: {
       metadata: [
-        /**
-         * NOTE: example of configuration
-         * {
-         *    // NOTE: metadata name
-         *    name: 'dc.author',
-         *    // NOTE: fontawesome (v5.x) icon classes and bootstrap utility classes can be used
-         *    style: 'fa-user'
-         * }
-         */
         {
-          name: 'dc.author',
+          name: 'mainField',
           style: 'fas fa-user'
         },
         {
-          name: 'dc.contributor.author',
-          style: 'fas fa-user'
-        },
-        {
-          name: 'local.contributor.affiliation',
+          name: 'relatedField',
           style: 'fas fa-university'
         },
-        // default configuration
+        {
+          name: 'otherRelatedField',
+          style: 'fas fa-circle'
+        },
         {
           name: 'default',
           style: ''
@@ -93,15 +82,6 @@ export const environment: GlobalConfig = {
       ],
       authority: {
         confidence: [
-          /**
-           * NOTE: example of configuration
-           * {
-           *    // NOTE: confidence value
-           *    value: 'dc.author',
-           *    // NOTE: fontawesome (v4.x) icon classes and bootstrap utility classes can be used
-           *    style: 'fa-user'
-           * }
-           */
           {
             value: 600,
             style: 'text-success'
@@ -114,7 +94,6 @@ export const environment: GlobalConfig = {
             value: 400,
             style: 'text-warning'
           },
-          // default configuration
           {
             value: 'default',
             style: 'text-muted'
@@ -173,10 +152,6 @@ export const environment: GlobalConfig = {
   }, {
     code: 'lv',
     label: 'Latviešu',
-    active: true,
-  },{
-    code: 'fi',
-    label: 'Suomi',
     active: true,
   }],
   // Browse-By Pages
