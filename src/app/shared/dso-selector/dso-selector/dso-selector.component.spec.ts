@@ -49,7 +49,7 @@ describe('DSOSelectorComponent', () => {
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
     component.currentDSOId = currentDSOId;
-    component.type = type;
+    component.types = [type];
 
     fixture.detectChanges();
   });
@@ -61,7 +61,7 @@ describe('DSOSelectorComponent', () => {
   it('should initially call the search method on the SearchService with the given DSO uuid', () => {
     const searchOptions = new PaginatedSearchOptions({
       query: currentDSOId,
-      dsoType: type,
+      dsoTypes: [type],
       pagination: (component as any).defaultPagination
     });
 

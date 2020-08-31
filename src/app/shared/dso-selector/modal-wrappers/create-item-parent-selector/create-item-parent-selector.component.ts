@@ -18,7 +18,7 @@ import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-sel
 })
 export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;
-  selectorType = DSpaceObjectType.COLLECTION;
+  selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.CREATE;
 
   @Input() metadata: string;

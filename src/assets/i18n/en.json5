@@ -1026,8 +1026,6 @@
 
   "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
 
-  "dso-selector.export-metadata.notValidDSO": "You can only export metadata for collections and communities",
-
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
