@@ -44,9 +44,10 @@ describe(`XsrfInterceptor`, () => {
     httpMock = TestBed.get(HttpTestingController);
   });
 
-  it('should add an X-XSRF-TOKEN header when we’re sending an HTTP POST request', () => {
+  it('should add an X-XSRF-TOKEN header when we are sending an HTTP POST request', (done) => {
     service.request(RestRequestMethod.POST, 'server/api/core/items', 'test').subscribe((response) => {
       expect(response).toBeTruthy();
+      done();
     });
 
     const httpRequest = httpMock.expectOne(`server/api/core/items`);
@@ -57,9 +58,10 @@ describe(`XsrfInterceptor`, () => {
     expect(token).toBe(testToken.toString());
   });
 
-  it('should NOT add an X-XSRF-TOKEN header when we’re sending an HTTP GET request', () => {
+  it('should NOT add an X-XSRF-TOKEN header when we are sending an HTTP GET request', (done) => {
     service.request(RestRequestMethod.GET, 'server/api/core/items').subscribe((response) => {
       expect(response).toBeTruthy();
+      done();
     });
 
     const httpRequest = httpMock.expectOne(`server/api/core/items`);
@@ -67,10 +69,11 @@ describe(`XsrfInterceptor`, () => {
     expect(!httpRequest.request.headers.has('X-XSRF-TOKEN'));
   });
 
-  it('should NOT add an X-XSRF-TOKEN header when we’re sending an HTTP POST to an untrusted URL', () => {
+  it('should NOT add an X-XSRF-TOKEN header when we are sending an HTTP POST to an untrusted URL', (done) => {
     // POST to a URL which is NOT our REST API
     service.request(RestRequestMethod.POST, 'https://untrusted.com', 'test').subscribe((response) => {
       expect(response).toBeTruthy();
+      done();
     });
 
     const httpRequest = httpMock.expectOne(`https://untrusted.com`);
