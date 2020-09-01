@@ -1,7 +1,7 @@
 <ul class="navbar-nav" [ngClass]="{'mr-auto': (isXsOrSm$ | async)}">
   <li *ngIf="!(isAuthenticated | async) && !(isXsOrSm$ | async) && (showAuth | async)" class="nav-item"
       (click)="$event.stopPropagation();">
-    <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
+    <div ngbDropdown #loginDrop display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
       <a href="#" id="dropdownLogin" (click)="$event.preventDefault()" ngbDropdownToggle
          class="px-1">{{ 'nav.login' | translate }}</a>
       <div id="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu

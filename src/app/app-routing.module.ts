@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
@@ -88,45 +89,48 @@ export function getUnauthorizedPath() {
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'reload/:rnd', component: PageNotFoundComponent, pathMatch: 'full', canActivate: [ReloadGuard] },
-      { path: 'home', loadChildren: './+home-page/home-page.module#HomePageModule', data: { showBreadcrumbs: false } },
-      { path: 'community-list', loadChildren: './community-list-page/community-list-page.module#CommunityListPageModule' },
-      { path: 'id', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
-      { path: 'handle', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
-      { path: REGISTER_PATH, loadChildren: './register-page/register-page.module#RegisterPageModule' },
-      { path: FORGOT_PASSWORD_PATH, loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule' },
-      { path: COMMUNITY_MODULE_PATH, loadChildren: './+community-page/community-page.module#CommunityPageModule' },
-      { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
-      { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
-      { path: BITSTREAM_MODULE_PATH, loadChildren: './+bitstream-page/bitstream-page.module#BitstreamPageModule' },
-      {
-        path: 'mydspace',
-        loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule',
-        canActivate: [AuthenticatedGuard]
-      },
-      { path: 'search', loadChildren: './+search-page/search-page-routing.module#SearchPageRoutingModule' },
-      { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule'},
-      { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [SiteAdministratorGuard] },
-      { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
-      { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
-      { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },
-      {
-        path: 'workspaceitems',
-        loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule'
-      },
-      {
-        path: WORKFLOW_ITEM_MODULE_PATH,
-        loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule'
-      },
-      {
-        path: PROFILE_MODULE_PATH,
-        loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard]
-      },
-      { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard] },
-      { path: UNAUTHORIZED_PATH, component: UnauthorizedComponent },
-      { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
-    ],
+        { path: '', canActivate: [AuthBlockingGuard],
+          children: [
+            { path: '', redirectTo: '/home', pathMatch: 'full' },
+            { path: 'reload/:rnd', component: PageNotFoundComponent, pathMatch: 'full', canActivate: [ReloadGuard] },
+            { path: 'home', loadChildren: './+home-page/home-page.module#HomePageModule', data: { showBreadcrumbs: false } },
+            { path: 'community-list', loadChildren: './community-list-page/community-list-page.module#CommunityListPageModule' },
+            { path: 'id', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
+            { path: 'handle', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
+            { path: REGISTER_PATH, loadChildren: './register-page/register-page.module#RegisterPageModule' },
+            { path: FORGOT_PASSWORD_PATH, loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule' },
+            { path: COMMUNITY_MODULE_PATH, loadChildren: './+community-page/community-page.module#CommunityPageModule' },
+            { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
+            { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
+            { path: BITSTREAM_MODULE_PATH, loadChildren: './+bitstream-page/bitstream-page.module#BitstreamPageModule' },
+            {
+              path: 'mydspace',
+              loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule',
+              canActivate: [AuthenticatedGuard]
+            },
+            { path: 'search', loadChildren: './+search-page/search-page-routing.module#SearchPageRoutingModule' },
+            { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule'},
+            { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [SiteAdministratorGuard] },
+            { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
+            { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
+            { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },
+            {
+              path: 'workspaceitems',
+              loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule'
+            },
+            {
+              path: WORKFLOW_ITEM_MODULE_PATH,
+              loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule'
+            },
+            {
+              path: PROFILE_MODULE_PATH,
+              loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard]
+            },
+            { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard] },
+            { path: UNAUTHORIZED_PATH, component: UnauthorizedComponent },
+            { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
+          ]}
+      ],
     {
       onSameUrlNavigation: 'reload',
     })
