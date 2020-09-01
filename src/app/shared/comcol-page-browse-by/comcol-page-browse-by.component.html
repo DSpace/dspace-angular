@@ -3,7 +3,7 @@
   <div class="d-none d-sm-block">
 
     <div class="list-group list-group-horizontal">
-      <a *ngFor="let option of allOptions"
+      <a *ngFor="let option of (allOptions$ | async)"
          class="list-group-item"
          [routerLink]="option.routerLink"
          [queryParams]="option.params"
@@ -16,7 +16,7 @@
             class="form-control"
             aria-label="Browse Community or Collection"
             (ngModelChange)="onSelectChange($event)" [ngModel]="currentOptionId$ | async">
-      <option *ngFor="let option of allOptions"
+      <option *ngFor="let option of (allOptions$ | async)"
               [ngValue]="option.id"
               [attr.selected]="(currentOptionId$ | async) === option.id ? 'selected' : null">{{ option.label | translate }}</option>
     </select>

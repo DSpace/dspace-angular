@@ -508,14 +508,26 @@
   "bitstream.edit.title": "Edit bitstream",
 
 
-
   "browse.comcol.by.author": "By Author",
 
   "browse.comcol.by.dateissued": "By Issue Date",
 
+  "browse.comcol.by.ouname": "By Name",
+
+  "browse.comcol.by.pjtitle": "By Title",
+
+  "browse.comcol.by.rodept": "By Department",
+
+  "browse.comcol.by.rpdept": "By Department",
+
+  "browse.comcol.by.rpname": "By Name",
+
   "browse.comcol.by.subject": "By Subject",
 
   "browse.comcol.by.title": "By Title",
+
+  "browse.comcol.by.type": "By Type",
+
 
   "browse.comcol.head": "Browse",
 
