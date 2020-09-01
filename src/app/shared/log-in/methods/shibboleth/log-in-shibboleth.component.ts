@@ -51,6 +51,7 @@ export class LogInShibbolethComponent implements OnInit {
   /**
    * @constructor
    * @param {AuthMethod} injectedAuthMethodModel
+   * @param {boolean} isStandalonePage
    * @param {NativeWindowRef} _window
    * @param {RouteService} route
    * @param {AuthService} authService
@@ -59,6 +60,7 @@ export class LogInShibbolethComponent implements OnInit {
    */
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
+    @Inject('isStandalonePage') public isStandalonePage: boolean,
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private route: RouteService,
     private authService: AuthService,
@@ -81,7 +83,11 @@ export class LogInShibbolethComponent implements OnInit {
   }
 
   redirectToShibboleth() {
-    this.authService.setRedirectUrlIfNotSet(this.hardRedirectService.getCurrentRoute())
+    if (!this.isStandalonePage) {
+      this.authService.setRedirectUrl(this.hardRedirectService.getCurrentRoute());
+    } else {
+      this.authService.setRedirectUrlIfNotSet('/');
+    }
     let newLocationUrl = this.location;
     const currentUrl = this._window.nativeWindow.location.href;
     const myRegexp = /\?redirectUrl=(.*)/g;

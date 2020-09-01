@@ -68,6 +68,7 @@ export class LogInPasswordComponent implements OnInit {
   /**
    * @constructor
    * @param {AuthMethod} injectedAuthMethodModel
+   * @param {boolean} isStandalonePage
    * @param {AuthService} authService
    * @param {HardRedirectService} hardRedirectService
    * @param {FormBuilder} formBuilder
@@ -75,6 +76,7 @@ export class LogInPasswordComponent implements OnInit {
    */
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
+    @Inject('isStandalonePage') public isStandalonePage: boolean,
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
     private formBuilder: FormBuilder,
@@ -140,7 +142,11 @@ export class LogInPasswordComponent implements OnInit {
     email.trim();
     password.trim();
 
-    this.authService.setRedirectUrlIfNotSet(this.hardRedirectService.getCurrentRoute());
+    if (!this.isStandalonePage) {
+      this.authService.setRedirectUrl(this.hardRedirectService.getCurrentRoute());
+    } else {
+      this.authService.setRedirectUrlIfNotSet('/');
+    }
 
     // dispatch AuthenticationAction
     this.store.dispatch(new AuthenticateAction(email, password));

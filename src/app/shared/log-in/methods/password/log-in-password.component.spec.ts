@@ -55,6 +55,7 @@ describe('LogInPasswordComponent', () => {
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Password) },
+        { provide: 'isStandalonePage', useValue: true },
         { provide: HardRedirectService, useValue: hardRedirectService },
       ],
       schemas: [

@@ -162,4 +162,8 @@ export class AuthServiceStub {
   redirectAfterLoginSuccess() {
     return;
   }
+
+  clearRedirectUrl() {
+    return;
+  }
 }
