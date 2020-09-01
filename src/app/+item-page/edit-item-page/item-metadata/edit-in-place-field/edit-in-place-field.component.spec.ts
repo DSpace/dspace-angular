@@ -63,7 +63,7 @@ const fieldUpdate = {
 };
 let scheduler: TestScheduler;
 
-fdescribe('EditInPlaceFieldComponent', () => {
+describe('EditInPlaceFieldComponent', () => {
 
   beforeEach(async(() => {
     scheduler = getTestScheduler();

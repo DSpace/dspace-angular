@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import { dataService } from '../cache/builders/build-decorators';
-import { RestResponse } from '../cache/response.models';
-import { configureRequest } from '../shared/operators';
 import { DataService } from './data.service';
-import { RequestEntry } from './request.reducer';
+import { PaginatedList } from './paginated-list';
+import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
@@ -17,14 +16,10 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import {
-  FindListOptions,
-  GetMetadataFieldRequest,
-  RestRequest
-} from './request.models';
+import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs/internal/Observable';
-import { distinctUntilChanged, find, map, switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { RequestParam } from '../cache/models/request-param.model';
 
 /**
@@ -70,43 +65,33 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    * @param qualifier optional; an exact match of the field's qualifier (e.g. "author", "alternative")
    * @param query     optional (if any of schema, element or qualifier used) - part of the fully qualified field,
    * should start with the start of the schema, element or qualifier (e.g. “dc.ti”, “contributor”, “auth”, “contributor.ot”)
+   * @param exactName optional; the exact fully qualified field, should use the syntax schema.element.qualifier or
+   * schema.element if no qualifier exists (e.g. "dc.title", "dc.contributor.author"). It will only return one value
+   * if there's an exact match
    * @param options   The options info used to retrieve the fields
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>) {
+  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, exactName: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
     const optionParams = Object.assign(new FindListOptions(), options, {
       searchParams: [
         new RequestParam('schema', hasValue(schema) ? schema : ''),
         new RequestParam('element', hasValue(element) ? element : ''),
         new RequestParam('qualifier', hasValue(qualifier) ? qualifier : ''),
-        new RequestParam('query', hasValue(query) ? query : '')
+        new RequestParam('query', hasValue(query) ? query : ''),
+        new RequestParam('exactName', hasValue(exactName) ? exactName : '')
       ]
     });
     return this.searchBy(this.searchByFieldNameLinkPath, optionParams, ...linksToFollow);
   }
 
   /**
-   * Finds a specific metadata field by name. There's always at most one metadata field per name.
-   * If the metadata field can be found it is in the response, otherwise the response will have code 404
-   * @param exactFieldName  Exact metadata field name (ex. dc.title, dc.contributor.other)
+   * Finds a specific metadata field by name.
+   * @param exactFieldName  The exact fully qualified field, should use the syntax schema.element.qualifier or
+   * schema.element if no qualifier exists (e.g. "dc.title", "dc.contributor.author"). It will only return one value
+   * if there's an exact match, empty list if there is no exact match.
    */
-  findByExactFieldName(exactFieldName: string): Observable<RestResponse> {
-    const request$ = this.halService.getEndpoint(this.linkPath).pipe(
-      isNotEmptyOperator(),
-      distinctUntilChanged(),
-      map((endpoint: string) => `${endpoint}/name/${exactFieldName}`),
-      map((endpointURL: string) => new GetMetadataFieldRequest(this.requestService.generateRequestId(), endpointURL)),
-      configureRequest(this.requestService)
-    );
-
-    const requestEntry$ = request$.pipe(
-      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
-    );
-
-    return requestEntry$.pipe(
-      find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response)
-    );
+  findByExactFieldName(exactFieldName: string): Observable<RemoteData<PaginatedList<MetadataField>>> {
+    return this.searchByFieldNameParams(null, null, null, null, exactFieldName, null);
   }
 
   /**

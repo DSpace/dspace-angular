@@ -1,6 +1,6 @@
 import { Router, UrlTree } from '@angular/router';
 import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
-import { filter, find, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import { filter, find, flatMap, map, switchMap, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
@@ -263,7 +263,7 @@ export const metadataFieldsToString = () =>
       map((fieldRD: RemoteData<PaginatedList<MetadataField>>) => {
         return fieldRD.payload.page.filter((object: MetadataField) => hasValue(object))
       }),
-      switchMap((fields: MetadataField[])=> {
+      switchMap((fields: MetadataField[]) => {
         const fieldSchemaArray = fields.map((field: MetadataField) => {
           return field.schema.pipe(
             getFirstSucceededRemoteDataPayload(),
@@ -272,7 +272,7 @@ export const metadataFieldsToString = () =>
         });
         return observableCombineLatest(fieldSchemaArray);
       }),
-      map((fieldSchemaArray: {field: MetadataField, schema: MetadataSchema}[]): string[] => {
-        return fieldSchemaArray.map((fieldSchema: {field: MetadataField, schema: MetadataSchema}) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString())
+      map((fieldSchemaArray: Array<{ field: MetadataField, schema: MetadataSchema }>): string[] => {
+        return fieldSchemaArray.map((fieldSchema: { field: MetadataField, schema: MetadataSchema }) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString())
       })
     );

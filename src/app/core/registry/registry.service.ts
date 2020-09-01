@@ -293,6 +293,6 @@ export class RegistryService {
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
   queryMetadataFields(query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return this.metadataFieldService.searchByFieldNameParams(null, null, null, query, options, ...linksToFollow);
+    return this.metadataFieldService.searchByFieldNameParams(null, null, null, query, null, options, ...linksToFollow);
   }
 }

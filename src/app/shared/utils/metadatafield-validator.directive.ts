@@ -2,8 +2,11 @@ import { Directive, Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidator, NG_VALIDATORS, ValidationErrors } from '@angular/forms';
 import { map, switchMap, take } from 'rxjs/operators';
 import { of as observableOf, timer as observableTimer, Observable } from 'rxjs';
-import { RestResponse } from '../../core/cache/response.models';
 import { MetadataFieldDataService } from '../../core/data/metadata-field-data.service';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { RemoteData } from '../../core/data/remote-data';
+import { MetadataField } from '../../core/metadata/metadata-field.model';
+import { getSucceededRemoteData } from '../../core/shared/operators';
 
 /**
  * Directive for validating if a ngModel value is a valid metadata field
@@ -38,11 +41,12 @@ export class MetadataFieldValidator implements AsyncValidator {
 
         const res = this.metadataFieldService.findByExactFieldName(control.value)
           .pipe(
-            map((response: RestResponse) => {
-              if (response.isSuccessful) {
-                return null;
-              } else {
+            getSucceededRemoteData(),
+            map((matchingFieldRD: RemoteData<PaginatedList<MetadataField>>) => {
+              if (matchingFieldRD.payload.pageInfo.totalElements === 0) {
                 return { invalidMetadataField: { value: control.value } };
+              } else if (matchingFieldRD.payload.pageInfo.totalElements === 1) {
+                return null;
               }
             })
           );

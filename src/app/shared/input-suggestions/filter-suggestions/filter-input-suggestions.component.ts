@@ -22,7 +22,7 @@ import { InputSuggestion } from '../input-suggestions.model';
 /**
  * Component representing a form with a autocomplete functionality
  */
-export class FilterInputSuggestionsComponent extends InputSuggestionsComponent implements OnInit{
+export class FilterInputSuggestionsComponent extends InputSuggestionsComponent implements OnInit {
 
   form: FormGroup;
 
