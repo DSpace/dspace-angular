@@ -84,7 +84,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     // set the current language code
     this.localeService.setCurrentLanguageCode();
 
-
     angulartics2GoogleAnalytics.startTracking();
     angulartics2DSpace.startTracking();
 
