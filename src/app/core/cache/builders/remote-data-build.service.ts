@@ -88,7 +88,7 @@ export class RemoteDataBuildService {
         const response = reqEntry ? reqEntry.response : undefined;
         if (hasValue(response)) {
           isSuccessful = response.statusCode === 204 ||
-            response.statusCode >= 200 && response.statusCode < 300 && hasValue(payload);
+            response.statusCode >= 200 && response.statusCode < 300;
           const errorMessage = isSuccessful === false ? (response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
             error = new RemoteDataError(
