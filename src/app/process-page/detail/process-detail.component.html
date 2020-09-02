@@ -34,13 +34,19 @@
         <div>{{ process.processStatus }}</div>
     </ds-process-detail-field>
 
-  <ds-process-detail-field id="process-output" [title]="'process.detail.output'">
-    <pre class="font-weight-bold text-secondary bg-light p-3"
-         *ngIf="(outputLogs$ | async)?.length > 0">{{ (outputLogs$ | async)?.join('\n') }}</pre>
-    <p id="no-output-logs-message" *ngIf="!(outputLogs$ | async) || (outputLogs$ | async).length == 0">
-      {{ 'process.detail.logs.none' | translate }}
-    </p>
-  </ds-process-detail-field>
+    <ds-process-detail-field id="process-output" [title]="'process.detail.output'">
+      <button *ngIf="!showOutputLogs" id="showOutputButton" class="btn btn-light" (click)="showProcessOutputLogs()">
+        {{ 'process.detail.logs.button' | translate }}
+      </button>
+      <ds-loading *ngIf="retrievingOutputLogs$ | async" class="ds-loading" message="{{ 'process.detail.logs.loading' | translate }}"></ds-loading>
+      <pre class="font-weight-bold text-secondary bg-light p-3"
+           *ngIf="showOutputLogs && (outputLogs$ | async)?.length > 0">{{ (outputLogs$ | async)?.join('\n') }}</pre>
+      <p id="no-output-logs-message" *ngIf="showOutputLogs && !(outputLogs$ | async) || (outputLogs$ | async)?.length == 0">
+        {{ 'process.detail.logs.none' | translate }}
+      </p>
+    </ds-process-detail-field>
 
-    <a class="btn btn-light mt-3" [routerLink]="'/processes'">{{'process.detail.back' | translate}}</a>
+    <div>
+      <a class="btn btn-light mt-3" [routerLink]="'/processes'">{{'process.detail.back' | translate}}</a>
+    </div>
 </div>

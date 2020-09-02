@@ -2085,6 +2085,10 @@
 
   "process.detail.output" : "Process Output",
 
+  "process.detail.logs.button": "Retrieve process output",
+
+  "process.detail.logs.loading": "Retrieving",
+
   "process.detail.logs.none": "This process has no output yet",
 
   "process.detail.output-files" : "Output Files",

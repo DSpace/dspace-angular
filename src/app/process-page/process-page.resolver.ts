@@ -24,7 +24,7 @@ export class ProcessPageResolver implements Resolve<RemoteData<Process>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Process>> {
-    return this.processService.findById(route.params.id, followLink('script'), followLink('output') ).pipe(
+    return this.processService.findById(route.params.id, followLink('script')).pipe(
       find((RD) => hasValue(RD.error) || RD.hasSucceeded),
     );
   }

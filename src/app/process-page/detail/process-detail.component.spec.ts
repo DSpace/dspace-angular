@@ -1,7 +1,7 @@
 import { ProcessOutputDataService } from '../../core/data/process-output-data.service';
 import { ProcessOutput } from '../processes/process-output.model';
 import { ProcessDetailComponent } from './process-detail.component';
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -93,7 +93,10 @@ describe('ProcessDetailComponent', () => {
       declarations: [ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: ActivatedRoute, useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) } },
+        {
+          provide: ActivatedRoute,
+          useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) }
+        },
         { provide: ProcessDataService, useValue: processService },
         { provide: ProcessOutputDataService, useValue: processOutputService },
         { provide: DSONameService, useValue: nameService }
@@ -105,15 +108,16 @@ describe('ProcessDetailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProcessDetailComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should display the script\'s name', () => {
+    fixture.detectChanges();
     const name = fixture.debugElement.query(By.css('#process-name')).nativeElement;
     expect(name.textContent).toContain(process.scriptName);
   });
 
   it('should display the process\'s parameters', () => {
+    fixture.detectChanges();
     const args = fixture.debugElement.query(By.css('#process-arguments')).nativeElement;
     process.parameters.forEach((param) => {
       expect(args.textContent).toContain(`${param.name} ${param.value}`)
@@ -121,27 +125,52 @@ describe('ProcessDetailComponent', () => {
   });
 
   it('should display the process\'s output files', () => {
+    fixture.detectChanges();
     const processFiles = fixture.debugElement.query(By.css('#process-files')).nativeElement;
     expect(processFiles.textContent).toContain(fileName);
   });
 
-  it('should display the process\'s output logs', () => {
-    const outputProcess = fixture.debugElement.query(By.css('#process-output pre')).nativeElement;
-    expect(outputProcess.textContent).toContain('Process started');
+  describe('if press show output logs', () => {
+    beforeEach(fakeAsync(() => {
+      spyOn(component, 'showProcessOutputLogs').and.callThrough();
+      fixture.detectChanges();
+      const showOutputButton = fixture.debugElement.query(By.css('#showOutputButton'));
+      showOutputButton.triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
+      tick();
+    }));
+    it('should trigger showProcessOutputLogs', () => {
+      expect(component.showProcessOutputLogs).toHaveBeenCalled();
+    });
+    it('should display the process\'s output logs', () => {
+      fixture.detectChanges();
+      const outputProcess = fixture.debugElement.query(By.css('#process-output pre'));
+      expect(outputProcess.nativeElement.textContent).toContain('Process started');
+    });
   });
 
-  describe('if process has no output logs (yet)', () => {
+  describe('if press show output logs and process has no output logs (yet)', () => {
     beforeEach(fakeAsync(() => {
-        jasmine.getEnv().allowRespy(true);
-        const emptyProcessOutput = Object.assign(new ProcessOutput(), {
-          logs: []
-        });
-        spyOn(processOutputService, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(emptyProcessOutput));
-        fixture = TestBed.createComponent(ProcessDetailComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-      })
-    );
+      jasmine.getEnv().allowRespy(true);
+      const emptyProcessOutput = Object.assign(new ProcessOutput(), {
+        logs: []
+      });
+      spyOn(processOutputService, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(emptyProcessOutput));
+      fixture = TestBed.createComponent(ProcessDetailComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+      spyOn(component, 'showProcessOutputLogs').and.callThrough();
+      fixture.detectChanges();
+      const showOutputButton = fixture.debugElement.query(By.css('#showOutputButton'));
+      showOutputButton.triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
+      tick();
+      fixture.detectChanges();
+    }));
     it('should not display the process\'s output logs', () => {
       const outputProcess = fixture.debugElement.query(By.css('#process-output pre'));
       expect(outputProcess).toBeNull();
@@ -150,7 +179,6 @@ describe('ProcessDetailComponent', () => {
       const noOutputProcess = fixture.debugElement.query(By.css('#no-output-logs-message')).nativeElement;
       expect(noOutputProcess).toBeDefined();
     });
-    }
-  )
+  });
 
 });
