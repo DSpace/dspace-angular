@@ -3,9 +3,7 @@ import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getResponseFromEntry } from '../core/shared/operators';
 import { DSOSuccessResponse } from '../core/cache/response.models';
-import { AuthService } from '../core/auth/auth.service';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { EPerson } from '../core/eperson/models/eperson.model';
+import { filter, map, take } from 'rxjs/operators';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
@@ -40,7 +38,6 @@ export class CurationFormComponent implements OnInit {
     private scriptDataService: ScriptDataService,
     private configurationDataService: ConfigurationDataService,
     private processDataService: ProcessDataService,
-    private authService: AuthService,
     private notificationsService: NotificationsService,
     private translateService: TranslateService,
     private router: Router
@@ -90,16 +87,10 @@ export class CurationFormComponent implements OnInit {
         handle = 'all';
       }
     }
-    this.authService.getAuthenticatedUserFromStore().pipe(
-      take(1),
-      switchMap((eperson: EPerson) => {
-        return this.scriptDataService.invoke('curate', [
+    this.scriptDataService.invoke('curate', [
           {name: '-t', value: taskName},
           {name: '-i', value: handle},
-          {name: '-e', value: eperson.email},
-        ], []).pipe(getResponseFromEntry());
-      })
-    ).subscribe((response: DSOSuccessResponse) => {
+        ], []).pipe(getResponseFromEntry()).subscribe((response: DSOSuccessResponse) => {
       if (response.isSuccessful) {
         this.notificationsService.success(this.translateService.get('curation.form.submit.success.head'),
           this.translateService.get('curation.form.submit.success.content'));
