@@ -26,6 +26,14 @@ describe(`XsrfInterceptor`, () => {
   const testToken = 'test-token';
   const mockTokenExtractor = new MockTokenExtractor(testToken);
 
+  // Mock payload/statuses are dummy content as we are not testing the results
+  // of any below requests. We are only testing for X-XSRF-TOKEN header.
+  const mockPayload = {
+    id: 1
+  };
+  const mockStatusCode = 200;
+  const mockStatusText = 'SUCCESS';
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -52,10 +60,12 @@ describe(`XsrfInterceptor`, () => {
 
     const httpRequest = httpMock.expectOne(`server/api/core/items`);
 
-    expect(httpRequest.request.headers.has('X-XSRF-TOKEN'));
+    expect(httpRequest.request.headers.has('X-XSRF-TOKEN')).toBeTrue();
     const token = httpRequest.request.headers.get('X-XSRF-TOKEN');
     expect(token).toBeDefined();
     expect(token).toBe(testToken.toString());
+
+    httpRequest.flush(mockPayload, { status: mockStatusCode, statusText: mockStatusText });
   });
 
   it('should NOT add an X-XSRF-TOKEN header when we are sending an HTTP GET request', (done) => {
@@ -66,7 +76,9 @@ describe(`XsrfInterceptor`, () => {
 
     const httpRequest = httpMock.expectOne(`server/api/core/items`);
 
-    expect(!httpRequest.request.headers.has('X-XSRF-TOKEN'));
+    expect(httpRequest.request.headers.has('X-XSRF-TOKEN')).toBeFalse();
+
+    httpRequest.flush(mockPayload, { status: mockStatusCode, statusText: mockStatusText });
   });
 
   it('should NOT add an X-XSRF-TOKEN header when we are sending an HTTP POST to an untrusted URL', (done) => {
@@ -78,7 +90,9 @@ describe(`XsrfInterceptor`, () => {
 
     const httpRequest = httpMock.expectOne(`https://untrusted.com`);
 
-    expect(!httpRequest.request.headers.has('X-XSRF-TOKEN'));
+    expect(httpRequest.request.headers.has('X-XSRF-TOKEN')).toBeFalse();
+
+    httpRequest.flush(mockPayload, { status: mockStatusCode, statusText: mockStatusText });
   });
 
 });
