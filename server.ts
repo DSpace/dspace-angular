@@ -26,10 +26,9 @@ import * as morgan from 'morgan';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
-import * as cookieParser from 'cookie-parser';
 import { join } from 'path';
 
-import { enableProdMode, NgModuleFactory, Type } from '@angular/core';
+import { enableProdMode } from '@angular/core';
 
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
@@ -47,6 +46,7 @@ const { ServerAppModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModul
  * Create a new express application
  */
 const app = express();
+const cookieParser = require('cookie-parser')
 
 /*
  * If production mode is enabled in the environment file:
