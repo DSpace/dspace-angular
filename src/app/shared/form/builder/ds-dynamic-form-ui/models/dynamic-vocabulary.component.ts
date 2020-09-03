@@ -60,23 +60,31 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       initValue$ = initEntry$.pipe(map((initEntry: VocabularyEntry) => {
         if (isNotEmpty(initEntry)) {
           // Integrate FormFieldMetadataValueObject with retrieved information
-          return Object.assign(new FormFieldMetadataValueObject(), this.model.value, {
-              value: initEntry.value,
-              authority: initEntry.authority,
-              display: initEntry.display,
-              otherInformation: initEntry.otherInformation || null
-          });
+          return new FormFieldMetadataValueObject(
+            initEntry.value,
+            null,
+            initEntry.authority,
+            initEntry.display,
+            null,
+            null,
+            initEntry.otherInformation || null
+          );
         } else {
           return this.model.value as any;
         }
       }));
     } else if (isNotEmpty(this.model.value) && (this.model.value instanceof VocabularyEntry)) {
-      initValue$ = observableOf(Object.assign(new FormFieldMetadataValueObject(), this.model.value, {
-        value: this.model.value.value,
-        authority: this.model.value.authority,
-        display: this.model.value.display,
-        otherInformation: this.model.value.otherInformation || null
-      }));
+      initValue$ = observableOf(
+        new FormFieldMetadataValueObject(
+          this.model.value.value,
+          null,
+          this.model.value.authority,
+          this.model.value.display,
+          null,
+          null,
+          this.model.value.otherInformation || null
+        )
+      );
     } else {
       initValue$ = observableOf(new FormFieldMetadataValueObject(this.model.value));
     }
