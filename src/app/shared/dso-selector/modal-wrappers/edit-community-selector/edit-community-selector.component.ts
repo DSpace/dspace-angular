@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { getCommunityEditPath } from '../../../../+community-page/community-page-routing.module';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
+import { getCommunityEditRoute } from '../../../../+community-page/community-page-routing-paths';
 
 /**
  * Component to wrap a list of existing communities inside a modal
@@ -21,7 +21,7 @@ import {
 
 export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;
-  selectorType = DSpaceObjectType.COMMUNITY;
+  selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.EDIT;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
@@ -32,6 +32,6 @@ export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperCompo
    * Navigate to the community edit page
    */
   navigate(dso: DSpaceObject) {
-    this.router.navigate([getCommunityEditPath(dso.uuid)]);
+    this.router.navigate([getCommunityEditRoute(dso.uuid)]);
   }
 }

@@ -10,7 +10,6 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { getItemEditPath } from '../../item-page-routing.module';
 import { Observable, of as observableOf } from 'rxjs';
 import { RestResponse } from '../../../core/cache/response.models';
 import { Collection } from '../../../core/shared/collection.model';
@@ -18,6 +17,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { SearchService } from '../../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { SearchResult } from '../../../shared/search/search-result.model';
+import { getItemEditRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-move',
@@ -79,7 +79,7 @@ export class ItemMoveComponent implements OnInit {
   loadSuggestions(query): void {
     this.collectionSearchResults = this.searchService.search(new PaginatedSearchOptions({
       pagination: this.pagination,
-      dsoType: DSpaceObjectType.COLLECTION,
+      dsoTypes: [DSpaceObjectType.COLLECTION],
       query: query
     })).pipe(
       first(),
@@ -116,7 +116,7 @@ export class ItemMoveComponent implements OnInit {
     this.processing = true;
     this.itemDataService.moveToCollection(this.itemId, this.selectedCollection).pipe(first()).subscribe(
       (response: RestResponse) => {
-        this.router.navigate([getItemEditPath(this.itemId)]);
+        this.router.navigate([getItemEditRoute(this.itemId)]);
         if (response.isSuccessful) {
           this.notificationsService.success(this.translateService.get('item.edit.move.success'));
         } else {

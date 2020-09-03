@@ -23,7 +23,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { isEqual, isObject } from 'lodash';
 
-import { DynamicRelationGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-relation-group.model';
+import { DynamicRelationGroupModel} from './dynamic-relation-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
@@ -39,6 +39,7 @@ import { IntegrationData } from '../../../../../../core/integration/integration-
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { environment } from '../../../../../../../environments/environment';
+import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
 
 @Component({
   selector: 'ds-dynamic-relation-group',

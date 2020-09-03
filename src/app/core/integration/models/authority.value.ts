@@ -1,12 +1,12 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { isNotEmpty } from '../../../shared/empty.util';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { OtherInformation } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
 import { MetadataValueInterface } from '../../shared/metadata.models';
 import { AUTHORITY_VALUE } from './authority.resource-type';
 import { IntegrationModel } from './integration.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 /**
  * Class representing an authority object

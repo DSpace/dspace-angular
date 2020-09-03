@@ -29,9 +29,9 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   objectType: DSpaceObjectType;
 
   /**
-   * The type of DSO that can be selected from this list
+   * The types of DSO that can be selected from this list
    */
-  selectorType: DSpaceObjectType;
+  selectorTypes: DSpaceObjectType[];
 
   /**
    * The type of action to perform

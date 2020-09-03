@@ -2,15 +2,8 @@ import { MetadataRegistryComponent } from './metadata-registry/metadata-registry
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.component';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { getRegistriesModulePath } from '../admin-routing.module';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-
-const BITSTREAMFORMATS_MODULE_PATH = 'bitstream-formats';
-
-export function getBitstreamFormatsModulePath() {
-  return new URLCombiner(getRegistriesModulePath(), BITSTREAMFORMATS_MODULE_PATH).toString();
-}
+import { BITSTREAMFORMATS_MODULE_PATH } from './admin-registries-routing-paths';
 
 @NgModule({
   imports: [

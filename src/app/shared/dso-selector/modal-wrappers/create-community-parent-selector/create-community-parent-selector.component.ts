@@ -5,13 +5,13 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { hasValue } from '../../../empty.util';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-  COMMUNITY_PARENT_PARAMETER,
-  getCommunityCreatePath
-} from '../../../../+community-page/community-page-routing.module';
-import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
+import {
+    getCommunityCreateRoute,
+    COMMUNITY_PARENT_PARAMETER
+} from '../../../../+community-page/community-page-routing-paths';
 
 /**
  * Component to wrap a button - for top communities -
@@ -27,7 +27,7 @@ import {
 })
 export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;
-  selectorType = DSpaceObjectType.COMMUNITY;
+  selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
@@ -46,6 +46,6 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
         }
       };
     }
-    this.router.navigate([getCommunityCreatePath()], navigationExtras);
+    this.router.navigate([getCommunityCreateRoute()], navigationExtras);
   }
 }

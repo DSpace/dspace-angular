@@ -133,7 +133,7 @@ export class CollectionItemMapperComponent implements OnInit {
             return this.searchService.search(Object.assign(new PaginatedSearchOptions(options), {
               query: this.buildQuery(collectionRD.payload.id, options.query),
               scope: undefined,
-              dsoType: DSpaceObjectType.ITEM,
+              dsoTypes: [DSpaceObjectType.ITEM],
               sort: this.defaultSortOptions
             }), 10000).pipe(
               toDSpaceObjectListRD(),

@@ -22,9 +22,9 @@ import { RequestService } from '../../core/data/request.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { dateToString, stringToNgbDateStruct } from '../date.util';
 import { followLink } from '../utils/follow-link-config.model';
-import { ADMIN_MODULE_PATH } from '../../app-routing.module';
-import { ACCESS_CONTROL_MODULE_PATH } from '../../+admin/admin-routing.module';
-import { GROUP_EDIT_PATH } from '../../+admin/admin-access-control/admin-access-control-routing.module';
+import { ADMIN_MODULE_PATH } from '../../app-routing-paths';
+import { GROUP_EDIT_PATH } from '../../+admin/admin-access-control/admin-access-control-routing-paths';
+import { ACCESS_CONTROL_MODULE_PATH } from '../../+admin/admin-routing-paths';
 
 interface ResourcePolicyCheckboxEntry {
   id: string;
