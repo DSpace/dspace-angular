@@ -10,7 +10,6 @@ import { DeleteCommunityPageComponent } from './delete-community-page/delete-com
 import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
-import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agreement.guard';
 import { COMMUNITY_EDIT_PATH, COMMUNITY_CREATE_PATH } from './community-page-routing-paths';
 
 @NgModule({
@@ -19,7 +18,7 @@ import { COMMUNITY_EDIT_PATH, COMMUNITY_CREATE_PATH } from './community-page-rou
       {
         path: COMMUNITY_CREATE_PATH,
         component: CreateCommunityPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard, EndUserAgreementGuard]
+        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard]
       },
       {
         path: ':id',
@@ -32,13 +31,13 @@ import { COMMUNITY_EDIT_PATH, COMMUNITY_CREATE_PATH } from './community-page-rou
           {
             path: COMMUNITY_EDIT_PATH,
             loadChildren: './edit-community-page/edit-community-page.module#EditCommunityPageModule',
-            canActivate: [AuthenticatedGuard, EndUserAgreementGuard]
+            canActivate: [AuthenticatedGuard]
           },
           {
             path: 'delete',
             pathMatch: 'full',
             component: DeleteCommunityPageComponent,
-            canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
+            canActivate: [AuthenticatedGuard],
           },
           {
             path: '',

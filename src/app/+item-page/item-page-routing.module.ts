@@ -9,7 +9,6 @@ import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.reso
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
-import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agreement.guard';
 import { UPLOAD_BITSTREAM_PATH, ITEM_EDIT_PATH } from './item-page-routing-paths';
 
 @NgModule({
@@ -35,12 +34,12 @@ import { UPLOAD_BITSTREAM_PATH, ITEM_EDIT_PATH } from './item-page-routing-paths
           {
             path: ITEM_EDIT_PATH,
             loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
-            canActivate: [AuthenticatedGuard, EndUserAgreementGuard]
+            canActivate: [AuthenticatedGuard]
           },
           {
             path: UPLOAD_BITSTREAM_PATH,
             component: UploadBitstreamComponent,
-            canActivate: [AuthenticatedGuard, EndUserAgreementGuard]
+            canActivate: [AuthenticatedGuard]
           }
         ],
       }

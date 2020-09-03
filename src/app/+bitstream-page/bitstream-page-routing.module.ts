@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { EditBitstreamPageComponent } from './edit-bitstream-page/edit-bitstream-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { BitstreamPageResolver } from './bitstream-page.resolver';
-import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agreement.guard';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 
@@ -19,7 +18,7 @@ const EDIT_BITSTREAM_PATH = ':id/edit';
         resolve: {
           bitstream: BitstreamPageResolver
         },
-        canActivate: [AuthenticatedGuard, EndUserAgreementGuard]
+        canActivate: [AuthenticatedGuard]
       }
     ])
   ],

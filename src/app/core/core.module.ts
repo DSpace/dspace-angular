@@ -163,7 +163,8 @@ import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-li
 import { ConfigurationDataService } from './data/configuration-data.service';
 import { ConfigurationProperty } from './shared/configuration-property.model';
 import { ReloadGuard } from './reload/reload.guard';
-import { EndUserAgreementGuard } from './end-user-agreement/end-user-agreement.guard';
+import { EndUserAgreementCurrentUserGuard } from './end-user-agreement/end-user-agreement-current-user.guard';
+import { EndUserAgreementCookieGuard } from './end-user-agreement/end-user-agreement-cookie.guard';
 import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
 
 /**
@@ -293,7 +294,8 @@ const PROVIDERS = [
   MetadataFieldDataService,
   TokenResponseParsingService,
   ReloadGuard,
-  EndUserAgreementGuard,
+  EndUserAgreementCurrentUserGuard,
+  EndUserAgreementCookieGuard,
   EndUserAgreementService,
   // register AuthInterceptor as HttpInterceptor
   {

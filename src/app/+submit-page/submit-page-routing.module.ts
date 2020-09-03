@@ -3,13 +3,12 @@ import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { SubmissionSubmitComponent } from '../submission/submit/submission-submit.component';
-import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agreement.guard';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
-        canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
+        canActivate: [AuthenticatedGuard],
         path: '',
         pathMatch: 'full',
         component: SubmissionSubmitComponent,

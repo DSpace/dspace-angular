@@ -25,24 +25,35 @@ export class EndUserAgreementService {
   }
 
   /**
-   * Whether or not the current user has accepted the End User Agreement
+   * Whether or not either the cookie was accepted or the current user has accepted the End User Agreement
+   * @param acceptedWhenAnonymous Whether or not the user agreement should be considered accepted if the user is
+   *                              currently not authenticated (anonymous)
    */
-  hasCurrentUserAcceptedAgreement(): Observable<boolean> {
+  hasCurrentUserOrCookieAcceptedAgreement(acceptedWhenAnonymous: boolean): Observable<boolean> {
     if (this.isCookieAccepted()) {
       return observableOf(true);
     } else {
-      return this.authService.isAuthenticated().pipe(
-        switchMap((authenticated) => {
-          if (authenticated) {
-            return this.authService.getAuthenticatedUserFromStore().pipe(
-              map((user) => hasValue(user) && user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true')
-            );
-          } else {
-            return observableOf(false);
-          }
-        })
-      );
+      return this.hasCurrentUserAcceptedAgreement(acceptedWhenAnonymous);
     }
+  }
+
+  /**
+   * Whether or not the current user has accepted the End User Agreement
+   * @param acceptedWhenAnonymous Whether or not the user agreement should be considered accepted if the user is
+   *                              currently not authenticated (anonymous)
+   */
+  hasCurrentUserAcceptedAgreement(acceptedWhenAnonymous: boolean): Observable<boolean> {
+    return this.authService.isAuthenticated().pipe(
+      switchMap((authenticated) => {
+        if (authenticated) {
+          return this.authService.getAuthenticatedUserFromStore().pipe(
+            map((user) => hasValue(user) && user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true')
+          );
+        } else {
+          return observableOf(acceptedWhenAnonymous);
+        }
+      })
+    );
   }
 
   /**

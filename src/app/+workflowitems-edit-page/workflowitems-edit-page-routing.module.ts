@@ -6,7 +6,6 @@ import { SubmissionEditComponent } from '../submission/edit/submission-edit.comp
 import { WorkflowItemDeleteComponent } from './workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back/workflow-item-send-back.component';
-import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agreement.guard';
 import {
   WORKFLOW_ITEM_SEND_BACK_PATH,
   WORKFLOW_ITEM_DELETE_PATH,
@@ -21,19 +20,19 @@ import {
         resolve: { wfi: WorkflowItemPageResolver },
         children: [
           {
-            canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
+            canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_EDIT_PATH,
             component: SubmissionEditComponent,
             data: { title: 'submission.edit.title' }
           },
           {
-            canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
+            canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_DELETE_PATH,
             component: WorkflowItemDeleteComponent,
             data: { title: 'workflow-item.delete.title' }
           },
           {
-            canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
+            canActivate: [AuthenticatedGuard],
             path: WORKFLOW_ITEM_SEND_BACK_PATH,
             component: WorkflowItemSendBackComponent,
             data: { title: 'workflow-item.send-back.title' }

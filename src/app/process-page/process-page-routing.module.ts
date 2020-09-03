@@ -7,7 +7,6 @@ import { ProcessDetailComponent } from './detail/process-detail.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agreement.guard';
 
 @NgModule({
   imports: [
@@ -16,7 +15,7 @@ import { EndUserAgreementGuard } from '../core/end-user-agreement/end-user-agree
         path: '',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         data: { breadcrumbKey: 'process.overview' },
-        canActivate: [AuthenticatedGuard, EndUserAgreementGuard],
+        canActivate: [AuthenticatedGuard],
         children: [
           {
             path: '',

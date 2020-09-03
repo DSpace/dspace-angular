@@ -1,11 +1,11 @@
-import { EndUserAgreementGuard } from './end-user-agreement.guard';
+import { EndUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { Router, UrlTree } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
 describe('EndUserAgreementGuard', () => {
-  let guard: EndUserAgreementGuard;
+  let guard: EndUserAgreementCurrentUserGuard;
 
   let endUserAgreementService: EndUserAgreementService;
   let authService: AuthService;
@@ -21,7 +21,7 @@ describe('EndUserAgreementGuard', () => {
       parseUrl: new UrlTree()
     });
 
-    guard = new EndUserAgreementGuard(endUserAgreementService, authService, router);
+    guard = new EndUserAgreementCurrentUserGuard(endUserAgreementService, authService, router);
   });
 
   describe('canActivate', () => {
