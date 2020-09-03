@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { isNotEmpty } from '../../shared/empty.util';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';

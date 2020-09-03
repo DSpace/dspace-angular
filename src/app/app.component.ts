@@ -19,7 +19,7 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
-import { isAuthenticationBlocking, isAuthenticationLoading } from './core/auth/selectors';
+import { isAuthenticationBlocking } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';

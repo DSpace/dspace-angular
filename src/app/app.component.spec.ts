@@ -29,7 +29,7 @@ import { RouteService } from './core/services/route.service';
 import { MockActivatedRoute } from './shared/mocks/active-router.mock';
 import { RouterMock } from './shared/mocks/router.mock';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { AppState, storeModuleConfig } from './app.reducer';
+import { storeModuleConfig } from './app.reducer';
 import { LocaleService } from './core/locale/locale.service';
 import { authReducer } from './core/auth/auth.reducer';
 import { cold } from 'jasmine-marbles';
