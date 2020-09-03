@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, find, map, switchMap } from 'rxjs/operators';
+import { filter, find, map, mergeMap, switchMap } from 'rxjs/operators';
 import { AppState } from '../../app.reducer';
 import { isNotUndefined } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -76,7 +76,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
         getSucceededRemoteData(),
         /* Flatten the page so we can treat it like an observable */
         switchMap((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => typeListRD.payload.page),
-        switchMap((type: RelationshipType) => {
+        mergeMap((type: RelationshipType) => {
           if (type.leftwardType === label) {
             return this.checkType(type, firstType, secondType);
           } else if (type.rightwardType === label) {
@@ -92,7 +92,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
   // returns a void observable if there's not match
   // returns an observable that emits the relationship type when there is a match
   private checkType(type: RelationshipType, firstType: string, secondType: string): Observable<RelationshipType> {
-    const entityTypes = observableCombineLatest(type.leftType.pipe(getSucceededRemoteData()), type.rightType.pipe(getSucceededRemoteData()));
+    const entityTypes = observableCombineLatest([type.leftType.pipe(getSucceededRemoteData()), type.rightType.pipe(getSucceededRemoteData())]);
     return entityTypes.pipe(
       find(([leftTypeRD, rightTypeRD]: [RemoteData<ItemType>, RemoteData<ItemType>]) => leftTypeRD.payload.label === firstType && rightTypeRD.payload.label === secondType),
       filter((types) => isNotUndefined(types)),

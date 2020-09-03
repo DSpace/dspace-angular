@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { CrisLayoutBox as CrisLayoutBoxObj } from 'src/app/layout/models/cris-layout-box.model';
 import { CrisLayoutBox } from 'src/app/layout/decorators/cris-layout-box.decorator';
 import { LayoutTab } from 'src/app/layout/enums/layout-tab.enum';
@@ -6,10 +6,8 @@ import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
 import { LayoutPage } from 'src/app/layout/enums/layout-page.enum';
 import { MetadataComponent } from 'src/app/core/layout/models/metadata-component.model';
 import { MetadataComponentsDataService } from 'src/app/core/layout/metadata-components-data.service';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
-import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
-import { Observable } from 'rxjs';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { getAllSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
+import { Subscription } from 'rxjs';
 import { hasValue } from 'src/app/shared/empty.util';
 
 /**
@@ -25,52 +23,46 @@ import { hasValue } from 'src/app/shared/empty.util';
  * add the CrisLayoutBox decorator indicating the type of box to overwrite
  */
 @CrisLayoutBox(LayoutPage.DEFAULT, LayoutTab.DEFAULT, LayoutBox.METADATA)
-export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxObj implements OnInit {
+export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxObj implements OnInit, OnDestroy {
 
+  /**
+   * Contains the fields configuration for current box
+   */
   metadatacomponents: MetadataComponent;
 
-  bitstream = [];
-  metadata: [];
+  /**
+   * true if the item has a thumbanil, false otherwise
+   */
+  hasThumbnail = false;
+
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
 
   constructor(
     public cd: ChangeDetectorRef,
-    private metadatacomponentsService: MetadataComponentsDataService,
-    private bitstreamDataService: BitstreamDataService
+    private metadatacomponentsService: MetadataComponentsDataService
   ) {
     super();
   }
 
   ngOnInit() {
     super.ngOnInit();
-    this.metadatacomponentsService.findById(this.box.shortname)
+    this.subs.push(this.metadatacomponentsService.findById(this.box.id)
       .pipe(getAllSucceededRemoteDataPayload())
       .subscribe(
         (next) => {
           this.metadatacomponents = next;
-          this.retrieveBitstream(this.metadatacomponents);
           this.cd.markForCheck();
         }
-      );
+      ));
   }
 
-  retrieveBitstream(metadatacomponents: MetadataComponent) {
-    metadatacomponents.rows.forEach((row) => {
-      row.fields.forEach((field) => {
-        if (field.fieldType === 'bitstream') {
-          this.bitstream.push(field);
-          return;
-        }
-      });
-    });
-  }
-
-  hasBitstream() {
-    return hasValue(this.bitstream) && this.bitstream.length > 0;
-  }
-
-  getThumbnail(): Observable<Bitstream> {
-    return this.bitstreamDataService.getThumbnailFor(this.item).pipe(
-      getFirstSucceededRemoteDataPayload()
-    );
+  /**
+   * Unsubscribes all subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 }

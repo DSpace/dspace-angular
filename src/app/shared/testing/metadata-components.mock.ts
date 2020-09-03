@@ -2,7 +2,7 @@ import { MetadataComponent } from 'src/app/core/layout/models/metadata-component
 import { METADATACOMPONENT } from 'src/app/core/layout/models/metadata-component.resource-type';
 
 export const medataComponent: MetadataComponent = {
-  id: 'box-shortname-1',
+  id: '1',
   type: METADATACOMPONENT,
   rows: [
   {
@@ -29,7 +29,7 @@ export const medataComponent: MetadataComponent = {
   }],
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/metadatacomponent/box-shortname-1'
+      href: 'https://rest.api/rest/api/metadatacomponent/1'
     }
   }
 };

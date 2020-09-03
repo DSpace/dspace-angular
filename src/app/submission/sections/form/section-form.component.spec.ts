@@ -41,6 +41,11 @@ import { SubmissionSectionError } from '../../objects/submission-objects.reducer
 import { DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RequestService } from '../../../core/data/request.service';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -114,11 +119,11 @@ const testFormConfiguration = {
 const testFormModel = [
   new DynamicRowGroupModel({
     id: 'df-row-group-config-1',
-    group: [new DsDynamicInputModel({ id: 'dc.title', metadataFields: [], repeatable: false, submissionId: '1234' })],
+    group: [new DsDynamicInputModel({ id: 'dc.title', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false })],
   }),
   new DynamicRowGroupModel({
     id: 'df-row-group-config-2',
-    group: [new DsDynamicInputModel({ id: 'dc.contributor', metadataFields: [], repeatable: false, submissionId: '1234' })],
+    group: [new DsDynamicInputModel({ id: 'dc.contributor', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false })],
   })
 ];
 
@@ -173,9 +178,12 @@ describe('SubmissionSectionformComponent test suite', () => {
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: ObjectCacheService, useValue: { remove: () => {/*do nothing*/}, hasBySelfLinkObservable: () => observableOf(false) } },
+        { provide: RequestService, useValue: { removeByHrefSubstring: () => {/*do nothing*/}, hasByHrefObservable: () => observableOf(false) } },
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
+        { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => observableOf(new RemoteData(false, false, true, null, new WorkspaceItem())) } },
         ChangeDetectorRef,
         SubmissionSectionformComponent
       ],
@@ -248,7 +256,6 @@ describe('SubmissionSectionformComponent test suite', () => {
       expect(comp.isLoading).toBeFalsy();
       expect(comp.initForm).toHaveBeenCalledWith(sectionData);
       expect(comp.subscriptions).toHaveBeenCalled();
-
     });
 
     it('should init form model properly', () => {
@@ -311,7 +318,6 @@ describe('SubmissionSectionformComponent test suite', () => {
       expect(comp.isUpdating).toBeFalsy();
       expect(comp.initForm).toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
-      expect(notificationsServiceStub.info).toHaveBeenCalled();
       expect(comp.sectionData.data).toEqual(sectionData);
 
     });
@@ -328,7 +334,7 @@ describe('SubmissionSectionformComponent test suite', () => {
 
       comp.updateForm(sectionData, parsedSectionErrors);
 
-      expect(comp.initForm).not.toHaveBeenCalled();
+      expect(comp.initForm).toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
       expect(comp.sectionData.data).toEqual(sectionData);
     });

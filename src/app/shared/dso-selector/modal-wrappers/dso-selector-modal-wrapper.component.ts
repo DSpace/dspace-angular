@@ -1,16 +1,15 @@
 import { Injectable, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { map } from 'rxjs/operators';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { hasValue, isNotEmpty } from '../../empty.util';
 
 export enum SelectorActionType {
   CREATE = 'create',
-  EDIT = 'edit'
+  EDIT = 'edit',
+  EXPORT_METADATA = 'export-metadata'
 }
 
 /**
@@ -25,14 +24,14 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   @Input() dsoRD: RemoteData<DSpaceObject>;
 
   /**
-   * The type of the DSO that's being edited or created
+   * The type of the DSO that's being edited, created or exported
    */
   objectType: DSpaceObjectType;
 
   /**
-   * The type of DSO that can be selected from this list
+   * The types of DSO that can be selected from this list
    */
-  selectorType: DSpaceObjectType;
+  selectorTypes: DSpaceObjectType[];
 
   /**
    * The type of action to perform

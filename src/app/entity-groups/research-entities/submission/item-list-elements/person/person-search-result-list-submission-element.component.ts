@@ -21,7 +21,7 @@ import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { isNotEmpty } from '../../../../../shared/empty.util';
 
-@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SubmissionModal)
+@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
   selector: 'ds-person-search-result-list-submission-element',
   styleUrls: ['./person-search-result-list-submission-element.component.scss'],
@@ -56,7 +56,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
     this.relationshipService.getNameVariant(this.listID, this.dso.uuid)
       .pipe(take(1))
       .subscribe((nameVariant: string) => {
-          this.selectedName = nameVariant || defaultValue;
+        this.selectedName = nameVariant || defaultValue;
         }
       );
   }
@@ -76,27 +76,32 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
     if (!this.allSuggestions.includes(value)) {
       this.openModal(value)
         .then(() => {
+          // user clicked ok: store the name variant in the item
+            const newName: MetadataValue = new MetadataValue();
+            newName.value = value;
 
-          const newName: MetadataValue = new MetadataValue();
-          newName.value = value;
-
-          const existingNames: MetadataValue[] = this.dso.metadata[this.alternativeField] || [];
-          const alternativeNames = { [this.alternativeField]: [...existingNames, newName] };
-          const updatedItem =
-            Object.assign({}, this.dso, {
-              metadata: {
-                ...this.dso.metadata,
-                ...alternativeNames
-              },
-            });
-          this.itemDataService.update(updatedItem).pipe(take(1)).subscribe();
-        })
+            const existingNames: MetadataValue[] = this.dso.metadata[this.alternativeField] || [];
+            const alternativeNames = { [this.alternativeField]: [...existingNames, newName] };
+            const updatedItem =
+              Object.assign({}, this.dso, {
+                metadata: {
+                  ...this.dso.metadata,
+                  ...alternativeNames
+                },
+              });
+            this.itemDataService.update(updatedItem).pipe(take(1)).subscribe();
+            this.itemDataService.commitUpdates();
+      }).catch(() => {
+        // user clicked cancel: use the name variant only for this relation, no further action required
+      }).finally(() => {
+        this.select(value);
+      })
     }
-    this.select(value);
   }
 
   openModal(value): Promise<any> {
     const modalRef = this.modalService.open(NameVariantModalComponent, { centered: true });
+
     const modalComp = modalRef.componentInstance;
     modalComp.value = value;
     return modalRef.result;

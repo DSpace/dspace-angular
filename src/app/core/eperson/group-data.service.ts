@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, filter, find, map, skipWhile, switchMap, take, tap, distinctUntilChanged } from 'rxjs/operators';
+import { catchError, filter, find, map, skipWhile, switchMap, take, tap } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
@@ -21,12 +21,19 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { CreateRequest, DeleteRequest, FindListOptions, FindListRequest, PostRequest, PatchRequest, RestRequest } from '../data/request.models';
+import {
+  CreateRequest,
+  DeleteRequest,
+  FindListOptions,
+  FindListRequest,
+  PatchRequest,
+  PostRequest
+} from '../data/request.models';
 
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getRemoteDataPayload, getResponseFromEntry, configureRequest, getRequestFromRequestUUID } from '../shared/operators';
+import { getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 import { dataService } from '../cache/builders/build-decorators';
@@ -34,7 +41,7 @@ import { GROUP } from './models/group.resource-type';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { Community } from '../shared/community.model';
 import { Collection } from '../shared/collection.model';
-import { RequestEntry } from '../data/request.reducer';
+import { Operation } from 'fast-json-patch';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -162,55 +169,37 @@ export class GroupDataService extends DataService<Group> {
    * @param id The group id to delete
    */
   public deleteGroup(group: Group): Observable<boolean> {
-    return this.delete(group.id);
+    return this.delete(group.id).pipe(map((response: RestResponse) => response.isSuccessful));
   }
 
   /**
-   * Create or Update a group
-   *  If the group contains an id, it is assumed the eperson already exists and is updated instead
-   * @param group    The group to create or update
+   * Create a group
+   * @param group    The group to create
    */
-  public createOrUpdateGroup(group: Group): Observable<RemoteData<Group>> {
-    const isUpdate = hasValue(group.id);
-    if (isUpdate) {
-      return null; // this.updateGroup(group);
-    } else {
-      return this.create(group, null);
-    }
+  public createGroup(group: Group): Observable<RemoteData<Group>> {
+    return this.create(group, null);
   }
 
   /**
-   * // TODO
-   * @param {DSpaceObject} ePerson The given object
+   * Add a new patch to the object cache
+   * The patch is derived from the differences between the given object and its version in the object cache
+   * @param {DSpaceObject} group The given object
    */
-  updateGroup(group: Group, values): Observable<RestResponse> {
-    const patchOperation = [];
-    if (!group.permanent &&
-      hasValue(values.name) &&
-      group.name !== values.name) {
-      patchOperation.push({
-        op: 'replace', path: '/name', value: values.name
-      });
-    }
-    if (hasValue(values.metadata['dc.description'])) {
-      patchOperation.push({
-        op: 'replace',
-        path: '/metadata/dc.description',
-        value: values.metadata['dc.description']
-      });
-    }
+  updateGroup(group: Group): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+    const oldVersion$ = this.findByHref(group._links.self.href);
+    oldVersion$.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((oldGroup: Group) => {
+        const operations = this.generateOperations(oldGroup, group);
+        const patchRequest = new PatchRequest(requestId, group._links.self.href, operations);
+        return this.requestService.configure(patchRequest);
+      }),
+      take(1)
+    ).subscribe();
 
-    return this.getGroupEndpoint(group.uuid).pipe(
-      distinctUntilChanged(),
-      map((endpointURL: string) =>
-        new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
-      ),
-      configureRequest(this.requestService),
-      map((request: RestRequest) => request.uuid),
-      getRequestFromRequestUUID(this.requestService),
-      filter((requestEntry: RequestEntry) => requestEntry.completed),
-      map((requestEntry: RequestEntry) => requestEntry.response)
-    );
+    return this.fetchResponse(requestId);
   }
 
   /**
@@ -363,16 +352,17 @@ export class GroupDataService extends DataService<Group> {
    * Create a group for a given role for a given community or collection.
    *
    * @param dso         The community or collection for which to create a group
+   * @param role        The name of the role for which to create a group
    * @param link        The REST endpoint to create the group
    */
-  createComcolGroup(dso: Community | Collection, link: string): Observable<RestResponse> {
+  createComcolGroup(dso: Community|Collection, role: string, link: string): Observable<RestResponse> {
 
     const requestId = this.requestService.generateRequestId();
     const group = Object.assign(new Group(), {
       metadata: {
         'dc.description': [
           {
-            value: `${this.nameService.getName(dso)} admin group`,
+            value: `${this.nameService.getName(dso)} ${role} group`,
           }
         ],
       },
@@ -426,12 +416,20 @@ export class GroupDataService extends DataService<Group> {
   }
 
   /**
-   * Get the endpoint for group
-   * @param groupId
+   * Metadata operations are generated by the difference between old and new Group
+   * Custom replace operations for the other Group values
+   * The operations generated by this method are based only on the values of the metadata
+   * and on the name of the group
+   * @param oldGroup
+   * @param newGroup
    */
-  public getGroupEndpoint(groupId: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, groupId))
-    );
+  private generateOperations(oldGroup: Group, newGroup: Group): Operation[] {
+    let operations = this.comparator.diff(oldGroup, newGroup);
+    if (hasValue(oldGroup.name) && oldGroup.name !== newGroup.name) {
+      operations = [...operations, {
+        op: 'replace', path: '/name', value: newGroup.name
+      }];
+    }
+    return operations;
   }
 }

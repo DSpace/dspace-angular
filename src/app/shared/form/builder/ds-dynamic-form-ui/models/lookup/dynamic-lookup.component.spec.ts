@@ -15,7 +15,7 @@ import { VocabularyOptions } from '../../../../../../core/submission/vocabularie
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { DsDynamicLookupComponent } from './dynamic-lookup.component';
-import { DynamicLookupModel } from './dynamic-lookup.model';
+import { DynamicLookupModel, DynamicLookupModelConfig } from './dynamic-lookup.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
@@ -24,12 +24,10 @@ import { AuthorityConfidenceStateDirective } from '../../../../../authority-conf
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { FormBuilderService } from '../../../form-builder.service';
 
-let LOOKUP_TEST_MODEL_CONFIG = {
+let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
   vocabularyOptions: {
-    closed: false,
-    metadata: 'lookup',
     name: 'RPAuthority',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    closed: false
   } as VocabularyOptions,
   disabled: false,
   errorMessages: { required: 'Required field.' },
@@ -41,19 +39,17 @@ let LOOKUP_TEST_MODEL_CONFIG = {
   readOnly: false,
   required: true,
   repeatable: true,
-  separator: ',',
   validators: { required: null },
   value: undefined,
   metadataFields: [],
-  submissionId: '1234'
+  submissionId: '1234',
+  hasSelectableMetadata: false
 };
 
 let LOOKUP_NAME_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
-    closed: false,
-    metadata: 'lookup-name',
     name: 'RPAuthority',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    closed: false
   } as VocabularyOptions,
   disabled: false,
   errorMessages: { required: 'Required field.' },
@@ -65,11 +61,11 @@ let LOOKUP_NAME_TEST_MODEL_CONFIG = {
   readOnly: false,
   required: true,
   repeatable: true,
-  separator: ',',
   validators: { required: null },
   value: undefined,
   metadataFields: [],
-  submissionId: '1234'
+  submissionId: '1234',
+  hasSelectableMetadata: false
 };
 
 let LOOKUP_TEST_GROUP = new FormGroup({
@@ -81,10 +77,8 @@ describe('Dynamic Lookup component', () => {
   function init() {
     LOOKUP_TEST_MODEL_CONFIG = {
       vocabularyOptions: {
-        closed: false,
-        metadata: 'lookup',
         name: 'RPAuthority',
-        scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+        closed: false
       } as VocabularyOptions,
       disabled: false,
       errorMessages: { required: 'Required field.' },
@@ -96,19 +90,17 @@ describe('Dynamic Lookup component', () => {
       readOnly: false,
       required: true,
       repeatable: true,
-      separator: ',',
       validators: { required: null },
       value: undefined,
       metadataFields: [],
-      submissionId: '1234'
+      submissionId: '1234',
+      hasSelectableMetadata: false
     };
 
     LOOKUP_NAME_TEST_MODEL_CONFIG = {
       vocabularyOptions: {
-        closed: false,
-        metadata: 'lookup-name',
         name: 'RPAuthority',
-        scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+        closed: false
       } as VocabularyOptions,
       disabled: false,
       errorMessages: { required: 'Required field.' },
@@ -120,11 +112,11 @@ describe('Dynamic Lookup component', () => {
       readOnly: false,
       required: true,
       repeatable: true,
-      separator: ',',
       validators: { required: null },
       value: undefined,
       metadataFields: [],
-      submissionId: '1234'
+      submissionId: '1234',
+      hasSelectableMetadata: false
     };
 
     LOOKUP_TEST_GROUP = new FormGroup({

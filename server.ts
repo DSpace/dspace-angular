@@ -26,13 +26,13 @@ import * as morgan from 'morgan';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
-import * as cookieParser from 'cookie-parser';
 import { join } from 'path';
 
-import { enableProdMode, NgModuleFactory, Type } from '@angular/core';
+import { enableProdMode } from '@angular/core';
 
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 /*
  * Set path for the browser application's dist folder
@@ -46,6 +46,7 @@ const { ServerAppModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModul
  * Create a new express application
  */
 const app = express();
+const cookieParser = require('cookie-parser')
 
 /*
  * If production mode is enabled in the environment file:
@@ -105,6 +106,11 @@ app.set('view engine', 'html');
  * Set views folder path to directory where template files are stored
  */
 app.set('views', DIST_FOLDER);
+
+/**
+ * Proxy the sitemaps
+ */
+app.use('/sitemap**', createProxyMiddleware({ target: `${environment.rest.baseUrl}/sitemaps`, changeOrigin: true }));
 
 /*
  * Adds a cache control header to the response

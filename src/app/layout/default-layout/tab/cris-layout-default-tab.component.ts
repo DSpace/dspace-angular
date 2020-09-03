@@ -10,6 +10,8 @@ import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operator
 import { getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
 import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
 import { followLink } from 'src/app/shared/utils/follow-link-config.model';
+import { Subscription } from 'rxjs';
+import { hasValue } from 'src/app/shared/empty.util';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
@@ -33,6 +35,10 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
   showLoader: boolean;
 
   componentRef: Array<ComponentRef<Component>> = [];
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
 
   constructor(
     public cd: ChangeDetectorRef,
@@ -44,7 +50,7 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
 
   ngOnInit() {
     this.showLoader = true;
-    this.boxService.findByItem(this.item.id, this.tab.id, followLink('configuration'))
+    this.subs.push(this.boxService.findByItem(this.item.id, this.tab.id, followLink('configuration'))
       .pipe(getFirstSucceededRemoteListPayload())
       .subscribe(
         (next) => {
@@ -56,7 +62,7 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
         () => {
           this.showLoader = false;
         }
-      );
+      ));
   }
 
   addBoxes(boxes: Box[]) {
@@ -84,6 +90,7 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
         component.destroy();
       });
     }
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
 }

@@ -74,6 +74,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    *
    * @param query limit the returned collection to those with metadata values matching the query terms.
    * @param options The [[FindListOptions]] object
+   * @param linksToFollow The array of [[FollowLinkConfig]]
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
@@ -94,6 +95,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * @param metadata limit the returned collection to those that have the metadata contained in this parameter.
    * @param metadatavalue limit the returned collection to those with metadata value matching this parameter.
    * @param options The [[FindListOptions]] object
+   * @param linksToFollow The array of [[FollowLinkConfig]]
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
@@ -138,12 +140,13 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * @param communityId The community id
    * @param entityType The entity type
    * @param options The [[FindListOptions]] object
+   * @param linksToFollow The array of [[FollowLinkConfig]]
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  findAuthorizedByRelationshipType(communityId: string, entityType: string, options: FindListOptions = {})
+  findAuthorizedByCommunityAndRelationshipType(communityId: string, entityType: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>)
     : Observable<RemoteData<PaginatedList<Collection>>> {
-    const searchHref = 'findAuthorizedByCommunityAndMetadata';
+    const searchHref = 'findSubmitAuthorizedByCommunityAndMetadata';
     const searchParams =  [new RequestParam('uuid', communityId),
                            new RequestParam('metadata', 'relationship.type')];
     searchParams.push(new RequestParam('metadatavalue', entityType));
@@ -152,7 +155,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
       searchParams: searchParams
     });
 
-    return this.searchBy(searchHref, options).pipe(
+    return this.searchBy(searchHref, options, ...linksToFollow).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
   /**

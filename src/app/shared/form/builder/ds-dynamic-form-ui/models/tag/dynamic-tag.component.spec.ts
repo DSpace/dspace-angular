@@ -47,9 +47,7 @@ function init() {
   TAG_TEST_MODEL_CONFIG = {
     vocabularyOptions: {
       closed: false,
-      metadata: 'tag',
-      name: 'common_iso_languages',
-      scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+      name: 'common_iso_languages'
     } as VocabularyOptions,
     disabled: false,
     id: 'tag',

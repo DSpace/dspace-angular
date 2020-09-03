@@ -20,6 +20,12 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject {
   hitHighlights: MetadataMap;
 
   /**
+   * The embedded indexable object.
+   */
+   @deserialize
+  _embedded: {indexableObject: T};
+
+  /**
    * The {@link HALLink}s for this SearchResult
    */
   @deserialize

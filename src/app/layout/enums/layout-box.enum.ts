@@ -4,7 +4,7 @@
  * To overwrite a box its boxType must be entered as a value.
  */
 export enum LayoutBox {
-  METADATA = 'metadata',
-  SEARCH = 'search',
-  RELATION = 'relation'
+  METADATA = 'METADATA',
+  SEARCH = 'SEARCH',
+  RELATION = 'RELATION'
 }

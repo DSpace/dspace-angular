@@ -35,7 +35,7 @@ export class SearchComponent extends CacheableObject {
   @deserializeAs(new IDToUUIDSerializer(SearchComponent.type.value), 'id')
   uuid: string;
 
-  @autoserialize
+  @deserializeAs('discovery-configuration')
   configuration: string;
 
   /**

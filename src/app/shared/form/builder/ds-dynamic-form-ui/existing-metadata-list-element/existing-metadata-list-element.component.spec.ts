@@ -1,15 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExistingMetadataListElementComponent, Reorderable, ReorderableRelationship } from './existing-metadata-list-element.component';
+import {
+  ExistingMetadataListElementComponent,
+  ReorderableRelationship
+} from './existing-metadata-list-element.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { of as observableOf } from 'rxjs';
 
 describe('ExistingMetadataListElementComponent', () => {
   let component: ExistingMetadataListElementComponent;
@@ -28,6 +32,8 @@ describe('ExistingMetadataListElementComponent', () => {
   let leftItemRD$;
   let rightItemRD$;
   let relatedSearchResult;
+  let submissionId;
+  let relationshipService;
 
   function init() {
     uuid1 = '91ce578d-2e63-4093-8c73-3faafd716000';
@@ -42,9 +48,13 @@ describe('ExistingMetadataListElementComponent', () => {
     leftItemRD$ = createSuccessfulRemoteDataObject$(relatedItem);
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
+    relationshipService = {
+      updatePlace:() => observableOf({})
+    } as any;
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
-    reoRel = new ReorderableRelationship(relationship, true);
+    submissionId = '1234';
+    reoRel = new ReorderableRelationship(relationship, true, relationshipService, {} as any, submissionId);
   }
 
   beforeEach(async(() => {
@@ -68,6 +78,7 @@ describe('ExistingMetadataListElementComponent', () => {
     component.reoRel = reoRel;
     component.metadataFields = metadataFields;
     component.relationshipOptions = relationshipOptions;
+    component.submissionId = submissionId;
     fixture.detectChanges();
     component.ngOnChanges();
   });
@@ -84,9 +95,8 @@ describe('ExistingMetadataListElementComponent', () => {
 
     it('should dispatch a RemoveRelationshipAction', () => {
       component.removeSelection();
-      const action = new RemoveRelationshipAction(submissionItem, relatedItem, relationshipOptions.relationshipType);
+      const action = new RemoveRelationshipAction(submissionItem, relatedItem, relationshipOptions.relationshipType, submissionId);
       expect(store.dispatch).toHaveBeenCalledWith(action);
-
     });
   })
 });

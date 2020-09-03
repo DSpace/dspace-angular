@@ -1,12 +1,24 @@
 {
 
+  "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
+
+  "401.link.home-page": "Take me to the home page",
+
+  "401.unauthorized": "unauthorized",
+
+
+
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
 
   "404.link.home-page": "Take me to the home page",
 
   "404.page-not-found": "page not found",
 
+  "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
+  "admin.curation-tasks.title": "System curation tasks",
+
+  "admin.curation-tasks.header": "System curation tasks",
 
   "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
 
@@ -434,6 +446,26 @@
 
 
 
+  "admin.metadata-import.breadcrumbs": "Import Metadata",
+
+  "admin.metadata-import.title": "Import Metadata",
+
+  "admin.metadata-import.page.header": "Import Metadata",
+
+  "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
+
+  "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
+
+  "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
+
+  "admin.metadata-import.page.button.return": "Return",
+
+  "admin.metadata-import.page.button.proceed": "Proceed",
+
+  "admin.metadata-import.page.error.addFile": "Select file first!",
+
+
+
 
   "auth.errors.invalid-user": "Invalid email address or password.",
 
@@ -476,14 +508,26 @@
   "bitstream.edit.title": "Edit bitstream",
 
 
-
   "browse.comcol.by.author": "By Author",
 
   "browse.comcol.by.dateissued": "By Issue Date",
 
+  "browse.comcol.by.ouname": "By Name",
+
+  "browse.comcol.by.pjtitle": "By Title",
+
+  "browse.comcol.by.rodept": "By Department",
+
+  "browse.comcol.by.rpdept": "By Department",
+
+  "browse.comcol.by.rpname": "By Name",
+
   "browse.comcol.by.subject": "By Subject",
 
   "browse.comcol.by.title": "By Title",
+
+  "browse.comcol.by.type": "By Type",
+
 
   "browse.comcol.head": "Browse",
 
@@ -493,7 +537,19 @@
 
   "browse.metadata.dateissued": "Issue Date",
 
+  "browse.metadata.ouname" : "Name",
+
+  "browse.metadata.pjtitle" : "Title",
+
+  "browse.metadata.rodept": "Department",
+
+  "browse.metadata.rpdept": "Department",
+
+  "browse.metadata.rpname": "Name",
+
   "browse.metadata.subject": "Subject",
+
+  "browse.metadata.type": "Type",
 
   "browse.metadata.title": "Title",
 
@@ -501,7 +557,19 @@
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
 
+  "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
+
+  "browse.metadata.pjtitle.breadcrumbs" : "Browse by Title",
+
+  "browse.metadata.rodept.breadcrumbs": "Browse by Department",
+
+  "browse.metadata.rpdept.breadcrumbs" : "Browse by Department",
+
+  "browse.metadata.rpname.breadcrumbs": "Browse by Name",
+
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
+
+  "browse.metadata.type.breadcrumbs": "Browse by Type",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -555,6 +623,8 @@
   "collection.create.notifications.success": "Successfully created the Collection",
 
   "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
+
+  "collection.curate.header": "Curate Collection: {{collection}}",
 
   "collection.delete.cancel": "Cancel",
 
@@ -772,6 +842,8 @@
 
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
 
+  "community.curate.header": "Curate Community: {{community}}",
+
   "community.delete.cancel": "Cancel",
 
   "community.delete.confirm": "Confirm",
@@ -914,6 +986,38 @@
 
   "datapackage.listelement.badge": "Data Package",
 
+  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+
+  "curation-task.task.noop.label": "NOOP",
+
+  "curation-task.task.profileformats.label": "Profile Bitstream Formats",
+
+  "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
+
+  "curation-task.task.translate.label": "Microsoft Translator",
+
+  "curation-task.task.vscan.label": "Virus Scan",
+
+
+
+  "curation.form.task-select.label": "Task:",
+
+  "curation.form.submit": "Start",
+
+  "curation.form.submit.success.head": "The curation task has been started successfully",
+
+  "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
+
+  "curation.form.submit.error.head": "Running the curation task failed",
+
+  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+
+  "curation.form.handle.label": "Handle:",
+
+  "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
+
+
+
   "dso-selector.create.collection.head": "New collection",
 
   "dso-selector.create.community.head": "New community",
@@ -932,9 +1036,21 @@
 
   "dso-selector.edit.item.head": "Edit item",
 
+  "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
+
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
+
+
+
+  "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
+
+  "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
+
+  "confirmation-modal.export-metadata.cancel": "Cancel",
+
+  "confirmation-modal.export-metadata.confirm": "Export",
 
 
 
@@ -976,6 +1092,118 @@
 
   "error.validation.filerequired": "The file upload is mandatory",
 
+
+  "explore.browse-section.title" : "Browse",
+
+  "explore.facet-section.title" : "Discover",
+
+  "explore.index.all" : "All",
+
+  "explore.index.author" : "Author",
+
+  "explore.index.birthDate" : "Birthday",
+
+  "explore.index.dateIssued" : "Date issued",
+
+  "explore.index.dateissued" : "Date issued",
+
+  "explore.index.dc.date.accessioned" : "Date accesioned",
+
+  "explore.index.dc.title" : "Title",
+
+  "explore.index.entityType" : "Entity type",
+
+  "explore.index.familyName" : "Family name",
+
+  "explore.index.givenName" : "Given name",
+
+  "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
+
+  "explore.index.isAuthorOfPublication" : "Publication's author",
+
+  "explore.index.isJournalOfPublication" : "Publication's journal",
+
+  "explore.index.isOrgUnitOfPerson" : "Person's organization",
+
+  "explore.index.isOrgUnitOfProject" : "Project's organization",
+
+  "explore.index.isOrgUnitOfPublication" : "Publication's organization",
+
+  "explore.index.isPersonOfOrgUnit" : "Organization's person",
+
+  "explore.index.isPersonOfProject" : "Project's person",
+
+  "explore.index.isProjectOfOrgUnit" : "Organization's project",
+
+  "explore.index.isProjectOfPerson" : "Person's project",
+
+  "explore.index.isProjectOfPublication" : "Publication's project",
+
+  "explore.index.isPublicationOfAuthor" : "Author's publication",
+
+  "explore.index.isPublicationOfJournalIssue" : "Journal issue's publication",
+
+  "explore.index.isPublicationOfOrgUnit" : "Organization's publication",
+
+  "explore.index.isPublicationOfProject" : "Project's publication",
+
+  "explore.index.itemidentifier" : "Item identifier",
+
+  "explore.index.jobTitle" : "Job title",
+
+  "explore.index.knowsLanguage" : "Knows languages",
+
+  "explore.index.organizationAddressCountry" : "Organization address country",
+
+  "explore.index.organizationAddressLocality" : "Organization address locality",
+
+  "explore.index.organizationFoundingDate" : "Organization founding date",
+
+  "explore.index.organizationLegalName" : "Organization legal name",
+
+  "explore.index.original_bundle_descriptions" : "Original bundle descriptions",
+
+  "explore.index.original_bundle_filenames" : "Original bundle filenames",
+
+  "explore.index.ouname" : "Name",
+
+  "explore.index.pjtitle" : "Title",
+
+  "explore.index.projectinvestigators" : "Project investigators",
+
+  "explore.index.rodept" : "Department",
+
+  "explore.index.rpdept" : "Department",
+
+  "explore.index.rpname" : "Name",
+
+  "explore.index.subject" : "Subject",
+
+  "explore.index.title" : "Title",
+
+  "explore.index.type" : "Type",
+
+  "explore.search-section.fundings.title": "Search Projects",
+
+  "explore.search-section.orgunits.title": "Search Organizations",
+
+  "explore.search-section.publications.title": "Search Research Outputs",
+
+  "explore.search-section.researcherprofiles.title": "Search Researchers",
+
+  "explore.search-section.search-button": "Search",
+
+  "explore.search-section.reset-button": "Reset",
+
+  "explore.fundings.breadcrumbs": "Projects",
+
+  "explore.orgunits.breadcrumbs": "Organizations",
+
+  "explore.publications.breadcrumbs": "Research Outputs",
+
+  "explore.researcherprofiles.breadcrumbs": "Researchers",
+
+  "explore.title": "Explore section",
 
 
   "footer.copyright": "copyright © 2002-{{ year }}",
@@ -1393,6 +1621,8 @@
 
   "item.edit.relationships.save-button": "Save",
 
+  "item.edit.relationships.no-entity-type": "Add 'relationship.type' metadata to enable relationships for this item",
+
 
 
   "item.edit.tabs.bitstreams.head": "Bitstreams",
@@ -1529,6 +1759,13 @@
 
   "item.page.uri": "URI",
 
+  "item.page.bitstreams.view-more": "Show more",
+
+  "item.page.bitstreams.collapse": "Collapse",
+
+  "item.page.filesection.original.bundle" : "Original bundle",
+
+  "item.page.filesection.license.bundle" : "License bundle",
 
 
   "item.select.confirm": "Confirm selected",
@@ -1710,17 +1947,15 @@
 
   "menu.section.browse_community_by_title": "By Title",
 
-  "menu.section.browse_global": "All of DSpace",
+  "menu.section.explore_publications": "Research Outputs",
 
-  "menu.section.browse_global_by_author": "By Author",
+  "menu.section.explore_researcherprofiles": "Researchers",
 
-  "menu.section.browse_global_by_dateissued": "By Issue Date",
+  "menu.section.explore_orgunits": "Organizations",
 
-  "menu.section.browse_global_by_subject": "By Subject",
+  "menu.section.explore_fundings": "Projects",
 
-  "menu.section.browse_global_by_title": "By Title",
-
-  "menu.section.browse_global_communities_and_collections": "Communities & Collections",
+  "menu.section.communities_and_collections": "Communities & Collections",
 
 
 
@@ -2347,7 +2582,7 @@
 
   "relationships.isContributorOf": "Contributors",
 
-  
+
 
   "researcher.profile.action.processing" : "Processing...",
 
@@ -2812,13 +3047,13 @@
 
   "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Author": "Local Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Issue": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Volume": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
 
@@ -2828,23 +3063,27 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Search for Funding Agencies",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding": "Search for Funding",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
 
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.title.Journal Issue": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
 
-  "submission.sections.describe.relationship-lookup.title.Journal Volume": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
 
-  "submission.sections.describe.relationship-lookup.title.Journal": "Journals",
+  "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
 
-  "submission.sections.describe.relationship-lookup.title.Author": "Authors",
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
 
-  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
 
-  "submission.sections.describe.relationship-lookup.title.Funding": "Funding",
+  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
+
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
@@ -2852,13 +3091,19 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Author": "Selected Authors",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Volume": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Issue": "Selected Issue",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
 
@@ -3186,5 +3431,7 @@
   "relation.rp.researchoutputs.search.results.head": "Related Publications",
 
   "relation.rp.projects.search.results.head": "Related Projects",
+
+  "layout.i18n.link.default": "link"
 }
 

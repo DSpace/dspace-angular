@@ -57,6 +57,7 @@ describe('RowComponent', () => {
 
   describe('When the component is rendered', () => {
     it('should call the getMetadataBoxFieldRendering function with the right types', () => {
+      component.getComponent('text');
       expect(BoxDecorators.getMetadataBoxFieldRendering).toHaveBeenCalledWith('text');
     })
   });

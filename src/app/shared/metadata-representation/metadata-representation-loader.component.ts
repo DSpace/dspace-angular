@@ -1,10 +1,11 @@
-import { Component, ComponentFactoryResolver, InjectionToken, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
 import { MetadataRepresentation } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { getMetadataRepresentationComponent } from './metadata-representation.decorator';
 import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { MetadataRepresentationListElementComponent } from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 import { MetadataRepresentationDirective } from './metadata-representation.directive';
+import { hasValue } from '../empty.util';
 
 @Component({
   selector: 'ds-metadata-representation-loader',
@@ -15,10 +16,21 @@ import { MetadataRepresentationDirective } from './metadata-representation.direc
  * Component for determining what component to use depending on the item's relationship type (relationship.type), its metadata representation and, optionally, its context
  */
 export class MetadataRepresentationLoaderComponent implements OnInit {
+  private componentRefInstance: MetadataRepresentationListElementComponent;
+
   /**
    * The item or metadata to determine the component for
    */
-  @Input() mdRepresentation: MetadataRepresentation;
+  private _mdRepresentation: MetadataRepresentation;
+  get mdRepresentation(): MetadataRepresentation {
+    return this._mdRepresentation;
+  }
+  @Input() set mdRepresentation(nextValue: MetadataRepresentation) {
+    this._mdRepresentation = nextValue;
+    if (hasValue(this.componentRefInstance)) {
+      this.componentRefInstance.metadataRepresentation = nextValue;
+    }
+  }
 
   /**
    * The optional context
@@ -43,7 +55,8 @@ export class MetadataRepresentationLoaderComponent implements OnInit {
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as MetadataRepresentationListElementComponent).metadataRepresentation = this.mdRepresentation;
+    this.componentRefInstance = componentRef.instance as MetadataRepresentationListElementComponent;
+    this.componentRefInstance.metadataRepresentation = this.mdRepresentation;
   }
 
   /**

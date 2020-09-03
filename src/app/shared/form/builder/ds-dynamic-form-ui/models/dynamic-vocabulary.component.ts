@@ -72,6 +72,13 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           return this.model.value as any;
         }
       }));
+    } else if (isNotEmpty(this.model.value) && (this.model.value instanceof VocabularyEntry)) {
+      initValue$ = observableOf(Object.assign(new FormFieldMetadataValueObject(), this.model.value, {
+        value: this.model.value.value,
+        authority: this.model.value.authority,
+        display: this.model.value.display,
+        otherInformation: this.model.value.otherInformation || null
+      }));
     } else {
       initValue$ = observableOf(new FormFieldMetadataValueObject(this.model.value));
     }

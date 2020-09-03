@@ -18,7 +18,7 @@ import { RemoteData } from '../data/remote-data';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<MetadataComponent> {
-  protected linkPath = 'metadatacomponents';
+  protected linkPath = 'boxmetadataconfigurations';
 
   constructor(
     protected requestService: RequestService,
@@ -55,9 +55,9 @@ export class MetadataComponentsDataService {
   /**
    * It provides the configuration for a box that visualize a list of
    * metadata according to specific rules
-   * @param boxShortname shortname of box
+   * @param boxId id of box
    */
-  findById(boxShortname: string): Observable<RemoteData<MetadataComponent>> {
-    return this.dataService.findById(boxShortname);
+  findById(boxId: number): Observable<RemoteData<MetadataComponent>> {
+    return this.dataService.findById(boxId.toString());
   }
 }

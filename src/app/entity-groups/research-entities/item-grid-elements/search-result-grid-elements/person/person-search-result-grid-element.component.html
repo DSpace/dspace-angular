@@ -17,7 +17,7 @@
             </div>
         </span>
     <div class="card-body">
-      <ds-item-type-badge [object]="dso"></ds-item-type-badge>
+      <ds-item-type-badge *ngIf="showLabel" [object]="dso"></ds-item-type-badge>
       <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
         <h4 class="card-title"
             [innerHTML]="getPersonName()"></h4>

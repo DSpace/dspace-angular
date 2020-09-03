@@ -7,9 +7,9 @@ import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { filter, map } from 'rxjs/operators';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
-import { ComcolRole } from './comcol-role';
 import { RequestService } from '../../../../core/data/request.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { HALLink } from '../../../../core/shared/hal-link.model';
 
 /**
  * Component for managing a community or collection role.
@@ -31,7 +31,7 @@ export class ComcolRoleComponent implements OnInit {
    * The role to manage
    */
   @Input()
-  comcolRole: ComcolRole;
+  comcolRole: HALLink;
 
   constructor(
     protected requestService: RequestService,
@@ -43,7 +43,7 @@ export class ComcolRoleComponent implements OnInit {
    * The link to the related group.
    */
   get groupLink(): string {
-    return this.dso._links[this.comcolRole.linkName].href;
+    return this.comcolRole.href;
   }
 
   /**
@@ -106,7 +106,7 @@ export class ComcolRoleComponent implements OnInit {
    * Create a group for this community or collection role.
    */
   create() {
-    this.groupService.createComcolGroup(this.dso, this.groupLink).subscribe();
+    this.groupService.createComcolGroup(this.dso, this.comcolRole.name, this.groupLink).subscribe();
   }
 
   /**

@@ -20,7 +20,7 @@ import {
 })
 export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;
-  selectorType = DSpaceObjectType.COLLECTION;
+  selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.EDIT;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {

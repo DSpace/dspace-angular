@@ -114,7 +114,7 @@ describe('ItemBitstreamsComponent', () => {
       }
     );
     bitstreamService = jasmine.createSpyObj('bitstreamService', {
-      deleteAndReturnResponse: jasmine.createSpy('deleteAndReturnResponse')
+      delete: jasmine.createSpy('delete')
     });
     objectCache = jasmine.createSpyObj('objectCache', {
       remove: jasmine.createSpy('remove')
@@ -182,12 +182,25 @@ describe('ItemBitstreamsComponent', () => {
       comp.submit();
     });
 
-    it('should call deleteAndReturnResponse on the bitstreamService for the marked field', () => {
-      expect(bitstreamService.deleteAndReturnResponse).toHaveBeenCalledWith(bitstream2.id);
+    it('should call delete on the bitstreamService for the marked field', () => {
+      expect(bitstreamService.delete).toHaveBeenCalledWith(bitstream2.id);
     });
 
-    it('should not call deleteAndReturnResponse on the bitstreamService for the unmarked field', () => {
-      expect(bitstreamService.deleteAndReturnResponse).not.toHaveBeenCalledWith(bitstream1.id);
+    it('should not call delete on the bitstreamService for the unmarked field', () => {
+      expect(bitstreamService.delete).not.toHaveBeenCalledWith(bitstream1.id);
+    });
+  });
+
+  describe('when dropBitstream is called', () => {
+    const event = {
+      fromIndex: 0,
+      toIndex: 50,
+      // tslint:disable-next-line:no-empty
+      finish: () => {}
+    };
+
+    beforeEach(() => {
+      comp.dropBitstream(bundle, event);
     });
   });
 

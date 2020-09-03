@@ -79,7 +79,7 @@ export class ItemMoveComponent implements OnInit {
   loadSuggestions(query): void {
     this.collectionSearchResults = this.searchService.search(new PaginatedSearchOptions({
       pagination: this.pagination,
-      dsoType: DSpaceObjectType.COLLECTION,
+      dsoTypes: [DSpaceObjectType.COLLECTION],
       query: query
     })).pipe(
       first(),

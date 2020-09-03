@@ -26,7 +26,7 @@
          [scrollWindow]="false">
 
       <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">{{'form.no-results' | translate}}</button>
-      <button class="dropdown-item collection-item text-truncate" *ngFor="let listEntry of optionsList" (click)="onSelect(listEntry)" title="{{ listEntry.display }}">
+      <button class="dropdown-item collection-item text-truncate" *ngFor="let listEntry of optionsList" (click)="onSelect(listEntry); sdRef.close()" title="{{ listEntry.display }}">
         {{inputFormatter(listEntry)}}
       </button>
       <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>

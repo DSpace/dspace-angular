@@ -21,10 +21,9 @@ import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
-import { combineLatest } from 'rxjs/internal/observable/combineLatest';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { SubmissionDefinitionModel } from '../../core/config/models/config-submission-definition.model';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import {
   collectionFormEntityTypeSelectionConfig,
   collectionFormModels,
@@ -98,7 +97,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     const definitions$: Observable<SubmissionDefinitionModel[]> = this.submissionDefinitionService
       .getConfigAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
         map((result: any) => result.payload as PaginatedList<SubmissionDefinitionModel>),
-        map((result: PaginatedList<SubmissionDefinitionModel>) => result.page)
+        map((result: PaginatedList<SubmissionDefinitionModel>) => result.page),
+        catchError(() => observableOf([]))
       );
     combineLatest([])
 

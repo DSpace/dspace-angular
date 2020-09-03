@@ -12,15 +12,15 @@
            (click)="toggleSection($event)">
             <span class="section-header-text">
                 <ng-container
-                        *ngComponentOutlet="itemComponents.get(section.id); injector: itemInjectors.get(section.id);"></ng-container>
+                        *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
             </span>
             <i class="fas fa-chevron-right fa-pull-right"
                [@rotate]="(expanded | async) ? 'expanded' : 'collapsed'" [title]="('menu.section.toggle.' + section.id) | translate"></i>
         </a>
         <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="(expanded | async)">
-            <li *ngFor="let subSection of (subSections | async)">
+            <li *ngFor="let subSection of (subSections$ | async)">
                 <ng-container
-                        *ngComponentOutlet="itemComponents.get(subSection.id); injector: itemInjectors.get(subSection.id);"></ng-container>
+                        *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
             </li>
         </ul>
     </div>

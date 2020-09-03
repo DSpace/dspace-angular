@@ -51,9 +51,7 @@ function init() {
   ONEBOX_TEST_MODEL_CONFIG = {
     vocabularyOptions: {
       closed: false,
-      metadata: 'onebox',
-      name: 'vocabulary',
-      scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+      name: 'vocabulary'
     } as VocabularyOptions,
     disabled: false,
     id: 'onebox',

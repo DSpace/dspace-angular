@@ -1,17 +1,17 @@
-<ds-item-type-badge [object]="dso"></ds-item-type-badge>
+<ds-item-type-badge *ngIf="showLabel" [object]="dso"></ds-item-type-badge>
 <ds-truncatable [id]="dso.id">
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
        [routerLink]="['/items/' + dso.id]" class="lead"
-       [innerHTML]="firstMetadataValue('organization.legalName')"></a>
+       [innerHTML]="firstMetadataValue('dc.title')"></a>
     <span *ngIf="linkType == linkTypes.None"
           class="lead"
-          [innerHTML]="firstMetadataValue('organization.legalName')"></span>
+          [innerHTML]="firstMetadataValue('dc.title')"></span>
     <span class="text-muted">
     <ds-truncatable-part [id]="dso.id" [minLines]="3">
-            <span *ngIf="dso.allMetadata(['dc.description']).length > 0"
+            <span *ngIf="dso.allMetadata(['dc.description.abstract']).length > 0"
                   class="item-list-org-unit-description">
                 <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
-                        [innerHTML]="firstMetadataValue('dc.description')"></span>
+                        [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
                 </ds-truncatable-part>
             </span>
         </ds-truncatable-part>

@@ -11,6 +11,7 @@ import { ItemPageConfig } from './item-page-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { Theme } from './theme.inferface';
 import {AuthConfig} from './auth-config.interfaces';
+import { LayoutConfig } from './layout-config.interfaces';
 
 export interface GlobalConfig extends Config {
   ui: ServerConfig;
@@ -31,4 +32,5 @@ export interface GlobalConfig extends Config {
   item: ItemPageConfig;
   collection: CollectionPageConfig;
   theme: Theme;
+  layout: LayoutConfig;
 }

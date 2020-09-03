@@ -1,6 +1,7 @@
 import { CrisLayoutPage } from './cris-layout-page.model';
 import { Input, OnInit } from '@angular/core';
 import { Box } from 'src/app/core/layout/models/box.model';
+import { hasValue } from 'src/app/shared/empty.util';
 
 /**
  * This class is a model to be extended for creating custom layouts for boxes
@@ -14,7 +15,10 @@ export class CrisLayoutBox extends CrisLayoutPage implements OnInit {
   activeIds: string[] = [];
 
   ngOnInit(): void {
-    if (this.box.collapsed) {
+    /**
+     * Check if the current box is collapsed or not
+     */
+    if (!hasValue(this.box.collapsed) || !this.box.collapsed) {
       this.activeIds.push(this.box.shortname);
     }
   }

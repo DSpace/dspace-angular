@@ -6,6 +6,7 @@ import { RestRequestMethod } from '../app/core/data/rest-request-method';
 export const environment: GlobalConfig = {
   production: true,
   // Angular Universal server settings.
+  // NOTE: these must be "synced" with the 'dspace.ui.url' setting in your backend's local.cfg.
   ui: {
     ssl: false,
     host: 'localhost',
@@ -14,6 +15,8 @@ export const environment: GlobalConfig = {
     nameSpace: '/',
   },
   // The REST API server settings.
+  // NOTE: these must be "synced" with the 'dspace.server.url' setting in your backend's local.cfg.
+  // The 'nameSpace' must always end in "/api" as that's the subpath of the REST API in the backend.
   rest: {
     ssl: true,
     host: 'dspacecris7.4science.cloud',
@@ -211,6 +214,30 @@ export const environment: GlobalConfig = {
       {
         id: 'subject',
         type: BrowseByType.Metadata
+      },
+      {
+        id: 'rodept',
+        type: BrowseByType.Metadata
+      },
+      {
+        id: 'type',
+        type: BrowseByType.Metadata
+      },
+      {
+        id: 'rpname',
+        type: BrowseByType.Title
+      },
+      {
+        id: 'rpdept',
+        type: BrowseByType.Metadata
+      },
+      {
+        id: 'ouname',
+        type: BrowseByType.Title
+      },
+      {
+        id: 'pjtitle',
+        type: BrowseByType.Title
       }
     ]
   },
@@ -226,5 +253,35 @@ export const environment: GlobalConfig = {
   },
   theme: {
     name: 'default',
+  },
+  layout: {
+    urn: [
+      {
+        name: 'doi',
+        baseUrl: 'https://doi.org/'
+      },
+      {
+        name: 'hdl',
+        baseUrl: 'https://hdl.handle.net/'
+      },
+      {
+        name: 'mailto',
+        baseUrl: 'mailto:'
+      }
+    ],
+    crisRef: [
+      {
+        entityType: 'DEFAULT',
+        icon: 'fa fa-info'
+      },
+      {
+        entityType: 'PERSON',
+        icon: 'fa fa-user'
+      },
+      {
+        entityType: 'ORGUNIT',
+        icon: 'fa fa-university'
+      }
+    ]
   }
 };

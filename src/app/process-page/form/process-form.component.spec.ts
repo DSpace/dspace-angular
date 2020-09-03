@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -14,18 +14,14 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { RequestService } from '../../core/data/request.service';
 import { Router } from '@angular/router';
-import { TestScheduler } from 'rxjs/testing';
-import { getTestScheduler } from 'jasmine-marbles';
 
 describe('ProcessFormComponent', () => {
   let component: ProcessFormComponent;
   let fixture: ComponentFixture<ProcessFormComponent>;
   let scriptService;
+  let router;
   let parameterValues;
   let script;
-  let scheduler: TestScheduler;
-  let requestService: RequestService;
-  let router: Router;
 
   function init() {
     const param1 = new ScriptParameter();
@@ -47,17 +43,12 @@ describe('ProcessFormComponent', () => {
         })
       }
     );
-
-    requestService = jasmine.createSpyObj('requestService', {
-      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring')
-    });
-
-    router = jasmine.createSpyObj('requestService', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
-    });
+    router = {
+      navigateByUrl: () => undefined,
+    };
   }
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -72,16 +63,15 @@ describe('ProcessFormComponent', () => {
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        { provide: RequestService, useValue: requestService },
-        { provide: Router, useValue: router },
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeBySubstring', 'removeByHrefSubstring']) },
+        { provide: Router, useValue: jasmine.createSpyObj('router', ['navigateByUrl']) },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
-    scheduler = getTestScheduler();
     fixture = TestBed.createComponent(ProcessFormComponent);
     component = fixture.componentInstance;
     component.parameters = parameterValues;
@@ -93,11 +83,8 @@ describe('ProcessFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call invoke on the scriptService on submit', (done) => {
-    scheduler.schedule(() => component.submitForm({ controls: {} } as any));
-    scheduler.flush();
-
+  it('should call invoke on the scriptService on submit', () => {
+    component.submitForm({ controls: {} } as any);
     expect(scriptService.invoke).toHaveBeenCalled();
-    done();
   });
 });

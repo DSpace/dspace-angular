@@ -1,6 +1,13 @@
 export enum FieldRendetingType {
-  TEXT = 'text',
-  HEADING = 'heading'
+  TEXT = 'TEXT',
+  HEADING = 'HEADING',
+  LONGTEXT = 'LONGTEXT',
+  DATE = 'DATE',
+  LINK = 'LINK',
+  IDENTIFIER = 'IDENTIFIER',
+  CRISREF = 'CRISREF',
+  THUMBNAIL = 'THUMBNAIL',
+  ATTACHMENT = 'ATTACHMENT'
 };
 
 const fieldType = new Map();
@@ -14,5 +21,5 @@ export function MetadataBoxFieldRendering(objectType: FieldRendetingType) {
 }
 
 export function getMetadataBoxFieldRendering(objectType: string) {
-  return fieldType.get(objectType);
+  return fieldType.get(objectType.toUpperCase());
 }

@@ -368,7 +368,6 @@ describe('SectionsService test suite', () => {
       scheduler.schedule(() => service.updateSectionData(submissionId, sectionId, data, []));
       scheduler.flush();
 
-      expect(notificationsServiceStub.info).toHaveBeenCalled();
       expect(store.dispatch).toHaveBeenCalledWith(new UpdateSectionDataAction(submissionId, sectionId, data, []));
     });
   });

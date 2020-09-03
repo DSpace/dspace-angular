@@ -17,7 +17,7 @@ import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-sel
 })
 export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;
-  selectorType = DSpaceObjectType.ITEM;
+  selectorTypes = [DSpaceObjectType.ITEM];
   action = SelectorActionType.EDIT;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {

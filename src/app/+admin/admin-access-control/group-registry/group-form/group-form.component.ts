@@ -20,6 +20,8 @@ import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/s
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { deepClone } from 'fast-json-patch/lib/core';
+import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-group-form',
@@ -230,14 +232,26 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * @param values
    */
   editGroup(group: Group, values) {
+    const editedGroup = Object.assign(deepClone(group), {
+      id: group.id,
+      name: (hasValue(values.name) ? values.name : group.name),
+      permanent: (hasValue(values.permanent) ? values.permanent : group.permanent),
+      handle: (hasValue(values.handle) ? values.handle : group.handle),
+      _links: group._links,
+    });
+
+    if ( this.groupDescription && this.groupDescription.value) {
+      this.addOrReplaceMetadataValue(group, editedGroup, 'dc.description', this.groupDescription.value);
+    }
+
     this.groupDataService
-        .updateGroup(group, values)
+        .updateGroup(editedGroup)
         .pipe(first())
         .subscribe((response: any) => {
-          console.log(response);
           if (response.isSuccessful) {
             this.notificationsService.success(
               this.translateService.get('admin.access-control.groups.notification.edit.success', { name: group.name }));
+            this.router.navigate(['groups']);
           } else {
             this.notificationsService.error(
               this.translateService.get('admin.access-control.groups.notification.edit.failure', { name: group.name }));
@@ -286,5 +300,13 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onCancel();
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+  }
+
+  private addOrReplaceMetadataValue(dspaceObject: DSpaceObject, editedObject: any, metadataField: string, value: string) {
+    if (dspaceObject.hasMetadata(metadataField)) {
+      editedObject.metadata[metadataField][0].value = value;
+    } else {
+      editedObject.metadata[metadataField] = [Object.assign<any,any>({}, {value: value})];
+    }
   }
 }

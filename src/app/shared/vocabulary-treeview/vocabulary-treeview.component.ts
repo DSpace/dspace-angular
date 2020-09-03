@@ -1,6 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, find, startWith } from 'rxjs/operators';
@@ -17,6 +16,8 @@ import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode } from './voc
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
+import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 
 /**
  * Component that show a hierarchical vocabulary in a tree view
@@ -66,12 +67,12 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   /**
    * Tree flattener object. Able to convert a normal type of node to node with children and level information.
    */
-  treeFlattener: MatTreeFlattener<TreeviewNode, TreeviewFlatNode>;
+  treeFlattener: VocabularyTreeFlattener<TreeviewNode, TreeviewFlatNode>;
 
   /**
    * Flat tree data source
    */
-  dataSource: MatTreeFlatDataSource<TreeviewNode, TreeviewFlatNode>;
+  dataSource: VocabularyTreeFlatDataSource<TreeviewNode, TreeviewFlatNode>;
 
   /**
    * The content of the search box used to search for a vocabulary entry
@@ -113,12 +114,12 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
     private store: Store<CoreState>,
     private translate: TranslateService
   ) {
-    this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
+    this.treeFlattener = new VocabularyTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
 
     this.treeControl = new FlatTreeControl<TreeviewFlatNode>(this.getLevel, this.isExpandable);
 
-    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+    this.dataSource = new VocabularyTreeFlatDataSource(this.treeControl, this.treeFlattener);
   }
 
   /**

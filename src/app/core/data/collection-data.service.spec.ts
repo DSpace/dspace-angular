@@ -6,18 +6,18 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { fakeAsync, tick } from '@angular/core/testing';
-import { ContentSourceRequest, GetRequest, RequestError, UpdateContentSourceRequest } from './request.models';
+import { ContentSourceRequest, GetRequest, UpdateContentSourceRequest } from './request.models';
 import { ContentSource } from '../shared/content-source.model';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RequestEntry } from './request.reducer';
-import { ErrorResponse, RestResponse } from '../cache/response.models';
+import { ErrorResponse } from '../cache/response.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Collection } from '../shared/collection.model';
 import { PageInfo } from '../shared/page-info.model';
 import { PaginatedList } from './paginated-list';
 import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
-import { hot, getTestScheduler, cold } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
 const url = 'fake-url';
@@ -73,7 +73,12 @@ describe('CollectionDataService', () => {
 
   describe('when the requests are successful', () => {
     beforeEach(() => {
-      createService();
+      createService(observableOf({
+        request: {
+          href: 'https://rest.api/request'
+        },
+        completed: true
+      }));
     });
 
     describe('when calling getContentSource', () => {
@@ -133,7 +138,7 @@ describe('CollectionDataService', () => {
       });
 
       it('should return a RemoteData<PaginatedList<Colletion>> for the getAuthorizedCollection', () => {
-        const result = service.getAuthorizedCollection(queryString)
+        const result = service.getAuthorizedCollection(queryString);
         const expected = cold('a|', {
           a: paginatedListRD
         });
@@ -148,7 +153,7 @@ describe('CollectionDataService', () => {
       });
 
       it('should return a RemoteData<PaginatedList<Colletion>> for the getAuthorizedCollectionByCommunity', () => {
-        const result = service.getAuthorizedCollectionByCommunity(communityId, queryString)
+        const result = service.getAuthorizedCollectionByCommunity(communityId, queryString);
         const expected = cold('a|', {
           a: paginatedListRD
         });

@@ -25,9 +25,7 @@ export const SD_TEST_GROUP = new FormGroup({
 export const SD_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
     closed: false,
-    metadata: 'dropdown',
-    name: 'common_iso_languages',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    name: 'common_iso_languages'
   } as VocabularyOptions,
   disabled: false,
   errorMessages: { required: 'Required field.' },
@@ -41,7 +39,8 @@ export const SD_TEST_MODEL_CONFIG = {
   repeatable: false,
   value: undefined,
   metadataFields: [],
-  submissionId: '1234'
+  submissionId: '1234',
+  hasSelectableMetadata: false
 };
 
 describe('Dynamic Dynamic Scrollable Dropdown component', () => {

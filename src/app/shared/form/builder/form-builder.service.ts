@@ -256,7 +256,7 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   hasArrayGroupValue(model: DynamicFormControlModel): boolean {
-    return model && (this.isListGroup(model) || model.type === DYNAMIC_FORM_CONTROL_TYPE_TAG);
+    return model && (this.isListGroup(model) || model.type === DYNAMIC_FORM_CONTROL_TYPE_TAG || model.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY);
   }
 
   hasMappedGroupValue(model: DynamicFormControlModel): boolean {
@@ -313,11 +313,16 @@ export class FormBuilderService extends DynamicFormService {
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 
+  /**
+   * Note (discovered while debugging) this is not the ID as used in the form,
+   * but the first part of the path needed in a patch operation:
+   * e.g. add foo/0 -> the id is 'foo'
+   */
   getId(model: DynamicPathable): string {
     let tempModel: DynamicFormControlModel;
 
     if (this.isArrayGroup(model as DynamicFormControlModel)) {
-      return model.index.toString();
+      return hasValue((model as any).metadataKey) ? (model as any).metadataKey : model.index.toString();
     } else if (this.isModelInCustomGroup(model as DynamicFormControlModel)) {
       tempModel = (model as any).parent;
     } else {

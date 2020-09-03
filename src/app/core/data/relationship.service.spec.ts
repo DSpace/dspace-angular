@@ -1,11 +1,6 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import * as ItemRelationshipsUtils from '../../+item-page/simple/item-types/shared/item-relationships-utils';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { spyOnOperator } from '../../shared/testing/utils.test';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
@@ -13,11 +8,16 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
 import { PaginatedList } from './paginated-list';
-import { RelationshipService } from './relationship.service';
-import { RemoteData } from './remote-data';
 import { DeleteRequest, FindListOptions } from './request.models';
-import { RequestEntry } from './request.reducer';
+import { RelationshipService } from './relationship.service';
 import { RequestService } from './request.service';
+import { RemoteData } from './remote-data';
+import { RequestEntry } from './request.reducer';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { spyOnOperator } from '../../shared/testing/utils.test';
 
 describe('RelationshipService', () => {
   let service: RelationshipService;
@@ -159,8 +159,8 @@ describe('RelationshipService', () => {
     it('should clear the cache of the related items', () => {
       expect(objectCache.remove).toHaveBeenCalledWith(relatedItem1._links.self.href);
       expect(objectCache.remove).toHaveBeenCalledWith(item._links.self.href);
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.self);
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.self);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.uuid);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.uuid);
     });
   });
 
@@ -170,37 +170,6 @@ describe('RelationshipService', () => {
         result.forEach((relResult: any) => {
           expect(relResult).toEqual(relationships);
         });
-        done();
-      });
-    });
-  });
-
-  describe('getRelatedItems', () => {
-    let mockItem;
-
-    beforeEach(() => {
-      mockItem = { uuid: 'someid' } as Item;
-
-      spyOn(service, 'getItemRelationshipsArray').and.returnValue(observableOf(relationships));
-
-      spyOnOperator(ItemRelationshipsUtils, 'relationsToItems').and.returnValue((v) => v);
-    });
-
-    it('should call getItemRelationshipsArray with the correct params', (done) => {
-      service.getRelatedItems(mockItem).subscribe(() => {
-        expect(service.getItemRelationshipsArray).toHaveBeenCalledWith(
-          mockItem,
-          followLink('leftItem'),
-          followLink('rightItem'),
-          followLink('relationshipType')
-        );
-        done();
-      });
-    });
-
-    it('should use the relationsToItems operator', (done) => {
-      service.getRelatedItems(mockItem).subscribe(() => {
-        expect(ItemRelationshipsUtils.relationsToItems).toHaveBeenCalledWith(mockItem.uuid);
         done();
       });
     });
@@ -258,7 +227,6 @@ describe('RelationshipService', () => {
       });
     });
   })
-
 });
 
 function getRemotedataObservable(obj: any): Observable<RemoteData<any>> {

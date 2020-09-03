@@ -19,7 +19,7 @@ import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model'
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<SearchComponent> {
-  protected linkPath = 'searchcomponents';
+  protected linkPath = 'boxrelationconfigurations';
 
   constructor(
     protected requestService: RequestService,
@@ -52,10 +52,10 @@ export class SearchcomponentService {
 
   /**
    * It provides the configuration for a box
-   * @param boxShortname shortname of box
+   * @param boxId id of box
    */
-  findById(boxShortname: string): Observable<RemoteData<SearchComponent>> {
-    return this.dataService.findById(boxShortname);
+  findById(boxId: number): Observable<RemoteData<SearchComponent>> {
+    return this.dataService.findById(boxId.toString());
   }
 
   findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<SearchComponent>>): Observable<RemoteData<SearchComponent>> {

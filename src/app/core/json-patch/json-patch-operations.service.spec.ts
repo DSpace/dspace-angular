@@ -1,9 +1,8 @@
-import { async, TestBed } from '@angular/core/testing';
-
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
-import { Store, StoreModule } from '@ngrx/store';
+import { catchError } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
@@ -21,10 +20,7 @@ import {
   RollbacktPatchOperationsAction,
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
-import { StoreMock } from '../../shared/testing/store.mock';
 import { RequestEntry } from '../data/request.reducer';
-import { catchError } from 'rxjs/operators';
-import { storeModuleConfig } from '../../app.reducer';
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
@@ -99,27 +95,22 @@ describe('JsonPatchOperationsService test suite', () => {
 
   }
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({}, storeModuleConfig),
-      ],
-      providers: [
-        { provide: Store, useClass: StoreMock }
-      ]
-    }).compileComponents();
-  }));
+  function getStore() {
+    return jasmine.createSpyObj('store', {
+      dispatch: {},
+      select: observableOf(mockState['json/patch'][testJsonPatchResourceType]),
+      pipe: observableOf(true)
+    });
+  }
 
   beforeEach(() => {
-    store = TestBed.get(Store);
+    store = getStore();
     requestService = getMockRequestService(getRequestEntry$(true));
     rdbService = getMockRemoteDataBuildService();
     scheduler = getTestScheduler();
     halService = new HALEndpointServiceStub(resourceEndpointURL);
     service = initTestService();
 
-    spyOn(store, 'select').and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
-    spyOn(store, 'dispatch').and.callThrough();
     spyOn(Date.prototype, 'getTime').and.callFake(() => {
       return timestamp;
     });
@@ -164,7 +155,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
     describe('when request is not successful', () => {
       beforeEach(() => {
-        store = TestBed.get(Store);
+        store = getStore();
         requestService = getMockRequestService(getRequestEntry$(false));
         rdbService = getMockRemoteDataBuildService();
         scheduler = getTestScheduler();
@@ -227,7 +218,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
     describe('when request is not successful', () => {
       beforeEach(() => {
-        store = TestBed.get(Store);
+        store = getStore();
         requestService = getMockRequestService(getRequestEntry$(false));
         rdbService = getMockRemoteDataBuildService();
         scheduler = getTestScheduler();

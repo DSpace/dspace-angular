@@ -59,7 +59,7 @@ describe('MetadataComponentsDataService', () => {
   const endpointURL = `https://rest.api/rest/api/metadatacomponent`;
   const medataComponentRD = createSuccessfulRemoteDataObject(medataComponent);
   const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
-  const medataComponentID = 'box-shortname-1';
+  const medataComponentID = 1;
 
   beforeEach(() => {
     scheduler = getTestScheduler();
@@ -106,7 +106,7 @@ describe('MetadataComponentsDataService', () => {
       scheduler.schedule(() => service.findById(medataComponentID));
       scheduler.flush();
 
-      expect((service as any).dataService.findById).toHaveBeenCalledWith(medataComponentID);
+      expect((service as any).dataService.findById).toHaveBeenCalledWith(medataComponentID.toString());
     });
 
     it('should return a RemoteData<MetadataComponent> for the object with the given id', () => {

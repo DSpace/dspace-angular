@@ -1,0 +1,14 @@
+<span class="{{containerStyle}}">
+  <span class="{{labelStyle}}">{{label}}</span>
+  <span class="{{valueStyle}}">
+    <div *ngFor="let attachment of (bitstreams$ | async)">
+      <a
+        class="btn-link"
+        target="_blank"
+        href="{{getLink(attachment)}}"
+        rel="noopener noreferrer">
+        {{fileName(attachment)}} ({{getSize(attachment) | dsFileSize}})
+      </a>
+    </div>
+  </span>
+</span>

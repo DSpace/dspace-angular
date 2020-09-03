@@ -17,6 +17,7 @@ import { CrisLayoutPage as CrisLayoutPageObj } from '../models/cris-layout-page.
 import { LayoutPage } from '../enums/layout-page.enum';
 import { Router, ActivatedRoute } from '@angular/router';
 import { hasValue } from 'src/app/shared/empty.util';
+import { Subscription } from 'rxjs';
 
 /**
  * This component defines the default layout for all DSpace Items.
@@ -44,6 +45,10 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
   @ViewChild(CrisLayoutLoaderDirective, {static: true}) crisLayoutLoader: CrisLayoutLoaderDirective;
 
   componentRef: ComponentRef<Component>;
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
 
   constructor(
     private tabService: TabDataService,
@@ -57,7 +62,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
 
   ngOnInit() {
     // Retrieve tabs by UUID of item
-    this.tabService.findByItem(this.item.id)
+    this.subs.push(this.tabService.findByItem(this.item.id)
       .pipe(getFirstSucceededRemoteListPayload())
       .subscribe(
         (next) => {
@@ -66,7 +71,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
             this.cd.markForCheck();
           }
         }
-    );
+    ));
   }
 
   /**
@@ -104,5 +109,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     if (this.componentRef) {
       this.componentRef.destroy();
     }
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
+
 }

@@ -175,8 +175,6 @@ describe('VocabularyService', () => {
   const entryByIDRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?entryID=${entryID}`;
   const vocabularyOptions: VocabularyOptions = {
     name: vocabularyId,
-    metadata: metadata,
-    scope: collectionUUID,
     closed: false
   }
   const pageInfo = new PageInfo();
@@ -187,6 +185,7 @@ describe('VocabularyService', () => {
   const paginatedListEntries = new PaginatedList(pageInfo, arrayEntries);
   const childrenPaginatedList = new PaginatedList(pageInfo, childrenEntries);
   const vocabularyRD = createSuccessfulRemoteDataObject(vocabulary);
+  const vocabularyRD$ = createSuccessfulRemoteDataObject$(vocabulary);
   const vocabularyEntriesRD = createSuccessfulRemoteDataObject$(paginatedListEntries);
   const vocabularyEntryDetailParentRD = createSuccessfulRemoteDataObject(vocabularyEntryParentDetail);
   const vocabularyEntryChildrenRD = createSuccessfulRemoteDataObject(childrenPaginatedList);
@@ -231,6 +230,8 @@ describe('VocabularyService', () => {
     describe('', () => {
       beforeEach(() => {
         responseCacheEntry = new RequestEntry();
+        responseCacheEntry.request = { href: 'https://rest.api/' } as any;
+        responseCacheEntry.completed = true;
         responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
         requestService = jasmine.createSpyObj('requestService', {
@@ -313,24 +314,6 @@ describe('VocabularyService', () => {
           expect(result).toBeObservable(expected);
         });
       });
-
-      describe('searchVocabularyByMetadataAndCollection', () => {
-        it('should proxy the call to vocabularyDataService.findVocabularyByHref', () => {
-          scheduler.schedule(() => service.searchVocabularyByMetadataAndCollection(vocabularyOptions).subscribe());
-          scheduler.flush();
-
-          expect((service as any).vocabularyDataService.findByHref).toHaveBeenCalledWith(searchRequestURL);
-        });
-
-        it('should return a RemoteData<Vocabulary> for the search', () => {
-          const result = service.searchVocabularyByMetadataAndCollection(vocabularyOptions);
-          const expected = cold('a|', {
-            a: vocabularyRD
-          });
-          expect(result).toBeObservable(expected);
-        });
-
-      });
     });
 
     describe('', () => {
@@ -340,9 +323,11 @@ describe('VocabularyService', () => {
         rdbService = getMockRemoteDataBuildService(undefined, vocabularyEntriesRD);
         spyOn(rdbService, 'toRemoteDataObservable').and.callThrough();
         service = initTestService();
+        spyOn(service, 'findVocabularyById').and.returnValue(vocabularyRD$);
       });
 
       describe('getVocabularyEntries', () => {
+
         it('should configure a new VocabularyEntriesRequest', () => {
           const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesRequestURL);
 
@@ -361,6 +346,7 @@ describe('VocabularyService', () => {
       });
 
       describe('getVocabularyEntriesByValue', () => {
+
         it('should configure a new VocabularyEntriesRequest', () => {
           const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesByValueRequestURL);
 
@@ -380,6 +366,7 @@ describe('VocabularyService', () => {
       });
 
       describe('getVocabularyEntryByValue', () => {
+
         it('should configure a new VocabularyEntriesRequest', () => {
           const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entryByValueRequestURL);
 
@@ -430,6 +417,8 @@ describe('VocabularyService', () => {
       });
 
       responseCacheEntry = new RequestEntry();
+      responseCacheEntry.request = { href: 'https://rest.api/' } as any;
+      responseCacheEntry.completed = true;
       responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
       requestService = jasmine.createSpyObj('requestService', {
