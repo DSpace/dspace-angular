@@ -47,8 +47,8 @@ describe('EndUserAgreementService', () => {
       cookie.set(END_USER_AGREEMENT_COOKIE, true);
     });
 
-    it('hasCurrentUserAcceptedAgreement should return true', (done) => {
-      service.hasCurrentUserAcceptedAgreement().subscribe((result) => {
+    it('hasCurrentUserOrCookieAcceptedAgreement should return true', (done) => {
+      service.hasCurrentUserOrCookieAcceptedAgreement(false).subscribe((result) => {
         expect(result).toEqual(true);
         done();
       });
@@ -75,8 +75,8 @@ describe('EndUserAgreementService', () => {
           (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf(userWithMetadata));
         });
 
-        it('hasCurrentUserAcceptedAgreement should return true', (done) => {
-          service.hasCurrentUserAcceptedAgreement().subscribe((result) => {
+        it('hasCurrentUserOrCookieAcceptedAgreement should return true', (done) => {
+          service.hasCurrentUserOrCookieAcceptedAgreement(false).subscribe((result) => {
             expect(result).toEqual(true);
             done();
           });
@@ -88,8 +88,8 @@ describe('EndUserAgreementService', () => {
           (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf(userWithoutMetadata));
         });
 
-        it('hasCurrentUserAcceptedAgreement should return false', (done) => {
-          service.hasCurrentUserAcceptedAgreement().subscribe((result) => {
+        it('hasCurrentUserOrCookieAcceptedAgreement should return false', (done) => {
+          service.hasCurrentUserOrCookieAcceptedAgreement(false).subscribe((result) => {
             expect(result).toEqual(false);
             done();
           });
@@ -117,8 +117,8 @@ describe('EndUserAgreementService', () => {
         (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
       });
 
-      it('hasCurrentUserAcceptedAgreement should return false', (done) => {
-        service.hasCurrentUserAcceptedAgreement().subscribe((result) => {
+      it('hasCurrentUserOrCookieAcceptedAgreement should return false', (done) => {
+        service.hasCurrentUserOrCookieAcceptedAgreement(false).subscribe((result) => {
           expect(result).toEqual(false);
           done();
         });
