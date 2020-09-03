@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
 import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list';
@@ -68,11 +68,7 @@ export class RemoteDataBuildService {
             return fromResponse;
           }
         }),
-        hasValueOperator(),
-        map((obj: T) =>
-          this.linkService.resolveLinks(obj, ...linksToFollow)
-        ),
-        startWith(undefined),
+        map((obj: T) => hasValue(obj) ? this.linkService.resolveLinks(obj, ...linksToFollow) : undefined),
         distinctUntilChanged()
       );
     return this.toRemoteDataObservable(requestEntry$, payload$);
@@ -88,7 +84,7 @@ export class RemoteDataBuildService {
         const response = reqEntry ? reqEntry.response : undefined;
         if (hasValue(response)) {
           isSuccessful = response.statusCode === 204 ||
-            response.statusCode >= 200 && response.statusCode < 300 && hasValue(payload);
+            response.statusCode >= 200 && response.statusCode < 300 && (hasValue(payload) || responsePending);
           const errorMessage = isSuccessful === false ? (response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
             error = new RemoteDataError(
