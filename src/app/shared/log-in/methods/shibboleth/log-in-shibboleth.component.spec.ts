@@ -62,6 +62,7 @@ describe('LogInShibbolethComponent', () => {
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Shibboleth, location) },
+        { provide: 'isStandalonePage', useValue: true },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },

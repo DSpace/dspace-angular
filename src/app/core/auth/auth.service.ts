@@ -436,6 +436,10 @@ export class AuthService {
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
 
+  /**
+   * Set the redirect url if the current one has not been set yet
+   * @param newRedirectUrl
+   */
   setRedirectUrlIfNotSet(newRedirectUrl: string) {
     this.getRedirectUrl().pipe(
       take(1))

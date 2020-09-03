@@ -2,9 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { AuthMethod } from '../../core/auth/models/auth.method';
-import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
+import {
+  getAuthenticationError,
+  getAuthenticationMethods,
+  isAuthenticated,
+  isAuthenticationLoading
+} from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
 import { getForgotPasswordPath, getRegisterPath } from '../../app-routing.module';
+import { hasValue } from '../empty.util';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * /users/sign-in
@@ -41,7 +48,8 @@ export class LogInComponent implements OnInit {
    */
   public loading: Observable<boolean>;
 
-  constructor(private store: Store<CoreState>) {
+  constructor(private store: Store<CoreState>,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -55,6 +63,13 @@ export class LogInComponent implements OnInit {
 
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
+
+    // Clear the redirect URL if an authentication error occurs and this is not a standalone page
+    this.store.pipe(select(getAuthenticationError)).subscribe((error) => {
+      if (hasValue(error) && !this.isStandalonePage) {
+        this.authService.clearRedirectUrl();
+      }
+    });
   }
 
   getRegisterPath() {
