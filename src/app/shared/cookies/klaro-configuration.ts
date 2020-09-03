@@ -57,6 +57,7 @@ export const klaroConfiguration: any = {
       },
       close: 'cookies.consent.close',
       decline: 'cookies.consent.decline',
+      changeDescription: 'cookies.consent.update',
       consentNotice: {
         description: 'cookies.consent.content-notice.description',
         learnMore: 'cookies.consent.content-notice.learnMore'
@@ -74,56 +75,35 @@ export const klaroConfiguration: any = {
   },
   apps: [
     {
-      name: 'token_item',
-      purposes: ['authentication'],
+      name: 'authentication',
+      purposes: ['functional'],
       required: true,
       cookies: [
-        TOKENITEM
-      ]
-    },
-    {
-      name: 'impersonation',
-      purposes: ['authentication'],
-      required: true,
-      cookies: [
-        IMPERSONATING_COOKIE
-      ]
-    },
-    {
-      name: 'redirect',
-      purposes: ['authentication'],
-      required: true,
-      cookies: [
+        TOKENITEM,
+        IMPERSONATING_COOKIE,
         REDIRECT_COOKIE
       ]
     },
     {
-      name: 'language',
-      purposes: ['preferences'],
+      name: 'preferences',
+      purposes: ['functional'],
       required: true,
       cookies: [
         LANG_COOKIE
       ]
     },
     {
-      name: 'klaro',
-      purposes: ['acknowledgement'],
+      name: 'acknowledgement',
+      purposes: ['functional'],
       required: true,
       cookies: [
         [/^klaro-.+$/],
-      ]
-    },
-    {
-      name: 'has_agreed_end_user',
-      purposes: ['acknowledgement'],
-      required: true,
-      cookies: [
         HAS_AGREED_END_USER
       ]
     },
     {
       name: 'google-analytics',
-      purposes: ['statistics'],
+      purposes: ['statistical'],
       required: false,
       cookies: [
         //     /*

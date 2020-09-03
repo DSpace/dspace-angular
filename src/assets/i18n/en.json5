@@ -951,11 +951,13 @@
 
   "cookies.consent.app.required.title": "(always required)",
 
+  "cookies.consent.update": "There were changes since your last visit, please update your consent.",
+
   "cookies.consent.close": "Close",
 
   "cookies.consent.decline": "Decline",
 
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}. <br/> To learn more, please read our {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
 
   "cookies.consent.content-notice.learnMore": "Customize",
 
@@ -969,56 +971,32 @@
 
 
 
-  "cookies.consent.app.title.token_item": "User Token",
+  "cookies.consent.app.title.authentication": "Authentication",
 
-  "cookies.consent.app.description.token_item": "User login identification",
-
-
-
-  "cookies.consent.app.title.impersonation": "Impersonation",
-
-  "cookies.consent.app.description.impersonation": "Switching users",
+  "cookies.consent.app.description.authentication": "Required for signing you in",
 
 
+  "cookies.consent.app.title.preferences": "Preferences",
 
-  "cookies.consent.app.title.redirect": "Redirect",
-
-  "cookies.consent.app.description.redirect": "",
+  "cookies.consent.app.description.preferences": "Required for saving your preferences",
 
 
 
-  "cookies.consent.app.title.language": "Language",
+  "cookies.consent.app.title.acknowledgement": "Acknowledgement",
 
-  "cookies.consent.app.description.language": "",
-
-
-
-  "cookies.consent.app.title.klaro": "Klaro",
-
-  "cookies.consent.app.description.klaro": "Cookie consent preferences",
-
-
-
-  "cookies.consent.app.title.has_agreed_end_user": "Has agreed end user",
-
-  "cookies.consent.app.description.has_agreed_end_user": "",
+  "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
 
 
 
   "cookies.consent.app.title.google-analytics": "Google Analytics",
 
-  "cookies.consent.app.description.google-analytics": "",
+  "cookies.consent.app.description.google-analytics": "Required for storing statistical data",
 
 
 
-  "cookies.consent.purpose.authentication": "Authentication",
+  "cookies.consent.purpose.functional": "Functional",
 
-  "cookies.consent.purpose.statistics": "Statistics",
-
-  "cookies.consent.purpose.preferences": "Preferences",
-
-  "cookies.consent.purpose.acknowledgement": "Acknowledgement",
-
+  "cookies.consent.purpose.statistical": "Statistical",
 
 
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
