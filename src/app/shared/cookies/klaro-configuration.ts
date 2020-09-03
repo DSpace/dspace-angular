@@ -1,7 +1,9 @@
 import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
 import { IMPERSONATING_COOKIE, REDIRECT_COOKIE } from '../../core/auth/auth.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
-import { ANONYMOUS_STORAGE_NAME_KLARO, HAS_AGREED_END_USER } from './browser-klaro.service';
+import { HAS_AGREED_END_USER } from './browser-klaro.service';
+
+export const ANONYMOUS_STORAGE_NAME_KLARO = 'klaro-anonymous';
 
 export const klaroConfiguration: any = {
   storageName: ANONYMOUS_STORAGE_NAME_KLARO,

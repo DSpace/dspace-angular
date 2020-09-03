@@ -11,12 +11,12 @@ import { hasValue, isNotEmpty } from '../empty.util';
 import { CookieService } from '../../core/services/cookie.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep } from 'lodash';
-import { klaroConfiguration } from './klaro-configuration';
+import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
 import { Operation } from 'fast-json-patch';
 
 export const HAS_AGREED_END_USER = 'dsHasAgreedEndUser';
 export const COOKIE_MDFIELD = 'dspace.agreements.cookies';
-export const ANONYMOUS_STORAGE_NAME_KLARO = 'klaro-anonymous';
+
 const cookieNameMessagePrefix = 'cookies.consent.app.title.';
 const cookieDescriptionMessagePrefix = 'cookies.consent.app.description.';
 const cookiePurposeMessagePrefix = 'cookies.consent.purpose.';
@@ -34,6 +34,7 @@ export class BrowserKlaroService extends KlaroService {
   }
 
   initialize() {
+    console.log(this.klaroConfig)
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
     const user$: Observable<EPerson> = this.getUser$();
@@ -43,6 +44,7 @@ export class BrowserKlaroService extends KlaroService {
     observableCombineLatest(user$, translationServiceReady$)
       .subscribe(([user, translation]: [EPerson, string]) => {
         user = cloneDeep(user);
+
         if (hasValue(user)) {
           this.initializeUser(user);
         }

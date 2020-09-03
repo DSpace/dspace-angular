@@ -95,6 +95,38 @@ describe('BrowserKlaroService', () => {
     expect(service).toBeTruthy();
   });
 
+  describe('initialize with user', () => {
+    beforeEach(() => {
+      spyOn((service as any), 'getUser$').and.returnValue(observableOf(user));
+      translateService.get.and.returnValue(observableOf('loading...'));
+      spyOn(service, 'addAppMessages');
+      spyOn((service as any), 'initializeUser');
+      spyOn(service, 'translateConfiguration');
+    });
+    it('to call the initialize user method and other methods', () => {
+      service.initialize();
+      expect((service as any).initializeUser).toHaveBeenCalledWith(user);
+      expect(service.addAppMessages).toHaveBeenCalled();
+      expect(service.translateConfiguration).toHaveBeenCalled();
+    });
+  });
+
+  describe('to not call the initialize user method, but the other methods', () => {
+    beforeEach(() => {
+      spyOn((service as any), 'getUser$').and.returnValue(observableOf(undefined));
+      translateService.get.and.returnValue(observableOf('loading...'));
+      spyOn(service, 'addAppMessages');
+      spyOn((service as any), 'initializeUser');
+      spyOn(service, 'translateConfiguration');
+    });
+    it('to call all ', () => {
+      service.initialize();
+      expect((service as any).initializeUser).not.toHaveBeenCalledWith(user);
+      expect(service.addAppMessages).toHaveBeenCalled();
+      expect(service.translateConfiguration).toHaveBeenCalled();
+    });
+  });
+
   it('addAppMessages', () => {
     service.addAppMessages();
     expect(mockConfig.translations.en[appName]).toBeDefined();
@@ -203,4 +235,3 @@ describe('BrowserKlaroService', () => {
     });
   });
 });
-
