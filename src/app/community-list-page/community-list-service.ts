@@ -13,11 +13,11 @@ import { PageInfo } from '../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list';
-import { getCommunityPageRoute } from '../+community-page/community-page-routing.module';
-import { getCollectionPageRoute } from '../+collection-page/collection-page-routing.module';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
+import { getCommunityPageRoute } from '../+community-page/community-page-routing-paths';
+import { getCollectionPageRoute } from '../+collection-page/collection-page-routing-paths';
 
 /**
  * Each node in the tree is represented by a flatNode which contains info about the node itself and its position and

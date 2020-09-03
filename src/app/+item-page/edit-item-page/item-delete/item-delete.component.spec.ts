@@ -16,7 +16,6 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemDeleteComponent } from './item-delete.component';
-import { getItemEditPath } from '../../item-page-routing.module';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -26,6 +25,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { getItemEditRoute } from '../../item-page-routing-paths';
 
 let comp: ItemDeleteComponent;
 let fixture: ComponentFixture<ItemDeleteComponent>;
@@ -233,7 +233,7 @@ describe('ItemDeleteComponent', () => {
   describe('notify', () => {
     it('should navigate to the item edit page on failed deletion of the item', () => {
       comp.notify(false);
-      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditPath('fake-id')]);
+      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('fake-id')]);
     });
   });
 })

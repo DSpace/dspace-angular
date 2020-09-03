@@ -4,16 +4,6 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { getListableObjectComponent, listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { Context } from '../../../../../core/shared/context.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { getItemEditPath } from '../../../../../+item-page/item-page-routing.module';
-import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
-import {
-  ITEM_EDIT_DELETE_PATH,
-  ITEM_EDIT_MOVE_PATH,
-  ITEM_EDIT_PRIVATE_PATH,
-  ITEM_EDIT_PUBLIC_PATH,
-  ITEM_EDIT_REINSTATE_PATH,
-  ITEM_EDIT_WITHDRAW_PATH
-} from '../../../../../+item-page/edit-item-page/edit-item-page.routing.module';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';

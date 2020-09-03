@@ -11,7 +11,7 @@ import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { getUnauthorizedPath } from '../../app-routing.module';
+import { getUnauthorizedRoute } from '../../app-routing-paths';
 import { getEndUserAgreementPath } from '../../info/info-routing.module';
 
 /**
@@ -190,7 +190,7 @@ export const returnUnauthorizedUrlTreeOnFalse = (router: Router) =>
   (source: Observable<boolean>): Observable<boolean | UrlTree> =>
     source.pipe(
       map((authorized: boolean) => {
-        return authorized ? authorized : router.parseUrl(getUnauthorizedPath())
+        return authorized ? authorized : router.parseUrl(getUnauthorizedRoute())
       }));
 
 /**

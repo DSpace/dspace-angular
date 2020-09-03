@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EndUserAgreementComponent } from './end-user-agreement/end-user-agreement.component';
-import { getInfoModulePath } from '../app-routing.module';
+import { getInfoModulePath } from '../app-routing-paths';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { PrivacyComponent } from './privacy/privacy.component';
 

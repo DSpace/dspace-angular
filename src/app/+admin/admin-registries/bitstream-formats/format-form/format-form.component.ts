@@ -12,9 +12,9 @@ import {
   DynamicTextAreaModel
 } from '@ng-dynamic-forms/core';
 import { Router } from '@angular/router';
-import { getBitstreamFormatsModulePath } from '../../admin-registries-routing.module';
 import { hasValue, isEmpty } from '../../../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
+import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
 /**
  * The component responsible for rendering the form to create/edit a bitstream format
@@ -189,6 +189,6 @@ export class FormatFormComponent implements OnInit {
    * Cancels the edit/create action of the bitstream format and navigates back to the bitstream format registry
    */
   onCancel() {
-    this.router.navigate([getBitstreamFormatsModulePath()]);
+    this.router.navigate([getBitstreamFormatsModuleRoute()]);
   }
 }

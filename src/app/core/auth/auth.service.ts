@@ -1,11 +1,10 @@
 import { Inject, Injectable, Optional } from '@angular/core';
-import { PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, switchMap, take, withLatestFrom } from 'rxjs/operators';
-import { RouterReducerState } from '@ngrx/router-store';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
 
@@ -32,7 +31,7 @@ import {
   isTokenRefreshing,
   isAuthenticatedLoaded
 } from './selectors';
-import { AppState, routerStateSelector } from '../../app.reducer';
+import { AppState } from '../../app.reducer';
 import {
   CheckAuthenticationTokenAction,
   ResetAuthenticationMessagesAction,

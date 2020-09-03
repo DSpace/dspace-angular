@@ -239,8 +239,8 @@ describe('authReducer', () => {
       authToken: undefined,
       error: undefined,
       loaded: false,
-      blocking: false,
-      loading: false,
+      blocking: true,
+      loading: true,
       info: undefined,
       refreshing: false,
       userId: undefined

@@ -9,7 +9,7 @@ import {
   isAuthenticationLoading
 } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
-import { getForgotPasswordPath, getRegisterPath } from '../../app-routing.module';
+import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
 import { hasValue } from '../empty.util';
 import { AuthService } from '../../core/auth/auth.service';
 
@@ -72,11 +72,11 @@ export class LogInComponent implements OnInit {
     });
   }
 
-  getRegisterPath() {
-    return getRegisterPath();
+  getRegisterRoute() {
+    return getRegisterRoute();
   }
 
-  getForgotPath() {
-    return getForgotPasswordPath();
+  getForgotRoute() {
+    return getForgotPasswordRoute();
   }
 }

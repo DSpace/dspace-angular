@@ -19,7 +19,7 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
-import { isAuthenticationBlocking, isAuthenticationLoading } from './core/auth/selectors';
+import { isAuthenticationBlocking } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -53,9 +53,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   models;
 
   /**
-   * Whether or not the authenticated has finished loading
+   * Whether or not the authentication is currently blocking the UI
    */
-  isAuthBlocking$: Observable<boolean>;
+  isNotAuthBlocking$: Observable<boolean>;
 
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
@@ -94,7 +94,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.isAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
+    this.isNotAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
       map((isBlocking: boolean) => isBlocking === false),
       distinctUntilChanged()
     );

@@ -1,4 +1,4 @@
-<div class="outer-wrapper" *ngIf="isAuthBlocking$ | async; else authLoader">
+<div class="outer-wrapper" *ngIf="isNotAuthBlocking$ | async; else authLoader">
     <ds-admin-sidebar></ds-admin-sidebar>
     <div class="inner-wrapper"  [@slideSidebarPadding]="{
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),

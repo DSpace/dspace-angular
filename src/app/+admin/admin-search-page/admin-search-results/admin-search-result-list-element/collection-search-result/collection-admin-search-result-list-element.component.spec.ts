@@ -10,7 +10,7 @@ import { CollectionSearchResult } from '../../../../../shared/object-collection/
 import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { getCollectionEditPath } from '../../../../../+collection-page/collection-page-routing.module';
+import { getCollectionEditRoute } from '../../../../../+collection-page/collection-page-routing-paths';
 
 describe('CollectionAdminSearchResultListElementComponent', () => {
   let component: CollectionAdminSearchResultListElementComponent;
@@ -55,6 +55,6 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
   it('should render an edit button with the correct link', () => {
     const a = fixture.debugElement.query(By.css('a'));
     const link = a.nativeElement.href;
-    expect(link).toContain(getCollectionEditPath(id));
+    expect(link).toContain(getCollectionEditRoute(id));
   })
 });

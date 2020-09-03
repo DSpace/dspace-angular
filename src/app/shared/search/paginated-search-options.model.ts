@@ -12,7 +12,7 @@ export class PaginatedSearchOptions extends SearchOptions {
   pagination?: PaginationComponentOptions;
   sort?: SortOptions;
 
-  constructor(options: {configuration?: string, scope?: string, query?: string, dsoType?: DSpaceObjectType, filters?: SearchFilter[], fixedFilter?: any, pagination?: PaginationComponentOptions, sort?: SortOptions}) {
+  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any, pagination?: PaginationComponentOptions, sort?: SortOptions}) {
     super(options);
     this.pagination = options.pagination;
     this.sort = options.sort;

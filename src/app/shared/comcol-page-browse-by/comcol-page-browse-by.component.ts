@@ -1,11 +1,11 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
-import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing.module';
-import { getCommunityPageRoute } from '../../+community-page/community-page-routing.module';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
 import { environment } from '../../../environments/environment';
+import { getCommunityPageRoute } from '../../+community-page/community-page-routing-paths';
+import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing-paths';
 
 export interface ComColPageNavOption {
   id: string;
