@@ -53,9 +53,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   models;
 
   /**
-   * Whether or not the authenticated has finished loading
+   * Whether or not the authentication is currently blocking the UI
    */
-  isAuthBlocking$: Observable<boolean>;
+  isNotAuthBlocking$: Observable<boolean>;
 
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
@@ -94,7 +94,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.isAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
+    this.isNotAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
       map((isBlocking: boolean) => isBlocking === false),
       distinctUntilChanged()
     );
