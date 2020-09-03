@@ -141,7 +141,6 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         error: (action as LogOutErrorAction).payload.message
       });
 
-    case AuthActionTypes.LOG_OUT_SUCCESS:
     case AuthActionTypes.REFRESH_TOKEN_ERROR:
       return Object.assign({}, state, {
         authenticated: false,
@@ -150,6 +149,19 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loaded: false,
         blocking: false,
         loading: false,
+        info: undefined,
+        refreshing: false,
+        userId: undefined
+      });
+
+    case AuthActionTypes.LOG_OUT_SUCCESS:
+      return Object.assign({}, state, {
+        authenticated: false,
+        authToken: undefined,
+        error: undefined,
+        loaded: false,
+        blocking: true,
+        loading: true,
         info: undefined,
         refreshing: false,
         userId: undefined
