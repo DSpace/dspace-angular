@@ -28,8 +28,17 @@ export class CrisrefComponent extends RenderingTypeModel implements OnInit {
 
   private entity2icon: Map<string, string>;
 
+  /**
+   * List of cris references to show
+   * created from metadata and its
+   * authority
+   */
   references: CrisRef[] = [];
-
+  /**
+   * Elements without authority are
+   * showed as a simple text field
+   */
+  text: string[] = [];
   /**
    * List of subscriptions
    */
@@ -64,6 +73,8 @@ export class CrisrefComponent extends RenderingTypeModel implements OnInit {
               };
             })
           ));
+        } else {
+          this.text.push(metadata.value);
         }
       });
       const resultObs = concat(...itemObs);
@@ -84,7 +95,7 @@ export class CrisrefComponent extends RenderingTypeModel implements OnInit {
    * @param entityType entity type name, ex. Person
    */
   getIcon(entityType: string): string {
-    return this.entity2icon.has(entityType.toUpperCase()) ?
+    return hasValue(entityType) && this.entity2icon.has(entityType.toUpperCase()) ?
       this.entity2icon.get(entityType.toUpperCase()) :
       this.entity2icon.get('DEFAULT');
   }

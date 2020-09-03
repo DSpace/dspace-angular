@@ -9,5 +9,8 @@
       [routerLink]="['/items/' + ref.id]">
       {{ref.value}} <i class="{{ref.icon}}"></i>
     </a>
+    <span *ngFor="let t of text">
+      {{t}}
+    </span>
   </span>
 </span>
