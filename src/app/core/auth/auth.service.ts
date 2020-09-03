@@ -21,8 +21,8 @@ import {
   getAuthenticationToken,
   getRedirectUrl,
   isAuthenticated,
-  isTokenRefreshing,
-  isAuthenticatedLoaded
+  isAuthenticatedLoaded,
+  isTokenRefreshing
 } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import {
@@ -34,7 +34,7 @@ import { NativeWindowRef, NativeWindowService } from '../services/window.service
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RouteService } from '../services/route.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { getAllSucceededRemoteDataPayload } from '../shared/operators';
+import { getAllSucceededRemoteDataPayload, getFinishedRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { AuthMethod } from './models/auth.method';
 
 export const LOGIN_ROUTE = '/login';
@@ -206,8 +206,9 @@ export class AuthService {
     return this.store.pipe(
       select(getAuthenticatedUserId),
       hasValueOperator(),
-      switchMap((id: string) => this.epersonService.findById(id) ),
-      getAllSucceededRemoteDataPayload()
+      switchMap((id: string) => this.epersonService.findById(id)),
+      getFinishedRemoteData(),
+      getRemoteDataPayload(),
     )
   }
 
