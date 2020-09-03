@@ -59,8 +59,8 @@ export class RowComponent implements OnInit {
       let rendering = hasValue(field.rendering) ? field.rendering : FieldRendetingType.TEXT;
       // Check if the current rendering has subtype
       let subtype: string;
-      if (field.rendering.indexOf('.') > -1) {
-        const values = field.rendering.split('.');
+      if (rendering.indexOf('.') > -1) {
+        const values = rendering.split('.');
         rendering = values[0];
         subtype = values[1];
       }
