@@ -19,7 +19,7 @@ interface CrisRef {
  */
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'span[ds-crisref].container',
+  selector: 'span[ds-crisref]',
   templateUrl: './crisref.component.html',
   styleUrls: ['./crisref.component.scss']
 })
