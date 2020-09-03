@@ -65,7 +65,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
             null,
             initEntry.authority,
             initEntry.display,
-            null,
+            (this.model.value as any).place,
             null,
             initEntry.otherInformation || null
           );
@@ -80,7 +80,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           null,
           this.model.value.authority,
           this.model.value.display,
-          null,
+          0,
           null,
           this.model.value.otherInformation || null
         )
