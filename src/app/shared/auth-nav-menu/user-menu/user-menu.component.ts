@@ -7,8 +7,8 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { AppState } from '../../../app.reducer';
 import { isAuthenticationLoading } from '../../../core/auth/selectors';
 import { MYDSPACE_ROUTE } from '../../../+my-dspace-page/my-dspace-page.component';
-import { getProfileModulePath } from '../../../app-routing.module';
 import { AuthService } from '../../../core/auth/auth.service';
+import { getProfileModuleRoute } from '../../../app-routing-paths';
 
 /**
  * This component represents the user nav menu.
@@ -41,7 +41,7 @@ export class UserMenuComponent implements OnInit {
   /**
    * The profile page route
    */
-  public profileRoute = getProfileModulePath();
+  public profileRoute = getProfileModuleRoute();
 
   constructor(private store: Store<AppState>,
               private authService: AuthService) {

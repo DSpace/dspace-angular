@@ -13,7 +13,7 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { AlertType } from '../../../alert/aletr-type';
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { getItemPageRoute } from '../../../../+item-page/item-page-routing.module';
+import { getItemPageRoute } from '../../../../+item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-versions-notice',

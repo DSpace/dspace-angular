@@ -13,7 +13,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { isEqual, isObject } from 'lodash';
 
-import { DynamicRelationGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-relation-group.model';
+import { DynamicRelationGroupModel} from './dynamic-relation-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
@@ -26,6 +26,7 @@ import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { environment } from '../../../../../../../environments/environment';
+import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
