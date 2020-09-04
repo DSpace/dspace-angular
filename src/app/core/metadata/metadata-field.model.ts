@@ -1,13 +1,10 @@
 import { autoserialize, deserialize } from 'cerialize';
-import { map } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { link, typedObject } from '../cache/builders/build-decorators';
-import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
 import { ResourceType } from '../shared/resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { METADATA_FIELD } from './metadata-field.resource-type';

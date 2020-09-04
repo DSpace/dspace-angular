@@ -15,9 +15,7 @@ import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model'
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
-import { SharedModule } from '../../../../shared/shared.module';
 import {
-  createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../../../shared/remote-data.utils';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
