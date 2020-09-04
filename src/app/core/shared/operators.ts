@@ -1,6 +1,6 @@
 import { Router, UrlTree } from '@angular/router';
 import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
-import { filter, find, flatMap, map, switchMap, tap } from 'rxjs/operators';
+import { filter, find, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
