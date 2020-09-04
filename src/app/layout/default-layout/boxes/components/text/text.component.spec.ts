@@ -44,7 +44,7 @@ describe('TextComponent', () => {
     const span: HTMLElement = spanValueFound.nativeElement;
     expect(span.textContent).toContain((new TestItem()).firstMetadataValue(''));
 
-    const spanLabelFound = fixture.debugElement.query(By.css('span.font-weight-bold'));
+    const spanLabelFound = fixture.debugElement.query(By.css('span.' + medataComponent.rows[0].fields[0].style));
     const label: HTMLElement = spanLabelFound.nativeElement;
     expect(label.textContent).toContain(medataComponent.rows[0].fields[0].label);
   });
