@@ -14,15 +14,39 @@ import { cloneDeep } from 'lodash';
 import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
 import { Operation } from 'fast-json-patch';
 
+/**
+ * Cookie for has_agreed_end_user
+ */
 export const HAS_AGREED_END_USER = 'dsHasAgreedEndUser';
+
+/**
+ * Metadata field to store a user's cookie consent preferences in
+ */
 export const COOKIE_MDFIELD = 'dspace.agreements.cookies';
 
+/**
+ * Prefix key for app title messages
+ */
 const cookieNameMessagePrefix = 'cookies.consent.app.title.';
+
+/**
+ * Prefix key for app description messages
+ */
 const cookieDescriptionMessagePrefix = 'cookies.consent.app.description.';
+
+/**
+ * Prefix key for app purpose messages
+ */
 const cookiePurposeMessagePrefix = 'cookies.consent.purpose.';
 
+/**
+ * Browser implementation for the KlaroService, representing a service for handling Klaro consent preferences and UI
+ */
 @Injectable()
 export class BrowserKlaroService extends KlaroService {
+  /**
+   * Initial Klaro configuration
+   */
   klaroConfig = klaroConfiguration;
 
   constructor(
@@ -32,9 +56,14 @@ export class BrowserKlaroService extends KlaroService {
     private cookieService: CookieService) {
     super();
   }
-
+  /**
+   * Initializes the service:
+   *  - Retrieves the current authenticated user
+   *  - Checks if the translation service is ready
+   *  - Initialize configuration for users
+   *  - Add and translate klaro configuration messages
+   */
   initialize() {
-    console.log(this.klaroConfig)
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
     const user$: Observable<EPerson> = this.getUser$();
@@ -66,6 +95,10 @@ export class BrowserKlaroService extends KlaroService {
 
   }
 
+  /**
+   * Initialize configuration for the logged in user
+   * @param user The authenticated user
+   */
   private initializeUser(user: EPerson) {
     this.klaroConfig.callback = (consent, app) => this.updateSettingsForUsers(user);
     this.klaroConfig.storageName = this.getStorageName(user.uuid);
@@ -79,6 +112,10 @@ export class BrowserKlaroService extends KlaroService {
     }
   }
 
+  /**
+   * Retrieves the currently logged in user
+   * Returns undefined when no one is logged in
+   */
   private getUser$() {
     return this.authService.isAuthenticated()
       .pipe(
@@ -93,14 +130,26 @@ export class BrowserKlaroService extends KlaroService {
       );
   }
 
+  /**
+   * Create a title translation key
+   * @param title
+   */
   private getTitleTranslation(title: string) {
     return cookieNameMessagePrefix + title;
   }
 
+  /**
+   * Create a description translation key
+   * @param description
+   */
   private getDescriptionTranslation(description: string) {
     return cookieDescriptionMessagePrefix + description;
   }
 
+  /**
+   * Create a purpose translation key
+   * @param purpose
+   */
   private getPurposeTranslation(purpose: string) {
     return cookiePurposeMessagePrefix + purpose;
   }
@@ -136,6 +185,10 @@ export class BrowserKlaroService extends KlaroService {
     this.translate(this.klaroConfig.translations.en);
   }
 
+  /**
+   * Translate string values in an object
+   * @param object The object containing translation keys
+   */
   private translate(object) {
     if (typeof (object) === 'string') {
       return this.translateService.instant(object);
@@ -146,11 +199,20 @@ export class BrowserKlaroService extends KlaroService {
     return object;
   }
 
+  /**
+   * Retrieves the stored Klaro consent settings for a user
+   * @param user The user to resolve the consent for
+   */
   getSettingsForUser(user: EPerson) {
     const mdValue = user.firstMetadataValue(COOKIE_MDFIELD);
     return hasValue(mdValue) ? JSON.parse(mdValue) : undefined;
   }
 
+  /**
+   * Stores the Klaro consent settings for a user in a metadata field
+   * @param user The user to save the settings for
+   * @param config The consent settings for the user to save
+   */
   setSettingsForUser(user: EPerson, config: object) {
     user.setMetadata(COOKIE_MDFIELD, undefined, JSON.stringify(config));
     this.ePersonService.createPatchFromCache(user)
@@ -166,14 +228,26 @@ export class BrowserKlaroService extends KlaroService {
       ).subscribe();
   }
 
+  /**
+   * Restores the users consent settings cookie based on the user's stored consent settings
+   * @param user The user to save the settings for
+   */
   restoreSettingsForUsers(user: EPerson) {
     this.cookieService.set(this.getStorageName(user.uuid), this.getSettingsForUser(user));
   }
 
+  /**
+   * Stores the consent settings for a user based on the current cookie for this user
+   * @param user
+   */
   updateSettingsForUsers(user: EPerson) {
     this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)))
   }
 
+  /**
+   * Create the storage name for klaro cookies based on the user's identifier
+   * @param identifier The user's uuid
+   */
   getStorageName(identifier: string) {
     return 'klaro-' + identifier
   }
