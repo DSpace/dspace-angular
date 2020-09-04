@@ -2,7 +2,7 @@ import { Pipe, PipeTransform, ChangeDetectorRef, OnDestroy } from '@angular/core
 import { hasValue } from 'src/app/shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 @Pipe({
@@ -37,14 +37,21 @@ export class DsDatePipe implements PipeTransform, OnDestroy {
     let result: Observable<string>;
     if (hasValue(value)) {
       const tks = value.split(this.seperator);
-      if (hasValue(tks)) {
+      if (hasValue(tks) && tks.length > 1) {
         result = this.translateService.get(
           this.months.get( parseInt(tks[1], 10) )
         ).pipe(
           map( (month) => {
-            return tks[2] + ' ' + month + ' ' + tks[0];
+            let date = '';
+            if (tks[2]) {
+              date += tks[2] + ' ';
+            }
+            date += month + ' ' + tks[0];
+            return date;
           } )
         );
+      } else {
+        result = of(value);
       }
     }
     return this.asyncPipe.transform(result);

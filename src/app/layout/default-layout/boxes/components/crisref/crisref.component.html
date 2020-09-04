@@ -3,7 +3,6 @@
   <span class="{{valueStyle}}">
     <a
       *ngFor="let ref of references"
-      class="btn-link"
       href="{{ref.link}}"
       rel="noopener noreferrer"
       [routerLink]="['/items/' + ref.id]">
