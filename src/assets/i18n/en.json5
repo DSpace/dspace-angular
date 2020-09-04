@@ -1305,7 +1305,9 @@
 
   "form.no-value": "No value entered",
 
-  "form.other-information": {},
+  "form.other-information.data-oairecerif.author.affiliation": "Affiliation",
+
+  "form.other-information.not-available": "Not available",
 
   "form.remove": "Remove",
 
