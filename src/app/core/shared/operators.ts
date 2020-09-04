@@ -197,11 +197,12 @@ export const returnUnauthorizedUrlTreeOnFalse = (router: Router) =>
  * Operator that returns a UrlTree to the unauthorized page when the boolean received is false
  * @param router
  */
-export const returnEndUserAgreementUrlTreeOnFalse = (router: Router) =>
+export const returnEndUserAgreementUrlTreeOnFalse = (router: Router, redirect: string) =>
   (source: Observable<boolean>): Observable<boolean | UrlTree> =>
     source.pipe(
       map((hasAgreed: boolean) => {
-        return hasAgreed ? hasAgreed : router.parseUrl(getEndUserAgreementPath())
+        const queryParams = { redirect: encodeURIComponent(redirect) };
+        return hasAgreed ? hasAgreed : router.createUrlTree([getEndUserAgreementPath()], { queryParams });
       }));
 
 export const getFinishedRemoteData = () =>

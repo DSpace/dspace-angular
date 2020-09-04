@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth/auth.service';
-import { switchMap, take } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { map, switchMap, take } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { LogOutAction } from '../../core/auth/auth.actions';
@@ -9,7 +9,7 @@ import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-end-user-agreement',
@@ -31,7 +31,8 @@ export class EndUserAgreementComponent implements OnInit {
               protected translate: TranslateService,
               protected authService: AuthService,
               protected store: Store<AppState>,
-              protected router: Router) {
+              protected router: Router,
+              protected route: ActivatedRoute) {
   }
 
   /**
@@ -59,7 +60,7 @@ export class EndUserAgreementComponent implements OnInit {
       switchMap((success) => {
         if (success) {
           this.notificationsService.success(this.translate.instant('info.end-user-agreement.accept.success'));
-          return this.authService.getRedirectUrl();
+          return this.route.queryParams.pipe(map((params) => params.redirect));
         } else {
           this.notificationsService.error(this.translate.instant('info.end-user-agreement.accept.error'));
           return observableOf(undefined);
@@ -68,7 +69,7 @@ export class EndUserAgreementComponent implements OnInit {
       take(1)
     ).subscribe((redirectUrl) => {
       if (isNotEmpty(redirectUrl)) {
-        this.router.navigateByUrl(redirectUrl);
+        this.router.navigateByUrl(decodeURIComponent(redirectUrl));
       }
     });
   }

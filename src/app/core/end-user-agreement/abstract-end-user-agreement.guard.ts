@@ -2,7 +2,6 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthService } from '../auth/auth.service';
 import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/operators';
-import { tap } from 'rxjs/operators';
 
 /**
  * An abstract guard for redirecting users to the user agreement page if a certain condition is met
@@ -22,13 +21,7 @@ export abstract class AbstractEndUserAgreementGuard implements CanActivate {
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     return this.hasAccepted().pipe(
-      returnEndUserAgreementUrlTreeOnFalse(this.router),
-      tap((result) => {
-        if (result instanceof UrlTree) {
-          this.authService.setRedirectUrl(state.url);
-          this.router.navigateByUrl(result);
-        }
-      })
+      returnEndUserAgreementUrlTreeOnFalse(this.router, state.url)
     );
   }
 
