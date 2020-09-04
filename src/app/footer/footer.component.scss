@@ -18,20 +18,23 @@ $footer-logo-height: 55px;
         height: $footer-logo-height;
     }
 
-    ul li {
+    ul {
         padding-top: $spacer * 0.5;
 
-        a {
-            color: inherit
-        }
-
-        &:not(:last-child) {
-            &:after {
-                content: '';
-                border-right: 1px map-get($theme-colors, secondary) solid;
-                margin: 0 $spacer/2;
+        li {
+            display: inline-flex;
+            a {
+                padding: 0 $spacer/2;
+                color: inherit
             }
 
+            &:not(:last-child) {
+                &:after {
+                    content: '';
+                    border-right: 1px map-get($theme-colors, secondary) solid;
+                }
+
+            }
         }
     }
 }

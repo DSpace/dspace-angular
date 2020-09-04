@@ -1,7 +1,11 @@
 import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
 import { IMPERSONATING_COOKIE, REDIRECT_COOKIE } from '../../core/auth/auth.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
-import { HAS_AGREED_END_USER } from './browser-klaro.service';
+
+/**
+ * Cookie for has_agreed_end_user
+ */
+export const HAS_AGREED_END_USER = 'dsHasAgreedEndUser';
 
 /**
  * Storage name used to store klaro cookie

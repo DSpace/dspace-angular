@@ -7,17 +7,12 @@ import { environment } from '../../../environments/environment';
 import { switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { KlaroService } from './klaro.service';
-import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { CookieService } from '../../core/services/cookie.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, debounce } from 'lodash';
 import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
 import { Operation } from 'fast-json-patch';
-
-/**
- * Cookie for has_agreed_end_user
- */
-export const HAS_AGREED_END_USER = 'dsHasAgreedEndUser';
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -39,6 +34,10 @@ const cookieDescriptionMessagePrefix = 'cookies.consent.app.description.';
  */
 const cookiePurposeMessagePrefix = 'cookies.consent.purpose.';
 
+/**
+ * Update request debounce in ms
+ */
+const updateDebounce = 300;
 /**
  * Browser implementation for the KlaroService, representing a service for handling Klaro consent preferences and UI
  */
@@ -100,7 +99,7 @@ export class BrowserKlaroService extends KlaroService {
    * @param user The authenticated user
    */
   private initializeUser(user: EPerson) {
-    this.klaroConfig.callback = (consent, app) => this.updateSettingsForUsers(user);
+    this.klaroConfig.callback = debounce((consent, app) => this.updateSettingsForUsers(user), updateDebounce);
     this.klaroConfig.storageName = this.getStorageName(user.uuid);
 
     const anonCookie = this.cookieService.get(ANONYMOUS_STORAGE_NAME_KLARO);
