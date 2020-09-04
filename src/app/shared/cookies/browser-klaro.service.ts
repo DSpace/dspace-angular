@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { KlaroService } from './klaro.service';
-import { hasValue, isNotEmpty } from '../empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
 import { CookieService } from '../../core/services/cookie.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep } from 'lodash';
@@ -214,7 +214,11 @@ export class BrowserKlaroService extends KlaroService {
    * @param config The consent settings for the user to save
    */
   setSettingsForUser(user: EPerson, config: object) {
-    user.setMetadata(COOKIE_MDFIELD, undefined, JSON.stringify(config));
+    if (isNotEmpty(config)) {
+      user.setMetadata(COOKIE_MDFIELD, undefined, JSON.stringify(config));
+    } else {
+      user.removeMetadata(COOKIE_MDFIELD);
+    }
     this.ePersonService.createPatchFromCache(user)
       .pipe(
         take(1),
