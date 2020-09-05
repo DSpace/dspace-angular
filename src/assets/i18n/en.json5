@@ -1189,7 +1189,7 @@
 
   "explore.search-section.publications.title": "Search Research Outputs",
 
-  "explore.search-section.researcherprofiles.title": "Search Researchers",
+  "explore.search-section.researcherprofiles.title": "Search People",
 
   "explore.search-section.search-button": "Search",
 
@@ -1201,7 +1201,7 @@
 
   "explore.publications.breadcrumbs": "Research Outputs",
 
-  "explore.researcherprofiles.breadcrumbs": "Researchers",
+  "explore.researcherprofiles.breadcrumbs": "People",
 
   "explore.title": "Explore section",
 
@@ -1305,7 +1305,9 @@
 
   "form.no-value": "No value entered",
 
-  "form.other-information.data-oairecerif.author.affiliation": "Affiliation",
+  "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.data-oairecerif_editor_affiliation": "Affiliation",
 
   "form.other-information.not-available": "Not available",
 
@@ -1951,7 +1953,7 @@
 
   "menu.section.explore_publications": "Research Outputs",
 
-  "menu.section.explore_researcherprofiles": "Researchers",
+  "menu.section.explore_researcherprofiles": "People",
 
   "menu.section.explore_orgunits": "Organizations",
 
