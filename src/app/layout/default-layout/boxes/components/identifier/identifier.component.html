@@ -1,3 +1,8 @@
-<a [target]="target" href="{{href}}" class="btn btn-link {{containerStyle}}">
-  {{text}}
-</a>
+<span class="{{containerStyle}}">
+  <span class="{{labelStyle}}">{{label}}</span>
+  <span class="{{valueStyle}}">
+    <a [target]="target" href="{{href}}">
+      {{text}}
+    </a>
+  </span>
+</span>

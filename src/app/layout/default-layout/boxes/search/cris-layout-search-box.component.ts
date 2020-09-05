@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CrisLayoutBox } from 'src/app/layout/decorators/cris-layout-box.decorator';
 import { LayoutPage } from 'src/app/layout/enums/layout-page.enum';
 import { LayoutTab } from 'src/app/layout/enums/layout-tab.enum';
 import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
 import { CrisLayoutBox as CrisLayoutBoxObj } from 'src/app/layout/models/cris-layout-box.model';
-import { Observable, of, Subscription } from 'rxjs';
-import { isNotEmpty, hasValue } from 'src/app/shared/empty.util';
+import { Observable, Subscription } from 'rxjs';
+import { hasValue } from 'src/app/shared/empty.util';
 import { getAllSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
 import { map } from 'rxjs/operators';
 
@@ -37,12 +37,13 @@ export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements On
    */
   subs: Subscription[] = [];
 
-  constructor() {
+  constructor(public cd: ChangeDetectorRef) {
     super();
   }
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.searchFilter = `scope=${this.item.id}`;
     this.configuration$ = this.box.configuration.pipe(
       getAllSucceededRemoteDataPayload(),
       map((config) => config.configuration)
@@ -50,8 +51,8 @@ export class CrisLayoutSearchBoxComponent extends CrisLayoutBoxObj implements On
     this.subs.push(this.configuration$.subscribe((next) => {
       this.configuration = next;
       this.configReady = true;
+      this.cd.markForCheck();
     }));
-    this.searchFilter = `scope=${this.item.id}`;
   }
 
   ngOnDestroy(): void {

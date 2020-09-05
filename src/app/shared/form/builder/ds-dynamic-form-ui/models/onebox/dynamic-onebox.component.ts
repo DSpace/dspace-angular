@@ -273,6 +273,17 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
 
   }
 
+  /**
+   * Get the other information value removing the authority section (after the last ::)
+   * @param itemValue the initial item value
+   */
+  getOtherInfoValue( itemValue: string): string {
+    if (!itemValue) {
+      return itemValue;
+    }
+    return itemValue.substring(0, itemValue.lastIndexOf('::'));
+  }
+
   ngOnDestroy(): void {
     this.subs
       .filter((sub) => hasValue(sub))

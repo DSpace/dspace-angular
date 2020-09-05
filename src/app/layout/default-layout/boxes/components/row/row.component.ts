@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef } from '@angular/core';
-import { CrisLayoutLoaderDirective } from 'src/app/layout/directives/cris-layout-loader.directive';
 import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
 import { getMetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.decorator';
 import { Item } from 'src/app/core/shared/item.model';
@@ -55,31 +54,40 @@ export class RowComponent implements OnInit {
     this.metadataContainerViewRef.clear();
     this.thumbnailContainerViewRef.clear();
     fields.forEach((field) => {
-      // If the rendering type is null renders its as a text field
-      let rendering = hasValue(field.rendering) ? field.rendering : FieldRendetingType.TEXT;
-      // Check if the current rendering has subtype
-      let subtype: string;
-      if (rendering.indexOf('.') > -1) {
-        const values = rendering.split('.');
-        rendering = values[0];
-        subtype = values[1];
+      if (field.fieldType === 'BITSTREAM' ||
+        (field.fieldType === 'METADATA' && this.item.firstMetadataValue(field.metadata) )) {
+        // If the rendering type is null renders its as a text field
+        let rendering = hasValue(field.rendering) ? field.rendering : FieldRendetingType.TEXT;
+        // Check if the current rendering has subtype
+        let subtype: string;
+        if (rendering.indexOf('.') > -1) {
+          const values = rendering.split('.');
+          rendering = values[0];
+          subtype = values[1];
+        }
+        let factory = this.componentFactoryResolver.resolveComponentFactory(
+          this.getComponent(rendering)
+        );
+        // If the rendering type not exists will use TEXT type rendering
+        if (!hasValue(factory)) {
+          factory = this.componentFactoryResolver.resolveComponentFactory(
+            this.getComponent(FieldRendetingType.TEXT)
+          );
+        }
+        let metadataRef: ComponentRef<Component>;
+        if (field.fieldType !== LayoutBox.METADATA &&
+          rendering.toUpperCase() === FieldRendetingType.THUMBNAIL) {
+          this.hasThumbnail = true;
+          // Create rendering component instance
+          metadataRef = this.thumbnailContainerViewRef.createComponent(factory);
+        } else {
+          // Create rendering component instance
+          metadataRef = this.metadataContainerViewRef.createComponent(factory);
+        }
+        (metadataRef.instance as any).item = this.item;
+        (metadataRef.instance as any).field = field;
+        (metadataRef.instance as any).subtype = subtype;
       }
-      const factory = this.componentFactoryResolver.resolveComponentFactory(
-        this.getComponent(rendering)
-      );
-      let metadataRef: ComponentRef<Component>;
-      if (field.fieldType !== LayoutBox.METADATA &&
-        rendering.toUpperCase() === FieldRendetingType.THUMBNAIL) {
-        this.hasThumbnail = true;
-        // Create rendering component instance
-        metadataRef = this.thumbnailContainerViewRef.createComponent(factory);
-      } else {
-        // Create rendering component instance
-        metadataRef = this.metadataContainerViewRef.createComponent(factory);
-      }
-      (metadataRef.instance as any).item = this.item;
-      (metadataRef.instance as any).field = field;
-      (metadataRef.instance as any).subtype = subtype;
     });
   }
 

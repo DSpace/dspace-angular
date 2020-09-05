@@ -20,11 +20,14 @@ export class ThumbnailComponent extends BitstreamRenderingModel implements OnIni
 
   bitstream$: Observable<Bitstream>;
 
+  default: string;
+
   constructor(protected bitstreamDataService: BitstreamDataService) {
     super(bitstreamDataService);
   }
 
   ngOnInit(): void {
+    this.setDefaultImage();
     this.bitstream$ = this.getBitstream().pipe(
       map((bitstreams) => {
         let rVal = null;
@@ -39,4 +42,13 @@ export class ThumbnailComponent extends BitstreamRenderingModel implements OnIni
     );
   }
 
+  setDefaultImage(): void {
+    const eType = this.item.firstMetadataValue('relationship.type');
+    this.default = 'assets/images/person-placeholder.svg'
+    if (hasValue(eType) && eType.toUpperCase() === 'PROJECT') {
+      this.default = 'assets/images/project-placeholder.svg';
+    } else if (hasValue(eType) && eType.toUpperCase() === 'ORGUNIT') {
+      this.default = 'assets/images/orgunit-placeholder.svg';
+    }
+  }
 }

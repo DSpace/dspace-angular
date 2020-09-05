@@ -12,7 +12,7 @@ export const medataComponent: MetadataComponent = {
         label: 'Authors',
         rendering: 'text',
         fieldType: 'metadata',
-        style: null
+        style: 'field-0-style'
       }
     ]
   },
