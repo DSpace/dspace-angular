@@ -1606,6 +1606,28 @@
 
   "item.page.filesection.license.bundle" : "License bundle",
 
+  "item.preview.dc.identifier.uri": "Identifier:",
+
+  "item.preview.dc.contributor.author": "Authors:",
+
+  "item.preview.dc.date.issued": "Published date:",
+
+  "item.preview.dc.description.abstract": "Abstract:",
+
+  "item.preview.dc.identifier.other": "Other identifier:",
+
+  "item.preview.dc.language.iso": "Language:",
+
+  "item.preview.dc.subject": "Subjects:",
+
+  "item.preview.dc.title": "Title:",
+
+  "item.preview.person.familyName": "Surname:",
+
+  "item.preview.person.givenName": "Name:",
+
+  "item.preview.person.identifier.orcid": "ORCID:",
+
 
   "item.select.confirm": "Confirm selected",
 
@@ -1959,6 +1981,10 @@
   "mydspace.messages.to": "To",
 
   "mydspace.new-submission": "New submission",
+
+  "mydspace.new-submission-external": "Import metadata from external source",
+
+  "mydspace.new-submission-external-short": "Import metadata",
 
   "mydspace.results.head": "Your submissions",
 
@@ -2748,6 +2774,43 @@
   "submission.general.save-later": "Save for later",
 
 
+  "submission.import-external.page.title": "Import metadata from an external source",
+
+  "submission.import-external.title": "Import metadata from an external source",
+
+  "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
+
+  "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
+
+  "submission.import-external.search.placeholder": "Search the external source",
+
+  "submission.import-external.search.button": "Search",
+
+  "submission.import-external.search.button.hint": "Write some words to search",
+
+  "submission.import-external.search.source.hint": "Pick an external source",
+
+  "submission.import-external.source.loading": "Loading ...",
+
+  "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+
+  "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+
+  "submission.import-external.source.orcidV2": "ORCID",
+
+  "submission.import-external.source.pubmed": "Pubmed",
+
+  "submission.import-external.source.lcname": "Library of Congress Names",
+
+  "submission.import-external.preview.title": "Item Preview",
+
+  "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
+
+  "submission.import-external.preview.button.import": "Start submission",
+
+  "submission.import-external.preview.error.import.title": "Submission error",
+
+  "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
 
   "submission.sections.describe.relationship-lookup.close": "Close",
 
@@ -2889,7 +2952,11 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcidV2": "Search Results",
 
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
 
