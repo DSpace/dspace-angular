@@ -1,6 +1,5 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { AuthService } from '../auth/auth.service';
 import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/operators';
 
 /**
@@ -9,8 +8,7 @@ import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/operators';
  */
 export abstract class AbstractEndUserAgreementGuard implements CanActivate {
 
-  constructor(protected authService: AuthService,
-              protected router: Router) {
+  constructor(protected router: Router) {
   }
 
   /**

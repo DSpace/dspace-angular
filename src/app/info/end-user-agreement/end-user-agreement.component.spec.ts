@@ -5,11 +5,12 @@ import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { LogOutAction } from '../../core/auth/auth.actions';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;
@@ -20,6 +21,7 @@ describe('EndUserAgreementComponent', () => {
   let authService: AuthService;
   let store;
   let router: Router;
+  let route: ActivatedRoute;
 
   let redirectUrl;
 
@@ -32,11 +34,15 @@ describe('EndUserAgreementComponent', () => {
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      getRedirectUrl: observableOf(redirectUrl)
+      isAuthenticated: observableOf(true)
     });
     store = jasmine.createSpyObj('store', ['dispatch']);
     router = jasmine.createSpyObj('router', ['navigate', 'navigateByUrl']);
+    route = Object.assign(new ActivatedRouteStub(), {
+      queryParams: observableOf({
+        redirect: redirectUrl
+      })
+    }) as any;
   }
 
   beforeEach(async(() => {
@@ -49,7 +55,8 @@ describe('EndUserAgreementComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: authService },
         { provide: Store, useValue: store },
-        { provide: Router, useValue: router }
+        { provide: Router, useValue: router },
+        { provide: ActivatedRoute, useValue: route }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

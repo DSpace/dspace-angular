@@ -3,7 +3,6 @@ import { AbstractEndUserAgreementGuard } from './abstract-end-user-agreement.gua
 import { Observable } from 'rxjs/internal/Observable';
 import { of as observableOf } from 'rxjs';
 import { EndUserAgreementService } from './end-user-agreement.service';
-import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 
 /**
@@ -13,9 +12,8 @@ import { Router } from '@angular/router';
 export class EndUserAgreementCookieGuard extends AbstractEndUserAgreementGuard {
 
   constructor(protected endUserAgreementService: EndUserAgreementService,
-              protected authService: AuthService,
               protected router: Router) {
-    super(authService, router);
+    super(router);
   }
 
   /**

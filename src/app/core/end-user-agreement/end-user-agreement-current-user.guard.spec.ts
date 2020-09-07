@@ -8,26 +8,25 @@ describe('EndUserAgreementGuard', () => {
   let guard: EndUserAgreementCurrentUserGuard;
 
   let endUserAgreementService: EndUserAgreementService;
-  let authService: AuthService;
   let router: Router;
 
   beforeEach(() => {
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       hasCurrentUserAcceptedAgreement: observableOf(true)
     });
-    authService = jasmine.createSpyObj('authService', ['setRedirectUrl']);
     router = jasmine.createSpyObj('router', {
       navigateByUrl: {},
-      parseUrl: new UrlTree()
+      parseUrl: new UrlTree(),
+      createUrlTree: new UrlTree()
     });
 
-    guard = new EndUserAgreementCurrentUserGuard(endUserAgreementService, authService, router);
+    guard = new EndUserAgreementCurrentUserGuard(endUserAgreementService, router);
   });
 
   describe('canActivate', () => {
     describe('when the user has accepted the agreement', () => {
       it('should return true', (done) => {
-        guard.canActivate(undefined, undefined).subscribe((result) => {
+        guard.canActivate(undefined, Object.assign({ url: 'redirect' })).subscribe((result) => {
           expect(result).toEqual(true);
           done();
         });
@@ -39,11 +38,9 @@ describe('EndUserAgreementGuard', () => {
         (endUserAgreementService.hasCurrentUserAcceptedAgreement as jasmine.Spy).and.returnValue(observableOf(false));
       });
 
-      it('should navigate the user with a redirect url', (done) => {
-        const redirect = 'redirect/url';
-        guard.canActivate(undefined, Object.assign({ url: redirect })).subscribe(() => {
-          expect(authService.setRedirectUrl).toHaveBeenCalledWith(redirect);
-          expect(router.navigateByUrl).toHaveBeenCalled();
+      it('should return a UrlTree', (done) => {
+        guard.canActivate(undefined, Object.assign({ url: 'redirect' })).subscribe((result) => {
+          expect(result).toEqual(jasmine.any(UrlTree));
           done();
         });
       });

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { AbstractEndUserAgreementGuard } from './abstract-end-user-agreement.guard';
 import { EndUserAgreementService } from './end-user-agreement.service';
-import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 
 /**
@@ -12,9 +11,8 @@ import { Router } from '@angular/router';
 export class EndUserAgreementCurrentUserGuard extends AbstractEndUserAgreementGuard {
 
   constructor(protected endUserAgreementService: EndUserAgreementService,
-              protected authService: AuthService,
               protected router: Router) {
-    super(authService, router);
+    super(router);
   }
 
   /**

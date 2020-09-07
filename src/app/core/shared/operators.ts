@@ -195,7 +195,9 @@ export const returnUnauthorizedUrlTreeOnFalse = (router: Router) =>
 
 /**
  * Operator that returns a UrlTree to the unauthorized page when the boolean received is false
- * @param router
+ * @param router    Router
+ * @param redirect  Redirect URL to add to the UrlTree. This is used to redirect back to the original route after the
+ *                  user accepts the agreement.
  */
 export const returnEndUserAgreementUrlTreeOnFalse = (router: Router, redirect: string) =>
   (source: Observable<boolean>): Observable<boolean | UrlTree> =>
