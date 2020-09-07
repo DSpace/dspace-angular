@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -6,9 +6,9 @@ import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
-import { combineLatest, Observable, of as observableOf } from 'rxjs';
-import { flatMap, map, take } from 'rxjs/operators';
-import { NativeWindowRef, NativeWindowService } from '../services/window.service';
+import { Observable, of as observableOf, combineLatest } from 'rxjs';
+import { map, take, flatMap } from 'rxjs/operators';
+import { NativeWindowService, NativeWindowRef } from '../services/window.service';
 
 export const LANG_COOKIE = 'language_cookie';
 
@@ -19,7 +19,7 @@ export enum LANG_ORIGIN {
   UI,
   EPERSON,
   BROWSER
-}
+};
 
 /**
  * Service to provide localization handler
@@ -81,14 +81,12 @@ export class LocaleService {
             take(1),
             map((eperson) => {
               const languages: string[] = [];
-              if (eperson) {
-                const ePersonLang = eperson.firstMetadataValue(this.EPERSON_LANG_METADATA);
-                if (ePersonLang) {
-                  languages.push(...this.setQuality(
-                    [ePersonLang],
-                    LANG_ORIGIN.EPERSON,
-                    !isEmpty(this.translate.currentLang)));
-                }
+              const ePersonLang = eperson.firstMetadataValue(this.EPERSON_LANG_METADATA);
+              if (ePersonLang) {
+                languages.push(...this.setQuality(
+                  [ePersonLang],
+                  LANG_ORIGIN.EPERSON,
+                  !isEmpty(this.translate.currentLang)));
               }
               return languages;
             })
