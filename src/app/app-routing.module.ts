@@ -48,6 +48,7 @@ import { ReloadGuard } from './core/reload/reload.guard';
             { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
             { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
             { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },
+            { path: 'import-external', loadChildren: './+import-external-page/import-external-page.module#ImportExternalPageModule' },
             {
               path: 'workspaceitems',
               loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule'

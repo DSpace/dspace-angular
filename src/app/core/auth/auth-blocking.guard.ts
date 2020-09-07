@@ -19,6 +19,9 @@ export class AuthBlockingGuard implements CanActivate {
   constructor(private store: Store<AppState>) {
   }
 
+  /**
+   * True when the authentication isn't blocking everything
+   */
   canActivate(): Observable<boolean> {
     return this.store.pipe(select(isAuthenticationBlocking)).pipe(
       map((isBlocking: boolean) => isBlocking === false),
