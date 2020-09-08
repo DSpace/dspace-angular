@@ -1,5 +1,7 @@
 <span class="{{containerStyle}}">
-  <span class="{{labelStyle}}">{{label}}</span>
+  <span class="{{labelStyle}}">
+    {{label | translate}}
+  </span>
   <span class="{{valueStyle}}">
     <a href="{{metadataValue}}">
       {{ text | async }}

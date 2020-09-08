@@ -1,6 +1,6 @@
 <div class="{{containerStyle}}">
   <span *ngIf="hasLabel" class="lbl {{labelStyle}}">
-    {{label}}
+    {{label | translate}}
   </span>
   <span class="{{valueStyle}}">
     <ds-truncatable [id]="item.id">
