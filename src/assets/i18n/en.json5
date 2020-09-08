@@ -2235,6 +2235,16 @@
 
   "person.page.orcid": "ORCID",
 
+  "person.page.orcid.create": "Create an ORCID ID",
+
+  "person.page.orcid.granted-authorizations": "Granted authorizations",
+
+  "person.page.orcid.link": "Connect to ORCID ID",
+
+  "person.page.orcid.missing-authorizations": "Missing authorizations",
+
+  "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
+
   "person.page.staffid": "Staff ID",
 
   "person.page.titleprefix": "Person: ",
