@@ -261,10 +261,8 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
     } else {
       if (isEmpty(value)) {
         result = '';
-      } else if (typeof value === 'string') {
-        result = value;
       } else {
-        result = value.display;
+        result = value.value;
       }
 
       this.currentValue = result;
