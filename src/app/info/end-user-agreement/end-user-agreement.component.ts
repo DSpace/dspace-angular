@@ -9,7 +9,7 @@ import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-end-user-agreement',
