@@ -50,6 +50,7 @@ import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-
             { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
             { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
             { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule', canActivate: [EndUserAgreementCurrentUserGuard] },
+            { path: 'import-external', loadChildren: './+import-external-page/import-external-page.module#ImportExternalPageModule', canActivate: [EndUserAgreementCurrentUserGuard] },
             {
               path: 'workspaceitems',
               loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule',
