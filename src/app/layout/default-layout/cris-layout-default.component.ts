@@ -34,7 +34,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
   /**
    * This parameter define the status of sidebar (hide/show)
    */
-  sidebarStatus = false;
+  sidebarStatus = true;
   /**
    * Tabs
    */
@@ -67,9 +67,9 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
       .subscribe(
         (next) => {
           this.tabs = next;
-          if (hasValue(this.tabs) && this.tabs.length > 0) {
-            this.cd.markForCheck();
-          }
+          // Show sidebar only if exists more then one tab
+          this.sidebarStatus = !(hasValue(this.tabs) && this.tabs.length > 1);
+          this.cd.markForCheck();
         }
     ));
   }
@@ -112,4 +112,10 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
+  /**
+   * Hide the sidebar controll button if exists only one tab
+   */
+  hideSideBarControl(): boolean {
+    return hasValue(this.tabs) && this.tabs.length > 1;
+  }
 }
