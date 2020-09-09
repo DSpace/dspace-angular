@@ -22,7 +22,9 @@ import { IdentifierComponent } from './default-layout/boxes/components/identifie
 import { CrisrefComponent } from './default-layout/boxes/components/crisref/crisref.component';
 import { ThumbnailComponent } from './default-layout/boxes/components/thumbnail/thumbnail.component';
 import { AttachmentComponent } from './default-layout/boxes/components/attachment/attachment.component';
-import { OrcidSyncSettingsComponent } from './custom-layout/orcid-sync-settings.component';
+import { OrcidSyncQueueComponent } from './custom-layout/orcid-sync-queue/orcid-sync-queue.component';
+import { OrcidAuthorizationsComponent } from './custom-layout/orcid-authorizations/orcid-authorizations.component';
+import { OrcidSyncSettingsComponent } from './custom-layout/orcid-sync-settings/orcid-sync-settings.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { OrcidSyncSettingsComponent } from './custom-layout/orcid-sync-settings.
     CrisrefComponent,
     ThumbnailComponent,
     AttachmentComponent,
-    OrcidSyncSettingsComponent
+    OrcidSyncSettingsComponent,
+    OrcidSyncQueueComponent,
+    OrcidAuthorizationsComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +70,9 @@ import { OrcidSyncSettingsComponent } from './custom-layout/orcid-sync-settings.
     CrisrefComponent,
     ThumbnailComponent,
     AttachmentComponent,
-    OrcidSyncSettingsComponent
+    OrcidSyncSettingsComponent,
+    OrcidSyncQueueComponent,
+    OrcidAuthorizationsComponent
   ],
   exports: [
     CrisPageLoaderComponent,

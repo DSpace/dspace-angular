@@ -1,17 +1,10 @@
-import { typedObject, link } from '../../cache/builders/build-decorators';
-import { HALResource } from '../../shared/hal-resource.model';
-import { deserialize, autoserialize, deserializeAs } from 'cerialize';
-import { HALLink } from '../../shared/hal-link.model';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { RESEARCHER_PROFILE } from './researcher-profile.resource-type';
-import { Item } from '../../shared/item.model';
-import { ITEM } from '../../shared/item.resource-type';
-import { EPERSON } from '../../eperson/models/eperson.resource-type';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../data/remote-data';
-import { EPerson } from '../../eperson/models/eperson.model';
+import { autoserialize, deserialize, deserializeAs } from 'cerialize';
+import { typedObject } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/object-cache.reducer';
+import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { RESEARCHER_PROFILE } from './researcher-profile.resource-type';
 
 /**
  * Class the represents a Researcher Profile.
