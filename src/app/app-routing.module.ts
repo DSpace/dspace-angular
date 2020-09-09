@@ -71,7 +71,7 @@ import { SiteRegisterGuard } from './core/data/feature-authorization/feature-aut
             { path: UNAUTHORIZED_PATH, component: UnauthorizedComponent },
             {
               path: 'statistics',
-              loadChildren: './+statistics-page/statistics-page-routing.module#StatisticsPageRoutingModule',
+              loadChildren: './statistics-page/statistics-page-routing.module#StatisticsPageRoutingModule',
             },
             { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
           ]}

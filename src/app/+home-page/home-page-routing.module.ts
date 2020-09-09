@@ -17,7 +17,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
           title: 'home.title',
           menu: {
             public: [{
-              id: 'statistics',
+              id: 'statistics_site',
               active: true,
               visible: true,
               model: {

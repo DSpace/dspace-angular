@@ -16,6 +16,9 @@ import { Observable } from 'rxjs';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
 import { map } from 'rxjs/operators';
 
+/**
+ * A service to retrieve {@link UsageReport}s from the REST API
+ */
 @Injectable()
 @dataService(USAGE_REPORT)
 export class UsageReportService extends DataService<UsageReport> {

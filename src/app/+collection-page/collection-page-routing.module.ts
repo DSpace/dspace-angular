@@ -75,7 +75,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
         data: {
           menu: {
             public: [{
-              id: 'statistics',
+              id: 'statistics_collection',
               active: true,
               visible: true,
               model: {
