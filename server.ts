@@ -15,7 +15,6 @@
  * import for `ngExpressEngine`.
  */
 
-import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 import 'rxjs';
 
@@ -34,6 +33,7 @@ import { enableProdMode, NgModuleFactory, Type } from '@angular/core';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import { hasValue } from './src/app/shared/empty.util';
 
 /*
  * Set path for the browser application's dist folder
@@ -131,25 +131,24 @@ app.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
  */
 function ngApp(req, res) {
   if (environment.universal.preboot) {
-    // If preboot is enabled, create a new zone for SSR, and
-    // register the error handler for when it throws an error
     res.render(DIST_FOLDER + '/index.html', {
-        req,
-        res,
-        preboot: environment.universal.preboot,
-        async: environment.universal.async,
-        time: environment.universal.time,
-        baseUrl: environment.ui.nameSpace,
-        originUrl: environment.ui.baseUrl,
-        requestUrl: req.originalUrl
-      }, (err) => {
-        console.warn('Error in SSR, serving for direct CSR. Error details : ', err);
-        res.sendFile(DIST_FOLDER + '/index.html');
+      req,
+      res,
+      preboot: environment.universal.preboot,
+      async: environment.universal.async,
+      time: environment.universal.time,
+      baseUrl: environment.ui.nameSpace,
+      originUrl: environment.ui.baseUrl,
+      requestUrl: req.originalUrl
+    }, (err) => {
+      console.warn('Error in SSR, serving for direct CSR.');
+      if (hasValue(err)) {
+        console.warn('Error details : ', err);
       }
-    );
+      res.sendFile(DIST_FOLDER + '/index.html');
+    })
   } else {
-    // If preboot is disabled, just serve the client side ejs template and pass it the required
-    // variables
+    // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct CSR');
     res.sendFile(DIST_FOLDER + '/index.html');
   }
