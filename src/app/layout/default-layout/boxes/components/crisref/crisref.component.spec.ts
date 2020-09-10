@@ -8,6 +8,9 @@ import { Item } from 'src/app/core/shared/item.model';
 import { Field } from 'src/app/core/layout/models/metadata-component.model';
 import { createMockRDObs } from 'src/app/+item-page/edit-item-page/item-bitstreams/item-bitstreams.component.spec';
 import { By } from '@angular/platform-browser';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CrisrefComponent', () => {
   let component: CrisrefComponent;
@@ -63,7 +66,15 @@ describe('CrisrefComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [ TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+        BrowserAnimationsModule,
+        RouterTestingModule
+      ],
       declarations: [ CrisrefComponent ],
       providers: [
         { provide: ItemDataService, useValue: itemService },

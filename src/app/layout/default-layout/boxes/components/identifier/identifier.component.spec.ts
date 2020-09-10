@@ -7,6 +7,8 @@ import { of } from 'rxjs';
 import { Field } from 'src/app/core/layout/models/metadata-component.model';
 import { By } from '@angular/platform-browser';
 import { ResolverStrategyService } from 'src/app/layout/services/resolver-strategy.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 
 describe('IdentifierComponent', () => {
   let component: IdentifierComponent;
@@ -15,6 +17,12 @@ describe('IdentifierComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      })],
       declarations: [ IdentifierComponent ],
       providers: [
         { provide: ResolverStrategyService, useClass: ResolverStrategyService }
