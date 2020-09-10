@@ -58,7 +58,7 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
       this.configurationService.findByPropertyName('orcid-api.application-client-id').pipe(getFirstSucceededRemoteDataPayload()),
       this.configurationService.findByPropertyName('orcid-api.scope').pipe(getFirstSucceededRemoteDataPayload())
     ).subscribe(([authorizeUrl, clientId, scopes]) => {
-      const redirectUri = environment.rest.baseUrl + '/api/cris/orcid/' + this.item.id + '/?url=' + encodeURIComponent(this.router.url);
+      const redirectUri = environment.rest.baseUrl + '/api/cris/orcid/' + this.item.id + '/?url=' + encodeURIComponent('/home');
       const orcidUrl = authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
       + scopes.values.join(' ');
       console.log(orcidUrl);

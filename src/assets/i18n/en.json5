@@ -2257,13 +2257,39 @@
 
   "person.page.orcid.save.preference.changes": "Save changes",
 
-  "person.page.orcid.sync-projects.all" : "Send all projects",
+  "person.page.orcid.sync-profile.affiliation" : "Affiliation",
+
+  "person.page.orcid.sync-profile.bibliographic" : "Bibliographic data",
+
+  "person.page.orcid.sync-profile.education" : "Education",
+
+  "person.page.orcid.sync-profile.identifiers" : "Identifiers",
+
+  "person.page.orcid.sync-projects.all" : "All projects",
+
+  "person.page.orcid.sync-projects.mine" : "My projects",
+
+  "person.page.orcid.sync-projects.my-selected" : "Selected projects",
 
   "person.page.orcid.sync-projects.disabled" : "Disabled",
 
-  "person.page.orcid.sync-publications.all" : "Send all publications",
+  "person.page.orcid.sync-publications.all" : "All publications",
+
+  "person.page.orcid.sync-publications.mine" : "My publications",
+
+  "person.page.orcid.sync-publications.my-selected" : "Selected publications",
 
   "person.page.orcid.sync-publications.disabled" : "Disabled",
+
+  "person.page.orcid.sync-queue.delete" : "Delete",
+
+  "person.page.orcid.sync-queue.delete.error": "The deletion of the ORCID queue record failed",
+
+  "person.page.orcid.sync-queue.delete.success": "The ORCID queue record have been deleted successfully",
+
+  "person.page.orcid.sync-queue.entity-name" : "Name",
+
+  "person.page.orcid.sync-queue.send" : "Send",
 
   "person.page.orcid.synchronization-mode": "Synchronization mode",
 

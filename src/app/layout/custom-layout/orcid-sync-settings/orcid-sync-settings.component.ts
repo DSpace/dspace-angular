@@ -36,7 +36,7 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
   syncProjectOptions: Array<{value: string, label: string}>;
 
-  syncProfileOptions: string[];
+  syncProfileOptions: Array<{value: string, label: string, checked: boolean}>;
 
   constructor(private itemDataService: ItemDataService,
               private translateService: TranslateService,
@@ -67,6 +67,14 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
       {
         label: this.messagePrefix + '.sync-publications.all',
         value: 'ALL'
+      },
+      {
+        label: this.messagePrefix + '.sync-publications.my-selected',
+        value: 'MY_SELECTED'
+      },
+      {
+        label: this.messagePrefix + '.sync-publications.mine',
+        value: 'MINE'
       }
     ];
 
@@ -78,16 +86,48 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
       {
         label: this.messagePrefix + '.sync-projects.all',
         value: 'ALL'
+      },
+      {
+        label: this.messagePrefix + '.sync-projects.my-selected',
+        value: 'MY_SELECTED'
+      },
+      {
+        label: this.messagePrefix + '.sync-projects.mine',
+        value: 'MINE'
+      }
+    ];
+
+    this.syncProfileOptions = [
+      {
+        label: this.messagePrefix + '.sync-profile.affiliation',
+        value: 'AFFILIATION',
+        checked: true
+      },
+      {
+        label: this.messagePrefix + '.sync-profile.education',
+        value: 'EDUCATION',
+        checked: true
+      },
+      {
+        label: this.messagePrefix + '.sync-profile.bibliographic',
+        value: 'BIBLIOGRAPHIC',
+        checked: true
+      },
+      {
+        label: this.messagePrefix + '.sync-profile.identifiers',
+        value: 'IDENTIFIERS',
+        checked: true
       }
     ];
 
     this.currentSyncMode = this.item.hasMetadata('cris.orcid.sync-mode') ? this.item.firstMetadataValue('cris.orcid.sync-mode') : 'MANUAL';
     this.currentSyncPublications = this.item.hasMetadata('cris.orcid.sync-publications') ? this.item.firstMetadataValue('cris.orcid.sync-publications') : 'DISABLED';
     this.currentSyncProjects = this.item.hasMetadata('cris.orcid.sync-projects') ? this.item.firstMetadataValue('cris.orcid.sync-projects') : 'DISABLED';
-
+    this.currentSyncProfile = [];
   }
 
   onSubmit(form: FormGroup) {
+    console.log('form', form);
     const operations: Operation[] = [];
     this.fillOperationsFor(operations, 'cris.orcid.sync-mode', form.value.syncMode);
     this.fillOperationsFor(operations, 'cris.orcid.sync-publications', form.value.syncPublications);

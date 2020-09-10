@@ -20,6 +20,7 @@ import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
+import { RestResponse } from '../cache/response.models';
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -74,6 +75,16 @@ export class OrcidQueueService {
       elementsPerPage: paginationOptions.pageSize,
       currentPage: paginationOptions.currentPage
     });
+  }
+
+  deleteById(orcidQueueId: number): Observable<RestResponse> {
+    return this.dataService.delete(orcidQueueId + '');
+  }
+
+  send(orcidQueueId: number) {
+    const params = [];
+    params.push(new RequestParam('orcidQueueId', orcidQueueId));
+    return this.dataService.create( new OrcidQueue(), ...params);
   }
 
 }

@@ -13,6 +13,9 @@ import { hasValue } from 'src/app/shared/empty.util';
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
 import { uniqueId } from 'lodash';
 import { tap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { RequestService } from 'src/app/core/data/request.service';
 
 @Component({
   selector: 'ds-orcid-sync-queue.component',
@@ -37,7 +40,9 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
    */
   public paginationOptions: PaginationComponentOptions = new PaginationComponentOptions();
 
-  constructor(private orcidQueueService: OrcidQueueService) {
+  constructor(private orcidQueueService: OrcidQueueService,
+              private translateService: TranslateService,
+              private notificationsService: NotificationsService) {
     super();
   }
 
@@ -71,13 +76,44 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
     return this.list$.asObservable();
   }
 
+  getIconClass(orcidQueue: OrcidQueue): string {
+    if (!orcidQueue.entityType) {
+      return 'fa fa-book';
+    }
+    switch (orcidQueue.entityType) {
+      case 'Publication':
+        return 'fa fa-book';
+      case 'Person':
+        return 'fa fa-user';
+      case 'Project':
+        return 'fa fa-folder';
+      default:
+        return 'fa fa-book'
+    }
+  }
+
+  deleteEntry(orcidQueue: OrcidQueue) {
+    this.subs.push(this.orcidQueueService.deleteById(orcidQueue.id)
+      .subscribe((restResponse) => {
+        if (restResponse.isSuccessful) {
+          this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.delete.success'));
+          this.updateList();
+        } else {
+          this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.delete.error'));
+        }
+      }));
+  }
+
+  send( orcidQueue: OrcidQueue ) {
+    this.orcidQueueService.send(orcidQueue.id);
+  }
+
   /**
    * Unsubscribe from all subscriptions
    */
   ngOnDestroy(): void {
     this.list$ = null;
-    this.subs
-      .filter((subscription) => hasValue(subscription))
+    this.subs.filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe())
   }
 }

@@ -46,6 +46,12 @@ export class OrcidQueue extends CacheableObject {
   entityId: string;
 
   /**
+   * The type of the entity related to this Orcid Queue record.
+   */
+  @autoserialize
+  entityType: string;
+
+  /**
    * The {@link HALLink}s for this Orcid Queue record
    */
   @deserialize

@@ -14,15 +14,22 @@
               <table id="groups" class="table table-sm table-striped table-hover table-bordered">
                 <thead>
                   <tr class="text-center">
-                    <th>Name</th>
+                    <th></th>
+                    <th>{{'person.page.orcid.sync-queue.entity-name' | translate}}</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let entry of (getList() | async)?.payload?.page" >
+                    <td style="width: 3%" > <i [ngClass]="getIconClass(entry)" aria-hidden="true"></i> </td>
                     <td class="text-center">{{entry.entityName}}</td>
-                    <td class="text-center">
-                      <button class="btn btn-secondary"> Send </button>
+                    <td style="width: 25%">
+                      <div class="container">
+                        <div class="row">
+                          <button class="btn btn-success m-1 col-md" (click)="send(entry)"> {{'person.page.orcid.sync-queue.send'| translate}} </button>
+                          <button class="btn btn-danger m-1 col-md" (click)="deleteEntry(entry)"> {{'person.page.orcid.sync-queue.delete'| translate}} </button>
+                        </div>
+                    </div>
                     </td>
                   </tr>
                 </tbody>

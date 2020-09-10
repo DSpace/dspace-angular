@@ -26,7 +26,7 @@
               <div class="card m-2 col-md p-0">
                 <div class="card-header">{{ 'person.page.orcid.publications-preferences'| translate }}</div>
                 <div class="card-body">
-                  <div class="container">
+                  <div class="m-3">
                     <div class="form-group" >
                       <div *ngFor="let option of syncPublicationOptions" class="row form-check">
                         <input type="radio" [(ngModel)]="currentSyncPublications" 
@@ -40,7 +40,7 @@
               <div class="card m-2 col-md p-0">
                 <div class="card-header">{{ 'person.page.orcid.project-preferences'| translate }}</div>
                 <div class="card-body">
-                  <div class="container">
+                  <div class="m-3">
                     <div class="form-group" >
                       <div *ngFor="let option of syncProjectOptions" class="row form-check">
                         <input type="radio" [(ngModel)]="currentSyncProjects" 
@@ -54,8 +54,14 @@
               <div class="card m-2 col-md p-0">
                 <div class="card-header">{{ 'person.page.orcid.profile-preferences'| translate }}</div>
                 <div class="card-body">
-                  <div class="container">
-                    PROFILE TODO
+                  <div class="m-3">
+                    <div class="form-group" >
+                      <div *ngFor="let option of syncProfileOptions" class="row form-check">
+                        <input type="checkbox" [(ngModel)]="option.checked"
+                          name="syncProfile_{{option.value}}" id="profileOption_{{option.value}}" [value]="option.value" >
+                        <label for="profileOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
