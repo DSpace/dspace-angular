@@ -1,14 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditItemSelectorComponent } from './edit-item-selector.component';
 import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router.stub';
-import * as itemRouter from '../../../../+item-page/item-page-routing.module';
+import * as itemRouterPaths from '../../../../+item-page/item-page-routing-paths';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 
@@ -53,7 +51,7 @@ describe('EditItemSelectorComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOnProperty(itemRouter, 'getItemEditPath').and.callFake(() => {
+    spyOnProperty(itemRouterPaths, 'getItemEditRoute').and.callFake(() => {
         return () => editPath;
     });
 

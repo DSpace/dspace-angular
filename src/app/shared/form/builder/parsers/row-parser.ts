@@ -8,7 +8,6 @@ import { uniqueId } from 'lodash';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
 import { isEmpty } from '../../../empty.util';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormFieldModel } from '../models/form-field.model';
 import {
   CONFIG_DATA,
@@ -21,6 +20,7 @@ import { ParserFactory } from './parser-factory';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
 import { setLayout } from './parser.utils';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 

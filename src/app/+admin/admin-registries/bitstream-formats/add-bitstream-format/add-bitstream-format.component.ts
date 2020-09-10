@@ -5,8 +5,8 @@ import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model'
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RestResponse } from '../../../../core/cache/response.models';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { getBitstreamFormatsModulePath } from '../../admin-registries-routing.module';
 import { TranslateService } from '@ngx-translate/core';
+import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
 /**
  * This component renders the page to create a new bitstream format.
@@ -37,7 +37,7 @@ export class AddBitstreamFormatComponent {
         if (response.isSuccessful) {
           this.notificationService.success(this.translateService.get('admin.registries.bitstream-formats.create.success.head'),
             this.translateService.get('admin.registries.bitstream-formats.create.success.content'));
-          this.router.navigate([getBitstreamFormatsModulePath()]);
+          this.router.navigate([getBitstreamFormatsModuleRoute()]);
           this.bitstreamFormatDataService.clearBitStreamFormatRequests().subscribe();
         } else {
           this.notificationService.error(this.translateService.get('admin.registries.bitstream-formats.create.failure.head'),

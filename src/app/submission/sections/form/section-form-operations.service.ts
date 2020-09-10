@@ -28,6 +28,7 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { deepClone } from 'fast-json-patch';
 
 /**
  * The service handling all form section operations
@@ -310,7 +311,7 @@ export class SectionFormOperationsService {
     event: DynamicFormControlEvent
   ): void {
     const path = this.getFieldPathSegmentedFromChangeEvent(event);
-    const value = this.getFieldValueFromChangeEvent(event);
+    const value = deepClone(this.getFieldValueFromChangeEvent(event));
     if (isNotEmpty(value)) {
       value.place = this.getArrayIndexFromEvent(event);
       if (hasValue(event.group) && hasValue(event.group.value)) {

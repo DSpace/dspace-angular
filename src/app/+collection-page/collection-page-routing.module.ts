@@ -7,8 +7,6 @@ import { CreateCollectionPageComponent } from './create-collection-page/create-c
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
-import { getCollectionModulePath } from '../app-routing.module';
 import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
 import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
@@ -16,24 +14,11 @@ import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-bre
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-
-export const COLLECTION_PARENT_PARAMETER = 'parent';
-
-export function getCollectionPageRoute(collectionId: string) {
-  return new URLCombiner(getCollectionModulePath(), collectionId).toString();
-}
-
-export function getCollectionEditPath(id: string) {
-  return new URLCombiner(getCollectionModulePath(), id, COLLECTION_EDIT_PATH).toString()
-}
-
-export function getCollectionCreatePath() {
-  return new URLCombiner(getCollectionModulePath(), COLLECTION_CREATE_PATH).toString()
-}
-
-const COLLECTION_CREATE_PATH = 'create';
-const COLLECTION_EDIT_PATH = 'edit';
-const ITEMTEMPLATE_PATH = 'itemtemplate';
+import {
+  ITEMTEMPLATE_PATH,
+  COLLECTION_EDIT_PATH,
+  COLLECTION_CREATE_PATH
+} from './collection-page-routing-paths';
 
 @NgModule({
   imports: [

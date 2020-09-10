@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { defaultIfEmpty, filter, first, map, switchMap, take } from 'rxjs/operators';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
-import { getItemEditPath } from '../../item-page-routing.module';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { combineLatest as observableCombineLatest, combineLatest, Observable, of as observableOf } from 'rxjs';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
@@ -22,6 +21,7 @@ import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RestResponse } from '../../../core/cache/response.models';
+import { getItemEditRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-delete',
@@ -345,7 +345,7 @@ export class ItemDeleteComponent
       this.router.navigate(['']);
     } else {
       this.notificationsService.error(this.translateService.get('item.edit.' + this.messageKey + '.error'));
-      this.router.navigate([getItemEditPath(this.item.id)]);
+      this.router.navigate([getItemEditRoute(this.item.id)]);
     }
   }
 }

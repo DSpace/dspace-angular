@@ -5,7 +5,7 @@ import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
-import { ComcolRole } from '../../../shared/comcol-forms/edit-comcol-page/comcol-role/comcol-role';
+import { HALLink } from '../../../core/shared/hal-link.model';
 
 /**
  * Component for managing a collection's roles
@@ -31,19 +31,27 @@ export class CollectionRolesComponent implements OnInit {
   /**
    * The different roles for the collection, as an observable.
    */
-  getComcolRoles(): Observable<ComcolRole[]> {
+  getComcolRoles(): Observable<HALLink[]> {
     return this.collection$.pipe(
-      map((collection) =>
-        [
-          ComcolRole.COLLECTION_ADMIN,
-          ComcolRole.SUBMITTERS,
-          ComcolRole.ITEM_READ,
-          ComcolRole.BITSTREAM_READ,
-          ...Object.keys(collection._links)
-            .filter((link) => link.startsWith('workflowGroups/'))
-            .map((link) => new ComcolRole(link.substr('workflowGroups/'.length), link)),
-        ]
-      ),
+      map((collection) => [
+        {
+          name: 'collection-admin',
+          href: collection._links.adminGroup.href,
+        },
+        {
+          name: 'submitters',
+          href: collection._links.submittersGroup.href,
+        },
+        {
+          name: 'item_read',
+          href: collection._links.itemReadGroup.href,
+        },
+        {
+          name: 'bitstream_read',
+          href: collection._links.bitstreamReadGroup.href,
+        },
+        ...collection._links.workflowGroups,
+      ]),
     );
   }
 

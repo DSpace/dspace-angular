@@ -15,12 +15,12 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action.component';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
-import { getItemEditPath } from '../../item-page-routing.module';
 import { RestResponse } from '../../../core/cache/response.models';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../../shared/remote-data.utils';
+import { getItemEditRoute } from '../../item-page-routing-paths';
 
 /**
  * Test component that implements the AbstractSimpleItemActionComponent used to test the
@@ -136,14 +136,14 @@ describe('AbstractSimpleItemActionComponent', () => {
     comp.processRestResponse(successfulRestResponse);
 
     expect(notificationsServiceStub.success).toHaveBeenCalled();
-    expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditPath(mockItem.id)]);
+    expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem.id)]);
   });
 
   it('should process a RestResponse to navigate and display success notification', () => {
     comp.processRestResponse(failRestResponse);
 
     expect(notificationsServiceStub.error).toHaveBeenCalled();
-    expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditPath(mockItem.id)]);
+    expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem.id)]);
   });
 
 });

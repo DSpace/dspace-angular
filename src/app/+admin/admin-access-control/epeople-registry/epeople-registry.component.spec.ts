@@ -175,13 +175,17 @@ describe('EPeopleRegistryComponent', () => {
       it('editEPerson form is toggled', () => {
         const ePeopleIds = fixture.debugElement.queryAll(By.css('#epeople tr td:first-child'));
         ePersonDataServiceStub.getActiveEPerson().subscribe((activeEPerson: EPerson) => {
-          if (activeEPerson === ePeopleIds[0].nativeElement.textContent) {
+          if (ePeopleIds[0] && activeEPerson === ePeopleIds[0].nativeElement.textContent) {
             expect(component.isEPersonFormShown).toEqual(false);
           } else {
             expect(component.isEPersonFormShown).toEqual(true);
           }
 
         })
+      });
+
+      it('EPerson search section is hidden', () => {
+        expect(fixture.debugElement.query(By.css('#search'))).toBeNull();
       });
     });
   });
