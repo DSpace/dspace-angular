@@ -127,13 +127,11 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
   }
 
   onSubmit(form: FormGroup) {
-    console.log('form', form);
     const operations: Operation[] = [];
     this.fillOperationsFor(operations, 'cris.orcid.sync-mode', form.value.syncMode);
     this.fillOperationsFor(operations, 'cris.orcid.sync-publications', form.value.syncPublications);
     this.fillOperationsFor(operations, 'cris.orcid.sync-projects', form.value.syncProjects);
 
-    console.log('operations', operations);
     if (operations.length === 0 ) {
       return;
     }

@@ -102,7 +102,6 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
           this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.delete.success'));
           this.updateList();
         } else {
-          console.log('error');
           this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.delete.error'));
         }
       }));

@@ -35,7 +35,6 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
     return this.configurationService.findByPropertyName('orcid-api.scope')
     .pipe(getFirstSucceededRemoteDataPayload(),
           map((configurationProperty) => configurationProperty.values),
-          tap((allScopes) => console.log('ALL scopes', allScopes)),
           map((allScopes) => allScopes.filter( (scope) => !scopes.includes(scope))))
     .subscribe((missingScopes) => this.missingAuthorizations$.next(missingScopes));
   }
@@ -61,7 +60,6 @@ export class OrcidAuthorizationsComponent extends CrisLayoutBoxObj implements On
       const redirectUri = environment.rest.baseUrl + '/api/cris/orcid/' + this.item.id + '/?url=' + encodeURIComponent('/home');
       const orcidUrl = authorizeUrl.values[0] + '?client_id=' + clientId.values[0]   + '&redirect_uri=' + redirectUri + '&response_type=code&scope='
       + scopes.values.join(' ');
-      console.log(orcidUrl);
       this._window.nativeWindow.location.href = orcidUrl;
     });
   }
