@@ -8,7 +8,8 @@ describe('DsDatePipe', () => {
     }
   });
   const cdrInstance = Object.assign({
-    detectChanges: () => { /***/ }
+    detectChanges: () => { /***/ },
+    markForCheck: () => { /***/ }
   });
 
   let pipe: DsDatePipe;
