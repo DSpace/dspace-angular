@@ -35,7 +35,7 @@ describe('RowParser test suite', () => {
           selectableMetadata: [
             {
               metadata: 'journal',
-              authority: 'JOURNALAuthority',
+              controlledVocabulary: 'JOURNALAuthority',
               closed: false
             }
           ],
@@ -83,7 +83,7 @@ describe('RowParser test suite', () => {
           selectableMetadata: [
             {
               metadata: 'title',
-              authority: 'EVENTAuthority',
+              controlledVocabulary: 'EVENTAuthority',
               closed: false
             }
           ],
@@ -103,7 +103,7 @@ describe('RowParser test suite', () => {
           selectableMetadata: [
             {
               metadata: 'title',
-              authority: 'EVENTAuthority',
+              controlledVocabulary: 'EVENTAuthority',
               closed: false
             }
           ],
@@ -119,7 +119,7 @@ describe('RowParser test suite', () => {
           selectableMetadata: [
             {
               metadata: 'otherTitle',
-              authority: 'EVENTAuthority',
+              controlledVocabulary: 'EVENTAuthority',
               closed: false
             }
           ],
@@ -141,7 +141,7 @@ describe('RowParser test suite', () => {
           selectableMetadata: [
             {
               metadata: 'type',
-              authority: 'common_types_dataset',
+              controlledVocabulary: 'common_types_dataset',
               closed: false
             }
           ],
@@ -176,7 +176,7 @@ describe('RowParser test suite', () => {
           selectableMetadata: [
             {
               metadata: 'author',
-              authority: 'RPAuthority',
+              controlledVocabulary: 'RPAuthority',
               closed: false
             }
           ],
@@ -198,7 +198,7 @@ describe('RowParser test suite', () => {
           selectableMetadata: [
             {
               metadata: 'type',
-              authority: 'type_programme',
+              controlledVocabulary: 'type_programme',
               closed: false
             }
           ],
@@ -241,7 +241,7 @@ describe('RowParser test suite', () => {
           selectableMetadata: [
             {
               metadata: 'subject',
-              authority: 'JOURNALAuthority',
+              controlledVocabulary: 'JOURNALAuthority',
               closed: false
             }
           ],

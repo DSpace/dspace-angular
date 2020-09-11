@@ -1,16 +1,20 @@
 import { Inject, InjectionToken } from '@angular/core';
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
-import { FormFieldModel } from '../models/form-field.model';
 
 import { uniqueId } from 'lodash';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DynamicRowArrayModel, DynamicRowArrayModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
+import { FormFieldModel } from '../models/form-field.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import {
+  DynamicRowArrayModel,
+  DynamicRowArrayModelConfig
+} from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { setLayout } from './parser.utils';
-import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { ParserOptions } from './parser-options';
 import { RelationshipOptions } from '../models/relationship-options.model';
+import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -105,6 +109,52 @@ export abstract class FieldParser {
     }
   }
 
+  public setVocabularyOptions(controlModel) {
+    if (isNotEmpty(this.configData.selectableMetadata) && isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
+      controlModel.vocabularyOptions = new VocabularyOptions(
+        this.configData.selectableMetadata[0].controlledVocabulary,
+        this.configData.selectableMetadata[0].closed
+      )
+    }
+  }
+
+  public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceValueAsObj: boolean = false, groupModel?: boolean) {
+    if (isNotEmpty(fieldValue)) {
+      if (groupModel) {
+        // Array, values is an array
+        modelConfig.value = this.getInitGroupValues();
+        if (Array.isArray(modelConfig.value) && modelConfig.value.length > 0 && modelConfig.value[0].language) {
+          // Array Item has language, ex. AuthorityModel
+          modelConfig.language = modelConfig.value[0].language;
+        }
+        return;
+      }
+
+      if (typeof fieldValue === 'object') {
+        modelConfig.metadataValue = fieldValue;
+        modelConfig.language = fieldValue.language;
+        modelConfig.place = fieldValue.place;
+        if (forceValueAsObj) {
+          modelConfig.value = fieldValue;
+        } else {
+          modelConfig.value = fieldValue.value;
+        }
+      } else {
+        if (forceValueAsObj) {
+          // If value isn't an instance of FormFieldMetadataValueObject instantiate it
+          modelConfig.value = new FormFieldMetadataValueObject(fieldValue);
+        } else {
+          if (typeof fieldValue === 'string') {
+            // Case only string
+            modelConfig.value = fieldValue;
+          }
+        }
+      }
+    }
+
+    return modelConfig;
+  }
+
   protected getInitValueCount(index = 0, fieldId?): number {
     const fieldIds = fieldId || this.getAllFieldIds();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
@@ -148,8 +198,8 @@ export abstract class FieldParser {
       fieldIds.forEach((id) => {
         if (this.initFormValues.hasOwnProperty(id)) {
           const valueObj: FormFieldMetadataValueObject = Object.assign(new FormFieldMetadataValueObject(), this.initFormValues[id][innerIndex]);
+          // Set metadata name, used for Qualdrop fields
           valueObj.metadata = id;
-          // valueObj.value = this.initFormValues[id][innerIndex];
           values.push(valueObj);
         }
       });
@@ -238,14 +288,6 @@ export abstract class FieldParser {
     if (this.configData.languageCodes && this.configData.languageCodes.length > 0) {
       (controlModel as DsDynamicInputModel).languageCodes = this.configData.languageCodes;
     }
-    /*    (controlModel as DsDynamicInputModel).languageCodes = [{
-            display: 'English',
-            code: 'en_US'
-          },
-          {
-            display: 'Italian',
-            code: 'it_IT'
-          }];*/
 
     return controlModel;
   }
@@ -289,53 +331,6 @@ export abstract class FieldParser {
         controlModel.options.push({ label: option.label, value: option.metadata });
       });
     }
-  }
-
-  public setAuthorityOptions(controlModel, authorityUuid) {
-    if (isNotEmpty(this.configData.selectableMetadata) && isNotEmpty(this.configData.selectableMetadata[0].authority)) {
-      controlModel.authorityOptions = new AuthorityOptions(
-        this.configData.selectableMetadata[0].authority,
-        this.configData.selectableMetadata[0].metadata,
-        authorityUuid,
-        this.configData.selectableMetadata[0].closed
-      )
-    }
-  }
-
-  public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceValueAsObj: boolean = false, groupModel?: boolean) {
-    if (isNotEmpty(fieldValue)) {
-      if (groupModel) {
-        // Array, values is an array
-        modelConfig.value = this.getInitGroupValues();
-        if (Array.isArray(modelConfig.value) && modelConfig.value.length > 0 && modelConfig.value[0].language) {
-          // Array Item has language, ex. AuthorityModel
-          modelConfig.language = modelConfig.value[0].language;
-        }
-        return;
-      }
-
-      if (typeof fieldValue === 'object') {
-        modelConfig.metadataValue = fieldValue;
-        modelConfig.language = fieldValue.language;
-        modelConfig.place = fieldValue.place;
-        if (forceValueAsObj) {
-          modelConfig.value = fieldValue;
-        } else {
-          modelConfig.value = fieldValue.value;
-        }
-      } else {
-        if (forceValueAsObj) {
-          // If value isn't an instance of FormFieldMetadataValueObject instantiate it
-          modelConfig.value = new FormFieldMetadataValueObject(fieldValue);
-        } else {
-          if (typeof fieldValue === 'string') {
-            // Case only string
-            modelConfig.value = fieldValue;
-          }
-        }
-      }
-    }
-    return modelConfig;
   }
 
 }

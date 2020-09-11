@@ -1,9 +1,8 @@
-import { async, TestBed } from '@angular/core/testing';
-
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
-import { Store, StoreModule } from '@ngrx/store';
+import { catchError } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
@@ -22,7 +21,6 @@ import {
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
 import { RequestEntry } from '../data/request.reducer';
-import { catchError } from 'rxjs/operators';
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';

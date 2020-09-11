@@ -3,6 +3,7 @@
      [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() }"
      [mandatory]="sectionData.mandatory"
      [submissionId]="submissionId"
+     [sectionType]="sectionData.sectionType"
      [sectionId]="sectionData.id">
   <ngb-accordion #acc="ngbAccordion"
                  *ngIf="(sectionRef.isEnabled() | async)"

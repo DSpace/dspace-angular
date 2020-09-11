@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { deepClone } from 'fast-json-patch';
 import { DSOResponseParsingService } from '../data/dso-response-parsing.service';
 
@@ -113,7 +113,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from server'),
-          {statusCode: data.statusCode, statusText: data.statusText}
+          { statusCode: data.statusCode, statusText: data.statusText }
         )
       );
     }
@@ -133,7 +133,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
 
     processedList.forEach((item) => {
 
-      item = Object.assign({}, item);
+      // item = Object.assign({}, item);
       // In case data is an Instance of WorkspaceItem normalize field value of all the section of type form
       if (item instanceof WorkspaceItem
         || item instanceof WorkflowItem) {
