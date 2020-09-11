@@ -290,6 +290,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
       } else {
         this.firstInputValue = displayValue || '';
       }
+      this.cdr.detectChanges();
     }
   }
 
