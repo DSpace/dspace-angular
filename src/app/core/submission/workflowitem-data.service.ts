@@ -9,7 +9,7 @@ import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { WorkflowItem } from './models/workflowitem.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteByIDRequest, FindListOptions } from '../data/request.models';
+import { DeleteByIDRequest } from '../data/request.models';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';

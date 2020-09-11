@@ -44,15 +44,15 @@ import { SharedModule } from '../../../shared.module';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
-import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
+import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
 import { DynamicLookupModel } from './models/lookup/dynamic-lookup.model';
 import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DynamicTagModel } from './models/tag/dynamic-tag.model';
-import { DynamicTypeaheadModel } from './models/typeahead/dynamic-typeahead.model';
+import { DynamicOneboxModel } from './models/onebox/dynamic-onebox.model';
 import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
 import { DynamicLookupNameModel } from './models/lookup/dynamic-lookup-name.model';
-import { DsDynamicTypeaheadComponent } from './models/typeahead/dynamic-typeahead.component';
+import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDynamicListComponent } from './models/list/dynamic-list.component';
@@ -77,11 +77,9 @@ import { FormBuilderService } from '../form-builder.service';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
-  const authorityOptions: AuthorityOptions = {
-    closed: false,
-    metadata: 'list',
+  const vocabularyOptions: VocabularyOptions = {
     name: 'type_programme',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    closed: false
   };
   const formModel = [
     new DynamicCheckboxModel({ id: 'checkbox' }),
@@ -104,10 +102,10 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicSwitchModel({ id: 'switch' }),
     new DynamicTextAreaModel({ id: 'textarea' }),
     new DynamicTimePickerModel({ id: 'timepicker' }),
-    new DynamicTypeaheadModel({ id: 'typeahead', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
+    new DynamicOneboxModel({ id: 'typeahead', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
-      authorityOptions: authorityOptions,
+      vocabularyOptions: vocabularyOptions,
       metadataFields: [],
       repeatable: false,
       submissionId: '1234',
@@ -116,12 +114,12 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
-      authorityOptions: authorityOptions,
+      vocabularyOptions: vocabularyOptions,
       repeatable: true
     }),
     new DynamicListRadioGroupModel({
       id: 'radioList',
-      authorityOptions: authorityOptions,
+      vocabularyOptions: vocabularyOptions,
       repeatable: false
     }),
     new DynamicRelationGroupModel({
@@ -319,7 +317,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(testFn(formModel[13])).toBeNull();
     expect(testFn(formModel[14])).toEqual(DynamicNGBootstrapTextAreaComponent);
     expect(testFn(formModel[15])).toEqual(DynamicNGBootstrapTimePickerComponent);
-    expect(testFn(formModel[16])).toEqual(DsDynamicTypeaheadComponent);
+    expect(testFn(formModel[16])).toEqual(DsDynamicOneboxComponent);
     expect(testFn(formModel[17])).toEqual(DsDynamicScrollableDropdownComponent);
     expect(testFn(formModel[18])).toEqual(DsDynamicTagComponent);
     expect(testFn(formModel[19])).toEqual(DsDynamicListComponent);

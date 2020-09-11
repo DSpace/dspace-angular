@@ -11,7 +11,7 @@ describe('DropdownFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
-    authorityUuid: null
+    collectionUUID: null
   };
 
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('DropdownFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'type',
-          authority: 'common_types_dataset',
+          controlledVocabulary: 'common_types_dataset',
           closed: false
         }
       ],
@@ -50,7 +50,7 @@ describe('DropdownFieldParser test suite', () => {
   });
 
   it('should throw when authority is not passed', () => {
-    field.selectableMetadata[0].authority = null;
+    field.selectableMetadata[0].controlledVocabulary = null;
     const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions);
 
     expect(() => parser.parse())

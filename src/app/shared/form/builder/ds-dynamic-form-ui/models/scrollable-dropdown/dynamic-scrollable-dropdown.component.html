@@ -1,7 +1,8 @@
-<div #sdRef="ngbDropdown" ngbDropdown class="input-group w-100">
-  <input #inputElement class="form-control"
+<div #sdRef="ngbDropdown" ngbDropdown class="w-100">
+  <input ngbDropdownToggle class="form-control custom-select"
          [attr.autoComplete]="model.autoComplete"
          [class.is-invalid]="showErrorMessages"
+         [dynamicId]="bindId && model.id"
          [name]="model.name"
          [readonly]="model.readOnly"
          [type]="model.inputType"
@@ -10,11 +11,6 @@
          (click)="$event.stopPropagation(); openDropdown(sdRef);"
          (focus)="onFocus($event)"
          (keypress)="$event.preventDefault()">
-    <button #buttonElement aria-describedby="collectionControlsMenuLabel"
-            class="ds-form-input-btn  btn btn-outline-primary"
-            ngbDropdownToggle
-            [disabled]="model.readOnly"
-            (click)="onToggle(sdRef); $event.stopPropagation();"></button>
 
   <div ngbDropdownMenu
        class="dropdown-menu scrollable-dropdown-menu w-100"
@@ -30,7 +26,7 @@
          [scrollWindow]="false">
 
       <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">{{'form.no-results' | translate}}</button>
-      <button class="dropdown-item collection-item text-truncate" *ngFor="let listEntry of optionsList" (click)="onSelect(listEntry)" title="{{ listEntry.display }}">
+      <button class="dropdown-item collection-item text-truncate" *ngFor="let listEntry of optionsList" (click)="onSelect(listEntry); sdRef.close()" title="{{ listEntry.display }}">
         {{inputFormatter(listEntry)}}
       </button>
       <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>

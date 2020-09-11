@@ -8,10 +8,10 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 export class LookupNameFieldParser extends FieldParser {
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
-    if (this.configData.selectableMetadata[0].authority) {
+    if (this.configData.selectableMetadata[0].controlledVocabulary) {
       const lookupModelConfig: DynamicLookupNameModelConfig = this.initModel(null, label);
 
-      this.setAuthorityOptions(lookupModelConfig, this.parserOptions.authorityUuid);
+      this.setVocabularyOptions(lookupModelConfig);
 
       this.setValues(lookupModelConfig, fieldValue, true);
 
