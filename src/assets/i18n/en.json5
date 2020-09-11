@@ -2247,6 +2247,8 @@
 
   "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
 
+  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet",
+  
   "person.page.orcid.profile-preferences": "Profile preferences",
 
   "person.page.orcid.project-preferences": "Project preferences",
@@ -2287,9 +2289,15 @@
 
   "person.page.orcid.sync-queue.delete.success": "The ORCID queue record have been deleted successfully",
 
+  "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
+
   "person.page.orcid.sync-queue.entity-name" : "Name",
 
   "person.page.orcid.sync-queue.send" : "Send",
+
+  "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
+
+  "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
 
   "person.page.orcid.synchronization-mode": "Synchronization mode",
 

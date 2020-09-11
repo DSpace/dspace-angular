@@ -5,17 +5,18 @@ import { LayoutPage } from '../../enums/layout-page.enum';
 import { LayoutTab } from '../../enums/layout-tab.enum';
 import { LayoutBox } from '../../enums/layout-box.enum';
 import { OrcidQueueService } from 'src/app/core/orcid/orcid-queue.service';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { PaginatedList } from 'src/app/core/data/paginated-list';
 import { OrcidQueue } from 'src/app/core/orcid/model/orcid-queue.model';
 import { hasValue } from 'src/app/shared/empty.util';
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
 import { uniqueId } from 'lodash';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { RequestService } from 'src/app/core/data/request.service';
+import { RestResponse } from 'src/app/core/cache/response.models';
 
 @Component({
   selector: 'ds-orcid-sync-queue.component',
@@ -42,7 +43,8 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
 
   constructor(private orcidQueueService: OrcidQueueService,
               private translateService: TranslateService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private requestService: RequestService) {
     super();
   }
 
@@ -57,8 +59,9 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
 
   updateList() {
     this.subs.push(this.orcidQueueService.searchByOwnerId(this.item.id, this.paginationOptions)
-      .pipe(tap((x) => console.log('queue', x)))
-      .subscribe((result) => this.list$.next(result)));
+      .subscribe((result) => {
+        return this.list$.next(result);
+      }));
   }
 
   /**
@@ -99,13 +102,22 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
           this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.delete.success'));
           this.updateList();
         } else {
+          console.log('error');
           this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.delete.error'));
         }
       }));
   }
 
   send( orcidQueue: OrcidQueue ) {
-    this.orcidQueueService.send(orcidQueue.id);
+    this.subs.push(this.orcidQueueService.send(orcidQueue.id)
+      .subscribe((restResponse) => {
+        if (restResponse.hasSucceeded) {
+          this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.send.success'));
+          this.updateList();
+        } else {
+          this.notificationsService.error(this.translateService.get('person.page.orcid.sync-queue.send.error'));
+        }
+      }));
   }
 
   /**

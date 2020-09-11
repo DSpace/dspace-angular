@@ -21,12 +21,13 @@ import { PaginatedList } from '../data/paginated-list';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
 import { RestResponse } from '../cache/response.models';
+import { tap } from 'rxjs/operators';
 
 /**
  * A private DataService implementation to delegate specific methods to.
  */
 class OrcidQueueServiceImpl extends DataService<OrcidQueue> {
-  protected linkPath = 'orcidQueues';
+  public linkPath = 'orcidQueues';
 
   constructor(
     protected requestService: RequestService,
@@ -74,17 +75,17 @@ export class OrcidQueueService {
       searchParams: [new RequestParam('ownerId', itemId)],
       elementsPerPage: paginationOptions.pageSize,
       currentPage: paginationOptions.currentPage
-    });
+    }).pipe(tap((result) => {
+      this.requestService.removeByHrefSubstring(this.dataService.linkPath + '/search/findByOwner')
+    }));
   }
 
   deleteById(orcidQueueId: number): Observable<RestResponse> {
     return this.dataService.delete(orcidQueueId + '');
   }
 
-  send(orcidQueueId: number) {
-    const params = [];
-    params.push(new RequestParam('orcidQueueId', orcidQueueId));
-    return this.dataService.create( new OrcidQueue(), ...params);
+  send(orcidQueueId: number): Observable<RemoteData<OrcidQueue>> {
+    return this.dataService.create( new OrcidQueue(), new RequestParam('orcidQueueId', orcidQueueId));
   }
 
 }
