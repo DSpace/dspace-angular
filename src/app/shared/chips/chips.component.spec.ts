@@ -11,7 +11,7 @@ import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-
 import { createTestComponent } from '../testing/utils.test';
 import { AuthorityConfidenceStateDirective } from '../authority-confidence/authority-confidence-state.directive';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConfidenceType } from '../../core/integration/models/confidence-type';
+import { ConfidenceType } from '../../core/shared/confidence-type';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { environment } from '../../../environments/environment';
 

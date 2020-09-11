@@ -5,7 +5,6 @@ import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../config/models/config.model';
 import { FacetValue } from '../../shared/search/facet-value.model';
 import { SearchFilterConfig } from '../../shared/search/search-filter-config.model';
-import { IntegrationModel } from '../integration/models/integration.model';
 import { PaginatedList } from '../data/paginated-list';
 import { SubmissionObject } from '../submission/models/submission-object.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -178,17 +177,6 @@ export class TokenResponse extends RestResponse {
     public statusText: string
   ) {
     super(isSuccessful, statusCode, statusText);
-  }
-}
-
-export class IntegrationSuccessResponse extends RestResponse {
-  constructor(
-    public dataDefinition: PaginatedList<IntegrationModel>,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
   }
 }
 

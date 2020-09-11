@@ -12,9 +12,9 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { isNotEmpty } from '../../../empty.util';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import {
-  DsDynamicTypeaheadModelConfig,
-  DynamicTypeaheadModel
-} from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+  DsDynamicOneboxModelConfig,
+  DynamicOneboxModel
+} from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 
 export class OneboxFieldParser extends FieldParser {
 
@@ -75,12 +75,12 @@ export class OneboxFieldParser extends FieldParser {
       inputSelectGroup.group.push(new DsDynamicInputModel(inputModelConfig, clsInput));
 
       return new DynamicQualdropModel(inputSelectGroup, clsGroup);
-    } else if (this.configData.selectableMetadata[0].authority) {
-      const typeaheadModelConfig: DsDynamicTypeaheadModelConfig = this.initModel(null, label);
-      this.setAuthorityOptions(typeaheadModelConfig, this.parserOptions.authorityUuid);
-      this.setValues(typeaheadModelConfig, fieldValue, true);
+    } else if (this.configData.selectableMetadata[0].controlledVocabulary) {
+      const oneboxModelConfig: DsDynamicOneboxModelConfig = this.initModel(null, label);
+      this.setVocabularyOptions(oneboxModelConfig);
+      this.setValues(oneboxModelConfig, fieldValue, true);
 
-      return new DynamicTypeaheadModel(typeaheadModelConfig);
+      return new DynamicOneboxModel(oneboxModelConfig);
     } else {
       const inputModelConfig: DsDynamicInputModelConfig = this.initModel(null, label);
       this.setValues(inputModelConfig, fieldValue);

@@ -12,7 +12,7 @@ describe('LookupFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
-    authorityUuid: null
+    collectionUUID: null
   };
 
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('LookupFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'journal',
-          authority: 'JOURNALAuthority',
+          controlledVocabulary: 'JOURNALAuthority',
           closed: false
         }
       ],

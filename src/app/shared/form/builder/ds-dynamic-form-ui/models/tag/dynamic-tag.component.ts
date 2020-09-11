@@ -1,29 +1,33 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
-import { of as observableOf,  Observable } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, tap, switchMap, map, merge } from 'rxjs/operators';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { Observable, of as observableOf } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { isEqual } from 'lodash';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicTagModel } from './dynamic-tag.model';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { environment } from '../../../../../../../environments/environment';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 
+/**
+ * Component representing a tag input field
+ */
 @Component({
   selector: 'ds-dynamic-tag',
   styleUrls: ['./dynamic-tag.component.scss'],
   templateUrl: './dynamic-tag.component.html'
 })
-export class DsDynamicTagComponent extends DynamicFormControlComponent implements OnInit {
+export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
+
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTagModel;
@@ -32,19 +36,34 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('instance', {static: false}) instance: NgbTypeahead;
+  @ViewChild('instance', { static: false }) instance: NgbTypeahead;
 
   chips: Chips;
   hasAuthority: boolean;
 
   searching = false;
-  searchOptions: IntegrationSearchOptions;
   searchFailed = false;
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.changeSearchingStatus(false));
   currentValue: any;
+  public pageInfo: PageInfo;
 
+  constructor(protected vocabularyService: VocabularyService,
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(vocabularyService, layoutService, validationService);
+  }
+
+  /**
+   * Converts an item from the result list to a `string` to display in the `<input>` field.
+   */
   formatter = (x: { display: string }) => x.display;
 
+  /**
+   * Converts a stream of text values from the `<input>` element to the stream of the array of items
+   * to display in the typeahead popup.
+   */
   search = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(300),
@@ -52,45 +71,29 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return observableOf({list: []});
+          return observableOf({ list: [] });
         } else {
-          this.searchOptions.query = term;
-          return this.authorityService.getEntriesByName(this.searchOptions).pipe(
-            map((authorities) => {
-              // @TODO Pagination for authority is not working, to refactor when it will be fixed
-              return {
-                list: authorities.payload,
-                pageInfo: authorities.pageInfo
-              };
-            }),
+          return this.vocabularyService.getVocabularyEntriesByValue(term, false, this.model.vocabularyOptions, new PageInfo()).pipe(
+            getFirstSucceededRemoteDataPayload(),
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf({list: []});
+              return observableOf(new PaginatedList(
+                new PageInfo(),
+                []
+              ));
             }));
         }
       }),
-      map((results) => results.list),
+      map((list: PaginatedList<VocabularyEntry>) => list.page),
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed));
 
-  constructor(private authorityService: AuthorityService,
-              private cdr: ChangeDetectorRef,
-              protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
-  ) {
-    super(layoutService, validationService);
-  }
-
+  /**
+   * Initialize the component, setting up the init form value
+   */
   ngOnInit() {
-    this.hasAuthority = this.model.authorityOptions && hasValue(this.model.authorityOptions.name);
-
-    if (this.hasAuthority) {
-      this.searchOptions = new IntegrationSearchOptions(
-        this.model.authorityOptions.scope,
-        this.model.authorityOptions.name,
-        this.model.authorityOptions.metadata);
-    }
+    this.hasAuthority = this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name);
 
     this.chips = new Chips(
       this.model.value,
@@ -103,17 +106,24 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
         const items = this.chips.getChipsItems();
         // Does not emit change if model value is equal to the current value
         if (!isEqual(items, this.model.value)) {
-          this.model.valueUpdates.next(items);
-          this.change.emit(event);
+          this.dispatchUpdate(items);
         }
       });
   }
 
+  /**
+   * Changes the searching status
+   * @param status
+   */
   changeSearchingStatus(status: boolean) {
     this.searching = status;
     this.cdr.detectChanges();
   }
 
+  /**
+   * Mark form group as dirty on input
+   * @param event
+   */
   onInput(event) {
     if (event.data) {
       this.group.markAsDirty();
@@ -121,6 +131,10 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
     this.cdr.detectChanges();
   }
 
+  /**
+   * Emits a blur event containing a given value and add all tags to chips.
+   * @param event The value to emit.
+   */
   onBlur(event: Event) {
     if (isNotEmpty(this.currentValue) && !this.instance.isPopupOpen()) {
       this.addTagsToChips();
@@ -128,10 +142,10 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
     this.blur.emit(event);
   }
 
-  onFocus(event) {
-    this.focus.emit(event);
-  }
-
+  /**
+   * Updates model value with the selected value and add a new tag to chips.
+   * @param event The value to set.
+   */
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
     this.chips.add(event.item);
     // this.group.controls[this.model.id].setValue(this.model.value);
@@ -139,25 +153,34 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
 
     setTimeout(() => {
       // Reset the input text after x ms, mandatory or the formatter overwrite it
-      this.currentValue = null;
+      this.setCurrentValue(null);
       this.cdr.detectChanges();
     }, 50);
   }
 
   updateModel(event) {
-    this.model.valueUpdates.next(this.chips.getChipsItems());
-    this.change.emit(event);
+    /*    this.model.valueUpdates.next(this.chips.getChipsItems());
+        this.change.emit(event);*/
+    this.dispatchUpdate(this.chips.getChipsItems());
   }
 
+  /**
+   * Add a new tag with typed text when typing 'Enter' or ',' or ';'
+   * @param event the keyUp event
+   */
   onKeyUp(event) {
     if (event.keyCode === 13 || event.keyCode === 188) {
       event.preventDefault();
-      // Key: Enter or ',' or ';'
+      // Key: 'Enter' or ',' or ';'
       this.addTagsToChips();
       event.stopPropagation();
     }
   }
 
+  /**
+   * Prevent propagation of a key event in case of return key is pressed
+   * @param event the key event
+   */
   preventEventsPropagation(event) {
     event.stopPropagation();
     if (event.keyCode === 13) {
@@ -165,8 +188,17 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
     }
   }
 
+  /**
+   * Sets the current value with the given value.
+   * @param value The value to set.
+   * @param init Representing if is init value or not.
+   */
+  public setCurrentValue(value: any, init = false) {
+    this.currentValue = value;
+  }
+
   private addTagsToChips() {
-    if (hasValue(this.currentValue) && (!this.hasAuthority || !this.model.authorityOptions.closed)) {
+    if (hasValue(this.currentValue) && (!this.hasAuthority || !this.model.vocabularyOptions.closed)) {
       let res: string[] = [];
       res = this.currentValue.split(',');
 
@@ -187,7 +219,7 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
       // this.currentValue = '';
       setTimeout(() => {
         // Reset the input text after x ms, mandatory or the formatter overwrite it
-        this.currentValue = null;
+        this.setCurrentValue(null);
         this.cdr.detectChanges();
       }, 50);
       this.updateModel(event);
