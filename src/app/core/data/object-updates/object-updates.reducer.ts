@@ -14,6 +14,8 @@ import {
 } from './object-updates.actions';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import {Relationship} from '../../shared/item-relationships/relationship.model';
+import { InjectionToken } from '@angular/core';
+import { PatchOperationService } from './patch-operation-service/patch-operation.service';
 
 /**
  * Path where discarded objects are saved
@@ -48,7 +50,8 @@ export interface Identifiable {
  */
 export interface FieldUpdate {
   field: Identifiable,
-  changeType: FieldChangeType
+  changeType: FieldChangeType,
+  patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>
 }
 
 /**
@@ -184,6 +187,7 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
   const url: string = action.payload.url;
   const field: Identifiable = action.payload.field;
   const changeType: FieldChangeType = action.payload.changeType;
+  const patchOperationServiceToken: InjectionToken<PatchOperationService<Identifiable>> = action.payload.patchOperationServiceToken;
   const pageState: ObjectUpdatesEntry = state[url] || {};
 
   let states = pageState.fieldStates;
@@ -194,7 +198,7 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
   let fieldUpdate: any = pageState.fieldUpdates[field.uuid] || {};
   const newChangeType = determineChangeType(fieldUpdate.changeType, changeType);
 
-  fieldUpdate = Object.assign({}, { field, changeType: newChangeType });
+  fieldUpdate = Object.assign({}, { field, changeType: newChangeType, patchOperationServiceToken });
 
   const fieldUpdates = Object.assign({}, pageState.fieldUpdates, { [field.uuid]: fieldUpdate });
 

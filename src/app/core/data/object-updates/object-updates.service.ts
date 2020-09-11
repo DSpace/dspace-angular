@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken, Injector } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
 import { coreSelector } from '../../core.selectors';
@@ -26,6 +26,8 @@ import {
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
+import { Operation } from 'fast-json-patch';
+import { PatchOperationService } from './patch-operation-service/patch-operation.service';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -48,7 +50,8 @@ function virtualMetadataSourceSelector(url: string, source: string): MemoizedSel
  */
 @Injectable()
 export class ObjectUpdatesService {
-  constructor(private store: Store<CoreState>) {
+  constructor(private store: Store<CoreState>,
+              private injector: Injector) {
   }
 
   /**
@@ -67,8 +70,8 @@ export class ObjectUpdatesService {
    * @param field An updated field for the page's object
    * @param changeType The last type of change applied to this field
    */
-  private saveFieldUpdate(url: string, field: Identifiable, changeType: FieldChangeType) {
-    this.store.dispatch(new AddFieldUpdateAction(url, field, changeType))
+  private saveFieldUpdate(url: string, field: Identifiable, changeType: FieldChangeType, patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>) {
+    this.store.dispatch(new AddFieldUpdateAction(url, field, changeType, patchOperationServiceToken))
   }
 
   /**
@@ -185,8 +188,8 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
    */
-  saveAddFieldUpdate(url: string, field: Identifiable) {
-    this.saveFieldUpdate(url, field, FieldChangeType.ADD);
+  saveAddFieldUpdate(url: string, field: Identifiable, patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>) {
+    this.saveFieldUpdate(url, field, FieldChangeType.ADD, patchOperationServiceToken);
   }
 
   /**
@@ -194,8 +197,8 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
    */
-  saveRemoveFieldUpdate(url: string, field: Identifiable) {
-    this.saveFieldUpdate(url, field, FieldChangeType.REMOVE);
+  saveRemoveFieldUpdate(url: string, field: Identifiable, patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>) {
+    this.saveFieldUpdate(url, field, FieldChangeType.REMOVE, patchOperationServiceToken);
   }
 
   /**
@@ -203,8 +206,8 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
    */
-  saveChangeFieldUpdate(url: string, field: Identifiable) {
-    this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
+  saveChangeFieldUpdate(url: string, field: Identifiable, patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>) {
+    this.saveFieldUpdate(url, field, FieldChangeType.UPDATE, patchOperationServiceToken);
   }
 
   /**
@@ -338,5 +341,24 @@ export class ObjectUpdatesService {
    */
   getLastModified(url: string): Observable<Date> {
     return this.getObjectEntry(url).pipe(map((entry: ObjectUpdatesEntry) => entry.lastModified));
+  }
+
+  /**
+   * Create a patch from the current object-updates state
+   * @param url The URL of the page for which the patch should be created
+   */
+  createPatch(url: string): Observable<Operation[]> {
+    return this.getObjectEntry(url).pipe(
+      map((entry) => {
+        const patch = [];
+        Object.keys(entry.fieldUpdates).forEach((uuid) => {
+          const update = entry.fieldUpdates[uuid];
+          if (hasValue(update.patchOperationServiceToken)) {
+            patch.push(this.injector.get(update.patchOperationServiceToken).fieldUpdateToPatchOperation(update));
+          }
+        });
+        return patch;
+      })
+    );
   }
 }

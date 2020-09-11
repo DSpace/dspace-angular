@@ -275,9 +275,11 @@ export class ObjectCacheService {
    * @param {Operation[]} patch
    *     list of operations to perform
    */
-  public addPatch(selfLink: string, patch: Operation[]) {
+  public addPatch(selfLink: string, patch: Operation[], addToSSD = true) {
     this.store.dispatch(new AddPatchObjectCacheAction(selfLink, patch));
-    this.store.dispatch(new AddToSSBAction(selfLink, RestRequestMethod.PATCH));
+    if (addToSSD) {
+      this.store.dispatch(new AddToSSBAction(selfLink, RestRequestMethod.PATCH));
+    }
   }
 
   /**

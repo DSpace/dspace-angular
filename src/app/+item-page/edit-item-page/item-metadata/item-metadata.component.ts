@@ -17,8 +17,12 @@ import { Metadata } from '../../../core/shared/metadata.utils';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { UpdateDataService } from '../../../core/data/update-data.service';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { AlertType } from '../../../shared/alert/aletr-type';
+import { Operation } from 'fast-json-patch';
+import { METADATA_PATCH_OPERATION_SERVICE_TOKEN } from '../../../core/data/object-updates/patch-operation-service/metadata-patch-operation.service';
+import { DSOSuccessResponse } from '../../../core/cache/response.models';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 
 @Component({
   selector: 'ds-item-metadata',
@@ -55,6 +59,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     public translateService: TranslateService,
     public route: ActivatedRoute,
     public metadataFieldService: RegistryService,
+    public objectCacheService: ObjectCacheService,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
@@ -89,7 +94,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * @param metadata The metadata to add, if no parameter is supplied, create a new Metadatum
    */
   add(metadata: MetadatumViewModel = new MetadatumViewModel()) {
-    this.objectUpdatesService.saveAddFieldUpdate(this.url, metadata);
+    this.objectUpdatesService.saveAddFieldUpdate(this.url, metadata, METADATA_PATCH_OPERATION_SERVICE_TOKEN);
   }
 
   /**
@@ -106,15 +111,20 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   public submit() {
     this.isValid().pipe(first()).subscribe((isValid) => {
       if (isValid) {
-        const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.url, this.item.metadataAsList) as Observable<MetadatumViewModel[]>;
-        metadata$.pipe(
+        this.objectUpdatesService.createPatch(this.url).pipe(
           first(),
-          switchMap((metadata: MetadatumViewModel[]) => {
-            const updatedItem: Item = Object.assign(cloneDeep(this.item), { metadata: Metadata.toMetadataMap(metadata) });
-            return this.updateService.update(updatedItem);
-          }),
-          tap(() => this.updateService.commitUpdates()),
-          getSucceededRemoteData()
+          switchMap((patch: Operation[]) => {
+            return this.updateService.patch(this.item, patch).pipe(
+              switchMap((response: DSOSuccessResponse) => {
+                if (isNotEmpty(response.resourceSelfLinks)) {
+                  const selfLink = response.resourceSelfLinks[0];
+                  this.objectCacheService.addPatch(selfLink, patch, false);
+                  return this.itemService.findByHref(selfLink);
+                }
+              }),
+              getSucceededRemoteData()
+            );
+          })
         ).subscribe(
           (rd: RemoteData<Item>) => {
             this.item = rd.payload;

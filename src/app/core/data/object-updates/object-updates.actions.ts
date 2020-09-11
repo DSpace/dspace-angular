@@ -2,6 +2,8 @@ import {type} from '../../../shared/ngrx/type';
 import {Action} from '@ngrx/store';
 import {Identifiable} from './object-updates.reducer';
 import {INotification} from '../../../shared/notifications/models/notification.model';
+import { InjectionToken } from '@angular/core';
+import { PatchOperationService } from './patch-operation-service/patch-operation.service';
 
 /**
  * The list of ObjectUpdatesAction type definitions
@@ -70,6 +72,7 @@ export class AddFieldUpdateAction implements Action {
     url: string,
     field: Identifiable,
     changeType: FieldChangeType,
+    patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>
   };
 
   /**
@@ -83,8 +86,9 @@ export class AddFieldUpdateAction implements Action {
   constructor(
     url: string,
     field: Identifiable,
-    changeType: FieldChangeType) {
-    this.payload = { url, field, changeType };
+    changeType: FieldChangeType,
+    patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>) {
+    this.payload = { url, field, changeType, patchOperationServiceToken };
   }
 }
 

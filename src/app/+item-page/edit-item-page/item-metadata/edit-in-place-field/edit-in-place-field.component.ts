@@ -11,6 +11,7 @@ import { NgModel } from '@angular/forms';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
+import { METADATA_PATCH_OPERATION_SERVICE_TOKEN } from '../../../../core/data/object-updates/patch-operation-service/metadata-patch-operation.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -75,7 +76,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sends a new change update for this field to the object updates service
    */
   update(ngModel?: NgModel) {
-    this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(this.metadata));
+    this.objectUpdatesService.saveChangeFieldUpdate(this.url, cloneDeep(this.metadata), METADATA_PATCH_OPERATION_SERVICE_TOKEN);
     if (hasValue(ngModel)) {
       this.checkValidity(ngModel);
     }
@@ -103,7 +104,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sends a new remove update for this field to the object updates service
    */
   remove() {
-    this.objectUpdatesService.saveRemoveFieldUpdate(this.url, cloneDeep(this.metadata));
+    this.objectUpdatesService.saveRemoveFieldUpdate(this.url, cloneDeep(this.metadata), METADATA_PATCH_OPERATION_SERVICE_TOKEN);
   }
 
   /**
