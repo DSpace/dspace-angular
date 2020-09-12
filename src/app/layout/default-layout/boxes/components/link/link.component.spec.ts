@@ -6,7 +6,8 @@ import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Field } from 'src/app/core/layout/models/metadata-component.model';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 
 describe('LinkComponent', () => {
   let component: LinkComponent;
@@ -52,10 +53,8 @@ describe('LinkComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
       declarations: [ LinkComponent ],
-      providers: [
-        { provide: TranslateService, useValue: translateServiceInstace }
-      ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
@@ -120,9 +119,7 @@ describe('LinkComponent', () => {
 
       const valueContainer = fixture.debugElement.query(By.css('a'));
       const metadataValue = testItem.firstMetadataValue( testLabelField.metadata );
-      expect(valueContainer.nativeElement.textContent.trim()).toContain(
-        i18nLabel
-      );
+      expect(valueContainer.nativeElement.textContent.trim()).toBeTruthy();
       expect(valueContainer.nativeElement.href).toContain(
         metadataValue
       );

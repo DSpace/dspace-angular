@@ -14,7 +14,7 @@
          [formLayout]="formLayout"
          (cancel)="onCancel()"
          (submitForm)="onSubmit()">
-  <button class="btn btn-light" [disabled]="!(canReset$ | async)">
+  <button class="btn btn-light" (click)="resetPassword()">
     <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
   </button>
   <button class="btn btn-light" [disabled]="!(canDelete$ | async)">

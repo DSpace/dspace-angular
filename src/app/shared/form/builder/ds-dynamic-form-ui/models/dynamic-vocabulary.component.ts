@@ -62,23 +62,31 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       initValue$ = initEntry$.pipe(map((initEntry: VocabularyEntry) => {
         if (isNotEmpty(initEntry)) {
           // Integrate FormFieldMetadataValueObject with retrieved information
-          return Object.assign(new FormFieldMetadataValueObject(), this.model.value, {
-              value: initEntry.value,
-              authority: initEntry.authority,
-              display: initEntry.display,
-              otherInformation: initEntry.otherInformation || null
-          });
+          return new FormFieldMetadataValueObject(
+            initEntry.value,
+            null,
+            initEntry.authority,
+            initEntry.display,
+            (this.model.value as any).place,
+            null,
+            initEntry.otherInformation || null
+          );
         } else {
           return this.model.value as any;
         }
       }));
     } else if (isNotEmpty(this.model.value) && (this.model.value instanceof VocabularyEntry)) {
-      initValue$ = observableOf(Object.assign(new FormFieldMetadataValueObject(), this.model.value, {
-        value: this.model.value.value,
-        authority: this.model.value.authority,
-        display: this.model.value.display,
-        otherInformation: this.model.value.otherInformation || null
-      }));
+      initValue$ = observableOf(
+        new FormFieldMetadataValueObject(
+          this.model.value.value,
+          null,
+          this.model.value.authority,
+          this.model.value.display,
+          0,
+          null,
+          this.model.value.otherInformation || null
+        )
+      );
     } else {
       initValue$ = observableOf(new FormFieldMetadataValueObject(this.model.value));
     }
@@ -108,7 +116,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   dispatchUpdate(updateValue: any) {
     this.model.valueUpdates.next(updateValue);
     this.change.emit(updateValue);
-    this.updateOtherInformations(updateValue);
+    this.updateOtherInformation(updateValue);
   }
 
   /**
@@ -132,7 +140,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
    * try to populate related fields
    * @param value
    */
-  updateOtherInformations(value: any) {
+  updateOtherInformation(value: any) {
     if (hasValue(value) &&
         (value instanceof VocabularyEntry || value instanceof FormFieldMetadataValueObject) ) {
       const otherInformation = value.otherInformation;
@@ -140,11 +148,23 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         for (const key in otherInformation) {
           if (otherInformation.hasOwnProperty(key)) {
             const fieldId = key.replace('data-', '');
-            const newValue = otherInformation[key];
+            const newValue = this.getOtherInformationValue(otherInformation[key]);
             this.formBuilderService.updateValue(fieldId, newValue);
           }
         }
       }
     }
+  }
+
+  getOtherInformationValue(value: string): string | VocabularyEntry {
+    if (!value || value.indexOf('::') === -1) {
+      return value;
+    }
+
+    const newValue = new VocabularyEntry();
+    newValue.value = value.substring(0, value.lastIndexOf('::'));
+    newValue.display = newValue.value;
+    newValue.authority = value.substring(value.lastIndexOf('::') + 2);
+    return newValue;
   }
 }

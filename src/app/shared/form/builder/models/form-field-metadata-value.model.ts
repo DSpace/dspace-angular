@@ -35,7 +35,7 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
     this.display = display || value;
 
     this.confidence = confidence;
-    if (authority != null && isEmpty(confidence)) {
+    if (authority != null && (isEmpty(confidence) || confidence === -1)) {
       this.confidence = ConfidenceType.CF_ACCEPTED;
     } else if (isNotEmpty(confidence)) {
       this.confidence = confidence;

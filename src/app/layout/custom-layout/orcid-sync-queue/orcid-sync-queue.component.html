@@ -1,0 +1,48 @@
+<ngb-accordion [activeIds]="activeIds">
+  <div class="card">
+    <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
+      <ng-template ngbPanelContent>
+        <div class="container">
+
+          <div *ngIf="(getList() | async)?.payload?.totalElements == 0" class="row mt-3 p-3 mb-2 bg-info rounded d-flex justify-content-center">
+            {{ 'person.page.orcid.sync-queue.empty-message' | translate}}
+          </div>
+
+          <ds-pagination *ngIf="(getList() | async)?.payload?.totalElements > 0"
+            [paginationOptions]="paginationOptions"
+            [collectionSize]="(getList() | async)?.payload?.totalElements"
+            [disableRouteParameterUpdate]="true"
+            [hideGear]="true"
+            (pageChange)="onPageChange($event)">
+
+            <div class="table-responsive">
+              <table id="groups" class="table table-sm table-striped table-hover table-bordered">
+                <thead>
+                  <tr class="text-center">
+                    <th></th>
+                    <th>{{'person.page.orcid.sync-queue.entity-name' | translate}}</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let entry of (getList() | async)?.payload?.page" >
+                    <td style="width: 3%" > <i [ngClass]="getIconClass(entry)" aria-hidden="true"></i> </td>
+                    <td class="text-center">{{entry.entityName}}</td>
+                    <td style="width: 25%">
+                      <div class="container">
+                        <div class="row">
+                          <button class="btn btn-success m-1 col-md" (click)="send(entry)"> {{'person.page.orcid.sync-queue.send'| translate}} </button>
+                          <button class="btn btn-danger m-1 col-md" (click)="deleteEntry(entry)"> {{'person.page.orcid.sync-queue.delete'| translate}} </button>
+                        </div>
+                    </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ds-pagination>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </div>
+</ngb-accordion>

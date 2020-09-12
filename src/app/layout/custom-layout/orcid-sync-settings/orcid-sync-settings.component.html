@@ -1,0 +1,79 @@
+<ngb-accordion [activeIds]="activeIds">
+  <div class="card">
+    <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
+      <ng-template ngbPanelContent>
+        <div class="container">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f.form)">
+            <div class="row mt-3 p-3 mb-2 bg-info rounded d-flex justify-content-center">
+              {{ 'person.page.orcid.synchronization-mode-message' | translate}}
+            </div>
+            <div class="row">
+              <div class="card m-2 p-0 col-md">
+                <div class="card-header">{{ 'person.page.orcid.synchronization-mode'| translate }}</div>
+                <div class="card-body">
+                  <div class="container">
+                    <div class="form-group row">
+                      <label for="syncMode">{{ 'person.page.orcid.synchronization-mode.label'| translate }}</label>
+                      <select class="form-control" [(ngModel)]="currentSyncMode" name="syncMode" id="syncMode" required>
+                        <option *ngFor="let syncMode of syncModes" [value]="syncMode.value">{{ syncMode.label | translate }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="card m-2 col-md p-0">
+                <div class="card-header">{{ 'person.page.orcid.publications-preferences'| translate }}</div>
+                <div class="card-body">
+                  <div class="m-3">
+                    <div class="form-group" >
+                      <div *ngFor="let option of syncPublicationOptions" class="row form-check">
+                        <input type="radio" [(ngModel)]="currentSyncPublications" 
+                          name="syncPublications" id="publicationOption_{{option.value}}" [value]="option.value" required >
+                        <label for="publicationOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card m-2 col-md p-0">
+                <div class="card-header">{{ 'person.page.orcid.project-preferences'| translate }}</div>
+                <div class="card-body">
+                  <div class="m-3">
+                    <div class="form-group" >
+                      <div *ngFor="let option of syncProjectOptions" class="row form-check">
+                        <input type="radio" [(ngModel)]="currentSyncProjects" 
+                          name="syncProjects" id="projectOption_{{option.value}}" [value]="option.value" required >
+                        <label for="projectOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card m-2 col-md p-0">
+                <div class="card-header">{{ 'person.page.orcid.profile-preferences'| translate }}</div>
+                <div class="card-body">
+                  <div class="m-3">
+                    <div class="form-group" >
+                      <div *ngFor="let option of syncProfileOptions" class="row form-check">
+                        <input type="checkbox" [(ngModel)]="option.checked"
+                          name="syncProfile_{{option.value}}" id="profileOption_{{option.value}}" [value]="option.value" >
+                        <label for="profileOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md">
+                <button type="submit" class="btn btn-primary float-right m-2">{{ 'person.page.orcid.save.preference.changes' | translate }}</button>
+              </div>
+            </div>
+          </form>
+        </div>  
+      </ng-template>
+    </ngb-panel>
+  </div>
+</ngb-accordion>

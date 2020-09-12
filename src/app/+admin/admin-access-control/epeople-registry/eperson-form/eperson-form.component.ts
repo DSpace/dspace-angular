@@ -25,6 +25,7 @@ import { PaginationComponentOptions } from '../../../../shared/pagination/pagina
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import { EpersonRegistrationService } from 'src/app/core/data/eperson-registration.service';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -109,12 +110,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   @Output() cancelForm: EventEmitter<any> = new EventEmitter();
 
   /**
-   * Observable whether or not the admin is allowed to reset the EPerson's password
-   * TODO: Initialize the observable once the REST API supports this (currently hardcoded to return false)
-   */
-  canReset$: Observable<boolean> = of(false);
-
-  /**
    * Observable whether or not the admin is allowed to delete the EPerson
    * TODO: Initialize the observable once the REST API supports this (currently hardcoded to return false)
    */
@@ -160,7 +155,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private authService: AuthService,
-              private authorizationService: AuthorizationDataService) {
+              private authorizationService: AuthorizationDataService,
+              private epersonRegistrationService: EpersonRegistrationService) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
       if (hasValue(eperson)) {
@@ -411,6 +407,25 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   stopImpersonating() {
     this.authService.stopImpersonatingAndRefresh();
     this.isImpersonated = false;
+  }
+
+  /**
+   * Sends an email to current eperson address with the information
+   * to reset password
+   */
+  resetPassword() {
+    if (hasValue(this.epersonInitial.email)) {
+      this.epersonRegistrationService.registerEmail(this.epersonInitial.email).subscribe((response: RestResponse) => {
+        if (response.isSuccessful) {
+          this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),
+            this.translateService.get('forgot-email.form.success.content', {email: this.epersonInitial.email}));
+        } else {
+          this.notificationsService.error(this.translateService.get('forgot-email.form.error.head'),
+            this.translateService.get('forgot-email.form.error.content', {email: this.epersonInitial.email}));
+        }
+      }
+    );
+    }
   }
 
   /**

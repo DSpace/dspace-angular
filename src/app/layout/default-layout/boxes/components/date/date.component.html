@@ -2,7 +2,7 @@
   <span
     *ngIf="hasLabel"
     class="{{labelStyle}}">
-    {{label}}
+    {{label | translate}}
   </span>
   <span class="txt-value {{valueStyle}}">
     {{ metadataValue | dsDate }}

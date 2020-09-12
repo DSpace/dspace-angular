@@ -1,0 +1,56 @@
+<ngb-accordion [activeIds]="activeIds">
+  <div class="card">
+    <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
+      <ng-template ngbPanelContent>
+        <div class="container">
+          <ng-container *ngIf="isOrcidLinked(); then orcidLinked; else orcidNotLinked"></ng-container>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </div>
+</ngb-accordion>
+
+<ng-template #orcidLinked>
+  <div class="row mt-3">
+    <div *ngIf="getOrcidAuthorizations().length > 0" class="card m-2 col-md p-0">
+      <div class="card-header">{{ 'person.page.orcid.granted-authorizations'| translate }}</div>
+      <div class="card-body">
+        <div class="container">
+          <ul>
+            <li *ngFor="let auth of getOrcidAuthorizations()"> {{getAuthorizationDescription(auth) | translate}} </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card m-2 col-md p-0">
+      <div class="card-header">{{ 'person.page.orcid.missing-authorizations'| translate }}</div>
+      <div class="card-body">
+        <div class="container">
+          <div *ngIf="( missingAuthorizations$ | async ).length === 0" class="p-3 mb-2 bg-success rounded">
+            {{'person.page.orcid.no-missing-authorizations-message' | translate}}
+          </div>
+          <div *ngIf="( missingAuthorizations$ | async ).length > 0" class="p-3 mb-2 bg-warning rounded" >
+            {{'person.page.orcid.missing-authorizations-message' | translate}}
+            <ul>
+              <li *ngFor="let auth of ( ( missingAuthorizations$ | async ) )"> {{getAuthorizationDescription(auth) | translate }} </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3 p-3 mb-2 bg-info rounded d-flex justify-content-center">
+    {{ 'person.page.orcid.remove-orcid-message' | translate}}
+  </div>
+</ng-template>
+
+<ng-template #orcidNotLinked>
+  <div class="row">
+    <p class="font-weight-bold bg-warning text-white p-1 rounded">{{ 'person.page.orcid.no-orcid-message' | translate }}</p>
+  </div>
+  <div class="row d-flex align-items-center">
+    <!-- <button class="btn btn-outline-secondary mr-3"(click)="createOrcid()">{{'person.page.orcid.create' | translate}}</button> -->
+    <img src="assets/images/orcid.logo.icon.svg" class="mr-3"/>
+    <button class="btn btn-primary"(click)="linkOrcid()">{{'person.page.orcid.link' | translate}}</button>
+  </div>
+</ng-template>

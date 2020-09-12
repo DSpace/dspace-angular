@@ -13,6 +13,8 @@ import { FindListOptions } from 'src/app/core/data/request.models';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 import { PaginatedList } from 'src/app/core/data/paginated-list';
 import { PageInfo } from 'src/app/core/shared/page-info.model';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 
 describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
@@ -54,7 +56,12 @@ describe('AttachmentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
+      imports: [ TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
         SharedModule
       ],
       declarations: [ AttachmentComponent ],
