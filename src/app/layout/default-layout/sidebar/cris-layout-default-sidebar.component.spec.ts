@@ -11,9 +11,8 @@ import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.uti
 import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { tabs } from 'src/app/shared/testing/tab.mock';
 import { Location } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
 
 class TabDataServiceMock {
   findByItem(itemUuid: string, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
@@ -32,7 +31,11 @@ describe('CrisLayoutDefaultSidebarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CrisLayoutDefaultSidebarComponent ],
-      providers: [ {provide: Location, useValue: {}} ],
+      providers: [ {provide: Location, useValue: {
+        path(): string {
+          return '/items/a96c6d24-757a-411d-8132-bbcbbbb04210/person-biography';
+        }
+      }} ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
@@ -43,10 +46,21 @@ describe('CrisLayoutDefaultSidebarComponent', () => {
     component = fixture.componentInstance;
     component.tabs = tabs;
     fixture.detectChanges();
+    spyOn(component, 'selectTab');
   });
 
   it('check sidebar tabs rendering', () => {
     const navbarTabsFound = fixture.debugElement.queryAll(By.css('#sidebar ul li'));
     expect(navbarTabsFound.length).toEqual(3);
+  });
+
+  it('check if the component selects the correct tab', () => {
+    const change: SimpleChanges = Object.assign({
+      tabs: {
+        currentValue: tabs
+      }
+    });
+    component.ngOnChanges(change);
+    expect(component.selectTab).toHaveBeenCalledWith(1);
   });
 });

@@ -1,12 +1,15 @@
-<div>
-  <div class="wrapper">
+<div class="container">
+  <div class="wrapper" [ngClass]="{'wrapper-close': sidebarStatus}">
       <ds-cris-layout-default-sidebar
           [sidebarStatus]="sidebarStatus"
           [tabs]="tabs"
           (selectedTab)="changeTab($event)">
       </ds-cris-layout-default-sidebar>
-      <div id="content">
-          <div class="row">
+      <div
+        id="content"
+        class="pr-0 pt-3 pb-3"
+        [ngClass]="{'p-0': !hideSideBarControl(), 'pl-3': !sidebarStatus, 'pl-0': sidebarStatus}">
+          <div *ngIf="hideSideBarControl()" class="row">
               <button type="button" class="btn btn-link" (click)="hideShowSidebar()">
                   <i class="fa fa-chevron-circle-{{sidebarStatus ? 'right' : 'left'}} fa-2x" aria-hidden="true"></i>
               </button>

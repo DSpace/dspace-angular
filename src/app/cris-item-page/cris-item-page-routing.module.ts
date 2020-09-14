@@ -11,8 +11,7 @@ const routes: Routes = [
     resolve: {
       item: CrisItemPageResolver,
       breadcrumb: ItemBreadcrumbResolver
-    },
-    data: { showBreadcrumbsFluid: true }
+    }
   },
   { // used for activate specific tab
     path: ':id/:tab',
@@ -20,8 +19,7 @@ const routes: Routes = [
     resolve: {
       item: CrisItemPageResolver,
       breadcrumb: ItemBreadcrumbResolver
-    },
-    data: { showBreadcrumbsFluid: true }
+    }
   }
 ];
 
