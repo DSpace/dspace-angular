@@ -2235,6 +2235,93 @@
 
   "person.page.orcid": "ORCID",
 
+  "person.page.orcid.create": "Create an ORCID ID",
+
+  "person.page.orcid.granted-authorizations": "Granted authorizations",
+
+  "person.page.orcid.link": "Connect to ORCID ID",
+
+  "person.page.orcid.missing-authorizations": "Missing authorizations",
+
+  "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
+
+  "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
+
+  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet",
+  
+  "person.page.orcid.profile-preferences": "Profile preferences",
+
+  "person.page.orcid.project-preferences": "Project preferences",
+
+  "person.page.orcid.publications-preferences": "Publication preferences",
+
+  "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
+
+  "person.page.orcid.save.preference.changes": "Save changes",
+
+  "person.page.orcid.sync-profile.affiliation" : "Affiliation",
+
+  "person.page.orcid.sync-profile.bibliographic" : "Bibliographic data",
+
+  "person.page.orcid.sync-profile.education" : "Education",
+
+  "person.page.orcid.sync-profile.identifiers" : "Identifiers",
+
+  "person.page.orcid.sync-projects.all" : "All projects",
+
+  "person.page.orcid.sync-projects.mine" : "My projects",
+
+  "person.page.orcid.sync-projects.my-selected" : "Selected projects",
+
+  "person.page.orcid.sync-projects.disabled" : "Disabled",
+
+  "person.page.orcid.sync-publications.all" : "All publications",
+
+  "person.page.orcid.sync-publications.mine" : "My publications",
+
+  "person.page.orcid.sync-publications.my-selected" : "Selected publications",
+
+  "person.page.orcid.sync-publications.disabled" : "Disabled",
+
+  "person.page.orcid.sync-queue.delete" : "Delete",
+
+  "person.page.orcid.sync-queue.delete.error": "The deletion of the ORCID queue record failed",
+
+  "person.page.orcid.sync-queue.delete.success": "The ORCID queue record have been deleted successfully",
+
+  "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
+
+  "person.page.orcid.sync-queue.entity-name" : "Name",
+
+  "person.page.orcid.sync-queue.send" : "Send",
+
+  "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
+
+  "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
+
+  "person.page.orcid.synchronization-mode": "Synchronization mode",
+
+  "person.page.orcid.synchronization-mode.batch": "Batch",
+
+  "person.page.orcid.synchronization-mode.label": "Synchronization mode",
+
+  "person.page.orcid.synchronization-mode-message": "Enable 'Manual' Synchronization mode to disable batch synchronization, so you must send your data to ORCID Registry manually",
+
+  "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
+
+  "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
+  
+
+  "person.page.orcid.synchronization-mode.manual": "Manual",
+
+  "person.page.orcid.scope.authenticate": "Get your ORCID iD",
+
+  "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
+
+  "person.page.orcid.scope.activities-update": "Add/update your research activities",
+
+  "person.page.orcid.scope.person-update": "Add/update other information about you",
+
   "person.page.staffid": "Staff ID",
 
   "person.page.titleprefix": "Person: ",

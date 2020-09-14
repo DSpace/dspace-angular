@@ -4,5 +4,6 @@
  * To overwrite a specific tab its shortname must be entered as a value.
  */
 export enum LayoutTab {
-  DEFAULT = 'defaultLayoutTab'
+  DEFAULT = 'defaultLayoutTab',
+  ORCID = 'orcid'
 }

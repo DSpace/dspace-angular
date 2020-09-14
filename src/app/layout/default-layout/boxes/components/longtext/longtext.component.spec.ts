@@ -8,6 +8,8 @@ import { Item } from 'src/app/core/shared/item.model';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { Field } from 'src/app/core/layout/models/metadata-component.model';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 
 describe('LongtextComponent', () => {
   let component: LongtextComponent;
@@ -34,6 +36,12 @@ describe('LongtextComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      })],
       declarations: [LongtextComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} }
