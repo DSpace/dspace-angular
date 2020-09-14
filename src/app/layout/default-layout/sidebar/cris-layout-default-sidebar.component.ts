@@ -1,6 +1,7 @@
 import { Component, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
 import { Tab } from 'src/app/core/layout/models/tab.model';
+import { hasValue } from 'src/app/shared/empty.util';
 
 /**
  * This component render the sidebar of the default layout
@@ -29,7 +30,28 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.tabs && changes.tabs.currentValue) {
-      this.selectTab(0);
+      // Check if the location contains a specific tab to show
+      const tks = this.location.path().split('/');
+      if (hasValue(tks)) {
+        const tabName = tks[tks.length - 1];
+        if (hasValue(tabName)) {
+          let idx = 0;
+          for (const tab of this.tabs) {
+            if (tab.shortname === tabName) {
+              this.selectTab(idx);
+              return;
+            }
+            idx++;
+          };
+          if (idx === this.tabs.length) {
+            this.selectTab(0);
+          }
+        } else {
+          this.selectTab(0);
+        }
+      } else {
+        this.selectTab(0);
+      }
     }
   }
 
