@@ -1,6 +1,15 @@
-import { FieldUpdate, Identifiable } from '../object-updates.reducer';
+import { FieldUpdates } from '../object-updates.reducer';
 import { Operation } from 'fast-json-patch';
 
-export interface PatchOperationService<T extends Identifiable> {
-  fieldUpdateToPatchOperation(fieldUpdate: FieldUpdate): Operation;
+/**
+ * Interface for a service dealing with the transformations of patch operations from the object-updates store
+ * The implementations of this service know how to deal with the fields of a FieldUpdate and how to transform them
+ * into patch Operations.
+ */
+export interface PatchOperationService {
+  /**
+   * Transform a {@link FieldUpdates} object into an array of fast-json-patch Operations
+   * @param fieldUpdates
+   */
+  fieldUpdatesToPatchOperations(fieldUpdates: FieldUpdates): Operation[];
 }

@@ -94,14 +94,14 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * @param metadata The metadata to add, if no parameter is supplied, create a new Metadatum
    */
   add(metadata: MetadatumViewModel = new MetadatumViewModel()) {
-    this.objectUpdatesService.saveAddFieldUpdate(this.url, metadata, METADATA_PATCH_OPERATION_SERVICE_TOKEN);
+    this.objectUpdatesService.saveAddFieldUpdate(this.url, metadata);
   }
 
   /**
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
-    this.objectUpdatesService.initialize(this.url, this.item.metadataAsList, this.item.lastModified);
+    this.objectUpdatesService.initialize(this.url, this.item.metadataAsList, this.item.lastModified, METADATA_PATCH_OPERATION_SERVICE_TOKEN);
   }
 
   /**

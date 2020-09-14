@@ -51,7 +51,6 @@ export interface Identifiable {
 export interface FieldUpdate {
   field: Identifiable,
   changeType: FieldChangeType,
-  patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>
 }
 
 /**
@@ -92,6 +91,7 @@ export interface ObjectUpdatesEntry {
   fieldUpdates: FieldUpdates;
   virtualMetadataSources: VirtualMetadataSources;
   lastModified: Date;
+  patchOperationServiceToken?: InjectionToken<PatchOperationService>;
 }
 
 /**
@@ -166,6 +166,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
   const url: string = action.payload.url;
   const fields: Identifiable[] = action.payload.fields;
   const lastModifiedServer: Date = action.payload.lastModified;
+  const patchOperationServiceToken: InjectionToken<PatchOperationService> = action.payload.patchOperationServiceToken;
   const fieldStates = createInitialFieldStates(fields);
   const newPageState = Object.assign(
     {},
@@ -173,7 +174,8 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
     { fieldStates: fieldStates },
     { fieldUpdates: {} },
     { virtualMetadataSources: {} },
-    { lastModified: lastModifiedServer }
+    { lastModified: lastModifiedServer },
+    { patchOperationServiceToken }
   );
   return Object.assign({}, state, { [url]: newPageState });
 }
@@ -187,7 +189,6 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
   const url: string = action.payload.url;
   const field: Identifiable = action.payload.field;
   const changeType: FieldChangeType = action.payload.changeType;
-  const patchOperationServiceToken: InjectionToken<PatchOperationService<Identifiable>> = action.payload.patchOperationServiceToken;
   const pageState: ObjectUpdatesEntry = state[url] || {};
 
   let states = pageState.fieldStates;
@@ -198,7 +199,7 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
   let fieldUpdate: any = pageState.fieldUpdates[field.uuid] || {};
   const newChangeType = determineChangeType(fieldUpdate.changeType, changeType);
 
-  fieldUpdate = Object.assign({}, { field, changeType: newChangeType, patchOperationServiceToken });
+  fieldUpdate = Object.assign({}, { field, changeType: newChangeType });
 
   const fieldUpdates = Object.assign({}, pageState.fieldUpdates, { [field.uuid]: fieldUpdate });
 

@@ -59,9 +59,10 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are being mapped
    * @param fields The initial fields for the page's object
    * @param lastModified The date the object was last modified
+   * @param patchOperationServiceToken An InjectionToken referring to the {@link PatchOperationService} used for creating a patch
    */
-  initialize(url, fields: Identifiable[], lastModified: Date): void {
-    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified));
+  initialize(url, fields: Identifiable[], lastModified: Date, patchOperationServiceToken?: InjectionToken<PatchOperationService>): void {
+    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified, patchOperationServiceToken));
   }
 
   /**
@@ -70,8 +71,8 @@ export class ObjectUpdatesService {
    * @param field An updated field for the page's object
    * @param changeType The last type of change applied to this field
    */
-  private saveFieldUpdate(url: string, field: Identifiable, changeType: FieldChangeType, patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>) {
-    this.store.dispatch(new AddFieldUpdateAction(url, field, changeType, patchOperationServiceToken))
+  private saveFieldUpdate(url: string, field: Identifiable, changeType: FieldChangeType) {
+    this.store.dispatch(new AddFieldUpdateAction(url, field, changeType))
   }
 
   /**
@@ -188,8 +189,8 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
    */
-  saveAddFieldUpdate(url: string, field: Identifiable, patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>) {
-    this.saveFieldUpdate(url, field, FieldChangeType.ADD, patchOperationServiceToken);
+  saveAddFieldUpdate(url: string, field: Identifiable) {
+    this.saveFieldUpdate(url, field, FieldChangeType.ADD);
   }
 
   /**
@@ -197,8 +198,8 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
    */
-  saveRemoveFieldUpdate(url: string, field: Identifiable, patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>) {
-    this.saveFieldUpdate(url, field, FieldChangeType.REMOVE, patchOperationServiceToken);
+  saveRemoveFieldUpdate(url: string, field: Identifiable) {
+    this.saveFieldUpdate(url, field, FieldChangeType.REMOVE);
   }
 
   /**
@@ -206,8 +207,8 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
    */
-  saveChangeFieldUpdate(url: string, field: Identifiable, patchOperationServiceToken?: InjectionToken<PatchOperationService<Identifiable>>) {
-    this.saveFieldUpdate(url, field, FieldChangeType.UPDATE, patchOperationServiceToken);
+  saveChangeFieldUpdate(url: string, field: Identifiable) {
+    this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
   }
 
   /**
@@ -345,18 +346,17 @@ export class ObjectUpdatesService {
 
   /**
    * Create a patch from the current object-updates state
+   * The {@link ObjectUpdatesEntry} should contain a patchOperationServiceToken, in order to define how a patch should
+   * be created. If it doesn't, an empty patch will be returned.
    * @param url The URL of the page for which the patch should be created
    */
   createPatch(url: string): Observable<Operation[]> {
     return this.getObjectEntry(url).pipe(
       map((entry) => {
-        const patch = [];
-        Object.keys(entry.fieldUpdates).forEach((uuid) => {
-          const update = entry.fieldUpdates[uuid];
-          if (hasValue(update.patchOperationServiceToken)) {
-            patch.push(this.injector.get(update.patchOperationServiceToken).fieldUpdateToPatchOperation(update));
-          }
-        });
+        let patch = [];
+        if (hasValue(entry.patchOperationServiceToken)) {
+          patch = this.injector.get(entry.patchOperationServiceToken).fieldUpdatesToPatchOperations(entry.fieldUpdates);
+        }
         return patch;
       })
     );
