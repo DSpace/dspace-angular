@@ -1,6 +1,11 @@
-import { Inject, Injectable } from '@angular/core';
-import { LocationToken } from '../../../modules/app/browser-app.module';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { HardRedirectService } from './hard-redirect.service';
+
+export const LocationToken = new InjectionToken('Location');
+
+export function locationProvider(): Location {
+  return window.location;
+}
 
 /**
  * Service for performing hard redirects within the browser app module

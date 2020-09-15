@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { InjectionToken, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -24,7 +24,10 @@ import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
-import { BrowserHardRedirectService } from '../../app/core/services/browser-hard-redirect.service';
+import {
+  BrowserHardRedirectService,
+  LocationToken, locationProvider
+} from '../../app/core/services/browser-hard-redirect.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -34,12 +37,6 @@ export function createTranslateLoader(http: HttpClient) {
 
 export function getRequest(transferState: TransferState): any {
   return transferState.get<any>(REQ_KEY, {});
-}
-
-export const LocationToken = new InjectionToken('Location');
-
-export function locationProvider(): Location {
-  return window.location;
 }
 
 @NgModule({
