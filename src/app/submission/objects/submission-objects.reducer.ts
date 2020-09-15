@@ -262,7 +262,7 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return changeSectionState(state, action as EnableSectionAction, true);
     }
 
-    case SubmissionObjectActionTypes.UPLOAD_SECTION_DATA: {
+    case SubmissionObjectActionTypes.UPDATE_SECTION_DATA: {
       return updateSectionData(state, action as UpdateSectionDataAction);
     }
 

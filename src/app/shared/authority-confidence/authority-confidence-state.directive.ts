@@ -13,12 +13,13 @@ import {
 
 import { findIndex } from 'lodash';
 
-import { AuthorityValue } from '../../core/integration/models/authority.value';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
-import { ConfidenceType } from '../../core/integration/models/confidence-type';
+import { ConfidenceType } from '../../core/shared/confidence-type';
 import { isNotEmpty, isNull } from '../empty.util';
 import { ConfidenceIconConfig } from '../../../config/submission-config.interface';
 import { environment } from '../../../environments/environment';
+import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
@@ -31,7 +32,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
   /**
    * The metadata value
    */
-  @Input() authorityValue: AuthorityValue | FormFieldMetadataValueObject | string;
+  @Input() authorityValue: VocabularyEntry | FormFieldMetadataValueObject | string;
 
   /**
    * A boolean representing if to show html icon if authority value is empty
@@ -65,7 +66,6 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
   /**
    * Initialize instance variables
    *
-   * @param {GlobalConfig} EnvConfig
    * @param {ElementRef} elem
    * @param {Renderer2} renderer
    */
@@ -114,7 +114,8 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
   private getConfidenceByValue(value: any): ConfidenceType {
     let confidence: ConfidenceType = ConfidenceType.CF_UNSET;
 
-    if (isNotEmpty(value) && value instanceof AuthorityValue && value.hasAuthority()) {
+    if (isNotEmpty(value) && (value instanceof VocabularyEntry || value instanceof VocabularyEntryDetail)
+      && value.hasAuthority()) {
       confidence = ConfidenceType.CF_ACCEPTED;
     }
 

@@ -12,7 +12,7 @@ describe('TagFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
-    authorityUuid: null
+    collectionUUID: null
   };
 
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('TagFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'subject',
-          authority: 'JOURNALAuthority',
+          controlledVocabulary: 'JOURNALAuthority',
           closed: false
         }
       ],

@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, InjectionToken, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
 import { MetadataRepresentation } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { getMetadataRepresentationComponent } from './metadata-representation.decorator';
 import { Context } from '../../core/shared/context.model';

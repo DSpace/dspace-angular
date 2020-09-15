@@ -1,19 +1,19 @@
 import { AUTOCOMPLETE_OFF, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
-export const DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD = 'TYPEAHEAD';
+export const DYNAMIC_FORM_CONTROL_TYPE_ONEBOX = 'ONEBOX';
 
-export interface DsDynamicTypeaheadModelConfig extends DsDynamicInputModelConfig {
+export interface DsDynamicOneboxModelConfig extends DsDynamicInputModelConfig {
   minChars?: number;
   value?: any;
 }
 
-export class DynamicTypeaheadModel extends DsDynamicInputModel {
+export class DynamicOneboxModel extends DsDynamicInputModel {
 
   @serializable() minChars: number;
-  @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD;
+  @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_ONEBOX;
 
-  constructor(config: DsDynamicTypeaheadModelConfig, layout?: DynamicFormControlLayout) {
+  constructor(config: DsDynamicOneboxModelConfig, layout?: DynamicFormControlLayout) {
 
     super(config, layout);
 

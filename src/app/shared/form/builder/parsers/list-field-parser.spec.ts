@@ -13,7 +13,7 @@ describe('ListFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
-    authorityUuid: null
+    collectionUUID: null
   };
 
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('ListFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'type',
-          authority: 'type_programme',
+          controlledVocabulary: 'type_programme',
           closed: false
         }
       ],

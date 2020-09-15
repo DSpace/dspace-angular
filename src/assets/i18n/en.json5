@@ -3210,6 +3210,24 @@
   "title": "DSpace",
 
 
+
+
+  "vocabulary-treeview.header": "Hierarchical tree view",
+
+  "vocabulary-treeview.load-more": "Load more",
+
+  "vocabulary-treeview.search.form.reset": "Reset",
+
+  "vocabulary-treeview.search.form.search": "Search",
+
+  "vocabulary-treeview.search.no-result": "There were no items to show",
+
+  "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
+
+  "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
+
+
+
   "administrativeView.search.results.head": "Administrative Search",
 
   "menu.section.admin_search": "Admin Search",
