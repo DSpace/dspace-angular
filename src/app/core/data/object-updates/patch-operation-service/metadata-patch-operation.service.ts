@@ -4,8 +4,11 @@ import { FieldUpdates } from '../object-updates.reducer';
 import { Operation } from 'fast-json-patch';
 import { FieldChangeType } from '../object-updates.actions';
 import { InjectionToken } from '@angular/core';
-import { MetadataPatchOperation } from './metadata-patch-operation.model';
+import { MetadataPatchOperation } from './operations/metadata/metadata-patch-operation.model';
 import { hasValue } from '../../../../shared/empty.util';
+import { MetadataPatchAddOperation } from './operations/metadata/metadata-patch-add-operation.model';
+import { MetadataPatchRemoveOperation } from './operations/metadata/metadata-patch-remove-operation.model';
+import { MetadataPatchReplaceOperation } from './operations/metadata/metadata-patch-replace-operation.model';
 
 /**
  * Token to use for injecting this service anywhere you want
@@ -39,22 +42,22 @@ export class MetadataPatchOperationService implements PatchOperationService {
     metadataPatch.forEach((operation) => {
       // If this operation is removing or editing an existing value, first check the map for previous operations
       // If the map contains remove operations before this operation's place, lower the place by 1 for each
-      if ((operation.op === 'remove' || operation.op === 'replace') && hasValue(operation.place)) {
+      if ((operation.op === MetadataPatchRemoveOperation.operationType || operation.op === MetadataPatchReplaceOperation.operationType) && hasValue((operation as any).place)) {
         if (metadataRemoveMap.has(operation.field)) {
           metadataRemoveMap.get(operation.field).forEach((index) => {
-            if (index < operation.place) {
-              operation.place--;
+            if (index < (operation as any).place) {
+              (operation as any).place--;
             }
           });
         }
       }
 
       // If this is a remove operation, add its (updated) place to the map, so we can adjust following operations accordingly
-      if (operation.op === 'remove' && hasValue(operation.place)) {
+      if (operation.op === MetadataPatchRemoveOperation.operationType && hasValue((operation as any).place)) {
         if (!metadataRemoveMap.has(operation.field)) {
           metadataRemoveMap.set(operation.field, []);
         }
-        metadataRemoveMap.get(operation.field).push(operation.place);
+        metadataRemoveMap.get(operation.field).push((operation as any).place);
       }
 
       // Transform the updated operation into a fast-json-patch Operation and add it to the patch
@@ -84,13 +87,13 @@ export class MetadataPatchOperationService implements PatchOperationService {
       let operation: MetadataPatchOperation;
       switch (update.changeType) {
         case FieldChangeType.ADD:
-          operation = new MetadataPatchOperation('add', metadatum.key, undefined, [ val ]);
+          operation = new MetadataPatchAddOperation(metadatum.key, [ val ]);
           break;
         case FieldChangeType.REMOVE:
-          operation = new MetadataPatchOperation('remove', metadatum.key, metadatum.place);
+          operation = new MetadataPatchRemoveOperation(metadatum.key, metadatum.place);
           break;
         case FieldChangeType.UPDATE:
-          operation = new MetadataPatchOperation('replace', metadatum.key, metadatum.place, val);
+          operation = new MetadataPatchReplaceOperation(metadatum.key, metadatum.place, val);
           break;
       }
 
