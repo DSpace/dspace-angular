@@ -216,4 +216,5 @@ export const environment: GlobalConfig = {
   theme: {
     name: 'default',
   },
+  rewriteDownloadUrls: false,
 };

@@ -57,8 +57,8 @@ function generateEnvironmentFile(file: GlobalConfig): void {
 
   // TODO remove workaround in beta 5
   if (file.rest.nameSpace.match("(.*)/api/?$") !== null) {
-    const newValue = getNameSpace(file.rest.nameSpace);
-    console.log(colors.white.bgMagenta.bold(`The rest.nameSpace property in your environment file or in your DSPACE_REST_NAMESPACE environment variable ends with '/api'.\nThis is deprecated. As '/api' isn't configurable on the rest side, it shouldn't be repeated in every environment file.\nPlease change the rest nameSpace to '${newValue}'`));
+    file.rest.nameSpace = getNameSpace(file.rest.nameSpace);
+    console.log(colors.white.bgMagenta.bold(`The rest.nameSpace property in your environment file or in your DSPACE_REST_NAMESPACE environment variable ends with '/api'.\nThis is deprecated. As '/api' isn't configurable on the rest side, it shouldn't be repeated in every environment file.\nPlease change the rest nameSpace to '${file.rest.nameSpace}'`));
   }
 
   const contents = `export const environment = ` + JSON.stringify(file);

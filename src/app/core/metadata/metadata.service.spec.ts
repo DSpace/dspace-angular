@@ -52,6 +52,7 @@ import { UUIDService } from '../shared/uuid.service';
 import { MetadataService } from './metadata.service';
 import { environment } from '../../../environments/environment';
 import { storeModuleConfig } from '../../app.reducer';
+import { HardRedirectService } from '../services/hard-redirect.service';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -170,6 +171,7 @@ describe('MetadataService', () => {
         Title,
         // tslint:disable-next-line:no-empty
         { provide: ItemDataService, useValue: { findById: () => {} } },
+        { provide: HardRedirectService, useValue: { rewriteDownloadURL: (a) => a }, getRequestOrigin: () => environment.ui.baseUrl },
         BrowseService,
         MetadataService
       ],
