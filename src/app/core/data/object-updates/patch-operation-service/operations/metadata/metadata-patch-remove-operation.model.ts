@@ -1,6 +1,5 @@
 import { MetadataPatchOperation } from './metadata-patch-operation.model';
 import { Operation } from 'fast-json-patch';
-import { hasValue } from '../../../../../../shared/empty.util';
 
 /**
  * Wrapper object for a metadata patch remove Operation
@@ -23,10 +22,6 @@ export class MetadataPatchRemoveOperation extends MetadataPatchOperation {
    * using the information provided.
    */
   toOperation(): Operation {
-    let path = `/metadata/${this.field}`;
-    if (hasValue(this.place)) {
-      path += `/${this.place}`;
-    }
-    return { op: this.op as any, path };
+    return { op: this.op as any, path: `/metadata/${this.field}/${this.place}` };
   }
 }

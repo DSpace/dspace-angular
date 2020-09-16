@@ -270,16 +270,14 @@ export class ObjectCacheService {
   /**
    * Add operations to the existing list of operations for an ObjectCacheEntry
    * Makes sure the ServerSyncBuffer for this ObjectCacheEntry is updated
-   * @param {string} uuid
+   * @param selfLink
    *     the uuid of the ObjectCacheEntry
    * @param {Operation[]} patch
    *     list of operations to perform
    */
-  public addPatch(selfLink: string, patch: Operation[], addToSSD = true) {
+  public addPatch(selfLink: string, patch: Operation[]) {
     this.store.dispatch(new AddPatchObjectCacheAction(selfLink, patch));
-    if (addToSSD) {
-      this.store.dispatch(new AddToSSBAction(selfLink, RestRequestMethod.PATCH));
-    }
+    this.store.dispatch(new AddToSSBAction(selfLink, RestRequestMethod.PATCH));
   }
 
   /**
@@ -297,8 +295,8 @@ export class ObjectCacheService {
   /**
    * Apply the existing operations on an ObjectCacheEntry in the store
    * NB: this does not make any server side changes
-   * @param {string} uuid
-   *     the uuid of the ObjectCacheEntry
+   * @param selfLink
+   *     the link of the ObjectCacheEntry
    */
   private applyPatchesToCachedObject(selfLink: string) {
     this.store.dispatch(new ApplyPatchObjectCacheAction(selfLink));

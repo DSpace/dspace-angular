@@ -22,7 +22,6 @@ export class MetadataPatchAddOperation extends MetadataPatchOperation {
    * using the information provided.
    */
   toOperation(): Operation {
-    const path = `/metadata/${this.field}/-`;
-    return { op: this.op as any, path, value: this.value };
+    return { op: this.op as any, path: `/metadata/${this.field}/-`, value: this.value };
   }
 }
