@@ -2,7 +2,7 @@
       [action]="action" (keydown)="onKeydown($event)"
       (keydown.arrowdown)="shiftFocusDown($event)"
       (keydown.arrowup)="shiftFocusUp($event)" (keydown.esc)="close()"
-      (dsClickOutside)="close();">
+      (dsClickOutside)="checkIfValidInput(form);close();">
   <input #inputField type="text" formControlName="metadataNameField" [(ngModel)]="value" id="name" [name]="name"
          class="form-control suggestion_input"
          [ngClass]="{'is-invalid': !valid}"
@@ -11,10 +11,6 @@
          ng-model-options="{standalone: true}"
          autocomplete="off">
   <input type="submit" class="d-none"/>
-  <small class="text-danger"
-         *ngIf="form.get('metadataNameField').status === 'INVALID' && (form.get('metadataNameField').dirty || form.get('metadataNameField').touched)">
-    {{"item.edit.metadata.metadatafield.invalid" | translate}}
-  </small>
   <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
     <div class="dropdown-list">
       <div *ngFor="let suggestionOption of suggestions">

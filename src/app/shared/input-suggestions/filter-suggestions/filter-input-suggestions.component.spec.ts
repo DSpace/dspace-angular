@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MetadataFieldDataService } from '../../../core/data/metadata-field-data.service';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { FilterInputSuggestionsComponent } from './filter-input-suggestions.component';
 
 describe('FilterInputSuggestionsComponent', () => {
@@ -26,7 +27,9 @@ describe('FilterInputSuggestionsComponent', () => {
       declarations: [FilterInputSuggestionsComponent],
       providers: [FormsModule,
         ReactiveFormsModule,
-        { provide: MetadataFieldDataService, useValue: {} }],
+        { provide: MetadataFieldDataService, useValue: {} },
+        { provide: ObjectUpdatesService, useValue: {} },
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FilterInputSuggestionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }

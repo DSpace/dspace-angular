@@ -36,7 +36,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   /**
    * The metadatum of this field
    */
-  metadata: MetadatumViewModel;
+  @Input() metadata: MetadatumViewModel;
 
   /**
    * Emits whether or not this field is currently editable
