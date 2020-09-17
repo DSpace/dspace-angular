@@ -1335,6 +1335,30 @@
 
 
 
+  "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
+
+  "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
+
+  "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
+
+  "info.end-user-agreement.breadcrumbs": "End User Agreement",
+
+  "info.end-user-agreement.buttons.cancel": "Cancel",
+
+  "info.end-user-agreement.buttons.save": "Save",
+
+  "info.end-user-agreement.head": "End User Agreement",
+
+  "info.end-user-agreement.title": "End User Agreement",
+
+  "info.privacy.breadcrumbs": "Privacy Statement",
+
+  "info.privacy.head": "Privacy Statement",
+
+  "info.privacy.title": "Privacy Statement",
+
+
+
   "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
 
   "item.edit.authorizations.title": "Edit item's Policies",

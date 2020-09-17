@@ -12,6 +12,7 @@ import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { getUnauthorizedRoute } from '../../app-routing-paths';
+import { getEndUserAgreementPath } from '../../info/info-routing.module';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
@@ -190,6 +191,20 @@ export const returnUnauthorizedUrlTreeOnFalse = (router: Router) =>
     source.pipe(
       map((authorized: boolean) => {
         return authorized ? authorized : router.parseUrl(getUnauthorizedRoute())
+      }));
+
+/**
+ * Operator that returns a UrlTree to the unauthorized page when the boolean received is false
+ * @param router    Router
+ * @param redirect  Redirect URL to add to the UrlTree. This is used to redirect back to the original route after the
+ *                  user accepts the agreement.
+ */
+export const returnEndUserAgreementUrlTreeOnFalse = (router: Router, redirect: string) =>
+  (source: Observable<boolean>): Observable<boolean | UrlTree> =>
+    source.pipe(
+      map((hasAgreed: boolean) => {
+        const queryParams = { redirect: encodeURIComponent(redirect) };
+        return hasAgreed ? hasAgreed : router.createUrlTree([getEndUserAgreementPath()], { queryParams });
       }));
 
 export const getFinishedRemoteData = () =>

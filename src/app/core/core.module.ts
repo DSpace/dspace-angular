@@ -173,6 +173,10 @@ import { VocabularyService } from './submission/vocabularies/vocabulary.service'
 import { VocabularyTreeviewService } from '../shared/vocabulary-treeview/vocabulary-treeview.service';
 import { ConfigurationDataService } from './data/configuration-data.service';
 import { ConfigurationProperty } from './shared/configuration-property.model';
+import { ReloadGuard } from './reload/reload.guard';
+import { EndUserAgreementCurrentUserGuard } from './end-user-agreement/end-user-agreement-current-user.guard';
+import { EndUserAgreementCookieGuard } from './end-user-agreement/end-user-agreement-cookie.guard';
+import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
 import { SearchcomponentService } from './layout/searchcomponent.service';
 import { SearchComponent } from './layout/models/search-component.model';
 import { ResearcherProfileService } from './profile/researcher-profile.service';
@@ -309,6 +313,10 @@ const PROVIDERS = [
   MetadataSchemaDataService,
   MetadataFieldDataService,
   TokenResponseParsingService,
+  ReloadGuard,
+  EndUserAgreementCurrentUserGuard,
+  EndUserAgreementCookieGuard,
+  EndUserAgreementService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
