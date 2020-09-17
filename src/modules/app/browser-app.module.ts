@@ -21,6 +21,11 @@ import { AuthService } from '../../app/core/auth/auth.service';
 import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
+import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
+import {
+  BrowserHardRedirectService,
+  LocationToken, locationProvider
+} from '../../app/core/services/browser-hard-redirect.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -78,7 +83,15 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: SubmissionService,
       useClass: SubmissionService
-    }
+    },
+    {
+      provide: HardRedirectService,
+      useClass: BrowserHardRedirectService,
+    },
+    {
+      provide: LocationToken,
+      useFactory: locationProvider,
+    },
   ]
 })
 export class BrowserAppModule {

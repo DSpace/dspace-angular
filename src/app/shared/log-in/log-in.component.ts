@@ -1,14 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { filter, takeWhile, } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-
 import { AuthMethod } from '../../core/auth/models/auth.method';
-import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
+import {
+  getAuthenticationError,
+  getAuthenticationMethods,
+  isAuthenticated,
+  isAuthenticationLoading
+} from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
-import { AuthService } from '../../core/auth/auth.service';
 import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
+import { hasValue } from '../empty.util';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * /users/sign-in
@@ -19,7 +22,7 @@ import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-path
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss']
 })
-export class LogInComponent implements OnInit, OnDestroy {
+export class LogInComponent implements OnInit {
 
   /**
    * A boolean representing if LogInComponent is in a standalone page
@@ -45,14 +48,8 @@ export class LogInComponent implements OnInit, OnDestroy {
    */
   public loading: Observable<boolean>;
 
-  /**
-   * Component state.
-   * @type {boolean}
-   */
-  private alive = true;
-
   constructor(private store: Store<CoreState>,
-              private authService: AuthService,) {
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -67,20 +64,12 @@ export class LogInComponent implements OnInit, OnDestroy {
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
-    // subscribe to success
-    this.store.pipe(
-      select(isAuthenticated),
-      takeWhile(() => this.alive),
-      filter((authenticated) => authenticated))
-      .subscribe(() => {
-          this.authService.redirectAfterLoginSuccess(this.isStandalonePage);
-        }
-      );
-
-  }
-
-  ngOnDestroy(): void {
-    this.alive = false;
+    // Clear the redirect URL if an authentication error occurs and this is not a standalone page
+    this.store.pipe(select(getAuthenticationError)).subscribe((error) => {
+      if (hasValue(error) && !this.isStandalonePage) {
+        this.authService.clearRedirectUrl();
+      }
+    });
   }
 
   getRegisterRoute() {

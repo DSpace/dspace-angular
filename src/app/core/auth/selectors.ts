@@ -66,6 +66,14 @@ const _getAuthenticationInfo = (state: AuthState) => state.info;
 const _isLoading = (state: AuthState) => state.loading;
 
 /**
+ * Returns true if everything else should wait for authentication.
+ * @function _isBlocking
+ * @param {State} state
+ * @returns {boolean}
+ */
+const _isBlocking = (state: AuthState) => state.blocking;
+
+/**
  * Returns true if a refresh token request is in progress.
  * @function _isRefreshing
  * @param {State} state
@@ -169,6 +177,16 @@ export const isAuthenticatedLoaded = createSelector(getAuthState, _isAuthenticat
  * @return {boolean}
  */
 export const isAuthenticationLoading = createSelector(getAuthState, _isLoading);
+
+/**
+ * Returns true if the authentication should block everything else
+ *
+ * @function isAuthenticationBlocking
+ * @param {AuthState} state
+ * @param {any} props
+ * @return {boolean}
+ */
+export const isAuthenticationBlocking = createSelector(getAuthState, _isBlocking);
 
 /**
  * Returns true if the refresh token request is loading.

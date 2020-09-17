@@ -166,6 +166,7 @@ import { VocabularyService } from './submission/vocabularies/vocabulary.service'
 import { VocabularyTreeviewService } from '../shared/vocabulary-treeview/vocabulary-treeview.service';
 import { ConfigurationDataService } from './data/configuration-data.service';
 import { ConfigurationProperty } from './shared/configuration-property.model';
+import { ReloadGuard } from './reload/reload.guard';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -291,6 +292,7 @@ const PROVIDERS = [
   MetadataSchemaDataService,
   MetadataFieldDataService,
   TokenResponseParsingService,
+  ReloadGuard,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
