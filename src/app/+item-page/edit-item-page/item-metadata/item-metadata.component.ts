@@ -5,7 +5,7 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { ActivatedRoute, Router } from '@angular/router';
 import { cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
-import { first, map, switchMap, take } from 'rxjs/operators';
+import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -19,7 +19,7 @@ import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { Operation } from 'fast-json-patch';
 import { METADATA_PATCH_OPERATION_SERVICE_TOKEN } from '../../../core/data/object-updates/patch-operation-service/metadata-patch-operation.service';
-import { DSOSuccessResponse } from '../../../core/cache/response.models';
+import { DSOSuccessResponse, ErrorResponse } from '../../../core/cache/response.models';
 
 @Component({
   selector: 'ds-item-metadata',
@@ -111,6 +111,11 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
           first(),
           switchMap((patch: Operation[]) => {
             return this.updateService.patch(this.item, patch).pipe(
+              tap((response) => {
+                if (!response.isSuccessful) {
+                  this.notificationsService.error(this.getNotificationTitle('error'), (response as ErrorResponse).errorMessage);
+                }
+              }),
               switchMap((response: DSOSuccessResponse) => {
                 if (isNotEmpty(response.resourceSelfLinks)) {
                   return this.itemService.findByHref(response.resourceSelfLinks[0]);

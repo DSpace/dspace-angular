@@ -1344,6 +1344,8 @@
 
   "item.edit.metadata.notifications.discarded.title": "Changed discarded",
 
+  "item.edit.metadata.notifications.error.title": "An error occurred",
+
   "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
 
   "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
