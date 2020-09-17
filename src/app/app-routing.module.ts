@@ -3,86 +3,20 @@ import { RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
-import { DSpaceObject } from './core/shared/dspace-object.model';
-import { Community } from './core/shared/community.model';
-import { getCommunityPageRoute } from './+community-page/community-page-routing.module';
-import { Collection } from './core/shared/collection.model';
-import { Item } from './core/shared/item.model';
-import { getItemPageRoute } from './+item-page/item-page-routing.module';
-import { getCollectionPageRoute } from './+collection-page/collection-page-routing.module';
 import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
-
-const ITEM_MODULE_PATH = 'items';
-
-export function getItemModulePath() {
-  return `/${ITEM_MODULE_PATH}`;
-}
-
-const COLLECTION_MODULE_PATH = 'collections';
-
-export function getCollectionModulePath() {
-  return `/${COLLECTION_MODULE_PATH}`;
-}
-
-const COMMUNITY_MODULE_PATH = 'communities';
-
-export function getCommunityModulePath() {
-  return `/${COMMUNITY_MODULE_PATH}`;
-}
-const BITSTREAM_MODULE_PATH = 'bitstreams';
-export function getBitstreamModulePath() {
-  return `/${BITSTREAM_MODULE_PATH}`;
-}
-
-export const ADMIN_MODULE_PATH = 'admin';
-
-export function getAdminModulePath() {
-  return `/${ADMIN_MODULE_PATH}`;
-}
-
-const PROFILE_MODULE_PATH = 'profile';
-
-export function getProfileModulePath() {
-  return `/${PROFILE_MODULE_PATH}`;
-}
-
-const REGISTER_PATH = 'register';
-
-export function getRegisterPath() {
-  return `/${REGISTER_PATH}`;
-
-}
-
-const FORGOT_PASSWORD_PATH = 'forgot';
-
-export function getForgotPasswordPath() {
-  return `/${FORGOT_PASSWORD_PATH}`;
-
-}
-
-const WORKFLOW_ITEM_MODULE_PATH = 'workflowitems';
-
-export function getWorkflowItemModulePath() {
-  return `/${WORKFLOW_ITEM_MODULE_PATH}`;
-}
-
-export function getDSOPath(dso: DSpaceObject): string {
-  switch ((dso as any).type) {
-    case Community.type.value:
-      return getCommunityPageRoute(dso.uuid);
-    case Collection.type.value:
-      return getCollectionPageRoute(dso.uuid);
-    case Item.type.value:
-      return getItemPageRoute(dso.uuid);
-  }
-}
-
-const UNAUTHORIZED_PATH = 'unauthorized';
-
-export function getUnauthorizedPath() {
-  return `/${UNAUTHORIZED_PATH}`;
-}
+import {
+  UNAUTHORIZED_PATH,
+  WORKFLOW_ITEM_MODULE_PATH,
+  FORGOT_PASSWORD_PATH,
+  REGISTER_PATH,
+  PROFILE_MODULE_PATH,
+  ADMIN_MODULE_PATH,
+  BITSTREAM_MODULE_PATH
+} from './app-routing-paths';
+import { COLLECTION_MODULE_PATH } from './+collection-page/collection-page-routing-paths';
+import { COMMUNITY_MODULE_PATH } from './+community-page/community-page-routing-paths';
+import { ITEM_MODULE_PATH } from './+item-page/item-page-routing-paths';
 
 @NgModule({
   imports: [
@@ -111,6 +45,7 @@ export function getUnauthorizedPath() {
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
       { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
       { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },
+      { path: 'import-external', loadChildren: './+import-external-page/import-external-page.module#ImportExternalPageModule' },
       {
         path: 'workspaceitems',
         loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule'

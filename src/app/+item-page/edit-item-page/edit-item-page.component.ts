@@ -6,7 +6,7 @@ import { Item } from '../../core/shared/item.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { isNotEmpty } from '../../shared/empty.util';
-import { getItemPageRoute } from '../item-page-routing.module';
+import { getItemPageRoute } from '../item-page-routing-paths';
 
 @Component({
   selector: 'ds-edit-item-page',

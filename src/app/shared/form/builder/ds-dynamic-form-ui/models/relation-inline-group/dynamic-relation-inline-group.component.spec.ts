@@ -16,8 +16,7 @@ import {
 
 import {
   DynamicRelationGroupModel,
-  DynamicRelationGroupModelConfig,
-  PLACEHOLDER_PARENT_METADATA
+  DynamicRelationGroupModelConfig
 } from '../relation-group/dynamic-relation-group.model';
 import { DsDynamicRelationInlineGroupComponent } from './dynamic-relation-inline-group.components';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
@@ -32,6 +31,7 @@ import { StoreMock } from '../../../../../testing/store.mock';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../ds-dynamic-row-group-model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 

@@ -13,9 +13,9 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommunityAdminSearchResultGridElementComponent } from './community-admin-search-result-grid-element.component';
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
-import { getCommunityEditPath } from '../../../../../+community-page/community-page-routing.module';
 import { Community } from '../../../../../core/shared/community.model';
 import { CommunityAdminSearchResultListElementComponent } from '../../admin-search-result-list-element/community-search-result/community-admin-search-result-list-element.component';
+import { getCommunityEditRoute } from '../../../../../+community-page/community-page-routing-paths';
 
 describe('CommunityAdminSearchResultGridElementComponent', () => {
   let component: CommunityAdminSearchResultGridElementComponent;
@@ -65,6 +65,6 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
   it('should render an edit button with the correct link', () => {
     const a = fixture.debugElement.query(By.css('a.edit-link'));
     const link = a.nativeElement.href;
-    expect(link).toContain(getCommunityEditPath(id));
+    expect(link).toContain(getCommunityEditRoute(id));
   })
 });

@@ -14,7 +14,11 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { SectionsService } from './sections.service';
-import { mockSectionsData, mockSectionsErrors, mockSubmissionState } from '../../shared/mocks/submission.mock';
+import {
+  mockSectionsData,
+  mockSectionsErrors,
+  mockSubmissionState
+} from '../../shared/mocks/submission.mock';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -23,12 +27,17 @@ import {
   SectionStatusChangeAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
-import { FormAddError, FormClearErrorsAction, FormRemoveErrorAction } from '../../shared/form/form.actions';
+import {
+  FormAddError,
+  FormClearErrorsAction,
+  FormRemoveErrorAction
+} from '../../shared/form/form.actions';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { SubmissionSectionError } from '../objects/submission-objects.reducer';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
 import { storeModuleConfig } from '../../app.reducer';
+import { SectionsType } from './sections-type';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;
@@ -151,7 +160,7 @@ describe('SectionsService test suite', () => {
         b: sectionData[sectionId]
       });
 
-      expect(service.getSectionData(submissionId, sectionId)).toBeObservable(expected);
+      expect(service.getSectionData(submissionId, sectionId, SectionsType.SubmissionForm)).toBeObservable(expected);
     });
   });
 
@@ -175,7 +184,7 @@ describe('SectionsService test suite', () => {
         b: sectionState
       });
 
-      expect(service.getSectionState(submissionId, sectionId)).toBeObservable(expected);
+      expect(service.getSectionState(submissionId, sectionId, SectionsType.SubmissionForm)).toBeObservable(expected);
     });
   });
 

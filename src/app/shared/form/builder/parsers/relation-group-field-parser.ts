@@ -5,10 +5,10 @@ import { FormFieldModel } from '../models/form-field.model';
 import { isNotEmpty } from '../../../empty.util';
 import {
   DynamicRelationGroupModel,
-  DynamicRelationGroupModelConfig,
-  PLACEHOLDER_PARENT_METADATA
+  DynamicRelationGroupModelConfig
 } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { ParserType } from './parser-type';
 
 export class RelationGroupFieldParser extends FieldParser {

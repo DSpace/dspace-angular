@@ -13,7 +13,7 @@ import {
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
 
-import { DynamicRelationGroupModel, PLACEHOLDER_PARENT_METADATA } from '../relation-group/dynamic-relation-group.model';
+import { DynamicRelationGroupModel } from '../relation-group/dynamic-relation-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
@@ -23,6 +23,7 @@ import { shrinkInOut } from '../../../../../animations/shrink';
 import { DynamicRowArrayModel, DynamicRowArrayModelConfig } from '../ds-dynamic-row-array-model';
 import { setLayout } from '../../../parsers/parser.utils';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
