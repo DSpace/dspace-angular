@@ -45,7 +45,8 @@ describe('LogInShibbolethComponent', () => {
     };
 
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
-      getCurrentRoute: {}
+      getCurrentRoute: {},
+      redirect: {}
     });
   });
 
