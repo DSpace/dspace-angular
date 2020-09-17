@@ -11,9 +11,11 @@ import { CoreState } from '../../../../core/core.reducers';
 import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/selectors';
 import { RouteService } from '../../../../core/services/route.service';
 import { NativeWindowRef, NativeWindowService } from '../../../../core/services/window.service';
-import { isNotNull } from '../../../empty.util';
+import { isNotNull, isEmpty } from '../../../empty.util';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { take } from 'rxjs/operators';
+import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
 
 @Component({
   selector: 'ds-log-in-shibboleth',
@@ -83,26 +85,31 @@ export class LogInShibbolethComponent implements OnInit {
   }
 
   redirectToShibboleth() {
-    if (!this.isStandalonePage) {
-      this.authService.setRedirectUrl(this.hardRedirectService.getCurrentRoute());
-    } else {
-      this.authService.setRedirectUrlIfNotSet('/');
-    }
-    let newLocationUrl = this.location;
-    const currentUrl = this._window.nativeWindow.location.href;
-    const myRegexp = /\?redirectUrl=(.*)/g;
-    const match = myRegexp.exec(this.location);
-    const redirectUrl = (match && match[1]) ? match[1] : null;
 
-    // Check whether the current page is different from the redirect url received from rest
-    if (isNotNull(redirectUrl) && redirectUrl !== currentUrl) {
-      // change the redirect url with the current page url
-      const newRedirectUrl = `?redirectUrl=${currentUrl}`;
-      newLocationUrl = this.location.replace(/\?redirectUrl=(.*)/g, newRedirectUrl);
-    }
+    this.authService.getRedirectUrl().pipe(take(1)).subscribe((redirectRoute) => {
+      if (!this.isStandalonePage) {
+        redirectRoute = this.hardRedirectService.getCurrentRoute();
+      } else if (isEmpty(redirectRoute)) {
+        redirectRoute = '/';
+      }
+      const correctRedirectUrl = new URLCombiner(this._window.nativeWindow.origin, redirectRoute).toString();
 
-    // redirect to shibboleth authentication url
-    this._window.nativeWindow.location.href = newLocationUrl;
+      let shibbolethServerUrl = this.location;
+      const myRegexp = /\?redirectUrl=(.*)/g;
+      const match = myRegexp.exec(this.location);
+      const redirectUrlFromServer = (match && match[1]) ? match[1] : null;
+
+      // Check whether the current page is different from the redirect url received from rest
+      if (isNotNull(redirectUrlFromServer) && redirectUrlFromServer !== correctRedirectUrl) {
+        // change the redirect url with the current page url
+        const newRedirectUrl = `?redirectUrl=${correctRedirectUrl}`;
+        shibbolethServerUrl = this.location.replace(/\?redirectUrl=(.*)/g, newRedirectUrl);
+      }
+
+      // redirect to shibboleth authentication url
+      this.hardRedirectService.redirect(shibbolethServerUrl);
+    });
+
   }
 
 }
