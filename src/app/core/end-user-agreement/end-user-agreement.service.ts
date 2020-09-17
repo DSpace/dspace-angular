@@ -5,10 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { of as observableOf } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
-import { cloneDeep } from 'lodash';
-import { Metadata } from '../shared/metadata.utils';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { getSucceededRemoteData } from '../shared/operators';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
 export const END_USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';
@@ -67,13 +64,18 @@ export class EndUserAgreementService {
       switchMap((authenticated) => {
         if (authenticated) {
           return this.authService.getAuthenticatedUserFromStore().pipe(
+            take(1),
             switchMap((user) => {
-              const updatedUser = cloneDeep(user);
-              Metadata.setFirstValue(updatedUser.metadata, END_USER_AGREEMENT_METADATA_FIELD, String(accepted));
-              return this.ePersonService.update(updatedUser);
+              const newValue = { value: String(accepted) };
+              let operation;
+              if (user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD)) {
+                operation = { op: 'replace', path: `/metadata/${END_USER_AGREEMENT_METADATA_FIELD}/0`, value: newValue };
+              } else {
+                operation = { op: 'add', path: `/metadata/${END_USER_AGREEMENT_METADATA_FIELD}`, value: [ newValue ] };
+              }
+              return this.ePersonService.patch(user, [operation]);
             }),
-            getSucceededRemoteData(),
-            map((rd) => hasValue(rd.payload))
+            map((response) => response.isSuccessful)
           );
         } else {
           this.setCookieAccepted(accepted);

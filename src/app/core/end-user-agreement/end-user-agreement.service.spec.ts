@@ -7,6 +7,7 @@ import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { of as observableOf } from 'rxjs';
 import { EPerson } from '../eperson/models/eperson.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { RestResponse } from '../cache/response.models';
 
 describe('EndUserAgreementService', () => {
   let service: EndUserAgreementService;
@@ -36,7 +37,8 @@ describe('EndUserAgreementService', () => {
       getAuthenticatedUserFromStore: observableOf(userWithMetadata)
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
-      update: createSuccessfulRemoteDataObject$(userWithMetadata)
+      update: createSuccessfulRemoteDataObject$(userWithMetadata),
+      patch: observableOf(new RestResponse(true, 200, 'OK'))
     });
 
     service = new EndUserAgreementService(cookie, authService, ePersonService);
@@ -98,15 +100,7 @@ describe('EndUserAgreementService', () => {
 
       it('setUserAcceptedAgreement should update the user with new metadata', (done) => {
         service.setUserAcceptedAgreement(true).subscribe(() => {
-          expect(ePersonService.update).toHaveBeenCalledWith(jasmine.objectContaining({
-            metadata: jasmine.objectContaining({
-              [END_USER_AGREEMENT_METADATA_FIELD]: [
-                {
-                  value: 'true'
-                }
-              ]
-            })
-          }));
+          expect(ePersonService.patch).toHaveBeenCalled();
           done();
         });
       });
