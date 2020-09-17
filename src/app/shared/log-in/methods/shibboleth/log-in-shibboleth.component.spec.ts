@@ -107,7 +107,7 @@ describe('LogInShibbolethComponent', () => {
 
     component.redirectToShibboleth();
 
-    expect(setHrefSpy).toHaveBeenCalledWith(shibbolethBaseUrl + currentUrl)
+    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl)
 
   });
 
@@ -122,7 +122,7 @@ describe('LogInShibbolethComponent', () => {
 
     component.redirectToShibboleth();
 
-    expect(setHrefSpy).toHaveBeenCalledWith(shibbolethBaseUrl + currentUrl)
+    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl)
 
   });
 
