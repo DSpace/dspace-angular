@@ -60,3 +60,8 @@ export const UNAUTHORIZED_PATH = 'unauthorized';
 export function getUnauthorizedRoute() {
   return `/${UNAUTHORIZED_PATH}`;
 }
+
+export const INFO_MODULE_PATH = 'info';
+export function getInfoModulePath() {
+  return `/${INFO_MODULE_PATH}`;
+}
