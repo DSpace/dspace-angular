@@ -165,7 +165,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: true,
         info: undefined,
         refreshing: false,
-        userId: undefined
+        user: undefined
       });
 
     case AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED:
