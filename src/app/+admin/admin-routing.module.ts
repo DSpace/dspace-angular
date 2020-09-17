@@ -8,6 +8,7 @@ import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
+import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
 
 const REGISTRIES_MODULE_PATH = 'registries';
 export const ACCESS_CONTROL_MODULE_PATH = 'access-control';
@@ -54,6 +55,12 @@ export function getAccessControlModulePath() {
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: MetadataImportPageComponent,
         data: { title: 'admin.metadata-import.title', breadcrumbKey: 'admin.metadata-import' }
+      },
+      {
+        path: 'edit-user-agreement',
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        component: AdminEditUserAgreementComponent,
+        data: { title: 'admin.edit-user-agreement.title', breadcrumbKey: 'admin.edit-user-agreement' }
       },
     ])
   ],

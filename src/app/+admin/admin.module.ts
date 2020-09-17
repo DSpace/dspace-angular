@@ -18,6 +18,7 @@ import { WorkflowItemAdminWorkflowActionsComponent } from './admin-workflow-page
 import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-list-element/workflow-item/workflow-item-search-result-admin-workflow-list-element.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
+import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,9 @@ import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curati
     WorkflowItemSearchResultAdminWorkflowGridElementComponent,
     WorkflowItemAdminWorkflowActionsComponent,
 
-    MetadataImportPageComponent
+    MetadataImportPageComponent,
+
+    AdminEditUserAgreementComponent
 
   ],
   entryComponents: [
@@ -59,7 +62,9 @@ import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curati
     WorkflowItemSearchResultAdminWorkflowGridElementComponent,
     WorkflowItemAdminWorkflowActionsComponent,
 
-    MetadataImportPageComponent
+    MetadataImportPageComponent,
+
+    AdminEditUserAgreementComponent
   ]
 })
 export class AdminModule {

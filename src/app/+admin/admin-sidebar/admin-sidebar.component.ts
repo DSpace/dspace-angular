@@ -563,6 +563,20 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           icon: 'user-check',
           index: 11
         },
+
+        /* User agreement edit*/
+        {
+          id: 'user_agreement_edit',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.edit_user_agreement',
+            link: '/admin/edit-user-agreement'
+          } as LinkMenuItemModel,
+          icon: 'list-alt',
+            index: 12
+        }
       ];
 
       menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {

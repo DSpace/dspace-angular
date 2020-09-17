@@ -6,19 +6,47 @@
 
   "401.unauthorized": "unauthorized",
 
-
-
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
 
   "404.link.home-page": "Take me to the home page",
 
   "404.page-not-found": "page not found",
 
+
+
   "admin.curation-tasks.breadcrumbs": "System curation tasks",
 
   "admin.curation-tasks.title": "System curation tasks",
 
   "admin.curation-tasks.header": "System curation tasks",
+
+
+
+  "admin.edit-user-agreement.breadcrumbs": "Edit User Agreement",
+
+  "admin.edit-user-agreement.confirm.title": "Force acceptance",
+
+  "admin.edit-user-agreement.confirm.info":"Do you want to force all users to accept the new user agreement?",
+
+  "admin.edit-user-agreement.confirm.cancel":"Cancel",
+
+  "admin.edit-user-agreement.confirm.no":"No",
+
+  "admin.edit-user-agreement.confirm.yes":"Yes",
+
+  "admin.edit-user-agreement.reset-button": "Reset",
+
+  "admin.edit-user-agreement.edit-button": "Edit",
+
+  "admin.edit-user-agreement.header": "Edit User Agreement",
+
+  "admin.edit-user-agreement.success": "User agreement successfully updated",
+
+  "admin.edit-user-agreement.error": "An error occurred while updating the user agreement",
+
+  "admin.edit-user-agreement.title": "Edit User Agreement",
+
+
 
   "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
 
@@ -2087,6 +2115,7 @@
 
   "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
 
+  "menu.section.edit_user_agreement":"Edit User Agreement",
 
   "menu.section.workflow": "Administer Workflow",
 

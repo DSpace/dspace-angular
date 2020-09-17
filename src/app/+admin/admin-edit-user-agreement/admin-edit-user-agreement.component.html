@@ -1,0 +1,26 @@
+<div class="container">
+  <h2>{{'admin.edit-user-agreement.header' | translate}}</h2>
+  <textarea class="col-md-12 m-2" [(ngModel)]="userAgreementText" rows="20"></textarea>
+  <div class="col-md">
+    <button class="btn btn-primary float-right m-2" (click)="$event.preventDefault();confirmEdit(content)" [disabled]="this.userAgreementText.length === 0">
+      <span>
+        <i class="fas fa-edit"></i> 
+        &nbsp;{{ 'admin.edit-user-agreement.edit-button' | translate }}
+      </span>
+    </button>
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-info">{{'admin.edit-user-agreement.confirm.title' | translate}}</h4>
+  </div>
+  <div class="modal-body">
+    <p>{{'admin.edit-user-agreement.confirm.info' | translate}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{'admin.edit-user-agreement.confirm.cancel' | translate}}</button>
+    <button type="button" class="btn btn-primary" (click)="c('edit-with-reset')">{{'admin.edit-user-agreement.confirm.yes' | translate}}</button>
+    <button type="button" class="btn btn-primary" (click)="c('edit-without-reset')">{{'admin.edit-user-agreement.confirm.no' | translate}}</button>
+  </div>
+</ng-template>
