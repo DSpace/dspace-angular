@@ -11,7 +11,7 @@ describe('ServerHardRedirectService', () => {
 
   beforeEach(() => {
     mockRequest.headers = {
-      origin: 'test-host',
+      host: 'test-host',
     };
 
     TestBed.configureTestingModule({});

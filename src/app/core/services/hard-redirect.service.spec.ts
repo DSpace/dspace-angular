@@ -1,14 +1,16 @@
 import { HardRedirectService } from './hard-redirect.service';
 import { environment } from '../../../environments/environment';
 import { TestBed } from '@angular/core/testing';
+import { Injectable } from '@angular/core';
 
 const requestOrigin = 'http://dspace-angular-ui.dspace.com';
 
-fdescribe('HardRedirectService', () => {
-  const service: TestHardRedirectService = new TestHardRedirectService();
+describe('HardRedirectService', () => {
+  let service: TestHardRedirectService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({ providers: [TestHardRedirectService] });
+    service = TestBed.get(TestHardRedirectService);
   });
 
   describe('when calling rewriteDownloadURL', () => {
@@ -26,7 +28,7 @@ fdescribe('HardRedirectService', () => {
 
     it('it should replace part of the url when rewriteDownloadURL is true', () => {
       environment.rewriteDownloadUrls = true;
-      expect(service.rewriteDownloadURL(testURL)).toEqual(requestOrigin + relativePath);
+      expect(service.rewriteDownloadURL(testURL)).toEqual(requestOrigin + environment.rest.nameSpace + relativePath);
     });
 
     afterEach(() => {
@@ -36,10 +38,12 @@ fdescribe('HardRedirectService', () => {
 
 });
 
+@Injectable()
 class TestHardRedirectService extends HardRedirectService {
   constructor() {
-
+    super();
   }
+
   redirect(url: string) {
   }
 

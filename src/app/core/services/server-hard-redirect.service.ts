@@ -65,6 +65,6 @@ export class ServerHardRedirectService extends HardRedirectService {
    * Get the hostname of the request
    */
   getRequestOrigin() {
-    return this.req.headers.origin;
+    return this.req.headers.host;
   }
 }

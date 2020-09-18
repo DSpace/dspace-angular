@@ -56,7 +56,8 @@ import { HardRedirectService } from '../services/hard-redirect.service';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
-  template: `<router-outlet></router-outlet>`
+  template: `
+      <router-outlet></router-outlet>`
 })
 class TestComponent {
   constructor(private metadata: MetadataService) {
@@ -171,7 +172,7 @@ describe('MetadataService', () => {
         Title,
         // tslint:disable-next-line:no-empty
         { provide: ItemDataService, useValue: { findById: () => {} } },
-        { provide: HardRedirectService, useValue: { rewriteDownloadURL: (a) => a }, getRequestOrigin: () => environment.ui.baseUrl },
+        { provide: HardRedirectService, useValue: { rewriteDownloadURL: (a) => a, getRequestOrigin: () => environment.ui.baseUrl }},
         BrowseService,
         MetadataService
       ],
