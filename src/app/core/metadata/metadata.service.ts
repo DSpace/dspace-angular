@@ -22,6 +22,7 @@ import { Item } from '../shared/item.model';
 import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../shared/operators';
 import { environment } from '../../../environments/environment';
 import { HardRedirectService } from '../services/hard-redirect.service';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 @Injectable()
 export class MetadataService {
@@ -256,7 +257,7 @@ export class MetadataService {
    */
   private setCitationAbstractUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
-      const value = [this.redirectService.getRequestOrigin(), this.router.url].join('');
+      const value = new URLCombiner(this.redirectService.getRequestOrigin(), this.router.url).toString();
       this.addMetaTag('citation_abstract_html_url', value);
     }
   }
