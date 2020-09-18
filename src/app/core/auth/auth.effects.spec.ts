@@ -40,7 +40,7 @@ import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
 import { Router } from '@angular/router';
 import { RouterStub } from 'src/app/shared/testing/router.stub';
 
-fdescribe('AuthEffects', () => {
+describe('AuthEffects', () => {
   let authEffects: AuthEffects;
   let actions: Observable<any>;
   let authServiceStub;
@@ -452,4 +452,21 @@ fdescribe('AuthEffects', () => {
       });
     })
   });
+
+  describe('refreshTokenAndRedirectSuccess$', () => {
+    it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', () => {
+
+      actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS, payload: {token, redirectUrl} } });
+
+      spyOn(authServiceStub, 'replaceToken');
+      spyOn(routerStub, 'navigateByUrl');
+
+      authEffects.refreshTokenAndRedirectSuccess$.subscribe(() => {
+        expect(authServiceStub.replaceToken).toHaveBeenCalledWith(token);
+        expect(routerStub.navigateByUrl).toHaveBeenCalledWith(redirectUrl);
+        flush();
+      });
+
+    });
+  })
 });

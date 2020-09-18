@@ -9,8 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
-import { LogOutAction } from '../../core/auth/auth.actions';
+import { LogOutAction, RefreshTokenAndRedirectAction } from '../../core/auth/auth.actions';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { AuthTokenInfo } from 'src/app/core/auth/models/auth-token-info.model';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;
@@ -23,18 +24,22 @@ describe('EndUserAgreementComponent', () => {
   let router: Router;
   let route: ActivatedRoute;
 
-  let redirectUrl;
+  let redirectUrl: string;
+
+  let token: AuthTokenInfo;
 
   function init() {
     redirectUrl = 'redirect/url';
+    token = new AuthTokenInfo('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9');
 
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       hasCurrentUserOrCookieAcceptedAgreement : observableOf(false),
       setUserAcceptedAgreement: observableOf(true)
     });
-    notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
+    notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error', 'warning']);
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
+      getToken: token
     });
     store = jasmine.createSpyObj('store', ['dispatch']);
     router = jasmine.createSpyObj('router', ['navigate', 'navigateByUrl']);
@@ -112,8 +117,8 @@ describe('EndUserAgreementComponent', () => {
           expect(notificationsService.success).toHaveBeenCalled();
         });
 
-        it('should navigate the user to the redirect url', () => {
-          expect(router.navigateByUrl).toHaveBeenCalledWith(redirectUrl);
+        it('should refresh the token and navigate the user to the redirect url', () => {
+          expect(store.dispatch).toHaveBeenCalledWith(new RefreshTokenAndRedirectAction(token, redirectUrl) );
         });
       });
 

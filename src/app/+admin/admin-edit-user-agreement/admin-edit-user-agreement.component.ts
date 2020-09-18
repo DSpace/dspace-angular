@@ -63,7 +63,6 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
    * @param content the modal content
    */
   confirmEdit(content: any) {
-    console.log(this.userAgreementTexts);
     this.modalService.open(content).result.then( (result) => {
       if (result === 'cancel') {
         return;

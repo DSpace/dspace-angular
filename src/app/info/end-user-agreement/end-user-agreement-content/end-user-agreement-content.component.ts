@@ -34,7 +34,7 @@ export class EndUserAgreementContentComponent implements OnInit, OnDestroy {
           languageFound = true;
         }
       }
-      if (!languageFound) {
+      if (!languageFound) { // fallback to english if no text was found for the current language
         for (const metadata of site.metadataAsList) {
           if (metadata.key === this.USER_AGREEMENT_TEXT_METADATA && metadata.language === 'en') {
             this.userAgreementText$.next(metadata.value.split(/\r?\n/));

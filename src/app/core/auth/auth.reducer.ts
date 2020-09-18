@@ -237,7 +237,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
 
     case AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS:
       return Object.assign({}, state, {
-        authToken: (action as RefreshTokenAndRedirectSuccessAction).payload,
+        authToken: (action as RefreshTokenAndRedirectSuccessAction).payload.token,
         refreshing: false
       });
 

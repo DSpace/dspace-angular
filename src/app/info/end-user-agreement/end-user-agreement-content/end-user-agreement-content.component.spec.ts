@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import { SiteDataService } from 'src/app/core/data/site-data.service';
+import { LocaleService } from 'src/app/core/locale/locale.service';
 import { Site } from 'src/app/core/shared/site.model';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
 
@@ -12,17 +13,28 @@ describe('EndUserAgreementContentComponent', () => {
   let fixture: ComponentFixture<EndUserAgreementContentComponent>;
 
   let siteServiceStub: any;
+  let localeServiceStub: any;
 
   const site: Site = Object.assign(new Site(), {
     metadata: {
       'dc.rights' : [{
-        value: 'This is the End User Agreement text for this test\nwith many\nlines'
+        value: 'This is the End User Agreement text for this test\nwith many\nlines',
+        language: 'en'
+      },
+      {
+        value: 'Dies ist der Text der Endbenutzervereinbarung für diesen Test',
+        language: 'de'
       }]
     }
   });
 
   beforeEach(async(() => {
 
+    localeServiceStub = {
+      getCurrentLanguageCode(): string {
+        return 'en';
+      }
+    }
     siteServiceStub = {
       find(): Observable<Site> {
         return of(site);
@@ -31,7 +43,8 @@ describe('EndUserAgreementContentComponent', () => {
     TestBed.configureTestingModule({
       imports: [ TranslateModule.forRoot() ],
       declarations: [ EndUserAgreementContentComponent],
-      providers: [{ provide: SiteDataService, useValue: siteServiceStub }],
+      providers: [{ provide: SiteDataService, useValue: siteServiceStub },
+                  { provide: LocaleService, useValue: localeServiceStub }],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));

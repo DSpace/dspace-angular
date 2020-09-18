@@ -252,7 +252,7 @@ export class AuthEffects {
       ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT),
       switchMap((action: RefreshTokenAndRedirectAction) => {
         return this.authService.refreshAuthenticationToken(action.payload.token)
-          .pipe(tap(x => console.log('tap refreshTokenAndRedirect$',x)),map((token: AuthTokenInfo) => new RefreshTokenAndRedirectSuccessAction(token, action.payload.redirectUrl)),
+          .pipe(map((token: AuthTokenInfo) => new RefreshTokenAndRedirectSuccessAction(token, action.payload.redirectUrl)),
             catchError((error) => observableOf(new RefreshTokenAndRedirectErrorAction()))
           )
       })

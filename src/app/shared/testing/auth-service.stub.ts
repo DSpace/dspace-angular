@@ -166,4 +166,8 @@ export class AuthServiceStub {
   clearRedirectUrl() {
     return;
   }
+
+  public replaceToken(token: AuthTokenInfo) {
+    return token;
+  }
 }
