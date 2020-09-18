@@ -35,7 +35,10 @@ export const AuthActionTypes = {
   RETRIEVE_AUTHENTICATED_EPERSON: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON'),
   RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS'),
   RETRIEVE_AUTHENTICATED_EPERSON_ERROR: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_ERROR'),
-  REDIRECT_AFTER_LOGIN_SUCCESS: type('dspace/auth/REDIRECT_AFTER_LOGIN_SUCCESS')
+  REDIRECT_AFTER_LOGIN_SUCCESS: type('dspace/auth/REDIRECT_AFTER_LOGIN_SUCCESS'),
+  REFRESH_TOKEN_AND_REDIRECT: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT'),
+  REFRESH_TOKEN_AND_REDIRECT_SUCCESS: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT_SUCCESS'),
+  REFRESH_TOKEN_AND_REDIRECT_ERROR: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT_ERROR'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -392,6 +395,50 @@ export class RetrieveAuthenticatedEpersonErrorAction implements Action {
     this.payload = payload ;
   }
 }
+
+/**
+ * Refresh authentication token and redirect.
+ * @class RefreshTokenAndRedirectAction
+ * @implements {Action}
+ */
+export class RefreshTokenAndRedirectAction implements Action {
+  public type: string = AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT;
+  payload: {
+    token: AuthTokenInfo,
+    redirectUrl: string
+  };
+
+  constructor(token: AuthTokenInfo, redirectUrl: string) {
+    this.payload = {token, redirectUrl};
+  }
+}
+
+/**
+ * Refresh authentication token and redirect success.
+ * @class RefreshTokenAndRedirectSuccessAction
+ * @implements {Action}
+ */
+export class RefreshTokenAndRedirectSuccessAction implements Action {
+  public type: string = AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS;
+  payload: {
+    token: AuthTokenInfo,
+    redirectUrl: string
+  };
+
+  constructor(token: AuthTokenInfo, redirectUrl: string) {
+    this.payload = {token, redirectUrl};
+  }
+}
+
+/**
+ * Refresh authentication token and redirect error.
+ * @class RefreshTokenAndRedirectErrorAction
+ * @implements {Action}
+ */
+export class RefreshTokenAndRedirectErrorAction implements Action {
+  public type: string = AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_ERROR;
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -422,4 +469,7 @@ export type AuthActions
   | RetrieveAuthenticatedEpersonErrorAction
   | RetrieveAuthenticatedEpersonSuccessAction
   | SetRedirectUrlAction
-  | RedirectAfterLoginSuccessAction;
+  | RedirectAfterLoginSuccessAction
+  | RefreshTokenAndRedirectAction
+  | RefreshTokenAndRedirectErrorAction
+  | RefreshTokenAndRedirectSuccessAction;

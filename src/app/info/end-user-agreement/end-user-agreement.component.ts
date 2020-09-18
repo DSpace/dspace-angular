@@ -4,7 +4,7 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
-import { LogOutAction } from '../../core/auth/auth.actions';
+import { LogOutAction, RefreshTokenAndRedirectAction } from '../../core/auth/auth.actions';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -39,6 +39,9 @@ export class EndUserAgreementComponent implements OnInit {
    * Initialize the component
    */
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.notificationsService.warning(this.translate.instant('info.end-user-agreement.accept.warning'))
+    })
     this.initAccepted();
   }
 
@@ -69,7 +72,7 @@ export class EndUserAgreementComponent implements OnInit {
       take(1)
     ).subscribe((redirectUrl) => {
       if (isNotEmpty(redirectUrl)) {
-        this.router.navigateByUrl(decodeURIComponent(redirectUrl));
+        this.store.dispatch(new RefreshTokenAndRedirectAction(this.authService.getToken(), redirectUrl));
       }
     });
   }

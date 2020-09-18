@@ -17,6 +17,8 @@ import {
   CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
+  RefreshTokenAndRedirectErrorAction,
+  RefreshTokenAndRedirectSuccessAction,
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction,
   RetrieveAuthenticatedEpersonAction,
@@ -35,18 +37,24 @@ import { EPersonMock } from '../../shared/testing/eperson.mock';
 import { AppState, storeModuleConfig } from '../../app.reducer';
 import { StoreActionTypes } from '../../store.actions';
 import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
+import { Router } from '@angular/router';
+import { RouterStub } from 'src/app/shared/testing/router.stub';
 
-describe('AuthEffects', () => {
+fdescribe('AuthEffects', () => {
   let authEffects: AuthEffects;
   let actions: Observable<any>;
   let authServiceStub;
   let initialState;
   let token;
   let store: MockStore<AppState>;
+  let routerStub;
+  let redirectUrl;
 
   function init() {
+    routerStub = new RouterStub();
     authServiceStub = new AuthServiceStub();
     token = authServiceStub.getToken();
+    redirectUrl = '/redirect-url'
     initialState = {
       core: {
         auth: {
@@ -70,6 +78,7 @@ describe('AuthEffects', () => {
         provideMockStore({ initialState }),
         { provide: AuthService, useValue: authServiceStub },
         provideMockActions(() => actions),
+        { provide: Router, useValue: routerStub },
         // other providers
       ],
     });
@@ -416,5 +425,31 @@ describe('AuthEffects', () => {
 
       }));
     });
+  });
+
+  describe('refreshTokenAndRedirect$', () => {
+
+    describe('when refresh token and redirect succeeded', () => {
+      it('should return a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_TOKEN_AND_REDIRECT action', () => {
+
+        actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT, payload: {token, redirectUrl} } });
+
+        const expected = cold('--b-', { b: new RefreshTokenAndRedirectSuccessAction(token, redirectUrl) });
+
+        expect(authEffects.refreshTokenAndRedirect$).toBeObservable(expected);
+      });
+    });
+
+    describe('when refresh token failed', () => {
+      it('should return a REFRESH_TOKEN_AND_REDIRECT_ERROR action in response to a REFRESH_TOKEN_AND_REDIRECT action', () => {
+        spyOn((authEffects as any).authService, 'refreshAuthenticationToken').and.returnValue(observableThrow(''));
+
+        actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT, payload: {token, redirectUrl} } });
+
+        const expected = cold('--b-', { b: new RefreshTokenAndRedirectErrorAction() });
+
+        expect(authEffects.refreshTokenAndRedirect$).toBeObservable(expected);
+      });
+    })
   });
 });

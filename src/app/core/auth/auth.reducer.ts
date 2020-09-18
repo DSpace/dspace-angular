@@ -8,6 +8,7 @@ import {
   LogOutErrorAction,
   RedirectWhenAuthenticationIsRequiredAction,
   RedirectWhenTokenExpiredAction,
+  RefreshTokenAndRedirectSuccessAction,
   RefreshTokenSuccessAction,
   RetrieveAuthenticatedEpersonSuccessAction,
   RetrieveAuthMethodsSuccessAction,
@@ -232,6 +233,12 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         loading: true,
         blocking: true,
+      });
+
+    case AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS:
+      return Object.assign({}, state, {
+        authToken: (action as RefreshTokenAndRedirectSuccessAction).payload,
+        refreshing: false
       });
 
     default:

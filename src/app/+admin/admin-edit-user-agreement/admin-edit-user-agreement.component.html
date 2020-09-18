@@ -1,11 +1,14 @@
 <div class="container">
   <h2>{{'admin.edit-user-agreement.header' | translate}}</h2>
-  <textarea class="col-md-12 m-2" [(ngModel)]="userAgreementText" rows="20"></textarea>
+  <div *ngFor="let userAgreementText of (userAgreementTexts | keyvalue)" class="form-group">
+    <label>{{userAgreementText.value.languageLabel}}</label>
+    <textarea class="col-md-12 m-2" [(ngModel)]="userAgreementText.value.text" rows="10"></textarea>
+  </div>
   <div class="col-md">
-    <button class="btn btn-primary float-right m-2" (click)="$event.preventDefault();confirmEdit(content)" [disabled]="this.userAgreementText.length === 0">
+    <button class="btn btn-primary float-right m-2" (click)="$event.preventDefault();confirmEdit(content)" >
       <span>
         <i class="fas fa-edit"></i> 
-        &nbsp;{{ 'admin.edit-user-agreement.edit-button' | translate }}
+        &nbsp;{{ 'admin.edit-user-agreement.save-button' | translate }}
       </span>
     </button>
   </div>
@@ -20,7 +23,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{'admin.edit-user-agreement.confirm.cancel' | translate}}</button>
-    <button type="button" class="btn btn-primary" (click)="c('edit-with-reset')">{{'admin.edit-user-agreement.confirm.yes' | translate}}</button>
     <button type="button" class="btn btn-primary" (click)="c('edit-without-reset')">{{'admin.edit-user-agreement.confirm.no' | translate}}</button>
+    <button type="button" class="btn btn-danger" (click)="c('edit-with-reset')">{{'admin.edit-user-agreement.confirm.yes' | translate}}</button>
   </div>
 </ng-template>

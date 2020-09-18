@@ -30,13 +30,11 @@
 
   "admin.edit-user-agreement.confirm.cancel":"Cancel",
 
-  "admin.edit-user-agreement.confirm.no":"No",
+  "admin.edit-user-agreement.confirm.no":"No, update only",
 
-  "admin.edit-user-agreement.confirm.yes":"Yes",
+  "admin.edit-user-agreement.confirm.yes":"Yes, update and force",
 
-  "admin.edit-user-agreement.reset-button": "Reset",
-
-  "admin.edit-user-agreement.edit-button": "Edit",
+  "admin.edit-user-agreement.save-button": "Save",
 
   "admin.edit-user-agreement.header": "Edit User Agreement",
 
@@ -1368,6 +1366,8 @@
   "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
 
   "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
+
+  "info.end-user-agreement.accept.warning": "Before you can proceed, you must agree to the End User Agreement",
 
   "info.end-user-agreement.breadcrumbs": "End User Agreement",
 

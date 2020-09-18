@@ -15,6 +15,7 @@ import {
   RedirectWhenAuthenticationIsRequiredAction,
   RedirectWhenTokenExpiredAction,
   RefreshTokenAction,
+  RefreshTokenAndRedirectSuccessAction,
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction,
   ResetAuthenticationMessagesAction,
@@ -565,6 +566,35 @@ describe('authReducer', () => {
       blocking: false,
       loading: false,
       authMethods: [new AuthMethod(AuthMethodType.Password)]
+    };
+    expect(newState).toEqual(state);
+  });
+
+  it('should properly set the state, in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', () => {
+    initialState = {
+      authenticated: true,
+      authToken: mockTokenInfo,
+      loaded: true,
+      error: undefined,
+      blocking: false,
+      loading: false,
+      info: undefined,
+      user: EPersonMock,
+      refreshing: true
+    };
+    const newTokenInfo = new AuthTokenInfo('Refreshed token');
+    const action = new RefreshTokenAndRedirectSuccessAction(newTokenInfo,'/redirect-url');
+    const newState = authReducer(initialState, action);
+    state = {
+      authenticated: true,
+      authToken: newTokenInfo,
+      loaded: true,
+      error: undefined,
+      blocking: false,
+      loading: false,
+      info: undefined,
+      user: EPersonMock,
+      refreshing: false
     };
     expect(newState).toEqual(state);
   });

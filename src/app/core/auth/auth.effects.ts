@@ -29,6 +29,9 @@ import {
   LogOutSuccessAction,
   RedirectAfterLoginSuccessAction,
   RefreshTokenAction,
+  RefreshTokenAndRedirectAction,
+  RefreshTokenAndRedirectErrorAction,
+  RefreshTokenAndRedirectSuccessAction,
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction,
   RetrieveAuthenticatedEpersonAction,
@@ -40,6 +43,7 @@ import {
   RetrieveTokenAction
 } from './auth.actions';
 import { hasValue } from '../../shared/empty.util';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
@@ -242,14 +246,38 @@ export class AuthEffects {
       })
     );
 
+  @Effect()
+  public refreshTokenAndRedirect$: Observable<Action> = this.actions$
+    .pipe(
+      ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT),
+      switchMap((action: RefreshTokenAndRedirectAction) => {
+        return this.authService.refreshAuthenticationToken(action.payload.token)
+          .pipe(tap(x => console.log('tap refreshTokenAndRedirect$',x)),map((token: AuthTokenInfo) => new RefreshTokenAndRedirectSuccessAction(token, action.payload.redirectUrl)),
+            catchError((error) => observableOf(new RefreshTokenAndRedirectErrorAction()))
+          )
+      })
+    );
+
+  @Effect({ dispatch: false })
+  public refreshTokenAndRedirectSuccess$: Observable<Action> = this.actions$
+    .pipe(
+      ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS),
+      tap((action: RefreshTokenAndRedirectSuccessAction) => {
+        this.authService.replaceToken(action.payload.token);
+        this.router.navigateByUrl(decodeURIComponent(action.payload.redirectUrl));
+      })
+    );
+
   /**
    * @constructor
    * @param {Actions} actions$
    * @param {AuthService} authService
    * @param {Store} store
+   * @param {Router} router
    */
   constructor(private actions$: Actions,
               private authService: AuthService,
-              private store: Store<AppState>) {
+              private store: Store<AppState>,
+              private router: Router) {
   }
 }
