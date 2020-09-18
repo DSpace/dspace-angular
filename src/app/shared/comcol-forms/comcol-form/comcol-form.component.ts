@@ -26,8 +26,6 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { UploaderOptions } from '../../uploader/uploader-options.model';
 import { UploaderComponent } from '../../uploader/uploader.component';
 import { Operation } from 'fast-json-patch';
-import { map } from 'rxjs/operators';
-import { getFinishedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -231,11 +229,6 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
       deleteLogo: this.markLogoForDeletion,
       operations: operations,
     });
-/*    (this.dso as Collection).parentCommunity.pipe(
-      getFinishedRemoteData(),
-      getRemoteDataPayload(),
-      map((c) => )
-    )*/
   }
 
   /**
