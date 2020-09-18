@@ -24,7 +24,7 @@ interface CollectionListEntryItem {
 /**
  * An interface to represent an entry in the collection list
  */
-interface CollectionListEntry {
+export interface CollectionListEntry {
   communities: CollectionListEntryItem[],
   collection: CollectionListEntryItem
 }

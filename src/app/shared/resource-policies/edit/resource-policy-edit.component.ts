@@ -10,8 +10,8 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
-import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../+item-page/edit-item-page/edit-item-page.routing.module';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
+import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../+item-page/edit-item-page/edit-item-page.routing-paths';
 
 @Component({
   selector: 'ds-resource-policy-edit',

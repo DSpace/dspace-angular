@@ -160,7 +160,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
       tap((config: SubmissionFormsModel) => this.formConfig = config),
       flatMap(() =>
         observableCombineLatest(
-          this.sectionService.getSectionData(this.submissionId, this.sectionData.id),
+          this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
           this.submissionObjectService.getHrefByID(this.submissionId).pipe(take(1)).pipe(
             switchMap((href: string) => {
               this.objectCache.remove(href);
@@ -320,7 +320,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent implem
       /**
        * Subscribe to section state
        */
-      this.sectionService.getSectionState(this.submissionId, this.sectionData.id).pipe(
+      this.sectionService.getSectionState(this.submissionId, this.sectionData.id, this.sectionData.sectionType).pipe(
         filter((sectionState: SubmissionSectionObject) => {
           return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
         }),

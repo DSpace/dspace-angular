@@ -1,25 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { getAdminModulePath } from '../app-routing.module';
 import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
-
-const REGISTRIES_MODULE_PATH = 'registries';
-export const ACCESS_CONTROL_MODULE_PATH = 'access-control';
-
-export function getRegistriesModulePath() {
-  return new URLCombiner(getAdminModulePath(), REGISTRIES_MODULE_PATH).toString();
-}
-
-export function getAccessControlModulePath() {
-  return new URLCombiner(getAdminModulePath(), ACCESS_CONTROL_MODULE_PATH).toString();
-}
+import { ACCESS_CONTROL_MODULE_PATH, REGISTRIES_MODULE_PATH } from './admin-routing-paths';
 
 @NgModule({
   imports: [

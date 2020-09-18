@@ -83,6 +83,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
    */
   public hasAuthorityValue() {
     return hasValue(this.model.value)
+      && typeof this.model.value === 'object'
       && this.model.value.hasAuthority();
   }
 

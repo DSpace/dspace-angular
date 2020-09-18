@@ -76,10 +76,7 @@ import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.compone
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
-  DynamicRelationGroupModel
-} from './models/relation-group/dynamic-relation-group.model';
+import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
@@ -121,6 +118,7 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { paginatedRelationsToItems } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { RelationshipOptions } from '../models/relationship-options.model';
 import { FormBuilderService } from '../form-builder.service';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {

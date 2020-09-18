@@ -97,7 +97,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       },
       errors: [],
       header: 'submit.progressbar.describe.upload',
-      id: 'upload',
+      id: 'upload-id',
       sectionType: SectionsType.Upload
     };
     submissionId = mockSubmissionId;

@@ -3,6 +3,8 @@ import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, 
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { AuthService } from '../../core/auth/auth.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -12,11 +14,10 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateItemParentSelectorComponent } from 'src/app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import { CollectionSelectorComponent } from '../collection-selector/collection-selector.component';
-import { UploaderComponent } from 'src/app/shared/uploader/uploader.component';
-import { UploaderError } from 'src/app/shared/uploader/uploader-error.model';
+import { UploaderComponent } from '../../shared/uploader/uploader.component';
+import { UploaderError } from '../../shared/uploader/uploader-error.model';
 
 /**
  * This component represents the whole mydspace page header
@@ -56,6 +57,8 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    * @param {NotificationsService} notificationsService
    * @param {Store<SubmissionState>} store
    * @param {TranslateService} translate
+   * @param {Router} router
+   * @param {NgbModal} modalService
    */
   constructor(private authService: AuthService,
               private changeDetectorRef: ChangeDetectorRef,

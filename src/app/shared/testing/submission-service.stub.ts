@@ -2,6 +2,7 @@ export class SubmissionServiceStub {
 
   changeSubmissionCollection = jasmine.createSpy('changeSubmissionCollection');
   createSubmission = jasmine.createSpy('createSubmission');
+  createSubmissionFromExternalSource = jasmine.createSpy('createSubmissionFromExternalSource');
   depositSubmission = jasmine.createSpy('depositSubmission');
   discardSubmission = jasmine.createSpy('discardSubmission');
   dispatchInit = jasmine.createSpy('dispatchInit');

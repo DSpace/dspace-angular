@@ -17,14 +17,25 @@ import {
   SectionStatusChangeAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
-import { SubmissionObjectEntry, SubmissionSectionError, SubmissionSectionObject } from '../objects/submission-objects.reducer';
-import { submissionObjectFromIdSelector, submissionSectionDataFromIdSelector, submissionSectionErrorsFromIdSelector, submissionSectionFromIdSelector } from '../selectors';
+import {
+  SubmissionObjectEntry,
+  SubmissionSectionError,
+  SubmissionSectionObject
+} from '../objects/submission-objects.reducer';
+import {
+  submissionObjectFromIdSelector,
+  submissionSectionDataFromIdSelector,
+  submissionSectionErrorsFromIdSelector,
+  submissionSectionFromIdSelector
+} from '../selectors';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { FormAddError, FormClearErrorsAction, FormRemoveErrorAction } from '../../shared/form/form.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionService } from '../submission.service';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from './sections-type';
+import { normalizeSectionData } from '../../core/submission/submission-response-parsing.service';
 
 /**
  * A service that provides methods used in submission process.
@@ -129,12 +140,22 @@ export class SectionsService {
    *    The submission id
    * @param sectionId
    *    The section id
+   * @param sectionType
+   *    The type of section to retrieve
    * @return Observable<WorkspaceitemSectionDataType>
    *    observable of [WorkspaceitemSectionDataType]
    */
-  public getSectionData(submissionId: string, sectionId: string): Observable<WorkspaceitemSectionDataType> {
+  public getSectionData(submissionId: string, sectionId: string, sectionType: SectionsType): Observable<WorkspaceitemSectionDataType> {
     return this.store.select(submissionSectionDataFromIdSelector(submissionId, sectionId)).pipe(
-      distinctUntilChanged());
+      map((sectionData: WorkspaceitemSectionDataType) => {
+        if (sectionType === SectionsType.SubmissionForm) {
+          return normalizeSectionData(sectionData)
+        } else {
+          return sectionData;
+        }
+      }),
+      distinctUntilChanged(),
+    );
   }
 
   /**
@@ -159,14 +180,25 @@ export class SectionsService {
    *    The submission id
    * @param sectionId
    *    The section id
+   * @param sectionType
+   *    The type of section to retrieve
    * @return Observable<SubmissionSectionObject>
    *    observable of [SubmissionSectionObject]
    */
-  public getSectionState(submissionId: string, sectionId: string): Observable<SubmissionSectionObject> {
+  public getSectionState(submissionId: string, sectionId: string, sectionType: SectionsType): Observable<SubmissionSectionObject> {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
       filter((sectionObj: SubmissionSectionObject) => hasValue(sectionObj)),
       map((sectionObj: SubmissionSectionObject) => sectionObj),
-      distinctUntilChanged(),
+      map((sectionState: SubmissionSectionObject) => {
+        if (hasValue(sectionState.data) && sectionType === SectionsType.SubmissionForm) {
+          return Object.assign({}, sectionState, {
+            data: normalizeSectionData(sectionState.data)
+          })
+        } else {
+          return sectionState;
+        }
+      }),
+      distinctUntilChanged()
       );
   }
 

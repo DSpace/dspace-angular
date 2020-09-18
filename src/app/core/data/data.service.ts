@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, find, first, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -376,7 +376,8 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     ).subscribe();
 
     return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request && request.completed),
+      hasValueOperator(),
+      find((request: RequestEntry) => request.completed),
       map((request: RequestEntry) => request.response)
     );
   }

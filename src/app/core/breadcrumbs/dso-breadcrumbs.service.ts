@@ -7,10 +7,10 @@ import { LinkService } from '../cache/builders/link.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { find, map, switchMap } from 'rxjs/operators';
-import { getDSOPath } from '../../app-routing.module';
 import { RemoteData } from '../data/remote-data';
 import { hasValue } from '../../shared/empty.util';
 import { Injectable } from '@angular/core';
+import { getDSORoute } from '../../app-routing-paths';
 
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
@@ -41,7 +41,7 @@ export class DSOBreadcrumbsService implements BreadcrumbsService<ChildHALResourc
       switchMap((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => {
         if (hasValue(parentRD.payload)) {
           const parent = parentRD.payload;
-          return this.getBreadcrumbs(parent, getDSOPath(parent))
+          return this.getBreadcrumbs(parent, getDSORoute(parent))
         }
         return observableOf([]);
 

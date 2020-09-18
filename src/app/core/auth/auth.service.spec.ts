@@ -27,6 +27,7 @@ import { EPersonDataService } from '../eperson/eperson-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { authMethodsMock } from '../../shared/testing/auth-service.stub';
 import { AuthMethod } from './models/auth.method';
+import { HardRedirectService } from '../services/hard-redirect.service';
 
 describe('AuthService test', () => {
 
@@ -48,6 +49,7 @@ describe('AuthService test', () => {
   let authenticatedState;
   let unAuthenticatedState;
   let linkService;
+  let hardRedirectService;
 
   function init() {
     mockStore = jasmine.createSpyObj('store', {
@@ -77,6 +79,7 @@ describe('AuthService test', () => {
     linkService = {
       resolveLinks: {}
     };
+    hardRedirectService = jasmine.createSpyObj('hardRedirectService', ['redirect']);
     spyOn(linkService, 'resolveLinks').and.returnValue({ authenticated: true, eperson: observableOf({ payload: {} }) });
 
   }
@@ -104,6 +107,7 @@ describe('AuthService test', () => {
           { provide: ActivatedRoute, useValue: routeStub },
           { provide: Store, useValue: mockStore },
           { provide: EPersonDataService, useValue: mockEpersonDataService },
+          { provide: HardRedirectService, useValue: hardRedirectService },
           CookieService,
           AuthService
         ],
@@ -210,7 +214,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService);
     }));
 
     it('should return true when user is logged in', () => {
@@ -289,7 +293,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService);
       storage = (authService as any).storage;
       routeServiceMock = TestBed.get(RouteService);
       routerStub = TestBed.get(Router);
@@ -318,36 +322,28 @@ describe('AuthService test', () => {
       expect(storage.remove).toHaveBeenCalled();
     });
 
-    it('should set redirect url to previous page', () => {
-      spyOn(routeServiceMock, 'getHistory').and.callThrough();
-      spyOn(routerStub, 'navigateByUrl');
-      authService.redirectAfterLoginSuccess(true);
-      expect(routeServiceMock.getHistory).toHaveBeenCalled();
-      expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/collection/123');
+    it('should redirect to reload with redirect url', () => {
+      authService.navigateToRedirectUrl('/collection/123');
+      // Reload with redirect URL set to /collection/123
+      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*\\?redirect=' + encodeURIComponent('/collection/123'))));
     });
 
-    it('should set redirect url to current page', () => {
-      spyOn(routeServiceMock, 'getHistory').and.callThrough();
-      spyOn(routerStub, 'navigateByUrl');
-      authService.redirectAfterLoginSuccess(false);
-      expect(routeServiceMock.getHistory).toHaveBeenCalled();
-      expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/home');
+    it('should redirect to reload with /home', () => {
+      authService.navigateToRedirectUrl('/home');
+      // Reload with redirect URL set to /home
+      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*\\?redirect=' + encodeURIComponent('/home'))));
     });
 
-    it('should redirect to / and not to /login', () => {
-      spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['/login', '/login']));
-      spyOn(routerStub, 'navigateByUrl');
-      authService.redirectAfterLoginSuccess(true);
-      expect(routeServiceMock.getHistory).toHaveBeenCalled();
-      expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/');
+    it('should redirect to regular reload and not to /login', () => {
+      authService.navigateToRedirectUrl('/login');
+      // Reload without a redirect URL
+      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*(?!\\?)$')));
     });
 
-    it('should redirect to / when no redirect url is found', () => {
-      spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['']));
-      spyOn(routerStub, 'navigateByUrl');
-      authService.redirectAfterLoginSuccess(true);
-      expect(routeServiceMock.getHistory).toHaveBeenCalled();
-      expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/');
+    it('should redirect to regular reload when no redirect url is found', () => {
+      authService.navigateToRedirectUrl(undefined);
+      // Reload without a redirect URL
+      expect(hardRedirectService.redirect).toHaveBeenCalledWith(jasmine.stringMatching(new RegExp('/reload/[0-9]*(?!\\?)$')));
     });
 
     describe('impersonate', () => {
@@ -464,6 +460,14 @@ describe('AuthService test', () => {
         });
       });
     });
+
+    describe('refreshAfterLogout', () => {
+      it('should call navigateToRedirectUrl with no url', () => {
+        spyOn(authService as any, 'navigateToRedirectUrl').and.stub();
+        authService.refreshAfterLogout();
+        expect((authService as any).navigateToRedirectUrl).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('when user is not logged in', () => {
@@ -496,7 +500,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = unAuthenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store);
+      authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService);
     }));
 
     it('should return null for the shortlived token', () => {

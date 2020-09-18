@@ -10,8 +10,8 @@ import { Community } from '../shared/community.model';
 import { Collection } from '../shared/collection.model';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { getTestScheduler } from 'jasmine-marbles';
-import { getDSOPath } from '../../app-routing.module';
 import { DSONameService } from './dso-name.service';
+import { getDSORoute } from '../../app-routing-paths';
 
 describe('DSOBreadcrumbsService', () => {
   let service: DSOBreadcrumbsService;
@@ -108,9 +108,9 @@ describe('DSOBreadcrumbsService', () => {
     it('should return the breadcrumbs based on an Item', () => {
       const breadcrumbs = service.getBreadcrumbs(testItem, testItem._links.self);
       const expectedCrumbs = [
-        new Breadcrumb(getName(testCommunity), getDSOPath(testCommunity)),
-        new Breadcrumb(getName(testCollection), getDSOPath(testCollection)),
-        new Breadcrumb(getName(testItem), getDSOPath(testItem)),
+        new Breadcrumb(getName(testCommunity), getDSORoute(testCommunity)),
+        new Breadcrumb(getName(testCollection), getDSORoute(testCollection)),
+        new Breadcrumb(getName(testItem), getDSORoute(testItem)),
       ];
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: expectedCrumbs });
     })

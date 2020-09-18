@@ -3,11 +3,11 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  COLLECTION_PARENT_PARAMETER,
-  getCollectionCreatePath
-} from '../../../../+collection-page/collection-page-routing.module';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
+import {
+    getCollectionCreateRoute,
+    COLLECTION_PARENT_PARAMETER
+} from '../../../../+collection-page/collection-page-routing-paths';
 
 /**
  * Component to wrap a list of existing communities inside a modal
@@ -36,6 +36,6 @@ export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWra
         [COLLECTION_PARENT_PARAMETER]: dso.uuid,
       }
     };
-    this.router.navigate([getCollectionCreatePath()], navigationExtras);
+    this.router.navigate([getCollectionCreateRoute()], navigationExtras);
   }
 }

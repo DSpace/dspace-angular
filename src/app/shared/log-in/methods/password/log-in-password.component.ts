@@ -13,6 +13,8 @@ import { fadeOut } from '../../../animations/fade';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { renderAuthMethodFor } from '../log-in.methods-decorator';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 
 /**
  * /users/sign-in
@@ -66,11 +68,17 @@ export class LogInPasswordComponent implements OnInit {
   /**
    * @constructor
    * @param {AuthMethod} injectedAuthMethodModel
+   * @param {boolean} isStandalonePage
+   * @param {AuthService} authService
+   * @param {HardRedirectService} hardRedirectService
    * @param {FormBuilder} formBuilder
    * @param {Store<State>} store
    */
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
+    @Inject('isStandalonePage') public isStandalonePage: boolean,
+    private authService: AuthService,
+    private hardRedirectService: HardRedirectService,
     private formBuilder: FormBuilder,
     private store: Store<CoreState>
   ) {
@@ -133,6 +141,12 @@ export class LogInPasswordComponent implements OnInit {
     // trim values
     email.trim();
     password.trim();
+
+    if (!this.isStandalonePage) {
+      this.authService.setRedirectUrl(this.hardRedirectService.getCurrentRoute());
+    } else {
+      this.authService.setRedirectUrlIfNotSet('/');
+    }
 
     // dispatch AuthenticationAction
     this.store.dispatch(new AuthenticateAction(email, password));

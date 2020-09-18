@@ -5,24 +5,21 @@ import { ItemPageComponent } from './simple/item-page.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { ItemPageResolver } from './item-page.resolver';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
-import { getItemModulePath } from '../app-routing.module';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
+import { UPLOAD_BITSTREAM_PATH, ITEM_EDIT_PATH, getItemModuleRoute } from './item-page-routing-paths';
 import { CrisItemPageTabResolver } from '../cris-item-page/cris-item-page-tab.resolver';
 
 export function getItemPageRoute(itemId: string) {
-  return new URLCombiner(getItemModulePath(), itemId).toString();
+  return new URLCombiner(getItemModuleRoute(), itemId).toString();
 }
 
 export function getItemEditPath(id: string) {
-  return new URLCombiner(getItemModulePath(), id, ITEM_EDIT_PATH).toString()
+  return new URLCombiner(getItemModuleRoute(), id, ITEM_EDIT_PATH).toString()
 }
-
-const ITEM_EDIT_PATH = 'edit';
-const UPLOAD_BITSTREAM_PATH = 'bitstreams/new';
 
 @NgModule({
   imports: [
