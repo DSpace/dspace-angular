@@ -29,9 +29,9 @@ export abstract class HardRedirectService {
 
   public rewriteDownloadURL(originalUrl: string): string {
     if (environment.rewriteDownloadUrls) {
-      let hostName = this.getRequestOrigin();
-      let namespace = environment.rest.nameSpace;
-      let rewrittenUrl = new URLCombiner(hostName, namespace).toString();
+      const hostName = this.getRequestOrigin();
+      const namespace = environment.rest.nameSpace;
+      const rewrittenUrl = new URLCombiner(hostName, namespace).toString();
       return originalUrl.replace(environment.rest.baseUrl, rewrittenUrl);
     } else {
       return originalUrl;

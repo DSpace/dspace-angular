@@ -35,7 +35,6 @@ describe('HardRedirectService', () => {
       environment.rewriteDownloadUrls = originalValue;
     })
   });
-
 });
 
 @Injectable()
@@ -45,6 +44,7 @@ class TestHardRedirectService extends HardRedirectService {
   }
 
   redirect(url: string) {
+    return undefined;
   }
 
   getCurrentRoute() {
