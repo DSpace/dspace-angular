@@ -319,7 +319,7 @@ describe('EPersonFormComponent', () => {
 
     it ('should call the epersonService delete when clicked on the button' , () => {
       // ePersonDataServiceStub.activeEPerson = eperson;
-      spyOn(component.epersonService, 'deleteEPerson').and.stub();
+      spyOn(component.epersonService, 'deleteEPerson').and.returnValue(observableOf(new RestResponse(true, 204, 'No Content')));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
       expect(deleteButton.nativeElement.disabled).toBe(false);
       deleteButton.triggerEventHandler('click', null);
