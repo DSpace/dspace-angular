@@ -137,11 +137,9 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
     this.ePeople$.pipe(
         getAllSucceededRemoteDataPayload(),
         switchMap((epeople) => {
-          console.log(epeople);
           return combineLatest(...epeople.page.map((eperson) => {
             return this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(eperson) ? eperson.self : undefined).pipe(
                       map((authorized) => {
-                        console.log(authorized);
                         const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
                         epersonDtoModel.ableToDelete = authorized;
                         epersonDtoModel.eperson = eperson;
