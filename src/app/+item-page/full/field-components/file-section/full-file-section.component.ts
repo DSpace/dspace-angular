@@ -113,7 +113,6 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   }
 
   hasValuesInBundle(bundle: PaginatedList<Bitstream>) {
-    console.log(bundle, hasValue(bundle), hasValue(bundle) && !isEmpty(bundle.page));
     return hasValue(bundle) && !isEmpty(bundle.page);
   }
 }
