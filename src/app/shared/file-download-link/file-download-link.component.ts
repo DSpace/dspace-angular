@@ -2,9 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FileService } from '../../core/shared/file.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthService } from '../../core/auth/auth.service';
-import { environment } from '../../../environments/environment';
-import { hasValue } from '../empty.util';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 
 @Component({
