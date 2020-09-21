@@ -1,16 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { of } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+
+import { Observable, of as obeservableOf } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+
+import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
+import { getCommunityPageRoute } from '../../+community-page/community-page-routing-paths';
+import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing-paths';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
-import { getFinishedRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from 'src/app/core/shared/operators';
-import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing.module';
-import { getCommunityPageRoute } from '../../+community-page/community-page-routing.module';
-import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
+import {
+  getFinishedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload
+} from 'src/app/core/shared/operators';
 
 export interface ComColPageNavOption {
   id: string;
@@ -94,7 +99,7 @@ export class ComcolPageBrowseByComponent implements OnInit {
         map ( (entityType) => entityType ? 'browse.collection.' + entityType : 'browse.collection' )
       );
     }
-    return of('browse.' + this.contentType);
+    return obeservableOf('browse.' + this.contentType);
   }
 
   /**
@@ -107,7 +112,7 @@ export class ComcolPageBrowseByComponent implements OnInit {
       return this.configurationService.findByPropertyName('browse.collection')
         .pipe(getFinishedRemoteData());
     } else {
-      return of(remoteData);
+      return obeservableOf(remoteData);
     }
   }
 

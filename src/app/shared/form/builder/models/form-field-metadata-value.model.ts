@@ -1,7 +1,7 @@
 import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
 import { ConfidenceType } from '../../../../core/shared/confidence-type';
-import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { MetadataValueInterface, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
+import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 export interface OtherInformation {
   [name: string]: string

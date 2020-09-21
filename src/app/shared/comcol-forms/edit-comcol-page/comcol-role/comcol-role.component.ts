@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { Community } from '../../../../core/shared/community.model';
 import { Observable } from 'rxjs';
-import { getGroupEditPath } from '../../../../+admin/admin-access-control/admin-access-control-routing.module';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { filter, map } from 'rxjs/operators';
@@ -10,6 +9,7 @@ import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/s
 import { RequestService } from '../../../../core/data/request.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { HALLink } from '../../../../core/shared/hal-link.model';
+import { getGroupEditRoute } from '../../../../+admin/admin-access-control/admin-access-control-routing-paths';
 
 /**
  * Component for managing a community or collection role.
@@ -71,7 +71,7 @@ export class ComcolRoleComponent implements OnInit {
    */
   get editGroupLink$(): Observable<string> {
     return this.group$.pipe(
-      map((group) => getGroupEditPath(group.id)),
+      map((group) => getGroupEditRoute(group.id)),
     );
   }
 

@@ -6,7 +6,7 @@ import { ItemOperation } from '../item-operation/itemOperation.model';
 import { first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { getItemEditPath, getItemPageRoute } from '../../item-page-routing.module';
+import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-status',
@@ -99,7 +99,7 @@ export class ItemStatusComponent implements OnInit {
    * @returns {string}  url
    */
   getCurrentUrl(item: Item): string {
-    return getItemEditPath(item.id);
+    return getItemEditRoute(item.id);
   }
 
 }

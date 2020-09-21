@@ -27,6 +27,7 @@ import {
   CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
+  RedirectAfterLoginSuccessAction,
   RefreshTokenAction,
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction,
@@ -79,7 +80,26 @@ export class AuthEffects {
   public authenticatedSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED_SUCCESS),
     tap((action: AuthenticatedSuccessAction) => this.authService.storeToken(action.payload.authToken)),
-    map((action: AuthenticatedSuccessAction) => new RetrieveAuthenticatedEpersonAction(action.payload.userHref))
+    switchMap((action: AuthenticatedSuccessAction) => this.authService.getRedirectUrl().pipe(
+      take(1),
+      map((redirectUrl: string) => [action, redirectUrl])
+    )),
+    map(([action, redirectUrl]: [AuthenticatedSuccessAction, string]) => {
+      if (hasValue(redirectUrl)) {
+        return new RedirectAfterLoginSuccessAction(redirectUrl);
+      } else {
+        return new RetrieveAuthenticatedEpersonAction(action.payload.userHref);
+      }
+    })
+  );
+
+  @Effect({ dispatch: false })
+  public redirectAfterLoginSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActionTypes.REDIRECT_AFTER_LOGIN_SUCCESS),
+    tap((action: RedirectAfterLoginSuccessAction) => {
+      this.authService.clearRedirectUrl();
+      this.authService.navigateToRedirectUrl(action.payload);
+    })
   );
 
   // It means "reacts to this action but don't send another"
@@ -199,13 +219,6 @@ export class AuthEffects {
       tap(() => this.authService.removeToken()),
       tap(() => this.authService.clearRedirectUrl()),
       tap(() => this.authService.refreshAfterLogout())
-    );
-
-  @Effect({ dispatch: false })
-  public redirectToLogin$: Observable<Action> = this.actions$
-    .pipe(ofType(AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED),
-      tap(() => this.authService.removeToken()),
-      tap(() => this.authService.redirectToLogin())
     );
 
   @Effect({ dispatch: false })

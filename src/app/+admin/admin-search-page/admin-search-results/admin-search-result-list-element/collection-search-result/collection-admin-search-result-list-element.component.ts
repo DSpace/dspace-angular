@@ -5,7 +5,7 @@ import { Context } from '../../../../../core/shared/context.model';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
 import { Collection } from '../../../../../core/shared/collection.model';
-import { getCollectionEditPath } from '../../../../../+collection-page/collection-page-routing.module';
+import { getCollectionEditRoute } from '../../../../../+collection-page/collection-page-routing-paths';
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.AdminSearch)
 @Component({
@@ -21,6 +21,6 @@ export class CollectionAdminSearchResultListElementComponent extends SearchResul
 
   ngOnInit() {
     super.ngOnInit();
-    this.editPath = getCollectionEditPath(this.dso.uuid);
+    this.editPath = getCollectionEditRoute(this.dso.uuid);
   }
 }

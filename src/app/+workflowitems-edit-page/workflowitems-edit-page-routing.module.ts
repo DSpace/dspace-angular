@@ -3,31 +3,14 @@ import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { SubmissionEditComponent } from '../submission/edit/submission-edit.component';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
-import { getWorkflowItemModulePath } from '../app-routing.module';
 import { WorkflowItemDeleteComponent } from './workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back/workflow-item-send-back.component';
-
-export function getWorkflowItemPageRoute(wfiId: string) {
-  return new URLCombiner(getWorkflowItemModulePath(), wfiId).toString();
-}
-
-export function getWorkflowItemEditPath(wfiId: string) {
-  return new URLCombiner(getWorkflowItemModulePath(), wfiId, WORKFLOW_ITEM_EDIT_PATH).toString()
-}
-
-export function getWorkflowItemDeletePath(wfiId: string) {
-  return new URLCombiner(getWorkflowItemModulePath(), wfiId, WORKFLOW_ITEM_DELETE_PATH).toString()
-}
-
-export function getWorkflowItemSendBackPath(wfiId: string) {
-  return new URLCombiner(getWorkflowItemModulePath(), wfiId, WORKFLOW_ITEM_SEND_BACK_PATH).toString()
-}
-
-const WORKFLOW_ITEM_EDIT_PATH = 'edit';
-const WORKFLOW_ITEM_DELETE_PATH = 'delete';
-const WORKFLOW_ITEM_SEND_BACK_PATH = 'sendback';
+import {
+  WORKFLOW_ITEM_SEND_BACK_PATH,
+  WORKFLOW_ITEM_DELETE_PATH,
+  WORKFLOW_ITEM_EDIT_PATH
+} from './workflowitems-edit-page-routing-paths';
 
 @NgModule({
   imports: [

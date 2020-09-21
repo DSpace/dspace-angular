@@ -7,6 +7,13 @@
                  (onFileSelected)="afterFileLoaded($event)"></ds-uploader>
 
   </div>
-  <ds-my-dspace-new-submission-dropdown></ds-my-dspace-new-submission-dropdown>
+  <div class="add">
+    <ds-my-dspace-new-submission-dropdown></ds-my-dspace-new-submission-dropdown>
+  </div>
+  <div class="add">
+    <a class="btn btn-lg btn-primary mt-1 ml-2" [routerLink]="['/import-external']" role="button" title="{{'mydspace.new-submission-external' | translate}}">
+      <i class="fa fa-file-import" aria-hidden="true"></i>
+    </a>
+  </div>
 
 </div>

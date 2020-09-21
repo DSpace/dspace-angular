@@ -15,7 +15,6 @@
  * import for `ngExpressEngine`.
  */
 
-import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 import 'rxjs';
 
@@ -33,6 +32,7 @@ import { enableProdMode } from '@angular/core';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import { hasValue } from './src/app/shared/empty.util';
 
 /*
  * Set path for the browser application's dist folder
@@ -99,7 +99,6 @@ app.engine('html', (_, options, callback) =>
 /*
  * Register the view engines for html and ejs
  */
-app.set('view engine', 'ejs');
 app.set('view engine', 'html');
 
 /*
@@ -131,56 +130,27 @@ app.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
  * The callback function to serve server side angular
  */
 function ngApp(req, res) {
-  // Object to be set to window.dspace when CSR is used
-  // this allows us to pass the info in the original request
-  // to the dspace7-angular instance running in the client's browser
-  const dspace = {
-    originalRequest: {
-      headers: req.headers,
-      body: req.body,
-      method: req.method,
-      params: req.params,
-      reportProgress: req.reportProgress,
-      withCredentials: req.withCredentials,
-      responseType: req.responseType,
-      urlWithParams: req.urlWithParams
-    }
-  };
-
-  // callback function for the case when SSR throws an error.
-  function onHandleError(parentZoneDelegate, currentZone, targetZone, error) {
-    if (!res._headerSent) {
-      console.warn('Error in SSR, serving for direct CSR. Error details : ', error);
-      res.sendFile('index.csr.ejs', {
-        root: DIST_FOLDER,
-        scripts: `<script>window.dspace = ${JSON.stringify(dspace)}</script>`
-      });
-    }
-  }
-
   if (environment.universal.preboot) {
-    // If preboot is enabled, create a new zone for SSR, and
-    // register the error handler for when it throws an error
-    Zone.current.fork({ name: 'CSR fallback', onHandleError }).run(() => {
-      res.render(DIST_FOLDER + '/index.html', {
-        req,
-        res,
-        preboot: environment.universal.preboot,
-        async: environment.universal.async,
-        time: environment.universal.time,
-        baseUrl: environment.ui.nameSpace,
-        originUrl: environment.ui.baseUrl,
-        requestUrl: req.originalUrl
-      });
-    });
+    res.render(DIST_FOLDER + '/index.html', {
+      req,
+      res,
+      preboot: environment.universal.preboot,
+      async: environment.universal.async,
+      time: environment.universal.time,
+      baseUrl: environment.ui.nameSpace,
+      originUrl: environment.ui.baseUrl,
+      requestUrl: req.originalUrl
+    }, (err) => {
+      console.warn('Error in SSR, serving for direct CSR.');
+      if (hasValue(err)) {
+        console.warn('Error details : ', err);
+      }
+      res.sendFile(DIST_FOLDER + '/index.html');
+    })
   } else {
-    // If preboot is disabled, just serve the client side ejs template and pass it the required
-    // variables
+    // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct CSR');
-    res.render('index-csr.ejs', {
-      root: DIST_FOLDER,
-      scripts: `<script>window.dspace = ${JSON.stringify(dspace)}</script>`
-    });
+    res.sendFile(DIST_FOLDER + '/index.html');
   }
 }
 
