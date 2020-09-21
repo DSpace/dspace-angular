@@ -24,6 +24,7 @@ import { getMockTranslateService } from '../../../shared/mocks/translate.service
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -33,6 +34,7 @@ describe('EPeopleRegistryComponent', () => {
 
   let mockEPeople;
   let ePersonDataServiceStub: any;
+  let authorizationService: AuthorizationDataService;
 
   beforeEach(async(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
@@ -82,6 +84,9 @@ describe('EPeopleRegistryComponent', () => {
         return '/admin/access-control/epeople';
       }
     };
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true)
+    });
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
     TestBed.configureTestingModule({
@@ -98,6 +103,7 @@ describe('EPeopleRegistryComponent', () => {
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: Router, useValue: new RouterStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -215,4 +221,20 @@ describe('EPeopleRegistryComponent', () => {
     });
   });
 
+  describe('delete EPerson button when the isAuthorized returns false', () => {
+    let ePeopleDeleteButton;
+    beforeEach(() => {
+      authorizationService = jasmine.createSpyObj('authorizationService', {
+        isAuthorized: observableOf(false)
+      });
+    });
+
+    it ('should be disabled', () => {
+      ePeopleDeleteButton = fixture.debugElement.queryAll(By.css('#epeople tr td div button.delete-button'));
+      ePeopleDeleteButton.forEach((deleteButton) => {
+        expect(deleteButton.nativeElement.disabled).toBe(true);
+      });
+
+    })
+  })
 });

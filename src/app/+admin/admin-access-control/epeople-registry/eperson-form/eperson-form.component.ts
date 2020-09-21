@@ -116,9 +116,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
 
   /**
    * Observable whether or not the admin is allowed to delete the EPerson
-   * TODO: Initialize the observable once the REST API supports this (currently hardcoded to return false)
    */
-  canDelete$: Observable<boolean> = of(false);
+  canDelete$: Observable<boolean>;
 
   /**
    * Observable whether or not the admin is allowed to impersonate the EPerson
@@ -246,6 +245,9 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       }));
       this.canImpersonate$ = this.epersonService.getActiveEPerson().pipe(
         switchMap((eperson) => this.authorizationService.isAuthorized(FeatureID.LoginOnBehalfOf, hasValue(eperson) ? eperson.self : undefined))
+      );
+      this.canDelete$ = this.epersonService.getActiveEPerson().pipe(
+          switchMap((eperson) => this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(eperson) ? eperson.self : undefined))
       );
     });
   }
@@ -403,6 +405,26 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   impersonate() {
     this.authService.impersonate(this.epersonInitial.id);
     this.isImpersonated = true;
+  }
+
+  /**
+   * Deletes the EPerson from the Repository. The EPerson will be the only that this form is showing.
+   * It'll either show a success or error message depending on whether the delete was successful or not.
+   */
+  delete() {
+    this.epersonService.getActiveEPerson().pipe(take(1)).subscribe((eperson: EPerson) => {
+      if (hasValue(eperson.id)) {
+        this.epersonService.deleteEPerson(eperson).pipe(take(1)).subscribe((restResponse: RestResponse) => {
+          if (restResponse.isSuccessful) {
+            this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: eperson.name }));
+          } else {
+            this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + eperson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.statusText);
+          }
+          this.cancelForm.emit();
+        })
+      }}
+    )
+
   }
 
   /**

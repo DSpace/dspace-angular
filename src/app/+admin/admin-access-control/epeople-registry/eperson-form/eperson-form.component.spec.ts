@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
@@ -143,8 +143,7 @@ describe('EPersonFormComponent', () => {
         { provide: HALEndpointService, useValue: {} },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: GroupDataService, useValue: groupsDataService },
-        EPeopleRegistryComponent
+        { provide: GroupDataService, useValue: groupsDataService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -283,4 +282,49 @@ describe('EPersonFormComponent', () => {
     });
   });
 
+  describe('delete', () => {
+
+    let ePersonId;
+    let eperson: EPerson;
+
+    beforeEach(() => {
+      spyOn(authService, 'impersonate').and.callThrough();
+      ePersonId = 'testEPersonId';
+      eperson = Object.assign(new EPerson(), {
+        id: ePersonId
+      });
+      component.epersonInitial = eperson;
+      component.canDelete$ = observableOf(true);
+      spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(observableOf(eperson));
+    });
+
+    it ('the delete button should be active if the eperson can be deleted', () => {
+      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
+      expect(deleteButton.nativeElement.disabled).toBe(false);
+    });
+
+    it ('the delete button should be disabled if the eperson cannot be deleted', () => {
+      component.canDelete$ = observableOf(false);
+      fixture.detectChanges()
+      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
+      expect(deleteButton.nativeElement.disabled).toBe(true);
+    });
+
+    it ('should call the epersonFormComponent delete when clicked on the button' , () => {
+      spyOn(component, 'delete').and.stub();
+      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
+      deleteButton.triggerEventHandler('click', null);
+      expect(component.delete).toHaveBeenCalled();
+    });
+
+    it ('should call the epersonService delete when clicked on the button' , () => {
+      // ePersonDataServiceStub.activeEPerson = eperson;
+      spyOn(component.epersonService, 'deleteEPerson').and.stub();
+      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
+      expect(deleteButton.nativeElement.disabled).toBe(false);
+      deleteButton.triggerEventHandler('click', null);
+      fixture.detectChanges()
+      expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);
+    });
+  })
 });
