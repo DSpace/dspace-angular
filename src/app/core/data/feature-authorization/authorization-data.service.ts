@@ -25,7 +25,6 @@ import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import {
-  addAuthenticatedUserUuidIfEmpty,
   addSiteObjectUrlIfEmpty,
   oneAuthorizationMatchesFeature
 } from './authorization-utils';
