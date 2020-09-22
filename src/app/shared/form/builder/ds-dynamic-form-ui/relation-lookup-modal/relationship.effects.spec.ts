@@ -1,4 +1,4 @@
-import { BehaviorSubject, never, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { RelationshipEffects } from './relationship.effects';
 import { async, TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';

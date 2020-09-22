@@ -1,14 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { filter, takeWhile, } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-
 import { AuthMethod } from '../../core/auth/models/auth.method';
-import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
+import {
+  getAuthenticationError,
+  getAuthenticationMethods,
+  isAuthenticated,
+  isAuthenticationLoading
+} from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
+import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
+import { hasValue } from '../empty.util';
 import { AuthService } from '../../core/auth/auth.service';
-import { getForgotPasswordPath, getRegisterPath } from '../../app-routing.module';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
@@ -21,7 +24,7 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss']
 })
-export class LogInComponent implements OnInit, OnDestroy {
+export class LogInComponent implements OnInit {
 
   /**
    * A boolean representing if LogInComponent is in a standalone page
@@ -48,12 +51,6 @@ export class LogInComponent implements OnInit, OnDestroy {
   public loading: Observable<boolean>;
 
   /**
-   * Component state.
-   * @type {boolean}
-   */
-  private alive = true;
-
-  /**
    * Whether or not the current user (or anonymous) is authorized to register an account
    */
   canRegister$: Observable<boolean>;
@@ -75,28 +72,21 @@ export class LogInComponent implements OnInit, OnDestroy {
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
-    // subscribe to success
-    this.store.pipe(
-      select(isAuthenticated),
-      takeWhile(() => this.alive),
-      filter((authenticated) => authenticated))
-      .subscribe(() => {
-          this.authService.redirectAfterLoginSuccess(this.isStandalonePage);
-        }
-      );
+    // Clear the redirect URL if an authentication error occurs and this is not a standalone page
+    this.store.pipe(select(getAuthenticationError)).subscribe((error) => {
+      if (hasValue(error) && !this.isStandalonePage) {
+        this.authService.clearRedirectUrl();
+      }
+    });
 
     this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
   }
 
-  ngOnDestroy(): void {
-    this.alive = false;
+  getRegisterRoute() {
+    return getRegisterRoute();
   }
 
-  getRegisterPath() {
-    return getRegisterPath();
-  }
-
-  getForgotPath() {
-    return getForgotPasswordPath();
+  getForgotRoute() {
+    return getForgotPasswordRoute();
   }
 }

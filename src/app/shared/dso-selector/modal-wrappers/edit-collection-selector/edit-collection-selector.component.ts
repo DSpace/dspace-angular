@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { getCollectionEditPath } from '../../../../+collection-page/collection-page-routing.module';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
+import { getCollectionEditRoute } from '../../../../+collection-page/collection-page-routing-paths';
 
 /**
  * Component to wrap a list of existing collections inside a modal
@@ -20,7 +20,7 @@ import {
 })
 export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;
-  selectorType = DSpaceObjectType.COLLECTION;
+  selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.EDIT;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
@@ -31,6 +31,6 @@ export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComp
    * Navigate to the collection edit page
    */
   navigate(dso: DSpaceObject) {
-    this.router.navigate([getCollectionEditPath(dso.uuid)]);
+    this.router.navigate([getCollectionEditRoute(dso.uuid)]);
   }
 }

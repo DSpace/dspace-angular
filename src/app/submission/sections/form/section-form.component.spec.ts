@@ -41,7 +41,6 @@ import { SubmissionSectionError } from '../../objects/submission-objects.reducer
 import { DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';

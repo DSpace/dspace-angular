@@ -1,4 +1,4 @@
-import { delay, filter, map, take } from 'rxjs/operators';
+import { delay, map, distinctUntilChanged } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -19,9 +19,8 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
-import { isAuthenticated } from './core/auth/selectors';
+import { isAuthenticationBlocking } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
-import variables from '../styles/_exposed_variables.scss';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/initial-menus-state';
@@ -52,6 +51,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   theme: Observable<Theme> = of({} as any);
   notificationOptions = environment.notifications;
   models;
+
+  /**
+   * Whether or not the authentication is currently blocking the UI
+   */
+  isNotAuthBlocking$: Observable<boolean>;
 
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
@@ -90,16 +94,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.isNotAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
+      map((isBlocking: boolean) => isBlocking === false),
+      distinctUntilChanged()
+    );
     const env: string = environment.production ? 'Production' : 'Development';
     const color: string = environment.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
 
-    // Whether is not authenticathed try to retrieve a possible stored auth token
-    this.store.pipe(select(isAuthenticated),
-      take(1),
-      filter((authenticated) => !authenticated)
-    ).subscribe((authenticated) => this.authService.checkAuthenticationToken());
     this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
 
     this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');

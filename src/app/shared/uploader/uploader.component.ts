@@ -69,6 +69,11 @@ export class UploaderComponent {
    */
   @Output() onUploadError: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * The function to call when a file is selected
+   */
+  @Output() onFileSelected: EventEmitter<any> = new EventEmitter<any>();
+
   public uploader: FileUploader;
   public uploaderId: string;
   public isOverBaseDropZone = observableOf(false);
@@ -102,7 +107,8 @@ export class UploaderComponent {
       itemAlias: this.uploadFilesOptions.itemAlias,
       removeAfterUpload: true,
       autoUpload: this.uploadFilesOptions.autoUpload,
-      method: this.uploadFilesOptions.method
+      method: this.uploadFilesOptions.method,
+      queueLimit: this.uploadFilesOptions.maxFileNumber
     });
 
     if (isUndefined(this.enableDragOverDocument)) {
@@ -120,6 +126,9 @@ export class UploaderComponent {
     // Maybe to remove: needed to avoid CORS issue with our temp upload server
     this.uploader.onAfterAddingFile = ((item) => {
       item.withCredentials = false;
+    });
+    this.uploader.onAfterAddingAll = ((items) => {
+      this.onFileSelected.emit(items);
     });
     if (isUndefined(this.onBeforeUpload)) {
       this.onBeforeUpload = () => {return};
@@ -149,7 +158,7 @@ export class UploaderComponent {
       }
     };
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
-      this.onUploadError.emit(null);
+      this.onUploadError.emit({ item: item, response: response, status: status, headers: headers });
       this.uploader.cancelAll();
     };
     this.uploader.onProgressAll = () => this.onProgress();

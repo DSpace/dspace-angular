@@ -34,6 +34,7 @@ export const AuthActionTypes = {
   RETRIEVE_AUTHENTICATED_EPERSON: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON'),
   RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS'),
   RETRIEVE_AUTHENTICATED_EPERSON_ERROR: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_ERROR'),
+  REDIRECT_AFTER_LOGIN_SUCCESS: type('dspace/auth/REDIRECT_AFTER_LOGIN_SUCCESS')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -336,6 +337,20 @@ export class SetRedirectUrlAction implements Action {
 }
 
 /**
+ * Start loading for a hard redirect
+ * @class StartHardRedirectLoadingAction
+ * @implements {Action}
+ */
+export class RedirectAfterLoginSuccessAction implements Action {
+  public type: string = AuthActionTypes.REDIRECT_AFTER_LOGIN_SUCCESS;
+  payload: string;
+
+  constructor(url: string) {
+    this.payload = url;
+  }
+}
+
+/**
  * Retrieve the authenticated eperson.
  * @class RetrieveAuthenticatedEpersonAction
  * @implements {Action}
@@ -402,8 +417,8 @@ export type AuthActions
   | RetrieveAuthMethodsSuccessAction
   | RetrieveAuthMethodsErrorAction
   | RetrieveTokenAction
-  | ResetAuthenticationMessagesAction
   | RetrieveAuthenticatedEpersonAction
   | RetrieveAuthenticatedEpersonErrorAction
   | RetrieveAuthenticatedEpersonSuccessAction
-  | SetRedirectUrlAction;
+  | SetRedirectUrlAction
+  | RedirectAfterLoginSuccessAction;

@@ -4,13 +4,11 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CurationFormComponent } from './curation-form.component';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { AuthService } from '../core/auth/auth.service';
 import { of as observableOf } from 'rxjs';
 import { RequestEntry } from '../core/data/request.reducer';
 import { DSOSuccessResponse, RestResponse } from '../core/cache/response.models';
 import { Process } from '../process-page/processes/process.model';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { EPerson } from '../core/eperson/models/eperson.model';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -27,7 +25,6 @@ describe('CurationFormComponent', () => {
   let scriptDataService: ScriptDataService;
   let processDataService: ProcessDataService;
   let configurationDataService: ConfigurationDataService;
-  let authService: AuthService;
   let notificationsService;
   let router;
 
@@ -46,10 +43,6 @@ describe('CurationFormComponent', () => {
 
     processDataService = jasmine.createSpyObj('processDataService', {
       findByHref: createSuccessfulRemoteDataObject$(process)
-    });
-
-    authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(Object.assign(new EPerson(), {email: 'test@mail'}))
     });
 
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
@@ -74,7 +67,6 @@ describe('CurationFormComponent', () => {
       providers: [
         {provide: ScriptDataService, useValue: scriptDataService},
         {provide: ProcessDataService, useValue: processDataService},
-        {provide: AuthService, useValue: authService},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: Router, useValue: router},
         {provide: ConfigurationDataService, useValue: configurationDataService},
@@ -119,7 +111,6 @@ describe('CurationFormComponent', () => {
       expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
         {name: '-t', value: 'profileformats'},
         {name: '-i', value: 'test-handle'},
-        {name: '-e', value: 'test@mail'},
       ], []);
       expect(notificationsService.success).toHaveBeenCalled();
       expect(processDataService.findByHref).toHaveBeenCalledWith('process-link');
@@ -134,7 +125,6 @@ describe('CurationFormComponent', () => {
       expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
         {name: '-t', value: 'profileformats'},
         {name: '-i', value: 'test-handle'},
-        {name: '-e', value: 'test@mail'},
       ], []);
       expect(notificationsService.error).toHaveBeenCalled();
       expect(processDataService.findByHref).not.toHaveBeenCalled();
@@ -149,7 +139,6 @@ describe('CurationFormComponent', () => {
     expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
       {name: '-t', value: 'profileformats'},
       {name: '-i', value: 'form-handle'},
-      {name: '-e', value: 'test@mail'},
     ], []);
   });
   it('should use "all" when the handle provided by the form is empty and when no dsoHandle is provided', () => {
@@ -159,7 +148,6 @@ describe('CurationFormComponent', () => {
     expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
       {name: '-t', value: 'profileformats'},
       {name: '-i', value: 'all'},
-      {name: '-e', value: 'test@mail'},
     ], []);
   });
 });

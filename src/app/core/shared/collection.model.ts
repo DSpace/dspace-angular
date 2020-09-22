@@ -15,8 +15,6 @@ import { RESOURCE_POLICY } from '../resource-policy/models/resource-policy.resou
 import { COMMUNITY } from './community.resource-type';
 import { Community } from './community.model';
 import { ChildHALResource } from './child-hal-resource.model';
-import { GROUP } from '../eperson/models/group.resource-type';
-import { Group } from '../eperson/models/group.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -41,6 +39,11 @@ export class Collection extends DSpaceObject implements ChildHALResource {
     defaultAccessConditions: HALLink;
     logo: HALLink;
     parentCommunity: HALLink;
+    workflowGroups: HALLink[];
+    adminGroup: HALLink;
+    submittersGroup: HALLink;
+    itemReadGroup: HALLink;
+    bitstreamReadGroup: HALLink;
     self: HALLink;
   };
 
@@ -71,12 +74,6 @@ export class Collection extends DSpaceObject implements ChildHALResource {
    */
   @link(COMMUNITY, false)
   parentCommunity?: Observable<RemoteData<Community>>;
-
-  /**
-   * The administrators group of this community.
-   */
-  @link(GROUP)
-  adminGroup?: Observable<RemoteData<Group>>;
 
   /**
    * The introductory text of this Collection

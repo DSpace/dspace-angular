@@ -5,7 +5,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { ActivatedRoute } from '@angular/router';
 import { first, map } from 'rxjs/operators';
 import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
-import { getCollectionEditPath } from '../collection-page-routing.module';
+import { getCollectionEditRoute } from '../collection-page-routing-paths';
 
 @Component({
   selector: 'ds-edit-item-template-page',
@@ -35,7 +35,7 @@ export class EditItemTemplatePageComponent implements OnInit {
    */
   getCollectionEditUrl(collection: Collection): string {
     if (collection) {
-      return getCollectionEditPath(collection.uuid);
+      return getCollectionEditRoute(collection.uuid);
     } else {
       return '';
     }

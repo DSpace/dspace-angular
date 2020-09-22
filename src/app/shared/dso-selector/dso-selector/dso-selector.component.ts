@@ -13,6 +13,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, startWith, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -42,9 +43,12 @@ export class DSOSelectorComponent implements OnInit {
   @Input() currentDSOId: string;
 
   /**
-   * The type of DSpace objects this components shows a list of
+   * The types of DSpace objects this components shows a list of
    */
-  @Input() type: DSpaceObjectType;
+  @Input() types: DSpaceObjectType[];
+
+  // list of allowed selectable dsoTypes
+  typesString: string;
 
   /**
    * Emits the selected Object when a user selects it in the list
@@ -76,6 +80,11 @@ export class DSOSelectorComponent implements OnInit {
    */
   debounceTime = 500;
 
+  /**
+   * The available link types
+   */
+  linkTypes = CollectionElementLinkType;
+
   constructor(private searchService: SearchService) {
   }
 
@@ -85,6 +94,7 @@ export class DSOSelectorComponent implements OnInit {
    */
   ngOnInit(): void {
     this.input.setValue(this.currentDSOId);
+    this.typesString = this.types.map((type: string) => type.toString().toLowerCase()).join(', ');
     this.listEntries$ = this.input.valueChanges
       .pipe(
         debounceTime(this.debounceTime),
@@ -93,7 +103,7 @@ export class DSOSelectorComponent implements OnInit {
             return this.searchService.search(
               new PaginatedSearchOptions({
                 query: query,
-                dsoType: this.type,
+                dsoTypes: this.types,
                 pagination: this.defaultPagination
               })
             )

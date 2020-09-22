@@ -1,6 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { Field, Option, SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
+import {
+  Field,
+  Option,
+  SubmissionCcLicence
+} from '../../../core/submission/models/submission-cc-license.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
@@ -228,7 +232,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
   onSectionInit(): void {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.subscriptions.push(
-      this.sectionService.getSectionState(this.submissionId, this.sectionData.id).pipe(
+      this.sectionService.getSectionState(this.submissionId, this.sectionData.id, SectionsType.CcLicense).pipe(
         filter((sectionState) => {
           return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
         }),

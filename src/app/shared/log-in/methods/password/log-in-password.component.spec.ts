@@ -15,6 +15,7 @@ import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { AppState } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 
 describe('LogInPasswordComponent', () => {
 
@@ -29,8 +30,14 @@ describe('LogInPasswordComponent', () => {
     loading: false,
   };
 
+  let hardRedirectService: HardRedirectService;
+
   beforeEach(() => {
     user = EPersonMock;
+
+    hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
+      getCurrentRoute: {}
+    });
   });
 
   beforeEach(async(() => {
@@ -47,7 +54,9 @@ describe('LogInPasswordComponent', () => {
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
-        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Password) }
+        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Password) },
+        { provide: 'isStandalonePage', useValue: true },
+        { provide: HardRedirectService, useValue: hardRedirectService },
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA

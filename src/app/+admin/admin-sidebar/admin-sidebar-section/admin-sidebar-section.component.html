@@ -5,7 +5,7 @@
     <div class="sidebar-collapsible">
             <span class="section-header-text">
         <ng-container
-                *ngComponentOutlet="itemComponents.get(section.id); injector: itemInjectors.get(section.id);"></ng-container>
+                *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
             </span>
     </div>
 </li>

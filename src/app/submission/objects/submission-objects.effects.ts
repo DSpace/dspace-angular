@@ -5,7 +5,16 @@ import { TranslateService } from '@ngx-translate/core';
 import { isEqual, union } from 'lodash';
 
 import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
-import { catchError, filter, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
+import {
+  catchError,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
@@ -40,7 +49,8 @@ import {
   SaveSubmissionSectionFormSuccessAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
-  UpdateSectionDataAction
+  UpdateSectionDataAction,
+  UpdateSectionDataSuccessAction
 } from './submission-objects.actions';
 import { SubmissionObjectEntry, SubmissionSectionObject } from './submission-objects.reducer';
 import { Item } from '../../core/shared/item.model';
@@ -246,28 +256,32 @@ export class SubmissionObjectEffects {
    * Adds all metadata an item to the SubmissionForm sections of the submission
    */
   @Effect() addAllMetadataToSectionData = this.actions$.pipe(
-    ofType(SubmissionObjectActionTypes.UPLOAD_SECTION_DATA),
+    ofType(SubmissionObjectActionTypes.UPDATE_SECTION_DATA),
     switchMap((action: UpdateSectionDataAction) => {
-      return this.sectionService.getSectionState(action.payload.submissionId, action.payload.sectionId)
+      return this.sectionService.getSectionState(action.payload.submissionId, action.payload.sectionId, SectionsType.Upload)
         .pipe(map((section: SubmissionSectionObject) => [action, section]), take(1));
     }),
     filter(([action, section]: [UpdateSectionDataAction, SubmissionSectionObject]) => section.sectionType === SectionsType.SubmissionForm),
     switchMap(([action, section]: [UpdateSectionDataAction, SubmissionSectionObject]) => {
-      const submissionObject$ = this.submissionObjectService
-        .findById(action.payload.submissionId, followLink('item')).pipe(
-          getFirstSucceededRemoteDataPayload()
+      if (section.sectionType === SectionsType.SubmissionForm) {
+        const submissionObject$ = this.submissionObjectService
+          .findById(action.payload.submissionId, followLink('item')).pipe(
+            getFirstSucceededRemoteDataPayload()
+          );
+
+        const item$ = submissionObject$.pipe(
+          switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(
+            getFirstSucceededRemoteDataPayload(),
+          )));
+
+        return item$.pipe(
+          map((item: Item) => item.metadata),
+          filter((metadata) => !isEqual(action.payload.data, metadata)),
+          map((metadata: any) => new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, metadata, action.payload.errors))
         );
-
-      const item$ = submissionObject$.pipe(
-        switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(
-          getFirstSucceededRemoteDataPayload(),
-        )));
-
-      return item$.pipe(
-        map((item: Item) => item.metadata),
-        filter((metadata) => !isEqual(action.payload.data, metadata)),
-        map((metadata: any) => new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, metadata, action.payload.errors))
-      );
+      } else {
+        return observableOf(new UpdateSectionDataSuccessAction());
+      }
     }),
   );
 
@@ -381,5 +395,4 @@ export class SubmissionObjectEffects {
     }
     return mappedActions;
   }
-
 }

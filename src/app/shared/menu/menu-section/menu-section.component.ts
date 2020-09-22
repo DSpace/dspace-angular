@@ -1,13 +1,15 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, OnInit, OnDestroy } from '@angular/core';
 import { MenuService } from '../menu.service';
 import { MenuSection } from '../menu.reducer';
 import { getComponentForMenuItemType } from '../menu-item.decorator';
 import { MenuID, MenuItemType } from '../initial-menus-state';
-import { hasNoValue } from '../../empty.util';
+import { hasNoValue, hasValue } from '../../empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { MenuItemModel } from '../menu-item/models/menu-item.model';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * A basic implementation of a menu section's component
@@ -16,7 +18,7 @@ import { GenericConstructor } from '../../../core/shared/generic-constructor';
   selector: 'ds-menu-section',
   template: ''
 })
-export class MenuSectionComponent {
+export class MenuSectionComponent implements OnInit, OnDestroy {
 
   /**
    * Observable that emits whether or not this section is currently active
@@ -29,19 +31,23 @@ export class MenuSectionComponent {
   menuID: MenuID;
 
   /**
-   * List of Injectors for each dynamically rendered menu item of this section
-   */
-  itemInjectors: Map<string, Injector> = new Map<string, Injector>();
-
-  /**
-   * List of child Components for each dynamically rendered menu item of this section
-   */
-  itemComponents: Map<string, GenericConstructor<MenuSectionComponent>> = new Map<string, GenericConstructor<MenuSectionComponent>>();
-
-  /**
    * List of available subsections in this section
    */
-  subSections: Observable<MenuSection[]>;
+  subSections$: Observable<MenuSection[]>;
+
+  /**
+   * Map of components and injectors for each dynamically rendered menu section
+   */
+  sectionMap$: BehaviorSubject<Map<string, {
+    injector: Injector,
+    component: GenericConstructor<MenuSectionComponent>
+  }>> = new BehaviorSubject(new Map());
+
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  subs: Subscription[] = [];
 
   constructor(public section: MenuSection, protected menuService: MenuService, protected injector: Injector) {
   }
@@ -85,15 +91,34 @@ export class MenuSectionComponent {
    * Method for initializing all injectors and component constructors for the menu items in this section
    */
   private initializeInjectorData() {
-    this.itemInjectors.set(this.section.id, this.getItemModelInjector(this.section.model));
-    this.itemComponents.set(this.section.id, this.getMenuItemComponent(this.section.model));
-    this.subSections = this.menuService.getSubSectionsByParentID(this.menuID, this.section.id);
-    this.subSections.subscribe((sections: MenuSection[]) => {
-      sections.forEach((section: MenuSection) => {
-        this.itemInjectors.set(section.id, this.getItemModelInjector(section.model));
-        this.itemComponents.set(section.id, this.getMenuItemComponent(section.model));
+    this.updateSectionMap(
+      this.section.id,
+      this.getItemModelInjector(this.section.model),
+      this.getMenuItemComponent(this.section.model)
+    );
+    this.subSections$ = this.menuService.getSubSectionsByParentID(this.menuID, this.section.id);
+    this.subs.push(
+      this.subSections$.pipe(
+        // if you return an array from a switchMap it will emit each element as a separate event.
+        // So this switchMap is equivalent to a subscribe with a forEach inside
+        switchMap((sections: MenuSection[]) => sections)
+      ).subscribe((section: MenuSection) => {
+        this.updateSectionMap(
+          section.id,
+          this.getItemModelInjector(section.model),
+          this.getMenuItemComponent(section.model)
+        )
       })
-    })
+    );
+  }
+
+  /**
+   * Update the sectionMap
+   */
+  private updateSectionMap(id, injector, component) {
+    const nextMap = this.sectionMap$.getValue();
+    nextMap.set(id, { injector, component });
+    this.sectionMap$.next(nextMap);
   }
 
   /**
@@ -124,4 +149,12 @@ export class MenuSectionComponent {
     });
   }
 
+  /**
+   * Unsubscribe from open subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
+  }
 }

@@ -12,15 +12,15 @@ export class SearchOptions {
   view?: ViewMode = ViewMode.ListElement;
   scope?: string;
   query?: string;
-  dsoType?: DSpaceObjectType;
+  dsoTypes?: DSpaceObjectType[];
   filters?: any;
   fixedFilter?: any;
 
-  constructor(options: {configuration?: string, scope?: string, query?: string, dsoType?: DSpaceObjectType, filters?: SearchFilter[], fixedFilter?: any}) {
+  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any}) {
       this.configuration = options.configuration;
       this.scope = options.scope;
       this.query = options.query;
-      this.dsoType = options.dsoType;
+      this.dsoTypes = options.dsoTypes;
       this.filters = options.filters;
       this.fixedFilter = options.fixedFilter;
   }
@@ -44,8 +44,10 @@ export class SearchOptions {
     if (isNotEmpty(this.scope)) {
       args.push(`scope=${this.scope}`);
     }
-    if (isNotEmpty(this.dsoType)) {
-      args.push(`dsoType=${this.dsoType}`);
+    if (isNotEmpty(this.dsoTypes)) {
+      this.dsoTypes.forEach((dsoType: string) => {
+        args.push(`dsoType=${dsoType}`);
+      })
     }
     if (isNotEmpty(this.filters)) {
       this.filters.forEach((filter: SearchFilter) => {

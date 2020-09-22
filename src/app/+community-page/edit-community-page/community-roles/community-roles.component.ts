@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Community } from '../../../core/shared/community.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
-import { ComcolRole } from '../../../shared/comcol-forms/edit-comcol-page/comcol-role/comcol-role';
 import { RemoteData } from '../../../core/data/remote-data';
+import { HALLink } from '../../../core/shared/hal-link.model';
 
 /**
  * Component for managing a community's roles
@@ -31,10 +31,15 @@ export class CommunityRolesComponent implements OnInit {
   /**
    * The different roles for the community.
    */
-  getComcolRoles(): ComcolRole[] {
-    return [
-      ComcolRole.COMMUNITY_ADMIN,
-    ];
+  getComcolRoles$(): Observable<HALLink[]> {
+    return this.community$.pipe(
+      map((community) => [
+        {
+          name: 'community-admin',
+          href: community._links.adminGroup.href,
+        },
+      ]),
+    );
   }
 
   constructor(
