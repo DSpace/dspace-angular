@@ -937,6 +937,68 @@
 
 
 
+  "cookies.consent.accept-all": "Accept all",
+
+  "cookies.consent.accept-selected": "Accept selected",
+
+  "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
+
+  "cookies.consent.app.opt-out.title": "(opt-out)",
+
+  "cookies.consent.app.purpose": "purpose",
+
+  "cookies.consent.app.required.description": "This application is always required",
+
+  "cookies.consent.app.required.title": "(always required)",
+
+  "cookies.consent.update": "There were changes since your last visit, please update your consent.",
+
+  "cookies.consent.close": "Close",
+
+  "cookies.consent.decline": "Decline",
+
+  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+
+  "cookies.consent.content-notice.learnMore": "Customize",
+
+  "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
+
+  "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
+
+  "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
+
+  "cookies.consent.content-modal.title": "Information that we collect",
+
+
+
+  "cookies.consent.app.title.authentication": "Authentication",
+
+  "cookies.consent.app.description.authentication": "Required for signing you in",
+
+
+  "cookies.consent.app.title.preferences": "Preferences",
+
+  "cookies.consent.app.description.preferences": "Required for saving your preferences",
+
+
+
+  "cookies.consent.app.title.acknowledgement": "Acknowledgement",
+
+  "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
+
+
+
+  "cookies.consent.app.title.google-analytics": "Google Analytics",
+
+  "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
+
+
+
+  "cookies.consent.purpose.functional": "Functional",
+
+  "cookies.consent.purpose.statistical": "Statistical",
+
+
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",
@@ -1050,6 +1112,13 @@
   "footer.link.dspace": "DSpace software",
 
   "footer.link.duraspace": "DuraSpace",
+
+  "footer.link.cookies": "Cookie settings",
+
+  "footer.link.privacy-policy": "Privacy policy",
+
+  "footer.link.end-user-agreement":"End User Agreement",
+
 
 
   "forgot-email.form.header": "Forgot Password",

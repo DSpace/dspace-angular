@@ -382,6 +382,14 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     );
   }
 
+  createPatchFromCache(object: T): Observable<Operation[]> {
+    const oldVersion$ = this.findByHref(object._links.self.href);
+    return oldVersion$.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((oldVersion: T) => this.comparator.diff(oldVersion, object)));
+  }
+
   /**
    * Send a PUT request for the specified object
    *
@@ -410,18 +418,16 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * @param {DSpaceObject} object The given object
    */
   update(object: T): Observable<RemoteData<T>> {
-    const oldVersion$ = this.findByHref(object._links.self.href);
-    return oldVersion$.pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      mergeMap((oldVersion: T) => {
-          const operations = this.comparator.diff(oldVersion, object);
-          if (isNotEmpty(operations)) {
-            this.objectCache.addPatch(object._links.self.href, operations);
+    return this.createPatchFromCache(object)
+      .pipe(
+        mergeMap((operations: Operation[]) => {
+            if (isNotEmpty(operations)) {
+              this.objectCache.addPatch(object._links.self.href, operations);
+            }
+            return this.findByHref(object._links.self.href);
           }
-          return this.findByHref(object._links.self.href);
-        }
-      ));
+        )
+      );
   }
 
   /**

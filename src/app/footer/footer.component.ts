@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
+import { hasValue } from '../shared/empty.util';
+import { KlaroService } from '../shared/cookies/klaro.service';
 
 @Component({
   selector: 'ds-footer',
@@ -6,7 +8,15 @@ import { Component } from '@angular/core';
   templateUrl: 'footer.component.html'
 })
 export class FooterComponent {
-
   dateObj: number = Date.now();
 
+  constructor(@Optional() private cookies: KlaroService) {
+  }
+
+  showCookieSettings() {
+    if (hasValue(this.cookies)) {
+      this.cookies.showSettings();
+    }
+    return false;
+  }
 }
