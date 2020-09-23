@@ -24,6 +24,7 @@ import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/fil
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
+import { MetadataFieldValidator } from './utils/metadatafield-validator.directive';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
 import { ConsolePipe } from './utils/console.pipe';
 import { CollectionListElementComponent } from './object-list/collection-list-element/collection-list-element.component';
@@ -517,7 +518,8 @@ const DIRECTIVES = [
   FileValueAccessorDirective,
   FileValidator,
   ClaimedTaskActionsDirective,
-  NgForTrackByIdDirective
+  NgForTrackByIdDirective,
+  MetadataFieldValidator
 ];
 
 @NgModule({

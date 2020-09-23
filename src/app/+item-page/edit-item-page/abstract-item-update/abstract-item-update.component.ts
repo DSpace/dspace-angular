@@ -123,7 +123,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
   /**
    * Check if the current page is entirely valid
    */
-  protected isValid() {
+  public isValid() {
     return this.objectUpdatesService.isValidPage(this.url);
   }
 
