@@ -25,6 +25,9 @@ import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
+import { Store } from '@ngrx/store';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -35,6 +38,7 @@ describe('EPeopleRegistryComponent', () => {
   let mockEPeople;
   let ePersonDataServiceStub: any;
   let authorizationService: AuthorizationDataService;
+  let modalService;
 
   beforeEach(async(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
@@ -104,6 +108,9 @@ describe('EPeopleRegistryComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: UUIDService, useValue: {} },
+        { provide: Store, useValue: {} },
         { provide: Router, useValue: new RouterStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -113,6 +120,8 @@ describe('EPeopleRegistryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EPeopleRegistryComponent);
     component = fixture.componentInstance;
+    modalService = (component as any).modalService;
+    spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
     fixture.detectChanges();
   });
 

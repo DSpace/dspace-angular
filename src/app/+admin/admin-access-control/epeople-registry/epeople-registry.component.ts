@@ -17,6 +17,9 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { RestResponse } from '../../../core/cache/response.models';
+import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RequestService } from '../../../core/data/request.service';
 
 @Component({
   selector: 'ds-epeople-registry',
@@ -71,7 +74,9 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private authorizationService: AuthorizationDataService,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private modalService: NgbModal,
+              public requestService: RequestService) {
     this.currentSearchQuery = '';
     this.currentSearchScope = 'metadata';
     this.searchForm = this.formBuilder.group(({
@@ -81,6 +86,13 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initialisePage();
+  }
+
+  /**
+   * This method will initialise the page
+   */
+  initialisePage() {
     this.isEPersonFormShown = false;
     this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
@@ -191,16 +203,28 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    */
   deleteEPerson(ePerson: EPerson) {
     if (hasValue(ePerson.id)) {
-      this.epersonService.deleteEPerson(ePerson).pipe(take(1)).subscribe((restResponse: RestResponse) => {
-        if (restResponse.isSuccessful) {
-          this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: ePerson.name }));
-          this.forceUpdateEPeople();
-        } else {
-          this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + ePerson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.statusText);
-        }
-        this.epersonService.cancelEditEPerson();
-        this.isEPersonFormShown = false;
-      })
+      const modalRef = this.modalService.open(ConfirmationModalComponent);
+      modalRef.componentInstance.dso = ePerson;
+      modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-eperson.header';
+      modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-eperson.info';
+      modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-eperson.cancel';
+      modalRef.componentInstance.confirmLabel = 'confirmation-modal.delete-eperson.confirm';
+      modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
+        if (confirm) {
+          if (hasValue(ePerson.id)) {
+            this.epersonService.deleteEPerson(ePerson).pipe(take(1)).subscribe((restResponse: RestResponse) => {
+              if (restResponse.isSuccessful) {
+                this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: ePerson.name }));
+                this.reset();
+                this.forceUpdateEPeople();
+              } else {
+                this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + ePerson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.statusText);
+              }
+              this.epersonService.cancelEditEPerson();
+              this.isEPersonFormShown = false;
+            })
+          }}
+      });
     }
   }
 
@@ -229,5 +253,17 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
       query: '',
     });
     this.search({ query: '' });
+  }
+
+  /**
+   * This method will ensure that the page gets reset and that the cache is cleared
+   */
+  reset() {
+    this.ePeopleDto$.pipe(take(1)).subscribe((epersons: PaginatedList<EpersonDtoModel>) => {
+      epersons.page.forEach((eperson: EpersonDtoModel) => {
+        this.requestService.removeByHrefSubstring(eperson.eperson.self);
+      })
+    });
+    this.initialisePage();
   }
 }

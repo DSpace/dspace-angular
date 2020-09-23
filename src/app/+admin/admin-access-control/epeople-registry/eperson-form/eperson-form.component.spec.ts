@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { EventEmitter, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule, NgbModalModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
@@ -286,16 +286,19 @@ describe('EPersonFormComponent', () => {
 
     let ePersonId;
     let eperson: EPerson;
+    let modalService;
 
     beforeEach(() => {
       spyOn(authService, 'impersonate').and.callThrough();
       ePersonId = 'testEPersonId';
-      eperson = Object.assign(new EPerson(), {
-        id: ePersonId
-      });
+      eperson = EPersonMock;
       component.epersonInitial = eperson;
       component.canDelete$ = observableOf(true);
       spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(observableOf(eperson));
+      modalService = (component as any).modalService;
+      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+      fixture.detectChanges()
+
     });
 
     it ('the delete button should be active if the eperson can be deleted', () => {
@@ -312,6 +315,7 @@ describe('EPersonFormComponent', () => {
 
     it ('should call the epersonFormComponent delete when clicked on the button' , () => {
       spyOn(component, 'delete').and.stub();
+      spyOn(component.epersonService, 'deleteEPerson').and.returnValue(observableOf(new RestResponse(true, 204, 'No Content')));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
       deleteButton.triggerEventHandler('click', null);
       expect(component.delete).toHaveBeenCalled();
