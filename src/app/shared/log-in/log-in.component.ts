@@ -12,6 +12,8 @@ import { CoreState } from '../../core/core.reducers';
 import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
 import { hasValue } from '../empty.util';
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
 /**
  * /users/sign-in
@@ -48,8 +50,14 @@ export class LogInComponent implements OnInit {
    */
   public loading: Observable<boolean>;
 
+  /**
+   * Whether or not the current user (or anonymous) is authorized to register an account
+   */
+  canRegister$: Observable<boolean>;
+
   constructor(private store: Store<CoreState>,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private authorizationService: AuthorizationDataService) {
   }
 
   ngOnInit(): void {
@@ -70,6 +78,8 @@ export class LogInComponent implements OnInit {
         this.authService.clearRedirectUrl();
       }
     });
+
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
   }
 
   getRegisterRoute() {

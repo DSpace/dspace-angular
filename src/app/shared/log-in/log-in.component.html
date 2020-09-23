@@ -8,6 +8,6 @@
   </ng-container>
 
   <div class="dropdown-divider"></div>
-  <a class="dropdown-item" [routerLink]="[getRegisterRoute()]">{{"login.form.new-user" | translate}}</a>
+  <a class="dropdown-item" *ngIf="canRegister$ | async" [routerLink]="[getRegisterRoute()]">{{"login.form.new-user" | translate}}</a>
   <a class="dropdown-item" [routerLink]="[getForgotRoute()]">{{"login.form.forgot-password" | translate}}</a>
 </div>

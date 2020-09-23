@@ -170,6 +170,7 @@ import { ReloadGuard } from './reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './end-user-agreement/end-user-agreement-current-user.guard';
 import { EndUserAgreementCookieGuard } from './end-user-agreement/end-user-agreement-cookie.guard';
 import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
+import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -292,6 +293,7 @@ const PROVIDERS = [
   FeatureDataService,
   AuthorizationDataService,
   SiteAdministratorGuard,
+  SiteRegisterGuard,
   MetadataSchemaDataService,
   MetadataFieldDataService,
   TokenResponseParsingService,
