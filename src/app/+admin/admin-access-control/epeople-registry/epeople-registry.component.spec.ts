@@ -25,9 +25,7 @@ import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { UUIDService } from '../../../core/shared/uuid.service';
-import { Store } from '@ngrx/store';
+import { RequestService } from '../../../core/data/request.service';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -103,15 +101,13 @@ describe('EPeopleRegistryComponent', () => {
         }),
       ],
       declarations: [EPeopleRegistryComponent],
-      providers: [EPeopleRegistryComponent,
+      providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: FormBuilderService, useValue: builderService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
-        { provide: Store, useValue: {} },
+        { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterStub() },
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -125,9 +121,9 @@ describe('EPeopleRegistryComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create EPeopleRegistryComponent', inject([EPeopleRegistryComponent], (comp: EPeopleRegistryComponent) => {
-    expect(comp).toBeDefined();
-  }));
+  it('should create EPeopleRegistryComponent', () => {
+    expect(component).toBeDefined();
+  });
 
   it('should display list of ePeople', () => {
     const ePeopleIdsFound = fixture.debugElement.queryAll(By.css('#epeople tr td:first-child'));
