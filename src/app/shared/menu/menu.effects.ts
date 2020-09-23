@@ -19,7 +19,7 @@ export class MenuEffects {
   /**
    * On route change, build menu sections for every menu type depending on the current route data
    */
-  @Effect({ dispatch: false })
+  @Effect({dispatch: false})
   public buildRouteMenuSections$: Observable<Action> = this.actions$
     .pipe(
       ofType(ROUTER_NAVIGATED),
@@ -73,20 +73,8 @@ export class MenuEffects {
 
     if (hasValue(data) && hasValue(data.menu) && hasValue(data.menu[menuID])) {
 
-      const menuSections = data.menu[menuID];
-      [...menuSections]
-        .forEach((menuSection) => {
-
-        if (hasValue(menuSection.model) && hasValue(menuSection.model.link)) {
-          let substitute: RegExpMatchArray;
-          do {
-            substitute = menuSection.model.link.match(/\/:(.*?)\//);
-            if (substitute) {
-              menuSection.model.link = menuSection.model.link.replace(substitute[0], `/${params[substitute[1]]}/`);
-            }
-          } while (substitute);
-        }
-      });
+      let menuSections: MenuSection[] | MenuSection = data.menu[menuID];
+      menuSections = this.resolveSubstitutions(menuSections, params);
 
       if (!last) {
         return [...menuSections, ...this.resolveRouteMenuSections(route.firstChild, menuID)]
@@ -98,4 +86,30 @@ export class MenuEffects {
     return !last ? this.resolveRouteMenuSections(route.firstChild, menuID) : [];
   }
 
+  private resolveSubstitutions(object, params) {
+
+    if (typeof object === 'string') {
+      let match: RegExpMatchArray;
+      do {
+        match = object.match(/:(\w+)/);
+        if (match) {
+          const substitute = params[match[1]];
+          if (hasValue(substitute)) {
+            object = object.replace(match[0], `${substitute}`);
+          }
+        }
+      } while (match);
+    } else if (Array.isArray(object)) {
+      object.forEach((entry, index) => {
+        object[index] = this.resolveSubstitutions(object[index], params);
+      });
+    } else {
+      Object.keys(object).forEach((key) => {
+        object = Object.assign({}, object, {
+          [key]: this.resolveSubstitutions(object[key], params)
+        });
+      });
+    }
+    return object;
+  }
 }

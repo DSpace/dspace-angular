@@ -12,5 +12,10 @@
                        [report]="report"
                        class="m-2 {{ report.id }}">
   </ds-statistics-table>
+  <ng-container *ngIf="!!hasData$">
+    <div *ngIf="!(hasData$ | async)">
+      {{ 'statistics.page.no-data' | translate }}
+    </div>
+  </ng-container>
 
 </div>

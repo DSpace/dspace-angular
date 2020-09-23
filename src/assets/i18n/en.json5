@@ -2783,6 +2783,8 @@
 
   "statistics.breadcrumbs": "Statistics",
 
+  "statistics.page.no-data": "No data available",
+
   "statistics.table.no-data": "No data available",
 
   "statistics.table.title.TotalVisits": "Total visits",

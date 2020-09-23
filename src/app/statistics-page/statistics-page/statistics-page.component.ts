@@ -29,6 +29,8 @@ export abstract class StatisticsPageComponent<T extends DSpaceObject> implements
    */
   reports$: Observable<UsageReport[]>;
 
+  hasData$: Observable<boolean>;
+
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
@@ -40,6 +42,11 @@ export abstract class StatisticsPageComponent<T extends DSpaceObject> implements
   ngOnInit(): void {
     this.scope$ = this.getScope$();
     this.reports$ = this.getReports$();
+    this.hasData$ = this.reports$.pipe(
+      map((reports) => reports.some(
+        (report) => report.points.length > 0
+      )),
+    );
   }
 
   /**
