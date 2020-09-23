@@ -66,8 +66,7 @@ export class FileSectionComponent implements OnInit {
       currentPage: this.currentPage,
       elementsPerPage: this.pageSize
     }).pipe(
-      filter((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasValue(bitstreamsRD)),
-      filter((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasValue(!bitstreamsRD.isLoading)),
+      filter((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasValue(bitstreamsRD) && (hasValue(bitstreamsRD.error) || hasValue(bitstreamsRD.payload))),
       take(1),
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
       if (bitstreamsRD.error) {
