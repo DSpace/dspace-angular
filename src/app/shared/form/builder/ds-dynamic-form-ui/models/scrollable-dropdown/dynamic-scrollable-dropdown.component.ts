@@ -2,28 +2,29 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { FormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, distinctUntilChanged, first, tap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { isNull, isUndefined } from '../../../../../empty.util';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
+import { isEmpty } from '../../../../../empty.util';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 
+/**
+ * Component representing a dropdown input field
+ */
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
   styleUrls: ['./dynamic-scrollable-dropdown.component.scss'],
   templateUrl: './dynamic-scrollable-dropdown.component.html'
 })
-export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComponent implements OnInit {
+export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicScrollableDropdownModel;
@@ -37,39 +38,38 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
   public pageInfo: PageInfo;
   public optionsList: any;
 
-  protected searchOptions: IntegrationSearchOptions;
-
-  constructor(private authorityService: AuthorityService,
-              private cdr: ChangeDetectorRef,
+  constructor(protected vocabularyService: VocabularyService,
+              protected cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService
   ) {
-    super(layoutService, validationService);
+    super(vocabularyService, layoutService, validationService);
   }
 
+  /**
+   * Initialize the component, setting up the init form value
+   */
   ngOnInit() {
-    this.searchOptions = new IntegrationSearchOptions(
-      this.model.authorityOptions.scope,
-      this.model.authorityOptions.name,
-      this.model.authorityOptions.metadata,
-      '',
-      this.model.maxOptions,
-      1);
-    this.authorityService.getEntriesByName(this.searchOptions).pipe(
-      catchError(() => {
-        const emptyResult = new IntegrationData(
-          new PageInfo(),
-          []
-        );
-        return observableOf(emptyResult);
-      }),
-      first())
-      .subscribe((object: IntegrationData) => {
-        this.optionsList = object.payload;
+    this.updatePageInfo(this.model.maxOptions, 1)
+    this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      catchError(() => observableOf(new PaginatedList(
+        new PageInfo(),
+        []
+        ))
+      ))
+      .subscribe((list: PaginatedList<VocabularyEntry>) => {
+        this.optionsList = list.page;
         if (this.model.value) {
-          this.setCurrentValue(this.model.value);
+          this.setCurrentValue(this.model.value, true);
         }
-        this.pageInfo = object.pageInfo;
+
+        this.updatePageInfo(
+          list.pageInfo.elementsPerPage,
+          list.pageInfo.currentPage,
+          list.pageInfo.totalElements,
+          list.pageInfo.totalPages
+        );
         this.cdr.detectChanges();
       });
 
@@ -77,75 +77,90 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
       .subscribe((value) => {
         this.setCurrentValue(value);
       });
-
   }
 
-  inputFormatter = (x: AuthorityValue): string => x.display || x.value;
+  /**
+   * Converts an item from the result list to a `string` to display in the `<input>` field.
+   */
+  inputFormatter = (x: VocabularyEntry): string => x.display || x.value;
 
+  /**
+   * Opens dropdown menu
+   * @param sdRef The reference of the NgbDropdown.
+   */
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {
+      this.group.markAsUntouched();
       sdRef.open();
     }
   }
 
+  /**
+   * Loads any new entries
+   */
   onScroll() {
     if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
       this.loading = true;
-      this.searchOptions.currentPage++;
-      this.authorityService.getEntriesByName(this.searchOptions).pipe(
-        catchError(() => {
-          const emptyResult = new IntegrationData(
-            new PageInfo(),
-            []
-          );
-          return observableOf(emptyResult);
-        }),
+      this.updatePageInfo(
+        this.pageInfo.elementsPerPage,
+        this.pageInfo.currentPage + 1,
+        this.pageInfo.totalElements,
+        this.pageInfo.totalPages
+      );
+      this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        catchError(() => observableOf(new PaginatedList(
+          new PageInfo(),
+          []
+          ))
+        ),
         tap(() => this.loading = false))
-        .subscribe((object: IntegrationData) => {
-          this.optionsList = this.optionsList.concat(object.payload);
-          this.pageInfo = object.pageInfo;
+        .subscribe((list: PaginatedList<VocabularyEntry>) => {
+          this.optionsList = this.optionsList.concat(list.page);
+          this.updatePageInfo(
+            list.pageInfo.elementsPerPage,
+            list.pageInfo.currentPage,
+            list.pageInfo.totalElements,
+            list.pageInfo.totalPages
+          );
           this.cdr.detectChanges();
         })
     }
   }
 
-  onBlur(event: Event) {
-    this.blur.emit(event);
-  }
-
-  onFocus(event) {
-    this.focus.emit(event);
-  }
-
+  /**
+   * Emits a change event and set the current value with the given value.
+   * @param event The value to emit.
+   */
   onSelect(event) {
     this.group.markAsDirty();
-    this.model.valueUpdates.next(event);
-    this.change.emit(event);
+    this.dispatchUpdate(event);
     this.setCurrentValue(event);
   }
 
-  onToggle(sdRef: NgbDropdown) {
-    if (sdRef.isOpen()) {
-      this.focus.emit(event);
-    } else {
-      this.blur.emit(event);
-    }
-  }
+  /**
+   * Sets the current value with the given value.
+   * @param value The value to set.
+   * @param init Representing if is init value or not.
+   */
+  setCurrentValue(value: any, init = false): void {
+    let result: Observable<string>;
 
-  setCurrentValue(value): void {
-    let result: string;
-    if (isUndefined(value) || isNull(value)) {
-      result = '';
-    } else if (typeof value === 'string') {
-      result = value;
+    if (init) {
+      result = this.getInitValueFromModel().pipe(
+        map((formValue: FormFieldMetadataValueObject) => formValue.display)
+      );
     } else {
-      for (const item of this.optionsList) {
-        if (value.value === (item as any).value) {
-          result = this.inputFormatter(item);
-          break;
-        }
+      if (isEmpty(value)) {
+        result = observableOf('');
+      } else if (typeof value === 'string') {
+        result = observableOf(value);
+      } else {
+        result = observableOf(value.display)
       }
     }
-    this.currentValue = observableOf(result);
+
+    this.currentValue = result;
   }
+
 }

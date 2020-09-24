@@ -1,20 +1,23 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
+import {
+  DynamicCheckboxModel,
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 import { findKey } from 'lodash';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
-import {
-  DynamicCheckboxModel,
-  DynamicFormControlComponent, DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 export interface ListItem {
   id: string,
@@ -23,12 +26,14 @@ export interface ListItem {
   index: number
 }
 
+/**
+ * Component representing a list input field
+ */
 @Component({
   selector: 'ds-dynamic-list',
   styleUrls: ['./dynamic-list.component.scss'],
   templateUrl: './dynamic-list.component.html'
 })
-
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
@@ -39,10 +44,9 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public items: ListItem[][] = [];
-  protected optionsList: AuthorityValue[];
-  protected searchOptions: IntegrationSearchOptions;
+  protected optionsList: VocabularyEntry[];
 
-  constructor(private authorityService: AuthorityService,
+  constructor(private vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
               private formBuilderService: FormBuilderService,
               protected layoutService: DynamicFormLayoutService,
@@ -51,39 +55,46 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     super(layoutService, validationService);
   }
 
+  /**
+   * Initialize the component, setting up the field options
+   */
   ngOnInit() {
-    if (this.hasAuthorityOptions()) {
-      // TODO Replace max elements 1000 with a paginated request when pagination bug is resolved
-      this.searchOptions = new IntegrationSearchOptions(
-        this.model.authorityOptions.scope,
-        this.model.authorityOptions.name,
-        this.model.authorityOptions.metadata,
-        '',
-        1000, // Max elements
-        1);// Current Page
-      this.setOptionsFromAuthority();
+    if (this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name)) {
+      this.setOptionsFromVocabulary();
     }
   }
 
+  /**
+   * Emits a blur event containing a given value.
+   * @param event The value to emit.
+   */
   onBlur(event: Event) {
     this.blur.emit(event);
   }
 
+  /**
+   * Emits a focus event containing a given value.
+   * @param event The value to emit.
+   */
   onFocus(event: Event) {
     this.focus.emit(event);
   }
 
+  /**
+   * Updates model value with the current value
+   * @param event The change event.
+   */
   onChange(event: Event) {
     const target = event.target as any;
     if (this.model.repeatable) {
       // Target tabindex coincide with the array index of the value into the authority list
-      const authorityValue: AuthorityValue = this.optionsList[target.tabIndex];
+      const entry: VocabularyEntry = this.optionsList[target.tabIndex];
       if (target.checked) {
-        this.model.valueUpdates.next(authorityValue);
+        this.model.valueUpdates.next(entry);
       } else {
         const newValue = [];
         this.model.value
-          .filter((item) => item.value !== authorityValue.value)
+          .filter((item) => item.value !== entry.value)
           .forEach((item) => newValue.push(item));
         this.model.valueUpdates.next(newValue);
       }
@@ -93,17 +104,25 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     this.change.emit(event);
   }
 
-  protected setOptionsFromAuthority() {
-    if (this.model.authorityOptions.name && this.model.authorityOptions.name.length > 0) {
+  /**
+   * Setting up the field options from vocabulary
+   */
+  protected setOptionsFromVocabulary() {
+    if (this.model.vocabularyOptions.name && this.model.vocabularyOptions.name.length > 0) {
       const listGroup = this.group.controls[this.model.id] as FormGroup;
-      this.authorityService.getEntriesByName(this.searchOptions).subscribe((authorities: IntegrationData) => {
+      const pageInfo: PageInfo = new PageInfo({
+        elementsPerPage: Number.MAX_VALUE, currentPage: 1
+      } as PageInfo);
+      this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, pageInfo).pipe(
+        getFirstSucceededRemoteDataPayload()
+      ).subscribe((entries: PaginatedList<VocabularyEntry>) => {
         let groupCounter = 0;
         let itemsPerGroup = 0;
         let tempList: ListItem[] = [];
-        this.optionsList = authorities.payload as AuthorityValue[];
+        this.optionsList = entries.page;
         // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
-        (authorities.payload as AuthorityValue[]).forEach((option, key) => {
-          const value = option.id || option.value;
+        entries.page.forEach((option, key) => {
+          const value = option.authority || option.value;
           const checked: boolean = isNotEmpty(findKey(
             this.model.value,
             (v) => v.value === option.value));
@@ -137,9 +156,4 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     }
   }
 
-  protected hasAuthorityOptions() {
-    return (hasValue(this.model.authorityOptions.scope)
-      && hasValue(this.model.authorityOptions.name)
-      && hasValue(this.model.authorityOptions.metadata));
-  }
 }

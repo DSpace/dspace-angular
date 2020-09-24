@@ -10,6 +10,7 @@ import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.servi
 import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { UPLOAD_BITSTREAM_PATH, ITEM_EDIT_PATH } from './item-page-routing-paths';
+import { ItemPageAdministratorGuard } from './item-page-administrator.guard';
 
 @NgModule({
   imports: [
@@ -34,7 +35,7 @@ import { UPLOAD_BITSTREAM_PATH, ITEM_EDIT_PATH } from './item-page-routing-paths
           {
             path: ITEM_EDIT_PATH,
             loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
-            canActivate: [AuthenticatedGuard]
+            canActivate: [ItemPageAdministratorGuard]
           },
           {
             path: UPLOAD_BITSTREAM_PATH,
@@ -49,7 +50,8 @@ import { UPLOAD_BITSTREAM_PATH, ITEM_EDIT_PATH } from './item-page-routing-paths
     ItemPageResolver,
     ItemBreadcrumbResolver,
     DSOBreadcrumbsService,
-    LinkService
+    LinkService,
+    ItemPageAdministratorGuard
   ]
 
 })

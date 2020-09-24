@@ -47,3 +47,7 @@ ds-admin-sidebar {
   position: fixed;
   z-index: $sidebar-z-index;
 }
+
+.ds-full-screen-loader {
+  height: 100vh;
+}

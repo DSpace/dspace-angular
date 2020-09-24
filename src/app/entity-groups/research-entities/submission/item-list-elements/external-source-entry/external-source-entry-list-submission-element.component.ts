@@ -3,7 +3,7 @@ import { ExternalSourceEntry } from '../../../../../core/shared/external-source-
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Context } from '../../../../../core/shared/context.model';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 

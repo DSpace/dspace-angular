@@ -34,6 +34,7 @@ describe('UserMenuComponent', () => {
     authState = {
       authenticated: true,
       loaded: true,
+      blocking: false,
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
       userId: EPersonMock.id
@@ -41,6 +42,7 @@ describe('UserMenuComponent', () => {
     authStateLoading = {
       authenticated: true,
       loaded: true,
+      blocking: false,
       loading: true,
       authToken: null,
       userId: EPersonMock.id

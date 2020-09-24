@@ -1,8 +1,6 @@
-import { Observable } from 'rxjs';
 import { SubmissionService } from '../../submission/submission.service';
 import { RemoteData } from '../data/remote-data';
 import { SubmissionObject } from './models/submission-object.model';
-import { WorkspaceItem } from './models/workspaceitem.model';
 import { SubmissionObjectDataService } from './submission-object-data.service';
 import { SubmissionScopeType } from './submission-scope-type';
 import { WorkflowItemDataService } from './workflowitem-data.service';

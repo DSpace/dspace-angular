@@ -1,10 +1,21 @@
 <footer class="footer">
-  <div class="container-fluid content-container-fluid">
-    <img src="assets/images/dspace-logo.png" />
-    <p>
-      <a href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
-      {{ 'footer.copyright' | translate:{year : dateObj | date:'y'} }}
-      <a href="http://www.duraspace.org/">{{ 'footer.link.duraspace' | translate}}</a>
-    </p>
-  </div>
+    <div class="container-fluid content-container-fluid">
+        <img src="assets/images/dspace-logo.png"/>
+        <p>
+            <a href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
+            {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
+            <a href="http://www.duraspace.org/">{{ 'footer.link.duraspace' | translate}}</a>
+        </p>
+        <ul class="list-unstyled small d-flex justify-content-center mb-0 text-secondary">
+            <li>
+                <a href="#" (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
+            </li>
+            <li>
+                <a routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
+            </li>
+            <li>
+                <a routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
+            </li>
+        </ul>
+    </div>
 </footer>

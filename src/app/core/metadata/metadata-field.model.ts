@@ -68,8 +68,8 @@ export class MetadataField extends ListableObject implements HALResource {
   schema?: Observable<RemoteData<MetadataSchema>>;
 
   /**
-   * Method to print this metadata field as a string
-   * @param separator The separator between the schema, element and qualifier in the string
+   * Method to print this metadata field as a string without the schema
+   * @param separator The separator between element and qualifier in the string
    */
   toString(separator: string = '.'): string {
     let key = this.element;

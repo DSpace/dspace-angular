@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { metadataFieldsToString } from '../../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { cloneDeep } from 'lodash';
@@ -9,8 +10,8 @@ import { FieldUpdate } from '../../../../core/data/object-updates/object-updates
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { NgModel } from '@angular/forms';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
-import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -33,14 +34,9 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   @Input() url: string;
 
   /**
-   * List of strings with all metadata field keys available
-   */
-  @Input() metadataFields: string[];
-
-  /**
    * The metadatum of this field
    */
-  metadata: MetadatumViewModel;
+  @Input() metadata: MetadatumViewModel;
 
   /**
    * Emits whether or not this field is currently editable
@@ -126,25 +122,32 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Ignores fields from metadata schemas "relation" and "relationship"
    * @param query The query to look for
    */
-  findMetadataFieldSuggestions(query: string): void {
+  findMetadataFieldSuggestions(query: string) {
     if (isNotEmpty(query)) {
-      this.registryService.queryMetadataFields(query).pipe(
-        // getSucceededRemoteData(),
-        take(1),
-        map((data) => data.payload.page)
-      ).subscribe(
-        (fields: MetadataField[]) => this.metadataFieldSuggestions.next(
-          fields.map((field: MetadataField) => {
-            return {
-              displayValue: field.toString().split('.').join('.&#8203;'),
-              value: field.toString()
-            };
-          })
-        )
-      );
+      return this.registryService.queryMetadataFields(query, null, followLink('schema')).pipe(
+        metadataFieldsToString(),
+        take(1))
+        .subscribe((fieldNames: string[]) => {
+          this.setInputSuggestions(fieldNames);
+        })
     } else {
       this.metadataFieldSuggestions.next([]);
     }
+  }
+
+  /**
+   * Set the list of input suggestion with the given Metadata fields, which all require a resolved MetadataSchema
+   * @param fields  list of Metadata fields, which all require a resolved MetadataSchema
+   */
+  setInputSuggestions(fields: string[]) {
+    this.metadataFieldSuggestions.next(
+      fields.map((fieldName: string) => {
+        return {
+          displayValue: fieldName.split('.').join('.&#8203;'),
+          value: fieldName
+        };
+      })
+    );
   }
 
   /**

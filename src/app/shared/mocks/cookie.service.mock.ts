@@ -16,7 +16,8 @@ export class CookieServiceMock {
     return this.cookies.get(name);
   }
 
-  remove() {
+  remove(name) {
+    this.cookies.delete(name);
     return jasmine.createSpy('remove');
   }
 

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, find, first, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -71,13 +71,17 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    *    Return an observable that emits created HREF
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected getFindAllHref(options: FindListOptions = {}, linkPath?: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
-    let result$: Observable<string>;
+  public getFindAllHref(options: FindListOptions = {}, linkPath?: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
+    let endpoint$: Observable<string>;
     const args = [];
 
-    result$ = this.getBrowseEndpoint(options, linkPath).pipe(distinctUntilChanged());
+    endpoint$ = this.getBrowseEndpoint(options).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      map((href: string) => isNotEmpty(linkPath) ? `${href}/${linkPath}` : href),
+      distinctUntilChanged()
+    );
 
-    return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
+    return endpoint$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
   }
 
   /**
@@ -89,17 +93,11 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    *    Return an observable that emits created HREF
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected getSearchByHref(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
+  public getSearchByHref(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<string> {
     let result$: Observable<string>;
     const args = [];
 
     result$ = this.getSearchEndpoint(searchMethod);
-
-    if (hasValue(options.searchParams)) {
-      options.searchParams.forEach((param: RequestParam) => {
-        args.push(`${param.fieldName}=${param.fieldValue}`);
-      })
-    }
 
     return result$.pipe(map((result: string) => this.buildHrefFromFindOptions(result, options, args, ...linksToFollow)));
   }
@@ -114,7 +112,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    *    Return an observable that emits created HREF
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  protected buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = [], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
+  public buildHrefFromFindOptions(href: string, options: FindListOptions, extraArgs: string[] = [], ...linksToFollow: Array<FollowLinkConfig<T>>): string {
     let args = [...extraArgs];
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
@@ -129,6 +127,11 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     }
     if (hasValue(options.startsWith)) {
       args = [...args, `startsWith=${options.startsWith}`];
+    }
+    if (hasValue(options.searchParams)) {
+      options.searchParams.forEach((param: RequestParam) => {
+        args = [...args, `${param.fieldName}=${param.fieldValue}`];
+      })
     }
     args = this.addEmbedParams(args, ...linksToFollow);
     if (isNotEmpty(args)) {
@@ -373,9 +376,18 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
     ).subscribe();
 
     return this.requestService.getByUUID(requestId).pipe(
+      hasValueOperator(),
       find((request: RequestEntry) => request.completed),
       map((request: RequestEntry) => request.response)
     );
+  }
+
+  createPatchFromCache(object: T): Observable<Operation[]> {
+    const oldVersion$ = this.findByHref(object._links.self.href);
+    return oldVersion$.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((oldVersion: T) => this.comparator.diff(oldVersion, object)));
   }
 
   /**
@@ -406,18 +418,16 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * @param {DSpaceObject} object The given object
    */
   update(object: T): Observable<RemoteData<T>> {
-    const oldVersion$ = this.findByHref(object._links.self.href);
-    return oldVersion$.pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      mergeMap((oldVersion: T) => {
-          const operations = this.comparator.diff(oldVersion, object);
-          if (isNotEmpty(operations)) {
-            this.objectCache.addPatch(object._links.self.href, operations);
+    return this.createPatchFromCache(object)
+      .pipe(
+        mergeMap((operations: Operation[]) => {
+            if (isNotEmpty(operations)) {
+              this.objectCache.addPatch(object._links.self.href, operations);
+            }
+            return this.findByHref(object._links.self.href);
           }
-          return this.findByHref(object._links.self.href);
-        }
-      ));
+        )
+      );
   }
 
   /**

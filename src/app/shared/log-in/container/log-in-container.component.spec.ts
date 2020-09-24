@@ -12,6 +12,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { createTestComponent } from '../../testing/utils.test';
+import { HardRedirectService } from '../../../core/services/hard-redirect.service';
 
 describe('LogInContainerComponent', () => {
 
@@ -20,7 +21,13 @@ describe('LogInContainerComponent', () => {
 
   const authMethod = new AuthMethod('password');
 
+  let hardRedirectService: HardRedirectService;
+
   beforeEach(async(() => {
+    hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
+      redirect: {},
+      getCurrentRoute: {}
+    });
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
       imports: [
@@ -35,6 +42,7 @@ describe('LogInContainerComponent', () => {
       ],
       providers: [
         {provide: AuthService, useClass: AuthServiceStub},
+        { provide: HardRedirectService, useValue: hardRedirectService },
         LogInContainerComponent
       ],
       schemas: [

@@ -6,9 +6,9 @@ export class TagFieldParser extends FieldParser {
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
     const tagModelConfig: DynamicTagModelConfig = this.initModel(null, label);
-    if (this.configData.selectableMetadata[0].authority
-      && this.configData.selectableMetadata[0].authority.length > 0) {
-      this.setAuthorityOptions(tagModelConfig, this.parserOptions.authorityUuid);
+    if (this.configData.selectableMetadata[0].controlledVocabulary
+      && this.configData.selectableMetadata[0].controlledVocabulary.length > 0) {
+      this.setVocabularyOptions(tagModelConfig);
     }
 
     this.setValues(tagModelConfig, fieldValue, null, true);
