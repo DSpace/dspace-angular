@@ -2,7 +2,8 @@ import { FeatureAuthorizationGuard } from './feature-authorization.guard';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { of as observableOf } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
 
 /**
  * Test implementation of abstract class FeatureAuthorizationGuard
@@ -17,16 +18,16 @@ class FeatureAuthorizationGuardImpl extends FeatureAuthorizationGuard {
     super(authorizationService, router);
   }
 
-  getFeatureID(): FeatureID {
-    return this.featureId;
+  getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
+    return observableOf(this.featureId);
   }
 
-  getObjectUrl(): string {
-    return this.objectUrl;
+  getObjectUrl(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
+    return observableOf(this.objectUrl);
   }
 
-  getEPersonUuid(): string {
-    return this.ePersonUuid;
+  getEPersonUuid(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
+    return observableOf(this.ePersonUuid);
   }
 }
 

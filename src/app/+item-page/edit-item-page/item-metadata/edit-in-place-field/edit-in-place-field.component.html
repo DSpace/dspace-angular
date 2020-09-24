@@ -5,14 +5,15 @@
         </div>
         <div *ngIf="(editable | async)" class="field-container">
             <ds-filter-input-suggestions [suggestions]="(metadataFieldSuggestions | async)"
-                                  [(ngModel)]="metadata.key"
+                                         [(ngModel)]="metadata.key"
+                                         [url]="this.url"
+                                         [metadata]="this.metadata"
                                   (submitSuggestion)="update(suggestionControl)"
                                   (clickSuggestion)="update(suggestionControl)"
                                   (typeSuggestion)="update(suggestionControl)"
                                   (dsClickOutside)="checkValidity(suggestionControl)"
                                   (findSuggestions)="findMetadataFieldSuggestions($event)"
                                   #suggestionControl="ngModel"
-                                  [dsInListValidator]="metadataFields"
                                   [valid]="(valid | async) !== false"
                                   dsAutoFocus autoFocusSelector=".suggestion_input"
                                   [ngModelOptions]="{standalone: true}"
@@ -46,12 +47,12 @@
 </td>
 <td class="text-center">
     <div class="btn-group edit-field">
-        <button [disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)"
+        <button [disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)"
                 (click)="setEditable(true)" class="btn btn-outline-primary btn-sm"
                 title="{{'item.edit.metadata.edit.buttons.edit' | translate}}">
             <i class="fas fa-edit fa-fw"></i>
         </button>
-        <button [disabled]="!(canSetUneditable() | async)" *ngIf="(editable | async)"
+        <button [disabled]="!(canSetUneditable() | async) || (valid | async) === false" *ngIf="(editable | async)"
                 (click)="setEditable(false)" class="btn btn-outline-success btn-sm"
                 title="{{'item.edit.metadata.edit.buttons.unedit' | translate}}">
             <i class="fas fa-check fa-fw"></i>

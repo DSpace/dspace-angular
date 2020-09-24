@@ -7,8 +7,8 @@ import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model'
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RestResponse } from '../../../../core/cache/response.models';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { getBitstreamFormatsModulePath } from '../../admin-registries-routing.module';
 import { TranslateService } from '@ngx-translate/core';
+import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
 /**
  * This component renders the edit page of a bitstream format.
@@ -51,7 +51,7 @@ export class EditBitstreamFormatComponent implements OnInit {
         if (response.isSuccessful) {
           this.notificationService.success(this.translateService.get('admin.registries.bitstream-formats.edit.success.head'),
             this.translateService.get('admin.registries.bitstream-formats.edit.success.content'));
-          this.router.navigate([getBitstreamFormatsModulePath()]);
+          this.router.navigate([getBitstreamFormatsModuleRoute()]);
         } else {
           this.notificationService.error('admin.registries.bitstream-formats.edit.failure.head',
             'admin.registries.bitstream-formats.create.edit.content');

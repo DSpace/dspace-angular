@@ -1,12 +1,16 @@
+import { DynamicSelectModel } from '@ng-dynamic-forms/core';
+
 import { DsDynamicInputModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { DynamicRowArrayModel, DynamicRowArrayModelConfig } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DynamicSelectModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicRowArrayModel,
+  DynamicRowArrayModelConfig
+} from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { DynamicRelationGroupModel } from '../form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormFieldModel } from '../form/builder/models/form-field.model';
-import { AuthorityOptions } from '../../core/integration/models/authority-options.model';
-import { AuthorityValue } from '../../core/integration/models/authority.value';
+import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormRowModel } from '../../core/config/models/config-submission-form.model';
@@ -92,7 +96,7 @@ export const MockRowArrayQualdropModel: DynamicRowArrayModel = new DynamicRowArr
 const mockFormRowModel = {
   fields: [
     {
-      input: {type: 'lookup'},
+      input: { type: 'lookup' },
       label: 'Journal',
       mandatory: 'false',
       repeatable: false,
@@ -100,14 +104,14 @@ const mockFormRowModel = {
       selectableMetadata: [
         {
           metadata: 'journal',
-          authority: 'JOURNALAuthority',
+          controlledVocabulary: 'JOURNALAuthority',
           closed: false
         }
       ],
       languageCodes: []
     } as FormFieldModel,
     {
-      input: {type: 'onebox'},
+      input: { type: 'onebox' },
       label: 'Issue',
       mandatory: 'false',
       repeatable: false,
@@ -148,7 +152,7 @@ const relationGroupConfig = {
 export const MockRelationModel: DynamicRelationGroupModel = new DynamicRelationGroupModel(relationGroupConfig);
 
 export const inputWithLanguageAndAuthorityConfig = {
-  authorityOptions: new AuthorityOptions('testAuthority', 'testWithAuthority', 'scope'),
+  vocabularyOptions: new VocabularyOptions('testAuthority', false),
   languageCodes: [
     {
       display: 'English',
@@ -165,10 +169,10 @@ export const inputWithLanguageAndAuthorityConfig = {
   readOnly: false,
   disabled: false,
   repeatable: false,
-  value:  {
+  value: {
     value: 'testWithLanguageAndAuthority',
     display: 'testWithLanguageAndAuthority',
-    id: 'testWithLanguageAndAuthority',
+    authority: 'testWithLanguageAndAuthority',
   },
   submissionId: '1234',
   metadataFields: [],
@@ -203,7 +207,7 @@ export const inputWithLanguageConfig = {
 export const mockInputWithLanguageModel = new DsDynamicInputModel(inputWithLanguageConfig);
 
 export const inputWithLanguageAndAuthorityArrayConfig = {
-  authorityOptions: new AuthorityOptions('testAuthority', 'testWithAuthority', 'scope'),
+  vocabularyOptions: new VocabularyOptions('testAuthority', false),
   languageCodes: [
     {
       display: 'English',
@@ -223,7 +227,7 @@ export const inputWithLanguageAndAuthorityArrayConfig = {
   value: [{
     value: 'testLanguageAndAuthorityArray',
     display: 'testLanguageAndAuthorityArray',
-    id: 'testLanguageAndAuthorityArray',
+    authority: 'testLanguageAndAuthorityArray',
   }],
   submissionId: '1234',
   metadataFields: [],
@@ -252,7 +256,11 @@ export const inputWithAuthorityValueConfig = {
   readOnly: false,
   disabled: false,
   repeatable: false,
-  value: Object.assign({}, new AuthorityValue(), { value: 'testWithAuthorityValue', id: 'testWithAuthorityValue', display: 'testWithAuthorityValue' }),
+  value: Object.assign({}, new VocabularyEntry(), {
+    value: 'testWithAuthorityValue',
+    authority: 'testWithAuthorityValue',
+    display: 'testWithAuthorityValue'
+  }),
   submissionId: '1234',
   metadataFields: [],
   hasSelectableMetadata: false
@@ -266,7 +274,7 @@ export const inputWithObjectValueConfig = {
   readOnly: false,
   disabled: false,
   repeatable: false,
-  value: { value: 'testWithObjectValue', id: 'testWithObjectValue', display: 'testWithObjectValue' },
+  value: { value: 'testWithObjectValue', authority: 'testWithObjectValue', display: 'testWithObjectValue' },
   submissionId: '1234',
   metadataFields: [],
   hasSelectableMetadata: false

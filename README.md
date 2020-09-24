@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/DSpace/dspace-angular.svg?branch=main)](https://travis-ci.com/DSpace/dspace-angular) [![Coverage Status](https://coveralls.io/repos/github/DSpace/dspace-angular/badge.svg?branch=main)](https://coveralls.io/github/DSpace/dspace-angular?branch=main) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
+[![Build Status](https://travis-ci.com/DSpace/dspace-angular.svg?branch=main)](https://travis-ci.com/DSpace/dspace-angular) [![Coverage Status](https://codecov.io/gh/DSpace/dspace-angular/branch/main/graph/badge.svg)](https://codecov.io/gh/DSpace/dspace-angular) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
 
 dspace-angular
 ==============

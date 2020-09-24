@@ -1,11 +1,11 @@
-import { delay, filter, map, take } from 'rxjs/operators';
+import { delay, map, distinctUntilChanged, filter, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   HostListener,
   Inject,
-  OnInit,
+  OnInit, Optional,
   ViewEncapsulation
 } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
@@ -19,9 +19,8 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
-import { isAuthenticated } from './core/auth/selectors';
+import { isAuthenticationBlocking } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
-import variables from '../styles/_exposed_variables.scss';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/initial-menus-state';
@@ -32,8 +31,8 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
 import { LocaleService } from './core/locale/locale.service';
-
-export const LANG_COOKIE = 'language_cookie';
+import { hasValue } from './shared/empty.util';
+import { KlaroService } from './shared/cookies/klaro.service';
 
 @Component({
   selector: 'ds-app',
@@ -53,6 +52,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   notificationOptions = environment.notifications;
   models;
 
+  /**
+   * Whether or not the authentication is currently blocking the UI
+   */
+  isNotAuthBlocking$: Observable<boolean>;
+
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     private translate: TranslateService,
@@ -65,8 +69,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
-    private localeService: LocaleService
+    private localeService: LocaleService,
+    @Optional() private cookiesService: KlaroService
   ) {
+
     /* Use models object so all decorators are actually called */
     this.models = models;
     // Load all the languages that are defined as active from the config file
@@ -87,19 +93,25 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.info(environment);
     }
     this.storeCSSVariables();
+
   }
 
   ngOnInit() {
+    this.isNotAuthBlocking$ = this.store.pipe(select(isAuthenticationBlocking)).pipe(
+      map((isBlocking: boolean) => isBlocking === false),
+      distinctUntilChanged()
+    );
+    this.isNotAuthBlocking$
+      .pipe(
+        filter((notBlocking: boolean) => notBlocking),
+        take(1)
+      ).subscribe(() => this.initializeKlaro());
+
     const env: string = environment.production ? 'Production' : 'Development';
     const color: string = environment.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
 
-    // Whether is not authenticathed try to retrieve a possible stored auth token
-    this.store.pipe(select(isAuthenticated),
-      take(1),
-      filter((authenticated) => !authenticated)
-    ).subscribe((authenticated) => this.authService.checkAuthenticationToken());
     this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
 
     this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
@@ -155,4 +167,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     );
   }
 
+  private initializeKlaro() {
+    if (hasValue(this.cookiesService)) {
+      this.cookiesService.initialize()
+    }
+  }
 }

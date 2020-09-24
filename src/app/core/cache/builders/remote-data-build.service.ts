@@ -139,8 +139,8 @@ export class RemoteDataBuildService {
     const pageInfo$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
       map((response: DSOSuccessResponse) => {
-        if (hasValue((response as DSOSuccessResponse).pageInfo)) {
-          return (response as DSOSuccessResponse).pageInfo;
+        if (hasValue(response.pageInfo)) {
+          return Object.assign(new PageInfo(), response.pageInfo);
         }
       })
     );

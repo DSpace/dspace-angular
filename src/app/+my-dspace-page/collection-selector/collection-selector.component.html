@@ -1,0 +1,11 @@
+<div>
+  <div class="modal-header">{{'dso-selector.create.submission.head' | translate}}
+    <button type="button" class="close" (click)="close()" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ds-collection-dropdown (selectionChange)="selectObject($event.collection)">
+    </ds-collection-dropdown>
+  </div>
+</div>

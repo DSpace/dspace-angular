@@ -14,6 +14,10 @@ import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { environment } from '../../../environments/environment';
 import { isEmpty } from '../../shared/empty.util';
+import {
+  END_USER_AGREEMENT_METADATA_FIELD,
+  EndUserAgreementService
+} from '../../core/end-user-agreement/end-user-agreement.service';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -41,7 +45,8 @@ export class CreateProfileComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    private endUserAgreementService: EndUserAgreementService
   ) {
 
   }
@@ -136,6 +141,16 @@ export class CreateProfileComponent implements OnInit {
         canLogIn: true,
         requireCertificate: false
       };
+
+      // If the End User Agreement cookie is accepted, add end-user agreement metadata to the user
+      if (this.endUserAgreementService.isCookieAccepted()) {
+        values.metadata[END_USER_AGREEMENT_METADATA_FIELD] = [
+          {
+            value: String(true)
+          }
+        ];
+        this.endUserAgreementService.removeCookieAccepted();
+      }
 
       const eperson = Object.assign(new EPerson(), values);
       this.ePersonDataService.createEPersonForToken(eperson, this.token).subscribe((response) => {

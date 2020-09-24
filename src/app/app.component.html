@@ -1,4 +1,4 @@
-<div class="outer-wrapper">
+<div class="outer-wrapper" *ngIf="isNotAuthBlocking$ | async; else authLoader">
     <ds-admin-sidebar></ds-admin-sidebar>
     <div class="inner-wrapper"  [@slideSidebarPadding]="{
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
@@ -23,3 +23,8 @@
         <ds-footer></ds-footer>
     </div>
 </div>
+<ng-template #authLoader>
+  <div class="text-center ds-full-screen-loader d-flex align-items-center flex-column justify-content-center">
+    <ds-loading [showMessage]="false"></ds-loading>
+  </div>
+</ng-template>

@@ -4,10 +4,10 @@
     <div *ngIf="i === 1" class="text-center mt-2">
       <span class="align-middle">{{"login.form.or-divider" | translate}}</span>
     </div>
-    <ds-log-in-container [authMethod]="authMethod"></ds-log-in-container>
+    <ds-log-in-container [authMethod]="authMethod" [isStandalonePage]="isStandalonePage"></ds-log-in-container>
   </ng-container>
 
   <div class="dropdown-divider"></div>
-  <a class="dropdown-item" [routerLink]="[getRegisterPath()]">{{"login.form.new-user" | translate}}</a>
-  <a class="dropdown-item" [routerLink]="[getForgotPath()]">{{"login.form.forgot-password" | translate}}</a>
+  <a class="dropdown-item" *ngIf="canRegister$ | async" [routerLink]="[getRegisterRoute()]">{{"login.form.new-user" | translate}}</a>
+  <a class="dropdown-item" [routerLink]="[getForgotRoute()]">{{"login.form.forgot-password" | translate}}</a>
 </div>

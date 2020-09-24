@@ -2,19 +2,20 @@
     <input type="search"
            class="form-control"
            (click)="$event.stopPropagation();"
-           placeholder="{{'dso-selector.placeholder' | translate: { type: type.toString().toLowerCase() } }}"
+           placeholder="{{'dso-selector.placeholder' | translate: { type: typesString } }}"
            [formControl]="input" dsAutoFocus (keyup.enter)="selectSingleResult()">
 </div>
 <div class="dropdown-divider"></div>
 <div class="scrollable-menu list-group">
     <button class="list-group-item list-group-item-action border-0 disabled"
             *ngIf="(listEntries$ | async)?.payload.page.length == 0">
-        {{'dso-selector.no-results' | translate: { type: type.toString().toLowerCase() } }}
+        {{'dso-selector.no-results' | translate: { type: typesString } }}
     </button>
     <button *ngFor="let listEntry of (listEntries$ | async)?.payload.page"
             class="list-group-item list-group-item-action border-0 list-entry"
             title="{{ listEntry.indexableObject.name }}"
             (click)="onSelect.emit(listEntry.indexableObject)" #listEntryElement>
-        <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"></ds-listable-object-component-loader>
+      <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
+                                           [linkType]=linkTypes.None></ds-listable-object-component-loader>
     </button>
 </div>

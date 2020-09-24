@@ -23,11 +23,13 @@ import { FormFieldPreviousValueObject } from '../../../shared/form/builder/model
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { AuthorityValue } from '../../../core/integration/models/authority.value';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { deepClone } from 'fast-json-patch';
 
 /**
  * The service handling all form section operations
@@ -232,18 +234,19 @@ export class SectionFormOperationsService {
       if ((event.model as DsDynamicInputModel).hasAuthority) {
         if (Array.isArray(value)) {
           value.forEach((authority, index) => {
-            authority = Object.assign(new AuthorityValue(), authority, { language });
+            authority = Object.assign(new VocabularyEntry(), authority, { language });
             value[index] = authority;
           });
           fieldValue = value;
         } else {
-          fieldValue = Object.assign(new AuthorityValue(), value, { language });
+          fieldValue = Object.assign(new VocabularyEntry(), value, { language });
         }
       } else {
         // Language without Authority (input, textArea)
         fieldValue = new FormFieldMetadataValueObject(value, language);
       }
-    } else if (value instanceof FormFieldLanguageValueObject || value instanceof AuthorityValue || isObject(value)) {
+    } else if (value instanceof FormFieldLanguageValueObject || value instanceof VocabularyEntry
+      || value instanceof VocabularyEntryDetail || isObject(value)) {
       fieldValue = value;
     } else {
       fieldValue = new FormFieldMetadataValueObject(value);
@@ -310,7 +313,7 @@ export class SectionFormOperationsService {
     event: DynamicFormControlEvent
   ): void {
     const path = this.getFieldPathSegmentedFromChangeEvent(event);
-    const value = this.getFieldValueFromChangeEvent(event);
+    const value = deepClone(this.getFieldValueFromChangeEvent(event));
     if (isNotEmpty(value)) {
       value.place = this.getArrayIndexFromEvent(event);
       if (hasValue(event.group) && hasValue(event.group.value)) {

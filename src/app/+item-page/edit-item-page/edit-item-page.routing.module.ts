@@ -20,14 +20,17 @@ import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
-
-export const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
-export const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
-export const ITEM_EDIT_PRIVATE_PATH = 'private';
-export const ITEM_EDIT_PUBLIC_PATH = 'public';
-export const ITEM_EDIT_DELETE_PATH = 'delete';
-export const ITEM_EDIT_MOVE_PATH = 'move';
-export const ITEM_EDIT_AUTHORIZATIONS_PATH = 'authorizations';
+import {
+  ITEM_EDIT_AUTHORIZATIONS_PATH,
+  ITEM_EDIT_MOVE_PATH,
+  ITEM_EDIT_DELETE_PATH,
+  ITEM_EDIT_PUBLIC_PATH,
+  ITEM_EDIT_PRIVATE_PATH,
+  ITEM_EDIT_REINSTATE_PATH,
+  ITEM_EDIT_WITHDRAW_PATH
+} from './edit-item-page.routing-paths';
+import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
+import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -97,10 +100,12 @@ export const ITEM_EDIT_AUTHORIZATIONS_PATH = 'authorizations';
           {
             path: ITEM_EDIT_WITHDRAW_PATH,
             component: ItemWithdrawComponent,
+            canActivate: [ItemPageWithdrawGuard]
           },
           {
             path: ITEM_EDIT_REINSTATE_PATH,
             component: ItemReinstateComponent,
+            canActivate: [ItemPageReinstateGuard]
           },
           {
             path: ITEM_EDIT_PRIVATE_PATH,
@@ -153,7 +158,9 @@ export const ITEM_EDIT_AUTHORIZATIONS_PATH = 'authorizations';
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
     ResourcePolicyResolver,
-    ResourcePolicyTargetResolver
+    ResourcePolicyTargetResolver,
+    ItemPageReinstateGuard,
+    ItemPageWithdrawGuard
   ]
 })
 export class EditItemPageRoutingModule {

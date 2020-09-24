@@ -4,8 +4,8 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { Context } from '../../../../../core/shared/context.model';
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
 import { Community } from '../../../../../core/shared/community.model';
-import { getCommunityEditPath } from '../../../../../+community-page/community-page-routing.module';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
+import { getCommunityEditRoute } from '../../../../../+community-page/community-page-routing-paths';
 
 @listableObjectComponent(CommunitySearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({
@@ -21,6 +21,6 @@ export class CommunityAdminSearchResultGridElementComponent extends SearchResult
 
   ngOnInit() {
     super.ngOnInit();
-    this.editPath = getCommunityEditPath(this.dso.uuid);
+    this.editPath = getCommunityEditRoute(this.dso.uuid);
   }
 }

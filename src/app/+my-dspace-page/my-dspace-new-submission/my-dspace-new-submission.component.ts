@@ -1,11 +1,10 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { SubmissionState } from '../../submission/submission.reducers';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -15,9 +14,10 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateItemParentSelectorComponent } from 'src/app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { CollectionSelectorComponent } from '../collection-selector/collection-selector.component';
+import { UploaderComponent } from '../../shared/uploader/uploader.component';
+import { UploaderError } from '../../shared/uploader/uploader-error.model';
 
 /**
  * This component represents the whole mydspace page header
@@ -44,6 +44,11 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   private sub: Subscription;
 
   /**
+   * Reference to uploaderComponent
+   */
+  @ViewChild(UploaderComponent, { static: false }) uploaderComponent: UploaderComponent;
+
+  /**
    * Initialize instance variables
    *
    * @param {AuthService} authService
@@ -52,14 +57,14 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    * @param {NotificationsService} notificationsService
    * @param {Store<SubmissionState>} store
    * @param {TranslateService} translate
+   * @param {Router} router
+   * @param {NgbModal} modalService
    */
   constructor(private authService: AuthService,
               private changeDetectorRef: ChangeDetectorRef,
               private halService: HALEndpointService,
               private notificationsService: NotificationsService,
-              private store: Store<SubmissionState>,
               private translate: TranslateService,
-              private router: Router,
               private modalService: NgbModal) {
   }
 
@@ -67,6 +72,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    * Initialize url and Bearer token
    */
   ngOnInit() {
+    this.uploadFilesOptions.autoUpload = false;
     this.sub = this.halService.getEndpoint('workspaceitems').pipe(first()).subscribe((url) => {
         this.uploadFilesOptions.url = url;
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
@@ -106,8 +112,12 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   /**
    * Method called on file upload error
    */
-  public onUploadError() {
-    this.notificationsService.error(null, this.translate.get('mydspace.upload.upload-failed'));
+  public onUploadError(error: UploaderError) {
+    let errorMessageKey = 'mydspace.upload.upload-failed';
+    if (hasValue(error.status) && error.status === 422) {
+      errorMessageKey = 'mydspace.upload.upload-failed-manyentries';
+    }
+    this.notificationsService.error(null, this.translate.get(errorMessageKey));
   }
 
   /**
@@ -116,6 +126,28 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    */
   openDialog() {
     this.modalService.open(CreateItemParentSelectorComponent);
+  }
+
+  /**
+   * Method invoked after all file are loaded from upload plugin
+   */
+  afterFileLoaded(items) {
+    const uploader = this.uploaderComponent.uploader;
+    if (hasValue(items) && items.length > 1) {
+      this.notificationsService.error(null, this.translate.get('mydspace.upload.upload-failed-moreonefile'));
+      uploader.clearQueue();
+      this.changeDetectorRef.detectChanges();
+    } else {
+      const modalRef = this.modalService.open(CollectionSelectorComponent);
+      // When the dialog are closes its takes the collection selected and
+      // uploads choosed file after adds owningCollection parameter
+      modalRef.result.then( (result) => {
+        uploader.onBuildItemForm = (fileItem: any, form: any) => {
+          form.append('owningCollection', result.uuid);
+        };
+        uploader.uploadAll();
+      });
+    }
   }
 
   /**

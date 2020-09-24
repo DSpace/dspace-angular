@@ -3,15 +3,19 @@ import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
-import { first, map } from 'rxjs/operators';
+import { distinctUntilChanged, first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { getItemEditPath, getItemPageRoute } from '../../item-page-routing.module';
+import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { hasValue } from '../../../shared/empty.util';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-item-status',
   templateUrl: './item-status.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   animations: [
     fadeIn,
     fadeInOut
@@ -40,14 +44,15 @@ export class ItemStatusComponent implements OnInit {
    * The possible actions that can be performed on the item
    *  key: id   value: url to action's component
    */
-  operations: ItemOperation[];
+  operations$: BehaviorSubject<ItemOperation[]> = new BehaviorSubject<ItemOperation[]>([]);
 
   /**
    * The keys of the actions (to loop over)
    */
   actionsKeys;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,
+              private authorizationService: AuthorizationDataService) {
   }
 
   ngOnInit(): void {
@@ -67,21 +72,43 @@ export class ItemStatusComponent implements OnInit {
           i18n example: 'item.edit.tabs.status.buttons.<key>.label'
         The value is supposed to be a href for the button
       */
-      this.operations = [];
-      this.operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations'));
-      this.operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper'));
-      if (item.isWithdrawn) {
-        this.operations.push(new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate'));
-      } else {
-        this.operations.push(new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw'));
-      }
+      const operations = [];
+      operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations'));
+      operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper'));
+      operations.push(undefined);
+      // Store the index of the "withdraw" or "reinstate" operation, because it's added asynchronously
+      const indexOfWithdrawReinstate = operations.length - 1;
       if (item.isDiscoverable) {
-        this.operations.push(new ItemOperation('private', this.getCurrentUrl(item) + '/private'));
+        operations.push(new ItemOperation('private', this.getCurrentUrl(item) + '/private'));
       } else {
-        this.operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public'));
+        operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public'));
       }
-      this.operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete'));
-      this.operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move'));
+      operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete'));
+      operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move'));
+
+      this.operations$.next(operations);
+
+      if (item.isWithdrawn) {
+        this.authorizationService.isAuthorized(FeatureID.ReinstateItem, item.self).pipe(distinctUntilChanged()).subscribe((authorized) => {
+          const newOperations = [...this.operations$.value];
+          if (authorized) {
+            newOperations[indexOfWithdrawReinstate] = new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate');
+          } else {
+            newOperations[indexOfWithdrawReinstate] = undefined;
+          }
+          this.operations$.next(newOperations);
+        });
+      } else {
+        this.authorizationService.isAuthorized(FeatureID.WithdrawItem, item.self).pipe(distinctUntilChanged()).subscribe((authorized) => {
+          const newOperations = [...this.operations$.value];
+          if (authorized) {
+            newOperations[indexOfWithdrawReinstate] = new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw');
+          } else {
+            newOperations[indexOfWithdrawReinstate] = undefined;
+          }
+          this.operations$.next(newOperations);
+        });
+      }
     });
 
   }
@@ -99,7 +126,11 @@ export class ItemStatusComponent implements OnInit {
    * @returns {string}  url
    */
   getCurrentUrl(item: Item): string {
-    return getItemEditPath(item.id);
+    return getItemEditRoute(item.id);
+  }
+
+  trackOperation(index: number, operation: ItemOperation) {
+    return hasValue(operation) ? operation.operationKey : undefined;
   }
 
 }

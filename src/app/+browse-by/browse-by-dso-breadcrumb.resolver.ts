@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../core/shared/operators';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
-import { getDSOPath } from '../app-routing.module';
+import { getDSORoute } from '../app-routing-paths';
 
 /**
  * The class that resolves the BreadcrumbConfig object for a DSpaceObject on a browse by page
@@ -32,7 +32,7 @@ export class BrowseByDSOBreadcrumbResolver {
         getSucceededRemoteData(),
         getRemoteDataPayload(),
         map((object: Community | Collection) => {
-          return { provider: this.breadcrumbService, key: object, url: getDSOPath(object) };
+          return { provider: this.breadcrumbService, key: object, url: getDSORoute(object) };
         })
       );
     }

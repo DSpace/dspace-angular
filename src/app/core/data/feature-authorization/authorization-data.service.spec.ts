@@ -63,33 +63,33 @@ describe('AuthorizationDataService', () => {
       return Object.assign(new FindListOptions(), { searchParams });
     }
 
-    describe('when no arguments are provided and a user is authenticated', () => {
+    describe('when no arguments are provided', () => {
       beforeEach(() => {
         service.searchByObject().subscribe();
       });
 
-      it('should call searchBy with the site\'s url and authenticated user\'s uuid', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self, ePerson.uuid));
+      it('should call searchBy with the site\'s url', () => {
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self));
       });
     });
 
-    describe('when no arguments except for a feature are provided and a user is authenticated', () => {
+    describe('when no arguments except for a feature are provided', () => {
       beforeEach(() => {
         service.searchByObject(FeatureID.LoginOnBehalfOf).subscribe();
       });
 
-      it('should call searchBy with the site\'s url, authenticated user\'s uuid and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self, ePerson.uuid, FeatureID.LoginOnBehalfOf));
+      it('should call searchBy with the site\'s url and the feature', () => {
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self, null, FeatureID.LoginOnBehalfOf));
       });
     });
 
-    describe('when a feature and object url are provided, but no user uuid and a user is authenticated', () => {
+    describe('when a feature and object url are provided', () => {
       beforeEach(() => {
         service.searchByObject(FeatureID.LoginOnBehalfOf, objectUrl).subscribe();
       });
 
-      it('should call searchBy with the object\'s url, authenticated user\'s uuid and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePerson.uuid, FeatureID.LoginOnBehalfOf));
+      it('should call searchBy with the object\'s url and the feature', () => {
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, null, FeatureID.LoginOnBehalfOf));
       });
     });
 
@@ -100,17 +100,6 @@ describe('AuthorizationDataService', () => {
 
       it('should call searchBy with the object\'s url, user\'s uuid and the feature', () => {
         expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePersonUuid, FeatureID.LoginOnBehalfOf));
-      });
-    });
-
-    describe('when no arguments are provided and no user is authenticated', () => {
-      beforeEach(() => {
-        spyOn(authService, 'isAuthenticated').and.returnValue(observableOf(false));
-        service.searchByObject().subscribe();
-      });
-
-      it('should call searchBy with the site\'s url', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self));
       });
     });
   });

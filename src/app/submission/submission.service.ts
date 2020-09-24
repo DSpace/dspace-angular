@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -28,7 +28,6 @@ import {
   SubmissionSectionObject
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
-import { GlobalConfig } from '../../config/global-config.interface';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SectionDataObject } from './sections/models/section-data.model';
@@ -68,7 +67,6 @@ export class SubmissionService {
   private workflowLinkPath = 'workflowitems';
   /**
    * Initialize service variables
-   * @param {GlobalConfig} EnvConfig
    * @param {NotificationsService} notificationsService
    * @param {SubmissionRestService} restService
    * @param {Router} router
@@ -112,6 +110,24 @@ export class SubmissionService {
     return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, null, collectionId).pipe(
       map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
       catchError(() => observableOf({} as SubmissionObject)))
+  }
+
+  /**
+   * Perform a REST call to deposit a workspaceitem and return response
+   *
+   * @param selfUrl
+   *    The workspaceitem self url
+   * @param collectionId
+   *    Optional collection id
+   * @return Observable<SubmissionObject>
+   *    observable of SubmissionObject
+   */
+  createSubmissionFromExternalSource(selfUrl: string, collectionId?: string): Observable<SubmissionObject[]> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+    return this.restService.postToEndpoint(this.workspaceLinkPath, selfUrl, null, options, collectionId) as Observable<SubmissionObject[]>;
   }
 
   /**

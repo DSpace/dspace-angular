@@ -19,6 +19,7 @@ import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * A service handling all external source requests

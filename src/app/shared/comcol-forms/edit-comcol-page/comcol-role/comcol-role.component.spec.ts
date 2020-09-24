@@ -4,13 +4,11 @@ import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from '../../../shared.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RequestService } from '../../../../core/data/request.service';
-import { ComcolRole } from './comcol-role';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Collection } from '../../../../core/shared/collection.model';
 
 describe('ComcolRoleComponent', () => {
 
@@ -65,20 +63,10 @@ describe('ComcolRoleComponent', () => {
     comp = fixture.componentInstance;
     de = fixture.debugElement;
 
-    comp.comcolRole = new ComcolRole(
-      'test role name',
-      'test role endpoint',
-    );
-
-    comp.dso = Object.assign(
-      new Collection(), {
-        _links: {
-          'test role endpoint': {
-            href: 'test role link',
-          }
-        }
-      }
-    );
+    comp.comcolRole = {
+      name: 'test role name',
+      href: 'test role link',
+    };
 
     fixture.detectChanges();
   });
@@ -138,7 +126,7 @@ describe('ComcolRoleComponent', () => {
       });
 
       it('should call the groupService create method', () => {
-        expect(groupService.createComcolGroup).toHaveBeenCalledWith(comp.dso, 'test role link');
+        expect(groupService.createComcolGroup).toHaveBeenCalledWith(comp.dso, 'test role name', 'test role link');
       });
     });
   });

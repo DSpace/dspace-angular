@@ -1,8 +1,8 @@
 import { isObject, uniqueId } from 'lodash';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
-import { ConfidenceType } from '../../../core/integration/models/confidence-type';
-import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { ConfidenceType } from '../../../core/shared/confidence-type';
+import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 export interface ChipsItemIcon {
   metadata: string;

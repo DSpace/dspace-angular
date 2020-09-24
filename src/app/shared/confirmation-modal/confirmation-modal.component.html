@@ -1,0 +1,16 @@
+<div>
+  <div class="modal-header">{{ headerLabel | translate:{dsoName: dso?.name} }}
+    <button type="button" class="close" (click)="close()" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ infoLabel | translate:{dsoName: dso?.name} }}</p>
+    <button type="button" class="cancel btn btn-secondary" (click)="cancelPressed()" aria-label="Cancel">
+      {{ cancelLabel | translate:{dsoName: dso?.name} }}
+    </button>
+    <button type="button" class="confirm btn btn-primary" (click)="confirmPressed()" aria-label="Confirm" ngbAutofocus>
+      {{ confirmLabel | translate:{dsoName: dso?.name} }}
+    </button>
+  </div>
+</div>

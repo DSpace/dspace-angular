@@ -6,16 +6,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
 import { Identifiable } from '../../../core/data/object-updates/object-updates.reducer';
-import { first, map, switchMap, take, tap } from 'rxjs/operators';
+import { first, switchMap, tap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { RegistryService } from '../../../core/registry/registry.service';
 import { MetadataValue, MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { UpdateDataService } from '../../../core/data/update-data.service';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { AlertType } from '../../../shared/alert/aletr-type';
@@ -42,11 +40,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    */
   @Input() updateService: UpdateDataService<Item>;
 
-  /**
-   * Observable with a list of strings with all existing metadata field keys
-   */
-  metadataFields$: Observable<string[]>;
-
   constructor(
     public itemService: ItemDataService,
     public objectUpdatesService: ObjectUpdatesService,
@@ -54,7 +47,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
     public route: ActivatedRoute,
-    public metadataFieldService: RegistryService,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
   }
@@ -64,7 +56,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.metadataFields$ = this.findMetadataFields();
     if (hasNoValue(this.updateService)) {
       this.updateService = this.itemService;
     }
@@ -128,16 +119,6 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
         this.notificationsService.error(this.getNotificationTitle('invalid'), this.getNotificationContent('invalid'));
       }
     });
-  }
-
-  /**
-   * Method to request all metadata fields and convert them to a list of strings
-   */
-  findMetadataFields(): Observable<string[]> {
-    return this.metadataFieldService.getAllMetadataFields().pipe(
-      getSucceededRemoteData(),
-      take(1),
-      map((remoteData$) => remoteData$.payload.page.map((field: MetadataField) => field.toString())));
   }
 
   /**

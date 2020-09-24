@@ -82,7 +82,7 @@ describe('StatisticsService', () => {
     const mockSearch: any = new SearchOptions({
       query: 'mock-query',
       configuration: 'mock-configuration',
-      dsoType: DSpaceObjectType.ITEM,
+      dsoTypes: [DSpaceObjectType.ITEM],
       scope: 'mock-scope'
     });
 
