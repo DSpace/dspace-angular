@@ -186,6 +186,8 @@ import { Section } from './layout/models/section.model';
 import { SearchConfigResponseParsingService } from './data/search-config-response-parsing.service';
 import { OrcidQueueService } from './orcid/orcid-queue.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
+import { OrcidHistoryService } from './orcid/orcid-history.service';
+import { OrcidHistory } from './orcid/model/orcid-history.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -341,7 +343,8 @@ const PROVIDERS = [
   SearchcomponentService,
   ResearcherProfileService,
   SectionDataService,
-  OrcidQueueService
+  OrcidQueueService,
+  OrcidHistoryService
 ];
 
 /**
@@ -401,6 +404,7 @@ export const models =
     SearchComponent,
     ResearcherProfile,
     OrcidQueue,
+    OrcidHistory,
     Section
   ];
 

@@ -27,7 +27,7 @@ import { tap } from 'rxjs/operators';
  * A private DataService implementation to delegate specific methods to.
  */
 class OrcidQueueServiceImpl extends DataService<OrcidQueue> {
-  public linkPath = 'orcidQueues';
+  public linkPath = 'orcidqueues';
 
   constructor(
     protected requestService: RequestService,
@@ -82,10 +82,6 @@ export class OrcidQueueService {
 
   deleteById(orcidQueueId: number): Observable<RestResponse> {
     return this.dataService.delete(orcidQueueId + '');
-  }
-
-  send(orcidQueueId: number): Observable<RemoteData<OrcidQueue>> {
-    return this.dataService.create( new OrcidQueue(), new RequestParam('orcidQueueId', orcidQueueId));
   }
 
 }
