@@ -16,6 +16,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+import { cloneDeep } from 'lodash';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import {
   getAllSucceededRemoteDataPayload,
@@ -34,8 +35,7 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
-import {getItemEditPath, getItemPageRoute} from '../../+item-page/item-page-routing.module';
-import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
+import { getItemEditRoute, getItemPageRoute } from '../../+item-page/item-page-routing-paths';
 import {Bundle} from '../../core/shared/bundle.model';
 import {Item} from '../../core/shared/item.model';
 
