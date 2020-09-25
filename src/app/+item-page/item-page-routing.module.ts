@@ -12,7 +12,6 @@ import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { UPLOAD_BITSTREAM_PATH, ITEM_EDIT_PATH, getItemModuleRoute } from './item-page-routing-paths';
 import { CrisItemPageTabResolver } from '../cris-item-page/cris-item-page-tab.resolver';
-import { SubmissionEditComponent } from '../submission/edit/submission-edit.component';
 
 export function getItemPageRoute(itemId: string) {
   return new URLCombiner(getItemModuleRoute(), itemId).toString();
@@ -45,9 +44,8 @@ export function getItemEditPath(id: string) {
           },
           {
             path: ITEM_EDIT_PATH,
-            // loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
+            loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
             canActivate: [AuthenticatedGuard],
-            component: SubmissionEditComponent,
             data: { title: 'submission.edit.title' }
           },
           {

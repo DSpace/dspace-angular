@@ -19,6 +19,11 @@ import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { PageInfo } from '../core/shared/page-info.model';
 import { cold } from 'jasmine-marbles';
 import { tabs } from '../shared/testing/tab.mock';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditItemDataService } from '../core/submission/edititem-data.service';
+import { EditItem } from '../core/submission/models/edititem.model';
 
 const testType = LayoutPage.DEFAULT;
 
@@ -39,17 +44,36 @@ class TabDataServiceMock {
   }
 }
 
+const editItem: EditItem = Object.assign({});
+
+// tslint:disable-next-line: max-classes-per-file
+class EditItemDataServiceMock {
+  findById(itemUuid: string, linkToFollow?: FollowLinkConfig<EditItem>): Observable<RemoteData<EditItem>> {
+    return cold('a|', {
+      a: createSuccessfulRemoteDataObject(
+        editItem
+      )
+    });
+  }
+}
+
 describe('CrisPageLoaderComponent', () => {
   let component: CrisPageLoaderComponent;
   let fixture: ComponentFixture<CrisPageLoaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      }), BrowserAnimationsModule],
       declarations: [CrisPageLoaderComponent, CrisLayoutDefaultComponent, CrisLayoutLoaderDirective],
       providers: [
         ComponentFactoryResolver,
         { provide: TabDataService, useClass: TabDataServiceMock },
+        { provide: EditItemDataService, useClass: EditItemDataServiceMock },
         { provide: Router, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
         { provide: ComponentFactoryResolver, useValue: {} },

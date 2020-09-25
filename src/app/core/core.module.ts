@@ -188,6 +188,8 @@ import { OrcidQueueService } from './orcid/orcid-queue.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { EditItem } from './submission/models/edititem.model';
 import { EditItemDataService } from './submission/edititem-data.service';
+import { EditItemMode } from './submission/models/edititem-mode.model';
+import { EditItemModeDataService } from './submission/edititemmode-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -344,7 +346,8 @@ const PROVIDERS = [
   ResearcherProfileService,
   SectionDataService,
   OrcidQueueService,
-  EditItemDataService
+  EditItemDataService,
+  EditItemModeDataService
 ];
 
 /**
@@ -405,7 +408,8 @@ export const models =
     ResearcherProfile,
     OrcidQueue,
     Section,
-    EditItem
+    EditItem,
+    EditItemMode
   ];
 
 @NgModule({

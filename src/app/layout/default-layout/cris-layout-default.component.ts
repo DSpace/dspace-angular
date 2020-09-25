@@ -9,15 +9,19 @@ import {
 import { Tab } from 'src/app/core/layout/models/tab.model';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
 import { TabDataService } from 'src/app/core/layout/tab-data.service';
-import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
+import { getFirstSucceededRemoteListPayload, getAllSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
 import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
 import { getCrisLayoutTab } from '../decorators/cris-layout-tab.decorator';
 import { CrisLayoutPage } from '../decorators/cris-layout-page.decorator';
 import { CrisLayoutPage as CrisLayoutPageObj } from '../models/cris-layout-page.model';
 import { LayoutPage } from '../enums/layout-page.enum';
-import { Router, ActivatedRoute } from '@angular/router';
 import { hasValue } from 'src/app/shared/empty.util';
 import { Subscription } from 'rxjs';
+import { EditItemDataService } from 'src/app/core/submission/edititem-data.service';
+import { EditItem } from 'src/app/core/submission/models/edititem.model';
+import { mergeMap } from 'rxjs/operators';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
+import { EditItemMode } from 'src/app/core/submission/models/edititem-mode.model';
 
 /**
  * This component defines the default layout for all DSpace Items.
@@ -49,13 +53,17 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
    * List of subscriptions
    */
   subs: Subscription[] = [];
+  /**
+   * List of Edit Modes available on this item
+   * for the current user
+   */
+  editModes: EditItemMode[] = [];
 
   constructor(
     private tabService: TabDataService,
     public cd: ChangeDetectorRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private router: Router,
-    private route: ActivatedRoute
+    private editItemService: EditItemDataService
   ) {
     super();
   }
@@ -72,6 +80,19 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
           this.cd.markForCheck();
         }
     ));
+    // Retrieve edit modes
+    this.subs.push(this.editItemService.findById(this.item.id + ':none', followLink('modes'))
+      .pipe(
+        getAllSucceededRemoteDataPayload(),
+        mergeMap((editItem: EditItem) => editItem.modes.pipe(
+            getFirstSucceededRemoteListPayload())
+          )
+        ).subscribe(
+        (editItemModes) => {
+          console.log('EDIT_ITEM: ', editItemModes);
+          this.editModes = editItemModes;
+        }
+      ));
   }
 
   /**
