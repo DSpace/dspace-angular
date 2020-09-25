@@ -2376,6 +2376,10 @@
 
   "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
 
+  "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
+
+  "person.page.orcid.sync-queue.send.not-found-error": "The submission to ORCID failed because the expected resource to be update does not exists anymore on the ORCID registry.",
+
   "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
 
   "person.page.orcid.synchronization-mode": "Synchronization mode",
