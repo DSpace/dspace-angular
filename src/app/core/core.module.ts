@@ -177,6 +177,7 @@ import { ReloadGuard } from './reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './end-user-agreement/end-user-agreement-current-user.guard';
 import { EndUserAgreementCookieGuard } from './end-user-agreement/end-user-agreement-cookie.guard';
 import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
+import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { SearchcomponentService } from './layout/searchcomponent.service';
 import { SearchComponent } from './layout/models/search-component.model';
 import { ResearcherProfileService } from './profile/researcher-profile.service';
@@ -312,6 +313,7 @@ const PROVIDERS = [
   FeatureDataService,
   AuthorizationDataService,
   SiteAdministratorGuard,
+  SiteRegisterGuard,
   MetadataSchemaDataService,
   MetadataFieldDataService,
   TokenResponseParsingService,

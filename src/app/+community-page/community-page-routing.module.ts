@@ -11,6 +11,7 @@ import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { COMMUNITY_EDIT_PATH, COMMUNITY_CREATE_PATH } from './community-page-routing-paths';
+import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
 
 @NgModule({
   imports: [
@@ -31,7 +32,7 @@ import { COMMUNITY_EDIT_PATH, COMMUNITY_CREATE_PATH } from './community-page-rou
           {
             path: COMMUNITY_EDIT_PATH,
             loadChildren: './edit-community-page/edit-community-page.module#EditCommunityPageModule',
-            canActivate: [AuthenticatedGuard]
+            canActivate: [CommunityPageAdministratorGuard]
           },
           {
             path: 'delete',
@@ -53,7 +54,8 @@ import { COMMUNITY_EDIT_PATH, COMMUNITY_CREATE_PATH } from './community-page-rou
     CommunityBreadcrumbResolver,
     DSOBreadcrumbsService,
     LinkService,
-    CreateCommunityPageGuard
+    CreateCommunityPageGuard,
+    CommunityPageAdministratorGuard
   ]
 })
 export class CommunityPageRoutingModule {

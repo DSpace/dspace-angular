@@ -19,6 +19,8 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { createTestComponent } from '../testing/utils.test';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { of } from 'rxjs/internal/observable/of';
 
 describe('LogInComponent', () => {
 
@@ -36,11 +38,17 @@ describe('LogInComponent', () => {
   };
   let hardRedirectService: HardRedirectService;
 
+  let authorizationService: AuthorizationDataService;
+
   beforeEach(async(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
       redirect: {},
       getCurrentRoute: {}
     });
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: of(true)
+    });
+
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
       imports: [
@@ -65,6 +73,7 @@ describe('LogInComponent', () => {
         // { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
         LogInComponent
       ],

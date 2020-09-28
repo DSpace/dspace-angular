@@ -32,7 +32,7 @@ import { enableProdMode } from '@angular/core';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasValue } from './src/app/shared/empty.util';
+import { hasValue, hasNoValue } from './src/app/shared/empty.util';
 
 /*
  * Set path for the browser application's dist folder
@@ -140,12 +140,16 @@ function ngApp(req, res) {
       baseUrl: environment.ui.nameSpace,
       originUrl: environment.ui.baseUrl,
       requestUrl: req.originalUrl
-    }, (err) => {
-      console.warn('Error in SSR, serving for direct CSR.');
-      if (hasValue(err)) {
-        console.warn('Error details : ', err);
+    }, (err, data) => {
+      if (hasNoValue(err) && hasValue(data)) {
+        res.send(data);
+      } else {
+        console.warn('Error in SSR, serving for direct CSR.');
+        if (hasValue(err)) {
+          console.warn('Error details : ', err);
+        }
+        res.sendFile(DIST_FOLDER + '/index.html');
       }
-      res.sendFile(DIST_FOLDER + '/index.html');
     })
   } else {
     // If preboot is disabled, just serve the client

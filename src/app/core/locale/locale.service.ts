@@ -10,7 +10,7 @@ import { Observable, of as observableOf, combineLatest } from 'rxjs';
 import { map, take, flatMap } from 'rxjs/operators';
 import { NativeWindowService, NativeWindowRef } from '../services/window.service';
 
-export const LANG_COOKIE = 'language_cookie';
+export const LANG_COOKIE = 'dsLanguage';
 
 /**
  * This enum defines the possible origin of the languages

@@ -1,6 +1,6 @@
 import { Router, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter, find, flatMap, map, take, tap } from 'rxjs/operators';
+import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
+import { filter, find, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
@@ -9,6 +9,8 @@ import { RemoteData } from '../data/remote-data';
 import { RestRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
+import { MetadataField } from '../metadata/metadata-field.model';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { getUnauthorizedRoute } from '../../app-routing-paths';
@@ -264,4 +266,28 @@ export const paginatedListToArray = () =>
     source.pipe(
       hasValueOperator(),
       map((objectRD: RemoteData<PaginatedList<T>>) => objectRD.payload.page.filter((object: T) => hasValue(object)))
+    );
+
+/**
+ * Operator for turning a list of metadata fields into an array of string representing their schema.element.qualifier string
+ */
+export const metadataFieldsToString = () =>
+  (source: Observable<RemoteData<PaginatedList<MetadataField>>>): Observable<string[]> =>
+    source.pipe(
+      hasValueOperator(),
+      map((fieldRD: RemoteData<PaginatedList<MetadataField>>) => {
+        return fieldRD.payload.page.filter((object: MetadataField) => hasValue(object))
+      }),
+      switchMap((fields: MetadataField[]) => {
+        const fieldSchemaArray = fields.map((field: MetadataField) => {
+          return field.schema.pipe(
+            getFirstSucceededRemoteDataPayload(),
+            map((schema: MetadataSchema) => ({ field, schema }))
+          );
+        });
+        return observableCombineLatest(fieldSchemaArray);
+      }),
+      map((fieldSchemaArray: Array<{ field: MetadataField, schema: MetadataSchema }>): string[] => {
+        return fieldSchemaArray.map((fieldSchema: { field: MetadataField, schema: MetadataSchema }) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString())
+      })
     );

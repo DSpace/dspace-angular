@@ -29,6 +29,8 @@ import {
   ITEM_EDIT_REINSTATE_PATH,
   ITEM_EDIT_WITHDRAW_PATH
 } from './edit-item-page.routing-paths';
+import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
+import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -98,10 +100,12 @@ import {
           {
             path: ITEM_EDIT_WITHDRAW_PATH,
             component: ItemWithdrawComponent,
+            canActivate: [ItemPageWithdrawGuard]
           },
           {
             path: ITEM_EDIT_REINSTATE_PATH,
             component: ItemReinstateComponent,
+            canActivate: [ItemPageReinstateGuard]
           },
           {
             path: ITEM_EDIT_PRIVATE_PATH,
@@ -154,7 +158,9 @@ import {
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
     ResourcePolicyResolver,
-    ResourcePolicyTargetResolver
+    ResourcePolicyTargetResolver,
+    ItemPageReinstateGuard,
+    ItemPageWithdrawGuard
   ]
 })
 export class EditItemPageRoutingModule {

@@ -1,11 +1,11 @@
-import { delay, map, distinctUntilChanged } from 'rxjs/operators';
+import { delay, map, distinctUntilChanged, filter, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   HostListener,
   Inject,
-  OnInit,
+  OnInit, Optional,
   ViewEncapsulation
 } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
@@ -31,8 +31,8 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { environment } from '../environments/environment';
 import { models } from './core/core.module';
 import { LocaleService } from './core/locale/locale.service';
-
-export const LANG_COOKIE = 'language_cookie';
+import { hasValue } from './shared/empty.util';
+import { KlaroService } from './shared/cookies/klaro.service';
 
 @Component({
   selector: 'ds-app',
@@ -69,8 +69,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
-    private localeService: LocaleService
+    private localeService: LocaleService,
+    @Optional() private cookiesService: KlaroService
   ) {
+
     /* Use models object so all decorators are actually called */
     this.models = models;
     // Load all the languages that are defined as active from the config file
@@ -91,6 +93,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.info(environment);
     }
     this.storeCSSVariables();
+
   }
 
   ngOnInit() {
@@ -98,6 +101,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       map((isBlocking: boolean) => isBlocking === false),
       distinctUntilChanged()
     );
+    this.isNotAuthBlocking$
+      .pipe(
+        filter((notBlocking: boolean) => notBlocking),
+        take(1)
+      ).subscribe(() => this.initializeKlaro());
+
     const env: string = environment.production ? 'Production' : 'Development';
     const color: string = environment.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
@@ -158,4 +167,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     );
   }
 
+  private initializeKlaro() {
+    if (hasValue(this.cookiesService)) {
+      this.cookiesService.initialize()
+    }
+  }
 }
