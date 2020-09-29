@@ -20,6 +20,9 @@ import { RestResponse } from '../../../core/cache/response.models';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequestService } from '../../../core/data/request.service';
+import { ObjectCacheService } from "../../../core/cache/object-cache.service";
+import { tap } from "rxjs/internal/operators/tap";
+import { filter } from "rxjs/internal/operators/filter";
 
 @Component({
   selector: 'ds-epeople-registry',
@@ -76,7 +79,8 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               private formBuilder: FormBuilder,
               private router: Router,
               private modalService: NgbModal,
-              public requestService: RequestService) {
+              public requestService: RequestService,
+              public objectCache: ObjectCacheService) {
     this.currentSearchQuery = '';
     this.currentSearchScope = 'metadata';
     this.searchForm = this.formBuilder.group(({
@@ -138,15 +142,15 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
       this.currentSearchScope = scope;
       this.config.currentPage = 1;
     }
-    this.epersonService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
+    this.subs.push(this.epersonService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
       currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize
     }).subscribe((peopleRD) => {
         this.ePeople$.next(peopleRD)
       }
-    );
+    ));
 
-    this.ePeople$.pipe(
+    this.subs.push(this.ePeople$.pipe(
         getAllSucceededRemoteDataPayload(),
         switchMap((epeople) => {
           return combineLatest(...epeople.page.map((eperson) => {
@@ -161,7 +165,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
           })).pipe(map((dtos: EpersonDtoModel[]) => {
               return new PaginatedList(epeople.pageInfo, dtos);
           }))
-        })).subscribe((value) => this.ePeopleDto$.next(value));
+        })).subscribe((value) => this.ePeopleDto$.next(value)));
   }
 
   /**
@@ -232,6 +236,10 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * Unsub all subscriptions
    */
   ngOnDestroy(): void {
+    this.cleanupSubscribes();
+  }
+
+  cleanupSubscribes() {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
@@ -259,11 +267,13 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * This method will ensure that the page gets reset and that the cache is cleared
    */
   reset() {
-    this.ePeopleDto$.pipe(take(1)).subscribe((epersons: PaginatedList<EpersonDtoModel>) => {
-      epersons.page.forEach((eperson: EpersonDtoModel) => {
-        this.requestService.removeByHrefSubstring(eperson.eperson.self);
-      })
+    this.epersonService.getSearchByHref("byMetadata", {}).pipe(
+        switchMap((href) => this.requestService.removeByHrefSubstring(href)),
+        filter((isCached) => isCached),
+        take(1)
+    ).subscribe(() => {
+      this.cleanupSubscribes();
+      this.initialisePage();
     });
-    this.initialisePage();
   }
 }
