@@ -7,7 +7,7 @@ import {
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, combineLatest, of, of as observableOf } from 'rxjs';
+import { Subscription, combineLatest, of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { switchMap, take } from 'rxjs/operators';
 import { RestResponse } from '../../../../core/cache/response.models';
