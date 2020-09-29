@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
 import { SiteDataService } from '../../core/data/site-data.service';
-import { UsageReportService } from '../../core/submission/usage-report-data.service';
+import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Site } from '../../core/shared/site.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';

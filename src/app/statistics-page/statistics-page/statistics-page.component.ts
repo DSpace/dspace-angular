@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { UsageReportService } from '../../core/submission/usage-report-data.service';
+import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 import { map, switchMap } from 'rxjs/operators';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { RemoteData } from '../../core/data/remote-data';

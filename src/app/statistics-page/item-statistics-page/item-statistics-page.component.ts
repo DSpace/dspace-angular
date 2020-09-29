@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
-import { UsageReportService } from '../../core/submission/usage-report-data.service';
+import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../core/shared/item.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';

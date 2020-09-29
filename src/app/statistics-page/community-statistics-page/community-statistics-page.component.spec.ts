@@ -3,7 +3,7 @@ import { CommunityStatisticsPageComponent } from './community-statistics-page.co
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UsageReportService } from '../../core/submission/usage-report-data.service';
+import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
