@@ -31,6 +31,7 @@ import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/
 import { StatisticsModule } from '../statistics/statistics.module';
 import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 import { CrisItemPageModule } from '../cris-item-page/cris-item-page.module';
+import { SubmissionModule } from '../submission/submission.module';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { CrisItemPageModule } from '../cris-item-page/cris-item-page.module';
     EditItemPageModule,
     SearchPageModule,
     StatisticsModule.forRoot(),
-    CrisItemPageModule
+    CrisItemPageModule,
+    SubmissionModule
   ],
   declarations: [
     ItemPageComponent,
@@ -63,7 +65,7 @@ import { CrisItemPageModule } from '../cris-item-page/cris-item-page.module';
     RelatedEntitiesSearchComponent,
     UploadBitstreamComponent,
     TabbedRelatedEntitiesSearchComponent,
-    AbstractIncrementalListComponent,
+    AbstractIncrementalListComponent
   ],
   exports: [
     ItemComponent,

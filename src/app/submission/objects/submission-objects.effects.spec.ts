@@ -53,6 +53,7 @@ import { Item } from '../../core/shared/item.model';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { EditItemDataService } from 'src/app/core/submission/edititem-data.service';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;
@@ -91,7 +92,7 @@ describe('SubmissionObjectEffects test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: WorkflowItemDataService, useValue: {} },
-        { provide: WorkflowItemDataService, useValue: {} },
+        { provide: EditItemDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
       ],
     });

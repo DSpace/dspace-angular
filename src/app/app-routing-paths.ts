@@ -65,3 +65,5 @@ export const INFO_MODULE_PATH = 'info';
 export function getInfoModulePath() {
   return `/${INFO_MODULE_PATH}`;
 }
+
+export const EDIT_ITEM_PATH = 'edit-items';

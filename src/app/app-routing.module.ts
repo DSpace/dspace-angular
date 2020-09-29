@@ -14,7 +14,8 @@ import {
   PROFILE_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
-  INFO_MODULE_PATH
+  INFO_MODULE_PATH,
+  EDIT_ITEM_PATH
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './+collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './+community-page/community-page-routing-paths';
@@ -61,6 +62,11 @@ import { SiteRegisterGuard } from './core/data/feature-authorization/feature-aut
             {
               path: WORKFLOW_ITEM_MODULE_PATH,
               loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule',
+              canActivate: [EndUserAgreementCurrentUserGuard]
+            },
+            {
+              path: EDIT_ITEM_PATH,
+              loadChildren: './edit-item/edit-item.module#EditItemModule',
               canActivate: [EndUserAgreementCurrentUserGuard]
             },
             {

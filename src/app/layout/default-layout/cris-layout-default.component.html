@@ -10,9 +10,35 @@
         class="pr-0 pt-3 pb-3"
         [ngClass]="{'p-0': !hideSideBarControl(), 'pl-3': !sidebarStatus, 'pl-0': sidebarStatus}">
           <div *ngIf="hideSideBarControl()" class="row">
-              <button type="button" class="btn btn-link" (click)="hideShowSidebar()">
-                  <i class="fa fa-chevron-circle-{{sidebarStatus ? 'right' : 'left'}} fa-2x" aria-hidden="true"></i>
-              </button>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-link" (click)="hideShowSidebar()">
+                    <i class="fa fa-chevron-circle-{{sidebarStatus ? 'right' : 'left'}} fa-2x" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <div class="col-md-6" *ngIf="editModes && editModes.length === 1">
+                <button
+                    *ngFor="let editMode of editModes"
+                    type="button" class="btn btn-outline-primary float-right"
+                    routerLink="/edit-items/{{item.id}}:{{editMode.name}}">
+                    <i class="fas fa-edit" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="col-md-6 text-right" *ngIf="editModes && editModes.length > 1">
+                <div class="btn-group" ngbDropdown role="group">
+                    <button ngbDropdownToggle
+                        class="btn btn-outline-primary">
+                        <i class="fas fa-edit pr-4" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                        <button ngbDropdownItem
+                            *ngFor="let editMode of editModes"
+                            routerLink="/edit-items/{{item.id}}:{{editMode.name}}">
+                            {{editMode.label ? (editMode.label | translate) : editMode.name}}
+                        </button>
+                    </div>
+                </div>
+            </div>
           </div>
           <ng-template dsCrisLayoutLoader></ng-template>
       </div>

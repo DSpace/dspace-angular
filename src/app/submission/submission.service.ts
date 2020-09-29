@@ -67,6 +67,7 @@ export class SubmissionService {
 
   private workspaceLinkPath = 'workspaceitems';
   private workflowLinkPath = 'workflowitems';
+  private editItemsLinkPath = 'edititems';
   /**
    * Initialize service variables
    * @param {NotificationsService} notificationsService
@@ -381,7 +382,7 @@ export class SubmissionService {
     } else if (url.startsWith('/workflowitems')) {
       return this.workflowLinkPath;
     } else {
-      return 'edititems';
+      return this.editItemsLinkPath;
     }
   }
 
@@ -399,6 +400,9 @@ export class SubmissionService {
         break;
       case this.workflowLinkPath:
         scope = SubmissionScopeType.WorkflowItem;
+        break;
+      case this.editItemsLinkPath:
+        scope = SubmissionScopeType.EditItem;
         break;
     }
     return scope;

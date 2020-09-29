@@ -4,7 +4,7 @@ import { CrisLayoutDefaultComponent } from './cris-layout-default.component';
 import { LayoutPage } from '../enums/layout-page.enum';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 import { Tab } from 'src/app/core/layout/models/tab.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { PaginatedList } from 'src/app/core/data/paginated-list';
 import { cold } from 'jasmine-marbles';
@@ -24,6 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
 import { Box } from 'src/app/core/layout/models/box.model';
 import { BoxDataService } from 'src/app/core/layout/box-data.service';
+import { EditItemDataService } from 'src/app/core/submission/edititem-data.service';
+import { EditItem } from 'src/app/core/submission/models/edititem.model';
 
 const testType = LayoutPage.DEFAULT;
 class TestItem {
@@ -40,6 +42,20 @@ class BoxDataServiceMock {
   }
 }
 
+const editItem: EditItem = Object.assign({
+  modes: of({})
+});
+
+// tslint:disable-next-line: max-classes-per-file
+class EditItemDataServiceMock {
+  findById(itemUuid: string, linkToFollow?: FollowLinkConfig<EditItem>): Observable<RemoteData<EditItem>> {
+    return cold('a|', {
+      a: createSuccessfulRemoteDataObject(
+        editItem
+      )
+    });
+  }
+}
 describe('CrisLayoutDefaultComponent', () => {
   let component: CrisLayoutDefaultComponent;
   let fixture: ComponentFixture<CrisLayoutDefaultComponent>;
@@ -69,6 +85,7 @@ describe('CrisLayoutDefaultComponent', () => {
           ComponentFactoryResolver,
           {provide: TabDataService, useClass: TabDataServiceMock},
           {provide: BoxDataService, useClass: BoxDataServiceMock},
+          {provide: EditItemDataService, useClass: EditItemDataServiceMock},
           {provide: Router, useValue: {}},
           {provide: ActivatedRoute, useValue: {}},
           {provide: ComponentFactoryResolver, useValue: {}},
@@ -133,6 +150,7 @@ describe('CrisLayoutDefaultComponent', () => {
           ComponentFactoryResolver,
           {provide: TabDataService, useClass: TabDataServiceMock},
           {provide: BoxDataService, useClass: BoxDataServiceMock},
+          {provide: EditItemDataService, useClass: EditItemDataServiceMock},
           {provide: Router, useValue: {}},
           {provide: ActivatedRoute, useValue: {}},
           {provide: ComponentFactoryResolver, useValue: {}},

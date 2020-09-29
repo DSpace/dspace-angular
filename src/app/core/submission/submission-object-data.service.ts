@@ -11,6 +11,7 @@ import { WorkspaceitemDataService } from './workspaceitem-data.service';
 import { DataService } from '../data/data.service';
 import { map } from 'rxjs/operators';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { EditItemDataService } from './edititem-data.service';
 
 /**
  * A service to retrieve submission objects (WorkspaceItem/WorkflowItem)
@@ -23,6 +24,7 @@ export class SubmissionObjectDataService {
   constructor(
     private workspaceitemDataService: WorkspaceitemDataService,
     private workflowItemDataService: WorkflowItemDataService,
+    private editItemDataService: EditItemDataService,
     private submissionService: SubmissionService,
     private halService: HALEndpointService
   ) {
@@ -33,7 +35,18 @@ export class SubmissionObjectDataService {
    * @param id The identifier for the object
    */
   getHrefByID(id): Observable<string> {
-    const dataService: DataService<SubmissionObject> = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem ? this.workspaceitemDataService : this.workflowItemDataService;
+    let dataService: DataService<SubmissionObject>;
+    switch (this.submissionService.getSubmissionScope()) {
+      case SubmissionScopeType.WorkspaceItem:
+        dataService = this.workspaceitemDataService;
+        break;
+      case SubmissionScopeType.WorkflowItem:
+        dataService = this.workflowItemDataService;
+        break;
+      case SubmissionScopeType.EditItem:
+        dataService = this.editItemDataService;
+        break;
+    }
 
     return this.halService.getEndpoint(dataService.getLinkPath()).pipe(
       map((endpoint: string) => dataService.getIDHref(endpoint, encodeURIComponent(id))));
@@ -51,6 +64,8 @@ export class SubmissionObjectDataService {
         return this.workspaceitemDataService.findById(id,...linksToFollow);
       case SubmissionScopeType.WorkflowItem:
         return this.workflowItemDataService.findById(id,...linksToFollow);
+      case SubmissionScopeType.EditItem:
+        return this.editItemDataService.findById(id,...linksToFollow);
       default:
         const error = new RemoteDataError(
           undefined,

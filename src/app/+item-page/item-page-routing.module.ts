@@ -46,7 +46,8 @@ export function getItemEditPath(id: string) {
           {
             path: ITEM_EDIT_PATH,
             loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
-            canActivate: [ItemPageAdministratorGuard]
+            canActivate: [ItemPageAdministratorGuard],
+            data: { title: 'submission.edit.title' }
           },
           {
             path: UPLOAD_BITSTREAM_PATH,
