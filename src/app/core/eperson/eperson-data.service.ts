@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch/lib/core';
 import { Observable } from 'rxjs';
-import { filter, find, map, skipWhile, switchMap, take, tap } from 'rxjs/operators';
+import { filter, find, map, take } from 'rxjs/operators';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction

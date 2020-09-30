@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { map, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list';
