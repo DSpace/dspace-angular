@@ -20,6 +20,7 @@ _This checklist provides a reminder of what we are going to look for when review
 
 - [ ] My PR is small in size (e.g. less than 1,000 lines of code, not including comments & specs/tests), or I have provided reasons as to why that's not possible.
 - [ ] My PR passes [TSLint](https://palantir.github.io/tslint/) validation using `yarn run lint`
+- [ ] My PR doesn't introduce circular dependencies
 - [ ] My PR includes [TypeDoc](https://typedoc.org/) comments for _all new (or modified) public methods and classes_. It also includes TypeDoc for large or complex private methods.
 - [ ] My PR passes all specs/tests and includes new/updated specs or tests based on the [Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code+Testing+Guide).
 - [ ] If my PR includes new, third-party dependencies (in `package.json`), I've made sure their licenses align with the [DSpace BSD License](https://github.com/DSpace/DSpace/blob/main/LICENSE) based on the [Licensing of Contributions](https://wiki.lyrasis.org/display/DSPACE/Code+Contribution+Guidelines#CodeContributionGuidelines-LicensingofContributions) documentation.
