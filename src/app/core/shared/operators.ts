@@ -14,7 +14,7 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { getUnauthorizedRoute } from '../../app-routing-paths';
-import { getEndUserAgreementPath } from '../../info/info-routing.module';
+import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
