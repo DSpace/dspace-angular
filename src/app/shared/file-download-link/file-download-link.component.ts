@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FileService } from '../../core/shared/file.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthService } from '../../core/auth/auth.service';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
 
 @Component({
   selector: 'ds-file-download-link',
@@ -30,10 +31,13 @@ export class FileDownloadLinkComponent implements OnInit {
   isAuthenticated$: Observable<boolean>;
 
   constructor(private fileService: FileService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private redirectService: HardRedirectService) {
+  }
 
   ngOnInit() {
     this.isAuthenticated$ = this.authService.isAuthenticated();
+    this.href = this.redirectService.rewriteDownloadURL(this.href);
   }
 
   /**
@@ -44,5 +48,4 @@ export class FileDownloadLinkComponent implements OnInit {
     this.fileService.downloadFile(this.href);
     return false;
   }
-
 }

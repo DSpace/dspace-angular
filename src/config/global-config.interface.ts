@@ -31,4 +31,5 @@ export interface GlobalConfig extends Config {
   item: ItemPageConfig;
   collection: CollectionPageConfig;
   theme: Theme;
+  rewriteDownloadUrls: boolean;
 }
