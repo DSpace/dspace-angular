@@ -24,9 +24,9 @@ import { RestResponse } from '../../core/cache/response.models';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
   createSuccessfulRemoteDataObject$
-} from "../../shared/remote-data.utils";
-import {RouterStub} from "../../shared/testing/router.stub";
-import {getItemEditPath, getItemPageRoute} from "../../+item-page/item-page-routing.module";
+} from '../../shared/remote-data.utils';
+import {RouterStub} from '../../shared/testing/router.stub';
+import { getItemEditRoute, getItemPageRoute } from '../../+item-page/item-page-routing-paths';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -242,7 +242,7 @@ describe('EditBitstreamPageComponent', () => {
     it('should redirect to the item edit path bitstream page', () => {
       comp.itemId = 'some-uuid'
       comp.navigateToItemEditBitstreams();
-      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditPath('some-uuid'), 'bitstreams']);
+      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('some-uuid'), 'bitstreams']);
     });
   });
   describe('when navigateToItemEditBitstreams is called, and the component does not have an itemId', () => {
