@@ -14,6 +14,8 @@ import {Bitstream} from '../../../../core/shared/bitstream.model';
 import {of as observableOf} from 'rxjs';
 import {MockBitstreamFormat1} from '../../../../shared/mocks/item.mock';
 import {By} from '@angular/platform-browser';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 
 describe('FullFileSectionComponent', () => {
     let comp: FullFileSectionComponent;
@@ -61,7 +63,8 @@ describe('FullFileSectionComponent', () => {
             }), BrowserAnimationsModule],
             declarations: [FullFileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
             providers: [
-                {provide: BitstreamDataService, useValue: bitstreamDataService}
+                {provide: BitstreamDataService, useValue: bitstreamDataService},
+                {provide: NotificationsService, useValue: new NotificationsServiceStub()}
             ],
 
             schemas: [NO_ERRORS_SCHEMA]

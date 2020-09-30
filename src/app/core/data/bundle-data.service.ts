@@ -22,6 +22,7 @@ import { FindListOptions, GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { Bitstream } from '../shared/bitstream.model';
+import { RemoteDataError } from './remote-data-error';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API
@@ -71,13 +72,17 @@ export class BundleDataService extends DataService<Bundle> {
         if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
           const matchingBundle = rd.payload.page.find((bundle: Bundle) =>
             bundle.name === bundleName);
-          return new RemoteData(
-            false,
-            false,
-            true,
-            undefined,
-            matchingBundle
-          );
+          if (hasValue(matchingBundle)) {
+            return new RemoteData(
+              false,
+              false,
+              true,
+              undefined,
+              matchingBundle
+            );
+          } else {
+            return new RemoteData(false, false, false, new RemoteDataError(404, 'Not found', `The bundle with name ${bundleName} was not found.` ))
+          }
         } else {
           return rd as any;
         }
