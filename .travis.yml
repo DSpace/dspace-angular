@@ -24,7 +24,7 @@ env:
   # Direct that step to utilize a DSpace REST service that has been started in docker.
   DSPACE_REST_HOST: localhost
   DSPACE_REST_PORT: 8080
-  DSPACE_REST_NAMESPACE: '/server/api'
+  DSPACE_REST_NAMESPACE: '/server'
   DSPACE_REST_SSL: false
 
 before_install:

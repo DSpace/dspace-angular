@@ -42,7 +42,7 @@ export const environment = {
     host: 'dspace7.4science.cloud',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    nameSpace: '/server/api'
+    nameSpace: '/server'
   }
 };
 ```
@@ -52,7 +52,7 @@ Alternately you can set the following environment variables. If any of these are
   DSPACE_REST_SSL=true
   DSPACE_REST_HOST=dspace7.4science.cloud
   DSPACE_REST_PORT=443
-  DSPACE_REST_NAMESPACE=/server/api
+  DSPACE_REST_NAMESPACE=/server
 ```
 
 ## Supporting analytics services other than Google Analytics
