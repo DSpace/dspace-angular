@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of as observableOf } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { map, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list';
@@ -20,7 +20,8 @@ import { RestResponse } from '../../../core/cache/response.models';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequestService } from '../../../core/data/request.service';
-import { filter } from "rxjs/internal/operators/filter";
+import { filter } from 'rxjs/internal/operators/filter';
+import { PageInfo } from '../../../core/shared/page-info.model';
 
 @Component({
   selector: 'ds-epeople-registry',
@@ -43,6 +44,11 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * as the result of the search
    */
   ePeopleDto$: BehaviorSubject<PaginatedList<EpersonDtoModel>> = new BehaviorSubject<PaginatedList<EpersonDtoModel>>({} as any);
+
+  /**
+   * An observable for the pageInfo, needed to pass to the pagination component
+   */
+  pageInfoState$: BehaviorSubject<PageInfo> = new BehaviorSubject<PageInfo>(undefined);
 
   /**
    * Pagination config used to display the list of epeople
@@ -108,18 +114,10 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * @param event
    */
   onPageChange(event) {
-    this.config.currentPage = event;
-    this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery })
-  }
-
-  /**
-   * Force-update the list of EPeople by first clearing the cache related to EPeople, then performing
-   * a new REST call
-   */
-  public forceUpdateEPeople() {
-    this.epersonService.clearEPersonRequests();
-    this.isEPersonFormShown = false;
-    this.search({ query: '', scope: 'metadata' })
+    if (this.config.currentPage !== event) {
+      this.config.currentPage = event;
+      this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery })
+    }
   }
 
   /**
@@ -162,7 +160,10 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
           })).pipe(map((dtos: EpersonDtoModel[]) => {
               return new PaginatedList(epeople.pageInfo, dtos);
           }))
-        })).subscribe((value) => this.ePeopleDto$.next(value)));
+        })).subscribe((value) => {
+          this.ePeopleDto$.next(value);
+          this.pageInfoState$.next(value.pageInfo);
+        }));
   }
 
   /**
@@ -217,12 +218,9 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               if (restResponse.isSuccessful) {
                 this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: ePerson.name }));
                 this.reset();
-                this.forceUpdateEPeople();
               } else {
                 this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + ePerson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.statusText);
               }
-              this.epersonService.cancelEditEPerson();
-              this.isEPersonFormShown = false;
             })
           }}
       });
@@ -264,7 +262,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * This method will ensure that the page gets reset and that the cache is cleared
    */
   reset() {
-    this.epersonService.getSearchByHref("byMetadata", {}).pipe(
+    this.epersonService.getBrowseEndpoint().pipe(
         switchMap((href) => this.requestService.removeByHrefSubstring(href)),
         filter((isCached) => isCached),
         take(1)

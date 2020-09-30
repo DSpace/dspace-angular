@@ -4,7 +4,7 @@
 
       <h2 id="header" class="border-bottom pb-2">{{labelPrefix + 'head' | translate}}</h2>
 
-      <ds-eperson-form *ngIf="isEPersonFormShown" (submitForm)="forceUpdateEPeople()"
+      <ds-eperson-form *ngIf="isEPersonFormShown" (submitForm)="reset()"
                        (cancelForm)="isEPersonFormShown = false"></ds-eperson-form>
 
       <div *ngIf="!isEPersonFormShown">
@@ -42,8 +42,8 @@
         <ds-pagination
           *ngIf="(ePeopleDto$ | async)?.totalElements > 0"
           [paginationOptions]="config"
-          [pageInfoState]="(ePeopleDto$ | async)?.pageInfo"
-          [collectionSize]="(ePeopleDto$ | async)?.totalElements"
+          [pageInfoState]="pageInfoState$"
+          [collectionSize]="(pageInfoState$ | async)?.totalElements"
           [hideGear]="true"
           [hidePagerWhenSinglePage]="true"
           (pageChange)="onPageChange($event)">
@@ -85,7 +85,7 @@
 
         </ds-pagination>
 
-        <div *ngIf="(ePeopleDto$ | async)?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
+        <div *ngIf="(pageInfoState$ | async)?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
           {{labelPrefix + 'no-items' | translate}}
         </div>
       </div>

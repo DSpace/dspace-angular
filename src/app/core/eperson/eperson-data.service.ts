@@ -299,34 +299,4 @@ export class EPersonDataService extends DataService<EPerson> {
       map((request: RequestEntry) => request.response)
     );
   }
-
-  /**
-   * Make a new FindListRequest with given search method
-   *
-   * @param searchMethod The search method for the object
-   * @param options The [[FindListOptions]] object
-   * @param linksToFollow The array of [[FollowLinkConfig]]
-   * @return {Observable<RemoteData<PaginatedList<EPerson>>}
-   *    Return an observable that emits response from the server
-   */
-  searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
-    const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
-
-    return hrefObs.pipe(
-      find((href: string) => hasValue(href)),
-      tap((href: string) => {
-          this.requestService.removeByHrefSubstring(href);
-          const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
-
-          this.requestService.configure(request);
-        }
-      ),
-      switchMap((href) => this.requestService.getByHref(href)),
-      skipWhile((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
-      switchMap((href) =>
-        this.rdbService.buildList<EPerson>(hrefObs, ...linksToFollow) as Observable<RemoteData<PaginatedList<EPerson>>>
-      )
-    );
-  }
-
 }
