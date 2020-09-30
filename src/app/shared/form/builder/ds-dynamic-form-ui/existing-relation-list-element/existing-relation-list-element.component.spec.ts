@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';

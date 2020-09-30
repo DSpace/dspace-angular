@@ -1,11 +1,16 @@
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
-import { NewPatchAddOperationAction, NewPatchMoveOperationAction, NewPatchRemoveOperationAction, NewPatchReplaceOperationAction } from '../json-patch-operations.actions';
+import {
+  NewPatchAddOperationAction,
+  NewPatchMoveOperationAction,
+  NewPatchRemoveOperationAction,
+  NewPatchReplaceOperationAction
+} from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
 import { Injectable } from '@angular/core';
-import { hasNoValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { dateToISOFormat } from '../../../shared/date.util';
-import { AuthorityValue } from '../../integration/models/authority.value';
+import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 
@@ -96,7 +101,7 @@ export class JsonPatchOperationsBuilder {
 
   protected prepareValue(value: any, plain: boolean, first: boolean) {
     let operationValue: any = null;
-    if (isNotEmpty(value)) {
+    if (hasValue(value)) {
       if (plain) {
         operationValue = value;
       } else {
@@ -125,10 +130,12 @@ export class JsonPatchOperationsBuilder {
       operationValue = value;
     } else if (value instanceof Date) {
       operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value));
-    } else if (value instanceof AuthorityValue) {
+    } else if (value instanceof VocabularyEntry) {
       operationValue = this.prepareAuthorityValue(value);
     } else if (value instanceof FormFieldLanguageValueObject) {
       operationValue = new FormFieldMetadataValueObject(value.value, value.language);
+    } else if (value.hasOwnProperty('authority')) {
+      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.authority);
     } else if (value.hasOwnProperty('value')) {
       operationValue = new FormFieldMetadataValueObject(value.value);
     } else {
@@ -144,10 +151,10 @@ export class JsonPatchOperationsBuilder {
     return operationValue;
   }
 
-  protected prepareAuthorityValue(value: any) {
-    let operationValue: any = null;
-    if (isNotEmpty(value.id)) {
-      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.id);
+  protected prepareAuthorityValue(value: any): FormFieldMetadataValueObject {
+    let operationValue: FormFieldMetadataValueObject;
+    if (isNotEmpty(value.authority)) {
+      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.authority);
     } else {
       operationValue = new FormFieldMetadataValueObject(value.value, value.language);
     }

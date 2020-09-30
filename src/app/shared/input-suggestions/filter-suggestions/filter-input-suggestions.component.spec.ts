@@ -3,9 +3,11 @@ import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angula
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MetadataFieldDataService } from '../../../core/data/metadata-field-data.service';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { FilterInputSuggestionsComponent } from './filter-input-suggestions.component';
 
 describe('FilterInputSuggestionsComponent', () => {
@@ -14,19 +16,23 @@ describe('FilterInputSuggestionsComponent', () => {
   let fixture: ComponentFixture<FilterInputSuggestionsComponent>;
   let de: DebugElement;
   let el: HTMLElement;
-  const suggestions = [{displayValue: 'suggestion uno', value: 'suggestion uno'}, {
+  const suggestions = [{ displayValue: 'suggestion uno', value: 'suggestion uno' }, {
     displayValue: 'suggestion dos',
     value: 'suggestion dos'
-  }, {displayValue: 'suggestion tres', value: 'suggestion tres'}];
+  }, { displayValue: 'suggestion tres', value: 'suggestion tres' }];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, ReactiveFormsModule],
       declarations: [FilterInputSuggestionsComponent],
-      providers: [],
+      providers: [FormsModule,
+        ReactiveFormsModule,
+        { provide: MetadataFieldDataService, useValue: {} },
+        { provide: ObjectUpdatesService, useValue: {} },
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FilterInputSuggestionsComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

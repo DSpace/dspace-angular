@@ -17,6 +17,7 @@ import { NativeWindowService } from '../../../../core/services/window.service';
 import { RouterStub } from '../../../testing/router.stub';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 
 describe('LogInShibbolethComponent', () => {
 
@@ -30,6 +31,7 @@ describe('LogInShibbolethComponent', () => {
   let location;
 
   let authState;
+  let hardRedirectService: HardRedirectService;
 
   beforeEach(() => {
     user = EPersonMock;
@@ -41,6 +43,11 @@ describe('LogInShibbolethComponent', () => {
       loaded: false,
       loading: false,
     };
+
+    hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
+      getCurrentRoute: {},
+      redirect: {}
+    });
   });
 
   beforeEach(async(() => {
@@ -56,9 +63,11 @@ describe('LogInShibbolethComponent', () => {
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Shibboleth, location) },
+        { provide: 'isStandalonePage', useValue: true },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: HardRedirectService, useValue: hardRedirectService },
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -99,7 +108,7 @@ describe('LogInShibbolethComponent', () => {
 
     component.redirectToShibboleth();
 
-    expect(setHrefSpy).toHaveBeenCalledWith(shibbolethBaseUrl + currentUrl)
+    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl)
 
   });
 
@@ -114,7 +123,7 @@ describe('LogInShibbolethComponent', () => {
 
     component.redirectToShibboleth();
 
-    expect(setHrefSpy).toHaveBeenCalledWith(shibbolethBaseUrl + currentUrl)
+    expect(setHrefSpy).toHaveBeenCalledWith(currentUrl)
 
   });
 

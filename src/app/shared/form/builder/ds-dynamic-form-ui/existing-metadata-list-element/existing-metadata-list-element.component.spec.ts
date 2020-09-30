@@ -1,9 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExistingMetadataListElementComponent, Reorderable, ReorderableRelationship } from './existing-metadata-list-element.component';
+import {
+  ExistingMetadataListElementComponent,
+  ReorderableRelationship
+} from './existing-metadata-list-element.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
@@ -11,7 +14,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { of as observableOf } from 'rxjs';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
 
 describe('ExistingMetadataListElementComponent', () => {
   let component: ExistingMetadataListElementComponent;

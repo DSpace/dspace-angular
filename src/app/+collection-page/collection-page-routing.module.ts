@@ -19,6 +19,7 @@ import {
   COLLECTION_EDIT_PATH,
   COLLECTION_CREATE_PATH
 } from './collection-page-routing-paths';
+import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
 
 @NgModule({
   imports: [
@@ -39,7 +40,7 @@ import {
           {
             path: COLLECTION_EDIT_PATH,
             loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
-            canActivate: [AuthenticatedGuard]
+            canActivate: [CollectionPageAdministratorGuard]
           },
           {
             path: 'delete',
@@ -78,7 +79,8 @@ import {
     CollectionBreadcrumbResolver,
     DSOBreadcrumbsService,
     LinkService,
-    CreateCollectionPageGuard
+    CreateCollectionPageGuard,
+    CollectionPageAdministratorGuard
   ]
 })
 export class CollectionPageRoutingModule {

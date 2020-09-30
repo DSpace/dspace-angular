@@ -4,15 +4,37 @@ $footer-padding: $spacer * 1.5;
 $footer-logo-height: 55px;
 
 .footer {
-  background-color: $footer-bg;
-  border-top: $footer-border;
-  text-align: center;
-  padding: $footer-padding;
+    background-color: $footer-bg;
+    border-top: $footer-border;
+    text-align: center;
+    padding: $footer-padding;
+    padding-bottom: $spacer;
 
-  p {
-    margin: 0;
-  }
-  img {
-    height: $footer-logo-height;
-  }
+    p {
+        margin: 0;
+    }
+
+    img {
+        height: $footer-logo-height;
+    }
+
+    ul {
+        padding-top: $spacer * 0.5;
+
+        li {
+            display: inline-flex;
+            a {
+                padding: 0 $spacer/2;
+                color: inherit
+            }
+
+            &:not(:last-child) {
+                &:after {
+                    content: '';
+                    border-right: 1px map-get($theme-colors, secondary) solid;
+                }
+
+            }
+        }
+    }
 }

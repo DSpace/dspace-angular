@@ -184,4 +184,25 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
     return [this.constructor as GenericConstructor<ListableObject>];
   }
+
+  setMetadata(key: string, language?: string, ...values: string[]) {
+    const mdValues: MetadataValue[] = values.map((value: string, index: number) => {
+      const md = new MetadataValue();
+      md.value = value;
+      md.authority = null;
+      md.confidence = -1;
+      md.language = language || null;
+      md.place = index;
+      return md;
+    });
+    if (hasNoValue(this.metadata)) {
+      this.metadata = Object.create({});
+    }
+    this.metadata[key] = mdValues;
+  }
+
+  removeMetadata(key: string) {
+    delete this.metadata[key];
+  }
+
 }

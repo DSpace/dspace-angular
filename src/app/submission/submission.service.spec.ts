@@ -411,6 +411,19 @@ describe('SubmissionService test suite', () => {
     });
   });
 
+  describe('createSubmissionFromExternalSource', () => {
+    it('should deposit submission', () => {
+      const options: HttpOptions = Object.create({});
+      let headers = new HttpHeaders();
+      headers = headers.append('Content-Type', 'text/uri-list');
+      options.headers = headers;
+
+      service.createSubmissionFromExternalSource(selfUrl, collectionId);
+
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', selfUrl, null, options, collectionId);
+    });
+  });
+
   describe('depositSubmission', () => {
     it('should deposit submission', () => {
       const options: HttpOptions = Object.create({});

@@ -10,7 +10,7 @@ import { Observable, of as observableOf, combineLatest } from 'rxjs';
 import { map, take, flatMap } from 'rxjs/operators';
 import { NativeWindowService, NativeWindowRef } from '../services/window.service';
 
-export const LANG_COOKIE = 'language_cookie';
+export const LANG_COOKIE = 'dsLanguage';
 
 /**
  * This enum defines the possible origin of the languages
@@ -19,7 +19,7 @@ export enum LANG_ORIGIN {
   UI,
   EPERSON,
   BROWSER
-};
+}
 
 /**
  * Service to provide localization handler
@@ -75,8 +75,9 @@ export class LocaleService {
     return obs$.pipe(
       take(1),
       flatMap(([isAuthenticated, isLoaded]) => {
-        let epersonLang$: Observable<string[]> = observableOf([]);
-        if (isAuthenticated && isLoaded) {
+        // TODO to enabled again when https://github.com/DSpace/dspace-angular/issues/739 will be resolved
+        const epersonLang$: Observable<string[]> = observableOf([]);
+/*        if (isAuthenticated && isLoaded) {
           epersonLang$ = this.authService.getAuthenticatedUserFromStore().pipe(
             take(1),
             map((eperson) => {
@@ -91,7 +92,7 @@ export class LocaleService {
               return languages;
             })
           );
-        }
+        }*/
         return epersonLang$.pipe(
           map((epersonLang: string[]) => {
             const languages: string[] = [];
