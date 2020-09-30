@@ -507,7 +507,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       this.bitstream.bundle.pipe(getFirstSucceededRemoteDataPayload(),
           mergeMap((bundle: Bundle) => bundle.item.pipe(getFirstSucceededRemoteDataPayload(), map((item: Item) => item.uuid))))
           .subscribe((item) => {
-            this.router.navigate(([getItemPageRoute(item)]));
+            this.router.navigate(([getItemEditRoute(item), 'bitstreams']));
           });
     }
   }

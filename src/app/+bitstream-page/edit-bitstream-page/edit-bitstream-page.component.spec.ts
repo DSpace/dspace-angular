@@ -239,17 +239,17 @@ describe('EditBitstreamPageComponent', () => {
     });
   });
   describe('when navigateToItemEditBitstreams is called, and the component has an itemId', () => {
-    it('should redirect to the item edit path bitstream page', () => {
-      comp.itemId = 'some-uuid'
+    it('should redirect to the item edit page on the bitstreams tab with the itemId from the component', () => {
+      comp.itemId = 'some-uuid1'
       comp.navigateToItemEditBitstreams();
-      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('some-uuid'), 'bitstreams']);
+      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('some-uuid1'), 'bitstreams']);
     });
   });
   describe('when navigateToItemEditBitstreams is called, and the component does not have an itemId', () => {
-    it('should redirect to the item page', () => {
+    it('should redirect to the item edit page on the bitstreams tab with the itemId from the bundle links ', () => {
       comp.itemId = undefined;
       comp.navigateToItemEditBitstreams();
-      expect(routerStub.navigate).toHaveBeenCalledWith([getItemPageRoute('some-uuid')]);
+      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('some-uuid'), 'bitstreams']);
     });
   });
 });
