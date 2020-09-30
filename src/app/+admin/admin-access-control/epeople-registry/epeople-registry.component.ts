@@ -20,8 +20,6 @@ import { RestResponse } from '../../../core/cache/response.models';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequestService } from '../../../core/data/request.service';
-import { ObjectCacheService } from "../../../core/cache/object-cache.service";
-import { tap } from "rxjs/internal/operators/tap";
 import { filter } from "rxjs/internal/operators/filter";
 
 @Component({
@@ -79,8 +77,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               private formBuilder: FormBuilder,
               private router: Router,
               private modalService: NgbModal,
-              public requestService: RequestService,
-              public objectCache: ObjectCacheService) {
+              public requestService: RequestService) {
     this.currentSearchQuery = '';
     this.currentSearchScope = 'metadata';
     this.searchForm = this.formBuilder.group(({
