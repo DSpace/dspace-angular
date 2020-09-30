@@ -16,13 +16,12 @@ export const environment: GlobalConfig = {
   },
   // The REST API server settings.
   // NOTE: these must be "synced" with the 'dspace.server.url' setting in your backend's local.cfg.
-  // The 'nameSpace' must always end in "/api" as that's the subpath of the REST API in the backend.
   rest: {
     ssl: true,
     host: 'dspace7.4science.cloud',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    nameSpace: '/server/api',
+    nameSpace: '/server',
   },
   // Caching settings
   cache: {
