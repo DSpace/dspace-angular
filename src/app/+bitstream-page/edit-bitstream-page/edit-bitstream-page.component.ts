@@ -497,8 +497,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * When the item ID is present, navigate back to the item's edit bitstreams page, otherwise go back to the previous
-   * page the user came from
+   * When the item ID is present, navigate back to the item's edit bitstreams page,
+   * otherwise retrieve the item ID based on the owning bundle's link
    */
   navigateToItemEditBitstreams() {
     if (hasValue(this.itemId)) {
