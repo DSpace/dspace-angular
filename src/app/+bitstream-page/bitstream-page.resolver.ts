@@ -6,7 +6,7 @@ import { find } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
-import {followLink, FollowLinkConfig} from "../shared/utils/follow-link-config.model";
+import {followLink, FollowLinkConfig} from '../shared/utils/follow-link-config.model';
 
 /**
  * This class represents a resolver that requests a specific bitstream before the route is activated
