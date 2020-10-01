@@ -35,7 +35,7 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { getItemEditRoute, getItemPageRoute } from '../../+item-page/item-page-routing-paths';
+import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
 import {Bundle} from '../../core/shared/bundle.model';
 import {Item} from '../../core/shared/item.model';
 

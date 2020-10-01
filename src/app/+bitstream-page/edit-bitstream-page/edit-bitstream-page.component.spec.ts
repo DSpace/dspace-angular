@@ -26,7 +26,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import {RouterStub} from '../../shared/testing/router.stub';
-import { getItemEditRoute, getItemPageRoute } from '../../+item-page/item-page-routing-paths';
+import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
