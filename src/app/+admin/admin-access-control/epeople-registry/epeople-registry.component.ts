@@ -16,7 +16,7 @@ import { EpersonDtoModel } from '../../../core/eperson/models/eperson-dto.model'
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { RestResponse } from '../../../core/cache/response.models';
+import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequestService } from '../../../core/data/request.service';
@@ -219,7 +219,8 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
                 this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: ePerson.name }));
                 this.reset();
               } else {
-                this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + ePerson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.statusText);
+                const errorResponse = restResponse as ErrorResponse;
+                this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + ePerson.id + ' with code: ' + errorResponse.statusCode + ' and message: ' + errorResponse.errorMessage);
               }
             })
           }}
