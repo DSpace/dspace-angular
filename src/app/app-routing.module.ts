@@ -15,7 +15,7 @@ import {
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
   INFO_MODULE_PATH,
-  EDIT_ITEM_PATH
+  EDIT_ITEM_PATH, BULK_IMPORT_PATH
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './+collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './+community-page/community-page-routing-paths';
@@ -74,6 +74,7 @@ import { SiteRegisterGuard } from './core/data/feature-authorization/feature-aut
               loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
             },
             { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard] },
+            { path: BULK_IMPORT_PATH, loadChildren: './bulk-import/bulk-import-page.module#BulkImportPageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard] },
             { path: INFO_MODULE_PATH, loadChildren: './info/info.module#InfoModule' },
             { path: UNAUTHORIZED_PATH, component: UnauthorizedComponent },
             { path: '**', pathMatch: 'full', component: PageNotFoundComponent },

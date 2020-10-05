@@ -8,8 +8,12 @@ import { FindListOptions } from '../../core/data/request.models';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { map } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { RoleService } from 'src/app/core/roles/role.service';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { of } from 'rxjs';
+import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-process-overview',
@@ -46,7 +50,8 @@ export class ProcessOverviewComponent implements OnInit {
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
   constructor(protected processService: ProcessDataService,
-              protected ePersonService: EPersonDataService) {
+              protected ePersonService: EPersonDataService,
+              protected authorizationService: AuthorizationDataService) {
   }
 
   ngOnInit(): void {
@@ -62,6 +67,7 @@ export class ProcessOverviewComponent implements OnInit {
       currentPage: event,
     });
     this.pageConfig.currentPage = event;
+    console.log('onPageChange', this.config);
     this.setProcesses();
   }
 
@@ -69,7 +75,19 @@ export class ProcessOverviewComponent implements OnInit {
    * Send a request to fetch all processes for the current page
    */
   setProcesses() {
-    this.processesRD$ = this.processService.findAll(this.config);
+    this.processesRD$ = this.isCurrentUserAdmin().pipe(
+      flatMap((isAdmin) => {
+        if (isAdmin) {
+          return this.processService.findAll(this.config);
+        } else {
+          return this.processService.searchBy('own', this.config);
+        }
+      })
+    )
+  }
+
+  isCurrentUserAdmin(): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, undefined, undefined);
   }
 
   /**

@@ -640,6 +640,33 @@
   "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
 
+
+  "bulk-import.abort-on-error" : "Abort on first error",
+
+  "bulk-import.back": "Back",
+
+  "bulk-import.breadcrumbs" : "Bulk import",
+
+  "bulk-import.collection-name" : "Collection",
+
+  "bulk-import.error": "An error occurred while creating the import process",
+
+  "bulk-import.file" : "Source file",
+
+  "bulk-import.header" : "Bulk import",
+
+  "bulk-import.processing": "Processing...",
+
+  "bulk-import.success": "The import process was successfully created",
+
+  "bulk-import.submit": "Start import",
+
+  "bulk-import.title" : "Bulk import",
+
+  "bulk-import.workflow" : "Use collection workflow",
+  
+
+
   "chips.remove": "Remove chip",
 
 
@@ -831,6 +858,8 @@
   "collection.page.browse.recent.head": "Recent Submissions",
 
   "collection.page.browse.recent.empty": "No items to show",
+
+  "collection.page.bulk-import": "Import items into this collection",
 
   "collection.page.handle": "Permanent URI for this collection",
 

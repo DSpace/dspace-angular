@@ -24,6 +24,9 @@ import {
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasNoValue, hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { getBulkImportRoute } from '../app-routing-paths';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-collection-page',
@@ -51,7 +54,8 @@ export class CollectionPageComponent implements OnInit {
     private searchService: SearchService,
     private metadata: MetadataService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authorizationService: AuthorizationDataService
   ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
@@ -115,5 +119,13 @@ export class CollectionPageComponent implements OnInit {
       paginationConfig: this.paginationConfig,
       sortConfig: this.sortConfig
     });
+  }
+
+  getBulkImportPageRouterLink(collection: Collection) {
+    return getBulkImportRoute(collection);
+  }
+
+  isCollectionAdmin(collection: Collection): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, collection.self, undefined);
   }
 }

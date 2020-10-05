@@ -1,17 +1,19 @@
-import { ProcessOverviewComponent } from './process-overview.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { Process } from '../processes/process.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { By } from '@angular/platform-browser';
-import { ProcessStatus } from '../processes/process-status.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProcessStatus } from '../processes/process-status.model';
+import { Process } from '../processes/process.model';
+import { ProcessOverviewComponent } from './process-overview.component';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
@@ -19,12 +21,14 @@ describe('ProcessOverviewComponent', () => {
 
   let processService: ProcessDataService;
   let ePersonService: EPersonDataService;
+  let authorizationService: any;
 
-  let processes: Process[];
+  let adminProcesses: Process[];
+  let noAdminProcesses: Process[];
   let ePerson: EPerson;
 
   function init() {
-    processes = [
+    adminProcesses = [
       Object.assign(new Process(), {
         processId: 1,
         scriptName: 'script-name',
@@ -41,6 +45,22 @@ describe('ProcessOverviewComponent', () => {
       }),
       Object.assign(new Process(), {
         processId: 3,
+        scriptName: 'another-script-name',
+        startTime: '2020-03-21',
+        endTime: '2020-03-21',
+        processStatus: ProcessStatus.RUNNING
+      })
+    ];
+    noAdminProcesses = [
+      Object.assign(new Process(), {
+        processId: 4,
+        scriptName: 'script-name',
+        startTime: '2020-03-19',
+        endTime: '2020-03-19',
+        processStatus: ProcessStatus.COMPLETED
+      }),
+      Object.assign(new Process(), {
+        processId: 5,
         scriptName: 'another-script-name',
         startTime: '2020-03-21',
         endTime: '2020-03-21',
@@ -64,11 +84,13 @@ describe('ProcessOverviewComponent', () => {
       }
     });
     processService = jasmine.createSpyObj('processService', {
-      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(processes))
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(adminProcesses)),
+      searchBy: createSuccessfulRemoteDataObject$(createPaginatedList(noAdminProcesses))
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
       findById: createSuccessfulRemoteDataObject$(ePerson)
     });
+    authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
   }
 
   beforeEach(async(() => {
@@ -78,81 +100,163 @@ describe('ProcessOverviewComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: ProcessDataService, useValue: processService },
-        { provide: EPersonDataService, useValue: ePersonService }
+        { provide: EPersonDataService, useValue: ePersonService },
+        { provide: AuthorizationDataService, useValue: authorizationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProcessOverviewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  describe('table structure', () => {
-    let rowElements;
+  describe('if the current user is an admin', () => {
 
     beforeEach(() => {
-      rowElements = fixture.debugElement.queryAll(By.css('tbody tr'));
+
+      authorizationService.isAuthorized.and.callFake(() => of(true));
+
+      fixture = TestBed.createComponent(ProcessOverviewComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
     });
 
-    it(`should contain 3 rows`, () => {
-      expect(rowElements.length).toEqual(3);
-    });
+    describe('table structure', () => {
+      let rowElements;
 
-    it('should display the process IDs in the first column', () => {
-      rowElements.forEach((rowElement, index) => {
-        const el = rowElement.query(By.css('td:nth-child(1)')).nativeElement;
-        expect(el.textContent).toContain(processes[index].processId);
+      beforeEach(() => {
+        rowElements = fixture.debugElement.queryAll(By.css('tbody tr'));
+      });
+
+      it(`should contain 3 rows`, () => {
+        expect(rowElements.length).toEqual(3);
+      });
+
+      it('should display the process IDs in the first column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(1)')).nativeElement;
+          expect(el.textContent).toContain(adminProcesses[index].processId);
+        });
+      });
+
+      it('should display the script names in the second column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(2)')).nativeElement;
+          expect(el.textContent).toContain(adminProcesses[index].scriptName);
+        });
+      });
+
+      it('should display the eperson\'s name in the third column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(3)')).nativeElement;
+          expect(el.textContent).toContain(ePerson.name);
+        });
+      });
+
+      it('should display the start time in the fourth column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(4)')).nativeElement;
+          expect(el.textContent).toContain(adminProcesses[index].startTime);
+        });
+      });
+
+      it('should display the end time in the fifth column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(5)')).nativeElement;
+          expect(el.textContent).toContain(adminProcesses[index].endTime);
+        });
+      });
+
+      it('should display the status in the sixth column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(6)')).nativeElement;
+          expect(el.textContent).toContain(adminProcesses[index].processStatus);
+        });
       });
     });
 
-    it('should display the script names in the second column', () => {
-      rowElements.forEach((rowElement, index) => {
-        const el = rowElement.query(By.css('td:nth-child(2)')).nativeElement;
-        expect(el.textContent).toContain(processes[index].scriptName);
+    describe('onPageChange', () => {
+      const toPage = 2;
+
+      it('should call a new findAll with the corresponding page', () => {
+        component.onPageChange(toPage);
+        fixture.detectChanges();
+        expect(processService.findAll).toHaveBeenCalledWith(jasmine.objectContaining({ currentPage: toPage }));
       });
     });
+  })
 
-    it('should display the eperson\'s name in the third column', () => {
-      rowElements.forEach((rowElement, index) => {
-        const el = rowElement.query(By.css('td:nth-child(3)')).nativeElement;
-        expect(el.textContent).toContain(ePerson.name);
-      });
-    });
-
-    it('should display the start time in the fourth column', () => {
-      rowElements.forEach((rowElement, index) => {
-        const el = rowElement.query(By.css('td:nth-child(4)')).nativeElement;
-        expect(el.textContent).toContain(processes[index].startTime);
-      });
-    });
-
-    it('should display the end time in the fifth column', () => {
-      rowElements.forEach((rowElement, index) => {
-        const el = rowElement.query(By.css('td:nth-child(5)')).nativeElement;
-        expect(el.textContent).toContain(processes[index].endTime);
-      });
-    });
-
-    it('should display the status in the sixth column', () => {
-      rowElements.forEach((rowElement, index) => {
-        const el = rowElement.query(By.css('td:nth-child(6)')).nativeElement;
-        expect(el.textContent).toContain(processes[index].processStatus);
-      });
-    });
-  });
-
-  describe('onPageChange', () => {
-    const toPage = 2;
+  describe('if the current user is not an admin', () => {
 
     beforeEach(() => {
-      component.onPageChange(toPage);
+
+      authorizationService.isAuthorized.and.callFake(() => of(false));
+
+      fixture = TestBed.createComponent(ProcessOverviewComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
     });
 
-    it('should call a new findAll with the corresponding page', () => {
-      expect(processService.findAll).toHaveBeenCalledWith(jasmine.objectContaining({ currentPage: toPage }));
+    describe('table structure', () => {
+      let rowElements;
+
+      beforeEach(() => {
+        rowElements = fixture.debugElement.queryAll(By.css('tbody tr'));
+      });
+
+      it(`should contain 2 rows`, () => {
+        expect(rowElements.length).toEqual(2);
+      });
+
+      it('should display the process IDs in the first column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(1)')).nativeElement;
+          expect(el.textContent).toContain(noAdminProcesses[index].processId);
+        });
+      });
+
+      it('should display the script names in the second column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(2)')).nativeElement;
+          expect(el.textContent).toContain(noAdminProcesses[index].scriptName);
+        });
+      });
+
+      it('should display the eperson\'s name in the third column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(3)')).nativeElement;
+          expect(el.textContent).toContain(ePerson.name);
+        });
+      });
+
+      it('should display the start time in the fourth column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(4)')).nativeElement;
+          expect(el.textContent).toContain(noAdminProcesses[index].startTime);
+        });
+      });
+
+      it('should display the end time in the fifth column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(5)')).nativeElement;
+          expect(el.textContent).toContain(noAdminProcesses[index].endTime);
+        });
+      });
+
+      it('should display the status in the sixth column', () => {
+        rowElements.forEach((rowElement, index) => {
+          const el = rowElement.query(By.css('td:nth-child(6)')).nativeElement;
+          expect(el.textContent).toContain(noAdminProcesses[index].processStatus);
+        });
+      });
+
+      describe('onPageChange', () => {
+        const toPage = 2;
+
+        it('should call a new searchBy with the corresponding page', () => {
+          component.onPageChange(toPage);
+          fixture.detectChanges();
+          expect(processService.searchBy).toHaveBeenCalledWith('own', jasmine.objectContaining({ currentPage: toPage }));
+        });
+      });
+
     });
-  });
+  })
 });

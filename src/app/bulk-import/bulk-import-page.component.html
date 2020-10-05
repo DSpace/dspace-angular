@@ -1,0 +1,33 @@
+<div class="container">
+  <h2 class="mb-3">{{ 'bulk-import.title' | translate }}</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="name">{{ 'bulk-import.collection-name' | translate }}</label>
+      <input type="text" class="form-control" id="name" formControlName="name">
+    </div>
+    <div class="form-group">
+      <label for="file">{{ 'bulk-import.file' | translate }}</label>
+      <input type="file" formControlName="file" id="file" class="form-control-file" requireFile/>
+    </div>
+    <div class="form-check">
+      <input type="checkbox" formControlName="abortOnError" id="abortOnError" class="form-check-input" />
+      <label for="abortOnError" class="mr-5">{{ 'bulk-import.abort-on-error' | translate }}</label>
+
+      <input type="checkbox" formControlName="workflow" id="workflow" class="form-check-input" />
+      <label for="workflow">{{ 'bulk-import.workflow' | translate }}</label>
+    </div>
+    
+    <button type="submit" class="btn btn-primary float-right" [disabled]="form.invalid || (isProcessingImport() | async)" >
+      <span *ngIf="(isProcessingImport() | async)">
+        <i class='fas fa-circle-notch fa-spin'></i> {{'bulk-import.processing' | translate}}
+      </span>
+      <span *ngIf="!(isProcessingImport() | async)">
+          {{'bulk-import.submit' | translate}}
+      </span>
+    </button>
+    <button class="btn btn-secondary float-right mr-2" (click)="goBack()">
+      {{'bulk-import.back' | translate}}
+    </button>
+
+  </form>
+</div>
