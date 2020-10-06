@@ -13,28 +13,21 @@ import { AuthRequestService } from './auth-request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  hasNoValue
-} from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
 import {
   getAuthenticatedUser,
   getAuthenticationToken,
   getRedirectUrl,
   isAuthenticated,
-  isTokenRefreshing,
-  isAuthenticatedLoaded
+  isAuthenticatedLoaded,
+  isTokenRefreshing
 } from './selectors';
 import { AppState } from '../../app.reducer';
 import {
   CheckAuthenticationTokenAction,
   ResetAuthenticationMessagesAction,
+  RetrieveAuthMethodsAction,
   SetRedirectUrlAction
 } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
@@ -511,6 +504,15 @@ export class AuthService {
     return this.isAuthenticated().pipe(
       switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null))
     );
+  }
+
+  /**
+   * Return a new instance of RetrieveAuthMethodsAction
+   *
+   * @param authStatus The auth status
+   */
+  getRetrieveAuthMethodsAction(authStatus: AuthStatus): RetrieveAuthMethodsAction {
+    return new RetrieveAuthMethodsAction(authStatus, false);
   }
 
 }

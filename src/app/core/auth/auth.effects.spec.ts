@@ -49,12 +49,14 @@ describe('AuthEffects', () => {
   let store: MockStore<AppState>;
   let routerStub;
   let redirectUrl;
+  let authStatus;
 
   function init() {
     routerStub = new RouterStub();
     authServiceStub = new AuthServiceStub();
     token = authServiceStub.getToken();
-    redirectUrl = '/redirect-url'
+    redirectUrl = '/redirect-url';
+    authStatus = Object.assign(new AuthStatus(), {})
     initialState = {
       core: {
         auth: {
@@ -226,16 +228,38 @@ describe('AuthEffects', () => {
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
       });
 
-      it('should return a RETRIEVE_AUTH_METHODS action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is false', () => {
-        spyOn((authEffects as any).authService, 'checkAuthenticationCookie').and.returnValue(
-          observableOf(
-            { authenticated: false })
-        );
-        actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE } });
+      describe('on CSR', () => {
+        it('should return a RETRIEVE_AUTH_METHODS action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is false', () => {
+          spyOn((authEffects as any).authService, 'checkAuthenticationCookie').and.returnValue(
+            observableOf(
+              { authenticated: false })
+          );
+          spyOn((authEffects as any).authService, 'getRetrieveAuthMethodsAction').and.returnValue(
+            new RetrieveAuthMethodsAction({ authenticated: false } as AuthStatus, false)
+          );
+          actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE } });
 
-        const expected = cold('--b-', { b: new RetrieveAuthMethodsAction({ authenticated: false } as AuthStatus) });
+          const expected = cold('--b-', { b: new RetrieveAuthMethodsAction({ authenticated: false } as AuthStatus, false) });
 
-        expect(authEffects.checkTokenCookie$).toBeObservable(expected);
+          expect(authEffects.checkTokenCookie$).toBeObservable(expected);
+        });
+      });
+
+      describe('on SSR', () => {
+        it('should return a RETRIEVE_AUTH_METHODS action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is false', () => {
+          spyOn((authEffects as any).authService, 'checkAuthenticationCookie').and.returnValue(
+            observableOf(
+              { authenticated: false })
+          );
+          spyOn((authEffects as any).authService, 'getRetrieveAuthMethodsAction').and.returnValue(
+            new RetrieveAuthMethodsAction({ authenticated: false } as AuthStatus, true)
+          );
+          actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE } });
+
+          const expected = cold('--b-', { b: new RetrieveAuthMethodsAction({ authenticated: false } as AuthStatus, true) });
+
+          expect(authEffects.checkTokenCookie$).toBeObservable(expected);
+        });
       });
     });
 
@@ -368,27 +392,74 @@ describe('AuthEffects', () => {
 
   describe('retrieveMethods$', () => {
 
-    describe('when retrieve authentication methods succeeded', () => {
-      it('should return a RETRIEVE_AUTH_METHODS_SUCCESS action in response to a RETRIEVE_AUTH_METHODS action', () => {
-        actions = hot('--a-', { a: { type: AuthActionTypes.RETRIEVE_AUTH_METHODS } });
+    describe('on CSR', () => {
+      describe('when retrieve authentication methods succeeded', () => {
+        it('should return a RETRIEVE_AUTH_METHODS_SUCCESS action in response to a RETRIEVE_AUTH_METHODS action', () => {
+          actions = hot('--a-', { a:
+            {
+              type: AuthActionTypes.RETRIEVE_AUTH_METHODS,
+              payload: { status: authStatus, blocking: false}
+            }
+          });
 
-        const expected = cold('--b-', { b: new RetrieveAuthMethodsSuccessAction(authMethodsMock) });
+          const expected = cold('--b-', { b: new RetrieveAuthMethodsSuccessAction(authMethodsMock, false) });
 
-        expect(authEffects.retrieveMethods$).toBeObservable(expected);
+          expect(authEffects.retrieveMethods$).toBeObservable(expected);
+        });
+      });
+
+      describe('when retrieve authentication methods failed', () => {
+        it('should return a RETRIEVE_AUTH_METHODS_ERROR action in response to a RETRIEVE_AUTH_METHODS action', () => {
+          spyOn((authEffects as any).authService, 'retrieveAuthMethodsFromAuthStatus').and.returnValue(observableThrow(''));
+
+          actions = hot('--a-', { a:
+            {
+              type: AuthActionTypes.RETRIEVE_AUTH_METHODS,
+              payload: { status: authStatus, blocking: false}
+            }
+          });
+
+          const expected = cold('--b-', { b: new RetrieveAuthMethodsErrorAction(false) });
+
+          expect(authEffects.retrieveMethods$).toBeObservable(expected);
+        });
       });
     });
 
-    describe('when retrieve authentication methods failed', () => {
-      it('should return a RETRIEVE_AUTH_METHODS_ERROR action in response to a RETRIEVE_AUTH_METHODS action', () => {
-        spyOn((authEffects as any).authService, 'retrieveAuthMethodsFromAuthStatus').and.returnValue(observableThrow(''));
+    describe('on SSR', () => {
+      describe('when retrieve authentication methods succeeded', () => {
+        it('should return a RETRIEVE_AUTH_METHODS_SUCCESS action in response to a RETRIEVE_AUTH_METHODS action', () => {
+          actions = hot('--a-', { a:
+            {
+              type: AuthActionTypes.RETRIEVE_AUTH_METHODS,
+              payload: { status: authStatus, blocking: true}
+            }
+          });
 
-        actions = hot('--a-', { a: { type: AuthActionTypes.RETRIEVE_AUTH_METHODS } });
+          const expected = cold('--b-', { b: new RetrieveAuthMethodsSuccessAction(authMethodsMock, true) });
 
-        const expected = cold('--b-', { b: new RetrieveAuthMethodsErrorAction() });
-
-        expect(authEffects.retrieveMethods$).toBeObservable(expected);
+          expect(authEffects.retrieveMethods$).toBeObservable(expected);
+        });
       });
-    })
+
+      describe('when retrieve authentication methods failed', () => {
+        it('should return a RETRIEVE_AUTH_METHODS_ERROR action in response to a RETRIEVE_AUTH_METHODS action', () => {
+          spyOn((authEffects as any).authService, 'retrieveAuthMethodsFromAuthStatus').and.returnValue(observableThrow(''));
+
+          actions = hot('--a-', { a:
+            {
+              type: AuthActionTypes.RETRIEVE_AUTH_METHODS,
+              payload: { status: authStatus, blocking: true}
+            }
+          });
+
+          const expected = cold('--b-', { b: new RetrieveAuthMethodsErrorAction(true) });
+
+          expect(authEffects.retrieveMethods$).toBeObservable(expected);
+        });
+      });
+    });
+
   });
 
   describe('clearInvalidTokenOnRehydrate$', () => {

@@ -9,6 +9,7 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
+import { RetrieveAuthMethodsAction } from './auth.actions';
 
 /**
  * The auth service.
@@ -57,5 +58,14 @@ export class ServerAuthService extends AuthService {
     return this.authRequestService.getRequest('status', options).pipe(
       map((status: AuthStatus) => Object.assign(new AuthStatus(), status))
     );
+  }
+
+  /**
+   * Return a new instance of RetrieveAuthMethodsAction
+   *
+   * @param authStatus The auth status
+   */
+  getRetrieveAuthMethodsAction(authStatus: AuthStatus): RetrieveAuthMethodsAction {
+    return new RetrieveAuthMethodsAction(authStatus, true);
   }
 }

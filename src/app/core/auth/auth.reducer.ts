@@ -11,6 +11,7 @@ import {
   RefreshTokenAndRedirectSuccessAction,
   RefreshTokenSuccessAction,
   RetrieveAuthenticatedEpersonSuccessAction,
+  RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
   SetRedirectUrlAction
 } from './auth.actions';
@@ -213,14 +214,14 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS:
       return Object.assign({}, state, {
         loading: false,
-        blocking: false,
-        authMethods: (action as RetrieveAuthMethodsSuccessAction).payload
+        blocking: (action as RetrieveAuthMethodsSuccessAction).payload.blocking,
+        authMethods: (action as RetrieveAuthMethodsSuccessAction).payload.authMethods
       });
 
     case AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR:
       return Object.assign({}, state, {
         loading: false,
-        blocking: false,
+        blocking: (action as RetrieveAuthMethodsErrorAction).payload,
         authMethods: [new AuthMethod(AuthMethodType.Password)]
       });
 
