@@ -12,6 +12,7 @@ import { Notification } from '../../../shared/notifications/models/notification.
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { OBJECT_UPDATES_TRASH_PATH } from './object-updates.reducer';
 import {Relationship} from '../../shared/item-relationships/relationship.model';
+import { Injector } from '@angular/core';
 
 describe('ObjectUpdatesService', () => {
   let service: ObjectUpdatesService;
@@ -31,6 +32,9 @@ describe('ObjectUpdatesService', () => {
   };
 
   const modDate = new Date(2010, 2, 11);
+  const injectionToken = 'fake-injection-token';
+  let patchOperationService;
+  let injector: Injector;
 
   beforeEach(() => {
     const fieldStates = {
@@ -40,11 +44,17 @@ describe('ObjectUpdatesService', () => {
     };
 
     const objectEntry = {
-      fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}
+      fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}, patchOperationServiceToken: injectionToken
     };
     store = new Store<CoreState>(undefined, undefined, undefined);
     spyOn(store, 'dispatch');
-    service = new ObjectUpdatesService(store);
+    patchOperationService = jasmine.createSpyObj('patchOperationService', {
+      fieldUpdatesToPatchOperations: []
+    });
+    injector = jasmine.createSpyObj('injector', {
+      get: patchOperationService
+    });
+    service = new ObjectUpdatesService(store, injector);
 
     spyOn(service as any, 'getObjectEntry').and.returnValue(observableOf(objectEntry));
     spyOn(service as any, 'getFieldState').and.callFake((uuid) => {
@@ -274,6 +284,28 @@ describe('ObjectUpdatesService', () => {
     it('should dispatch a SELECT_VIRTUAL_METADATA action with the correct URL, relationship, identifiable and boolean', () => {
       service.setSelectedVirtualMetadata(url, relationship.uuid, identifiable1.uuid, true);
       expect(store.dispatch).toHaveBeenCalledWith(new SelectVirtualMetadataAction(url, relationship.uuid, identifiable1.uuid, true));
+    });
+  });
+
+  describe('createPatch', () => {
+    let result$;
+
+    beforeEach(() => {
+      result$ = service.createPatch(url);
+    });
+
+    it('should inject the service using the token stored in the entry', (done) => {
+      result$.subscribe(() => {
+        expect(injector.get).toHaveBeenCalledWith(injectionToken);
+        done();
+      });
+    });
+
+    it('should create a patch from the fieldUpdates using the injected service', (done) => {
+      result$.subscribe(() => {
+        expect(patchOperationService.fieldUpdatesToPatchOperations).toHaveBeenCalledWith(fieldUpdates);
+        done();
+      });
     });
   });
 

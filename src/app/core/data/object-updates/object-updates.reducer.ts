@@ -14,6 +14,8 @@ import {
 } from './object-updates.actions';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import {Relationship} from '../../shared/item-relationships/relationship.model';
+import { InjectionToken } from '@angular/core';
+import { PatchOperationService } from './patch-operation-service/patch-operation.service';
 
 /**
  * Path where discarded objects are saved
@@ -48,7 +50,7 @@ export interface Identifiable {
  */
 export interface FieldUpdate {
   field: Identifiable,
-  changeType: FieldChangeType
+  changeType: FieldChangeType,
 }
 
 /**
@@ -89,6 +91,7 @@ export interface ObjectUpdatesEntry {
   fieldUpdates: FieldUpdates;
   virtualMetadataSources: VirtualMetadataSources;
   lastModified: Date;
+  patchOperationServiceToken?: InjectionToken<PatchOperationService>;
 }
 
 /**
@@ -163,6 +166,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
   const url: string = action.payload.url;
   const fields: Identifiable[] = action.payload.fields;
   const lastModifiedServer: Date = action.payload.lastModified;
+  const patchOperationServiceToken: InjectionToken<PatchOperationService> = action.payload.patchOperationServiceToken;
   const fieldStates = createInitialFieldStates(fields);
   const newPageState = Object.assign(
     {},
@@ -170,7 +174,8 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
     { fieldStates: fieldStates },
     { fieldUpdates: {} },
     { virtualMetadataSources: {} },
-    { lastModified: lastModifiedServer }
+    { lastModified: lastModifiedServer },
+    { patchOperationServiceToken }
   );
   return Object.assign({}, state, { [url]: newPageState });
 }
