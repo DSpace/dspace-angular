@@ -24,6 +24,7 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
+import { hasAuthMethodRendering } from '../../shared/log-in/methods/log-in.methods-decorator';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -143,25 +144,24 @@ export class AuthInterceptor implements HttpInterceptor {
       // get the realms from the header -  a realm is a single auth method
       const completeWWWauthenticateHeader = headers.get('www-authenticate');
       const regex = /(\w+ (\w+=((".*?")|[^,]*)(, )?)*)/g;
-      const realms = completeWWWauthenticateHeader.match(regex);
+      const realms: string[] = completeWWWauthenticateHeader.match(regex);
 
-      // tslint:disable-next-line:forin
-      for (const j in realms) {
-
-        const splittedRealm = realms[j].split(', ');
-        const methodName = splittedRealm[0].split(' ')[0].trim();
+      realms.forEach((realm) => {
+        const splitRealm = realm.split(', ');
+        const methodName = splitRealm[0].split(' ')[0].trim();
 
         let authMethodModel: AuthMethod;
-        if (splittedRealm.length === 1) {
+        if (splitRealm.length === 1) {
           authMethodModel = new AuthMethod(methodName);
-          authMethodModels.push(authMethodModel);
-        } else if (splittedRealm.length > 1) {
-          let location = splittedRealm[1];
+        } else if (splitRealm.length > 1) {
+          let location = splitRealm[1];
           location = this.parseLocation(location);
           authMethodModel = new AuthMethod(methodName, location);
+        }
+        if (hasAuthMethodRendering(authMethodModel.authMethodType)) {
           authMethodModels.push(authMethodModel);
         }
-      }
+      })
 
       // make sure the email + password login component gets rendered first
       authMethodModels = this.sortAuthMethods(authMethodModels);

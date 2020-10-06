@@ -14,3 +14,7 @@ export function renderAuthMethodFor(authMethodType: AuthMethodType) {
 export function rendersAuthMethodType(authMethodType: AuthMethodType) {
   return authMethodsMap.get(authMethodType);
 }
+
+export function hasAuthMethodRendering(authMethodType: AuthMethodType) {
+  return authMethodsMap.has(authMethodType);
+}
