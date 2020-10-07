@@ -11,6 +11,8 @@ import { LinkService } from '../core/cache/builders/link.service';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { UPLOAD_BITSTREAM_PATH, ITEM_EDIT_PATH } from './item-page-routing-paths';
 import { ItemPageAdministratorGuard } from './item-page-administrator.guard';
+import { MenuItemType } from '../shared/menu/initial-menus-state';
+import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 
 @NgModule({
   imports: [
@@ -43,6 +45,20 @@ import { ItemPageAdministratorGuard } from './item-page-administrator.guard';
             canActivate: [AuthenticatedGuard]
           }
         ],
+        data: {
+          menu: {
+            public: [{
+              id: 'statistics_item_:id',
+              active: true,
+              visible: true,
+              model: {
+                type: MenuItemType.LINK,
+                text: 'menu.section.statistics',
+                link: 'statistics/items/:id/',
+              } as LinkMenuItemModel,
+            }],
+          },
+        },
       }
     ])
   ],

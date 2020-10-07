@@ -2852,6 +2852,30 @@
 
 
 
+  "statistics.title": "Statistics",
+
+  "statistics.header": "Statistics for {{ scope }}",
+
+  "statistics.breadcrumbs": "Statistics",
+
+  "statistics.page.no-data": "No data available",
+
+  "statistics.table.no-data": "No data available",
+
+  "statistics.table.title.TotalVisits": "Total visits",
+
+  "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
+
+  "statistics.table.title.TotalDownloads": "File Visits",
+
+  "statistics.table.title.TopCountries": "Top country views",
+
+  "statistics.table.title.TopCities": "Top city views",
+
+  "statistics.table.header.views": "Views",
+
+
+
   "submission.edit.title": "Edit Submission",
 
   "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
