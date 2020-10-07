@@ -88,28 +88,32 @@ export class MenuEffects {
 
   private resolveSubstitutions(object, params) {
 
+    let resolved;
     if (typeof object === 'string') {
+      resolved = object;
       let match: RegExpMatchArray;
       do {
-        match = object.match(/:(\w+)/);
+        match = resolved.match(/:(\w+)/);
         if (match) {
           const substitute = params[match[1]];
           if (hasValue(substitute)) {
-            object = object.replace(match[0], `${substitute}`);
+            resolved = resolved.replace(match[0], `${substitute}`);
           }
         }
       } while (match);
     } else if (Array.isArray(object)) {
+      resolved = [];
       object.forEach((entry, index) => {
-        object[index] = this.resolveSubstitutions(object[index], params);
+        resolved[index] = this.resolveSubstitutions(object[index], params);
+      });
+    } else if (typeof object === 'object') {
+      resolved = {};
+      Object.keys(object).forEach((key) => {
+        resolved[key] = this.resolveSubstitutions(object[key], params);
       });
     } else {
-      Object.keys(object).forEach((key) => {
-        object = Object.assign({}, object, {
-          [key]: this.resolveSubstitutions(object[key], params)
-        });
-      });
+      resolved = object;
     }
-    return object;
+    return resolved;
   }
 }
