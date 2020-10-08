@@ -104,6 +104,7 @@
     "ng2-file-upload": "1.4.0",
     "ng2-nouislider": "^1.8.2",
     "ngx-bootstrap": "^5.3.2",
+    "ngx-gallery": "^5.10.0",
     "ngx-infinite-scroll": "6.0.1",
     "ngx-moment": "^3.4.0",
     "ngx-pagination": "3.0.3",

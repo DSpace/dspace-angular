@@ -31,6 +31,11 @@ import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/
 import { StatisticsModule } from '../statistics/statistics.module';
 import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 
+import { MediaViewerComponent } from './media-viewer/media-viewer.component';
+import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
+import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
+import { NgxGalleryModule } from 'ngx-gallery';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -38,7 +43,8 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
     ItemPageRoutingModule,
     EditItemPageModule,
     SearchPageModule,
-    StatisticsModule.forRoot()
+    StatisticsModule.forRoot(),
+    NgxGalleryModule,
   ],
   declarations: [
     ItemPageComponent,
@@ -62,6 +68,9 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
     UploadBitstreamComponent,
     TabbedRelatedEntitiesSearchComponent,
     AbstractIncrementalListComponent,
+    MediaViewerComponent,
+    MediaViewerVideoComponent,
+    MediaViewerImageComponent,
   ],
   exports: [
     ItemComponent,
@@ -72,12 +81,8 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
     RelatedItemsComponent,
     MetadataRepresentationListComponent,
     ItemPageTitleFieldComponent,
-    TabbedRelatedEntitiesSearchComponent
+    TabbedRelatedEntitiesSearchComponent,
   ],
-  entryComponents: [
-    PublicationComponent
-  ]
+  entryComponents: [PublicationComponent],
 })
-export class ItemPageModule {
-
-}
+export class ItemPageModule {}
