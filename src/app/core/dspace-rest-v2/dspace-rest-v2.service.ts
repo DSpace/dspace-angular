@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
 export const DEFAULT_CONTENT_TYPE = 'application/json; charset=utf-8';
@@ -53,7 +53,7 @@ export class DSpaceRESTv2Service {
         return observableThrowError({
           statusCode: err.status,
           statusText: err.statusText,
-          message: err.message
+          message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message
         });
       }));
   }
@@ -116,7 +116,7 @@ export class DSpaceRESTv2Service {
         return observableThrowError({
           statusCode: err.status,
           statusText: err.statusText,
-          message: err.message
+          message: (hasValue(err.error) && isNotEmpty(err.error.message)) ? err.error.message : err.message
         });
       }));
   }

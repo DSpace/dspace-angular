@@ -258,6 +258,10 @@
 
   "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
 
+  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
 
   "admin.access-control.epeople.form.table.id": "ID",
@@ -1065,6 +1069,13 @@
 
   "confirmation-modal.export-metadata.confirm": "Export",
 
+  "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-eperson.cancel": "Cancel",
+
+  "confirmation-modal.delete-eperson.confirm": "Delete",
 
 
   "error.bitstream": "Error fetching bitstream",
