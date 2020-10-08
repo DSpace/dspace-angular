@@ -39,10 +39,6 @@ body {
   margin: 0;
 }
 
-ds-header-navbar-wrapper {
-  z-index: $nav-z-index;
-}
-
 ds-admin-sidebar {
   position: fixed;
   z-index: $sidebar-z-index;
@@ -51,3 +47,8 @@ ds-admin-sidebar {
 .ds-full-screen-loader {
   height: 100vh;
 }
+
+.sticky-top{
+  z-index: 0;
+}
+
