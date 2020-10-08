@@ -19,7 +19,6 @@ export class MediaViewerVideoComponent implements OnInit {
   };
 
   replacementThumbnail: string;
-  constructor() {}
 
   ngOnInit() {
     this.isCollapsed = false;

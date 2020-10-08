@@ -37,5 +37,4 @@ describe('MediaViewerImageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe;
 });

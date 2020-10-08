@@ -10,7 +10,6 @@ import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 })
 export class MediaViewerImageComponent implements OnInit {
   @Input() images: MediaViewerItem[];
-  constructor() {}
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
