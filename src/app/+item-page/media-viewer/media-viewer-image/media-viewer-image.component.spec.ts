@@ -1,6 +1,5 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 
 import { MediaViewerImageComponent } from './media-viewer-image.component';
@@ -12,8 +11,8 @@ describe('MediaViewerImageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MediaViewerImageComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-  }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
