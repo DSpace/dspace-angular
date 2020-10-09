@@ -1,40 +1,40 @@
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 
 import { MediaViewerImageComponent } from './media-viewer-image.component';
 
 describe('MediaViewerImageComponent', () => {
   let component: MediaViewerImageComponent;
   let fixture: ComponentFixture<MediaViewerImageComponent>;
-  let debugElement: DebugElement;
-  let htmlElement: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MediaViewerImageComponent],
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA]
+  }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MediaViewerImageComponent);
     component = fixture.componentInstance;
-    component.galleryOptions = [
-      {
-        image: true,
-        imageSize: 'contain',
-        thumbnails: false,
-        imageArrows: false,
-        width: '340px',
-        height: '279px',
-      },
+    component.galleryOptions = [new NgxGalleryOptions({})];
+    component.galleryImages = [
+      new NgxGalleryImage({
+        small: './assets/images/banner.jpg',
+        medium: './assets/images/banner.jpg',
+        big: './assets/images/banner.jpg',
+      }),
+      new NgxGalleryImage({
+        small: './assets/images/dspace-logo.png',
+        medium: './assets/images/2-medium.jpg',
+        big: './assets/images/2-big.jpg',
+      }),
     ];
-    debugElement = fixture.debugElement.query(By.css('ngx-gallery'));
-    htmlElement = debugElement.nativeElement;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 });

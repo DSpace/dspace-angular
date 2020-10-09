@@ -33,9 +33,7 @@ export class MediaViewerComponent implements OnInit {
     this.isLoading = true;
 
     this.loadRemoteData('ORIGINAL').subscribe((bitstreamsRD) => {
-      console.log(bitstreamsRD);
       this.loadRemoteData('THUMBNAIL').subscribe((thumbnailsRD) => {
-        console.log(bitstreamsRD,thumbnailsRD)
         for (let index = 0; index < bitstreamsRD.payload.page.length; index++) {
           this.bitstreamFormatDataService
             .findByBitstream(bitstreamsRD.payload.page[index])

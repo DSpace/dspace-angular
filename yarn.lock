@@ -985,6 +985,11 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
+"@kolkov/ngx-gallery@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@kolkov/ngx-gallery/-/ngx-gallery-1.2.3.tgz#bb15d4b64a5c03905677aa4ca741835aabe41f43"
+  integrity sha512-Dpnhwq3DGPSXrNt65gexo+/Smb2L0bne14A0WONN04+racETtcY33fqFvNWfRw5Nvk2Eza+sq95eEA0NbgF/6g==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -6927,11 +6932,6 @@ ngx-bootstrap@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-5.3.2.tgz#0668b01202610657e998b3ca87669645e0b31dc9"
   integrity sha512-gSMf8EXYl99Q3gqkq4RVhoTNSTYHz2Or6Cig2BJRbLJyqk15ZQE5qcq/ldHS8zzx/wgCA3HQeI63t2j2mEU9PA==
-
-ngx-gallery@^5.10.0:
-  version "5.10.0"
-  resolved "https://registry.yarnpkg.com/ngx-gallery/-/ngx-gallery-5.10.0.tgz#21f623cb788578dbb5a3625c869712de2b95258c"
-  integrity sha512-+2DnsBfkIzNQoReOHf6+OMf06+qyQQMyVVN4iQAtL0+KykjVqDZiBwLQtmwajDWMGph6O1HNKLrqTcmgqw+d2A==
 
 ngx-infinite-scroll@6.0.1:
   version "6.0.1"
