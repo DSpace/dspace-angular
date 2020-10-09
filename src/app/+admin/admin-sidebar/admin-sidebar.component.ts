@@ -247,7 +247,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           link: ''
         } as LinkMenuItemModel,
         icon: 'filter',
-        index: 7
+        index: 8
       },
 
       /* Statistics */
@@ -261,7 +261,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           link: ''
         } as LinkMenuItemModel,
         icon: 'chart-bar',
-        index: 8
+        index: 9
       },
 
       /* Control Panel */
@@ -275,7 +275,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           link: ''
         } as LinkMenuItemModel,
         icon: 'cogs',
-        index: 9
+        index: 10
       },
 
       /* Processes */
@@ -289,7 +289,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           link: '/processes'
         } as LinkMenuItemModel,
         icon: 'terminal',
-        index: 10
+        index: 11
       },
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {
@@ -443,6 +443,40 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   createSiteAdministratorMenuSections() {
     this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
       const menuList = [
+        /* Notifications */
+        {
+          id: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.notifications'
+          } as TextMenuItemModel,
+          icon: 'bell',
+          index: 4
+        },
+        {
+          id: 'notifications_openair_broker',
+          parentID: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notifications_openaire_broker',
+            link: '/admin/notifications/openaire-broker'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'notifications_reciter',
+          parentID: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notifications_reciter',
+            link: ''
+          } as LinkMenuItemModel,
+        },
         /* Access Control */
         {
           id: 'access_control',
@@ -453,7 +487,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             text: 'menu.section.access_control'
           } as TextMenuItemModel,
           icon: 'key',
-          index: 4
+          index: 5
         },
         {
           id: 'access_control_people',
@@ -499,7 +533,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             link: '/admin/search'
           } as LinkMenuItemModel,
           icon: 'search',
-          index: 5
+          index: 6
         },
         /*  Registries */
         {
@@ -511,7 +545,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             text: 'menu.section.registries'
           } as TextMenuItemModel,
           icon: 'list',
-          index: 6
+          index: 7
         },
         {
           id: 'registries_metadata',
@@ -547,7 +581,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             link: 'admin/curation-tasks'
           } as LinkMenuItemModel,
           icon: 'filter',
-          index: 7
+          index: 8
         },
 
         /* Workflow */
@@ -561,7 +595,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             link: '/admin/workflow'
           } as LinkMenuItemModel,
           icon: 'user-check',
-          index: 11
+          index: 12
         },
 
         /* User agreement edit*/
@@ -575,7 +609,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
             link: '/admin/edit-user-agreement'
           } as LinkMenuItemModel,
           icon: 'list-alt',
-            index: 12
+            index: 13
         }
       ];
 

@@ -431,6 +431,12 @@
 
 
 
+  "admin.notifications.openairebroker.breadcrumbs": "OpenAIRE Broker",
+
+  "admin.notifications.openairebroker.page.title": "OpenAIRE Broker",
+
+
+
   "admin.search.breadcrumbs": "Administrative Search",
 
   "admin.search.collection.edit": "Edit",
@@ -664,7 +670,7 @@
   "bulk-import.title" : "Bulk import",
 
   "bulk-import.workflow" : "Use collection workflow",
-  
+
 
 
   "chips.remove": "Remove chip",
@@ -2101,6 +2107,14 @@
 
 
 
+  "menu.section.notifications": "Notifications",
+
+  "menu.section.notifications_openaire_broker": "OpenAIRE Broker",
+
+  "menu.section.notifications_reciter": "ReCiter",
+
+
+
   "menu.section.access_control": "Access Control",
 
   "menu.section.access_control_authorizations": "Authorizations",
@@ -2174,6 +2188,8 @@
   "menu.section.icon.edit": "Edit menu section",
 
   "menu.section.icon.export": "Export menu section",
+
+  "menu.section.icon.notifications": "Notifictions menu section",
 
   "menu.section.icon.find": "Find menu section",
 
@@ -2367,6 +2383,22 @@
   "nav.statistics.header": "Statistics",
 
   "nav.stop-impersonating": "Stop impersonating EPerson",
+
+
+
+  "openaire.broker.title": "OpenAIRE Broker",
+
+  "openaire.broker.subscriptions": "Current Subscriptions",
+
+  "openaire.broker.table.topic": "Topic",
+
+  "openaire.broker.table.last-event": "Last Event",
+
+  "openaire.broker.table.actions": "Actions",
+
+  "openaire.broker.button.detail": "Show details",
+
+  "openaire.broker.topic.error.service.retrieve": "An error occurred while loading the OpenAIRE Broker topics",
 
 
 
