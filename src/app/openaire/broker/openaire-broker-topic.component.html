@@ -2,43 +2,56 @@
   <div class="row">
     <div class="col-12">
       <h2 id="header" class="border-bottom pb-2">{{'openaire.broker.title'| translate}}</h2>
-      <p></p>
+      <p>{{'openaire.broker.topics.description'| translate}}</p>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
-      <h3 id="header" class="border-bottom pb-2">{{'openaire.broker.subscriptions'| translate}}</h3>
-      <div class="table-responsive">
-        <table id="epeople" class="table table-striped table-hover table-bordered">
-          <thead>
-          <tr>
-            <th scope="col">{{'openaire.broker.table.topic' | translate}}</th>
-            <th scope="col">{{'openaire.broker.table.last-event' | translate}}</th>
-            <th scope="col">{{'openaire.broker.table.actions' | translate}}</th>
-          </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>ENRICH / MISSING / ABSTRACT</td>
-              <td>2020/10/09 10:11 UTC</td>
-              <td>
-                <div class="btn-group edit-field">
-                  <button
-                          class="btn btn-outline-primary btn-sm"
-                          title="{{'openaire.broker.button.detail' | translate }}">
-                    <span class="badge badge-info">33</span>
-                    <i class="fas fa-info fa-fw"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <h3 id="header" class="border-bottom pb-2">{{'openaire.broker.topics'| translate}}</h3>
 
-      <!-- div *ngIf="(ePeople | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
-        {{'openaire.broker.' | translate}}
-      </div -->
+      <ds-loading class="container" *ngIf="(isTopicsLoading() | async)" message="{{'openaire.broker.loading' | translate}}"></ds-loading>
+      <ds-pagination *ngIf="!(isTopicsLoading() | async)"
+        [paginationOptions]="paginationConfig"
+        [collectionSize]="(totalElements$ | async)"
+        [hideGear]="false"
+        [hidePagerWhenSinglePage]="false"
+        [disableRouteParameterUpdate]="false"
+        (pageChange)="setPage($event)">
+
+        <ds-loading class="container" *ngIf="(isTopicsProcessing() | async)" message="'openaire.broker.loading' | translate"></ds-loading>
+        <ng-container *ngIf="!(isTopicsProcessing() | async)">
+          <div *ngIf="(topics$|async).length == 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
+            {{'openaire.broker.noTopics' | translate}}
+          </div>
+          <div *ngIf="(topics$|async).length != 0" class="table-responsive mt-2">
+            <table id="epeople" class="table table-striped table-hover table-bordered">
+              <thead>
+              <tr>
+                <th scope="col">{{'openaire.broker.table.topic' | translate}}</th>
+                <th scope="col">{{'openaire.broker.table.last-event' | translate}}</th>
+                <th scope="col">{{'openaire.broker.table.actions' | translate}}</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let topicElement of (topics$ | async); let i = index">
+                  <td>{{topicElement.name}}</td>
+                  <td>{{topicElement.lastEvent}}</td>
+                  <td>
+                    <div class="btn-group edit-field">
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              title="{{'openaire.broker.button.detail' | translate }}">
+                        <span class="badge badge-info">{{topicElement.totalSuggestions}}</span>
+                        <i class="fas fa-info fa-fw"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </ds-pagination>
     </div>
   </div>
 </div>

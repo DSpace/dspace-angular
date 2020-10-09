@@ -7,27 +7,22 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { storeModuleConfig } from '../app.reducer';
 import { OpenaireBrokerTopicComponent } from './broker/openiare-broker-topic.component';
-/* import { DeduplicationComponent } from './deduplication.component';
-import { DeduplicationStateService } from './deduplication-state.service';
-import { DeduplicationSignaturesService } from './signatures/deduplication-signatures.service';
-import { DeduplicationSetsService } from './sets/deduplication-sets.service';
-import { DeduplicationState, deduplicationReducers } from './deduplication.reducer';
-import { DeduplicationRestService } from '../core/deduplication/deduplication-rest.service';
-import { DeduplicationSetRestService } from '../core/deduplication/deduplication-set-rest.service';
-import { deduplicationEffects } from './deduplication.effects'; */
+import { OpenaireStateService } from './openaire-state.service';
+import { openaireReducers, OpenaireState } from './openaire.reducer';
+import { openaireEffects } from './openaire.effects';
+import { OpenaireBrokerTopicsService } from './broker/openaire-broker-topic.service';
+import { OpenaireBrokerTopicRestService } from '../core/openaire/openaire-broker-topic-rest.service';
 
 const MODULES = [
   CommonModule,
   SharedModule,
   CoreModule.forRoot(),
-  // StoreModule.forFeature('openaire', openaireReducers, storeModuleConfig as StoreConfig<OpenaireState, Action>),
-  // EffectsModule.forFeature(openaireEffects),
+  StoreModule.forFeature('openaire', openaireReducers, storeModuleConfig as StoreConfig<OpenaireState, Action>),
+  EffectsModule.forFeature(openaireEffects),
 ];
 
 const COMPONENTS = [
-  OpenaireBrokerTopicComponent
-  // DeduplicationComponent,
-  // DeduplicationSignaturesComponent,
+  OpenaireBrokerTopicComponent,
 ];
 
 const DIRECTIVES = [ ];
@@ -35,7 +30,9 @@ const DIRECTIVES = [ ];
 const ENTRY_COMPONENTS = [ ];
 
 const PROVIDERS = [
-  // DeduplicationStateService,
+  OpenaireStateService,
+  OpenaireBrokerTopicsService,
+  OpenaireBrokerTopicRestService
 ];
 
 @NgModule({

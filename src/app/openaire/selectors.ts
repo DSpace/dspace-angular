@@ -43,6 +43,15 @@ export const isOpenaireBrokerTopicsLoadedSelector = createSelector(_getOpenaireS
 );
 
 /**
+ * Returns true if the deduplication sets are processing.
+ * @function isDeduplicationSetsProcessingSelector
+ * @return {boolean}
+ */
+export const sOpenaireBrokerTopicsProcessingSelector = createSelector(_getOpenaireState,
+  (state: OpenaireState) => state.brokerTopic.processing
+);
+
+/**
  * Returns the total available pages of OpenAIRE Broker topics.
  * @function getOpenaireBrokerTopicsTotalPagesSelector
  * @return {number}

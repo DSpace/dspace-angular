@@ -5,6 +5,7 @@ import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.r
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
 import { NOTIFICATIONS_EDIT_PATH } from './admin-notifications-routing-paths';
 import { AdminNotificationsOpenairebrokerPageComponent } from './admin-notifications-openairebroker-page/admin-notifications-openairebroker-page.component';
+import { AdminNotificationsOpenaireBrokerPageResolver } from './admin-notifications-openairebroker-page/admin-notifications-openairebroker-page.resolver';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { AdminNotificationsOpenairebrokerPageComponent } from './admin-notificat
         component: AdminNotificationsOpenairebrokerPageComponent,
         pathMatch: 'full',
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
+          openaireBrokerTopicsParams: AdminNotificationsOpenaireBrokerPageResolver
         },
         data: {
           title: 'admin.notifications.openairebroker.page.title',
@@ -28,6 +30,7 @@ import { AdminNotificationsOpenairebrokerPageComponent } from './admin-notificat
   providers: [
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
+    AdminNotificationsOpenaireBrokerPageResolver,
   ]
 })
 /**

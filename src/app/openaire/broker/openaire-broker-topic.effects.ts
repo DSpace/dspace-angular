@@ -30,10 +30,12 @@ export class OpenaireBrokerTopicEffects {
     ofType(OpenaireBrokerTopicActionTypes.RETRIEVE_ALL_TOPICS),
     withLatestFrom(this.store$),
     switchMap(([action, currentState]: [RetrieveAllTopicsAction, any]) => {
-      const currentPage = (currentState.openaire as OpenaireState).brokerTopic.currentPage + 1;
-      return this.openaireBrokerTopicService.getTopics(action.payload.elementsPerPage, currentPage).pipe(
-        map((signatures: PaginatedList<OpenaireBrokerTopicObject>) =>
-          new AddTopicsAction(signatures.page, signatures.totalPages, signatures.currentPage, signatures.totalElements)
+      return this.openaireBrokerTopicService.getTopics(
+        action.payload.elementsPerPage,
+        action.payload.currentPage
+      ).pipe(
+        map((topics: PaginatedList<OpenaireBrokerTopicObject>) =>
+          new AddTopicsAction(topics.page, topics.totalPages, topics.currentPage, topics.totalElements)
         ),
         catchError((error: Error) => {
           if (error) {

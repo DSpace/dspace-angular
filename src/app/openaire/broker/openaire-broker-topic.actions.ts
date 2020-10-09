@@ -24,8 +24,6 @@ export const OpenaireBrokerTopicActionTypes = {
 export class RetrieveAllTopicsAction implements Action {
   type = OpenaireBrokerTopicActionTypes.RETRIEVE_ALL_TOPICS;
   payload: {
-    name: string;
-    lastEvent: string;
     elementsPerPage: number;
     currentPage: number;
   };
@@ -33,19 +31,13 @@ export class RetrieveAllTopicsAction implements Action {
   /**
    * Create a new RetrieveAllTopicsAction.
    *
-   * @param name
-   *    The name of the topic to display on the frontend user interface
-   * @param lastEvent
-   *    The date of the last udate from OpenAIRE
    * @param elementsPerPage
    *    the number of topics per page
    * @param currentPage
    *    The page number to retrieve
    */
-  constructor(name: string, lastEvent: string, elementsPerPage: number, currentPage: number) {
+  constructor(elementsPerPage: number, currentPage: number) {
     this.payload = {
-      name,
-      lastEvent,
       elementsPerPage,
       currentPage
     };

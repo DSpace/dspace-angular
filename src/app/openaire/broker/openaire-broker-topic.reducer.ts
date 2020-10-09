@@ -49,7 +49,7 @@ export function openaireBrokerTopicReducer(state = openaireBrokerTopicInitialSta
 
     case OpenaireBrokerTopicActionTypes.ADD_TOPICS: {
       return Object.assign({}, state, {
-        objects: state.topics.concat(action.payload.topics),
+        topics: state.topics.concat(action.payload.topics),
         processing: false,
         loaded: true,
         totalPages: action.payload.totalPages,

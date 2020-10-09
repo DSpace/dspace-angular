@@ -120,9 +120,9 @@ export class OpenaireBrokerTopicRestService {
     // );
     // TEST
     const pageInfo = new PageInfo({
-      elementsPerPage: 4,
+      elementsPerPage: 10,
       totalElements: 6,
-      totalPages: 2,
+      totalPages: 1,
       currentPage: 0
     });
     const array = [

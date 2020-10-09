@@ -2388,7 +2388,9 @@
 
   "openaire.broker.title": "OpenAIRE Broker",
 
-  "openaire.broker.subscriptions": "Current Subscriptions",
+  "openaire.broker.topics.description": "Below you can see all the topics received from the subscriptions to OpenAIRE.",
+
+  "openaire.broker.topics": "Current Topics",
 
   "openaire.broker.table.topic": "Topic",
 
@@ -2398,8 +2400,11 @@
 
   "openaire.broker.button.detail": "Show details",
 
+  "openaire.broker.noTopics": "No topics found.",
+
   "openaire.broker.topic.error.service.retrieve": "An error occurred while loading the OpenAIRE Broker topics",
 
+  "openaire.broker.loading": "Loading ...",
 
 
   "orgunit.listelement.badge": "Organizational Unit",
