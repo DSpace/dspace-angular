@@ -20,6 +20,7 @@ import { switchMap, map } from 'rxjs/operators';
 import { BundleDataService } from './bundle-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RestResponse } from '../cache/response.models';
+import { Operation } from 'fast-json-patch';
 
 /* tslint:disable:max-classes-per-file */
 /**
@@ -163,6 +164,10 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
    */
   update(object: Item): Observable<RemoteData<Item>> {
     return this.dataService.update(object);
+  }
+
+  patch(dso: Item, operations: Operation[]): Observable<RestResponse> {
+    return this.dataService.patch(dso, operations);
   }
 
   /**

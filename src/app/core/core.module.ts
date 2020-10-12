@@ -171,6 +171,7 @@ import { EndUserAgreementCurrentUserGuard } from './end-user-agreement/end-user-
 import { EndUserAgreementCookieGuard } from './end-user-agreement/end-user-agreement-cookie.guard';
 import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
 import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
+import { UsageReport } from './statistics/models/usage-report.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -371,7 +372,8 @@ export const models =
     Vocabulary,
     VocabularyEntry,
     VocabularyEntryDetail,
-    ConfigurationProperty
+    ConfigurationProperty,
+    UsageReport,
   ];
 
 @NgModule({

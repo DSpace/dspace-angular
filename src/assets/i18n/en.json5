@@ -258,6 +258,10 @@
 
   "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
 
+  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
 
   "admin.access-control.epeople.form.table.id": "ID",
@@ -1065,6 +1069,13 @@
 
   "confirmation-modal.export-metadata.confirm": "Export",
 
+  "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-eperson.cancel": "Cancel",
+
+  "confirmation-modal.delete-eperson.confirm": "Delete",
 
 
   "error.bitstream": "Error fetching bitstream",
@@ -1104,6 +1115,10 @@
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
   "error.validation.filerequired": "The file upload is mandatory",
+
+
+
+  "file-section.error.header": "Error obtaining files for this item",
 
 
 
@@ -1436,6 +1451,8 @@
   "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
   "item.edit.metadata.notifications.discarded.title": "Changed discarded",
+
+  "item.edit.metadata.notifications.error.title": "An error occurred",
 
   "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
 
@@ -2843,6 +2860,30 @@
   "sorting.dc.title.DESC": "Title Descending",
 
   "sorting.score.DESC": "Relevance",
+
+
+
+  "statistics.title": "Statistics",
+
+  "statistics.header": "Statistics for {{ scope }}",
+
+  "statistics.breadcrumbs": "Statistics",
+
+  "statistics.page.no-data": "No data available",
+
+  "statistics.table.no-data": "No data available",
+
+  "statistics.table.title.TotalVisits": "Total visits",
+
+  "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
+
+  "statistics.table.title.TotalDownloads": "File Visits",
+
+  "statistics.table.title.TopCountries": "Top country views",
+
+  "statistics.table.title.TopCities": "Top city views",
+
+  "statistics.table.header.views": "Views",
 
 
 

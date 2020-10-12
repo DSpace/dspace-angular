@@ -4,10 +4,12 @@ import { BitstreamDataService } from '../../../../core/data/bitstream-data.servi
 
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import { filter, takeWhile } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { hasNoValue, hasValue } from '../../../../shared/empty.util';
+import { hasValue } from '../../../../shared/empty.util';
 import { PaginatedList } from '../../../../core/data/paginated-list';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component renders the file section of the item
@@ -36,7 +38,9 @@ export class FileSectionComponent implements OnInit {
   pageSize = 5;
 
   constructor(
-    protected bitstreamDataService: BitstreamDataService
+    protected bitstreamDataService: BitstreamDataService,
+    protected notificationsService: NotificationsService,
+    protected translateService: TranslateService
   ) {
   }
 
@@ -58,14 +62,21 @@ export class FileSectionComponent implements OnInit {
     } else {
       this.currentPage++;
     }
-    this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', { currentPage: this.currentPage, elementsPerPage: this.pageSize }).pipe(
-        filter((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasValue(bitstreamsRD)),
-        takeWhile((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasNoValue(bitstreamsRD.payload) && hasNoValue(bitstreamsRD.error), true)
+    this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
+      currentPage: this.currentPage,
+      elementsPerPage: this.pageSize
+    }).pipe(
+      filter((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasValue(bitstreamsRD) && (hasValue(bitstreamsRD.error) || hasValue(bitstreamsRD.payload))),
+      take(1),
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
-      const current: Bitstream[] = this.bitstreams$.getValue();
-      this.bitstreams$.next([...current, ...bitstreamsRD.payload.page]);
-      this.isLoading = false;
-      this.isLastPage = this.currentPage === bitstreamsRD.payload.totalPages;
+      if (bitstreamsRD.error) {
+        this.notificationsService.error(this.translateService.get('file-section.error.header'), `${bitstreamsRD.error.statusCode} ${bitstreamsRD.error.message}`);
+      } else if (hasValue(bitstreamsRD.payload)) {
+        const current: Bitstream[] = this.bitstreams$.getValue();
+        this.bitstreams$.next([...current, ...bitstreamsRD.payload.page]);
+        this.isLoading = false;
+        this.isLastPage = this.currentPage === bitstreamsRD.payload.totalPages;
+      }
     });
   }
 }

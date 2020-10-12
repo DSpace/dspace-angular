@@ -69,6 +69,10 @@ import { SiteRegisterGuard } from './core/data/feature-authorization/feature-aut
             { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard] },
             { path: INFO_MODULE_PATH, loadChildren: './info/info.module#InfoModule' },
             { path: UNAUTHORIZED_PATH, component: UnauthorizedComponent },
+            {
+              path: 'statistics',
+              loadChildren: './statistics-page/statistics-page-routing.module#StatisticsPageRoutingModule',
+            },
             { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
           ]}
       ],
