@@ -32,16 +32,12 @@ export class MediaViewerComponent implements OnInit {
     protected bitstreamFormatDataService: BitstreamFormatDataService
   ) {}
 
-  ngOnInit(): void {
-    this.mediaList$ = new BehaviorSubject([]);
-    this.isLoading = true;
-    this.concertToMediaItem();
-  }
-
   /**
    * This metod loads all the Bitstreams and Thumbnails and contert it to media item
    */
-  concertToMediaItem(): void {
+  ngOnInit(): void {
+    this.mediaList$ = new BehaviorSubject([]);
+    this.isLoading = true;
     this.loadRemoteData('ORIGINAL').subscribe((bitstreamsRD) => {
       this.loadRemoteData('THUMBNAIL').subscribe((thumbnailsRD) => {
         for (let index = 0; index < bitstreamsRD.payload.page.length; index++) {

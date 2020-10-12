@@ -18,7 +18,7 @@ import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 
-describe('MediaViewerComponent', () => {
+fdescribe('MediaViewerComponent', () => {
   let comp: MediaViewerComponent;
   let fixture: ComponentFixture<MediaViewerComponent>;
 
@@ -28,11 +28,12 @@ describe('MediaViewerComponent', () => {
     ),
   });
 
-  const bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-    findByBitstream: createSuccessfulRemoteDataObject$(
-      new BitstreamFormat()
-    ),
-  });
+  const bitstreamFormatDataService = jasmine.createSpyObj(
+    'bitstreamFormatDataService',
+    {
+      findByBitstream: createSuccessfulRemoteDataObject$(new BitstreamFormat()),
+    }
+  );
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(), {
     sizeBytes: 10201,
@@ -87,7 +88,10 @@ describe('MediaViewerComponent', () => {
       ],
       providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
-        { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
+        {
+          provide: BitstreamFormatDataService,
+          useValue: bitstreamFormatDataService,
+        },
       ],
 
       schemas: [NO_ERRORS_SCHEMA],
@@ -105,6 +109,12 @@ describe('MediaViewerComponent', () => {
       comp.mediaList$.next([mockMediaViewerItem]);
       comp.isLoading = true;
       fixture.detectChanges();
+    });
+
+    it('should call the service to retrieve bitstreams', () => {
+      expect(
+        bitstreamDataService.findAllByItemAndBundleName
+      ).toHaveBeenCalled();
     });
 
     it('should display a loading component', () => {

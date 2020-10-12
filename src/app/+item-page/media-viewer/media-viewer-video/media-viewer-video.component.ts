@@ -32,7 +32,6 @@ export class MediaViewerVideoComponent implements OnInit {
    * @param index Selected index
    */
   selectedMedia(index: number) {
-    console.log(index);
     this.currentIndex = index;
   }
 

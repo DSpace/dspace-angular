@@ -20,7 +20,6 @@ export class MediaViewerImageComponent implements OnInit {
    * Thi method sets up the gallery settings and data
    */
   ngOnInit(): void {
-    this.galleryImages = new Array<NgxGalleryImage>();
     this.galleryOptions = [
       {
         image: true,
@@ -33,17 +32,24 @@ export class MediaViewerImageComponent implements OnInit {
         imageAnimation: NgxGalleryAnimation.Slide,
       },
     ];
-    for (const image of this.images) {
-      this.galleryImages = [
-        ...this.galleryImages,
-        {
-          small: image.thumbnail
-            ? image.thumbnail
-            : './assets/images/replacements_image.svg',
-          medium: image.bitstream._links.content.href,
-          big: image.bitstream._links.content.href,
-        },
-      ];
+    this.galleryImages = this.convertToGalleryImage(this.images);
+  }
+
+  /**
+   * This method convert an array of MediaViewerItem into NgxGalleryImage array
+   * @param medias input NgxGalleryImage array
+   */
+  convertToGalleryImage(medias: MediaViewerItem[]): NgxGalleryImage[] {
+    const mappadImages = [];
+    for (const image of medias) {
+      mappadImages.push({
+        small: image.thumbnail
+          ? image.thumbnail
+          : './assets/images/replacements_image.svg',
+        medium: image.bitstream._links.content.href,
+        big: image.bitstream._links.content.href,
+      });
     }
+    return mappadImages;
   }
 }

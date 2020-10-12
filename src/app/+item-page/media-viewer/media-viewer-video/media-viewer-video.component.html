@@ -38,6 +38,7 @@
         <button
           ngbDropdownItem
           *ngFor="let item of medias; let i = index"
+          class="list-element"
           (click)="selectedMedia(i)"
         >
           {{ item.bitstream.name }}

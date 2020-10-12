@@ -126,5 +126,18 @@ describe('MediaViewerVideoComponent', () => {
         expect(component.currentIndex).toBe(0);
       });
     });
+
+    describe('when the "Playlist element" button is clicked', () => {
+      beforeEach(() => {
+        component.isCollapsed = true;
+        fixture.detectChanges();
+      });
+
+      it('should set the the index with teh selected one', () => {
+        const viewMore = fixture.debugElement.query(By.css('.list-element'));
+        viewMore.triggerEventHandler('click', null);
+        expect(component.currentIndex).toBe(0);
+      });
+    });
   });
 });
