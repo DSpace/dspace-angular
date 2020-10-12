@@ -12,7 +12,7 @@
   ></video>
   <div class="buttons" *ngIf="medias?.length > 1">
     <button
-      class="btn btn-primary"
+      class="btn btn-primary previus"
       [disabled]="currentIndex === 0"
       (click)="prevMedia()"
     >
@@ -20,7 +20,7 @@
     </button>
 
     <button
-      class="btn btn-primary"
+      class="btn btn-primary next "
       [disabled]="currentIndex === medias.length - 1"
       (click)="nextMedia()"
     >
@@ -28,7 +28,7 @@
     </button>
     <div ngbDropdown class="d-inline-block">
       <button
-        class="btn btn-outline-primary"
+        class="btn btn-outline-primary playlist"
         id="dropdownBasic1"
         ngbDropdownToggle
       >

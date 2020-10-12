@@ -11,6 +11,10 @@ import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { hasValue } from '../../shared/empty.util';
 
+/**
+ * This componenet renders the media viewers
+ */
+
 @Component({
   selector: 'ds-media-viewer',
   templateUrl: './media-viewer.component.html',
@@ -31,7 +35,13 @@ export class MediaViewerComponent implements OnInit {
   ngOnInit(): void {
     this.mediaList$ = new BehaviorSubject([]);
     this.isLoading = true;
+    this.concertToMediaItem();
+  }
 
+  /**
+   * This metod loads all the Bitstreams and Thumbnails and contert it to media item
+   */
+  concertToMediaItem(): void {
     this.loadRemoteData('ORIGINAL').subscribe((bitstreamsRD) => {
       this.loadRemoteData('THUMBNAIL').subscribe((thumbnailsRD) => {
         for (let index = 0; index < bitstreamsRD.payload.page.length; index++) {
@@ -55,6 +65,10 @@ export class MediaViewerComponent implements OnInit {
     });
   }
 
+  /**
+   * This method will retrieve the next page of Bitstreams from the external BitstreamDataService call.
+   * @param bundleName Bundle name
+   */
   loadRemoteData(
     bundleName: string
   ): Observable<RemoteData<PaginatedList<Bitstream>>> {

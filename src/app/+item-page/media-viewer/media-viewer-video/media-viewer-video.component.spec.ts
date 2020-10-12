@@ -11,6 +11,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataFieldWrapperComponent } from '../../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
 import { MediaViewerVideoComponent } from './media-viewer-video.component';
+import { By } from '@angular/platform-browser';
 
 describe('MediaViewerVideoComponent', () => {
   let component: MediaViewerVideoComponent;
@@ -73,15 +74,57 @@ describe('MediaViewerVideoComponent', () => {
       { bitstream: mockBitstream, format: 'video', thumbnail: null },
     ]
   );
+  const mockMediaViewerItem: MediaViewerItem[] = Object.assign(
+    new Array<MediaViewerItem>(),
+    [{ bitstream: mockBitstream, format: 'video', thumbnail: null }]
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MediaViewerVideoComponent);
     component = fixture.componentInstance;
-    component.medias = mockMediaViewerItems;
+    component.medias = mockMediaViewerItem;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('should show controller buttons when the having mode then one video', () => {
+    beforeEach(() => {
+      component.medias = mockMediaViewerItems;
+      fixture.detectChanges();
+    });
+
+    it('should show buttons', () => {
+      const controllerButtons = fixture.debugElement.query(By.css('.buttons'));
+      expect(controllerButtons).toBeTruthy();
+    });
+
+    describe('when the "Next" button is clicked', () => {
+      beforeEach(() => {
+        component.currentIndex = 0;
+        fixture.detectChanges();
+      });
+
+      it('should increase the the index', () => {
+        const viewMore = fixture.debugElement.query(By.css('.next'));
+        viewMore.triggerEventHandler('click', null);
+        expect(component.currentIndex).toBe(1);
+      });
+    });
+
+    describe('when the "Previus" button is clicked', () => {
+      beforeEach(() => {
+        component.currentIndex = 1;
+        fixture.detectChanges();
+      });
+
+      it('should increase the the index', () => {
+        const viewMore = fixture.debugElement.query(By.css('.previus'));
+        viewMore.triggerEventHandler('click', null);
+        expect(component.currentIndex).toBe(0);
+      });
+    });
   });
 });

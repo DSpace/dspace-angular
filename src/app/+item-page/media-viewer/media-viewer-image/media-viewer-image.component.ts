@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
-
+/**
+ * This componenet render an image gallery for the image viewer
+ */
 @Component({
   selector: 'ds-media-viewer-image',
   templateUrl: './media-viewer-image.component.html',
@@ -14,6 +16,9 @@ export class MediaViewerImageComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
+  /**
+   * Thi method sets up the gallery settings and data
+   */
   ngOnInit(): void {
     this.galleryImages = new Array<NgxGalleryImage>();
     this.galleryOptions = [
