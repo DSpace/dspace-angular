@@ -18,7 +18,7 @@ import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 
-fdescribe('MediaViewerComponent', () => {
+describe('MediaViewerComponent', () => {
   let comp: MediaViewerComponent;
   let fixture: ComponentFixture<MediaViewerComponent>;
 
