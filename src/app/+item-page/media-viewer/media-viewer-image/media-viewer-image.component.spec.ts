@@ -69,4 +69,12 @@ describe('MediaViewerImageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should contain a gallery options', () => {
+    expect(component.galleryOptions.length).toBeGreaterThan(0);
+  });
+
+  it('should contain an image array', () => {
+    expect(component.galleryImages.length).toBeGreaterThan(0);
+  });
 });

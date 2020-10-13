@@ -5,6 +5,7 @@ import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
+import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Item } from '../../core/shared/item.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
@@ -46,13 +47,11 @@ export class MediaViewerComponent implements OnInit {
             .pipe(getFirstSucceededRemoteDataPayload())
             .subscribe((format) => {
               const current = this.mediaList$.getValue();
-              const mediaItem = new MediaViewerItem();
-              mediaItem.bitstream = bitstreamsRD.payload.page[index];
-              mediaItem.format = format.mimetype.split('/')[0];
-              mediaItem.thumbnail =
+              const mediaItem = this.createMediaViewerItem(
+                bitstreamsRD.payload.page[index],
+                format,
                 thumbnailsRD.payload && thumbnailsRD.payload.page[index]
-                  ? thumbnailsRD.payload.page[index]._links.content.href
-                  : null;
+              );
               this.mediaList$.next([...current, mediaItem]);
             });
         }
@@ -78,5 +77,18 @@ export class MediaViewerComponent implements OnInit {
         ),
         take(1)
       );
+  }
+
+  createMediaViewerItem(
+    original: Bitstream,
+    format: BitstreamFormat,
+    thumbnail: Bitstream
+  ): MediaViewerItem {
+    console.log(original, format, thumbnail);
+    const mediaItem = new MediaViewerItem();
+    mediaItem.bitstream = original;
+    mediaItem.format = format.mimetype.split('/')[0];
+    mediaItem.thumbnail = thumbnail ? thumbnail._links.content.href : null;
+    return mediaItem;
   }
 }
