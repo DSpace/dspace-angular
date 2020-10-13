@@ -17,8 +17,8 @@
     </ng-container>
     <ng-container
       *ngIf="
-        mediaList[0]?.format !== 'image' ||
-        mediaList[0]?.format !== 'video' ||
+        mediaList[0]?.format !== 'image' &&
+        mediaList[0]?.format !== 'video' &&
         mediaList[0]?.format !== 'audio'
       "
     >
