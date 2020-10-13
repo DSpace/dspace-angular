@@ -15,5 +15,14 @@
     <ng-container *ngIf="mediaList[0]?.format === 'image'">
       <ds-media-viewer-image [images]="mediaList"></ds-media-viewer-image>
     </ng-container>
+    <ng-container
+      *ngIf="
+        mediaList[0]?.format !== 'image' ||
+        mediaList[0]?.format !== 'video' ||
+        mediaList[0]?.format !== 'audio'
+      "
+    >
+      <img [src]="mediaList[0]?.thumbnail || thumbnailPlaceholder" alt="" />
+    </ng-container>
   </div>
 </ng-container>

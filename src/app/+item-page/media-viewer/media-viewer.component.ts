@@ -28,6 +28,8 @@ export class MediaViewerComponent implements OnInit {
 
   isLoading: boolean;
 
+  thumbnailPlaceholder = './assets/images/replacement_document.svg';
+
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected bitstreamFormatDataService: BitstreamFormatDataService
@@ -84,7 +86,6 @@ export class MediaViewerComponent implements OnInit {
     format: BitstreamFormat,
     thumbnail: Bitstream
   ): MediaViewerItem {
-    console.log(original, format, thumbnail);
     const mediaItem = new MediaViewerItem();
     mediaItem.bitstream = original;
     mediaItem.format = format.mimetype.split('/')[0];

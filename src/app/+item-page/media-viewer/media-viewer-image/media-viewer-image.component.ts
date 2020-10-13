@@ -45,7 +45,7 @@ export class MediaViewerImageComponent implements OnInit {
       mappadImages.push({
         small: image.thumbnail
           ? image.thumbnail
-          : './assets/images/replacements_image.svg',
+          : './assets/images/replacement_image.svg',
         medium: image.bitstream._links.content.href,
         big: image.bitstream._links.content.href,
       });

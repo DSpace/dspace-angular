@@ -18,7 +18,6 @@ export class MediaViewerVideoComponent implements OnInit {
   replacements = {
     video: './assets/images/replacement_video.svg',
     audio: './assets/images/replacement_audio.svg',
-    document: './assets/images/replacement_document.svg',
   };
 
   replacementThumbnail: string;
