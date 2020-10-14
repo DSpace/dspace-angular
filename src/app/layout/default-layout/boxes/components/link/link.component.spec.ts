@@ -1,13 +1,12 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { LinkComponent } from './link.component';
 import { Item } from 'src/app/core/shared/item.model';
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { Field } from 'src/app/core/layout/models/metadata-component.model';
-import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { LayoutField } from 'src/app/core/layout/models/metadata-component.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('LinkComponent', () => {
   let component: LinkComponent;
@@ -29,14 +28,14 @@ describe('LinkComponent', () => {
     label: 'Field Label',
     style: 'col-md-6',
     metadata: 'dc.link'
-  }) as Field;
+  }) as LayoutField;
 
   const testLabelField = Object.assign({
     id: 1,
     label: 'dspace.default.label',
     style: 'col-md-6',
     metadata: 'dc.link'
-  }) as Field;
+  }) as LayoutField;
 
   const i18nKey = 'dspace.default.label';
   const i18nLabel = 'Default Label';

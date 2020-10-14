@@ -1,16 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { TextComponent } from './text.component';
-import { Item } from 'src/app/core/shared/item.model';
-import { medataComponent } from 'src/app/shared/testing/metadata-components.mock';
-import { By } from '@angular/platform-browser';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Item } from '../../../../../core/shared/item.model';
+import { medataComponent } from '../../../../../shared/testing/metadata-components.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 
 class TestItem {
-  firstMetadataValue(key: string): string {
-    return 'Danilo Di Nuzzo';
+  allMetadataValues(key: string): string[] {
+    return ['Danilo Di Nuzzo', 'John Doe'];
   }
 }
 
@@ -40,9 +41,10 @@ describe('TextComponent', () => {
   });
 
   it('check metadata rendering', () => {
-    const spanValueFound = fixture.debugElement.query(By.css('span.txt-value'));
-    const span: HTMLElement = spanValueFound.nativeElement;
-    expect(span.textContent).toContain((new TestItem()).firstMetadataValue(''));
+    const spanValueFound = fixture.debugElement.queryAll(By.css('span.txt-value'));
+    expect(spanValueFound.length).toBe(2);
+    expect(spanValueFound[0].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[0]);
+    expect(spanValueFound[1].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[1]);
 
     const spanLabelFound = fixture.debugElement.query(By.css('span.' + medataComponent.rows[0].fields[0].style));
     const label: HTMLElement = spanLabelFound.nativeElement;

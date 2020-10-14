@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeadingComponent } from './heading.component';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Item } from 'src/app/core/shared/item.model';
@@ -9,8 +9,8 @@ import { medataComponent } from 'src/app/shared/testing/metadata-components.mock
 import { By } from '@angular/platform-browser';
 
 class TestItem {
-  firstMetadataValue(key: string): string {
-    return 'Danilo Di Nuzzo';
+  allMetadataValues(key: string): string[] {
+    return ['This is the title'];
   }
 }
 
@@ -40,8 +40,8 @@ describe('HeadingComponent', () => {
   });
 
   it('check heading rendering', () => {
-    const divFound = fixture.debugElement.query(By.css('div.h2'));
-    const div: HTMLElement = divFound.nativeElement;
-    expect(div.textContent).toContain((new TestItem()).firstMetadataValue(''));
+    const divFound = fixture.debugElement.queryAll(By.css('div.h2'));
+    expect(divFound.length).toBe(1);
+    expect(divFound[0].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[0]);
   });
 });

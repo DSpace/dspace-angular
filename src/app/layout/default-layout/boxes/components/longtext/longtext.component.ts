@@ -1,8 +1,7 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { MetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.decorator';
+import { Component } from '@angular/core';
+
+import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { RenderingTypeModel } from '../rendering-type.model';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
 
 /**
  * This component renders the longtext metadata fields

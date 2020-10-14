@@ -89,7 +89,6 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
           )
         ).subscribe(
         (editItemModes) => {
-          console.log('EDIT_ITEM: ', editItemModes);
           this.editModes = editItemModes;
         }
       ));

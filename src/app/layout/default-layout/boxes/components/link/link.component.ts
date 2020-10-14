@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.decorator';
-import { RenderingTypeModel } from '../rendering-type.model';
+
 import { TranslateService } from '@ngx-translate/core';
-import { hasValue } from 'src/app/shared/empty.util';
-import { Observable, BehaviorSubject } from 'rxjs';
+
+import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { RenderingTypeModel } from '../rendering-type.model';
+import { hasValue } from '../../../../../shared/empty.util';
+import { MetadataLinkValue } from '../../../../models/cris-layout-metadata-link-value.model';
 
 /**
  * Defines the list of subtypes for this rendering
@@ -26,21 +28,27 @@ enum TYPES {
 export class LinkComponent extends RenderingTypeModel implements OnInit {
 
   /**
-   * text to show in the anchor
+   * list of identifier values
    */
-  text: Observable<string>;
+  links: MetadataLinkValue[] = [];
 
   constructor(private translateService: TranslateService) {
     super();
   }
 
   ngOnInit(): void {
-    this.text = new BehaviorSubject<string>(this.metadataValue)
-    // If the component has label subtype get the text from translate service
-    if (hasValue(this.subtype) &&
-      this.subtype.toUpperCase() === TYPES.LABEL) {
-        this.text = this.translateService.get( this.label );
-    }
+    const links = [];
+    this.metadataValues.forEach((metadataValue) => {
+      // If the component has label subtype get the text from translate service
+      const linkText = (hasValue(this.subtype) &&
+        this.subtype.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.label) : metadataValue
+      const link = {
+        href: metadataValue,
+        text: linkText
+      };
+      links.push(link);
+    })
+    this.links = links;
   }
 
 }

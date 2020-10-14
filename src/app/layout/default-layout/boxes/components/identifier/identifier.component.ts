@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
 import { RenderingTypeModel } from '../rendering-type.model';
-import { MetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.decorator';
-import { ResolverStrategyService } from 'src/app/layout/services/resolver-strategy.service';
-import { hasValue } from 'src/app/shared/empty.util';
+import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { ResolverStrategyService } from '../../../../services/resolver-strategy.service';
+import { hasValue } from '../../../../../shared/empty.util';
+import { MetadataLinkValue } from '../../../../models/cris-layout-metadata-link-value.model';
 
 /**
  * This component renders the identifier metadata fields.
@@ -16,56 +18,71 @@ import { hasValue } from 'src/app/shared/empty.util';
 export class IdentifierComponent extends RenderingTypeModel implements OnInit {
 
   /**
+   * list of identifier values
+   */
+  identifiers: MetadataLinkValue[];
+  /**
    * value of href anchor
    */
-  href: string;
+  href: string[];
   /**
    * text to show in the anchor
    */
-  text: string;
+  text: string[];
   /**
    * specifies where to open the linked document
    */
-  target: string;
+  target = '_blank';
 
   constructor(private resolver: ResolverStrategyService) {
     super();
-    this.target = '_blank';
   }
 
   ngOnInit(): void {
-    if ( hasValue(this.subtype) ) {
-      this.composeLink(this.subtype);
-    } else {
-      // Check if the value is a link (http, https, ftp or ftps)
-      // otherwise resolve link with managed urn
-      if (this.resolver.checkLink(this.metadataValue)) {
-        this.href = this.metadataValue;
-        this.text = this.metadataValue;
+    const identifiers = []
+    this.metadataValues.forEach((metadataValue) => {
+      let identifier: MetadataLinkValue;
+      if ( hasValue(this.subtype) ) {
+        identifier = this.composeLink(metadataValue, this.subtype);
       } else {
-        for (const urn of this.resolver.managedUrn) {
-          if ( hasValue(this.metadataValue) &&
-            this.metadataValue.toLowerCase().startsWith(urn)) {
-              this.composeLink(urn);
+        // Check if the value is a link (http, https, ftp or ftps)
+        // otherwise resolve link with managed urn
+        if (this.resolver.checkLink(metadataValue)) {
+          identifier = {
+            href: metadataValue,
+            text: metadataValue
+          };
+        } else {
+          for (const urn of this.resolver.managedUrn) {
+            if (hasValue(metadataValue) && metadataValue.toLowerCase().startsWith(urn)) {
+              identifier = this.composeLink(metadataValue, urn);
               break;
+            }
           }
         }
       }
-    }
+      identifiers.push(identifier);
+    });
+    this.identifiers = identifiers;
   }
 
   /**
    * Set href and text of the component based on urn
-   * and metadata value
+   * and the given metadata value
+   * @param metadataValue the metadata value
    * @param urn URN type (doi, hdl, mailto)
    */
-  composeLink(urn: string): void {
-    let value = this.metadataValue;
+  composeLink(metadataValue: string, urn: string): MetadataLinkValue {
+    let value = metadataValue;
     const rep = urn + ':';
-    if (this.metadataValue.startsWith(rep)) {
-      value = this.metadataValue.replace(rep, '');
+    if (metadataValue.startsWith(rep)) {
+      value = metadataValue.replace(rep, '');
     }
-    this.href = this.resolver.getBaseUrl(urn) + value;
-    this.text = hasValue(value) && value !== '' ? value : this.href;
+    const href = this.resolver.getBaseUrl(urn) + value;
+    const text = hasValue(value) && value !== '' ? value : href
+    return {
+      href,
+      text
+    }
   }
 }

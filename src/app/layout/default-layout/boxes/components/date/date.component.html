@@ -1,10 +1,14 @@
-<span class="{{containerStyle}}">
+<div class="{{containerStyle}}">
   <span
     *ngIf="hasLabel"
     class="{{labelStyle}}">
     {{label | translate}}
   </span>
-  <span class="txt-value {{valueStyle}}">
-    {{ metadataValue | dsDate }}
-  </span>
-</span>
+
+  <div [class]="'d-flex flex-column ' + valueStyle">
+    <span *ngFor="let metadataValue of metadataValues" class="txt-value">
+      {{ metadataValue | dsDate }}
+    </span>
+  </div>
+
+</div>
