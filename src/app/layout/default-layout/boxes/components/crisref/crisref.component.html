@@ -1,17 +1,23 @@
-<span class="{{containerStyle}}">
+<div class="{{containerStyle}}">
   <span class="{{labelStyle}}">
     {{label | translate}}
   </span>
-  <span class="{{valueStyle}}">
-    <a
-      *ngFor="let ref of references"
-      href="{{ref.link}}"
-      rel="noopener noreferrer"
-      [routerLink]="['/items/' + ref.id]">
-      {{ref.value}} <i class="{{ref.icon}}"></i>
-    </a>
-    <span *ngFor="let t of text">
-      {{t}}
+  <div [class]="'d-flex flex-column ' + valueStyle">
+    <span *ngFor="let ref of (references| async)" class="txt-value">
+      <ng-container [ngTemplateOutlet]="ref.id ? withAuthority : withoutAuthority"
+                    [ngTemplateOutletContext]="{ref:ref}"></ng-container>
     </span>
-  </span>
-</span>
+  </div>
+</div>
+
+
+<ng-template #withAuthority let-ref="ref">
+  <a rel="noopener noreferrer"
+     [routerLink]="['/items/' + ref.id]">
+    {{ref.value}} <i class="{{ref.icon}}"></i>
+  </a>
+</ng-template>
+
+<ng-template #withoutAuthority let-ref="ref">
+  {{ref.value}}
+</ng-template>

@@ -1,12 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { from as observableFrom, Observable, of as observableOf, Subscription } from 'rxjs';
+import { concatMap, map, reduce } from 'rxjs/operators';
+
 import { RenderingTypeModel } from '../rendering-type.model';
-import { MetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.decorator';
-import { hasValue } from 'src/app/shared/empty.util';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
-import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
-import { Observable, concat, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import { hasValue } from '../../../../../shared/empty.util';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { environment } from '../../../../../../environments/environment';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 
 interface CrisRef {
   id: string,
@@ -33,20 +36,14 @@ export class CrisrefComponent extends RenderingTypeModel implements OnInit {
    * created from metadata and its
    * authority
    */
-  references: CrisRef[] = [];
-  /**
-   * Elements without authority are
-   * showed as a simple text field
-   */
-  text: string[] = [];
+  references: Observable<CrisRef[]>;
+
   /**
    * List of subscriptions
    */
   subs: Subscription[] = [];
 
-  constructor(
-    private itemService: ItemDataService,
-    private cdRef: ChangeDetectorRef) {
+  constructor(private itemService: ItemDataService) {
     super();
 
     this.entity2icon = new Map();
@@ -57,35 +54,31 @@ export class CrisrefComponent extends RenderingTypeModel implements OnInit {
   }
 
   ngOnInit() {
-    // retrieve item metadata
-    const itemMetadata = this.item.allMetadata( this.field.metadata );
+    const itemMetadata: MetadataValue[] = this.item.allMetadata( this.field.metadata );
     if (hasValue(itemMetadata)) {
-      const itemObs: Array<Observable<CrisRef>> = [];
-      itemMetadata.forEach( (metadata) => {
-        if (hasValue(metadata.authority)) {
-          itemObs.push(this.itemService.findById(metadata.authority).pipe(
-            getFirstSucceededRemoteDataPayload(),
-            map((item) => {
-              return {
-                id: metadata.authority,
-                icon: this.getIcon( item.firstMetadataValue('relationship.type')),
-                value: metadata.value
-              };
+      this.references = observableFrom(itemMetadata).pipe(
+        concatMap((metadataValue: MetadataValue) => {
+          if (hasValue(metadataValue.authority)) {
+            return this.itemService.findById(metadataValue.authority).pipe(
+              getFirstSucceededRemoteDataPayload(),
+              map((item) => {
+                return {
+                  id: metadataValue.authority,
+                  icon: this.getIcon( item.firstMetadataValue('relationship.type')),
+                  value: metadataValue.value
+                };
+              })
+            );
+          } else {
+            return observableOf({
+              id: null,
+              icon: null,
+              value: metadataValue.value
             })
-          ));
-        } else {
-          this.text.push(metadata.value);
-        }
-      });
-      const resultObs = concat(...itemObs);
-      this.subs.push(resultObs.subscribe(
-        (crisReference) => {
-          this.references.push(crisReference);
-        }, null,
-        () => {
-          this.cdRef.markForCheck();
-        }
-      ));
+          }
+        }),
+        reduce((acc: any, value: any) => [...acc, ...value], [])
+      );
     }
   }
 

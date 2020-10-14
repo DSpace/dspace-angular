@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { of } from 'rxjs';
 import { Item } from 'src/app/core/shared/item.model';
-import { Field } from 'src/app/core/layout/models/metadata-component.model';
+import { LayoutField } from 'src/app/core/layout/models/metadata-component.model';
 import { createMockRDObs } from 'src/app/+item-page/edit-item-page/item-bitstreams/item-bitstreams.component.spec';
 import { By } from '@angular/platform-browser';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -52,7 +52,7 @@ describe('CrisrefComponent', () => {
     label: 'Field Label',
     style: 'col-md-6',
     metadata: 'person.orgunit.id'
-  }) as Field;
+  }) as LayoutField;
 
   itemService = Object.assign( {
     findById: (id: string) => {
