@@ -266,7 +266,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     const options: HttpOptions = Object.create({ headers, responseType: 'text' });
-    return this.authRequestService.getRequest('logout', options).pipe(
+    return this.authRequestService.postToEndpoint('logout', options).pipe(
       map((status: AuthStatus) => {
         if (!status.authenticated) {
           return true;
