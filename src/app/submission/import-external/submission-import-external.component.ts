@@ -107,6 +107,7 @@ export class SubmissionImportExternalComponent implements OnInit {
         this.routeService.getQueryParameterValue('source'),
         this.routeService.getQueryParameterValue('query')
       ]).pipe(
+        take(1),
         filter(([source, query]) => source && query && source !== '' && query !== ''),
         filter(([source, query]) => source !== this.routeData.sourceId || query !== this.routeData.query),
         switchMap(([source, query]) => {
