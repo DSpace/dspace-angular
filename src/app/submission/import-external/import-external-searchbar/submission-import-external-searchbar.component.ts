@@ -139,7 +139,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
    * Load the next pages of external sources.
    */
   public onScroll(): void {
-    if (!this.sourceListLoading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
+    if (!this.sourceListLoading && ((this.pageInfo.currentPage + 1) <= this.pageInfo.totalPages)) {
       this.sourceListLoading = true;
       this.findListOptions = Object.assign({}, new FindListOptions(), {
         elementsPerPage: 5,
