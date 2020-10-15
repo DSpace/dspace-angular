@@ -1,7 +1,7 @@
 ## References
 _Add references/links to any related issues or PRs. These may include:_
-* Fixes [GitHub issue](https://github.com/DSpace/dspace-angular/issues), if any
-* Requires [REST API PR](https://github.com/DSpace/DSpace/pulls), if any
+* Fixes #[issue-number]
+* Requires DSpace/DSpace#[pr-number] (if a REST API PR is required to test this)
 
 ## Description
 Short summary of changes (1-2 sentences).
