@@ -77,7 +77,9 @@ export class FilterInputSuggestionsComponent extends InputSuggestionsComponent i
    */
   checkIfValidInput(form) {
     this.valid = !(form.get('metadataNameField').status === 'INVALID' && (form.get('metadataNameField').dirty || form.get('metadataNameField').touched));
-    this.objectUpdatesService.setValidFieldUpdate(this.url, this.metadata.uuid, this.valid);
+    if (this.metadata) {
+      this.objectUpdatesService.setValidFieldUpdate(this.url, this.metadata.uuid, this.valid);
+    }
     return this.valid;
   }
 
