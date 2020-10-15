@@ -101,7 +101,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
     this.sourceList = [];
     this.findListOptions = Object.assign({}, new FindListOptions(), {
       elementsPerPage: 5,
-      currentPage: 0,
+      currentPage: 1,
     });
     this.externalService.findAll(this.findListOptions).pipe(
       catchError(() => {
