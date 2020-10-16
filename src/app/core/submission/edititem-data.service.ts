@@ -19,6 +19,7 @@ import { CoreState } from '../core.reducers';
 @dataService(EditItem.type)
 export class EditItemDataService extends DataService<EditItem> {
   protected linkPath = 'edititems';
+  protected responseMsToLive = 10 * 1000;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<EditItem>,
