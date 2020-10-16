@@ -11,10 +11,10 @@
   (sortDirectionChange)="onSortDirectionChange($event)"
   (sortFieldChange)="onSortFieldChange($event)"
   (paginationChange)="onPaginationChange($event)">
-    <div class="container" *ngIf="objects?.hasSucceeded">
-      <div class=" card-columns row" *ngFor="let column of (columns$ | async)" @fadeIn>
-        <div class="card-column col-md-4 col-12" *ngFor="let object of column">
-          <ds-listable-object-component-loader class="card-element" [object]="object" [viewMode]="viewMode" [context]="context" [linkType]="linkType"></ds-listable-object-component-loader>
+    <div class="card-columns row" *ngIf="objects?.hasSucceeded">
+      <div class="card-column col col-sm-6 col-lg-4" *ngFor="let column of (columns$ | async)" @fadeIn>
+        <div class="card-element" *ngFor="let object of column">
+          <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [context]="context" [linkType]="linkType"></ds-listable-object-component-loader>
         </div>
       </div>
     </div>
