@@ -172,6 +172,7 @@ import { EndUserAgreementCookieGuard } from './end-user-agreement/end-user-agree
 import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
 import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { UsageReport } from './statistics/models/usage-report.model';
+import { DSpaceHeaderInterceptor } from './dspace-header/dspace-header.interceptor';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -312,6 +313,12 @@ const PROVIDERS = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: LocaleInterceptor,
+    multi: true
+  },
+  // register DSpaceHeaderInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: DSpaceHeaderInterceptor,
     multi: true
   },
   NotificationsService,
