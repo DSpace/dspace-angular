@@ -1,14 +1,14 @@
 <div class="container">
   <div class="text-right">
-    <div *ngIf="editModes && editModes.length === 1">
+    <div *ngIf="(isEditAvailable() | async) && (getEditModes() | async).length === 1">
       <button
-        *ngFor="let editMode of editModes"
+        *ngFor="let editMode of (getEditModes() | async)"
         type="button" class="btn btn-outline-primary float-right"
-        routerLink="/edit-items/{{item.id}}:{{editMode.name}}">
+        [routerLink]="['edit-items', item.id + ':' + editMode.name]">
         <i class="fas fa-edit" aria-hidden="true"></i>
       </button>
     </div>
-    <div *ngIf="editModes && editModes.length > 1">
+    <div *ngIf="(isEditAvailable() | async) && (getEditModes() | async).length > 1">
       <div class="btn-group" ngbDropdown role="group">
         <button ngbDropdownToggle
                 class="btn btn-outline-primary">
@@ -16,26 +16,28 @@
         </button>
         <div class="dropdown-menu" ngbDropdownMenu>
           <button ngbDropdownItem
-                  *ngFor="let editMode of editModes"
-                  routerLink="/edit-items/{{item.id}}:{{editMode.name}}">
+                  *ngFor="let editMode of (getEditModes() | async)"
+                  [routerLink]="['edit-items', item.id + ':' + editMode.name]">
             {{editMode.label ? (editMode.label | translate) : editMode.name}}
           </button>
         </div>
       </div>
     </div>
   </div>
-  <div class="wrapper" [ngClass]="{'wrapper-close': sidebarStatus}">
+  <div class="wrapper" [ngClass]="{'wrapper-close': !(isSideBarHidden() | async)}">
       <ds-cris-layout-default-sidebar
-        [ngClass]="{'mr-3': !sidebarStatus, 'mr-0': sidebarStatus}"
-        [sidebarStatus]="sidebarStatus"
-        [tabs]="tabs"
+        [sidebarStatus]="!(isSideBarHidden() | async)"
+        [tabs]="(getTabs() | async)"
         (selectedTab)="changeTab($event)">
       </ds-cris-layout-default-sidebar>
       <div id="content" class="position-relative pr-0 pt-3 pb-3"
-           [ngClass]="{'p-0': !hideSideBarControl()}">
-          <div *ngIf="hideSideBarControl()">
-            <button type="button" class="btn btn-link menu-toggle" (click)="hideShowSidebar()">
-                <i class="fa fa-chevron-circle-{{sidebarStatus ? 'right' : 'left'}} fa-2x" aria-hidden="true"></i>
+           [ngClass]="{
+            'p-0': !(hasSidebar() | async),
+            'pl-3': !(isSideBarHidden() | async),
+            'pl-0': (isSideBarHidden() | async)}">
+          <div *ngIf="(hasSidebar() | async)">
+            <button type="button" class="btn btn-link menu-toggle" (click)="toggleSidebar()">
+                <i class="fa fa-chevron-circle-{{(isSideBarHidden() | async) ? 'right' : 'left'}} fa-2x" aria-hidden="true"></i>
             </button>
           </div>
 

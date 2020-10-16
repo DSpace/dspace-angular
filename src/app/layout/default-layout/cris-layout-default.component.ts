@@ -1,27 +1,30 @@
 import {
-  Component,
-  OnInit,
-  ViewChild,
   ChangeDetectorRef,
+  Component,
   ComponentFactoryResolver,
   ComponentRef,
-  OnDestroy } from '@angular/core';
-import { Tab } from 'src/app/core/layout/models/tab.model';
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, mergeMap, startWith, take } from 'rxjs/operators';
+
+import { Tab } from '../../core/layout/models/tab.model';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
-import { TabDataService } from 'src/app/core/layout/tab-data.service';
-import { getFirstSucceededRemoteListPayload, getAllSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
-import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
+import { TabDataService } from '../../core/layout/tab-data.service';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getCrisLayoutTab } from '../decorators/cris-layout-tab.decorator';
 import { CrisLayoutPage } from '../decorators/cris-layout-page.decorator';
 import { CrisLayoutPage as CrisLayoutPageObj } from '../models/cris-layout-page.model';
 import { LayoutPage } from '../enums/layout-page.enum';
-import { hasValue } from 'src/app/shared/empty.util';
-import { Subscription } from 'rxjs';
-import { EditItemDataService } from 'src/app/core/submission/edititem-data.service';
-import { EditItem } from 'src/app/core/submission/models/edititem.model';
-import { mergeMap } from 'rxjs/operators';
-import { followLink } from 'src/app/shared/utils/follow-link-config.model';
-import { EditItemMode } from 'src/app/core/submission/models/edititem-mode.model';
+import { isNotEmpty } from '../../shared/empty.util';
+import { EditItemDataService } from '../../core/submission/edititem-data.service';
+import { EditItem } from '../../core/submission/models/edititem.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { EditItemMode } from '../../core/submission/models/edititem-mode.model';
 
 /**
  * This component defines the default layout for all DSpace Items.
@@ -35,29 +38,37 @@ import { EditItemMode } from 'src/app/core/submission/models/edititem-mode.model
 })
 @CrisLayoutPage(LayoutPage.DEFAULT)
 export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnInit, OnDestroy {
-  /**
-   * This parameter define the status of sidebar (hide/show)
-   */
-  sidebarStatus = true;
-  /**
-   * Tabs
-   */
-  tabs: Tab[];
-  /**
-   * Directive hook used to place the dynamic child component
-   */
-  @ViewChild(CrisLayoutLoaderDirective, {static: true}) crisLayoutLoader: CrisLayoutLoaderDirective;
 
-  componentRef: ComponentRef<Component>;
   /**
-   * List of subscriptions
+   * Reference of this Component
    */
-  subs: Subscription[] = [];
+  componentRef: ComponentRef<Component>;
+
   /**
    * List of Edit Modes available on this item
    * for the current user
    */
-  editModes: EditItemMode[] = [];
+  private editModes$: Observable<EditItemMode[]>;
+
+  /**
+   * A boolean representing if to render or not the sidebar menu
+   */
+  private hasSidebar$: Observable<boolean>;
+
+  /**
+   * This parameter define the status of sidebar (hide/show)
+   */
+  private sidebarStatus$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * Tabs
+   */
+  private tabs$: Observable<Tab[]>;
+
+  /**
+   * Directive hook used to place the dynamic child component
+   */
+  @ViewChild(CrisLayoutLoaderDirective, {static: true}) crisLayoutLoader: CrisLayoutLoaderDirective;
 
   constructor(
     private tabService: TabDataService,
@@ -70,35 +81,35 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
 
   ngOnInit() {
     // Retrieve tabs by UUID of item
-    this.subs.push(this.tabService.findByItem(this.item.id)
-      .pipe(getFirstSucceededRemoteListPayload())
-      .subscribe(
-        (next) => {
-          this.tabs = next;
-          // Show sidebar only if exists more then one tab
-          this.sidebarStatus = !(hasValue(this.tabs) && this.tabs.length > 1);
-          this.cd.markForCheck();
-        }
-    ));
+    this.tabs$ = this.tabService.findByItem(this.item.id).pipe(
+      getFirstSucceededRemoteListPayload()
+    );
+
+    // Check if to show sidebar
+    this.hasSidebar$ = this.tabs$.pipe(
+      map((tabs) => isNotEmpty(tabs) && tabs.length > 1),
+    );
+
+    // Init the sidebar status
+    this.hasSidebar$.pipe(take(1)).subscribe((status) => {
+      this.sidebarStatus$.next(status)
+    });
+
     // Retrieve edit modes
-    this.subs.push(this.editItemService.findById(this.item.id + ':none', followLink('modes'))
-      .pipe(
-        getAllSucceededRemoteDataPayload(),
-        mergeMap((editItem: EditItem) => editItem.modes.pipe(
-            getFirstSucceededRemoteListPayload())
-          )
-        ).subscribe(
-        (editItemModes) => {
-          this.editModes = editItemModes;
-        }
-      ));
+    this.editModes$ = this.editItemService.findById(this.item.id + ':none', followLink('modes')).pipe(
+      getAllSucceededRemoteDataPayload(),
+      mergeMap((editItem: EditItem) => editItem.modes.pipe(
+        getFirstSucceededRemoteListPayload())
+      ),
+      startWith([])
+    );
   }
 
   /**
    * It is used for hide/show the left sidebar
    */
-  hideShowSidebar(): void {
-    this.sidebarStatus = !this.sidebarStatus;
+  toggleSidebar(): void {
+    this.sidebarStatus$.next(!this.sidebarStatus$.value);
   }
 
   /**
@@ -125,17 +136,49 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     return getCrisLayoutTab(this.item, tabShortname);
   }
 
+  /**
+   * Check if edit mode is available
+   */
+  getEditModes(): Observable<EditItemMode[]> {
+    return this.editModes$;
+  }
+
+  /**
+   * Return list of tabs
+   */
+  getTabs(): Observable<Tab[]> {
+    return this.tabs$;
+  }
+
+  /**
+   * Check if edit mode is available
+   */
+  isEditAvailable(): Observable<boolean> {
+    return this.editModes$.pipe(
+      map((editModes) => isNotEmpty(editModes) && editModes.length === 1)
+    );
+  }
+
+  /**
+   * Check if sidebar is present
+   */
+  hasSidebar(): Observable<boolean> {
+    return this.hasSidebar$;
+  }
+
+  /**
+   * Return the sidebar status
+   */
+  isSideBarHidden(): Observable<boolean> {
+    return this.sidebarStatus$.asObservable().pipe(
+      map((status: boolean) => !status)
+    );
+  }
+
   ngOnDestroy(): void {
     if (this.componentRef) {
       this.componentRef.destroy();
     }
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
-  /**
-   * Hide the sidebar controll button if exists only one tab
-   */
-  hideSideBarControl(): boolean {
-    return hasValue(this.tabs) && this.tabs.length > 1;
-  }
 }

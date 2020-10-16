@@ -40,14 +40,15 @@ describe('TextComponent', () => {
     fixture.detectChanges();
   });
 
-  it('check metadata rendering', () => {
+  it('check metadata rendering', (done) => {
     const spanValueFound = fixture.debugElement.queryAll(By.css('span.txt-value'));
     expect(spanValueFound.length).toBe(2);
     expect(spanValueFound[0].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[0]);
     expect(spanValueFound[1].nativeElement.textContent).toContain((new TestItem()).allMetadataValues('')[1]);
 
-    const spanLabelFound = fixture.debugElement.query(By.css('span.' + medataComponent.rows[0].fields[0].style));
+    const spanLabelFound = fixture.debugElement.query(By.css('div.' + medataComponent.rows[0].fields[0].style));
     const label: HTMLElement = spanLabelFound.nativeElement;
     expect(label.textContent).toContain(medataComponent.rows[0].fields[0].label);
+    done();
   });
 });

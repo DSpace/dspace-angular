@@ -1,7 +1,8 @@
-import { Component, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
-import { Tab } from 'src/app/core/layout/models/tab.model';
-import { hasValue } from 'src/app/shared/empty.util';
+
+import { Tab } from '../../../core/layout/models/tab.model';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * This component render the sidebar of the default layout
@@ -42,7 +43,7 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
               return;
             }
             idx++;
-          };
+          }
           if (idx === this.tabs.length) {
             this.selectTab(0);
           }

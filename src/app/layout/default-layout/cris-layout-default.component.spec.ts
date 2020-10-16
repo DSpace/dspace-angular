@@ -1,31 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectorRef, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestScheduler } from 'rxjs/testing';
+
+import { cold, getTestScheduler, } from 'jasmine-marbles';
+import { Observable, of as observableOf } from 'rxjs';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { CrisLayoutDefaultComponent } from './cris-layout-default.component';
 import { LayoutPage } from '../enums/layout-page.enum';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
-import { Tab } from 'src/app/core/layout/models/tab.model';
-import { Observable, of } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { PaginatedList } from 'src/app/core/data/paginated-list';
-import { cold } from 'jasmine-marbles';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
-import { PageInfo } from 'src/app/core/shared/page-info.model';
-import { tabs, tabPersonTest, tabPersonProfile } from 'src/app/shared/testing/tab.mock';
-import { ComponentFactoryResolver, ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TabDataService } from 'src/app/core/layout/tab-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { Tab } from '../../core/layout/models/tab.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { tabPersonProfile, tabPersonTest, tabs } from '../../shared/testing/tab.mock';
+import { TabDataService } from '../../core/layout/tab-data.service';
 import { CrisLayoutDefaultTabComponent } from './tab/cris-layout-default-tab.component';
 import * as CrisLayoutTabDecorators from '../decorators/cris-layout-tab.decorator';
-import { Item } from 'src/app/core/shared/item.model';
-import { spyOnExported } from 'src/app/shared/testing/utils.test';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Item } from '../../core/shared/item.model';
+import { spyOnExported } from '../../shared/testing/utils.test';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
-import { Box } from 'src/app/core/layout/models/box.model';
-import { BoxDataService } from 'src/app/core/layout/box-data.service';
-import { EditItemDataService } from 'src/app/core/submission/edititem-data.service';
-import { EditItem } from 'src/app/core/submission/models/edititem.model';
+import { Box } from '../../core/layout/models/box.model';
+import { BoxDataService } from '../../core/layout/box-data.service';
+import { EditItemDataService } from '../../core/submission/edititem-data.service';
+import { EditItem } from '../../core/submission/models/edititem.model';
 
 const testType = LayoutPage.DEFAULT;
 class TestItem {
@@ -43,7 +45,7 @@ class BoxDataServiceMock {
 }
 
 const editItem: EditItem = Object.assign({
-  modes: of({})
+  modes: observableOf({})
 });
 
 // tslint:disable-next-line: max-classes-per-file
@@ -59,6 +61,7 @@ class EditItemDataServiceMock {
 describe('CrisLayoutDefaultComponent', () => {
   let component: CrisLayoutDefaultComponent;
   let fixture: ComponentFixture<CrisLayoutDefaultComponent>;
+  let scheduler: TestScheduler;
 
   describe('When the component is rendered with more then one tab', () => {
     // tslint:disable-next-line: max-classes-per-file
@@ -100,28 +103,48 @@ describe('CrisLayoutDefaultComponent', () => {
     }));
 
     beforeEach(() => {
+      scheduler = getTestScheduler();
       fixture = TestBed.createComponent(CrisLayoutDefaultComponent);
       component = fixture.componentInstance;
       component.item = new TestItem() as Item;
-      component.tabs = tabs;
       spyOnExported(CrisLayoutTabDecorators, 'getCrisLayoutTab').and.returnValue(CrisLayoutDefaultTabComponent);
-      fixture.detectChanges();
+    });
+
+    it('should init component properly', () => {
+      scheduler.schedule(() => component.ngOnInit());
+      scheduler.flush();
+      expect(component.getTabs()).toBeObservable(cold('(a|)', {
+        a: tabs
+      }));
+
+      expect(component.hasSidebar()).toBeObservable(cold('(a|)', {
+        a: true
+      }));
     });
 
     it('should call the getCrisLayoutPage function with the right types', () => {
+      scheduler.schedule(() => component.ngOnInit());
+      scheduler.flush();
       component.changeTab(tabPersonTest);
       expect(CrisLayoutTabDecorators.getCrisLayoutTab).toHaveBeenCalledWith(new TestItem() as Item, tabPersonTest.shortname);
-    })
-
-    it('check sidebar hide/show function', () => {
-      expect(component.sidebarStatus).toBeTrue();
-      component.hideShowSidebar();
-      expect(component.sidebarStatus).toBeFalse();
-      component.hideShowSidebar();
     });
 
+    it('check sidebar hide/show function', async(() => {
+      scheduler.schedule(() => component.ngOnInit());
+      scheduler.flush();
+      expect((component as any).sidebarStatus$.value).toBeTrue();
+      component.toggleSidebar();
+      expect((component as any).sidebarStatus$.value).toBeFalse();
+      component.toggleSidebar();
+    }));
+
     it('check if sidebar and its control are showed', () => {
-      expect(component.hideSideBarControl()).toBeTrue();
+      scheduler.schedule(() => component.ngOnInit());
+      scheduler.flush();
+      const sidebarControl$ = component.isSideBarHidden();
+      expect(sidebarControl$).toBeObservable(cold('a', {
+        a: false
+      }));
     });
   });
 
@@ -165,20 +188,25 @@ describe('CrisLayoutDefaultComponent', () => {
     }));
 
     beforeEach(() => {
+      scheduler = getTestScheduler();
       fixture = TestBed.createComponent(CrisLayoutDefaultComponent);
       component = fixture.componentInstance;
       component.item = new TestItem() as Item;
-      component.tabs = [tabPersonProfile];
+      (component as any).tabs$ = observableOf([tabPersonProfile]);
       spyOnExported(CrisLayoutTabDecorators, 'getCrisLayoutTab').and.returnValue(CrisLayoutDefaultTabComponent);
-      fixture.detectChanges();
     });
 
     it('check if sidebar and its control are hidden', () => {
-      component.tabs = [tabPersonProfile];
-      fixture.detectChanges();
-      const sidebarControl = component.hideSideBarControl();
-      expect(sidebarControl).toBeFalse();
-      expect(component.sidebarStatus).toBeTrue();
+      scheduler.schedule(() => component.ngOnInit());
+      scheduler.flush();
+      const sidebarControl$ = component.isSideBarHidden();
+      expect(sidebarControl$).toBeObservable(cold('(a)', {
+        a: true
+      }));
+
+      expect(component.hasSidebar()).toBeObservable(cold('(a|)', {
+        a: false
+      }));
     });
   });
 

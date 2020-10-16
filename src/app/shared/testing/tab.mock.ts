@@ -1,5 +1,5 @@
-import { Tab } from 'src/app/core/layout/models/tab.model';
-import { TAB } from 'src/app/core/layout/models/tab.resource-type';
+import { Tab } from '../../core/layout/models/tab.model';
+import { TAB } from '../../core/layout/models/tab.resource-type';
 
 export const tabPersonProfile: Tab = {
   type: TAB,
