@@ -172,13 +172,18 @@ export class ObjectGridComponent implements OnInit {
 
         const result = [];
 
+        let index = 0;
         page.forEach((obj: ListableObject, i: number) => {
-          const colNb = i % nbColumns;
-          let col = result[colNb];
+
+          if (i % nbColumns === 0 && i > 0) {
+            index++;
+          }
+
+          let col = result[index];
           if (hasNoValue(col)) {
             col = [];
           }
-          result[colNb] = [...col, obj];
+          result[index] = [...col, obj];
         });
         return result;
       } else {
