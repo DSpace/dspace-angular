@@ -162,7 +162,7 @@
   "admin.registries.metadata.schemas.no-items": "Es gibt keinen Metadatenschemata in der Referenzliste.",
   
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
-  "admin.registries.metadata.schemas.table.delete": "Ausgewählte löschen",
+  "admin.registries.metadata.schemas.table.delete": "Auswahl löschen",
   
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
@@ -699,7 +699,7 @@
   
   
   // "auth.errors.invalid-user": "Invalid email address or password.",
-  "auth.errors.invalid-user": "Password oder E-Mail-Adresse ungültig.",
+  "auth.errors.invalid-user": "Passwort oder E-Mail-Adresse ungültig.",
   
   // "auth.messages.expired": "Your session has expired. Please log in again.",
   "auth.messages.expired": "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an.",
@@ -1137,7 +1137,7 @@
   
   
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
-  "collection.source.update.notifications.error.content": "Die angegebenen Einstellen wurden getestet und haben nicht funktioniert.",
+  "collection.source.update.notifications.error.content": "Die angegebenen Einstellungen wurden getestet und haben nicht funktioniert.",
   
   // "collection.source.update.notifications.error.title": "Server Error",
   "collection.source.update.notifications.error.title": "Serverfehler",
@@ -1345,7 +1345,7 @@
   "error.objects": "Fehler beim Laden der Objekte",
   
   // "error.recent-submissions": "Error fetching recent submissions",
-  "error.recent-submissions": "Fehler beim Laden der aktuellsten Veröffentlichungen",
+  "error.recent-submissions": "Fehler beim Laden der neuesten Veröffentlichungen",
   
   // "error.search-results": "Error fetching search results",
   "error.search-results": "Fehler beim Laden der Suchergebnisse",
@@ -1366,7 +1366,7 @@
   "error.validation.license.notgranted": "Um die Veröffentlichung abzuschließen, müssen Sie die Lizenzbedingungen akzeptieren. Wenn Sie zur Zeit dazu nicht in der Lage sind, können Sie Ihre Arbeit sichern und später dazu zurückgkehren, um zuzustimmen oder die Einreichung zu löschen.",
   
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
-  "error.validation.pattern": "Die Eingabe hat dem folgenden Muster zu entsprechen: {{ pattern }}.",
+  "error.validation.pattern": "Die Eingabe muss dem folgenden Muster entsprechen: {{ pattern }}.",
   
   // "error.validation.filerequired": "The file upload is mandatory",
   "error.validation.filerequired": "Das Hochladen einer Datei ist erforderlich.",
@@ -1402,7 +1402,7 @@
   "form.edit": "Bearbeiten",
   
   // "form.edit-help": "Click here to edit the selected value",
-  "form.edit-help": "Klicken Sie hier, um den ausgwählten Wert zu bearbeiten",
+  "form.edit-help": "Klicken Sie hier, um den ausgewählten Wert zu bearbeiten",
   
   // "form.first-name": "First name",
   "form.first-name": "Vorname",
@@ -1417,7 +1417,7 @@
   "form.group-expand": "Auffalten",
   
   // "form.group-expand-help": "Click here to expand and add more elements",
-  "form.group-expand-help": "Zum Ausklappten und Hinzufügen von mehr Elementen, klicken Sie hier",
+  "form.group-expand-help": "Zum Ausklappen und Hinzufügen von weiteren Elementen klicken Sie hier",
   
   // "form.last-name": "Last name",
   "form.last-name": "Nachname",
@@ -2310,7 +2310,7 @@
   "loading.objects": "Lade...",
   
   // "loading.recent-submissions": "Loading recent submissions...",
-  "loading.recent-submissions": "Lade aktuellste Veröffentlichungen...",
+  "loading.recent-submissions": "Lade neueste Veröffentlichungen...",
   
   // "loading.search-results": "Loading search results...",
   "loading.search-results": "Lade Suchergebnisse...",
@@ -2333,7 +2333,7 @@
   "login.form.forgot-password": "Haben Sie Ihr Passwort vergessen?",
   
   // "login.form.header": "Please log in to DSpace",
-  "login.form.header": "Bitte loggen Sie sich ein.",
+  "login.form.header": "Bitte melden Sie sich an.",
   
   // "login.form.new-user": "New user? Click here to register.",
   "login.form.new-user": "Neu hier? Klicken Sie hier, um sich zu registrieren.",
@@ -2506,7 +2506,7 @@
   "menu.section.icon.statistics_task": "Menübereich Statistikaufgaben",
   
   // "menu.section.icon.unpin": "Unpin sidebar",
-  "menu.section.icon.unpin": "Seitenbereich Loslösen",
+  "menu.section.icon.unpin": "Seitenbereich loslösen",
   
   
   
@@ -3698,7 +3698,7 @@
   "submission.sections.upload.no-entry": "Kein Eintrag",
   
   // "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
-  "submission.sections.upload.no-file-uploaded": "Es wurde noch keine Datei hochgeladen",
+  "submission.sections.upload.no-file-uploaded": "Es wurde noch keine Datei hochgeladen.",
   
   // "submission.sections.upload.save-metadata": "Save metadata",
   "submission.sections.upload.save-metadata": "Metadaten speichern",
@@ -3832,7 +3832,7 @@
   "uploader.processing": "Bearbeitung läuft",
   
   // "uploader.queue-length": "Queue length",
-  "uploader.queue-length": "Länge der Warteschleife",
+  "uploader.queue-length": "Länge der Warteschlange",
   
   // "virtual-metadata.delete-item.info": "Select the types for which you want to save the virtual metadata as real metadata",
   "virtual-metadata.delete-item.info": "Wählen Sie die Typen für die Sie die virtuellen Metadaten als reelle Metadaten speichern wollen",
