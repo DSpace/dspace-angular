@@ -942,7 +942,7 @@
   "collection.edit.item-mapper.description": "Sammlungsadministratoren haben die Möglichkeit Ressourcen von einer Sammlung in eine andere zu spiegeln. Man kann nach Ressourcen in anderen Sammlungen suchen und diese spiegeln oder sich eine Liste der gespiegelten Ressourcen anzeigen lassen.",
   
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  "collection.edit.item-mapper.head": "Ressourcen Spiegeln - Spiegelt Ressourcen aus anderen Sammlungen",
+  "collection.edit.item-mapper.head": "Ressourcen spiegeln - Spiegelt Ressourcen aus anderen Sammlungen",
   
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
   "collection.edit.item-mapper.no-search": "Bitte geben Sie eine Suchanfrage ein.",
@@ -1687,7 +1687,7 @@
   "item.edit.item-mapper.description": "Sammlungsadministratoren haben die Möglichkeit Ressourcen von einer Sammlung in eine andere zu spiegeln. Man kann nach Ressourcen in anderen Sammlungen suchen und diese spiegeln oder sich eine Liste der gespiegelten Ressourcen anzeigen lassen.",
   
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  "item.edit.item-mapper.head": "Ressourcen Spiegeln - Spiegelt eine Resource in andere Sammlungen",
+  "item.edit.item-mapper.head": "Ressourcen spiegeln - Spiegelt eine Ressource in andere Sammlungen",
   
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
   "item.edit.item-mapper.item": "Ressource: \"<b>{{name}}</b>\"",
@@ -1696,7 +1696,7 @@
   "item.edit.item-mapper.no-search": "Bitte geben Sie einen Suchbegriff ein",
   
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.add.error.content": "Beim Spiegeln der Resource in {{amount}} Sammlung(en) ist ein Fehler aufgetreten.",
+  "item.edit.item-mapper.notifications.add.error.content": "Beim Spiegeln der Ressource in {{amount}} Sammlung(en) ist ein Fehler aufgetreten.",
   
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
   "item.edit.item-mapper.notifications.add.error.head": "Fehler beim Spiegeln",
@@ -1865,7 +1865,7 @@
   "item.edit.public.confirm": "Öffentlich machen",
   
   // "item.edit.public.description": "Are you sure this item should be made public in the archive?",
-  "item.edit.public.description": "Sind Sie sicher, dasss diese Ressource im Repositorium öffentlich gemacht werden soll?",
+  "item.edit.public.description": "Sind Sie sicher, dass diese Ressource im Repositorium öffentlich gemacht werden soll?",
   
   // "item.edit.public.error": "An error occurred while making the item public",
   "item.edit.public.error": "Ein Fehler ist aufgetreten, als die Ressource öffentlich gemacht werden sollte.",
@@ -2031,7 +2031,7 @@
   "item.edit.tabs.status.labels.lastModified": "Zuletzt geändert",
   
   // "item.edit.tabs.status.title": "Item Edit -  Status",
-  "item.edit.tabs.status.title": "Ressource Bearbeiten -  Status",
+  "item.edit.tabs.status.title": "Ressource bearbeiten -  Status",
   
   // "item.edit.tabs.versionhistory.head": "Version History",
   // TODO New key - Add a translation
@@ -2046,7 +2046,7 @@
   "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
   
   // "item.edit.tabs.view.head": "View Item",
-  "item.edit.tabs.view.head": "Ressource Ansehen",
+  "item.edit.tabs.view.head": "Ressource ansehen",
   
   // "item.edit.tabs.view.title": "Item Edit -  View",
   "item.edit.tabs.view.title": "Ressource bearbeiten -  Ansicht",
@@ -2275,59 +2275,59 @@
   
   // "loading.bitstream": "Loading bitstream...",
   // TODO New key - Add a translation
-  "loading.bitstream": "Loading bitstream...",
+  "loading.bitstream": "Lade Bitstream...",
   
   // "loading.bitstreams": "Loading bitstreams...",
   // TODO New key - Add a translation
-  "loading.bitstreams": "Loading bitstreams...",
+  "loading.bitstreams": "Lade Bitstreams...",
   
   // "loading.browse-by": "Loading items...",
-  "loading.browse-by": "Ressourcen am laden...",
+  "loading.browse-by": "Lade Ressourcen...",
   
   // "loading.browse-by-page": "Loading page...",
-  "loading.browse-by-page": "Seite am Laden...",
+  "loading.browse-by-page": "Lade Seite...",
   
   // "loading.collection": "Loading collection...",
-  "loading.collection": "Sammlung am Laden...",
+  "loading.collection": "Lade Sammlung...",
   
   // "loading.collections": "Loading collections...",
-  "loading.collections": "Sammlungen am Laden...",
+  "loading.collections": "Lade Sammlungen...",
   
   // "loading.content-source": "Loading content source...",
-  "loading.content-source": "Laden der Bezugsquelle...",
+  "loading.content-source": "Lade Bezugsquelle...",
   
   // "loading.community": "Loading community...",
-  "loading.community": "Bereich am Laden...",
+  "loading.community": "Lade Bereich...",
   
   // "loading.default": "Loading...",
-  "loading.default": "Am Laden...",
+  "loading.default": "Lade...",
   
   // "loading.item": "Loading item...",
-  "loading.item": "Ressource am Laden...",
+  "loading.item": "Lade Ressource...",
   
   // "loading.items": "Loading items...",
-  "loading.items": "Ressourcen am Laden...",
+  "loading.items": "Lade Ressourcen...",
   
   // "loading.mydspace-results": "Loading items...",
-  "loading.mydspace-results": "Ressourcen am Laden...",
+  "loading.mydspace-results": "Lade Ressourcen...",
   
   // "loading.objects": "Loading...",
-  "loading.objects": "Am Laden...",
+  "loading.objects": "Lade...",
   
   // "loading.recent-submissions": "Loading recent submissions...",
-  "loading.recent-submissions": "Aktuellste Veröffentlichungen am Laden...",
+  "loading.recent-submissions": "Lade aktuellste Veröffentlichungen...",
   
   // "loading.search-results": "Loading search results...",
-  "loading.search-results": "Suchergebnisse am Laden...",
+  "loading.search-results": "Lade Suchergebnisse...",
   
   // "loading.sub-collections": "Loading sub-collections...",
-  "loading.sub-collections": "Untersammlungen am Laden...",
+  "loading.sub-collections": "Lade Untersammlungen...",
   
   // "loading.sub-communities": "Loading sub-communities...",
-  "loading.sub-communities": "Teilbereiche am Laden...",
+  "loading.sub-communities": "Lade Teilbereiche...",
   
   // "loading.top-level-communities": "Loading top-level communities...",
-  "loading.top-level-communities": "Hauptbereiche am Laden...",
+  "loading.top-level-communities": "Lade Hauptbereiche...",
   
   
   
@@ -3603,7 +3603,7 @@
   "submission.sections.general.collection": "Sammlung",
   
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
-  "submission.sections.general.deposit_error_notice": "Beim Einreichen der Ressoruce ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
+  "submission.sections.general.deposit_error_notice": "Beim Einreichen der Ressource ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
   
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht",
@@ -3781,7 +3781,7 @@
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Beschreiben Sie den Grund für die Ablehnung",
   
   // "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
-  "submission.workflow.tasks.claimed.reject.reason.submit": "Ressource Ablehnen",
+  "submission.workflow.tasks.claimed.reject.reason.submit": "Ressource ablehnen",
   
   // "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
   "submission.workflow.tasks.claimed.reject.reason.title": "Grund",
@@ -3790,7 +3790,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Ablehnen",
   
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Wenn Sie die Ressource begutachte und als <strong>ungeeignet</strong> für die Aufnahme in die Sammlung befunden haben, wählen Sie \"Ablehnen\".  Sie haben dann die Möglichkeit dem/der Einreichenden, den Grund für die Ablehnung zu erklären und ob es eine Möglichkeit gibt, durch entsprechenden Änderungen die Ressource erneut einzureichen.",
+  "submission.workflow.tasks.claimed.reject_help": "Wenn Sie die Ressource begutachtet und als <strong>ungeeignet</strong> für die Aufnahme in die Sammlung befunden haben, wählen Sie \"Ablehnen\".  Sie haben dann die Möglichkeit dem/der Einreichenden, den Grund für die Ablehnung zu erklären und ob es eine Möglichkeit gibt, durch entsprechenden Änderungen die Ressource erneut einzureichen.",
   
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Zurück in den gemeinsamen Aufgabenbereich",
