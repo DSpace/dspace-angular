@@ -322,19 +322,19 @@
   
   // "admin.access-control.epeople.form.firstName": "First name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.firstName": "First name",
+  "admin.access-control.epeople.form.firstName": "Vorname",
   
   // "admin.access-control.epeople.form.lastName": "Last name",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.lastName": "Last name",
+  "admin.access-control.epeople.form.lastName": "Nachname",
   
   // "admin.access-control.epeople.form.email": "E-mail",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.email": "E-mail",
+  "admin.access-control.epeople.form.email": "E-Mail-Adresse",
   
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
   // TODO New key - Add a translation
-  "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  "admin.access-control.epeople.form.emailHint": "Muss eine gültige E-Mail-Adresse sein",
   
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
   // TODO New key - Add a translation
@@ -2848,27 +2848,27 @@
   
   // "profile.metadata.form.error.firstname.required": "First Name is required",
   // TODO New key - Add a translation
-  "profile.metadata.form.error.firstname.required": "First Name is required",
+  "profile.metadata.form.error.firstname.required": "Vorname muss angegeben werden",
   
   // "profile.metadata.form.error.lastname.required": "Last Name is required",
   // TODO New key - Add a translation
-  "profile.metadata.form.error.lastname.required": "Last Name is required",
+  "profile.metadata.form.error.lastname.required": "Nachname muss angegeben werden",
   
   // "profile.metadata.form.label.email": "Email Address",
   // TODO New key - Add a translation
-  "profile.metadata.form.label.email": "Email Address",
+  "profile.metadata.form.label.email": "E-Mail-Adresse",
   
   // "profile.metadata.form.label.firstname": "First Name",
   // TODO New key - Add a translation
-  "profile.metadata.form.label.firstname": "First Name",
+  "profile.metadata.form.label.firstname": "Vorname",
   
   // "profile.metadata.form.label.language": "Language",
   // TODO New key - Add a translation
-  "profile.metadata.form.label.language": "Language",
+  "profile.metadata.form.label.language": "Sprache",
   
   // "profile.metadata.form.label.lastname": "Last Name",
   // TODO New key - Add a translation
-  "profile.metadata.form.label.lastname": "Last Name",
+  "profile.metadata.form.label.lastname": "Nachname",
   
   // "profile.metadata.form.label.phone": "Contact Telephone",
   // TODO New key - Add a translation
