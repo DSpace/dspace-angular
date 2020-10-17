@@ -707,7 +707,7 @@
   "auth.errors.invalid-user": "Password oder E-Mail-Adresse ungültig.",
   
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  "auth.messages.expired": "Ihre Sitzung ist abgelaufen, bitte loggen Sie sich erneut ein.",
+  "auth.messages.expired": "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an.",
   
   
   
@@ -2352,16 +2352,16 @@
   
   // "login.form.shibboleth": "Log in with Shibboleth",
   // TODO New key - Add a translation
-  "login.form.shibboleth": "Log in with Shibboleth",
+  "login.form.shibboleth": "Anmeldung mit Shibboleth",
   
   // "login.form.submit": "Log in",
-  "login.form.submit": "Einloggen",
+  "login.form.submit": "Anmelden",
   
   // "login.title": "Login",
-  "login.title": "Einloggen",
+  "login.title": "Anmelden",
   
   // "login.breadcrumbs": "Login",
-  "login.breadcrumbs": "Einloggen",
+  "login.breadcrumbs": "Anmelden",
   
   
   
@@ -2727,10 +2727,10 @@
   "nav.language": "Sprachumschalter",
   
   // "nav.login": "Log In",
-  "nav.login": "Einloggen",
+  "nav.login": "Anmelden",
   
   // "nav.logout": "Log Out",
-  "nav.logout": "Ausloggen",
+  "nav.logout": "Abmelden",
   
   // "nav.mydspace": "MyDSpace",
   "nav.mydspace": "Mein DSpace",
