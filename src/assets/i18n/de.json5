@@ -325,15 +325,12 @@
   "admin.access-control.epeople.form.firstName": "Vorname",
   
   // "admin.access-control.epeople.form.lastName": "Last name",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.form.lastName": "Nachname",
   
   // "admin.access-control.epeople.form.email": "E-mail",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.form.email": "E-Mail-Adresse",
   
   // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
-  // TODO New key - Add a translation
   "admin.access-control.epeople.form.emailHint": "Muss eine gültige E-Mail-Adresse sein",
   
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
@@ -690,12 +687,10 @@
   "admin.search.item.reinstate": "Reinstate",
   
   // "admin.search.item.withdraw": "Withdraw",
-  // TODO New key - Add a translation
-  "admin.search.item.withdraw": "Withdraw",
+  "admin.search.item.withdraw": "Zurückziehen",
   
   // "admin.search.item.withdrawn": "Withdrawn",
-  // TODO New key - Add a translation
-  "admin.search.item.withdrawn": "Withdrawn",
+  "admin.search.item.withdrawn": "Zurückgezogen",
   
   // "admin.search.title": "Administrative Search",
   // TODO New key - Add a translation
@@ -2344,14 +2339,12 @@
   "login.form.new-user": "Neu hier? Klicken Sie hier, um sich zu registrieren.",
   
   // "login.form.or-divider": "or",
-  // TODO New key - Add a translation
-  "login.form.or-divider": "or",
+  "login.form.or-divider": "oder",
   
   // "login.form.password": "Password",
   "login.form.password": "Passwort",
   
   // "login.form.shibboleth": "Log in with Shibboleth",
-  // TODO New key - Add a translation
   "login.form.shibboleth": "Anmeldung mit Shibboleth",
   
   // "login.form.submit": "Log in",
@@ -2736,8 +2729,7 @@
   "nav.mydspace": "Mein DSpace",
   
   // "nav.profile": "Profile",
-  // TODO New key - Add a translation
-  "nav.profile": "Profile",
+  "nav.profile": "Profil",
   
   // "nav.search": "Search",
   "nav.search": "Suche",
@@ -2847,27 +2839,21 @@
   "profile.head": "Update Profile",
   
   // "profile.metadata.form.error.firstname.required": "First Name is required",
-  // TODO New key - Add a translation
   "profile.metadata.form.error.firstname.required": "Vorname muss angegeben werden",
   
   // "profile.metadata.form.error.lastname.required": "Last Name is required",
-  // TODO New key - Add a translation
   "profile.metadata.form.error.lastname.required": "Nachname muss angegeben werden",
   
   // "profile.metadata.form.label.email": "Email Address",
-  // TODO New key - Add a translation
   "profile.metadata.form.label.email": "E-Mail-Adresse",
   
   // "profile.metadata.form.label.firstname": "First Name",
-  // TODO New key - Add a translation
   "profile.metadata.form.label.firstname": "Vorname",
   
   // "profile.metadata.form.label.language": "Language",
-  // TODO New key - Add a translation
   "profile.metadata.form.label.language": "Sprache",
   
   // "profile.metadata.form.label.lastname": "Last Name",
-  // TODO New key - Add a translation
   "profile.metadata.form.label.lastname": "Nachname",
   
   // "profile.metadata.form.label.phone": "Contact Telephone",
@@ -2903,8 +2889,7 @@
   "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
   
   // "profile.security.form.label.password": "Password",
-  // TODO New key - Add a translation
-  "profile.security.form.label.password": "Password",
+  "profile.security.form.label.password": "Passwort",
   
   // "profile.security.form.label.passwordrepeat": "Retype to confirm",
   // TODO New key - Add a translation
@@ -3095,8 +3080,7 @@
   "search.filters.applied.f.birthDate.min": "Anfang Geburtsdatum",
   
   // "search.filters.applied.f.withdrawn": "Withdrawn",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.withdrawn": "Withdrawn",
+  "search.filters.applied.f.withdrawn": "Zurückgezogen",
   
   
   
@@ -3156,8 +3140,7 @@
   "search.filters.filter.discoverable.head": "Private",
   
   // "search.filters.filter.withdrawn.head": "Withdrawn",
-  // TODO New key - Add a translation
-  "search.filters.filter.withdrawn.head": "Withdrawn",
+  "search.filters.filter.withdrawn.head": "Zurückgezogen",
   
   // "search.filters.filter.entityType.head": "Item Type",
   "search.filters.filter.entityType.head": "Art der Ressource",
@@ -3255,28 +3238,22 @@
   "search.filters.entityType.OrgUnit": "Organizational Unit",
   
   // "search.filters.has_content_in_original_bundle.true": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.has_content_in_original_bundle.true": "Yes",
+  "search.filters.has_content_in_original_bundle.true": "Ja",
   
   // "search.filters.has_content_in_original_bundle.false": "No",
-  // TODO New key - Add a translation
-  "search.filters.has_content_in_original_bundle.false": "No",
+  "search.filters.has_content_in_original_bundle.false": "Nein",
   
   // "search.filters.discoverable.true": "No",
-  // TODO New key - Add a translation
-  "search.filters.discoverable.true": "No",
+  "search.filters.discoverable.true": "Nein",
   
   // "search.filters.discoverable.false": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.discoverable.false": "Yes",
+  "search.filters.discoverable.false": "Ja",
   
   // "search.filters.withdrawn.true": "Yes",
-  // TODO New key - Add a translation
-  "search.filters.withdrawn.true": "Yes",
+  "search.filters.withdrawn.true": "Ja",
   
   // "search.filters.withdrawn.false": "No",
-  // TODO New key - Add a translation
-  "search.filters.withdrawn.false": "No",
+  "search.filters.withdrawn.false": "Nein",
   
   
   // "search.filters.head": "Filters",
