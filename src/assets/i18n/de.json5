@@ -3746,7 +3746,7 @@
   "submission.workflow.generic.delete": "Löschen",
   
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Wenn Sie die Ressource verwerfen möchten, Wählen Sie \"Löschen\".  Sie werden dies noch einmal gefragt, um die Aktion zu bestätigen.",
+  "submission.workflow.generic.delete-help": "Wenn Sie die Ressource verwerfen möchten, wählen Sie \"Löschen\". Sie werden dies noch einmal gefragt, um die Aktion zu bestätigen.",
   
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Bearbeiten",
@@ -3766,7 +3766,7 @@
   "submission.workflow.tasks.claimed.approve": "Zustimmen",
   
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help": "Wenn Sie die Ressource begutachtet und die Aufnahme in die Sammlung befürworten, wählen Sie  \"Zustimmen\".",
+  "submission.workflow.tasks.claimed.approve_help": "Wenn Sie die Ressource begutachtet haben und die Aufnahme in die Sammlung befürworten, wählen Sie \"Zustimmen\".",
   
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Bearbeiten",
