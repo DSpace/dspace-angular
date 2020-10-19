@@ -6,7 +6,8 @@ import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -30,6 +31,7 @@ describe('GroupRegistryComponent', () => {
   let fixture: ComponentFixture<GroupsRegistryComponent>;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
+  let authorizationService: AuthorizationDataService;
 
   let mockGroups;
   let mockEPeople;
@@ -77,6 +79,9 @@ describe('GroupRegistryComponent', () => {
         return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
       }
     };
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true)
+    });
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -93,6 +98,7 @@ describe('GroupRegistryComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterMock() },
+        { provide: AuthorizationDataService, useValue: authorizationService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

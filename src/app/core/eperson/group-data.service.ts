@@ -16,7 +16,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
+import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
@@ -125,10 +125,13 @@ export class GroupDataService extends DataService<Group> {
 
   /**
    * Method to delete a group
-   * @param id The group id to delete
+   * @param group The group to delete
    */
-  public deleteGroup(group: Group): Observable<boolean> {
-    return this.delete(group.id).pipe(map((response: RestResponse) => response.isSuccessful));
+  public deleteGroup(group: Group): Observable<[boolean, string]> {
+    return this.delete(group.id).pipe(map((response: RestResponse) => {
+      const errorMessage = response.isSuccessful === false ? (response as ErrorResponse).errorMessage : undefined;
+      return [response.isSuccessful, errorMessage];
+    }));
   }
 
   /**

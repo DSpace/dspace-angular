@@ -14,6 +14,7 @@ import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-d
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../../core/cache/response.models';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
@@ -40,6 +41,7 @@ describe('GroupFormComponent', () => {
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
+  let authorizationService: AuthorizationDataService;
   let router;
 
   let groups;
@@ -88,6 +90,9 @@ describe('GroupFormComponent', () => {
         return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
       }
     };
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true)
+    });
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
     router = new RouterMock();
@@ -115,6 +120,7 @@ describe('GroupFormComponent', () => {
         { provide: HALEndpointService, useValue: {} },
         { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) } },
         { provide: Router, useValue: router },
+        { provide: AuthorizationDataService, useValue: authorizationService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
