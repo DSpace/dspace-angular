@@ -5,7 +5,9 @@ import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.r
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
 import { NOTIFICATIONS_EDIT_PATH } from './admin-notifications-routing-paths';
 import { AdminNotificationsOpenairebrokerPageComponent } from './admin-notifications-openairebroker-page/admin-notifications-openairebroker-page.component';
+import { AdminNotificationsOpenaireeventPageComponent } from './admin-notifications-openaireevent-page/admin-notifications-openaireevent-page.component';
 import { AdminNotificationsOpenaireBrokerPageResolver } from './admin-notifications-openairebroker-page/admin-notifications-openairebroker-page.resolver';
+import { AdminNotificationsOpenaireEventPageResolver } from './admin-notifications-openaireevent-page/admin-notifications-openaireevent-page.resolver';
 
 @NgModule({
   imports: [
@@ -25,12 +27,28 @@ import { AdminNotificationsOpenaireBrokerPageResolver } from './admin-notificati
           showBreadcrumbsFluid: false
         }
       },
+      {
+        canActivate: [ AuthenticatedGuard ],
+        path: `${NOTIFICATIONS_EDIT_PATH}/:id`,
+        component: AdminNotificationsOpenaireeventPageComponent,
+        pathMatch: 'full',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver,
+          openaireBrokerTopicsParams: AdminNotificationsOpenaireEventPageResolver
+        },
+        data: {
+          title: 'admin.notifications.openaireevent.page.title',
+          breadcrumbKey: 'admin.notifications.openaireevent',
+          showBreadcrumbsFluid: false
+        }
+      },
     ])
   ],
   providers: [
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
     AdminNotificationsOpenaireBrokerPageResolver,
+    AdminNotificationsOpenaireEventPageResolver,
   ]
 })
 /**

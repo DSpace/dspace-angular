@@ -6,4 +6,4 @@ import { ResourceType } from '../../shared/resource-type';
  * Needs to be in a separate file to prevent circular
  * dependencies in webpack.
  */
-export const OPENAIRE_BROKER_TOPIC_OBJECT = new ResourceType('openaireBrokerTopic');
+export const OPENAIRE_BROKER_TOPIC_OBJECT = new ResourceType('nbtopic');

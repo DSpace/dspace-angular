@@ -5,6 +5,10 @@ import {
   OpenaireBrokerTopicActionTypes
 } from './openaire-broker-topic.actions';
 
+// NB: The State is actually not really used because, at each call, all the contents are replaced
+//     by fresh REST data. To be completed in the future by adding the management of the
+//     pagination in the state and the necessary logic in the effects.
+
 /**
  * The interface representing the OpenAIRE Broker topic state.
  */
@@ -15,6 +19,8 @@ export interface OpenaireBrokerTopicState {
   totalPages: number;
   currentPage: number;
   totalElements: number;
+  // To manage the pagination inside the State. Not used for now.
+  totalLoadedPages: number;
 }
 
 /**
@@ -26,7 +32,9 @@ const openaireBrokerTopicInitialState: OpenaireBrokerTopicState = {
   loaded: false,
   totalPages: 0,
   currentPage: 0,
-  totalElements: 0
+  totalElements: 0,
+  // To manage the pagination inside the State. Not used for now.
+  totalLoadedPages: 0
 };
 
 /**
@@ -49,7 +57,7 @@ export function openaireBrokerTopicReducer(state = openaireBrokerTopicInitialSta
 
     case OpenaireBrokerTopicActionTypes.ADD_TOPICS: {
       return Object.assign({}, state, {
-        topics: state.topics.concat(action.payload.topics),
+        topics: action.payload.topics,
         processing: false,
         loaded: true,
         totalPages: action.payload.totalPages,

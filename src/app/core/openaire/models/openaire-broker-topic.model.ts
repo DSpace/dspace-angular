@@ -45,7 +45,7 @@ export class OpenaireBrokerTopicObject implements CacheableObject {
    * The total number of suggestions provided by OpenAIRE for this topic
    */
   @autoserialize
-  totalSuggestions: number;
+  totalEvents: number;
 
   /**
    * The links to all related resources returned by the rest api.

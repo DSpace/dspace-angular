@@ -34,7 +34,7 @@ import {
   openaireBrokerTopicObjectMissingPid,
   openaireBrokerTopicObjectMissingProject,
   openaireBrokerTopicObjectMoreAbstract
-} from '../../shared/mocks/openaire.mock';
+} from '../../shared/mocks/openaire-tmp.mock';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -45,7 +45,7 @@ class DataServiceImpl extends DataService<OpenaireBrokerTopicObject> {
   /**
    * The REST endpoint.
    */
-  protected linkPath = 'integration';
+  protected linkPath = 'nbtopic';
 
   /**
    * Initialize service variables
@@ -120,19 +120,25 @@ export class OpenaireBrokerTopicRestService {
     // );
     // TEST
     const pageInfo = new PageInfo({
-      elementsPerPage: 10,
+      elementsPerPage: options.elementsPerPage,
       totalElements: 6,
-      totalPages: 1,
-      currentPage: 0
+      totalPages: 2,
+      currentPage: options.currentPage
     });
-    const array = [
-      openaireBrokerTopicObjectMorePid,
-      openaireBrokerTopicObjectMissingAbstract,
-      openaireBrokerTopicObjectMissingAcm,
-      openaireBrokerTopicObjectMissingPid,
-      openaireBrokerTopicObjectMissingProject,
-      openaireBrokerTopicObjectMoreAbstract
-    ];
+    let array = [ ];
+    if (options.currentPage === 1) {
+      array = [
+        openaireBrokerTopicObjectMorePid,
+        openaireBrokerTopicObjectMissingAbstract,
+        openaireBrokerTopicObjectMissingAcm,
+        openaireBrokerTopicObjectMissingPid,
+        openaireBrokerTopicObjectMissingProject
+      ];
+    } else {
+      array = [
+        openaireBrokerTopicObjectMoreAbstract
+      ];
+    }
     const paginatedList = new PaginatedList(pageInfo, array);
     const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
     return observableOf(paginatedListRD);

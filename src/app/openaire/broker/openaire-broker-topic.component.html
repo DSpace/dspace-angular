@@ -40,8 +40,9 @@
                     <div class="btn-group edit-field">
                       <button
                               class="btn btn-outline-primary btn-sm"
-                              title="{{'openaire.broker.button.detail' | translate }}">
-                        <span class="badge badge-info">{{topicElement.totalSuggestions}}</span>
+                              title="{{'openaire.broker.button.detail' | translate }}"
+                              [routerLink]="[topicElement.id]">
+                        <span class="badge badge-info">{{topicElement.totalEvents}}</span>
                         <i class="fas fa-info fa-fw"></i>
                       </button>
                     </div>
