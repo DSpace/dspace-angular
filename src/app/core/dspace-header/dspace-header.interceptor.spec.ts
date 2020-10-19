@@ -9,8 +9,13 @@ import { UIURLCombiner } from '../url-combiner/ui-url-combiner';
 describe(`DSpaceHeaderInterceptor`, () => {
   let service: DSpaceRESTv2Service;
   let httpMock: HttpTestingController;
-  // Dummy request path
-  const requestUrl = 'test-url';
+
+  // Mock url/payload/statuses are fake as we are not testing the results
+  // of any below requests. We are only testing for X-DSpace-UI header.
+  const mockRequestUrl = 'test-url';
+  const mockPayload = { id: 1 };
+  const mockStatusCode = 200;
+  const mockStatusText = 'SUCCESS';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,16 +34,21 @@ describe(`DSpaceHeaderInterceptor`, () => {
     httpMock = TestBed.get(HttpTestingController);
   });
 
-  it('should add an X-DSpace-UI header matching the configured URL', () => {
-    // We don't care about the response to this request. It's just here to
-    // check whether the header was inserted as expected.
-    service.get(requestUrl).subscribe((response) => {
+  it('should add an X-DSpace-UI header matching the configured URL', (done) => {
+    // start a request, subscribing to it
+    service.get(mockRequestUrl).subscribe((response) => {
       expect(response).toBeTruthy();
+      done();
     });
 
-    const httpRequest = httpMock.expectOne(requestUrl);
+    // check that a single request was made to URL & expected header is there
+    const httpRequest = httpMock.expectOne(mockRequestUrl);
     expect(httpRequest.request.headers.has('X-DSpace-UI'));
     expect(httpRequest.request.headers.get('X-DSpace-UI'))
           .toEqual(new UIURLCombiner('/').toString().toLowerCase());
+
+    // end request, providing dummy values to the response
+    httpRequest.flush(mockPayload,
+        { status: mockStatusCode, statusText: mockStatusText });
   });
 });
