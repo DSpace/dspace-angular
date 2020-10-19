@@ -110,7 +110,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize
     }).subscribe((groupsRD: RemoteData<PaginatedList<Group>>) => {
-        this.groups$.next(groupsRD)
+        this.groups$.next(groupsRD);
+        this.pageInfoState$.next(groupsRD.payload.pageInfo);
       }
     ));
 
