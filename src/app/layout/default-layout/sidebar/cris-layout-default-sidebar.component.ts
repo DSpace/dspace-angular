@@ -15,6 +15,10 @@ import { hasValue } from '../../../shared/empty.util';
 export class CrisLayoutDefaultSidebarComponent implements OnChanges {
 
   /**
+   * Representing if sidebar should be displayed or not
+   */
+  @Input() sidebarActive: boolean;
+  /**
    * hide/show the sidebar
    */
   @Input() sidebarStatus: boolean;

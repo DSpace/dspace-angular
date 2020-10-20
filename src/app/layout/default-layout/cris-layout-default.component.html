@@ -1,10 +1,9 @@
 <div class="container">
   <div class="text-right">
     <div *ngIf="(isEditAvailable() | async) && (getEditModes() | async).length === 1">
-      <button
-        *ngFor="let editMode of (getEditModes() | async)"
+      <button *ngFor="let editMode of (getEditModes() | async)"
         type="button" class="btn btn-outline-primary float-right"
-        [routerLink]="['edit-items', item.id + ':' + editMode.name]">
+        [routerLink]="['/edit-items', item.id + ':' + editMode.name]">
         <i class="fas fa-edit" aria-hidden="true"></i>
       </button>
     </div>
@@ -17,7 +16,7 @@
         <div class="dropdown-menu" ngbDropdownMenu>
           <button ngbDropdownItem
                   *ngFor="let editMode of (getEditModes() | async)"
-                  [routerLink]="['edit-items', item.id + ':' + editMode.name]">
+                  [routerLink]="['/edit-items', item.id + ':' + editMode.name]">
             {{editMode.label ? (editMode.label | translate) : editMode.name}}
           </button>
         </div>
@@ -26,6 +25,7 @@
   </div>
   <div class="wrapper" [ngClass]="{'wrapper-close': !(isSideBarHidden() | async)}">
       <ds-cris-layout-default-sidebar
+        [sidebarActive]="(hasSidebar() | async)"
         [sidebarStatus]="!(isSideBarHidden() | async)"
         [tabs]="(getTabs() | async)"
         (selectedTab)="changeTab($event)">

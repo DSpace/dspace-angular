@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChangeDetectorRef, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestScheduler } from 'rxjs/testing';
 
-import { cold, getTestScheduler, } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { Observable, of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
@@ -113,11 +113,12 @@ describe('CrisLayoutDefaultComponent', () => {
     it('should init component properly', () => {
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
-      expect(component.getTabs()).toBeObservable(cold('(a|)', {
+
+      expect(component.getTabs()).toBeObservable(hot('-(a|)', {
         a: tabs
       }));
 
-      expect(component.hasSidebar()).toBeObservable(cold('(a|)', {
+      expect(component.hasSidebar()).toBeObservable(hot('--(a|)', {
         a: true
       }));
     });
@@ -142,7 +143,7 @@ describe('CrisLayoutDefaultComponent', () => {
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
       const sidebarControl$ = component.isSideBarHidden();
-      expect(sidebarControl$).toBeObservable(cold('a', {
+      expect(sidebarControl$).toBeObservable(hot('-a', {
         a: false
       }));
     });
@@ -200,13 +201,14 @@ describe('CrisLayoutDefaultComponent', () => {
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
       const sidebarControl$ = component.isSideBarHidden();
-      expect(sidebarControl$).toBeObservable(cold('(a)', {
+      expect(sidebarControl$).toBeObservable(hot('-a', {
         a: true
       }));
 
-      expect(component.hasSidebar()).toBeObservable(cold('(a|)', {
+      expect(component.hasSidebar()).toBeObservable(hot('--(a|)', {
         a: false
       }));
+
     });
   });
 

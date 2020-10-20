@@ -48,7 +48,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
    * List of Edit Modes available on this item
    * for the current user
    */
-  private editModes$: Observable<EditItemMode[]>;
+  private editModes$: BehaviorSubject<EditItemMode[]> = new BehaviorSubject<EditItemMode[]>([]);
 
   /**
    * A boolean representing if to render or not the sidebar menu
@@ -87,7 +87,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
 
     // Check if to show sidebar
     this.hasSidebar$ = this.tabs$.pipe(
-      map((tabs) => isNotEmpty(tabs) && tabs.length > 1),
+      map((tabs) => isNotEmpty(tabs) && tabs.length > 1)
     );
 
     // Init the sidebar status
@@ -96,13 +96,15 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     });
 
     // Retrieve edit modes
-    this.editModes$ = this.editItemService.findById(this.item.id + ':none', followLink('modes')).pipe(
+    this.editItemService.findById(this.item.id + ':none', followLink('modes')).pipe(
       getAllSucceededRemoteDataPayload(),
       mergeMap((editItem: EditItem) => editItem.modes.pipe(
         getFirstSucceededRemoteListPayload())
       ),
       startWith([])
-    );
+    ).subscribe((editModes: EditItemMode[]) => {
+      this.editModes$.next(editModes)
+    });
   }
 
   /**
@@ -154,7 +156,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
    * Check if edit mode is available
    */
   isEditAvailable(): Observable<boolean> {
-    return this.editModes$.pipe(
+    return this.editModes$.asObservable().pipe(
       map((editModes) => isNotEmpty(editModes) && editModes.length === 1)
     );
   }

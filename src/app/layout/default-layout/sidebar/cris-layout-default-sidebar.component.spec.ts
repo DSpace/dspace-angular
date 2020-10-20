@@ -44,6 +44,7 @@ describe('CrisLayoutDefaultSidebarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisLayoutDefaultSidebarComponent);
     component = fixture.componentInstance;
+    component.sidebarActive = true;
     component.tabs = tabs;
     fixture.detectChanges();
     spyOn(component, 'selectTab');
