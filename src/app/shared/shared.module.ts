@@ -210,6 +210,8 @@ import { CollectionDropdownComponent } from './collection-dropdown/collection-dr
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
+import { PublicationSidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/item-types/publication/publication-sidebar-search-list-element.component';
+import { SidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -483,7 +485,9 @@ const ENTRY_COMPONENTS = [
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent
+  VocabularyTreeviewComponent,
+  SidebarSearchListElementComponent,
+  PublicationSidebarSearchListElementComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

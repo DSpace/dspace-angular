@@ -21,6 +21,7 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { SearchResult } from '../../search/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { Context } from '../../../core/shared/context.model';
 
 @Component({
   selector: 'ds-dso-selector',
@@ -84,6 +85,11 @@ export class DSOSelectorComponent implements OnInit {
    * The available link types
    */
   linkTypes = CollectionElementLinkType;
+
+  /**
+   * This component's context to display listable objects for
+   */
+  context = Context.SideBarSearchModal;
 
   constructor(private searchService: SearchService) {
   }

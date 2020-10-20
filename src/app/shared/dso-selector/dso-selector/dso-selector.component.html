@@ -16,6 +16,6 @@
             title="{{ listEntry.indexableObject.name }}"
             (click)="onSelect.emit(listEntry.indexableObject)" #listEntryElement>
       <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
-                                           [linkType]=linkTypes.None></ds-listable-object-component-loader>
+                                           [linkType]=linkTypes.None [context]="context"></ds-listable-object-component-loader>
     </button>
 </div>
