@@ -212,6 +212,9 @@ import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-tr
 import { CurationFormComponent } from '../curation-form/curation-form.component';
 import { PublicationSidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/item-types/publication/publication-sidebar-search-list-element.component';
 import { SidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/sidebar-search-list-element.component';
+import { CollectionSidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/collection/collection-sidebar-search-list-element.component';
+import { CommunitySidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
+import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -405,7 +408,8 @@ const COMPONENTS = [
   CollectionDropdownComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent
+  VocabularyTreeviewComponent,
+  AuthorizedCollectionSelectorComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -488,6 +492,9 @@ const ENTRY_COMPONENTS = [
   VocabularyTreeviewComponent,
   SidebarSearchListElementComponent,
   PublicationSidebarSearchListElementComponent,
+  CollectionSidebarSearchListElementComponent,
+  CommunitySidebarSearchListElementComponent,
+  AuthorizedCollectionSelectorComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

@@ -7,15 +7,23 @@
 </div>
 <div class="dropdown-divider"></div>
 <div class="scrollable-menu list-group">
+  <div
+    infiniteScroll
+    [infiniteScrollDistance]="0.2"
+    [infiniteScrollThrottle]="300"
+    [infiniteScrollContainer]="'.scrollable-menu'"
+    [fromRoot]="true"
+    (scrolled)="onScrollDown()">
     <button class="list-group-item list-group-item-action border-0 disabled"
-            *ngIf="(listEntries$ | async)?.payload.page.length == 0">
+            *ngIf="listEntries.length == 0">
         {{'dso-selector.no-results' | translate: { type: typesString } }}
     </button>
-    <button *ngFor="let listEntry of (listEntries$ | async)?.payload.page"
+    <button *ngFor="let listEntry of listEntries"
             class="list-group-item list-group-item-action border-0 list-entry"
             title="{{ listEntry.indexableObject.name }}"
             (click)="onSelect.emit(listEntry.indexableObject)" #listEntryElement>
       <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
                                            [linkType]=linkTypes.None [context]="context"></ds-listable-object-component-loader>
     </button>
+  </div>
 </div>

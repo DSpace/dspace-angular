@@ -5,7 +5,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <ds-collection-dropdown (selectionChange)="selectObject($event.collection)">
-    </ds-collection-dropdown>
+    <ds-authorized-collection-selector [currentDSOId]="dsoRD?.payload.uuid ? 'search.resourceid:' + dsoRD?.payload.uuid : null" [types]="selectorTypes" (onSelect)="selectObject($event)"></ds-authorized-collection-selector>
   </div>
 </div>
