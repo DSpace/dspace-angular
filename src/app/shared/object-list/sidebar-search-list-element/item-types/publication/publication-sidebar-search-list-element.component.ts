@@ -12,6 +12,10 @@ import { SidebarSearchListElementComponent } from '../../sidebar-search-list-ele
   selector: 'ds-publication-sidebar-search-list-element',
   templateUrl: '../../sidebar-search-list-element.component.html'
 })
+/**
+ * Component displaying a list element for a {@link ItemSearchResult} of type "Publication" within the context of
+ * a sidebar search modal
+ */
 export class PublicationSidebarSearchListElementComponent extends SidebarSearchListElementComponent<ItemSearchResult, Item> {
 
 }

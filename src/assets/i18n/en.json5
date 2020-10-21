@@ -2194,6 +2194,8 @@
 
   "person.listelement.badge": "Person",
 
+  "person.listelement.no-title": "No name found",
+
   "person.page.birthdate": "Birth Date",
 
   "person.page.email": "Email Address",

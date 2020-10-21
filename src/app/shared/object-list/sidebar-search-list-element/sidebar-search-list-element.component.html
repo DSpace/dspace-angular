@@ -1,3 +1,3 @@
-<ds-truncatable-part *ngIf="parentTitle$ | async" [maxLines]="1"><div class="text-secondary">{{ parentTitle$ | async }}</div></ds-truncatable-part>
-<ds-truncatable-part [maxLines]="1"><div class="text-primary">{{ title }}</div></ds-truncatable-part>
-<ds-truncatable-part [maxLines]="1"><div class="text-secondary">{{ description }}</div></ds-truncatable-part>
+<ds-truncatable-part *ngIf="parentTitle$ && parentTitle$ | async" [maxLines]="1"><div class="text-secondary">{{ parentTitle$ | async }}</div></ds-truncatable-part>
+<ds-truncatable-part *ngIf="title" [maxLines]="1"><div class="text-primary">{{ title }}</div></ds-truncatable-part>
+<ds-truncatable-part *ngIf="description" [maxLines]="1"><div class="text-secondary">{{ description }}</div></ds-truncatable-part>
