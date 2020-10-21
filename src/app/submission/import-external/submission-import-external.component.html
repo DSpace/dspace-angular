@@ -4,7 +4,7 @@
       <h2 id="header" class="pb-2">{{'submission.import-external.title' | translate}}</h2>
       <ds-submission-import-external-searchbar
         [initExternalSourceData]="routeData"
-        (externalSourceData) = "getExternalsourceData($event)">
+        (externalSourceData) = "getExternalSourceData($event)">
       </ds-submission-import-external-searchbar>
     </div>
   </div>
@@ -20,7 +20,8 @@
                                 [context]="context"
                                 [importable]="true"
                                 [importConfig]="importConfig"
-                                (importObject)="import($event)">
+                                (importObject)="import($event)"
+                                (pageChange)="paginationChange();">
         </ds-viewable-collection>
         <ds-loading *ngIf="(isLoading$ | async)"
                     message="{{'loading.search-results' | translate}}"></ds-loading>
