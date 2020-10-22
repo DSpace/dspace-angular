@@ -132,4 +132,12 @@ export class SuggestionPageComponent implements OnInit {
     this.evidences = {};
     this.isShowEvidence = false;
   }
+
+  /**
+   * Used to approve & import
+   * @param event
+   */
+  approveAndImport(event) {
+    console.log(event)
+  }
 }

@@ -24,6 +24,11 @@ export class SuggestionListItemComponent {
    */
   @Output() seeEvidenceClicked = new EventEmitter();
 
+  /**
+   * The component is used to approve & import
+   */
+  @Output() approveAndImport = new EventEmitter();
+
   constructor(protected selectionService: SelectableListService) {
   }
 
@@ -39,5 +44,9 @@ export class SuggestionListItemComponent {
    */
   seeEvidence() {
     this.seeEvidenceClicked.emit(this.object.evidences);
+  }
+
+  selectedCollection(event) {
+    this.approveAndImport.emit({collectionId: this.object.id, suggestionId: event});
   }
 }

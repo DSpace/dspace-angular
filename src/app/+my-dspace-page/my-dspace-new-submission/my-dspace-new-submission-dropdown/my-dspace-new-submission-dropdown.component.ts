@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
@@ -22,6 +22,16 @@ import { CreateItemParentSelectorComponent } from 'src/app/shared/dso-selector/m
 })
 export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit {
 
+  @Input() isApproveAndImport = false;
+
+  @Input() buttonIcon = 'fa fa-plus-circle';
+
+  @Input() buttonName = 'mydspace.new-submission';
+
+  @Input() buttonClass = 'btn btn-lg btn-primary mt-1 ml-2';
+
+  @Output() selectCollection = new EventEmitter();
+
   /**
    * Representing if dropdown list is initialized
    */
@@ -35,7 +45,7 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
   /**
    * The list of available entity type
    */
-  availableEntityTypeList: string[];
+  availableEntityTypeList: ItemType[];
 
   /**
    * Represents the state of a paginated response
@@ -89,7 +99,7 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
           this.loading = false;
           this.pageInfo.totalPages = list.pageInfo.totalPages;
           this.availableEntityTypeList = this.availableEntityTypeList
-            .concat(list.page.map((type) => type.label));
+            .concat(list.page);
           this.changeDetectorRef.detectChanges();
         },
         () => {
@@ -125,10 +135,14 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
    * select a collection.
    */
   openDialog(idx: number) {
-    const modalRef = this.modalService.open(CreateItemParentSelectorComponent);
-    modalRef.componentInstance.metadata = 'relationship.type';
-    if (hasValue(this.availableEntityTypeList) && this.availableEntityTypeList.length > 0) {
-      modalRef.componentInstance.metadatavalue = this.availableEntityTypeList[idx];
+    if(this.isApproveAndImport) {
+      this.selectCollection.emit(this.availableEntityTypeList[idx].id)
+    } else {
+      const modalRef = this.modalService.open(CreateItemParentSelectorComponent);
+      modalRef.componentInstance.metadata = 'relationship.type';
+      if (hasValue(this.availableEntityTypeList) && this.availableEntityTypeList.length > 0) {
+        modalRef.componentInstance.metadatavalue = this.availableEntityTypeList[idx].label;
+      }
     }
   }
 }

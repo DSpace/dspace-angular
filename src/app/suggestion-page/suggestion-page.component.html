@@ -15,7 +15,7 @@
               <ul class="list-unstyled">
                 <li *ngFor="let object of subCollectionsRD?.page; let i = index; let last = last" class="mt-4 mb-4">
                   <ds-suggestion-list-item [object]="object" (notMineClicked)="notMine($event)"
-                    (seeEvidenceClicked)="seeEvidence($event)"></ds-suggestion-list-item>
+                    (seeEvidenceClicked)="seeEvidence($event)" (approveAndImport)="approveAndImport($event)"></ds-suggestion-list-item>
                 </li>
               </ul>
             </ds-pagination>

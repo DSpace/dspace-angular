@@ -1,14 +1,14 @@
   <div class="add" *ngIf="!hasMultipleOptions()">
-    <button class="btn btn-lg btn-primary mt-1 ml-2" [disabled]="!initialized" (click)="openDialog(null)" role="button">
-      <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
+    <button [ngClass]="buttonClass" [disabled]="!initialized" (click)="openDialog(null)" role="button">
+      <i [ngClass]="buttonIcon" aria-hidden="true"></i> {{ buttonName | translate}}
     </button>
   </div>
   <div class="add w-100"
        ngbDropdown
        *ngIf="hasMultipleOptions()">
-    <button class="btn btn-lg btn-primary  mt-1 ml-2" id="dropdownSubmission" ngbDropdownToggle
+    <button [ngClass]="buttonClass" id="dropdownSubmission" ngbDropdownToggle
             type="button"  [disabled]="!initialized">
-      <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
+      <i [ngClass]="buttonIcon" aria-hidden="true"></i> {{ buttonName | translate}}
       <span class="caret"></span>
     </button>
     <div ngbDropdownMenu
@@ -30,8 +30,8 @@
 
         <button class="dropdown-item collection-item text-truncate" *ngFor="let entityType of availableEntityTypeList; let idx = index"
                 (click)="openDialog(idx)"
-                title="{{ entityType }}">
-          {{entityType}}
+                title="{{ entityType.label }}">
+          {{entityType.label}}
         </button>
         <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>
 
