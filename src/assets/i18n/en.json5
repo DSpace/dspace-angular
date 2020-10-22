@@ -439,6 +439,9 @@
 
   "admin.notifications.openaireevent.page.title": "OpenAIRE Broker Suggestions",
 
+  "admin.notifications.recitersuggestion.breadcrumbs": "Reciter Suggestions",
+
+  "admin.notifications.recitersuggestion.page.title": "Reciter Suggestions",
 
 
   "admin.search.breadcrumbs": "Administrative Search",
@@ -2505,6 +2508,26 @@
   "openaire.broker.event.project.error": "An error has occurred. No operation performed.",
 
   "openaire.broker.event.reason": "Reason",
+
+  "reciter.suggestion.loading": "Loading ...",
+
+  "reciter.suggestion.title": "Reciter Suggestions",
+
+  "reciter.suggestion.targets.description": "Below you can see all the suggestions ",
+
+  "reciter.suggestion.targets": "Current Suggestions",
+
+  "reciter.suggestion.table.name": "Researcher Name",
+
+  "reciter.suggestion.table.actions": "Actions",
+
+  "reciter.suggestion.button.review": "Review Suggestions",
+
+  "reciter.suggestion.noTargets": "No target found.",
+
+  "reciter.suggestion.target.error.service.retrieve": "An error occurred while loading the Reciter Suggestion Target",
+
+  "reciter.suggestion.loading": "Loading ...",
 
 
 

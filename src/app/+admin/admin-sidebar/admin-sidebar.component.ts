@@ -474,7 +474,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.notifications_reciter',
-            link: ''
+            link: '/admin/notifications/reciter-suggestion'
           } as LinkMenuItemModel,
         },
         /* Access Control */

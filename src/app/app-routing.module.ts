@@ -23,6 +23,7 @@ import { ITEM_MODULE_PATH } from './+item-page/item-page-routing-paths';
 import { ReloadGuard } from './core/reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
+import { SUGGESTION_MODULE_PATH } from './suggestion-page/suggestion-page-routing-paths';
 
 @NgModule({
   imports: [
@@ -73,6 +74,7 @@ import { SiteRegisterGuard } from './core/data/feature-authorization/feature-aut
               path: PROFILE_MODULE_PATH,
               loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
             },
+            { path: SUGGESTION_MODULE_PATH, loadChildren: './suggestion-page/suggestion-page.module#SuggestionPageModule', canActivate: [EndUserAgreementCurrentUserGuard] },
             { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard] },
             { path: BULK_IMPORT_PATH, loadChildren: './bulk-import/bulk-import-page.module#BulkImportPageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard] },
             { path: INFO_MODULE_PATH, loadChildren: './info/info.module#InfoModule' },
