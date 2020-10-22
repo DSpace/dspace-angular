@@ -44,7 +44,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   action: SelectorActionType;
 
   /**
-   * Representing if component should emit value of selected entries or navigate
+   * Event emitted when a DSO entry is selected if emitOnly is set to true
    */
   @Output() select: EventEmitter<DSpaceObject> = new EventEmitter<DSpaceObject>();
 
