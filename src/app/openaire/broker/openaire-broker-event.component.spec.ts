@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TestBed, async, ComponentFixture, inject } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { BehaviorSubject, of as observableOf, Scheduler } from 'rxjs';
 import { OpenaireBrokerEventRestService } from '../../core/openaire/openaire-broker-event-rest.service';
 import { OpenaireBrokerEventComponent } from './openaire-broker-event.component';
 import {
@@ -26,11 +26,17 @@ import { OpenaireBrokerEventData, ProjectEntryImportModalComponent } from './pro
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 import { RestResponse } from '../../core/cache/response.models';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { FindListOptions } from '../../core/data/request.models';
 
-fdescribe('OpenaireBrokerEventComponent test suite', () => {
+describe('OpenaireBrokerEventComponent test suite', () => {
   let fixture: ComponentFixture<OpenaireBrokerEventComponent>;
   let comp: OpenaireBrokerEventComponent;
   let compAsAny: any;
+  let scheduler: TestScheduler;
 
   const modalStub = {
       open: () => ( {result: new Promise((res, rej) => 'do')} ),
@@ -53,29 +59,33 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
     openaireBrokerEventObjectMissingProjectNotFound
   ];
 
-  const openAireBrokerEventData1: OpenaireBrokerEventData = {
-    event: openaireBrokerEventObjectMissingProjectFound,
-    id: openaireBrokerEventObjectMissingProjectFound.id,
-    title: openaireBrokerEventObjectMissingProjectFound.title,
-    hasProject: true,
-    projectTitle: openaireBrokerEventObjectMissingProjectFound.message.title,
-    projectId: ItemMockPid10.id,
-    handle: ItemMockPid10.handle,
-    reason: null,
-    isRunning: false
+  function getOpenAireBrokerEventData1(): OpenaireBrokerEventData {
+    return {
+      event: openaireBrokerEventObjectMissingProjectFound,
+      id: openaireBrokerEventObjectMissingProjectFound.id,
+      title: openaireBrokerEventObjectMissingProjectFound.title,
+      hasProject: true,
+      projectTitle: openaireBrokerEventObjectMissingProjectFound.message.title,
+      projectId: ItemMockPid10.id,
+      handle: ItemMockPid10.handle,
+      reason: null,
+      isRunning: false
+    };
   };
 
-  const openAireBrokerEventData2: OpenaireBrokerEventData = {
-    event: openaireBrokerEventObjectMissingProjectNotFound,
-    id: openaireBrokerEventObjectMissingProjectNotFound.id,
-    title: openaireBrokerEventObjectMissingProjectNotFound.title,
-    hasProject: false,
-    projectTitle: null,
-    projectId: null,
-    handle: null,
-    reason: null,
-    isRunning: false
-  }
+  function getOpenAireBrokerEventData2(): OpenaireBrokerEventData {
+    return {
+      event: openaireBrokerEventObjectMissingProjectNotFound,
+      id: openaireBrokerEventObjectMissingProjectNotFound.id,
+      title: openaireBrokerEventObjectMissingProjectNotFound.title,
+      hasProject: false,
+      projectTitle: null,
+      projectId: null,
+      handle: null,
+      reason: null,
+      isRunning: false
+    };
+  };
 
   beforeEach(async (() => {
     TestBed.configureTestingModule({
@@ -88,7 +98,6 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
         TestComponent,
       ],
       providers: [
-        // { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), paramMap: observableOf(activatedRouteParamsMap) } },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub(activatedRouteParamsMap, activatedRouteParams) },
         { provide: OpenaireBrokerEventRestService, useValue: openaireBrokerEventRestServiceStub },
         { provide: NgbModal, useValue: modalStub },
@@ -98,6 +107,7 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
+    scheduler = getTestScheduler();
   }));
 
   // First test to check the correct component creation
@@ -127,7 +137,6 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
       fixture = TestBed.createComponent(OpenaireBrokerEventComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-
     });
 
     afterEach(() => {
@@ -149,14 +158,15 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
 
     describe('setEventUpdated', () => {
       it('should make a BehaviorSubject<OpenaireBrokerEventData[ ... ]>', () => {
-        openAireBrokerEventData1.isRunning = false;
-        openAireBrokerEventData2.isRunning = false;
         const expected$: BehaviorSubject<OpenaireBrokerEventData[]> = new BehaviorSubject([
-          openAireBrokerEventData1,
-          openAireBrokerEventData2
+          getOpenAireBrokerEventData1(),
+          getOpenAireBrokerEventData2()
         ]);
+        scheduler.schedule(() => {
+          compAsAny.setEventUpdated(events);
+        });
+        scheduler.flush();
 
-        compAsAny.setEventUpdated(events);
         expect(comp.eventsUpdated$).toEqual(expected$);
       });
     });
@@ -169,14 +179,14 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
 
       it('should call executeAction if a project is present', () => {
         const action = 'ACCEPTED';
-        comp.modalChoice(action, openAireBrokerEventData1, modalStub);
-        expect(comp.executeAction).toHaveBeenCalledWith(action, openAireBrokerEventData1);
+        comp.modalChoice(action, getOpenAireBrokerEventData1(), modalStub);
+        expect(comp.executeAction).toHaveBeenCalledWith(action, getOpenAireBrokerEventData1());
       });
 
       it('should call openModal if a project is not present', () => {
         const action = 'ACCEPTED';
-        comp.modalChoice(action, openAireBrokerEventData2, modalStub);
-        expect(comp.openModal).toHaveBeenCalledWith(action, openAireBrokerEventData2, modalStub);
+        comp.modalChoice(action, getOpenAireBrokerEventData2(), modalStub);
+        expect(comp.openModal).toHaveBeenCalledWith(action, getOpenAireBrokerEventData2(), modalStub);
       });
     });
 
@@ -187,7 +197,7 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
         spyOn(compAsAny.modalService, 'open').and.returnValue({ result: new Promise((res, rej) => 'do' ) });
         spyOn(comp, 'executeAction');
 
-        comp.openModal(action, openAireBrokerEventData1, modalStub);
+        comp.openModal(action, getOpenAireBrokerEventData1(), modalStub);
         expect(compAsAny.modalService.open).toHaveBeenCalled();
       });
     });
@@ -200,13 +210,18 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
               externalSourceEntry: null,
               label: null,
               importedObject: observableOf(() => {
-                return OpenaireMockDspaceObject;
+                return {
+                  indexableObject: OpenaireMockDspaceObject
+                };
               })
             }
           }
         );
+        scheduler.schedule(() => {
+          comp.openModalLookup(getOpenAireBrokerEventData1());
+        })
+        scheduler.flush();
 
-        comp.openModalLookup(openAireBrokerEventData1);
         expect(compAsAny.modalService.open).toHaveBeenCalled();
       });
     });
@@ -217,23 +232,90 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
         spyOn(compAsAny, 'getOpenaireBrokerEvents');
         openaireBrokerEventRestServiceStub.patchEvent.and.returnValue(observableOf(new RestResponse(true, 200, 'Success')));
 
-        comp.executeAction(action, openAireBrokerEventData1);
-
+        scheduler.schedule(() => {
+          comp.executeAction(action, getOpenAireBrokerEventData1());
+        });
+        scheduler.flush();
 
         expect(compAsAny.getOpenaireBrokerEvents).toHaveBeenCalled();
       });
     });
 
     describe('boundProject', () => {
+      it('should populate the project data inside "eventData", on 201 response from REST', () => {
+        const eventData = getOpenAireBrokerEventData2();
+        const projectId = 'UUID-23943-34u43-38344';
+        const projectName = 'Test Project';
+        const projectHandle = '1000/1000';
+        openaireBrokerEventRestServiceStub.boundProject.and.returnValue(observableOf(new RestResponse(true, 201, 'Created')));
 
+        scheduler.schedule(() => {
+          comp.boundProject(eventData, projectId, projectName, projectHandle);
+        });
+        scheduler.flush();
+
+        expect(eventData.hasProject).toEqual(true);
+        expect(eventData.projectId).toEqual(projectId);
+        expect(eventData.projectTitle).toEqual(projectName);
+        expect(eventData.handle).toEqual(projectHandle);
+      });
     });
 
     describe('removeProject', () => {
+      it('should remove the project data inside "eventData", on 204 response from REST', () => {
+        const eventData = getOpenAireBrokerEventData1();
+        openaireBrokerEventRestServiceStub.removeProject.and.returnValue(observableOf(new RestResponse(true, 204, 'No Content')));
 
+        scheduler.schedule(() => {
+          comp.removeProject(eventData);
+        });
+        scheduler.flush();
+
+        expect(eventData.hasProject).toEqual(false);
+        expect(eventData.projectId).toBeNull();
+        expect(eventData.projectTitle).toBeNull();
+        expect(eventData.handle).toBeNull();
+      });
     });
 
     describe('getOpenaireBrokerEvents', () => {
+      it('should call the "openaireBrokerEventRestService.getEventsByTopic" to take data and "setEventUpdated" to populate eventData', () => {
+        comp.paginationConfig = new PaginationComponentOptions();
+        comp.paginationConfig.pageSize = 10;
+        comp.paginationConfig.currentPage = 1;
+        comp.topic = activatedRouteParamsMap.id;
+        const options: FindListOptions = {
+          elementsPerPage: comp.paginationConfig.pageSize,
+          currentPage: comp.paginationConfig.currentPage,
+        };
 
+        const pageInfo = new PageInfo({
+          elementsPerPage: comp.paginationConfig.pageSize,
+          totalElements: 0,
+          totalPages: 1,
+          currentPage: comp.paginationConfig.currentPage
+        });
+        const array =  [
+          openaireBrokerEventObjectMissingProjectFound,
+          openaireBrokerEventObjectMissingProjectNotFound,
+        ];
+        const paginatedList = new PaginatedList(pageInfo, array);
+        const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+        openaireBrokerEventRestServiceStub.getEventsByTopic.and.returnValue(observableOf(paginatedListRD));
+        spyOn(compAsAny, 'setEventUpdated');
+
+        scheduler.schedule(() => {
+          compAsAny.getOpenaireBrokerEvents();
+        });
+        scheduler.flush();
+
+        expect(compAsAny.openaireBrokerEventRestService.getEventsByTopic).toHaveBeenCalledWith(
+          activatedRouteParamsMap.id,
+          options,
+          followLink('item'),followLink('related')
+        );
+        expect(compAsAny.setEventUpdated).toHaveBeenCalled();
+      });
     });
 
   });
