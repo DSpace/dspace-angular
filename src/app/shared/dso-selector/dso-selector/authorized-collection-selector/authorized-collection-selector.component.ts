@@ -12,6 +12,7 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-authorized-collection-selector',
+  styleUrls: ['../dso-selector.component.scss'],
   templateUrl: '../dso-selector.component.html'
 })
 /**

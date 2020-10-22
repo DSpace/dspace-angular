@@ -68,7 +68,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   /**
    * Default pagination for this feature
    */
-  defaultPagination = { id: 'dso-selector', currentPage: 1, pageSize: 5 } as any;
+  defaultPagination = { id: 'dso-selector', currentPage: 1, pageSize: 10 } as any;
 
   /**
    * List with search results of DSpace objects for the current query
