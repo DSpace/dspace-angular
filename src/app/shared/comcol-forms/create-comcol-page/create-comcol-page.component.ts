@@ -11,8 +11,7 @@ import { Community } from '../../../core/shared/community.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-  getSucceededRemoteData
+  getSucceededOrNoContentResponse,
 } from '../../../core/shared/operators';
 import { ResourceType } from '../../../core/shared/resource-type';
 import {hasValue, isEmpty, isNotEmpty, isNotUndefined} from '../../empty.util';
@@ -123,11 +122,12 @@ export class CreateComColPageComponent<TDomain extends DSpaceObject> implements 
         return;
       }
       this.dsoDataService.findByHref(parentCommunityUrl).pipe(
-        getSucceededRemoteData(),
-        getRemoteDataPayload(),
-        map((pc: TDomain) => isEmpty(pc) ? 'communities/search/top' : pc.id),
-        take(1)
-      ).subscribe((href: string) => this.requestService.removeByHrefSubstring(href));
+        getSucceededOrNoContentResponse(),
+        take(1),
+      ).subscribe((rd: RemoteData<TDomain>) => {
+        const href = rd.hasSucceeded && !isEmpty(rd.payload.id) ? rd.payload.id : 'communities/search/top';
+        this.requestService.removeByHrefSubstring(href)
+      });
   }
 
   private parentCommunityUrl(dso: Collection | Community) {

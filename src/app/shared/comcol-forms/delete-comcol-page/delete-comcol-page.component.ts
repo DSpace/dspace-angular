@@ -10,7 +10,9 @@ import {TranslateService} from '@ngx-translate/core';
 import {RestResponse} from '../../../core/cache/response.models';
 import {hasValue, isEmpty, isNotEmpty} from '../../empty.util';
 import {RequestService} from '../../../core/data/request.service';
-import {getRemoteDataPayload, getSucceededRemoteData} from '../../../core/shared/operators';
+import {
+  getSucceededOrNoContentResponse,
+} from '../../../core/shared/operators';
 import {Community} from '../../../core/shared/community.model';
 import {Collection} from '../../../core/shared/collection.model';
 
@@ -74,16 +76,17 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements 
   }
 
   private refreshCache(dso: TDomain) {
-    const parentCommunity = this.parentCommunityUrl(dso as any);
-    if (!hasValue(parentCommunity)) {
+    const parentCommunityUrl = this.parentCommunityUrl(dso as any);
+    if (!hasValue(parentCommunityUrl)) {
       return;
     }
-    this.dsoDataService.findByHref(parentCommunity).pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((pc: TDomain) =>  isEmpty(pc) ? 'communities/search/top' : pc.id ),
-      take(1)
-    ).subscribe((id: string) => this.requestService.removeByHrefSubstring(id));
+    this.dsoDataService.findByHref(parentCommunityUrl).pipe(
+      getSucceededOrNoContentResponse(),
+      take(1),
+    ).subscribe((rd: RemoteData<TDomain>) => {
+      const href = rd.hasSucceeded && !isEmpty(rd.payload.id) ? rd.payload.id : 'communities/search/top';
+      this.requestService.removeByHrefSubstring(href)
+    });
   }
 
   private parentCommunityUrl(dso: Collection | Community): string {
