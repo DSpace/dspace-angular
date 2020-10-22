@@ -20,7 +20,7 @@
   <div id="project-entities" class="mb-3">
 
     <div id="project-search" class="input-group mb-3">
-      <input type="text" class="form-control" (keyup.enter)="(projectTitle === '')?null:search()" [(ngModel)]="projectTitle" placeholder="{{labelPrefix + label + '.placeholder' |translate}}" aria-label="" aria-describedby="">
+      <input type="text" class="form-control" (keyup.enter)="search(projectTitle)" [(ngModel)]="projectTitle" placeholder="{{labelPrefix + label + '.placeholder' |translate}}" aria-label="" aria-describedby="">
       <div class="input-group-append">
         <button type="button" class="btn btn-outline-secondary" [disabled]="projectTitle === ''" (click)="projectTitle = ''">{{(labelPrefix + label + '.clear'|translate)}}</button>
         <button type="button" class="btn btn-primary" [disabled]="projectTitle === ''" (click)="search(projectTitle)">{{(labelPrefix + label + '.search'|translate)}}</button>

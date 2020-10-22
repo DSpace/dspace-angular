@@ -14,7 +14,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { SearchService } from '../../../core/shared/search/search.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { OpenaireBrokerEventObject } from '../../../core/openaire/models/openaire-broker-event.model';
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 
 /**
  * The possible types of import for the external entry
@@ -196,21 +196,23 @@ export class ProjectEntryImportModalComponent implements OnInit {
    * Perform a project search by title.
    */
   public search(searchTitle): void {
-    const filterRegEx = /[:]/g;
-    this.isLoading$ = observableOf(true);
-    this.searchOptions = Object.assign(new PaginatedSearchOptions(
-      {
-        configuration: 'project',
-        query: (searchTitle) ? searchTitle.replace(filterRegEx, '') : searchTitle,
-        pagination: this.pagination
-      }
-    ));
-    this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
-    this.subs.push(
-      this.localEntitiesRD$.subscribe(
-        () => this.isLoading$ = observableOf(false)
-      )
-    );
+    if (isNotEmpty(searchTitle)) {
+      const filterRegEx = /[:]/g;
+      this.isLoading$ = observableOf(true);
+      this.searchOptions = Object.assign(new PaginatedSearchOptions(
+        {
+          configuration: 'project',
+          query: (searchTitle) ? searchTitle.replace(filterRegEx, '') : searchTitle,
+          pagination: this.pagination
+        }
+      ));
+      this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
+      this.subs.push(
+        this.localEntitiesRD$.subscribe(
+          () => this.isLoading$ = observableOf(false)
+        )
+      );
+    }
   }
 
   /**
