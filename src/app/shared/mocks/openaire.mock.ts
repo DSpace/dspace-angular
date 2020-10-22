@@ -1757,7 +1757,7 @@ OpenaireBrokerEventRestService {
     getEventsByTopic: jasmine.createSpy('getEventsByTopic'),
     getEvent: jasmine.createSpy('getEvent'),
     patchEvent: jasmine.createSpy('patchEvent'),
-    boundProject: jasmine.createSpy('boundProject').and.returnValue(observableOf(new RestResponse(true, 201, 'Created'))),
-    removeProject: jasmine.createSpy('removeProject').and.returnValue(observableOf(new RestResponse(true, 204, 'No Content'))),
+    boundProject: jasmine.createSpy('boundProject'),
+    removeProject: jasmine.createSpy('removeProject'),
   });
 }
