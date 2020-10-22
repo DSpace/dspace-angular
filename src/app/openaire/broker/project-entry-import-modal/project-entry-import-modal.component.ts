@@ -13,6 +13,7 @@ import { ListableObject } from '../../../shared/object-collection/shared/listabl
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { OpenaireBrokerEventObject } from '../../../core/openaire/models/openaire-broker-event.model';
 import { hasValue } from '../../../shared/empty.util';
 
 /**
@@ -30,12 +31,42 @@ export enum ImportType {
  * The data type passed from the parent page
  */
 export interface OpenaireBrokerEventData {
+  /**
+   * The OpenAIRE Broker event
+   */
+  event: OpenaireBrokerEventObject,
+  /**
+   * The OpenAIRE Broker event Id (uuid)
+   */
   id: string;
+  /**
+   * The publication title
+   */
   title: string;
+  /**
+   * Contains the boolean that indicates if a project is present
+   */
   hasProject: boolean;
+  /**
+   * The project title, if present
+   */
   projectTitle: string;
+  /**
+   * The project id (uuid), if present
+   */
   projectId: string;
+  /**
+   * The project handle, if present
+   */
   handle: string;
+  /**
+   * The reject/discard reason
+   */
+  reason: string;
+  /**
+   * Contains the boolean that indicates if there is a running operation (REST call)
+   */
+  isRunning: boolean;
 }
 
 @Component({
@@ -48,6 +79,10 @@ export interface OpenaireBrokerEventData {
  * Shows information about the selected project and a selectable list.
  */
 export class ProjectEntryImportModalComponent implements OnInit {
+  /**
+   * The number of results per page
+   */
+  pageSize = 3;
   /**
    * The prefix for every i18n key within this modal
    */
@@ -132,7 +167,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
    * Component intitialization.
    */
   public ngOnInit(): void {
-    this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'openaire-project-bound', pageSize: 3 });
+    this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'openaire-project-bound', pageSize: this.pageSize });
     this.searchOptions = Object.assign(new PaginatedSearchOptions(
       {
         configuration: 'project',
@@ -153,6 +188,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
    * Close the modal.
    */
   public close(): void {
+    this.deselectAllLists();
     this.modal.close();
   }
 
@@ -220,6 +256,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
    * Unsubscribe from all subscriptions.
    */
   ngOnDestroy(): void {
+    this.deselectAllLists();
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());

@@ -76,59 +76,6 @@ class DataServiceImpl extends DataService<OpenaireBrokerEventObject> {
     protected comparator: ChangeAnalyzer<OpenaireBrokerEventObject>) {
     super();
   }
-
-  /**
-   * Perform a post on an OpenAIRE Broker event endpoint
-   * @param eventId The event id
-   * @param projectId The project id to bound
-   * @return the RestResponse as an Observable
-   */
-  public postOnNbevent(eventId: string, projectId: string) {
-    const requestId = this.requestService.generateRequestId();
-    const hrefObs = this.getIDHrefObs(eventId);
-
-    hrefObs.pipe(
-      find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new PostRequest(requestId, href + '/related?item=' + projectId);
-        if (hasValue(this.responseMsToLive)) {
-          request.responseMsToLive = this.responseMsToLive;
-        }
-        this.requestService.configure(request);
-      })
-    ).subscribe();
-
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response)
-    );
-  }
-
-  /**
-   * Perform a delete on an OpenAIRE Broker event endpoint
-   * @param eventId The event id
-   * @return the RestResponse as an Observable
-   */
-  public deleteOnNbevent(eventId: string) {
-    const requestId = this.requestService.generateRequestId();
-    const hrefObs = this.getIDHrefObs(eventId);
-
-    hrefObs.pipe(
-      find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new DeleteByIDRequest(requestId, href + '/related', eventId);
-        if (hasValue(this.responseMsToLive)) {
-          request.responseMsToLive = this.responseMsToLive;
-        }
-        this.requestService.configure(request);
-      })
-    ).subscribe();
-
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response)
-    );
-  }
 }
 
 /**
@@ -204,7 +151,7 @@ export class OpenaireBrokerEventRestService {
       array = [
         openaireBrokerEventObjectMissingPid6
       ];
-    }*/
+    }
     /*const pageInfo = new PageInfo({
       elementsPerPage: options.elementsPerPage,
       totalElements: 0,
@@ -250,10 +197,12 @@ export class OpenaireBrokerEventRestService {
    *    The new status
    * @param dso OpenaireBrokerEventObject
    *    The event item
+   * @param reason
+   *    The optional reason (not used for now; for future implementation)
    * @return Observable<RestResponse>
    *    The REST response.
    */
-  public patchEvent(status, dso): Observable<RestResponse> {
+  public patchEvent(status, dso, reason?: string): Observable<RestResponse> {
     const operation: Array<ReplaceOperation<string>> = [
       {
         path: '/status',
@@ -269,14 +218,14 @@ export class OpenaireBrokerEventRestService {
    * Bound a project to an OpenAIRE Broker event publication.
    *
    * @param itemId
-   *    The Id of the item to remove
+   *    The Id of the OpenAIRE Broker event
    * @param projectId
    *    The project Id to bound
    * @return Observable<RestResponse>
    *    The REST response.
    */
   public boundProject(itemId: string, projectId: string): Observable<RestResponse> {
-    return this.dataService.postOnNbevent(itemId, projectId);
+    return this.dataService.postOnRelated(itemId, projectId);
     // return observableOf(new RestResponse(true, 201, 'Success'));
   }
 
@@ -284,12 +233,12 @@ export class OpenaireBrokerEventRestService {
    * Remove a project from an OpenAIRE Broker event publication.
    *
    * @param itemId
-   *    The Id of the item to remove
+   *    The Id of the OpenAIRE Broker event
    * @return Observable<RestResponse>
    *    The REST response.
    */
   public removeProject(itemId: string): Observable<RestResponse> {
-    return this.dataService.deleteOnNbevent(itemId);
+    return this.dataService.deleteOnRelated(itemId);
     // return observableOf(new RestResponse(true, 204, 'Success'));
   }
 }

@@ -1,195 +1,190 @@
-/*import { ExternalSourceEntryImportModalComponent, ImportType } from './external-source-entry-import-modal.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
-import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
-import { Collection } from '../../../../../../../core/shared/collection.model';
-import { RelationshipOptions } from '../../../../models/relationship-options.model';
-import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
-import { ItemDataService } from '../../../../../../../core/data/item-data.service';
-import { NotificationsService } from '../../../../../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
-import { createPaginatedList } from '../../../../../../testing/utils.test';*/
+import { of as observableOf } from 'rxjs';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { Item } from '../../../core/shared/item.model';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { ImportType, ProjectEntryImportModalComponent } from './project-entry-import-modal.component';
+import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
+import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { OpenaireMockDspaceObject } from '../../../shared/mocks/openaire.mock';
 
-describe('ProjectEntryImportModalComponent', () => {
-/*  let component: ExternalSourceEntryImportModalComponent;
-  let fixture: ComponentFixture<ExternalSourceEntryImportModalComponent>;
-  let lookupRelationService: LookupRelationService;
-  let selectService: SelectableListService;
-  let itemService: ItemDataService;
-  let notificationsService: NotificationsService;
-  let modalStub: NgbActiveModal;
+describe('ProjectEntryImportModalComponent test suite', () => {
+  let fixture: ComponentFixture<ProjectEntryImportModalComponent>;
+  let comp: ProjectEntryImportModalComponent;
+  let compAsAny: any;
 
-  const uri = 'https://orcid.org/0001-0001-0001-0001';
-  const entry = Object.assign(new ExternalSourceEntry(), {
-    id: '0001-0001-0001-0001',
-    display: 'John Doe',
-    value: 'John, Doe',
-    metadata: {
-      'dc.identifier.uri': [
-        {
-          value: uri
-        }
-      ]
-    }
-  });
+  const modalStub = jasmine.createSpyObj('modal', ['close', 'dismiss']);
+  const uuid = '123e4567-e89b-12d3-a456-426614174003';
+  const searchServiceStub = getMockSearchService();
 
-  const label = 'Author';
-  const relationship = Object.assign(new RelationshipOptions(), { relationshipType: 'isAuthorOfPublication' });
-  const submissionCollection = Object.assign(new Collection(), { uuid: '9398affe-a977-4992-9a1d-6f00908a259f' });
-  const submissionItem = Object.assign(new Item(), { uuid: '26224069-5f99-412a-9e9b-7912a7e35cb1' });
-  const item1 = Object.assign(new Item(), { uuid: 'e1c51c69-896d-42dc-8221-1d5f2ad5516e' });
-  const item2 = Object.assign(new Item(), { uuid: 'c8279647-1acc-41ae-b036-951d5f65649b' });
-  const item3 = Object.assign(new Item(), { uuid: 'c3bcbff5-ec0c-4831-8e4c-94b9c933ccac' });
-  const searchResult1 = Object.assign(new ItemSearchResult(), { indexableObject: item1 });
-  const searchResult2 = Object.assign(new ItemSearchResult(), { indexableObject: item2 });
-  const searchResult3 = Object.assign(new ItemSearchResult(), { indexableObject: item3 });
-  const importedItem = Object.assign(new Item(), { uuid: '5d0098fc-344a-4067-a57d-457092b72e82' });
-
-  function init() {
-    lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
-      getLocalResults: createSuccessfulRemoteDataObject$(createPaginatedList([searchResult1, searchResult2, searchResult3])),
-      removeLocalResultsCache: {}
-    });
-    selectService = jasmine.createSpyObj('selectService', ['deselectAll']);
-    notificationsService = jasmine.createSpyObj('notificationsService', ['success']);
-    itemService = jasmine.createSpyObj('itemService', {
-      importExternalSourceEntry: createSuccessfulRemoteDataObject$(importedItem)
-    });
-    modalStub = jasmine.createSpyObj('modal', ['close']);
-  }
-
-  beforeEach(async(() => {
-    init();
+  beforeEach(async (() => {
     TestBed.configureTestingModule({
-      declarations: [ExternalSourceEntryImportModalComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
+      imports: [
+        CommonModule,
+        TranslateModule.forRoot(),
+      ],
+      declarations: [
+        ProjectEntryImportModalComponent,
+        TestComponent,
+      ],
       providers: [
-        { provide: LookupRelationService, useValue: lookupRelationService },
-        { provide: SelectableListService, useValue: selectService },
-        { provide: NotificationsService, useValue: notificationsService },
-        { provide: ItemDataService, useValue: itemService },
-        { provide: NgbActiveModal, useValue: modalStub }
+        { provide: NgbActiveModal, useValue: modalStub },
+        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SelectableListService, useValue: jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']) },
+        ProjectEntryImportModalComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    }).compileComponents().then();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ExternalSourceEntryImportModalComponent);
-    component = fixture.componentInstance;
-    component.externalSourceEntry = entry;
-    component.label = label;
-    component.relationship = relationship;
-    component.collection = submissionCollection;
-    component.item = submissionItem;
-    fixture.detectChanges();
-  });
+  // First test to check the correct component creation
+  describe('', () => {
+    let testComp: TestComponent;
+    let testFixture: ComponentFixture<TestComponent>;
 
-  describe('close', () => {
+    // synchronous beforeEach
     beforeEach(() => {
-      component.close();
+      const html = `
+        <ds-project-entry-import-modal></ds-project-entry-import-modal>`;
+      testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
+      testComp = testFixture.componentInstance;
     });
 
-    it('should close the modal', () => {
-      expect(modalStub.close).toHaveBeenCalled();
+    afterEach(() => {
+      testFixture.destroy();
     });
+
+    it('should create ProjectEntryImportModalComponent', inject([ProjectEntryImportModalComponent], (app: ProjectEntryImportModalComponent) => {
+      expect(app).toBeDefined();
+    }));
   });
 
-  describe('selectEntity', () => {
-    const entity = Object.assign(new Item(), { uuid: 'd8698de5-5b05-4ea4-9d02-da73803a50f9' });
-
+  describe('Main tests', () => {
     beforeEach(() => {
-      component.selectEntity(entity);
+      fixture = TestBed.createComponent(ProjectEntryImportModalComponent);
+      comp = fixture.componentInstance;
+      compAsAny = comp;
+
     });
 
-    it('should set selected entity', () => {
-      expect(component.selectedEntity).toBe(entity);
+    describe('close', () => {
+      it('should close the modal', () => {
+        comp.close();
+        expect(modalStub.close).toHaveBeenCalled();
+      });
     });
 
-    it('should set the import type to local entity', () => {
-      expect(component.selectedImportType).toEqual(ImportType.LocalEntity);
+    describe('search', () => {
+      it('should call SearchService.search', () => {
+        const searchString = 'Test project to search';
+        const pagination = Object.assign(
+          new PaginationComponentOptions(), {
+            id: 'openaire-project-bound',
+            pageSize: comp.pageSize
+          }
+        );
+        const searchOptions = Object.assign(new PaginatedSearchOptions(
+          {
+            configuration: 'project',
+            query: searchString,
+            pagination: pagination
+          }
+        ));
+        const pageInfo = new PageInfo({
+          elementsPerPage: comp.pageSize,
+          totalElements: 1,
+          totalPages: 1,
+          currentPage: 1
+        });
+        const array = [
+          OpenaireMockDspaceObject,
+        ];
+        const paginatedList = new PaginatedList(pageInfo, array);
+        const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+        (searchServiceStub as any).search.and.returnValue(observableOf(paginatedListRD))
+        comp.pagination = pagination;
+
+        comp.search(searchString);
+        expect(comp.searchService.search).toHaveBeenCalledWith(searchOptions);
+      });
     });
-  });
 
-  describe('deselectEntity', () => {
-    const entity = Object.assign(new Item(), { uuid: 'd8698de5-5b05-4ea4-9d02-da73803a50f9' });
+    describe('bound', () => {
+      it('should call close, deselectAllLists and importedObject.emit', () => {
+        spyOn(comp, 'deselectAllLists');
+        spyOn(comp, 'close');
+        spyOn(comp.importedObject, 'emit');
+        comp.selectedEntity = OpenaireMockDspaceObject;
+        comp.bound();
 
-    beforeEach(() => {
-      component.selectedImportType = ImportType.LocalEntity;
-      component.selectedEntity = entity;
-      component.deselectEntity();
+        expect(comp.importedObject.emit).toHaveBeenCalled();
+        expect(comp.deselectAllLists).toHaveBeenCalled();
+        expect(comp.close).toHaveBeenCalled();
+      });
     });
 
-    it('should remove the selected entity', () => {
-      expect(component.selectedEntity).toBeUndefined();
-    });
-
-    it('should set the import type to none', () => {
-      expect(component.selectedImportType).toEqual(ImportType.None);
-    });
-  });
-
-  describe('selectNewEntity', () => {
-    describe('when current import type is set to new entity', () => {
+    describe('selectEntity', () => {
+      const entity = Object.assign(new Item(), { uuid: uuid });
       beforeEach(() => {
-        component.selectedImportType = ImportType.NewEntity;
-        component.selectNewEntity();
+        comp.selectEntity(entity);
+      });
+
+      it('should set selected entity', () => {
+        expect(comp.selectedEntity).toBe(entity);
+      });
+
+      it('should set the import type to local entity', () => {
+        expect(comp.selectedImportType).toEqual(ImportType.LocalEntity);
+      });
+    });
+
+    describe('deselectEntity', () => {
+      const entity = Object.assign(new Item(), { uuid: uuid });
+      beforeEach(() => {
+        comp.selectedImportType = ImportType.LocalEntity;
+        comp.selectedEntity = entity;
+        comp.deselectEntity();
+      });
+
+      it('should remove the selected entity', () => {
+        expect(comp.selectedEntity).toBeUndefined();
       });
 
       it('should set the import type to none', () => {
-        expect(component.selectedImportType).toEqual(ImportType.None);
+        expect(comp.selectedImportType).toEqual(ImportType.None);
       });
     });
 
-    describe('when current import type is not set to new entity', () => {
-      beforeEach(() => {
-        component.selectedImportType = ImportType.None;
-        component.selectNewEntity();
+    describe('deselectAllLists', () => {
+      it('should call SelectableListService.deselectAll', () => {
+        comp.deselectAllLists();
+        expect(compAsAny.selectService.deselectAll).toHaveBeenCalledWith(comp.entityListId);
+        expect(compAsAny.selectService.deselectAll).toHaveBeenCalledWith(comp.authorityListId);
       });
+    });
 
-      it('should set the import type to new entity', () => {
-        expect(component.selectedImportType).toEqual(ImportType.NewEntity);
-      });
-
-      it('should deselect the entity and authority list', () => {
-        expect(selectService.deselectAll).toHaveBeenCalledWith(component.entityListId);
-        expect(selectService.deselectAll).toHaveBeenCalledWith(component.authorityListId);
-      });
+    afterEach(() => {
+      fixture.destroy();
+      comp = null;
+      compAsAny = null;
     });
   });
-
-  describe('selectNewAuthority', () => {
-    describe('when current import type is set to new authority', () => {
-      beforeEach(() => {
-        component.selectedImportType = ImportType.NewAuthority;
-        component.selectNewAuthority();
-      });
-
-      it('should set the import type to none', () => {
-        expect(component.selectedImportType).toEqual(ImportType.None);
-      });
-    });
-
-    describe('when current import type is not set to new authority', () => {
-      beforeEach(() => {
-        component.selectedImportType = ImportType.None;
-        component.selectNewAuthority();
-      });
-
-      it('should set the import type to new authority', () => {
-        expect(component.selectedImportType).toEqual(ImportType.NewAuthority);
-      });
-
-      it('should deselect the entity and authority list', () => {
-        expect(selectService.deselectAll).toHaveBeenCalledWith(component.entityListId);
-        expect(selectService.deselectAll).toHaveBeenCalledWith(component.authorityListId);
-      });
-    });
-  });*/
 });
+
+// declare a test component
+@Component({
+  selector: 'ds-test-cmp',
+  template: ``
+})
+class TestComponent {
+
+}

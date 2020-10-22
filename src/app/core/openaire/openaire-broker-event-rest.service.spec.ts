@@ -16,14 +16,24 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { OpenaireBrokerEventRestService } from './openaire-broker-event-rest.service';
-import { openaireBrokerEventObjectMissingPid, openaireBrokerEventObjectMissingPid2 } from '../../shared/mocks/openaire.mock';
+import {
+  openaireBrokerEventObjectMissingPid,
+  openaireBrokerEventObjectMissingPid2,
+  openaireBrokerEventObjectMissingProjectFound
+} from '../../shared/mocks/openaire.mock';
 import { ReplaceOperation } from 'fast-json-patch';
 
 describe('OpenaireBrokerEventRestService', () => {
   let scheduler: TestScheduler;
   let service: OpenaireBrokerEventRestService;
+  let serviceB: OpenaireBrokerEventRestService;
+  let serviceC: OpenaireBrokerEventRestService;
   let responseCacheEntry: RequestEntry;
+  let responseCacheEntryB: RequestEntry;
+  let responseCacheEntryC: RequestEntry;
   let requestService: RequestService;
+  let requestServiceB: RequestService;
+  let requestServiceC: RequestService;
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
   let halService: HALEndpointService;
@@ -65,6 +75,30 @@ describe('OpenaireBrokerEventRestService', () => {
       getByUUID: observableOf(responseCacheEntry),
     });
 
+    responseCacheEntryB = new RequestEntry();
+    responseCacheEntryB.request = { href: 'https://rest.api/' } as any;
+    responseCacheEntryB.completed = true;
+    responseCacheEntryB.response = new RestResponse(true, 201, 'Created');
+    requestServiceB = jasmine.createSpyObj('requestService', {
+      generateRequestId: requestUUID,
+      configure: true,
+      removeByHrefSubstring: {},
+      getByHref: observableOf(responseCacheEntryB),
+      getByUUID: observableOf(responseCacheEntryB),
+    });
+
+    responseCacheEntryC = new RequestEntry();
+    responseCacheEntryC.request = { href: 'https://rest.api/' } as any;
+    responseCacheEntryC.completed = true;
+    responseCacheEntryC.response = new RestResponse(true, 204, 'No Content');
+    requestServiceC = jasmine.createSpyObj('requestService', {
+      generateRequestId: requestUUID,
+      configure: true,
+      removeByHrefSubstring: {},
+      getByHref: observableOf(responseCacheEntryC),
+      getByUUID: observableOf(responseCacheEntryC),
+    });
+
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('(a)', {
         a: brokerEventObjectRD
@@ -93,9 +127,31 @@ describe('OpenaireBrokerEventRestService', () => {
       comparator
     );
 
+    serviceB = new OpenaireBrokerEventRestService(
+      requestServiceB,
+      rdbService,
+      objectCache,
+      halService,
+      notificationsService,
+      http,
+      comparator
+    );
+
+    serviceC = new OpenaireBrokerEventRestService(
+      requestServiceC,
+      rdbService,
+      objectCache,
+      halService,
+      notificationsService,
+      http,
+      comparator
+    );
+
     spyOn((service as any).dataService, 'searchBy').and.callThrough();
     spyOn((service as any).dataService, 'findById').and.callThrough();
     spyOn((service as any).dataService, 'patch').and.callThrough();
+    spyOn((serviceB as any).dataService, 'postOnRelated').and.callThrough();
+    spyOn((serviceC as any).dataService, 'deleteOnRelated').and.callThrough();
   });
 
   describe('getEventsByTopic', () => {
@@ -157,12 +213,40 @@ describe('OpenaireBrokerEventRestService', () => {
     });
   });
 
-  /*describe('boundProject', () => {
+  describe('boundProject', () => {
+    it('should proxy the call to dataservice.postOnRelated', () => {
+      serviceB.boundProject(openaireBrokerEventObjectMissingProjectFound.id, requestUUID).subscribe(
+        (res) => {
+          expect((serviceB as any).dataService.postOnRelated).toHaveBeenCalledWith(openaireBrokerEventObjectMissingProjectFound.id, requestUUID);
+        }
+      );
+    });
 
+    it('should return a RestResponse with HTTP 201', () => {
+      const result = serviceB.boundProject(openaireBrokerEventObjectMissingProjectFound.id, requestUUID);
+      const expected = cold('(a|)', {
+        a: new RestResponse(true, 201, 'Created')
+      });
+      expect(result).toBeObservable(expected);
+    });
   });
 
   describe('removeProject', () => {
+    it('should proxy the call to dataservice.deleteOnRelated', () => {
+      serviceC.removeProject(openaireBrokerEventObjectMissingProjectFound.id).subscribe(
+        (res) => {
+          expect((serviceC as any).dataService.deleteOnRelated).toHaveBeenCalledWith(openaireBrokerEventObjectMissingProjectFound.id);
+        }
+      );
+    });
 
-  });*/
+    it('should return a RestResponse with HTTP 204', () => {
+      const result = serviceC.removeProject(openaireBrokerEventObjectMissingProjectFound.id);
+      const expected = cold('(a|)', {
+        a: new RestResponse(true, 204, 'No Content')
+      });
+      expect(result).toBeObservable(expected);
+    });
+  });
 
 });

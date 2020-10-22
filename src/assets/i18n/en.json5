@@ -2498,11 +2498,13 @@
 
   "openaire.broker.event.modal.project.notFound": "No project found.",
 
-  "openaire.broker.event.project.bounded": "The project has been saved successfully.",
+  "openaire.broker.event.project.bounded": "The project has been linked successfully.",
 
-  "openaire.broker.event.project.removed": "The project has been removed successfully.",
+  "openaire.broker.event.project.removed": "The project has been successfully unlinked.",
 
   "openaire.broker.event.project.error": "An error has occurred. No operation performed.",
+
+  "openaire.broker.event.reason": "Reason",
 
 
 

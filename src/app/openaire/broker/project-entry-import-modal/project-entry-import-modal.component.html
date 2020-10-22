@@ -1,7 +1,7 @@
 <div class="modal-header">
   <h4 class="modal-title" id="modal-title">{{ (labelPrefix + label + '.title') | translate }}</h4>
   <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
-          (click)="modal.dismiss()">
+          (click)="close()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -9,7 +9,7 @@
   <small>{{ (labelPrefix + label + '.publication' | translate) }}</small>
   <div id="publication-information" class="mb-3">
     <div class="text-truncate">
-      <a target="_blank" href="/items/{{externalSourceEntry.itemId}}">
+      <a target="_blank" href="/items/{{externalSourceEntry.id}}">
         {{externalSourceEntry.title}}
       </a>
     </div>

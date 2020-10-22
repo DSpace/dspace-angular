@@ -14,7 +14,7 @@ import { Item } from '../shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ChangeAnalyzer } from './change-analyzer';
 import { DataService } from './data.service';
-import { FindListOptions, PatchRequest } from './request.models';
+import { DeleteByIDRequest, FindListOptions, PatchRequest, PostRequest } from './request.models';
 import { RequestService } from './request.service';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
@@ -303,6 +303,25 @@ describe('DataService', () => {
     it('should not call addPatch on the object cache with the right parameters when there are no differences', () => {
       service.update(dso).subscribe();
       expect(objectCache.addPatch).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('postOnRelated', () => {
+    it('should configure a PostRequest', () => {
+      const itemId = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
+      const relatedItemId = 'ab3c013a-5a4b-438b-9181-bc1a5b4a1c8a';
+      service.postOnRelated(itemId, relatedItemId);
+
+      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest));
+    });
+  });
+
+  describe('deleteOnRelated', () => {
+    it('should configure a DeleteByIDRequest', () => {
+      const itemId = '8b3c913a-5a4b-438b-9181-be1a5b4a1c8a';
+      service.deleteOnRelated(itemId);
+
+      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(DeleteByIDRequest));
     });
   });
 });

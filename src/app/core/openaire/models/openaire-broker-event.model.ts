@@ -1,12 +1,15 @@
+import { Observable } from 'rxjs';
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { OPENAIRE_BROKER_EVENT_OBJECT } from './openaire-broker-event-object.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { HALLink } from '../../shared/hal-link.model';
-import { typedObject } from '../../cache/builders/build-decorators';
+import { Item } from '../../shared/item.model';
+import { ITEM } from '../../shared/item.resource-type';
+import { link, typedObject } from '../../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
+import { RemoteData } from '../../data/remote-data';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -47,12 +50,6 @@ export class OpenaireBrokerEventObject implements CacheableObject {
   originalId: string;
 
   /**
-   * The DSpace ID (uuid) of the article to which the suggestion refers
-   */
-  @autoserialize
-  itemId: string;
-
-  /**
    * The title of the article to which the suggestion refers
    */
   @autoserialize
@@ -88,7 +85,23 @@ export class OpenaireBrokerEventObject implements CacheableObject {
   @deserialize
   _links: {
     self: HALLink,
+    item: HALLink,
+    related: HALLink
   };
+
+  /**
+   * The related publication DSpace item
+   * Will be undefined unless the {@item HALLink} has been resolved.
+   */
+  @link(ITEM)
+  item?: Observable<RemoteData<Item>>;
+
+  /**
+   * The related project for this Event
+   * Will be undefined unless the {@related HALLink} has been resolved.
+   */
+  @link(ITEM)
+  related?: Observable<RemoteData<Item>>;
 }
 
 /**
@@ -139,16 +152,6 @@ export class OpenaireBrokerEventMessageObject {
    * The project title suggested by OpenAIRE
    */
   title: string;
-
-  /**
-   * The project handle if found in DSpace
-   */
-  matchFoundHandle: string;
-
-  /**
-   * The project uuid if found in DSpace
-   */
-  matchFoundId: string;
 }
 
 /* tslint:enable:max-classes-per-file */

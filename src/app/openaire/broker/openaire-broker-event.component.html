@@ -29,10 +29,10 @@
 
         <ds-loading class="container" *ngIf="(isEventLoading | async)" message="{{'openaire.broker.loading' | translate}}"></ds-loading>
         <ng-container *ngIf="!(isEventLoading | async)">
-          <div *ngIf="(events$|async).length == 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
+          <div *ngIf="(eventsUpdated$|async).length == 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
             {{'openaire.broker.noEvents' | translate}}
           </div>
-          <div *ngIf="(events$|async).length != 0" class="table-responsive mt-2">
+          <div *ngIf="(eventsUpdated$|async).length != 0" class="table-responsive mt-2">
             <table id="events" class="table table-striped table-hover table-bordered">
               <thead>
               <tr>
@@ -43,19 +43,19 @@
               </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let eventElement of (events$ | async); let i = index">
-                  <td><a [routerLink]="['/items', eventElement.id]">{{eventElement.title}}</a></td>
+                <tr *ngFor="let eventElement of (eventsUpdated$ | async); let i = index">
+                  <td><a [routerLink]="['/items', (eventElement.event.item|async).payload.id]">{{eventElement.title}}</a></td>
                   <td *ngIf="showTopic.indexOf('/PID') !== -1">
-                    <p><span class="small">{{'openaire.broker.event.table.pidtype' | translate}}</span> <span class="badge badge-info">{{eventElement.message.type}}</span></p>
-                    <p><span class="small">{{'openaire.broker.event.table.pidvalue' | translate}}</span><br><span class="badge badge-info">{{eventElement.message.value}}</span></p>
+                    <p><span class="small">{{'openaire.broker.event.table.pidtype' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
+                    <p><span class="small">{{'openaire.broker.event.table.pidvalue' | translate}}</span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
                   </td>
                   <td *ngIf="showTopic.indexOf('/SUBJECT/') !== -1">
-                    <p><span class="small">{{'openaire.broker.event.table.subjectValue' | translate}}</span><br><span class="badge badge-info">{{eventElement.message.value}}</span></p>
+                    <p><span class="small">{{'openaire.broker.event.table.subjectValue' | translate}}</span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
                   </td>
                   <td *ngIf="showTopic.indexOf('/ABSTRACT') !== -1">
                     <p class="abstract-container" [class.show]="showMore">
                       <span class="small">{{'openaire.broker.event.table.abstract' | translate}}</span><br>
-                      <span class="text-ellipsis">{{eventElement.message.abstract}}</span>
+                      <span class="text-ellipsis">{{eventElement.event.message.abstract}}</span>
                     </p>
                     <button class="btn btn-outline-primary btn-sm" (click)="showMore = !showMore">
                       <i *ngIf="!showMore" class="fas fa-angle-down"></i>
@@ -69,25 +69,29 @@
                     </p>
                     <p>
                       <span class="small">{{'openaire.broker.event.table.project' | translate}}</span><br>
-                      {{eventElement.message.title}}
+                      {{eventElement.event.message.title}}
                     </p>
                     <p>
-                      <span *ngIf="eventElement.message.acronym"><span class="small">{{'openaire.broker.event.table.acronym' | translate}}</span> <span class="badge badge-info">{{eventElement.message.acronym}}</span><br></span>
-                      <span *ngIf="eventElement.message.code"><span class="small">{{'openaire.broker.event.table.code' | translate}}</span> <span class="badge badge-info">{{eventElement.message.code}}</span><br></span>
-                      <span *ngIf="eventElement.message.funder"><span class="small">{{'openaire.broker.event.table.funder' | translate}}</span> <span class="badge badge-info">{{eventElement.message.funder}}</span><br></span>
-                      <span *ngIf="eventElement.message.fundingProgram"><span class="small">{{'openaire.broker.event.table.fundingProgram' | translate}}</span> <span class="badge badge-info">{{eventElement.message.fundingProgram}}</span><br></span>
-                      <span *ngIf="eventElement.message.jurisdiction"><span class="small">{{'openaire.broker.event.table.jurisdiction' | translate}}</span> <span class="badge badge-info">{{eventElement.message.jurisdiction}}</span></span>
+                      <span *ngIf="eventElement.event.message.acronym"><span class="small">{{'openaire.broker.event.table.acronym' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.acronym}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.code"><span class="small">{{'openaire.broker.event.table.code' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.code}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.funder"><span class="small">{{'openaire.broker.event.table.funder' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.funder}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.fundingProgram"><span class="small">{{'openaire.broker.event.table.fundingProgram' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.fundingProgram}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.jurisdiction"><span class="small">{{'openaire.broker.event.table.jurisdiction' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.jurisdiction}}</span></span>
                     </p>
                     <hr>
                     <div>
-                      {{(eventsUpdated[i].hasProject ? 'openaire.broker.event.project.found' : 'openaire.broker.event.project.notFound') | translate}}
-                      <a target="_blank" *ngIf="eventsUpdated[i].hasProject" title="{{eventsUpdated[i].projectTitle}}" [routerLink]="['/items', eventsUpdated[i].projectId]">{{eventsUpdated[i].handle}}</a>
+                      {{(eventElement.hasProject ? 'openaire.broker.event.project.found' : 'openaire.broker.event.project.notFound') | translate}}
+                      <a target="_blank" *ngIf="eventElement.hasProject" title="{{eventElement.projectTitle}}" [routerLink]="['/items', eventElement.projectId]">{{eventElement.handle}}</a>
                       <div class="btn-group">
                         <button class="btn btn-outline-primary btn-sm"
-                                (click)="openModalLookup(i, eventsUpdated[i]); $event.stopPropagation();">
+                                [disabled]="eventElement.isRunning"
+                                (click)="openModalLookup(eventElement); $event.stopPropagation();">
                           <i class="fas fa-search"></i>
                         </button>
-                        <button *ngIf="eventsUpdated[i].hasProject" class="btn btn-outline-danger btn-sm" (click)="removeProject(i, eventElement.id)">
+                        <button *ngIf="eventElement.hasProject"
+                                class="btn btn-outline-danger btn-sm"
+                                [disabled]="eventElement.isRunning"
+                                (click)="removeProject(eventElement)">
                           <i class="fas fa-trash-alt"></i>
                         </button>
                       </div>
@@ -97,19 +101,20 @@
                     <div class="btn-group-vertical button-width">
                       <button *ngIf="showTopic.indexOf('/PROJECT') !== -1"
                               class="btn btn-outline-success btn-sm button-width"
-                              (click)="modalChoice('ACCEPTED', i, eventElement, acceptModal)">
+                              [disabled]="eventElement.isRunning"
+                              (click)="modalChoice('ACCEPTED', eventElement, acceptModal)">
                         <i class="fas fa-check"></i>
                         <span class="d-none d-sm-inline">{{'openaire.broker.event.action.import' | translate}}</span>
                       </button>
-                      <button *ngIf="showTopic.indexOf('/PROJECT') == -1" class="btn btn-outline-success btn-sm button-width" (click)="executeAction('ACCEPTED', eventElement)">
+                      <button *ngIf="showTopic.indexOf('/PROJECT') == -1" class="btn btn-outline-success btn-sm button-width" [disabled]="eventElement.isRunning" (click)="executeAction('ACCEPTED', eventElement)">
                         <i class="fas fa-check"></i>
                         <span class="d-none d-sm-inline">{{'openaire.broker.event.action.accept' | translate}}</span>
                       </button>
-                      <button class="btn btn-outline-dark btn-sm button-width" (click)="openModal('DISCARDED', eventElement, ignoreModal)">
+                      <button class="btn btn-outline-dark btn-sm button-width" [disabled]="eventElement.isRunning" (click)="openModal('DISCARDED', eventElement, ignoreModal)">
                         <i class="fas fa-trash-alt"></i>
                         <span class="d-none d-sm-inline">{{'openaire.broker.event.action.ignore' | translate}}</span>
                       </button>
-                      <button class="btn btn-outline-danger btn-sm button-width" (click)="openModal('REJECTED', eventElement, rejectModal)">
+                      <button class="btn btn-outline-danger btn-sm button-width" [disabled]="eventElement.isRunning" (click)="openModal('REJECTED', eventElement, rejectModal)">
                         <i class="fas fa-trash-alt"></i>
                         <span class="d-none d-sm-inline">{{'openaire.broker.event.action.reject' | translate}}</span>
                       </button>
@@ -158,6 +163,8 @@
   <div class="modal-body">
     <p>{{'openaire.broker.event.ignore.description' | translate}}</p>
 
+    <!-- textarea class="form-control mb-2" [(ngModel)]="selectedReason" placeholder="{{'openaire.broker.event.reason' |translate}}"></textarea -->
+
     <button class="btn btn-outline-danger float-left" (click)="modal.close('do')">
       <i class="fas fa-trash-alt"></i>
       <span class="d-none d-sm-inline">{{'openaire.broker.event.action.ignore' | translate}}</span>
@@ -175,6 +182,8 @@
   </div>
   <div class="modal-body">
     <p>{{'openaire.broker.event.reject.description' | translate}}</p>
+
+    <!-- textarea class="form-control mb-2" [(ngModel)]="selectedReason" placeholder="{{'openaire.broker.event.reason' |translate}}"></textarea -->
 
     <button class="btn btn-outline-danger float-left" (click)="modal.close('do')">
       <i class="fas fa-trash-alt"></i>
