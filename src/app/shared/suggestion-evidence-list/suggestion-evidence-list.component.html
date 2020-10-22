@@ -1,0 +1,23 @@
+<div>
+  <div class="text-right mb-3">
+    <button (click)="back()" class="btn btn-primary">Back</button>
+  </div>
+  <div class="table-responsive" *ngIf="evidences">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{'reciter.suggestion.evidence.type' | translate}}</th>
+          <th>{{'reciter.suggestion.evidence.score' | translate}}</th>
+          <th>{{'reciter.suggestion.evidence.notes' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let evidence of evidences | dsObjectKeys">
+          <td>{{evidence}}</td>
+          <td>{{evidences[evidence].score}}</td>
+          <td>{{evidences[evidence].notes}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

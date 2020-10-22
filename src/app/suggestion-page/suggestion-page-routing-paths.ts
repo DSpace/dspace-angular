@@ -6,6 +6,6 @@ export function getSuggestionModuleRoute() {
   return `/${SUGGESTION_MODULE_PATH}`;
 }
 
-export function getSuggestionPageRoute(SuggestionId: string) {
-  return new URLCombiner(getSuggestionModuleRoute(), SuggestionId).toString();
+export function getSuggestionPageRoute(SuggestionId: string, name: string) {
+  return new URLCombiner(getSuggestionModuleRoute(), SuggestionId, name).toString();
 }

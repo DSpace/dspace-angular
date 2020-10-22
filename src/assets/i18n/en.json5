@@ -2529,6 +2529,27 @@
 
   "reciter.suggestion.loading": "Loading ...",
 
+  "reciter.suggestion.evidence.type": "Type",
+
+  "reciter.suggestion.evidence.score": "Score",
+
+  "reciter.suggestion.evidence.notes": "Notes",
+
+  "reciter.suggestion.approveAndImport": "Approve & import",
+
+  "reciter.suggestion.notMine": "Not mine",
+
+  "reciter.suggestion.seeEvidence": "See evidence",
+
+  "reciter.suggestion.suggestionFor": "Suggestion for",
+
+  "reciter.suggestion.fromTheOpenAIREGraph": "from the OpenAIRE Graph",
+
+
+
+
+
+
 
 
   "orgunit.listelement.badge": "Organizational Unit",

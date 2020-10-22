@@ -1,8 +1,27 @@
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-
-        </div>
+  <div class="row">
+    <div class="col-12">
+      <div *ngIf="isShowEvidence">
+        <ds-suggestion-evidence-list (backClicked)="back($event)" [evidences]="evidences"></ds-suggestion-evidence-list>
+      </div>
+      <div *ngIf="!isShowEvidence">
+        <ng-container *ngVar="(subCollectionsRDObs | async) as subCollectionsRD">
+          <div *ngIf="subCollectionsRD?.pageInfo.totalElements > 0">
+            <h2>{{'reciter.suggestion.suggestionFor' | translate}} {{researcherName}} {{'reciter.suggestion.fromTheOpenAIREGraph' | translate}}</h2>
+            <ds-pagination [paginationOptions]="config" [pageInfoState]="subCollectionsRD"
+              [collectionSize]="subCollectionsRD?.pageInfo?.totalElements" [sortOptions]="sortConfig" [hideGear]="false"
+              [hidePagerWhenSinglePage]="false" [hidePaginationDetail]="false"
+              (pageChange)="onPaginationChange($event)">
+              <ul class="list-unstyled">
+                <li *ngFor="let object of subCollectionsRD?.page; let i = index; let last = last" class="mt-4 mb-4">
+                  <ds-suggestion-list-item [object]="object" (notMineClicked)="notMine($event)"
+                    (seeEvidenceClicked)="seeEvidence($event)"></ds-suggestion-list-item>
+                </li>
+              </ul>
+            </ds-pagination>
+          </div>
+        </ng-container>
+      </div>
     </div>
+  </div>
 </div>
-

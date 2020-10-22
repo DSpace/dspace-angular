@@ -10,7 +10,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
   imports: [
     RouterModule.forChild([
       {
-        path: ':id',
+        path: ':id/:name',
         resolve: {
           suggestion: SuggestionPageResolver,
           breadcrumb: I18nBreadcrumbResolver

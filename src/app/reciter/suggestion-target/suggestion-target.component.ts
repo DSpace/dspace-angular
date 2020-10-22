@@ -138,8 +138,8 @@ export class SuggestionTargetComponent implements OnInit {
    * @param {string} id
    *    the id of suggestion target
    */
-  public redirectToSuggestions(id: string) {
-    this.router.navigate([getSuggestionPageRoute(id)]);
+  public redirectToSuggestions(id: string, name: string) {
+    this.router.navigate([getSuggestionPageRoute(id, name)]);
   }
 
   /**

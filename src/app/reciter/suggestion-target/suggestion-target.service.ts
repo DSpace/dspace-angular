@@ -52,4 +52,51 @@ export class SuggestionTargetsService {
       })
     );
   }
+
+  /**
+   * Return the list of review suggestions Target managing pagination and errors.
+   *
+   * @param elementsPerPage
+   *    The number of the target per page
+   * @param currentPage
+   *    The page number to retrieve
+   * @return Observable<PaginatedList<SuggestionTargetObject>>
+   *    The list of Suggestion Targets.
+   */
+  public getReviewSuggestions(elementsPerPage, currentPage, reciterId: string): Observable<PaginatedList<any>> {
+    const sortOptions = new SortOptions('display', SortDirection.ASC);
+
+    const findListOptions: FindListOptions = {
+      elementsPerPage: elementsPerPage,
+      currentPage: currentPage,
+      sort: sortOptions
+    };
+
+    return this.suggestionTargetRestService.getReviewSuggestions(findListOptions, reciterId).pipe(
+      find((rd: RemoteData<PaginatedList<SuggestionTargetObject>>) => !rd.isResponsePending),
+      map((rd: RemoteData<PaginatedList<SuggestionTargetObject>>) => {
+        if (rd.hasSucceeded) {
+          return rd.payload;
+        } else {
+          throw new Error('Can\'t retrieve Suggestion Target from the Search Target REST service');
+        }
+      })
+    );
+  }
+
+  /**
+   * Used to delete Suggestion
+   * @suggestionId
+   */
+  public deleteReviewSuggestions(suggestionId: string): Observable<any> {
+    return this.suggestionTargetRestService.deleteReviewSuggestions(suggestionId).pipe(
+      map((rd: RemoteData<any>) => {
+        if (rd.hasSucceeded) {
+          return rd.payload;
+        } else {
+          throw new Error('Can\'t delete Suggestion from the Search Target REST service');
+        }
+      })
+    );
+  }
 }

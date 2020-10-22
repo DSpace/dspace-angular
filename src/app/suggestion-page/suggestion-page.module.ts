@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SuggestionPageComponent } from './suggestion-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { SuggestionPageRoutingModule } from './suggestion-page-routing.module';
+import { SuggestionTargetsService } from '../reciter/suggestion-target/suggestion-target.service';
+import { SuggestionTargetRestService } from '../core/reciter-suggestions/reciter-suggestions-rest.service';
 
 
 @NgModule({
@@ -11,6 +13,10 @@ import { SuggestionPageRoutingModule } from './suggestion-page-routing.module';
     CommonModule,
     SharedModule,
     SuggestionPageRoutingModule
+  ],
+  providers: [
+    SuggestionTargetRestService,
+    SuggestionTargetsService
   ]
 })
 export class SuggestionPageModule { }

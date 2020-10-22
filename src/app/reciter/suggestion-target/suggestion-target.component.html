@@ -30,7 +30,7 @@
                   <td>{{targetElement.display}}</td>
                   <td>
                     <div class="btn-group edit-field">
-                      <button (click)="redirectToSuggestions(targetElement.id)"
+                      <button (click)="redirectToSuggestions(targetElement.id, targetElement.display)"
                               class="btn btn-outline-primary btn-sm"
                               title="{{'reciter.suggestion.button.review' | translate }}">
                         <span >{{'reciter.suggestion.button.review' | translate}}</span>

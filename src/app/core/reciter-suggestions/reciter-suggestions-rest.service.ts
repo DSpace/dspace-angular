@@ -32,6 +32,11 @@ import {
   suggestionTargetObjectDigilio
 } from '../../shared/mocks/suggestion-target.mock';
 
+import {
+  PUBLICATION_ONE,
+  PUBLICATION_TWO
+} from '../../shared/mocks/reciter-suggestion-target.mock';
+
 /* tslint:disable:max-classes-per-file */
 
 /**
@@ -128,6 +133,53 @@ export class SuggestionTargetRestService {
     const paginatedList = new PaginatedList(pageInfo, array);
     const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
     return observableOf(paginatedListRD);
+  }
+
+  /**
+   * Return the list of Suggestion Target
+   *
+   * @param options
+   *    Find list options object.
+   * @param linksToFollow
+   *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
+   * @return Observable<RemoteData<PaginatedList<SuggestionTargetObject>>>
+   *    The list of Suggestion Target.
+   */
+  public getReviewSuggestions(options: FindListOptions = {}, reciterId: string, ...linksToFollow: Array<FollowLinkConfig<SuggestionTargetObject>>): Observable<RemoteData<PaginatedList<SuggestionTargetObject>>> {
+    // return this.dataService.getBrowseEndpoint(options, `suggestions/${reciterId}`).pipe(
+    //   take(1),
+    //   flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
+    // );
+    // TEST
+    const pageInfo = new PageInfo({
+      elementsPerPage: 10,
+      totalElements: 6,
+      totalPages: 1,
+      currentPage: 0
+    });
+    const array = [
+      PUBLICATION_ONE,
+      PUBLICATION_TWO
+    ];
+    const paginatedList = new PaginatedList(pageInfo, array);
+    const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+    return observableOf(paginatedListRD);
+  }
+
+
+
+  /**
+   * Used to delete Suggestion
+   * @suggestionId
+   */
+  public deleteReviewSuggestions(suggestionId: string): Observable<any> {
+    // return this.dataService.getBrowseEndpoint(options, `suggestions/${suggestionId}`).pipe(
+    //   take(1),
+    //   flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
+    // );
+    // TEST
+    const res = createSuccessfulRemoteDataObject({});
+    return observableOf(res);
   }
 
 }
