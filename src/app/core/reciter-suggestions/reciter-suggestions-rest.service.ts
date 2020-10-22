@@ -30,12 +30,12 @@ import { of as observableOf } from 'rxjs';
 import {
   suggestionTargetObjectBollini,
   suggestionTargetObjectDigilio
-} from '../../shared/mocks/suggestion-target.mock';
+} from '../../shared/mocks/reciter-suggestion-targets.mock';
 
 import {
   PUBLICATION_ONE,
   PUBLICATION_TWO
-} from '../../shared/mocks/reciter-suggestion-target.mock';
+} from '../../shared/mocks/reciter-suggestion.mock';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -166,8 +166,6 @@ export class SuggestionTargetRestService {
     return observableOf(paginatedListRD);
   }
 
-
-
   /**
    * Used to delete Suggestion
    * @suggestionId
@@ -180,6 +178,20 @@ export class SuggestionTargetRestService {
     // TEST
     const res = createSuccessfulRemoteDataObject({});
     return observableOf(res);
+  }
+
+  /**
+   * Used to fetch Suggestion notification for user
+   * @suggestionId
+   */
+  public getSuggestion(suggestionId: string): Observable<any> {
+    // return this.dataService.getBrowseEndpoint(options, `suggestions/${suggestionId}`).pipe(
+    //   take(1),
+    //   flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
+    // );
+    // TEST
+    const paginatedListRD = createSuccessfulRemoteDataObject(suggestionTargetObjectBollini);
+    return observableOf(paginatedListRD);
   }
 
 }

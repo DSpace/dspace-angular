@@ -99,4 +99,20 @@ export class SuggestionTargetsService {
       })
     );
   }
+
+   /**
+    * Used to get Suggestion for notification
+    * @suggestionId
+    */
+  public getSuggestion(suggestionId: string): Observable<any> {
+    return this.suggestionTargetRestService.getSuggestion(suggestionId).pipe(
+      map((rd: RemoteData<any>) => {
+        if (rd.hasSucceeded) {
+          return rd.payload;
+        } else {
+          throw new Error('Can\'t delete Suggestion from the Suggestion Target REST service');
+        }
+      })
+    );
+  }
 }

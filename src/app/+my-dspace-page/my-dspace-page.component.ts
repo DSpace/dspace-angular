@@ -29,6 +29,12 @@ import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
 import { SearchResult } from '../shared/search/search-result.model';
 import { Context } from '../core/shared/context.model';
+import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SuggestionTargetsService } from '../reciter/suggestion-target/suggestion-target.service';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -50,6 +56,9 @@ export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> =
   ]
 })
 export class MyDSpacePageComponent implements OnInit {
+
+  labelPrefix = 'mydspace.';
+  suggestionId = 'reciter:gf3d657-9d6d-4a87-b905-fef0f8cae26';
 
   /**
    * True when the search component should show results on the current page
@@ -102,9 +111,14 @@ export class MyDSpacePageComponent implements OnInit {
   context$: Observable<Context>;
 
   constructor(private service: SearchService,
-              private sidebarService: SidebarService,
-              private windowService: HostWindowService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
+    private sidebarService: SidebarService,
+    private windowService: HostWindowService,
+    private authService: AuthService,
+    private translateService: TranslateService,
+    private authorizationService: AuthorizationDataService,
+    private notificationsService: NotificationsService,
+    private suggestionTargetService: SuggestionTargetsService,
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.service.setServiceOptions(MyDSpaceResponseParsingService, MyDSpaceRequest);
   }
@@ -145,6 +159,22 @@ export class MyDSpacePageComponent implements OnInit {
           }
         })
       );
+
+    // send notifications
+    this.authService.getAuthenticatedUserFromStore().subscribe((user) => {
+      if (user) {
+        this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
+          if (!authorized) {
+            this.suggestionTargetService.getSuggestion(this.suggestionId).subscribe((data) => {
+              this.translateService.get(this.labelPrefix + 'notification.suggestion', { count: data.total, suggestionId: this.suggestionId, displayName: user.name }).subscribe((content) => {
+                this.notificationsService.success('', content, {}, true);
+              })
+            })
+
+          }
+        });
+      }
+    });
 
   }
 

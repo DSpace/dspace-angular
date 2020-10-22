@@ -2369,6 +2369,8 @@
 
   "mydspace.view-btn": "View",
 
+  "mydspace.notification.suggestion": "Reciter suggest to add to your profile <b>{{count}} publications</b><br> found in the OpenAIRE Graph.<br> Please <a href='/suggestions/{{suggestionId}}/{{displayName}}'>review the suggestions</a>",
+
 
 
   "nav.browse.header": "All of DSpace",
