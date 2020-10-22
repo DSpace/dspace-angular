@@ -43,11 +43,11 @@ describe('GroupRegistryComponent', () => {
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/epersons':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, []));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/epersons':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, [EPersonMock]));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 1, totalPages: 1, currentPage: 1 }), [EPersonMock]));
           default:
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, []));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
         }
       }
     };
@@ -56,11 +56,11 @@ describe('GroupRegistryComponent', () => {
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/groups':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, []));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/groups':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, [GroupMock2]));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 1, totalPages: 1, currentPage: 1 }), [GroupMock2]));
           default:
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, []));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
         }
       },
       getGroupEditPageRouterLink(group: Group): string {
@@ -71,12 +71,12 @@ describe('GroupRegistryComponent', () => {
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allGroups));
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: this.allGroups.length, totalElements: this.allGroups.length, totalPages: 1, currentPage: 1 }), this.allGroups));
         }
         const result = this.allGroups.find((group: Group) => {
           return (group.id.includes(query))
         });
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
+        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: [result].length, totalElements: [result].length, totalPages: 1, currentPage: 1 }), [result]));
       }
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {
