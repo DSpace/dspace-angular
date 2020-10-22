@@ -30,8 +30,8 @@
 
         <button class="dropdown-item collection-item text-truncate" *ngFor="let entityType of availableEntityTypeList; let idx = index"
                 (click)="openDialog(idx)"
-                title="{{ entityType.label }}">
-          {{entityType.label}}
+                title="{{ entityType }}">
+          {{entityType}}
         </button>
         <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>
 

@@ -14,8 +14,12 @@
     <span>{{ object.metadata['dc.description'][0].value}}</span>
   </div>
   <div class="parent mt-2">
-    <ds-my-dspace-new-submission-dropdown (selectCollection)="selectedCollection($event)" [isApproveAndImport]="true" [buttonIcon]="'fa fa-check'"
-      [buttonName]="'reciter.suggestion.approveAndImport'" [buttonClass]="'btn btn-md btn-success mt-1 ml-2'">
+    <ds-my-dspace-new-submission-dropdown
+      [buttonIcon]="'fa fa-check'"
+      [buttonName]="'reciter.suggestion.approveAndImport'"
+      [buttonClass]="'btn btn-md btn-success mt-1 ml-2'"
+      [emitOnly]="true"
+      (select)="selectedCollection($event)">
     </ds-my-dspace-new-submission-dropdown>
     <button (click)="notMine()" class="btn btn-danger"><i class="fa fa-ban"></i>
       {{'reciter.suggestion.notMine' | translate}}</button>
