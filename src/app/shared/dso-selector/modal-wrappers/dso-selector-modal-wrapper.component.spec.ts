@@ -2,14 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Component, DebugElement, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { of as observableOf } from 'rxjs';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from './dso-selector-modal-wrapper.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { first } from 'rxjs/operators';
 import { By } from '@angular/platform-browser';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import { MockComponent } from 'ng-mocks';
@@ -78,11 +75,23 @@ describe('DSOSelectorModalWrapperComponent', () => {
     beforeEach(() => {
       spyOn(component, 'navigate');
       spyOn(component, 'close');
-      component.selectObject(item)
+      spyOn(component.select, 'emit');
     });
+
     it('should call the close and navigate method on the component with the given DSO', () => {
+      component.emitOnly = false;
+      component.selectObject(item);
       expect(component.close).toHaveBeenCalled();
+      expect(component.select.emit).not.toHaveBeenCalled();
       expect(component.navigate).toHaveBeenCalledWith(item);
+    });
+
+    it('should call the close and emit select event with the given DSO', () => {
+      component.emitOnly = true;
+      component.selectObject(item);
+      expect(component.close).toHaveBeenCalled();
+      expect(component.select.emit).toHaveBeenCalledWith(item);
+      expect(component.navigate).not.toHaveBeenCalled();
     });
   });
 
