@@ -327,6 +327,12 @@
 
   "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
 
+  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+
+  "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+
   "admin.access-control.groups.form.actions.delete": "Delete Group",
 
   "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",

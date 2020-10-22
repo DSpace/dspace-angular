@@ -42,6 +42,7 @@ describe('GroupFormComponent', () => {
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
   let authorizationService: AuthorizationDataService;
+  let notificationService: NotificationsServiceStub;
   let router;
 
   let groups;
@@ -76,6 +77,9 @@ describe('GroupFormComponent', () => {
       editGroup(group: Group) {
         this.activeGroup = group
       },
+      updateGroup(group: Group) {
+        return null;
+      },
       cancelEditGroup(): void {
         this.activeGroup = null;
       },
@@ -96,6 +100,7 @@ describe('GroupFormComponent', () => {
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
     router = new RouterMock();
+    notificationService = new NotificationsServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -109,7 +114,7 @@ describe('GroupFormComponent', () => {
       providers: [GroupFormComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: NotificationsService, useValue: notificationService },
         { provide: FormBuilderService, useValue: builderService },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: HttpClient, useValue: {} },
@@ -153,6 +158,34 @@ describe('GroupFormComponent', () => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
         });
       }));
+    });
+    describe('with active Group', () => {
+      beforeEach(() => {
+        spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(observableOf(expected));
+        spyOn(groupsDataServiceStub, 'updateGroup').and.returnValue(observableOf(new RestResponse(true, 200, 'OK')));
+        component.groupName.value = 'newGroupName';
+        component.onSubmit();
+        fixture.detectChanges();
+      });
+
+      it('should emit the existing group using the correct new values', async(() => {
+        const expected2 = Object.assign(new Group(), {
+          name: 'newGroupName',
+          metadata: {
+            'dc.description': [
+              {
+                value: groupDescription
+              }
+            ],
+          },
+        });
+        fixture.whenStable().then(() => {
+          expect(component.submitForm.emit).toHaveBeenCalledWith(expected2);
+        });
+      }));
+      it('should emit success notification', () => {
+        expect(notificationService.success).toHaveBeenCalled();
+      })
     });
   });
 

@@ -193,7 +193,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         if (group === null) {
           this.createNewGroup(values);
         } else {
-          this.editGroup(group, values);
+          this.editGroup(group);
         }
       }
     );
@@ -246,14 +246,37 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * // TODO
-   * @param group
-   * @param values
+   * Edit existing Group based on given values from form and old Group
+   * @param group   Group to edit and old values contained within
    */
-  editGroup(group: Group, values) {
-    // TODO (backend)
-    console.log('TODO implement editGroup', values);
-    this.notificationsService.error('TODO implement editGroup (not yet implemented in backend) ');
+  editGroup(group: Group) {
+    const editedGroup = Object.assign(new Group(), {
+      id: group.id,
+      metadata: {
+        'dc.description': [
+          {
+            value: (hasValue(this.groupDescription.value) ? this.groupDescription.value : group.firstMetadataValue('dc.description'))
+          }
+        ],
+      },
+      name: (hasValue(this.groupName.value) ? this.groupName.value : group.name),
+      _links: group._links,
+    });
+    const response = this.groupDataService.updateGroup(editedGroup);
+    response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
+      console.log('resp', restResponse)
+      if (restResponse.isSuccessful) {
+        this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: editedGroup.name }));
+        this.submitForm.emit(editedGroup);
+      } else {
+        this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.edited.failure', { name: editedGroup.name }));
+        this.cancelForm.emit();
+      }
+    });
+
+    if (this.groupName.value != null && this.groupName.value !== group.name) {
+      this.showNotificationIfNameInUse(editedGroup, 'edited');
+    }
   }
 
   /**
