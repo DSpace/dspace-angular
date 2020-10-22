@@ -6,6 +6,8 @@ import { AdminNotificationsRoutingModule } from './admin-notifications-routing.m
 import { AdminNotificationsOpenairebrokerPageComponent } from './admin-notifications-openairebroker-page/admin-notifications-openairebroker-page.component';
 import { AdminNotificationsOpenaireeventPageComponent } from './admin-notifications-openaireevent-page/admin-notifications-openaireevent-page.component';
 import { OpenaireModule } from '../../openaire/openaire.module';
+import { AdminNotificationsReciterPageComponent } from './admin-notifications-reciter-page/admin-notifications-reciter-page.component';
+import { ReciterSuggestionModule } from 'src/app/reciter/recitersuggestions.module';
 
 @NgModule({
   imports: [
@@ -13,11 +15,13 @@ import { OpenaireModule } from '../../openaire/openaire.module';
     SharedModule,
     CoreModule.forRoot(),
     AdminNotificationsRoutingModule,
-    OpenaireModule
+    OpenaireModule,
+    ReciterSuggestionModule
   ],
   declarations: [
     AdminNotificationsOpenairebrokerPageComponent,
     AdminNotificationsOpenaireeventPageComponent,
+    AdminNotificationsReciterPageComponent
   ],
   entryComponents: []
 })
