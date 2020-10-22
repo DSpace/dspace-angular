@@ -39,11 +39,11 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   /**
    * The displayed list of entries
    */
-  public entriesRD$: BehaviorSubject<RemoteData<PaginatedList<ExternalSourceEntry>>>;
+  public entriesRD$: BehaviorSubject<RemoteData<PaginatedList<ExternalSourceEntry>>> = new BehaviorSubject<RemoteData<PaginatedList<ExternalSourceEntry>>>(null);
   /**
    * TRUE if the REST service is called to retrieve the external source items
    */
-  public isLoading$: BehaviorSubject<boolean>;
+  public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   /**
    * Configuration to use for the import buttons
    */

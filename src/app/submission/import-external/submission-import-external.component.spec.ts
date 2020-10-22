@@ -19,10 +19,9 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 describe('SubmissionImportExternalComponent test suite', () => {
   let comp: SubmissionImportExternalComponent;
@@ -40,6 +39,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
   const searchConfigServiceStub = {
     paginatedSearchOptions: mockSearchOptions
   };
+  const mockExternalSourceService: any = getMockExternalSourceService();
 
   beforeEach(async (() => {
     TestBed.configureTestingModule({
@@ -52,7 +52,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
         VarDirective
       ],
       providers: [
-        { provide: ExternalSourceService, useClass: getMockExternalSourceService },
+        { provide: ExternalSourceService, useValue: mockExternalSourceService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
@@ -91,6 +91,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       scheduler = getTestScheduler();
+      mockExternalSourceService.getExternalSourceEntries.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])))
     });
 
     afterEach(() => {
@@ -119,17 +120,17 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
     it('Should call \'getExternalSourceEntries\' properly', () => {
       comp.routeData = { sourceId: '', query: '' };
-      comp.isLoading$ = new BehaviorSubject(false);
       scheduler.schedule(() => compAsAny.retrieveExternalSources('orcidV2', 'test'));
       scheduler.flush();
 
       expect(comp.routeData).toEqual({ sourceId: 'orcidV2', query: 'test' });
-      expect(comp.isLoading$.value).toBe(true);
+      expect(comp.isLoading$.value).toBe(false);
       expect(compAsAny.externalService.getExternalSourceEntries).toHaveBeenCalled();
     });
 
     it('Should call \'router.navigate\'', () => {
-      spyOn(compAsAny, 'retrieveExternalSources');
+      comp.routeData = { sourceId: '', query: '' };
+      spyOn(compAsAny, 'retrieveExternalSources').and.callFake(() => null);
       compAsAny.router.navigate.and.returnValue( new Promise(() => {return;}))
       const event = { sourceId: 'orcidV2', query: 'dummy' };
 
