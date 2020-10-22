@@ -9,9 +9,19 @@
   <small>{{ (labelPrefix + label + '.publication' | translate) }}</small>
   <div id="publication-information" class="mb-3">
     <div class="text-truncate">
-      <a target="_blank" href="/items/{{externalSourceEntry.id}}">
+      <a target="_blank" href="/items/{{(externalSourceEntry.event.target|async)?.payload?.id}}">
         {{externalSourceEntry.title}}
       </a>
+    </div>
+  </div>
+  <div *ngIf="externalSourceEntry.projectTitle">
+    <small>{{ (labelPrefix + label + '.bountToLocal' |translate) }}</small>
+    <div id="publication-information" class="mb-3">
+      <div class="text-truncate">
+        <a target="_blank" href="/items/{{externalSourceEntry.projectId}}">
+          {{externalSourceEntry.projectTitle}}
+        </a>
+      </div>
     </div>
   </div>
 

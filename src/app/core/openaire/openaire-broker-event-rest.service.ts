@@ -26,23 +26,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../data/paginated-list';
 import { ReplaceOperation } from 'fast-json-patch';
 
-// TEST
-import { ResourceType } from '../shared/resource-type';
-import { PageInfo } from '../shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { of as observableOf } from 'rxjs';
-import {
-  openaireBrokerEventObjectMissingAbstract,
-  openaireBrokerEventObjectMissingPid,
-  openaireBrokerEventObjectMissingPid2,
-  openaireBrokerEventObjectMissingPid3,
-  openaireBrokerEventObjectMissingPid4,
-  openaireBrokerEventObjectMissingPid5,
-  openaireBrokerEventObjectMissingPid6,
-  openaireBrokerEventObjectMissingProjectFound,
-  openaireBrokerEventObjectMissingProjectNotFound
-} from '../../shared/mocks/openaire-tmp.mock';
-
 /* tslint:disable:max-classes-per-file */
 
 /**
@@ -130,52 +113,6 @@ export class OpenaireBrokerEventRestService {
       }
     ];
     return this.dataService.searchBy('findByTopic', options, ...linksToFollow);
-    // TEST
-    /*const pageInfo = new PageInfo({
-      elementsPerPage: options.elementsPerPage,
-      totalElements: 6,
-      totalPages: 1,
-      currentPage: options.currentPage
-    });
-    let array = [ ];
-    if (options.currentPage === 1) {
-      array = [
-        openaireBrokerEventObjectMissingPid,
-        openaireBrokerEventObjectMissingPid2,
-        openaireBrokerEventObjectMissingPid3,
-        openaireBrokerEventObjectMissingPid4,
-        openaireBrokerEventObjectMissingPid5,
-        openaireBrokerEventObjectMissingPid6
-      ];
-    } else {
-      array = [
-        openaireBrokerEventObjectMissingPid6
-      ];
-    }
-    /*const pageInfo = new PageInfo({
-      elementsPerPage: options.elementsPerPage,
-      totalElements: 0,
-      totalPages: 1,
-      currentPage: options.currentPage
-    });
-    let array = [ ];
-    array = [
-      openaireBrokerEventObjectMissingProjectFound,
-      openaireBrokerEventObjectMissingProjectNotFound,
-    ];*/
-    /*const pageInfo = new PageInfo({
-      elementsPerPage: options.elementsPerPage,
-      totalElements: 1,
-      totalPages: 1,
-      currentPage: options.currentPage
-    });
-    let array = [ ];
-    array = [
-      openaireBrokerEventObjectMissingAbstract,
-    ];*/
-    // const paginatedList = new PaginatedList(pageInfo, array);
-    // const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-    // return observableOf(paginatedListRD);
   }
 
   /**
@@ -211,7 +148,6 @@ export class OpenaireBrokerEventRestService {
       }
     ];
     return this.dataService.patch(dso, operation);
-    // return observableOf(new RestResponse(true, 200, 'Success'));
   }
 
   /**
@@ -226,7 +162,6 @@ export class OpenaireBrokerEventRestService {
    */
   public boundProject(itemId: string, projectId: string): Observable<RestResponse> {
     return this.dataService.postOnRelated(itemId, projectId);
-    // return observableOf(new RestResponse(true, 201, 'Success'));
   }
 
   /**
@@ -239,6 +174,5 @@ export class OpenaireBrokerEventRestService {
    */
   public removeProject(itemId: string): Observable<RestResponse> {
     return this.dataService.deleteOnRelated(itemId);
-    // return observableOf(new RestResponse(true, 204, 'Success'));
   }
 }

@@ -14,7 +14,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { OpenaireBrokerTopicRestService } from './-rest.service';
+import { OpenaireBrokerTopicRestService } from '../openaire/openaire-broker-topic-rest.service';
 import { openaireBrokerTopicObjectMorePid, openaireBrokerTopicObjectMoreAbstract } from '../../shared/mocks/openaire.mock';
 
 describe('OpenaireBrokerTopicRestService', () => {

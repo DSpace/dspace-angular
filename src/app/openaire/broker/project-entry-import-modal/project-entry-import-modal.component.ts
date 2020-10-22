@@ -168,10 +168,11 @@ export class ProjectEntryImportModalComponent implements OnInit {
    */
   public ngOnInit(): void {
     this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'openaire-project-bound', pageSize: this.pageSize });
+    this.projectTitle = (this.externalSourceEntry.projectTitle !== null) ? this.externalSourceEntry.projectTitle : this.externalSourceEntry.event.message.title;
     this.searchOptions = Object.assign(new PaginatedSearchOptions(
       {
         configuration: 'project',
-        query: this.externalSourceEntry.projectTitle,
+        query: this.projectTitle,
         pagination: this.pagination
       }
     ));
@@ -181,7 +182,6 @@ export class ProjectEntryImportModalComponent implements OnInit {
         () => this.isLoading$ = observableOf(false)
       )
     );
-    this.projectTitle = this.externalSourceEntry.projectTitle;
   }
 
   /**

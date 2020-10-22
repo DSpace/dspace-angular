@@ -180,7 +180,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     this.subs.push(
       from(events).pipe(
         flatMap((event) => {
-          const item$ = event.item.pipe(getFirstSucceededRemoteDataPayload());
+          const item$ = event.target.pipe(getFirstSucceededRemoteDataPayload());
           let related$: Observable<any>;
           if (event.related) {
             related$ = event.related.pipe(getFirstSucceededRemoteDataPayload());
@@ -401,7 +401,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
       this.openaireBrokerEventRestService.getEventsByTopic(
         this.topic,
         options,
-        followLink('item'),followLink('related')
+        followLink('target'),followLink('related')
       ).pipe(
         find((rd: RemoteData<PaginatedList<OpenaireBrokerEventObject>>) => !rd.isResponsePending),
         map((rd: RemoteData<PaginatedList<OpenaireBrokerEventObject>>) => {
