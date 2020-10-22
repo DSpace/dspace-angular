@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { type } from '../../shared/ngrx/type';
-import { OpenaireBrokerTopicObject } from '../../core/openaire/models/openaire-broker-topic.model';
+import { type } from '../../../shared/ngrx/type';
+import { OpenaireBrokerTopicObject } from '../../../core/openaire/models/openaire-broker-topic.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -93,7 +93,7 @@ export class AddTopicsAction implements Action {
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types.
  */
-export type OpenaireBrokerTopicActions
+export type OpenaireBrokerTopicsActions
   = AddTopicsAction
   |RetrieveAllTopicsAction
   |RetrieveAllTopicsErrorAction;

@@ -9,7 +9,7 @@ import {
   openaireBrokerTopicObjectMoreAbstract,
   openaireBrokerTopicObjectMissingPid
 } from '../shared/mocks/openaire.mock';
-import { RetrieveAllTopicsAction } from './broker/openaire-broker-topic.actions';
+import { RetrieveAllTopicsAction } from './broker/topics/openaire-broker-topics.actions';
 
 describe('OpenaireStateService', () => {
   let service: OpenaireStateService;

@@ -1,23 +1,24 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Subscription } from 'rxjs/internal/Subscription';
+
+import { Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { OpenaireBrokerTopicObject } from '../../core/openaire/models/openaire-broker-topic.model';
-import { hasValue } from '../../shared/empty.util';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { OpenaireStateService } from '../openaire-state.service';
+
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { OpenaireBrokerTopicObject } from '../../../core/openaire/models/openaire-broker-topic.model';
+import { hasValue } from '../../../shared/empty.util';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { OpenaireStateService } from '../../openaire-state.service';
 
 /**
  * Component to display the OpenAIRE Broker topic list.
  */
 @Component({
   selector: 'ds-openaire-broker-topic',
-  templateUrl: './openaire-broker-topic.component.html',
-  styleUrls: ['./openaire-broker-topic.component.scss'],
+  templateUrl: './openaire-broker-topics.component.html',
+  styleUrls: ['./openaire-broker-topics.component.scss'],
 })
-export class OpenaireBrokerTopicComponent implements OnInit {
+export class OpenaireBrokerTopicsComponent implements OnInit {
   /**
    * The number of OpenAIRE Broker topics per page.
    */
@@ -48,6 +49,7 @@ export class OpenaireBrokerTopicComponent implements OnInit {
 
   /**
    * Initialize the component variables.
+   * @param {ActivatedRoute} activatedRoute
    * @param {OpenaireStateService} openaireStateService
    */
   constructor(

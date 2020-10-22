@@ -1,35 +1,32 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TestBed, async, ComponentFixture, inject } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { OpenaireBrokerEventRestService } from '../../core/openaire/openaire-broker-event-rest.service';
-import { OpenaireBrokerEventComponent } from './openaire-broker-event.component';
+import { OpenaireBrokerEventRestService } from '../../../core/openaire/openaire-broker-event-rest.service';
+import { OpenaireBrokerEventsComponent } from './openaire-broker-events.component';
 import {
   getMockOpenaireBrokerEventRestService,
   ItemMockPid10,
   openaireBrokerEventObjectMissingProjectFound,
   openaireBrokerEventObjectMissingProjectNotFound,
   OpenaireMockDspaceObject
-} from '../../shared/mocks/openaire.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { createTestComponent } from '../../shared/testing/utils.test';
-import { map } from 'rxjs/operators';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { OpenaireBrokerEventObject } from '../../core/openaire/models/openaire-broker-event.model';
-import { OpenaireBrokerEventData, ProjectEntryImportModalComponent } from './project-entry-import-modal/project-entry-import-modal.component';
-import { TestScheduler } from 'rxjs/testing';
-import { getTestScheduler } from 'jasmine-marbles';
-import { RestResponse } from '../../core/cache/response.models';
+} from '../../../shared/mocks/openaire.mock';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { OpenaireBrokerEventObject } from '../../../core/openaire/models/openaire-broker-event.model';
+import { OpenaireBrokerEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
+import { RestResponse } from '../../../core/cache/response.models';
 
-fdescribe('OpenaireBrokerEventComponent test suite', () => {
-  let fixture: ComponentFixture<OpenaireBrokerEventComponent>;
-  let comp: OpenaireBrokerEventComponent;
+fdescribe('OpenaireBrokerEventsComponent test suite', () => {
+  let fixture: ComponentFixture<OpenaireBrokerEventsComponent>;
+  let comp: OpenaireBrokerEventsComponent;
   let compAsAny: any;
 
   const modalStub = {
@@ -84,7 +81,7 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
         TranslateModule.forRoot(),
       ],
       declarations: [
-        OpenaireBrokerEventComponent,
+        OpenaireBrokerEventsComponent,
         TestComponent,
       ],
       providers: [
@@ -94,7 +91,7 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
         { provide: NgbModal, useValue: modalStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: getMockTranslateService() },
-        OpenaireBrokerEventComponent
+        OpenaireBrokerEventsComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -117,14 +114,14 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create OpenaireBrokerEventComponent', inject([OpenaireBrokerEventComponent], (app: OpenaireBrokerEventComponent) => {
+    it('should create OpenaireBrokerEventsComponent', inject([OpenaireBrokerEventsComponent], (app: OpenaireBrokerEventsComponent) => {
       expect(app).toBeDefined();
     }));
   });
 
   describe('Main tests', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(OpenaireBrokerEventComponent);
+      fixture = TestBed.createComponent(OpenaireBrokerEventsComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
 
@@ -218,7 +215,6 @@ fdescribe('OpenaireBrokerEventComponent test suite', () => {
         openaireBrokerEventRestServiceStub.patchEvent.and.returnValue(observableOf(new RestResponse(true, 200, 'Success')));
 
         comp.executeAction(action, openAireBrokerEventData1);
-
 
         expect(compAsAny.getOpenaireBrokerEvents).toHaveBeenCalled();
       });

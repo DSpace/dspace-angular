@@ -12,7 +12,7 @@ import {
 } from './selectors';
 import { OpenaireBrokerTopicObject } from '../core/openaire/models/openaire-broker-topic.model';
 import { OpenaireState } from './openaire.reducer';
-import { RetrieveAllTopicsAction } from './broker/openaire-broker-topic.actions';
+import { RetrieveAllTopicsAction } from './broker/topics/openaire-broker-topics.actions';
 
 /**
  * The service handling the OpenAIRE State.
@@ -107,6 +107,8 @@ export class OpenaireStateService {
    *
    * @param elementsPerPage
    *    The number of the topics per page.
+   * @param currentPage
+   *    The number of the current page.
    */
   public dispatchRetrieveOpenaireBrokerTopics(elementsPerPage: number, currentPage: number): void {
     this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage))

@@ -6,12 +6,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { storeModuleConfig } from '../app.reducer';
-import { OpenaireBrokerTopicComponent } from './broker/openaire-broker-topic.component';
-import { OpenaireBrokerEventComponent } from './broker/openaire-broker-event.component';
+import { OpenaireBrokerTopicsComponent } from './broker/topics/openaire-broker-topics.component';
+import { OpenaireBrokerEventsComponent } from './broker/events/openaire-broker-events.component';
 import { OpenaireStateService } from './openaire-state.service';
 import { openaireReducers, OpenaireState } from './openaire.reducer';
 import { openaireEffects } from './openaire.effects';
-import { OpenaireBrokerTopicsService } from './broker/openaire-broker-topic.service';
+import { OpenaireBrokerTopicsService } from './broker/topics/openaire-broker-topics.service';
 import { OpenaireBrokerTopicRestService } from '../core/openaire/openaire-broker-topic-rest.service';
 import { OpenaireBrokerEventRestService } from '../core/openaire/openaire-broker-event-rest.service';
 import { ProjectEntryImportModalComponent } from './broker/project-entry-import-modal/project-entry-import-modal.component';
@@ -25,8 +25,8 @@ const MODULES = [
 ];
 
 const COMPONENTS = [
-  OpenaireBrokerTopicComponent,
-  OpenaireBrokerEventComponent,
+  OpenaireBrokerTopicsComponent,
+  OpenaireBrokerEventsComponent,
 ];
 
 const DIRECTIVES = [ ];

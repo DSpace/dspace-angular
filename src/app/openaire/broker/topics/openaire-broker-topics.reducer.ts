@@ -1,9 +1,9 @@
 
-import { OpenaireBrokerTopicObject } from '../../core/openaire/models/openaire-broker-topic.model';
+import { OpenaireBrokerTopicObject } from '../../../core/openaire/models/openaire-broker-topic.model';
 import {
-  OpenaireBrokerTopicActions,
+  OpenaireBrokerTopicsActions,
   OpenaireBrokerTopicActionTypes
-} from './openaire-broker-topic.actions';
+} from './openaire-broker-topics.actions';
 
 // NB: The State is actually not really used because, at each call, all the contents are replaced
 //     by fresh REST data. To be completed in the future by adding the management of the
@@ -47,7 +47,7 @@ const openaireBrokerTopicInitialState: OpenaireBrokerTopicState = {
  * @return OpenaireBrokerTopicState
  *    the new state
  */
-export function openaireBrokerTopicReducer(state = openaireBrokerTopicInitialState, action: OpenaireBrokerTopicActions): OpenaireBrokerTopicState {
+export function openaireBrokerTopicsReducer(state = openaireBrokerTopicInitialState, action: OpenaireBrokerTopicsActions): OpenaireBrokerTopicState {
   switch (action.type) {
     case OpenaireBrokerTopicActionTypes.RETRIEVE_ALL_TOPICS: {
       return Object.assign({}, state, {

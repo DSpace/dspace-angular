@@ -2,8 +2,8 @@ import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
 import {
   OpenaireBrokerTopicState,
-  openaireBrokerTopicReducer,
-} from './broker/openaire-broker-topic.reducer';
+  openaireBrokerTopicsReducer,
+} from './broker/topics/openaire-broker-topics.reducer';
 
 /**
  * The OpenAIRE State
@@ -13,7 +13,7 @@ export interface OpenaireState {
 }
 
 export const openaireReducers: ActionReducerMap<OpenaireState> = {
-  brokerTopic: openaireBrokerTopicReducer,
+  brokerTopic: openaireBrokerTopicsReducer,
 };
 
 export const openaireSelector = createFeatureSelector<OpenaireState>('openaire');

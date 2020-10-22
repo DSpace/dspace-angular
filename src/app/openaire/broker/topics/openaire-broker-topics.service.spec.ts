@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { OpenaireBrokerTopicsService } from './openaire-broker-topic.service';
-import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
-import { OpenaireBrokerTopicRestService } from '../../core/openaire/openaire-broker-topic-rest.service';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { FindListOptions } from '../../core/data/request.models';
+import { OpenaireBrokerTopicsService } from './openaire-broker-topics.service';
+import { SortOptions, SortDirection } from '../../../core/cache/models/sort-options.model';
+import { OpenaireBrokerTopicRestService } from '../../../core/openaire/openaire-broker-topic-rest.service';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { FindListOptions } from '../../../core/data/request.models';
 import {
   getMockOpenaireBrokerTopicRestService,
   openaireBrokerTopicObjectMorePid,
   openaireBrokerTopicObjectMoreAbstract
-} from '../../shared/mocks/openaire.mock';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+} from '../../../shared/mocks/openaire.mock';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { cold } from 'jasmine-marbles';
 
 describe('OpenaireBrokerTopicsService', () => {

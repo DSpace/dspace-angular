@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h2 id="header" class="border-bottom pb-2">{{'openaire.broker.title'| translate}}</h2>
+      <h2 class="border-bottom pb-2">{{'openaire.broker.title'| translate}}</h2>
       <p>{{'openaire.broker.topics.description'| translate}}</p>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
-      <h3 id="header" class="border-bottom pb-2">{{'openaire.broker.topics'| translate}}</h3>
+      <h3 class="border-bottom pb-2">{{'openaire.broker.topics'| translate}}</h3>
 
       <ds-loading class="container" *ngIf="(isTopicsLoading() | async)" message="{{'openaire.broker.loading' | translate}}"></ds-loading>
       <ds-pagination *ngIf="!(isTopicsLoading() | async)"

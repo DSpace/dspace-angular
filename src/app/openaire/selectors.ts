@@ -2,7 +2,7 @@ import { createSelector, MemoizedSelector } from '@ngrx/store';
 import { subStateSelector } from '../shared/selector.util';
 import { OpenaireState, openaireSelector } from './openaire.reducer';
 import { OpenaireBrokerTopicObject } from '../core/openaire/models/openaire-broker-topic.model';
-import { OpenaireBrokerTopicState } from './broker/openaire-broker-topic.reducer';
+import { OpenaireBrokerTopicState } from './broker/topics/openaire-broker-topics.reducer';
 
 /**
  * Returns the OpenAIRE state.
@@ -18,7 +18,7 @@ const _getOpenaireState = (state: any) => state.openaire;
 /**
  * Returns the OpenAIRE Broker topics State.
  * @function openaireBrokerTopicsStateSelector
- * @return {OpenaireBrokerState}
+ * @return {OpenaireBrokerTopicState}
  */
 export function openaireBrokerTopicsStateSelector(): MemoizedSelector<OpenaireState, OpenaireBrokerTopicState> {
   return subStateSelector<OpenaireState,OpenaireBrokerTopicState>(openaireSelector, 'brokerTopic');

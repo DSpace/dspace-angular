@@ -2,26 +2,25 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, map, switchMap, withLatestFrom, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
 import {
   AddTopicsAction,
   OpenaireBrokerTopicActionTypes,
   RetrieveAllTopicsAction,
   RetrieveAllTopicsErrorAction,
-} from './openaire-broker-topic.actions';
+} from './openaire-broker-topics.actions';
 
-import { OpenaireBrokerTopicObject } from '../../core/openaire/models/openaire-broker-topic.model';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { OpenaireBrokerTopicsService } from './openaire-broker-topic.service';
-import { OpenaireState } from '../openaire.reducer';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { OpenaireBrokerTopicObject } from '../../../core/openaire/models/openaire-broker-topic.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { OpenaireBrokerTopicsService } from './openaire-broker-topics.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 /**
  * Provides effect methods for the OpenAIRE Broker topics actions.
  */
 @Injectable()
-export class OpenaireBrokerTopicEffects {
+export class OpenaireBrokerTopicsEffects {
 
   /**
    * Retrieve all OpenAIRE Broker topics managing pagination and errors.

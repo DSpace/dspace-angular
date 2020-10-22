@@ -4,36 +4,35 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, from, Observable, of as observableOf } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { find, map, reduce, take } from 'rxjs/operators';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { RemoteData } from '../../core/data/remote-data';
-import { FindListOptions } from '../../core/data/request.models';
-import { OpenaireBrokerEventObject } from '../../core/openaire/models/openaire-broker-event.model';
-import { OpenaireBrokerEventRestService } from '../../core/openaire/openaire-broker-event-rest.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { Metadata } from '../../core/shared/metadata.utils';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { hasValue } from '../../shared/empty.util';
-import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RestResponse } from '../../core/cache/response.models';
+import { find, flatMap, map, reduce, take } from 'rxjs/operators';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { RemoteData } from '../../../core/data/remote-data';
+import { FindListOptions } from '../../../core/data/request.models';
+import { OpenaireBrokerEventObject } from '../../../core/openaire/models/openaire-broker-event.model';
+import { OpenaireBrokerEventRestService } from '../../../core/openaire/openaire-broker-event-rest.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { Metadata } from '../../../core/shared/metadata.utils';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { hasValue } from '../../../shared/empty.util';
+import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { RestResponse } from '../../../core/cache/response.models';
 import {
   OpenaireBrokerEventData,
   ProjectEntryImportModalComponent
-} from './project-entry-import-modal/project-entry-import-modal.component';
-import { flatMap } from 'rxjs/operators';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+} from '../project-entry-import-modal/project-entry-import-modal.component';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 
 /**
  * Component to display the OpenAIRE Broker event list.
  */
 @Component({
   selector: 'ds-openaire-broker-event',
-  templateUrl: './openaire-broker-event.component.html',
-  styleUrls: ['./openaire-broker-event.component.scss'],
+  templateUrl: './openaire-broker-events.component.html',
+  styleUrls: ['./openaire-broker-events.scomponent.scss'],
 })
-export class OpenaireBrokerEventComponent implements OnInit {
+export class OpenaireBrokerEventsComponent implements OnInit {
   /**
    * The number of OpenAIRE Broker events per page.
    */
@@ -130,7 +129,7 @@ export class OpenaireBrokerEventComponent implements OnInit {
       combineLatest(
         this.activatedRoute.paramMap.pipe(
           map((params) => {
-            const regEx = /\!/g;
+            const regEx = /!/g;
             this.showTopic = params.get('id').replace(regEx, '/');
             this.topic = params.get('id');
           })
@@ -174,9 +173,7 @@ export class OpenaireBrokerEventComponent implements OnInit {
   /**
    * Set the project status for the OpenAIRE Broker events.
    *
-   * @param {number} i
-   *    the number of the OpenAIRE Broker event item
-   * @param {OpenaireBrokerEventObject} item
+   * @param {OpenaireBrokerEventObject[]} events
    *    the OpenAIRE Broker event item
    */
   protected setEventUpdated(events: OpenaireBrokerEventObject[]): void {
@@ -344,7 +341,7 @@ export class OpenaireBrokerEventComponent implements OnInit {
               this.translateService.instant('openaire.broker.event.project.bounded')
             );
             eventData.hasProject = true;
-            eventData.projectTitle = projectTitle,
+            eventData.projectTitle = projectTitle;
             eventData.handle = projectHandle;
             eventData.projectId = projectId;
           } else {

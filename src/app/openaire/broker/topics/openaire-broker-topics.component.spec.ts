@@ -4,19 +4,19 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { TestBed, async, ComponentFixture, inject } from '@angular/core/testing';
-import { createTestComponent } from '../../shared/testing/utils.test';
+import { createTestComponent } from '../../../shared/testing/utils.test';
 import {
   getMockOpenaireStateService,
   openaireBrokerTopicObjectMoreAbstract,
   openaireBrokerTopicObjectMorePid
-} from '../../shared/mocks/openaire.mock';
-import { OpenaireBrokerTopicComponent } from './openaire-broker-topic.component';
-import { OpenaireStateService } from '../openaire-state.service';
+} from '../../../shared/mocks/openaire.mock';
+import { OpenaireBrokerTopicsComponent } from './openaire-broker-topics.component';
+import { OpenaireStateService } from '../../openaire-state.service';
 import { cold } from 'jasmine-marbles';
 
-describe('OpenaireBrokerTopicComponent test suite', () => {
-  let fixture: ComponentFixture<OpenaireBrokerTopicComponent>;
-  let comp: OpenaireBrokerTopicComponent;
+describe('OpenaireBrokerTopicsComponent test suite', () => {
+  let fixture: ComponentFixture<OpenaireBrokerTopicsComponent>;
+  let comp: OpenaireBrokerTopicsComponent;
   let compAsAny: any;
   const activatedRouteParams = {
     openaireBrokerTopicsParams: {
@@ -32,13 +32,13 @@ describe('OpenaireBrokerTopicComponent test suite', () => {
         TranslateModule.forRoot(),
       ],
       declarations: [
-        OpenaireBrokerTopicComponent,
+        OpenaireBrokerTopicsComponent,
         TestComponent,
       ],
       providers: [
         { provide: OpenaireStateService, useClass: getMockOpenaireStateService },
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), params: observableOf({}) } },
-        OpenaireBrokerTopicComponent
+        OpenaireBrokerTopicsComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -61,14 +61,14 @@ describe('OpenaireBrokerTopicComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create OpenaireBrokerTopicComponent', inject([OpenaireBrokerTopicComponent], (app: OpenaireBrokerTopicComponent) => {
+    it('should create OpenaireBrokerTopicsComponent', inject([OpenaireBrokerTopicsComponent], (app: OpenaireBrokerTopicsComponent) => {
       expect(app).toBeDefined();
     }));
   });
 
   describe('Main tests running with two topics', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(OpenaireBrokerTopicComponent);
+      fixture = TestBed.createComponent(OpenaireBrokerTopicsComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
       compAsAny.openaireStateService.getOpenaireBrokerTopics.and.returnValue(observableOf([

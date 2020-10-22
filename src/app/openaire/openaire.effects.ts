@@ -1,5 +1,5 @@
-import { OpenaireBrokerTopicEffects } from './broker/openaire-broker-topic.effects';
+import { OpenaireBrokerTopicsEffects } from './broker/topics/openaire-broker-topics.effects';
 
 export const openaireEffects = [
-  OpenaireBrokerTopicEffects,
+  OpenaireBrokerTopicsEffects,
 ];

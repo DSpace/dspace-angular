@@ -2,17 +2,17 @@ import {
   RetrieveAllTopicsAction,
   RetrieveAllTopicsErrorAction,
   AddTopicsAction
-} from './openaire-broker-topic.actions';
+} from './openaire-broker-topics.actions';
 import {
-  openaireBrokerTopicReducer,
+  openaireBrokerTopicsReducer,
   OpenaireBrokerTopicState
-} from './openaire-broker-topic.reducer';
+} from './openaire-broker-topics.reducer';
 import {
   openaireBrokerTopicObjectMorePid,
   openaireBrokerTopicObjectMoreAbstract
-} from '../../shared/mocks/openaire.mock';
+} from '../../../shared/mocks/openaire.mock';
 
-describe('openaireBrokerTopicReducer test suite', () => {
+describe('openaireBrokerTopicsReducer test suite', () => {
   let openaireBrokerTopicInitialState: OpenaireBrokerTopicState;
   const elementPerPage = 3;
   const currentPage = 0;
@@ -34,7 +34,7 @@ describe('openaireBrokerTopicReducer test suite', () => {
     expectedState.processing = true;
 
     const action = new RetrieveAllTopicsAction(elementPerPage, currentPage);
-    const newState = openaireBrokerTopicReducer(openaireBrokerTopicInitialState, action);
+    const newState = openaireBrokerTopicsReducer(openaireBrokerTopicInitialState, action);
 
     expect(newState).toEqual(expectedState);
   });
@@ -46,7 +46,7 @@ describe('openaireBrokerTopicReducer test suite', () => {
     expectedState.currentPage = 0;
 
     const action = new RetrieveAllTopicsErrorAction();
-    const newState = openaireBrokerTopicReducer(openaireBrokerTopicInitialState, action);
+    const newState = openaireBrokerTopicsReducer(openaireBrokerTopicInitialState, action);
 
     expect(newState).toEqual(expectedState);
   });
@@ -66,7 +66,7 @@ describe('openaireBrokerTopicReducer test suite', () => {
       [ openaireBrokerTopicObjectMorePid, openaireBrokerTopicObjectMoreAbstract ],
       1, 0, 2
     );
-    const newState = openaireBrokerTopicReducer(openaireBrokerTopicInitialState, action);
+    const newState = openaireBrokerTopicsReducer(openaireBrokerTopicInitialState, action);
 
     expect(newState).toEqual(expectedState);
   });
