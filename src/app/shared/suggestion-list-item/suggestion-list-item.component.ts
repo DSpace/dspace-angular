@@ -46,7 +46,10 @@ export class SuggestionListItemComponent {
     this.seeEvidenceClicked.emit(this.object.evidences);
   }
 
+  /**
+   * Used to approve & import
+   */
   selectedCollection(event) {
-    this.approveAndImport.emit({collectionId: this.object.id, suggestionId: event});
+    this.approveAndImport.emit({suggestion: this.object, collectionId: event});
   }
 }

@@ -1,23 +1,24 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { BehaviorSubject, Observable } from "rxjs";
-import { map, take } from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import {
   SortDirection,
   SortOptions,
-} from "../core/cache/models/sort-options.model";
-import { CollectionDataService } from "../core/data/collection-data.service";
-import { PaginatedList } from "../core/data/paginated-list";
-import { RemoteData } from "../core/data/remote-data";
-import { Collection } from "../core/shared/collection.model";
-import { redirectToPageNotFoundOn404 } from "../core/shared/operators";
-import { SuggestionTargetsService } from "../reciter/suggestion-target/suggestion-target.service";
-import { PaginationComponentOptions } from "../shared/pagination/pagination-component-options.model";
+} from '../core/cache/models/sort-options.model';
+import { CollectionDataService } from '../core/data/collection-data.service';
+import { PaginatedList } from '../core/data/paginated-list';
+import { RemoteData } from '../core/data/remote-data';
+import { Collection } from '../core/shared/collection.model';
+import { redirectToPageNotFoundOn404 } from '../core/shared/operators';
+import { SuggestionTargetsService } from '../reciter/suggestion-target/suggestion-target.service';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { ItemDataService } from '../core/data/item-data.service';
 
 @Component({
-  selector: "ds-suggestion-page",
-  templateUrl: "./suggestion-page.component.html",
-  styleUrls: ["./suggestion-page.component.scss"],
+  selector: 'ds-suggestion-page',
+  templateUrl: './suggestion-page.component.html',
+  styleUrls: ['./suggestion-page.component.scss'],
 })
 export class SuggestionPageComponent implements OnInit {
   collectionRD$: Observable<RemoteData<Collection>>;
@@ -31,7 +32,7 @@ export class SuggestionPageComponent implements OnInit {
   /**
    * The pagination id
    */
-  pageId = "community-collections-pagination";
+  pageId = 'community-collections-pagination';
 
   /**
    * The sorting configuration
@@ -55,7 +56,8 @@ export class SuggestionPageComponent implements OnInit {
     private cds: CollectionDataService,
     private route: ActivatedRoute,
     private router: Router,
-    private suggestionTargetsService: SuggestionTargetsService
+    private suggestionTargetsService: SuggestionTargetsService,
+    private itemService: ItemDataService
   ) {}
 
   ngOnInit(): void {
@@ -69,11 +71,11 @@ export class SuggestionPageComponent implements OnInit {
     this.config.id = this.pageId;
     this.config.pageSize = 1;
     this.config.currentPage = 1;
-    this.sortConfig = new SortOptions("dc.title", SortDirection.ASC);
+    this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
 
     this.route.params.subscribe((params: Params) => {
-      this.suggestionId = params["id"];
-      this.researcherName = params["name"];
+      this.suggestionId = params.id;
+      this.researcherName = params.name;
       this.updatePage();
     });
   }
@@ -114,7 +116,6 @@ export class SuggestionPageComponent implements OnInit {
       });
   }
 
-
   /**
    * Used to to see evidence
    * @evidences
@@ -138,6 +139,8 @@ export class SuggestionPageComponent implements OnInit {
    * @param event
    */
   approveAndImport(event) {
-    console.log(event)
+    this.itemService.importExternalSourceEntry(event.suggestion, event.collectionId).pipe().subscribe((response: any) => {
+      this.updatePage();
+    });
   }
 }
