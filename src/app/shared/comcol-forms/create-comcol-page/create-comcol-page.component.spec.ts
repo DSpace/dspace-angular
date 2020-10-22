@@ -131,6 +131,7 @@ describe('CreateComColPageComponent', () => {
               value: 'test'
             }]
           }),
+          _links: {},
           uploader: {
             options: {
               url: ''
