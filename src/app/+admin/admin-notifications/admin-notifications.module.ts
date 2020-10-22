@@ -7,7 +7,7 @@ import { AdminNotificationsOpenairebrokerPageComponent } from './admin-notificat
 import { AdminNotificationsOpenaireeventPageComponent } from './admin-notifications-openaireevent-page/admin-notifications-openaireevent-page.component';
 import { OpenaireModule } from '../../openaire/openaire.module';
 import { AdminNotificationsReciterPageComponent } from './admin-notifications-reciter-page/admin-notifications-reciter-page.component';
-import { ReciterSuggestionModule } from 'src/app/reciter/recitersuggestions.module';
+import { ReciterSuggestionModule } from 'src/app/openaire/reciter/recitersuggestions.module';
 
 @NgModule({
   imports: [

@@ -1,15 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { map, take } from 'rxjs/operators';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { SuggestionTargetObject } from '../../core/reciter-suggestions/models/suggestion-target.model';
-import { hasValue } from '../../shared/empty.util';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { ReciterSuggestionStateService } from '../recitersuggestions.state.service';
-import { getSuggestionPageRoute } from '../../suggestion-page/suggestion-page-routing-paths';
 
+import { Observable, Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { SuggestionTargetObject } from '../../../core/reciter-suggestions/models/suggestion-target.model';
+import { hasValue } from '../../../shared/empty.util';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { ReciterSuggestionStateService } from '../recitersuggestions.state.service';
+import { getSuggestionPageRoute } from '../../../suggestion-page/suggestion-page-routing-paths';
 
 /**
  * Component to display the Suggestion Target list.
@@ -50,13 +50,16 @@ export class SuggestionTargetComponent implements OnInit {
 
   /**
    * Initialize the component variables.
+   * @param {ActivatedRoute} activatedRoute
    * @param {ReciterSuggestionStateService} reciterSuggestionStateService
+   * @param {Router} router
    */
   constructor(
     private activatedRoute: ActivatedRoute,
     private reciterSuggestionStateService: ReciterSuggestionStateService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   /**
    * Component intitialization.
@@ -137,9 +140,20 @@ export class SuggestionTargetComponent implements OnInit {
    *
    * @param {string} id
    *    the id of suggestion target
+   * @param {string} name
+   *    the name of suggestion target
    */
   public redirectToSuggestions(id: string, name: string) {
     this.router.navigate([getSuggestionPageRoute(id, name)]);
+  }
+
+  /**
+   * Unsubscribe from all subscriptions.
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 
   /**
@@ -150,14 +164,5 @@ export class SuggestionTargetComponent implements OnInit {
       this.elementsPerPage,
       this.paginationConfig.currentPage
     );
-  }
-
-  /**
-   * Unsubscribe from all subscriptions.
-   */
-  ngOnDestroy(): void {
-    this.subs
-      .filter((sub) => hasValue(sub))
-      .forEach((sub) => sub.unsubscribe());
   }
 }

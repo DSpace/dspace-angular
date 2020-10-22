@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import {
-  SortDirection,
-  SortOptions,
-} from '../core/cache/models/sort-options.model';
+
+import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { Collection } from '../core/shared/collection.model';
 import { redirectToPageNotFoundOn404 } from '../core/shared/operators';
-import { SuggestionTargetsService } from '../reciter/suggestion-target/suggestion-target.service';
+import { SuggestionTargetsService } from '../openaire/reciter/suggestion-target/suggestion-target.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { ItemDataService } from '../core/data/item-data.service';
 

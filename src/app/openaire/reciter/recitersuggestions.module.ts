@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { StoreModule, Action, StoreConfig } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { CoreModule } from '../core/core.module';
-import { SharedModule } from '../shared/shared.module';
-import { storeModuleConfig } from '../app.reducer';
+import { CoreModule } from '../../core/core.module';
+import { SharedModule } from '../../shared/shared.module';
+import { storeModuleConfig } from '../../app.reducer';
 import { SuggestionTargetComponent } from './suggestion-target/suggestion-target.component';
 import { ReciterSuggestionStateService } from './recitersuggestions.state.service';
 import { reciterSuggestionReducers, ReciterSuggestionStat } from './recitersuggestions.reducer';
 import { reciterSuggestionsEffects } from './recitersuggestions.effects';
 import { SuggestionTargetsService } from './suggestion-target/suggestion-target.service';
-import { SuggestionTargetRestService } from '../core/reciter-suggestions/reciter-suggestions-rest.service';
+import { SuggestionTargetRestService } from '../../core/reciter-suggestions/reciter-suggestions-rest.service';
 
 const MODULES = [
   CommonModule,

@@ -2,20 +2,19 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, map, switchMap, withLatestFrom, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
 import {
-  SuggestionTargetActionTypes,
-  RetrieveAllTargetsAction,
   AddTargetAction,
+  RetrieveAllTargetsAction,
   RetrieveAllTargetsErrorAction,
+  SuggestionTargetActionTypes,
 } from './suggestion-target.actions';
 
-import { SuggestionTargetObject } from '../../core/reciter-suggestions/models/suggestion-target.model';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { SuggestionTargetObject } from '../../../core/reciter-suggestions/models/suggestion-target.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
 import { SuggestionTargetsService } from './suggestion-target.service';
-import { ReciterSuggestionStat } from '../recitersuggestions.reducer';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 /**
  * Provides effect methods for the Suggestion Targets actions.

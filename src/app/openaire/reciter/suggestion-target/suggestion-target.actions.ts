@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { type } from '../../shared/ngrx/type';
-import { SuggestionTargetObject } from '../../core/reciter-suggestions/models/suggestion-target.model';
+import { type } from '../../../shared/ngrx/type';
+import { SuggestionTargetObject } from '../../../core/reciter-suggestions/models/suggestion-target.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -67,8 +67,8 @@ export class AddTargetAction implements Action {
   /**
    * Create a new AddTopicsAction.
    *
-   * @param topics
-   *    the list of topics
+   * @param targets
+   *    the list of targets
    * @param totalPages
    *    the total available pages of topics
    * @param currentPage

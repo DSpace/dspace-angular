@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  InjectionToken,
-  Input,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, InjectionToken, Input, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map, switchMap, tap, } from 'rxjs/operators';
@@ -34,7 +27,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { SuggestionTargetsService } from '../reciter/suggestion-target/suggestion-target.service';
+import { SuggestionTargetsService } from '../openaire/reciter/suggestion-target/suggestion-target.service';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -111,14 +104,14 @@ export class MyDSpacePageComponent implements OnInit {
   context$: Observable<Context>;
 
   constructor(private service: SearchService,
-    private sidebarService: SidebarService,
-    private windowService: HostWindowService,
-    private authService: AuthService,
-    private translateService: TranslateService,
-    private authorizationService: AuthorizationDataService,
-    private notificationsService: NotificationsService,
-    private suggestionTargetService: SuggestionTargetsService,
-    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
+              private sidebarService: SidebarService,
+              private windowService: HostWindowService,
+              private authService: AuthService,
+              private translateService: TranslateService,
+              private authorizationService: AuthorizationDataService,
+              private notificationsService: NotificationsService,
+              private suggestionTargetService: SuggestionTargetsService,
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.service.setServiceOptions(MyDSpaceResponseParsingService, MyDSpaceRequest);
   }
@@ -166,7 +159,11 @@ export class MyDSpacePageComponent implements OnInit {
         this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
           if (!authorized) {
             this.suggestionTargetService.getSuggestion(this.suggestionId).subscribe((data) => {
-              this.translateService.get(this.labelPrefix + 'notification.suggestion', { count: data.total, suggestionId: this.suggestionId, displayName: user.name }).subscribe((content) => {
+              this.translateService.get(this.labelPrefix + 'notification.suggestion', {
+                count: data.total,
+                suggestionId: this.suggestionId,
+                displayName: user.name
+              }).subscribe((content) => {
                 this.notificationsService.success('', content, {}, true);
               })
             })

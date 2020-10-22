@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Collection } from '../core/shared/collection.model';
+
 import { Observable } from 'rxjs';
+import { find } from 'rxjs/operators';
+
+import { Collection } from '../core/shared/collection.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { RemoteData } from '../core/data/remote-data';
-import { find } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 

@@ -10,7 +10,7 @@ import {
   isreciterSuggestionTargetProcessingSelector,
   getreciterSuggestionTargetTotalPagesSelector
 } from './selectors';
-import { SuggestionTargetObject } from '../core/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionTargetObject } from '../../core/reciter-suggestions/models/suggestion-target.model';
 import { ReciterSuggestionStat } from './recitersuggestions.reducer';
 import { RetrieveAllTargetsAction } from './suggestion-target/suggestion-target.actions';
 
@@ -106,7 +106,9 @@ export class ReciterSuggestionStateService {
    * Dispatch a request to change the Reciter Suggestion Targets state, retrieving the topics from the server.
    *
    * @param elementsPerPage
-   *    The number of the topics per page.
+   *    The number of the targets per page.
+   * @param currentPage
+   *    The number of the current page.
    */
   public dispatchRetrieveReciterSuggestionTargets(elementsPerPage: number, currentPage: number): void {
     this.store.dispatch(new RetrieveAllTargetsAction(elementsPerPage, currentPage))
