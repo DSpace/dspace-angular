@@ -311,7 +311,7 @@ describe('OpenaireBrokerEventComponent test suite', () => {
         expect(compAsAny.openaireBrokerEventRestService.getEventsByTopic).toHaveBeenCalledWith(
           activatedRouteParamsMap.id,
           options,
-          followLink('item'),followLink('related')
+          followLink('target'),followLink('related')
         );
         expect(compAsAny.setEventUpdated).toHaveBeenCalled();
       });

@@ -2489,6 +2489,8 @@
 
   "openaire.broker.event.modal.project.publication": "Publication:",
 
+  "openaire.broker.event.modal.project.bountToLocal": "Bound to the local record:",
+
   "openaire.broker.event.modal.project.select": "Project search",
 
   "openaire.broker.event.modal.project.search": "Search",

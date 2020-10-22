@@ -9,7 +9,6 @@ import { OpenaireStateService } from '../../openaire/openaire-state.service';
 import { Item } from '../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { SearchResult } from '../search/search-result.model';
-import { RestResponse } from '../../core/cache/response.models';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1434,14 +1433,14 @@ export const openaireBrokerEventObjectMissingPid: OpenaireBrokerEventObject = {
     self: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174001',
     },
-    item: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174001/item'
+    target: {
+      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174001/target'
     },
     related: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174001/related'
     }
   },
-  item: observableOf(createSuccessfulRemoteDataObject(ItemMockPid1))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid1))
 };
 
 export const openaireBrokerEventObjectMissingPid2: OpenaireBrokerEventObject = {
@@ -1468,14 +1467,14 @@ export const openaireBrokerEventObjectMissingPid2: OpenaireBrokerEventObject = {
     self: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174004'
     },
-    item: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174004/item'
+    target: {
+      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174004/target'
     },
     related: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174004/related'
     }
   },
-  item: observableOf(createSuccessfulRemoteDataObject(ItemMockPid2))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid2))
 };
 
 export const openaireBrokerEventObjectMissingPid3: OpenaireBrokerEventObject = {
@@ -1502,14 +1501,14 @@ export const openaireBrokerEventObjectMissingPid3: OpenaireBrokerEventObject = {
     self: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174005'
     },
-    item: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174005/item'
+    target: {
+      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174005/target'
     },
     related: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174005/related'
     }
   },
-  item: observableOf(createSuccessfulRemoteDataObject(ItemMockPid3))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid3))
 };
 
 export const openaireBrokerEventObjectMissingPid4: OpenaireBrokerEventObject = {
@@ -1536,14 +1535,14 @@ export const openaireBrokerEventObjectMissingPid4: OpenaireBrokerEventObject = {
     self: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174006'
     },
-    item: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174006/item'
+    target: {
+      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174006/target'
     },
     related: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174006/related'
     }
   },
-  item: observableOf(createSuccessfulRemoteDataObject(ItemMockPid4))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid4))
 };
 
 export const openaireBrokerEventObjectMissingPid5: OpenaireBrokerEventObject = {
@@ -1570,14 +1569,14 @@ export const openaireBrokerEventObjectMissingPid5: OpenaireBrokerEventObject = {
     self: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174007'
     },
-    item: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174007/item'
+    target: {
+      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174007/target'
     },
     related: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174007/related'
     }
   },
-  item: observableOf(createSuccessfulRemoteDataObject(ItemMockPid5))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid5))
 };
 
 export const openaireBrokerEventObjectMissingPid6: OpenaireBrokerEventObject = {
@@ -1604,14 +1603,14 @@ export const openaireBrokerEventObjectMissingPid6: OpenaireBrokerEventObject = {
     self: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174008'
     },
-    item: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174008/item'
+    target: {
+      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174008/target'
     },
     related: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174008/related'
     }
   },
-  item: observableOf(createSuccessfulRemoteDataObject(ItemMockPid6))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid6))
 };
 
 export const openaireBrokerEventObjectMissingAbstract: OpenaireBrokerEventObject = {
@@ -1638,14 +1637,14 @@ export const openaireBrokerEventObjectMissingAbstract: OpenaireBrokerEventObject
     self: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174009'
     },
-    item: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174009/item'
+    target: {
+      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174009/target'
     },
     related: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174009/related'
     }
   },
-  item: observableOf(createSuccessfulRemoteDataObject(ItemMockPid7))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid7))
 };
 
 export const openaireBrokerEventObjectMissingProjectFound: OpenaireBrokerEventObject = {
@@ -1672,14 +1671,14 @@ export const openaireBrokerEventObjectMissingProjectFound: OpenaireBrokerEventOb
     self: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174002'
     },
-    item: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174002/item'
+    target: {
+      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174002/target'
     },
     related: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174002/related'
     }
   },
-  item: observableOf(createSuccessfulRemoteDataObject(ItemMockPid8)),
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid8)),
   related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
@@ -1707,14 +1706,14 @@ export const openaireBrokerEventObjectMissingProjectNotFound: OpenaireBrokerEven
     self: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174003'
     },
-    item: {
-      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174003/item'
+    target: {
+      href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174003/target'
     },
     related: {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174003/related'
     }
   },
-  item: observableOf(createSuccessfulRemoteDataObject(ItemMockPid9))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid9))
 };
 
 // Classes

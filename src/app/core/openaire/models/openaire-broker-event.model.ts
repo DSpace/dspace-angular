@@ -85,7 +85,7 @@ export class OpenaireBrokerEventObject implements CacheableObject {
   @deserialize
   _links: {
     self: HALLink,
-    item: HALLink,
+    target: HALLink,
     related: HALLink
   };
 
@@ -94,7 +94,7 @@ export class OpenaireBrokerEventObject implements CacheableObject {
    * Will be undefined unless the {@item HALLink} has been resolved.
    */
   @link(ITEM)
-  item?: Observable<RemoteData<Item>>;
+  target?: Observable<RemoteData<Item>>;
 
   /**
    * The related project for this Event

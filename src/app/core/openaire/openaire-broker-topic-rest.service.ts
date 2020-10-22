@@ -22,20 +22,6 @@ import { OPENAIRE_BROKER_TOPIC_OBJECT } from './models/openaire-broker-topic-obj
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../data/paginated-list';
 
-// TEST
-import { ResourceType } from '../shared/resource-type';
-import { PageInfo } from '../shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { of as observableOf } from 'rxjs';
-import {
-  openaireBrokerTopicObjectMorePid,
-  openaireBrokerTopicObjectMissingAbstract,
-  openaireBrokerTopicObjectMissingAcm,
-  openaireBrokerTopicObjectMissingPid,
-  openaireBrokerTopicObjectMissingProject,
-  openaireBrokerTopicObjectMoreAbstract
-} from '../../shared/mocks/openaire-tmp.mock';
-
 /* tslint:disable:max-classes-per-file */
 
 /**
@@ -114,34 +100,10 @@ export class OpenaireBrokerTopicRestService {
    *    The list of OpenAIRE Broker topics.
    */
   public getTopics(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<OpenaireBrokerTopicObject>>): Observable<RemoteData<PaginatedList<OpenaireBrokerTopicObject>>> {
-    // return this.dataService.getBrowseEndpoint(options, 'nbtopics').pipe(
-    //   take(1),
-    //   flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
-    // );
-    // TEST
-    const pageInfo = new PageInfo({
-      elementsPerPage: options.elementsPerPage,
-      totalElements: 6,
-      totalPages: 2,
-      currentPage: options.currentPage
-    });
-    let array = [ ];
-    if (options.currentPage === 1) {
-      array = [
-        openaireBrokerTopicObjectMorePid,
-        openaireBrokerTopicObjectMissingAbstract,
-        openaireBrokerTopicObjectMissingAcm,
-        openaireBrokerTopicObjectMissingPid,
-        openaireBrokerTopicObjectMissingProject
-      ];
-    } else {
-      array = [
-        openaireBrokerTopicObjectMoreAbstract
-      ];
-    }
-    const paginatedList = new PaginatedList(pageInfo, array);
-    const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-    return observableOf(paginatedListRD);
+    return this.dataService.getBrowseEndpoint(options, 'nbtopics').pipe(
+      take(1),
+      flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
+    );
   }
 
   /**
