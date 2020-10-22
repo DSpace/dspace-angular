@@ -12,6 +12,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { CreateCommunityPageComponent } from './create-community-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import {RequestService} from '../../core/data/request.service';
 
 describe('CreateCommunityPageComponent', () => {
   let comp: CreateCommunityPageComponent;
@@ -25,7 +26,8 @@ describe('CreateCommunityPageComponent', () => {
         { provide: CommunityDataService, useValue: { findById: () => observableOf({}) } },
         { provide: RouteService, useValue: { getQueryParameterValue: () => observableOf('1234') } },
         { provide: Router, useValue: {} },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: RequestService, useValue: {} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
