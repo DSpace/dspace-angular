@@ -36,6 +36,7 @@ describe('CreateComColPageComponent', () => {
   let routeServiceStub;
   let routerStub;
   let requestServiceStub;
+  let scheduler;
 
   const logoEndpoint = 'rest/api/logo/endpoint';
 
@@ -117,6 +118,7 @@ describe('CreateComColPageComponent', () => {
     communityDataService = (comp as any).communityDataService;
     routeService = (comp as any).routeService;
     router = (comp as any).router;
+    scheduler = getTestScheduler();
   });
 
   describe('onSubmit', () => {
@@ -146,8 +148,9 @@ describe('CreateComColPageComponent', () => {
 
       it('should navigate and refresh cache when successful', () => {
         spyOn(router, 'navigate');
-        spyOn((comp as any), 'refreshCache');
-        comp.onSubmit(data);
+        spyOn((comp as any), 'refreshCache')
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         fixture.detectChanges();
         expect(router.navigate).toHaveBeenCalled();
         expect((comp as any).refreshCache).toHaveBeenCalled();
@@ -157,7 +160,8 @@ describe('CreateComColPageComponent', () => {
         spyOn(router, 'navigate');
         spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$(newCommunity));
         spyOn((comp as any), 'refreshCache')
-        comp.onSubmit(data);
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         fixture.detectChanges();
         expect(router.navigate).not.toHaveBeenCalled();
         expect((comp as any).refreshCache).not.toHaveBeenCalled();
@@ -173,6 +177,7 @@ describe('CreateComColPageComponent', () => {
               value: 'test'
             }]
           }),
+          _links: {},
           uploader: {
             options: {
               url: ''
@@ -189,27 +194,29 @@ describe('CreateComColPageComponent', () => {
 
       it('should not navigate', () => {
         spyOn(router, 'navigate');
-        comp.onSubmit(data);
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         fixture.detectChanges();
         expect(router.navigate).not.toHaveBeenCalled();
       });
 
       it('should set the uploader\'s url to the logo\'s endpoint', () => {
-        comp.onSubmit(data);
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         fixture.detectChanges();
         expect(data.uploader.options.url).toEqual(logoEndpoint);
       });
 
       it('should call the uploader\'s uploadAll', () => {
         spyOn(data.uploader, 'uploadAll');
-        comp.onSubmit(data);
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         fixture.detectChanges();
         expect(data.uploader.uploadAll).toHaveBeenCalled();
       });
     });
 
     describe('cache refresh', () => {
-      let scheduler;
       let communityWithoutParentHref;
 
       beforeEach(() => {
