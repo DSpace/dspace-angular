@@ -10,6 +10,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
@@ -99,6 +100,7 @@ describe('GroupRegistryComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterMock() },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
