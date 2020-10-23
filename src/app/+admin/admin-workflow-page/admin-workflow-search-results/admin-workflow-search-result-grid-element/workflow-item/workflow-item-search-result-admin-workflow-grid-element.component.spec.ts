@@ -18,6 +18,7 @@ import { WorkflowItemSearchResult } from '../../../../../shared/object-collectio
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
+import { of as observableOf } from 'rxjs';
 
 describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowGridElementComponent;
@@ -50,7 +51,9 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
         ],
         providers: [
           { provide: LinkService, useValue: linkService },
-          { provide: TruncatableService, useValue: {} },
+          { provide: TruncatableService, useValue: {
+              isCollapsed: () => observableOf(true),
+            } },
           { provide: BitstreamDataService, useValue: {} },
         ],
         schemas: [NO_ERRORS_SCHEMA]

@@ -32,9 +32,6 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
     protected bitstreamDataService: BitstreamDataService
   ) {
     super();
-    if (hasValue(this.object)) {
-      this.isCollapsed$ = this.isCollapsed();
-    }
   }
 
   /**
@@ -43,6 +40,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   ngOnInit(): void {
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
+      this.isCollapsed$ = this.isCollapsed();
     }
   }
 
