@@ -32,6 +32,8 @@ describe('DeleteComColPageComponent', () => {
   let translateServiceStub;
   let requestServiceStub;
 
+  let scheduler;
+
   const validUUID = 'valid-uuid';
   const invalidUUID = 'invalid-uuid';
   const frontendURL = '/testType';
@@ -109,34 +111,51 @@ describe('DeleteComColPageComponent', () => {
     notificationsService = (comp as any).notifications;
     (comp as any).frontendURL = frontendURL;
     router = (comp as any).router;
+    scheduler = getTestScheduler();
   });
 
   describe('onConfirm', () => {
     let data1;
     let data2;
     beforeEach(() => {
-      data1 = Object.assign(new Community(), {
-        uuid: validUUID,
-        metadata: [{
-          key: 'dc.title',
-          value: 'test'
-        }]
-      });
+      data1 = {
+        dso: Object.assign(new Community(), {
+          uuid: validUUID,
+          metadata: [{
+            key: 'dc.title',
+            value: 'test'
+          }]
+        }),
+        _links: {}
+      };
 
-      data2 = Object.assign(new Community(), {
-        uuid: invalidUUID,
-        metadata: [{
-          key: 'dc.title',
-          value: 'test'
-        }]
-      });
+      data2 = {
+        dso: Object.assign(new Community(), {
+          uuid: invalidUUID,
+          metadata: [{
+            key: 'dc.title',
+            value: 'test'
+          }]
+        }),
+        _links: {},
+        uploader: {
+          options: {
+            url: ''
+          },
+          queue: [],
+          /* tslint:disable:no-empty */
+          uploadAll: () => {}
+          /* tslint:enable:no-empty */
+        }
+      };
     });
 
     it('should show an error notification on failure', () => {
       (dsoDataService.delete as any).and.returnValue(observableOf({ isSuccessful: false }));
       spyOn(router, 'navigate');
       spyOn((comp as any), 'refreshCache');
-      comp.onConfirm(data2);
+      scheduler.schedule(() => comp.onConfirm(data2));
+      scheduler.flush();
       fixture.detectChanges();
       expect(notificationsService.error).toHaveBeenCalled();
       expect((comp as any).refreshCache).not.toHaveBeenCalled();
@@ -146,7 +165,8 @@ describe('DeleteComColPageComponent', () => {
     it('should show a success notification on success and navigate', () => {
       spyOn(router, 'navigate');
       spyOn((comp as any), 'refreshCache');
-      comp.onConfirm(data1);
+      scheduler.schedule(() => comp.onConfirm(data1));
+      scheduler.flush();
       fixture.detectChanges();
       expect(notificationsService.success).toHaveBeenCalled();
       expect((comp as any).refreshCache).toHaveBeenCalled();
@@ -160,14 +180,9 @@ describe('DeleteComColPageComponent', () => {
     });
 
     describe('cache refresh', () => {
-      let scheduler;
       let communityWithoutParentHref;
       let deletedCommunity;
 
-      beforeEach(() => {
-        scheduler = getTestScheduler();
-
-      })
       describe('cache refreshed top level community', () => {
         beforeEach(() => {
           (dsoDataService.findByHref as any).and.returnValue(createNoContentRemoteDataObject$());
