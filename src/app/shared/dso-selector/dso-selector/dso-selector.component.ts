@@ -10,7 +10,7 @@ import {
   ViewChildren
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, startWith, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
@@ -21,8 +21,8 @@ import { Context } from '../../../core/shared/context.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { hasValue } from '../../empty.util';
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
+import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { SearchResult } from '../../search/search-result.model';
@@ -126,23 +126,42 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * The search will always start with the initial currentDSOId value
    */
   ngOnInit(): void {
-    this.input.setValue(this.currentDSOId);
     this.typesString = this.types.map((type: string) => type.toString().toLowerCase()).join(', ');
 
+    // Create an observable searching for the current DSO (return empty list if there's no current DSO)
+    let currentDSOResult$;
+    if (isNotEmpty(this.currentDSOId)) {
+      currentDSOResult$ = this.search(`search.resourceid:${this.currentDSOId}`, 1);
+    } else {
+      currentDSOResult$ = observableOf(new PaginatedList(undefined, []));
+    }
+
+    // Combine current DSO, query and page
     this.subs.push(observableCombineLatest(
+      currentDSOResult$,
       this.input.valueChanges.pipe(
         debounceTime(this.debounceTime),
-        startWith(this.currentDSOId),
+        startWith(''),
         tap(() => this.currentPage$.next(1))
       ),
       this.currentPage$
     ).pipe(
-      switchMap(([query, page]: [string, number]) => {
+      switchMap(([currentDSOResult, query, page]: [PaginatedList<SearchResult<DSpaceObject>>, string, number]) => {
         if (page === 1) {
           // The first page is loading, this means we should reset the list instead of adding to it
           this.resetList = true;
         }
-        return this.search(query, page);
+        return this.search(query, page).pipe(
+          map((list) => {
+            // If it's the first page and no query is entered, add the current DSO to the start of the list
+            // If no query is entered, filter out the current DSO from the results, as it'll be displayed at the start of the list already
+            list.page = [
+              ...((isEmpty(query) && page === 1) ? currentDSOResult.page : []),
+              ...list.page.filter((result) => isNotEmpty(query) || result.indexableObject.id !== this.currentDSOId)
+            ];
+            return list;
+          })
+        );
       })
     ).subscribe((list) => {
       if (this.resetList) {

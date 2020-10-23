@@ -24,6 +24,12 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   @Input() dsoRD: RemoteData<DSpaceObject>;
 
   /**
+   * Optional header to display above the selection list
+   * Supports i18n keys
+   */
+  @Input() header: string;
+
+  /**
    * The type of the DSO that's being edited, created or exported
    */
   objectType: DSpaceObjectType;

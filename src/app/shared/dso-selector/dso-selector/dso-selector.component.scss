@@ -3,3 +3,10 @@
   max-height: $dso-selector-list-max-height;
   overflow-x: hidden;
 }
+
+.current {
+  background-color: $dso-selector-current-background-color;
+  &:hover {
+    background-color: $dso-selector-current-background-hover-color;
+  }
+}

@@ -22,6 +22,7 @@ export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWra
   objectType = DSpaceObjectType.COLLECTION;
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
+  header = 'dso-selector.create.collection.sub-level';
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);

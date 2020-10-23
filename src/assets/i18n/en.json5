@@ -1037,6 +1037,8 @@
 
   "dso-selector.create.collection.head": "New collection",
 
+  "dso-selector.create.collection.sub-level": "Create a new collection in",
+
   "dso-selector.create.community.head": "New community",
 
   "dso-selector.create.community.sub-level": "Create a new community in",
@@ -1044,6 +1046,8 @@
   "dso-selector.create.community.top-level": "Create a new top-level community",
 
   "dso-selector.create.item.head": "New item",
+
+  "dso-selector.create.item.sub-level": "Create a new item in",
 
   "dso-selector.create.submission.head": "New submission",
 
