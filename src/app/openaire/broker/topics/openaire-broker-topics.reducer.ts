@@ -1,5 +1,5 @@
 
-import { OpenaireBrokerTopicObject } from '../../../core/openaire/models/openaire-broker-topic.model';
+import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/openaire-broker-topic.model';
 import {
   OpenaireBrokerTopicsActions,
   OpenaireBrokerTopicActionTypes

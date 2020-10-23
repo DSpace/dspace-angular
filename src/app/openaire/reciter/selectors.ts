@@ -1,7 +1,7 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 import { subStateSelector } from '../../shared/selector.util';
 import { ReciterSuggestionStat,  reciterSuggestionSelector} from './recitersuggestions.reducer';
-import { SuggestionTargetObject } from '../../core/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionTargetObject } from '../../core/openaire/reciter-suggestions/models/suggestion-target.model';
 import { SuggestionTargetState } from './suggestion-target/suggestion-target.reducer';
 
 /**

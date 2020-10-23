@@ -22,7 +22,7 @@ import { WorkflowItemSearchResultListElementComponent } from '../shared/object-l
 import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-search-result/pool-search-result-detail-element.component';
 import { CollectionSelectorComponent } from './collection-selector/collection-selector.component';
 import { SuggestionTargetsService } from '../openaire/reciter/suggestion-target/suggestion-target.service';
-import { SuggestionTargetRestService } from '../core/reciter-suggestions/reciter-suggestions-rest.service';
+import { SuggestionTargetRestService } from '../core/openaire/reciter-suggestions/reciter-suggestions-rest.service';
 
 @NgModule({
   imports: [

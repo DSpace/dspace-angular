@@ -1,4 +1,4 @@
-import { ResourceType } from '../../shared/resource-type';
+import { ResourceType } from '../../../shared/resource-type';
 
 /**
  * The resource type for the OpenAIRE Broker event

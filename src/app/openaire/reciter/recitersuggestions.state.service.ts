@@ -10,7 +10,7 @@ import {
   isreciterSuggestionTargetProcessingSelector,
   getreciterSuggestionTargetTotalPagesSelector
 } from './selectors';
-import { SuggestionTargetObject } from '../../core/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionTargetObject } from '../../core/openaire/reciter-suggestions/models/suggestion-target.model';
 import { ReciterSuggestionStat } from './recitersuggestions.reducer';
 import { RetrieveAllTargetsAction } from './suggestion-target/suggestion-target.actions';
 

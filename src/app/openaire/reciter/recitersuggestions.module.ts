@@ -11,7 +11,7 @@ import { ReciterSuggestionStateService } from './recitersuggestions.state.servic
 import { reciterSuggestionReducers, ReciterSuggestionStat } from './recitersuggestions.reducer';
 import { reciterSuggestionsEffects } from './recitersuggestions.effects';
 import { SuggestionTargetsService } from './suggestion-target/suggestion-target.service';
-import { SuggestionTargetRestService } from '../../core/reciter-suggestions/reciter-suggestions-rest.service';
+import { SuggestionTargetRestService } from '../../core/openaire/reciter-suggestions/reciter-suggestions-rest.service';
 
 const MODULES = [
   CommonModule,

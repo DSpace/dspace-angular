@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { find, map } from 'rxjs/operators';
-import { SuggestionTargetRestService } from '../../../core/reciter-suggestions/reciter-suggestions-rest.service';
-import { SortOptions, SortDirection } from '../../../core/cache/models/sort-options.model';
+import { SuggestionTargetRestService } from '../../../core/openaire/reciter-suggestions/reciter-suggestions-rest.service';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/request.models';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { SuggestionTargetObject } from '../../../core/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionTargetObject } from '../../../core/openaire/reciter-suggestions/models/suggestion-target.model';
 
 /**
  * The service handling all Suggestion Target  requests to the REST service.

@@ -2,20 +2,23 @@ import { HttpClient } from '@angular/common/http';
 
 import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
-import { getTestScheduler, cold, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 
-import { RequestService } from '../data/request.service';
-import { PaginatedList } from '../data/paginated-list';
-import { RequestEntry } from '../data/request.reducer';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
-import { PageInfo } from '../shared/page-info.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { OpenaireBrokerTopicRestService } from './openaire-broker-topic-rest.service';
-import { openaireBrokerTopicObjectMorePid, openaireBrokerTopicObjectMoreAbstract } from '../../shared/mocks/openaire.mock';
+import { RequestService } from '../../data/request.service';
+import { PaginatedList } from '../../data/paginated-list';
+import { RequestEntry } from '../../data/request.reducer';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { RestResponse } from '../../cache/response.models';
+import { PageInfo } from '../../shared/page-info.model';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { OpenaireBrokerTopicRestService } from '../broker/topics/openaire-broker-topic-rest.service';
+import {
+  openaireBrokerTopicObjectMoreAbstract,
+  openaireBrokerTopicObjectMorePid
+} from '../../../shared/mocks/openaire.mock';
 
 describe('OpenaireBrokerTopicRestService', () => {
   let scheduler: TestScheduler;

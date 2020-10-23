@@ -11,7 +11,7 @@ import {
   RetrieveAllTopicsErrorAction,
 } from './openaire-broker-topics.actions';
 
-import { OpenaireBrokerTopicObject } from '../../../core/openaire/models/openaire-broker-topic.model';
+import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/openaire-broker-topic.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { OpenaireBrokerTopicsService } from './openaire-broker-topics.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

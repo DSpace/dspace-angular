@@ -3,27 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
-import { flatMap, take, tap, catchError, find, map } from 'rxjs/operators';
 
-import { CoreState } from '../core.reducers';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { hasValue } from '../../shared/empty.util';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RestResponse } from '../cache/response.models';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../cache/builders/build-decorators';
-import { RequestService } from '../data/request.service';
-import { DeleteByIDRequest, FindListOptions, PostRequest } from '../data/request.models';
-import { DataService } from '../data/data.service';
-import { RequestEntry } from '../data/request.reducer';
-import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { RemoteData } from '../data/remote-data';
-import { OpenaireBrokerEventObject } from './models/openaire-broker-event.model';
-import { OPENAIRE_BROKER_EVENT_OBJECT } from './models/openaire-broker-event-object.resource-type';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list';
+import { CoreState } from '../../../core.reducers';
+import { HALEndpointService } from '../../../shared/hal-endpoint.service';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
+import { RestResponse } from '../../../cache/response.models';
+import { ObjectCacheService } from '../../../cache/object-cache.service';
+import { dataService } from '../../../cache/builders/build-decorators';
+import { RequestService } from '../../../data/request.service';
+import { FindListOptions } from '../../../data/request.models';
+import { DataService } from '../../../data/data.service';
+import { ChangeAnalyzer } from '../../../data/change-analyzer';
+import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
+import { RemoteData } from '../../../data/remote-data';
+import { OpenaireBrokerEventObject } from '../models/openaire-broker-event.model';
+import { OPENAIRE_BROKER_EVENT_OBJECT } from '../models/openaire-broker-event-object.resource-type';
+import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
+import { PaginatedList } from '../../../data/paginated-list';
 import { ReplaceOperation } from 'fast-json-patch';
 
 /* tslint:disable:max-classes-per-file */
@@ -120,6 +117,8 @@ export class OpenaireBrokerEventRestService {
    *
    * @param id
    *    The OpenAIRE Broker event id
+   * @param linksToFollow
+   *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return Observable<RemoteData<OpenaireBrokerEventObject>>
    *    The OpenAIRE Broker event.
    */

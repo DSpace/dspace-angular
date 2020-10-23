@@ -11,7 +11,7 @@ import {
   SuggestionTargetActionTypes,
 } from './suggestion-target.actions';
 
-import { SuggestionTargetObject } from '../../../core/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionTargetObject } from '../../../core/openaire/reciter-suggestions/models/suggestion-target.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { SuggestionTargetsService } from './suggestion-target.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

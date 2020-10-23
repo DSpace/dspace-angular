@@ -10,7 +10,7 @@ import {
   sOpenaireBrokerTopicsProcessingSelector,
   getOpenaireBrokerTopicsTotalPagesSelector
 } from './selectors';
-import { OpenaireBrokerTopicObject } from '../core/openaire/models/openaire-broker-topic.model';
+import { OpenaireBrokerTopicObject } from '../core/openaire/broker/models/openaire-broker-topic.model';
 import { OpenaireState } from './openaire.reducer';
 import { RetrieveAllTopicsAction } from './broker/topics/openaire-broker-topics.actions';
 

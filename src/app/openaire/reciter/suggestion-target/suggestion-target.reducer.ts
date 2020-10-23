@@ -1,5 +1,5 @@
 
-import { SuggestionTargetObject } from '../../../core/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionTargetObject } from '../../../core/openaire/reciter-suggestions/models/suggestion-target.model';
 import {
   SuggestionTargetActions,
   SuggestionTargetActionTypes

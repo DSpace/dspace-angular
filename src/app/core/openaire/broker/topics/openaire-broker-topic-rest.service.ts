@@ -3,24 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
-import { flatMap, take, tap, catchError } from 'rxjs/operators';
+import { flatMap, take } from 'rxjs/operators';
 
-import { CoreState } from '../core.reducers';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../cache/builders/build-decorators';
-import { RequestService } from '../data/request.service';
-import { FindListOptions } from '../data/request.models';
-import { DataService } from '../data/data.service';
-import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { RemoteData } from '../data/remote-data';
-import { OpenaireBrokerTopicObject } from './models/openaire-broker-topic.model';
-import { OPENAIRE_BROKER_TOPIC_OBJECT } from './models/openaire-broker-topic-object.resource-type';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list';
+import { CoreState } from '../../../core.reducers';
+import { HALEndpointService } from '../../../shared/hal-endpoint.service';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../cache/object-cache.service';
+import { dataService } from '../../../cache/builders/build-decorators';
+import { RequestService } from '../../../data/request.service';
+import { FindListOptions } from '../../../data/request.models';
+import { DataService } from '../../../data/data.service';
+import { ChangeAnalyzer } from '../../../data/change-analyzer';
+import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
+import { RemoteData } from '../../../data/remote-data';
+import { OpenaireBrokerTopicObject } from '../models/openaire-broker-topic.model';
+import { OPENAIRE_BROKER_TOPIC_OBJECT } from '../models/openaire-broker-topic-object.resource-type';
+import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
+import { PaginatedList } from '../../../data/paginated-list';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -111,8 +111,8 @@ export class OpenaireBrokerTopicRestService {
    *
    * @param id
    *    The OpenAIRE Broker topic id
-   * @param options
-   *    Find list options object.
+   * @param linksToFollow
+   *    List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
    * @return Observable<RemoteData<OpenaireBrokerTopicObject>>
    *    The OpenAIRE Broker topic.
    */

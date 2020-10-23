@@ -5,7 +5,7 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { OpenaireBrokerEventRestService } from '../../../core/openaire/openaire-broker-event-rest.service';
+import { OpenaireBrokerEventRestService } from '../../../core/openaire/broker/events/openaire-broker-event-rest.service';
 import { OpenaireBrokerEventsComponent } from './openaire-broker-events.component';
 import {
   getMockOpenaireBrokerEventRestService,
@@ -20,7 +20,7 @@ import { getMockTranslateService } from '../../../shared/mocks/translate.service
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { OpenaireBrokerEventObject } from '../../../core/openaire/models/openaire-broker-event.model';
+import { OpenaireBrokerEventObject } from '../../../core/openaire/broker/models/openaire-broker-event.model';
 import { OpenaireBrokerEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';

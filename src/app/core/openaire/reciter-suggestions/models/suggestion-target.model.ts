@@ -1,11 +1,11 @@
 import { autoserialize, deserialize } from 'cerialize';
 
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../../cache/object-cache.reducer';
 import { SUGGESTION_TARGET_OBJECT } from './suggestion-target-object.resource-type'
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { HALLink } from '../../shared/hal-link.model';
-import { typedObject } from '../../cache/builders/build-decorators';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { ResourceType } from '../../../shared/resource-type';
+import { HALLink } from '../../../shared/hal-link.model';
+import { typedObject } from '../../../cache/builders/build-decorators';
 
 /**
  * The interface representing the Suggestion Target model

@@ -2,40 +2,34 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs';
-import { flatMap, take, tap, catchError } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
 
-import { CoreState } from '../core.reducers';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../cache/builders/build-decorators';
-import { RequestService } from '../data/request.service';
-import { FindListOptions } from '../data/request.models';
-import { DataService } from '../data/data.service';
-import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { RemoteData } from '../data/remote-data';
+import { CoreState } from '../../core.reducers';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { dataService } from '../../cache/builders/build-decorators';
+import { RequestService } from '../../data/request.service';
+import { FindListOptions } from '../../data/request.models';
+import { DataService } from '../../data/data.service';
+import { ChangeAnalyzer } from '../../data/change-analyzer';
+import { DefaultChangeAnalyzer } from '../../data/default-change-analyzer.service';
+import { RemoteData } from '../../data/remote-data';
 import { SuggestionTargetObject } from './models/suggestion-target.model';
 import { SUGGESTION_TARGET_OBJECT } from './models/suggestion-target-object.resource-type';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { PaginatedList } from '../../data/paginated-list';
 
 // TEST
-import { ResourceType } from '../shared/resource-type';
-import { PageInfo } from '../shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { of as observableOf } from 'rxjs';
+import { PageInfo } from '../../shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import {
   suggestionTargetObjectBollini,
   suggestionTargetObjectDigilio
-} from '../../shared/mocks/reciter-suggestion-targets.mock';
+} from '../../../shared/mocks/reciter-suggestion-targets.mock';
 
-import {
-  PUBLICATION_ONE,
-  PUBLICATION_TWO
-} from '../../shared/mocks/reciter-suggestion.mock';
+import { PUBLICATION_ONE, PUBLICATION_TWO } from '../../../shared/mocks/reciter-suggestion.mock';
 
 /* tslint:disable:max-classes-per-file */
 

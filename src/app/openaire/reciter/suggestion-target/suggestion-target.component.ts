@@ -5,7 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { SuggestionTargetObject } from '../../../core/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionTargetObject } from '../../../core/openaire/reciter-suggestions/models/suggestion-target.model';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ReciterSuggestionStateService } from '../recitersuggestions.state.service';

@@ -5,7 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { OpenaireBrokerTopicObject } from '../../../core/openaire/models/openaire-broker-topic.model';
+import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/openaire-broker-topic.model';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { OpenaireStateService } from '../../openaire-state.service';

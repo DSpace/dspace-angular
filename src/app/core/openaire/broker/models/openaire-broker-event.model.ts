@@ -1,15 +1,15 @@
 import { Observable } from 'rxjs';
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../../cache/object-cache.reducer';
 import { OPENAIRE_BROKER_EVENT_OBJECT } from './openaire-broker-event-object.resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { HALLink } from '../../shared/hal-link.model';
-import { Item } from '../../shared/item.model';
-import { ITEM } from '../../shared/item.resource-type';
-import { link, typedObject } from '../../cache/builders/build-decorators';
-import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { RemoteData } from '../../data/remote-data';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { ResourceType } from '../../../shared/resource-type';
+import { HALLink } from '../../../shared/hal-link.model';
+import { Item } from '../../../shared/item.model';
+import { ITEM } from '../../../shared/item.resource-type';
+import { link, typedObject } from '../../../cache/builders/build-decorators';
+import { IDToUUIDSerializer } from '../../../cache/id-to-uuid-serializer';
+import { RemoteData } from '../../../data/remote-data';
 
 /* tslint:disable:max-classes-per-file */
 

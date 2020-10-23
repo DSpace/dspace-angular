@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { OpenaireBrokerTopicsService } from './openaire-broker-topics.service';
 import { SortOptions, SortDirection } from '../../../core/cache/models/sort-options.model';
-import { OpenaireBrokerTopicRestService } from '../../../core/openaire/openaire-broker-topic-rest.service';
+import { OpenaireBrokerTopicRestService } from '../../../core/openaire/broker/topics/openaire-broker-topic-rest.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { FindListOptions } from '../../../core/data/request.models';

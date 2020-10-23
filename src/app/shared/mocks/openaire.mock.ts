@@ -1,9 +1,9 @@
 import { of as observableOf } from 'rxjs';
 import { ResourceType } from '../../core/shared/resource-type';
-import { OpenaireBrokerTopicObject } from '../../core/openaire/models/openaire-broker-topic.model';
-import { OpenaireBrokerEventObject } from '../../core/openaire/models/openaire-broker-event.model';
-import { OpenaireBrokerTopicRestService } from '../../core/openaire/openaire-broker-topic-rest.service';
-import { OpenaireBrokerEventRestService } from '../../core/openaire/openaire-broker-event-rest.service'
+import { OpenaireBrokerTopicObject } from '../../core/openaire/broker/models/openaire-broker-topic.model';
+import { OpenaireBrokerEventObject } from '../../core/openaire/broker/models/openaire-broker-event.model';
+import { OpenaireBrokerTopicRestService } from '../../core/openaire/broker/topics/openaire-broker-topic-rest.service';
+import { OpenaireBrokerEventRestService } from '../../core/openaire/broker/events/openaire-broker-event-rest.service'
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { OpenaireStateService } from '../../openaire/openaire-state.service';
 import { Item } from '../../core/shared/item.model';

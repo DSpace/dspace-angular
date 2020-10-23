@@ -5,7 +5,7 @@ import { SuggestionPageComponent } from './suggestion-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { SuggestionPageRoutingModule } from './suggestion-page-routing.module';
 import { SuggestionTargetsService } from '../openaire/reciter/suggestion-target/suggestion-target.service';
-import { SuggestionTargetRestService } from '../core/reciter-suggestions/reciter-suggestions-rest.service';
+import { SuggestionTargetRestService } from '../core/openaire/reciter-suggestions/reciter-suggestions-rest.service';
 
 @NgModule({
   declarations: [SuggestionPageComponent],

@@ -9,8 +9,8 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import { FindListOptions } from '../../../core/data/request.models';
-import { OpenaireBrokerEventObject } from '../../../core/openaire/models/openaire-broker-event.model';
-import { OpenaireBrokerEventRestService } from '../../../core/openaire/openaire-broker-event-rest.service';
+import { OpenaireBrokerEventObject } from '../../../core/openaire/broker/models/openaire-broker-event.model';
+import { OpenaireBrokerEventRestService } from '../../../core/openaire/broker/events/openaire-broker-event-rest.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -188,7 +188,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
             related$ = observableOf({});
           }
           return combineLatest([item$, related$]).pipe(
-            map(([subItem$, subRelated$]) => {
+            map(([subItem, subRelated]) => {
               const data: OpenaireBrokerEventData = {
                 event: event,
                 id: event.id,
@@ -200,11 +200,11 @@ export class OpenaireBrokerEventsComponent implements OnInit {
                 reason: null,
                 isRunning: false
               };
-              if (subRelated$.id) {
+              if (subRelated.id) {
                 data.hasProject = true;
                 data.projectTitle = event.message.title;
-                data.projectId = subRelated$.id;
-                data.handle = subRelated$.handle;
+                data.projectId = subRelated.id;
+                data.handle = subRelated.handle;
               }
               return data;
             })

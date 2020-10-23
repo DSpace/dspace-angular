@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
-import { OpenaireBrokerTopicObject } from '../../../core/openaire/models/openaire-broker-topic.model';
+import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/openaire-broker-topic.model';
 
 /**
  * For each action type in an action group, make a simple

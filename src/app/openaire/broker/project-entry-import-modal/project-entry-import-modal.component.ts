@@ -13,7 +13,7 @@ import { ListableObject } from '../../../shared/object-collection/shared/listabl
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { OpenaireBrokerEventObject } from '../../../core/openaire/models/openaire-broker-event.model';
+import { OpenaireBrokerEventObject } from '../../../core/openaire/broker/models/openaire-broker-event.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 
 /**

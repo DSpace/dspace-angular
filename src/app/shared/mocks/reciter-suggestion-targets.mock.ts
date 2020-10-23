@@ -1,5 +1,5 @@
 import { ResourceType } from '../../core/shared/resource-type';
-import { SuggestionTargetObject } from '../../core/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionTargetObject } from '../../core/openaire/reciter-suggestions/models/suggestion-target.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -41,4 +41,3 @@ export const suggestionTargetObjectDigilio: SuggestionTargetObject = {
     }
   }
 };
-
