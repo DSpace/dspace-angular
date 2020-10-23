@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { fadeIn } from '../animations/fade';
-import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import { fadeIn } from '../../../shared/animations/fade';
+import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,

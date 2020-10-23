@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
-  reciterSuggestionTargetObjectSelector,
-  isReciterSuggestionTargetLoadedSelector,
   getreciterSuggestionTargetCurrentPageSelector,
+  getreciterSuggestionTargetTotalPagesSelector,
   getreciterSuggestionTargetTotalsSelector,
+  isReciterSuggestionTargetLoadedSelector,
   isreciterSuggestionTargetProcessingSelector,
-  getreciterSuggestionTargetTotalPagesSelector
+  reciterSuggestionTargetObjectSelector
 } from './selectors';
 import { SuggestionTargetObject } from '../../core/openaire/reciter-suggestions/models/suggestion-target.model';
-import { ReciterSuggestionStat } from './recitersuggestions.reducer';
 import { RetrieveAllTargetsAction } from './suggestion-target/suggestion-target.actions';
+import { OpenaireState } from '../openaire.reducer';
 
 /**
  * The service handling the Reciter Suggestion State.
@@ -22,9 +22,9 @@ export class ReciterSuggestionStateService {
 
   /**
    * Initialize the service variables.
-   * @param {Store<ReciterSuggestionStat>} store
+   * @param {Store<OpenaireState>} store
    */
-  constructor(private store: Store<ReciterSuggestionStat>) { }
+  constructor(private store: Store<OpenaireState>) { }
 
   // Reciter Suggestion Targets
   // --------------------------------------------------------------------------

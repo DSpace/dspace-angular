@@ -211,8 +211,6 @@ import { CollectionDropdownComponent } from './collection-dropdown/collection-dr
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
-import { SuggestionListItemComponent } from './suggestion-list-item/suggestion-list-item.component';
-import { SuggestionEvidenceListItemComponent } from './suggestion-evidence-list/suggestion-evidence-list.component';
 import { MyDSpaceNewSubmissionDropdownComponent } from '../+my-dspace-page/my-dspace-new-submission/my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
 
 const MODULES = [
@@ -409,8 +407,6 @@ const COMPONENTS = [
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
-  SuggestionListItemComponent,
-  SuggestionEvidenceListItemComponent,
   MyDSpaceNewSubmissionDropdownComponent
 ];
 

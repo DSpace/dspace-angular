@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { find, map } from 'rxjs/operators';
+import { find, map, take } from 'rxjs/operators';
 import { SuggestionTargetRestService } from '../../../core/openaire/reciter-suggestions/reciter-suggestions-rest.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/request.models';
@@ -98,7 +98,8 @@ export class SuggestionTargetsService {
         } else {
           throw new Error('Can\'t delete Suggestion from the Search Target REST service');
         }
-      })
+      }),
+      take(1)
     );
   }
 

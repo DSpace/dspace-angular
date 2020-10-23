@@ -6,12 +6,14 @@ import { SharedModule } from '../shared/shared.module';
 import { SuggestionPageRoutingModule } from './suggestion-page-routing.module';
 import { SuggestionTargetsService } from '../openaire/reciter/suggestion-target/suggestion-target.service';
 import { SuggestionTargetRestService } from '../core/openaire/reciter-suggestions/reciter-suggestions-rest.service';
+import { OpenaireModule } from '../openaire/openaire.module';
 
 @NgModule({
   declarations: [SuggestionPageComponent],
   imports: [
     CommonModule,
     SharedModule,
+    OpenaireModule,
     SuggestionPageRoutingModule
   ],
   providers: [

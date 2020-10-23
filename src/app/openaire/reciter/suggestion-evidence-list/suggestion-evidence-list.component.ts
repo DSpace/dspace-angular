@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { fadeIn } from '../animations/fade';
+import { fadeIn } from '../../../shared/animations/fade';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,

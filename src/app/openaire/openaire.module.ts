@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StoreModule, Action, StoreConfig } from '@ngrx/store';
+import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { CoreModule } from '../core/core.module';
@@ -15,18 +15,27 @@ import { OpenaireBrokerTopicsService } from './broker/topics/openaire-broker-top
 import { OpenaireBrokerTopicRestService } from '../core/openaire/broker/topics/openaire-broker-topic-rest.service';
 import { OpenaireBrokerEventRestService } from '../core/openaire/broker/events/openaire-broker-event-rest.service';
 import { ProjectEntryImportModalComponent } from './broker/project-entry-import-modal/project-entry-import-modal.component';
+import { ReciterSuggestionStateService } from './reciter/recitersuggestions.state.service';
+import { SuggestionTargetsService } from './reciter/suggestion-target/suggestion-target.service';
+import { SuggestionTargetRestService } from '../core/openaire/reciter-suggestions/reciter-suggestions-rest.service';
+import { SuggestionTargetComponent } from './reciter/suggestion-target/suggestion-target.component';
+import { SuggestionListItemComponent } from './reciter/suggestion-list-item/suggestion-list-item.component';
+import { SuggestionEvidenceListItemComponent } from './reciter/suggestion-evidence-list/suggestion-evidence-list.component';
 
 const MODULES = [
   CommonModule,
   SharedModule,
   CoreModule.forRoot(),
   StoreModule.forFeature('openaire', openaireReducers, storeModuleConfig as StoreConfig<OpenaireState, Action>),
-  EffectsModule.forFeature(openaireEffects),
+  EffectsModule.forFeature(openaireEffects)
 ];
 
 const COMPONENTS = [
   OpenaireBrokerTopicsComponent,
   OpenaireBrokerEventsComponent,
+  SuggestionTargetComponent,
+  SuggestionListItemComponent,
+  SuggestionEvidenceListItemComponent
 ];
 
 const DIRECTIVES = [ ];
@@ -40,6 +49,9 @@ const PROVIDERS = [
   OpenaireBrokerTopicsService,
   OpenaireBrokerTopicRestService,
   OpenaireBrokerEventRestService,
+  ReciterSuggestionStateService,
+  SuggestionTargetsService,
+  SuggestionTargetRestService
 ];
 
 @NgModule({
