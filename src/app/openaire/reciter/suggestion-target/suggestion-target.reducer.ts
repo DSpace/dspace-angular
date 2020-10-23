@@ -18,7 +18,7 @@ export interface SuggestionTargetState {
 }
 
 /**
- * Used for the OpenAIRE Broker topic state initialization.
+ * Used for the OpenAIRE Suggestion Target state initialization.
  */
 const SuggestionTargetInitialState: SuggestionTargetState = {
   targets: [],

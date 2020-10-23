@@ -32,7 +32,7 @@ export class RetrieveAllTargetsAction implements Action {
    * Create a new RetrieveAllTargetsAction.
    *
    * @param elementsPerPage
-   *    the number of topics per page
+   *    the number of targets per page
    * @param currentPage
    *    The page number to retrieve
    */
@@ -65,12 +65,12 @@ export class AddTargetAction implements Action {
   };
 
   /**
-   * Create a new AddTopicsAction.
+   * Create a new AddTargetAction.
    *
    * @param targets
    *    the list of targets
    * @param totalPages
-   *    the total available pages of topics
+   *    the total available pages of targets
    * @param currentPage
    *    the current page
    * @param totalElements

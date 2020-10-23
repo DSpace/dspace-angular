@@ -43,7 +43,7 @@ export class ReciterSuggestionStateService {
    * Returns the information about the loading status of the Reciter Suggestion Targets (if it's running or not).
    *
    * @return Observable<boolean>
-   *    'true' if the topics are loading, 'false' otherwise.
+   *    'true' if the targets are loading, 'false' otherwise.
    */
   public isReciterSuggestionTargetsLoading(): Observable<boolean> {
     return this.store.pipe(
@@ -56,7 +56,7 @@ export class ReciterSuggestionStateService {
    * Returns the information about the loading status of the Reciter Suggestion Targets (whether or not they were loaded).
    *
    * @return Observable<boolean>
-   *    'true' if the topics are loaded, 'false' otherwise.
+   *    'true' if the targets are loaded, 'false' otherwise.
    */
   public isReciterSuggestionTargetsLoaded(): Observable<boolean> {
     return this.store.pipe(select(isReciterSuggestionTargetLoadedSelector));
@@ -66,7 +66,7 @@ export class ReciterSuggestionStateService {
    * Returns the information about the processing status of the Reciter Suggestion Targets (if it's running or not).
    *
    * @return Observable<boolean>
-   *    'true' if there are operations running on the topics (ex.: a REST call), 'false' otherwise.
+   *    'true' if there are operations running on the targets (ex.: a REST call), 'false' otherwise.
    */
   public isReciterSuggestionTargetsProcessing(): Observable<boolean> {
     return this.store.pipe(select(isreciterSuggestionTargetProcessingSelector));
@@ -103,7 +103,7 @@ export class ReciterSuggestionStateService {
   }
 
   /**
-   * Dispatch a request to change the Reciter Suggestion Targets state, retrieving the topics from the server.
+   * Dispatch a request to change the Reciter Suggestion Targets state, retrieving the targets from the server.
    *
    * @param elementsPerPage
    *    The number of the targets per page.
