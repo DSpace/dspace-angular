@@ -46,7 +46,8 @@ describe('CreateComColPageComponent', () => {
       metadata: [{
         key: 'dc.title',
         value: 'test community'
-      }]
+      }],
+      _links: {}
     });
 
     parentCommunity = Object.assign(new Community(), {
@@ -55,7 +56,8 @@ describe('CreateComColPageComponent', () => {
       metadata: [{
         key: 'dc.title',
         value: 'parent community'
-      }]
+      }],
+      _links: {}
     });
 
     newCommunity = Object.assign(new Community(), {
@@ -63,7 +65,8 @@ describe('CreateComColPageComponent', () => {
       metadata: [{
         key: 'dc.title',
         value: 'new community'
-      }]
+      }],
+      _links: {}
     });
 
     communityDataServiceStub = {
@@ -102,7 +105,6 @@ describe('CreateComColPageComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: TranslateService, useValue: {}},
         { provide: RequestService, useValue: requestServiceStub}
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -151,7 +153,6 @@ describe('CreateComColPageComponent', () => {
         spyOn((comp as any), 'refreshCache')
         scheduler.schedule(() => comp.onSubmit(data));
         scheduler.flush();
-        fixture.detectChanges();
         expect(router.navigate).toHaveBeenCalled();
         expect((comp as any).refreshCache).toHaveBeenCalled();
       });
@@ -162,7 +163,6 @@ describe('CreateComColPageComponent', () => {
         spyOn((comp as any), 'refreshCache')
         scheduler.schedule(() => comp.onSubmit(data));
         scheduler.flush();
-        fixture.detectChanges();
         expect(router.navigate).not.toHaveBeenCalled();
         expect((comp as any).refreshCache).not.toHaveBeenCalled();
       });
@@ -196,14 +196,12 @@ describe('CreateComColPageComponent', () => {
         spyOn(router, 'navigate');
         scheduler.schedule(() => comp.onSubmit(data));
         scheduler.flush();
-        fixture.detectChanges();
         expect(router.navigate).not.toHaveBeenCalled();
       });
 
       it('should set the uploader\'s url to the logo\'s endpoint', () => {
         scheduler.schedule(() => comp.onSubmit(data));
         scheduler.flush();
-        fixture.detectChanges();
         expect(data.uploader.options.url).toEqual(logoEndpoint);
       });
 
@@ -211,7 +209,6 @@ describe('CreateComColPageComponent', () => {
         spyOn(data.uploader, 'uploadAll');
         scheduler.schedule(() => comp.onSubmit(data));
         scheduler.flush();
-        fixture.detectChanges();
         expect(data.uploader.uploadAll).toHaveBeenCalled();
       });
     });
