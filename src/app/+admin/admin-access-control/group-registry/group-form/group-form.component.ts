@@ -214,6 +214,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         if (isNotEmpty(resp.resourceSelfLinks)) {
           const groupSelfLink = resp.resourceSelfLinks[0];
           this.setActiveGroupWithLink(groupSelfLink);
+          this.groupDataService.clearGroupsRequests();
           this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLinkWithID(this.groupDataService.getUUIDFromString(groupSelfLink)));
         }
       } else {
@@ -333,7 +334,6 @@ export class GroupFormComponent implements OnInit, OnDestroy {
                 if (success) {
                   this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: group.name }));
                   this.reset();
-                  this.onCancel();
                 } else {
                   this.notificationsService.error(
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: group.name }),
@@ -352,7 +352,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((group: Group) => {
       this.requestService.removeByHrefSubstring(group.self);
     });
-    this.initialisePage();
+    this.onCancel();
   }
 
   /**

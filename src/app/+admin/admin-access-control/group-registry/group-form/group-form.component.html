@@ -9,11 +9,6 @@
       </ng-template>
 
       <ng-template #editheader>
-        <div>
-          <button class="btn btn-light delete-button float-right" [disabled]="!(canDelete$ | async)" (click)="delete()">
-            <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
-          </button>
-        </div>
         <h2 class="border-bottom pb-2">{{messagePrefix + '.head.edit' | translate}}</h2>
       </ng-template>
 
@@ -23,6 +18,9 @@
                [formLayout]="formLayout"
                (cancel)="onCancel()"
                (submitForm)="onSubmit()">
+        <button class="btn btn-light delete-button" [disabled]="!(canDelete$ | async)" (click)="delete()">
+          <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
+        </button>
       </ds-form>
 
       <ds-members-list *ngIf="groupBeingEdited != null" [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>

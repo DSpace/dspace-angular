@@ -3,12 +3,14 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { filter } from 'rxjs/internal/operators/filter';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { map, switchMap, take } from 'rxjs/operators';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
@@ -75,7 +77,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private formBuilder: FormBuilder,
               protected routeService: RouteService,
               private router: Router,
-              private authorizationService: AuthorizationDataService) {
+              private authorizationService: AuthorizationDataService,
+              public requestService: RequestService) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
       query: this.currentSearchQuery,
@@ -145,7 +148,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         .subscribe(([success, optionalErrorMessage]: [boolean, string]) => {
           if (success) {
             this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.name }));
-            this.forceUpdateGroup();
+            this.reset();
           } else {
             this.notificationsService.error(
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: group.name }),
@@ -156,11 +159,17 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Force-update the list of groups by first clearing the cache related to groups, then performing a new REST call
+   * This method will ensure that the page gets reset and that the cache is cleared
    */
-  public forceUpdateGroup() {
-    this.groupService.clearGroupsRequests();
-    this.search({ query: this.currentSearchQuery })
+  reset() {
+    this.groupService.getBrowseEndpoint().pipe(
+      switchMap((href) => this.requestService.removeByHrefSubstring(href)),
+      filter((isCached) => isCached),
+      take(1)
+    ).subscribe(() => {
+      this.cleanupSubscribes();
+      this.search({ query: this.currentSearchQuery });
+    });
   }
 
   /**
