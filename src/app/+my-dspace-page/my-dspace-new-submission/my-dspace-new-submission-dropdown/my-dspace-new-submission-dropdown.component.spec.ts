@@ -67,7 +67,6 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           })
         ],
         declarations: [
-          MyDSpaceNewSubmissionDropdownComponent,
           TestComponent
         ],
         providers: [
@@ -120,9 +119,6 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
               useClass: TranslateLoaderMock
             }
           })
-        ],
-        declarations: [
-          MyDSpaceNewSubmissionDropdownComponent
         ],
         providers: [
           { provide: AuthService, useValue: authServiceStub },
@@ -177,9 +173,6 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
               useClass: TranslateLoaderMock
             }
           })
-        ],
-        declarations: [
-          MyDSpaceNewSubmissionDropdownComponent
         ],
         providers: [
           { provide: AuthService, useValue: authServiceStub },

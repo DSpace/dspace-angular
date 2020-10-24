@@ -1440,7 +1440,8 @@ export const openaireBrokerEventObjectMissingPid: OpenaireBrokerEventObject = {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174001/related'
     }
   },
-  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid1))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid1)),
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
 export const openaireBrokerEventObjectMissingPid2: OpenaireBrokerEventObject = {
@@ -1474,7 +1475,8 @@ export const openaireBrokerEventObjectMissingPid2: OpenaireBrokerEventObject = {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174004/related'
     }
   },
-  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid2))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid2)),
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
 export const openaireBrokerEventObjectMissingPid3: OpenaireBrokerEventObject = {
@@ -1508,7 +1510,8 @@ export const openaireBrokerEventObjectMissingPid3: OpenaireBrokerEventObject = {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174005/related'
     }
   },
-  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid3))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid3)),
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
 export const openaireBrokerEventObjectMissingPid4: OpenaireBrokerEventObject = {
@@ -1542,7 +1545,8 @@ export const openaireBrokerEventObjectMissingPid4: OpenaireBrokerEventObject = {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174006/related'
     }
   },
-  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid4))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid4)),
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
 export const openaireBrokerEventObjectMissingPid5: OpenaireBrokerEventObject = {
@@ -1576,7 +1580,8 @@ export const openaireBrokerEventObjectMissingPid5: OpenaireBrokerEventObject = {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174007/related'
     }
   },
-  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid5))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid5)),
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
 export const openaireBrokerEventObjectMissingPid6: OpenaireBrokerEventObject = {
@@ -1610,7 +1615,8 @@ export const openaireBrokerEventObjectMissingPid6: OpenaireBrokerEventObject = {
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174008/related'
     }
   },
-  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid6))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid6)),
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
 export const openaireBrokerEventObjectMissingAbstract: OpenaireBrokerEventObject = {
@@ -1644,7 +1650,8 @@ export const openaireBrokerEventObjectMissingAbstract: OpenaireBrokerEventObject
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174009/related'
     }
   },
-  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid7))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid7)),
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
 };
 
 export const openaireBrokerEventObjectMissingProjectFound: OpenaireBrokerEventObject = {
@@ -1713,7 +1720,8 @@ export const openaireBrokerEventObjectMissingProjectNotFound: OpenaireBrokerEven
       href: 'https://rest.api/rest/api/integration/nbevents/123e4567-e89b-12d3-a456-426614174003/related'
     }
   },
-  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid9))
+  target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid9)),
+  related: observableOf(createSuccessfulRemoteDataObject(null))
 };
 
 // Classes
