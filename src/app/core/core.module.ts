@@ -193,6 +193,8 @@ import { EditItem } from './submission/models/edititem.model';
 import { EditItemDataService } from './submission/edititem-data.service';
 import { EditItemMode } from './submission/models/edititem-mode.model';
 import { EditItemModeDataService } from './submission/edititemmode-data.service';
+import { OpenaireBrokerTopicObject } from './openaire/broker/models/openaire-broker-topic.model';
+import { OpenaireBrokerEventObject } from './openaire/broker/models/openaire-broker-event.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -415,7 +417,9 @@ export const models =
     OrcidHistory,
     Section,
     EditItem,
-    EditItemMode
+    EditItemMode,
+    OpenaireBrokerTopicObject,
+    OpenaireBrokerEventObject
   ];
 
 @NgModule({

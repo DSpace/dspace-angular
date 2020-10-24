@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { CacheableObject } from '../../../cache/object-cache.reducer';
 import { OPENAIRE_BROKER_EVENT_OBJECT } from './openaire-broker-event-object.resource-type';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
@@ -8,7 +8,6 @@ import { HALLink } from '../../../shared/hal-link.model';
 import { Item } from '../../../shared/item.model';
 import { ITEM } from '../../../shared/item.resource-type';
 import { link, typedObject } from '../../../cache/builders/build-decorators';
-import { IDToUUIDSerializer } from '../../../cache/id-to-uuid-serializer';
 import { RemoteData } from '../../../data/remote-data';
 
 /* tslint:disable:max-classes-per-file */
@@ -24,23 +23,15 @@ export class OpenaireBrokerEventObject implements CacheableObject {
   static type = OPENAIRE_BROKER_EVENT_OBJECT;
 
   /**
-   * The type of this ConfigObject
-   */
-  @excludeFromEquals
-  type: ResourceType = OPENAIRE_BROKER_EVENT_OBJECT;
-
-  /**
    * The OpenAIRE Broker event uuid inside DSpace
    */
   @autoserialize
   id: string;
 
   /**
-   * The universally unique identifier of this event
-   * This UUID is generated client-side and isn't used by the backend.
-   * It is based on the ID, so it will be the same for each refresh.
+   * The universally unique identifier of this OpenAIRE Broker event
    */
-  @deserializeAs(new IDToUUIDSerializer(OpenaireBrokerEventObject.type.value), 'id')
+  @autoserializeAs(String, 'id')
   uuid: string;
 
   /**
@@ -78,6 +69,13 @@ export class OpenaireBrokerEventObject implements CacheableObject {
    */
   @autoserialize
   message: OpenaireBrokerEventMessageObject;
+
+  /**
+   * The type of this ConfigObject
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.

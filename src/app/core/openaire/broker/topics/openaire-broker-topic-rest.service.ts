@@ -31,7 +31,7 @@ class DataServiceImpl extends DataService<OpenaireBrokerTopicObject> {
   /**
    * The REST endpoint.
    */
-  protected linkPath = 'nbtopic';
+  protected linkPath = 'nbtopics';
 
   /**
    * Initialize service variables
@@ -104,6 +104,13 @@ export class OpenaireBrokerTopicRestService {
       take(1),
       flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
     );
+  }
+
+  /**
+   * Clear FindAll topics requests from cache
+   */
+  public clearFindAllTopicsRequests() {
+    this.requestService.removeByHrefSubstring('nbtopics');
   }
 
   /**

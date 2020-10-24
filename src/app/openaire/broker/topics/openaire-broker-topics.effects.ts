@@ -15,6 +15,7 @@ import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { OpenaireBrokerTopicsService } from './openaire-broker-topics.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { OpenaireBrokerTopicRestService } from '../../../core/openaire/broker/topics/openaire-broker-topic-rest.service';
 
 /**
  * Provides effect methods for the OpenAIRE Broker topics actions.
@@ -57,18 +58,30 @@ export class OpenaireBrokerTopicsEffects {
   );
 
   /**
+   * Clear find all topics requests from cache.
+   */
+  @Effect({ dispatch: false }) addTopicsAction$ = this.actions$.pipe(
+    ofType(OpenaireBrokerTopicActionTypes.ADD_TOPICS),
+    tap(() => {
+      this.openaireBrokerTopicDataService.clearFindAllTopicsRequests();
+    })
+  );
+
+  /**
    * Initialize the effect class variables.
    * @param {Actions} actions$
    * @param {Store<any>} store$
    * @param {TranslateService} translate
    * @param {NotificationsService} notificationsService
    * @param {OpenaireBrokerTopicsService} openaireBrokerTopicService
+   * @param {OpenaireBrokerTopicRestService} openaireBrokerTopicDataService
    */
   constructor(
     private actions$: Actions,
     private store$: Store<any>,
     private translate: TranslateService,
     private notificationsService: NotificationsService,
-    private openaireBrokerTopicService: OpenaireBrokerTopicsService
+    private openaireBrokerTopicService: OpenaireBrokerTopicsService,
+    private openaireBrokerTopicDataService: OpenaireBrokerTopicRestService
   ) { }
 }

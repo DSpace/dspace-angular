@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h2 id="header" class="border-bottom pb-2">{{'openaire.events.title'| translate}}</h2>
+      <h2 class="border-bottom pb-2">{{'openaire.events.title'| translate}}</h2>
       <p>{{'openaire.broker.events.description'| translate}}</p>
       <p>
         <a class="btn btn-outline-secondary" [routerLink]="['/admin/notifications/openaire-broker']">
@@ -13,19 +13,19 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <h3 id="header" class="border-bottom pb-2">
+      <h3 class="border-bottom pb-2">
         {{'openaire.broker.events.topic' | translate}} {{this.showTopic}}
       </h3>
 
       <ds-loading class="container" *ngIf="(isEventPageLoading | async)" message="{{'openaire.broker.loading' | translate}}"></ds-loading>
 
       <ds-pagination *ngIf="!(isEventPageLoading | async)"
-      [paginationOptions]="paginationConfig"
-      [collectionSize]="(totalElements$ | async)"
-      [hideGear]="false"
-      [hidePagerWhenSinglePage]="false"
-      [disableRouteParameterUpdate]="false"
-      (pageChange)="setPage($event)">
+                      [paginationOptions]="paginationConfig"
+                      [collectionSize]="(totalElements$ | async)"
+                      [hideGear]="false"
+                      [hidePagerWhenSinglePage]="false"
+                      [disableRouteParameterUpdate]="false"
+                      (pageChange)="setPage($event)">
 
         <ds-loading class="container" *ngIf="(isEventLoading | async)" message="{{'openaire.broker.loading' | translate}}"></ds-loading>
         <ng-container *ngIf="!(isEventLoading | async)">
@@ -44,7 +44,9 @@
               </thead>
               <tbody>
                 <tr *ngFor="let eventElement of (eventsUpdated$ | async); let i = index">
-                  <td><a [routerLink]="['/items', (eventElement.event.target|async)?.payload?.id]">{{eventElement.title}}</a></td>
+                  <td><a *ngIf="(eventElement?.event?.target|async)?.payload"
+                         [routerLink]="['/items', (eventElement?.event?.target|async)?.payload?.id]">{{eventElement.title}}</a>
+                  </td>
                   <td *ngIf="showTopic.indexOf('/PID') !== -1">
                     <p><span class="small">{{'openaire.broker.event.table.pidtype' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
                     <p><span class="small">{{'openaire.broker.event.table.pidvalue' | translate}}</span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
@@ -140,7 +142,7 @@
 
 <ng-template #acceptModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{'openaire.broker.event.sure' | translate}}</h4>
+    <h4 class="modal-title" id="acceptModal">{{'openaire.broker.event.sure' | translate}}</h4>
   </div>
   <div class="modal-body">
     <p>{{'openaire.broker.event.accept.description' | translate}}</p>
@@ -158,7 +160,7 @@
 
 <ng-template #ignoreModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{'openaire.broker.event.sure' | translate}}</h4>
+    <h4 class="modal-title" id="ignoreModal">{{'openaire.broker.event.sure' | translate}}</h4>
   </div>
   <div class="modal-body">
     <p>{{'openaire.broker.event.ignore.description' | translate}}</p>
@@ -178,7 +180,7 @@
 
 <ng-template #rejectModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{'openaire.broker.event.sure' | translate}}</h4>
+    <h4 class="modal-title" id="rejectModal">{{'openaire.broker.event.sure' | translate}}</h4>
   </div>
   <div class="modal-body">
     <p>{{'openaire.broker.event.reject.description' | translate}}</p>

@@ -113,6 +113,13 @@ export class OpenaireBrokerEventRestService {
   }
 
   /**
+   * Clear findByTopic requests from cache
+   */
+  public clearFindByTopicRequests() {
+    this.requestService.removeByHrefSubstring('findByTopic');
+  }
+
+  /**
    * Return a single OpenAIRE Broker event.
    *
    * @param id

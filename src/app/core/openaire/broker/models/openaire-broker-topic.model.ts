@@ -18,12 +18,6 @@ export class OpenaireBrokerTopicObject implements CacheableObject {
   static type = OPENAIRE_BROKER_TOPIC_OBJECT;
 
   /**
-   * The type of this ConfigObject
-   */
-  @excludeFromEquals
-  type: ResourceType = OPENAIRE_BROKER_TOPIC_OBJECT;
-
-  /**
    * The OpenAIRE Broker topic id
    */
   @autoserialize
@@ -46,6 +40,13 @@ export class OpenaireBrokerTopicObject implements CacheableObject {
    */
   @autoserialize
   totalEvents: number;
+
+  /**
+   * The type of this ConfigObject
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.

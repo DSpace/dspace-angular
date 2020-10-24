@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, from, Observable, of as observableOf } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { find, flatMap, map, reduce, take } from 'rxjs/operators';
+import { flatMap, map, scan, take } from 'rxjs/operators';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -22,7 +22,7 @@ import {
   OpenaireBrokerEventData,
   ProjectEntryImportModalComponent
 } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getFinishedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 
 /**
  * Component to display the OpenAIRE Broker event list.
@@ -76,12 +76,12 @@ export class OpenaireBrokerEventsComponent implements OnInit {
    * Contains the information about the loading status of the page.
    * @type {Observable<boolean>}
    */
-  public isEventPageLoading: Observable<boolean>;
+  public isEventPageLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   /**
    * Contains the information about the loading status of the events inside the pagination component.
    * @type {Observable<boolean>}
    */
-  public isEventLoading: Observable<boolean>;
+  public isEventLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   /**
    * The modal reference.
    * @type {any}
@@ -118,7 +118,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
    * Component intitialization.
    */
   ngOnInit(): void {
-    this.isEventPageLoading = observableOf(true);
+    this.isEventPageLoading.next(true)
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'openaire_broker_event';
     this.paginationConfig.pageSize = this.elementsPerPage;
@@ -150,7 +150,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
         )
       )
       .subscribe(() => {
-          this.isEventPageLoading = observableOf(false);
+          this.isEventPageLoading.next(false);
           this.getOpenaireBrokerEvents();
         }
       )
@@ -180,15 +180,9 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     this.subs.push(
       from(events).pipe(
         flatMap((event) => {
-          const item$ = event.target.pipe(getFirstSucceededRemoteDataPayload());
-          let related$: Observable<any>;
-          if (event.related) {
-            related$ = event.related.pipe(getFirstSucceededRemoteDataPayload());
-          } else {
-            related$ = observableOf({});
-          }
-          return combineLatest([item$, related$]).pipe(
-            map(([subItem, subRelated]) => {
+          return event.related.pipe(
+            getRemoteDataPayload(),
+            map((subRelated) => {
               const data: OpenaireBrokerEventData = {
                 event: event,
                 id: event.id,
@@ -200,7 +194,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
                 reason: null,
                 isRunning: false
               };
-              if (subRelated.id) {
+              if (subRelated && subRelated.id) {
                 data.hasProject = true;
                 data.projectTitle = event.message.title;
                 data.projectId = subRelated.id;
@@ -210,8 +204,8 @@ export class OpenaireBrokerEventsComponent implements OnInit {
             })
           );
         }),
-        reduce((acc: any, value: any) => [...acc, ...value], []),
-        take(1)
+        scan((acc: any, value: any) => [...acc, ...value], []),
+        take(events.length)
       ).subscribe(
         (eventsReduced) => {
           this.eventsUpdated$.next(eventsReduced);
@@ -300,8 +294,8 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   public executeAction(action: string, eventData: OpenaireBrokerEventData): void {
     eventData.isRunning = true;
     this.subs.push(
-      this.openaireBrokerEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(
-        map((rd: RestResponse) => {
+      this.openaireBrokerEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(take(1))
+        .subscribe((rd: RestResponse) => {
           if (rd.isSuccessful && rd.statusCode === 200) {
             this.notificationsService.success(
               this.translateService.instant('openaire.broker.event.action.saved')
@@ -314,8 +308,6 @@ export class OpenaireBrokerEventsComponent implements OnInit {
           }
           eventData.isRunning = false;
         })
-      )
-      .subscribe()
     );
   }
 
@@ -391,7 +383,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
    * Dispatch the OpenAIRE Broker events retrival.
    */
   protected getOpenaireBrokerEvents(): void {
-    this.isEventLoading = observableOf(true);
+    this.isEventLoading.next(true)
     this.eventsUpdated$ = new BehaviorSubject([]);
     const options: FindListOptions = {
       elementsPerPage: this.paginationConfig.pageSize,
@@ -403,17 +395,18 @@ export class OpenaireBrokerEventsComponent implements OnInit {
         options,
         followLink('target'),followLink('related')
       ).pipe(
-        find((rd: RemoteData<PaginatedList<OpenaireBrokerEventObject>>) => !rd.isResponsePending),
-        map((rd: RemoteData<PaginatedList<OpenaireBrokerEventObject>>) => {
-          if (rd.hasSucceeded) {
-            this.isEventLoading = observableOf(false);
-            this.totalElements$ = observableOf(rd.payload.totalElements);
-            this.setEventUpdated(rd.payload.page);
-          } else {
-            throw new Error('Can\'t retrieve OpenAIRE Broker events from the Broker events REST service');
-          }
-        })
-      ).subscribe()
+        getFinishedRemoteData(),
+        take(1)
+      ).subscribe((rd: RemoteData<PaginatedList<OpenaireBrokerEventObject>>) => {
+        if (rd.hasSucceeded) {
+          this.isEventLoading.next(false)
+          this.totalElements$ = observableOf(rd.payload.totalElements);
+          this.setEventUpdated(rd.payload.page);
+        } else {
+          throw new Error('Can\'t retrieve OpenAIRE Broker events from the Broker events REST service');
+        }
+        this.openaireBrokerEventRestService.clearFindByTopicRequests()
+      })
     );
   }
 
