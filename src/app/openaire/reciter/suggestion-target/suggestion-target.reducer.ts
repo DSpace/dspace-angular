@@ -15,6 +15,8 @@ export interface SuggestionTargetState {
   totalPages: number;
   currentPage: number;
   totalElements: number;
+  currentUserSuggestions: SuggestionTargetObject
+  currentUserSuggestionsVisited: boolean
 }
 
 /**
@@ -26,7 +28,9 @@ const SuggestionTargetInitialState: SuggestionTargetState = {
   loaded: false,
   totalPages: 0,
   currentPage: 0,
-  totalElements: 0
+  totalElements: 0,
+  currentUserSuggestions: null,
+  currentUserSuggestionsVisited: false
 };
 
 /**
@@ -63,6 +67,18 @@ export function SuggestionTargetReducer(state = SuggestionTargetInitialState, ac
         processing: false,
         loaded: true,
         currentPage: 0
+      });
+    }
+
+    case SuggestionTargetActionTypes.ADD_USER_SUGGESTIONS: {
+      return Object.assign({}, state, {
+        currentUserSuggestions: action.payload.suggestions
+      });
+    }
+
+    case SuggestionTargetActionTypes.MARK_USER_SUGGESTIONS_AS_VISITED: {
+      return Object.assign({}, state, {
+        currentUserSuggestionsVisited: true
       });
     }
 

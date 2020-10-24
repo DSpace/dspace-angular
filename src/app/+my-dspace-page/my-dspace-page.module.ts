@@ -23,12 +23,14 @@ import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/
 import { CollectionSelectorComponent } from './collection-selector/collection-selector.component';
 import { SuggestionTargetsService } from '../openaire/reciter/suggestion-target/suggestion-target.service';
 import { SuggestionTargetRestService } from '../core/openaire/reciter-suggestions/reciter-suggestions-rest.service';
+import { OpenaireModule } from '../openaire/openaire.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     MyDspacePageRoutingModule,
+    OpenaireModule
   ],
   declarations: [
     MyDSpacePageComponent,

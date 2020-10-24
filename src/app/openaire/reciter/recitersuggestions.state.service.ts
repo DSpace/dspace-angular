@@ -8,10 +8,14 @@ import {
   getreciterSuggestionTargetTotalsSelector,
   isReciterSuggestionTargetLoadedSelector,
   isreciterSuggestionTargetProcessingSelector,
-  reciterSuggestionTargetObjectSelector
+  reciterSuggestionTargetObjectSelector,
+  getCurrentUserReciterSuggestionsSelector, getCurrentUserReciterSuggestionsVisitedSelector
 } from './selectors';
 import { SuggestionTargetObject } from '../../core/openaire/reciter-suggestions/models/suggestion-target.model';
-import { RetrieveAllTargetsAction } from './suggestion-target/suggestion-target.actions';
+import {
+  MarkUserSuggestionsAsVisitedAction,
+  RetrieveAllTargetsAction
+} from './suggestion-target/suggestion-target.actions';
 import { OpenaireState } from '../openaire.reducer';
 
 /**
@@ -112,5 +116,32 @@ export class ReciterSuggestionStateService {
    */
   public dispatchRetrieveReciterSuggestionTargets(elementsPerPage: number, currentPage: number): void {
     this.store.dispatch(new RetrieveAllTargetsAction(elementsPerPage, currentPage))
+  }
+
+  /**
+   * Returns, from the state, the reciter suggestions for the current user.
+   *
+   * @return Observable<SuggestionTargetObject>
+   *    The Reciter Suggestion Targets object.
+   */
+  public getCurrentUserReciterSuggestions(): Observable<SuggestionTargetObject> {
+    return this.store.pipe(select(getCurrentUserReciterSuggestionsSelector));
+  }
+
+  /**
+   * Returns, from the state, whether or not the user has consulted their suggestions.
+   *
+   * @return Observable<boolean>
+   *    True if user already visited, false otherwise.
+   */
+  public getCurrentUserReciterSuggestionsVisited(): Observable<boolean> {
+    return this.store.pipe(select(getCurrentUserReciterSuggestionsVisitedSelector));
+  }
+
+  /**
+   * Dispatch a new MarkUserSuggestionsAsVisitedAction
+   */
+  public dispatchMarkUserSuggestionsAsVisitedAction(): void {
+    this.store.dispatch(new MarkUserSuggestionsAsVisitedAction())
   }
 }

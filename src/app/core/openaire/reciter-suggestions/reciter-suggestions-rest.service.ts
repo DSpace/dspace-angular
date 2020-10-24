@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { CoreState } from '../../core.reducers';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
@@ -22,14 +22,7 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { PaginatedList } from '../../data/paginated-list';
 
 // TEST
-import { PageInfo } from '../../shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import {
-  suggestionTargetObjectBollini,
-  suggestionTargetObjectDigilio
-} from '../../../shared/mocks/reciter-suggestion-targets.mock';
-
-import { PUBLICATION_ONE, PUBLICATION_TWO } from '../../../shared/mocks/reciter-suggestion.mock';
+import { flatMap, take } from 'rxjs/operators';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -109,12 +102,12 @@ export class SuggestionTargetRestService {
    *    The list of Suggestion Target.
    */
   public getTargets(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<SuggestionTargetObject>>): Observable<RemoteData<PaginatedList<SuggestionTargetObject>>> {
-    // return this.dataService.getBrowseEndpoint(options, 'suggestiontargets').pipe(
-    //   take(1),
-    //   flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
-    // );
+    return this.dataService.getBrowseEndpoint(options, 'suggestiontargets').pipe(
+      take(1),
+      flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
+    );
     // TEST
-    const pageInfo = new PageInfo({
+/*    const pageInfo = new PageInfo({
       elementsPerPage: 10,
       totalElements: 6,
       totalPages: 1,
@@ -126,7 +119,7 @@ export class SuggestionTargetRestService {
     ];
     const paginatedList = new PaginatedList(pageInfo, array);
     const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-    return observableOf(paginatedListRD);
+    return observableOf(paginatedListRD);*/
   }
 
   /**
@@ -140,12 +133,12 @@ export class SuggestionTargetRestService {
    *    The list of Suggestion Target.
    */
   public getReviewSuggestions(options: FindListOptions = {}, reciterId: string, ...linksToFollow: Array<FollowLinkConfig<SuggestionTargetObject>>): Observable<RemoteData<PaginatedList<SuggestionTargetObject>>> {
-    // return this.dataService.getBrowseEndpoint(options, `suggestions/${reciterId}`).pipe(
-    //   take(1),
-    //   flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
-    // );
+    return this.dataService.getBrowseEndpoint(options, `suggestions/${reciterId}`).pipe(
+      take(1),
+      flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
+    );
     // TEST
-    const pageInfo = new PageInfo({
+/*    const pageInfo = new PageInfo({
       elementsPerPage: 10,
       totalElements: 6,
       totalPages: 1,
@@ -157,35 +150,35 @@ export class SuggestionTargetRestService {
     ];
     const paginatedList = new PaginatedList(pageInfo, array);
     const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-    return observableOf(paginatedListRD);
+    return observableOf(paginatedListRD);*/
   }
 
   /**
    * Used to delete Suggestion
    * @suggestionId
    */
-  public deleteReviewSuggestions(suggestionId: string): Observable<any> {
-    // return this.dataService.getBrowseEndpoint(options, `suggestions/${suggestionId}`).pipe(
-    //   take(1),
-    //   flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
-    // );
+  public deleteReviewSuggestions(suggestionId: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<SuggestionTargetObject>>): Observable<any> {
+    return this.dataService.getBrowseEndpoint(options, `suggestions/${suggestionId}`).pipe(
+      take(1),
+      flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
+    );
     // TEST
-    const res = createSuccessfulRemoteDataObject({});
-    return observableOf(res);
+/*    const res = createSuccessfulRemoteDataObject({});
+    return observableOf(res);*/
   }
 
   /**
    * Used to fetch Suggestion notification for user
    * @suggestionId
    */
-  public getSuggestion(suggestionId: string): Observable<any> {
-    // return this.dataService.getBrowseEndpoint(options, `suggestions/${suggestionId}`).pipe(
-    //   take(1),
-    //   flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
-    // );
+  public getSuggestion(suggestionId: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<SuggestionTargetObject>>): Observable<any> {
+    return this.dataService.getBrowseEndpoint(options, `suggestions/${suggestionId}`).pipe(
+      take(1),
+      flatMap((href: string) => this.dataService.findAllByHref(href, options, ...linksToFollow)),
+    );
     // TEST
-    const paginatedListRD = createSuccessfulRemoteDataObject(suggestionTargetObjectBollini);
-    return observableOf(paginatedListRD);
+/*    const paginatedListRD = createSuccessfulRemoteDataObject(suggestionTargetObjectBollini);
+    return observableOf(paginatedListRD);*/
   }
 
 }

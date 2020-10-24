@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SuggestionPageComponent } from './suggestion-page.component';
+import { OpenaireModule } from '../openaire/openaire.module';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionPageComponent;
@@ -8,6 +9,9 @@ describe('SuggestionPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        OpenaireModule
+      ],
       declarations: [ SuggestionPageComponent ]
     })
     .compileComponents();

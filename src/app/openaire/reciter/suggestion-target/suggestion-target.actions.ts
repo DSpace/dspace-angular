@@ -14,6 +14,8 @@ export const SuggestionTargetActionTypes = {
   ADD_TARGETS: type('dspace/integration/suggestion/target/ADD_TARGETS'),
   RETRIEVE_ALL_TARGETS: type('dspace/integration/suggestion/target/RETRIEVE_ALL_TARGETS'),
   RETRIEVE_ALL_TARGETS_ERROR: type('dspace/integration/suggestion/target/RETRIEVE_ALL_TARGETS_ERROR'),
+  ADD_USER_SUGGESTIONS: type('dspace/integration/suggestion/target/ADD_USER_SUGGESTIONS'),
+  MARK_USER_SUGGESTIONS_AS_VISITED: type('dspace/integration/suggestion/target/MARK_USER_SUGGESTIONS_AS_VISITED')
 }
 
 /* tslint:disable:max-classes-per-file */
@@ -53,7 +55,6 @@ export class RetrieveAllTargetsErrorAction implements Action {
 
 /**
  * An ngrx action to load the Suggestion Target  objects.
- * Called by the ??? effect.
  */
 export class AddTargetAction implements Action {
   type = SuggestionTargetActionTypes.ADD_TARGETS;
@@ -87,6 +88,35 @@ export class AddTargetAction implements Action {
 
 }
 
+/**
+ * An ngrx action to load the user Suggestion Target object.
+ * Called by the ??? effect.
+ */
+export class AddUserSuggestionsAction implements Action {
+  type = SuggestionTargetActionTypes.ADD_USER_SUGGESTIONS;
+  payload: {
+    suggestions: SuggestionTargetObject;
+  };
+
+  /**
+   * Create a new AddUserSuggestionsAction.
+   *
+   * @param suggestions
+   *    the user suggestions target
+   */
+  constructor(suggestions: SuggestionTargetObject) {
+    this.payload = { suggestions };
+  }
+
+}
+/**
+ * An ngrx action to Mark User Suggestions As Visited.
+ * Called by the ??? effect.
+ */
+export class MarkUserSuggestionsAsVisitedAction implements Action {
+  type = SuggestionTargetActionTypes.MARK_USER_SUGGESTIONS_AS_VISITED;
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -95,5 +125,7 @@ export class AddTargetAction implements Action {
  */
 export type SuggestionTargetActions
   = AddTargetAction
+  | AddUserSuggestionsAction
+  | MarkUserSuggestionsAsVisitedAction
   | RetrieveAllTargetsAction
   | RetrieveAllTargetsErrorAction;

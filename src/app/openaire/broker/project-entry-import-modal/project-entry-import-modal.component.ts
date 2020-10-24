@@ -88,6 +88,10 @@ export class ProjectEntryImportModalComponent implements OnInit {
    */
   labelPrefix = 'openaire.broker.event.modal.';
   /**
+   * The search configuration to retrieve project
+   */
+  configuration = 'funding';
+  /**
    * The label to use for all messages (added to the end of relevant i18n keys)
    */
   label: string;
@@ -171,7 +175,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
     this.projectTitle = (this.externalSourceEntry.projectTitle !== null) ? this.externalSourceEntry.projectTitle : this.externalSourceEntry.event.message.title;
     this.searchOptions = Object.assign(new PaginatedSearchOptions(
       {
-        configuration: 'project',
+        configuration: this.configuration,
         query: this.projectTitle,
         pagination: this.pagination
       }
@@ -201,7 +205,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
       this.isLoading$ = observableOf(true);
       this.searchOptions = Object.assign(new PaginatedSearchOptions(
         {
-          configuration: 'project',
+          configuration: this.configuration,
           query: (searchTitle) ? searchTitle.replace(filterRegEx, '') : searchTitle,
           pagination: this.pagination
         }

@@ -78,3 +78,21 @@ export const getreciterSuggestionTargetCurrentPageSelector = createSelector(_get
 export const getreciterSuggestionTargetTotalsSelector = createSelector(_getReciterSuggestionTargetState,
   (state: OpenaireState) => state.suggestionTarget.totalElements
 );
+
+/**
+ * Returns Suggestion Targets for the current user.
+ * @function getCurrentUserReciterSuggestionTargetSelector
+ * @return {SuggestionTargetObject}
+ */
+export const getCurrentUserReciterSuggestionsSelector = createSelector(_getReciterSuggestionTargetState,
+  (state: OpenaireState) => state.suggestionTarget.currentUserSuggestions
+);
+
+/**
+ * Returns whether or not the user has consulted their suggestions
+ * @function getCurrentUserReciterSuggestionTargetSelector
+ * @return {boolean}
+ */
+export const getCurrentUserReciterSuggestionsVisitedSelector = createSelector(_getReciterSuggestionTargetState,
+  (state: OpenaireState) => state.suggestionTarget.currentUserSuggestionsVisited
+);

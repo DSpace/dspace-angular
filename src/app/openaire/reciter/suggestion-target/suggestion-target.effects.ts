@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
 import {
-  AddTargetAction,
+  AddTargetAction, AddUserSuggestionsAction,
   RetrieveAllTargetsAction,
   RetrieveAllTargetsErrorAction,
   SuggestionTargetActionTypes,
@@ -15,6 +15,7 @@ import { SuggestionTargetObject } from '../../../core/openaire/reciter-suggestio
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { SuggestionTargetsService } from './suggestion-target.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { AuthActionTypes, RetrieveAuthenticatedEpersonSuccessAction } from '../../../core/auth/auth.actions';
 
 /**
  * Provides effect methods for the Suggestion Targets actions.
@@ -29,7 +30,7 @@ export class SuggestionTargetEffects {
     ofType(SuggestionTargetActionTypes.RETRIEVE_ALL_TARGETS),
     withLatestFrom(this.store$),
     switchMap(([action, currentState]: [RetrieveAllTargetsAction, any]) => {
-      return this.SuggestionTargetService.getTargets(
+      return this.suggestionTargetService.getTargets(
         action.payload.elementsPerPage,
         action.payload.currentPage
       ).pipe(
@@ -57,6 +58,17 @@ export class SuggestionTargetEffects {
   );
 
   /**
+   * Show a notification on error.
+   */
+  @Effect() retrieveUserTargets$ = this.actions$.pipe(
+    ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS),
+    switchMap((action: RetrieveAuthenticatedEpersonSuccessAction) => {
+      return this.suggestionTargetService.retrieveCurrentUserSuggestions(action.payload).pipe(
+        map((suggestions: SuggestionTargetObject) => new AddUserSuggestionsAction(suggestions))
+      )
+    }));
+
+  /**
    * Initialize the effect class variables.
    * @param {Actions} actions$
    * @param {Store<any>} store$
@@ -69,6 +81,6 @@ export class SuggestionTargetEffects {
     private store$: Store<any>,
     private translate: TranslateService,
     private notificationsService: NotificationsService,
-    private SuggestionTargetService: SuggestionTargetsService
+    private suggestionTargetService: SuggestionTargetsService
   ) { }
 }
