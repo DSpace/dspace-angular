@@ -128,32 +128,20 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     this.subs.push(
       combineLatest(
         this.activatedRoute.paramMap.pipe(
-          map((params) => {
-            const regEx = /!/g;
-            this.showTopic = params.get('id').replace(regEx, '/');
-            this.topic = params.get('id');
-          })
+          map((params) => params.get('id'))
         ),
         this.activatedRoute.data.pipe(
-          map((data) => {
-            if (data.openaireBrokerTopicsParams.currentPage) {
-              this.paginationConfig.currentPage = data.openaireBrokerTopicsParams.currentPage;
-            }
-            if (data.openaireBrokerTopicsParams.pageSize) {
-              if (this.paginationConfig.pageSizeOptions.includes(data.openaireBrokerTopicsParams.pageSize)) {
-                this.paginationConfig.pageSize = data.openaireBrokerTopicsParams.currentPage;
-              } else {
-                this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
-              }
-            }
-          })
+          map((data) => data.openaireBrokerTopicsParams)
         )
       )
-      .subscribe(() => {
-          this.isEventPageLoading.next(false);
-          this.getOpenaireBrokerEvents();
-        }
-      )
+      .subscribe(([id, openaireBrokerTopicsParams]: [string, any]) => {
+        this.initPaginationConfig(openaireBrokerTopicsParams)
+        const regEx = /!/g;
+        this.showTopic = id.replace(regEx, '/');
+        this.topic = id;
+        this.isEventPageLoading.next(false);
+        this.getOpenaireBrokerEvents();
+      })
     );
   }
 
@@ -167,6 +155,32 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     if (this.paginationConfig.currentPage !== page) {
       this.paginationConfig.currentPage = page;
       this.getOpenaireBrokerEvents();
+    }
+  }
+
+  public hasDetailColumn() {
+    return (this.showTopic.indexOf('/PROJECT') !== -1 ||
+      this.showTopic.indexOf('/PID') !== -1 ||
+      this.showTopic.indexOf('/SUBJECT') !== -1 ||
+      this.showTopic.indexOf('/ABSTRACT') !== -1
+    )
+  }
+
+  /**
+   * Initialize pagination Config
+   *
+   * @param openaireBrokerTopicsParams
+   */
+  protected initPaginationConfig(openaireBrokerTopicsParams: any) {
+    if (openaireBrokerTopicsParams.currentPage) {
+      this.paginationConfig.currentPage = openaireBrokerTopicsParams.currentPage;
+    }
+    if (openaireBrokerTopicsParams.pageSize) {
+      if (this.paginationConfig.pageSizeOptions.includes(openaireBrokerTopicsParams.pageSize)) {
+        this.paginationConfig.pageSize = openaireBrokerTopicsParams.currentPage;
+      } else {
+        this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
+      }
     }
   }
 

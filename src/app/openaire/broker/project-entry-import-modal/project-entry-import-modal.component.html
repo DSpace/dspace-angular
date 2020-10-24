@@ -7,7 +7,7 @@
 </div>
 <div class="modal-body">
   <small>{{ (labelPrefix + label + '.publication' | translate) }}</small>
-  <div id="publication-information" class="mb-3">
+  <div class="mb-3">
     <div class="text-truncate">
       <a target="_blank" href="/items/{{(externalSourceEntry.event.target|async)?.payload?.id}}">
         {{externalSourceEntry.title}}
@@ -16,7 +16,7 @@
   </div>
   <div *ngIf="externalSourceEntry.projectTitle">
     <small>{{ (labelPrefix + label + '.bountToLocal' |translate) }}</small>
-    <div id="publication-information" class="mb-3">
+    <div class="mb-3">
       <div class="text-truncate">
         <a target="_blank" href="/items/{{externalSourceEntry.projectId}}">
           {{externalSourceEntry.projectTitle}}

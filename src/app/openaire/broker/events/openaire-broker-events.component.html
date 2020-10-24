@@ -37,8 +37,8 @@
               <thead>
               <tr>
                 <th scope="col">{{'openaire.broker.event.table.publication' | translate}}</th>
-                <th *ngIf="showTopic.indexOf('/PROJECT') == -1" scope="col">{{'openaire.broker.event.table.details' | translate}}</th>
-                <th *ngIf="showTopic.indexOf('/PROJECT') !== -1" scope="col">{{'openaire.broker.event.table.project-details' | translate}}</th>
+                <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') == -1" scope="col">{{'openaire.broker.event.table.details' | translate}}</th>
+                <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') !== -1" scope="col">{{'openaire.broker.event.table.project-details' | translate}}</th>
                 <th scope="col" class="button-rows">{{'openaire.broker.event.table.actions' | translate}}</th>
               </tr>
               </thead>
@@ -51,7 +51,7 @@
                     <p><span class="small">{{'openaire.broker.event.table.pidtype' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
                     <p><span class="small">{{'openaire.broker.event.table.pidvalue' | translate}}</span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
                   </td>
-                  <td *ngIf="showTopic.indexOf('/SUBJECT/') !== -1">
+                  <td *ngIf="showTopic.indexOf('/SUBJECT') !== -1">
                     <p><span class="small">{{'openaire.broker.event.table.subjectValue' | translate}}</span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
                   </td>
                   <td *ngIf="showTopic.indexOf('/ABSTRACT') !== -1">
