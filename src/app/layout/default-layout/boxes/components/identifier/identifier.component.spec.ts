@@ -4,10 +4,10 @@ import { IdentifierComponent } from './identifier.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from 'src/app/core/shared/item.model';
 import { of } from 'rxjs';
-import { Field } from 'src/app/core/layout/models/metadata-component.model';
+import { LayoutField } from 'src/app/core/layout/models/metadata-component.model';
 import { By } from '@angular/platform-browser';
 import { ResolverStrategyService } from 'src/app/layout/services/resolver-strategy.service';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 
 describe('IdentifierComponent', () => {
@@ -55,7 +55,7 @@ describe('IdentifierComponent', () => {
       label: 'Field Label',
       style: 'col-md-6',
       metadata: 'dc.identifier.doi'
-    }) as Field;
+    }) as LayoutField;
 
     beforeEach(() => {
       component.item = doiTestItem;
@@ -92,7 +92,7 @@ describe('IdentifierComponent', () => {
       label: 'Field Label',
       style: 'col-md-6',
       metadata: 'dc.identifier.doi'
-    }) as Field;
+    }) as LayoutField;
 
     beforeEach(() => {
       component.item = doiWithoutUrnTestItem;
@@ -132,7 +132,7 @@ describe('IdentifierComponent', () => {
       label: 'Email',
       style: 'col-md-6',
       metadata: 'person.email'
-    }) as Field;
+    }) as LayoutField;
 
     beforeEach(() => {
       component.item = mailTestItem;
@@ -169,7 +169,7 @@ describe('IdentifierComponent', () => {
       label: 'hdl',
       style: 'col-md-6',
       metadata: 'dc.identifier.hdl'
-    }) as Field;
+    }) as LayoutField;
 
     beforeEach(() => {
       component.item = hdlTestItem;

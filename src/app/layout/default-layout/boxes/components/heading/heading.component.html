@@ -1,1 +1,5 @@
-<div class="h2 {{containerStyle}}">{{metadataValue}}</div>
+<div [class]="'d-flex flex-column h2 ' + containerStyle">
+    <span *ngFor="let metadataValue of metadataValues">
+      {{metadataValue}}
+    </span>
+</div>

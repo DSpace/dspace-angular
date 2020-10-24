@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { RouteService } from '../../../core/services/route.service';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { Community } from '../../../core/shared/community.model';
 import { SharedModule } from '../../shared.module';
@@ -12,12 +12,14 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { CreateComColPageComponent } from './create-comcol-page.component';
 import {
-  createFailedRemoteDataObject$,
+  createFailedRemoteDataObject$, createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$
 } from '../../remote-data.utils';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { RequestService } from '../../../core/data/request.service';
+import {getTestScheduler} from 'jasmine-marbles';
 
 describe('CreateComColPageComponent', () => {
   let comp: CreateComColPageComponent<DSpaceObject>;
@@ -29,9 +31,12 @@ describe('CreateComColPageComponent', () => {
 
   let community;
   let newCommunity;
+  let parentCommunity;
   let communityDataServiceStub;
   let routeServiceStub;
   let routerStub;
+  let requestServiceStub;
+  let scheduler;
 
   const logoEndpoint = 'rest/api/logo/endpoint';
 
@@ -41,7 +46,18 @@ describe('CreateComColPageComponent', () => {
       metadata: [{
         key: 'dc.title',
         value: 'test community'
-      }]
+      }],
+      _links: {}
+    });
+
+    parentCommunity = Object.assign(new Community(), {
+      uuid: 'a20da287-e174-466a-9926-f66as300d399',
+      id: 'a20da287-e174-466a-9926-f66as300d399',
+      metadata: [{
+        key: 'dc.title',
+        value: 'parent community'
+      }],
+      _links: {}
     });
 
     newCommunity = Object.assign(new Community(), {
@@ -49,7 +65,8 @@ describe('CreateComColPageComponent', () => {
       metadata: [{
         key: 'dc.title',
         value: 'new community'
-      }]
+      }],
+      _links: {}
     });
 
     communityDataServiceStub = {
@@ -61,7 +78,8 @@ describe('CreateComColPageComponent', () => {
         }]
       })),
       create: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
-      getLogoEndpoint: () => observableOf(logoEndpoint)
+      getLogoEndpoint: () => observableOf(logoEndpoint),
+      findByHref: () => null
     };
 
     routeServiceStub = {
@@ -70,6 +88,10 @@ describe('CreateComColPageComponent', () => {
     routerStub = {
       navigate: (commands) => commands
     };
+
+    requestServiceStub = jasmine.createSpyObj('RequestService', {
+      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring'),
+    });
 
   }
 
@@ -82,7 +104,8 @@ describe('CreateComColPageComponent', () => {
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: RequestService, useValue: requestServiceStub}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -97,6 +120,7 @@ describe('CreateComColPageComponent', () => {
     communityDataService = (comp as any).communityDataService;
     routeService = (comp as any).routeService;
     router = (comp as any).router;
+    scheduler = getTestScheduler();
   });
 
   describe('onSubmit', () => {
@@ -111,6 +135,7 @@ describe('CreateComColPageComponent', () => {
               value: 'test'
             }]
           }),
+          _links: {},
           uploader: {
             options: {
               url: ''
@@ -123,19 +148,23 @@ describe('CreateComColPageComponent', () => {
         };
       });
 
-      it('should navigate when successful', () => {
+      it('should navigate and refresh cache when successful', () => {
         spyOn(router, 'navigate');
-        comp.onSubmit(data);
-        fixture.detectChanges();
+        spyOn((comp as any), 'refreshCache')
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         expect(router.navigate).toHaveBeenCalled();
+        expect((comp as any).refreshCache).toHaveBeenCalled();
       });
 
-      it('should not navigate on failure', () => {
+      it('should neither navigate nor refresh cache on failure', () => {
         spyOn(router, 'navigate');
         spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$(newCommunity));
-        comp.onSubmit(data);
-        fixture.detectChanges();
+        spyOn((comp as any), 'refreshCache')
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         expect(router.navigate).not.toHaveBeenCalled();
+        expect((comp as any).refreshCache).not.toHaveBeenCalled();
       });
     });
 
@@ -148,6 +177,7 @@ describe('CreateComColPageComponent', () => {
               value: 'test'
             }]
           }),
+          _links: {},
           uploader: {
             options: {
               url: ''
@@ -164,23 +194,94 @@ describe('CreateComColPageComponent', () => {
 
       it('should not navigate', () => {
         spyOn(router, 'navigate');
-        comp.onSubmit(data);
-        fixture.detectChanges();
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         expect(router.navigate).not.toHaveBeenCalled();
       });
 
       it('should set the uploader\'s url to the logo\'s endpoint', () => {
-        comp.onSubmit(data);
-        fixture.detectChanges();
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         expect(data.uploader.options.url).toEqual(logoEndpoint);
       });
 
       it('should call the uploader\'s uploadAll', () => {
         spyOn(data.uploader, 'uploadAll');
-        comp.onSubmit(data);
-        fixture.detectChanges();
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         expect(data.uploader.uploadAll).toHaveBeenCalled();
       });
     });
+
+    describe('cache refresh', () => {
+      let communityWithoutParentHref;
+
+      beforeEach(() => {
+        scheduler = getTestScheduler();
+
+      })
+      describe('cache refreshed top level community', () => {
+        beforeEach(() => {
+          spyOn(dsoDataService, 'findByHref').and.returnValue(createNoContentRemoteDataObject$());
+          data = {
+            dso: Object.assign(new Community(), {
+              metadata: [{
+                key: 'dc.title',
+                value: 'top level community'
+              }]
+            }),
+            _links: {
+              parentCommunity: {
+                href: 'topLevel/parentCommunity'
+              }
+            }
+          };
+          communityWithoutParentHref = {
+            dso: Object.assign(new Community(), {
+              metadata: [{
+                key: 'dc.title',
+                value: 'top level community'
+              }]
+            }),
+            _links: {}
+          };
+        });
+        it('top level community cache refreshed', () => {
+          scheduler.schedule(() => (comp as any).refreshCache(data));
+          scheduler.flush();
+          expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalledWith('communities/search/top');
+        });
+        it('top level community without parent link, cache not refreshed', () => {
+          scheduler.schedule(() => (comp as any).refreshCache(communityWithoutParentHref));
+          scheduler.flush();
+          expect(requestServiceStub.removeByHrefSubstring).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('cache refreshed child community', () => {
+        beforeEach(() => {
+          spyOn(dsoDataService, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(parentCommunity));
+          data = {
+            dso: Object.assign(new Community(), {
+              metadata: [{
+                key: 'dc.title',
+                value: 'child community'
+              }]
+            }),
+            _links: {
+              parentCommunity: {
+                href: 'child/parentCommunity'
+              }
+            }
+          };
+        });
+        it('child level community cache refreshed', () => {
+          scheduler.schedule(() => (comp as any).refreshCache(data));
+          scheduler.flush();
+          expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
+        });
+      });
+    });
+
   });
 });

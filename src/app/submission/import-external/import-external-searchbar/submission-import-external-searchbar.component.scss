@@ -13,7 +13,7 @@
 
 .scrollable-menu {
   height: auto;
-  max-height: $dropdown-menu-max-height;
+  max-height: $dropdown-menu-max-height / 2;
   overflow-x: hidden;
 }
 

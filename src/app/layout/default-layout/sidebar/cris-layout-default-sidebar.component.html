@@ -1,4 +1,4 @@
-<nav id="sidebar" [ngClass]="{'active': sidebarStatus}">
+<nav *ngIf="sidebarActive" id="sidebar" [ngClass]="{'active': !sidebarStatus}">
   <ul class="list-unstyled components">
       <li *ngFor="let tab of tabs; let i = index;" [ngClass]="{'active' : tab.isActive}">
           <a [routerLink]="" (click)="selectTab(i)">{{tab.header}}</a>

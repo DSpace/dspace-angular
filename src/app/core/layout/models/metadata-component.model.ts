@@ -7,16 +7,16 @@ import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 
 export interface Row {
-  fields: Field[];
+  fields: LayoutField[];
 }
-export interface Bitstream {
+export interface LayoutBitstream {
   bundle: string;
   metadataField: string;
   metadataValue: string;
 }
-export interface Field {
+export interface LayoutField {
   metadata?: string;
-  bitstream?: Bitstream;
+  bitstream?: LayoutBitstream;
   label?: string;
   rendering: string;
   fieldType: string;

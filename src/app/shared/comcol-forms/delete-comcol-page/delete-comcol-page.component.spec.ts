@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { Community } from '../../../core/shared/community.model';
 import { SharedModule } from '../../shared.module';
@@ -13,6 +13,9 @@ import { DataService } from '../../../core/data/data.service';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import {RequestService} from '../../../core/data/request.service';
+import {getTestScheduler} from 'jasmine-marbles';
+import {createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$} from '../../remote-data.utils';
 
 describe('DeleteComColPageComponent', () => {
   let comp: DeleteComColPageComponent<DSpaceObject>;
@@ -22,9 +25,15 @@ describe('DeleteComColPageComponent', () => {
 
   let community;
   let newCommunity;
+  let parentCommunity;
   let routerStub;
   let routeStub;
   let notificationsService;
+  let translateServiceStub;
+  let requestServiceStub;
+
+  let scheduler;
+
   const validUUID = 'valid-uuid';
   const invalidUUID = 'invalid-uuid';
   const frontendURL = '/testType';
@@ -45,10 +54,20 @@ describe('DeleteComColPageComponent', () => {
       }]
     });
 
+    parentCommunity = Object.assign(new Community(), {
+      uuid: 'a20da287-e174-466a-9926-f66as300d399',
+      id: 'a20da287-e174-466a-9926-f66as300d399',
+      metadata: [{
+        key: 'dc.title',
+        value: 'parent community'
+      }]
+    });
+
     dsoDataService = jasmine.createSpyObj(
       'dsoDataService',
       {
-        delete: observableOf({ isSuccessful: true })
+        delete: observableOf({ isSuccessful: true }),
+        findByHref: jasmine.createSpy('findByHref')
       });
 
     routerStub = {
@@ -58,6 +77,14 @@ describe('DeleteComColPageComponent', () => {
     routeStub = {
       data: observableOf(community)
     };
+
+    requestServiceStub = jasmine.createSpyObj('RequestService', {
+      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring')
+    });
+
+    translateServiceStub = jasmine.createSpyObj('TranslateService', {
+      instant: jasmine.createSpy('instant')
+    });
 
   }
 
@@ -70,6 +97,8 @@ describe('DeleteComColPageComponent', () => {
         { provide: Router, useValue: routerStub },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: TranslateService, useValue: translateServiceStub},
+        { provide: RequestService, useValue: requestServiceStub}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -82,43 +111,65 @@ describe('DeleteComColPageComponent', () => {
     notificationsService = (comp as any).notifications;
     (comp as any).frontendURL = frontendURL;
     router = (comp as any).router;
+    scheduler = getTestScheduler();
   });
 
   describe('onConfirm', () => {
     let data1;
     let data2;
     beforeEach(() => {
-      data1 = Object.assign(new Community(), {
-        uuid: validUUID,
-        metadata: [{
-          key: 'dc.title',
-          value: 'test'
-        }]
-      });
+      data1 = {
+        dso: Object.assign(new Community(), {
+          uuid: validUUID,
+          metadata: [{
+            key: 'dc.title',
+            value: 'test'
+          }]
+        }),
+        _links: {}
+      };
 
-      data2 = Object.assign(new Community(), {
-        uuid: invalidUUID,
-        metadata: [{
-          key: 'dc.title',
-          value: 'test'
-        }]
-      });
+      data2 = {
+        dso: Object.assign(new Community(), {
+          uuid: invalidUUID,
+          metadata: [{
+            key: 'dc.title',
+            value: 'test'
+          }]
+        }),
+        _links: {},
+        uploader: {
+          options: {
+            url: ''
+          },
+          queue: [],
+          /* tslint:disable:no-empty */
+          uploadAll: () => {}
+          /* tslint:enable:no-empty */
+        }
+      };
     });
 
     it('should show an error notification on failure', () => {
       (dsoDataService.delete as any).and.returnValue(observableOf({ isSuccessful: false }));
       spyOn(router, 'navigate');
-      comp.onConfirm(data2);
+      spyOn((comp as any), 'refreshCache');
+      scheduler.schedule(() => comp.onConfirm(data2));
+      scheduler.flush();
       fixture.detectChanges();
       expect(notificationsService.error).toHaveBeenCalled();
+      expect((comp as any).refreshCache).not.toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalled();
     });
 
     it('should show a success notification on success and navigate', () => {
       spyOn(router, 'navigate');
-      comp.onConfirm(data1);
+      spyOn((comp as any), 'refreshCache');
+      scheduler.schedule(() => comp.onConfirm(data1));
+      scheduler.flush();
       fixture.detectChanges();
       expect(notificationsService.success).toHaveBeenCalled();
+      expect((comp as any).refreshCache).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalled();
     });
 
@@ -126,6 +177,73 @@ describe('DeleteComColPageComponent', () => {
       comp.onConfirm(data1);
       fixture.detectChanges();
       expect(dsoDataService.delete).toHaveBeenCalledWith(data1.id);
+    });
+
+    describe('cache refresh', () => {
+      let communityWithoutParentHref;
+      let deletedCommunity;
+
+      describe('cache refreshed top level community', () => {
+        beforeEach(() => {
+          (dsoDataService.findByHref as any).and.returnValue(createNoContentRemoteDataObject$());
+          deletedCommunity = {
+            dso: Object.assign(new Community(), {
+              metadata: [{
+                key: 'dc.title',
+                value: 'top level community'
+              }]
+            }),
+            _links: {
+              parentCommunity: {
+                href: 'topLevel/parentCommunity'
+              }
+            }
+          };
+          communityWithoutParentHref = {
+            dso: Object.assign(new Community(), {
+              metadata: [{
+                key: 'dc.title',
+                value: 'top level community'
+              }]
+            }),
+            _links: {}
+          };
+        });
+        it('top level community cache refreshed', () => {
+          scheduler.schedule(() => (comp as any).refreshCache(deletedCommunity));
+          scheduler.flush();
+          expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalledWith('communities/search/top');
+        });
+        it('top level community without parent link, cache not refreshed', () => {
+          scheduler.schedule(() => (comp as any).refreshCache(communityWithoutParentHref));
+          scheduler.flush();
+          expect(requestServiceStub.removeByHrefSubstring).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('cache refreshed child community', () => {
+        beforeEach(() => {
+          (dsoDataService.findByHref as any).and.returnValue(createSuccessfulRemoteDataObject$(parentCommunity));
+          deletedCommunity = {
+            dso: Object.assign(new Community(), {
+              metadata: [{
+                key: 'dc.title',
+                value: 'child community'
+              }]
+            }),
+            _links: {
+              parentCommunity: {
+                href: 'child/parentCommunity'
+              }
+            }
+          };
+        });
+        it('child level community cache refreshed', () => {
+          scheduler.schedule(() => (comp as any).refreshCache(deletedCommunity));
+          scheduler.flush();
+          expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
+        });
+      });
     });
   });
 

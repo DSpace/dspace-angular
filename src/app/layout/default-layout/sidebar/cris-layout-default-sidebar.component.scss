@@ -1,0 +1,4 @@
+#sidebar ul li.active > a {
+  color: map-get($theme-colors, info);
+  background: map-get($theme-colors, light);
+}

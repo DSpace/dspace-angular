@@ -1,10 +1,11 @@
-<span class="{{containerStyle}}">
+<div class="{{containerStyle}}">
   <span class="{{labelStyle}}">
     {{label | translate}}
   </span>
-  <span class="{{valueStyle}}">
-    <a href="{{metadataValue}}">
-      {{ text | async }}
-    </a>
-  </span>
-</span>
+  <div [class]="'d-flex flex-column ' + valueStyle">
+    <span *ngFor="let link of links">
+      <a href="{{link.href}}">{{ link.text }}</a>
+    </span>
+  </div>
+
+</div>

@@ -1,13 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RemoteData } from '../../../core/data/remote-data';
-import { first, map } from 'rxjs/operators';
-import { DataService } from '../../../core/data/data.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { RestResponse } from '../../../core/cache/response.models';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {RemoteData} from '../../../core/data/remote-data';
+import {first, map, take} from 'rxjs/operators';
+import {DataService} from '../../../core/data/data.service';
+import {DSpaceObject} from '../../../core/shared/dspace-object.model';
+import {NotificationsService} from '../../notifications/notifications.service';
+import {TranslateService} from '@ngx-translate/core';
+import {RestResponse} from '../../../core/cache/response.models';
+import {hasValue, isEmpty, isNotEmpty} from '../../empty.util';
+import {RequestService} from '../../../core/data/request.service';
+import {
+  getSucceededOrNoContentResponse,
+} from '../../../core/shared/operators';
+import {Community} from '../../../core/shared/community.model';
+import {Collection} from '../../../core/shared/collection.model';
 
 /**
  * Component representing the delete page for communities and collections
@@ -31,7 +38,8 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements 
     protected router: Router,
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,
-    protected translate: TranslateService
+    protected translate: TranslateService,
+    protected requestService: RequestService
   ) {
   }
 
@@ -50,6 +58,7 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements 
         if (response.isSuccessful) {
           const successMessage = this.translate.instant((dso as any).type + '.delete.notification.success');
           this.notifications.success(successMessage)
+          this.refreshCache(dso);
         } else {
           const errorMessage = this.translate.instant((dso as any).type + '.delete.notification.fail');
           this.notifications.error(errorMessage)
@@ -64,5 +73,24 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements 
    */
   onCancel(dso: TDomain) {
     this.router.navigate([this.frontendURL + '/' + dso.uuid + '/edit']);
+  }
+
+  private refreshCache(dso: TDomain) {
+    const parentCommunityUrl = this.parentCommunityUrl(dso as any);
+    if (!hasValue(parentCommunityUrl)) {
+      return;
+    }
+    this.dsoDataService.findByHref(parentCommunityUrl).pipe(
+      getSucceededOrNoContentResponse(),
+      take(1),
+    ).subscribe((rd: RemoteData<TDomain>) => {
+      const href = rd.hasSucceeded && !isEmpty(rd.payload.id) ? rd.payload.id : 'communities/search/top';
+      this.requestService.removeByHrefSubstring(href)
+    });
+  }
+
+  private parentCommunityUrl(dso: Collection | Community): string {
+    const parentCommunity = dso._links.parentCommunity;
+    return isNotEmpty(parentCommunity) ? parentCommunity.href : null;
   }
 }
