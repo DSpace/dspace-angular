@@ -1,25 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { SuggestionTargetObject } from '../../../core/openaire/reciter-suggestions/models/suggestion-target.model';
+import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { ReciterSuggestionStateService } from '../recitersuggestions.state.service';
-import { getSuggestionPageRoute } from '../../../suggestion-page/suggestion-page-routing-paths';
+import { SuggestionTargetsStateService } from './suggestion-targets.state.service';
+import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
+import { OpenaireSuggestion } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
 
 /**
  * Component to display the Suggestion Target list.
  */
 @Component({
   selector: 'ds-suggestion-target',
-  templateUrl: './suggestion-target.component.html',
-  styleUrls: ['./suggestion-target.component.scss'],
+  templateUrl: './suggestion-targets.component.html',
+  styleUrls: ['./suggestion-targets.component.scss'],
 })
-export class SuggestionTargetComponent implements OnInit {
+export class SuggestionTargetsComponent implements OnInit {
+
+  /**
+   * The source for which to list targets
+   */
+  @Input() source: string;
+
   /**
    * The number of Suggestion Targets per page.
    */
@@ -37,7 +44,7 @@ export class SuggestionTargetComponent implements OnInit {
   /**
    * The Suggestion Target list.
    */
-  public targets$: Observable<SuggestionTargetObject[]>;
+  public targets$: Observable<OpenaireSuggestionTarget[]>;
   /**
    * The total number of Suggestion Targets.
    */
@@ -51,12 +58,12 @@ export class SuggestionTargetComponent implements OnInit {
   /**
    * Initialize the component variables.
    * @param {ActivatedRoute} activatedRoute
-   * @param {ReciterSuggestionStateService} reciterSuggestionStateService
+   * @param {SuggestionTargetsStateService} suggestionTargetsStateService
    * @param {Router} router
    */
   constructor(
     private activatedRoute: ActivatedRoute,
-    private reciterSuggestionStateService: ReciterSuggestionStateService,
+    private suggestionTargetsStateService: SuggestionTargetsStateService,
     private router: Router
   ) {
   }
@@ -68,8 +75,8 @@ export class SuggestionTargetComponent implements OnInit {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'reciter_suggestion_target';
     this.paginationConfig.pageSize = this.elementsPerPage;
-    this.paginationConfig.currentPage = 0;
-    this.paginationConfig.pageSizeOptions = [20, 30, 50];
+    this.paginationConfig.currentPage = 1;
+    this.paginationConfig.pageSizeOptions = [ 5, 10, 20, 30, 50 ];
     this.subs.push(
       this.activatedRoute.data.pipe(
         map((data) => {
@@ -83,8 +90,8 @@ export class SuggestionTargetComponent implements OnInit {
               this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
             }
           }
-          this.targets$ = this.reciterSuggestionStateService.getReciterSuggestionTargets();
-          this.totalElements$ = this.reciterSuggestionStateService.getReciterSuggestionTargetsTotals();
+          this.targets$ = this.suggestionTargetsStateService.getReciterSuggestionTargets();
+          this.totalElements$ = this.suggestionTargetsStateService.getReciterSuggestionTargetsTotals();
         })
       )
         .subscribe()
@@ -96,7 +103,7 @@ export class SuggestionTargetComponent implements OnInit {
    */
   ngAfterViewInit(): void {
     this.subs.push(
-      this.reciterSuggestionStateService.isReciterSuggestionTargetsLoaded().pipe(
+      this.suggestionTargetsStateService.isReciterSuggestionTargetsLoaded().pipe(
         take(1)
       ).subscribe(() => {
         this.getSuggestionTargets();
@@ -111,7 +118,7 @@ export class SuggestionTargetComponent implements OnInit {
    *    'true' if the targets are loading, 'false' otherwise.
    */
   public isTargetsLoading(): Observable<boolean> {
-    return this.reciterSuggestionStateService.isReciterSuggestionTargetsLoading();
+    return this.suggestionTargetsStateService.isReciterSuggestionTargetsLoading();
   }
 
   /**
@@ -121,7 +128,7 @@ export class SuggestionTargetComponent implements OnInit {
    *    'true' if there are operations running on the targets (ex.: a REST call), 'false' otherwise.
    */
   public isTargetsProcessing(): Observable<boolean> {
-    return this.reciterSuggestionStateService.isReciterSuggestionTargetsProcessing();
+    return this.suggestionTargetsStateService.isReciterSuggestionTargetsProcessing();
   }
 
   /**
@@ -131,8 +138,10 @@ export class SuggestionTargetComponent implements OnInit {
    *    the number of the current page
    */
   public setPage(page: number) {
-    this.paginationConfig.currentPage = page;
-    this.getSuggestionTargets();
+    if (this.paginationConfig.currentPage !== page) {
+      this.paginationConfig.currentPage = page;
+      this.getSuggestionTargets();
+    }
   }
 
   /**
@@ -144,13 +153,14 @@ export class SuggestionTargetComponent implements OnInit {
    *    the name of suggestion target
    */
   public redirectToSuggestions(id: string, name: string) {
-    this.router.navigate([getSuggestionPageRoute(id, name)]);
+    this.router.navigate([getSuggestionPageRoute(id)]);
   }
 
   /**
    * Unsubscribe from all subscriptions.
    */
   ngOnDestroy(): void {
+    this.suggestionTargetsStateService.dispatchClearSuggestionTargetsAction();
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
@@ -160,7 +170,8 @@ export class SuggestionTargetComponent implements OnInit {
    * Dispatch the Suggestion Targets retrival.
    */
   protected getSuggestionTargets(): void {
-    this.reciterSuggestionStateService.dispatchRetrieveReciterSuggestionTargets(
+    this.suggestionTargetsStateService.dispatchRetrieveReciterSuggestionTargets(
+      this.source,
       this.elementsPerPage,
       this.paginationConfig.currentPage
     );

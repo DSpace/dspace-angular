@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { flatMap, map, take } from 'rxjs/operators';
 
 import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../core/data/collection-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
-import { Collection } from '../core/shared/collection.model';
-import { redirectToPageNotFoundOn404 } from '../core/shared/operators';
-import { SuggestionTargetsService } from '../openaire/reciter/suggestion-target/suggestion-target.service';
+import { getFirstSucceededRemoteDataPayload, redirectToPageNotFoundOn404 } from '../core/shared/operators';
+import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { ItemDataService } from '../core/data/item-data.service';
+import { OpenaireSuggestion } from '../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
+import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 
 @Component({
   selector: 'ds-suggestion-page',
-  templateUrl: './suggestion-page.component.html',
-  styleUrls: ['./suggestion-page.component.scss'],
+  templateUrl: './suggestions-page.component.html',
+  styleUrls: ['./suggestions-page.component.scss'],
 })
-export class SuggestionPageComponent implements OnInit {
-  collectionRD$: Observable<RemoteData<Collection>>;
+export class SuggestionsPageComponent implements OnInit {
 
   paginationConfig: PaginationComponentOptions;
   /**
@@ -31,7 +30,7 @@ export class SuggestionPageComponent implements OnInit {
   /**
    * The pagination id
    */
-  pageId = 'community-collections-pagination';
+  pageId = 'suggestions-pagination';
 
   /**
    * The sorting configuration
@@ -39,11 +38,12 @@ export class SuggestionPageComponent implements OnInit {
   sortConfig: SortOptions;
 
   /**
-   * A list of remote data objects of communities' collections
+   * A list of remote data objects of suggestions
    */
-  subCollectionsRDObs: BehaviorSubject<
-    PaginatedList<any>
-  > = new BehaviorSubject<PaginatedList<any>>({} as any);
+  suggestionsRD$: BehaviorSubject<PaginatedList<OpenaireSuggestion>> = new BehaviorSubject<PaginatedList<OpenaireSuggestion>>({} as any);
+
+  targetRD$: Observable<RemoteData<OpenaireSuggestionTarget>>;
+  targetId$: Observable<string>;
 
   evidences: any;
   isShowEvidence = false;
@@ -52,29 +52,34 @@ export class SuggestionPageComponent implements OnInit {
   researcherName: any;
 
   constructor(
-    private cds: CollectionDataService,
     private route: ActivatedRoute,
     private router: Router,
-    private suggestionTargetsService: SuggestionTargetsService,
+    private suggestionService: SuggestionsService,
     private itemService: ItemDataService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.data.pipe(
-      map((data) => data as RemoteData<Collection>),
-      redirectToPageNotFoundOn404(this.router),
-      take(1)
-    );
-
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
-    this.config.pageSize = 1;
+    this.config.pageSize = 10;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
 
-    this.route.params.subscribe((params: Params) => {
-      this.suggestionId = params.id;
-      this.researcherName = params.name;
+    this.targetRD$ = this.route.data.pipe(
+      map((data: Data) => data.suggestion as RemoteData<OpenaireSuggestionTarget>),
+      redirectToPageNotFoundOn404(this.router)
+    );
+
+    this.targetId$ = this.targetRD$.pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((target: OpenaireSuggestionTarget) => target.id)
+    );
+    this.targetRD$.pipe(
+      getFirstSucceededRemoteDataPayload()
+    ).subscribe((suggestionTarget: OpenaireSuggestionTarget) => {
+      this.suggestionId = suggestionTarget.id;
+      this.researcherName = suggestionTarget.display;
       this.updatePage();
     });
   }
@@ -89,18 +94,20 @@ export class SuggestionPageComponent implements OnInit {
   }
 
   /**
-   * Update the list of collections
+   * Update the list of suggestions
    */
   updatePage() {
-    this.suggestionTargetsService
-      .getReviewSuggestions(
+    this.targetId$.pipe(
+      flatMap((targetId: string) => this.suggestionService.getSuggestions(
+        targetId,
         this.config.pageSize,
         this.config.currentPage,
-        this.suggestionId
-      )
-      .subscribe((results) => {
-        this.subCollectionsRDObs.next(results);
-      });
+      )),
+      take(1)
+    ).subscribe((results: PaginatedList<OpenaireSuggestion>) => {
+      this.suggestionsRD$.next(results);
+      this.suggestionService.clearSuggestionRequests();
+    });
   }
 
   /**
@@ -108,8 +115,7 @@ export class SuggestionPageComponent implements OnInit {
    * @suggestionId
    */
   notMine(suggestionId) {
-    this.suggestionTargetsService
-      .deleteReviewSuggestions(suggestionId)
+    this.suggestionService.deleteReviewedSuggestion(suggestionId)
       .subscribe((res) => {
         this.updatePage();
       });

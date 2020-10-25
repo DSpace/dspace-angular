@@ -9,20 +9,21 @@ import {
   isReciterSuggestionTargetLoadedSelector,
   isreciterSuggestionTargetProcessingSelector,
   reciterSuggestionTargetObjectSelector,
-  getCurrentUserReciterSuggestionsSelector, getCurrentUserReciterSuggestionsVisitedSelector
-} from './selectors';
-import { SuggestionTargetObject } from '../../core/openaire/reciter-suggestions/models/suggestion-target.model';
+  getCurrentUserSuggestionTargetsSelector, getCurrentUserSuggestionTargetsVisitedSelector
+} from '../selectors';
+import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import {
+  ClearSuggestionTargetsAction,
   MarkUserSuggestionsAsVisitedAction,
-  RetrieveAllTargetsAction
-} from './suggestion-target/suggestion-target.actions';
-import { OpenaireState } from '../openaire.reducer';
+  RetrieveTargetsBySourceAction
+} from './suggestion-targets.actions';
+import { OpenaireState } from '../../openaire.reducer';
 
 /**
- * The service handling the Reciter Suggestion State.
+ * The service handling the Suggestion targets State.
  */
 @Injectable()
-export class ReciterSuggestionStateService {
+export class SuggestionTargetsStateService {
 
   /**
    * Initialize the service variables.
@@ -36,10 +37,10 @@ export class ReciterSuggestionStateService {
   /**
    * Returns the list of Reciter Suggestion Targets from the state.
    *
-   * @return Observable<SuggestionTargetObject>
+   * @return Observable<OpenaireReciterSuggestionTarget>
    *    The list of Reciter Suggestion Targets.
    */
-  public getReciterSuggestionTargets(): Observable<SuggestionTargetObject[]> {
+  public getReciterSuggestionTargets(): Observable<OpenaireSuggestionTarget[]> {
     return this.store.pipe(select(reciterSuggestionTargetObjectSelector()));
   }
 
@@ -109,33 +110,35 @@ export class ReciterSuggestionStateService {
   /**
    * Dispatch a request to change the Reciter Suggestion Targets state, retrieving the targets from the server.
    *
+   * @param source
+   *    the source for which to retrieve suggestion targets
    * @param elementsPerPage
    *    The number of the targets per page.
    * @param currentPage
    *    The number of the current page.
    */
-  public dispatchRetrieveReciterSuggestionTargets(elementsPerPage: number, currentPage: number): void {
-    this.store.dispatch(new RetrieveAllTargetsAction(elementsPerPage, currentPage))
+  public dispatchRetrieveReciterSuggestionTargets(source: string, elementsPerPage: number, currentPage: number): void {
+    this.store.dispatch(new RetrieveTargetsBySourceAction(source, elementsPerPage, currentPage))
   }
 
   /**
-   * Returns, from the state, the reciter suggestions for the current user.
+   * Returns, from the state, the reciter suggestion targets for the current user.
    *
-   * @return Observable<SuggestionTargetObject>
+   * @return Observable<OpenaireReciterSuggestionTarget>
    *    The Reciter Suggestion Targets object.
    */
-  public getCurrentUserReciterSuggestions(): Observable<SuggestionTargetObject> {
-    return this.store.pipe(select(getCurrentUserReciterSuggestionsSelector));
+  public getCurrentUserSuggestionTargets(): Observable<OpenaireSuggestionTarget[]> {
+    return this.store.pipe(select(getCurrentUserSuggestionTargetsSelector));
   }
 
   /**
-   * Returns, from the state, whether or not the user has consulted their suggestions.
+   * Returns, from the state, whether or not the user has consulted their suggestion targets.
    *
    * @return Observable<boolean>
    *    True if user already visited, false otherwise.
    */
-  public getCurrentUserReciterSuggestionsVisited(): Observable<boolean> {
-    return this.store.pipe(select(getCurrentUserReciterSuggestionsVisitedSelector));
+  public hasUserVisitedSuggestions(): Observable<boolean> {
+    return this.store.pipe(select(getCurrentUserSuggestionTargetsVisitedSelector));
   }
 
   /**
@@ -143,5 +146,12 @@ export class ReciterSuggestionStateService {
    */
   public dispatchMarkUserSuggestionsAsVisitedAction(): void {
     this.store.dispatch(new MarkUserSuggestionsAsVisitedAction())
+  }
+
+  /**
+   * Dispatch an action to clear the Reciter Suggestion Targets state.
+   */
+  public dispatchClearSuggestionTargetsAction(): void {
+    this.store.dispatch(new ClearSuggestionTargetsAction())
   }
 }

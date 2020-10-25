@@ -1,22 +1,18 @@
-
-import { SuggestionTargetObject } from '../../../core/openaire/reciter-suggestions/models/suggestion-target.model';
-import {
-  SuggestionTargetActions,
-  SuggestionTargetActionTypes
-} from './suggestion-target.actions';
+import { SuggestionTargetsActions, SuggestionTargetActionTypes } from './suggestion-targets.actions';
+import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**
- * The interface representing the OpenAIRE Broker topic state.
+ * The interface representing the OpenAIRE suggestion targets state.
  */
 export interface SuggestionTargetState {
-  targets: SuggestionTargetObject[];
+  targets: OpenaireSuggestionTarget[];
   processing: boolean;
   loaded: boolean;
   totalPages: number;
   currentPage: number;
   totalElements: number;
-  currentUserSuggestions: SuggestionTargetObject
-  currentUserSuggestionsVisited: boolean
+  currentUserTargets: OpenaireSuggestionTarget[]
+  currentUserTargetsVisited: boolean
 }
 
 /**
@@ -29,8 +25,8 @@ const SuggestionTargetInitialState: SuggestionTargetState = {
   totalPages: 0,
   currentPage: 0,
   totalElements: 0,
-  currentUserSuggestions: null,
-  currentUserSuggestionsVisited: false
+  currentUserTargets: null,
+  currentUserTargetsVisited: false
 };
 
 /**
@@ -43,9 +39,9 @@ const SuggestionTargetInitialState: SuggestionTargetState = {
  * @return SuggestionTargetState
  *    the new state
  */
-export function SuggestionTargetReducer(state = SuggestionTargetInitialState, action: SuggestionTargetActions): SuggestionTargetState {
+export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, action: SuggestionTargetsActions): SuggestionTargetState {
   switch (action.type) {
-    case SuggestionTargetActionTypes.RETRIEVE_ALL_TARGETS: {
+    case SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE: {
       return Object.assign({}, state, {
         processing: true
       });
@@ -62,7 +58,7 @@ export function SuggestionTargetReducer(state = SuggestionTargetInitialState, ac
       });
     }
 
-    case SuggestionTargetActionTypes.RETRIEVE_ALL_TARGETS_ERROR: {
+    case SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR: {
       return Object.assign({}, state, {
         processing: false,
         loaded: true,
@@ -72,13 +68,24 @@ export function SuggestionTargetReducer(state = SuggestionTargetInitialState, ac
 
     case SuggestionTargetActionTypes.ADD_USER_SUGGESTIONS: {
       return Object.assign({}, state, {
-        currentUserSuggestions: action.payload.suggestions
+        currentUserTargets: action.payload.suggestionTargets
       });
     }
 
     case SuggestionTargetActionTypes.MARK_USER_SUGGESTIONS_AS_VISITED: {
       return Object.assign({}, state, {
-        currentUserSuggestionsVisited: true
+        currentUserTargetsVisited: true
+      });
+    }
+
+    case SuggestionTargetActionTypes.CLEAR_TARGETS: {
+      return Object.assign({}, state, {
+        targets: [],
+        processing: false,
+        loaded: false,
+        totalPages: 0,
+        currentPage: 0,
+        totalElements: 0,
       });
     }
 

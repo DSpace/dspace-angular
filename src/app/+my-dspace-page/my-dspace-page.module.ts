@@ -21,8 +21,8 @@ import { ItemSearchResultListElementSubmissionComponent } from '../shared/object
 import { WorkflowItemSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workflow-item-search-result/workflow-item-search-result-list-element.component';
 import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-search-result/pool-search-result-detail-element.component';
 import { CollectionSelectorComponent } from './collection-selector/collection-selector.component';
-import { SuggestionTargetsService } from '../openaire/reciter/suggestion-target/suggestion-target.service';
-import { SuggestionTargetRestService } from '../core/openaire/reciter-suggestions/reciter-suggestions-rest.service';
+import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
+import { OpenaireSuggestionsDataService } from '../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
 import { OpenaireModule } from '../openaire/openaire.module';
 
 @NgModule({
@@ -51,8 +51,8 @@ import { OpenaireModule } from '../openaire/openaire.module';
   providers: [
     MyDSpaceGuard,
     MyDSpaceConfigurationService,
-    SuggestionTargetsService,
-    SuggestionTargetRestService
+    SuggestionsService,
+    OpenaireSuggestionsDataService
   ],
   entryComponents: [
     SearchResultListElementComponent,

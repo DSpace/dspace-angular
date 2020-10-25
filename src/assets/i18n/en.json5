@@ -2369,7 +2369,7 @@
 
   "mydspace.view-btn": "View",
 
-  "mydspace.notification.suggestion": "Reciter suggest to add to your profile <b>{{count}} publications</b><br> found in the OpenAIRE Graph.<br> Please <a href='/suggestions/{{suggestionId}}/{{displayName}}'>review the suggestions</a>",
+  "mydspace.notification.suggestion": "Reciter suggest to add to your profile <b>{{count}} publications</b><br> found in the {{source}}.<br> Please <a href='/suggestions/{{suggestionId}}'>review the suggestions</a>",
 
 
 
@@ -2531,8 +2531,6 @@
 
   "reciter.suggestion.target.error.service.retrieve": "An error occurred while loading the Reciter Suggestion Target",
 
-  "reciter.suggestion.loading": "Loading ...",
-
   "reciter.suggestion.evidence.type": "Type",
 
   "reciter.suggestion.evidence.score": "Score",
@@ -2547,9 +2545,9 @@
 
   "reciter.suggestion.suggestionFor": "Suggestion for",
 
-  "reciter.suggestion.fromTheOpenAIREGraph": "from the OpenAIRE Graph",
+  "reciter.suggestion.source.oaire": "OpenAIRE Graph",
 
-
+  "reciter.suggestion.from.source": "from the ",
 
 
 

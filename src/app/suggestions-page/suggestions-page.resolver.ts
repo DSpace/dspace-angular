@@ -4,29 +4,28 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
-import { Collection } from '../core/shared/collection.model';
-import { CollectionDataService } from '../core/data/collection-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { hasValue } from '../shared/empty.util';
-import { followLink } from '../shared/utils/follow-link-config.model';
+import { OpenaireSuggestionsDataService } from '../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
+import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**
  * This class represents a resolver that requests a specific collection before the route is activated
  */
 @Injectable()
-export class SuggestionPageResolver implements Resolve<RemoteData<Collection>> {
-  constructor(private collectionService: CollectionDataService) {
+export class SuggestionsPageResolver implements Resolve<RemoteData<OpenaireSuggestionTarget>> {
+  constructor(private suggestionsDataService: OpenaireSuggestionsDataService) {
   }
 
   /**
-   * Method for resolving a collection based on the parameters in the current route
+   * Method for resolving a suggestion target based on the parameters in the current route
    * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
    * @param {RouterStateSnapshot} state The current RouterStateSnapshot
    * @returns Observable<<RemoteData<Collection>> Emits the found collection based on the parameters in the current route,
    * or an error if something went wrong
    */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Collection>> {
-    return this.collectionService.findById(route.params.id, followLink('logo')).pipe(
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<OpenaireSuggestionTarget>> {
+    return this.suggestionsDataService.getTargetById(route.params.targetId).pipe(
       find((RD) => hasValue(RD.error) || RD.hasSucceeded),
     );
   }

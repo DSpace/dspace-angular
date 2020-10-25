@@ -24,8 +24,8 @@ import { SearchResult } from '../shared/search/search-result.model';
 import { Context } from '../core/shared/context.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ReciterSuggestionStateService } from '../openaire/reciter/recitersuggestions.state.service';
-import { SuggestionTargetObject } from '../core/openaire/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
+import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -104,7 +104,7 @@ export class MyDSpacePageComponent implements OnInit {
               private sidebarService: SidebarService,
               private windowService: HostWindowService,
               private translateService: TranslateService,
-              private reciterSuggestionStateService: ReciterSuggestionStateService,
+              private reciterSuggestionStateService: SuggestionTargetsStateService,
               private notificationsService: NotificationsService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
@@ -149,18 +149,14 @@ export class MyDSpacePageComponent implements OnInit {
       );
 
     // send notifications
-    this.reciterSuggestionStateService.getCurrentUserReciterSuggestionsVisited().pipe(
+    this.reciterSuggestionStateService.hasUserVisitedSuggestions().pipe(
       filter((visited: boolean) => !visited),
-      flatMap(() => this.reciterSuggestionStateService.getCurrentUserReciterSuggestions()),
+      flatMap(() => this.reciterSuggestionStateService.getCurrentUserSuggestionTargets()),
       take(1)
-    ).subscribe((suggestions: SuggestionTargetObject) => {
+    ).subscribe((suggestions: OpenaireSuggestionTarget[]) => {
       if (isNotEmpty(suggestions)) {
-        const content = this.translateService.instant(this.labelPrefix + 'notification.suggestion', {
-          count: suggestions.total,
-          suggestionId: suggestions.id,
-          displayName: suggestions.display
-        });
-        this.notificationsService.success('', content, {timeOut:0}, true);
+        suggestions
+          .forEach((suggestionTarget: OpenaireSuggestionTarget) => this.showNotificationForNewSuggestions(suggestionTarget))
         this.reciterSuggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction();
       }
     })
@@ -194,6 +190,22 @@ export class MyDSpacePageComponent implements OnInit {
    */
   public getSearchLink(): string {
     return this.service.getSearchLink();
+  }
+
+  /**
+   * Show a notification to user for a new suggstions detected
+   * @param suggestionTarget
+   * @private
+   */
+  private showNotificationForNewSuggestions(suggestionTarget: OpenaireSuggestionTarget): void {
+    const sourceLabel = this.translateService.instant('reciter.suggestion.source.oaire');
+    const content = this.translateService.instant(this.labelPrefix + 'notification.suggestion', {
+      count: suggestionTarget.total,
+      source: sourceLabel,
+      suggestionId: suggestionTarget.id,
+      displayName: suggestionTarget.display
+    });
+    this.notificationsService.success('', content, {timeOut:0}, true);
   }
 
   /**

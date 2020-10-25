@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
-import { SuggestionTargetObject } from '../../../core/openaire/reciter-suggestions/models/suggestion-target.model';
+import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -11,11 +11,12 @@ import { SuggestionTargetObject } from '../../../core/openaire/reciter-suggestio
  * action types in the application are unique.
  */
 export const SuggestionTargetActionTypes = {
-  ADD_TARGETS: type('dspace/integration/suggestion/target/ADD_TARGETS'),
-  RETRIEVE_ALL_TARGETS: type('dspace/integration/suggestion/target/RETRIEVE_ALL_TARGETS'),
-  RETRIEVE_ALL_TARGETS_ERROR: type('dspace/integration/suggestion/target/RETRIEVE_ALL_TARGETS_ERROR'),
-  ADD_USER_SUGGESTIONS: type('dspace/integration/suggestion/target/ADD_USER_SUGGESTIONS'),
-  MARK_USER_SUGGESTIONS_AS_VISITED: type('dspace/integration/suggestion/target/MARK_USER_SUGGESTIONS_AS_VISITED')
+  ADD_TARGETS: type('dspace/integration/openaire/suggestions/target/ADD_TARGETS'),
+  CLEAR_TARGETS: type('dspace/integration/openaire/suggestions/target/CLEAR_TARGETS'),
+  RETRIEVE_TARGETS_BY_SOURCE: type('dspace/integration/openaire/suggestions/target/RETRIEVE_TARGETS_BY_SOURCE'),
+  RETRIEVE_TARGETS_BY_SOURCE_ERROR: type('dspace/integration/openaire/suggestions/target/RETRIEVE_TARGETS_BY_SOURCE_ERROR'),
+  ADD_USER_SUGGESTIONS: type('dspace/integration/openaire/suggestions/target/ADD_USER_SUGGESTIONS'),
+  MARK_USER_SUGGESTIONS_AS_VISITED: type('dspace/integration/openaire/suggestions/target/MARK_USER_SUGGESTIONS_AS_VISITED')
 }
 
 /* tslint:disable:max-classes-per-file */
@@ -23,23 +24,27 @@ export const SuggestionTargetActionTypes = {
 /**
  * An ngrx action to retrieve all the Suggestion Targets.
  */
-export class RetrieveAllTargetsAction implements Action {
-  type = SuggestionTargetActionTypes.RETRIEVE_ALL_TARGETS;
+export class RetrieveTargetsBySourceAction implements Action {
+  type = SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE;
   payload: {
+    source: string;
     elementsPerPage: number;
     currentPage: number;
   };
 
   /**
-   * Create a new RetrieveAllTargetsAction.
+   * Create a new RetrieveTargetsBySourceAction.
    *
+   * @param source
+   *    the source for which to retrieve suggestion targets
    * @param elementsPerPage
    *    the number of targets per page
    * @param currentPage
    *    The page number to retrieve
    */
-  constructor(elementsPerPage: number, currentPage: number) {
+  constructor(source: string, elementsPerPage: number, currentPage: number) {
     this.payload = {
+      source,
       elementsPerPage,
       currentPage
     };
@@ -50,7 +55,7 @@ export class RetrieveAllTargetsAction implements Action {
  * An ngrx action for retrieving 'all Suggestion Targets' error.
  */
 export class RetrieveAllTargetsErrorAction implements Action {
-  type = SuggestionTargetActionTypes.RETRIEVE_ALL_TARGETS_ERROR;
+  type = SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR;
 }
 
 /**
@@ -59,7 +64,7 @@ export class RetrieveAllTargetsErrorAction implements Action {
 export class AddTargetAction implements Action {
   type = SuggestionTargetActionTypes.ADD_TARGETS;
   payload: {
-    targets: SuggestionTargetObject[];
+    targets: OpenaireSuggestionTarget[];
     totalPages: number;
     currentPage: number;
     totalElements: number;
@@ -77,7 +82,7 @@ export class AddTargetAction implements Action {
    * @param totalElements
    *    the total available Suggestion Targets
    */
-  constructor(targets: SuggestionTargetObject[], totalPages: number, currentPage: number, totalElements: number) {
+  constructor(targets: OpenaireSuggestionTarget[], totalPages: number, currentPage: number, totalElements: number) {
     this.payload = {
       targets,
       totalPages,
@@ -95,20 +100,21 @@ export class AddTargetAction implements Action {
 export class AddUserSuggestionsAction implements Action {
   type = SuggestionTargetActionTypes.ADD_USER_SUGGESTIONS;
   payload: {
-    suggestions: SuggestionTargetObject;
+    suggestionTargets: OpenaireSuggestionTarget[];
   };
 
   /**
    * Create a new AddUserSuggestionsAction.
    *
-   * @param suggestions
+   * @param suggestionTargets
    *    the user suggestions target
    */
-  constructor(suggestions: SuggestionTargetObject) {
-    this.payload = { suggestions };
+  constructor(suggestionTargets: OpenaireSuggestionTarget[]) {
+    this.payload = { suggestionTargets };
   }
 
 }
+
 /**
  * An ngrx action to Mark User Suggestions As Visited.
  * Called by the ??? effect.
@@ -117,15 +123,23 @@ export class MarkUserSuggestionsAsVisitedAction implements Action {
   type = SuggestionTargetActionTypes.MARK_USER_SUGGESTIONS_AS_VISITED;
 }
 
+/**
+ * An ngrx action to clear targets state.
+ */
+export class ClearSuggestionTargetsAction implements Action {
+  type = SuggestionTargetActionTypes.CLEAR_TARGETS;
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types.
  */
-export type SuggestionTargetActions
+export type SuggestionTargetsActions
   = AddTargetAction
   | AddUserSuggestionsAction
+  | ClearSuggestionTargetsAction
   | MarkUserSuggestionsAsVisitedAction
-  | RetrieveAllTargetsAction
+  | RetrieveTargetsBySourceAction
   | RetrieveAllTargetsErrorAction;

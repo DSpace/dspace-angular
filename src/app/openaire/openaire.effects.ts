@@ -1,7 +1,7 @@
 import { OpenaireBrokerTopicsEffects } from './broker/topics/openaire-broker-topics.effects';
-import { SuggestionTargetEffects } from './reciter/suggestion-target/suggestion-target.effects';
+import { SuggestionTargetsEffects } from './reciter-suggestions/suggestion-targets/suggestion-targets.effects';
 
 export const openaireEffects = [
   OpenaireBrokerTopicsEffects,
-  SuggestionTargetEffects
+  SuggestionTargetsEffects
 ];

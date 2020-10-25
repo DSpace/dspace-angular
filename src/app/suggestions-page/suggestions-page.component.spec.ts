@@ -1,24 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SuggestionPageComponent } from './suggestion-page.component';
+import { SuggestionsPageComponent } from './suggestions-page.component';
 import { OpenaireModule } from '../openaire/openaire.module';
 
 describe('SuggestionPageComponent', () => {
-  let component: SuggestionPageComponent;
-  let fixture: ComponentFixture<SuggestionPageComponent>;
+  let component: SuggestionsPageComponent;
+  let fixture: ComponentFixture<SuggestionsPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         OpenaireModule
       ],
-      declarations: [ SuggestionPageComponent ]
+      declarations: [ SuggestionsPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SuggestionPageComponent);
+    fixture = TestBed.createComponent(SuggestionsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SuggestionPageResolver } from './suggestion-page.resolver';
-import { SuggestionPageComponent } from './suggestion-page.component';
+import { SuggestionsPageResolver } from './suggestions-page.resolver';
+import { SuggestionsPageComponent } from './suggestions-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
-        path: ':id/:name',
+        path: ':targetId',
         resolve: {
-          suggestion: SuggestionPageResolver,
+          suggestion: SuggestionsPageResolver,
           breadcrumb: I18nBreadcrumbResolver
         },
         data: {
@@ -20,16 +21,16 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
           breadcrumbKey: 'admin.notifications.recitersuggestion',
           showBreadcrumbsFluid: false
         },
-        canActivate: [AuthenticatedGuard],
+        canActivate: [AuthenticatedGuard, SiteAdministratorGuard],
         runGuardsAndResolvers: 'always',
-        component: SuggestionPageComponent,
+        component: SuggestionsPageComponent,
       },
     ])
   ],
   providers: [
-    SuggestionPageResolver
+    SuggestionsPageResolver
   ]
 })
-export class SuggestionPageRoutingModule {
+export class SuggestionsPageRoutingModule {
 
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, from, Observable, of as observableOf } from 'rxjs';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { flatMap, map, scan, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, from, Observable, of as observableOf, Subscription } from 'rxjs';
+import { filter, flatMap, map, scan, take } from 'rxjs/operators';
+
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -14,7 +15,7 @@ import { OpenaireBrokerEventRestService } from '../../../core/openaire/broker/ev
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RestResponse } from '../../../core/cache/response.models';
@@ -23,6 +24,7 @@ import {
   ProjectEntryImportModalComponent
 } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { getFinishedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import { Item } from '../../../core/shared/item.model';
 
 /**
  * Component to display the OpenAIRE Broker event list.
@@ -193,8 +195,9 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   protected setEventUpdated(events: OpenaireBrokerEventObject[]): void {
     this.subs.push(
       from(events).pipe(
-        flatMap((event) => {
+        flatMap((event: OpenaireBrokerEventObject) => {
           return event.related.pipe(
+            filter((rd: RemoteData<Item>) => (!rd.isResponsePending && isNotEmpty(rd.payload)) || rd.statusCode === 204),
             getRemoteDataPayload(),
             map((subRelated) => {
               const data: OpenaireBrokerEventData = {

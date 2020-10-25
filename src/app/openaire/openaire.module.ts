@@ -15,12 +15,12 @@ import { OpenaireBrokerTopicsService } from './broker/topics/openaire-broker-top
 import { OpenaireBrokerTopicRestService } from '../core/openaire/broker/topics/openaire-broker-topic-rest.service';
 import { OpenaireBrokerEventRestService } from '../core/openaire/broker/events/openaire-broker-event-rest.service';
 import { ProjectEntryImportModalComponent } from './broker/project-entry-import-modal/project-entry-import-modal.component';
-import { ReciterSuggestionStateService } from './reciter/recitersuggestions.state.service';
-import { SuggestionTargetsService } from './reciter/suggestion-target/suggestion-target.service';
-import { SuggestionTargetRestService } from '../core/openaire/reciter-suggestions/reciter-suggestions-rest.service';
-import { SuggestionTargetComponent } from './reciter/suggestion-target/suggestion-target.component';
-import { SuggestionListItemComponent } from './reciter/suggestion-list-item/suggestion-list-item.component';
-import { SuggestionEvidenceListItemComponent } from './reciter/suggestion-evidence-list/suggestion-evidence-list.component';
+import { SuggestionTargetsStateService } from './reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
+import { SuggestionsService } from './reciter-suggestions/suggestions.service';
+import { OpenaireSuggestionsDataService } from '../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
+import { SuggestionTargetsComponent } from './reciter-suggestions/suggestion-targets/suggestion-targets.component';
+import { SuggestionListElementComponent } from './reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionEvidenceListItemComponent } from './reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 
 const MODULES = [
   CommonModule,
@@ -33,8 +33,8 @@ const MODULES = [
 const COMPONENTS = [
   OpenaireBrokerTopicsComponent,
   OpenaireBrokerEventsComponent,
-  SuggestionTargetComponent,
-  SuggestionListItemComponent,
+  SuggestionTargetsComponent,
+  SuggestionListElementComponent,
   SuggestionEvidenceListItemComponent
 ];
 
@@ -49,9 +49,9 @@ const PROVIDERS = [
   OpenaireBrokerTopicsService,
   OpenaireBrokerTopicRestService,
   OpenaireBrokerEventRestService,
-  ReciterSuggestionStateService,
-  SuggestionTargetsService,
-  SuggestionTargetRestService
+  SuggestionTargetsStateService,
+  SuggestionsService,
+  OpenaireSuggestionsDataService
 ];
 
 @NgModule({

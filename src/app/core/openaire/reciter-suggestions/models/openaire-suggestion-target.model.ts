@@ -1,7 +1,7 @@
 import { autoserialize, deserialize } from 'cerialize';
 
 import { CacheableObject } from '../../../cache/object-cache.reducer';
-import { SUGGESTION_TARGET_OBJECT } from './suggestion-target-object.resource-type'
+import { SUGGESTION_TARGET } from './openaire-suggestion-objects.resource-type'
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { ResourceType } from '../../../shared/resource-type';
 import { HALLink } from '../../../shared/hal-link.model';
@@ -11,17 +11,11 @@ import { typedObject } from '../../../cache/builders/build-decorators';
  * The interface representing the Suggestion Target model
  */
 @typedObject
-export class SuggestionTargetObject implements CacheableObject {
+export class OpenaireSuggestionTarget implements CacheableObject {
   /**
    * A string representing the kind of object, e.g. community, item, …
    */
-  static type = SUGGESTION_TARGET_OBJECT;
-
-  /**
-   * The type of this ConfigObject
-   */
-  @excludeFromEquals
-  type: ResourceType = SUGGESTION_TARGET_OBJECT;
+  static type = SUGGESTION_TARGET;
 
   /**
    * The Suggestion Target id
@@ -46,6 +40,13 @@ export class SuggestionTargetObject implements CacheableObject {
    */
   @autoserialize
   total: number;
+
+  /**
+   * The type of this ConfigObject
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.

@@ -5,10 +5,10 @@
         <ds-suggestion-evidence-list (backClicked)="back($event)" [evidences]="evidences"></ds-suggestion-evidence-list>
       </div>
       <div *ngIf="!isShowEvidence">
-        <ng-container *ngVar="(subCollectionsRDObs | async) as subCollectionsRD">
-          <div *ngIf="subCollectionsRD?.pageInfo.totalElements > 0">
-            <h2>{{'reciter.suggestion.suggestionFor' | translate}} {{researcherName}} {{'reciter.suggestion.fromTheOpenAIREGraph' | translate}}</h2>
-            <ds-pagination [paginationOptions]="config" [pageInfoState]="subCollectionsRD"
+        <ng-container *ngVar="(suggestionsRD$ | async) as subCollectionsRD">
+          <div *ngIf="subCollectionsRD?.pageInfo?.totalElements > 0">
+            <h2>{{'reciter.suggestion.suggestionFor' | translate}} {{researcherName}} {{'reciter.suggestion.from.source' | translate}} {{'reciter.suggestion.source.oaire' | translate}}</h2>
+            <ds-pagination [paginationOptions]="config" [pageInfoState]="subCollectionsRD?.pageInfo"
               [collectionSize]="subCollectionsRD?.pageInfo?.totalElements" [sortOptions]="sortConfig" [hideGear]="false"
               [hidePagerWhenSinglePage]="false" [hidePaginationDetail]="false"
               (pageChange)="onPaginationChange($event)">
