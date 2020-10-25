@@ -3417,6 +3417,14 @@
 
   "submission.import-external.source.lcname": "Library of Congress Names",
 
+  "submission.import-external.source.epo": "Epo",
+
+  "submission.import-external.source.orcid": "Orcid",
+
+  "submission.import-external.source.openaire": "Openaire",
+
+  "submission.import-external.source.scopus": "Scopus",
+
   "submission.import-external.preview.title": "Item Preview",
 
   "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
