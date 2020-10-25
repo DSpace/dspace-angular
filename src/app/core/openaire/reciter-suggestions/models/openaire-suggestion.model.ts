@@ -46,7 +46,7 @@ export class OpenaireSuggestion implements CacheableObject {
    * The Suggestion external source uri
    */
   @autoserialize
-  'external-source-uri': string;
+  externalSourceUri: string;
 
   /**
    * The total number of suggestions provided by Suggestion Target for

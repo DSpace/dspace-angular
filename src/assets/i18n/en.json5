@@ -439,9 +439,9 @@
 
   "admin.notifications.openaireevent.page.title": "OpenAIRE Broker Suggestions",
 
-  "admin.notifications.recitersuggestion.breadcrumbs": "Reciter Suggestions",
+  "admin.notifications.recitersuggestion.breadcrumbs": "Suggestions",
 
-  "admin.notifications.recitersuggestion.page.title": "Reciter Suggestions",
+  "admin.notifications.recitersuggestion.page.title": "Suggestions",
 
 
   "admin.search.breadcrumbs": "Administrative Search",
@@ -2118,7 +2118,7 @@
 
   "menu.section.notifications_openaire_broker": "OpenAIRE Broker",
 
-  "menu.section.notifications_reciter": "ReCiter",
+  "menu.section.notifications_reciter": "Publication Claim",
 
 
 
@@ -2515,7 +2515,7 @@
 
   "reciter.suggestion.loading": "Loading ...",
 
-  "reciter.suggestion.title": "Reciter Suggestions",
+  "reciter.suggestion.title": "Suggestions",
 
   "reciter.suggestion.targets.description": "Below you can see all the suggestions ",
 
@@ -2529,7 +2529,7 @@
 
   "reciter.suggestion.noTargets": "No target found.",
 
-  "reciter.suggestion.target.error.service.retrieve": "An error occurred while loading the Reciter Suggestion Target",
+  "reciter.suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
 
   "reciter.suggestion.evidence.type": "Type",
 
@@ -3619,6 +3619,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
 

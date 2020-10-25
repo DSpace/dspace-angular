@@ -28,6 +28,7 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from '../admin-notifications/admin-notifications-routing-paths';
 
 /**
  * Component representing the admin sidebar
@@ -474,7 +475,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.notifications_reciter',
-            link: '/admin/notifications/reciter-suggestion'
+            link: '/admin/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
           } as LinkMenuItemModel,
         },
         /* Access Control */

@@ -144,7 +144,7 @@ export class SuggestionsPageComponent implements OnInit {
    * @param event
    */
   approveAndImport(event) {
-    this.itemService.importExternalSourceEntry(event.suggestion, event.collectionId).pipe().subscribe((response: any) => {
+    this.itemService.importExternalSourceEntry(event.suggestion.externalSourceUri, event.collectionId).pipe().subscribe((response: any) => {
       this.updatePage();
     });
   }
