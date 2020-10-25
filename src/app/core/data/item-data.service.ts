@@ -13,14 +13,13 @@ import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { Collection } from '../shared/collection.model';
-import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
 import {
   configureRequest,
   filterSuccessfulResponses,
-  getRequestFromRequestHref, getRequestFromRequestUUID,
+  getRequestFromRequestUUID,
   getResponseFromEntry
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -336,10 +335,10 @@ export class ItemDataService extends DataService<Item> {
 
   /**
    * Import an external source entry into a collection
-   * @param externalSourceEntry
+   * @param externalSourceEntryHref
    * @param collectionId
    */
-  public importExternalSourceEntry(externalSourceEntry: ExternalSourceEntry, collectionId: string): Observable<RemoteData<Item>> {
+  public importExternalSourceEntry(externalSourceEntryHref: string, collectionId: string): Observable<RemoteData<Item>> {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
@@ -351,7 +350,7 @@ export class ItemDataService extends DataService<Item> {
     href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new PostRequest(requestId, href, externalSourceEntry._links.self.href, options);
+        const request = new PostRequest(requestId, href, externalSourceEntryHref, options);
         this.requestService.configure(request);
       })
     ).subscribe();

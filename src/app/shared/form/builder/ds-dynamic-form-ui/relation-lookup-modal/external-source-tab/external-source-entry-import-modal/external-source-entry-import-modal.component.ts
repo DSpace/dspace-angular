@@ -211,7 +211,7 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
    * Create and import a new entity from the external entry
    */
   importNewEntity() {
-    this.itemService.importExternalSourceEntry(this.externalSourceEntry, this.collectionId).pipe(
+    this.itemService.importExternalSourceEntry(this.externalSourceEntry._links.self.href, this.collectionId).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       take(1)

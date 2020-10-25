@@ -208,7 +208,7 @@ describe('ItemDataService', () => {
     beforeEach(() => {
       service = initTestService();
       spyOn(requestService, 'configure');
-      result = service.importExternalSourceEntry(externalSourceEntry, 'collection-id');
+      result = service.importExternalSourceEntry(externalSourceEntry._links.self.href, 'collection-id');
     });
 
     it('should configure a POST request', () => {
