@@ -2,12 +2,15 @@
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
 
-export const PUBLICATION_ONE: any =  {
-  'id': '24694772',
-  'display': 'publication one',
-  'source': 'reciter',
-  'external-source-uri': 'https://dspace7.4science.cloud/server/api/integration/reciterSourcesEntry/pubmed/entryValues/24694772',
-  'evidences': {
+import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
+import { SUGGESTION } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-objects.resource-type';
+
+export const mockSuggestionPublicationOne: OpenaireSuggestion =  {
+  id: '24694772',
+  display: 'publication one',
+  source: 'reciter',
+  externalSourceUri: 'https://dspace7.4science.cloud/server/api/integration/reciterSourcesEntry/pubmed/entryValues/24694772',
+  evidences: {
     acceptedRejectedEvidence: {
       score: '2.7',
       notes: 'some notes, eventually empty or null'
@@ -45,7 +48,7 @@ export const PUBLICATION_ONE: any =  {
       notes: 'some notes, eventually empty or null'
     }
   },
-  'metadata': {
+  metadata: {
     'dc.identifier.uri': [
       {
         value: 'https://publication/0000-0003-3681-2038',
@@ -53,7 +56,7 @@ export const PUBLICATION_ONE: any =  {
         authority: null,
         confidence: -1,
         place: -1
-      }
+      } as any
     ],
     'dc.title': [
       {
@@ -61,7 +64,7 @@ export const PUBLICATION_ONE: any =  {
         language: null,
         authority: null,
         confidence: -1
-      }
+      } as any
     ],
     'dc.date.issued': [
       {
@@ -69,7 +72,7 @@ export const PUBLICATION_ONE: any =  {
         language: null,
         authority: null,
         confidence: -1
-      }
+      }  as any
     ],
     'relationship.type': [
       {
@@ -79,7 +82,7 @@ export const PUBLICATION_ONE: any =  {
         place: 0,
         authority: null,
         confidence: -1
-      }
+      } as any
     ],
     'dc.description': [
       {
@@ -89,11 +92,11 @@ export const PUBLICATION_ONE: any =  {
         place: 0,
         authority: null,
         confidence: -1
-      }
+      } as any
     ]
   },
-  'type': 'suggestion',
-  '_links': {
+  type: SUGGESTION,
+  _links: {
     target: {
       href: 'https://dspace7.4science.cloud/server/api/core/items/gf3d657-9d6d-4a87-b905-fef0f8cae26'
     },
@@ -103,12 +106,12 @@ export const PUBLICATION_ONE: any =  {
   }
 }
 
-export const PUBLICATION_TWO: any =  {
-  'id': '24694772',
-  'display': 'publication two',
-  'source': 'reciter',
-  'external-source-uri': 'https://dspace7.4science.cloud/server/api/integration/reciterSourcesEntry/pubmed/entryValues/24694772',
-  'evidences': {
+export const mockSuggestionPublicationTwo: OpenaireSuggestion =  {
+  id: '24694772',
+  display: 'publication two',
+  source: 'reciter',
+  externalSourceUri: 'https://dspace7.4science.cloud/server/api/integration/reciterSourcesEntry/pubmed/entryValues/24694772',
+  evidences: {
     acceptedRejectedEvidence: {
       score: '2.7',
       notes: 'some notes, eventually empty or null'
@@ -146,7 +149,7 @@ export const PUBLICATION_TWO: any =  {
       notes: 'some notes, eventually empty or null'
     }
   },
-  'metadata': {
+  metadata: {
     'dc.identifier.uri': [
       {
         value: 'https://publication/0000-0003-3681-2038',
@@ -154,7 +157,7 @@ export const PUBLICATION_TWO: any =  {
         authority: null,
         confidence: -1,
         place: -1
-      }
+      } as any
     ],
     'dc.title': [
       {
@@ -162,7 +165,7 @@ export const PUBLICATION_TWO: any =  {
         language: null,
         authority: null,
         confidence: -1
-      }
+      } as any
     ],
     'dc.date.issued': [
       {
@@ -170,7 +173,7 @@ export const PUBLICATION_TWO: any =  {
         language: null,
         authority: null,
         confidence: -1
-      }
+      } as any
     ],
     'relationship.type': [
       {
@@ -180,7 +183,7 @@ export const PUBLICATION_TWO: any =  {
         place: 0,
         authority: null,
         confidence: -1
-      }
+      } as any
     ],
     'dc.description': [
       {
@@ -190,11 +193,11 @@ export const PUBLICATION_TWO: any =  {
         place: 0,
         authority: null,
         confidence: -1
-      }
+      } as any
     ]
   },
-  'type': 'suggestion',
-  '_links': {
+  type: SUGGESTION,
+  _links: {
     target: {
       href: 'https://dspace7.4science.cloud/server/api/core/items/gf3d657-9d6d-4a87-b905-fef0f8cae26'
     },

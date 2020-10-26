@@ -67,7 +67,7 @@ export class SuggestionsPageComponent implements OnInit {
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
 
     this.targetRD$ = this.route.data.pipe(
-      map((data: Data) => data.suggestion as RemoteData<OpenaireSuggestionTarget>),
+      map((data: Data) => data.suggestionTargets as RemoteData<OpenaireSuggestionTarget>),
       redirectToPageNotFoundOn404(this.router)
     );
 

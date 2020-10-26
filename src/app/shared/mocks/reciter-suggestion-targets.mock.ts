@@ -1,10 +1,9 @@
 import { ResourceType } from '../../core/shared/resource-type';
-import { OpenaireReciterSuggestionTarget } from '../../core/openaire/reciter-suggestions/models/suggestion-targets.model';
+import { OpenaireSuggestionTarget } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
-
-export const suggestionTargetObjectBollini: OpenaireReciterSuggestionTarget = {
+export const mockSuggestionTargetsObjectOne: OpenaireSuggestionTarget = {
   type: new ResourceType('suggestiontarget'),
   id: 'reciter:gf3d657-9d6d-4a87-b905-fef0f8cae26',
   display: 'Bollini, Andrea',
@@ -23,7 +22,7 @@ export const suggestionTargetObjectBollini: OpenaireReciterSuggestionTarget = {
   }
 };
 
-export const suggestionTargetObjectDigilio: OpenaireReciterSuggestionTarget = {
+export const mockSuggestionTargetsObjectTwo: OpenaireSuggestionTarget = {
   type: new ResourceType('suggestiontarget'),
   id: 'reciter:nhy567-9d6d-ty67-b905-fef0f8cae26',
   display: 'Digilio, Andrea',

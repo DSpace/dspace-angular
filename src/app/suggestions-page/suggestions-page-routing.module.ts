@@ -13,7 +13,7 @@ import { SiteAdministratorGuard } from '../core/data/feature-authorization/featu
       {
         path: ':targetId',
         resolve: {
-          suggestion: SuggestionsPageResolver,
+          suggestionTargets: SuggestionsPageResolver,
           breadcrumb: I18nBreadcrumbResolver
         },
         data: {

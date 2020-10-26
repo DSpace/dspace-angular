@@ -7,8 +7,9 @@ import { OpenaireBrokerEventRestService } from '../../core/openaire/broker/event
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { OpenaireStateService } from '../../openaire/openaire-state.service';
 import { Item } from '../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { createNoContentRemoteDataObject, createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { SearchResult } from '../search/search-result.model';
+import { SuggestionsService } from '../../openaire/reciter-suggestions/suggestions.service';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1721,7 +1722,7 @@ export const openaireBrokerEventObjectMissingProjectNotFound: OpenaireBrokerEven
     }
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid9)),
-  related: observableOf(createSuccessfulRemoteDataObject(null))
+  related: observableOf(createNoContentRemoteDataObject())
 };
 
 // Classes
@@ -1747,8 +1748,7 @@ OpenaireStateService {
 /**
  * Mock for [[OpenaireBrokerTopicRestService]]
  */
-export function getMockOpenaireBrokerTopicRestService():
-OpenaireBrokerTopicRestService {
+export function getMockOpenaireBrokerTopicRestService(): OpenaireBrokerTopicRestService {
   return jasmine.createSpyObj('OpenaireBrokerTopicRestService', {
     getTopics: jasmine.createSpy('getTopics'),
     getTopic: jasmine.createSpy('getTopic'),
@@ -1758,13 +1758,25 @@ OpenaireBrokerTopicRestService {
 /**
  * Mock for [[OpenaireBrokerEventRestService]]
  */
-export function getMockOpenaireBrokerEventRestService():
-OpenaireBrokerEventRestService {
+export function getMockOpenaireBrokerEventRestService(): OpenaireBrokerEventRestService {
   return jasmine.createSpyObj('OpenaireBrokerEventRestService', {
     getEventsByTopic: jasmine.createSpy('getEventsByTopic'),
     getEvent: jasmine.createSpy('getEvent'),
     patchEvent: jasmine.createSpy('patchEvent'),
     boundProject: jasmine.createSpy('boundProject'),
     removeProject: jasmine.createSpy('removeProject'),
+  });
+}
+
+/**
+ * Mock for [[OpenaireBrokerEventRestService]]
+ */
+export function getMockSuggestionsService(): any {
+  return jasmine.createSpyObj('SuggestionsService', {
+    getTargets: jasmine.createSpy('getTargets'),
+    getSuggestions: jasmine.createSpy('getSuggestions'),
+    clearSuggestionRequests: jasmine.createSpy('clearSuggestionRequests'),
+    deleteReviewedSuggestion: jasmine.createSpy('deleteReviewedSuggestion'),
+    retrieveCurrentUserSuggestions: jasmine.createSpy('retrieveCurrentUserSuggestions'),
   });
 }

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <div *ngIf="isShowEvidence">
-        <ds-suggestion-evidence-list (backClicked)="back($event)" [evidences]="evidences"></ds-suggestion-evidence-list>
+        <ds-suggestion-evidences (backClicked)="back($event)" [evidences]="evidences"></ds-suggestion-evidences>
       </div>
       <div *ngIf="!isShowEvidence">
         <ng-container *ngVar="(suggestionsRD$ | async) as subCollectionsRD">

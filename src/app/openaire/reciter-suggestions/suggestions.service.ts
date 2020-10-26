@@ -128,22 +128,6 @@ export class SuggestionsService {
   }
 
   /**
-   * Used to get Suggestion for notification
-   * @suggestionId
-   */
-  public getSuggestion(suggestionId: string): Observable<OpenaireSuggestionTarget> {
-    return this.suggestionsDataService.getSuggestion(suggestionId).pipe(
-      map((rd: RemoteData<any>) => {
-        if (rd.hasSucceeded) {
-          return rd.payload;
-        } else {
-          throw new Error('Can\'t retrieve Suggestions from the Suggestion Target REST service');
-        }
-      })
-    );
-  }
-
-  /**
    * Retrieve suggestion targets for the given user
    *
    * @param user
