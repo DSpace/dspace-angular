@@ -215,6 +215,7 @@ import { SidebarSearchListElementComponent } from './object-list/sidebar-search-
 import { CollectionSidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/collection/collection-sidebar-search-list-element.component';
 import { CommunitySidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
 import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -543,19 +544,21 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...SHARED_ITEM_PAGE_COMPONENTS
+    ...SHARED_ITEM_PAGE_COMPONENTS,
+    DsoPageEditButtonComponent
   ],
   providers: [
     ...PROVIDERS
   ],
-  exports: [
-    ...MODULES,
-    ...PIPES,
-    ...COMPONENTS,
-    ...SHARED_ITEM_PAGE_COMPONENTS,
-    ...DIRECTIVES,
-    CurationFormComponent
-  ],
+    exports: [
+        ...MODULES,
+        ...PIPES,
+        ...COMPONENTS,
+        ...SHARED_ITEM_PAGE_COMPONENTS,
+        ...DIRECTIVES,
+        CurationFormComponent,
+        DsoPageEditButtonComponent
+    ],
   entryComponents: [
     ...ENTRY_COMPONENTS
   ]
