@@ -43,6 +43,7 @@ export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, a
   switch (action.type) {
     case SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE: {
       return Object.assign({}, state, {
+        targets: [],
         processing: true
       });
     }
@@ -60,9 +61,12 @@ export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, a
 
     case SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR: {
       return Object.assign({}, state, {
+        targets: [],
         processing: false,
         loaded: true,
-        currentPage: 0
+        totalPages: 0,
+        currentPage: 0,
+        totalElements: 0,
       });
     }
 

@@ -8,8 +8,8 @@ import { AdminNotificationsOpenairebrokerPageComponent } from './admin-notificat
 import { AdminNotificationsOpenaireeventPageComponent } from './admin-notifications-openaireevent-page/admin-notifications-openaireevent-page.component';
 import { AdminNotificationsOpenaireBrokerPageResolver } from './admin-notifications-openairebroker-page/admin-notifications-openairebroker-page.resolver';
 import { AdminNotificationsOpenaireEventPageResolver } from './admin-notifications-openaireevent-page/admin-notifications-openaireevent-page.resolver';
-import { AdminNotificationsReciterPageComponent } from './admin-notifications-reciter-page/admin-notifications-reciter-page.component';
-import { AdminNotificationsReciterPageResolver } from './admin-notifications-reciter-page/admin-notifications-reciter-page.resolver';
+import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page.component';
+import { AdminNotificationsSuggestionTargetsPageResolver } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page-resolver.service';
 
 @NgModule({
   imports: [
@@ -47,11 +47,11 @@ import { AdminNotificationsReciterPageResolver } from './admin-notifications-rec
       {
         canActivate: [ AuthenticatedGuard ],
         path: `${NOTIFICATIONS_RECITER_SUGGESTION_PATH}`,
-        component: AdminNotificationsReciterPageComponent,
+        component: AdminNotificationsSuggestionTargetsPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          reciterSuggestionTargetParams: AdminNotificationsReciterPageResolver
+          reciterSuggestionTargetParams: AdminNotificationsSuggestionTargetsPageResolver
         },
         data: {
           title: 'admin.notifications.recitersuggestion.page.title',
@@ -66,7 +66,7 @@ import { AdminNotificationsReciterPageResolver } from './admin-notifications-rec
     I18nBreadcrumbsService,
     AdminNotificationsOpenaireBrokerPageResolver,
     AdminNotificationsOpenaireEventPageResolver,
-    AdminNotificationsReciterPageResolver
+    AdminNotificationsSuggestionTargetsPageResolver
   ]
 })
 /**

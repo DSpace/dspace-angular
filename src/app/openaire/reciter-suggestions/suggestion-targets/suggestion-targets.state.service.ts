@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
+
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import {
+  getCurrentUserSuggestionTargetsSelector,
+  getCurrentUserSuggestionTargetsVisitedSelector,
   getreciterSuggestionTargetCurrentPageSelector,
-  getreciterSuggestionTargetTotalPagesSelector,
   getreciterSuggestionTargetTotalsSelector,
   isReciterSuggestionTargetLoadedSelector,
   isreciterSuggestionTargetProcessingSelector,
-  reciterSuggestionTargetObjectSelector,
-  getCurrentUserSuggestionTargetsSelector, getCurrentUserSuggestionTargetsVisitedSelector
+  reciterSuggestionTargetObjectSelector
 } from '../selectors';
 import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import {
@@ -30,9 +32,6 @@ export class SuggestionTargetsStateService {
    * @param {Store<OpenaireState>} store
    */
   constructor(private store: Store<OpenaireState>) { }
-
-  // Reciter Suggestion Targets
-  // --------------------------------------------------------------------------
 
   /**
    * Returns the list of Reciter Suggestion Targets from the state.
@@ -104,7 +103,7 @@ export class SuggestionTargetsStateService {
    *    The number of the Reciter Suggestion Targets.
    */
   public getReciterSuggestionTargetsTotals(): Observable<number> {
-    return this.store.pipe(select(getreciterSuggestionTargetTotalPagesSelector))
+    return this.store.pipe(select(getreciterSuggestionTargetTotalsSelector));
   }
 
   /**

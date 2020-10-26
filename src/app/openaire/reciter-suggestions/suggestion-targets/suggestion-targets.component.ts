@@ -4,13 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SuggestionTargetsStateService } from './suggestion-targets.state.service';
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
-import { OpenaireSuggestion } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
+import { AdminNotificationsSuggestionTargetsPageParams } from '../../../+admin/admin-notifications/admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page-resolver.service';
 
 /**
  * Component to display the Suggestion Target list.
@@ -36,11 +35,6 @@ export class SuggestionTargetsComponent implements OnInit {
    * @type {PaginationComponentOptions}
    */
   public paginationConfig: PaginationComponentOptions;
-  /**
-   * The Suggestion Target list sort options.
-   * @type {SortOptions}
-   */
-  public paginationSortConfig: SortOptions;
   /**
    * The Suggestion Target list.
    */
@@ -69,7 +63,7 @@ export class SuggestionTargetsComponent implements OnInit {
   }
 
   /**
-   * Component intitialization.
+   * Component initialization.
    */
   ngOnInit(): void {
     this.paginationConfig = new PaginationComponentOptions();
@@ -79,22 +73,13 @@ export class SuggestionTargetsComponent implements OnInit {
     this.paginationConfig.pageSizeOptions = [ 5, 10, 20, 30, 50 ];
     this.subs.push(
       this.activatedRoute.data.pipe(
-        map((data) => {
-          if (data.reciterSuggestionTargetParams.currentPage) {
-            this.paginationConfig.currentPage = data.reciterSuggestionTargetParams.currentPage;
-          }
-          if (data.reciterSuggestionTargetParams.pageSize) {
-            if (this.paginationConfig.pageSizeOptions.includes(data.reciterSuggestionTargetParams.pageSize)) {
-              this.paginationConfig.pageSize = data.reciterSuggestionTargetParams.currentPage;
-            } else {
-              this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
-            }
-          }
-          this.targets$ = this.suggestionTargetsStateService.getReciterSuggestionTargets();
-          this.totalElements$ = this.suggestionTargetsStateService.getReciterSuggestionTargetsTotals();
-        })
-      )
-        .subscribe()
+        map((data) => data.reciterSuggestionTargetParams),
+        take(1)
+      ).subscribe((suggestionTargetsParams) => {
+        this.updatePaginationFromRouteParams(suggestionTargetsParams);
+        this.targets$ = this.suggestionTargetsStateService.getReciterSuggestionTargets();
+        this.totalElements$ = this.suggestionTargetsStateService.getReciterSuggestionTargetsTotals();
+      })
     );
   }
 
@@ -145,6 +130,19 @@ export class SuggestionTargetsComponent implements OnInit {
   }
 
   /**
+   * Set the current page size for the pagination system.
+   *
+   * @param {number} pageSize
+   *    the number of the current page size
+   */
+  public setPageSize(pageSize: number) {
+    if (this.paginationConfig.pageSize !== pageSize) {
+      this.paginationConfig.pageSize = pageSize;
+      this.getSuggestionTargets();
+    }
+  }
+
+  /**
    * Redirect to suggestion page.
    *
    * @param {string} id
@@ -172,8 +170,26 @@ export class SuggestionTargetsComponent implements OnInit {
   protected getSuggestionTargets(): void {
     this.suggestionTargetsStateService.dispatchRetrieveReciterSuggestionTargets(
       this.source,
-      this.elementsPerPage,
+      this.paginationConfig.pageSize,
       this.paginationConfig.currentPage
     );
+  }
+
+  /**
+   * Update pagination Config from route params
+   *
+   * @param suggestionTargetsRouteParams
+   */
+  protected updatePaginationFromRouteParams(suggestionTargetsRouteParams: AdminNotificationsSuggestionTargetsPageParams) {
+    if (suggestionTargetsRouteParams.currentPage) {
+      this.paginationConfig.currentPage = suggestionTargetsRouteParams.currentPage;
+    }
+    if (suggestionTargetsRouteParams.pageSize) {
+      if (this.paginationConfig.pageSizeOptions.includes(suggestionTargetsRouteParams.pageSize)) {
+        this.paginationConfig.pageSize = suggestionTargetsRouteParams.pageSize;
+      } else {
+        this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
+      }
+    }
   }
 }

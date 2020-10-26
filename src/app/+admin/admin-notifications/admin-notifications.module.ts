@@ -6,7 +6,7 @@ import { AdminNotificationsRoutingModule } from './admin-notifications-routing.m
 import { AdminNotificationsOpenairebrokerPageComponent } from './admin-notifications-openairebroker-page/admin-notifications-openairebroker-page.component';
 import { AdminNotificationsOpenaireeventPageComponent } from './admin-notifications-openaireevent-page/admin-notifications-openaireevent-page.component';
 import { OpenaireModule } from '../../openaire/openaire.module';
-import { AdminNotificationsReciterPageComponent } from './admin-notifications-reciter-page/admin-notifications-reciter-page.component';
+import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page.component';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { AdminNotificationsReciterPageComponent } from './admin-notifications-re
   declarations: [
     AdminNotificationsOpenairebrokerPageComponent,
     AdminNotificationsOpenaireeventPageComponent,
-    AdminNotificationsReciterPageComponent
+    AdminNotificationsSuggestionTargetsPageComponent
   ],
   entryComponents: []
 })

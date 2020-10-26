@@ -5,12 +5,14 @@
 
       <ds-loading class="container" *ngIf="(isTargetsLoading() | async)" message="{{'reciter.suggestion.loading' | translate}}"></ds-loading>
       <ds-pagination *ngIf="!(isTargetsLoading() | async)"
-        [paginationOptions]="paginationConfig"
-        [collectionSize]="(totalElements$ | async)"
-        [hideGear]="false"
-        [hidePagerWhenSinglePage]="false"
-        [disableRouteParameterUpdate]="false"
-        (pageChange)="setPage($event)">
+                     [paginationOptions]="paginationConfig"
+                     [collectionSize]="(totalElements$ | async)"
+                     [hideGear]="false"
+                     [hideSortOptions]="true"
+                     [hidePagerWhenSinglePage]="false"
+                     [disableRouteParameterUpdate]="false"
+                     (pageChange)="setPage($event)"
+                     (pageSizeChange)="setPageSize($event)">
 
         <ds-loading class="container" *ngIf="(isTargetsProcessing() | async)" message="'reciter.suggestion.loading' | translate"></ds-loading>
         <ng-container *ngIf="!(isTargetsProcessing() | async)">
