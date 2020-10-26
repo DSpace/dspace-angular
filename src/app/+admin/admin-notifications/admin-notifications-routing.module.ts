@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
 import { NOTIFICATIONS_EDIT_PATH, NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin-notifications-routing-paths';
-import { AdminNotificationsOpenairebrokerPageComponent } from './admin-notifications-openairebroker-page/admin-notifications-openairebroker-page.component';
-import { AdminNotificationsOpenaireeventPageComponent } from './admin-notifications-openaireevent-page/admin-notifications-openaireevent-page.component';
-import { AdminNotificationsOpenaireBrokerPageResolver } from './admin-notifications-openairebroker-page/admin-notifications-openairebroker-page.resolver';
-import { AdminNotificationsOpenaireEventPageResolver } from './admin-notifications-openaireevent-page/admin-notifications-openaireevent-page.resolver';
+import { AdminNotificationsOpenaireTopicsPageComponent } from './admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page.component';
+import { AdminNotificationsOpenaireEventsPageComponent } from './admin-notifications-openaire-events-page/admin-notifications-openaire-events-page.component';
+import { AdminNotificationsOpenaireTopicsPageResolver } from './admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page-resolver.service';
+import { AdminNotificationsOpenaireEventsPageResolver } from './admin-notifications-openaire-events-page/admin-notifications-openaire-events-page.resolver';
 import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page.component';
 import { AdminNotificationsSuggestionTargetsPageResolver } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page-resolver.service';
 
@@ -17,11 +18,11 @@ import { AdminNotificationsSuggestionTargetsPageResolver } from './admin-notific
       {
         canActivate: [ AuthenticatedGuard ],
         path: `${NOTIFICATIONS_EDIT_PATH}`,
-        component: AdminNotificationsOpenairebrokerPageComponent,
+        component: AdminNotificationsOpenaireTopicsPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          openaireBrokerTopicsParams: AdminNotificationsOpenaireBrokerPageResolver
+          openaireBrokerTopicsParams: AdminNotificationsOpenaireTopicsPageResolver
         },
         data: {
           title: 'admin.notifications.openairebroker.page.title',
@@ -32,11 +33,11 @@ import { AdminNotificationsSuggestionTargetsPageResolver } from './admin-notific
       {
         canActivate: [ AuthenticatedGuard ],
         path: `${NOTIFICATIONS_EDIT_PATH}/:id`,
-        component: AdminNotificationsOpenaireeventPageComponent,
+        component: AdminNotificationsOpenaireEventsPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          openaireBrokerTopicsParams: AdminNotificationsOpenaireEventPageResolver
+          openaireBrokerEventsParams: AdminNotificationsOpenaireEventsPageResolver
         },
         data: {
           title: 'admin.notifications.openaireevent.page.title',
@@ -64,8 +65,8 @@ import { AdminNotificationsSuggestionTargetsPageResolver } from './admin-notific
   providers: [
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
-    AdminNotificationsOpenaireBrokerPageResolver,
-    AdminNotificationsOpenaireEventPageResolver,
+    AdminNotificationsOpenaireTopicsPageResolver,
+    AdminNotificationsOpenaireEventsPageResolver,
     AdminNotificationsSuggestionTargetsPageResolver
   ]
 })

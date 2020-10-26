@@ -94,7 +94,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
         );
         const searchOptions = Object.assign(new PaginatedSearchOptions(
           {
-            configuration: 'project',
+            configuration: 'funding',
             query: searchString,
             pagination: pagination
           }

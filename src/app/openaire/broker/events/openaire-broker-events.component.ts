@@ -25,12 +25,13 @@ import {
 } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { getFinishedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { Item } from '../../../core/shared/item.model';
+import { AdminNotificationsOpenaireEventsPageParams } from '../../../+admin/admin-notifications/admin-notifications-openaire-events-page/admin-notifications-openaire-events-page.resolver';
 
 /**
  * Component to display the OpenAIRE Broker event list.
  */
 @Component({
-  selector: 'ds-openaire-broker-event',
+  selector: 'ds-openaire-broker-events',
   templateUrl: './openaire-broker-events.component.html',
   styleUrls: ['./openaire-broker-events.scomponent.scss'],
 })
@@ -117,15 +118,15 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   ) { }
 
   /**
-   * Component intitialization.
+   * Component initialization.
    */
   ngOnInit(): void {
     this.isEventPageLoading.next(true)
     this.paginationConfig = new PaginationComponentOptions();
-    this.paginationConfig.id = 'openaire_broker_event';
+    this.paginationConfig.id = 'openaire_broker_events';
     this.paginationConfig.pageSize = this.elementsPerPage;
     this.paginationConfig.currentPage = 1;
-    this.paginationConfig.pageSizeOptions = [ 5, 10, 20 ];
+    this.paginationConfig.pageSizeOptions = [ 5, 10, 20, 30, 50 ];
 
     this.subs.push(
       combineLatest(
@@ -133,11 +134,11 @@ export class OpenaireBrokerEventsComponent implements OnInit {
           map((params) => params.get('id'))
         ),
         this.activatedRoute.data.pipe(
-          map((data) => data.openaireBrokerTopicsParams)
+          map((data) => data.openaireBrokerEventsParams)
         )
       )
-      .subscribe(([id, openaireBrokerTopicsParams]: [string, any]) => {
-        this.initPaginationConfig(openaireBrokerTopicsParams)
+      .subscribe(([id, openaireBrokerEventsRouteParams]: [string, any]) => {
+        this.updatePaginationFromRouteParams(openaireBrokerEventsRouteParams)
         const regEx = /!/g;
         this.showTopic = id.replace(regEx, '/');
         this.topic = id;
@@ -160,75 +161,15 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     }
   }
 
-  public hasDetailColumn() {
+  /**
+   * Check if table have a detail column
+   */
+  public hasDetailColumn(): boolean {
     return (this.showTopic.indexOf('/PROJECT') !== -1 ||
       this.showTopic.indexOf('/PID') !== -1 ||
       this.showTopic.indexOf('/SUBJECT') !== -1 ||
       this.showTopic.indexOf('/ABSTRACT') !== -1
     )
-  }
-
-  /**
-   * Initialize pagination Config
-   *
-   * @param openaireBrokerTopicsParams
-   */
-  protected initPaginationConfig(openaireBrokerTopicsParams: any) {
-    if (openaireBrokerTopicsParams.currentPage) {
-      this.paginationConfig.currentPage = openaireBrokerTopicsParams.currentPage;
-    }
-    if (openaireBrokerTopicsParams.pageSize) {
-      if (this.paginationConfig.pageSizeOptions.includes(openaireBrokerTopicsParams.pageSize)) {
-        this.paginationConfig.pageSize = openaireBrokerTopicsParams.currentPage;
-      } else {
-        this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
-      }
-    }
-  }
-
-  /**
-   * Set the project status for the OpenAIRE Broker events.
-   *
-   * @param {OpenaireBrokerEventObject[]} events
-   *    the OpenAIRE Broker event item
-   */
-  protected setEventUpdated(events: OpenaireBrokerEventObject[]): void {
-    this.subs.push(
-      from(events).pipe(
-        flatMap((event: OpenaireBrokerEventObject) => {
-          return event.related.pipe(
-            filter((rd: RemoteData<Item>) => (!rd.isResponsePending && isNotEmpty(rd.payload)) || rd.statusCode === 204),
-            getRemoteDataPayload(),
-            map((subRelated) => {
-              const data: OpenaireBrokerEventData = {
-                event: event,
-                id: event.id,
-                title: event.title,
-                hasProject: false,
-                projectTitle: null,
-                projectId: null,
-                handle: null,
-                reason: null,
-                isRunning: false
-              };
-              if (subRelated && subRelated.id) {
-                data.hasProject = true;
-                data.projectTitle = event.message.title;
-                data.projectId = subRelated.id;
-                data.handle = subRelated.handle;
-              }
-              return data;
-            })
-          );
-        }),
-        scan((acc: any, value: any) => [...acc, ...value], []),
-        take(events.length)
-      ).subscribe(
-        (eventsReduced) => {
-          this.eventsUpdated$.next(eventsReduced);
-        }
-      )
-    );
   }
 
   /**
@@ -425,6 +366,69 @@ export class OpenaireBrokerEventsComponent implements OnInit {
         this.openaireBrokerEventRestService.clearFindByTopicRequests()
       })
     );
+  }
+
+  /**
+   * Set the project status for the OpenAIRE Broker events.
+   *
+   * @param {OpenaireBrokerEventObject[]} events
+   *    the OpenAIRE Broker event item
+   */
+  protected setEventUpdated(events: OpenaireBrokerEventObject[]): void {
+    this.subs.push(
+      from(events).pipe(
+        flatMap((event: OpenaireBrokerEventObject) => {
+          return event.related.pipe(
+            filter((rd: RemoteData<Item>) => (!rd.isResponsePending && isNotEmpty(rd.payload)) || rd.statusCode === 204),
+            getRemoteDataPayload(),
+            map((subRelated) => {
+              const data: OpenaireBrokerEventData = {
+                event: event,
+                id: event.id,
+                title: event.title,
+                hasProject: false,
+                projectTitle: null,
+                projectId: null,
+                handle: null,
+                reason: null,
+                isRunning: false
+              };
+              if (subRelated && subRelated.id) {
+                data.hasProject = true;
+                data.projectTitle = event.message.title;
+                data.projectId = subRelated.id;
+                data.handle = subRelated.handle;
+              }
+              return data;
+            })
+          );
+        }),
+        scan((acc: any, value: any) => [...acc, ...value], []),
+        take(events.length)
+      ).subscribe(
+        (eventsReduced) => {
+          this.eventsUpdated$.next(eventsReduced);
+        }
+      )
+    );
+  }
+
+  /**
+   * Update pagination Config from route params
+   *
+   * @param eventsRouteParams
+   */
+  protected updatePaginationFromRouteParams(eventsRouteParams: AdminNotificationsOpenaireEventsPageParams): void {
+    if (eventsRouteParams.currentPage) {
+      this.paginationConfig.currentPage = eventsRouteParams.currentPage;
+    }
+    if (eventsRouteParams.pageSize) {
+      if (this.paginationConfig.pageSizeOptions.includes(eventsRouteParams.pageSize)) {
+        this.paginationConfig.pageSize = eventsRouteParams.pageSize;
+      } else {
+        this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
+      }
+    }
   }
 
   /**

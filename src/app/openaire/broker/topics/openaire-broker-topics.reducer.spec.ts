@@ -24,8 +24,7 @@ describe('openaireBrokerTopicsReducer test suite', () => {
       loaded: false,
       totalPages: 0,
       currentPage: 0,
-      totalElements: 0,
-      totalLoadedPages: 0
+      totalElements: 0
     };
   });
 
@@ -58,8 +57,7 @@ describe('openaireBrokerTopicsReducer test suite', () => {
       loaded: true,
       totalPages: 1,
       currentPage: 0,
-      totalElements: 2,
-      totalLoadedPages: 0
+      totalElements: 2
     }
 
     const action = new AddTopicsAction(

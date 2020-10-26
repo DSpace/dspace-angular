@@ -23,6 +23,7 @@
                       [paginationOptions]="paginationConfig"
                       [collectionSize]="(totalElements$ | async)"
                       [hideGear]="false"
+                      [hideSortOptions]="true"
                       [hidePagerWhenSinglePage]="false"
                       [disableRouteParameterUpdate]="false"
                       (pageChange)="setPage($event)">

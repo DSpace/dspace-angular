@@ -9,6 +9,7 @@ import { OpenaireBrokerTopicObject } from '../../../core/openaire/broker/models/
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { OpenaireStateService } from '../../openaire-state.service';
+import { AdminNotificationsOpenaireTopicsPageParams } from '../../../+admin/admin-notifications/admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page-resolver.service';
 
 /**
  * Component to display the OpenAIRE Broker topic list.
@@ -58,32 +59,23 @@ export class OpenaireBrokerTopicsComponent implements OnInit {
   ) { }
 
   /**
-   * Component intitialization.
+   * Component initialization.
    */
   ngOnInit(): void {
     this.paginationConfig = new PaginationComponentOptions();
-    this.paginationConfig.id = 'openaire_broker_topic';
+    this.paginationConfig.id = 'openaire_broker_topics';
     this.paginationConfig.pageSize = this.elementsPerPage;
     this.paginationConfig.currentPage = 1;
     this.paginationConfig.pageSizeOptions = [ 5, 10, 20, 30, 50 ];
     this.subs.push(
       this.activatedRoute.data.pipe(
-        map((data) => {
-          if (data.openaireBrokerTopicsParams.currentPage) {
-            this.paginationConfig.currentPage = data.openaireBrokerTopicsParams.currentPage;
-          }
-          if (data.openaireBrokerTopicsParams.pageSize) {
-            if (this.paginationConfig.pageSizeOptions.includes(data.openaireBrokerTopicsParams.pageSize)) {
-              this.paginationConfig.pageSize = data.openaireBrokerTopicsParams.currentPage;
-            } else {
-              this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
-            }
-          }
-          this.topics$ = this.openaireStateService.getOpenaireBrokerTopics();
-          this.totalElements$ = this.openaireStateService.getOpenaireBrokerTopicsTotals();
-        })
-      )
-      .subscribe()
+        map((data) => data.openaireBrokerTopicsParams),
+        take(1)
+      ).subscribe((eventsRouteParams) => {
+        this.updatePaginationFromRouteParams(eventsRouteParams);
+        this.topics$ = this.openaireStateService.getOpenaireBrokerTopics();
+        this.totalElements$ = this.openaireStateService.getOpenaireBrokerTopicsTotals();
+      })
     );
   }
 
@@ -134,13 +126,44 @@ export class OpenaireBrokerTopicsComponent implements OnInit {
   }
 
   /**
+   * Set the current page size for the pagination system.
+   *
+   * @param {number} pageSize
+   *    the number of the current page size
+   */
+  public setPageSize(pageSize: number) {
+    if (this.paginationConfig.pageSize !== pageSize) {
+      this.paginationConfig.pageSize = pageSize;
+      this.getOpenaireBrokerTopics();
+    }
+  }
+
+  /**
    * Dispatch the OpenAIRE Broker topics retrival.
    */
   protected getOpenaireBrokerTopics(): void {
     this.openaireStateService.dispatchRetrieveOpenaireBrokerTopics(
-      this.elementsPerPage,
+      this.paginationConfig.pageSize,
       this.paginationConfig.currentPage
     );
+  }
+
+  /**
+   * Update pagination Config from route params
+   *
+   * @param eventsRouteParams
+   */
+  protected updatePaginationFromRouteParams(eventsRouteParams: AdminNotificationsOpenaireTopicsPageParams) {
+    if (eventsRouteParams.currentPage) {
+      this.paginationConfig.currentPage = eventsRouteParams.currentPage;
+    }
+    if (eventsRouteParams.pageSize) {
+      if (this.paginationConfig.pageSizeOptions.includes(eventsRouteParams.pageSize)) {
+        this.paginationConfig.pageSize = eventsRouteParams.pageSize;
+      } else {
+        this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
+      }
+    }
   }
 
   /**
