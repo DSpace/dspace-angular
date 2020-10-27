@@ -181,9 +181,9 @@ export const redirectOn404Or401 = (router: Router) =>
       tap((rd: RemoteData<T>) => {
         if (rd.hasFailed) {
           if (rd.error.statusCode === 404) {
-            router.navigateByUrl(`/${getPageNotFoundRoute()}`, {skipLocationChange: true});
+            router.navigateByUrl(getPageNotFoundRoute(), {skipLocationChange: true});
           } else if (rd.error.statusCode === 401) {
-            router.navigateByUrl(`/${getUnauthorizedRoute()}`, {skipLocationChange: true});
+            router.navigateByUrl(getUnauthorizedRoute(), {skipLocationChange: true});
           }
         }
       }));
