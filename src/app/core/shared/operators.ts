@@ -13,7 +13,7 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { getUnauthorizedRoute } from '../../app-routing-paths';
+import { getPageNotFoundRoute, getUnauthorizedRoute } from '../../app-routing-paths';
 import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 
 /**
@@ -181,9 +181,9 @@ export const redirectOn404Or401 = (router: Router) =>
       tap((rd: RemoteData<T>) => {
         if (rd.hasFailed) {
           if (rd.error.statusCode === 404) {
-            router.navigateByUrl('/404', {skipLocationChange: true});
+            router.navigateByUrl(`/${getPageNotFoundRoute()}`, {skipLocationChange: true});
           } else if (rd.error.statusCode === 401) {
-            router.navigateByUrl('/401', {skipLocationChange: true});
+            router.navigateByUrl(`/${getUnauthorizedRoute()}`, {skipLocationChange: true});
           }
         }
       }));

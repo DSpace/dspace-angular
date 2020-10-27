@@ -24,7 +24,7 @@ import {
   createSuccessfulRemoteDataObject
 } from '../../shared/remote-data.utils';
 
-fdescribe('Core Module - RxJS Operators', () => {
+describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;
   let requestService: RequestService;
   const testRequestHref = 'https://rest.api/';
