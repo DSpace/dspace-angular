@@ -6,10 +6,11 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-search-result-grid-element',
@@ -42,7 +43,9 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
    */
   ngOnInit(): void {
     if (hasValue(this.object)) {
+      console.log(this.object)
       this.dso = this.object.indexableObject;
+      console.log('this.dso',this.dso)
     }
   }
 
@@ -71,9 +74,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   }
 
   // TODO refactor to return RemoteData, and thumbnail template to deal with loading
-  getThumbnail(): Observable<Bitstream> {
-    return this.bitstreamDataService.getThumbnailFor(this.dso as any).pipe(
-      getFirstSucceededRemoteDataPayload()
-    );
+  getThumbnail(): Observable<RemoteData<Bitstream>> {
+    return this.bitstreamDataService.getThumbnailFor(this.dso as any);
   }
 }
