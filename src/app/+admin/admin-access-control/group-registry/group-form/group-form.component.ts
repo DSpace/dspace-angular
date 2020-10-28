@@ -144,7 +144,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       });
       this.formModel = [
         this.groupName,
-        this.groupDescription
+        this.groupDescription,
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.subs.push(this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
@@ -349,8 +349,8 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * This method will ensure that the page gets reset and that the cache is cleared
    */
   reset() {
-    this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((group: Group) => {
-      this.requestService.removeByHrefSubstring(group.self);
+    this.groupDataService.getBrowseEndpoint().pipe(take(1)).subscribe((href: string) => {
+      this.requestService.removeByHrefSubstring(href);
     });
     this.onCancel();
   }

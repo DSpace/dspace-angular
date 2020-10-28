@@ -18,9 +18,11 @@
                [formLayout]="formLayout"
                (cancel)="onCancel()"
                (submitForm)="onSubmit()">
-        <button class="btn btn-light delete-button" [disabled]="!(canDelete$ | async)" (click)="delete()">
-          <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
-        </button>
+        <div *ngIf="groupBeingEdited != null" class="row">
+          <button class="btn btn-light delete-button" [disabled]="!(canDelete$ | async)" (click)="delete()">
+            <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
+          </button>
+        </div>
       </ds-form>
 
       <ds-members-list *ngIf="groupBeingEdited != null" [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>
