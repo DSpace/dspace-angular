@@ -39,6 +39,7 @@ export class LinkService {
    * @param linkToFollow the {@link FollowLinkConfig} to resolve
    */
   public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): T {
+    console.log('model', model, 'links', linkToFollow)
     const matchingLinkDef = getLinkDefinition(model.constructor, linkToFollow.name);
 
     if (hasNoValue(matchingLinkDef)) {

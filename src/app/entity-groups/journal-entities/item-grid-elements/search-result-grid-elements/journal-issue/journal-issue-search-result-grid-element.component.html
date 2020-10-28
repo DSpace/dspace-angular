@@ -6,13 +6,13 @@
        rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]"
        class="card-img-top full-width">
       <div>
-        <ds-grid-thumbnail [thumbnail]="getThumbnail()">
+        <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
         </ds-grid-thumbnail>
       </div>
     </a>
     <span *ngIf="linkType == linkTypes.None" class="card-img-top full-width">
             <div>
-                <ds-grid-thumbnail [thumbnail]="getThumbnail()">
+                <ds-grid-thumbnail [thumbnail]="getThumbnail() | async">
                 </ds-grid-thumbnail>
             </div>
         </span>
