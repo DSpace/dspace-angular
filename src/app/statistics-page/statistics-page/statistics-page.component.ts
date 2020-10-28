@@ -4,7 +4,7 @@ import { UsageReportService } from '../../core/statistics/usage-report-data.serv
 import { map, switchMap } from 'rxjs/operators';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { getRemoteDataPayload, getSucceededRemoteData, redirectToPageNotFoundOn404 } from '../../core/shared/operators';
+import { getRemoteDataPayload, getSucceededRemoteData, redirectOn404Or401 } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -55,7 +55,7 @@ export abstract class StatisticsPageComponent<T extends DSpaceObject> implements
   protected getScope$(): Observable<DSpaceObject> {
     return this.route.data.pipe(
       map((data) => data.scope as RemoteData<T>),
-      redirectToPageNotFoundOn404(this.router),
+      redirectOn404Or401(this.router),
       getSucceededRemoteData(),
       getRemoteDataPayload(),
     );
