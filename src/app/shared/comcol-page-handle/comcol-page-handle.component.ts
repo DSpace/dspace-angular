@@ -21,6 +21,7 @@ export class ComcolPageHandleComponent {
   @Input() content: string;
 
   public getHandle(): string {
-    return new UIURLCombiner('/handle/', this.content).toString();
-  }
-}
+    return this.content.includes('http') ? this.content
+      : new UIURLCombiner('/handle/', this.content).toString();
+  }}
+
