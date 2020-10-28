@@ -33,7 +33,7 @@ export class GridThumbnailComponent implements OnInit {
 
   ngOnInit(): void {
     this.src$ = new BehaviorSubject<string>(this.defaultImage);
-    console.log('this.thumbnail', this.thumbnail);
+    // console.log('this.thumbnail', this.thumbnail);
     if (isObservable(this.thumbnail)) {
       this.thumbnail.subscribe((thumbnailRD) => {
         this.checkThumbnail(thumbnailRD.payload);
