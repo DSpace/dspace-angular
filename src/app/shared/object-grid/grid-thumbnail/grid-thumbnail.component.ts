@@ -16,7 +16,7 @@ import { hasValue } from '../../empty.util';
   templateUrl: './grid-thumbnail.component.html',
 })
 export class GridThumbnailComponent implements OnInit {
-  @Input() thumbnail: string | Observable<RemoteData<Bitstream>>;
+  @Input() thumbnail: Bitstream | Observable<RemoteData<Bitstream>>;
 
   data: any = {};
 
@@ -39,9 +39,7 @@ export class GridThumbnailComponent implements OnInit {
         this.checkThumbnail(thumbnailRD.payload);
       });
     } else {
-      if (this.thumbnail) {
-        this.src$.next(this.thumbnail);
-      }
+      this.checkThumbnail(this.thumbnail);
     }
   }
 

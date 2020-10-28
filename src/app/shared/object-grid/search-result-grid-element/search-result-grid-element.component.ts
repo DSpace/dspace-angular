@@ -43,9 +43,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
    */
   ngOnInit(): void {
     if (hasValue(this.object)) {
-      console.log(this.object)
       this.dso = this.object.indexableObject;
-      console.log('this.dso',this.dso)
     }
   }
 
