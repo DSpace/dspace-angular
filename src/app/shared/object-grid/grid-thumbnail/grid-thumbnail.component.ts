@@ -5,8 +5,6 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { BehaviorSubject, Observable, isObservable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { hasValue } from '../../empty.util';
 
