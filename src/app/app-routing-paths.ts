@@ -55,10 +55,16 @@ export function getDSORoute(dso: DSpaceObject): string {
   }
 }
 
-export const UNAUTHORIZED_PATH = 'unauthorized';
+export const UNAUTHORIZED_PATH = '401';
 
 export function getUnauthorizedRoute() {
   return `/${UNAUTHORIZED_PATH}`;
+}
+
+export const PAGE_NOT_FOUND_PATH = '404';
+
+export function getPageNotFoundRoute() {
+  return `/${PAGE_NOT_FOUND_PATH}`;
 }
 
 export const INFO_MODULE_PATH = 'info';
