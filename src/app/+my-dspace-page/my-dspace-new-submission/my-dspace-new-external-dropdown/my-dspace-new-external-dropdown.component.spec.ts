@@ -1,18 +1,19 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { of as observableOf } from 'rxjs';
 import { createTestComponent } from '../../../shared/testing/utils.test';
-import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown.component';
+import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown.component';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { RouterStub } from '../../../shared/testing/router.stub';
 
 export function getMockEntityTypeService(): EntityTypeService {
   const pageInfo = { elementsPerPage: 20, totalElements: 4, totalPages: 1, currentPage: 0 } as PageInfo;
@@ -39,8 +40,8 @@ export function getMockEntityTypeService(): EntityTypeService {
   };
   const rd$ = createSuccessfulRemoteDataObject$(new PaginatedList(pageInfo, [type1, type2, type3]));
   return jasmine.createSpyObj('entityTypeService', {
-    getAllAuthorizedRelationshipType: rd$,
-    hasMoreThanOneAuthorized: observableOf(true)
+    getAllAuthorizedRelationshipTypeImport: rd$,
+    hasMoreThanOneAuthorizedImport: observableOf(true)
   });
 }
 
@@ -55,16 +56,16 @@ export function getMockEmptyEntityTypeService(): EntityTypeService {
   };
   const rd$ = createSuccessfulRemoteDataObject$(new PaginatedList(pageInfo, [type1]));
   return jasmine.createSpyObj('entityTypeService', {
-    getAllAuthorizedRelationshipType: rd$,
-    hasMoreThanOneAuthorized: observableOf(false)
+    getAllAuthorizedRelationshipTypeImport: rd$,
+    hasMoreThanOneAuthorizedImport: observableOf(false)
   });
 }
 
-fdescribe('MyDSpaceNewSubmissionDropdownComponent test', () => {
+fdescribe('MyDSpaceNewExternalDropdownComponent test', () => {
   let testComp: TestComponent;
   let testFixture: ComponentFixture<TestComponent>;
-  let submissionComponent: MyDSpaceNewSubmissionDropdownComponent;
-  let submissionComponentFixture: ComponentFixture<MyDSpaceNewSubmissionDropdownComponent>;
+  let submissionComponent: MyDSpaceNewExternalDropdownComponent;
+  let submissionComponentFixture: ComponentFixture<MyDSpaceNewExternalDropdownComponent>;
 
   const entityType1: ItemType = {
     id: '1',
@@ -72,12 +73,6 @@ fdescribe('MyDSpaceNewSubmissionDropdownComponent test', () => {
     uuid: '1',
     type: new ResourceType('entitytype'),
     _links: undefined
-  };
-
-  const modalStub = {
-    open: () => null,
-    close: () => null,
-    dismiss: () => null
   };
 
   describe('With only one Entity', () => {
@@ -88,13 +83,13 @@ fdescribe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           TranslateModule.forRoot(),
         ],
         declarations: [
-          MyDSpaceNewSubmissionDropdownComponent,
+          MyDSpaceNewExternalDropdownComponent,
           TestComponent
         ],
         providers: [
           { provide: EntityTypeService, useValue: getMockEmptyEntityTypeService() },
-          { provide: NgbModal, useValue: modalStub },
-          MyDSpaceNewSubmissionDropdownComponent
+          { provide: Router, useValue: new RouterStub() },
+          MyDSpaceNewExternalDropdownComponent
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
@@ -104,7 +99,7 @@ fdescribe('MyDSpaceNewSubmissionDropdownComponent test', () => {
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
 
-      submissionComponentFixture = TestBed.createComponent(MyDSpaceNewSubmissionDropdownComponent);
+      submissionComponentFixture = TestBed.createComponent(MyDSpaceNewExternalDropdownComponent);
       submissionComponent = submissionComponentFixture.componentInstance;
       submissionComponentFixture.detectChanges();
     }));
@@ -114,11 +109,11 @@ fdescribe('MyDSpaceNewSubmissionDropdownComponent test', () => {
       submissionComponentFixture.destroy();
     });
 
-    it('should create MyDSpaceNewSubmissionDropdownComponent', inject([MyDSpaceNewSubmissionDropdownComponent], (app: MyDSpaceNewSubmissionDropdownComponent) => {
+    it('should create MyDSpaceNewExternalDropdownComponent', inject([MyDSpaceNewExternalDropdownComponent], (app: MyDSpaceNewExternalDropdownComponent) => {
       expect(app).toBeDefined();
     }));
 
-    it('should be a single button', inject([MyDSpaceNewSubmissionDropdownComponent], (app: MyDSpaceNewSubmissionDropdownComponent) => {
+    it('should be a single button', inject([MyDSpaceNewExternalDropdownComponent], (app: MyDSpaceNewExternalDropdownComponent) => {
       submissionComponentFixture.detectChanges();
       const addDivElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.add'));
       const addDiv = addDivElement.nativeElement;
@@ -139,13 +134,13 @@ fdescribe('MyDSpaceNewSubmissionDropdownComponent test', () => {
           TranslateModule.forRoot(),
         ],
         declarations: [
-          MyDSpaceNewSubmissionDropdownComponent,
+          MyDSpaceNewExternalDropdownComponent,
           TestComponent
         ],
         providers: [
           { provide: EntityTypeService, useValue: getMockEntityTypeService() },
-          { provide: NgbModal, useValue: modalStub },
-          MyDSpaceNewSubmissionDropdownComponent
+          { provide: Router, useValue: new RouterStub() },
+          MyDSpaceNewExternalDropdownComponent
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
@@ -155,7 +150,7 @@ fdescribe('MyDSpaceNewSubmissionDropdownComponent test', () => {
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
 
-      submissionComponentFixture = TestBed.createComponent(MyDSpaceNewSubmissionDropdownComponent);
+      submissionComponentFixture = TestBed.createComponent(MyDSpaceNewExternalDropdownComponent);
       submissionComponent = submissionComponentFixture.componentInstance;
       submissionComponentFixture.detectChanges();
     }));
@@ -165,21 +160,20 @@ fdescribe('MyDSpaceNewSubmissionDropdownComponent test', () => {
       submissionComponentFixture.destroy();
     });
 
-    it('should create MyDSpaceNewSubmissionDropdownComponent', inject([MyDSpaceNewSubmissionDropdownComponent], (app: MyDSpaceNewSubmissionDropdownComponent) => {
+    it('should create MyDSpaceNewExternalDropdownComponent', inject([MyDSpaceNewExternalDropdownComponent], (app: MyDSpaceNewExternalDropdownComponent) => {
       expect(app).toBeDefined();
     }));
 
-    it('should be a dropdown button', inject([MyDSpaceNewSubmissionDropdownComponent], (app: MyDSpaceNewSubmissionDropdownComponent) => {
+    it('should be a dropdown button', inject([MyDSpaceNewExternalDropdownComponent], (app: MyDSpaceNewExternalDropdownComponent) => {
       const dropdownElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.dropdown-menu'));
       const dropdown = dropdownElement.nativeElement;
       expect(dropdown.innerHTML).toBeDefined();
     }));
 
     it('should invoke modalService.open', () => {
-      spyOn((submissionComponent as any).modalService, 'open').and.returnValue({ componentInstance: {  } });
-      submissionComponent.openDialog(entityType1);
+      submissionComponent.openPage(entityType1);
 
-      expect((submissionComponent as any).modalService.open).toHaveBeenCalled();
+      expect((submissionComponent as any).router.navigate).toHaveBeenCalled();
     });
   });
 });

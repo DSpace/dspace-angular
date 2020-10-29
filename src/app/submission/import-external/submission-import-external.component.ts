@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subscription, of as observableOf, } from 'rxjs';
 import { filter, flatMap, take } from 'rxjs/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -32,6 +32,10 @@ import { getFinishedRemoteData } from '../../core/shared/operators';
 })
 export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
 
+  /**
+   * The external source search data observable from the routing service.
+   */
+  public routeData$: Observable<ExternalSourceData>;
   /**
    * The external source search data from the routing service.
    */
@@ -67,6 +71,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     id: 'submission-external-source-relation-list',
     pageSize: 10
   });
+  public entityId: string;
   /**
    * The context to displaying lists for
    */
@@ -106,7 +111,6 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.listId = 'list-submission-external-sources';
     this.context = Context.EntitySearchModalWithNameVariants;
     this.repeatable = false;
-    this.routeData = { sourceId: '', query: '' };
     this.importConfig = {
       buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
     };
@@ -114,11 +118,14 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.isLoading$ = new BehaviorSubject(false);
     this.subs.push(combineLatest(
       [
+        this.routeService.getQueryParameterValue('entity'),
         this.routeService.getQueryParameterValue('source'),
         this.routeService.getQueryParameterValue('query')
       ]).pipe(
       take(1)
-    ).subscribe(([source, query]: [string, string]) => {
+    ).subscribe(([entity, source, query]: [string, string, string]) => {
+      this.routeData = { entityId: entity, sourceId: '', query: '' };
+      this.routeData$ = observableOf(this.routeData);
       this.retrieveExternalSources(source, query);
     }));
   }
@@ -130,7 +137,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.router.navigate(
       [],
       {
-        queryParams: { source: event.sourceId, query: event.query },
+        queryParams: { entity: this.entityId, source: event.sourceId, query: event.query },
         replaceUrl: true
       }
     ).then(() => this.retrieveExternalSources(event.sourceId, event.query));

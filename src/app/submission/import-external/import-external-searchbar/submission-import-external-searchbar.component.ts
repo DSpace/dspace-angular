@@ -26,6 +26,7 @@ export interface SourceElement {
  * Interface for the external source data to export.
  */
 export interface ExternalSourceData {
+  entityId: string;
   query: string;
   sourceId: string;
 }
@@ -108,6 +109,9 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
     this.findListOptions = Object.assign({}, new FindListOptions(), {
       elementsPerPage: 5,
       currentPage: 1,
+      searchParams: [
+        { entityId: this.initExternalSourceData.entityId }
+      ]
     });
     this.externalService.findAll(this.findListOptions).pipe(
       catchError(() => {
@@ -173,7 +177,13 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
    * Passes the search parameters to the parent component.
    */
   public search(): void {
-    this.externalSourceData.emit({ sourceId: this.selectedElement.id, query: this.searchString });
+    this.externalSourceData.emit(
+      {
+        entityId: this.initExternalSourceData.entityId,
+        sourceId: this.selectedElement.id,
+        query: this.searchString
+      }
+    );
   }
 
   /**
