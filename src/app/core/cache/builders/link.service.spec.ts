@@ -139,13 +139,10 @@ describe('LinkService', () => {
     });
 
     describe(`when the specified link doesn't exist on the model's class`, () => {
-      beforeEach(() => {
-        spyOnFunction(decorators, 'getLinkDefinition').and.returnValue(undefined);
-      });
-      it('should throw an error', () => {
-        expect(() => {
+      it('should return with the same model', () => {
+        expect(
           service.resolveLink(testModel, followLink('predecessor', {}, true, followLink('successor')))
-        }).toThrow();
+        ).toEqual(testModel);
       });
     });
 

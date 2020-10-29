@@ -11,6 +11,7 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { filter, map } from 'rxjs/operators';
+import { getFirstSucceededRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-result-grid-element',
@@ -70,7 +71,9 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   }
 
   // TODO refactor to return RemoteData, and thumbnail template to deal with loading
-  getThumbnail(): Observable<RemoteData<Bitstream>> {
-    return this.bitstreamDataService.getThumbnailFor(this.dso as any);
+  getThumbnail(): Observable<Bitstream> {
+    return this.bitstreamDataService.getThumbnailFor(this.dso as any).pipe(
+      getFirstSucceededRemoteDataPayload()
+    );
   }
 }

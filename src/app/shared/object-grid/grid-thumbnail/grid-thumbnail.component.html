@@ -1,5 +1,3 @@
-<ng-container *ngVar="src$ | async as src">
-  <div class="thumbnail">
-    <img [src]="src | dsSafeUrl" (error)="errorHandler($event)" />
-  </div>
-</ng-container>
+<div class="thumbnail">
+  <img [src]="src | dsSafeUrl" (error)="errorHandler($event)" />
+</div>
