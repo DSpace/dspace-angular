@@ -1,10 +1,5 @@
-<div class="thumbnail" *ngVar="src$ | async as src">
-  <ds-loading
-    *ngIf="!src"
-    message="{{ 'loading.default' | translate }}"
-    [showMessage]="false"
-  ></ds-loading>
-  <ng-container *ngIf="src">
+<ng-container *ngVar="src$ | async as src">
+  <div class="thumbnail">
     <img [src]="src | dsSafeUrl" (error)="errorHandler($event)" />
-  </ng-container>
-</div>
+  </div>
+</ng-container>

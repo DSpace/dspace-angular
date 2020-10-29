@@ -169,7 +169,6 @@ export class ObjectGridComponent implements OnInit {
       this._objects$).pipe(map(([nbColumns, objects]) => {
       if (hasValue(objects) && hasValue(objects.payload) && hasValue(objects.payload.page)) {
         const page = objects.payload.page;
-        console.log(page)
 
         const result = [];
 
