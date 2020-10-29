@@ -10,12 +10,9 @@
   flex: initial;
 }
 
-/*.dropdown-menu {
-  width: calc(100% - 0.5rem)
-}*/
-
-.scrollable-menu {
-  height: auto;
-  max-height: $dropdown-menu-max-height;
-  overflow-x: hidden;
+#entityControlsDropdownMenu {
+  width: calc(100% - 0.5rem);
+  outline: 0;
+  left: 0 !important;
+  box-shadow: $btn-focus-box-shadow;
 }

@@ -1,41 +1,20 @@
-  <div class="add" *ngIf="!hasMultipleOptions()">
-    <button class="btn btn-lg btn-primary mt-1 ml-2" [disabled]="!initialized" (click)="openDialog(null)" role="button">
+  <div class="add" *ngIf="!(moreThanOne$ | async)">
+    <button class="btn btn-lg btn-primary mt-1 ml-2" [disabled]="!(initialized$|async)" (click)="openDialog(singleEntity)" role="button">
       <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
     </button>
   </div>
   <div class="add w-100"
        ngbDropdown
-       *ngIf="hasMultipleOptions()">
-    <button class="btn btn-lg btn-primary  mt-1 ml-2" id="dropdownSubmission" ngbDropdownToggle
-            type="button"  [disabled]="!initialized">
+       *ngIf="(moreThanOne$ | async)">
+    <button class="btn btn-lg btn-primary mt-1 ml-2" id="dropdownSubmission" ngbDropdownToggle
+            type="button"  [disabled]="!(initialized$|async)">
       <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
       <span class="caret"></span>
     </button>
     <div ngbDropdownMenu
-         class="dropdown-menu scrollable-dropdown-menu w-100"
-         aria-haspopup="true"
-         aria-expanded="false"
-         aria-labelledby="scrollableDropdownMenuButton">
-      <div class="scrollable-menu"
-           aria-labelledby="scrollableDropdownMenuButton"
-           infiniteScroll
-           [infiniteScrollDistance]="2"
-           [infiniteScrollThrottle]="50"
-           (scrolled)="onScroll()"
-           [scrollWindow]="false">
-
-        <button class="dropdown-item disabled" *ngIf="availableEntityTypeList && availableEntityTypeList.length == 0">
-          {{'form.no-results' | translate}}
-        </button>
-
-        <button class="dropdown-item collection-item text-truncate" *ngFor="let entityType of availableEntityTypeList; let idx = index"
-                (click)="openDialog(idx)"
-                title="{{ entityType }}">
-          {{entityType}}
-        </button>
-        <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>
-
-      </div>
+         class="dropdown-menu"
+         id="entityControlsDropdownMenu"
+         aria-labelledby="dropdownSubmission">
+      <ds-entity-dropdown (selectionChange)="openDialog($event)"></ds-entity-dropdown>
     </div>
-
   </div>
