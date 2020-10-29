@@ -36,6 +36,9 @@ export class GridThumbnailComponent implements OnInit, OnChanges {
     event.currentTarget.src = this.defaultImage;
   }
 
+  /**
+   * Initialize the src
+   */
   ngOnInit(): void {
     this.src = this.defaultImage;
 
@@ -51,6 +54,9 @@ export class GridThumbnailComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * check if the Bitstream has any content than set the src
+   */
   checkThumbnail(thumbnail: Bitstream) {
     if (
       hasValue(thumbnail) &&
