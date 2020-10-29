@@ -3466,6 +3466,8 @@
 
   "submission.sections.general.no-collection": "No collection found",
 
+  "submission.sections.general.no-entity": "No entity found",
+
   "submission.sections.general.no-sections": "No options available",
 
   "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
