@@ -1254,6 +1254,8 @@
 
   "home.description": "",
 
+  "home.breadcrumbs": "Home",
+
   "home.title": "DSpace Angular :: Home",
 
   "home.top-level-communities.head": "Communities in DSpace",
