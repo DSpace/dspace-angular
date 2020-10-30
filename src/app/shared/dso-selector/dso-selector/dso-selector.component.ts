@@ -108,11 +108,6 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   linkTypes = CollectionElementLinkType;
 
   /**
-   * This component's context to display listable objects for
-   */
-  context = Context.SideBarSearchModal;
-
-  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -209,6 +204,17 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   selectSingleResult(): void {
     if (this.listElements.length > 0) {
       this.listElements.first.nativeElement.click();
+    }
+  }
+
+  /**
+   * Get the context for element with the given id
+   */
+  getContext(id: string) {
+    if (id === this.currentDSOId) {
+      return Context.SideBarSearchModalCurrent;
+    } else {
+      return Context.SideBarSearchModal;
     }
   }
 

@@ -8,6 +8,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
 
 @listableObjectComponent('JournalIssueSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
+@listableObjectComponent('JournalIssueSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
   selector: 'ds-journal-issue-sidebar-search-list-element',
   templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html'

@@ -8,6 +8,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
+@listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
   selector: 'ds-org-unit-sidebar-search-list-element',
   templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html'

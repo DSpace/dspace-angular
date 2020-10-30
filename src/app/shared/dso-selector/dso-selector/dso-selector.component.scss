@@ -1,12 +1,5 @@
 .scrollable-menu {
   height: auto;
-  max-height: $dso-selector-list-max-height;
+  max-height: min(70vh, 475px);
   overflow-x: hidden;
-}
-
-.current {
-  background-color: $dso-selector-current-background-color;
-  &:hover {
-    background-color: $dso-selector-current-background-hover-color;
-  }
 }

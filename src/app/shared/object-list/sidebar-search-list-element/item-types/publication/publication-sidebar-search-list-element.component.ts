@@ -7,7 +7,9 @@ import { Item } from '../../../../../core/shared/item.model';
 import { SidebarSearchListElementComponent } from '../../sidebar-search-list-element.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
+@listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
+@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
   selector: 'ds-publication-sidebar-search-list-element',
   templateUrl: '../../sidebar-search-list-element.component.html'

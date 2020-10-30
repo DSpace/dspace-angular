@@ -11,6 +11,7 @@ import { ChildHALResource } from '../../../core/shared/child-hal-resource.model'
 import { followLink } from '../../utils/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { of as observableOf } from 'rxjs';
+import { Context } from '../../../core/shared/context.model';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
@@ -55,13 +56,20 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   }
 
   /**
+   * returns true if this element represents the current dso
+   */
+  isCurrent(): boolean {
+    return this.context === Context.SideBarSearchModalCurrent;
+  }
+
+  /**
    * Get the title of the object's parent
    * Retrieve the parent by using the object's parent link and retrieving its 'dc.title' metadata
    */
   getParentTitle(): Observable<string> {
     return this.getParent().pipe(
       map((parentRD: RemoteData<DSpaceObject>) => {
-        return parentRD ? parentRD.payload.firstMetadataValue('dc.title') : undefined;
+        return hasValue(parentRD) && hasValue(parentRD.payload) ? parentRD.payload.firstMetadataValue('dc.title') : undefined;
       })
     );
   }

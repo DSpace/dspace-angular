@@ -7,6 +7,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
+@listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
   selector: 'ds-collection-sidebar-search-list-element',
   templateUrl: '../sidebar-search-list-element.component.html'

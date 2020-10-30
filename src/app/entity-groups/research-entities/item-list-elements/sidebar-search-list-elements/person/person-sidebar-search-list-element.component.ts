@@ -11,6 +11,7 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
+@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
   selector: 'ds-person-sidebar-search-list-element',
   templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html'
