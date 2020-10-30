@@ -1,5 +1,5 @@
 .scrollable-menu {
   height: auto;
-  max-height: min(70vh, 475px);
+  max-height: $dso-selector-list-max-height;
   overflow-x: hidden;
 }

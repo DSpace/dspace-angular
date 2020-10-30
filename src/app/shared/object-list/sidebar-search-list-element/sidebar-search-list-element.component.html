@@ -1,13 +1,13 @@
-<ds-truncatable-part *ngIf="parentTitle$ && parentTitle$ | async" [maxLines]="1">
+<ds-truncatable-part *ngIf="parentTitle$ && parentTitle$ | async" [maxLines]="1" [background]="isCurrent() ? 'primary' : 'default'">
   <div [ngClass]="isCurrent() ? 'text-light' : 'text-body'"
        [innerHTML]="parentTitle$ | async"></div>
 </ds-truncatable-part>
-<ds-truncatable-part *ngIf="title" [maxLines]="1">
+<ds-truncatable-part *ngIf="title" [maxLines]="1" [background]="isCurrent() ? 'primary' : 'default'">
   <div class="font-weight-bold"
        [ngClass]="isCurrent() ? 'text-light' : 'text-primary'"
        [innerHTML]="title"></div>
 </ds-truncatable-part>
-<ds-truncatable-part *ngIf="description" [maxLines]="1">
+<ds-truncatable-part *ngIf="description" [maxLines]="1" [background]="isCurrent() ? 'primary' : 'default'">
   <div class="text-secondary"
        [ngClass]="isCurrent() ? 'text-light' : 'text-secondary'"
        [innerHTML]="description"></div>

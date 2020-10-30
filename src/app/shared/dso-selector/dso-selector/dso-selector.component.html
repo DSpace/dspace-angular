@@ -22,6 +22,7 @@
             class="list-group-item list-group-item-action border-0 list-entry"
             [ngClass]="{'bg-primary': listEntry.indexableObject.id === currentDSOId}"
             title="{{ listEntry.indexableObject.name }}"
+            dsHoverClass="ds-hover"
             (click)="onSelect.emit(listEntry.indexableObject)" #listEntryElement>
       <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
                                            [linkType]=linkTypes.None [context]="getContext(listEntry.indexableObject.id)"></ds-listable-object-component-loader>

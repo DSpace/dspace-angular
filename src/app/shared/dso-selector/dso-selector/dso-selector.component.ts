@@ -108,6 +108,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   linkTypes = CollectionElementLinkType;
 
   /**
+   * Track whether the element has the mouse over it
+   */
+  isMouseOver = false
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
