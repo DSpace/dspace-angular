@@ -4,14 +4,14 @@
       <h2 id="header" class="pb-2">{{'submission.import-external.title' | translate}}</h2>
       <ds-submission-import-external-searchbar
         [initExternalSourceData]="routeData"
-        (externalSourceData) = "getExternalsourceData($event)">
+        (externalSourceData) = "getExternalSourceData($event)">
       </ds-submission-import-external-searchbar>
     </div>
   </div>
   <div class="row">
     <div *ngIf="routeData.sourceId !== ''" class="col-md-12">
       <ng-container *ngVar="(entriesRD$ | async) as entriesRD">
-        <h3 *ngIf="entriesRD?.payload?.page?.length !== 0">{{ 'submission.sections.describe.relationship-lookup.selection-tab.title.' + routeData.sourceId | translate}}</h3>
+        <h3 *ngIf="entriesRD && entriesRD?.payload?.page?.length !== 0">{{ 'submission.sections.describe.relationship-lookup.selection-tab.title.' + routeData.sourceId | translate}}</h3>
         <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !(isLoading$ | async) && entriesRD?.payload?.page?.length > 0" @fadeIn
                                 [objects]="entriesRD"
                                 [selectionConfig]="{ repeatable: repeatable, listId: listId }"
@@ -20,7 +20,8 @@
                                 [context]="context"
                                 [importable]="true"
                                 [importConfig]="importConfig"
-                                (importObject)="import($event)">
+                                (importObject)="import($event)"
+                                (pageChange)="paginationChange();">
         </ds-viewable-collection>
         <ds-loading *ngIf="(isLoading$ | async)"
                     message="{{'loading.search-results' | translate}}"></ds-loading>
