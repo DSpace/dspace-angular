@@ -24,7 +24,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { UploaderComponent } from 'src/app/shared/uploader/uploader.component';
-import { By } from '@angular/platform-browser';
+import { getMockEntityTypeService } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';
+import { EntityTypeService } from '../../core/data/entity-type.service';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 
@@ -77,6 +78,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         MyDSpaceNewSubmissionComponent,
         UploaderService,
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: EntityTypeService, useValue: getMockEntityTypeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

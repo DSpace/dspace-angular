@@ -1,13 +1,13 @@
 <div class="container">
   <div class="text-right">
-    <div *ngIf="(isEditAvailable() | async) && (getEditModes() | async).length === 1">
+    <div *ngIf="(isEditAvailable() | async) && (getEditModes() | async)?.length === 1">
       <button *ngFor="let editMode of (getEditModes() | async)"
         type="button" class="btn btn-outline-primary float-right"
         [routerLink]="['/edit-items', item.id + ':' + editMode.name]">
         <i class="fas fa-edit" aria-hidden="true"></i>
       </button>
     </div>
-    <div *ngIf="(isEditAvailable() | async) && (getEditModes() | async).length > 1">
+    <div *ngIf="(isEditAvailable() | async) && (getEditModes() | async)?.length > 1">
       <div class="btn-group" ngbDropdown role="group">
         <button ngbDropdownToggle
                 class="btn btn-outline-primary">

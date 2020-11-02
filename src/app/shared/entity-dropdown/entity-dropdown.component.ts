@@ -73,7 +73,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} changeDetectorRef
-   * @param {CollectionDataService} collectionDataService
+   * @param {EntityTypeService} entityTypeService
    * @param {ElementRef} el
    */
   constructor(

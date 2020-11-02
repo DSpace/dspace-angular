@@ -53,7 +53,8 @@ export class EntityTypeService extends DataService<ItemType> {
 
   /**
    * Get the endpoint for the item type's allowed relationship types
-   * @param entityTypeId
+   *
+   * @param {FindListOptions} options
    */
   getAllAuthorizedRelationshipType(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<ItemType>>> {
     const searchHref = 'findAllByAuthorizedCollection';
