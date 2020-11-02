@@ -12,7 +12,7 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
 import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
-import { switchMap, take, filter } from 'rxjs/operators';
+import { switchMap, take, filter, map } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
 import {RelationshipType} from '../shared/item-relationships/relationship-type.model';
 import {PaginatedList} from './paginated-list';
@@ -50,15 +50,71 @@ export class EntityTypeService extends DataService<ItemType> {
       switchMap((href) => this.halService.getEndpoint('relationshiptypes', `${href}/${entityTypeId}`))
     );
   }
+
   /**
    * Get the endpoint for the item type's allowed relationship types
-   * @param entityTypeId
+   *
+   * @param {FindListOptions} options
    */
   getAllAuthorizedRelationshipType(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<ItemType>>> {
     const searchHref = 'findAllByAuthorizedCollection';
 
     return this.searchBy(searchHref, options).pipe(
       filter((type: RemoteData<PaginatedList<ItemType>>) => !type.isResponsePending));
+  }
+
+  /**
+   * Used to verify if there are one or more entities available
+   */
+  hasMoreThanOneAuthorized(): Observable<boolean> {
+    const findListOptions: FindListOptions = {
+      elementsPerPage: 2,
+      currentPage: 1
+    };
+    return this.getAllAuthorizedRelationshipType(findListOptions).pipe(
+      map((result: RemoteData<PaginatedList<ItemType>>) => {
+        let output: boolean;
+        if (result.payload) {
+          output = ( result.payload.page.length > 1 );
+        } else {
+          output = false;
+        }
+        return output;
+      })
+    );
+  }
+
+  /**
+   * Get the endpoint for the item type's allowed relationship types. To use with external source import.
+   *
+   * @param {FindListOptions} options
+   */
+  getAllAuthorizedRelationshipTypeImport(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<ItemType>>> {
+    const searchHref = 'findAllByAuthorizedImport';
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((type: RemoteData<PaginatedList<ItemType>>) => !type.isResponsePending));
+  }
+
+  /**
+   * Used to verify if there are one or more entities available. To use with external source import.
+   */
+  hasMoreThanOneAuthorizedImport(): Observable<boolean> {
+    const findListOptions: FindListOptions = {
+      elementsPerPage: 2,
+      currentPage: 1
+    };
+    return this.getAllAuthorizedRelationshipTypeImport(findListOptions).pipe(
+      map((result: RemoteData<PaginatedList<ItemType>>) => {
+        let output: boolean;
+        if (result.payload) {
+          output = ( result.payload.page.length > 1 );
+        } else {
+          output = false;
+        }
+        return output;
+      })
+    );
   }
 
   /**

@@ -1,17 +1,15 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-
-import { Subscription } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { FindListOptions } from '../../../core/data/request.models';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateItemParentSelectorComponent } from 'src/app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { Collection } from '../../../core/shared/collection.model';
+import { flatMap, map, take } from 'rxjs/operators';
+import { RemoteData } from '../../../core/data/remote-data';
 
 /**
  * This component represents the new submission dropdown
@@ -21,79 +19,83 @@ import { Collection } from '../../../core/shared/collection.model';
   styleUrls: ['./my-dspace-new-submission-dropdown.component.scss'],
   templateUrl: './my-dspace-new-submission-dropdown.component.html'
 })
-export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit {
+export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy {
 
   /**
-   * The default button icon to show
+   * Used to verify if there are one or more entities available
    */
-  @Input() buttonIcon = 'fa fa-plus-circle';
+  public moreThanOne$: Observable<boolean>;
 
   /**
-   * The default button name to show
+   * The entity observble (only if there is only one entity available)
    */
-  @Input() buttonName = 'mydspace.new-submission';
+  public singleEntity$: Observable<ItemType>;
 
   /**
-   * The default button classes to use
+   * The entity object (only if there is only one entity available)
    */
-  @Input() buttonClass = 'btn btn-lg btn-primary mt-1 ml-2';
+  public singleEntity: ItemType;
 
   /**
-   * Representing if component should emit value of selected entries or navigate to submit
+   * TRUE if the page is initialized
    */
-  @Input() emitOnly = false;
+  public initialized$: Observable<boolean>;
 
   /**
-   * Emit the selected collection
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
    */
-  @Output() select: EventEmitter<Collection> = new EventEmitter<Collection>();
-
-  /**
-   * Representing if dropdown list is initialized
-   */
-  initialized = false;
-
-  /**
-   * Representing if dropdown list is loading
-   */
-  loading = false;
-
-  /**
-   * The list of available entity type
-   */
-  availableEntityTypeList: string[];
-
-  /**
-   * Represents the state of a paginated response
-   */
-  pageInfo: PageInfo;
-
-  /**
-   * Subscription to unsubscribe from
-   */
-  private subs: Subscription[] = [];
+  public subs: Subscription[] = [];
 
   /**
    * Initialize instance variables
    *
-   * @param {ChangeDetectorRef} changeDetectorRef
    * @param {EntityTypeService} entityTypeService
    * @param {NgbModal} modalService
    */
-  constructor(private changeDetectorRef: ChangeDetectorRef,
-              private entityTypeService: EntityTypeService,
-              private modalService: NgbModal) {
-    this.availableEntityTypeList = [];
-    this.pageInfo = new PageInfo();
-    this.pageInfo.elementsPerPage = 10;
-    this.pageInfo.currentPage = 1;
-  }
+  constructor(private entityTypeService: EntityTypeService,
+              private modalService: NgbModal) { }
 
   /**
    * Initialize entity type list
    */
   ngOnInit() {
-    this.loadEntityTypes(this.toPageOptions());
+    this.initialized$ = observableOf(false);
+    this.moreThanOne$ = this.entityTypeService.hasMoreThanOneAuthorized();
+    this.singleEntity$ = this.moreThanOne$.pipe(
+      flatMap((response: boolean) => {
+        if (!response) {
+          const findListOptions: FindListOptions = {
+            elementsPerPage: 1,
+            currentPage: 1
+          };
+          return this.entityTypeService.getAllAuthorizedRelationshipType(findListOptions).pipe(
+            map((entities: RemoteData<PaginatedList<ItemType>>) => {
+              this.initialized$ = observableOf(true);
+              return entities.payload.page[0];
+            }),
+            take(1)
+          );
+        } else {
+          this.initialized$ = observableOf(true);
+          return observableOf(null);
+        }
+      }),
+      take(1)
+    );
+    this.subs.push(
+      this.singleEntity$.subscribe((result) => this.singleEntity = result )
+    );
+  }
+
+  /**
+   * Method called on clicking the button "New Submition", It opens a dialog for
+   * select a collection.
+   */
+  openDialog(entity: ItemType) {
+    const modalRef = this.modalService.open(CreateItemParentSelectorComponent);
+    modalRef.componentInstance.metadata = 'relationship.type';
+    modalRef.componentInstance.metadatavalue = entity.label;
   }
 
   /**
@@ -103,62 +105,5 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnDestroy, OnInit
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
-  }
-
-  loadEntityTypes(pageInfo: FindListOptions) {
-    this.loading = true;
-    this.subs.push(
-      this.entityTypeService.getAllAuthorizedRelationshipType(pageInfo).pipe(
-        getFirstSucceededRemoteDataPayload()
-      ).subscribe((list: PaginatedList<ItemType>) => {
-          this.initialized = true
-          this.loading = false;
-          this.pageInfo.totalPages = list.pageInfo.totalPages;
-          this.availableEntityTypeList = this.availableEntityTypeList
-            .concat(list.page.map((type) => type.label));
-          this.changeDetectorRef.detectChanges();
-        },
-        () => {
-          this.initialized = true;
-          this.loading = false;
-        },
-        () => {
-          this.initialized = true;
-          this.loading = false;
-        }));
-  }
-
-  onScroll() {
-    if (!this.loading && this.pageInfo.currentPage < this.pageInfo.totalPages) {
-      this.pageInfo.currentPage++;
-      this.loadEntityTypes(this.toPageOptions());
-    }
-  }
-
-  hasMultipleOptions(): boolean {
-    return this.availableEntityTypeList && this.availableEntityTypeList.length > 1;
-  }
-
-  private toPageOptions() {
-    return {
-      currentPage: this.pageInfo.currentPage,
-      elementsPerPage: this.pageInfo.elementsPerPage,
-    } as FindListOptions;
-  }
-
-  /**
-   * Method called on clicking the button "New Submition", It opens a dialog for
-   * select a collection.
-   */
-  openDialog(idx: number) {
-    const modalRef = this.modalService.open(CreateItemParentSelectorComponent);
-    modalRef.componentInstance.metadata = 'relationship.type';
-    modalRef.componentInstance.emitOnly = this.emitOnly;
-    if (hasValue(this.availableEntityTypeList) && this.availableEntityTypeList.length > 0) {
-      modalRef.componentInstance.metadatavalue = this.availableEntityTypeList[idx];
-    }
-    modalRef.componentInstance.select.subscribe((collection: Collection) => {
-      this.select.emit(collection);
-    });
   }
 }

@@ -1,0 +1,19 @@
+.list-item:active {
+  color: white !important;
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: $dropdown-menu-max-height;
+  overflow-x: hidden;
+}
+
+.entity-item {
+  border-bottom: $dropdown-border-width solid $dropdown-border-color;
+}
+
+#entityControlsDropdownMenu {
+  outline: 0;
+  left: 0 !important;
+  box-shadow: $btn-focus-box-shadow;
+}
