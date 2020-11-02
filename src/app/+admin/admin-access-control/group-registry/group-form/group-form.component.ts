@@ -265,7 +265,6 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     });
     const response = this.groupDataService.updateGroup(editedGroup);
     response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
-      console.log('resp', restResponse)
       if (restResponse.isSuccessful) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.edited.success', { name: editedGroup.name }));
         this.submitForm.emit(editedGroup);
@@ -274,10 +273,6 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         this.cancelForm.emit();
       }
     });
-
-    if (this.groupName.value != null && this.groupName.value !== group.name) {
-      this.showNotificationIfNameInUse(editedGroup, 'edited');
-    }
   }
 
   /**
