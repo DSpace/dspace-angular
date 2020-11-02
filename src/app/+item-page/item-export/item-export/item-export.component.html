@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col">
+        <ng-container *ngIf="formats">
+            <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-file-export"></i> Export</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button *ngFor="let format of formats" (click)="onSelectFormat(format)" ngbDropdownItem>{{ format }}</button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -193,6 +193,8 @@ import { EditItem } from './submission/models/edititem.model';
 import { EditItemDataService } from './submission/edititem-data.service';
 import { EditItemMode } from './submission/models/edititem-mode.model';
 import { EditItemModeDataService } from './submission/edititemmode-data.service';
+import { ItemExportFormatService } from './itemexportformat/item-export.service';
+import { ItemExportFormat } from './itemexportformat/model/item-export-format.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -348,6 +350,7 @@ const PROVIDERS = [
   VocabularyTreeviewService,
   SearchcomponentService,
   ResearcherProfileService,
+  ItemExportFormatService,
   SectionDataService,
   OrcidQueueService,
   OrcidHistoryService,
@@ -411,6 +414,7 @@ export const models =
     ConfigurationProperty,
     SearchComponent,
     ResearcherProfile,
+    ItemExportFormat,
     OrcidQueue,
     OrcidHistory,
     Section,
