@@ -1765,6 +1765,7 @@ export function getMockOpenaireBrokerEventRestService(): OpenaireBrokerEventRest
     patchEvent: jasmine.createSpy('patchEvent'),
     boundProject: jasmine.createSpy('boundProject'),
     removeProject: jasmine.createSpy('removeProject'),
+    clearFindByTopicRequests: jasmine.createSpy('.clearFindByTopicRequests')
   });
 }
 

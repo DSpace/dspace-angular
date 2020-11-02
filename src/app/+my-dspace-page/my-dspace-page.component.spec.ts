@@ -28,6 +28,10 @@ import { RoleDirective } from '../shared/roles/role.directive';
 import { RoleService } from '../core/roles/role.service';
 import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
+import { mockSuggestionTargetsObjectOne } from '../shared/mocks/reciter-suggestion-targets.mock';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;
@@ -82,6 +86,12 @@ describe('MyDSpacePageComponent', () => {
     expand: () => this.isCollapsed = observableOf(false)
   };
 
+  const suggestionStateService = jasmine.createSpyObj('SuggestionTargetsStateService', {
+    hasUserVisitedSuggestions: jasmine.createSpy('hasUserVisitedSuggestions'),
+    getCurrentUserSuggestionTargets: jasmine.createSpy('getCurrentUserSuggestionTargets'),
+    dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction')
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule],
@@ -120,6 +130,11 @@ describe('MyDSpacePageComponent', () => {
           provide: RoleService,
           useValue: new RoleServiceMock()
         },
+        {
+          provide: SuggestionTargetsStateService,
+          useValue: suggestionStateService
+        },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MyDSpacePageComponent, {
@@ -130,66 +145,88 @@ describe('MyDSpacePageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MyDSpacePageComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
-    fixture.detectChanges();
     searchServiceObject = (comp as any).service;
     searchConfigurationServiceObject = (comp as any).searchConfigService;
   });
 
-  afterEach(() => {
-    comp = null;
-    searchServiceObject = null;
-    searchConfigurationServiceObject = null;
-  });
-
-  it('should get the scope and query from the route parameters', () => {
-
-    searchConfigurationServiceObject.paginatedSearchOptions.next(paginatedSearchOptions);
-    expect(comp.searchOptions$).toBeObservable(cold('b', {
-      b: paginatedSearchOptions
-    }));
-
-  });
-
-  describe('when the open sidebar button is clicked in mobile view', () => {
+  describe('when there are no publication suggestions', () => {
 
     beforeEach(() => {
-      spyOn(comp, 'openSidebar');
-      const openSidebarButton = fixture.debugElement.query(By.css('.open-sidebar'));
-      openSidebarButton.triggerEventHandler('click', null);
-    });
-
-    it('should trigger the openSidebar function', () => {
-      expect(comp.openSidebar).toHaveBeenCalled();
-    });
-
-  });
-
-  describe('when sidebarCollapsed is true in mobile view', () => {
-    let menu: HTMLElement;
-
-    beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      comp.isSidebarCollapsed = () => observableOf(true);
+      suggestionStateService.hasUserVisitedSuggestions.and.returnValue(observableOf(false));
+      suggestionStateService.getCurrentUserSuggestionTargets.and.returnValue(observableOf([]));
       fixture.detectChanges();
     });
 
-    it('should close the sidebar', () => {
-      expect(menu.classList).not.toContain('active');
+    afterEach(() => {
+      comp = null;
+      searchServiceObject = null;
+      searchConfigurationServiceObject = null;
     });
 
+    it('should get the scope and query from the route parameters', () => {
+
+      searchConfigurationServiceObject.paginatedSearchOptions.next(paginatedSearchOptions);
+      expect(comp.searchOptions$).toBeObservable(cold('b', {
+        b: paginatedSearchOptions
+      }));
+
+    });
+
+    describe('when the open sidebar button is clicked in mobile view', () => {
+
+      beforeEach(() => {
+        spyOn(comp, 'openSidebar');
+        const openSidebarButton = fixture.debugElement.query(By.css('.open-sidebar'));
+        openSidebarButton.triggerEventHandler('click', null);
+      });
+
+      it('should trigger the openSidebar function', () => {
+        expect(comp.openSidebar).toHaveBeenCalled();
+      });
+
+    });
+
+    describe('when sidebarCollapsed is true in mobile view', () => {
+      let menu: HTMLElement;
+
+      beforeEach(() => {
+        menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
+        comp.isSidebarCollapsed = () => observableOf(true);
+        fixture.detectChanges();
+      });
+
+      it('should close the sidebar', () => {
+        expect(menu.classList).not.toContain('active');
+      });
+
+    });
+
+    describe('when sidebarCollapsed is false in mobile view', () => {
+      let menu: HTMLElement;
+
+      beforeEach(() => {
+        menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
+        comp.isSidebarCollapsed = () => observableOf(false);
+        fixture.detectChanges();
+      });
+
+      it('should open the menu', () => {
+        expect(menu.classList).toContain('active');
+      });
+
+    });
   });
 
-  describe('when sidebarCollapsed is false in mobile view', () => {
-    let menu: HTMLElement;
-
+  describe('when there are publication suggestions', () => {
     beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      comp.isSidebarCollapsed = () => observableOf(false);
+      suggestionStateService.hasUserVisitedSuggestions.and.returnValue(observableOf(false));
+      suggestionStateService.getCurrentUserSuggestionTargets.and.returnValue(observableOf([mockSuggestionTargetsObjectOne]));
       fixture.detectChanges();
     });
 
-    it('should open the menu', () => {
-      expect(menu.classList).toContain('active');
+    it('should show a notification when new publication suggestions are available', () => {
+      expect((comp as any).notificationsService.success).toHaveBeenCalled();
+      expect(suggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction).toHaveBeenCalled();
     });
 
   });
