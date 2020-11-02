@@ -50,8 +50,7 @@ export const externalSourceMyStaffDb: ExternalSource = {
 /**
  * Mock for [[ExternalSourceService]]
  */
-export function getMockExternalSourceService():
-ExternalSourceService {
+export function getMockExternalSourceService(): ExternalSourceService {
   return jasmine.createSpyObj('ExternalSourceService', {
     findAll: jasmine.createSpy('findAll'),
     getExternalSourceEntries: jasmine.createSpy('getExternalSourceEntries'),

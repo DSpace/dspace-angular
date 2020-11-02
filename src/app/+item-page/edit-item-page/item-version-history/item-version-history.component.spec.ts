@@ -23,7 +23,7 @@ describe('ItemVersionHistoryComponent', () => {
       declarations: [ItemVersionHistoryComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ item: createSuccessfulRemoteDataObject(item) }) } } }
+        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(item) }) } } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

@@ -31,7 +31,7 @@ describe('ItemStatusComponent', () => {
 
   const routeStub = {
       parent: {
-        data: observableOf({ item: createSuccessfulRemoteDataObject(mockItem) })
+        data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
       }
     };
 

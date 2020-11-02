@@ -17,7 +17,7 @@ import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { Item } from '../core/shared/item.model';
 import {
   getSucceededRemoteData,
-  redirectToPageNotFoundOn404,
+  redirectOn404Or401,
   toDSpaceObjectListRD
 } from '../core/shared/operators';
 
@@ -63,7 +63,7 @@ export class CollectionPageComponent implements OnInit {
   ngOnInit(): void {
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
-      redirectToPageNotFoundOn404(this.router),
+      redirectOn404Or401(this.router),
       take(1)
     );
     this.logoRD$ = this.collectionRD$.pipe(
