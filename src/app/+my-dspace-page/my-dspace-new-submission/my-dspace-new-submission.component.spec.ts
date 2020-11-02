@@ -24,7 +24,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { UploaderComponent } from 'src/app/shared/uploader/uploader.component';
-import { By } from '@angular/platform-browser';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 
