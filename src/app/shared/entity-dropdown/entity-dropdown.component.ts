@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, EventEmitter, ElementRef, Input } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { hasValue } from '../empty.util';
 import { startWith, switchMap, reduce } from 'rxjs/operators';
@@ -39,6 +39,11 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
   public searchListEntity: ItemType[] = [];
 
   /**
+   * TRUE if the parent operation is a 'new submission' operation, FALSE otherwise (eg.: is an 'Import metadata from an external source' operation).
+   */
+  @Input() isSubmission: boolean;
+
+  /**
    * The entity to output to the parent component
    */
   @Output() selectionChange = new EventEmitter<ItemType>();
@@ -68,7 +73,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} changeDetectorRef
-   * @param {CollectionDataService} collectionDataService
+   * @param {EntityTypeService} entityTypeService
    * @param {ElementRef} el
    */
   constructor(
@@ -141,7 +146,12 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
       elementsPerPage: 10,
       currentPage: page
     };
-    const searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipType(findOptions);
+    let searchListEntity$;
+    if (this.isSubmission) {
+      searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipType(findOptions);
+    } else {
+      searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipTypeImport(findOptions);
+    }
     this.searchListEntity$ = searchListEntity$.pipe(
         getSucceededRemoteWithNotEmptyData(),
         switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => {
