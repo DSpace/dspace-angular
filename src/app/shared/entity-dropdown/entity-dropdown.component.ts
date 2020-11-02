@@ -41,7 +41,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**
    * TRUE if the parent operation is a 'new submission' operation, FALSE otherwise (eg.: is an 'Import metadata from an external source' operation).
    */
-  @Input() isSubmission: boolean;
+  @Input() isSubmission = true;
 
   /**
    * The entity to output to the parent component
