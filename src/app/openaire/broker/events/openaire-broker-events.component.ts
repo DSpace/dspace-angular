@@ -229,14 +229,15 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     modalComp.externalSourceEntry = eventData;
     modalComp.label = 'project';
     this.subs.push(
-      modalComp.importedObject.subscribe((object: ItemSearchResult) => {
-        const projectTitle = Metadata.first(object.indexableObject.metadata, 'dc.title');
-        this.boundProject(
-          eventData,
-          object.indexableObject.id,
-          projectTitle.value,
-          object.indexableObject.handle
-        );
+      modalComp.importedObject.pipe(take(1))
+        .subscribe((object: ItemSearchResult) => {
+          const projectTitle = Metadata.first(object.indexableObject.metadata, 'dc.title');
+          this.boundProject(
+            eventData,
+            object.indexableObject.id,
+            projectTitle.value,
+            object.indexableObject.handle
+          );
       })
     );
   }
@@ -284,8 +285,8 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   public boundProject(eventData: OpenaireBrokerEventData, projectId: string, projectTitle: string, projectHandle: string): void {
     eventData.isRunning = true;
     this.subs.push(
-      this.openaireBrokerEventRestService.boundProject(eventData.id, projectId).pipe(
-        map((rd: RestResponse) => {
+      this.openaireBrokerEventRestService.boundProject(eventData.id, projectId).pipe(take(1))
+        .subscribe((rd: RestResponse) => {
           if (rd.isSuccessful && rd.statusCode === 201) {
             this.notificationsService.success(
               this.translateService.instant('openaire.broker.event.project.bounded')
@@ -301,8 +302,6 @@ export class OpenaireBrokerEventsComponent implements OnInit {
           }
           eventData.isRunning = false;
         })
-      )
-      .subscribe()
     );
   }
 
@@ -315,25 +314,23 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   public removeProject(eventData: OpenaireBrokerEventData): void {
     eventData.isRunning = true;
     this.subs.push(
-      this.openaireBrokerEventRestService.removeProject(eventData.id).pipe(
-        map((rd: RestResponse) => {
-          if (rd.isSuccessful && rd.statusCode === 204) {
-            this.notificationsService.success(
-              this.translateService.instant('openaire.broker.event.project.removed')
-            );
-            eventData.hasProject = false;
-            eventData.projectTitle = null;
-            eventData.handle = null;
-            eventData.projectId = null;
-          } else {
-            this.notificationsService.error(
-              this.translateService.instant('openaire.broker.event.project.error')
-            );
-          }
-          eventData.isRunning = false;
-        })
-      )
-      .subscribe()
+      this.openaireBrokerEventRestService.removeProject(eventData.id).pipe(take(1))
+      .subscribe((rd: RestResponse) => {
+        if (rd.isSuccessful && rd.statusCode === 204) {
+          this.notificationsService.success(
+            this.translateService.instant('openaire.broker.event.project.removed')
+          );
+          eventData.hasProject = false;
+          eventData.projectTitle = null;
+          eventData.handle = null;
+          eventData.projectId = null;
+        } else {
+          this.notificationsService.error(
+            this.translateService.instant('openaire.broker.event.project.error')
+          );
+        }
+        eventData.isRunning = false;
+      })
     );
   }
 

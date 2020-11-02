@@ -30,10 +30,10 @@
 
         <ds-loading class="container" *ngIf="(isEventLoading | async)" message="{{'openaire.broker.loading' | translate}}"></ds-loading>
         <ng-container *ngIf="!(isEventLoading | async)">
-          <div *ngIf="(eventsUpdated$|async).length == 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
+          <div *ngIf="(eventsUpdated$|async)?.length == 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
             {{'openaire.broker.noEvents' | translate}}
           </div>
-          <div *ngIf="(eventsUpdated$|async).length != 0" class="table-responsive mt-2">
+          <div *ngIf="(eventsUpdated$|async)?.length != 0" class="table-responsive mt-2">
             <table id="events" class="table table-striped table-hover table-bordered">
               <thead>
               <tr>

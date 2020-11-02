@@ -203,15 +203,14 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
 
     describe('openModalLookup', () => {
       it('should call modalService.open', () => {
+        spyOn(comp, 'boundProject');
         spyOn(compAsAny.modalService, 'open').and.returnValue(
           {
             componentInstance: {
               externalSourceEntry: null,
               label: null,
-              importedObject: observableOf(() => {
-                return {
-                  indexableObject: OpenaireMockDspaceObject
-                };
+              importedObject: observableOf({
+                indexableObject: OpenaireMockDspaceObject
               })
             }
           }
@@ -222,6 +221,7 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
         scheduler.flush();
 
         expect(compAsAny.modalService.open).toHaveBeenCalled();
+        expect(compAsAny.boundProject).toHaveBeenCalled();
       });
     });
 
