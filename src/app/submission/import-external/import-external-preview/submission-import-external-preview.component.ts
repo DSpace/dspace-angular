@@ -29,6 +29,10 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
    */
   public metadataList: Array<{ key: string, value: MetadataValue }>;
   /**
+   * The label prefix to use to generate the translation label
+   */
+  public labelPrefix: string;
+  /**
    * The modal for the entry preview
    */
   modalRef: NgbModalRef;
@@ -77,6 +81,8 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     this.modalRef = this.modalService.open(SubmissionImportExternalCollectionComponent, {
       size: 'lg',
     });
+    this.modalRef.componentInstance.metadata = 'relationship.type';
+    this.modalRef.componentInstance.metadataValue = this.labelPrefix;
     this.closeMetadataModal();
 
     this.modalRef.componentInstance.selectedEvent.pipe(

@@ -5,7 +5,9 @@
     </button>
   </div>
   <div class="modal-body">
-    <ds-collection-dropdown (selectionChange)="selectObject($event)">
+    <ds-collection-dropdown (selectionChange)="selectObject($event)"
+                            [metadata]="metadata"
+                            [metadatavalue]="metadataValue">
     </ds-collection-dropdown>
   </div>
 </div>

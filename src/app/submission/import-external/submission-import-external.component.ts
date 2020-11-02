@@ -66,7 +66,6 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     id: 'submission-external-source-relation-list',
     pageSize: 10
   });
-  public entityId: string;
   /**
    * The context to displaying lists for
    */
@@ -102,13 +101,9 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    * Get the entries for the selected external source and set initial configuration.
    */
   ngOnInit(): void {
-    this.label = 'Journal';
     this.listId = 'list-submission-external-sources';
     this.context = Context.EntitySearchModalWithNameVariants;
     this.repeatable = false;
-    this.importConfig = {
-      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
-    };
     this.entriesRD$ = new BehaviorSubject(createSuccessfulRemoteDataObject(new PaginatedList(new PageInfo(), [])));
     this.isLoading$ = new BehaviorSubject(false);
     this.subs.push(combineLatest(
@@ -120,7 +115,8 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       take(1)
     ).subscribe(([entity, source, query]: [string, string, string]) => {
       this.routeData = { entity: entity, sourceId: '', query: '' };
-      this.retrieveExternalSources(source, query);
+      this.selectLabel(entity);
+      this.retrieveExternalSources(entity, source, query);
     }));
   }
 
@@ -131,10 +127,10 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.router.navigate(
       [],
       {
-        queryParams: { entity: this.entityId, source: event.sourceId, query: event.query },
+        queryParams: { entity: event.entity, source: event.sourceId, query: event.query },
         replaceUrl: true
       }
-    ).then(() => this.retrieveExternalSources(event.sourceId, event.query));
+    ).then(() => this.retrieveExternalSources(event.entity, event.sourceId, event.query));
   }
 
   /**
@@ -147,13 +143,18 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     });
     const modalComp = this.modalRef.componentInstance;
     modalComp.externalSourceEntry = entry;
+    modalComp.labelPrefix = this.label;
   }
 
   /**
    * Retrieve external sources on pagination change
    */
   paginationChange() {
-    this.retrieveExternalSources(this.routeData.sourceId, this.routeData.query);
+    this.retrieveExternalSources(
+      this.routeData.entity,
+      this.routeData.sourceId,
+      this.routeData.query
+    );
   }
 
   /**
@@ -166,13 +167,15 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Retrieve external source entries
+   * Retrieve external source entries.
    *
+   * @param entity The entity name
    * @param source The source tupe
    * @param query The query string to search
    */
-  private retrieveExternalSources(source: string, query: string): void {
+  private retrieveExternalSources(entity: string, source: string, query: string): void {
     if (isNotEmpty(source) && isNotEmpty(query)) {
+      this.routeData.entity = entity;
       this.routeData.sourceId = source;
       this.routeData.query = query;
       this.isLoading$.next(true);
@@ -193,4 +196,15 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Set the correct button label, depending on the entity.
+   *
+   * @param entity The entity name
+   */
+  private selectLabel(entity: string): void {
+    this.label = entity;
+    this.importConfig = {
+      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
+    };
+  }
 }

@@ -112,8 +112,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
         new RequestParam('entityType', this.initExternalSourceData.entity)
       ]
     });
-    this.externalService.searchBy2('findByEntityType', this.findListOptions).pipe(
-    // this.externalService.findAll(this.findListOptions).pipe(
+    this.externalService.searchBy('findByEntityType', this.findListOptions).pipe(
       catchError(() => {
         const pageInfo = new PageInfo();
         const paginatedList = new PaginatedList(pageInfo, []);
@@ -158,8 +157,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
           new RequestParam('entityType', this.initExternalSourceData.entity)
         ]
       });
-      this.externalService.searchBy2('findByEntityType', this.findListOptions).pipe(
-      // this.externalService.findAll(this.findListOptions).pipe(
+      this.externalService.searchBy('findByEntityType', this.findListOptions).pipe(
         catchError(() => {
           const pageInfo = new PageInfo();
           const paginatedList = new PaginatedList(pageInfo, []);
