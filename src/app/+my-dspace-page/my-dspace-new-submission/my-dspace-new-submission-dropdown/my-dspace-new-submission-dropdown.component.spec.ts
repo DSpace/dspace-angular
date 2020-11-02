@@ -60,7 +60,7 @@ export function getMockEmptyEntityTypeService(): EntityTypeService {
   });
 }
 
-describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
+fdescribe('MyDSpaceNewSubmissionDropdownComponent test', () => {
   let testComp: TestComponent;
   let testFixture: ComponentFixture<TestComponent>;
   let submissionComponent: MyDSpaceNewSubmissionDropdownComponent;
@@ -176,7 +176,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
     }));
 
     it('should invoke modalService.open', () => {
-      spyOn((submissionComponent as any).modalService, 'open').and.returnValue({ componentInstance: { metadata: '', metadatavalue: '' } });
+      spyOn((submissionComponent as any).modalService, 'open').and.returnValue({ componentInstance: {  } });
       submissionComponent.openDialog(entityType1);
 
       expect((submissionComponent as any).modalService.open).toHaveBeenCalled();
