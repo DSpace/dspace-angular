@@ -105,7 +105,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
       spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValue(observableOf(''));
       fixture.detectChanges();
 
-      expect(comp.routeData).toEqual({ sourceId: '', query: '' });
+      expect(comp.routeData).toEqual({entity: '', sourceId: '', query: '' });
       expect(comp.isLoading$.value).toBe(false);
       expect(comp.entriesRD$.value).toEqual(expectedEntries);
     });
@@ -119,20 +119,20 @@ describe('SubmissionImportExternalComponent test suite', () => {
     });
 
     it('Should call \'getExternalSourceEntries\' properly', () => {
-      comp.routeData = { sourceId: '', query: '' };
+      comp.routeData = {entity: '', sourceId: '', query: '' };
       scheduler.schedule(() => compAsAny.retrieveExternalSources('orcidV2', 'test'));
       scheduler.flush();
 
-      expect(comp.routeData).toEqual({ sourceId: 'orcidV2', query: 'test' });
+      expect(comp.routeData).toEqual({entity: '', sourceId: 'orcidV2', query: 'test' });
       expect(comp.isLoading$.value).toBe(false);
       expect(compAsAny.externalService.getExternalSourceEntries).toHaveBeenCalled();
     });
 
     it('Should call \'router.navigate\'', () => {
-      comp.routeData = { sourceId: '', query: '' };
+      comp.routeData = {entity: '', sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources').and.callFake(() => null);
       compAsAny.router.navigate.and.returnValue( new Promise(() => {return;}))
-      const event = { sourceId: 'orcidV2', query: 'dummy' };
+      const event = {entity: '', sourceId: 'orcidV2', query: 'dummy' };
 
       scheduler.schedule(() => comp.getExternalSourceData(event));
       scheduler.flush();

@@ -15,6 +15,7 @@ import { HostWindowService } from '../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+import { RequestParam } from '../../../core/cache/models/request-param.model';
 
 describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   let comp: SubmissionImportExternalSearchbarComponent;
@@ -75,7 +76,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       const pageInfo = new PageInfo();
       paginatedList = new PaginatedList(pageInfo, [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
       const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-      compAsAny.externalService.findAll.and.returnValue(observableOf(paginatedListRD));
+      compAsAny.externalService.searchBy.and.returnValue(observableOf(paginatedListRD));
       sourceList = [
         {id: 'orcid', name: 'orcid'},
         {id: 'ciencia', name: 'ciencia'},
@@ -90,7 +91,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
     });
 
     it('Should init component properly (without initExternalSourceData)', () => {
-      comp.initExternalSourceData = { sourceId: '', query: '' };
+      comp.initExternalSourceData = { entity: 'Publication', sourceId: '', query: '' };
       scheduler.schedule(() => fixture.detectChanges());
       scheduler.flush();
 
@@ -100,7 +101,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
     });
 
     it('Should init component properly (with initExternalSourceData populated)', () => {
-      comp.initExternalSourceData = { query: 'dummy', sourceId: 'ciencia' };
+      comp.initExternalSourceData = { entity: 'Publication', query: 'dummy', sourceId: 'ciencia' };
       scheduler.schedule(() => fixture.detectChanges());
       scheduler.flush();
 
@@ -116,6 +117,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
     });
 
     it('Should load additional external sources', () => {
+      comp.initExternalSourceData = { entity: 'Publication', query: 'dummy', sourceId: 'ciencia' };
       comp.sourceListLoading = false;
       compAsAny.pageInfo = new PageInfo({
         elementsPerPage: 3,
@@ -126,6 +128,9 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       compAsAny.findListOptions = Object.assign({}, new FindListOptions(), {
         elementsPerPage: 3,
         currentPage: 0,
+        searchParams: [
+          new RequestParam('entityType', 'Publication')
+        ]
       });
       comp.sourceList = sourceList;
       const expected = sourceList.concat(sourceList);
@@ -137,9 +142,10 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
     });
 
     it('The \'search\' method should call \'emit\'', () => {
+      comp.initExternalSourceData = { entity: 'Publication', query: 'dummy', sourceId: 'ciencia' };
       comp.selectedElement = { id: 'orcidV2', name: 'orcidV2' };
       comp.searchString = 'dummy';
-      const expected = { sourceId: comp.selectedElement.id, query: comp.searchString };
+      const expected = { entity: 'Publication', sourceId: comp.selectedElement.id, query: comp.searchString };
       spyOn(comp.externalSourceData, 'emit');
       comp.search();
 

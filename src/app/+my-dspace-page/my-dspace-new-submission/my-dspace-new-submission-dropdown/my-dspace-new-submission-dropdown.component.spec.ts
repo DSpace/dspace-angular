@@ -60,7 +60,7 @@ export function getMockEmptyEntityTypeService(): EntityTypeService {
   });
 }
 
-fdescribe('MyDSpaceNewSubmissionDropdownComponent test', () => {
+describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
   let testComp: TestComponent;
   let testFixture: ComponentFixture<TestComponent>;
   let submissionComponent: MyDSpaceNewSubmissionDropdownComponent;

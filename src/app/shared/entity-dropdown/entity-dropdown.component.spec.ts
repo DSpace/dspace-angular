@@ -61,6 +61,13 @@ class EntityTypeServiceMock {
         )
     );
   };
+  getAllAuthorizedRelationshipTypeImport(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<PaginatedList<ItemType>>> {
+    return of(
+        createSuccessfulRemoteDataObject(
+          new PaginatedList(new PageInfo(), entities)
+        )
+    );
+  };
 }
 
 describe('EntityDropdownComponent', () => {
@@ -94,6 +101,7 @@ describe('EntityDropdownComponent', () => {
     fixture = TestBed.createComponent(EntityDropdownComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.isSubmission = false;
   });
 
   it('should populate entities list with five items', () => {
@@ -152,6 +160,7 @@ describe('EntityDropdownComponent', () => {
   });
 
   it('should invoke the method getAllAuthorizedRelationshipType of EntityTypeService', fakeAsync(() => {
+    component.isSubmission = true;
     spyOn((component as any).entityTypeService, 'getAllAuthorizedRelationshipType').and.returnValue(
       of(
         createSuccessfulRemoteDataObject(
@@ -164,6 +173,23 @@ describe('EntityDropdownComponent', () => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       expect((component as any).entityTypeService.getAllAuthorizedRelationshipType).toHaveBeenCalled();
+    });
+  }));
+
+  it('should invoke the method getAllAuthorizedRelationshipTypeImport of EntityTypeService', fakeAsync(() => {
+    component.isSubmission = false;
+    spyOn((component as any).entityTypeService, 'getAllAuthorizedRelationshipTypeImport').and.returnValue(
+      of(
+        createSuccessfulRemoteDataObject(
+          new PaginatedList(new PageInfo(), entities)
+        )
+      )
+    );
+    component.ngOnInit();
+    tick();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect((component as any).entityTypeService.getAllAuthorizedRelationshipTypeImport).toHaveBeenCalled();
     });
   }));
 });

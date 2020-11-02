@@ -91,7 +91,7 @@ export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
    * Method called on clicking the button 'Import metadata from external source'. It opens the page of the external import.
    */
   openPage(entity: ItemType) {
-    this.router.navigate(['/import-external'], { queryParams: { entity: entity.id } });
+    this.router.navigate(['/import-external'], { queryParams: { entity: entity.label } });
   }
 
   /**

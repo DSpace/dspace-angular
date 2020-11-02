@@ -61,7 +61,7 @@ export function getMockEmptyEntityTypeService(): EntityTypeService {
   });
 }
 
-fdescribe('MyDSpaceNewExternalDropdownComponent test', () => {
+describe('MyDSpaceNewExternalDropdownComponent test', () => {
   let testComp: TestComponent;
   let testFixture: ComponentFixture<TestComponent>;
   let submissionComponent: MyDSpaceNewExternalDropdownComponent;

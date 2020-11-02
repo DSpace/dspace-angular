@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-
+import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ExternalSourceService } from '../../../core/data/external-source.service';
 import { ExternalSource } from '../../../core/shared/external-source.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
@@ -26,7 +25,7 @@ export interface SourceElement {
  * Interface for the external source data to export.
  */
 export interface ExternalSourceData {
-  entityId: string;
+  entity: string;
   query: string;
   sourceId: string;
 }
@@ -110,10 +109,11 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       elementsPerPage: 5,
       currentPage: 1,
       searchParams: [
-        { entityId: this.initExternalSourceData.entityId }
+        new RequestParam('entityType', this.initExternalSourceData.entity)
       ]
     });
-    this.externalService.findAll(this.findListOptions).pipe(
+    this.externalService.searchBy2('findByEntityType', this.findListOptions).pipe(
+    // this.externalService.findAll(this.findListOptions).pipe(
       catchError(() => {
         const pageInfo = new PageInfo();
         const paginatedList = new PaginatedList(pageInfo, []);
@@ -154,8 +154,12 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       this.findListOptions = Object.assign({}, new FindListOptions(), {
         elementsPerPage: 5,
         currentPage: this.findListOptions.currentPage + 1,
+        searchParams: [
+          new RequestParam('entityType', this.initExternalSourceData.entity)
+        ]
       });
-      this.sub = this.externalService.findAll(this.findListOptions).pipe(
+      this.externalService.searchBy2('findByEntityType', this.findListOptions).pipe(
+      // this.externalService.findAll(this.findListOptions).pipe(
         catchError(() => {
           const pageInfo = new PageInfo();
           const paginatedList = new PaginatedList(pageInfo, []);
@@ -179,7 +183,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
   public search(): void {
     this.externalSourceData.emit(
       {
-        entityId: this.initExternalSourceData.entityId,
+        entity: this.initExternalSourceData.entity,
         sourceId: this.selectedElement.id,
         query: this.searchString
       }

@@ -18,6 +18,6 @@
          class="dropdown-menu"
          id="entityControlsDropdownMenu"
          aria-labelledby="dropdownSubmission">
-      <ds-entity-dropdown (selectionChange)="openPage($event)"></ds-entity-dropdown>
+      <ds-entity-dropdown [isSubmission]="false" (selectionChange)="openPage($event)"></ds-entity-dropdown>
     </div>
   </div>

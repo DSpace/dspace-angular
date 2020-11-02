@@ -31,11 +31,6 @@ import { getFinishedRemoteData } from '../../core/shared/operators';
   animations: [fadeIn]
 })
 export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
-
-  /**
-   * The external source search data observable from the routing service.
-   */
-  public routeData$: Observable<ExternalSourceData>;
   /**
    * The external source search data from the routing service.
    */
@@ -124,8 +119,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       ]).pipe(
       take(1)
     ).subscribe(([entity, source, query]: [string, string, string]) => {
-      this.routeData = { entityId: entity, sourceId: '', query: '' };
-      this.routeData$ = observableOf(this.routeData);
+      this.routeData = { entity: entity, sourceId: '', query: '' };
       this.retrieveExternalSources(source, query);
     }));
   }
