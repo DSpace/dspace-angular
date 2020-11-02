@@ -4,13 +4,19 @@
     [object]="listableObject"
     [linkType]="0"></ds-publication-search-result-list-element>
   <div class="parent mt-2">
-    <ds-my-dspace-new-submission-dropdown
-      [buttonIcon]="'fa fa-check'"
-      [buttonName]="'reciter.suggestion.approveAndImport'"
-      [buttonClass]="'btn btn-success mt-1 ml-2'"
-      [emitOnly]="true"
-      (select)="selectedCollection($event)">
-    </ds-my-dspace-new-submission-dropdown>
+    <div ngbDropdown>
+      <button class="btn btn-success mt-1 ml-2" id="dropdownSubmission" ngbDropdownToggle
+              type="button">
+        <i class="fa fa-check" aria-hidden="true"></i> {{'reciter.suggestion.approveAndImport' | translate}}
+        <span class="caret"></span>
+      </button>
+      <div ngbDropdownMenu
+           class="dropdown-menu"
+           id="entityControlsDropdownMenu"
+           aria-labelledby="dropdownSubmission">
+        <ds-entity-dropdown (selectionChange)="openDialog($event)"></ds-entity-dropdown>
+      </div>
+    </div>
     <button (click)="notMine()" class="btn btn-danger mt-1 ml-2"><i class="fa fa-ban"></i>
       {{'reciter.suggestion.notMine' | translate}}</button>
     <button (click)="seeEvidences()" [disabled]="!hasEvidences()" class="btn btn-info mt-1 ml-2"><i class="fa fa-eye"></i>
