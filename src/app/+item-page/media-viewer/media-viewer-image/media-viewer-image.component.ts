@@ -12,7 +12,7 @@ import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 })
 export class MediaViewerImageComponent implements OnInit {
   @Input() images: MediaViewerItem[];
-  @Input() image: string;
+  @Input() image?: string;
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
