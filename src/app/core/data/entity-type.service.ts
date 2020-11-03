@@ -89,7 +89,7 @@ export class EntityTypeService extends DataService<ItemType> {
    * @param entityTypeId
    */
   getAllAuthorizedRelationshipTypeImport(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<ItemType>>> {
-    const searchHref = 'findAllByAuthorizedImport';
+    const searchHref = 'findAllByAuthorizedExternalSource';
 
     return this.searchBy(searchHref, options).pipe(
       filter((type: RemoteData<PaginatedList<ItemType>>) => !type.isResponsePending));

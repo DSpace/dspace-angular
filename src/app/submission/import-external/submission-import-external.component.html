@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 id="header" class="pb-2">{{'submission.import-external.title' | translate}}</h2>
+      <h2 id="header" class="pb-2">{{'submission.import-external.title' + ((label) ? '.' + label : '') | translate}}</h2>
       <ds-submission-import-external-searchbar
         *ngIf="routeData.entity"
         [initExternalSourceData]="routeData"

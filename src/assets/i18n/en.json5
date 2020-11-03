@@ -3211,6 +3211,26 @@
 
   "submission.import-external.title": "Import metadata from an external source",
 
+  "submission.import-external.title.Dataset": "Import dataset from an external source",
+
+  "submission.import-external.title.Equipment": "Import equipment from an external source",
+
+  "submission.import-external.title.Event": "Import event from an external source",
+
+  "submission.import-external.title.Funding": "Import fund from an external source",
+
+  "submission.import-external.title.Journal": "Import journal from an external source",
+
+  "submission.import-external.title.OrgUnit": "Import publisher from an external source",
+
+  "submission.import-external.title.Patent": "Import patent from an external source",
+
+  "submission.import-external.title.Person": "Import person from an external source",
+
+  "submission.import-external.title.Project": "Import project from an external source",
+
+  "submission.import-external.title.Publication": "Import publication from an external source",
+
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
 
   "submission.import-external.page.noentity": "An entity type must be selected in order to use this page. Select it using the 'Import metadata from an external source' button in 'MyDspace' page.",
