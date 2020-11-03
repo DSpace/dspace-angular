@@ -1228,13 +1228,25 @@
 
   "explore.index.dc.title" : "Title",
 
+  "explore.index.editor" : "Editor",
+
+  "explore.index.eqtitle" : "Title",
+
+  "explore.index.eqowner" : "Researcher",
+
+  "explore.index.eqorgunit" : "Organization",
+
   "explore.index.entityType" : "Entity type",
 
   "explore.index.familyName" : "Family name",
 
+  "explore.index.funding" : "Funding",
+
   "explore.index.givenName" : "Given name",
 
   "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
+
+  "explore.index.investigators" : "Researchers",
 
   "explore.index.isAuthorOfPublication" : "Publication's author",
 
@@ -1270,6 +1282,8 @@
 
   "explore.index.knowsLanguage" : "Knows languages",
 
+  "explore.index.organization" : "Organization",
+
   "explore.index.organizationAddressCountry" : "Organization address country",
 
   "explore.index.organizationAddressLocality" : "Organization address locality",
@@ -1283,6 +1297,10 @@
   "explore.index.original_bundle_filenames" : "Original bundle filenames",
 
   "explore.index.ouname" : "Name",
+
+  "explore.index.projectOrgUnits" : "Organizations",
+
+  "explore.index.personOrgUnits" : "Organizations",
 
   "explore.index.pjtitle" : "Title",
 
@@ -1300,11 +1318,17 @@
 
   "explore.index.type" : "Type",
 
+  "explore.search-section.infrastructure.title": "Infrastructure",
+
   "explore.search-section.fundings.title": "Search Projects",
+
+  "explore.search-section.fundings_and_projects.title": "Search Projects",
 
   "explore.search-section.orgunits.title": "Search Organizations",
 
   "explore.search-section.publications.title": "Search Research Outputs",
+
+  "explore.search-section.researchoutputs.title": "Search Research Outputs",
 
   "explore.search-section.researcherprofiles.title": "Search People",
 
@@ -1312,11 +1336,17 @@
 
   "explore.search-section.reset-button": "Reset",
 
+  "explore.infrastructure.breadcrumbs": "Infrastructure",
+
   "explore.fundings.breadcrumbs": "Projects",
+
+  "explore.fundings_and_projects.breadcrumbs": "Projects",
 
   "explore.orgunits.breadcrumbs": "Organizations",
 
   "explore.publications.breadcrumbs": "Research Outputs",
+
+  "explore.researchoutputs.breadcrumbs": "Research Outputs",
 
   "explore.researcherprofiles.breadcrumbs": "People",
 
@@ -2127,13 +2157,19 @@
 
   "menu.section.browse_community_by_title": "By Title",
 
+  "menu.section.explore_infrastructure": "Infrastructure",
+
   "menu.section.explore_publications": "Research Outputs",
+
+  "menu.section.explore_researchoutputs": "Research Outputs",
 
   "menu.section.explore_researcherprofiles": "People",
 
   "menu.section.explore_orgunits": "Organizations",
 
   "menu.section.explore_fundings": "Projects",
+
+  "menu.section.explore_fundings_and_projects": "Projects",
 
   "menu.section.communities_and_collections": "Communities & Collections",
 
@@ -3053,17 +3089,37 @@
 
   "search.filters.filter.discoverable.head": "Private",
 
+  "search.filters.filter.editor.head": "Editor",
+
+  "search.filters.filter.editor.placeholder": "Editor",
+
   "search.filters.filter.withdrawn.head": "Withdrawn",
 
   "search.filters.filter.entityType.head": "Item Type",
 
   "search.filters.filter.entityType.placeholder": "Item Type",
 
+  "search.filters.filter.eqowner.head": "Researcher",
+
+  "search.filters.filter.eqowner.placeholder": "Researcher",
+
+  "search.filters.filter.eqorgunit.head": "Organization",
+
+  "search.filters.filter.eqorgunit.placeholder": "Organization",
+
+  "search.filters.filter.funding.head": "Funding",
+
+  "search.filters.filter.funding.placeholder": "Funding",
+
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
   "search.filters.filter.itemtype.head": "Type",
 
   "search.filters.filter.itemtype.placeholder": "Type",
+
+  "search.filters.filter.investigators.head": "Researcher",
+
+  "search.filters.filter.investigators.placeholder": "Researcher",
 
   "search.filters.filter.jobTitle.head": "Job Title",
 
@@ -3073,6 +3129,14 @@
 
   "search.filters.filter.knowsLanguage.placeholder": "Known language",
 
+  "search.filters.filter.projectOrgUnits.head" : "Organizations",
+
+  "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
+
+  "search.filters.filter.personOrgUnits.head" : "Organizations",
+
+  "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
+
   "search.filters.filter.namedresourcetype.head": "Status",
 
   "search.filters.filter.namedresourcetype.placeholder": "Status",
@@ -3080,6 +3144,10 @@
   "search.filters.filter.objectpeople.head": "People",
 
   "search.filters.filter.objectpeople.placeholder": "People",
+
+  "search.filters.filter.organization.head": "Organization",
+
+  "search.filters.filter.organization.placeholder": "Organization",
 
   "search.filters.filter.organizationAddressCountry.head": "Country",
 

@@ -238,6 +238,10 @@ export const environment: GlobalConfig = {
       {
         id: 'pjtitle',
         type: BrowseByType.Title
+      },
+      {
+        id: 'eqtitle',
+        type: BrowseByType.Title
       }
     ]
   },
