@@ -46,7 +46,9 @@ export class MediaViewerImageComponent implements OnInit {
         small: image.thumbnail
           ? image.thumbnail
           : './assets/images/replacement_image.svg',
-        medium: image.bitstream._links.content.href,
+        medium: image.thumbnail
+          ? image.thumbnail
+          : './assets/images/replacement_image.svg',
         big: image.bitstream._links.content.href,
       });
     }

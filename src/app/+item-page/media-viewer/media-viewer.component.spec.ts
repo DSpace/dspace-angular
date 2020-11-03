@@ -15,8 +15,6 @@ import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { MetadataFieldWrapperComponent } from '../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 
 describe('MediaViewerComponent', () => {
   let comp: MediaViewerComponent;
@@ -57,13 +55,6 @@ describe('MediaViewerComponent', () => {
     ),
   });
 
-  const bitstreamFormatDataService = jasmine.createSpyObj(
-    'bitstreamFormatDataService',
-    {
-      findByBitstream: createSuccessfulRemoteDataObject$(new BitstreamFormat()),
-    }
-  );
-
   const mockMediaViewerItem: MediaViewerItem = Object.assign(
     new MediaViewerItem(),
     { bitstream: mockBitstream, format: 'image', thumbnail: null }
@@ -88,10 +79,6 @@ describe('MediaViewerComponent', () => {
       ],
       providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
-        {
-          provide: BitstreamFormatDataService,
-          useValue: bitstreamFormatDataService,
-        },
       ],
 
       schemas: [NO_ERRORS_SCHEMA],

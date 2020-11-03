@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
@@ -11,6 +10,7 @@ import { Item } from '../../core/shared/item.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { hasValue } from '../../shared/empty.util';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 /**
  * This componenet renders the media viewers
@@ -32,7 +32,6 @@ export class MediaViewerComponent implements OnInit {
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
-    protected bitstreamFormatDataService: BitstreamFormatDataService
   ) {}
 
   /**
@@ -44,9 +43,8 @@ export class MediaViewerComponent implements OnInit {
     this.loadRemoteData('ORIGINAL').subscribe((bitstreamsRD) => {
       this.loadRemoteData('THUMBNAIL').subscribe((thumbnailsRD) => {
         for (let index = 0; index < bitstreamsRD.payload.page.length; index++) {
-          this.bitstreamFormatDataService
-            .findByBitstream(bitstreamsRD.payload.page[index])
-            .pipe(getFirstSucceededRemoteDataPayload())
+          bitstreamsRD.payload.page[index].format
+          .pipe(getFirstSucceededRemoteDataPayload())
             .subscribe((format) => {
               const current = this.mediaList$.getValue();
               const mediaItem = this.createMediaViewerItem(
@@ -70,7 +68,7 @@ export class MediaViewerComponent implements OnInit {
     bundleName: string
   ): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bitstreamDataService
-      .findAllByItemAndBundleName(this.item, bundleName)
+      .findAllByItemAndBundleName(this.item, bundleName, {}, followLink('format'))
       .pipe(
         filter(
           (bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) =>
