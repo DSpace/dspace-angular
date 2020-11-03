@@ -1950,6 +1950,10 @@
 
   "item.preview.dc.title": "Title:",
 
+  "item.preview.dc.identifier": "Identifier:",
+
+  "item.preview.dc.source": "Source:",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
@@ -3391,7 +3395,29 @@
 
   "submission.import-external.title": "Import metadata from an external source",
 
+  "submission.import-external.title.Dataset": "Import dataset from an external source",
+
+  "submission.import-external.title.Equipment": "Import equipment from an external source",
+
+  "submission.import-external.title.Event": "Import event from an external source",
+
+  "submission.import-external.title.Funding": "Import fund from an external source",
+
+  "submission.import-external.title.Journal": "Import journal from an external source",
+
+  "submission.import-external.title.OrgUnit": "Import publisher from an external source",
+
+  "submission.import-external.title.Patent": "Import patent from an external source",
+
+  "submission.import-external.title.Person": "Import person from an external source",
+
+  "submission.import-external.title.Project": "Import project from an external source",
+
+  "submission.import-external.title.Publication": "Import publication from an external source",
+
   "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
+
+  "submission.import-external.page.noentity": "An entity type must be selected in order to use this page. Select it using the 'Import metadata from an external source' button in 'MyDspace' page.",
 
   "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
 
@@ -3411,21 +3437,37 @@
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
-  "submission.import-external.source.orcidV2": "ORCID",
+  "submission.import-external.source.orcid": "ORCID",
 
   "submission.import-external.source.pubmed": "Pubmed",
 
   "submission.import-external.source.lcname": "Library of Congress Names",
 
-  "submission.import-external.source.epo": "Epo",
-
-  "submission.import-external.source.orcid": "Orcid",
-
-  "submission.import-external.source.openaire": "Openaire",
-
   "submission.import-external.source.scopus": "Scopus",
 
-  "submission.import-external.preview.title": "Item Preview",
+  "submission.import-external.source.openaire": "OpenAIRE",
+
+  "submission.import-external.source.epo": "European Patent Office (EPO)",
+
+  "submission.import-external.preview.title.Dataset": "Dataset Preview",
+
+  "submission.import-external.preview.title.Equipment": "Equipment Preview",
+
+  "submission.import-external.preview.title.Event": "Event Preview",
+
+  "submission.import-external.preview.title.Funding": "Funding Preview",
+
+  "submission.import-external.preview.title.Journal": "Journal Preview",
+
+  "submission.import-external.preview.title.OrgUnit": "Publisher Preview",
+
+  "submission.import-external.preview.title.Patent": "Patent Preview",
+
+  "submission.import-external.preview.title.Person": "Person Preview",
+
+  "submission.import-external.preview.title.Project": "Project Preview",
+
+  "submission.import-external.preview.title.Publication": "Publication Preview",
 
   "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
 
@@ -3486,6 +3528,24 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
 
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Dataset": "Import remote dataset",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote publisher",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
+
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.title": "Import Remote Author",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.added.local-entity": "Successfully added local author to the selection",
@@ -3506,7 +3566,7 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcidV2": "Importing from ORCID",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
 
@@ -3612,13 +3672,19 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidV2": "Search Results",
-
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openaire": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 

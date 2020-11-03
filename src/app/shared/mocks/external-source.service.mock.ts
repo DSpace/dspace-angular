@@ -53,6 +53,7 @@ export const externalSourceMyStaffDb: ExternalSource = {
 export function getMockExternalSourceService(): ExternalSourceService {
   return jasmine.createSpyObj('ExternalSourceService', {
     findAll: jasmine.createSpy('findAll'),
+    searchBy: jasmine.createSpy('searchBy'),
     getExternalSourceEntries: jasmine.createSpy('getExternalSourceEntries'),
   });
 }

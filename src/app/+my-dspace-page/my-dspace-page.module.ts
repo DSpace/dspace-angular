@@ -21,6 +21,7 @@ import { ItemSearchResultListElementSubmissionComponent } from '../shared/object
 import { WorkflowItemSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workflow-item-search-result/workflow-item-search-result-list-element.component';
 import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-search-result/pool-search-result-detail-element.component';
 import { CollectionSelectorComponent } from './collection-selector/collection-selector.component';
+import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
 import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
 import { OpenaireSuggestionsDataService } from '../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
 import { OpenaireModule } from '../openaire/openaire.module';
@@ -46,7 +47,9 @@ import { OpenaireModule } from '../openaire/openaire.module';
     PoolSearchResultDetailElementComponent,
     MyDSpaceNewSubmissionComponent,
     ItemSearchResultListElementSubmissionComponent,
-    CollectionSelectorComponent
+    CollectionSelectorComponent,
+    MyDSpaceNewSubmissionDropdownComponent,
+    MyDSpaceNewExternalDropdownComponent
   ],
   providers: [
     MyDSpaceGuard,
