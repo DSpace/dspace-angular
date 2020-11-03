@@ -22,7 +22,7 @@
         mediaList[0]?.format !== 'audio'
       "
     >
-      <img [src]="mediaList[0]?.thumbnail || thumbnailPlaceholder" alt="" />
+      <ds-media-viewer-image [image]="mediaList[0]?.thumbnail || thumbnailPlaceholder"></ds-media-viewer-image>
     </ng-container>
   </div>
 </ng-container>

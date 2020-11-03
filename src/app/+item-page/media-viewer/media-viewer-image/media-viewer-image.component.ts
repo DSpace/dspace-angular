@@ -12,6 +12,7 @@ import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 })
 export class MediaViewerImageComponent implements OnInit {
   @Input() images: MediaViewerItem[];
+  @Input() image: string;
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -32,7 +33,18 @@ export class MediaViewerImageComponent implements OnInit {
         imageAnimation: NgxGalleryAnimation.Slide,
       },
     ];
-    this.galleryImages = this.convertToGalleryImage(this.images);
+
+    if (this.image) {
+      this.galleryImages = [
+        {
+          small: this.image,
+          medium: this.image,
+          big: this.image,
+        },
+      ];
+    } else {
+      this.galleryImages = this.convertToGalleryImage(this.images);
+    }
   }
 
   /**
