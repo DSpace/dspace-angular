@@ -207,9 +207,15 @@ export class ItemExportFormatService {
   }
 
   private scopeParameter(searchOptions: SearchOptions, parameterValues: ProcessParameter[]): ProcessParameter[] {
-    if (searchOptions.scope) {
-      return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-s', value: searchOptions.scope })];
+    if (searchOptions.fixedFilter) {
+      const fixedFilter = searchOptions.fixedFilter.split('=');
+      if (fixedFilter.length === 2 && fixedFilter[0] === 'scope') {
+        return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-s', value: fixedFilter[1] })];
+      }
     }
+    // if (searchOptions.scope) {
+    //   return [...parameterValues, Object.assign(new ProcessParameter(), { name: '-s', value: searchOptions.scope })];
+    // }
     return parameterValues;
   }
 
