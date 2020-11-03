@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemExportComponent } from './item-export.component';
 
-describe('ItemExportFormatComponent', () => {
+describe('ItemExportComponent', () => {
   let component: ItemExportComponent;
   let fixture: ComponentFixture<ItemExportComponent>;
 

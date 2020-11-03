@@ -32,7 +32,6 @@ import { StatisticsModule } from '../statistics/statistics.module';
 import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 import { CrisItemPageModule } from '../cris-item-page/cris-item-page.module';
 import { SubmissionModule } from '../submission/submission.module';
-import { ItemExportComponent } from './item-export/item-export/item-export.component';
 
 @NgModule({
   imports: [
@@ -66,8 +65,7 @@ import { ItemExportComponent } from './item-export/item-export/item-export.compo
     RelatedEntitiesSearchComponent,
     UploadBitstreamComponent,
     TabbedRelatedEntitiesSearchComponent,
-    AbstractIncrementalListComponent,
-    ItemExportComponent
+    AbstractIncrementalListComponent
   ],
   exports: [
     ItemComponent,
