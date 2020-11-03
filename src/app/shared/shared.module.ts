@@ -212,7 +212,6 @@ import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.compo
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
-import { MyDSpaceNewSubmissionDropdownComponent } from '../+my-dspace-page/my-dspace-new-submission/my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -408,8 +407,7 @@ const COMPONENTS = [
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent,
-  MyDSpaceNewSubmissionDropdownComponent
+  VocabularyTreeviewComponent
 ];
 
 const ENTRY_COMPONENTS = [
