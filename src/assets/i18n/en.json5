@@ -563,6 +563,12 @@
 
   "browse.metadata.dateissued": "Issue Date",
 
+  "browse.metadata.eqdatecreated": "Date Created",
+
+  "browse.metadata.eqdatemodified": "Date Modified",
+
+  "browse.metadata.eqtitle": "Title",
+
   "browse.metadata.ouname" : "Name",
 
   "browse.metadata.pjtitle" : "Title",
@@ -582,6 +588,12 @@
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+
+  "browse.metadata.eqdatecreated.breadcrumbs": "Browse by Creation Date",
+
+  "browse.metadata.eqdatemodified.breadcrumbs": "Browse by Modification Date",
+
+  "browse.metadata.eqtitle.breadcrumbs": "Browse by Title",
 
   "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
 
