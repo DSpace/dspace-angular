@@ -3247,6 +3247,8 @@
 
   "submission.import-external.source.arxiv": "arXiv",
 
+  "submission.import-external.source.crossref": "CrossRef",
+
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
