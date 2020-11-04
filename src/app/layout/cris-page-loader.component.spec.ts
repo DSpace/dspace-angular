@@ -12,7 +12,7 @@ import { TabDataService } from '../core/layout/tab-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FollowLinkConfig } from '../shared/utils/follow-link-config.model';
 import { Tab } from '../core/layout/models/tab.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
@@ -24,6 +24,8 @@ import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditItemDataService } from '../core/submission/edititem-data.service';
 import { EditItem } from '../core/submission/models/edititem.model';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
 
 const testType = LayoutPage.DEFAULT;
 
@@ -57,6 +59,13 @@ class EditItemDataServiceMock {
   }
 }
 
+// tslint:disable-next-line: max-classes-per-file
+class AuthorizationDataServiceMock {
+  isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
+    return of(true);
+  }
+}
+
 describe('CrisPageLoaderComponent', () => {
   let component: CrisPageLoaderComponent;
   let fixture: ComponentFixture<CrisPageLoaderComponent>;
@@ -74,6 +83,7 @@ describe('CrisPageLoaderComponent', () => {
         ComponentFactoryResolver,
         { provide: TabDataService, useClass: TabDataServiceMock },
         { provide: EditItemDataService, useClass: EditItemDataServiceMock },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceMock },
         { provide: Router, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
         { provide: ComponentFactoryResolver, useValue: {} },

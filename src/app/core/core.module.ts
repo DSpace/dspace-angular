@@ -193,6 +193,8 @@ import { EditItem } from './submission/models/edititem.model';
 import { EditItemDataService } from './submission/edititem-data.service';
 import { EditItemMode } from './submission/models/edititem-mode.model';
 import { EditItemModeDataService } from './submission/edititemmode-data.service';
+import { AuditDataService } from './data/audit-data.service';
+import { Audit } from '../audit-page/model/audit.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -312,6 +314,7 @@ const PROVIDERS = [
   ItemTypeDataService,
   WorkflowActionDataService,
   ProcessDataService,
+  AuditDataService,
   ScriptDataService,
   ProcessFilesResponseParsingService,
   FeatureDataService,
@@ -395,6 +398,7 @@ export const models =
     ExternalSourceEntry,
     Script,
     Process,
+    Audit,
     Version,
     VersionHistory,
     WorkflowAction,
