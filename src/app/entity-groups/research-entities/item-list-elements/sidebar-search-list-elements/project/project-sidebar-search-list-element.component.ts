@@ -5,7 +5,6 @@ import { ItemSearchResult } from '../../../../../shared/object-collection/shared
 import { Component } from '@angular/core';
 import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 import { Item } from '../../../../../core/shared/item.model';
-import { isNotEmpty } from '../../../../../shared/empty.util';
 
 @listableObjectComponent('ProjectSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('ProjectSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
