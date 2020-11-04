@@ -131,7 +131,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
     // Create an observable searching for the current DSO (return empty list if there's no current DSO)
     let currentDSOResult$;
     if (isNotEmpty(this.currentDSOId)) {
-      currentDSOResult$ = this.search(`search.resourceid:${this.currentDSOId}`, 1);
+      currentDSOResult$ = this.search(this.getCurrentDSOQuery(), 1);
     } else {
       currentDSOResult$ = observableOf(new PaginatedList(undefined, []));
     }
@@ -173,6 +173,13 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
       // Check if there are more pages available after the current one
       this.hasNextPage = list.totalElements > this.listEntries.length;
     }));
+  }
+
+  /**
+   * Get a query to send for retrieving the current DSO
+   */
+  getCurrentDSOQuery(): string {
+    return `search.resourceid:${this.currentDSOId}`;
   }
 
   /**

@@ -25,6 +25,13 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
   }
 
   /**
+   * Get a query to send for retrieving the current DSO
+   */
+  getCurrentDSOQuery(): string {
+    return this.currentDSOId;
+  }
+
+  /**
    * Perform a search for authorized collections with the current query and page
    * @param query Query to search objects for
    * @param page  Page to retrieve
