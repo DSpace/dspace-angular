@@ -258,6 +258,10 @@
 
   "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
 
+  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
 
   "admin.access-control.epeople.form.table.id": "ID",
@@ -937,6 +941,68 @@
 
 
 
+  "cookies.consent.accept-all": "Accept all",
+
+  "cookies.consent.accept-selected": "Accept selected",
+
+  "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
+
+  "cookies.consent.app.opt-out.title": "(opt-out)",
+
+  "cookies.consent.app.purpose": "purpose",
+
+  "cookies.consent.app.required.description": "This application is always required",
+
+  "cookies.consent.app.required.title": "(always required)",
+
+  "cookies.consent.update": "There were changes since your last visit, please update your consent.",
+
+  "cookies.consent.close": "Close",
+
+  "cookies.consent.decline": "Decline",
+
+  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+
+  "cookies.consent.content-notice.learnMore": "Customize",
+
+  "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
+
+  "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
+
+  "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
+
+  "cookies.consent.content-modal.title": "Information that we collect",
+
+
+
+  "cookies.consent.app.title.authentication": "Authentication",
+
+  "cookies.consent.app.description.authentication": "Required for signing you in",
+
+
+  "cookies.consent.app.title.preferences": "Preferences",
+
+  "cookies.consent.app.description.preferences": "Required for saving your preferences",
+
+
+
+  "cookies.consent.app.title.acknowledgement": "Acknowledgement",
+
+  "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
+
+
+
+  "cookies.consent.app.title.google-analytics": "Google Analytics",
+
+  "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
+
+
+
+  "cookies.consent.purpose.functional": "Functional",
+
+  "cookies.consent.purpose.statistical": "Statistical",
+
+
   "curation-task.task.checklinks.label":  "Check Links in Metadata",
 
   "curation-task.task.noop.label": "NOOP",
@@ -1003,6 +1069,13 @@
 
   "confirmation-modal.export-metadata.confirm": "Export",
 
+  "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-eperson.cancel": "Cancel",
+
+  "confirmation-modal.delete-eperson.confirm": "Delete",
 
 
   "error.bitstream": "Error fetching bitstream",
@@ -1045,11 +1118,22 @@
 
 
 
+  "file-section.error.header": "Error obtaining files for this item",
+
+
+
   "footer.copyright": "copyright © 2002-{{ year }}",
 
   "footer.link.dspace": "DSpace software",
 
   "footer.link.duraspace": "DuraSpace",
+
+  "footer.link.cookies": "Cookie settings",
+
+  "footer.link.privacy-policy": "Privacy policy",
+
+  "footer.link.end-user-agreement":"End User Agreement",
+
 
 
   "forgot-email.form.header": "Forgot Password",
@@ -1167,6 +1251,30 @@
   "home.top-level-communities.head": "Communities in DSpace",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
+
+
+
+  "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
+
+  "info.end-user-agreement.accept.error": "An error occurred accepting the End User Agreement",
+
+  "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
+
+  "info.end-user-agreement.breadcrumbs": "End User Agreement",
+
+  "info.end-user-agreement.buttons.cancel": "Cancel",
+
+  "info.end-user-agreement.buttons.save": "Save",
+
+  "info.end-user-agreement.head": "End User Agreement",
+
+  "info.end-user-agreement.title": "End User Agreement",
+
+  "info.privacy.breadcrumbs": "Privacy Statement",
+
+  "info.privacy.head": "Privacy Statement",
+
+  "info.privacy.title": "Privacy Statement",
 
 
 
@@ -1343,6 +1451,8 @@
   "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
   "item.edit.metadata.notifications.discarded.title": "Changed discarded",
+
+  "item.edit.metadata.notifications.error.title": "An error occurred",
 
   "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
 
@@ -2757,6 +2867,30 @@
 
 
 
+  "statistics.title": "Statistics",
+
+  "statistics.header": "Statistics for {{ scope }}",
+
+  "statistics.breadcrumbs": "Statistics",
+
+  "statistics.page.no-data": "No data available",
+
+  "statistics.table.no-data": "No data available",
+
+  "statistics.table.title.TotalVisits": "Total visits",
+
+  "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
+
+  "statistics.table.title.TotalDownloads": "File Visits",
+
+  "statistics.table.title.TopCountries": "Top country views",
+
+  "statistics.table.title.TopCities": "Top city views",
+
+  "statistics.table.header.views": "Views",
+
+
+
   "submission.edit.title": "Edit Submission",
 
   "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
@@ -2793,6 +2927,8 @@
   "submission.import-external.search.button.hint": "Write some words to search",
 
   "submission.import-external.search.source.hint": "Pick an external source",
+
+  "submission.import-external.source.arxiv": "arXiv",
 
   "submission.import-external.source.loading": "Loading ...",
 
@@ -3143,6 +3279,24 @@
 
 
   "title": "DSpace",
+
+
+
+
+  "vocabulary-treeview.header": "Hierarchical tree view",
+
+  "vocabulary-treeview.load-more": "Load more",
+
+  "vocabulary-treeview.search.form.reset": "Reset",
+
+  "vocabulary-treeview.search.form.search": "Search",
+
+  "vocabulary-treeview.search.no-result": "There were no items to show",
+
+  "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
+
+  "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
+
 
 
   "administrativeView.search.results.head": "Administrative Search",

@@ -276,7 +276,7 @@ describe('SubmissionObjectEffects test suite', () => {
 
   describe('saveSubmissionSuccess$', () => {
 
-    it('should return a UPLOAD_SECTION_DATA action for each updated section', () => {
+    it('should return a UPDATE_SECTION_DATA action for each updated section', () => {
       store.nextState({
         submission: {
           objects: submissionState

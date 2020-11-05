@@ -3,5 +3,9 @@
  */
 export enum FeatureID {
   LoginOnBehalfOf = 'loginOnBehalfOf',
-  AdministratorOf = 'administratorOf'
+  AdministratorOf = 'administratorOf',
+  CanDelete = 'canDelete',
+  WithdrawItem = 'withdrawItem',
+  ReinstateItem = 'reinstateItem',
+  EPersonRegistration = 'epersonRegistration',
 }

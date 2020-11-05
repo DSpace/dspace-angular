@@ -27,7 +27,7 @@ import {
   mockRowGroupModel
 } from '../../../shared/mocks/form-models.mock';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { AuthorityValue } from '../../../core/integration/models/authority.value';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 describe('SectionFormOperationsService test suite', () => {
   let formBuilderService: any;
@@ -365,7 +365,7 @@ describe('SectionFormOperationsService test suite', () => {
       event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: mockInputWithLanguageAndAuthorityModel
       });
-      expectedValue = Object.assign(new AuthorityValue(), mockInputWithLanguageAndAuthorityModel.value, {language: mockInputWithLanguageAndAuthorityModel.language});
+      expectedValue = Object.assign(new VocabularyEntry(), mockInputWithLanguageAndAuthorityModel.value, {language: mockInputWithLanguageAndAuthorityModel.language});
 
       expect(service.getFieldValueFromChangeEvent(event)).toEqual(expectedValue);
 
@@ -373,7 +373,7 @@ describe('SectionFormOperationsService test suite', () => {
         model: mockInputWithLanguageAndAuthorityArrayModel
       });
       expectedValue = [
-        Object.assign(new AuthorityValue(), mockInputWithLanguageAndAuthorityArrayModel.value[0],
+        Object.assign(new VocabularyEntry(), mockInputWithLanguageAndAuthorityArrayModel.value[0],
         { language: mockInputWithLanguageAndAuthorityArrayModel.language }
         )
       ];

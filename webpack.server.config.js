@@ -25,7 +25,8 @@ module.exports = {
   module: {
     noParse: /polyfills-.*\.js/,
     rules: [
-      { test: /\.ts$/, loader: 'ts-loader',
+      {
+        test: /\.ts$/, loader: 'ts-loader',
         options: {
           configFile: "tsconfig.server.json"
         } },

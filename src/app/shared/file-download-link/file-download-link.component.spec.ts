@@ -3,6 +3,7 @@ import { FileDownloadLinkComponent } from './file-download-link.component';
 import { AuthService } from '../../core/auth/auth.service';
 import { FileService } from '../../core/shared/file.service';
 import { of as observableOf } from 'rxjs';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -23,13 +24,14 @@ describe('FileDownloadLinkComponent', () => {
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ FileDownloadLinkComponent ],
+      declarations: [FileDownloadLinkComponent],
       providers: [
         { provide: AuthService, useValue: authService },
-        { provide: FileService, useValue: fileService }
+        { provide: FileService, useValue: fileService },
+        { provide: HardRedirectService, useValue: { rewriteDownloadURL: (a) => a } },
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

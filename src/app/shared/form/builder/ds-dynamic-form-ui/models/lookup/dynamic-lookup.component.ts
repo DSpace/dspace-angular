@@ -1,33 +1,31 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Subscription } from 'rxjs';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, Subscription } from 'rxjs';
 import { catchError, distinctUntilChanged } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { DynamicLookupModel } from './dynamic-lookup.model';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { hasValue, isEmpty, isNotEmpty, isNull, isUndefined } from '../../../../../empty.util';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
-import { ConfidenceType } from '../../../../../../core/integration/models/confidence-type';
+import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
+import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 
+/**
+ * Component representing a lookup or lookup-name input field
+ */
 @Component({
   selector: 'ds-dynamic-lookup',
   styleUrls: ['./dynamic-lookup.component.scss'],
   templateUrl: './dynamic-lookup.component.html'
 })
-export class DsDynamicLookupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
+export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: any;
@@ -43,42 +41,262 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
   public pageInfo: PageInfo;
   public optionsList: any;
 
-  protected searchOptions: IntegrationSearchOptions;
   protected subs: Subscription[] = [];
 
-  constructor(private authorityService: AuthorityService,
+  constructor(protected vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService
   ) {
-    super(layoutService, validationService);
+    super(vocabularyService, layoutService, validationService);
   }
 
+  /**
+   * Converts an item from the result list to a `string` to display in the `<input>` field.
+   */
   inputFormatter = (x: { display: string }, y: number) => {
     return y === 1 ? this.firstInputValue : this.secondInputValue;
   };
 
+  /**
+   * Initialize the component, setting up the init form value
+   */
   ngOnInit() {
-    this.searchOptions = new IntegrationSearchOptions(
-      this.model.authorityOptions.scope,
-      this.model.authorityOptions.name,
-      this.model.authorityOptions.metadata,
-      '',
-      this.model.maxOptions,
-      1);
-
-    this.setInputsValue(this.model.value);
+    if (isNotEmpty(this.model.value)) {
+      this.setCurrentValue(this.model.value, true);
+    }
 
     this.subs.push(this.model.valueUpdates
       .subscribe((value) => {
         if (isEmpty(value)) {
           this.resetFields();
         } else if (!this.editMode) {
-          this.setInputsValue(this.model.value);
+          this.setCurrentValue(this.model.value);
         }
       }));
   }
 
+  /**
+   * Check if model value has an authority
+   */
+  public hasAuthorityValue() {
+    return hasValue(this.model.value)
+      && typeof this.model.value === 'object'
+      && this.model.value.hasAuthority();
+  }
+
+  /**
+   * Check if current value has an authority
+   */
+  public hasEmptyValue() {
+    return isNotEmpty(this.getCurrentValue());
+  }
+
+  /**
+   * Clear inputs whether there is no results and authority is closed
+   */
+  public clearFields() {
+    if (this.model.vocabularyOptions.closed) {
+      this.resetFields();
+    }
+  }
+
+  /**
+   * Check if edit button is disabled
+   */
+  public isEditDisabled() {
+    return !this.hasAuthorityValue();
+  }
+
+  /**
+   * Check if input is disabled
+   */
+  public isInputDisabled() {
+    return (this.model.vocabularyOptions.closed && this.hasAuthorityValue() && !this.editMode);
+  }
+
+  /**
+   * Check if model is instanceof DynamicLookupNameModel
+   */
+  public isLookupName() {
+    return (this.model instanceof DynamicLookupNameModel);
+  }
+
+  /**
+   * Check if search button is disabled
+   */
+  public isSearchDisabled() {
+    return isEmpty(this.firstInputValue) || this.editMode;
+  }
+
+  /**
+   * Update model value with the typed text if vocabulary is not closed
+   * @param event the typed text
+   */
+  public onChange(event) {
+    event.preventDefault();
+    if (!this.model.vocabularyOptions.closed) {
+      if (isNotEmpty(this.getCurrentValue())) {
+        const currentValue = new FormFieldMetadataValueObject(this.getCurrentValue());
+        if (!this.editMode) {
+          this.updateModel(currentValue);
+        }
+      } else {
+        this.remove();
+      }
+    }
+  }
+
+  /**
+   * Load more result entries
+   */
+  public onScroll() {
+    if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
+      this.updatePageInfo(
+        this.pageInfo.elementsPerPage,
+        this.pageInfo.currentPage + 1,
+        this.pageInfo.totalElements,
+        this.pageInfo.totalPages
+      );
+      this.search();
+    }
+  }
+
+  /**
+   * Update model value with selected entry
+   * @param event the selected entry
+   */
+  public onSelect(event) {
+    this.updateModel(event);
+  }
+
+  /**
+   * Reset the current value when dropdown toggle
+   */
+  public openChange(isOpened: boolean) {
+    if (!isOpened) {
+      if (this.model.vocabularyOptions.closed && !this.hasAuthorityValue()) {
+        this.setCurrentValue('');
+      }
+    }
+  }
+
+  /**
+   * Reset the model value
+   */
+  public remove() {
+    this.group.markAsPristine();
+    this.dispatchUpdate(null)
+  }
+
+  /**
+   * Saves all changes
+   */
+  public saveChanges() {
+    if (isNotEmpty(this.getCurrentValue())) {
+      const newValue = Object.assign(new VocabularyEntry(), this.model.value, {
+        display: this.getCurrentValue(),
+        value: this.getCurrentValue()
+      });
+      this.updateModel(newValue);
+    } else {
+      this.remove();
+    }
+    this.switchEditMode();
+  }
+
+  /**
+   * Converts a stream of text values from the `<input>` element to the stream of the array of items
+   * to display in the result list.
+   */
+  public search() {
+    this.optionsList = null;
+    this.updatePageInfo(this.model.maxOptions, 1);
+    this.loading = true;
+
+    this.subs.push(this.vocabularyService.getVocabularyEntriesByValue(
+      this.getCurrentValue(),
+      false,
+      this.model.vocabularyOptions,
+      this.pageInfo
+    ).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      catchError(() =>
+        observableOf(new PaginatedList(
+          new PageInfo(),
+          []
+        ))
+      ),
+      distinctUntilChanged())
+      .subscribe((list: PaginatedList<VocabularyEntry>) => {
+        this.optionsList = list.page;
+        this.updatePageInfo(
+          list.pageInfo.elementsPerPage,
+          list.pageInfo.currentPage,
+          list.pageInfo.totalElements,
+          list.pageInfo.totalPages
+        );
+        this.loading = false;
+        this.cdr.detectChanges();
+      }));
+  }
+
+  /**
+   * Changes the edit mode flag
+   */
+  public switchEditMode() {
+    this.editMode = !this.editMode;
+  }
+
+  /**
+   * Callback functions for whenClickOnConfidenceNotAccepted event
+   */
+  public whenClickOnConfidenceNotAccepted(sdRef: NgbDropdown, confidence: ConfidenceType) {
+    if (!this.model.readOnly) {
+      sdRef.open();
+      this.search();
+    }
+  }
+
+  ngOnDestroy() {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
+  }
+
+  /**
+   * Sets the current value with the given value.
+   * @param value The value to set.
+   * @param init Representing if is init value or not.
+   */
+  public setCurrentValue(value: any, init = false) {
+    if (init) {
+      this.getInitValueFromModel()
+        .subscribe((formValue: FormFieldMetadataValueObject) => this.setDisplayInputValue(formValue.display));
+    } else if (hasValue(value)) {
+      if (value instanceof FormFieldMetadataValueObject || value instanceof VocabularyEntry) {
+        this.setDisplayInputValue(value.display);
+      }
+    }
+  }
+
+  protected setDisplayInputValue(displayValue: string) {
+    if (hasValue(displayValue)) {
+      if (this.isLookupName()) {
+        const values = displayValue.split((this.model as DynamicLookupNameModel).separator);
+
+        this.firstInputValue = (values[0] || '').trim();
+        this.secondInputValue = (values[1] || '').trim();
+      } else {
+        this.firstInputValue = displayValue || '';
+      }
+      this.cdr.detectChanges();
+    }
+  }
+
+  /**
+   * Gets the current text present in the input field(s)
+   */
   protected getCurrentValue(): string {
     let result = '';
     if (!this.isLookupName()) {
@@ -96,6 +314,9 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
     return result;
   }
 
+  /**
+   * Clear text present in the input field(s)
+   */
   protected resetFields() {
     this.firstInputValue = '';
     if (this.isLookupName()) {
@@ -103,173 +324,12 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
     }
   }
 
-  protected setInputsValue(value) {
-    if (hasValue(value)) {
-      let displayValue = value;
-      if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValue) {
-        displayValue = value.display;
-      }
-
-      if (hasValue(displayValue)) {
-        if (this.isLookupName()) {
-          const values = displayValue.split((this.model as DynamicLookupNameModel).separator);
-
-          this.firstInputValue = (values[0] || '').trim();
-          this.secondInputValue = (values[1] || '').trim();
-        } else {
-          this.firstInputValue = displayValue || '';
-        }
-      }
-    }
-  }
-
   protected updateModel(value) {
     this.group.markAsDirty();
-    this.model.valueUpdates.next(value);
-    this.setInputsValue(value);
-    this.change.emit(value);
+    this.dispatchUpdate(value);
+    this.setCurrentValue(value);
     this.optionsList = null;
     this.pageInfo = null;
   }
 
-  public formatItemForInput(item: any, field: number): string {
-    if (isUndefined(item) || isNull(item)) {
-      return '';
-    }
-    return (typeof item === 'string') ? item : this.inputFormatter(item, field);
-  }
-
-  public hasAuthorityValue() {
-    return hasValue(this.model.value)
-      && this.model.value.hasAuthority();
-  }
-
-  public hasEmptyValue() {
-    return isNotEmpty(this.getCurrentValue());
-  }
-
-  public clearFields() {
-    // Clear inputs whether there is no results and authority is closed
-    if (this.model.authorityOptions.closed) {
-      this.resetFields();
-    }
-  }
-
-  public isEditDisabled() {
-    return !this.hasAuthorityValue();
-  }
-
-  public isInputDisabled() {
-    return (this.model.authorityOptions.closed && this.hasAuthorityValue() && !this.editMode);
-  }
-
-  public isLookupName() {
-    return (this.model instanceof DynamicLookupNameModel);
-  }
-
-  public isSearchDisabled() {
-    return isEmpty(this.firstInputValue) || this.editMode;
-  }
-
-  public onBlurEvent(event: Event) {
-    this.blur.emit(event);
-  }
-
-  public onFocusEvent(event) {
-    this.focus.emit(event);
-  }
-
-  public onChange(event) {
-    event.preventDefault();
-    if (!this.model.authorityOptions.closed) {
-      if (isNotEmpty(this.getCurrentValue())) {
-        const currentValue = new FormFieldMetadataValueObject(this.getCurrentValue());
-        if (!this.editMode) {
-          this.updateModel(currentValue);
-        }
-      } else {
-        this.remove();
-      }
-    }
-  }
-
-  public onScroll() {
-    if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
-      this.searchOptions.currentPage++;
-      this.search();
-    }
-  }
-
-  public onSelect(event) {
-    this.updateModel(event);
-  }
-
-  public openChange(isOpened: boolean) {
-    if (!isOpened) {
-      if (this.model.authorityOptions.closed && !this.hasAuthorityValue()) {
-        this.setInputsValue('');
-      }
-    }
-  }
-
-  public remove() {
-    this.group.markAsPristine();
-    this.model.valueUpdates.next(null);
-    this.change.emit(null);
-  }
-
-  public saveChanges() {
-    if (isNotEmpty(this.getCurrentValue())) {
-      const newValue = Object.assign(new AuthorityValue(), this.model.value, {
-        display: this.getCurrentValue(),
-        value: this.getCurrentValue()
-      });
-      this.updateModel(newValue);
-    } else {
-      this.remove();
-    }
-    this.switchEditMode();
-  }
-
-  public search() {
-    this.optionsList = null;
-    this.pageInfo = null;
-
-    // Query
-    this.searchOptions.query = this.getCurrentValue();
-
-    this.loading = true;
-    this.subs.push(this.authorityService.getEntriesByName(this.searchOptions).pipe(
-      catchError(() => {
-        const emptyResult = new IntegrationData(
-          new PageInfo(),
-          []
-        );
-        return observableOf(emptyResult);
-      }),
-      distinctUntilChanged())
-      .subscribe((object: IntegrationData) => {
-        this.optionsList = object.payload;
-        this.pageInfo = object.pageInfo;
-        this.loading = false;
-        this.cdr.detectChanges();
-      }));
-  }
-
-  public switchEditMode() {
-    this.editMode = !this.editMode;
-  }
-
-  public whenClickOnConfidenceNotAccepted(sdRef: NgbDropdown, confidence: ConfidenceType) {
-    if (!this.model.readOnly) {
-      sdRef.open();
-      this.search();
-    }
-  }
-
-  ngOnDestroy() {
-    this.subs
-      .filter((sub) => hasValue(sub))
-      .forEach((sub) => sub.unsubscribe());
-  }
 }

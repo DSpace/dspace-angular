@@ -12,6 +12,7 @@ import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 describe('ItemStatusComponent', () => {
   let comp: ItemStatusComponent;
@@ -20,7 +21,10 @@ describe('ItemStatusComponent', () => {
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',
     handle: 'fake/handle',
-    lastModified: '2018'
+    lastModified: '2018',
+    _links: {
+      self: { href: 'test-item-selflink' }
+    }
   });
 
   const itemPageUrl = `items/${mockItem.id}`;
@@ -31,13 +35,20 @@ describe('ItemStatusComponent', () => {
       }
     };
 
+  let authorizationService: AuthorizationDataService;
+
   beforeEach(async(() => {
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true)
+    });
+
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [ItemStatusComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: AuthorizationDataService, useValue: authorizationService },
       ], schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));

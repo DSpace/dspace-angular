@@ -19,6 +19,9 @@ import {
   COLLECTION_EDIT_PATH,
   COLLECTION_CREATE_PATH
 } from './collection-page-routing-paths';
+import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
+import { MenuItemType } from '../shared/menu/initial-menus-state';
+import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 
 @NgModule({
   imports: [
@@ -39,7 +42,7 @@ import {
           {
             path: COLLECTION_EDIT_PATH,
             loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
-            canActivate: [AuthenticatedGuard]
+            canActivate: [CollectionPageAdministratorGuard]
           },
           {
             path: 'delete',
@@ -68,7 +71,21 @@ import {
             pathMatch: 'full',
             canActivate: [AuthenticatedGuard]
           }
-        ]
+        ],
+        data: {
+          menu: {
+            public: [{
+              id: 'statistics_collection_:id',
+              active: true,
+              visible: true,
+              model: {
+                type: MenuItemType.LINK,
+                text: 'menu.section.statistics',
+                link: 'statistics/collections/:id/',
+              } as LinkMenuItemModel,
+            }],
+          },
+        },
       },
     ])
   ],
@@ -78,7 +95,8 @@ import {
     CollectionBreadcrumbResolver,
     DSOBreadcrumbsService,
     LinkService,
-    CreateCollectionPageGuard
+    CreateCollectionPageGuard,
+    CollectionPageAdministratorGuard
   ]
 })
 export class CollectionPageRoutingModule {

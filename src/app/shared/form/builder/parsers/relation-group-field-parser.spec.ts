@@ -12,7 +12,7 @@ describe('RelationGroupFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
-    authorityUuid: 'WORKSPACE'
+    collectionUUID: 'WORKSPACE'
   };
 
   beforeEach(() => {

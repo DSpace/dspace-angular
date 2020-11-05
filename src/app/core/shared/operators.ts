@@ -1,6 +1,6 @@
 import { Router, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter, find, flatMap, map, take, tap } from 'rxjs/operators';
+import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
+import { filter, find, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
@@ -9,9 +9,12 @@ import { RemoteData } from '../data/remote-data';
 import { RestRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
+import { MetadataField } from '../metadata/metadata-field.model';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { getUnauthorizedRoute } from '../../app-routing-paths';
+import { getPageNotFoundRoute, getUnauthorizedRoute } from '../../app-routing-paths';
+import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
@@ -168,16 +171,20 @@ export const getAllSucceededRemoteListPayload = () =>
     );
 
 /**
- * Operator that checks if a remote data object contains a page not found error
- * When it does contain such an error, it will redirect the user to a page not found, without altering the current URL
+ * Operator that checks if a remote data object returned a 401 or 404 error
+ * When it does contain such an error, it will redirect the user to the related error page, without altering the current URL
  * @param router The router used to navigate to a new page
  */
-export const redirectToPageNotFoundOn404 = (router: Router) =>
+export const redirectOn404Or401 = (router: Router) =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(
       tap((rd: RemoteData<T>) => {
-        if (rd.hasFailed && rd.error.statusCode === 404) {
-          router.navigateByUrl('/404', { skipLocationChange: true });
+        if (rd.hasFailed) {
+          if (rd.error.statusCode === 404) {
+            router.navigateByUrl(getPageNotFoundRoute(), {skipLocationChange: true});
+          } else if (rd.error.statusCode === 401) {
+            router.navigateByUrl(getUnauthorizedRoute(), {skipLocationChange: true});
+          }
         }
       }));
 
@@ -190,6 +197,20 @@ export const returnUnauthorizedUrlTreeOnFalse = (router: Router) =>
     source.pipe(
       map((authorized: boolean) => {
         return authorized ? authorized : router.parseUrl(getUnauthorizedRoute())
+      }));
+
+/**
+ * Operator that returns a UrlTree to the unauthorized page when the boolean received is false
+ * @param router    Router
+ * @param redirect  Redirect URL to add to the UrlTree. This is used to redirect back to the original route after the
+ *                  user accepts the agreement.
+ */
+export const returnEndUserAgreementUrlTreeOnFalse = (router: Router, redirect: string) =>
+  (source: Observable<boolean>): Observable<boolean | UrlTree> =>
+    source.pipe(
+      map((hasAgreed: boolean) => {
+        const queryParams = { redirect: encodeURIComponent(redirect) };
+        return hasAgreed ? hasAgreed : router.createUrlTree([getEndUserAgreementPath()], { queryParams });
       }));
 
 export const getFinishedRemoteData = () =>
@@ -249,4 +270,28 @@ export const paginatedListToArray = () =>
     source.pipe(
       hasValueOperator(),
       map((objectRD: RemoteData<PaginatedList<T>>) => objectRD.payload.page.filter((object: T) => hasValue(object)))
+    );
+
+/**
+ * Operator for turning a list of metadata fields into an array of string representing their schema.element.qualifier string
+ */
+export const metadataFieldsToString = () =>
+  (source: Observable<RemoteData<PaginatedList<MetadataField>>>): Observable<string[]> =>
+    source.pipe(
+      hasValueOperator(),
+      map((fieldRD: RemoteData<PaginatedList<MetadataField>>) => {
+        return fieldRD.payload.page.filter((object: MetadataField) => hasValue(object))
+      }),
+      switchMap((fields: MetadataField[]) => {
+        const fieldSchemaArray = fields.map((field: MetadataField) => {
+          return field.schema.pipe(
+            getFirstSucceededRemoteDataPayload(),
+            map((schema: MetadataSchema) => ({ field, schema }))
+          );
+        });
+        return observableCombineLatest(fieldSchemaArray);
+      }),
+      map((fieldSchemaArray: Array<{ field: MetadataField, schema: MetadataSchema }>): string[] => {
+        return fieldSchemaArray.map((fieldSchema: { field: MetadataField, schema: MetadataSchema }) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString())
+      })
     );

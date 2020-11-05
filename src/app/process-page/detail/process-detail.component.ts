@@ -8,7 +8,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ProcessOutput } from '../processes/process-output.model';
 import { Process } from '../processes/process.model';
 import { finalize, map, switchMap, take } from 'rxjs/operators';
-import { getFirstSucceededRemoteDataPayload, redirectToPageNotFoundOn404 } from '../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, redirectOn404Or401 } from '../../core/shared/operators';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -69,7 +69,7 @@ export class ProcessDetailComponent implements OnInit {
   ngOnInit(): void {
     this.processRD$ = this.route.data.pipe(
       map((data) => data.process as RemoteData<Process>),
-      redirectToPageNotFoundOn404(this.router)
+      redirectOn404Or401(this.router)
     );
 
     this.filesRD$ = this.processRD$.pipe(
