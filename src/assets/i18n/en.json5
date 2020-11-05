@@ -3315,6 +3315,8 @@
 
   "submission.import-external.source.arxiv": "arXiv",
 
+  "submission.import-external.source.crossref": "CrossRef",
+
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
@@ -3452,6 +3454,8 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
 
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.crossref": "Importing from CrossRef",
+
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
@@ -3501,6 +3505,8 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "Crossref ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
 
@@ -3553,6 +3559,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
 
