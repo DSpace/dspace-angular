@@ -233,7 +233,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
     this.totalExternal$ = externalSourcesAndOptions$.pipe(
       switchMap(([sources, options]) =>
-        observableZip(...sources.page.map((source: ExternalSource) => this.lookupRelationService.getTotalExternalResults(source, options))))
+        combineLatest(...sources.page.map((source: ExternalSource) => this.lookupRelationService.getTotalExternalResults(source, options))))
     );
   }
 
