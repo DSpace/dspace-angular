@@ -1,12 +1,12 @@
-import { CacheableObject } from '../../core/cache/object-cache.reducer';
-import { HALLink } from '../../core/shared/hal-link.model';
+import { CacheableObject } from '../../cache/object-cache.reducer';
+import { HALLink } from '../../shared/hal-link.model';
 import { autoserialize, deserialize } from 'cerialize';
 import { AUDIT } from './audit.resource-type';
-import { excludeFromEquals } from '../../core/utilities/equals.decorators';
-import { ResourceType } from '../../core/shared/resource-type';
-import { link, typedObject } from '../../core/cache/builders/build-decorators';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { ResourceType } from '../../shared/resource-type';
+import { link, typedObject } from '../../cache/builders/build-decorators';
 import { Observable } from 'rxjs/internal/Observable';
-import { RemoteData } from '../../core/data/remote-data';
+import { RemoteData } from '../../data/remote-data';
 import { EPERSON } from 'src/app/core/eperson/models/eperson.resource-type';
 import { EPerson } from 'src/app/core/eperson/models/eperson.model';
 import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';

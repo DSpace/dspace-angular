@@ -4,9 +4,8 @@ import { RemoteData } from '../core/data/remote-data';
 import { Observable } from 'rxjs/internal/Observable';
 import { find, tap } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
-import { Audit } from './model/audit.model';
-import { AuditDataService } from '../core/data/audit-data.service';
-import { followLink } from '../shared/utils/follow-link-config.model';
+import { Audit } from '../core/audit/model/audit.model';
+import { AuditDataService } from '../core/audit/audit-data.service';
 import { getAllSucceededRemoteData } from '../core/shared/operators';
 
 /**

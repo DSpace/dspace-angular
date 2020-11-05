@@ -5,8 +5,8 @@ import { RemoteData } from '../../core/data/remote-data';
 import { map } from 'rxjs/operators';
 import { redirectToPageNotFoundOn404 } from '../../core/shared/operators';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { Audit } from '../model/audit.model';
-import { AuditDataService } from 'src/app/core/data/audit-data.service';
+import { Audit } from '../../core/audit/model/audit.model';
+import { AuditDataService } from 'src/app/core/audit/audit-data.service';
 
 /**
  * A component displaying detailed information about a DSpace Audit

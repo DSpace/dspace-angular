@@ -7,8 +7,8 @@ import { FindListOptions } from '../../core/data/request.models';
 import { flatMap, map, switchMap, take, tap } from 'rxjs/operators';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { Audit } from '../model/audit.model';
-import { AuditDataService } from 'src/app/core/data/audit-data.service';
+import { Audit } from '../../core/audit/model/audit.model';
+import { AuditDataService } from 'src/app/core/audit/audit-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortDirection } from 'src/app/core/cache/models/sort-options.model';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
@@ -77,7 +77,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
         this.object = rd.payload;
         this.setAudits();
       })
-      
+
     });
   }
 

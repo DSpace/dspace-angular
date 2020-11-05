@@ -4,12 +4,11 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { FindListOptions } from '../../core/data/request.models';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { flatMap } from 'rxjs/operators';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { Audit } from '../model/audit.model';
-import { AuditDataService } from 'src/app/core/data/audit-data.service';
+import { Audit } from '../../core/audit/model/audit.model';
+import { AuditDataService } from 'src/app/core/audit/audit-data.service';
 import { SortDirection } from 'src/app/core/cache/models/sort-options.model';
 
 /**
