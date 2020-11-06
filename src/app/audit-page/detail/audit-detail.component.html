@@ -1,0 +1,31 @@
+<div class="container" *ngVar="(auditRD$ | async)?.payload as audit">
+    <div class="d-flex">
+        <h2 class="flex-grow-1">{{'audit.detail.title' | translate }}</h2>
+    </div>
+
+    <ng-container *ngIf="audit">
+        <h4 class="mt-4">{{ 'audit.detail.id' | translate}}</h4>
+        <div>{{ audit.id }}</div>
+
+        <h4 class="mt-4">{{ 'audit.detail.eventType' | translate}}</h4>
+        <div>{{ audit.eventType }}</div>
+
+        <h4 class="mt-4">{{ 'audit.detail.subjectUUID' | translate}}</h4>
+        <div>{{ audit.subjectUUID }}</div>
+    
+        <h4 class="mt-4">{{ 'audit.detail.subjectType' | translate}}</h4>
+        <div>{{ audit.subjectType }}</div>
+    
+        <h4 class="mt-4">{{ 'audit.detail.eperson' | translate}}</h4>
+        <div *ngVar="(getEpersonName(audit) | async) as ePersonName">{{ePersonName}}</div>
+    
+        <h4 class="mt-4">{{ 'audit.detail.timeStamp' | translate}}</h4>
+        <div>{{ audit.timeStamp | date:dateFormat}}</div>
+    </ng-container>
+    
+
+    <a class="btn btn-light mt-3" [routerLink]="'/auditlogs'">{{'audit.detail.back' | translate}}</a>
+
+    <a *ngIf="audit.objectUUID" class="btn btn-light mt-3" [routerLink]="['/auditlogs/object/', audit.objectUUID]">{{'audit.detail.back.subject' | translate}}</a>
+
+</div>

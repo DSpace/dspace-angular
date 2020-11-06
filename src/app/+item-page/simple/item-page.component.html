@@ -1,5 +1,5 @@
 <div *ngVar="(tabsRD$ | async) as tabsRD">
-  <div 
+  <div
     [ngClass]="{'container': itemRD?.hasSucceeded && tabsRD?.payload?.pageInfo?.totalElements < 1}"
     *ngVar="(itemRD$ | async) as itemRD">
     <div class="item-page" *ngIf="itemRD?.hasSucceeded && tabsRD?.payload?.pageInfo?.totalElements < 1" @fadeInOut>

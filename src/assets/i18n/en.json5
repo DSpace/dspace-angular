@@ -2640,6 +2640,48 @@
   "process.overview.new": "New",
 
 
+  "audit.overview.title": "Audit Logs Overview",
+
+  "audit.overview.table.id" : "Audit ID",
+
+  "audit.overview.table.objectUUID" : "Object ID",
+
+  "audit.overview.table.objectType" : "Object Type",
+  
+  "audit.overview.table.subjectUUID" : "Subject ID",
+
+  "audit.overview.table.subjectType" : "Subject Type",
+
+  "audit.overview.table.entityType" : "Audit Type",
+
+  "audit.overview.table.eperson" : "EPerson",
+
+  "audit.overview.table.timestamp" : "Time",
+
+  "audit.overview.breadcrumbs": "Audit Logs Overview",
+
+  "audit.object.overview.title": "Subject Audit Logs Overview",
+
+  
+  "audit.detail.title" : "Audit Detail",
+
+  "audit.detail.id" : "Audit Id",
+
+  "audit.detail.subjectUUID" : "Subject ID",
+
+  "audit.detail.subjectType" : "Subject Type",
+
+  "audit.detail.eventType" : "Audit Type",
+
+  "audit.detail.eperson" : "EPerson",
+
+  "audit.detail.timeStamp" : "Time",
+
+  "audit.detail.back" : "All Audit Logs",
+
+  "audit.detail.back.subject": "Subject Audit Logs",
+
+
   "profile.breadcrumbs": "Update Profile",
 
   "profile.card.identify": "Identify",
