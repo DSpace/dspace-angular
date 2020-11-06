@@ -73,15 +73,17 @@ export class MediaViewerImageComponent implements OnInit {
   convertToGalleryImage(medias: MediaViewerItem[]): NgxGalleryImage[] {
     const mappadImages = [];
     for (const image of medias) {
-      mappadImages.push({
-        small: image.thumbnail
-          ? image.thumbnail
-          : './assets/images/replacement_image.svg',
-        medium: image.thumbnail
-          ? image.thumbnail
-          : './assets/images/replacement_image.svg',
-        big: image.bitstream._links.content.href,
-      });
+      if (image.format === 'image') {
+        mappadImages.push({
+          small: image.thumbnail
+            ? image.thumbnail
+            : './assets/images/replacement_image.svg',
+          medium: image.thumbnail
+            ? image.thumbnail
+            : './assets/images/replacement_image.svg',
+          big: image.bitstream._links.content.href,
+        });
+      }
     }
     return mappadImages;
   }

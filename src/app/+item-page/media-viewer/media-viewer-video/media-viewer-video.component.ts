@@ -12,6 +12,8 @@ import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 export class MediaViewerVideoComponent implements OnInit {
   @Input() medias: MediaViewerItem[];
 
+  filteredMedias: MediaViewerItem[];
+
   isCollapsed: boolean;
   currentIndex = 0;
 
@@ -24,6 +26,9 @@ export class MediaViewerVideoComponent implements OnInit {
 
   ngOnInit() {
     this.isCollapsed = false;
+    this.filteredMedias = this.medias.filter(
+      (media) => media.format === 'audio' || media.format === 'video'
+    );
   }
 
   /**
