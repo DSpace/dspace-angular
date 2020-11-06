@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
+import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
@@ -23,6 +24,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 })
 export class MediaViewerComponent implements OnInit {
   @Input() item: Item;
+  @Input() options: MediaViewerConfig;
 
   mediaList$: BehaviorSubject<MediaViewerItem[]>;
 
@@ -30,9 +32,7 @@ export class MediaViewerComponent implements OnInit {
 
   thumbnailPlaceholder = './assets/images/replacement_document.svg';
 
-  constructor(
-    protected bitstreamDataService: BitstreamDataService,
-  ) {}
+  constructor(protected bitstreamDataService: BitstreamDataService) {}
 
   /**
    * This metod loads all the Bitstreams and Thumbnails and contert it to media item
@@ -44,7 +44,7 @@ export class MediaViewerComponent implements OnInit {
       this.loadRemoteData('THUMBNAIL').subscribe((thumbnailsRD) => {
         for (let index = 0; index < bitstreamsRD.payload.page.length; index++) {
           bitstreamsRD.payload.page[index].format
-          .pipe(getFirstSucceededRemoteDataPayload())
+            .pipe(getFirstSucceededRemoteDataPayload())
             .subscribe((format) => {
               const current = this.mediaList$.getValue();
               const mediaItem = this.createMediaViewerItem(
@@ -68,7 +68,12 @@ export class MediaViewerComponent implements OnInit {
     bundleName: string
   ): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bitstreamDataService
-      .findAllByItemAndBundleName(this.item, bundleName, {}, followLink('format'))
+      .findAllByItemAndBundleName(
+        this.item,
+        bundleName,
+        {},
+        followLink('format')
+      )
       .pipe(
         filter(
           (bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) =>

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from '../../../../../environments/environment';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -14,6 +15,8 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/oper
  */
 export class ItemComponent {
   @Input() object: Item;
+
+  mediaViewer = environment.mediaViewer
 
   constructor(protected bitstreamDataService: BitstreamDataService) {
   }

@@ -12,6 +12,7 @@ import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 })
 export class MediaViewerImageComponent implements OnInit {
   @Input() images: MediaViewerItem[];
+  @Input() preview?: boolean;
   @Input() image?: string;
 
   galleryOptions: NgxGalleryOptions[];
@@ -21,8 +22,10 @@ export class MediaViewerImageComponent implements OnInit {
    * Thi method sets up the gallery settings and data
    */
   ngOnInit(): void {
+    console.log(this.preview);
     this.galleryOptions = [
       {
+        preview: this.preview !== undefined ? this.preview : true,
         image: true,
         imageSize: 'contain',
         thumbnails: false,
@@ -31,6 +34,10 @@ export class MediaViewerImageComponent implements OnInit {
         height: '279px',
         startIndex: 0,
         imageAnimation: NgxGalleryAnimation.Slide,
+        previewCloseOnEsc: true,
+        previewZoom: true,
+        previewRotate: true,
+        previewFullscreen: true,
       },
     ];
 

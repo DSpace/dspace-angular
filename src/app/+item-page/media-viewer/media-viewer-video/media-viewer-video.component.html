@@ -12,15 +12,15 @@
   ></video>
   <div class="buttons" *ngIf="medias?.length > 1">
     <button
-      class="btn btn-primary previus"
+      class="btn btn-primary previous"
       [disabled]="currentIndex === 0"
       (click)="prevMedia()"
     >
-      {{ "media-viewer.previus" | translate }}
+      {{ "media-viewer.previous" | translate }}
     </button>
 
     <button
-      class="btn btn-primary next "
+      class="btn btn-primary next"
       [disabled]="currentIndex === medias.length - 1"
       (click)="nextMedia()"
     >

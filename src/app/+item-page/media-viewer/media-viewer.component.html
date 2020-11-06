@@ -5,24 +5,31 @@
     [showMessage]="false"
   ></ds-loading>
   <div class="media-viewer" *ngIf="mediaList.length > 0">
+    <ng-container *ngIf="options.video">
+      <ng-container
+        *ngIf="
+          mediaList[0]?.format === 'video' || mediaList[0]?.format === 'audio'
+        "
+      >
+        <ds-media-viewer-video [medias]="mediaList"></ds-media-viewer-video>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="options.image">
+      <ng-container *ngIf="mediaList[0]?.format === 'image'">
+        <ds-media-viewer-image [images]="mediaList"></ds-media-viewer-image>
+      </ng-container>
+    </ng-container>
     <ng-container
       *ngIf="
-        mediaList[0]?.format === 'video' || mediaList[0]?.format === 'audio'
+        (!options.image || mediaList[0]?.format !== 'image') &&
+        (!options.video || mediaList[0]?.format !== 'video') &&
+        (!options.video || mediaList[0]?.format !== 'audio')
       "
     >
-      <ds-media-viewer-video [medias]="mediaList"></ds-media-viewer-video>
-    </ng-container>
-    <ng-container *ngIf="mediaList[0]?.format === 'image'">
-      <ds-media-viewer-image [images]="mediaList"></ds-media-viewer-image>
-    </ng-container>
-    <ng-container
-      *ngIf="
-        mediaList[0]?.format !== 'image' &&
-        mediaList[0]?.format !== 'video' &&
-        mediaList[0]?.format !== 'audio'
-      "
-    >
-      <ds-media-viewer-image [image]="mediaList[0]?.thumbnail || thumbnailPlaceholder"></ds-media-viewer-image>
+      <ds-media-viewer-image
+        [image]="mediaList[0]?.thumbnail || thumbnailPlaceholder"
+        [preview]="false"
+      ></ds-media-viewer-image>
     </ng-container>
   </div>
 </ng-container>
