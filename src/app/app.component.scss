@@ -1,6 +1,6 @@
-@import '../styles/helpers/font_awesome_imports.scss';
-@import '../../node_modules/bootstrap/scss/bootstrap.scss';
-@import '../../node_modules/nouislider/distribute/nouislider.min';
+@import "../styles/helpers/font_awesome_imports.scss";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/nouislider/distribute/nouislider.min";
 
 html {
   position: relative;
@@ -48,12 +48,19 @@ ds-admin-sidebar {
   z-index: $sidebar-z-index;
 }
 
-
 .ds-full-screen-loader {
   height: 100vh;
 }
 
-.sticky-top{
+.sticky-top {
   z-index: 0;
 }
 
+.media-viewer
+  .change-gallery
+  .ngx-gallery
+  ngx-gallery-preview.ngx-gallery-active {
+  right: 0;
+  left: auto;
+  width: 96%;
+}

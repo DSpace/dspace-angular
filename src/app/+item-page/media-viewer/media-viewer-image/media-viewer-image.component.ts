@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../../core/auth/auth.service';
+
 /**
  * This componenet render an image gallery for the image viewer
  */
@@ -15,14 +18,23 @@ export class MediaViewerImageComponent implements OnInit {
   @Input() preview?: boolean;
   @Input() image?: string;
 
+  loggedin: boolean;
+
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+
+  /**
+   * Whether or not the current user is authenticated
+   */
+  isAuthenticated$: Observable<boolean>;
+
+  constructor(private authService: AuthService) {}
 
   /**
    * Thi method sets up the gallery settings and data
    */
   ngOnInit(): void {
-    console.log(this.preview);
+    this.isAuthenticated$ = this.authService.isAuthenticated();
     this.galleryOptions = [
       {
         preview: this.preview !== undefined ? this.preview : true,

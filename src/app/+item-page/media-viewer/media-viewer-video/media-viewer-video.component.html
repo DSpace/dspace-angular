@@ -1,49 +1,47 @@
-<ng-container>
-  <video
-    #media
-    [src]="medias[currentIndex].bitstream._links.content.href"
-    id="singleVideo"
-    [poster]="
-      medias[currentIndex].thumbnail ||
-      this.replacements[this.medias[this.currentIndex].format]
-    "
-    preload="auto"
-    controls
-  ></video>
-  <div class="buttons" *ngIf="medias?.length > 1">
-    <button
-      class="btn btn-primary previous"
-      [disabled]="currentIndex === 0"
-      (click)="prevMedia()"
-    >
-      {{ "media-viewer.previous" | translate }}
-    </button>
+<video
+  #media
+  [src]="medias[currentIndex].bitstream._links.content.href"
+  id="singleVideo"
+  [poster]="
+    medias[currentIndex].thumbnail ||
+    this.replacements[this.medias[this.currentIndex].format]
+  "
+  preload="auto"
+  controls
+></video>
+<div class="buttons" *ngIf="medias?.length > 1">
+  <button
+    class="btn btn-primary previous"
+    [disabled]="currentIndex === 0"
+    (click)="prevMedia()"
+  >
+    {{ "media-viewer.previous" | translate }}
+  </button>
 
+  <button
+    class="btn btn-primary next"
+    [disabled]="currentIndex === medias.length - 1"
+    (click)="nextMedia()"
+  >
+    {{ "media-viewer.next" | translate }}
+  </button>
+  <div ngbDropdown class="d-inline-block">
     <button
-      class="btn btn-primary next"
-      [disabled]="currentIndex === medias.length - 1"
-      (click)="nextMedia()"
+      class="btn btn-outline-primary playlist"
+      id="dropdownBasic1"
+      ngbDropdownToggle
     >
-      {{ "media-viewer.next" | translate }}
+      {{ "media-viewer.playlist" | translate }}
     </button>
-    <div ngbDropdown class="d-inline-block">
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <button
-        class="btn btn-outline-primary playlist"
-        id="dropdownBasic1"
-        ngbDropdownToggle
+        ngbDropdownItem
+        *ngFor="let item of medias; let i = index"
+        class="list-element"
+        (click)="selectedMedia(i)"
       >
-        {{ "media-viewer.playlist" | translate }}
+        {{ item.bitstream.name }}
       </button>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button
-          ngbDropdownItem
-          *ngFor="let item of medias; let i = index"
-          class="list-element"
-          (click)="selectedMedia(i)"
-        >
-          {{ item.bitstream.name }}
-        </button>
-      </div>
     </div>
   </div>
-</ng-container>
+</div>
