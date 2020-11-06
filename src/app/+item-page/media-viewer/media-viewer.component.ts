@@ -41,22 +41,31 @@ export class MediaViewerComponent implements OnInit {
     this.mediaList$ = new BehaviorSubject([]);
     this.isLoading = true;
     this.loadRemoteData('ORIGINAL').subscribe((bitstreamsRD) => {
-      this.loadRemoteData('THUMBNAIL').subscribe((thumbnailsRD) => {
-        for (let index = 0; index < bitstreamsRD.payload.page.length; index++) {
-          bitstreamsRD.payload.page[index].format
-            .pipe(getFirstSucceededRemoteDataPayload())
-            .subscribe((format) => {
-              const current = this.mediaList$.getValue();
-              const mediaItem = this.createMediaViewerItem(
-                bitstreamsRD.payload.page[index],
-                format,
-                thumbnailsRD.payload && thumbnailsRD.payload.page[index]
-              );
-              this.mediaList$.next([...current, mediaItem]);
-            });
-        }
+      if (bitstreamsRD.payload.page.length === 0) {
         this.isLoading = false;
-      });
+        this.mediaList$.next([]);
+      } else {
+        this.loadRemoteData('THUMBNAIL').subscribe((thumbnailsRD) => {
+          for (
+            let index = 0;
+            index < bitstreamsRD.payload.page.length;
+            index++
+          ) {
+            bitstreamsRD.payload.page[index].format
+              .pipe(getFirstSucceededRemoteDataPayload())
+              .subscribe((format) => {
+                const current = this.mediaList$.getValue();
+                const mediaItem = this.createMediaViewerItem(
+                  bitstreamsRD.payload.page[index],
+                  format,
+                  thumbnailsRD.payload && thumbnailsRD.payload.page[index]
+                );
+                this.mediaList$.next([...current, mediaItem]);
+              });
+          }
+          this.isLoading = false;
+        });
+      }
     });
   }
 
