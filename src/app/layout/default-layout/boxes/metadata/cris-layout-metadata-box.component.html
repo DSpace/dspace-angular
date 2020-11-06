@@ -4,7 +4,7 @@
       <ng-template ngbPanelContent>
         <div class="{{box.style}}">
           <!-- PRINT ROWS -->
-          <div ds-row 
+          <div ds-row
             *ngFor="let row of metadatacomponents?.rows"
             [row]="row"
             [item]="item"
@@ -12,7 +12,6 @@
             class="row">
           </div>
         </div>
-        <ds-item-export-modal-wrapper [item]="item" class="pb-2 float-right"></ds-item-export-modal-wrapper>
       </ng-template>
     </ngb-panel>
   </div>
