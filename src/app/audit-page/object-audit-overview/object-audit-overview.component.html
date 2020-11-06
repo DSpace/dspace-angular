@@ -5,59 +5,66 @@
 
     <ng-container *ngIf="object">
         <h4 class="mt-4 mb-4">{{ object.name }} (<em>{{object.type}})</em></h4>
-    
-        <div *ngIf="(auditsRD$ | async)?.payload?.totalElements === 0">
-            No audits found.
+
+      <ng-container *ngIf="(auditsRD$ | async)?.payload as audits">
+
+        <div *ngIf="audits.totalElements === 0">
+          No audits found.
         </div>
-    
-        <ds-pagination *ngIf="(auditsRD$ | async)?.payload?.totalElements > 0"
+
+        <ds-pagination *ngIf="audits.totalElements > 0"
                        [paginationOptions]="pageConfig"
-                       [pageInfoState]="(auditsRD$ | async)?.payload"
-                       [collectionSize]="(auditsRD$ | async)?.payload?.totalElements"
+                       [pageInfoState]="audits"
+                       [collectionSize]="audits.totalElements"
                        [disableRouteParameterUpdate]="false"
                        [hideGear]="true"
                        [hidePagerWhenSinglePage]="true"
                        (pageChange)="onPageChange($event)">
-            
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead>
-                    <tr>
-                        <!-- <th>{{ 'audit.overview.table.id' | translate }}</th> -->
-                        <th>{{ 'audit.overview.table.entityType' | translate }}</th>
-                        <th>{{ 'audit.overview.table.eperson' | translate }}</th>
-                        <th>{{ 'audit.overview.table.timestamp' | translate }}</th>
-                        <th>Other Object</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let audit of (auditsRD$ | async)?.payload?.page">
-                        <!-- <td><a [routerLink]="['/auditlogs/', audit.id]">{{audit.id}}</a></td> -->
-                        <td>{{ audit.eventType }}</td>
-                        <td *ngVar="(getEpersonName(audit) | async) as ePersonName">{{ePersonName}}</td>
-                        <td>{{ audit.timeStamp | date:dateFormat}}</td>
-                        <td>
+
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+              <tr>
+                <!-- <th>{{ 'audit.overview.table.id' | translate }}</th> -->
+                <th>{{ 'audit.overview.table.entityType' | translate }}</th>
+                <th>{{ 'audit.overview.table.eperson' | translate }}</th>
+                <th>{{ 'audit.overview.table.timestamp' | translate }}</th>
+                <th>Other Object</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let audit of audits.page">
+                <!-- <td><a [routerLink]="['/auditlogs/', audit.id]">{{audit.id}}</a></td> -->
+                <td>{{ audit.eventType }}</td>
+                <td *ngVar="(getEpersonName(audit) | async) as ePersonName">{{ePersonName}}</td>
+                <td>{{ audit.timeStamp | date:dateFormat}}</td>
+                <td>
                             <span *ngIf="object.id === audit.objectUUID">
-                                <ng-container *ngIf="(getSubject(audit) | async) as subject">
-                                    {{ subject.name }} <em>({{ subject.type }})</em>
-                                </ng-container>
                                 <!-- object.id === audit.objectUUID -->
+                                <ng-container *ngIf="(getOtherObject(audit, object.id) | async) as subject">
+                                  <ng-container *ngIf="subject">
+                                    {{ subject.name }} <em>({{ subject.type }})</em>
+                                  </ng-container>
+                                </ng-container>
                             </span>
 
-                            <span *ngIf="object.id === audit.subjectUUID">
+                  <span *ngIf="object.id === audit.subjectUUID">
                                 <!-- object.id === audit.subjectUUID -->
                             </span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </ds-pagination>
-    
+
         <a class="btn btn-light mt-3" [routerLink]="['/items', object.id]"><i class="fas fa-arrow-left"></i> Back to Item</a>
-    
+
         <!-- <a class="btn btn-light mt-3" [routerLink]="'/auditlogs'">{{'audit.detail.back' | translate}}</a> -->
 
+      </ng-container>
+
+
     </ng-container>
-    
+
 </div>
