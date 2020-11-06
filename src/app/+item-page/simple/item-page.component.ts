@@ -11,7 +11,7 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
-import { redirectToPageNotFoundOn404 } from '../../core/shared/operators';
+import { redirectOn404Or401 } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 
 /**
@@ -56,7 +56,7 @@ export class ItemPageComponent implements OnInit {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.item as RemoteData<Item>),
-      redirectToPageNotFoundOn404(this.router)
+      redirectOn404Or401(this.router)
     );
     this.metadataService.processRemoteData(this.itemRD$);
   }

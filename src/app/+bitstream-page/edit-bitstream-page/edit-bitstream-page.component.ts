@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap} from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import {
@@ -19,7 +19,7 @@ import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-f
 import { cloneDeep } from 'lodash';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import {
-  getAllSucceededRemoteData, getAllSucceededRemoteDataPayload,
+  getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
   getSucceededRemoteData
@@ -35,8 +35,9 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
+import {Bundle} from '../../core/shared/bundle.model';
+import {Item} from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -299,12 +300,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     const bitstream$ = this.bitstreamRD$.pipe(
       getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      switchMap((bitstream: Bitstream) => this.bitstreamService.findById(bitstream.id, followLink('format')).pipe(
-        getAllSucceededRemoteData(),
-        getRemoteDataPayload(),
-        filter((bs: Bitstream) => hasValue(bs)))
-      )
+      getRemoteDataPayload()
     );
 
     const allFormats$ = this.bitstreamFormatsRD$.pipe(
@@ -501,14 +497,18 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * When the item ID is present, navigate back to the item's edit bitstreams page, otherwise go back to the previous
-   * page the user came from
+   * When the item ID is present, navigate back to the item's edit bitstreams page,
+   * otherwise retrieve the item ID based on the owning bundle's link
    */
   navigateToItemEditBitstreams() {
     if (hasValue(this.itemId)) {
       this.router.navigate([getItemEditRoute(this.itemId), 'bitstreams']);
     } else {
-      this.location.back();
+      this.bitstream.bundle.pipe(getFirstSucceededRemoteDataPayload(),
+          mergeMap((bundle: Bundle) => bundle.item.pipe(getFirstSucceededRemoteDataPayload(), map((item: Item) => item.uuid))))
+          .subscribe((item) => {
+            this.router.navigate(([getItemEditRoute(item), 'bitstreams']));
+          });
     }
   }
 

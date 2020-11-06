@@ -13,7 +13,7 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { getUnauthorizedRoute } from '../../app-routing-paths';
+import { getPageNotFoundRoute, getUnauthorizedRoute } from '../../app-routing-paths';
 import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 
 /**
@@ -171,16 +171,20 @@ export const getAllSucceededRemoteListPayload = () =>
     );
 
 /**
- * Operator that checks if a remote data object contains a page not found error
- * When it does contain such an error, it will redirect the user to a page not found, without altering the current URL
+ * Operator that checks if a remote data object returned a 401 or 404 error
+ * When it does contain such an error, it will redirect the user to the related error page, without altering the current URL
  * @param router The router used to navigate to a new page
  */
-export const redirectToPageNotFoundOn404 = (router: Router) =>
+export const redirectOn404Or401 = (router: Router) =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(
       tap((rd: RemoteData<T>) => {
-        if (rd.hasFailed && rd.error.statusCode === 404) {
-          router.navigateByUrl('/404', { skipLocationChange: true });
+        if (rd.hasFailed) {
+          if (rd.error.statusCode === 404) {
+            router.navigateByUrl(getPageNotFoundRoute(), {skipLocationChange: true});
+          } else if (rd.error.statusCode === 401) {
+            router.navigateByUrl(getUnauthorizedRoute(), {skipLocationChange: true});
+          }
         }
       }));
 

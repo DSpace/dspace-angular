@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { of as observableOf, Observable } from 'rxjs';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { ExternalSourceService } from '../../../core/data/external-source.service';
@@ -12,6 +12,7 @@ import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.ut
 import { FindListOptions } from '../../../core/data/request.models';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { HostWindowService } from '../../../shared/host-window.service';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Interface for the selected external source element.
@@ -37,7 +38,7 @@ export interface ExternalSourceData {
   styleUrls: ['./submission-import-external-searchbar.component.scss'],
   templateUrl: './submission-import-external-searchbar.component.html'
 })
-export class SubmissionImportExternalSearchbarComponent implements OnInit {
+export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDestroy {
   /**
    * The init external source value.
    */
@@ -77,6 +78,11 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
   protected findListOptions: FindListOptions;
 
   /**
+   * The subscription to unsubscribe
+   */
+  protected sub: Subscription;
+
+  /**
    * Initialize the component variables.
    * @param {ExternalSourceService} externalService
    * @param {ChangeDetectorRef} cdr
@@ -101,7 +107,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
     this.sourceList = [];
     this.findListOptions = Object.assign({}, new FindListOptions(), {
       elementsPerPage: 5,
-      currentPage: 0,
+      currentPage: 1,
     });
     this.externalService.findAll(this.findListOptions).pipe(
       catchError(() => {
@@ -139,13 +145,13 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
    * Load the next pages of external sources.
    */
   public onScroll(): void {
-    if (!this.sourceListLoading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
+    if (!this.sourceListLoading && ((this.pageInfo.currentPage + 1) <= this.pageInfo.totalPages)) {
       this.sourceListLoading = true;
       this.findListOptions = Object.assign({}, new FindListOptions(), {
         elementsPerPage: 5,
         currentPage: this.findListOptions.currentPage + 1,
       });
-      this.externalService.findAll(this.findListOptions).pipe(
+      this.sub = this.externalService.findAll(this.findListOptions).pipe(
         catchError(() => {
           const pageInfo = new PageInfo();
           const paginatedList = new PaginatedList(pageInfo, []);
@@ -159,7 +165,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
         })
         this.pageInfo = externalSource.payload.pageInfo;
         this.cdr.detectChanges();
-      })
+      });
     }
   }
 
@@ -168,5 +174,14 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit {
    */
   public search(): void {
     this.externalSourceData.emit({ sourceId: this.selectedElement.id, query: this.searchString });
+  }
+
+  /**
+   * Unsubscribe from all subscriptions
+   */
+  ngOnDestroy(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
   }
 }
