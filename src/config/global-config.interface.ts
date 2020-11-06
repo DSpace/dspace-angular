@@ -11,9 +11,10 @@ import { ItemPageConfig } from './item-page-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { Theme } from './theme.inferface';
 import {AuthConfig} from './auth-config.interfaces';
+import { UIServerConfig } from './ui-server-config.interface';
 
 export interface GlobalConfig extends Config {
-  ui: ServerConfig;
+  ui: UIServerConfig;
   rest: ServerConfig;
   production: boolean;
   cache: CacheConfig;

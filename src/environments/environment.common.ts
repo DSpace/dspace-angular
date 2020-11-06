@@ -13,6 +13,10 @@ export const environment: GlobalConfig = {
     port: 4000,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
+    rateLimiter: {
+      windowMs: 1 * 60 * 1000,
+      max: 100
+    }
   },
   // The REST API server settings.
   // NOTE: these must be "synced" with the 'dspace.server.url' setting in your backend's local.cfg.
