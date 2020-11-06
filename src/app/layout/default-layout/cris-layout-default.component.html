@@ -26,9 +26,9 @@
       <ng-container *ngIf="(isAuthenticated() | async) as authenticated">
           <ds-item-export-modal-wrapper  [item]="item"></ds-item-export-modal-wrapper>
       </ng-container>
-    </div>
-    <div *ngIf="(isAdministrator() | async) as administrator">
-      <button class="btn btn-light mt-3 mb-2 float-right" [routerLink]="['/auditlogs/object/', item.id]"><i class="fas fa-history"></i> Audit</button>
+      <ng-container *ngIf="(isAdministrator() | async) as administrator">
+        <button class="btn btn-outline-primary" [routerLink]="['/auditlogs/object/', item.id]"><i class="fas fa-history"></i> Audit</button>
+      </ng-container>
     </div>
   </div>
   <div class="wrapper" [ngClass]="{'wrapper-close': !(isSideBarHidden() | async)}">
