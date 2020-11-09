@@ -2952,7 +2952,7 @@
 
   "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Author": "Import remote author",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
 
