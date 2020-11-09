@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Bitstream } from '../../../core/shared/bitstream.model';
