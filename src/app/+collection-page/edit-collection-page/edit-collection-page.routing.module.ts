@@ -5,6 +5,7 @@ import { CollectionMetadataComponent } from './collection-metadata/collection-me
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
 import { CollectionCurateComponent } from './collection-curate/collection-curate.component';
+import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 /**
@@ -49,7 +50,12 @@ import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.r
             path: 'curate',
             component: CollectionCurateComponent,
             data: { title: 'collection.edit.tabs.curate.title', showBreadcrumbs: true }
-          }
+          },
+          {
+            path: 'authorizations',
+            component: CollectionAuthorizationsComponent,
+            data: { title: 'collection.edit.tabs.authorizations.title', showBreadcrumbs: true }
+          },
         ]
       }
     ])
