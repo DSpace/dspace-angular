@@ -27,9 +27,11 @@ describe('CollectionAuthorizationsComponent', () => {
 
   const routeStub = {
     parent: {
-      data: observableOf({
-        dso: collectionRD
-      })
+      parent: {
+        data: observableOf({
+          dso: collectionRD
+        })
+      }
     }
   };
 

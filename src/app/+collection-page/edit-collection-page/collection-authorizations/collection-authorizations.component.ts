@@ -35,6 +35,6 @@ export class CollectionAuthorizationsComponent<TDomain extends DSpaceObject> imp
    * Initialize the component, setting up the collection
    */
   ngOnInit(): void {
-    this.dsoRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
+    this.dsoRD$ = this.route.parent.parent.data.pipe(first(), map((data) => data.dso));
   }
 }
