@@ -210,6 +210,8 @@ import { CollectionDropdownComponent } from './collection-dropdown/collection-dr
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
+import { ResourcePolicyEditComponent } from './resource-policies/edit/resource-policy-edit.component';
+import { ResourcePolicyCreateComponent } from './resource-policies/create/resource-policy-create.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -396,6 +398,8 @@ const COMPONENTS = [
   ImpersonateNavbarComponent,
   ResourcePoliciesComponent,
   ResourcePolicyFormComponent,
+  ResourcePolicyEditComponent,
+  ResourcePolicyCreateComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
