@@ -1,4 +1,3 @@
-import { CommunityPageResolver } from '../community-page.resolver';
 import { EditCommunityPageComponent } from './edit-community-page.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -6,6 +5,7 @@ import { CommunityMetadataComponent } from './community-metadata/community-metad
 import { CommunityRolesComponent } from './community-roles/community-roles.component';
 import { CommunityCurateComponent } from './community-curate/community-curate.component';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { CommunityAuthorizationsComponent } from './community-authorizations/community-authorizations.component';
 
 /**
  * Routing module that handles the routing for the Edit Community page administrator functionality
@@ -44,6 +44,11 @@ import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.r
             path: 'curate',
             component: CommunityCurateComponent,
             data: { title: 'community.edit.tabs.curate.title', showBreadcrumbs: true }
+          },
+          {
+            path: 'authorizations',
+            component: CommunityAuthorizationsComponent,
+            data: { title: 'community.edit.tabs.authorizations.title', showBreadcrumbs: true }
           }
         ]
       }
