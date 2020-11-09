@@ -33,6 +33,6 @@ export class CommunityAuthorizationsComponent<TDomain extends DSpaceObject> impl
    * Initialize the component, setting up the community
    */
   ngOnInit(): void {
-    this.dsoRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
+    this.dsoRD$ = this.route.parent.parent.data.pipe(first(), map((data) => data.dso));
   }
 }

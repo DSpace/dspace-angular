@@ -27,9 +27,11 @@ describe('CommunityAuthorizationsComponent', () => {
 
   const routeStub = {
     parent: {
-      data: observableOf({
-        dso: communityRD
-      })
+      parent: {
+        data: observableOf({
+          dso: communityRD
+        })
+      }
     }
   };
 
