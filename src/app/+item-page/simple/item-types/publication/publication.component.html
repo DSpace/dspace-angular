@@ -10,7 +10,7 @@
       </ds-metadata-field-wrapper>
     </ng-container>
     <ng-container *ngIf="mediaViewer.enable">
-      <ds-media-viewer [item]="object" [options]="mediaViewer"></ds-media-viewer>
+      <ds-media-viewer [item]="object" [imageOptions]="mediaViewer.image" [videoOptions]="mediaViewer.video"></ds-media-viewer>
     </ng-container>
     <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>

@@ -83,6 +83,7 @@ describe('MediaViewerVideoComponent', () => {
     fixture = TestBed.createComponent(MediaViewerVideoComponent);
     component = fixture.componentInstance;
     component.medias = mockMediaViewerItem;
+    component.filteredMedias = mockMediaViewerItem;
     fixture.detectChanges();
   });
 
@@ -93,6 +94,7 @@ describe('MediaViewerVideoComponent', () => {
   describe('should show controller buttons when the having mode then one video', () => {
     beforeEach(() => {
       component.medias = mockMediaViewerItems;
+      component.filteredMedias = mockMediaViewerItems;
       fixture.detectChanges();
     });
 
@@ -107,21 +109,21 @@ describe('MediaViewerVideoComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should increase the the index', () => {
+      it('should increase the index', () => {
         const viewMore = fixture.debugElement.query(By.css('.next'));
         viewMore.triggerEventHandler('click', null);
         expect(component.currentIndex).toBe(1);
       });
     });
 
-    describe('when the "Previus" button is clicked', () => {
+    describe('when the "Previous" button is clicked', () => {
       beforeEach(() => {
         component.currentIndex = 1;
         fixture.detectChanges();
       });
 
-      it('should increase the the index', () => {
-        const viewMore = fixture.debugElement.query(By.css('.previus'));
+      it('should decrease the index', () => {
+        const viewMore = fixture.debugElement.query(By.css('.previous'));
         viewMore.triggerEventHandler('click', null);
         expect(component.currentIndex).toBe(0);
       });
@@ -133,7 +135,7 @@ describe('MediaViewerVideoComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should set the the index with teh selected one', () => {
+      it('should set the the index with the selected one', () => {
         const viewMore = fixture.debugElement.query(By.css('.list-element'));
         viewMore.triggerEventHandler('click', null);
         expect(component.currentIndex).toBe(0);

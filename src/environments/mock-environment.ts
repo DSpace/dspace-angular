@@ -196,4 +196,9 @@ export const environment: Partial<GlobalConfig> = {
   theme: {
     name: 'default',
   },
+  mediaViewer: {
+    enable: true,
+    image: true,
+    video: true,
+  },
 };
