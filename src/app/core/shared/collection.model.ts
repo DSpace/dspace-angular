@@ -1,4 +1,4 @@
-import { autoserialize, deserialize, deserializeAs, inheritSerialization } from 'cerialize';
+import { deserialize, deserializeAs, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';

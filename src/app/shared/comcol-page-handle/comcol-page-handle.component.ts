@@ -1,5 +1,4 @@
 import { Component, Injectable, Input } from '@angular/core';
-import { UIURLCombiner } from '../../core/url-combiner/ui-url-combiner';
 
 /**
  * This component builds a URL from the value of "handle"
