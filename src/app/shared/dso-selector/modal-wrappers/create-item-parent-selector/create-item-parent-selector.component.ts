@@ -21,8 +21,10 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.CREATE;
 
-  @Input() metadata: string;
-  @Input() metadatavalue: string;
+  /**
+   * If present this value is used to filter collection list by entity type
+   */
+  @Input() entityType: string;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);
@@ -37,8 +39,8 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
         ['collection']: dso.uuid,
       }
     };
-    if (this.metadatavalue) {
-      navigationExtras.queryParams.entityType = this.metadatavalue;
+    if (this.entityType) {
+      navigationExtras.queryParams.entityType = this.entityType;
     }
     this.router.navigate(['/submit'], navigationExtras);
   }

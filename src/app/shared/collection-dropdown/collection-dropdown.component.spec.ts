@@ -249,8 +249,7 @@ describe('CollectionDropdownComponent', () => {
 
   it('should invoke the method getAuthorizedCollectionByEntityType of CollectionDataService', fakeAsync(() => {
     spyOn((component as any).collectionDataService, 'getAuthorizedCollectionByEntityType');
-    component.metadata = 'relationship.type';
-    component.metadatavalue = 'rel';
+    component.entityType = 'rel';
     component.ngOnInit();
     tick();
     fixture.detectChanges();

@@ -71,7 +71,7 @@ describe('CreateItemParentSelectorComponent', () => {
 
   it('should call navigate on the router with entityType parameter', () => {
     const entityType = 'Person';
-    component.metadatavalue = entityType;
+    component.entityType = entityType;
     component.navigate(collection);
     expect(router.navigate).toHaveBeenCalledWith(['/submit'], { queryParams: { collection: collection.uuid, entityType: entityType } });
   });

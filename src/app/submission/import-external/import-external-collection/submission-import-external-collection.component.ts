@@ -15,14 +15,11 @@ export class SubmissionImportExternalCollectionComponent {
    * The event passed by 'ds-collection-dropdown'.
    */
   @Output() public selectedEvent = new EventEmitter<CollectionListEntry>();
+
   /**
-   * If present this value is used to filter collection list
+   * If present this value is used to filter collection list by entity type
    */
-  public metadata: string;
-  /**
-   * If present this value is used to filter collection list
-   */
-  public metadataValue: string;
+  public entityType: string;
 
   /**
    * Initialize the component variables.
