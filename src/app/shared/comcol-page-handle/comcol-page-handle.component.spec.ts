@@ -39,7 +39,7 @@ describe('ComcolPageHandleComponent', () => {
   });
 
   describe('should create a link pointing the handle', () => {
-  
+
     it('should use the content if it includes the http protocol', () => {
       component.content = handleWithProtocol;
       fixture.detectChanges();
@@ -48,15 +48,6 @@ describe('ComcolPageHandleComponent', () => {
       expect(link.nativeElement.getAttribute('href')).toBe(handleWithProtocol);
       expect(link.nativeElement.innerHTML).toBe(handleWithProtocol);
     });
-
-    it('should combine the base uri to the content if it doesnt include the http protocol', () => {
-      component.content = handleWithoutProtocol;
-      fixture.detectChanges();
-      const link = fixture.debugElement.query(By.css('a'));
-      expect(link.nativeElement.getAttribute('href')).toBe(handleWithoutProtocolUIURLCombined);
-      expect(link.nativeElement.innerHTML).toBe(handleWithoutProtocolUIURLCombined);
-    });
-    
   });
- 
+
 });

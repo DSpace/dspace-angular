@@ -67,8 +67,7 @@ export class Community extends DSpaceObject implements ChildHALResource {
    * A string representing the unique handle of this Community
    */
   get handle(): string {
-    const metadataValue = this.firstMetadataValue('dc.identifier.uri');
-    return metadataValue ? metadataValue : this._handle;
+    return this.firstMetadataValue('dc.identifier.uri');
   }
 
   set handle(value: string) {

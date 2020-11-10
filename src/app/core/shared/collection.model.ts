@@ -78,14 +78,13 @@ export class Collection extends DSpaceObject implements ChildHALResource {
    * A string representing the unique handle of this Collection
    */
   get handle(): string {
-    const metadataValue = this.firstMetadataValue('dc.identifier.uri');
-    return metadataValue ? metadataValue : this._handle;
+    return this.firstMetadataValue('dc.identifier.uri');
   }
 
   set handle(value: string) {
     this._handle = value;
   }
-  
+
   /**
    * The introductory text of this Collection
    * Corresponds to the metadata field dc.description
