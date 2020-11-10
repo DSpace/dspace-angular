@@ -32,7 +32,7 @@ describe('SubmissionEditComponent Component', () => {
   const collectionDataService: any = jasmine.createSpyObj('collectionDataService', {
     findById: jasmine.createSpy('findById'),
     getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity'),
-    getAuthorizedByCommunityAndRelationshipType: jasmine.createSpy('getAuthorizedByCommunityAndRelationshipType')
+    getAuthorizedCollectionByCommunityAndEntityType: jasmine.createSpy('getAuthorizedCollectionByCommunityAndEntityType')
   });
 
   beforeEach(async(() => {

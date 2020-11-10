@@ -142,7 +142,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedByCommunityAndRelationshipType(
+  getAuthorizedCollectionByCommunityAndEntityType(
     communityId: string,
     entityType: string,
     options: FindListOptions = {},
