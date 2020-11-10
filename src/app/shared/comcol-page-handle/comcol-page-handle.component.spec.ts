@@ -1,15 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
-import { UIURLCombiner } from 'src/app/core/url-combiner/ui-url-combiner';
 import { ComcolPageHandleComponent } from './comcol-page-handle.component';
 
-const handleWithProtocol = 'http://localhost:4000/handle/123456789/2';
+const handle = 'http://localhost:4000/handle/123456789/2';
 
-const handleWithoutProtocol = '123456789/2';
-const handleWithoutProtocolUIURLCombined = new UIURLCombiner('/handle/', '123456789/2').toString();
-
-describe('ComcolPageHandleComponent', () => {
+fdescribe('ComcolPageHandleComponent', () => {
   let component: ComcolPageHandleComponent;
   let fixture: ComponentFixture<ComcolPageHandleComponent>;
 
@@ -38,16 +34,15 @@ describe('ComcolPageHandleComponent', () => {
     expect(div).toBeNull();
   });
 
-  describe('should create a link pointing the handle', () => {
+  it('should create a link pointing the handle when present', () => {
 
-    it('should use the content if it includes the http protocol', () => {
-      component.content = handleWithProtocol;
-      fixture.detectChanges();
+    component.content = handle;
+    fixture.detectChanges();
 
-      const link = fixture.debugElement.query(By.css('a'));
-      expect(link.nativeElement.getAttribute('href')).toBe(handleWithProtocol);
-      expect(link.nativeElement.innerHTML).toBe(handleWithProtocol);
-    });
+    const link = fixture.debugElement.query(By.css('a'));
+    expect(link.nativeElement.getAttribute('href')).toBe(handle);
+    expect(link.nativeElement.innerHTML).toBe(handle);
+
   });
 
 });

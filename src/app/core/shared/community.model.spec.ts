@@ -1,8 +1,8 @@
 import {Community} from './community.model';
 
-fdescribe('Community', () => {
+describe('Community', () => {
 
-  fdescribe('Community handle value',  () => {
+  describe('Community handle value',  () => {
 
     let metadataValue;
     let handleValue;

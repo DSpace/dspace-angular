@@ -1,8 +1,8 @@
 import {Collection} from './collection.model';
 
-fdescribe('Collection', () => {
+describe('Collection', () => {
 
-  fdescribe('Collection handle value',  () => {
+  describe('Collection handle value',  () => {
 
     let metadataValue;
     let handleValue;
