@@ -1952,6 +1952,10 @@
 
   "item.page.filesection.license.bundle" : "License bundle",
 
+  "item.preview.dc.identifier.doi" : "DOI",
+
+  "item.preview.dc.relation.ispartof" : "Journal or Serie",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -1962,6 +1966,8 @@
 
   "item.preview.dc.identifier.other": "Other identifier:",
 
+  "item.preview.dc.identifier.pmid" : "Pubmed Id",
+
   "item.preview.dc.language.iso": "Language:",
 
   "item.preview.dc.subject": "Subjects:",
@@ -1971,6 +1977,10 @@
   "item.preview.dc.identifier": "Identifier:",
 
   "item.preview.dc.source": "Source:",
+
+  "item.preview.dc.relation.isbn" : "ISBN",
+
+  "item.preview.dc.relation.issn" : "ISSN",
 
   "item.preview.person.familyName": "Surname:",
 
