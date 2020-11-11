@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
@@ -39,6 +39,7 @@ import { StoreActionTypes } from '../../store.actions';
 import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
 import { Router } from '@angular/router';
 import { RouterStub } from 'src/app/shared/testing/router.stub';
+import { take } from 'rxjs/operators';
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;
@@ -469,29 +470,29 @@ describe('AuthEffects', () => {
     });
 
     describe('when auth loaded is false', () => {
-      it('should not call removeToken method', (done) => {
+      it('should not call removeToken method', fakeAsync(() => {
         store.overrideSelector(isAuthenticatedLoaded, false);
         actions = hot('--a-|', { a: { type: StoreActionTypes.REHYDRATE } });
         spyOn(authServiceStub, 'removeToken');
 
-        authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
-          expect(authServiceStub.removeToken).not.toHaveBeenCalled();
-          done();
-        });
-      });
+        authEffects.clearInvalidTokenOnRehydrate$.pipe(take(1)).subscribe();
+        tick();
+        expect(authServiceStub.removeToken).not.toHaveBeenCalled();
+
+      }));
     });
 
     describe('when auth loaded is true', () => {
-      it('should call removeToken method', (done) => {
+      it('should call removeToken method', fakeAsync(() => {
         store.overrideSelector(isAuthenticatedLoaded, true);
         actions = hot('--a-|', { a: { type: StoreActionTypes.REHYDRATE } });
         spyOn(authServiceStub, 'removeToken');
 
-        authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
-          expect(authServiceStub.removeToken).toHaveBeenCalled();
-          done();
-        });
-      });
+        authEffects.clearInvalidTokenOnRehydrate$.pipe(take(1)).subscribe();
+        tick();
+
+        expect(authServiceStub.removeToken).toHaveBeenCalled();
+      }));
     });
   });
 
@@ -518,23 +519,23 @@ describe('AuthEffects', () => {
 
         expect(authEffects.refreshTokenAndRedirect$).toBeObservable(expected);
       });
-    })
+    });
+
   });
 
   describe('refreshTokenAndRedirectSuccess$', () => {
-    it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', (done) => {
+    it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', fakeAsync(() => {
 
       actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS, payload: {token, redirectUrl} } });
 
       spyOn(authServiceStub, 'replaceToken');
       spyOn(routerStub, 'navigateByUrl');
 
-      authEffects.refreshTokenAndRedirectSuccess$.subscribe(() => {
-        expect(authServiceStub.replaceToken).toHaveBeenCalledWith(token);
-        expect(routerStub.navigateByUrl).toHaveBeenCalledWith(redirectUrl);
-        done();
-      });
+      authEffects.refreshTokenAndRedirectSuccess$.pipe(take(1)).subscribe();
+      tick();
 
-    });
+      expect(authServiceStub.replaceToken).toHaveBeenCalledWith(token);
+      expect(routerStub.navigateByUrl).toHaveBeenCalledWith(redirectUrl);
+    }));
   })
 });
