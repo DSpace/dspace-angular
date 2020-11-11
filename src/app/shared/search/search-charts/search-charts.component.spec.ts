@@ -11,7 +11,7 @@ import { of as observableOf } from 'rxjs';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 
-describe('SearchChartsComponent', () => {
+xdescribe('SearchChartsComponent', () => {
   let comp: SearchChartsComponent;
   let fixture: ComponentFixture<SearchChartsComponent>;
   let searchService: SearchService;
