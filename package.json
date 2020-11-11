@@ -81,6 +81,7 @@
     "@nguniversal/module-map-ngfactory-loader": "v8.2.6",
     "@ngx-translate/core": "11.0.1",
     "@nicky-lenaers/ngx-scroll-to": "^3.0.1",
+    "@swimlane/ngx-charts": "^12.1.0",
     "angular-idle-preload": "3.0.0",
     "angular2-text-mask": "9.0.0",
     "angulartics2": "7.5.2",

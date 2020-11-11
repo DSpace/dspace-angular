@@ -212,6 +212,7 @@ import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.compo
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
+import { ChartsModule } from '../charts/charts.module';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -234,7 +235,8 @@ const MODULES = [
   TextMaskModule,
   MenuModule,
   DragDropModule,
-  CdkTreeModule
+  CdkTreeModule,
+  ChartsModule
 ];
 
 const ROOT_MODULES = [
