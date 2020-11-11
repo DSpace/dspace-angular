@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { CoreModule } from '../core/core.module';
 import { AbstractChartComponent } from './components/abstract-chart/abstract-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { ChartComponent } from './components/chart/chart.component';
@@ -10,8 +9,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 const MODULES = [
   CommonModule,
-  NgxChartsModule,
-  CoreModule.forRoot()
+  NgxChartsModule
 ];
 
 const COMPONENTS = [
