@@ -1169,7 +1169,7 @@
 
   "confirmation-modal.export-metadata.confirm": "Export",
 
-
+  "equipment.listelement.badge": "Equipment",
 
   "error.bitstream": "Error fetching bitstream",
 
@@ -1477,6 +1477,7 @@
 
   "form.submit": "Submit",
 
+  "funding.listelement.badge" : "Funding",
 
 
   "home.description": "",
@@ -2647,7 +2648,7 @@
   "audit.overview.table.objectUUID" : "Object ID",
 
   "audit.overview.table.objectType" : "Object Type",
-  
+
   "audit.overview.table.subjectUUID" : "Subject ID",
 
   "audit.overview.table.subjectType" : "Subject Type",
@@ -2662,7 +2663,7 @@
 
   "audit.object.overview.title": "Subject Audit Logs Overview",
 
-  
+
   "audit.detail.title" : "Audit Detail",
 
   "audit.detail.id" : "Audit Id",
@@ -2681,6 +2682,7 @@
 
   "audit.detail.back.subject": "Subject Audit Logs",
 
+  "patent.listelement.badge": "Patent",
 
   "profile.breadcrumbs": "Update Profile",
 
@@ -3103,6 +3105,14 @@
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
 
+  "search.filters.filter.chart.bar.dateIssued.year.head": "Year",
+
+  "search.filters.filter.chart.bar.dateIssued.year.placeholder": "Year",
+
+  "search.filters.filter.chart.pie.itemtype_filter.head": "Type",
+
+  "search.filters.filter.chart.pie.itemtype_filter.placeholder": "Type",
+
   "search.filters.filter.creativeDatePublished.head": "Date Published",
 
   "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
@@ -3170,6 +3180,7 @@
   "search.filters.filter.knowsLanguage.head": "Known language",
 
   "search.filters.filter.knowsLanguage.placeholder": "Known language",
+
 
   "search.filters.filter.projectOrgUnits.head" : "Organizations",
 
