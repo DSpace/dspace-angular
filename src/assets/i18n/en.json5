@@ -3689,6 +3689,8 @@
 
   "submission.sections.submit.progressbar.describe.event": "Event basic information",
 
+  "submission.sections.submit.progressbar.describe.funding": "Funding basic information",
+
   "submission.sections.submit.progressbar.describe.journal": "Journal basic information",
 
   "submission.sections.submit.progressbar.describe.orgunit": "Org Unit basic information",
@@ -3698,6 +3700,8 @@
   "submission.sections.submit.progressbar.describe.patent_indexing": "Patent indexing",
 
   "submission.sections.submit.progressbar.describe.patent_references": "Patent references",
+
+  "submission.sections.submit.progressbar.describe.person": "Person basic information",
 
   "submission.sections.submit.progressbar.describe.product": "Product basic information",
 
