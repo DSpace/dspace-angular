@@ -1,4 +1,4 @@
-import { fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
@@ -476,25 +476,22 @@ describe('AuthEffects', () => {
 
         authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
           expect(authServiceStub.removeToken).not.toHaveBeenCalled();
-
+          done();
         });
-
-        done();
       });
     });
 
     describe('when auth loaded is true', () => {
-      it('should call removeToken method', fakeAsync(() => {
+      it('should call removeToken method', (done) => {
         store.overrideSelector(isAuthenticatedLoaded, true);
         actions = hot('--a-|', { a: { type: StoreActionTypes.REHYDRATE } });
         spyOn(authServiceStub, 'removeToken');
 
         authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
           expect(authServiceStub.removeToken).toHaveBeenCalled();
-          flush();
+          done();
         });
-
-      }));
+      });
     });
   });
 
@@ -525,7 +522,7 @@ describe('AuthEffects', () => {
   });
 
   describe('refreshTokenAndRedirectSuccess$', () => {
-    it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', () => {
+    it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', (done) => {
 
       actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS, payload: {token, redirectUrl} } });
 
@@ -535,7 +532,7 @@ describe('AuthEffects', () => {
       authEffects.refreshTokenAndRedirectSuccess$.subscribe(() => {
         expect(authServiceStub.replaceToken).toHaveBeenCalledWith(token);
         expect(routerStub.navigateByUrl).toHaveBeenCalledWith(redirectUrl);
-        flush();
+        done();
       });
 
     });
