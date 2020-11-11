@@ -1,0 +1,3 @@
+<ng-container *ngIf="(results | async)">
+  <ds-chart [results]="(results | async)" [view]="view" [type]='chartType.LINE' [animations]="true" (select)="select($event)"></ds-chart>
+</ng-container>

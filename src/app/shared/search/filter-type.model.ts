@@ -25,5 +25,20 @@ export enum FilterType {
   /**
    * Represents binary facets
    */
-  boolean = 'standard'
+  boolean = 'standard',
+
+  /**
+   * Represents bar chart
+   */
+  'chart.bar' = 'chart.bar',
+
+  /**
+   * Represents pie chart
+   */
+  'chart.pie' = 'chart.pie',
+
+  /**
+   * Represents line chart
+   */
+  'chart.line' = 'chart.line'
 }

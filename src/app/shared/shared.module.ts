@@ -212,6 +212,12 @@ import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.compo
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
+import { SearchChartsComponent } from './search/search-charts/search-charts.component';
+import { SearchChartBarComponent } from './search/search-charts/search-chart/search-chart-bar/search-chart-bar.component';
+import { SearchChartPieComponent } from './search/search-charts/search-chart/search-chart-pie/search-chart-pie.component';
+import { SearchChartLineComponent } from './search/search-charts/search-chart/search-chart-line/search-chart-line.component';
+import { SearchChartFilterWrapperComponent } from './search/search-charts/search-chart/search-chart-wrapper/search-chart-wrapper.component';
+import { SearchChartComponent } from './search/search-charts/search-chart/search-chart.component';
 import { ChartsModule } from '../charts/charts.module';
 
 const MODULES = [
@@ -409,7 +415,13 @@ const COMPONENTS = [
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent
+  VocabularyTreeviewComponent,
+  SearchChartsComponent,
+  SearchChartBarComponent,
+  SearchChartPieComponent,
+  SearchChartLineComponent,
+  SearchChartFilterWrapperComponent,
+  SearchChartComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -491,7 +503,13 @@ const ENTRY_COMPONENTS = [
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent
+  VocabularyTreeviewComponent,
+  SearchChartsComponent,
+  SearchChartBarComponent,
+  SearchChartPieComponent,
+  SearchChartLineComponent,
+  SearchChartFilterWrapperComponent,
+  SearchChartComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

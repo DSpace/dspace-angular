@@ -3016,6 +3016,22 @@
   "search.filters.applied.f.withdrawn": "Withdrawn",
 
 
+  "search.filters.applied.f.chart.pie.itemtype_filter" : "Pie Chart",
+
+  "search.filters.applied.f.chart.pie.itemtype_filter" : "Pie Chart",
+
+  "search.filters.applied.f.chart.bar.dateIssued.year": "Bar Chart",
+
+  "search.filters.applied.charts.title": "Research Output",
+
+  "search.filters.applied.charts.chart.pie": "Item Type",
+
+  "search.filters.applied.charts.chart.bar": "Date Issued",
+
+  "search.filters.applied.charts.chart.line": "Line",
+
+
+
 
   "search.filters.filter.author.head": "Author",
 
@@ -3108,6 +3124,23 @@
   "search.filters.filter.submitter.head": "Submitter",
 
   "search.filters.filter.submitter.placeholder": "Submitter",
+
+
+  "search.filters.filter.chart.head": "Charts",
+
+  "search.filters.filter.chart.placeholder": "Charts",
+
+  "search.filters.filter.chart.pie.itemtype_filter.head": "Pie Chart",
+
+  "search.filters.filter.chart.pie.itemtype_filter.placeholder": "Pie Chart",
+
+  "search.filters.filter.chart.bar.dateIssued.year.head": "Bart Chart",
+
+  "search.filters.filter.chart.bar.dateIssued.year.placeholder": "Bart Chart",
+
+  "search.filters.filter.chart.line.dateIssued.year.head": "Line Chart",
+
+  "search.filters.filter.chart.line.dateIssued.year.placeholder": "Line Chart",
 
 
 

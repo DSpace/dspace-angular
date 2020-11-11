@@ -12,6 +12,7 @@ import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { Router } from '@angular/router';
+import { FilterType } from '../filter-type.model';
 
 @Component({
   selector: 'ds-search-filters',
@@ -58,9 +59,31 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filters = this.searchConfigService.searchOptions.pipe(
-      switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getSucceededRemoteData())),
-    );
+    this.filters = this.searchConfigService.searchOptions
+      .pipe(
+        switchMap((options) =>
+          this.searchService
+            .getConfig(options.scope, options.configuration)
+            .pipe(getSucceededRemoteData())
+        )
+      )
+      .pipe(
+        map((item) => ({
+          isLoading: item.isLoading,
+          hasFailed: item.hasFailed,
+          isRequestPending: item.isRequestPending,
+          isResponsePending: item.isResponsePending,
+          state: item.state,
+          hasSucceeded: item.hasSucceeded,
+          hasNoContent: item.hasNoContent,
+          payload: item.payload.filter(
+            (i) =>
+              i.type !== FilterType['chart.bar'] &&
+              i.type !== FilterType['chart.line'] &&
+              i.type !== FilterType['chart.pie']
+          ),
+        }))
+      );
 
     this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);

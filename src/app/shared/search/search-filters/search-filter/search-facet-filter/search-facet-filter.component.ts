@@ -322,6 +322,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   trackUpdate(index, value: FacetValue) {
     return value ? value._links.search.href : undefined;
   }
+
+  select(data) {
+    console.log(data)
+  }
 }
 
 export const facetLoad = trigger('facetLoad', [
