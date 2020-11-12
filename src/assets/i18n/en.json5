@@ -2270,7 +2270,7 @@
 
   "process.detail.logs.loading": "Retrieving",
 
-  "process.detail.logs.none": "This process has no output yet",
+  "process.detail.logs.none": "This process has no output",
 
   "process.detail.output-files" : "Output Files",
 

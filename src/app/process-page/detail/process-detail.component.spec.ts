@@ -1,11 +1,22 @@
-import { ProcessOutputDataService } from '../../core/data/process-output-data.service';
-import { ProcessOutput } from '../processes/process-output.model';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../core/auth/auth.service';
+import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { ProcessDetailComponent } from './process-detail.component';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  discardPeriodicTasks,
+  fakeAsync,
+  flush,
+  flushMicrotasks,
+  TestBed,
+  tick
+} from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 import { Process } from '../processes/process.model';
 import { ActivatedRoute } from '@angular/router';
@@ -23,8 +34,9 @@ describe('ProcessDetailComponent', () => {
   let fixture: ComponentFixture<ProcessDetailComponent>;
 
   let processService: ProcessDataService;
-  let processOutputService: ProcessOutputDataService;
   let nameService: DSONameService;
+  let bitstreamDataService: BitstreamDataService;
+  let httpClient: HttpClient;
 
   let process: Process;
   let fileName: string;
@@ -33,13 +45,11 @@ describe('ProcessDetailComponent', () => {
   let processOutput;
 
   function init() {
-    processOutput = Object.assign(new ProcessOutput(), {
-        logs: ['Process started', 'Process completed']
-      }
-    );
+    processOutput = 'Process Started'
     process = Object.assign(new Process(), {
       processId: 1,
       scriptName: 'script-name',
+      processStatus: 'COMPLETED',
       parameters: [
         {
           name: '-f',
@@ -76,14 +86,23 @@ describe('ProcessDetailComponent', () => {
         }
       })
     ];
+    const logBitstream = Object.assign(new Bitstream(), {
+      id: 'output.log',
+      _links: {
+        content: { href: 'log-selflink' }
+      }
+    });
     processService = jasmine.createSpyObj('processService', {
       getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files))
     });
-    processOutputService = jasmine.createSpyObj('processOutputService', {
-      findByHref: createSuccessfulRemoteDataObject$(processOutput)
+    bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
+      findByHref: createSuccessfulRemoteDataObject$(logBitstream)
     });
     nameService = jasmine.createSpyObj('nameService', {
       getName: fileName
+    });
+    httpClient = jasmine.createSpyObj('httpClient', {
+      get: observableOf(processOutput)
     });
   }
 
@@ -98,10 +117,12 @@ describe('ProcessDetailComponent', () => {
           useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) }
         },
         { provide: ProcessDataService, useValue: processService },
-        { provide: ProcessOutputDataService, useValue: processOutputService },
-        { provide: DSONameService, useValue: nameService }
+        { provide: BitstreamDataService, useValue: bitstreamDataService },
+        { provide: DSONameService, useValue: nameService },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: HttpClient, useValue: httpClient },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -109,6 +130,14 @@ describe('ProcessDetailComponent', () => {
     fixture = TestBed.createComponent(ProcessDetailComponent);
     component = fixture.componentInstance;
   });
+  afterEach(fakeAsync(() => {
+    TestBed.resetTestingModule();
+    fixture.destroy();
+    flush();
+    flushMicrotasks();
+    discardPeriodicTasks();
+    component = null;
+  }));
 
   it('should display the script\'s name', () => {
     fixture.detectChanges();
@@ -134,6 +163,7 @@ describe('ProcessDetailComponent', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'showProcessOutputLogs').and.callThrough();
       fixture.detectChanges();
+
       const showOutputButton = fixture.debugElement.query(By.css('#showOutputButton'));
       showOutputButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
@@ -147,20 +177,16 @@ describe('ProcessDetailComponent', () => {
     it('should display the process\'s output logs', () => {
       fixture.detectChanges();
       const outputProcess = fixture.debugElement.query(By.css('#process-output pre'));
-      expect(outputProcess.nativeElement.textContent).toContain('Process started');
+      expect(outputProcess.nativeElement.textContent).toContain(processOutput);
     });
   });
 
-  describe('if press show output logs and process has no output logs (yet)', () => {
+  describe('if press show output logs and process has no output logs', () => {
     beforeEach(fakeAsync(() => {
       jasmine.getEnv().allowRespy(true);
-      const emptyProcessOutput = Object.assign(new ProcessOutput(), {
-        logs: []
-      });
-      spyOn(processOutputService, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(emptyProcessOutput));
+      spyOn(httpClient, 'get').and.returnValue(observableOf(null));
       fixture = TestBed.createComponent(ProcessDetailComponent);
       component = fixture.componentInstance;
-      fixture.detectChanges();
       spyOn(component, 'showProcessOutputLogs').and.callThrough();
       fixture.detectChanges();
       const showOutputButton = fixture.debugElement.query(By.css('#showOutputButton'));
