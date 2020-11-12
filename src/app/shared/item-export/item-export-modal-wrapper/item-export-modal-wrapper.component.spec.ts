@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemExportModalWrapperComponent } from './item-export-modal-wrapper.component';
 import { AuthService } from '../../../core/auth/auth.service';
-import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { ViewContainerRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -19,11 +18,15 @@ describe('ItemExportModalWrapperComponent', () => {
     }
   };
 
+  const authServiceMock: any = jasmine.createSpyObj('AuthService', {
+    isAuthenticated: jasmine.createSpy('isAuthenticated')
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ItemExportModalWrapperComponent],
       providers: [
-        { provide: AuthService, useClass: AuthServiceMock },
+        { provide: AuthService, useClass: authServiceMock },
         { provide: NgbModal, useValue: modalService },
         ViewContainerRef
       ]
