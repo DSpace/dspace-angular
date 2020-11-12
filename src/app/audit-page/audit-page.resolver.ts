@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { Observable } from 'rxjs/internal/Observable';
-import { find, tap } from 'rxjs/operators';
+import { find } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
 import { Audit } from '../core/audit/model/audit.model';
 import { AuditDataService } from '../core/audit/audit-data.service';
@@ -24,9 +24,7 @@ export class AuditPageResolver implements Resolve<RemoteData<Audit>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Audit>> {
-    // return this.auditService.findById(route.params.id, followLink('eperson')).pipe(
     return this.auditService.findById(route.params.id).pipe(
-      tap(value => {  }),
       getAllSucceededRemoteData(),
       find((RD) => hasValue(RD.error) || RD.hasSucceeded),
     );

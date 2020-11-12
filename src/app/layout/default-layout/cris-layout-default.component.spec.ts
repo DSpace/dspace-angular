@@ -28,9 +28,9 @@ import { Box } from '../../core/layout/models/box.model';
 import { BoxDataService } from '../../core/layout/box-data.service';
 import { EditItemDataService } from '../../core/submission/edititem-data.service';
 import { EditItem } from '../../core/submission/models/edititem.model';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { AuthService } from "../../core/auth/auth.service";
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { AuthService } from '../../core/auth/auth.service';
 
 const testType = LayoutPage.DEFAULT;
 class TestItem {

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { Audit } from 'src/app/core/audit/model/audit.model';
 import { AUDIT } from 'src/app/core/audit/model/audit.resource-type';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -20,8 +20,8 @@ import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import { FindListOptions } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { followLink, FollowLinkConfig } from "../../shared/utils/follow-link-config.model";
-import { getFinishedRemoteData, getFirstSucceededRemoteDataPayload, getSucceededRemoteData } from "../shared/operators";
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { getFinishedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -83,7 +83,6 @@ export class AuditDataService {
       searchParams: [new RequestParam('object', objectId)]
     });
     return this.dataService.searchBy(searchMethod, optionsWithObject, followLink('eperson'));
-      //.pipe(tap(value => {debugger; }));
   }
 
   findById(id: string, ...linksToFollow: Array<FollowLinkConfig<Audit>>): Observable<RemoteData<Audit>> {
@@ -96,7 +95,7 @@ export class AuditDataService {
 
   /**
    * Get the name of an EPerson by ID
-   * @param id  ID of the EPerson
+   * @param audit  The audit object
    */
   getEpersonName(audit: Audit): Observable<string> {
 
@@ -112,7 +111,7 @@ export class AuditDataService {
   /**
    *
    * @param audit
-   * @param subjectId
+   * @param contextObjectId
    */
   getOtherObject(audit: Audit, contextObjectId: string): Observable<any> {
     const otherObjectHref = this.getOtherObjectHref(audit, contextObjectId);
@@ -134,6 +133,5 @@ export class AuditDataService {
     }
     return null;
   }
-
 
 }

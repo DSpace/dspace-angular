@@ -27,7 +27,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 import { EditItemMode } from '../../core/submission/models/edititem-mode.model';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
-import { AuthService } from "../../core/auth/auth.service";
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * This component defines the default layout for all DSpace Items.
@@ -195,7 +195,6 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
   isAuthenticated() {
     return this.authService.isAuthenticated();
   }
-
 
   ngOnDestroy(): void {
     if (this.componentRef) {

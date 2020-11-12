@@ -94,5 +94,4 @@ export class AuditOverviewComponent implements OnInit {
     return this.auditService.getEpersonName(audit);
   }
 
-
 }

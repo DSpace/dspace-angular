@@ -34,7 +34,6 @@ import { ObjectAuditOverviewComponent } from './object-audit-overview/object-aud
             component: ObjectAuditOverviewComponent,
             // TODO: breadcrumbs resolver
           }
- 
         ]
       },
 
