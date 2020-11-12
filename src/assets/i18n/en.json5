@@ -1169,7 +1169,7 @@
 
   "confirmation-modal.export-metadata.confirm": "Export",
 
-
+  "equipment.listelement.badge": "Equipment",
 
   "error.bitstream": "Error fetching bitstream",
 
@@ -1228,13 +1228,25 @@
 
   "explore.index.dc.title" : "Title",
 
+  "explore.index.editor" : "Editor",
+
+  "explore.index.eqtitle" : "Title",
+
+  "explore.index.eqowner" : "Researcher",
+
+  "explore.index.eqorgunit" : "Organization",
+
   "explore.index.entityType" : "Entity type",
 
   "explore.index.familyName" : "Family name",
 
+  "explore.index.funding" : "Funding",
+
   "explore.index.givenName" : "Given name",
 
   "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
+
+  "explore.index.investigators" : "Researchers",
 
   "explore.index.isAuthorOfPublication" : "Publication's author",
 
@@ -1270,6 +1282,8 @@
 
   "explore.index.knowsLanguage" : "Knows languages",
 
+  "explore.index.organization" : "Organization",
+
   "explore.index.organizationAddressCountry" : "Organization address country",
 
   "explore.index.organizationAddressLocality" : "Organization address locality",
@@ -1283,6 +1297,10 @@
   "explore.index.original_bundle_filenames" : "Original bundle filenames",
 
   "explore.index.ouname" : "Name",
+
+  "explore.index.projectOrgUnits" : "Organizations",
+
+  "explore.index.personOrgUnits" : "Organizations",
 
   "explore.index.pjtitle" : "Title",
 
@@ -1300,11 +1318,17 @@
 
   "explore.index.type" : "Type",
 
+  "explore.search-section.infrastructure.title": "Infrastructure",
+
   "explore.search-section.fundings.title": "Search Projects",
+
+  "explore.search-section.fundings_and_projects.title": "Search Projects",
 
   "explore.search-section.orgunits.title": "Search Organizations",
 
   "explore.search-section.publications.title": "Search Research Outputs",
+
+  "explore.search-section.researchoutputs.title": "Search Research Outputs",
 
   "explore.search-section.researcherprofiles.title": "Search People",
 
@@ -1312,11 +1336,17 @@
 
   "explore.search-section.reset-button": "Reset",
 
+  "explore.infrastructure.breadcrumbs": "Infrastructure",
+
   "explore.fundings.breadcrumbs": "Projects",
+
+  "explore.fundings_and_projects.breadcrumbs": "Projects",
 
   "explore.orgunits.breadcrumbs": "Organizations",
 
   "explore.publications.breadcrumbs": "Research Outputs",
+
+  "explore.researchoutputs.breadcrumbs": "Research Outputs",
 
   "explore.researcherprofiles.breadcrumbs": "People",
 
@@ -1447,6 +1477,7 @@
 
   "form.submit": "Submit",
 
+  "funding.listelement.badge" : "Funding",
 
 
   "home.description": "",
@@ -1921,6 +1952,10 @@
 
   "item.page.filesection.license.bundle" : "License bundle",
 
+  "item.preview.dc.identifier.doi" : "DOI",
+
+  "item.preview.dc.relation.ispartof" : "Journal or Serie",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
   "item.preview.dc.contributor.author": "Authors:",
@@ -1931,6 +1966,8 @@
 
   "item.preview.dc.identifier.other": "Other identifier:",
 
+  "item.preview.dc.identifier.pmid" : "Pubmed Id",
+
   "item.preview.dc.language.iso": "Language:",
 
   "item.preview.dc.subject": "Subjects:",
@@ -1940,6 +1977,10 @@
   "item.preview.dc.identifier": "Identifier:",
 
   "item.preview.dc.source": "Source:",
+
+  "item.preview.dc.relation.isbn" : "ISBN",
+
+  "item.preview.dc.relation.issn" : "ISSN",
 
   "item.preview.person.familyName": "Surname:",
 
@@ -2127,13 +2168,19 @@
 
   "menu.section.browse_community_by_title": "By Title",
 
+  "menu.section.explore_infrastructure": "Infrastructure",
+
   "menu.section.explore_publications": "Research Outputs",
+
+  "menu.section.explore_researchoutputs": "Research Outputs",
 
   "menu.section.explore_researcherprofiles": "People",
 
   "menu.section.explore_orgunits": "Organizations",
 
   "menu.section.explore_fundings": "Projects",
+
+  "menu.section.explore_fundings_and_projects": "Projects",
 
   "menu.section.communities_and_collections": "Communities & Collections",
 
@@ -2604,6 +2651,49 @@
   "process.overview.new": "New",
 
 
+  "audit.overview.title": "Audit Logs Overview",
+
+  "audit.overview.table.id" : "Audit ID",
+
+  "audit.overview.table.objectUUID" : "Object ID",
+
+  "audit.overview.table.objectType" : "Object Type",
+
+  "audit.overview.table.subjectUUID" : "Subject ID",
+
+  "audit.overview.table.subjectType" : "Subject Type",
+
+  "audit.overview.table.entityType" : "Audit Type",
+
+  "audit.overview.table.eperson" : "EPerson",
+
+  "audit.overview.table.timestamp" : "Time",
+
+  "audit.overview.breadcrumbs": "Audit Logs Overview",
+
+  "audit.object.overview.title": "Subject Audit Logs Overview",
+
+
+  "audit.detail.title" : "Audit Detail",
+
+  "audit.detail.id" : "Audit Id",
+
+  "audit.detail.subjectUUID" : "Subject ID",
+
+  "audit.detail.subjectType" : "Subject Type",
+
+  "audit.detail.eventType" : "Audit Type",
+
+  "audit.detail.eperson" : "EPerson",
+
+  "audit.detail.timeStamp" : "Time",
+
+  "audit.detail.back" : "All Audit Logs",
+
+  "audit.detail.back.subject": "Subject Audit Logs",
+
+  "patent.listelement.badge": "Patent",
+
   "profile.breadcrumbs": "Update Profile",
 
   "profile.card.identify": "Identify",
@@ -3041,6 +3131,14 @@
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
 
+  "search.filters.filter.chart.bar.dateIssued.year.head": "Year",
+
+  "search.filters.filter.chart.bar.dateIssued.year.placeholder": "Year",
+
+  "search.filters.filter.chart.pie.itemtype_filter.head": "Type",
+
+  "search.filters.filter.chart.pie.itemtype_filter.placeholder": "Type",
+
   "search.filters.filter.creativeDatePublished.head": "Date Published",
 
   "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
@@ -3069,17 +3167,37 @@
 
   "search.filters.filter.discoverable.head": "Private",
 
+  "search.filters.filter.editor.head": "Editor",
+
+  "search.filters.filter.editor.placeholder": "Editor",
+
   "search.filters.filter.withdrawn.head": "Withdrawn",
 
   "search.filters.filter.entityType.head": "Item Type",
 
   "search.filters.filter.entityType.placeholder": "Item Type",
 
+  "search.filters.filter.eqowner.head": "Researcher",
+
+  "search.filters.filter.eqowner.placeholder": "Researcher",
+
+  "search.filters.filter.eqorgunit.head": "Organization",
+
+  "search.filters.filter.eqorgunit.placeholder": "Organization",
+
+  "search.filters.filter.funding.head": "Funding",
+
+  "search.filters.filter.funding.placeholder": "Funding",
+
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
   "search.filters.filter.itemtype.head": "Type",
 
   "search.filters.filter.itemtype.placeholder": "Type",
+
+  "search.filters.filter.investigators.head": "Researcher",
+
+  "search.filters.filter.investigators.placeholder": "Researcher",
 
   "search.filters.filter.jobTitle.head": "Job Title",
 
@@ -3089,6 +3207,15 @@
 
   "search.filters.filter.knowsLanguage.placeholder": "Known language",
 
+
+  "search.filters.filter.projectOrgUnits.head" : "Organizations",
+
+  "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
+
+  "search.filters.filter.personOrgUnits.head" : "Organizations",
+
+  "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
+
   "search.filters.filter.namedresourcetype.head": "Status",
 
   "search.filters.filter.namedresourcetype.placeholder": "Status",
@@ -3096,6 +3223,10 @@
   "search.filters.filter.objectpeople.head": "People",
 
   "search.filters.filter.objectpeople.placeholder": "People",
+
+  "search.filters.filter.organization.head": "Organization",
+
+  "search.filters.filter.organization.placeholder": "Organization",
 
   "search.filters.filter.organizationAddressCountry.head": "Country",
 
@@ -3601,6 +3732,8 @@
 
   "submission.sections.submit.progressbar.describe.event": "Event basic information",
 
+  "submission.sections.submit.progressbar.describe.funding": "Funding basic information",
+
   "submission.sections.submit.progressbar.describe.journal": "Journal basic information",
 
   "submission.sections.submit.progressbar.describe.orgunit": "Org Unit basic information",
@@ -3610,6 +3743,8 @@
   "submission.sections.submit.progressbar.describe.patent_indexing": "Patent indexing",
 
   "submission.sections.submit.progressbar.describe.patent_references": "Patent references",
+
+  "submission.sections.submit.progressbar.describe.person": "Person basic information",
 
   "submission.sections.submit.progressbar.describe.product": "Product basic information",
 

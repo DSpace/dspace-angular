@@ -5,7 +5,7 @@ import { ChangeDetectorRef, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@
 import { TestScheduler } from 'rxjs/testing';
 
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, of } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { CrisLayoutDefaultComponent } from './cris-layout-default.component';
@@ -28,6 +28,9 @@ import { Box } from '../../core/layout/models/box.model';
 import { BoxDataService } from '../../core/layout/box-data.service';
 import { EditItemDataService } from '../../core/submission/edititem-data.service';
 import { EditItem } from '../../core/submission/models/edititem.model';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { AuthService } from "../../core/auth/auth.service";
 
 const testType = LayoutPage.DEFAULT;
 class TestItem {
@@ -58,6 +61,20 @@ class EditItemDataServiceMock {
     });
   }
 }
+// tslint:disable-next-line: max-classes-per-file
+class AuthorizationDataServiceMock {
+  isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
+    return of(true);
+  }
+}
+
+// tslint:disable-next-line: max-classes-per-file
+class AuthServiceMock {
+  isAuthenticated(): Observable<boolean> {
+    return of(true);
+  }
+}
+
 describe('CrisLayoutDefaultComponent', () => {
   let component: CrisLayoutDefaultComponent;
   let fixture: ComponentFixture<CrisLayoutDefaultComponent>;
@@ -89,6 +106,9 @@ describe('CrisLayoutDefaultComponent', () => {
           {provide: TabDataService, useClass: TabDataServiceMock},
           {provide: BoxDataService, useClass: BoxDataServiceMock},
           {provide: EditItemDataService, useClass: EditItemDataServiceMock},
+          {provide: AuthorizationDataService, useClass: AuthorizationDataServiceMock},
+          {provide: AuthorizationDataService, useClass: AuthorizationDataServiceMock},
+          {provide: AuthService, useClass: AuthServiceMock},
           {provide: Router, useValue: {}},
           {provide: ActivatedRoute, useValue: {}},
           {provide: ComponentFactoryResolver, useValue: {}},
@@ -175,6 +195,9 @@ describe('CrisLayoutDefaultComponent', () => {
           {provide: TabDataService, useClass: TabDataServiceMock},
           {provide: BoxDataService, useClass: BoxDataServiceMock},
           {provide: EditItemDataService, useClass: EditItemDataServiceMock},
+          {provide: AuthorizationDataService, useClass: AuthorizationDataServiceMock},
+          {provide: AuthorizationDataService, useClass: AuthorizationDataServiceMock},
+          {provide: AuthService, useClass: AuthServiceMock},
           {provide: Router, useValue: {}},
           {provide: ActivatedRoute, useValue: {}},
           {provide: ComponentFactoryResolver, useValue: {}},

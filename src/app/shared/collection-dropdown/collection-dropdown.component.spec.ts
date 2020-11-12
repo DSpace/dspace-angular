@@ -1,18 +1,18 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { CollectionDropdownComponent } from './collection-dropdown.component';
 import { FollowLinkConfig } from '../utils/follow-link-config.model';
 import { Observable, of } from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { PaginatedList } from 'src/app/core/data/paginated-list';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { getTestScheduler } from 'jasmine-marbles';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { Collection } from '../../core/shared/collection.model';
-import { NO_ERRORS_SCHEMA, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { FindListOptions } from 'src/app/core/data/request.models';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
@@ -116,7 +116,7 @@ class CollectionDataServiceMock {
     );
   };
 
-  getAuthorizedCollectionAndMetadata(query: string, metadata: string, metadatavalue: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
+  getAuthorizedCollectionByEntityType(query: string, metadata: string, metadatavalue: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
     return of(
         createSuccessfulRemoteDataObject(
           new PaginatedList(new PageInfo(), collections)
@@ -247,10 +247,9 @@ describe('CollectionDropdownComponent', () => {
     expect(component.searchListCollection).toEqual([]);
   });
 
-  it('should invoke the method getAuthorizedCollectionAndMetadata of CollectionDataService', fakeAsync(() => {
-    spyOn((component as any).collectionDataService, 'getAuthorizedCollectionAndMetadata');
-    component.metadata = 'relationship.type';
-    component.metadatavalue = 'rel';
+  it('should invoke the method getAuthorizedCollectionByEntityType of CollectionDataService', fakeAsync(() => {
+    spyOn((component as any).collectionDataService, 'getAuthorizedCollectionByEntityType');
+    component.entityType = 'rel';
     component.ngOnInit();
     tick();
     fixture.detectChanges();

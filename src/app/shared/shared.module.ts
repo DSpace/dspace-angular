@@ -212,6 +212,8 @@ import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.compo
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
+import { ItemExportComponent } from './item-export/item-export/item-export.component';
+import { ItemExportModalWrapperComponent } from './item-export/item-export-modal-wrapper/item-export-modal-wrapper.component';
 import { SearchChartsComponent } from './search/search-charts/search-charts.component';
 import { SearchChartBarComponent } from './search/search-charts/search-chart/search-chart-bar/search-chart-bar.component';
 import { SearchChartPieComponent } from './search/search-charts/search-chart/search-chart-pie/search-chart-pie.component';
@@ -416,6 +418,8 @@ const COMPONENTS = [
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
+  ItemExportComponent,
+  ItemExportModalWrapperComponent,
   SearchChartsComponent,
   SearchChartBarComponent,
   SearchChartPieComponent,
@@ -504,6 +508,7 @@ const ENTRY_COMPONENTS = [
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
   VocabularyTreeviewComponent,
+  ItemExportComponent,
   SearchChartsComponent,
   SearchChartBarComponent,
   SearchChartPieComponent,
