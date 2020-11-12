@@ -27,6 +27,12 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { getBulkImportRoute } from '../app-routing-paths';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { ScriptDataService } from '../core/data/processes/script-data.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { RequestEntry } from '../core/data/request.reducer';
+import { ProcessParameter } from '../process-page/processes/process-parameter.model';
+import { TranslateService } from '@ngx-translate/core';
+import { RequestService } from '../core/data/request.service';
 
 @Component({
   selector: 'ds-collection-page',
@@ -55,7 +61,11 @@ export class CollectionPageComponent implements OnInit {
     private metadata: MetadataService,
     private route: ActivatedRoute,
     private router: Router,
-    private authorizationService: AuthorizationDataService
+    private authorizationService: AuthorizationDataService,
+    private scriptService: ScriptDataService,
+    private translationService: TranslateService,
+    private requestService: RequestService,
+    private notificationsService: NotificationsService
   ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
@@ -119,6 +129,29 @@ export class CollectionPageComponent implements OnInit {
       paginationConfig: this.paginationConfig,
       sortConfig: this.sortConfig
     });
+  }
+
+  exportCollection(collection: Collection) {
+
+    const stringParameters: ProcessParameter[] = [
+      { name: '-c', value: collection.id }
+    ];
+
+    this.scriptService.invoke('collection-export', stringParameters, [])
+      .pipe(take(1))
+      .subscribe((requestEntry: RequestEntry) => {
+        if (requestEntry.response.isSuccessful) {
+          this.notificationsService.success(this.translationService.get('collection-item.success'));
+          this.navigateToProcesses();
+        } else {
+          this.notificationsService.error(this.translationService.get('collection-item.error'));
+        }
+      })
+  }
+
+  private navigateToProcesses() {
+    this.requestService.removeByHrefSubstring('/processes');
+    this.router.navigateByUrl('/processes');
   }
 
   getBulkImportPageRouterLink(collection: Collection) {
