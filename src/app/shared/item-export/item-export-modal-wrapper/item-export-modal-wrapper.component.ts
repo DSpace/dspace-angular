@@ -6,7 +6,7 @@ import { ItemExportFormatMolteplicity } from 'src/app/core/itemexportformat/item
 import { Item } from 'src/app/core/shared/item.model';
 import { SearchOptions } from '../../search/search-options.model';
 import { ItemExportComponent } from '../item-export/item-export.component';
-import { AuthService } from "../../../core/auth/auth.service";
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'ds-item-export-modal-wrapper',
@@ -43,7 +43,7 @@ export class ItemExportModalWrapperComponent implements OnInit {
     } else if (this.searchOptions$) {
 
       // open a bulk-item-export modal
-      this.searchOptions$.pipe(take(1)).subscribe(searchOptions => {
+      this.searchOptions$.pipe(take(1)).subscribe((searchOptions) => {
         const modalRef = this.modalService.open(ItemExportComponent);
         modalRef.componentInstance.molteplicity = ItemExportFormatMolteplicity.MULTIPLE;
         modalRef.componentInstance.searchOptions = searchOptions;
