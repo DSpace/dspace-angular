@@ -18,7 +18,6 @@ import { SearchService } from '../core/shared/search/search.service';
 import { currentPath } from '../shared/utils/route.utils';
 import { Router } from '@angular/router';
 import { Context } from '../core/shared/context.model';
-import { followLink } from '../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-search',
