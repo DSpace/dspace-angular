@@ -8,8 +8,6 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 let collectionGridElementComponent: CollectionGridElementComponent;
 let fixture: ComponentFixture<CollectionGridElementComponent>;
 
-
-
 const mockCollectionWithAbstract: Collection = Object.assign(new Collection(), {
   metadata: {
     'dc.description.abstract': [

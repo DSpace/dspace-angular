@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-
 import { Collection } from '../../../core/shared/collection.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ViewMode } from '../../../core/shared/view-mode.model';
@@ -14,21 +13,25 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 @Component({
   selector: 'ds-collection-grid-element',
   styleUrls: ['./collection-grid-element.component.scss'],
-  templateUrl: './collection-grid-element.component.html'
+  templateUrl: './collection-grid-element.component.html',
 })
-
 @listableObjectComponent(Collection, ViewMode.GridElement)
-export class CollectionGridElementComponent extends AbstractListableElementComponent<Collection> {
+export class CollectionGridElementComponent extends AbstractListableElementComponent<
+  Collection
+> {
   private _object: Collection;
 
-  constructor( private linkService: LinkService){
+  constructor(private linkService: LinkService) {
     super();
   }
 
   @Input() set object(object: Collection) {
     this._object = object;
     if (hasValue(this._object) && hasNoValue(this._object.logo)) {
-      this.linkService.resolveLink<Collection>(this._object, followLink('logo'))
+      this.linkService.resolveLink<Collection>(
+        this._object,
+        followLink('logo')
+      );
     }
   }
 

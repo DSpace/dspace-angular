@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-
 import { Community } from '../../../core/shared/community.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ViewMode } from '../../../core/shared/view-mode.model';
@@ -21,7 +20,7 @@ import { hasNoValue, hasValue } from '../../empty.util';
 export class CommunityGridElementComponent extends AbstractListableElementComponent<Community> {
   private _object: Community;
 
-  constructor( private linkService: LinkService){
+  constructor( private linkService: LinkService) {
     super();
   }
 
