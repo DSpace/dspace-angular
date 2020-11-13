@@ -141,10 +141,10 @@ export class CollectionPageComponent implements OnInit {
       .pipe(take(1))
       .subscribe((requestEntry: RequestEntry) => {
         if (requestEntry.response.isSuccessful) {
-          this.notificationsService.success(this.translationService.get('collection-item.success'));
+          this.notificationsService.success(this.translationService.get('collection-export.success'));
           this.navigateToProcesses();
         } else {
-          this.notificationsService.error(this.translationService.get('collection-item.error'));
+          this.notificationsService.error(this.translationService.get('collection-export.error'));
         }
       })
   }
