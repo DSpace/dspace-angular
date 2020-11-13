@@ -1,12 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, mergeMap, startWith, take } from 'rxjs/operators';
@@ -75,7 +67,6 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
 
   constructor(
     private tabService: TabDataService,
-    public cd: ChangeDetectorRef,
     private componentFactoryResolver: ComponentFactoryResolver,
     private editItemService: EditItemDataService,
     private authService: AuthService,
