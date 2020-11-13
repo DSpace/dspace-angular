@@ -123,7 +123,7 @@ export class SearchComponent implements OnInit {
     this.searchLink = this.getSearchLink();
     this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$.pipe(
-      switchMap((options) => this.service.search(options, null, followLink('logo')).pipe(getSucceededRemoteData(), startWith(undefined))))
+      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData(), startWith(undefined))))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });
