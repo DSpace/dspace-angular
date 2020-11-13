@@ -3,9 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
-import { of } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { Bitstream } from '../../../core/shared/bitstream.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
 
 let collectionGridElementComponent: CollectionGridElementComponent;
