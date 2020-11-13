@@ -33,7 +33,6 @@ export class CollectionSearchResultGridElementComponent extends SearchResultGrid
 
   @Input() set dso(dso: Collection) {
     this._dso = dso;
-    console.log('aaasdasd')
     if (hasValue(this._dso) && hasNoValue(this._dso.logo)) {
       this.linkService.resolveLink<Collection>(
         this._dso,

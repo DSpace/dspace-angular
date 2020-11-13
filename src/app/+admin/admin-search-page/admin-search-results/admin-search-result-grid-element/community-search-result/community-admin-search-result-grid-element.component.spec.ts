@@ -16,6 +16,7 @@ import { CommunitySearchResult } from '../../../../../shared/object-collection/s
 import { Community } from '../../../../../core/shared/community.model';
 import { CommunityAdminSearchResultListElementComponent } from '../../admin-search-result-list-element/community-search-result/community-admin-search-result-list-element.component';
 import { getCommunityEditRoute } from '../../../../../+community-page/community-page-routing-paths';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
 
 describe('CommunityAdminSearchResultGridElementComponent', () => {
   let component: CommunityAdminSearchResultGridElementComponent;
@@ -29,6 +30,11 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
     searchResult.indexableObject = new Community();
     searchResult.indexableObject.uuid = id;
   }
+
+  const linkService = jasmine.createSpyObj('linkService', {
+    resolveLink: {}
+  });
+
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
@@ -42,6 +48,7 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
+        { provide: LinkService, useValue: linkService}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

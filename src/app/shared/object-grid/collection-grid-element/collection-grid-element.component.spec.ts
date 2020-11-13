@@ -3,9 +3,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
+import { of } from 'rxjs';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { LinkService } from '../../../core/cache/builders/link.service';
 
 let collectionGridElementComponent: CollectionGridElementComponent;
 let fixture: ComponentFixture<CollectionGridElementComponent>;
+
+
 
 const mockCollectionWithAbstract: Collection = Object.assign(new Collection(), {
   metadata: {
@@ -29,12 +35,17 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
   }
 });
 
+const linkService = jasmine.createSpyObj('linkService', {
+  resolveLink: mockCollectionWithAbstract
+});
+
 describe('CollectionGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CollectionGridElementComponent ],
       providers: [
-        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract)}
+        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract)},
+        { provide: LinkService, useValue: linkService}
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
