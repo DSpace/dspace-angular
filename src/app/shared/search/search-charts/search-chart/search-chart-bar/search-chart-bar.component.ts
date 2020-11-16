@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartType } from '../../../../enums/chart-type';
-import { ChartSeries } from '../../../../models/chart-series';
+import { ChartType } from '../../../../../charts/models/chart-type';
+import { ChartSeries } from '../../../../../charts/models/chart-series';
 import { FilterType } from '../../../filter-type.model';
 import { facetLoad, SearchFacetFilterComponent } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { renderChartFor } from '../../chart-search-result-element-decorator';

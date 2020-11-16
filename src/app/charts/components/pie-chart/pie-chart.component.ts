@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
-import { fadeIn } from 'src/app/shared/animations/fade';
-import { ChartType } from '../../../shared/enums/chart-type';
+import { fadeIn } from '../../../shared/animations/fade';
+import { ChartType } from '../../models/chart-type';
 import { renderChartFor } from '../../charts.decorator';
 import { AbstractChartComponent } from '../abstract-chart/abstract-chart.component';
 

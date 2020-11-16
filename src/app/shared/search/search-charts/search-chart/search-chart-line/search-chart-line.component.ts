@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ChartType } from '../../../../enums/chart-type';
-import { ChartData } from '../../../../models/chart-data';
+import { ChartType } from '../../../../../charts/models/chart-type';
+import { ChartData } from '../../../../../charts/models/chart-data';
 import { FilterType } from '../../../filter-type.model';
 import { facetLoad, SearchFacetFilterComponent } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { renderChartFor } from '../../chart-search-result-element-decorator';

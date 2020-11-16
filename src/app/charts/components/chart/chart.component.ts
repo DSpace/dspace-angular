@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Injector, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { fadeIn } from '../../../shared/animations/fade';
-import { ChartType } from '../../../shared/enums/chart-type';
-import { ChartSeries } from '../../../shared/models/chart-series';
-import { ChartData } from '../../../shared/models/chart-data';
+import { ChartType } from '../../models/chart-type';
+import { ChartSeries } from '../../models/chart-series';
+import { ChartData } from '../../models/chart-data';
 import { rendersChartType } from '../../charts.decorator';
 
 @Component({
