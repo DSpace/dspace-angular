@@ -915,6 +915,13 @@ describe('SubmissionService test suite', () => {
   });
 
   describe('startAutoSave', () => {
+
+    let environmentAutoSaveTimerOriginalValue;
+
+    beforeEach(() => {
+      environmentAutoSaveTimerOriginalValue = environment.submission.autosave.timer;
+    });
+
     it('should start Auto Save', fakeAsync(() => {
       const duration = environment.submission.autosave.timer * (1000 * 60);
 
@@ -930,6 +937,19 @@ describe('SubmissionService test suite', () => {
       sub.unsubscribe();
       (service as any).autoSaveSub.unsubscribe();
     }));
+
+    it('should not start Auto Save if timer is 0', fakeAsync(() => {
+      environment.submission.autosave.timer = 0;
+
+      service.startAutoSave('826');
+
+      expect((service as any).autoSaveSub).toBeUndefined();
+    }));
+
+    afterEach(() => {
+      environment.submission.autosave.timer = environmentAutoSaveTimerOriginalValue;
+    })
+
   });
 
   describe('stopAutoSave', () => {

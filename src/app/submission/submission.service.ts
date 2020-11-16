@@ -562,6 +562,10 @@ export class SubmissionService {
    */
   startAutoSave(submissionId) {
     this.stopAutoSave();
+    if (environment.submission.autosave.timer === 0) {
+      return;
+    }
+
     // AUTOSAVE submission
     // Retrieve interval from config and convert to milliseconds
     const duration = environment.submission.autosave.timer * (1000 * 60);
