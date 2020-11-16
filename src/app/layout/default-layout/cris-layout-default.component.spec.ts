@@ -5,14 +5,11 @@ import { ChangeDetectorRef, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@
 import { TestScheduler } from 'rxjs/testing';
 
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { Observable, of as observableOf, of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { CrisLayoutDefaultComponent } from './cris-layout-default.component';
 import { LayoutPage } from '../enums/layout-page.enum';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Tab } from '../../core/layout/models/tab.model';
-import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -24,113 +21,127 @@ import { Item } from '../../core/shared/item.model';
 import { spyOnExported } from '../../shared/testing/utils.test';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
-import { Box } from '../../core/layout/models/box.model';
-import { BoxDataService } from '../../core/layout/box-data.service';
 import { EditItemDataService } from '../../core/submission/edititem-data.service';
 import { EditItem } from '../../core/submission/models/edititem.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { AuthService } from '../../core/auth/auth.service';
+import { BoxDataService } from '../../core/layout/box-data.service';
 
 const testType = LayoutPage.DEFAULT;
-class TestItem {
-  firstMetadataValue(key: string): string {
-    return testType;
+
+const mockItem = Object.assign(new Item(), {
+  id: 'fake-id',
+  handle: 'fake/handle',
+  lastModified: '2018',
+  metadata: {
+    'dc.title': [
+      {
+        language: null,
+        value: 'test'
+      }
+    ],
+    'relationship.type': [
+      {
+        language: null,
+        value: testType
+      }
+    ]
   }
-}
-// tslint:disable-next-line: max-classes-per-file
-class BoxDataServiceMock {
-  findByItem(itemUuid: string, tabId: number): Observable<RemoteData<PaginatedList<Box>>> {
-    return cold('a|', {
-      a: {}
-    });
-  }
-}
+});
+
+const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
+  findByItem: jasmine.createSpy('findByItem')
+});
+
+const boxDataServiceMock: any = jasmine.createSpyObj('BoxDataService', {
+  findByItem: jasmine.createSpy('findByItem')
+});
 
 const editItem: EditItem = Object.assign({
   modes: observableOf({})
 });
 
-// tslint:disable-next-line: max-classes-per-file
-class EditItemDataServiceMock {
-  findById(itemUuid: string, linkToFollow?: FollowLinkConfig<EditItem>): Observable<RemoteData<EditItem>> {
-    return cold('a|', {
-      a: createSuccessfulRemoteDataObject(
-        editItem
-      )
-    });
-  }
-}
-// tslint:disable-next-line: max-classes-per-file
-class AuthorizationDataServiceMock {
-  isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
-    return of(true);
-  }
-}
+const editItemDataServiceMock: any = jasmine.createSpyObj('EditItemDataService', {
+  findById: jasmine.createSpy('findById')
+});
 
-// tslint:disable-next-line: max-classes-per-file
-class AuthServiceMock {
-  isAuthenticated(): Observable<boolean> {
-    return of(true);
-  }
-}
+const authorizationDataServiceMock: any = jasmine.createSpyObj('AuthorizationDataService', {
+  isAuthorized: jasmine.createSpy('isAuthorized')
+});
+
+const authServiceMock: any = jasmine.createSpyObj('AuthService', {
+  isAuthenticated: jasmine.createSpy('isAuthenticated')
+});
 
 describe('CrisLayoutDefaultComponent', () => {
   let component: CrisLayoutDefaultComponent;
   let fixture: ComponentFixture<CrisLayoutDefaultComponent>;
   let scheduler: TestScheduler;
 
-  describe('When the component is rendered with more then one tab', () => {
-    // tslint:disable-next-line: max-classes-per-file
-    class TabDataServiceMock {
-      findByItem(itemUuid: string, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
-        return cold('a|', {
-          a: createSuccessfulRemoteDataObject(
-              new PaginatedList(new PageInfo(), tabs)
-            )
-        });
-      }
-    }
-
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }), BrowserAnimationsModule],
-        declarations: [ CrisLayoutDefaultComponent, CrisLayoutDefaultTabComponent, CrisLayoutLoaderDirective ],
-        providers: [
-          ComponentFactoryResolver,
-          {provide: TabDataService, useClass: TabDataServiceMock},
-          {provide: BoxDataService, useClass: BoxDataServiceMock},
-          {provide: EditItemDataService, useClass: EditItemDataServiceMock},
-          {provide: AuthorizationDataService, useClass: AuthorizationDataServiceMock},
-          {provide: AuthorizationDataService, useClass: AuthorizationDataServiceMock},
-          {provide: AuthService, useClass: AuthServiceMock},
-          {provide: Router, useValue: {}},
-          {provide: ActivatedRoute, useValue: {}},
-          {provide: ComponentFactoryResolver, useValue: {}},
-          {provide: ChangeDetectorRef, useValue: {}}
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(CrisLayoutDefaultComponent, {
-        set: {
-          entryComponents: [CrisLayoutDefaultTabComponent]
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
         }
-      }).compileComponents();
-    }));
+      }), BrowserAnimationsModule],
+      declarations: [CrisLayoutDefaultComponent, CrisLayoutDefaultTabComponent, CrisLayoutLoaderDirective],
+      providers: [
+        ComponentFactoryResolver,
+        { provide: BoxDataService, useValue: boxDataServiceMock },
+        { provide: TabDataService, useValue: tabDataServiceMock },
+        { provide: EditItemDataService, useValue: editItemDataServiceMock },
+        { provide: AuthorizationDataService, useValue: authorizationDataServiceMock },
+        { provide: AuthService, useValue: authServiceMock },
+        { provide: Router, useValue: {} },
+        { provide: ActivatedRoute, useValue: {} },
+        { provide: ComponentFactoryResolver, useValue: {} },
+        ChangeDetectorRef
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(CrisLayoutDefaultComponent, {
+      set: {
+        entryComponents: [CrisLayoutDefaultTabComponent]
+      }
+    }).compileComponents();
+  }));
 
+  beforeEach(() => {
+    scheduler = getTestScheduler();
+    fixture = TestBed.createComponent(CrisLayoutDefaultComponent);
+    component = fixture.componentInstance;
+    component.item = mockItem;
+    spyOnExported(CrisLayoutTabDecorators, 'getCrisLayoutTab').and.returnValue(CrisLayoutDefaultTabComponent);
+    editItemDataServiceMock.findById.and.returnValue(cold('a|', {
+      a: createSuccessfulRemoteDataObject(
+        editItem
+      )
+    }));
+    boxDataServiceMock.findByItem.and.returnValue(cold('a|', {
+      a: createSuccessfulRemoteDataObject(
+        editItem
+      )
+    }));
+    authorizationDataServiceMock.isAuthorized.and.returnValue(observableOf(true))
+    authServiceMock.isAuthenticated.and.returnValue(observableOf(true))
+  });
+
+  afterEach(() => {
+    scheduler = null;
+    component = null;
+  })
+
+  describe('When the component is rendered with more then one tab', () => {
     beforeEach(() => {
-      scheduler = getTestScheduler();
-      fixture = TestBed.createComponent(CrisLayoutDefaultComponent);
-      component = fixture.componentInstance;
-      component.item = new TestItem() as Item;
-      spyOnExported(CrisLayoutTabDecorators, 'getCrisLayoutTab').and.returnValue(CrisLayoutDefaultTabComponent);
+      tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
+        a: createSuccessfulRemoteDataObject(
+          new PaginatedList(new PageInfo(), tabs)
+        )
+      }))
     });
 
-    it('should init component properly', () => {
+    it('should init component properly', (done) => {
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
 
@@ -141,86 +152,53 @@ describe('CrisLayoutDefaultComponent', () => {
       expect(component.hasSidebar()).toBeObservable(hot('--(a|)', {
         a: true
       }));
+
+      done();
     });
 
-    it('should call the getCrisLayoutPage function with the right types', () => {
+    it('should call the getCrisLayoutPage function with the right types', (done) => {
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
       component.changeTab(tabPersonTest);
-      expect(CrisLayoutTabDecorators.getCrisLayoutTab).toHaveBeenCalledWith(new TestItem() as Item, tabPersonTest.shortname);
+      expect(CrisLayoutTabDecorators.getCrisLayoutTab).toHaveBeenCalledWith(mockItem, tabPersonTest.shortname);
+
+      done();
     });
 
-    it('check sidebar hide/show function', async(() => {
+    it('check sidebar hide/show function', (done) => {
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
       expect((component as any).sidebarStatus$.value).toBeTrue();
       component.toggleSidebar();
       expect((component as any).sidebarStatus$.value).toBeFalse();
       component.toggleSidebar();
-    }));
 
-    it('check if sidebar and its control are showed', () => {
+      done();
+    });
+
+    it('check if sidebar and its control are showed', (done) => {
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
       const sidebarControl$ = component.isSideBarHidden();
       expect(sidebarControl$).toBeObservable(hot('-a', {
         a: false
       }));
+
+      done();
     });
   });
 
   describe('When the component is rendered with only one tab', () => {
-    // tslint:disable-next-line: max-classes-per-file
-    class TabDataServiceMock {
-      findByItem(itemUuid: string, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
-        return cold('a|', {
-          a: createSuccessfulRemoteDataObject(
-              new PaginatedList(new PageInfo(), [tabPersonProfile])
-            )
-        });
-      }
-    }
-
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }), BrowserAnimationsModule],
-        declarations: [ CrisLayoutDefaultComponent, CrisLayoutDefaultTabComponent, CrisLayoutLoaderDirective ],
-        providers: [
-          ComponentFactoryResolver,
-          {provide: TabDataService, useClass: TabDataServiceMock},
-          {provide: BoxDataService, useClass: BoxDataServiceMock},
-          {provide: EditItemDataService, useClass: EditItemDataServiceMock},
-          {provide: AuthorizationDataService, useClass: AuthorizationDataServiceMock},
-          {provide: AuthorizationDataService, useClass: AuthorizationDataServiceMock},
-          {provide: AuthService, useClass: AuthServiceMock},
-          {provide: Router, useValue: {}},
-          {provide: ActivatedRoute, useValue: {}},
-          {provide: ComponentFactoryResolver, useValue: {}},
-          {provide: ChangeDetectorRef, useValue: {}}
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(CrisLayoutDefaultComponent, {
-        set: {
-          entryComponents: [CrisLayoutDefaultTabComponent]
-        }
-      }).compileComponents();
-    }));
 
     beforeEach(() => {
-      scheduler = getTestScheduler();
-      fixture = TestBed.createComponent(CrisLayoutDefaultComponent);
-      component = fixture.componentInstance;
-      component.item = new TestItem() as Item;
-      (component as any).tabs$ = observableOf([tabPersonProfile]);
-      spyOnExported(CrisLayoutTabDecorators, 'getCrisLayoutTab').and.returnValue(CrisLayoutDefaultTabComponent);
+      tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
+        a: createSuccessfulRemoteDataObject(
+          new PaginatedList(new PageInfo(), [tabPersonProfile])
+        )
+      }))
     });
 
-    it('check if sidebar and its control are hidden', () => {
+    it('check if sidebar and its control are hidden', (done) => {
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
       const sidebarControl$ = component.isSideBarHidden();
@@ -232,6 +210,7 @@ describe('CrisLayoutDefaultComponent', () => {
         a: false
       }));
 
+      done();
     });
   });
 

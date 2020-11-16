@@ -1220,6 +1220,11 @@
 
   "explore.index.birthDate" : "Birthday",
 
+  "explore.index.chart.pie.itemtype_filter" : "Item Type",
+
+  "explore.index.chart.bar.dateIssued.year": "Year",
+
+
   "explore.index.dateIssued" : "Date issued",
 
   "explore.index.dateissued" : "Date issued",
