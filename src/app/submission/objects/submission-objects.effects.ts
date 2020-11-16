@@ -132,7 +132,7 @@ export class SubmissionObjectEffects {
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections').pipe(
-        map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response)),
+        map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual)),
         catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     }));
 

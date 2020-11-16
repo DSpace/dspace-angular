@@ -210,6 +210,20 @@ export class SubmissionService {
    * @param submissionId
    *    The submission id
    */
+  dispatchManualSave(submissionId) {
+    this.getSubmissionSaveProcessingStatus(submissionId).pipe(
+      find((isPending: boolean) => !isPending)
+    ).subscribe(() => {
+      this.store.dispatch(new SaveSubmissionFormAction(submissionId, true));
+    })
+  }
+
+  /**
+   * Dispatch a new [SaveSubmissionFormAction]
+   *
+   * @param submissionId
+   *    The submission id
+   */
   dispatchSave(submissionId) {
     this.getSubmissionSaveProcessingStatus(submissionId).pipe(
       find((isPending: boolean) => !isPending)

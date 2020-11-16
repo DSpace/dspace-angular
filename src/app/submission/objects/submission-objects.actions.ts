@@ -368,6 +368,7 @@ export class SaveSubmissionFormAction implements Action {
   type = SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM;
   payload: {
     submissionId: string;
+    isManual?: boolean;
   };
 
   /**
@@ -376,8 +377,8 @@ export class SaveSubmissionFormAction implements Action {
    * @param submissionId
    *    the submission's ID
    */
-  constructor(submissionId: string) {
-    this.payload = { submissionId };
+  constructor(submissionId: string, isManual: boolean = false) {
+    this.payload = { submissionId, isManual };
   }
 }
 

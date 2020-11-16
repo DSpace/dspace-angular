@@ -211,6 +211,52 @@ describe('SubmissionObjectEffects test suite', () => {
       expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
     });
 
+    it('should enable notifications if is manual', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM,
+          payload: {
+            submissionId: submissionId,
+            isManual: true
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      const expected = cold('--b-', {
+        b: new SaveSubmissionFormSuccessAction(
+          submissionId,
+          mockSubmissionRestResponse as any,
+          true
+        )
+      });
+
+      expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
+    });
+
+    it('should disable notifications if is not manual', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM,
+          payload: {
+            submissionId: submissionId,
+            isManual: false
+          }
+        }
+      });
+
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      const expected = cold('--b-', {
+        b: new SaveSubmissionFormSuccessAction(
+          submissionId,
+          mockSubmissionRestResponse as any,
+          false
+        )
+      });
+
+      expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
+    });
+
     it('should return a SAVE_SUBMISSION_FORM_ERROR action on error', () => {
       actions = hot('--a-', {
         a: {

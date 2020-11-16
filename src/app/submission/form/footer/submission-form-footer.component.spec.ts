@@ -164,12 +164,12 @@ describe('SubmissionFormFooterComponent Component', () => {
       });
     });
 
-    it('should call dispatchSave on save', () => {
+    it('should call dispatchManualSave on save', () => {
 
       comp.save(null);
       fixture.detectChanges();
 
-      expect(submissionServiceStub.dispatchSave).toHaveBeenCalledWith(submissionId);
+      expect(submissionServiceStub.dispatchManualSave).toHaveBeenCalledWith(submissionId);
     });
 
     it('should call dispatchSaveForLater on save for later', () => {

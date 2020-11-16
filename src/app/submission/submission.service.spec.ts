@@ -494,6 +494,15 @@ describe('SubmissionService test suite', () => {
     });
   });
 
+  describe('dispatchManualSave', () => {
+    it('should dispatch a new SaveSubmissionFormAction', () => {
+      service.dispatchManualSave(submissionId,);
+      const expected = new SaveSubmissionFormAction(submissionId, true);
+
+      expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
+    });
+  });
+
   describe('dispatchSaveForLater', () => {
     it('should dispatch a new SaveForLaterSubmissionFormAction', () => {
       service.dispatchSaveForLater(submissionId,);
