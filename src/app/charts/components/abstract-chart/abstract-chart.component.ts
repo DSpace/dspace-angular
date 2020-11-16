@@ -1,11 +1,8 @@
-import { Component, EventEmitter, Inject } from '@angular/core';
-import { ChartData } from '../../../shared/models/chart-data';
-import { ChartSeries } from '../../../shared/models/chart-series';
+import { EventEmitter, Inject } from '@angular/core';
 
-@Component({
-  selector: 'ds-abstract-chart',
-  template: '<span></span>'
-})
+import { ChartData } from '../../models/chart-data';
+import { ChartSeries } from '../../models/chart-series';
+
 export class AbstractChartComponent {
 
   constructor(
