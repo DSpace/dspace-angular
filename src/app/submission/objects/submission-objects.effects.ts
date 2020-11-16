@@ -154,10 +154,22 @@ export class SubmissionObjectEffects {
    * Call parseSaveResponse and dispatch actions
    */
   @Effect() saveSubmissionSuccess$ = this.actions$.pipe(
-    ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS, SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS),
+    ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS),
     withLatestFrom(this.store$),
-    map(([action, currentState]: [SaveSubmissionFormSuccessAction | SaveSubmissionSectionFormSuccessAction, any]) => {
+    map(([action, currentState]: [SaveSubmissionFormSuccessAction, any]) => {
       return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], action.payload.submissionObject, action.payload.submissionId, action.payload.notify);
+    }),
+    mergeMap((actions) => observableFrom(actions)));
+
+  /**
+   * Call parseSaveResponse and dispatch actions.
+   * Notification system is forced to be disabled.
+   */
+  @Effect() saveSubmissionSectionSuccess$ = this.actions$.pipe(
+    ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS),
+    withLatestFrom(this.store$),
+    map(([action, currentState]: [SaveSubmissionSectionFormSuccessAction, any]) => {
+      return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], action.payload.submissionObject, action.payload.submissionId, false);
     }),
     mergeMap((actions) => observableFrom(actions)));
 
