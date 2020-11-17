@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 import { Collection } from '../../../../core/shared/collection.model';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
