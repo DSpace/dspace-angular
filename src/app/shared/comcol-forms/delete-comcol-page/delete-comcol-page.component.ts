@@ -2,19 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RemoteData} from '../../../core/data/remote-data';
-import {first, map, take} from 'rxjs/operators';
-import {DataService} from '../../../core/data/data.service';
+import {first, map} from 'rxjs/operators';
 import {DSpaceObject} from '../../../core/shared/dspace-object.model';
 import {NotificationsService} from '../../notifications/notifications.service';
 import {TranslateService} from '@ngx-translate/core';
 import {RestResponse} from '../../../core/cache/response.models';
-import {hasValue, isEmpty, isNotEmpty} from '../../empty.util';
 import {RequestService} from '../../../core/data/request.service';
-import {
-  getSucceededOrNoContentResponse,
-} from '../../../core/shared/operators';
-import {Community} from '../../../core/shared/community.model';
-import {Collection} from '../../../core/shared/collection.model';
 import {ComColDataService} from '../../../core/data/comcol-data.service';
 
 /**

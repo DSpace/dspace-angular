@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {flatMap, map, take} from 'rxjs/operators';
+import {flatMap, take} from 'rxjs/operators';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -11,14 +11,12 @@ import { Community } from '../../../core/shared/community.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getFirstSucceededRemoteDataPayload,
-  getSucceededOrNoContentResponse,
 } from '../../../core/shared/operators';
 import { ResourceType } from '../../../core/shared/resource-type';
 import {hasValue, isEmpty, isNotEmpty, isNotUndefined} from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import {RequestService} from '../../../core/data/request.service';
-import {Collection} from '../../../core/shared/collection.model';
 
 /**
  * Component representing the create page for communities and collections
