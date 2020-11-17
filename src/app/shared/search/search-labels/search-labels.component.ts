@@ -3,6 +3,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.c
 import { Observable } from 'rxjs';
 import { Params, Router } from '@angular/router';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { map } from 'rxjs/operators';
+import { stripOperatorFromFilterValue } from '../search.utils';
 
 @Component({
   selector: 'ds-search-labels',
@@ -30,6 +32,15 @@ export class SearchLabelsComponent {
   constructor(
     protected router: Router,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
-    this.appliedFilters = this.searchConfigService.getCurrentFrontendFilters();
+    this.appliedFilters = this.searchConfigService.getCurrentFrontendFilters().pipe(
+      map((params) => {
+        const labels = {};
+        Object.keys(params)
+          .forEach((key) => {
+            labels[key] = [...params[key].map((value) => stripOperatorFromFilterValue(value))];
+          });
+        return labels;
+      })
+    );
   }
 }
