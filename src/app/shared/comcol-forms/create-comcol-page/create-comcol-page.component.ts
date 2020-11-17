@@ -13,7 +13,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ResourceType } from '../../../core/shared/resource-type';
-import {hasValue, isEmpty, isNotEmpty, isNotUndefined} from '../../empty.util';
+import {hasValue, isNotEmpty, isNotUndefined} from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import {RequestService} from '../../../core/data/request.service';
