@@ -2,11 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription, Observable, of as observableOf } from 'rxjs';
 import { filter } from 'rxjs/internal/operators/filter';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { ObservedValueOf } from 'rxjs/internal/types';
-import { map, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -125,8 +124,8 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     this.subs.push(this.groups$.pipe(
       getAllSucceededRemoteDataPayload(),
       switchMap((groups: PaginatedList<Group>) => {
-        return combineLatest(...groups.page.map((group: Group) => {
-          return combineLatest(
+        return observableCombineLatest(...groups.page.map((group: Group) => {
+          return observableCombineLatest(
             this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
             this.hasLinkedDSO(group),
             (isAuthorized: ObservedValueOf<Observable<boolean>>, hasLinkedDSO: ObservedValueOf<Observable<boolean>>) => {
@@ -199,17 +198,15 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * @param group
    */
   hasLinkedDSO(group: Group): Observable<boolean> {
-    if (group.object == undefined) {
-      group.object = this.dSpaceObjectDataService.findByHref(group._links.object.href);
-    }
-    return group.object.pipe(
+    return this.dSpaceObjectDataService.findByHref(group._links.object.href).pipe(
       map((rd: RemoteData<DSpaceObject>) => {
         if (hasValue(rd) && hasValue(rd.payload)) {
           return true;
         } else {
           return false
         }
-      })
+      }),
+      catchError(() => observableOf(false)),
     );
   }
 

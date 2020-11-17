@@ -9,11 +9,8 @@ import {
   DynamicTextAreaModel
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { combineLatest } from 'rxjs/internal/observable/combineLatest';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { ObservedValueOf } from 'rxjs/internal/types';
-import { map, switchMap, take } from 'rxjs/operators';
+import { ObservedValueOf, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { getCollectionEditRolesRoute } from '../../../../+collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../../+community-page/community-page-routing-paths';
 import { RestResponse } from '../../../../core/cache/response.models';
@@ -106,7 +103,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   groupBeingEdited: Group;
 
   /**
-   * Observable whether or not the logged in user is allowed to delete the Group
+   * Observable whether or not the logged in user is allowed to delete the Group & doesn't have a linked object (community / collection linked to workspace group
    */
   canEdit$: Observable<boolean>;
 
@@ -139,7 +136,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     }));
     this.canEdit$ = this.groupDataService.getActiveGroup().pipe(
       switchMap((group: Group) => {
-        return combineLatest(
+        return observableCombineLatest(
           this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
           this.hasLinkedDSO(group),
           (isAuthorized: ObservedValueOf<Observable<boolean>>, hasLinkedDSO: ObservedValueOf<Observable<boolean>>) => {
@@ -147,7 +144,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           })
       })
     );
-    combineLatest(
+    observableCombineLatest(
       this.translateService.get(`${this.messagePrefix}.groupName`),
       this.translateService.get(`${this.messagePrefix}.groupDescription`)
     ).subscribe(([groupName, groupDescription]) => {
@@ -172,7 +169,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.subs.push(
-        combineLatest(
+        observableCombineLatest(
           this.groupDataService.getActiveGroup(),
           this.canEdit$
         ).subscribe(([activeGroup, canEdit]) => {
@@ -402,7 +399,8 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           } else {
             return false
           }
-        })
+        }),
+        catchError(() => observableOf(false)),
       );
     }
   }
@@ -413,7 +411,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    */
   getLinkedDSO(group: Group): Observable<RemoteData<DSpaceObject>> {
     if (hasValue(group) && hasValue(group._links.object.href)) {
-      if (group.object == undefined) {
+      if (group.object === undefined) {
         return this.dSpaceObjectDataService.findByHref(group._links.object.href);
       }
       return group.object;
@@ -424,7 +422,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    * Get the route to the edit roles tab of the group's linked object (community or collection linked to a workflow group) if it has one
    * @param group
    */
-  getLinkedEditRolesRoute(group: Group): Observable<String> {
+  getLinkedEditRolesRoute(group: Group): Observable<string> {
     if (hasValue(group) && hasValue(group._links.object.href)) {
       return this.getLinkedDSO(group).pipe(
         map((rd: RemoteData<DSpaceObject>) => {

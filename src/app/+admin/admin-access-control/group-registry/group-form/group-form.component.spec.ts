@@ -14,12 +14,14 @@ import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-d
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../../core/cache/response.models';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
+import { DSpaceObjectDataService } from '../../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
@@ -41,6 +43,7 @@ describe('GroupFormComponent', () => {
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
+  let dsoDataServiceStub: any;
   let authorizationService: AuthorizationDataService;
   let notificationService: NotificationsServiceStub;
   let router;
@@ -97,6 +100,11 @@ describe('GroupFormComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
     });
+    dsoDataServiceStub = {
+      findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
+        return null;
+      }
+    }
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
     router = new RouterMock();
@@ -114,6 +122,7 @@ describe('GroupFormComponent', () => {
       providers: [GroupFormComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
+        { provide: DSpaceObjectDataService, useValue: dsoDataServiceStub },
         { provide: NotificationsService, useValue: notificationService },
         { provide: FormBuilderService, useValue: builderService },
         { provide: DSOChangeAnalyzer, useValue: {} },
