@@ -2924,6 +2924,8 @@
 
   "submission.import-external.search.source.hint": "Pick an external source",
 
+  "submission.import-external.source.arxiv": "arXiv",
+
   "submission.import-external.source.loading": "Loading ...",
 
   "submission.import-external.source.sherpaJournal": "SHERPA Journals",
