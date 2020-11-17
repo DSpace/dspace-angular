@@ -210,6 +210,7 @@ import { CollectionDropdownComponent } from './collection-dropdown/collection-dr
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
+import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -331,6 +332,7 @@ const COMPONENTS = [
   BrowseByComponent,
   InputSuggestionsComponent,
   FilterInputSuggestionsComponent,
+  ValidationSuggestionsComponent,
   DsoInputSuggestionsComponent,
   DSOSelectorComponent,
   CreateCommunityParentSelectorComponent,
