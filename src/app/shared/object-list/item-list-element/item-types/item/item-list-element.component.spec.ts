@@ -1,7 +1,7 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { PublicationListElementComponent } from './publication-list-element.component';
+import { ItemListElementComponent } from './item-list-element.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
@@ -43,7 +43,7 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 
-describe('PublicationListElementComponent', () => {
+describe('ItemListElementComponent', () => {
   let comp;
   let fixture;
 
@@ -53,18 +53,18 @@ describe('PublicationListElementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PublicationListElementComponent, TruncatePipe],
+      declarations: [ItemListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PublicationListElementComponent, {
+    }).overrideComponent(ItemListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(PublicationListElementComponent);
+    fixture = TestBed.createComponent(ItemListElementComponent);
     comp = fixture.componentInstance;
   }));
 
@@ -75,7 +75,7 @@ describe('PublicationListElementComponent', () => {
     });
 
     it(`should contain a PublicationListElementComponent`, () => {
-      const publicationListElement = fixture.debugElement.query(By.css(`ds-publication-search-result-list-element`));
+      const publicationListElement = fixture.debugElement.query(By.css(`ds-item-search-result-list-element`));
       expect(publicationListElement).not.toBeNull();
     });
   });

@@ -28,7 +28,7 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { createRelationshipsObservable } from '../shared/item.component.spec';
-import { PublicationComponent } from './publication.component';
+import { UntypedItemComponent } from './untyped-item.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
@@ -37,8 +37,8 @@ const mockItem: Item = Object.assign(new Item(), {
 });
 
 describe('UntypedItemComponent', () => {
-  let comp: PublicationComponent;
-  let fixture: ComponentFixture<PublicationComponent>;
+  let comp: UntypedItemComponent;
+  let fixture: ComponentFixture<UntypedItemComponent>;
 
   beforeEach(async(() => {
     const mockBitstreamDataService = {
@@ -53,7 +53,7 @@ describe('UntypedItemComponent', () => {
           useClass: TranslateLoaderMock
         }
       })],
-      declarations: [PublicationComponent, GenericItemPageFieldComponent, TruncatePipe],
+      declarations: [UntypedItemComponent, GenericItemPageFieldComponent, TruncatePipe],
       providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
@@ -72,13 +72,13 @@ describe('UntypedItemComponent', () => {
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PublicationComponent, {
+    }).overrideComponent(UntypedItemComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(PublicationComponent);
+    fixture = TestBed.createComponent(UntypedItemComponent);
     comp = fixture.componentInstance;
     comp.object = mockItem;
     fixture.detectChanges();

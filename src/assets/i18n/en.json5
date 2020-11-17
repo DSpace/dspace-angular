@@ -760,6 +760,10 @@
 
 
 
+  "collection.listelement.badge": "Collection",
+
+
+
   "collection.page.browse.recent.head": "Recent Submissions",
 
   "collection.page.browse.recent.empty": "No items to show",
@@ -860,6 +864,10 @@
   "community.edit.tabs.roles.head": "Assign Roles",
 
   "community.edit.tabs.roles.title": "Community Edit - Roles",
+
+
+
+  "community.listelement.badge": "Community",
 
 
 
@@ -1673,6 +1681,28 @@
   "item.edit.withdraw.header": "Withdraw item: {{ id }}",
 
   "item.edit.withdraw.success": "The item was withdrawn successfully",
+
+
+
+  "item.listelement.badge": "Item",
+
+  "item.page.description": "Description",
+
+  "item.page.edit": "Edit this item",
+
+  "item.page.journal-issn": "Journal ISSN",
+
+  "item.page.journal-title": "Journal Title",
+
+  "item.page.publisher": "Publisher",
+
+  "item.page.titleprefix": "Item: ",
+
+  "item.page.volume-title": "Volume Title",
+
+  "item.search.results.head": "Item Search Results",
+
+  "item.search.title": "DSpace Angular :: Item Search",
 
 
 

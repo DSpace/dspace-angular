@@ -8,13 +8,13 @@ import { listableObjectComponent } from '../../../../shared/object-collection/sh
  * Component that represents a publication Item page
  */
 
-@listableObjectComponent('Publication', ViewMode.StandalonePage)
+@listableObjectComponent(Item, ViewMode.StandalonePage)
 @Component({
-  selector: 'ds-publication',
-  styleUrls: ['./publication.component.scss'],
-  templateUrl: './publication.component.html',
+  selector: 'ds-untyped-item',
+  styleUrls: ['./untyped-item.component.scss'],
+  templateUrl: './untyped-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublicationComponent extends ItemComponent {
+export class UntypedItemComponent extends ItemComponent {
 
 }
