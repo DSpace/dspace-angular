@@ -12,20 +12,30 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { switchMap, take } from 'rxjs/operators';
+import { ObservedValueOf } from 'rxjs/internal/types';
+import { map, switchMap, take } from 'rxjs/operators';
+import { getCollectionEditRolesRoute } from '../../../../+collection-page/collection-page-routing-paths';
+import { getCommunityEditRolesRoute } from '../../../../+community-page/community-page-routing-paths';
 import { RestResponse } from '../../../../core/cache/response.models';
+import { DSpaceObjectDataService } from '../../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../../../core/data/paginated-list';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { Collection } from '../../../../core/shared/collection.model';
+import { Community } from '../../../../core/shared/community.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import { AlertType } from '../../../../shared/alert/aletr-type';
 import { ConfirmationModalComponent } from '../../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-group-form',
@@ -98,10 +108,17 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   /**
    * Observable whether or not the logged in user is allowed to delete the Group
    */
-  canDelete$: Observable<boolean>;
+  canEdit$: Observable<boolean>;
+
+  /**
+   * The AlertType enumeration
+   * @type {AlertType}
+   */
+  public AlertTypeEnum = AlertType;
 
   constructor(public groupDataService: GroupDataService,
               private ePersonDataService: EPersonDataService,
+              private dSpaceObjectDataService: DSpaceObjectDataService,
               private formBuilderService: FormBuilderService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
@@ -120,12 +137,19 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     this.subs.push(this.route.params.subscribe((params) => {
       this.setActiveGroup(params.groupId)
     }));
-    this.canDelete$ = this.groupDataService.getActiveGroup().pipe(
-      switchMap((group: Group) => this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined))
+    this.canEdit$ = this.groupDataService.getActiveGroup().pipe(
+      switchMap((group: Group) => {
+        return combineLatest(
+          this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
+          this.hasLinkedDSO(group),
+          (isAuthorized: ObservedValueOf<Observable<boolean>>, hasLinkedDSO: ObservedValueOf<Observable<boolean>>) => {
+            return isAuthorized && !hasLinkedDSO;
+          })
+      })
     );
     combineLatest(
       this.translateService.get(`${this.messagePrefix}.groupName`),
-      this.translateService.get(`${this.messagePrefix}.groupDescription`),
+      this.translateService.get(`${this.messagePrefix}.groupDescription`)
     ).subscribe(([groupName, groupDescription]) => {
       this.groupName = new DynamicInputModel({
         id: 'groupName',
@@ -147,18 +171,23 @@ export class GroupFormComponent implements OnInit, OnDestroy {
         this.groupDescription,
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-      this.subs.push(this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
-        if (activeGroup != null) {
-          this.groupBeingEdited = activeGroup;
-          this.formGroup.patchValue({
-            groupName: activeGroup != null ? activeGroup.name : '',
-            groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
-          });
-          if (activeGroup.permanent) {
-            this.formGroup.get('groupName').disable();
+      this.subs.push(
+        combineLatest(
+          this.groupDataService.getActiveGroup(),
+          this.canEdit$
+        ).subscribe(([activeGroup, canEdit]) => {
+          if (activeGroup != null) {
+            this.groupBeingEdited = activeGroup;
+            this.formGroup.patchValue({
+              groupName: activeGroup != null ? activeGroup.name : '',
+              groupDescription: activeGroup != null ? activeGroup.firstMetadataValue('dc.description') : '',
+            });
+            if (!canEdit || activeGroup.permanent) {
+              this.formGroup.disable();
+            }
           }
-        }
-      }));
+        })
+      );
     });
   }
 
@@ -298,7 +327,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup === null) {
         this.groupDataService.cancelEditGroup();
-        this.groupDataService.findByHref(groupSelfLink)
+        this.groupDataService.findByHref(groupSelfLink, followLink('subgroups'), followLink('epersons'), followLink('object'))
           .pipe(
             getSucceededRemoteData(),
             getRemoteDataPayload())
@@ -335,7 +364,8 @@ export class GroupFormComponent implements OnInit, OnDestroy {
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.content', { cause: optionalErrorMessage }));
                 }
               })
-          }}
+          }
+        }
       });
     })
   }
@@ -357,5 +387,58 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onCancel();
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+  }
+
+  /**
+   * Check if group has a linked object (community or collection linked to a workflow group)
+   * @param group
+   */
+  hasLinkedDSO(group: Group): Observable<boolean> {
+    if (hasValue(group) && hasValue(group._links.object.href)) {
+      return this.getLinkedDSO(group).pipe(
+        map((rd: RemoteData<DSpaceObject>) => {
+          if (hasValue(rd) && hasValue(rd.payload)) {
+            return true;
+          } else {
+            return false
+          }
+        })
+      );
+    }
+  }
+
+  /**
+   * Get group's linked object if it has one (community or collection linked to a workflow group)
+   * @param group
+   */
+  getLinkedDSO(group: Group): Observable<RemoteData<DSpaceObject>> {
+    if (hasValue(group) && hasValue(group._links.object.href)) {
+      if (group.object == undefined) {
+        return this.dSpaceObjectDataService.findByHref(group._links.object.href);
+      }
+      return group.object;
+    }
+  }
+
+  /**
+   * Get the route to the edit roles tab of the group's linked object (community or collection linked to a workflow group) if it has one
+   * @param group
+   */
+  getLinkedEditRolesRoute(group: Group): Observable<String> {
+    if (hasValue(group) && hasValue(group._links.object.href)) {
+      return this.getLinkedDSO(group).pipe(
+        map((rd: RemoteData<DSpaceObject>) => {
+          if (hasValue(rd) && hasValue(rd.payload)) {
+            const dso = rd.payload
+            switch ((dso as any).type) {
+              case Community.type.value:
+                return getCommunityEditRolesRoute(rd.payload.id);
+              case Collection.type.value:
+                return getCollectionEditRolesRoute(rd.payload.id);
+            }
+          }
+        })
+      )
+    }
   }
 }

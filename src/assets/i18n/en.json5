@@ -280,6 +280,10 @@
 
   "admin.access-control.groups.title": "DSpace Angular :: Groups",
 
+  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
+
+  "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
+
   "admin.access-control.groups.head": "Groups",
 
   "admin.access-control.groups.button.add": "Add group",
@@ -312,6 +316,11 @@
 
   "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
 
+
+
+  "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+
+  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
 
   "admin.access-control.groups.form.head.create": "Create group",
 

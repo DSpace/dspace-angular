@@ -5,7 +5,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { filter } from 'rxjs/internal/operators/filter';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ObservedValueOf } from 'rxjs/internal/types';
 import { map, switchMap, take } from 'rxjs/operators';
+import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../../core/data/paginated-list';
@@ -17,6 +19,7 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { GroupDtoModel } from '../../../core/eperson/models/group-dto.model';
 import { Group } from '../../../core/eperson/models/group.model';
 import { RouteService } from '../../../core/services/route.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { hasValue } from '../../../shared/empty.util';
@@ -72,6 +75,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
 
   constructor(public groupService: GroupDataService,
               private ePersonDataService: EPersonDataService,
+              private dSpaceObjectDataService: DSpaceObjectDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
               private formBuilder: FormBuilder,
@@ -120,16 +124,18 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
 
     this.subs.push(this.groups$.pipe(
       getAllSucceededRemoteDataPayload(),
-      switchMap((groups) => {
-        return combineLatest(...groups.page.map((group) => {
-          return this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined).pipe(
-            map((authorized: boolean) => {
+      switchMap((groups: PaginatedList<Group>) => {
+        return combineLatest(...groups.page.map((group: Group) => {
+          return combineLatest(
+            this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
+            this.hasLinkedDSO(group),
+            (isAuthorized: ObservedValueOf<Observable<boolean>>, hasLinkedDSO: ObservedValueOf<Observable<boolean>>) => {
               const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-              groupDtoModel.ableToDelete = authorized;
+              groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
               groupDtoModel.group = group;
               return groupDtoModel;
-            })
-          );
+            }
+          )
         })).pipe(map((dtos: GroupDtoModel[]) => {
           return new PaginatedList(groups.pageInfo, dtos);
         }))
@@ -186,6 +192,25 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
     return this.groupService.findAllByHref(group._links.subgroups.href);
+  }
+
+  /**
+   * Check if group has a linked object (community or collection linked to a workflow group)
+   * @param group
+   */
+  hasLinkedDSO(group: Group): Observable<boolean> {
+    if (group.object == undefined) {
+      group.object = this.dSpaceObjectDataService.findByHref(group._links.object.href);
+    }
+    return group.object.pipe(
+      map((rd: RemoteData<DSpaceObject>) => {
+        if (hasValue(rd) && hasValue(rd.payload)) {
+          return true;
+        } else {
+          return false
+        }
+      })
+    );
   }
 
   /**
