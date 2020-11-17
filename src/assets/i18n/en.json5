@@ -828,6 +828,10 @@
   "collection.edit.template.title": "Edit Template Item",
 
 
+  "collection-export.success": "Export of the collection's items started successfully",
+
+  "collection-export.error": "An error occurs starting the collection's items export",
+
 
   "collection.form.abstract": "Short Description",
 
@@ -860,6 +864,8 @@
   "collection.page.browse.recent.empty": "No items to show",
 
   "collection.page.bulk-import": "Import items into this collection",
+
+  "collection.page.export": "Export items from this collection",
 
   "collection.page.handle": "Permanent URI for this collection",
 
