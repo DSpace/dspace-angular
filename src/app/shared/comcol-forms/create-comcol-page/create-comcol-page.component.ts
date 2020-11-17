@@ -101,7 +101,7 @@ export class CreateComColPageComponent<TDomain extends DSpaceObject> implements 
           } else {
             this.navigateToNewPage();
           }
-          this.refreshCache(dsoRD);
+          this.dsoDataService.refreshCache(dsoRD);
         }
         this.notificationsService.success(null, this.translate.get(this.type.value + '.create.notifications.success'));
       });
@@ -114,24 +114,5 @@ export class CreateComColPageComponent<TDomain extends DSpaceObject> implements 
     if (hasValue(this.newUUID)) {
       this.router.navigate([this.frontendURL + this.newUUID]);
     }
-  }
-
-  private refreshCache(dso: TDomain) {
-      const parentCommunityUrl = this.parentCommunityUrl(dso as any);
-      if (!hasValue(parentCommunityUrl)) {
-        return;
-      }
-      this.dsoDataService.findByHref(parentCommunityUrl).pipe(
-        getSucceededOrNoContentResponse(),
-        take(1),
-      ).subscribe((rd: RemoteData<TDomain>) => {
-        const href = rd.hasSucceeded && !isEmpty(rd.payload.id) ? rd.payload.id : 'communities/search/top';
-        this.requestService.removeByHrefSubstring(href)
-      });
-  }
-
-  private parentCommunityUrl(dso: Collection | Community) {
-    const parentCommunity = dso._links.parentCommunity;
-    return isNotEmpty(parentCommunity) ? parentCommunity.href : null;
   }
 }

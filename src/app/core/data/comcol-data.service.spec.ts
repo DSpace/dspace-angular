@@ -17,6 +17,7 @@ import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindByIDRequest, FindListOptions } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
+import {createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$} from '../../shared/remote-data.utils';
 
 const LINK_NAME = 'test';
 
@@ -51,7 +52,9 @@ describe('ComColDataService', () => {
   let objectCache: ObjectCacheService;
   let halService: any = {};
 
-  const rdbService = {} as RemoteDataBuildService;
+  const rdbService = {
+    buildSingle : () => null
+  } as any;
   const store = {} as Store<CoreState>;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
@@ -175,6 +178,90 @@ describe('ComColDataService', () => {
         const expected = cold('--#-', undefined, new Error(`The Community with scope ${scopeID} couldn't be retrieved`));
 
         expect(result).toBeObservable(expected);
+      });
+    });
+
+    describe('cache refresh', () => {
+      let communityWithoutParentHref;
+      let data;
+
+      beforeEach(() => {
+        scheduler = getTestScheduler();
+        halService = {
+          getEndpoint: (linkPath) => 'https://rest.api/core/' + linkPath
+        };
+        service = initTestService();
+
+      })
+      describe('cache refreshed top level community', () => {
+        beforeEach(() => {
+          spyOn(rdbService, 'buildSingle').and.returnValue(createNoContentRemoteDataObject$());
+          data = {
+            dso: Object.assign(new Community(), {
+              metadata: [{
+                key: 'dc.title',
+                value: 'top level community'
+              }]
+            }),
+            _links: {
+              parentCommunity: {
+                href: 'topLevel/parentCommunity'
+              }
+            }
+          };
+          communityWithoutParentHref = {
+            dso: Object.assign(new Community(), {
+              metadata: [{
+                key: 'dc.title',
+                value: 'top level community'
+              }]
+            }),
+            _links: {}
+          };
+        });
+        it('top level community cache refreshed', () => {
+          scheduler.schedule(() => (service as any).refreshCache(data));
+          scheduler.flush();
+          expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith('https://rest.api/core/communities/search/top');
+        });
+        it('top level community without parent link, cache not refreshed', () => {
+          scheduler.schedule(() => (service as any).refreshCache(communityWithoutParentHref));
+          scheduler.flush();
+          expect(requestService.removeByHrefSubstring).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('cache refreshed child community', () => {
+        beforeEach(() => {
+          const parentCommunity = Object.assign(new Community(), {
+            uuid: 'a20da287-e174-466a-9926-f66as300d399',
+            id: 'a20da287-e174-466a-9926-f66as300d399',
+            metadata: [{
+              key: 'dc.title',
+              value: 'parent community'
+            }],
+            _links: {}
+          });
+          spyOn(rdbService, 'buildSingle').and.returnValue(createSuccessfulRemoteDataObject$(parentCommunity));
+          data = {
+            dso: Object.assign(new Community(), {
+              metadata: [{
+                key: 'dc.title',
+                value: 'child community'
+              }]
+            }),
+            _links: {
+              parentCommunity: {
+                href: 'child/parentCommunity'
+              }
+            }
+          };
+        });
+        it('child level community cache refreshed', () => {
+          scheduler.schedule(() => (service as any).refreshCache(data));
+          scheduler.flush();
+          expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
+        });
       });
     });
 
