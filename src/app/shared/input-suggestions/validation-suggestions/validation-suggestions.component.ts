@@ -49,7 +49,6 @@ export class ValidationSuggestionsComponent extends InputSuggestionsComponent im
   }
 
   ngOnInit() {
-    console.log('ping');
     this.form = new FormGroup({
       metadataNameField: new FormControl(this._value, {
         asyncValidators: [this.metadataFieldValidator.validate.bind(this.metadataFieldValidator)],
