@@ -1,4 +1,4 @@
-import { EventEmitter, Input, Output } from '@angular/core';
+import { EventEmitter, Input, Output, Directive } from '@angular/core';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
@@ -11,6 +11,7 @@ import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-
  * - Add a @rendersWorkflowTaskOption annotation to your component providing the same enum value
  * - Optionally overwrite createBody if the request body requires more than just the option
  */
+@Directive()
 export abstract class ClaimedTaskActionsAbstractComponent {
   /**
    * The workflow task option the child component represents

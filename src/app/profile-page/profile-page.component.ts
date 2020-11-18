@@ -26,7 +26,7 @@ export class ProfilePageComponent implements OnInit {
   /**
    * A reference to the metadata form component
    */
-  @ViewChild(ProfilePageMetadataFormComponent, {static: false}) metadataForm: ProfilePageMetadataFormComponent;
+  @ViewChild(ProfilePageMetadataFormComponent) metadataForm: ProfilePageMetadataFormComponent;
 
   /**
    * The authenticated user as observable

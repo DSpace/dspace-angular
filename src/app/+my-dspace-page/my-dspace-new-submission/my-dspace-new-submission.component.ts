@@ -46,7 +46,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   /**
    * Reference to uploaderComponent
    */
-  @ViewChild(UploaderComponent, { static: false }) uploaderComponent: UploaderComponent;
+  @ViewChild(UploaderComponent) uploaderComponent: UploaderComponent;
 
   /**
    * Initialize instance variables
@@ -55,9 +55,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {HALEndpointService} halService
    * @param {NotificationsService} notificationsService
-   * @param {Store<SubmissionState>} store
    * @param {TranslateService} translate
-   * @param {Router} router
    * @param {NgbModal} modalService
    */
   constructor(private authService: AuthService,

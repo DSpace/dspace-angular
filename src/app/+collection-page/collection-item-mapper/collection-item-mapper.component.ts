@@ -49,7 +49,7 @@ export class CollectionItemMapperComponent implements OnInit {
    * A view on the tabset element
    * Used to switch tabs programmatically
    */
-  @ViewChild('tabs', {static: false}) tabs;
+  @ViewChild('tabs') tabs;
 
   /**
    * The collection to map items to

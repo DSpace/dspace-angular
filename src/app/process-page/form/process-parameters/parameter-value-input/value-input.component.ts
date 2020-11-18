@@ -1,8 +1,9 @@
-import { EventEmitter, Input, Output } from '@angular/core';
+import { EventEmitter, Input, Output, Directive } from '@angular/core';
 
 /**
  * Abstract class that represents value input components
  */
+@Directive()
 export abstract class ValueInputComponent<T> {
   @Input() index: number;
   /**

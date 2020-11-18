@@ -127,7 +127,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
   /**
    * The FormComponent reference
    */
-  @ViewChild('formRef', {static: false}) public formRef: FormComponent;
+  @ViewChild('formRef') public formRef: FormComponent;
 
   /**
    * Initialize instance variables

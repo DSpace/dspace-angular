@@ -141,7 +141,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
    * The [[SubmissionSectionUploadFileEditComponent]] reference
    * @type {SubmissionSectionUploadFileEditComponent}
    */
-  @ViewChild(SubmissionSectionUploadFileEditComponent, {static: false}) fileEditComp: SubmissionSectionUploadFileEditComponent;
+  @ViewChild(SubmissionSectionUploadFileEditComponent) fileEditComp: SubmissionSectionUploadFileEditComponent;
 
   /**
    * Initialize instance variables

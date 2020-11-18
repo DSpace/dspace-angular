@@ -48,7 +48,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('instance', { static: false }) instance: NgbTypeahead;
+  @ViewChild('instance') instance: NgbTypeahead;
 
   pageInfo: PageInfo = new PageInfo();
   searching = false;

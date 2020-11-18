@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Injector, Input } from '@angular/core';
+import { Injector, Input, Directive } from '@angular/core';
 
 import { find, take, tap } from 'rxjs/operators';
 
@@ -18,6 +18,7 @@ import { SearchService } from '../../core/shared/search/search.service';
 /**
  * Abstract class for all different representations of mydspace actions
  */
+@Directive()
 export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService extends DataService<T>> {
 
   /**

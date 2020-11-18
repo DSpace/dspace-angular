@@ -95,7 +95,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   /**
    * The html child that contains the collections list
    */
-  @ViewChild(CollectionDropdownComponent, {static: false}) collectionDropdown: CollectionDropdownComponent;
+  @ViewChild(CollectionDropdownComponent) collectionDropdown: CollectionDropdownComponent;
 
   /**
    * A boolean representing if the collection section is available
@@ -107,11 +107,11 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} cdr
-   * @param {CommunityDataService} communityDataService
    * @param {CollectionDataService} collectionDataService
    * @param {JsonPatchOperationsBuilder} operationsBuilder
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SubmissionService} submissionService
+   * @param {SectionsService} sectionsService
    */
   constructor(protected cdr: ChangeDetectorRef,
               private collectionDataService: CollectionDataService,

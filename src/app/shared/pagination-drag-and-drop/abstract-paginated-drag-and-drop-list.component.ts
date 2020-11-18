@@ -6,11 +6,11 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../empty.util';
+import { hasValue } from '../empty.util';
 import { paginatedListToArray } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
 import { compareArraysUsing } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
@@ -38,11 +38,12 @@ export const compareArraysUsingFieldUuids = () =>
  *
  * An example component extending from this abstract component: PaginatedDragAndDropBitstreamListComponent
  */
+@Directive()
 export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpaceObject> implements OnDestroy {
   /**
    * A view on the child pagination component
    */
-  @ViewChild(PaginationComponent, {static: false}) paginationComponent: PaginationComponent;
+  @ViewChild(PaginationComponent) paginationComponent: PaginationComponent;
 
   /**
    * Send an event when the user drops an object on the pagination

@@ -1,4 +1,4 @@
-import { Injectable, Input, OnInit } from '@angular/core';
+import { Injectable, Input, OnInit, Directive } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -16,6 +16,7 @@ export enum SelectorActionType {
  * Abstract base class that represents a wrapper for modal content used to select a DSpace Object
  */
 
+@Directive()
 @Injectable()
 export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   /**

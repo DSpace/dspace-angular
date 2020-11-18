@@ -36,7 +36,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('instance', { static: false }) instance: NgbTypeahead;
+  @ViewChild('instance') instance: NgbTypeahead;
 
   chips: Chips;
   hasAuthority: boolean;
