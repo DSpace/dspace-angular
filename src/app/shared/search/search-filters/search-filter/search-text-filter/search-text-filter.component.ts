@@ -7,7 +7,6 @@ import {
 import { renderFacetFor } from '../search-filter-type-decorator';
 import {
   addOperatorToFilterValue,
-  stripOperatorFromFilterValue
 } from '../../../search.utils';
 
 /**
@@ -35,14 +34,5 @@ export class SearchTextFilterComponent extends SearchFacetFilterComponent implem
    */
   onSubmit(data: any) {
     super.onSubmit(addOperatorToFilterValue(data, 'query'));
-  }
-
-  /**
-   * On click, set the input's value to the clicked data
-   * Overwritten method from parent component, strips any operator from the received data before passing it on
-   * @param data The value of the option that was clicked
-   */
-  onClick(data: any) {
-    super.onClick(stripOperatorFromFilterValue(data));
   }
 }

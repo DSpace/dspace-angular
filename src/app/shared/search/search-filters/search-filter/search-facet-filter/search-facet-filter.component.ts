@@ -288,7 +288,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
                   return rd.payload.page.map((facet) => {
                     return {
                       displayValue: this.getDisplayValue(facet, data),
-                      value: this.getFacetValue(facet)
+                      value: stripOperatorFromFilterValue(this.getFacetValue(facet))
                     }
                   })
                 }
