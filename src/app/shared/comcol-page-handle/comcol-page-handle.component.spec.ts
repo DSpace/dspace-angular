@@ -5,7 +5,7 @@ import { ComcolPageHandleComponent } from './comcol-page-handle.component';
 
 const handle = 'http://localhost:4000/handle/123456789/2';
 
-fdescribe('ComcolPageHandleComponent', () => {
+describe('ComcolPageHandleComponent', () => {
   let component: ComcolPageHandleComponent;
   let fixture: ComponentFixture<ComcolPageHandleComponent>;
 

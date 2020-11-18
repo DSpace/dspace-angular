@@ -1,4 +1,4 @@
-import { deserialize, deserializeAs, inheritSerialization } from 'cerialize';
+import { deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
@@ -11,16 +11,11 @@ import { COMMUNITY } from './community.resource-type';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { ChildHALResource } from './child-hal-resource.model';
-import { excludeFromEquals } from '../utilities/equals.decorators';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
 export class Community extends DSpaceObject implements ChildHALResource {
   static type = COMMUNITY;
-
-  @excludeFromEquals
-  @deserializeAs('handle')
-  private _handle: string;
 
   /**
    * The {@link HALLink}s for this Community
@@ -68,10 +63,6 @@ export class Community extends DSpaceObject implements ChildHALResource {
    */
   get handle(): string {
     return this.firstMetadataValue('dc.identifier.uri');
-  }
-
-  set handle(value: string) {
-    this._handle = value;
   }
 
   /**
