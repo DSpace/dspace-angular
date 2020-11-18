@@ -55,4 +55,12 @@ xdescribe('SearchChartsComponent', () => {
     expect(comp).toBeTruthy();
   });
 
+  it('should call changeChartType with the correct filter configuration name', () => {
+    spyOn(comp, 'changeChartType').and.callThrough();
+  });
+
+  it('should call trackUpdate with the correct filter configuration name', () => {
+    spyOn(comp, 'trackUpdate').and.callThrough();
+  });
+
 });

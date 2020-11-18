@@ -1,11 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ChartType } from '../../../../../charts/models/chart-type';
-import { ChartData } from '../../../../../charts/models/chart-data';
+import { Component } from '@angular/core';
+
 import { FilterType } from '../../../filter-type.model';
-import { facetLoad, SearchFacetFilterComponent } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
+import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { renderChartFor } from '../../chart-search-result-element-decorator';
+import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-filter.component';
+import { filter, map } from 'rxjs/operators';
+import { ChartData } from '../../../../../charts/models/chart-data';
+import { Observable } from 'rxjs/internal/Observable';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { FacetValue } from '../../../facet-value.model';
+import { isNotEmpty } from '../../../../empty.util';
 
 /**
  * This component renders a simple item page.
@@ -19,30 +24,25 @@ import { renderChartFor } from '../../chart-search-result-element-decorator';
   templateUrl: './search-chart-line.component.html',
   animations: [facetLoad]
 })
-
 /**
  * Component that represents a text facet for a specific configuration
  */
 @renderChartFor(FilterType['chart.line'])
-export class SearchChartLineComponent extends SearchFacetFilterComponent implements OnInit {
+export class SearchChartLineComponent extends SearchChartFilterComponent {
 
-  /**
-   * Emits an array of ChartSeries with values found for this chart
-   */
-  results: Observable<ChartData[]>;
-
-  chartType = ChartType;
-
-  view: any[] = [1100, 400];
-
-  ngOnInit() {
-    super.ngOnInit();
-    this.results = this.filterValues$.pipe(map((result) => result.payload && result.payload.map((res) => ({
-      name: 'Point 1',
-      series: res.page.map((item) => ({
-        name: item.value,
-        value: item.count
-      }))
-    }))));
+  protected getInitData(): Observable<ChartData[]> {
+    return this.filterValues$.pipe(
+      filter((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => isNotEmpty(rd.payload)),
+      map((result: RemoteData<Array<PaginatedList<FacetValue>>>) => {
+        return result.payload.map((res) => ({
+          name: this.filter,
+          series: res.page.map((item) => ({
+            name: item.value,
+            value: item.count,
+            extra: item,
+          })),
+        }));
+      })
+    );
   }
 }

@@ -1,14 +1,18 @@
-<div *ngIf="(filters | async)?.hasSucceeded">
-  <h2>{{'search.filters.applied.charts.title' | translate}}</h2>
-  <ul class="nav nav-pills mb-30">
-    <li class="nav-item mr-3" *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate; let i = index"
-      (click)="changeChartType(filter)">
-      <a class="nav-link" [ngClass]="{'active' : selectedFilter.type == filter.type}">
-        {{'search.filters.applied.charts.' + filter.type | translate}}
-      </a>
-    </li>
-  </ul>
-  <div>
-    <ds-search-chart [filter]="selectedFilter" [inPlaceSearch]="inPlaceSearch"> </ds-search-chart>
+<div *ngIf="(filters | async)?.hasSucceeded && (filters | async)?.payload?.length > 0" class="container">
+  <div class="row">
+    <div class="col-md-12 mb-40">
+      <h2>{{'search.filters.applied.charts.' + ((configuration | async) ? (configuration | async) : 'default') + '.title' | translate}}</h2>
+      <ul class="nav nav-pills mb-2">
+        <li class="nav-item mr-3" *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate; let i = index"
+            (click)="changeChartType(filter)">
+          <a class="nav-link" [ngClass]="{'active' : selectedFilter.name == filter.name}">
+            {{'search.filters.applied.charts.' + filter.name + '.tab' | translate}}
+          </a>
+        </li>
+      </ul>
+      <div>
+        <ds-search-chart [filter]="selectedFilter" [inPlaceSearch]="inPlaceSearch"> </ds-search-chart>
+      </div>
+    </div>
   </div>
 </div>

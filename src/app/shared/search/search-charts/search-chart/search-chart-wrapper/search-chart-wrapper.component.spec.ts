@@ -46,4 +46,8 @@ xdescribe('SearchChartFilterWrapperComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should inject component properly', () => {
+    spyOn(component, 'getSearchFilter').and.callThrough();
+  });
 });

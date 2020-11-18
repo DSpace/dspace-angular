@@ -1,14 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ChartType } from '../../../../../charts/models/chart-type';
-import { ChartSeries } from '../../../../../charts/models/chart-series';
+import { Component } from '@angular/core';
+
 import { FilterType } from '../../../filter-type.model';
-import {
-  facetLoad,
-  SearchFacetFilterComponent
-} from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
+import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { renderChartFor } from '../../chart-search-result-element-decorator';
+import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-filter.component';
 
 /**
  * This component renders a simple item page.
@@ -26,24 +21,6 @@ import { renderChartFor } from '../../chart-search-result-element-decorator';
  * Component that represents a text facet for a specific filter configuration
  */
 @renderChartFor(FilterType['chart.pie'])
-export class SearchChartPieComponent extends SearchFacetFilterComponent implements OnInit {
+export class SearchChartPieComponent extends SearchChartFilterComponent {
 
-  /**
-   * Emits an array of ChartSeries with values found for this chart
-   */
-  results: Observable<ChartSeries[]>;
-
-  chartType = ChartType;
-
-  view: any[] = [1100, 400];
-
-  ngOnInit() {
-    super.ngOnInit();
-    this.results = this.filterValues$.pipe(map((result) => result.payload && result.payload.map((res) => {
-        return res.page.map((item) => ({
-        name: item.value,
-        value: item.count
-      }))
-    })[0]));
-  }
 }

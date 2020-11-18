@@ -59,7 +59,7 @@ export class SearchChartFilterWrapperComponent implements OnInit {
   /**
    * Find the correct component based on the filter config's type
    */
-  private getSearchFilter() {
+  getSearchFilter() {
     const type: FilterType = this.filterConfig.type;
     return renderChartFilterType(type);
   }

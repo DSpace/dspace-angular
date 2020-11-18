@@ -3117,19 +3117,15 @@
   "search.filters.applied.f.withdrawn": "Withdrawn",
 
 
-  "search.filters.applied.f.chart.pie.itemtype_filter" : "Pie Chart",
+  "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
 
-  "search.filters.applied.f.chart.pie.itemtype_filter" : "Pie Chart",
+  "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
 
-  "search.filters.applied.f.chart.bar.dateIssued.year": "Bar Chart",
+  "search.filters.applied.charts.default.title": "Search Output",
 
-  "search.filters.applied.charts.title": "Research Output",
+  "search.filters.applied.charts.RELATION.Person.researchoutputs.title": "Research Output",
 
-  "search.filters.applied.charts.chart.pie": "Item Type",
-
-  "search.filters.applied.charts.chart.bar": "Date Issued",
-
-  "search.filters.applied.charts.chart.line": "Line",
+  "search.filters.applied.charts.no.data.found": "No data found",
 
 
 
@@ -3141,14 +3137,6 @@
   "search.filters.filter.birthDate.head": "Birth Date",
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
-
-  "search.filters.filter.chart.bar.dateIssued.year.head": "Year",
-
-  "search.filters.filter.chart.bar.dateIssued.year.placeholder": "Year",
-
-  "search.filters.filter.chart.pie.itemtype_filter.head": "Type",
-
-  "search.filters.filter.chart.pie.itemtype_filter.placeholder": "Type",
 
   "search.filters.filter.creativeDatePublished.head": "Date Published",
 
@@ -3267,22 +3255,6 @@
 
   "search.filters.filter.submitter.placeholder": "Submitter",
 
-
-  "search.filters.filter.chart.head": "Charts",
-
-  "search.filters.filter.chart.placeholder": "Charts",
-
-  "search.filters.filter.chart.pie.itemtype_filter.head": "Pie Chart",
-
-  "search.filters.filter.chart.pie.itemtype_filter.placeholder": "Pie Chart",
-
-  "search.filters.filter.chart.bar.dateIssued.year.head": "Bart Chart",
-
-  "search.filters.filter.chart.bar.dateIssued.year.placeholder": "Bart Chart",
-
-  "search.filters.filter.chart.line.dateIssued.year.head": "Line Chart",
-
-  "search.filters.filter.chart.line.dateIssued.year.placeholder": "Line Chart",
 
 
 

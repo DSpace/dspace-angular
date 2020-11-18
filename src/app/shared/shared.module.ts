@@ -221,6 +221,7 @@ import { SearchChartLineComponent } from './search/search-charts/search-chart/se
 import { SearchChartFilterWrapperComponent } from './search/search-charts/search-chart/search-chart-wrapper/search-chart-wrapper.component';
 import { SearchChartComponent } from './search/search-charts/search-chart/search-chart.component';
 import { ChartsModule } from '../charts/charts.module';
+import { SearchChartFilterComponent } from './search/search-charts/search-chart/search-chart-filter/search-chart-filter.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -426,6 +427,7 @@ const COMPONENTS = [
   SearchChartLineComponent,
   SearchChartFilterWrapperComponent,
   SearchChartComponent,
+  SearchChartFilterComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -515,6 +517,7 @@ const ENTRY_COMPONENTS = [
   SearchChartLineComponent,
   SearchChartFilterWrapperComponent,
   SearchChartComponent,
+  SearchChartFilterComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

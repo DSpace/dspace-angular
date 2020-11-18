@@ -6,13 +6,7 @@
         </div>
     </div>
 </div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 mb-40">
-      <ds-search-charts [inPlaceSearch]="inPlaceSearch"></ds-search-charts>
-    </div>
-  </div>
-</div>
+<ds-search-charts [configuration]="configuration$" [inPlaceSearch]="inPlaceSearch"></ds-search-charts>
 <ds-page-with-sidebar [id]="'search-page'" [sidebarContent]="sidebarContent">
     <div class="row">
         <div class="col-12" *ngIf="!(isXsOrSm$ | async)">

@@ -1,3 +1,7 @@
-<ng-container *ngIf="(results | async)">
-  <ds-chart [results]="(results | async)" [view]="view" [type]='chartType.LINE' [animations]="true" (select)="select($event)"></ds-chart>
-</ng-container>
+<div class="d-flex w-100 search-chart-container" *ngIf="(results | async) && (results | async).length > 0; else noData">
+  <ds-chart [results]="(results | async)" [view]="view" [type]='chartType.LINE' [animations]="true"
+    (select)="select($event)"></ds-chart>
+</div>
+<ng-template #noData>
+  <h2>{{'search.filters.applied.charts.no.data.found' | translate}}</h2>
+</ng-template>

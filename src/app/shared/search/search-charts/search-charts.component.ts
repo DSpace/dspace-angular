@@ -1,12 +1,13 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
+
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { FilterType } from '../filter-type.model';
 import { SearchFilterConfig } from '../search-filter-config.model';
 
 @Component({
@@ -20,18 +21,28 @@ import { SearchFilterConfig } from '../search-filter-config.model';
  */
 export class SearchChartsComponent implements OnInit {
   /**
-   * An observable containing configuration about which filters are shown and how they are shown
+   * The currently applied configuration (determines title of search)
    */
-  filters: Observable<RemoteData<SearchFilterConfig[]>>;
+  @Input() configuration: Observable<string>;
 
   /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
 
+  /**
+   * An observable containing configuration about which filters are shown and how they are shown
+   */
+  filters: Observable<RemoteData<SearchFilterConfig[]>>;
+
   selectedTypeIndex = 0;
 
   selectedFilter: any;
+
+  /**
+   * For chart regular expression
+   */
+  chartReg = new RegExp(/^chart./, 'i')
 
   /**
    * Initialize instance variables
@@ -46,35 +57,24 @@ export class SearchChartsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.filters = this.searchConfigService.searchOptions
       .pipe(
         switchMap((options) =>
           this.searchService
             .getConfig(options.scope, options.configuration)
             .pipe(getSucceededRemoteData())
-        )
-      )
-      .pipe(
-        map((item) => ({
-          isLoading: item.isLoading,
-          hasFailed: item.hasFailed,
-          isRequestPending: item.isRequestPending,
-          isResponsePending: item.isResponsePending,
-          state: item.state,
-          hasSucceeded: item.hasSucceeded,
-          hasNoContent: item.hasNoContent,
-          payload: item.payload.filter(
-            (i) =>
-              i.type === FilterType['chart.bar'] ||
-              i.type === FilterType['chart.line'] ||
-              i.type === FilterType['chart.pie']
-          ),
-        }))
-      ).pipe(map((res) => {
-        this.selectedFilter = res.payload[0];
-        return res;
-      }));
+        ),
+        map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
+          payload: rd.payload.filter((filter: SearchFilterConfig) =>
+            this.chartReg.test(filter.type)
+          )})
+        ),
+        tap((rd: RemoteData<SearchFilterConfig[]>) => {
+          this.selectedFilter = this.selectedFilter
+            ? this.selectedFilter
+            : rd.payload[0];
+        })
+      );
   }
 
   /**

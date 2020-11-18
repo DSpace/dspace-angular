@@ -103,7 +103,7 @@ export class ChartComponent implements OnInit {
   /**
    * Find the correct component based on the chart's type
    */
-  getChartContent(): string {
+  getChartContent() {
     return rendersChartType(this.type);
   }
 }
