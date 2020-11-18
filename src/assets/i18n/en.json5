@@ -1971,6 +1971,8 @@
 
   "item.preview.dc.contributor.author": "Authors:",
 
+  "item.preview.dc.contributor.editor": "Editors:",
+
   "item.preview.dc.date.issued": "Published date:",
 
   "item.preview.dc.description.abstract": "Abstract:",
@@ -1985,6 +1987,8 @@
 
   "item.preview.dc.title": "Title:",
 
+  "item.preview.dc.type": "Type:",
+
   "item.preview.dc.identifier": "Identifier:",
 
   "item.preview.dc.source": "Source:",
@@ -1992,6 +1996,10 @@
   "item.preview.dc.relation.isbn" : "ISBN",
 
   "item.preview.dc.relation.issn" : "ISSN",
+
+  "item.preview.oaire.citation.issue" : "Issue",
+
+  "item.preview.oaire.citation.volume" : "Volume",
 
   "item.preview.person.familyName": "Surname:",
 
