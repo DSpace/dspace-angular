@@ -1558,15 +1558,19 @@
 
   "item.edit.relationships.discard-button": "Discard",
 
+  "item.edit.relationships.edit.buttons.add": "Add",
+
   "item.edit.relationships.edit.buttons.remove": "Remove",
 
   "item.edit.relationships.edit.buttons.undo": "Undo changes",
+
+  "item.edit.relationships.no-relationships": "No relationships",
 
   "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
   "item.edit.relationships.notifications.discarded.title": "Changes discarded",
 
-  "item.edit.relationships.notifications.failed.title": "Error deleting relationship",
+  "item.edit.relationships.notifications.failed.title": "Error editing relationships",
 
   "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
 
@@ -2561,6 +2565,10 @@
 
   "relationships.isAuthorOf": "Authors",
 
+  "relationships.isAuthorOf.Person": "Authors (persons)",
+
+  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+
   "relationships.isIssueOf": "Journal Issues",
 
   "relationships.isJournalIssueOf": "Journal Issue",
@@ -3059,10 +3067,25 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Local Organizational Units ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Local Data Packages ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Local Data Files ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
 
@@ -3085,14 +3108,29 @@
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
 
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
 
   "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
 
   "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
 
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.Project": "Projects",
+
+  "submission.sections.describe.relationship-lookup.title.Publication": "Publications",
+
+  "submission.sections.describe.relationship-lookup.title.Person": "Authors",
+
+  "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organizational Units",
+
+  "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
+
+  "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
+
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
 
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
 
@@ -3109,12 +3147,27 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Selected Organizational Units",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Selected Data Packages",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Selected Data Files",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
@@ -3343,7 +3396,7 @@
 
   "uploader.drag-message": "Drag & Drop your files here",
 
-  "uploader.or": ", or",
+  "uploader.or": ", or ",
 
   "uploader.processing": "Processing",
 
