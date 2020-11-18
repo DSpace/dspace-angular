@@ -20,13 +20,15 @@
     "strictNullChecks": false,
     "skipDefaultLibCheck": true,
     "pretty": true,
-    "target": "es5",
+    "target": "es2015",
     "typeRoots": [
       "node_modules/@types",
       "src/typings.d.ts"
     ],
     "lib": [
       "dom",
+      "dom.iterable",
+      "es5",
       "es6",
       "es2015",
       "es2016",
