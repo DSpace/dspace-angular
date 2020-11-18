@@ -123,7 +123,7 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
   }
 
   public refreshCache(dso: T) {
-    const parentCommunityUrl = this.parentCommunityUrl(dso as any);
+    const parentCommunityUrl = this.parentCommunityUrlLookup(dso as any);
     if (!hasValue(parentCommunityUrl)) {
       return;
     }
@@ -136,7 +136,7 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
     });
   }
 
-  private parentCommunityUrl(dso: Collection | Community) {
+  private parentCommunityUrlLookup(dso: Collection | Community) {
     const parentCommunity = dso._links.parentCommunity;
     return isNotEmpty(parentCommunity) ? parentCommunity.href : null;
   }
