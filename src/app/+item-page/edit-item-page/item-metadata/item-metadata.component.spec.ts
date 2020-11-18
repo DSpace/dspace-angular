@@ -130,7 +130,7 @@ describe('ItemMetadataComponent', () => {
       routeStub = {
         data: observableOf({}),
         parent: {
-          data: observableOf({ item: createSuccessfulRemoteDataObject(item) })
+          data: observableOf({ dso: createSuccessfulRemoteDataObject(item) })
         }
       };
       paginatedMetadataFields = new PaginatedList(undefined, [mdField1, mdField2, mdField3]);

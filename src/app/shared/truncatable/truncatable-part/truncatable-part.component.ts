@@ -38,6 +38,8 @@ export class TruncatablePartComponent implements OnInit, OnDestroy {
    */
   @Input() fixedHeight = false;
 
+  @Input() background = 'default';
+
   /**
    * Current amount of lines shown of this part
    */

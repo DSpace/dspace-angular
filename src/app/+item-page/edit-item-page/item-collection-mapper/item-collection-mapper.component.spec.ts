@@ -89,7 +89,7 @@ describe('ItemCollectionMapperComponent', () => {
     clearDiscoveryRequests: () => {}
     /* tslint:enable:no-empty */
   });
-  const activatedRouteStub = new ActivatedRouteStub({}, { item: mockItemRD });
+  const activatedRouteStub = new ActivatedRouteStub({}, { dso: mockItemRD });
   const translateServiceStub = {
     get: () => of('test-message of item ' + mockItem.name),
     onLangChange: new EventEmitter(),

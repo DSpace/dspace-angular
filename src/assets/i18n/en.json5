@@ -764,6 +764,8 @@
 
   "collection.page.browse.recent.empty": "No items to show",
 
+  "collection.page.edit": "Edit this collection",
+
   "collection.page.handle": "Permanent URI for this collection",
 
   "collection.page.license": "License",
@@ -927,6 +929,8 @@
 
   "community.form.title": "Name",
 
+  "community.page.edit": "Edit this community",
+
   "community.page.handle": "Permanent URI for this community",
 
   "community.page.license": "License",
@@ -1037,6 +1041,8 @@
 
   "dso-selector.create.collection.head": "New collection",
 
+  "dso-selector.create.collection.sub-level": "Create a new collection in",
+
   "dso-selector.create.community.head": "New community",
 
   "dso-selector.create.community.sub-level": "Create a new community in",
@@ -1044,6 +1050,8 @@
   "dso-selector.create.community.top-level": "Create a new top-level community",
 
   "dso-selector.create.item.head": "New item",
+
+  "dso-selector.create.item.sub-level": "Create a new item in",
 
   "dso-selector.create.submission.head": "New submission",
 
@@ -1245,6 +1253,8 @@
 
 
   "home.description": "",
+
+  "home.breadcrumbs": "Home",
 
   "home.title": "DSpace Angular :: Home",
 
@@ -1672,6 +1682,8 @@
 
   "item.page.date": "Date",
 
+  "item.page.edit": "Edit this item",
+
   "item.page.files": "Files",
 
   "item.page.filesection.description": "Description:",
@@ -1778,6 +1790,8 @@
 
   "journal.page.description": "Description",
 
+  "journal.page.edit": "Edit this item",
+
   "journal.page.editor": "Editor-in-Chief",
 
   "journal.page.issn": "ISSN",
@@ -1796,6 +1810,8 @@
 
   "journalissue.page.description": "Description",
 
+  "journalissue.page.edit": "Edit this item",
+
   "journalissue.page.issuedate": "Issue Date",
 
   "journalissue.page.journal-issn": "Journal ISSN",
@@ -1813,6 +1829,8 @@
   "journalvolume.listelement.badge": "Journal Volume",
 
   "journalvolume.page.description": "Description",
+
+  "journalvolume.page.edit": "Edit this item",
 
   "journalvolume.page.issuedate": "Issue Date",
 
@@ -2176,6 +2194,8 @@
 
   "orgunit.page.description": "Description",
 
+  "orgunit.page.edit": "Edit this item",
+
   "orgunit.page.id": "ID",
 
   "orgunit.page.titleprefix": "Organizational Unit: ",
@@ -2194,7 +2214,11 @@
 
   "person.listelement.badge": "Person",
 
+  "person.listelement.no-title": "No name found",
+
   "person.page.birthdate": "Birth Date",
+
+  "person.page.edit": "Edit this item",
 
   "person.page.email": "Email Address",
 
@@ -2427,6 +2451,8 @@
 
   "project.page.description": "Description",
 
+  "project.page.edit": "Edit this item",
+
   "project.page.expectedcompletion": "Expected Completion",
 
   "project.page.funder": "Funders",
@@ -2446,6 +2472,8 @@
   "publication.listelement.badge": "Publication",
 
   "publication.page.description": "Description",
+
+  "publication.page.edit": "Edit this item",
 
   "publication.page.journal-issn": "Journal ISSN",
 

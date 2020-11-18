@@ -138,7 +138,7 @@ describe('ItemDeleteComponent', () => {
 
     routeStub = {
       data: observableOf({
-        item: createSuccessfulRemoteDataObject(mockItem)
+        dso: createSuccessfulRemoteDataObject(mockItem)
       })
     };
 
