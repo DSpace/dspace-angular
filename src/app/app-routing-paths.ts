@@ -61,6 +61,12 @@ export function getUnauthorizedRoute() {
   return `/${UNAUTHORIZED_PATH}`;
 }
 
+export const FORBIDDEN_PATH = '403';
+
+export function getForbiddenRoute() {
+  return `/${FORBIDDEN_PATH}`;
+}
+
 export const PAGE_NOT_FOUND_PATH = '404';
 
 export function getPageNotFoundRoute() {

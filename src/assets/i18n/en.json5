@@ -8,6 +8,14 @@
 
 
 
+  "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+
+  "403.link.home-page": "Take me to the home page",
+
+  "403.forbidden": "forbidden",
+
+
+
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
 
   "404.link.home-page": "Take me to the home page",

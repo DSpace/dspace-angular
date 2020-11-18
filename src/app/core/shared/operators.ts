@@ -13,8 +13,9 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { getPageNotFoundRoute, getUnauthorizedRoute } from '../../app-routing-paths';
+import { getForbiddenRoute, getPageNotFoundRoute, getUnauthorizedRoute } from '../../app-routing-paths';
 import { getEndUserAgreementPath } from '../../info/info-routing-paths';
+import { AuthService } from '../auth/auth.service';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
@@ -174,18 +175,29 @@ export const getAllSucceededRemoteListPayload = () =>
  * Operator that checks if a remote data object returned a 401 or 404 error
  * When it does contain such an error, it will redirect the user to the related error page, without altering the current URL
  * @param router The router used to navigate to a new page
+ * @param authService Service to check if the user is authenticated
  */
-export const redirectOn404Or401 = (router: Router) =>
+export const redirectOn4xx = (router: Router, authService: AuthService) =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    source.pipe(
-      tap((rd: RemoteData<T>) => {
+    observableCombineLatest(source, authService.isAuthenticated()).pipe(
+      map(([rd, isAuthenticated]: [RemoteData<T>, boolean]) => {
         if (rd.hasFailed) {
           if (rd.error.statusCode === 404) {
             router.navigateByUrl(getPageNotFoundRoute(), {skipLocationChange: true});
-          } else if (rd.error.statusCode === 401) {
-            router.navigateByUrl(getUnauthorizedRoute(), {skipLocationChange: true});
+          } else if (rd.error.statusCode === 403 || rd.error.statusCode === 401) {
+            if (isAuthenticated) {
+              if (rd.error.statusCode === 403) {
+                router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
+              } else if (rd.error.statusCode === 401) {
+                router.navigateByUrl(getUnauthorizedRoute(), {skipLocationChange: true});
+              }
+            } else {
+              authService.setRedirectUrl(router.url);
+              router.navigateByUrl('login');
+            }
           }
         }
+        return rd;
       }));
 
 /**

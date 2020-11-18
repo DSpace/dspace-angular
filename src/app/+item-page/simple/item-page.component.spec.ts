@@ -20,6 +20,7 @@ import {
   createFailedRemoteDataObject$, createPendingRemoteDataObject$, createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
+import { AuthService } from '../../core/auth/auth.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
@@ -30,6 +31,7 @@ const mockItem: Item = Object.assign(new Item(), {
 describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
+  let authService: AuthService;
 
   const mockMetadataService = {
     /* tslint:disable:no-empty */
@@ -41,6 +43,11 @@ describe('ItemPageComponent', () => {
   });
 
   beforeEach(async(() => {
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {}
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -53,7 +60,8 @@ describe('ItemPageComponent', () => {
         {provide: ActivatedRoute, useValue: mockRoute},
         {provide: ItemDataService, useValue: {}},
         {provide: MetadataService, useValue: mockMetadataService},
-        {provide: Router, useValue: {}}
+        {provide: Router, useValue: {}},
+        { provide: AuthService, useValue: authService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

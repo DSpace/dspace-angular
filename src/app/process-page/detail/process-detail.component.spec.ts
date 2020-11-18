@@ -15,6 +15,7 @@ import { ProcessDataService } from '../../core/data/processes/process-data.servi
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { AuthService } from '../../core/auth/auth.service';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
@@ -22,6 +23,7 @@ describe('ProcessDetailComponent', () => {
 
   let processService: ProcessDataService;
   let nameService: DSONameService;
+  let authService: AuthService;
 
   let process: Process;
   let fileName: string;
@@ -65,6 +67,10 @@ describe('ProcessDetailComponent', () => {
     nameService = jasmine.createSpyObj('nameService', {
       getName: fileName
     });
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {}
+    });
   }
 
   beforeEach(async(() => {
@@ -75,7 +81,8 @@ describe('ProcessDetailComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) } },
         { provide: ProcessDataService, useValue: processService },
-        { provide: DSONameService, useValue: nameService }
+        { provide: DSONameService, useValue: nameService },
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

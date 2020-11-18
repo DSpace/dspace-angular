@@ -14,6 +14,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 describe('ItemStatisticsPageComponent', () => {
 
@@ -59,6 +60,11 @@ describe('ItemStatisticsPageComponent', () => {
       getName: () => observableOf('test dso name'),
     };
 
+    const authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {}
+    });
+
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -75,6 +81,7 @@ describe('ItemStatisticsPageComponent', () => {
         { provide: UsageReportService, useValue: usageReportService },
         { provide: DSpaceObjectDataService, useValue: {} },
         { provide: DSONameService, useValue: nameService },
+        { provide: AuthService, useValue: authService },
       ],
     })
       .compileComponents();

@@ -4,12 +4,13 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { Process } from '../processes/process.model';
 import { map, switchMap } from 'rxjs/operators';
-import { getFirstSucceededRemoteDataPayload, redirectOn404Or401 } from '../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'ds-process-detail',
@@ -39,7 +40,8 @@ export class ProcessDetailComponent implements OnInit {
   constructor(protected route: ActivatedRoute,
               protected router: Router,
               protected processService: ProcessDataService,
-              protected nameService: DSONameService) {
+              protected nameService: DSONameService,
+              protected authService: AuthService) {
   }
 
   /**
@@ -49,7 +51,7 @@ export class ProcessDetailComponent implements OnInit {
   ngOnInit(): void {
     this.processRD$ = this.route.data.pipe(
       map((data) => data.process as RemoteData<Process>),
-      redirectOn404Or401(this.router)
+      redirectOn4xx(this.router, this.authService)
     );
 
     this.filesRD$ = this.processRD$.pipe(
