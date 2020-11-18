@@ -1963,19 +1963,31 @@
 
   "item.page.filesection.license.bundle" : "License bundle",
 
+  "item.preview.dc.description.tableOfContents" : "Table of Contents",
+
   "item.preview.dc.identifier.doi" : "DOI",
+
+  "item.preview.dc.publisher" : "Publisher",
 
   "item.preview.dc.relation.ispartof" : "Journal or Serie",
 
+  "item.preview.dc.identifier.isbn" : "ISBN",
+
   "item.preview.dc.identifier.uri": "Identifier:",
+
+  "item.preview.dc.contributor.advisor" : "Advisor",
 
   "item.preview.dc.contributor.author": "Authors:",
 
   "item.preview.dc.contributor.editor": "Editors:",
 
+  "item.preview.dc.date.embargoEnd" : "Embargo End",
+
   "item.preview.dc.date.issued": "Published date:",
 
   "item.preview.dc.description.abstract": "Abstract:",
+
+  "item.preview.dc.description.sponsorship" : "Sponsorship",
 
   "item.preview.dc.identifier.other": "Other identifier:",
 
@@ -1983,11 +1995,21 @@
 
   "item.preview.dc.language.iso": "Language:",
 
+  "item.preview.dc.relation.uri" : "Relation URI",
+
+  "item.preview.dc.rights" : "Rights",
+
+  "item.preview.dc.rights.uri" : "Rights URI",
+
   "item.preview.dc.subject": "Subjects:",
 
   "item.preview.dc.title": "Title:",
 
+  "item.preview.dc.title.alternative" : "Alternative Title",
+
   "item.preview.dc.type": "Type:",
+
+  "item.preview.dc.type.version" : "Version",
 
   "item.preview.dc.identifier": "Identifier:",
 
