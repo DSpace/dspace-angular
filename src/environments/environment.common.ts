@@ -13,10 +13,10 @@ export const environment: GlobalConfig = {
     port: 4000,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/',
-    // The rateLimiter settings limit each IP to a "max" of 120 requests per "windowMs" (1 minute).
+    // The rateLimiter settings limit each IP to a "max" of 500 requests per "windowMs" (1 minute).
     rateLimiter: {
       windowMs: 1 * 60 * 1000,   // 1 minute
-      max: 120 // limit each IP to 120 requests per windowMs
+      max: 500 // limit each IP to 500 requests per windowMs
     }
   },
   // The REST API server settings.
