@@ -81,8 +81,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     this.modalRef = this.modalService.open(SubmissionImportExternalCollectionComponent, {
       size: 'lg',
     });
-    this.modalRef.componentInstance.metadata = 'relationship.type';
-    this.modalRef.componentInstance.metadataValue = this.labelPrefix;
+    this.modalRef.componentInstance.entityType = this.labelPrefix;
     this.closeMetadataModal();
 
     this.modalRef.componentInstance.selectedEvent.pipe(
