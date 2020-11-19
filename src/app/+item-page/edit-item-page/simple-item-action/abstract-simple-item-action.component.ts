@@ -42,7 +42,7 @@ export class AbstractSimpleItemActionComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
-      map((data) => data.item),
+      map((data) => data.dso),
       getSucceededRemoteData()
     )as Observable<RemoteData<Item>>;
 

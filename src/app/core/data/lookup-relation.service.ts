@@ -1,6 +1,6 @@
 import { ExternalSourceService } from './external-source.service';
 import { SearchService } from '../shared/search/search.service';
-import { concat, map, multicast, startWith, take, takeWhile } from 'rxjs/operators';
+import { concat, distinctUntilChanged, map, multicast, startWith, take, takeWhile } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { RemoteData } from './remote-data';
@@ -91,7 +91,8 @@ export class LookupRelationService {
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       map((results: PaginatedList<ExternalSourceEntry>) => results.totalElements),
-      startWith(0)
+      startWith(0),
+      distinctUntilChanged()
     );
   }
 

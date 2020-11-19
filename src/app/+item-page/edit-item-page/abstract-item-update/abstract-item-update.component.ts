@@ -48,7 +48,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
   ngOnInit(): void {
     observableCombineLatest(this.route.data, this.route.parent.data).pipe(
       map(([data, parentData]) => Object.assign({}, data, parentData)),
-      map((data) => data.item),
+      map((data) => data.dso),
       first(),
       map((data: RemoteData<Item>) => data.payload)
     ).subscribe((item: Item) => {

@@ -37,7 +37,7 @@ describe('ItemPageComponent', () => {
     /* tslint:enable:no-empty */
   };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ item: createSuccessfulRemoteDataObject(mockItem) })
+    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
   });
 
   beforeEach(async(() => {

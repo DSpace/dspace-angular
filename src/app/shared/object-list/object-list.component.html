@@ -12,20 +12,16 @@
         (sortFieldChange)="onSortFieldChange($event)"
         (paginationChange)="onPaginationChange($event)">
     <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
-        <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4" [class.border-bottom]="hasBorder && !last">
-          <span *ngIf="selectable">
-                   <ds-selectable-list-item-control [index]="i"
-                                                    [object]="object"
-                                                    [selectionConfig]="selectionConfig"
-                                                    (deselectObject)="deselectObject.emit($event)"
-                                                    (selectObject)="selectObject.emit($event)"></ds-selectable-list-item-control>
-              </span>
-          <span *ngIf="importable">
-            <ds-importable-list-item-control  [object]="object"
-                                              [importConfig]="importConfig"
-                                              (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
-          </span>
-            <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
+        <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last">
+          <ds-selectable-list-item-control *ngIf="selectable" [index]="i"
+                                           [object]="object"
+                                           [selectionConfig]="selectionConfig"
+                                           (deselectObject)="deselectObject.emit($event)"
+                                           (selectObject)="selectObject.emit($event)"></ds-selectable-list-item-control>
+          <ds-importable-list-item-control *ngIf="importable" [object]="object"
+                                           [importConfig]="importConfig"
+                                           (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
+          <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
                                                  [listID]="selectionConfig?.listId"></ds-listable-object-component-loader>
         </li>
     </ul>

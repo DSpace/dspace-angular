@@ -102,8 +102,8 @@ export class RelationshipService extends DataService<Relationship> {
       ),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-      getResponseFromEntry(),
       tap(() => this.refreshRelationshipItemsInCacheByRelationship(id)),
+      getResponseFromEntry(),
     );
   }
 
@@ -129,9 +129,9 @@ export class RelationshipService extends DataService<Relationship> {
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, `${item1.self} \n ${item2.self}`, options)),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-      getResponseFromEntry(),
       tap(() => this.refreshRelationshipItemsInCache(item1)),
-      tap(() => this.refreshRelationshipItemsInCache(item2))
+      tap(() => this.refreshRelationshipItemsInCache(item2)),
+      getResponseFromEntry(),
     ) as Observable<RestResponse>;
   }
 
@@ -398,6 +398,20 @@ export class RelationshipService extends DataService<Relationship> {
           return this.update(updatedRelationship);
         }),
       );
+  }
+
+  /**
+   * Check whether a given item is the left item of a given relationship, as an observable boolean
+   * @param relationship  the relationship for which to check whether the given item is the left item
+   * @param item          the item for which to check whether it is the left item of the given relationship
+   */
+  public isLeftItem(relationship: Relationship, item: Item): Observable<boolean> {
+    return relationship.leftItem.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      filter((leftItem: Item) => hasValue(leftItem) && isNotEmpty(leftItem.uuid)),
+      map((leftItem) => leftItem.uuid === item.uuid)
+    );
   }
 
   /**

@@ -75,7 +75,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.item$ = this.route.data.pipe(
-      map((data) => data.item),
+      map((data) => data.dso),
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       map((item: Item) => this.linkService.resolveLink(
         item,

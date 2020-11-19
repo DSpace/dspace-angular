@@ -34,7 +34,7 @@ const mockItem: Item = Object.assign(new Item(), {
     }
 });
 const routeStub = Object.assign(new ActivatedRouteStub(), {
-  data: observableOf({ item: createSuccessfulRemoteDataObject(mockItem) })
+  data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
 });
 const metadataServiceStub = {
   /* tslint:disable:no-empty */

@@ -140,7 +140,7 @@ describe('ItemBitstreamsComponent', () => {
     });
     route = Object.assign({
       parent: {
-        data: observableOf({ item: createMockRD(item) })
+        data: observableOf({ dso: createMockRD(item) })
       },
       data: observableOf({}),
       url: url

@@ -74,7 +74,7 @@ describe('ItemAuthorizationsComponent test suite', () => {
 
   const routeStub = {
     data: observableOf({
-      item: createSuccessfulRemoteDataObject(item)
+      dso: createSuccessfulRemoteDataObject(item)
     })
   };
 
