@@ -7,13 +7,13 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { formObjectFromIdSelector } from './selectors';
 import { FormBuilderService } from './builder/form-builder.service';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import {DynamicFormControlEvent, DynamicFormControlModel} from '@ng-dynamic-forms/core';
 import { isEmpty, isNotUndefined } from '../empty.util';
 import { uniqueId } from 'lodash';
 import {
   FormChangeAction,
   FormInitAction,
-  FormRemoveAction, FormRemoveErrorAction,
+  FormRemoveAction, FormRemoveErrorAction, FormSetAdditionalAction,
   FormStatusChangeAction
 } from './form.actions';
 import { FormEntry } from './form.reducer';
@@ -47,6 +47,18 @@ export class FormService {
       select(formObjectFromIdSelector(formId)),
       filter((state) => isNotUndefined(state)),
       map((state) => state.data),
+      distinctUntilChanged()
+    );
+  }
+
+  /**
+   * Method to retrieve form's additional data from state
+   */
+  public getFormAdditionalData(formId: string): Observable<any> {
+    return this.store.pipe(
+      select(formObjectFromIdSelector(formId)),
+      filter((state) => isNotUndefined(state)),
+      map((state) => state.additional),
       distinctUntilChanged()
     );
   }
@@ -149,8 +161,8 @@ export class FormService {
     return (environment.form.validatorMap.hasOwnProperty(validator)) ? environment.form.validatorMap[validator] : validator;
   }
 
-  public initForm(formId: string, model: DynamicFormControlModel[], valid: boolean) {
-    this.store.dispatch(new FormInitAction(formId, this.formBuilderService.getValueFromModel(model), valid));
+  public initForm(formId: string, model: DynamicFormControlModel[], valid: boolean, additional?: any) {
+    this.store.dispatch(new FormInitAction(formId, this.formBuilderService.getValueFromModel(model), valid, additional));
   }
 
   public setStatusChanged(formId: string, valid: boolean) {
@@ -167,6 +179,11 @@ export class FormService {
 
   public changeForm(formId: string, model: DynamicFormControlModel[]) {
     this.store.dispatch(new FormChangeAction(formId, this.formBuilderService.getValueFromModel(model)));
+  }
+
+  public setTouched(formId: string, model: DynamicFormControlModel[], event: DynamicFormControlEvent) {
+    const ids = this.formBuilderService.getMetadataIdsFromEvent(event);
+    this.store.dispatch(new FormSetAdditionalAction(formId, { touched: ids}));
   }
 
   public removeError(formId: string, eventModelId: string, fieldIndex: number) {

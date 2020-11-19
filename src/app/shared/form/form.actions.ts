@@ -13,6 +13,7 @@ import { type } from '../ngrx/type';
 export const FormActionTypes = {
   FORM_INIT: type('dspace/form/FORM_INIT'),
   FORM_CHANGE: type('dspace/form/FORM_CHANGE'),
+  FORM_ADDITIONAL: type('dspace/form/FORM_ADDITIONAL'),
   FORM_REMOVE: type('dspace/form/FORM_REMOVE'),
   FORM_STATUS_CHANGE: type('dspace/form/FORM_STATUS_CHANGE'),
   FORM_ADD_ERROR: type('dspace/form/FORM_ADD_ERROR'),
@@ -27,6 +28,7 @@ export class FormInitAction implements Action {
     formId: string;
     formData: any;
     valid: boolean;
+    formAdditional: any;
   };
 
   /**
@@ -39,8 +41,8 @@ export class FormInitAction implements Action {
    * @param valid
    *    the Form validation status
    */
-  constructor(formId: string, formData: any, valid: boolean) {
-    this.payload = {formId, formData, valid};
+  constructor(formId: string, formData: any, valid: boolean, formAdditional?: any) {
+    this.payload = {formId, formData, valid, formAdditional};
   }
 }
 
@@ -52,7 +54,7 @@ export class FormChangeAction implements Action {
   };
 
   /**
-   * Create a new FormInitAction
+   * Create a new FormChangeAction
    *
    * @param formId
    *    the Form's ID
@@ -61,6 +63,26 @@ export class FormChangeAction implements Action {
    */
   constructor(formId: string, formData: any) {
     this.payload = {formId, formData};
+  }
+}
+
+export class FormSetAdditionalAction implements Action {
+  type = FormActionTypes.FORM_ADDITIONAL;
+  payload: {
+    formId: string;
+    additionalData: any;
+  };
+
+  /**
+   * Create a new FormSetAdditionalAction
+   *
+   * @param formId
+   *    the Form's ID
+   * @param additionalData
+   *    the additionalData Object
+   */
+  constructor(formId: string, additionalData: any) {
+    this.payload = {formId, additionalData};
   }
 }
 
@@ -147,6 +169,7 @@ export class FormClearErrorsAction implements Action {
  */
 export type FormAction = FormInitAction
   | FormChangeAction
+  | FormSetAdditionalAction
   | FormRemoveAction
   | FormStatusChangeAction
   | FormAddError

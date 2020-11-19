@@ -206,6 +206,7 @@ export class UpdateSectionDataAction implements Action {
     sectionId: string;
     data: WorkspaceitemSectionDataType;
     errors: SubmissionSectionError[];
+    metadata: string[];
   };
 
   /**
@@ -219,12 +220,15 @@ export class UpdateSectionDataAction implements Action {
    *    the section's data
    * @param errors
    *    the section's errors
+   * @param metadata
+   *    the section's metadata
    */
   constructor(submissionId: string,
               sectionId: string,
               data: WorkspaceitemSectionDataType,
-              errors: SubmissionSectionError[]) {
-    this.payload = { submissionId, sectionId, data, errors };
+              errors: SubmissionSectionError[],
+              metadata?: string[]) {
+    this.payload = { submissionId, sectionId, data, errors, metadata };
   }
 }
 

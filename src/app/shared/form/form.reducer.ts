@@ -5,7 +5,7 @@ import {
   FormChangeAction, FormClearErrorsAction,
   FormInitAction,
   FormRemoveAction,
-  FormRemoveErrorAction,
+  FormRemoveErrorAction, FormSetAdditionalAction,
   FormStatusChangeAction
 } from './form.actions';
 import { hasValue } from '../empty.util';
@@ -21,6 +21,7 @@ export interface FormEntry {
   data: any;
   valid: boolean;
   errors: FormError[];
+  additional: any;
 }
 
 export interface FormState {
@@ -38,6 +39,10 @@ export function formReducer(state = initialState, action: FormAction): FormState
 
     case FormActionTypes.FORM_CHANGE: {
       return changeDataForm(state, action as FormChangeAction);
+    }
+
+    case FormActionTypes.FORM_ADDITIONAL: {
+      return additionalData(state, action as FormSetAdditionalAction);
     }
 
     case FormActionTypes.FORM_REMOVE: {
@@ -127,7 +132,8 @@ function initForm(state: FormState, action: FormInitAction): FormState {
   const formState = {
     data: action.payload.formData,
     valid: action.payload.valid,
-    errors: []
+    errors: [],
+    additional: action.payload.formAdditional
   };
   if (!hasValue(state[action.payload.formId])) {
     return Object.assign({}, state, {
@@ -207,6 +213,33 @@ function removeForm(state: FormState, action: FormRemoveAction): FormState {
   if (hasValue(state[action.payload.formId])) {
     const newState = Object.assign({}, state);
     delete newState[action.payload.formId];
+    return newState;
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Compute the additional data state of the form. New touched fields are merged with the previous ones.
+ * @param state
+ * @param action
+ */
+function additionalData(state: FormState, action: FormSetAdditionalAction): FormState {
+  if (hasValue(state[action.payload.formId])) {
+
+    const newState = Object.assign({}, state);
+
+    const newAdditional = newState[action.payload.formId].additional ? {...newState[action.payload.formId].additional} : {};
+
+    const newTouchedValue = newAdditional.touched ? {...newAdditional.touched,
+      ...action.payload.additionalData.touched} : { ...action.payload.additionalData.touched};
+    newAdditional.touched = newTouchedValue;
+
+    newState[action.payload.formId] = Object.assign({}, newState[action.payload.formId], {
+        additional: newAdditional
+      }
+    );
+
     return newState;
   } else {
     return state;

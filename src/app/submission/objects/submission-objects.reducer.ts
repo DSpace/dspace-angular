@@ -86,6 +86,11 @@ export interface SubmissionSectionObject {
   enabled: boolean;
 
   /**
+   * The list of the metadata ids of the section.
+   */
+  metadata: string[];
+
+  /**
    * The section data object
    */
   data: WorkspaceitemSectionDataType;
@@ -660,7 +665,8 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
           [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
             enabled: true,
             data: action.payload.data,
-            errors: action.payload.errors
+            errors: action.payload.errors,
+            metadata: reduceSectionMetadata(action.payload.metadata, state[ action.payload.submissionId ].sections [ action.payload.sectionId ].metadata)
           })
         })
       })
@@ -668,6 +674,22 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
   } else {
     return state;
   }
+}
+
+/**
+ * Updates the state of the section metadata only when a new value is provided.
+ * Keep the existent otherwise.
+ * @param newMetadata
+ * @param oldMetadata
+ */
+function reduceSectionMetadata(newMetadata: string[], oldMetadata: string[]) {
+  if (newMetadata) {
+    return newMetadata;
+  }
+  if (oldMetadata) {
+    return [...oldMetadata];
+  }
+  return undefined;
 }
 
 /**
