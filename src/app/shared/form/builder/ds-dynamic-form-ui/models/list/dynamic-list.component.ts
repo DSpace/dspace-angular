@@ -99,7 +99,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
         this.model.valueUpdates.next(newValue);
       }
     } else {
-      (this.model as DynamicListRadioGroupModel).valueUpdates.next(this.optionsList[target.value]);
+      (this.model as DynamicListRadioGroupModel).value = this.optionsList[target.value];
     }
     this.change.emit(event);
   }

@@ -127,11 +127,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
     const model = this.formBuilderService.findById('granted', this.formModel);
 
     // Retrieve license accepted status
-    if ((this.sectionData.data as WorkspaceitemSectionLicenseObject).granted) {
-      (model as DynamicCheckboxModel).valueUpdates.next(true);
-    } else {
-      (model as DynamicCheckboxModel).valueUpdates.next(false);
-    }
+    (model as DynamicCheckboxModel).value = (this.sectionData.data as WorkspaceitemSectionLicenseObject).granted;
 
     this.licenseText$ = this.collectionDataService.findById(this.collectionId, followLink('license')).pipe(
       filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
@@ -149,7 +145,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
         take(1),
         filter((isReadOnly) => isReadOnly))
         .subscribe(() => {
-          model.disabledUpdates.next(true);
+          model.disabled = true;
         }),
 
       this.sectionService.getSectionErrors(this.submissionId, this.sectionData.id).pipe(
@@ -192,7 +188,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
    */
   protected getSectionStatus(): Observable<boolean> {
     const model = this.formBuilderService.findById('granted', this.formModel);
-    return (model as DynamicCheckboxModel).valueUpdates.pipe(
+    return (model as DynamicCheckboxModel).valueChanges.pipe(
       map((value) => value === true),
       startWith((model as DynamicCheckboxModel).value));
   }

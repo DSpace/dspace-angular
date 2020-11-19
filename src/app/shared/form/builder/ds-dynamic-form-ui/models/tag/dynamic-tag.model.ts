@@ -21,7 +21,7 @@ export class DynamicTagModel extends DsDynamicInputModel {
     this.autoComplete = AUTOCOMPLETE_OFF;
     this.minChars = config.minChars || 3;
     const value = config.value || [];
-    this.valueUpdates.next(value);
+    this.value = value;
   }
 
 }

@@ -23,6 +23,6 @@ export class DynamicDisabledModel extends DsDynamicInputModel {
     this.disabled = true;
     this.hasSelectableMetadata = config.hasSelectableMetadata;
 
-    this.valueUpdates.next(config.value);
+    this.value = config.value;
   }
 }

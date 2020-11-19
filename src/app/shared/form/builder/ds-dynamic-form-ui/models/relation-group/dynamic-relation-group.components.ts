@@ -74,7 +74,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     if (!this.model.isEmpty()) {
       this.formCollapsed = observableOf(true);
     }
-    this.model.valueUpdates.subscribe((value: any[]) => {
+    this.model.valueChanges.subscribe((value: any[]) => {
       if ((isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0])))) {
         this.collapseForm();
       } else {
@@ -124,7 +124,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
 
         const nextValue = (this.formBuilderService.isInputModel(model) && isNotNull(value) && (typeof value !== 'string')) ?
           value.value : value;
-        model.valueUpdates.next(nextValue);
+        model.value = nextValue;
 
       });
     });
@@ -276,7 +276,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
         }, []),
         filter((modelValues: any[]) => this.model.value.length === modelValues.length)
       ).subscribe((modelValue) => {
-        this.model.valueUpdates.next(modelValue);
+        this.model.value = modelValue;
         this.initChips(modelValue);
         this.cdr.markForCheck();
       }));
@@ -296,7 +296,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           // Does not emit change if model value is equal to the current value
           if (!isEqual(items, this.model.value)) {
             if (!(isEmpty(items) && this.model.isEmpty())) {
-              this.model.valueUpdates.next(items);
+              this.model.value = items;
               this.change.emit();
             }
           }

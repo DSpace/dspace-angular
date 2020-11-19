@@ -21,6 +21,6 @@ export class DynamicLookupModel extends DsDynamicInputModel {
     this.autoComplete = AUTOCOMPLETE_OFF;
     this.maxOptions = config.maxOptions || 10;
 
-    this.valueUpdates.next(config.value);
+    this.value = config.value;
   }
 }
