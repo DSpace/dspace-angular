@@ -1,7 +1,7 @@
 import { NgZone } from '@angular/core';
 import { FindListOptions } from '../core/data/request.models';
 import { CommunityListService, FlatNode } from './community-list-service';
-import { CollectionViewer, DataSource } from '@angular/cdk/typings/collections';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, } from 'rxjs';
 import { finalize, take, } from 'rxjs/operators';
 
