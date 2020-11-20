@@ -8,13 +8,13 @@
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
-    <ng-container *ngIf="!mediaViewer.enable">
+    <ng-container *ngIf="!mediaViewer.image">
     
       <ds-metadata-field-wrapper>
         <ds-thumbnail [thumbnail]="getThumbnail() | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
     </ng-container>
-    <ng-container *ngIf="mediaViewer.enable">
+    <ng-container *ngIf="mediaViewer.image">
       <ds-media-viewer [item]="object" [imageOptions]="mediaViewer.image" [videoOptions]="mediaViewer.video"></ds-media-viewer>
     </ng-container>
     <ds-item-page-file-section [item]="object"></ds-item-page-file-section>

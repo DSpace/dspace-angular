@@ -223,7 +223,6 @@ export const environment: GlobalConfig = {
   // Whether the UI should rewrite file download URLs to match its domain. Only necessary to enable when running UI and REST API on separate domains
   rewriteDownloadUrls: false,
   mediaViewer: {
-    enable: true,
     image: true,
     video: true,
   },
