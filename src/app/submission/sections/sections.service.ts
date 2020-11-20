@@ -15,6 +15,7 @@ import {
   InertSectionErrorsAction,
   RemoveSectionErrorsAction,
   SectionStatusChangeAction,
+  SetSectionFormId,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
 import {
@@ -133,6 +134,18 @@ export class SectionsService {
    */
   public dispatchRemoveSectionErrors(submissionId, sectionId) {
     this.store.dispatch(new RemoveSectionErrorsAction(submissionId, sectionId));
+  }
+
+  /**
+   * Dispatch a new [SetSectionFormId]
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param formId
+   *    The form id
+   */
+  public dispatchSetSectionFormId(submissionId, sectionId, formId) {
+    this.store.dispatch(new SetSectionFormId(submissionId, sectionId, formId));
   }
 
   /**

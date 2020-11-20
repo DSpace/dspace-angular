@@ -133,7 +133,7 @@ function initForm(state: FormState, action: FormInitAction): FormState {
     data: action.payload.formData,
     valid: action.payload.valid,
     errors: [],
-    additional: action.payload.formAdditional
+    additional: action.payload.formAdditional ? action.payload.formAdditional : {}
   };
   if (!hasValue(state[action.payload.formId])) {
     return Object.assign({}, state, {

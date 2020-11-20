@@ -328,7 +328,7 @@ export class FormBuilderService extends DynamicFormService {
       model = model.parent as any;
     }
 
-    const iterateControlModels = (findGroupModel: DynamicFormControlModel[], controlModelIndex: number = 0): void => {
+    const iterateControlModels = (findGroupModel: DynamicFormControlModel[], controlModelIndex: number = 0): string[] => {
       let iterateResult = Object.create({});
 
       // Iterate over all group's controls

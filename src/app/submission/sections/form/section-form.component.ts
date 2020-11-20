@@ -13,7 +13,7 @@ import {
   tap
 } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { isEqual } from 'lodash';
+import { isEqual, findIndex } from 'lodash';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -102,12 +102,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   protected formData: any = Object.create({});
 
   /**
-   * Store the current form additional data
-   * @protected
-   */
-  protected formAdditionalData: any = Object.create({});
-
-  /**
    * Store the
    * @protected
    */
@@ -186,8 +180,14 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   onSectionInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.formId = this.formService.getUniqueId(this.sectionData.id);
+<<<<<<< HEAD
     this.formConfigService.findByHref(this.sectionData.config).pipe(
       map((configData: RemoteData<ConfigObject>) => configData.payload),
+=======
+    this.sectionService.dispatchSetSectionFormId(this.submissionId, this.sectionData.id, this.formId);
+    this.formConfigService.getConfigByHref(this.sectionData.config).pipe(
+      map((configData: ConfigData) => configData.payload),
+>>>>>>> [835] Auto-save in new Item Submission form breaks the form
       tap((config: SubmissionFormsModel) => this.formConfig = config),
       flatMap(() =>
         observableCombineLatest(
@@ -265,7 +265,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
     Object.keys(diffObj)
       .forEach((key) => {
         diffObj[key].forEach((value) => {
-          if (value.hasOwnProperty('value') && !isEmpty(value.value)) {
+          if (value.hasOwnProperty('value') && findIndex(this.formData[key], { value: value.value }) < 0) {
             diffResult.push(value);
           }
         });
@@ -288,7 +288,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         sectionData,
         this.submissionService.getSubmissionScope()
       );
-      this.formBuilderService.enrichWithAdditionalData(this.formModel, this.formAdditionalData);
       this.sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
 
     } catch (e) {
@@ -341,9 +340,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
     this.formService.isFormInitialized(this.formId).pipe(
       find((status: boolean) => status === true && !this.isUpdating))
       .subscribe(() => {
-
-        // TODO: filter these errors to only those that had been touched
-
         this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors, this.sectionData.errors);
         this.sectionData.errors = errors;
         this.cdr.detectChanges();
@@ -362,12 +358,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         distinctUntilChanged())
         .subscribe((formData) => {
           this.formData = formData;
-        }),
-
-      this.formService.getFormAdditionalData(this.formId).pipe(
-        distinctUntilChanged())
-        .subscribe((formAdditional) => {
-          this.formAdditionalData = formAdditional;
         }),
 
       /**

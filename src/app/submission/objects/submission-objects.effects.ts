@@ -52,12 +52,13 @@ import {
   UpdateSectionDataAction,
   UpdateSectionDataSuccessAction
 } from './submission-objects.actions';
-import { SubmissionObjectEntry, SubmissionSectionObject } from './submission-objects.reducer';
+import {SubmissionObjectEntry, SubmissionSectionError, SubmissionSectionObject} from './submission-objects.reducer';
 import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import parseSectionErrorPaths, {SectionErrorPath} from '../utils/parseSectionErrorPaths';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -157,7 +158,8 @@ export class SubmissionObjectEffects {
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS),
     withLatestFrom(this.store$),
     map(([action, currentState]: [SaveSubmissionFormSuccessAction, any]) => {
-      return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], action.payload.submissionObject, action.payload.submissionId, action.payload.notify);
+      return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId],
+        action.payload.submissionObject, action.payload.submissionId, currentState.forms, action.payload.notify);
     }),
     mergeMap((actions) => observableFrom(actions)));
 
@@ -169,7 +171,8 @@ export class SubmissionObjectEffects {
     ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS),
     withLatestFrom(this.store$),
     map(([action, currentState]: [SaveSubmissionSectionFormSuccessAction, any]) => {
-      return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], action.payload.submissionObject, action.payload.submissionId, false);
+      return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId],
+        action.payload.submissionObject, action.payload.submissionId, currentState.forms, false);
     }),
     mergeMap((actions) => observableFrom(actions)));
 
@@ -212,7 +215,8 @@ export class SubmissionObjectEffects {
             return new DepositSubmissionAction(action.payload.submissionId);
           } else {
             this.notificationsService.warning(null, this.translate.get('submission.sections.general.sections_not_valid'));
-            return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], response, action.payload.submissionId);
+            return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId],
+              response, action.payload.submissionId, currentState.forms);
           }
         }),
         catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
@@ -365,6 +369,7 @@ export class SubmissionObjectEffects {
     currentState: SubmissionObjectEntry,
     response: SubmissionObject[],
     submissionId: string,
+    forms,
     notify: boolean = true): SubmissionObjectAction[] {
 
     const mappedActions = [];
@@ -404,10 +409,42 @@ export class SubmissionObjectEffects {
           if (notify && !currentState.sections[sectionId].enabled) {
             this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
           }
-          mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
+
+          const sectionForm = forms[currentState.sections[sectionId].formId];
+          const filteredErrors = filterErrors(sectionForm, sectionErrors, currentState.sections[sectionId].sectionType, notify);
+
+          mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, filteredErrors));
         }
       });
     }
     return mappedActions;
   }
+}
+
+/**
+ * Filter sectionErrors accordingly to this rules:
+ * 1. if notifications are enabled return all errors
+ * 2. if sectionType is different from submission-form return all errors
+ * 3. otherwise return errors only for those fields marked as touched inside the section form
+ * @param sectionForm
+ * @param sectionErrors
+ * @param notify
+ */
+function filterErrors(sectionForm, sectionErrors, sectionType, notify): any {
+  if (notify || sectionType !== SectionsType.SubmissionForm) {
+    return sectionErrors;
+  }
+  if (!sectionForm || !sectionForm.additional || !sectionForm.additional.touched) {
+    return [];
+  }
+  const filteredErrors = [];
+  sectionErrors.forEach((error: SubmissionSectionError) => {
+    const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
+    errorPaths.forEach((path: SectionErrorPath) => {
+      if (path.fieldId && sectionForm.additional.touched[path.fieldId]) {
+        filteredErrors.push(error);
+      }
+    });
+  });
+  return filteredErrors;
 }

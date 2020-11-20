@@ -161,8 +161,8 @@ export class FormService {
     return (environment.form.validatorMap.hasOwnProperty(validator)) ? environment.form.validatorMap[validator] : validator;
   }
 
-  public initForm(formId: string, model: DynamicFormControlModel[], valid: boolean, additional?: any) {
-    this.store.dispatch(new FormInitAction(formId, this.formBuilderService.getValueFromModel(model), valid, additional));
+  public initForm(formId: string, model: DynamicFormControlModel[], valid: boolean) {
+    this.store.dispatch(new FormInitAction(formId, this.formBuilderService.getValueFromModel(model), valid));
   }
 
   public setStatusChanged(formId: string, valid: boolean) {

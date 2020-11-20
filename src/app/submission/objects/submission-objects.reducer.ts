@@ -30,6 +30,7 @@ import {
   SaveSubmissionSectionFormSuccessAction,
   SectionStatusChangeAction,
   SetActiveSectionAction,
+  SetSectionFormId,
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction
@@ -109,6 +110,11 @@ export interface SubmissionSectionObject {
    * A boolean representing if this section is valid
    */
   isValid: boolean;
+
+  /**
+   * The formId related to this section
+   */
+  formId: string;
 }
 
 /**
@@ -261,6 +267,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.INIT_SECTION: {
       return initSection(state, action as InitSectionAction);
+    }
+
+    case SubmissionObjectActionTypes.SET_SECTION_FORM_ID: {
+      return setSectionFormId(state, action as SetSectionFormId);
     }
 
     case SubmissionObjectActionTypes.ENABLE_SECTION: {
@@ -637,6 +647,33 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
             errors: action.payload.errors || [],
             isLoading: false,
             isValid: false
+          }
+        })
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Set a section form id.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an SetSectionFormId
+ * @return SubmissionObjectState
+ *    the new state
+ */
+function setSectionFormId(state: SubmissionObjectState, action: SetSectionFormId): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
+          [ action.payload.sectionId ]: {
+            ...state[ action.payload.submissionId ].sections [action.payload.sectionId],
+            formId: action.payload.formId
           }
         })
       })
