@@ -220,14 +220,14 @@ describe('SubmissionSectionformComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionformComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      sectionsServiceStub = TestBed.get(SectionsService);
-      formService = TestBed.get(FormService);
-      formConfigService = TestBed.get(SubmissionFormsConfigService);
-      formBuilderService = TestBed.get(FormBuilderService);
-      formOperationsService = TestBed.get(SectionFormOperationsService);
-      translateService = TestBed.get(TranslateService);
-      notificationsServiceStub = TestBed.get(NotificationsService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      sectionsServiceStub = TestBed.inject(SectionsService as any);
+      formService = TestBed.inject(FormService);
+      formConfigService = TestBed.inject(SubmissionFormsConfigService);
+      formBuilderService = TestBed.inject(FormBuilderService);
+      formOperationsService = TestBed.inject(SectionFormOperationsService);
+      translateService = TestBed.inject(TranslateService);
+      notificationsServiceStub = TestBed.inject(NotificationsService as any);
 
       translateService.get.and.returnValue(observableOf('test'));
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);

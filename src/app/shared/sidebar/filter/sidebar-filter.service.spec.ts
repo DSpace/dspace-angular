@@ -52,7 +52,7 @@ describe('SidebarFilterService', () => {
   }));
 
   beforeEach(() => {
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
     service = new SidebarFilterService(store);
     selectSpy = spyOnProperty(ngrx, 'select').and.callThrough();
     spyOn(store, 'dispatch');

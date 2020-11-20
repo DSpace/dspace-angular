@@ -113,7 +113,7 @@ describe('EpersonGroupListComponent test suite', () => {
     beforeEach(() => {
       // initTestScheduler();
       fixture = TestBed.createComponent(EpersonGroupListComponent);
-      epersonService = TestBed.get(EPersonDataService);
+      epersonService = TestBed.inject(EPersonDataService);
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       comp.isListOfEPerson = true;
@@ -190,7 +190,7 @@ describe('EpersonGroupListComponent test suite', () => {
     beforeEach(() => {
       // initTestScheduler();
       fixture = TestBed.createComponent(EpersonGroupListComponent);
-      groupService = TestBed.get(GroupDataService);
+      groupService = TestBed.inject(GroupDataService);
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       comp.isListOfEPerson = false;

@@ -31,7 +31,7 @@ describe('AuthResponseParsingService', () => {
   }));
 
   beforeEach(() => {
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
     linkServiceStub = jasmine.createSpyObj({
       removeResolvedLinks: {}
     });

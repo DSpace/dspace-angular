@@ -110,8 +110,8 @@ describe('SubmissionFormSectionAddComponent Component', () => {
       fixture = TestBed.createComponent(SubmissionFormSectionAddComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      sectionsServiceStub = TestBed.get(SectionsService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      sectionsServiceStub = TestBed.inject(SectionsService as any);
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;
 

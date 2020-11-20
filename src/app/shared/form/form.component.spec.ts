@@ -191,7 +191,7 @@ describe('FormComponent test suite', () => {
     beforeEach(() => {
 
       formFixture = TestBed.createComponent(FormComponent);
-      store = TestBed.get(Store);
+      store = TestBed.inject(Store as any);
       formComp = formFixture.componentInstance; // FormComponent test instance
       formComp.formId = 'testForm';
       formComp.formModel = TEST_FORM_MODEL;
@@ -382,7 +382,7 @@ describe('FormComponent test suite', () => {
     init();
     beforeEach(() => {
       formFixture = TestBed.createComponent(FormComponent);
-      store = TestBed.get(Store);
+      store = TestBed.inject(Store as any);
       formComp = formFixture.componentInstance; // FormComponent test instance
       formComp.formId = 'testFormArray';
       formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;

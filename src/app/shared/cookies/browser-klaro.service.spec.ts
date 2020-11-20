@@ -67,7 +67,7 @@ describe('BrowserKlaroService', () => {
         }
       ]
     });
-    service = TestBed.get(BrowserKlaroService);
+    service = TestBed.inject(BrowserKlaroService);
     appName = 'testName';
     purpose = 'test purpose';
     testKey = 'this.is.a.fake.message.key';

@@ -100,7 +100,7 @@ describe('WorkspaceitemActionsComponent', () => {
     fixture = TestBed.createComponent(WorkspaceitemActionsComponent);
     component = fixture.componentInstance;
     component.object = mockObject;
-    notificationsServiceStub = TestBed.get(NotificationsService);
+    notificationsServiceStub = TestBed.inject(NotificationsService as any);
     fixture.detectChanges();
   });
 

@@ -64,7 +64,7 @@ describe('GroupSearchBoxComponent test suite', () => {
     beforeEach(() => {
       // initTestScheduler();
       fixture = TestBed.createComponent(GroupSearchBoxComponent);
-      formBuilder = TestBed.get(FormBuilder);
+      formBuilder = TestBed.inject(FormBuilder);
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
     });

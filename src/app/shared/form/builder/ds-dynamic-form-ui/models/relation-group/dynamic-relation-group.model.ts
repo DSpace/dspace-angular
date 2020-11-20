@@ -41,13 +41,9 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
     this.value = value;
   }
 
-  get value() {
-    return this.value
-  }
-
-  set value(value) {
-    this.value = (isEmpty(value)) ? null : value;
-  }
+/*  get value() {
+    return (isEmpty(this.value)) ? null : this.value
+  }*/
 
   isEmpty() {
     const value = this.getGroupValue();
@@ -67,6 +63,6 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
         });
       return [emptyItem];
     }
-    return this.value
+    return this.value as any[]
   }
 }

@@ -34,9 +34,9 @@ describe(`LocaleInterceptor`, () => {
       ],
     });
 
-    service = TestBed.get(DSpaceRESTv2Service);
-    httpMock = TestBed.get(HttpTestingController);
-    localeService = TestBed.get(LocaleService);
+    service = TestBed.inject(DSpaceRESTv2Service);
+    httpMock = TestBed.inject(HttpTestingController);
+    localeService = TestBed.inject(LocaleService);
 
     localeService.getCurrentLanguageCode.and.returnValue('en')
   });

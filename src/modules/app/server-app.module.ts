@@ -24,9 +24,8 @@ import { SubmissionService } from '../../app/submission/submission.service';
 import { ServerSubmissionService } from '../../app/submission/server-submission.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
-import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
-import { ServerLocaleService } from 'src/app/core/locale/server-locale.service';
-import { LocaleService } from 'src/app/core/locale/locale.service';
+import { ServerLocaleService } from '../../app/core/locale/server-locale.service';
+import { LocaleService } from '../../app/core/locale/locale.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ForwardClientIpInterceptor } from '../../app/core/forward-client-ip/forward-client-ip.interceptor';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
@@ -39,7 +38,6 @@ export function createTranslateLoader() {
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
-    ModuleMapLoaderModule,
     BrowserModule.withServerTransition({
       appId: 'dspace-angular'
     }),

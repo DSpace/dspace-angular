@@ -116,7 +116,7 @@ describe('RelationshipEffects', () => {
   }));
 
   beforeEach(() => {
-    relationEffects = TestBed.get(RelationshipEffects);
+    relationEffects = TestBed.inject(RelationshipEffects);
     identifier = (relationEffects as any).createIdentifier(leftItem, rightItem, relationshipType.leftwardType);
   });
 

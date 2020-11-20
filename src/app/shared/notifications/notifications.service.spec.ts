@@ -55,7 +55,7 @@ describe('NotificationsService test', () => {
       ]
     });
 
-    service = TestBed.get(NotificationsService);
+    service = TestBed.inject(NotificationsService);
   });
 
   it('Success method should dispatch NewNotificationAction with proper parameter', () => {

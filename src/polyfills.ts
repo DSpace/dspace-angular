@@ -62,3 +62,8 @@ import 'core-js/features/reflect';
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 import 'reflect-metadata';
+
+/******************************************************************
+ * Load `$localize` - used if i18n tags appear in Angular templates.
+ */
+import '@angular/localize/init';

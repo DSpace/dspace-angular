@@ -195,7 +195,7 @@ describe('CommunityListService', () => {
         { provide: Store, useValue: StoreMock },
       ],
     });
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store as any);
     service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub, store);
   });
 

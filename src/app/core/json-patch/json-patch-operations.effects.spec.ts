@@ -32,7 +32,7 @@ describe('JsonPatchOperationsEffects test suite', () => {
       ],
     });
 
-    jsonPatchOperationsEffects = TestBed.get(JsonPatchOperationsEffects);
+    jsonPatchOperationsEffects = TestBed.inject(JsonPatchOperationsEffects);
   });
 
   describe('commit$', () => {

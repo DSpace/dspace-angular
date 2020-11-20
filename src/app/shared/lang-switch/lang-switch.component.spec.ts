@@ -80,13 +80,13 @@ describe('LangSwitchComponent', () => {
         ]
       }).compileComponents()
         .then(() => {
-          translate = TestBed.get(TranslateService);
+          translate = TestBed.inject(TranslateService);
           translate.addLangs(mockConfig.languages.filter((langConfig: LangConfig) => langConfig.active === true).map((a) => a.code));
           translate.setDefaultLang('en');
           translate.use('en');
-          http = TestBed.get(HttpTestingController);
+          http = TestBed.inject(HttpTestingController);
           fixture = TestBed.createComponent(LangSwitchComponent);
-          localService = TestBed.get(LocaleService);
+          localService = TestBed.inject(LocaleService);
           component = fixture.componentInstance;
           de = fixture.debugElement;
           langSwitchElement = de.nativeElement;
@@ -165,11 +165,11 @@ describe('LangSwitchComponent', () => {
           { provide: LocaleService, useValue: getMockLocaleService() }
         ]
       }).compileComponents();
-      translate = TestBed.get(TranslateService);
+      translate = TestBed.inject(TranslateService);
       translate.addLangs(mockConfig.languages.filter((MyLangConfig) => MyLangConfig.active === true).map((a) => a.code));
       translate.setDefaultLang('en');
       translate.use('en');
-      http = TestBed.get(HttpTestingController);
+      http = TestBed.inject(HttpTestingController);
     }));
 
     beforeEach(() => {

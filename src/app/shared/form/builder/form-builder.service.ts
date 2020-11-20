@@ -88,7 +88,7 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         if (controlModel.hasOwnProperty('valueUpdates')) {
-          (controlModel as any).valueUpdates.next(undefined);
+          (controlModel as any).value = undefined;
         }
       }
     };

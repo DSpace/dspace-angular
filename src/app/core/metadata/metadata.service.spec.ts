@@ -179,14 +179,14 @@ describe('MetadataService', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
-    meta = TestBed.get(Meta);
-    title = TestBed.get(Title);
-    itemDataService = TestBed.get(ItemDataService);
-    metadataService = TestBed.get(MetadataService);
-    authService = TestBed.get(AuthService);
+    meta = TestBed.inject(Meta);
+    title = TestBed.inject(Title);
+    itemDataService = TestBed.inject(ItemDataService);
+    metadataService = TestBed.inject(MetadataService);
+    authService = TestBed.inject(AuthService);
 
-    router = TestBed.get(Router);
-    location = TestBed.get(Location);
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
 
     fixture = TestBed.createComponent(TestComponent);
 

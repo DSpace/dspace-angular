@@ -42,8 +42,8 @@ describe(`AuthInterceptor`, () => {
       ],
     });
 
-    service = TestBed.get(DSpaceRESTv2Service);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(DSpaceRESTv2Service);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   describe('when has a valid token', () => {

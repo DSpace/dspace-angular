@@ -29,8 +29,8 @@ describe('ForwardClientIpInterceptor', () => {
       ],
     });
 
-    service = TestBed.get(DSpaceRESTv2Service);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(DSpaceRESTv2Service);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('should add an X-Forwarded-For header matching the client\'s IP', () => {

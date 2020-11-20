@@ -66,7 +66,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
       this.setCurrentValue(this.model.value, true);
     }
 
-    this.subs.push(this.model.valueUpdates
+    this.subs.push(this.model.valueChanges
       .subscribe((value) => {
         if (isEmpty(value)) {
           this.resetFields();

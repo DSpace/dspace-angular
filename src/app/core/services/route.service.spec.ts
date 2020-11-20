@@ -53,7 +53,7 @@ describe('RouteService', () => {
   }));
 
   beforeEach(() => {
-    service = new RouteService(TestBed.get(ActivatedRoute), TestBed.get(Router), TestBed.get(Store));
+    service = new RouteService(TestBed.inject(ActivatedRoute), TestBed.inject(Router), TestBed.inject(Store));
     serviceAsAny = service;
   });
 

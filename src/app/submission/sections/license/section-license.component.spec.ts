@@ -180,12 +180,12 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionLicenseComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      sectionsServiceStub = TestBed.get(SectionsService);
-      formService = TestBed.get(FormService);
-      formBuilderService = TestBed.get(FormBuilderService);
-      formOperationsService = TestBed.get(SectionFormOperationsService);
-      collectionDataService = TestBed.get(CollectionDataService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      sectionsServiceStub = TestBed.inject(SectionsService as any);
+      formService = TestBed.inject(FormService);
+      formBuilderService = TestBed.inject(FormBuilderService);
+      formOperationsService = TestBed.inject(SectionFormOperationsService);
+      collectionDataService = TestBed.inject(CollectionDataService);
 
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
     });
@@ -279,7 +279,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
       fixture.detectChanges();
       const model = formBuilderService.findById('granted', comp.formModel);
 
-      (model as DynamicCheckboxModel).valueUpdates.next(true);
+      (model as DynamicCheckboxModel).value = true;
 
       compAsAny.getSectionStatus().subscribe((status) => {
         expect(status).toBeTruthy();
@@ -299,7 +299,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         expect(status).toBeFalsy();
       });
 
-      (model as DynamicCheckboxModel).valueUpdates.next(false);
+      (model as DynamicCheckboxModel).value = false;
     });
 
     it('should dispatch a json-path add operation when checkbox is selected', () => {

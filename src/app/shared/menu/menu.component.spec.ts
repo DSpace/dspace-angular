@@ -24,7 +24,7 @@ describe('MenuComponent', () => {
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [MenuComponent],
       providers: [
-        { provide: Injector, useValue: {} },
+        Injector,
         { provide: MenuService, useClass: MenuServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -38,7 +38,7 @@ describe('MenuComponent', () => {
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.menuID = mockMenuID;
     menuService = (comp as any).menuService;
-    router = TestBed.get(Router);
+    router = TestBed.inject(Router);
     spyOn(comp as any, 'getSectionDataInjector').and.returnValue(MenuSection);
     spyOn(comp as any, 'getSectionComponent').and.returnValue(observableOf({}));
     fixture.detectChanges();

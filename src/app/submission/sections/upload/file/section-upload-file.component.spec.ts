@@ -150,13 +150,13 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionUploadFileComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      uploadService = TestBed.get(SectionUploadService);
-      fileService = TestBed.get(FileService);
-      formService = TestBed.get(FormService);
-      halService = TestBed.get(HALEndpointService);
-      operationsBuilder = TestBed.get(JsonPatchOperationsBuilder);
-      operationsService = TestBed.get(SubmissionJsonPatchOperationsService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      uploadService = TestBed.inject(SectionUploadService);
+      fileService = TestBed.inject(FileService);
+      formService = TestBed.inject(FormService);
+      halService = TestBed.inject(HALEndpointService);
+      operationsBuilder = TestBed.inject(JsonPatchOperationsBuilder);
+      operationsService = TestBed.inject(SubmissionJsonPatchOperationsService);
 
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;
@@ -237,7 +237,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     }));
 
     it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.get(SubmissionSectionUploadFileEditComponent);
+      compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
       compAsAny.fileEditComp.formRef = {formGroup: null};
       compAsAny.pathCombiner = pathCombiner;
       const event = new Event('click', null);
@@ -292,7 +292,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     }));
 
     it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.get(SubmissionSectionUploadFileEditComponent);
+      compAsAny.fileEditComp = TestBed.inject(SubmissionSectionUploadFileEditComponent);
       compAsAny.fileEditComp.formRef = {formGroup: null};
       compAsAny.pathCombiner = pathCombiner;
       const event = new Event('click', null);

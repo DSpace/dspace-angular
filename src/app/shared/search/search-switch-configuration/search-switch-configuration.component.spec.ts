@@ -51,7 +51,7 @@ describe('SearchSwitchConfigurationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchSwitchConfigurationComponent);
     comp = fixture.componentInstance;
-    searchConfService = TestBed.get(SEARCH_CONFIG_SERVICE);
+    searchConfService = TestBed.inject(SEARCH_CONFIG_SERVICE as any);
 
     spyOn(searchConfService, 'getCurrentConfiguration').and.returnValue(observableOf(MyDSpaceConfigurationValueType.Workspace));
 

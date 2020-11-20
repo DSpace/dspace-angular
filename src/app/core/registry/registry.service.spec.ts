@@ -156,8 +156,8 @@ describe('RegistryService', () => {
         RegistryService
       ]
     });
-    registryService = TestBed.get(RegistryService);
-    mockStore = TestBed.get(Store);
+    registryService = TestBed.inject(RegistryService);
+    mockStore = TestBed.inject(Store);
   });
 
   describe('when requesting metadataschemas', () => {

@@ -117,7 +117,7 @@ describe('MenuEffects', () => {
       ]
     });
 
-    menuEffects = TestBed.get(MenuEffects);
+    menuEffects = TestBed.inject(MenuEffects);
   });
 
   describe('buildRouteMenuSections$', () => {

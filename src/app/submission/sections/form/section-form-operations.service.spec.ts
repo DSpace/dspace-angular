@@ -78,9 +78,9 @@ describe('SectionFormOperationsService test suite', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(SectionFormOperationsService);
+    service = TestBed.inject(SectionFormOperationsService);
     serviceAsAny = service;
-    formBuilderService = TestBed.get(FormBuilderService);
+    formBuilderService = TestBed.inject(FormBuilderService);
   });
 
   describe('dispatchOperationsFromEvent', () => {

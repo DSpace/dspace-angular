@@ -382,7 +382,7 @@ describe('SubmissionService test suite', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(SubmissionService);
+    service = TestBed.inject(SubmissionService);
     spyOn((service as any).store, 'dispatch').and.callThrough();
   });
 

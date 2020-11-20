@@ -58,7 +58,7 @@ describe('SearchService', () => {
           SearchService
         ],
       });
-      searchService = TestBed.get(SearchService);
+      searchService = TestBed.inject(SearchService);
     });
 
     it('should return list view mode', () => {
@@ -115,8 +115,8 @@ describe('SearchService', () => {
           SearchService
         ],
       });
-      searchService = TestBed.get(SearchService);
-      routeService = TestBed.get(RouteService);
+      searchService = TestBed.inject(SearchService);
+      routeService = TestBed.inject(RouteService);
       const urlTree = Object.assign(new UrlTree(), { root: { children: { primary: 'search' } } });
       router.parseUrl.and.returnValue(urlTree);
     });

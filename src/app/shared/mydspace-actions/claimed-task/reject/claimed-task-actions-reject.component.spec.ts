@@ -51,8 +51,8 @@ describe('ClaimedTaskActionsRejectComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsRejectComponent);
     component = fixture.componentInstance;
-    formBuilder = TestBed.get(FormBuilder);
-    modalService = TestBed.get(NgbModal);
+    formBuilder = TestBed.inject(FormBuilder);
+    modalService = TestBed.inject(NgbModal);
     component.object = object;
     component.modalRef = modalService.open('ok');
     fixture.detectChanges();

@@ -123,8 +123,8 @@ describe('ClaimedTaskActionsComponent', () => {
     fixture = TestBed.createComponent(ClaimedTaskActionsComponent);
     component = fixture.componentInstance;
     component.object = mockObject;
-    notificationsServiceStub = TestBed.get(NotificationsService);
-    router = TestBed.get(Router);
+    notificationsServiceStub = TestBed.inject(NotificationsService as any);
+    router = TestBed.inject(Router as any);
     fixture.detectChanges();
   });
 

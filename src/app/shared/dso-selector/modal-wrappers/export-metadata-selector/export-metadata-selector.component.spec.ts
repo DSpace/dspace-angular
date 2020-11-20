@@ -112,7 +112,7 @@ describe('ExportMetadataSelectorComponent', () => {
     fixture = TestBed.createComponent(ExportMetadataSelectorComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
-    const modalService = TestBed.get(NgbModal);
+    const modalService = TestBed.inject(NgbModal);
     modalRef = modalService.open(ConfirmationModalComponent);
     modalRef.componentInstance.response = observableOf(true);
     fixture.detectChanges();

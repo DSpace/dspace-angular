@@ -115,8 +115,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionUploadFileEditComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      formbuilderService = TestBed.get(FormBuilderService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      formbuilderService = TestBed.inject(FormBuilderService);
 
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;

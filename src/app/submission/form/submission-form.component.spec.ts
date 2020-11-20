@@ -89,8 +89,8 @@ describe('SubmissionFormComponent Component', () => {
       fixture = TestBed.createComponent(SubmissionFormComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      authServiceStub = TestBed.get(AuthService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      authServiceStub = TestBed.inject(AuthService as any);
     });
 
     afterEach(() => {

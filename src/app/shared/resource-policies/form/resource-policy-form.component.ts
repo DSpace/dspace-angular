@@ -219,14 +219,14 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
       formModel.forEach((model: any) => {
         if (model.id === 'date') {
           if (hasValue(this.resourcePolicy.startDate)) {
-            model.get(0).valueUpdates.next(stringToNgbDateStruct(this.resourcePolicy.startDate));
+            model.get(0).value = stringToNgbDateStruct(this.resourcePolicy.startDate);
           }
           if (hasValue(this.resourcePolicy.endDate)) {
-            model.get(1).valueUpdates.next(stringToNgbDateStruct(this.resourcePolicy.endDate));
+            model.get(1).value = stringToNgbDateStruct(this.resourcePolicy.endDate);
           }
         } else {
           if (this.resourcePolicy.hasOwnProperty(model.id) && this.resourcePolicy[model.id]) {
-            model.valueUpdates.next(this.resourcePolicy[model.id]);
+            model.value = this.resourcePolicy[model.id];
           }
         }
       })

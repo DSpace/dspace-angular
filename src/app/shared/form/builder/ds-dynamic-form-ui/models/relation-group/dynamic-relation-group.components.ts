@@ -222,7 +222,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     if (this.model.isEmpty()) {
       this.initChips([]);
     } else {
-      initChipsValue$ = observableOf(this.model.value);
+      initChipsValue$ = observableOf(this.model.value as any[]);
 
       // If authority
       this.subs.push(initChipsValue$.pipe(
@@ -274,7 +274,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           }
           return acc;
         }, []),
-        filter((modelValues: any[]) => this.model.value.length === modelValues.length)
+        filter((modelValues: any[]) => (this.model.value as any[]).length === modelValues.length)
       ).subscribe((modelValue) => {
         this.model.value = modelValue;
         this.initChips(modelValue);

@@ -69,7 +69,7 @@ export class BrowserKlaroService extends KlaroService {
 
     const translationServiceReady$ = this.translateService.get('loading.default').pipe(take(1));
 
-    observableCombineLatest(user$, translationServiceReady$)
+    observableCombineLatest([user$, translationServiceReady$])
       .subscribe(([user, translation]: [EPerson, string]) => {
         user = cloneDeep(user);
 

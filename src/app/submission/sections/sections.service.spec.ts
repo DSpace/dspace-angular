@@ -82,11 +82,11 @@ describe('SectionsService test suite', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(SectionsService);
-    submissionServiceStub = TestBed.get(SubmissionService);
-    notificationsServiceStub = TestBed.get(NotificationsService);
-    scrollToService = TestBed.get(ScrollToService);
-    translateService = TestBed.get(TranslateService);
+    service = TestBed.inject(SectionsService);
+    submissionServiceStub = TestBed.inject(SubmissionService as any);
+    notificationsServiceStub = TestBed.inject(NotificationsService as any);
+    scrollToService = TestBed.inject(ScrollToService);
+    translateService = TestBed.inject(TranslateService);
   });
 
   describe('checkSectionErrors', () => {

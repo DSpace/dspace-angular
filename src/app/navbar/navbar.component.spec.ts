@@ -30,7 +30,7 @@ describe('NavbarComponent', () => {
         RouterTestingModule],
       declarations: [NavbarComponent],
       providers: [
-        { provide: Injector, useValue: {} },
+        Injector,
         { provide: MenuService, useValue: menuService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: ActivatedRoute, useValue: {} }

@@ -74,8 +74,8 @@ describe('AuthEffects', () => {
       ],
     });
 
-    authEffects = TestBed.get(AuthEffects);
-    store = TestBed.get(Store);
+    authEffects = TestBed.inject(AuthEffects);
+    store = TestBed.inject(Store as any);
   });
 
   describe('authenticate$', () => {

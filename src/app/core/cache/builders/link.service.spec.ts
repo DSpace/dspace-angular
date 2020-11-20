@@ -78,7 +78,7 @@ describe('LinkService', () => {
         useValue: testDataService
       }]
     });
-    service = TestBed.get(LinkService);
+    service = TestBed.inject(LinkService);
   });
 
   describe('resolveLink', () => {

@@ -94,8 +94,8 @@ describe('SubmissionObjectEffects test suite', () => {
       ],
     });
 
-    submissionObjectEffects = TestBed.get(SubmissionObjectEffects);
-    store = TestBed.get(Store);
+    submissionObjectEffects = TestBed.inject(SubmissionObjectEffects);
+    store = TestBed.inject(Store as any);
   });
 
   describe('loadForm$', () => {

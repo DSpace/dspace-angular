@@ -446,14 +446,14 @@ describe('FormBuilderService test suite', () => {
 
     expect(service.getValueFromModel(formModel)).toEqual(value);
 
-    ((formModel[0] as DynamicRowGroupModel).get(1) as DsDynamicInputModel).valueUpdates.next('test');
+    ((formModel[0] as DynamicRowGroupModel).get(1) as DsDynamicInputModel).value = 'test';
 
     value = {
       issue: [new FormFieldMetadataValueObject('test')]
     };
     expect(service.getValueFromModel(formModel)).toEqual(value);
 
-    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).valueUpdates.next('test one');
+    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).value = 'test one';
     value = {
       issue: [new FormFieldMetadataValueObject('test')],
       conference: [new FormFieldMetadataValueObject('test one')]
@@ -465,8 +465,8 @@ describe('FormBuilderService test suite', () => {
     const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
     const value = {} as any;
 
-    ((formModel[0] as DynamicRowGroupModel).get(1) as DsDynamicInputModel).valueUpdates.next('test');
-    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).valueUpdates.next('test one');
+    ((formModel[0] as DynamicRowGroupModel).get(1) as DsDynamicInputModel).value = 'test';
+    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).value = 'test one';
 
     service.clearAllModelsValue(formModel);
     expect(((formModel[0] as DynamicRowGroupModel).get(1) as DynamicOneboxModel).value).toEqual(undefined)
@@ -774,8 +774,8 @@ describe('FormBuilderService test suite', () => {
     (formArray.at(index) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 1');
     (formArray.at(index + step) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 2');
 
-    (model.get(index).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 1');
-    (model.get(index + step).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 2');
+    (model.get(index).get(0) as DynamicFormValueControlModel<any>).value = 'next test value 1';
+    (model.get(index + step).get(0) as DynamicFormValueControlModel<any>).value = 'next test value 2';
 
     service.moveFormArrayGroup(index, step, formArray, model);
 
@@ -798,8 +798,8 @@ describe('FormBuilderService test suite', () => {
     (formArray.at(index) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 1');
     (formArray.at(index + step) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 2');
 
-    (model.get(index).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 1');
-    (model.get(index + step).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 2');
+    (model.get(index).get(0) as DynamicFormValueControlModel<any>).value = 'next test value 1';
+    (model.get(index + step).get(0) as DynamicFormValueControlModel<any>).value = 'next test value 2';
 
     service.moveFormArrayGroup(index, step, formArray, model);
 

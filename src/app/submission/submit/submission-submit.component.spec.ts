@@ -50,8 +50,8 @@ describe('SubmissionSubmitComponent Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SubmissionSubmitComponent);
     comp = fixture.componentInstance;
-    submissionServiceStub = TestBed.get(SubmissionService);
-    router = TestBed.get(Router);
+    submissionServiceStub = TestBed.inject(SubmissionService as any);
+    router = TestBed.inject(Router as any);
   });
 
   afterEach(() => {

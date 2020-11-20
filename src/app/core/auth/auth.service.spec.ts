@@ -112,7 +112,7 @@ describe('AuthService test', () => {
           AuthService
         ],
       });
-      authService = TestBed.get(AuthService);
+      authService = TestBed.inject(AuthService);
     });
 
     it('should return the authentication status object when user credentials are correct', () => {
@@ -295,8 +295,8 @@ describe('AuthService test', () => {
         });
       authService = new AuthService({}, window, undefined, authReqService, mockEpersonDataService, router, routeService, cookieService, store, hardRedirectService);
       storage = (authService as any).storage;
-      routeServiceMock = TestBed.get(RouteService);
-      routerStub = TestBed.get(Router);
+      routeServiceMock = TestBed.inject(RouteService);
+      routerStub = TestBed.inject(Router);
       spyOn(storage, 'get');
       spyOn(storage, 'remove');
       spyOn(storage, 'set');

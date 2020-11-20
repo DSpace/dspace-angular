@@ -194,7 +194,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
       fixture = TestBed.createComponent(DsDynamicFormControlContainerComponent);
 
-      const ngZone = TestBed.get(NgZone);
+      const ngZone = TestBed.inject(NgZone);
 
       // tslint:disable-next-line:ban-types
       spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
@@ -283,7 +283,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
     spyOn(component, 'onModelValueUpdates');
 
-    (testModel as DynamicInputModel).valueUpdates.next('test');
+    (testModel as DynamicInputModel).value = 'test';
 
     expect(component.onModelValueUpdates).toHaveBeenCalled();
   });
@@ -292,7 +292,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
     spyOn(component, 'onModelDisabledUpdates');
 
-    testModel.disabledUpdates.next(true);
+    testModel.disabled = true;
 
     expect(component.onModelDisabledUpdates).toHaveBeenCalled();
   });

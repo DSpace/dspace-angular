@@ -178,7 +178,7 @@ describe('VocabularyTreeviewService test suite', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(VocabularyTreeviewService);
+    service = TestBed.inject(VocabularyTreeviewService);
     serviceAsAny = service;
     scheduler = getTestScheduler();
     init();

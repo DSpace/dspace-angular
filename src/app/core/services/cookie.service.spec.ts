@@ -15,7 +15,7 @@ describe(CookieService.name, () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(CookieService)
+    service = TestBed.inject(CookieService)
   });
 
   afterEach(() => {

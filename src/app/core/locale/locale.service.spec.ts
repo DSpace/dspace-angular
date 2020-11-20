@@ -40,9 +40,9 @@ describe('LocaleService test suite', () => {
   }));
 
   beforeEach(() => {
-    cookieService = TestBed.get(CookieService);
-    translateService = TestBed.get(TranslateService);
-    authService = TestBed.get(TranslateService);
+    cookieService = TestBed.inject(CookieService);
+    translateService = TestBed.inject(TranslateService);
+    authService = TestBed.inject(AuthService);
     window = new NativeWindowRef();
     service = new LocaleService(window, cookieService, translateService, authService);
     serviceAsAny = service;

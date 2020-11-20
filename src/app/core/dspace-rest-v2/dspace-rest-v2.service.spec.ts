@@ -22,8 +22,8 @@ describe('DSpaceRESTv2Service', () => {
       providers: [DSpaceRESTv2Service]
     });
 
-    dSpaceRESTv2Service = TestBed.get(DSpaceRESTv2Service);
-    httpMock = TestBed.get(HttpTestingController);
+    dSpaceRESTv2Service = TestBed.inject(DSpaceRESTv2Service);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => httpMock.verify());

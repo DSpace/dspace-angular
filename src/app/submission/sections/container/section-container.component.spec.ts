@@ -54,8 +54,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   const collectionId = mockSubmissionCollectionId;
 
   function init() {
-    sectionsServiceStub = TestBed.get(SectionsService);
-    submissionServiceStub = TestBed.get(SubmissionService);
+    sectionsServiceStub = TestBed.inject(SectionsService as any);
+    submissionServiceStub = TestBed.inject(SubmissionService as any);
 
     sectionsServiceStub.isSectionValid.and.returnValue(observableOf(true));
     sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));

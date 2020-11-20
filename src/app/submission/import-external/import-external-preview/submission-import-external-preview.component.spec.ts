@@ -89,7 +89,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionImportExternalPreviewComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
     });
 
     afterEach(() => {

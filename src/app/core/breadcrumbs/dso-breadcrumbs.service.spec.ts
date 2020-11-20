@@ -99,7 +99,7 @@ describe('DSOBreadcrumbsService', () => {
   }));
 
   beforeEach(() => {
-    linkService = TestBed.get(LinkService);
+    linkService = TestBed.inject(LinkService);
     linkService.resolveLink.and.callFake((object, link) => object);
     service = new DSOBreadcrumbsService(linkService, dsoNameService);
   });

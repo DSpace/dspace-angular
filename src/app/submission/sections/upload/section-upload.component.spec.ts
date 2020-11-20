@@ -180,13 +180,13 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionUploadComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      sectionsServiceStub = TestBed.get(SectionsService);
-      collectionDataService = TestBed.get(CollectionDataService);
-      groupService = TestBed.get(GroupDataService);
-      resourcePolicyService = TestBed.get(ResourcePolicyService);
-      uploadsConfigService = TestBed.get(SubmissionUploadsConfigService);
-      bitstreamService = TestBed.get(SectionUploadService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      sectionsServiceStub = TestBed.inject(SectionsService as any);
+      collectionDataService = TestBed.inject(CollectionDataService);
+      groupService = TestBed.inject(GroupDataService);
+      resourcePolicyService = TestBed.inject(ResourcePolicyService);
+      uploadsConfigService = TestBed.inject(SubmissionUploadsConfigService);
+      bitstreamService = TestBed.inject(SectionUploadService);
     });
 
     afterEach(() => {

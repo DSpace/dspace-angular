@@ -378,7 +378,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
       spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(hierarchicalVocabulary));
       oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
       oneboxComponent = oneboxCompFixture.componentInstance; // FormComponent test instance
-      modalService = TestBed.get(NgbModal);
+      modalService = TestBed.inject(NgbModal);
       modalService.open.and.returnValue(new MockNgbModalRef());
     });
 

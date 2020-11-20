@@ -66,8 +66,8 @@ describe('ServerSyncBufferEffects', () => {
       ],
     });
 
-    store = TestBed.get(Store);
-    ssbEffects = TestBed.get(ServerSyncBufferEffects);
+    store = TestBed.inject(Store);
+    ssbEffects = TestBed.inject(ServerSyncBufferEffects);
   });
 
   describe('setTimeoutForServerSync', () => {

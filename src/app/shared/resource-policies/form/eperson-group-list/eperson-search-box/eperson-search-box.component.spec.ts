@@ -64,7 +64,7 @@ describe('EpersonSearchBoxComponent test suite', () => {
     beforeEach(() => {
       // initTestScheduler();
       fixture = TestBed.createComponent(EpersonSearchBoxComponent);
-      formBuilder = TestBed.get(FormBuilder);
+      formBuilder = TestBed.inject(FormBuilder);
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
     });

@@ -83,8 +83,8 @@ describe('SubmissionFormFooterComponent Component', () => {
       fixture = TestBed.createComponent(SubmissionFormFooterComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      submissionRestServiceStub = TestBed.get(SubmissionRestService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      submissionRestServiceStub = TestBed.inject(SubmissionRestService as any);
       comp.submissionId = submissionId;
 
     });
