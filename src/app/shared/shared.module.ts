@@ -15,7 +15,6 @@ import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MomentModule } from 'ngx-moment';
-import { TooltipModule } from 'ngx-bootstrap';
 
 import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
@@ -239,8 +238,7 @@ const ROOT_MODULES = [
   TranslateModule.forChild({
     missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
     useDefaultLang: true
-  }),
-  TooltipModule.forRoot(),
+  })
 ];
 
 const PIPES = [

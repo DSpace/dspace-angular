@@ -8,7 +8,6 @@ import { ProjectComponent } from './item-pages/project/project.component';
 import { OrgUnitListElementComponent } from './item-list-elements/org-unit/org-unit-list-element.component';
 import { PersonListElementComponent } from './item-list-elements/person/person-list-element.component';
 import { ProjectListElementComponent } from './item-list-elements/project/project-list-element.component';
-import { TooltipModule } from 'ngx-bootstrap';
 import { PersonGridElementComponent } from './item-grid-elements/person/person-grid-element.component';
 import { OrgUnitGridElementComponent } from './item-grid-elements/org-unit/org-unit-grid-element.component';
 import { ProjectGridElementComponent } from './item-grid-elements/project/project-grid-element.component';
@@ -57,7 +56,6 @@ const ENTRY_COMPONENTS = [
   imports: [
     CommonModule,
     SharedModule,
-    TooltipModule.forRoot(),
     ItemPageModule
   ],
   declarations: [
