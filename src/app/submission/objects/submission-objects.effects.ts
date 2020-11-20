@@ -410,9 +410,8 @@ export class SubmissionObjectEffects {
             this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
           }
 
-          const sectionForm = forms[currentState.sections[sectionId].formId];
+          const sectionForm = getForm(forms, currentState, sectionId);
           const filteredErrors = filterErrors(sectionForm, sectionErrors, currentState.sections[sectionId].sectionType, notify);
-
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, filteredErrors));
         }
       });
@@ -420,6 +419,15 @@ export class SubmissionObjectEffects {
     return mappedActions;
   }
 }
+
+function getForm(forms, currentState, sectionId) {
+  if (!forms) {
+    return null;
+  }
+  const formId = currentState.sections[sectionId].formId;
+  return forms[formId];
+}
+
 
 /**
  * Filter sectionErrors accordingly to this rules:

@@ -21,7 +21,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        additional: {}
       }
     };
     const formId = 'testForm';
@@ -48,7 +49,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        additional: {}
       }
     };
     const formId = 'testForm';
@@ -67,7 +69,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        additional: {}
       }
     };
 
@@ -88,7 +91,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        additional: {}
       }
     };
     const state = {
@@ -100,7 +104,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        additional: {}
       }
     };
     const formId = 'testForm';
@@ -127,7 +132,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: false,
-        errors: []
+        errors: [],
+        additional: {}
       }
     };
     const state = {
@@ -139,7 +145,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: true,
-        errors: []
+        errors: [],
+        additional: {}
       }
     };
     const formId = 'testForm';
@@ -160,7 +167,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: true,
-        errors: []
+        errors: [],
+        additional: {}
       }
     };
 
@@ -204,7 +212,8 @@ describe('formReducer', () => {
             fieldIndex: 0,
             message: 'error.validation.required'
           }
-        ]
+        ],
+        additional: {}
       }
     };
 
@@ -236,7 +245,8 @@ describe('formReducer', () => {
           description: null
         },
         valid: true,
-        errors: []
+        errors: [],
+        additional: {}
       }
     };
 
@@ -264,7 +274,8 @@ describe('formReducer', () => {
             fieldIndex: 0,
             message: 'error.validation.required'
           }
-        ]
+        ],
+        additional: {}
       }
     };
 

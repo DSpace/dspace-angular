@@ -551,7 +551,7 @@ describe('SubmissionObjectEffects test suite', () => {
           submissionId,
           'traditionalpageone',
           mockSectionsData.traditionalpageone as any,
-          errorsList.traditionalpageone || []
+          []
         ),
         c: new UpdateSectionDataAction(
           submissionId,
@@ -638,12 +638,13 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       const errorsList = parseSectionErrors(mockSectionsErrors);
+      console.log(errorsList);
       const expected = cold('--(bcd)-', {
         b: new UpdateSectionDataAction(
           submissionId,
           'traditionalpageone',
           mockSectionsData.traditionalpageone as any,
-          errorsList.traditionalpageone || []
+          []
         ),
         c: new UpdateSectionDataAction(
           submissionId,
@@ -679,7 +680,7 @@ describe('SubmissionObjectEffects test suite', () => {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
           payload: {
             submissionId: submissionId,
-            submissionObject: response
+            submissionObject: response,
           }
         }
       });
@@ -690,7 +691,7 @@ describe('SubmissionObjectEffects test suite', () => {
           submissionId,
           'traditionalpageone',
           mockSectionsDataTwo.traditionalpageone as any,
-          errorsList.traditionalpageone || []
+          []
         ),
         c: new UpdateSectionDataAction(
           submissionId,
