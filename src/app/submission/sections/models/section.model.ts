@@ -1,4 +1,4 @@
-import { Inject, OnDestroy, OnInit } from '@angular/core';
+import { Inject, OnDestroy, OnInit, Directive } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
@@ -14,6 +14,7 @@ export interface SectionDataModel {
 /**
  * An abstract model class for a submission edit form section.
  */
+@Directive()
 export abstract class SectionModelComponent implements OnDestroy, OnInit, SectionDataModel {
   protected abstract sectionService: SectionsService;
 

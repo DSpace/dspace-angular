@@ -12,7 +12,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "module": "esnext",
+    "module": "es2020",
     "moduleResolution": "node",
     "noEmitHelpers": true,
     "importHelpers": true,

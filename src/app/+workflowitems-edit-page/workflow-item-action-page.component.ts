@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,6 +15,7 @@ import { isEmpty } from '../shared/empty.util';
 /**
  * Abstract component representing a page to perform an action on a workflow item
  */
+@Directive()
 export abstract class WorkflowItemActionPageComponent implements OnInit {
   public type;
   public wfi$: Observable<WorkflowItem>;
