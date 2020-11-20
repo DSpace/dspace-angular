@@ -9,7 +9,6 @@ export class SubmissionServiceStub {
   dispatchDeposit = jasmine.createSpy('dispatchDeposit');
   dispatchDiscard = jasmine.createSpy('dispatchDiscard');
   dispatchSave = jasmine.createSpy('dispatchSave');
-  dispatchManualSave = jasmine.createSpy('dispatchManualSave');
   dispatchSaveForLater = jasmine.createSpy('dispatchSaveForLater');
   dispatchSaveSection = jasmine.createSpy('dispatchSaveSection');
   getActiveSectionId = jasmine.createSpy('getActiveSectionId');

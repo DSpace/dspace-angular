@@ -132,12 +132,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   @ViewChild('formRef', {static: false}) private formRef: FormComponent;
 
   /**
-   * Keep track whether the section is focused or not.
-   * @protected
-   */
-  protected isFocused = false;
-
-  /**
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} cdr
@@ -265,6 +259,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
     Object.keys(diffObj)
       .forEach((key) => {
         diffObj[key].forEach((value) => {
+          // the findIndex extra check excludes values already present in the form but in different positions
           if (value.hasOwnProperty('value') && findIndex(this.formData[key], { value: value.value }) < 0) {
             diffResult.push(value);
           }
@@ -407,7 +402,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    *    the [[DynamicFormControlEvent]] emitted
    */
   onFocus(event: DynamicFormControlEvent): void {
-    this.isFocused = true;
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
     const path = this.formBuilderService.getPath(event.model);
     if (this.formBuilderService.hasMappedGroupValue(event.model)) {
@@ -417,17 +411,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       this.previousValue.path = path;
       this.previousValue.value = value;
     }
-  }
-
-  /**
-   * Method called when a form dfBlur event is fired.
-   *
-   * @param event
-   *    the [[DynamicFormControlEvent]] emitted
-   */
-
-  onBlur(event: DynamicFormControlEvent): void {
-    this.isFocused = false;
   }
 
   /**

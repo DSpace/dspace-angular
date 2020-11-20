@@ -209,26 +209,14 @@ export class SubmissionService {
    *
    * @param submissionId
    *    The submission id
+   * @param manual
+   *    whether is a manual save, default false
    */
-  dispatchManualSave(submissionId) {
+  dispatchSave(submissionId, manual?: boolean) {
     this.getSubmissionSaveProcessingStatus(submissionId).pipe(
       find((isPending: boolean) => !isPending)
     ).subscribe(() => {
-      this.store.dispatch(new SaveSubmissionFormAction(submissionId, true));
-    })
-  }
-
-  /**
-   * Dispatch a new [SaveSubmissionFormAction]
-   *
-   * @param submissionId
-   *    The submission id
-   */
-  dispatchSave(submissionId) {
-    this.getSubmissionSaveProcessingStatus(submissionId).pipe(
-      find((isPending: boolean) => !isPending)
-    ).subscribe(() => {
-      this.store.dispatch(new SaveSubmissionFormAction(submissionId));
+      this.store.dispatch(new SaveSubmissionFormAction(submissionId, manual));
     })
   }
 

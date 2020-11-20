@@ -18,7 +18,7 @@
                         <button type="button" class="btn btn-secondary"
                                 [disabled]="isItemReadOnly(context, index)"
                                 (click)="insertItem($event, group.context, group.index)">
-                            <span aria-label="Add">Add</span>
+                            <span aria-label="Add">{{'form.add' | translate}}</span>
                         </button>
                     </div>
                 </div>

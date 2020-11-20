@@ -16,7 +16,7 @@ import {
 import { isObject, isString, mergeWith } from 'lodash';
 
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
-import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import {DynamicQualdropModel} from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
@@ -56,9 +56,7 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         if (this.isConcatGroup(controlModel)) {
-          const concatGroupId = controlModel.id.replace(CONCAT_GROUP_SUFFIX, '');
-          // if (concatGroupId === findId) {
-          if (concatGroupId.includes(findId)) {
+          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX + `_\\d+$`))) {
             result = (controlModel as DynamicConcatModel).group[0];
             break;
           }

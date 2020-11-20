@@ -80,7 +80,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
    * Dispatch a submission save action
    */
   save(event) {
-    this.submissionService.dispatchManualSave(this.submissionId);
+    this.submissionService.dispatchSave(this.submissionId, true);
   }
 
   /**
