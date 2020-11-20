@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Community } from '../../../core/shared/community.model';
+import { LinkService } from '../../../core/cache/builders/link.service';
 
 let communityGridElementComponent: CommunityGridElementComponent;
 let fixture: ComponentFixture<CommunityGridElementComponent>;
@@ -29,12 +30,17 @@ const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
   }
 });
 
+const linkService = jasmine.createSpyObj('linkService', {
+  resolveLink: mockCommunityWithAbstract
+});
+
 describe('CommunityGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CommunityGridElementComponent ],
       providers: [
-        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract)}
+        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract)},
+        { provide: LinkService, useValue: linkService}
       ],
 
     schemas: [ NO_ERRORS_SCHEMA ]
