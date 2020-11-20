@@ -193,7 +193,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
             collection: { id: collection.id, uuid: collection.id, name: collection.name }
           })
         ))),
-        reduce((acc: any, value: any) => [...acc, ...value], []),
+        reduce((acc: any, value: any) => [...acc, value], []),
         startWith([])
         );
     this.subs.push(this.searchListCollection$.subscribe(

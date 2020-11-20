@@ -7,7 +7,7 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DYNAMIC_FORM_CONTROL_TYPE_INPUT,
   DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
-  DynamicFormArrayModel,
+  DynamicFormArrayModel, DynamicFormComponentService,
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormService, DynamicFormValidationService,
@@ -31,10 +31,11 @@ import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/d
 export class FormBuilderService extends DynamicFormService {
 
   constructor(
+    componentService: DynamicFormComponentService,
     validationService: DynamicFormValidationService,
     protected rowParser: RowParser
   ) {
-    super(validationService);
+    super(componentService, validationService);
   }
 
   findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {

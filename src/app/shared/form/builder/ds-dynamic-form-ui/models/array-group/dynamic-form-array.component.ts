@@ -6,7 +6,7 @@ import {
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
-  DynamicFormLayout,
+  DynamicFormControlLayout, DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicTemplateDirective
@@ -22,9 +22,9 @@ import { hasValue } from '../../../../../empty.util';
 })
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
-  @Input() bindId = true;
+  @Input() formLayout: DynamicFormLayout;
   @Input() group: FormGroup;
-  @Input() layout: DynamicFormLayout;
+  @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicRowArrayModel;
   @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
 

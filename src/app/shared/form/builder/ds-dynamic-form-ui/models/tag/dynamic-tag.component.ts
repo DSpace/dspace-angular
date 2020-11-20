@@ -96,7 +96,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
     this.hasAuthority = this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name);
 
     this.chips = new Chips(
-      this.model.value,
+      this.model.value as any[],
       'display',
       null,
       environment.submission.icons.metadata);

@@ -26,7 +26,7 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
   templateUrl: './dynamic-lookup.component.html'
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
-  @Input() bindId = true;
+
   @Input() group: FormGroup;
   @Input() model: any;
 

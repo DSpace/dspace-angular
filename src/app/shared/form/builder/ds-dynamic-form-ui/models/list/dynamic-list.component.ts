@@ -35,7 +35,7 @@ export interface ListItem {
   templateUrl: './dynamic-list.component.html'
 })
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
-  @Input() bindId = true;
+
   @Input() group: FormGroup;
   @Input() model: any;
 

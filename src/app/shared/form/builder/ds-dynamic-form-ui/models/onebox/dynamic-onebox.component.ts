@@ -40,7 +40,7 @@ import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabul
   templateUrl: './dynamic-onebox.component.html'
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
-  @Input() bindId = true;
+
   @Input() group: FormGroup;
   @Input() model: DynamicOneboxModel;
 

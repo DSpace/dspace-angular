@@ -22,7 +22,6 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 @Directive()
 export abstract class DsDynamicVocabularyComponent extends DynamicFormControlComponent {
 
-  @Input() abstract bindId = true;
   @Input() abstract group: FormGroup;
   @Input() abstract model: DsDynamicInputModel;
 

@@ -200,6 +200,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() bindId = true;
   @Input() context: any | null = null;
   @Input() group: FormGroup;
+  @Input() hostClass: string[];
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
@@ -250,7 +251,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private formBuilderService: FormBuilderService,
     private submissionService: SubmissionService
   ) {
-    super(componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
+    super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
   }
 
   /**
