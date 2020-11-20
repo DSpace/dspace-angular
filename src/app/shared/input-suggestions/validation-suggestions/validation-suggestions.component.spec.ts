@@ -3,15 +3,17 @@ import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angula
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FilterInputSuggestionsComponent } from './filter-input-suggestions.component';
+import { MetadataFieldDataService } from '../../../core/data/metadata-field-data.service';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { ValidationSuggestionsComponent } from './validation-suggestions.component';
 
-describe('FilterInputSuggestionsComponent', () => {
+describe('ValidationSuggestionsComponent', () => {
 
-  let comp: FilterInputSuggestionsComponent;
-  let fixture: ComponentFixture<FilterInputSuggestionsComponent>;
+  let comp: ValidationSuggestionsComponent;
+  let fixture: ComponentFixture<ValidationSuggestionsComponent>;
   let de: DebugElement;
   let el: HTMLElement;
   const suggestions = [{ displayValue: 'suggestion uno', value: 'suggestion uno' }, {
@@ -21,17 +23,21 @@ describe('FilterInputSuggestionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
-      declarations: [FilterInputSuggestionsComponent],
-      providers: [],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, ReactiveFormsModule],
+      declarations: [ValidationSuggestionsComponent],
+      providers: [FormsModule,
+        ReactiveFormsModule,
+        { provide: MetadataFieldDataService, useValue: {} },
+        { provide: ObjectUpdatesService, useValue: {} },
+      ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(FilterInputSuggestionsComponent, {
+    }).overrideComponent(ValidationSuggestionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilterInputSuggestionsComponent);
+    fixture = TestBed.createComponent(ValidationSuggestionsComponent);
 
     comp = fixture.componentInstance; // LoadingComponent test instance
     comp.suggestions = suggestions;
