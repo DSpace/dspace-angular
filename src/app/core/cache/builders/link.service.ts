@@ -27,7 +27,7 @@ export class LinkService {
    */
   public resolveLinks<T extends HALResource>(model: T, ...linksToFollow: Array<FollowLinkConfig<T>>): T {
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
-      this.resolveLink(model, linkToFollow);
+        this.resolveLink(model, linkToFollow);
     });
     return model;
   }

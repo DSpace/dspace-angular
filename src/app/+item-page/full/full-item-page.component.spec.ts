@@ -13,7 +13,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../core/shared/item.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { RemoteData } from '../../core/data/remote-data';
 import { of as observableOf } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
@@ -34,7 +33,7 @@ const mockItem: Item = Object.assign(new Item(), {
     }
 });
 const routeStub = Object.assign(new ActivatedRouteStub(), {
-  data: observableOf({ item: createSuccessfulRemoteDataObject(mockItem) })
+  data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
 });
 const metadataServiceStub = {
   /* tslint:disable:no-empty */

@@ -20,6 +20,7 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
   objectType = DSpaceObjectType.ITEM;
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.CREATE;
+  header = 'dso-selector.create.item.sub-level';
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);

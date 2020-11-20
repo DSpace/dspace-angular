@@ -3,37 +3,41 @@
          *ngVar="(collectionRD$ | async) as collectionRD">
         <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
             <div *ngIf="collectionRD?.payload as collection">
-                <ds-view-tracker [object]="collection"></ds-view-tracker>
-                <header class="comcol-header border-bottom mb-4 pb-4">
+              <ds-view-tracker [object]="collection"></ds-view-tracker>
+              <div class="d-flex flex-row border-bottom mb-4 pb-4">
+                <header class="comcol-header mr-auto">
                   <!-- Collection Name -->
-                <ds-comcol-page-header
-                        [name]="collection.name">
-                </ds-comcol-page-header>
-                    <!-- Collection logo -->
-                    <ds-comcol-page-logo *ngIf="logoRD$"
-                                     [logo]="(logoRD$ | async)?.payload"
-                                     [alternateText]="'Collection Logo'"
-                        [alternateText]="'Collection Logo'">
-                    </ds-comcol-page-logo>
+                  <ds-comcol-page-header
+                          [name]="collection.name">
+                  </ds-comcol-page-header>
+                  <!-- Collection logo -->
+                  <ds-comcol-page-logo *ngIf="logoRD$"
+                                   [logo]="(logoRD$ | async)?.payload"
+                                   [alternateText]="'Collection Logo'"
+                      [alternateText]="'Collection Logo'">
+                  </ds-comcol-page-logo>
 
-                 <!-- Handle -->
-                <ds-comcol-page-handle
-                        [content]="collection.handle"
-                        [title]="'collection.page.handle'" >
-                </ds-comcol-page-handle>
-                <!-- Introductory text -->
-                <ds-comcol-page-content
-                        [content]="collection.introductoryText"
-                        [hasInnerHtml]="true">
-                </ds-comcol-page-content>
-                <!-- News -->
-                <ds-comcol-page-content
-                        [content]="collection.sidebarText"
-                        [hasInnerHtml]="true"
-                        [title]="'collection.page.news'">
-                </ds-comcol-page-content>
-
-              </header>
+                  <!-- Handle -->
+                  <ds-comcol-page-handle
+                          [content]="collection.handle"
+                          [title]="'collection.page.handle'" >
+                  </ds-comcol-page-handle>
+                  <!-- Introductory text -->
+                  <ds-comcol-page-content
+                          [content]="collection.introductoryText"
+                          [hasInnerHtml]="true">
+                  </ds-comcol-page-content>
+                  <!-- News -->
+                  <ds-comcol-page-content
+                          [content]="collection.sidebarText"
+                          [hasInnerHtml]="true"
+                          [title]="'collection.page.news'">
+                  </ds-comcol-page-content>
+                </header>
+                <div class="pl-2">
+                  <ds-dso-page-edit-button [pageRoutePrefix]="'collections'" [dso]="collection" [tooltipMsg]="'collection.page.edit'"></ds-dso-page-edit-button>
+                </div>
+              </div>
               <section class="comcol-page-browse-section">
               <!-- Browse-By Links -->
               <ds-comcol-page-browse-by

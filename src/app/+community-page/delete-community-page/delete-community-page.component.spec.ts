@@ -9,6 +9,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SharedModule } from '../../shared/shared.module';
 import { DeleteCommunityPageComponent } from './delete-community-page.component';
+import {RequestService} from '../../core/data/request.service';
 
 describe('DeleteCommunityPageComponent', () => {
   let comp: DeleteCommunityPageComponent;
@@ -22,6 +23,7 @@ describe('DeleteCommunityPageComponent', () => {
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
         { provide: NotificationsService, useValue: {} },
+        { provide: RequestService, useValue: {}}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
