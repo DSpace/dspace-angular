@@ -6,6 +6,7 @@ import {
   FormInitAction,
   FormRemoveAction,
   FormRemoveErrorAction,
+  FormSetAdditionalAction,
   FormStatusChangeAction
 } from './form.actions';
 
@@ -286,4 +287,98 @@ describe('formReducer', () => {
 
     expect(newState.testForm.errors).toEqual([]);
   });
+
+  it('should set new touched field to the form state', () => {
+    const initState = {
+      testForm: {
+        data: {
+          author: null,
+          title: ['test'],
+          date: null,
+          description: null
+        },
+        valid: false,
+        errors: [],
+        additional: {}
+      }
+    };
+    const state = {
+      testForm: {
+        data: {
+          author: null,
+          title: ['test'],
+          date: null,
+          description: null
+        },
+        valid: false,
+        errors: [],
+        additional: {
+          touched: {
+            title: true
+          }
+        }
+      }
+    };
+    const formId = 'testForm';
+    const additionalData = {
+      touched: {
+       title: true
+      }
+    };
+
+    const action = new FormSetAdditionalAction(formId, additionalData);
+    const newState = formReducer(initState, action);
+
+    expect(newState).toEqual(state);
+  });
+
+  it('should add new touched field to the form state', () => {
+    const initState = {
+      testForm: {
+        data: {
+          author: null,
+          title: ['test'],
+          date: null,
+          description: null
+        },
+        valid: false,
+        errors: [],
+        additional: {
+          touched: {
+            title: true
+          }
+        }
+      }
+    };
+    const state = {
+      testForm: {
+        data: {
+          author: null,
+          title: ['test'],
+          date: null,
+          description: null
+        },
+        valid: false,
+        errors: [],
+        additional: {
+          touched: {
+            title: true,
+            author: true
+          }
+        }
+      }
+    };
+    const formId = 'testForm';
+    const additionalData = {
+      touched: {
+        author: true
+      }
+    };
+
+    const action = new FormSetAdditionalAction(formId, additionalData);
+    const newState = formReducer(initState, action);
+
+    expect(newState).toEqual(state);
+  });
+
 });
