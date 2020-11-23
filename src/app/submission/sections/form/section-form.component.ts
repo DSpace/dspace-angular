@@ -283,7 +283,8 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         sectionData,
         this.submissionService.getSubmissionScope()
       );
-      this.sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
+      const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
+      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, [], sectionMetadata);
 
     } catch (e) {
       const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
@@ -365,6 +366,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         distinctUntilChanged())
         .subscribe((sectionState: SubmissionSectionObject) => {
           this.fieldsOnTheirWayToBeRemoved = new Map();
+          this.sectionMetadata = sectionState.metadata;
           this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errors);
         })
     )

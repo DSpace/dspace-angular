@@ -301,6 +301,15 @@ describe('SubmissionSectionformComponent test suite', () => {
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeFalsy();
     });
 
+    it('should return false when metadata has Metadata Enrichment but not belonging to sectionMetadata', () => {
+      const newSectionData = {
+        'dc.title': [new FormFieldMetadataValueObject('test')]
+      };
+      compAsAny.formData = newSectionData;
+      compAsAny.sectionMetadata = [];
+      expect(comp.hasMetadataEnrichment(newSectionData)).toBeFalsy();
+    });
+
     it('should update form properly', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
