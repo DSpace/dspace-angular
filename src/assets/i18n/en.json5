@@ -2294,7 +2294,11 @@
 
   "process.detail.output" : "Process Output",
 
-  "process.detail.output.alert" : "Work in progress - Process output is not available yet",
+  "process.detail.logs.button": "Retrieve process output",
+
+  "process.detail.logs.loading": "Retrieving",
+
+  "process.detail.logs.none": "This process has no output",
 
   "process.detail.output-files" : "Output Files",
 
