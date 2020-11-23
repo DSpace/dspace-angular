@@ -198,7 +198,6 @@ export const environment: Partial<GlobalConfig> = {
     name: 'default',
   },
   mediaViewer: {
-    enable: true,
     image: true,
     video: true,
   },

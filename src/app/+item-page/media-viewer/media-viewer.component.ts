@@ -23,7 +23,6 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 })
 export class MediaViewerComponent implements OnInit {
   @Input() item: Item;
-  @Input() imageOptions: boolean;
   @Input() videoOptions: boolean;
 
   mediaList$: BehaviorSubject<MediaViewerItem[]>;
