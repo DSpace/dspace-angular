@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { ItemTemplatePageResolver } from './item-template-page.resolver';
 

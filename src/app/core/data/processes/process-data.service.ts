@@ -12,7 +12,7 @@ import { DefaultChangeAnalyzer } from '../default-change-analyzer.service';
 import { Process } from '../../../process-page/processes/process.model';
 import { dataService } from '../../cache/builders/build-decorators';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { ProcessFilesRequest, RestRequest } from '../request.models';
 import { configureRequest, filterSuccessfulResponses } from '../../shared/operators';

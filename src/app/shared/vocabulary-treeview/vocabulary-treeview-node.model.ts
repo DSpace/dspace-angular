@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 

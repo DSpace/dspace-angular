@@ -7,8 +7,7 @@ import {
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, combineLatest, of } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { RestResponse } from '../../../../core/cache/response.models';
 import { PaginatedList } from '../../../../core/data/paginated-list';

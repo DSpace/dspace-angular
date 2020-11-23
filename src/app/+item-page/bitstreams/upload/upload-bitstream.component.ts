@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { AuthService } from '../../../core/auth/auth.service';

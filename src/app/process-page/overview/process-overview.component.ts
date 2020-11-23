@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { Process } from '../processes/process.model';

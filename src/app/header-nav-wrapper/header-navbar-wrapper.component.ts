@@ -2,8 +2,7 @@ import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { hasValue } from '../shared/empty.util';
-import { Observable } from 'rxjs/internal/Observable';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Observable, Subscription } from 'rxjs';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/initial-menus-state';
 

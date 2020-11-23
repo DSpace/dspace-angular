@@ -4,11 +4,13 @@ import { async, TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { compare, Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
 import { TestScheduler } from 'rxjs/testing';
-import { EPeopleRegistryCancelEPersonAction, EPeopleRegistryEditEPersonAction } from '../../+admin/admin-access-control/epeople-registry/epeople-registry.actions';
+import {
+  EPeopleRegistryCancelEPersonAction,
+  EPeopleRegistryEditEPersonAction
+} from '../../+admin/admin-access-control/epeople-registry/epeople-registry.actions';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';

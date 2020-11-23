@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({

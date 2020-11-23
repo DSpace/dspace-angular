@@ -9,18 +9,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { EmptyError } from 'rxjs/internal-compatibility';
+import { EmptyError, Observable } from 'rxjs';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 
 import {
+  ItemMock,
   MockBitstream1,
   MockBitstream2,
   MockBitstreamFormat1,
-  MockBitstreamFormat2,
-  ItemMock
+  MockBitstreamFormat2
 } from '../../shared/mocks/item.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

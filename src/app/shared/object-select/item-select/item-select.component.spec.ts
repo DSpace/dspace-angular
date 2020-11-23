@@ -1,5 +1,5 @@
 import { ItemSelectComponent } from './item-select.component';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../../core/shared/item.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -14,7 +14,7 @@ import { HostWindowService } from '../../host-window.service';
 import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;

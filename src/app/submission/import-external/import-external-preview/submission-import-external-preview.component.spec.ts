@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { getTestScheduler } from 'jasmine-marbles';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

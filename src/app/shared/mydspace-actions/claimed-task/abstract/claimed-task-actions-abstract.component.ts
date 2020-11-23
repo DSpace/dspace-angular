@@ -1,6 +1,6 @@
-import { EventEmitter, Input, Output, Directive } from '@angular/core';
+import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 

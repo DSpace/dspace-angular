@@ -5,7 +5,7 @@ import { TruncatableService } from '../../../../truncatable/truncatable.service'
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { PublicationGridElementComponent } from './publication-grid-element.component';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { PaginatedList } from '../../../../../core/data/paginated-list';

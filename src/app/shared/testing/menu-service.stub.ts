@@ -1,6 +1,5 @@
 import { MenuID } from '../menu/initial-menus-state';
-import { of as observableOf } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { MenuSection } from '../menu/menu.reducer';
 
 export class MenuServiceStub {

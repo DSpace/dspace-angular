@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { Observable, of as observableOf, race as observableRace } from 'rxjs';
+import { Observable, of as observableOf, race as observableRace, Subscription } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import {
   DynamicDatePickerModel,
@@ -30,7 +30,6 @@ import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { FormService } from '../../form/form.service';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { RemoteData } from '../../../core/data/remote-data';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { dateToISOFormat, stringToNgbDateStruct } from '../../date.util';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';

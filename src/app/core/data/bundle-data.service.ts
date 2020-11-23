@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

@@ -23,6 +23,15 @@
                 "loaders": "prepend"
               }
             },
+            "allowedCommonJsDependencies": [
+              "angular2-text-mask",
+              "cerialize",
+              "fast-json-patch",
+              "lodash",
+              "jwt-decode",
+              "url-parse",
+              "uuid"
+            ],
             "outputPath": "dist/browser",
             "index": "src/index.html",
             "main": "src/main.browser.ts",

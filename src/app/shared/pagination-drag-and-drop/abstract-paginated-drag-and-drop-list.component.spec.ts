@@ -1,13 +1,11 @@
 import { AbstractPaginatedDragAndDropListComponent } from './abstract-paginated-drag-and-drop-list.component';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { ElementRef, Directive } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Directive, ElementRef } from '@angular/core';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { FieldUpdates } from '../../core/data/object-updates/object-updates.reducer';
-import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';

@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as decorator from './browse-by-decorator';
 import createSpy = jasmine.createSpy;
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 describe('BrowseBySwitcherComponent', () => {

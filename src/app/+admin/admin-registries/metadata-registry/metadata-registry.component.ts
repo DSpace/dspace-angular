@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { RestResponse } from '../../../core/cache/response.models';
-import { zip } from 'rxjs/internal/observable/zip';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-metadata-registry',

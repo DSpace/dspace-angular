@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import { FindListOptions } from '../../../core/data/request.models';

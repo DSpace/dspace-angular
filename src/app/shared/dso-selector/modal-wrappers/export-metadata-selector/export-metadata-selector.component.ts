@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { take, map, switchMap } from 'rxjs/operators';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestEntry } from '../../../../core/data/request.reducer';
 import { Collection } from '../../../../core/shared/collection.model';

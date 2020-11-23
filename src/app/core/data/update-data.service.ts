@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { RestRequestMethod } from './rest-request-method';
 import { Operation } from 'fast-json-patch';

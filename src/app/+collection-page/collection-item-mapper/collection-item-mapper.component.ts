@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
@@ -17,7 +17,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { RestResponse } from '../../core/cache/response.models';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';

@@ -1,12 +1,11 @@
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../../../../core/cache/response.models';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';

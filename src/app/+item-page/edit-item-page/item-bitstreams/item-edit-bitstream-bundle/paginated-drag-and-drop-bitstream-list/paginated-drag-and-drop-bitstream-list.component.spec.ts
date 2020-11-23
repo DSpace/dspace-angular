@@ -10,7 +10,7 @@ import { BundleDataService } from '../../../../../core/data/bundle-data.service'
 import { createMockRDObs } from '../../item-bitstreams.component.spec';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../../../core/shared/bitstream-format.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ResponsiveColumnSizes } from '../../../../../shared/responsive-table-sizes/responsive-column-sizes';

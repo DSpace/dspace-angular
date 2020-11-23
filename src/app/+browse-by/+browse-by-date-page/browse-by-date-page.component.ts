@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions
 } from '../+browse-by-metadata-page/browse-by-metadata-page.component';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
+import { combineLatest as observableCombineLatest } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';

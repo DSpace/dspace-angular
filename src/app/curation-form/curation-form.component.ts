@@ -3,7 +3,7 @@ import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { getResponseFromEntry } from '../core/shared/operators';
 import { DSOSuccessResponse } from '../core/cache/response.models';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, find, map, take } from 'rxjs/operators';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
@@ -14,7 +14,6 @@ import { Process } from '../process-page/processes/process.model';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/internal/operators/find';
 
 export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
 

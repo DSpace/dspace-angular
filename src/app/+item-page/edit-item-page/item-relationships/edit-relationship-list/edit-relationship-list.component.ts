@@ -1,19 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { Observable } from 'rxjs/internal/Observable';
-import {FieldUpdate, FieldUpdates} from '../../../../core/data/object-updates/object-updates.reducer';
-import {Item} from '../../../../core/shared/item.model';
-import { map, switchMap, tap } from 'rxjs/operators';
-import {hasValue} from '../../../../shared/empty.util';
-import {Relationship} from '../../../../core/shared/item-relationships/relationship.model';
-import {RelationshipType} from '../../../../core/shared/item-relationships/relationship-type.model';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { FieldUpdate, FieldUpdates } from '../../../../core/data/object-updates/object-updates.reducer';
+import { Item } from '../../../../core/shared/item.model';
+import { map, switchMap } from 'rxjs/operators';
+import { hasValue } from '../../../../shared/empty.util';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
   getSucceededRemoteData
 } from '../../../../core/shared/operators';
-import { combineLatest as observableCombineLatest } from 'rxjs';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 

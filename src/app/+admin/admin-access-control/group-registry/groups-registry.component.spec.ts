@@ -6,7 +6,7 @@ import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';

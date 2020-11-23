@@ -9,7 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 
 describe('MetadataSchemaFormComponent', () => {

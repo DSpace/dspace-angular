@@ -8,7 +8,7 @@ import { RESOURCE_POLICY } from './resource-policy.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { PolicyType } from './policy-type.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../data/remote-data';
 import { GROUP } from '../../eperson/models/group.resource-type';
 import { Group } from '../../eperson/models/group.model';

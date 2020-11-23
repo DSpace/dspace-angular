@@ -1,11 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { find } from 'rxjs/operators';
 import { isNotUndefined } from '../../../empty.util';

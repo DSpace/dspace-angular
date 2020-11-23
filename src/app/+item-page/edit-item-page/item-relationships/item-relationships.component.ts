@@ -1,9 +1,12 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { DeleteRelationship, FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
-import { Observable } from 'rxjs/internal/Observable';
+import {
+  DeleteRelationship,
+  FieldUpdate,
+  FieldUpdates
+} from '../../../core/data/object-updates/object-updates.reducer';
+import { Observable, of as observableOf, Subscription, zip as observableZip } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { of as observableOf, zip as observableZip} from 'rxjs';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -17,7 +20,6 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { EntityTypeService } from '../../../core/data/entity-type.service';

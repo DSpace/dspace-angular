@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Process } from '../processes/process.model';
 import { map, switchMap } from 'rxjs/operators';

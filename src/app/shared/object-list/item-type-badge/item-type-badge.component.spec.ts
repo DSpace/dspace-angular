@@ -1,6 +1,5 @@
-import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../core/shared/item.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { TruncatePipe } from '../../utils/truncate.pipe';

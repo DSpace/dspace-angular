@@ -2,7 +2,7 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 
 import { MetadataFieldFormComponent } from './metadata-field-form.component';
 import { RegistryService } from '../../../../core/registry/registry.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';

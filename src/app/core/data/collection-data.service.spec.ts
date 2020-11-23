@@ -8,7 +8,7 @@ import { getMockTranslateService } from '../../shared/mocks/translate.service.mo
 import { fakeAsync, tick } from '@angular/core/testing';
 import { ContentSourceRequest, GetRequest, UpdateContentSourceRequest } from './request.models';
 import { ContentSource } from '../shared/content-source.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { RequestEntry } from './request.reducer';
 import { ErrorResponse } from '../cache/response.models';
 import { ObjectCacheService } from '../cache/object-cache.service';

@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { StartsWithDateComponent } from './starts-with-date.component';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';

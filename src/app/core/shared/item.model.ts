@@ -1,5 +1,5 @@
 import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { isEmpty } from '../../shared/empty.util';
 import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';

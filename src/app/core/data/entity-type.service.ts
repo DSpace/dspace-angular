@@ -11,12 +11,12 @@ import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
 import { GetRequest } from './request.models';
-import { Observable } from 'rxjs/internal/Observable';
-import {switchMap, take, tap} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
-import {RelationshipType} from '../shared/item-relationships/relationship-type.model';
-import {PaginatedList} from './paginated-list';
-import {ItemType} from '../shared/item-relationships/item-type.model';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { PaginatedList } from './paginated-list';
+import { ItemType } from '../shared/item-relationships/item-type.model';
 
 /**
  * Service handling all ItemType requests

@@ -6,7 +6,7 @@ import { SharedModule } from '../../../shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RequestService } from '../../../../core/data/request.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterTestingModule } from '@angular/router/testing';
 

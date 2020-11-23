@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnDestroy } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { Observable } from 'rxjs/internal/Observable';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Observable, of as observableOf, Subscription, zip as observableZip } from 'rxjs';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +9,6 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { zip as observableZip, of as observableOf } from 'rxjs';
 import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';

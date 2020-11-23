@@ -18,7 +18,7 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { RequestParam } from '../cache/models/request-param.model';
 

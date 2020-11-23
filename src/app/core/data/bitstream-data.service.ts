@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -29,7 +29,6 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { RestResponse } from '../cache/response.models';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { configureRequest, getResponseFromEntry } from '../shared/operators';
-import { combineLatest as observableCombineLatest } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
 

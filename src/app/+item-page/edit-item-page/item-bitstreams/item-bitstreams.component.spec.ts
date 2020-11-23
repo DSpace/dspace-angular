@@ -1,5 +1,5 @@
 import { Bitstream } from '../../../core/shared/bitstream.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';

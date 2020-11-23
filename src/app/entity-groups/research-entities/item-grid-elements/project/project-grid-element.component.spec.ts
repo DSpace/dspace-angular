@@ -1,5 +1,5 @@
 import { Item } from '../../../../core/shared/item.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { ProjectGridElementComponent } from './project-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { PaginatedList } from '../../../../core/data/paginated-list';

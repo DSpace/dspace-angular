@@ -20,7 +20,7 @@ import { createTestComponent } from '../testing/utils.test';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 
 describe('LogInComponent', () => {
 

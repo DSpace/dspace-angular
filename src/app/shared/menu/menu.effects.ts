@@ -3,7 +3,7 @@ import { MenuSection } from './menu.reducer';
 import { hasNoValue, hasValue } from '../empty.util';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { MenuService } from './menu.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { Injectable } from '@angular/core';

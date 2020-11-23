@@ -7,14 +7,14 @@ import { Store, StoreModule } from '@ngrx/store';
 import { authReducer, AuthState } from '../../core/auth/auth.reducer';
 import { EPersonMock } from '../testing/eperson.mock';
 import { TranslateModule } from '@ngx-translate/core';
-import { AppState, storeModuleConfig } from '../../app.reducer';
+import { AppState } from '../../app.reducer';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { HostWindowService } from '../host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { AuthService } from '../../core/auth/auth.service';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 
 describe('AuthNavMenuComponent', () => {
 

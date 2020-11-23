@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs/internal/Observable';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { Observable, of as observableOf } from 'rxjs';
 import * as ItemRelationshipsUtils from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ObjectCacheService } from '../cache/object-cache.service';

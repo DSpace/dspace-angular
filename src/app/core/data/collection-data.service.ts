@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';

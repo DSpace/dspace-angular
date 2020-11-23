@@ -3,7 +3,7 @@ import { async, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { cold, getTestScheduler, hot, } from 'jasmine-marbles';
@@ -17,10 +17,7 @@ import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-ser
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import {
-  mockSubmissionDefinition,
-  mockSubmissionRestResponse
-} from '../shared/mocks/submission.mock';
+import { mockSubmissionDefinition, mockSubmissionRestResponse } from '../shared/mocks/submission.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import {
@@ -36,11 +33,7 @@ import {
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
 import { RemoteDataError } from '../core/data/remote-data-error';
-import { throwError as observableThrowError } from 'rxjs/internal/observable/throwError';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../shared/remote-data.utils';
+import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject, } from '../shared/remote-data.utils';
 import { getMockSearchService } from '../shared/mocks/search-service.mock';
 import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { RequestService } from '../core/data/request.service';

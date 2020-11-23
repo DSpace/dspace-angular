@@ -1,9 +1,8 @@
 import { FieldUpdate, FieldUpdates } from '../../core/data/object-updates/object-updates.reducer';
-import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../empty.util';
@@ -14,7 +13,6 @@ import { Directive, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } fro
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
 import { compareArraysUsing } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
-import { Subscription } from 'rxjs/internal/Subscription';
 
 /**
  * Operator used for comparing {@link FieldUpdate}s by their field's UUID

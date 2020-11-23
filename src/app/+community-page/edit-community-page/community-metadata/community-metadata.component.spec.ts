@@ -4,7 +4,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommunityMetadataComponent } from './community-metadata.component';
 import { CommunityDataService } from '../../../core/data/community-data.service';

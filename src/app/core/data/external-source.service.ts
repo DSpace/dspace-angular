@@ -10,7 +10,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { FindListOptions, GetRequest } from './request.models';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
@@ -19,7 +19,6 @@ import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * A service handling all external source requests

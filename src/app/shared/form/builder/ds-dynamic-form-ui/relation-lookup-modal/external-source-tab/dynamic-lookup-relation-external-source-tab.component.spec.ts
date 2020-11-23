@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,

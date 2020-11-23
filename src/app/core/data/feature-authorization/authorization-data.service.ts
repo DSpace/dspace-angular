@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AUTHORIZATION } from '../../shared/authorization.resource-type';
 import { dataService } from '../../cache/builders/build-decorators';
@@ -17,17 +17,13 @@ import { AuthService } from '../../auth/auth.service';
 import { SiteDataService } from '../site-data.service';
 import { FindListOptions, FindListRequest } from '../request.models';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../remote-data';
 import { PaginatedList } from '../paginated-list';
 import { find, map, switchMap, tap } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
-import {
-  addSiteObjectUrlIfEmpty,
-  oneAuthorizationMatchesFeature
-} from './authorization-utils';
+import { addSiteObjectUrlIfEmpty, oneAuthorizationMatchesFeature } from './authorization-utils';
 import { FeatureID } from './feature-id';
 
 /**

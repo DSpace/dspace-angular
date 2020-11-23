@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RestResponse } from '../../../core/cache/response.models';
 import { CollectionDataService } from '../../../core/data/collection-data.service';

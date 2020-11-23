@@ -14,7 +14,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { CollectionSelectComponent } from './collection-select.component';
 import { Collection } from '../../../core/shared/collection.model';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 
 describe('CollectionSelectComponent', () => {
   let comp: CollectionSelectComponent;

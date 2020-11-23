@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createSelector, Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
-import { Observable, of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { AppState } from '../app.reducer';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { FindListOptions } from '../core/data/request.models';
@@ -46,7 +45,7 @@ export class ShowMoreFlatNode {
 
 // Helper method to combine an flatten an array of observables of flatNode arrays
 export const combineAndFlatten = (obsList: Array<Observable<FlatNode[]>>): Observable<FlatNode[]> =>
-  observableCombineLatest(...obsList).pipe(
+  observableCombineLatest([...obsList]).pipe(
     map((matrix: any[][]) => [].concat(...matrix))
   );
 
@@ -138,7 +137,7 @@ export class CommunityListService {
       const pagination: FindListOptions = Object.assign({}, findOptions, { currentPage: i });
       topCommunities.push(this.getTopCommunities(pagination));
     }
-    const topComs$ = observableCombineLatest(...topCommunities).pipe(
+    const topComs$ = observableCombineLatest([...topCommunities]).pipe(
       map((coms: Array<PaginatedList<Community>>) => {
         const newPages: Community[][] = coms.map((unit: PaginatedList<Community>) => unit.page);
         const newPage: Community[] = [].concat(...newPages);

@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
 import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { Collection } from '../../core/shared/collection.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';

@@ -10,7 +10,7 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';

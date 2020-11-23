@@ -4,7 +4,7 @@ import { UpdateDataService } from './update-data.service';
 import { Item } from '../shared/item.model';
 import { RestRequestMethod } from './rest-request-method';
 import { RemoteData } from './remote-data';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -16,7 +16,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { BrowseService } from '../browse/browse.service';
 import { CollectionDataService } from './collection-data.service';
-import { switchMap, map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { BundleDataService } from './bundle-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RestResponse } from '../cache/response.models';

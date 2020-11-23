@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
@@ -9,7 +9,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ClaimedTaskActionsRejectComponent } from './claimed-task-actions-reject.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 

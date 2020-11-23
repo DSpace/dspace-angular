@@ -1,14 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import {
+  compareArraysUsingIds,
+  paginatedRelationsToItems,
+  relationsToItems
+} from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
 import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
-import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
+import {
+  RemoveNameVariantAction,
+  SetNameVariantAction
+} from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -24,7 +30,13 @@ import { RelationshipType } from '../shared/item-relationships/relationship-type
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { Item } from '../shared/item.model';
-import { configureRequest, getFirstSucceededRemoteDataPayload, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
+import {
+  configureRequest,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  getResponseFromEntry,
+  getSucceededRemoteData
+} from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';

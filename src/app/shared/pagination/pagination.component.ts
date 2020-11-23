@@ -1,5 +1,6 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -10,7 +11,7 @@ import {
 } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Subscription, Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { isNumeric } from 'rxjs/internal-compatibility';
 import { isEqual, isObject, transform } from 'lodash';
 

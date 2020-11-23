@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';

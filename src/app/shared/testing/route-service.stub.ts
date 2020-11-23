@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 
 export const routeServiceStub: any = {
   /* tslint:disable:no-empty */

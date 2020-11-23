@@ -1,5 +1,4 @@
-import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable, zip as observableZip } from 'rxjs';
 import { distinctUntilChanged, map, mergeMap, switchMap } from 'rxjs/operators';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';

@@ -2,9 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -20,7 +19,6 @@ import { ErrorResponse, RestResponse } from '../../../core/cache/response.models
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequestService } from '../../../core/data/request.service';
-import { filter } from 'rxjs/internal/operators/filter';
 import { PageInfo } from '../../../core/shared/page-info.model';
 
 @Component({

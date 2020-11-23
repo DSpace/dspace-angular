@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionMetadataComponent } from './collection-metadata.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

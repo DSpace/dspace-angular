@@ -4,7 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';

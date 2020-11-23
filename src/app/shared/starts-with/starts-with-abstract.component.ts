@@ -1,6 +1,6 @@
-import { Inject, OnDestroy, OnInit, Directive } from '@angular/core';
+import { Directive, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { hasValue } from '../empty.util';
 

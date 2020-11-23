@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionSourceComponent } from './collection-source.component';
 import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';

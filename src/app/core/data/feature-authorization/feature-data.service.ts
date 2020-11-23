@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { FEATURE } from '../../shared/feature.resource-type';
 import { dataService } from '../../cache/builders/build-decorators';

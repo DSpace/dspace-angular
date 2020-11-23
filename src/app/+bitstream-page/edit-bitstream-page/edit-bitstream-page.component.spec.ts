@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RemoteData } from '../../core/data/remote-data';
-import { of as observableOf } from 'rxjs/internal/observable/of';
-import {ActivatedRoute, Router} from '@angular/router';
+import { of as observableOf } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -22,10 +22,8 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { RestResponse } from '../../core/cache/response.models';
 import { VarDirective } from '../../shared/utils/var.directive';
-import {
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
-import {RouterStub} from '../../shared/testing/router.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { RouterStub } from '../../shared/testing/router.stub';
 import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');

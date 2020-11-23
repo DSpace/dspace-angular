@@ -1,7 +1,7 @@
 import { ItemEditBitstreamComponent } from './item-edit-bitstream.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../../shared/utils/var.directive';

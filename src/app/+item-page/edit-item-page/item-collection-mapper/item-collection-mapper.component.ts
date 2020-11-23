@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -21,7 +21,6 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { RestResponse } from '../../../core/cache/response.models';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';

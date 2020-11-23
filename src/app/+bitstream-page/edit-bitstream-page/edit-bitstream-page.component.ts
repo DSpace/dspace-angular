@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, mergeMap, switchMap} from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -32,12 +31,11 @@ import { RestResponse } from '../../core/cache/response.models';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
-import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
-import {Bundle} from '../../core/shared/bundle.model';
-import {Item} from '../../core/shared/item.model';
+import { Bundle } from '../../core/shared/bundle.model';
+import { Item } from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-edit-bitstream-page',

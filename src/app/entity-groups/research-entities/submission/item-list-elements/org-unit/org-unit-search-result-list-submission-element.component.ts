@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
