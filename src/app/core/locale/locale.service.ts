@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -6,9 +6,9 @@ import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
-import { Observable, of as observableOf, combineLatest } from 'rxjs';
-import { map, take, flatMap } from 'rxjs/operators';
-import { NativeWindowService, NativeWindowRef } from '../services/window.service';
+import { combineLatest, Observable, of as observableOf } from 'rxjs';
+import { map, mergeMap, take } from 'rxjs/operators';
+import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 
 export const LANG_COOKIE = 'dsLanguage';
 
@@ -74,7 +74,7 @@ export class LocaleService {
 
     return obs$.pipe(
       take(1),
-      flatMap(([isAuthenticated, isLoaded]) => {
+      mergeMap(([isAuthenticated, isLoaded]) => {
         // TODO to enabled again when https://github.com/DSpace/dspace-angular/issues/739 will be resolved
         const epersonLang$: Observable<string[]> = observableOf([]);
 /*        if (isAuthenticated && isLoaded) {

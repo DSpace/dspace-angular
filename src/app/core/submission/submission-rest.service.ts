@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, mergeMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 
 import { RequestService } from '../data/request.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import {
-  DeleteRequest, GetRequest,
+  DeleteRequest,
   PostRequest,
   RestRequest,
   SubmissionDeleteRequest,
@@ -20,7 +20,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache/response.models';
 import { getResponseFromEntry } from '../shared/operators';
-import {URLCombiner} from '../url-combiner/url-combiner';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 /**
  * The service handling all submission REST requests
@@ -96,7 +96,7 @@ export class SubmissionRestService {
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)),
       map((endpointURL: string) => new SubmissionDeleteRequest(requestId, endpointURL)),
       tap((request: DeleteRequest) => this.requestService.configure(request)),
-      flatMap(() => this.fetchRequest(requestId)),
+      mergeMap(() => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
 
@@ -121,7 +121,7 @@ export class SubmissionRestService {
         this.requestService.removeByHrefSubstring(request.href);
         this.requestService.configure(request);
       }),
-      flatMap(() => this.fetchRequest(requestId)),
+      mergeMap(() => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
 
@@ -149,7 +149,7 @@ export class SubmissionRestService {
       distinctUntilChanged(),
       map((endpointURL: string) => new SubmissionPostRequest(requestId, endpointURL, body, options)),
       tap((request: PostRequest) => this.requestService.configure(request)),
-      flatMap(() => this.fetchRequest(requestId)),
+      mergeMap(() => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
 
@@ -173,7 +173,7 @@ export class SubmissionRestService {
       distinctUntilChanged(),
       map((endpointURL: string) => new SubmissionPatchRequest(requestId, endpointURL, body)),
       tap((request: PostRequest) => this.requestService.configure(request)),
-      flatMap(() => this.fetchRequest(requestId)),
+      mergeMap(() => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
 

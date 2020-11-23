@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { filter, find, flatMap, map } from 'rxjs/operators';
+import { filter, find, map, mergeMap } from 'rxjs/operators';
 
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -34,7 +34,7 @@ export class ItemSubmitterComponent implements OnInit {
   ngOnInit() {
     this.submitter$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       filter((rd: RemoteData<WorkflowItem>) => (rd.hasSucceeded && isNotUndefined(rd.payload))),
-      flatMap((rd: RemoteData<WorkflowItem>) => rd.payload.submitter as Observable<RemoteData<EPerson>>),
+      mergeMap((rd: RemoteData<WorkflowItem>) => rd.payload.submitter as Observable<RemoteData<EPerson>>),
       find((rd: RemoteData<EPerson>) => rd.hasSucceeded && isNotEmpty(rd.payload)),
       map((rd: RemoteData<EPerson>) => rd.payload));
   }

@@ -1,10 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
 
 import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, mergeMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 
 import { DataService } from '../data/data.service';
-import { DeleteRequest, FindListOptions, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
+import { DeleteRequest, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
 import { isNotEmpty } from '../../shared/empty.util';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { ProcessTaskResponse } from './models/process-task-response';
@@ -80,7 +80,7 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       distinctUntilChanged(),
       map((endpointURL: string) => new TaskPostRequest(requestId, endpointURL, body, options)),
       tap((request: PostRequest) => this.requestService.configure(request)),
-      flatMap((request: PostRequest) => this.fetchRequest(requestId)),
+      mergeMap((request: PostRequest) => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
 
@@ -104,7 +104,7 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)),
       map((endpointURL: string) => new TaskDeleteRequest(requestId, endpointURL, null, options)),
       tap((request: DeleteRequest) => this.requestService.configure(request)),
-      flatMap((request: DeleteRequest) => this.fetchRequest(requestId)),
+      mergeMap((request: DeleteRequest) => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
 

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { isEqual } from 'lodash';
 
@@ -158,8 +158,8 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
     this.formConfigService.getConfigByHref(this.sectionData.config).pipe(
       map((configData: ConfigData) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
-      flatMap(() =>
-        observableCombineLatest(
+      mergeMap(() =>
+        observableCombineLatest([
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
           this.submissionObjectService.getHrefByID(this.submissionId).pipe(take(1)).pipe(
             switchMap((href: string) => {
@@ -174,7 +174,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
                 switchMap(() => this.submissionObjectService.findById(this.submissionId, followLink('item')).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
               )
             })
-          )
+          )]
         )),
       take(1))
       .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {

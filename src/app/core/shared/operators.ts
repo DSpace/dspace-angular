@@ -1,6 +1,6 @@
 import { Router, UrlTree } from '@angular/router';
-import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
-import { filter, find, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { filter, find, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
@@ -23,14 +23,14 @@ import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 export const getRequestFromRequestHref = (requestService: RequestService) =>
   (source: Observable<string>): Observable<RequestEntry> =>
     source.pipe(
-      flatMap((href: string) => requestService.getByHref(href)),
+      mergeMap((href: string) => requestService.getByHref(href)),
       hasValueOperator()
     );
 
 export const getRequestFromRequestUUID = (requestService: RequestService) =>
   (source: Observable<string>): Observable<RequestEntry> =>
     source.pipe(
-      flatMap((uuid: string) => requestService.getByUUID(uuid)),
+      mergeMap((uuid: string) => requestService.getByUUID(uuid)),
       hasValueOperator()
     );
 

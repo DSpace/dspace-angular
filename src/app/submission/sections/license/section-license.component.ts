@@ -7,7 +7,7 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, startWith, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, mergeMap, startWith, take } from 'rxjs/operators';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -131,7 +131,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
 
     this.licenseText$ = this.collectionDataService.findById(this.collectionId, followLink('license')).pipe(
       filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
-      flatMap((collectionData: RemoteData<Collection>) => (collectionData.payload as any).license),
+      mergeMap((collectionData: RemoteData<Collection>) => (collectionData.payload as any).license),
       find((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))),
       map((licenseData: RemoteData<License>) => licenseData.payload.text),
       startWith(''));

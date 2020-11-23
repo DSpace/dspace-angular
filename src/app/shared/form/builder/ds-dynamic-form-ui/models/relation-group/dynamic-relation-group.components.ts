@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, O
 import { FormGroup } from '@angular/forms';
 
 import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { filter, flatMap, map, mergeMap, scan } from 'rxjs/operators';
+import { filter, map, mergeMap, scan } from 'rxjs/operators';
 import {
   DynamicFormControlComponent,
   DynamicFormControlModel,
@@ -13,7 +13,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { isEqual, isObject } from 'lodash';
 
-import { DynamicRelationGroupModel} from './dynamic-relation-group.model';
+import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
@@ -226,7 +226,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
 
       // If authority
       this.subs.push(initChipsValue$.pipe(
-        flatMap((valueModel) => {
+        mergeMap((valueModel) => {
           const returnList: Array<Observable<any>> = [];
           valueModel.forEach((valueObj) => {
             const returnObj = Object.keys(valueObj).map((fieldName) => {

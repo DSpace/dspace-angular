@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, first, flatMap, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
 
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { dataService } from '../../cache/builders/build-decorators';
@@ -22,7 +22,7 @@ import { PaginatedList } from '../../data/paginated-list';
 import { Vocabulary } from './models/vocabulary.model';
 import { VOCABULARY } from './models/vocabularies.resource-type';
 import { VocabularyEntry } from './models/vocabulary-entry.model';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
+import { isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import {
   configureRequest,
   filterSuccessfulResponses,
@@ -295,7 +295,7 @@ export class VocabularyService {
 
     return this.vocabularyEntryDetailDataService.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${linkPath}`),
-      flatMap((href) => this.vocabularyEntryDetailDataService.findByHref(href, ...linksToFollow))
+      mergeMap((href) => this.vocabularyEntryDetailDataService.findByHref(href, ...linksToFollow))
     );
   }
 
@@ -320,7 +320,7 @@ export class VocabularyService {
       pageInfo.currentPage
     );
     return this.vocabularyEntryDetailDataService.getFindAllHref(options, linkPath).pipe(
-      flatMap((href) => this.vocabularyEntryDetailDataService.findAllByHref(href, options, ...linksToFollow))
+      mergeMap((href) => this.vocabularyEntryDetailDataService.findAllByHref(href, options, ...linksToFollow))
     );
   }
 

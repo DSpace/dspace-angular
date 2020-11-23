@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, of as observableOf, Observable, Subject } from 'rxjs';
-import { filter, flatMap, map, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
@@ -15,14 +15,10 @@ import { Bitstream } from '../core/shared/bitstream.model';
 import { Collection } from '../core/shared/collection.model';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { Item } from '../core/shared/item.model';
-import {
-  getSucceededRemoteData,
-  redirectOn404Or401,
-  toDSpaceObjectListRD
-} from '../core/shared/operators';
+import { getSucceededRemoteData, redirectOn404Or401, toDSpaceObjectListRD } from '../core/shared/operators';
 
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
-import { hasNoValue, hasValue, isNotEmpty } from '../shared/empty.util';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
 @Component({
@@ -69,7 +65,7 @@ export class CollectionPageComponent implements OnInit {
     this.logoRD$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => rd.payload),
       filter((collection: Collection) => hasValue(collection)),
-      flatMap((collection: Collection) => collection.logo)
+      mergeMap((collection: Collection) => collection.logo)
     );
 
     this.paginationChanges$ = new BehaviorSubject({

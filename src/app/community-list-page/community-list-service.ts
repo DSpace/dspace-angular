@@ -5,7 +5,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { AppState } from '../app.reducer';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { FindListOptions } from '../core/data/request.models';
-import { map, flatMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { Community } from '../core/shared/community.model';
 import { Collection } from '../core/shared/collection.model';
 import { getSucceededRemoteData } from '../core/shared/operators';
@@ -127,6 +127,7 @@ export class CommunityListService {
 
   /**
    * Gets all top communities, limited by page, and transforms this in a list of flatNodes.
+   * @param findOptions       FindListOptions
    * @param expandedNodes     List of expanded nodes; if a node is not expanded its subCommunities and collections need
    *                            not be added to the list
    */
@@ -148,7 +149,7 @@ export class CommunityListService {
         return new PaginatedList(newPageInfo, newPage);
       })
     );
-    return topComs$.pipe(flatMap((topComs: PaginatedList<Community>) => this.transformListOfCommunities(topComs, 0, null, expandedNodes)));
+    return topComs$.pipe(mergeMap((topComs: PaginatedList<Community>) => this.transformListOfCommunities(topComs, 0, null, expandedNodes)));
   };
 
   /**
@@ -229,7 +230,7 @@ export class CommunityListService {
         })
           .pipe(
             getSucceededRemoteData(),
-            flatMap((rd: RemoteData<PaginatedList<Community>>) =>
+            mergeMap((rd: RemoteData<PaginatedList<Community>>) =>
               this.transformListOfCommunities(rd.payload, level + 1, communityFlatNode, expandedNodes))
           );
 

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
-import { catchError, filter, first, flatMap, map, take } from 'rxjs/operators';
+import { catchError, filter, first, map, mergeMap, take } from 'rxjs/operators';
 
 import { PaginatedList } from '../../../core/data/paginated-list';
 import {
@@ -85,7 +85,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
 
     const bundles$: Observable<PaginatedList<Bundle>> = this.item$.pipe(
       filter((item: Item) => isNotEmpty(item.bundles)),
-      flatMap((item: Item) => item.bundles),
+      mergeMap((item: Item) => item.bundles),
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       catchError((error) => {
         console.error(error);
@@ -102,7 +102,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       }),
       bundles$.pipe(
         take(1),
-        flatMap((list: PaginatedList<Bundle>) => list.page),
+        mergeMap((list: PaginatedList<Bundle>) => list.page),
         map((bundle: Bundle) => ({ id: bundle.id, bitstreams: this.getBundleBitstreams(bundle) }))
       ).subscribe((entry: BundleBitstreamsMapEntry) => {
         this.bundleBitstreamsMap.set(entry.id, entry.bitstreams)

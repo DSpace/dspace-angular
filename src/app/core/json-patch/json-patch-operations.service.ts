@@ -1,5 +1,5 @@
 import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, partition, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, mergeMap, partition, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
@@ -45,7 +45,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
     const requestId = this.requestService.generateRequestId();
     let startTransactionTime = null;
     const [patchRequest$, emptyRequest$] = partition((request: PatchRequestDefinition) => isNotEmpty(request.body))(hrefObs.pipe(
-      flatMap((endpointURL: string) => {
+      mergeMap((endpointURL: string) => {
         return this.store.select(jsonPatchOperationsByResourceType(resourceType)).pipe(
           take(1),
           filter((operationsList: JsonPatchOperationsResourceEntry) => isUndefined(operationsList) || !(operationsList.commitPending)),
@@ -84,7 +84,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
         filter((request: PatchRequestDefinition) => isNotEmpty(request.body)),
         tap(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime))),
         tap((request: PatchRequestDefinition) => this.requestService.configure(request)),
-        flatMap(() => {
+        mergeMap(() => {
           const [successResponse$, errorResponse$] = partition((response: RestResponse) => response.isSuccessful)(this.requestService.getByUUID(requestId).pipe(
             getResponseFromEntry(),
             find((entry: RestResponse) => startTransactionTime < entry.timeAdded),
@@ -93,7 +93,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
           return observableMerge(
             errorResponse$.pipe(
               tap(() => this.store.dispatch(new RollbacktPatchOperationsAction(resourceType, resourceId))),
-              flatMap((error: ErrorResponse) => observableThrowError(error))),
+              mergeMap((error: ErrorResponse) => observableThrowError(error))),
             successResponse$.pipe(
               filter((response: PostPatchSuccessResponse) => isNotEmpty(response)),
               tap(() => this.store.dispatch(new CommitPatchOperationsAction(resourceType, resourceId))),

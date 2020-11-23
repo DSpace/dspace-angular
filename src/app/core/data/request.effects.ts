@@ -1,7 +1,7 @@
-import { Inject, Injectable, Injector } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, filter, flatMap, map, take } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, take } from 'rxjs/operators';
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { StoreActionTypes } from '../../store.actions';
@@ -11,7 +11,12 @@ import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.
 
 import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
-import { RequestActionTypes, RequestCompleteAction, RequestExecuteAction, ResetResponseTimestampsAction } from './request.actions';
+import {
+  RequestActionTypes,
+  RequestCompleteAction,
+  RequestExecuteAction,
+  ResetResponseTimestampsAction
+} from './request.actions';
 import { RequestError, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
@@ -29,14 +34,14 @@ export class RequestEffects {
 
   @Effect() execute = this.actions$.pipe(
     ofType(RequestActionTypes.EXECUTE),
-    flatMap((action: RequestExecuteAction) => {
+    mergeMap((action: RequestExecuteAction) => {
       return this.requestService.getByUUID(action.payload).pipe(
         take(1)
       );
     }),
     filter((entry: RequestEntry) => hasValue(entry)),
     map((entry: RequestEntry) => entry.request),
-    flatMap((request: RestRequest) => {
+    mergeMap((request: RestRequest) => {
       let body = request.body;
       if (isNotEmpty(request.body) && !request.isMultipart) {
         const serializer = new DSpaceSerializer(getClassForType(request.body.type));

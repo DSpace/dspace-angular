@@ -21,7 +21,7 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
@@ -75,7 +75,7 @@ export class RegistryService {
       map((schemas: PaginatedList<MetadataSchema>) => schemas.page),
       isNotEmptyOperator(),
       map((schemas: MetadataSchema[]) => schemas.filter((schema) => schema.prefix === prefix)[0]),
-      flatMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, ...linksToFollow))
+      mergeMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, ...linksToFollow))
     );
   }
 
@@ -290,6 +290,8 @@ export class RegistryService {
    * Retrieve a filtered paginated list of metadata fields
    * @param query {string} The query to use for the metadata field name, can be part of the fully qualified field,
    * should start with the start of the schema, element or qualifier (e.g. “dc.ti”, “contributor”, “auth”, “contributor.ot”)
+   * @param options
+   * @param linksToFollow
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
   queryMetadataFields(query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {

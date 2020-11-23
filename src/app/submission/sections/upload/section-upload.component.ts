@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, reduce, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, mergeMap, reduce, take, tap } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
@@ -159,11 +159,11 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         filter((submissionObject: SubmissionObjectEntry) => isNotUndefined(submissionObject) && !submissionObject.isLoading),
         filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection),
         tap((submissionObject: SubmissionObjectEntry) => this.collectionId = submissionObject.collection),
-        flatMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection)),
+        mergeMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection)),
         filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
         tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = collectionRemoteData.payload.name),
         // TODO review this part when https://github.com/DSpace/dspace-angular/issues/575 is resolved
-/*        flatMap((collectionRemoteData: RemoteData<Collection>) => {
+/*        mergeMap((collectionRemoteData: RemoteData<Collection>) => {
           return this.resourcePolicyService.findByHref(
             (collectionRemoteData.payload as any)._links.defaultAccessConditions.href
           );
@@ -176,8 +176,8 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
               ? defaultAccessConditionsRemoteData.payload : [defaultAccessConditionsRemoteData.payload];
           }
         }),*/
-        flatMap(() => config$),
-        flatMap((config: SubmissionUploadsModel) => {
+        mergeMap(() => config$),
+        mergeMap((config: SubmissionUploadsModel) => {
           this.required$.next(config.required);
           this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
 
@@ -203,7 +203,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
                 mapGroups$.push(
                   this.groupService.findById(accessCondition.selectGroupUUID).pipe(
                     find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded),
-                    flatMap((group: RemoteData<Group>) => group.payload.subgroups),
+                    mergeMap((group: RemoteData<Group>) => group.payload.subgroups),
                     find((rd: RemoteData<PaginatedList<Group>>) => !rd.isResponsePending && rd.hasSucceeded),
                     map((rd: RemoteData<PaginatedList<Group>>) => ({
                       accessCondition: accessCondition.name,
@@ -215,7 +215,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
           });
           return mapGroups$;
         }),
-        flatMap((entry) => entry),
+        mergeMap((entry) => entry),
         reduce((acc: any[], entry: AccessConditionGroupsMapEntry) => {
           acc.push(entry);
           return acc;

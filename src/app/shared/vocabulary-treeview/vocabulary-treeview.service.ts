@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { flatMap, map, merge, scan } from 'rxjs/operators';
+import { map, merge, mergeMap, scan } from 'rxjs/operators';
 import { findIndex } from 'lodash';
 
 import { LOAD_MORE_NODE, LOAD_MORE_ROOT_NODE, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
@@ -186,13 +186,13 @@ export class VocabularyTreeviewService {
 
     this.vocabularyService.getVocabularyEntriesByValue(query, false, this.vocabularyOptions, new PageInfo()).pipe(
       getFirstSucceededRemoteListPayload(),
-      flatMap((result: VocabularyEntry[]) => (result.length > 0) ? result : observableOf(null)),
-      flatMap((entry: VocabularyEntry) =>
+      mergeMap((result: VocabularyEntry[]) => (result.length > 0) ? result : observableOf(null)),
+      mergeMap((entry: VocabularyEntry) =>
         this.vocabularyService.findEntryDetailById(entry.otherInformation.id, this.vocabularyName).pipe(
           getFirstSucceededRemoteDataPayload()
         )
       ),
-      flatMap((entry: VocabularyEntryDetail) => this.getNodeHierarchy(entry)),
+      mergeMap((entry: VocabularyEntryDetail) => this.getNodeHierarchy(entry)),
       scan((acc: TreeviewNode[], value: TreeviewNode) => {
         if (isEmpty(value) || findIndex(acc, (node) => node.item.otherInformation.id === value.item.otherInformation.id) !== -1) {
           return acc;
@@ -256,7 +256,7 @@ export class VocabularyTreeviewService {
    */
   private getNodeHierarchyById(id: string): Observable<string[]> {
     return this.getById(id).pipe(
-      flatMap((entry: VocabularyEntryDetail) => this.getNodeHierarchy(entry, [], false)),
+      mergeMap((entry: VocabularyEntryDetail) => this.getNodeHierarchy(entry, [], false)),
       map((node: TreeviewNode) => this.getNodeHierarchyIds(node))
     );
   }
@@ -349,7 +349,7 @@ export class VocabularyTreeviewService {
 
     if (node.item.hasOtherInformation() && isNotEmpty(node.item.otherInformation.parent)) {
       return this.getParentNode(node.item.otherInformation.id).pipe(
-        flatMap((parentItem: VocabularyEntryDetail) => this.getNodeHierarchy(parentItem, [node], toStore))
+        mergeMap((parentItem: VocabularyEntryDetail) => this.getNodeHierarchy(parentItem, [node], toStore))
       )
     } else {
       return observableOf(node);
