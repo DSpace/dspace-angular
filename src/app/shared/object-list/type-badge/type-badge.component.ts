@@ -24,7 +24,7 @@ export class TypeBadgeComponent {
     if (!isEmpty(renderTypes.length)) {
       const renderType = renderTypes[0];
       if (renderType instanceof Function) {
-        this._typeMessage = `${(renderType as any).name.toLowerCase()}.listelement.badge`;
+        this._typeMessage = `${object.type.toString().toLowerCase()}.listelement.badge`;
       } else {
         this._typeMessage = `${renderType.toLowerCase()}.listelement.badge`;
       }
