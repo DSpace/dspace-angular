@@ -1,10 +1,10 @@
 <div class="card">
   <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/collections/', object.id]" class="card-img-top">
-    <ds-grid-thumbnail [thumbnail]="object.logo">
+    <ds-grid-thumbnail [thumbnail]="(object.logo | async)?.payload">
     </ds-grid-thumbnail>
   </a>
   <span *ngIf="linkType == linkTypes.None" class="card-img-top">
-    <ds-grid-thumbnail [thumbnail]="object.logo">
+    <ds-grid-thumbnail [thumbnail]="(object.logo | async)?.payload">
     </ds-grid-thumbnail>
   </span>
   <div class="card-body">

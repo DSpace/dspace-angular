@@ -26,6 +26,9 @@ import { NameVariantModalComponent } from './submission/name-variant-modal/name-
 import { OrgUnitInputSuggestionsComponent } from './submission/item-list-elements/org-unit/org-unit-suggestions/org-unit-input-suggestions.component';
 import { OrgUnitSearchResultListSubmissionElementComponent } from './submission/item-list-elements/org-unit/org-unit-search-result-list-submission-element.component';
 import { ExternalSourceEntryListSubmissionElementComponent } from './submission/item-list-elements/external-source-entry/external-source-entry-list-submission-element.component';
+import { OrgUnitSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/org-unit/org-unit-sidebar-search-list-element.component';
+import { PersonSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/person/person-sidebar-search-list-element.component';
+import { ProjectSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/project/project-sidebar-search-list-element.component';
 
 const ENTRY_COMPONENTS = [
   OrgUnitComponent,
@@ -50,7 +53,10 @@ const ENTRY_COMPONENTS = [
   NameVariantModalComponent,
   OrgUnitSearchResultListSubmissionElementComponent,
   OrgUnitInputSuggestionsComponent,
-  ExternalSourceEntryListSubmissionElementComponent
+  ExternalSourceEntryListSubmissionElementComponent,
+  OrgUnitSidebarSearchListElementComponent,
+  PersonSidebarSearchListElementComponent,
+  ProjectSidebarSearchListElementComponent,
 ];
 
 @NgModule({

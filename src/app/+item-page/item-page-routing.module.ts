@@ -20,7 +20,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
       {
         path: ':id',
         resolve: {
-          item: ItemPageResolver,
+          dso: ItemPageResolver,
           breadcrumb: ItemBreadcrumbResolver
         },
         runGuardsAndResolvers: 'always',

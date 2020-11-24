@@ -8,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -39,7 +38,7 @@ describe('ItemPageComponent', () => {
     /* tslint:enable:no-empty */
   };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ item: createSuccessfulRemoteDataObject(mockItem) })
+    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
   });
 
   beforeEach(async(() => {

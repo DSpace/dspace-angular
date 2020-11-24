@@ -1,6 +1,11 @@
 <div class="row" *ngIf="relatedItem$ | async">
   <div class="col-10 relationship">
-    <ds-listable-object-component-loader [object]="relatedItem$ | async" [viewMode]="viewMode"></ds-listable-object-component-loader>
+    <ds-listable-object-component-loader
+      [object]="relatedItem$ | async"
+      [viewMode]="viewMode"
+      [value]="nameVariant"
+    >
+    </ds-listable-object-component-loader>
   </div>
   <div class="col-2">
     <div class="btn-group relationship-action-buttons">

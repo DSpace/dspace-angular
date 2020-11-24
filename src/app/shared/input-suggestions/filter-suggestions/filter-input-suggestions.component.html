@@ -1,15 +1,14 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit(value)"
+<form #form="ngForm" (ngSubmit)="onSubmit(value)"
       [action]="action" (keydown)="onKeydown($event)"
       (keydown.arrowdown)="shiftFocusDown($event)"
       (keydown.arrowup)="shiftFocusUp($event)" (keydown.esc)="close()"
-      (dsClickOutside)="checkIfValidInput(form);close();">
-  <input #inputField type="text" formControlName="metadataNameField" [(ngModel)]="value" id="name" [name]="name"
+      (dsClickOutside)="close();">
+  <input #inputField type="text" [(ngModel)]="value" [name]="name"
          class="form-control suggestion_input"
          [ngClass]="{'is-invalid': !valid}"
          [dsDebounce]="debounceTime" (onDebounce)="find($event)"
          [placeholder]="placeholder"
-         ng-model-options="{standalone: true}"
-         autocomplete="off">
+         [ngModelOptions]="{standalone: true}" autocomplete="off"/>
   <input type="submit" class="d-none"/>
   <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
     <div class="dropdown-list">
@@ -21,4 +20,3 @@
     </div>
   </div>
 </form>
-

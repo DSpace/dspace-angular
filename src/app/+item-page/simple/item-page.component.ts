@@ -57,7 +57,7 @@ export class ItemPageComponent implements OnInit {
    */
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
-      map((data) => data.item as RemoteData<Item>),
+      map((data) => data.dso as RemoteData<Item>),
       redirectOn4xx(this.router, this.authService)
     );
     this.metadataService.processRemoteData(this.itemRD$);
