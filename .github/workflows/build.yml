@@ -74,8 +74,6 @@ jobs:
         run: docker-compose -f ./docker/docker-compose-ci.yml down
       # NOTE: Angular CLI only supports code coverage for specs. See https://github.com/angular/angular-cli/issues/6286
       # Upload coverage reports to Codecov (for Node v12 only)
-      # https://github.com/codecov/codecov-action
       - name: Upload coverage to Codecov.io
-        #uses: codecov/codecov-action@v1
         run: bash <(curl -s https://codecov.io/bash)
         if: matrix.node-version == '12.x'
