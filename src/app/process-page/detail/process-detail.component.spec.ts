@@ -37,7 +37,6 @@ describe('ProcessDetailComponent', () => {
   let nameService: DSONameService;
   let bitstreamDataService: BitstreamDataService;
   let httpClient: HttpClient;
-  let authService: AuthService;
 
   let process: Process;
   let fileName: string;
@@ -105,10 +104,6 @@ describe('ProcessDetailComponent', () => {
     httpClient = jasmine.createSpyObj('httpClient', {
       get: observableOf(processOutput)
     });
-    authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
-    });
   }
 
   beforeEach(async(() => {
@@ -126,7 +121,6 @@ describe('ProcessDetailComponent', () => {
         { provide: DSONameService, useValue: nameService },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: HttpClient, useValue: httpClient },
-        { provide: AuthService, useValue: authService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
