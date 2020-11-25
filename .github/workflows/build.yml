@@ -4,11 +4,11 @@
 name: Build
 
 # Run this Build only for pushes / PRs to main branch
-on: [push, pull_request]
-#  push:
-#    branches: main
-#  pull_request:
-#    branches: main
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
 
 jobs:
   tests:
