@@ -50,6 +50,11 @@ export class SubmissionFormFooterComponent implements OnChanges {
   public submissionIsInvalid: Observable<boolean> = observableOf(true);
 
   /**
+   * A boolean representing if submission form has unsaved modifications
+   */
+  public hasNotSavedModification: Observable<boolean>;
+
+  /**
    * Initialize instance variables
    *
    * @param {NgbModal} modalService
@@ -73,6 +78,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
       this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
       this.processingDepositStatus = this.submissionService.getSubmissionDepositProcessingStatus(this.submissionId);
       this.showDepositAndDiscard = observableOf(this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem);
+      this.hasNotSavedModification = this.submissionService.hasNotSavedModification();
     }
   }
 

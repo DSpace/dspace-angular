@@ -1,9 +1,8 @@
-import { getTestScheduler } from 'jasmine-marbles';
+import { getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
 import { SubmissionPatchRequest } from '../data/request.models';
@@ -22,6 +21,7 @@ import {
 } from './json-patch-operations.actions';
 import { RequestEntry } from '../data/request.reducer';
 import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { _deepClone } from 'fast-json-patch/lib/helpers';
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
@@ -194,6 +194,32 @@ describe('JsonPatchOperationsService test suite', () => {
         expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
       });
     });
+  });
+
+  describe('hasPendingOperations', () => {
+
+    it('should return true when there are pending operations', () => {
+
+      const expected = hot('(x|)', { x: true });
+
+      const result = service.hasPendingOperations(testJsonPatchResourceType);
+      expect(result).toBeObservable(expected);
+
+    });
+
+    it('should return false when there are not pending operations', () => {
+
+      const mockStateNoOp = _deepClone(mockState);
+      mockStateNoOp['json/patch'][testJsonPatchResourceType].children = [];
+      store.select.and.returnValue(observableOf(mockStateNoOp['json/patch'][testJsonPatchResourceType]));
+
+      const expected = hot('(x|)', { x: false });
+
+      const result = service.hasPendingOperations(testJsonPatchResourceType);
+      expect(result).toBeObservable(expected);
+
+    });
+
   });
 
   describe('jsonPatchByResourceID', () => {
