@@ -188,7 +188,7 @@ describe('SubmissionFormFooterComponent Component', () => {
       expect(submissionServiceStub.dispatchDeposit).toHaveBeenCalledWith(submissionId);
     });
 
-    it('should call dispatchDiscard on discard confirmation', () => {
+    it('should call dispatchDiscard on discard confirmation', (done) => {
       comp.showDepositAndDiscard = observableOf(true);
       fixture.detectChanges();
       const modalBtn = fixture.debugElement.query(By.css('.btn-danger'));
@@ -203,6 +203,7 @@ describe('SubmissionFormFooterComponent Component', () => {
 
       fixture.whenStable().then(() => {
         expect(submissionServiceStub.dispatchDiscard).toHaveBeenCalledWith(submissionId);
+        done();
       });
     });
 

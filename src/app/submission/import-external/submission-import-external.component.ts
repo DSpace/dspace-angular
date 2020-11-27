@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, combineLatest, Observable, Subscription, of as observableOf, } from 'rxjs';
+import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 import { filter, flatMap, take } from 'rxjs/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -31,6 +31,7 @@ import { getFinishedRemoteData } from '../../core/shared/operators';
   animations: [fadeIn]
 })
 export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
+
   /**
    * The external source search data from the routing service.
    */
@@ -207,4 +208,5 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
     };
   }
+
 }

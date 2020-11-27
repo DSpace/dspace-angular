@@ -51,7 +51,7 @@ describe('ItemPublicComponent', () => {
 
     routeStub = {
       data: observableOf({
-        item: createSuccessfulRemoteDataObject({
+        dso: createSuccessfulRemoteDataObject({
           id: 'fake-id'
         })
       })

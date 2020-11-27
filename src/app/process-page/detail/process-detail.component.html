@@ -17,7 +17,7 @@
         <ds-process-detail-field *ngIf="files && files?.length > 0" id="process-files" [title]="'process.detail.output-files'">
           <ds-file-download-link *ngFor="let file of files; let last=last;" [href]="file?._links?.content?.href" [download]="getFileName(file)">
             <span>{{getFileName(file)}}</span>
-            <span>({{(file?.sizeBytes) | dsFileSize }})</span>
+            <span>({{(file?.sizeBytes) | dsFileSize }})</span>
           </ds-file-download-link>
         </ds-process-detail-field>
     </div>
@@ -34,9 +34,20 @@
         <div>{{ process.processStatus }}</div>
     </ds-process-detail-field>
 
-    <!--<ds-process-detail-field id="process-output" [title]="'process.detail.output'">-->
-    <!--<pre class="font-weight-bold text-secondary bg-light p-3">{{'process.detail.output.alert' | translate}}</pre>-->
-    <!--</ds-process-detail-field>-->
+    <ds-process-detail-field *ngIf="isProcessFinished(process)" id="process-output" [title]="'process.detail.output'">
+      <button *ngIf="!showOutputLogs && process?._links?.output?.href != undefined" id="showOutputButton" class="btn btn-light" (click)="showProcessOutputLogs()">
+        {{ 'process.detail.logs.button' | translate }}
+      </button>
+      <ds-loading *ngIf="retrievingOutputLogs$ | async" class="ds-loading" message="{{ 'process.detail.logs.loading' | translate }}"></ds-loading>
+      <pre class="font-weight-bold text-secondary bg-light p-3"
+           *ngIf="showOutputLogs && (outputLogs$ | async)?.length > 0">{{ (outputLogs$ | async) }}</pre>
+      <p id="no-output-logs-message" *ngIf="(!(retrievingOutputLogs$ | async) && showOutputLogs)
+      && !(outputLogs$ | async) || (outputLogs$ | async)?.length == 0 || !process._links.output">
+        {{ 'process.detail.logs.none' | translate }}
+      </p>
+    </ds-process-detail-field>
 
-    <a class="btn btn-light mt-3" [routerLink]="'/processes'">{{'process.detail.back' | translate}}</a>
+    <div>
+      <a class="btn btn-light mt-3" [routerLink]="'/processes'">{{'process.detail.back' | translate}}</a>
+    </div>
 </div>

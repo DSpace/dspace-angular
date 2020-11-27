@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { Community } from '../../../core/shared/community.model';
 import { SharedModule } from '../../shared.module';
@@ -9,13 +9,12 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { DataService } from '../../../core/data/data.service';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import {RequestService} from '../../../core/data/request.service';
-import {getTestScheduler} from 'jasmine-marbles';
-import {createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$} from '../../remote-data.utils';
+import { RequestService } from '../../../core/data/request.service';
+import { getTestScheduler } from 'jasmine-marbles';
+import { ComColDataService } from '../../../core/data/comcol-data.service';
 
 describe('DeleteComColPageComponent', () => {
   let comp: DeleteComColPageComponent<DSpaceObject>;
@@ -67,7 +66,8 @@ describe('DeleteComColPageComponent', () => {
       'dsoDataService',
       {
         delete: observableOf({ isSuccessful: true }),
-        findByHref: jasmine.createSpy('findByHref')
+        findByHref: jasmine.createSpy('findByHref'),
+        refreshCache: jasmine.createSpy('refreshCache')
       });
 
     routerStub = {
@@ -93,7 +93,7 @@ describe('DeleteComColPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       providers: [
-        { provide: DataService, useValue: dsoDataService },
+        { provide: ComColDataService, useValue: dsoDataService },
         { provide: Router, useValue: routerStub },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -153,23 +153,21 @@ describe('DeleteComColPageComponent', () => {
     it('should show an error notification on failure', () => {
       (dsoDataService.delete as any).and.returnValue(observableOf({ isSuccessful: false }));
       spyOn(router, 'navigate');
-      spyOn((comp as any), 'refreshCache');
       scheduler.schedule(() => comp.onConfirm(data2));
       scheduler.flush();
       fixture.detectChanges();
       expect(notificationsService.error).toHaveBeenCalled();
-      expect((comp as any).refreshCache).not.toHaveBeenCalled();
+      expect(dsoDataService.refreshCache).not.toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalled();
     });
 
     it('should show a success notification on success and navigate', () => {
       spyOn(router, 'navigate');
-      spyOn((comp as any), 'refreshCache');
       scheduler.schedule(() => comp.onConfirm(data1));
       scheduler.flush();
       fixture.detectChanges();
       expect(notificationsService.success).toHaveBeenCalled();
-      expect((comp as any).refreshCache).toHaveBeenCalled();
+      expect(dsoDataService.refreshCache).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalled();
     });
 
@@ -177,73 +175,6 @@ describe('DeleteComColPageComponent', () => {
       comp.onConfirm(data1);
       fixture.detectChanges();
       expect(dsoDataService.delete).toHaveBeenCalledWith(data1.id);
-    });
-
-    describe('cache refresh', () => {
-      let communityWithoutParentHref;
-      let deletedCommunity;
-
-      describe('cache refreshed top level community', () => {
-        beforeEach(() => {
-          (dsoDataService.findByHref as any).and.returnValue(createNoContentRemoteDataObject$());
-          deletedCommunity = {
-            dso: Object.assign(new Community(), {
-              metadata: [{
-                key: 'dc.title',
-                value: 'top level community'
-              }]
-            }),
-            _links: {
-              parentCommunity: {
-                href: 'topLevel/parentCommunity'
-              }
-            }
-          };
-          communityWithoutParentHref = {
-            dso: Object.assign(new Community(), {
-              metadata: [{
-                key: 'dc.title',
-                value: 'top level community'
-              }]
-            }),
-            _links: {}
-          };
-        });
-        it('top level community cache refreshed', () => {
-          scheduler.schedule(() => (comp as any).refreshCache(deletedCommunity));
-          scheduler.flush();
-          expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalledWith('communities/search/top');
-        });
-        it('top level community without parent link, cache not refreshed', () => {
-          scheduler.schedule(() => (comp as any).refreshCache(communityWithoutParentHref));
-          scheduler.flush();
-          expect(requestServiceStub.removeByHrefSubstring).not.toHaveBeenCalled();
-        });
-      });
-
-      describe('cache refreshed child community', () => {
-        beforeEach(() => {
-          (dsoDataService.findByHref as any).and.returnValue(createSuccessfulRemoteDataObject$(parentCommunity));
-          deletedCommunity = {
-            dso: Object.assign(new Community(), {
-              metadata: [{
-                key: 'dc.title',
-                value: 'child community'
-              }]
-            }),
-            _links: {
-              parentCommunity: {
-                href: 'child/parentCommunity'
-              }
-            }
-          };
-        });
-        it('child level community cache refreshed', () => {
-          scheduler.schedule(() => (comp as any).refreshCache(deletedCommunity));
-          scheduler.flush();
-          expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
-        });
-      });
     });
   });
 

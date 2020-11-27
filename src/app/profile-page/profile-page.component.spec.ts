@@ -177,7 +177,7 @@ describe('ProfilePageComponent', () => {
         component.setPasswordValue('testest');
         component.setInvalid(false);
 
-        operations = [{op: 'replace', path: '/password', value: 'testest'}];
+        operations = [{op: 'add', path: '/password', value: 'testest'}];
         result = component.updateSecurity();
       });
 

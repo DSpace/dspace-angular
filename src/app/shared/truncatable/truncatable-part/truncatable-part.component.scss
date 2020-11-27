@@ -1,4 +1,4 @@
-@mixin clamp($lines, $size-factor: 1, $line-height: $line-height-base) {
+@mixin clamp($lines, $bg, $size-factor: 1, $line-height: $line-height-base) {
     $height: $line-height * $font-size-base * $size-factor;
     &.fixedHeight {
         height: $lines * $height;
@@ -19,10 +19,11 @@
             min-width: 75px;
             max-width: 150px;
             height: $height;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0), $body-bg 70%);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), $bg 70%);
             pointer-events: none;
         }
     }
+
 }
 
 @mixin min($lines, $size-factor: 1, $line-height: $line-height-base) {
@@ -31,16 +32,32 @@
 }
 
 $h4-factor: strip-unit($h4-font-size);
+
+@mixin clamp-with-titles($i, $bg) {
+  transition: height 1s;
+  @include clamp($i, $bg);
+  &.title {
+    @include clamp($i, $bg, 1.25);
+  }
+  &.h4 {
+    @include clamp($i, $bg, $h4-factor, $headings-line-height);
+  }
+}
+
 @for $i from 1 through 15 {
-    .clamp-#{$i} {
-        transition: height 1s;
-        @include clamp($i);
-        &.title {
-            @include clamp($i, 1.25);
-        }
-        &.h4 {
-            @include clamp($i, $h4-factor, $headings-line-height);
-        }
+    .clamp-default-#{$i} {
+        @include clamp-with-titles($i, $body-bg);
+    }
+    :host-context(.ds-hover) .clamp-default-#{$i} {
+        @include clamp-with-titles($i, $list-group-hover-bg);
+    }
+
+    .clamp-primary-#{$i} {
+      @include clamp-with-titles($i, $primary);
+    }
+
+    :host-context(.ds-hover) .clamp-primary-#{$i} {
+      @include clamp-with-titles($i, darken($primary, 10%));
     }
 }
 

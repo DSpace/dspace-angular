@@ -78,6 +78,10 @@ import { SiteRegisterGuard } from './core/data/feature-authorization/feature-aut
             { path: BULK_IMPORT_PATH, loadChildren: './bulk-import/bulk-import-page.module#BulkImportPageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard] },
             { path: INFO_MODULE_PATH, loadChildren: './info/info.module#InfoModule' },
             { path: UNAUTHORIZED_PATH, component: UnauthorizedComponent },
+            {
+              path: 'statistics',
+              loadChildren: './statistics-page/statistics-page-routing.module#StatisticsPageRoutingModule',
+            },
             { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
           ]}
       ],

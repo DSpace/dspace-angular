@@ -20,6 +20,7 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
   objectType = DSpaceObjectType.ITEM;
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.CREATE;
+  header = 'dso-selector.create.item.sub-level';
 
   /**
    * If present this value is used to filter collection list by entity type

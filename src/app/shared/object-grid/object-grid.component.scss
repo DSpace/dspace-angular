@@ -19,6 +19,7 @@ $ds-wrapper-grid-spacing: $spacer/2;
 .card-columns {
   margin-left: -$ds-wrapper-grid-spacing;
   margin-right: -$ds-wrapper-grid-spacing;
+  column-gap: 0;
 
   .card-column {
     padding-left: $ds-wrapper-grid-spacing;

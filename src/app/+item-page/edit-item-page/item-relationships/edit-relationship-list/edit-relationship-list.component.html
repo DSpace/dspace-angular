@@ -1,15 +1,26 @@
-<h5>{{getRelationshipMessageKey() | async | translate}}</h5>
+<h5>
+    {{getRelationshipMessageKey() | async | translate}}
+    <button class="ml-2 btn btn-success" (click)="openLookup()">
+        <i class="fas fa-plus"></i>
+        <span class="d-none d-sm-inline">&nbsp;{{"item.edit.relationships.edit.buttons.add" | translate}}</span>
+    </button>
+</h5>
 <ng-container *ngVar="updates$ | async as updates">
     <ng-container *ngIf="updates">
         <ng-container *ngVar="updates | dsObjectValues as updateValues">
             <ds-edit-relationship *ngFor="let updateValue of updateValues; trackBy: trackUpdate"
-                                  class="relationship-row d-block"
-                                  [fieldUpdate]="updateValue"
+                                  class="relationship-row d-block alert"
+                                  [fieldUpdate]="updateValue || {}"
                                   [url]="url"
                                   [editItem]="item"
-                                  [ngClass]="{'alert alert-danger': updateValue?.changeType === 2}">
+                                  [ngClass]="{
+                                        'alert-success': updateValue.changeType === 1,
+                                        'alert-warning': updateValue.changeType === 0,
+                                        'alert-danger': updateValue.changeType === 2
+                                  }">
             </ds-edit-relationship>
+            <div *ngIf="updateValues.length === 0">{{"item.edit.relationships.no-relationships" | translate}}</div>
         </ng-container>
     </ng-container>
-    <div *ngIf="!updates">no relationships</div>
+    <ds-loading *ngIf="!updates"></ds-loading>
 </ng-container>

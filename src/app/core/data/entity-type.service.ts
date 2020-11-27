@@ -12,11 +12,12 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
 import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
-import { switchMap, take, filter, map } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
-import {RelationshipType} from '../shared/item-relationships/relationship-type.model';
-import {PaginatedList} from './paginated-list';
-import {ItemType} from '../shared/item-relationships/item-type.model';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { PaginatedList } from './paginated-list';
+import { ItemType } from '../shared/item-relationships/item-type.model';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
 
 /**
  * Service handling all ItemType requests
@@ -48,6 +49,20 @@ export class EntityTypeService extends DataService<ItemType> {
   getRelationshipTypesEndpoint(entityTypeId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((href) => this.halService.getEndpoint('relationshiptypes', `${href}/${entityTypeId}`))
+    );
+  }
+
+  /**
+   * Check whether a given entity type is the left type of a given relationship type, as an observable boolean
+   * @param relationshipType  the relationship type for which to check whether the given entity type is the left type
+   * @param entityType  the entity type for which to check whether it is the left type of the given relationship type
+   */
+  isLeftType(relationshipType: RelationshipType, itemType: ItemType): Observable<boolean> {
+
+    return relationshipType.leftType.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((leftType) => leftType.uuid === itemType.uuid),
     );
   }
 

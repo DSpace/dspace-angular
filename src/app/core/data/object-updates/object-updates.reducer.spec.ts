@@ -231,7 +231,8 @@ describe('objectUpdatesReducer', () => {
         },
         fieldUpdates: {},
         virtualMetadataSources: {},
-        lastModified: modDate
+        lastModified: modDate,
+        patchOperationServiceToken: undefined
       }
     };
     const newState = objectUpdatesReducer(testState, action);

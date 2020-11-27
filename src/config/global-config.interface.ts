@@ -5,16 +5,17 @@ import { UniversalConfig } from './universal-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { SubmissionConfig } from './submission-config.interface';
 import { FormConfig } from './form-config.interfaces';
-import {LangConfig} from './lang-config.interface';
+import { LangConfig } from './lang-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { ItemPageConfig } from './item-page-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { Theme } from './theme.inferface';
-import {AuthConfig} from './auth-config.interfaces';
+import { AuthConfig } from './auth-config.interfaces';
+import { UIServerConfig } from './ui-server-config.interface';
 import { LayoutConfig } from './layout-config.interfaces';
 
 export interface GlobalConfig extends Config {
-  ui: ServerConfig;
+  ui: UIServerConfig;
   rest: ServerConfig;
   production: boolean;
   cache: CacheConfig;
@@ -32,5 +33,6 @@ export interface GlobalConfig extends Config {
   item: ItemPageConfig;
   collection: CollectionPageConfig;
   theme: Theme;
+  rewriteDownloadUrls: boolean;
   layout: LayoutConfig;
 }

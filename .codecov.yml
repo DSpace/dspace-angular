@@ -7,12 +7,19 @@
 # Settings related to code coverage analysis
 coverage:
   status:
+    # Configuration for project-level checks. This checks how the PR changes overall coverage.
     project:
       default:
         # For each PR, auto compare coverage to previous commit.
         # Require that overall (project) coverage does NOT drop more than 0.5%
         target: auto
         threshold: 0.5%
+    # Configuration for patch-level checks. This checks the relative coverage of the new PR code ONLY.
+    patch:
+      default:
+         # Enable informational mode, which just provides info to reviewers & always passes
+         # https://docs.codecov.io/docs/commit-status#section-informational
+         informational: true
 
 # Turn PR comments "off". This feature adds the code coverage summary as a
 # comment on each PR. See https://docs.codecov.io/docs/pull-request-comments

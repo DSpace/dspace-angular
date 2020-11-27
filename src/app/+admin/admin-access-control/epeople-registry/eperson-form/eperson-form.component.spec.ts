@@ -1,26 +1,19 @@
-import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../../core/cache/response.models';
-import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { FindListOptions } from '../../../../core/data/request.models';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
@@ -28,7 +21,6 @@ import { EPersonFormComponent } from './eperson-form.component';
 import { EPersonMock, EPersonMock2 } from '../../../../shared/testing/eperson.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { AuthService } from '../../../../core/auth/auth.service';
@@ -36,12 +28,12 @@ import { AuthServiceStub } from '../../../../shared/testing/auth-service.stub';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
-import { EpersonRegistrationService } from 'src/app/core/data/eperson-registration.service';
+import { RequestService } from '../../../../core/data/request.service';
+import { EpersonRegistrationService } from '../../../../core/data/eperson-registration.service';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
   let fixture: ComponentFixture<EPersonFormComponent>;
-  let translateService: TranslateService;
   let builderService: FormBuilderService;
 
   let mockEPeople;
@@ -113,7 +105,6 @@ describe('EPersonFormComponent', () => {
       }
     };
     builderService = getMockFormBuilderService();
-    translateService = getMockTranslateService();
     authService = new AuthServiceStub();
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
@@ -134,21 +125,15 @@ describe('EPersonFormComponent', () => {
           }
         }),
       ],
-      declarations: [EPeopleRegistryComponent, EPersonFormComponent],
-      providers: [EPersonFormComponent,
+      declarations: [EPersonFormComponent],
+      providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: GroupDataService, useValue: groupsDataService },
         { provide: FormBuilderService, useValue: builderService },
-        { provide: DSOChangeAnalyzer, useValue: {} },
-        { provide: HttpClient, useValue: {} },
-        { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
-        { provide: Store, useValue: {} },
-        { provide: RemoteDataBuildService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: GroupDataService, useValue: groupsDataService },
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])},
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
         EPeopleRegistryComponent
       ],
@@ -162,9 +147,9 @@ describe('EPersonFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create EPersonFormComponent', inject([EPersonFormComponent], (comp: EPersonFormComponent) => {
-    expect(comp).toBeDefined();
-  }));
+  it('should create EPersonFormComponent', () => {
+    expect(component).toBeDefined();
+  });
 
   describe('when submitting the form', () => {
     let firstName;
@@ -286,6 +271,56 @@ describe('EPersonFormComponent', () => {
 
     it('should set isImpersonated to false', () => {
       expect(component.isImpersonated).toBe(false);
+    });
+  });
+
+  describe('delete', () => {
+
+    let ePersonId;
+    let eperson: EPerson;
+    let modalService;
+
+    beforeEach(() => {
+      spyOn(authService, 'impersonate').and.callThrough();
+      ePersonId = 'testEPersonId';
+      eperson = EPersonMock;
+      component.epersonInitial = eperson;
+      component.canDelete$ = observableOf(true);
+      spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(observableOf(eperson));
+      modalService = (component as any).modalService;
+      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+      fixture.detectChanges()
+
+    });
+
+    it ('the delete button should be active if the eperson can be deleted', () => {
+      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
+      expect(deleteButton.nativeElement.disabled).toBe(false);
+    });
+
+    it ('the delete button should be disabled if the eperson cannot be deleted', () => {
+      component.canDelete$ = observableOf(false);
+      fixture.detectChanges()
+      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
+      expect(deleteButton.nativeElement.disabled).toBe(true);
+    });
+
+    it ('should call the epersonFormComponent delete when clicked on the button' , () => {
+      spyOn(component, 'delete').and.stub();
+      spyOn(component.epersonService, 'deleteEPerson').and.returnValue(observableOf(new RestResponse(true, 204, 'No Content')));
+      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
+      deleteButton.triggerEventHandler('click', null);
+      expect(component.delete).toHaveBeenCalled();
+    });
+
+    it ('should call the epersonService delete when clicked on the button' , () => {
+      // ePersonDataServiceStub.activeEPerson = eperson;
+      spyOn(component.epersonService, 'deleteEPerson').and.returnValue(observableOf(new RestResponse(true, 204, 'No Content')));
+      const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
+      expect(deleteButton.nativeElement.disabled).toBe(false);
+      deleteButton.triggerEventHandler('click', null);
+      fixture.detectChanges()
+      expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);
     });
   });
 

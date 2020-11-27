@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
-import { map } from 'rxjs/operators';
-import { redirectToPageNotFoundOn404 } from '../core/shared/operators';
-import { Observable } from 'rxjs';
+import { redirectOn404Or401 } from '../core/shared/operators';
 import { fadeInOut } from '../shared/animations/fade';
 
 /**
@@ -28,7 +30,7 @@ export class CrisItemPageComponent implements OnInit {
   ngOnInit() {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.item as RemoteData<Item>),
-      redirectToPageNotFoundOn404(this.router)
+      redirectOn404Or401(this.router)
     );
     this.itemRD$.subscribe(
       (next) => {

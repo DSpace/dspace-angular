@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RemoteData } from '../../core/data/remote-data';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -22,6 +22,11 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { RestResponse } from '../../core/cache/response.models';
 import { VarDirective } from '../../shared/utils/var.directive';
+import {
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
+import {RouterStub} from '../../shared/testing/router.stub';
+import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -34,6 +39,8 @@ let bitstreamFormatService: BitstreamFormatDataService;
 let bitstream: Bitstream;
 let selectedFormat: BitstreamFormat;
 let allFormats: BitstreamFormat[];
+let router: Router;
+let routerStub;
 
 describe('EditBitstreamPageComponent', () => {
   let comp: EditBitstreamPageComponent;
@@ -105,7 +112,12 @@ describe('EditBitstreamPageComponent', () => {
       format: observableOf(new RemoteData(false, false, true, null, selectedFormat)),
       _links: {
         self: 'bitstream-selflink'
-      }
+      },
+      bundle: createSuccessfulRemoteDataObject$({
+        item: createSuccessfulRemoteDataObject$({
+          uuid: 'some-uuid'
+        })
+      })
     });
     bitstreamService = jasmine.createSpyObj('bitstreamService', {
       findById: observableOf(new RemoteData(false, false, true, null, bitstream)),
@@ -118,6 +130,10 @@ describe('EditBitstreamPageComponent', () => {
       findAll: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), allFormats)))
     });
 
+    const itemPageUrl = `fake-url/some-uuid`;
+    routerStub = Object.assign(new RouterStub(), {
+      url: `${itemPageUrl}`
+    });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],
       declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
@@ -127,6 +143,7 @@ describe('EditBitstreamPageComponent', () => {
         { provide: ActivatedRoute, useValue: { data: observableOf({ bitstream: new RemoteData(false, false, true, null, bitstream) }), snapshot: { queryParams: {} } } },
         { provide: BitstreamDataService, useValue: bitstreamService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+        { provide: Router, useValue: routerStub },
         ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -138,6 +155,7 @@ describe('EditBitstreamPageComponent', () => {
     fixture = TestBed.createComponent(EditBitstreamPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
+    router = (comp as any).router;
   });
 
   describe('on startup', () => {
@@ -211,6 +229,27 @@ describe('EditBitstreamPageComponent', () => {
       it('should commit the updates', () => {
         expect(bitstreamService.commitUpdates).toHaveBeenCalled();
       });
+    });
+  });
+  describe('when the cancel button is clicked', () => {
+    it('should call navigateToItemEditBitstreams method', () => {
+      spyOn(comp, 'navigateToItemEditBitstreams');
+      comp.onCancel();
+      expect(comp.navigateToItemEditBitstreams).toHaveBeenCalled();
+    });
+  });
+  describe('when navigateToItemEditBitstreams is called, and the component has an itemId', () => {
+    it('should redirect to the item edit page on the bitstreams tab with the itemId from the component', () => {
+      comp.itemId = 'some-uuid1'
+      comp.navigateToItemEditBitstreams();
+      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('some-uuid1'), 'bitstreams']);
+    });
+  });
+  describe('when navigateToItemEditBitstreams is called, and the component does not have an itemId', () => {
+    it('should redirect to the item edit page on the bitstreams tab with the itemId from the bundle links ', () => {
+      comp.itemId = undefined;
+      comp.navigateToItemEditBitstreams();
+      expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('some-uuid'), 'bitstreams']);
     });
   });
 });

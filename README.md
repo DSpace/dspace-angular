@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/DSpace/dspace-angular.svg?branch=main)](https://travis-ci.com/DSpace/dspace-angular) [![Coverage Status](https://codecov.io/gh/DSpace/dspace-angular/branch/main/graph/badge.svg)](https://codecov.io/gh/DSpace/dspace-angular) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
+[![Build Status](https://github.com/DSpace/dspace-angular/workflows/Build/badge.svg?branch=main)](https://github.com/DSpace/dspace-angular/actions?query=workflow%3ABuild) [![Coverage Status](https://codecov.io/gh/DSpace/dspace-angular/branch/main/graph/badge.svg)](https://codecov.io/gh/DSpace/dspace-angular) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
 
 dspace-angular
 ==============
@@ -109,6 +109,7 @@ export DSPACE_HOST=dspace7.4science.cloud
 
 The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides **`environment.(prod, dev or test).ts`** overrides **`environment.common.ts`**
 
+These configuration sources are collected **at build time**, and written to `src/environments/environment.ts`.  At runtime the configuration is fixed, and neither `.env` nor the process' environment will be consulted.
 
 #### Using environment variables in code
 To use environment variables in a UI component, use:
@@ -134,14 +135,14 @@ To build the app for production and start the server run:
 ```bash
 yarn start
 ```
+This will run the application in an instance of the Express server, which is included.
 
 If you only want to build for production, without starting, run:
 
 ```bash
 yarn run build:prod
 ```
-
-This will build the application and put the result in the `dist` folder
+This will build the application and put the result in the `dist` folder.  You can copy this folder to wherever you need it for your application server.  If you will be using the built-in Express server, you'll also need a copy of the `node_modules` folder tucked inside your copy of `dist`.
 
 
 ### Running the application with Docker
