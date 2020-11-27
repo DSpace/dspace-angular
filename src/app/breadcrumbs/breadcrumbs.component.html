@@ -4,7 +4,7 @@
       <nav *ngIf="showBreadcrumbs" aria-label="breadcrumb">
           <ol class="breadcrumb">
               <ng-container
-                      *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'Home', url: '/'}"></ng-container>
+                    *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'home.breadcrumbs', url: '/'}"></ng-container>
               <ng-container *ngFor="let bc of breadcrumbs; let last = last;">
                   <ng-container *ngTemplateOutlet="!last ? breadcrumb : activeBreadcrumb; context: bc"></ng-container>
               </ng-container>

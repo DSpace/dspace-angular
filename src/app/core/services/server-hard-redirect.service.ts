@@ -7,12 +7,13 @@ import { HardRedirectService } from './hard-redirect.service';
  * Service for performing hard redirects within the server app module
  */
 @Injectable()
-export class ServerHardRedirectService implements HardRedirectService {
+export class ServerHardRedirectService extends HardRedirectService {
 
   constructor(
     @Inject(REQUEST) protected req: Request,
     @Inject(RESPONSE) protected res: Response,
   ) {
+    super();
   }
 
   /**
@@ -58,5 +59,12 @@ export class ServerHardRedirectService implements HardRedirectService {
    */
   getCurrentRoute() {
     return this.req.originalUrl;
+  }
+
+  /**
+   * Get the hostname of the request
+   */
+  getRequestOrigin() {
+    return this.req.headers.host;
   }
 }

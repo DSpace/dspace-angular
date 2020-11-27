@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Observable } from 'rxjs';
+import { flatMap, take } from 'rxjs/operators';
+
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { FindListOptions } from '../../core/data/request.models';
-import { flatMap, take } from 'rxjs/operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Audit } from '../../core/audit/model/audit.model';
@@ -12,7 +14,7 @@ import { AuditDataService } from '../../core/audit/audit-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { getSucceededRemoteData, redirectToPageNotFoundOn404 } from '../../core/shared/operators';
+import { getSucceededRemoteData, redirectOn404Or401 } from '../../core/shared/operators';
 
 /**
  * Component displaying a list of all audit about a object in a paginated table
@@ -68,7 +70,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap) => {
       this.itemService.findById(paramMap.get('objectId')).pipe(
         getSucceededRemoteData(),
-        redirectToPageNotFoundOn404(this.router),
+        redirectOn404Or401(this.router),
         take(1)
       ).subscribe((rd) => {
         this.object = rd.payload;

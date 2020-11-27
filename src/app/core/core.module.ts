@@ -178,6 +178,7 @@ import { EndUserAgreementCurrentUserGuard } from './end-user-agreement/end-user-
 import { EndUserAgreementCookieGuard } from './end-user-agreement/end-user-agreement-cookie.guard';
 import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
 import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
+import { UsageReport } from './statistics/models/usage-report.model';
 import { SearchcomponentService } from './layout/searchcomponent.service';
 import { SearchComponent } from './layout/models/search-component.model';
 import { ResearcherProfileService } from './profile/researcher-profile.service';
@@ -416,6 +417,7 @@ export const models =
     VocabularyEntry,
     VocabularyEntryDetail,
     ConfigurationProperty,
+    UsageReport,
     SearchComponent,
     ResearcherProfile,
     ItemExportFormat,

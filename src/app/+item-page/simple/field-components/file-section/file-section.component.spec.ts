@@ -15,6 +15,8 @@ import {FileSizePipe} from '../../../../shared/utils/file-size-pipe';
 import {PageInfo} from '../../../../core/shared/page-info.model';
 import {MetadataFieldWrapperComponent} from '../../../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
 import {createPaginatedList} from '../../../../shared/testing/utils.test';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 
 describe('FileSectionComponent', () => {
     let comp: FileSectionComponent;
@@ -62,7 +64,8 @@ describe('FileSectionComponent', () => {
             }), BrowserAnimationsModule],
             declarations: [FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
             providers: [
-                {provide: BitstreamDataService, useValue: bitstreamDataService}
+                {provide: BitstreamDataService, useValue: bitstreamDataService},
+                {provide: NotificationsService, useValue: new NotificationsServiceStub()}
             ],
 
             schemas: [NO_ERRORS_SCHEMA]

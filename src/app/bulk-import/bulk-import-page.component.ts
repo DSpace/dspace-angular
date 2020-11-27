@@ -1,18 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
+
 import { getCollectionPageRoute } from '../+collection-page/collection-page-routing-paths';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../core/data/collection-data.service';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { RequestEntry } from '../core/data/request.reducer';
 import { RequestService } from '../core/data/request.service';
 import { Collection } from '../core/shared/collection.model';
-import { redirectToPageNotFoundOn404 } from '../core/shared/operators';
+import { redirectOn404Or401 } from '../core/shared/operators';
 import { ProcessParameter } from '../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 
@@ -60,7 +61,7 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
 
     this.subs.push(this.route.data.pipe(
       map((data) => data.collection as RemoteData<Collection>),
-      redirectToPageNotFoundOn404(this.router),
+      redirectOn404Or401(this.router),
       take(1)
     ).subscribe((remoteData) => {
       if (remoteData.payload) {

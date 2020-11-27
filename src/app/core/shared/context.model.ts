@@ -13,4 +13,6 @@ export enum Context {
   EntitySearchModal = 'EntitySearchModal',
   AdminSearch = 'adminSearch',
   AdminWorkflowSearch = 'adminWorkflowSearch',
+  SideBarSearchModal = 'sideBarSearchModal',
+  SideBarSearchModalCurrent = 'sideBarSearchModalCurrent',
 }
