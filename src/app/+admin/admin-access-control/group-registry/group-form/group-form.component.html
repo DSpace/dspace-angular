@@ -3,7 +3,7 @@
     <div class="col-12">
       <ds-alert *ngIf="groupBeingEdited?.permanent" [type]="AlertTypeEnum.Warning"
                 [content]="messagePrefix + '.alert.permanent'"></ds-alert>
-      <ds-alert *ngIf="!(canEdit$ | async)" [type]="AlertTypeEnum.Warning"
+      <ds-alert *ngIf="!(canEdit$ | async) && (groupDataService.getActiveGroup() | async)" [type]="AlertTypeEnum.Warning"
                 [content]="(messagePrefix + '.alert.workflowGroup' | translate:{ name: (getLinkedDSO(groupBeingEdited) | async)?.payload?.name, comcol: (getLinkedDSO(groupBeingEdited) | async)?.payload?.type, comcolEditRolesRoute: (getLinkedEditRolesRoute(groupBeingEdited) | async) })">
       </ds-alert>
 
