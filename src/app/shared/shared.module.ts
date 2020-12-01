@@ -542,9 +542,6 @@ const DIRECTIVES = [
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...DIRECTIVES,
     CurationFormComponent
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS
   ]
 })
 

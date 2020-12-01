@@ -44,9 +44,6 @@ const ENTRY_COMPONENTS = [
   ],
   declarations: [
     ...ENTRY_COMPONENTS
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS
   ]
 })
 export class JournalEntitiesModule {

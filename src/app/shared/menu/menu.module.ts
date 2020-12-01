@@ -43,11 +43,7 @@ const PROVIDERS = [
     ...PROVIDERS
   ],
   exports: [
-    ...COMPONENTS,
-    ...MODULES
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS
+    ...COMPONENTS
   ]
 })
 

@@ -138,10 +138,6 @@ const EXPORTS = [
   ],
   exports: [
     ...EXPORTS
-  ],
-  entryComponents: [
-    AdminSidebarSectionComponent,
-    ExpandableAdminSidebarSectionComponent
   ]
 })
 export class AppModule {

@@ -73,9 +73,6 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
     MetadataRepresentationListComponent,
     ItemPageTitleFieldComponent,
     TabbedRelatedEntitiesSearchComponent
-  ],
-  entryComponents: [
-    PublicationComponent
   ]
 })
 export class ItemPageModule {

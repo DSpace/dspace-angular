@@ -24,9 +24,6 @@ import { BitstreamFormatsModule } from './bitstream-formats/bitstream-formats.mo
     MetadataSchemaComponent,
     MetadataSchemaFormComponent,
     MetadataFieldFormComponent
-  ],
-  entryComponents: [
-
   ]
 })
 export class AdminRegistriesModule {

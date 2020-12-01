@@ -22,8 +22,7 @@ import { AddBitstreamFormatComponent } from './add-bitstream-format/add-bitstrea
     EditBitstreamFormatComponent,
     AddBitstreamFormatComponent,
     FormatFormComponent
-  ],
-  entryComponents: []
+  ]
 })
 export class BitstreamFormatsModule {
 

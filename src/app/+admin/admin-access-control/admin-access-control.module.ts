@@ -26,8 +26,7 @@ import { GroupsRegistryComponent } from './group-registry/groups-registry.compon
     GroupFormComponent,
     SubgroupsListComponent,
     MembersListComponent
-  ],
-  entryComponents: []
+  ]
 })
 /**
  * This module handles all components related to the access control pages

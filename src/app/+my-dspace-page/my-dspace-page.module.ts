@@ -47,20 +47,6 @@ import { CollectionSelectorComponent } from './collection-selector/collection-se
   providers: [
     MyDSpaceGuard,
     MyDSpaceConfigurationService
-  ],
-  entryComponents: [
-    SearchResultListElementComponent,
-    WorkspaceItemSearchResultListElementComponent,
-    WorkflowItemSearchResultListElementComponent,
-    ClaimedSearchResultListElementComponent,
-    PoolSearchResultListElementComponent,
-    ItemSearchResultDetailElementComponent,
-    WorkspaceItemSearchResultDetailElementComponent,
-    WorkflowItemSearchResultDetailElementComponent,
-    ClaimedTaskSearchResultDetailElementComponent,
-    PoolSearchResultDetailElementComponent,
-    ItemSearchResultListElementSubmissionComponent,
-    CollectionSelectorComponent
   ]
 })
 

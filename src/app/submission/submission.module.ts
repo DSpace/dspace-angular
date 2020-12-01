@@ -66,15 +66,6 @@ import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/subm
     SubmissionImportExternalPreviewComponent,
     SubmissionImportExternalCollectionComponent
   ],
-  entryComponents: [
-    SubmissionSectionUploadComponent,
-    SubmissionSectionformComponent,
-    SubmissionSectionLicenseComponent,
-    SubmissionSectionContainerComponent,
-    SubmissionImportExternalPreviewComponent,
-    SubmissionImportExternalCollectionComponent,
-    SubmissionSectionCcLicensesComponent
-  ],
   exports: [
     SubmissionEditComponent,
     SubmissionFormComponent,

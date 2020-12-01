@@ -26,11 +26,6 @@ import { BrowseBySwitcherComponent } from './+browse-by-switcher/browse-by-switc
     ItemDataService,
     BrowseService,
     BrowseByGuard
-  ],
-  entryComponents: [
-    BrowseByTitlePageComponent,
-    BrowseByMetadataPageComponent,
-    BrowseByDatePageComponent
   ]
 })
 export class BrowseByModule {

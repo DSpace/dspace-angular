@@ -16,9 +16,6 @@ import { StatisticsService } from './statistics.service';
   ],
   exports: [
     ViewTrackerComponent,
-  ],
-  providers: [
-    StatisticsService
   ]
 })
 /**
@@ -28,9 +25,6 @@ export class StatisticsModule {
   static forRoot(): ModuleWithProviders<StatisticsModule> {
     return {
       ngModule: StatisticsModule,
-      providers: [
-        StatisticsService
-      ]
     };
   }
 }

@@ -19,8 +19,7 @@ import { ProfilePageModule } from '../profile-page/profile-page.module';
     ForgotEmailComponent,
     ForgotPasswordFormComponent
   ],
-  providers: [],
-  entryComponents: []
+  providers: []
 })
 
 /**

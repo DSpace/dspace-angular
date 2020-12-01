@@ -17,8 +17,7 @@ import { ImportExternalPageComponent } from './import-external-page.component';
   ],
   declarations: [
     ImportExternalPageComponent
-  ],
-  entryComponents: [ ]
+  ]
 })
 
 /**
