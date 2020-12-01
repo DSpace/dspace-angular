@@ -7,7 +7,6 @@ import { SearchFilterService } from '../../../../../../core/shared/search/search
 import { hasValue } from '../../../../../empty.util';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { FacetValue } from '../../../../facet-value.model';
-import { FilterType } from '../../../../filter-type.model';
 import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
 
