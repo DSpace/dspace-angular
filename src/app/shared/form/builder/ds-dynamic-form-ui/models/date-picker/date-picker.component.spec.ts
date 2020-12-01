@@ -26,6 +26,10 @@ export const DATE_TEST_MODEL_CONFIG = {
   toggleIcon: 'fas fa-calendar'
 };
 
+const mockDynamicFormValidationService = jasmine.createSpyObj('DynamicFormValidationService', {
+  showErrorMessages: jasmine.createSpy('showErrorMessages')
+});
+
 describe('DsDatePickerComponent test suite', () => {
 
   let testComp: TestComponent;
@@ -49,7 +53,7 @@ describe('DsDatePickerComponent test suite', () => {
         ChangeDetectorRef,
         DsDatePickerComponent,
         { provide: DynamicFormLayoutService, useValue: {} },
-        { provide: DynamicFormValidationService, useValue: {} }
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
