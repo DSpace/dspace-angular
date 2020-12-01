@@ -1,4 +1,4 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../core/data/request.models';
@@ -24,15 +24,14 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   public loadingNode: FlatNode;
 
   treeControl = new FlatTreeControl<FlatNode>(
-    (node) => node.level, (node) => true
+    (node: FlatNode) => node.level, (node: FlatNode) => true
   );
 
   dataSource: CommunityListDatasource;
 
   paginationConfig: FindListOptions;
 
-  constructor(private communityListService: CommunityListService,
-              private zone: NgZone) {
+  constructor(private communityListService: CommunityListService) {
     this.paginationConfig = new FindListOptions();
     this.paginationConfig.elementsPerPage = 2;
     this.paginationConfig.currentPage = 1;
@@ -40,7 +39,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.dataSource = new CommunityListDatasource(this.communityListService, this.zone);
+    this.dataSource = new CommunityListDatasource(this.communityListService);
     this.communityListService.getLoadingNodeFromStore().pipe(take(1)).subscribe((result) => {
       this.loadingNode = result;
     });
@@ -65,7 +64,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Toggles the expanded variable of a node, adds it to the exapanded nodes list and reloads the tree so this node is expanded
+   * Toggles the expanded variable of a node, adds it to the expanded nodes list and reloads the tree so this node is expanded
    * @param node  Node we want to expand
    */
   toggleExpanded(node: FlatNode) {

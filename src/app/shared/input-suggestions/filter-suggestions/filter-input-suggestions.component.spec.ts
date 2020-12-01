@@ -3,11 +3,9 @@ import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angula
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MetadataFieldDataService } from '../../../core/data/metadata-field-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { FilterInputSuggestionsComponent } from './filter-input-suggestions.component';
 
 describe('FilterInputSuggestionsComponent', () => {
@@ -23,13 +21,9 @@ describe('FilterInputSuggestionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, ReactiveFormsModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
       declarations: [FilterInputSuggestionsComponent],
-      providers: [FormsModule,
-        ReactiveFormsModule,
-        { provide: MetadataFieldDataService, useValue: {} },
-        { provide: ObjectUpdatesService, useValue: {} },
-      ],
+      providers: [],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FilterInputSuggestionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }

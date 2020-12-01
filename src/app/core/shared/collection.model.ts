@@ -1,4 +1,4 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import { deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
@@ -20,12 +20,6 @@ import { ChildHALResource } from './child-hal-resource.model';
 @inheritSerialization(DSpaceObject)
 export class Collection extends DSpaceObject implements ChildHALResource {
   static type = COLLECTION;
-
-  /**
-   * A string representing the unique handle of this Collection
-   */
-  @autoserialize
-  handle: string;
 
   /**
    * The {@link HALLink}s for this Collection
@@ -74,6 +68,13 @@ export class Collection extends DSpaceObject implements ChildHALResource {
    */
   @link(COMMUNITY, false)
   parentCommunity?: Observable<RemoteData<Community>>;
+
+  /**
+   * A string representing the unique handle of this Collection
+   */
+  get handle(): string {
+    return this.firstMetadataValue('dc.identifier.uri');
+  }
 
   /**
    * The introductory text of this Collection

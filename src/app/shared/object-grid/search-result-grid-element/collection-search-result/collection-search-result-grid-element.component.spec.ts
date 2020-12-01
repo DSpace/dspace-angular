@@ -19,6 +19,7 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 
 let collectionSearchResultGridElementComponent: CollectionSearchResultGridElementComponent;
 let fixture: ComponentFixture<CollectionSearchResultGridElementComponent>;
@@ -52,6 +53,9 @@ mockCollectionWithoutAbstract.indexableObject = Object.assign(new Collection(), 
     ]
   }
 });
+const linkService = jasmine.createSpyObj('linkService', {
+  resolveLink: mockCollectionWithAbstract
+});
 
 describe('CollectionSearchResultGridElementComponent', () => {
   beforeEach(async(() => {
@@ -72,6 +76,7 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: {} },
+        { provide: LinkService, useValue: linkService}
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
