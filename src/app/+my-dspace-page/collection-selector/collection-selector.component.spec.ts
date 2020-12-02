@@ -1,28 +1,33 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { By } from '@angular/platform-browser';
+
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { getTestScheduler, hot } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
+import { Observable, of } from 'rxjs';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { CollectionSelectorComponent } from './collection-selector.component';
-import { CollectionDropdownComponent } from 'src/app/shared/collection-dropdown/collection-dropdown.component';
-import { Collection } from 'src/app/core/shared/collection.model';
-import { of, Observable } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { Community } from 'src/app/core/shared/community.model';
-import { FindListOptions } from 'src/app/core/data/request.models';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
-import { PaginatedList } from 'src/app/core/data/paginated-list';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
-import { PageInfo } from 'src/app/core/shared/page-info.model';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute } from '@angular/router';
-import { hot } from 'jasmine-marbles';
-import { By } from '@angular/platform-browser';
+import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
+import { Collection } from '../../core/shared/collection.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Community } from '../../core/shared/community.model';
+import { FindListOptions } from '../../core/data/request.models';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { MockElementRef } from '../../shared/testing/element-ref.mock';
+
 
 describe('CollectionSelectorComponent', () => {
   let component: CollectionSelectorComponent;
   let fixture: ComponentFixture<CollectionSelectorComponent>;
+  let scheduler: TestScheduler;
   const modal = jasmine.createSpyObj('modal', ['close', 'dismiss']);
 
   const community: Community = Object.assign(new Community(), {
@@ -110,7 +115,7 @@ describe('CollectionSelectorComponent', () => {
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -123,10 +128,10 @@ describe('CollectionSelectorComponent', () => {
       declarations: [ CollectionSelectorComponent, CollectionDropdownComponent ],
       providers: [
         {provide: CollectionDataService, useValue: collectionDataServiceMock},
-        {provide: ChangeDetectorRef, useValue: {}},
-        {provide: ElementRef, userValue: {}},
+        {provide: ElementRef, useClass: MockElementRef},
         {provide: NgbActiveModal, useValue: modal},
-        {provide: ActivatedRoute, useValue: {}}
+        {provide: ActivatedRoute, useValue: {}},
+        ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -134,28 +139,25 @@ describe('CollectionSelectorComponent', () => {
   }));
 
   beforeEach(() => {
+    scheduler = getTestScheduler();
     fixture = TestBed.createComponent(CollectionSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call selectObject', fakeAsync(() => {
+  it('should call selectObject', () => {
     spyOn(component, 'selectObject');
-    fixture.detectChanges();
-    tick();
-    fixture.whenStable().then(() => {
-      const collectionItem = fixture.debugElement.query(By.css('.collection-item:nth-child(2)'));
-      collectionItem.triggerEventHandler('click', {
-        preventDefault: () => {/**/
-        }
-      });
-      expect(component.selectObject).toHaveBeenCalled();
-    });
-  }));
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+    const collectionItem = fixture.debugElement.query(By.css('.collection-item:nth-child(2)'));
+    collectionItem.triggerEventHandler('click', null);
+    expect(component.selectObject).toHaveBeenCalled();
+  });
 
   it('should close the dialog', () => {
     component.close();
