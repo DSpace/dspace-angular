@@ -20,6 +20,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { RequestService } from '../../../core/data/request.service';
+import { RestResponse } from 'src/app/core/cache/response.models';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -113,7 +114,8 @@ describe('CollectionSourceComponent', () => {
     collectionService = jasmine.createSpyObj('collectionService', {
       getContentSource: observableOf(contentSource),
       updateContentSource: observableOf(contentSource),
-      getHarvesterEndpoint: observableOf('harvester-endpoint')
+      getHarvesterEndpoint: observableOf('harvester-endpoint'),
+      patch: observableOf(new RestResponse(true, 200, 'OK'))
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
 
@@ -215,6 +217,10 @@ describe('CollectionSourceComponent', () => {
 
     it('should call updateContentSource on the collectionService', () => {
       expect(collectionService.updateContentSource).toHaveBeenCalled();
+    });
+
+    it('should call patch on the collectionService', () => {
+      expect(collectionService.patch).toHaveBeenCalled();
     });
   });
 });
