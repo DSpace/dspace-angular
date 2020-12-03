@@ -94,7 +94,6 @@ describe('MediaViewerComponent', () => {
   describe('when the bitstreams are loading', () => {
     beforeEach(() => {
       comp.mediaList$.next([mockMediaViewerItem]);
-      comp.imageOptions = true;
       comp.videoOptions = true;
       comp.isLoading = true;
       fixture.detectChanges();
@@ -119,7 +118,6 @@ describe('MediaViewerComponent', () => {
   describe('when the bitstreams loading is failed', () => {
     beforeEach(() => {
       comp.mediaList$.next([]);
-      comp.imageOptions = true;
       comp.videoOptions = true;
       comp.isLoading = false;
       fixture.detectChanges();
