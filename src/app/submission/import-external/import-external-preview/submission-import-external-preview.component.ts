@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
@@ -23,7 +23,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
    * The external source entry
    */
-  public externalSourceEntry: ExternalSourceEntry;
+  @Input() public externalSourceEntry: ExternalSourceEntry;
   /**
    * The entry metadata list
    */
