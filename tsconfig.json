@@ -5,7 +5,7 @@
     "rewriteTsconfig": false
   },
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "declaration": false,
     "downlevelIteration": true,
@@ -32,7 +32,8 @@
       "es6",
       "es2015",
       "es2016",
-      "es2017"
+      "es2017",
+      "es2018"
     ],
     "types": [
       "node",
@@ -41,6 +42,7 @@
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
   }
 }
