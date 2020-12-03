@@ -102,7 +102,7 @@ describe('HALEndpointService', () => {
   describe('getEndpointAt', () => {
     it('should throw an error when the list of hal endpoint names is empty', () => {
       const endpointAtWithoutEndpointNames = () => {
-        (service as any).getEndpointAt('')
+        (service as any).getEndpointAt('');
       };
       expect(endpointAtWithoutEndpointNames).toThrow();
     });

@@ -33,7 +33,7 @@ describe('HardRedirectService', () => {
 
     afterEach(() => {
       environment.rewriteDownloadUrls = originalValue;
-    })
+    });
   });
 });
 

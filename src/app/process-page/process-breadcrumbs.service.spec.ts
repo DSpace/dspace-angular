@@ -31,6 +31,6 @@ describe('ProcessBreadcrumbsService', () => {
     it('should return a breadcrumb based on a id and scriptName of the process', () => {
       const breadcrumbs = service.getBreadcrumbs(exampleProcess, exampleURL);
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: [new Breadcrumb(exampleId + ' - ' + exampleScriptName, exampleURL)] });
-    })
+    });
   });
 });

@@ -172,7 +172,7 @@ describe('ComColMetadataComponent', () => {
             uploadAll: () => {}
             /* tslint:enable:no-empty */
           }
-        }
+        };
       });
 
       it('should not navigate', () => {

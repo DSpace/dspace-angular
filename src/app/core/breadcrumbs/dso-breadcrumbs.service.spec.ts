@@ -85,7 +85,7 @@ describe('DSOBreadcrumbsService', () => {
       }
     );
 
-    dsoNameService = { getName: (dso) => getName(dso) }
+    dsoNameService = { getName: (dso) => getName(dso) };
   }
 
   beforeEach(async(() => {
@@ -113,10 +113,10 @@ describe('DSOBreadcrumbsService', () => {
         new Breadcrumb(getName(testItem), getDSORoute(testItem)),
       ];
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: expectedCrumbs });
-    })
+    });
   });
 
   function getName(dso: DSpaceObject): string {
-    return dso.metadata['dc.title'][0].value
+    return dso.metadata['dc.title'][0].value;
   }
 });

@@ -26,6 +26,6 @@ describe('I18nBreadcrumbsService', () => {
     it('should return a breadcrumb based on a string by adding the postfix', () => {
       const breadcrumbs = service.getBreadcrumbs(exampleString, exampleURL);
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: [new Breadcrumb(exampleString + BREADCRUMB_MESSAGE_POSTFIX, exampleURL)] });
-    })
+    });
   });
 });

@@ -133,7 +133,7 @@ describe('SubmissionObjectEffects test suite', () => {
             sectionDefinition.visibility,
             enabled,
             sectionData,
-            sectionErrors))
+            sectionErrors));
         });
       mappedActions.push(new CompleteInitSubmissionFormAction(submissionId));
 

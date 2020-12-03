@@ -38,7 +38,7 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
     selection$ = observableOf([searchResult1, searchResult2]);
     selectionRD$ = createSelection([searchResult1, searchResult2]);
-    router = jasmine.createSpyObj('router', ['navigate'])
+    router = jasmine.createSpyObj('router', ['navigate']);
   }
 
   beforeEach(async(() => {

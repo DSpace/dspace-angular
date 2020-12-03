@@ -17,7 +17,7 @@ class TestHALResource implements HALResource {
     foo: HALLink;
   };
 
-  bar?: any
+  bar?: any;
 }
 let testType;
 

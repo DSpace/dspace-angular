@@ -51,7 +51,7 @@ describe('MenuSectionComponent', () => {
     });
     it('should trigger the toggleActiveSection function on the menu service', () => {
       expect(menuService.toggleActiveSection).toHaveBeenCalledWith(comp.menuID, dummySection.id);
-    })
+    });
   });
 
   describe('activateSection', () => {
@@ -61,7 +61,7 @@ describe('MenuSectionComponent', () => {
     });
     it('should trigger the activateSection function on the menu service', () => {
       expect(menuService.activateSection).toHaveBeenCalledWith(comp.menuID, dummySection.id);
-    })
+    });
   });
 
   describe('deactivateSection', () => {
@@ -71,7 +71,7 @@ describe('MenuSectionComponent', () => {
     });
     it('should trigger the deactivateSection function on the menu service', () => {
       expect(menuService.deactivateSection).toHaveBeenCalledWith(comp.menuID, dummySection.id);
-    })
+    });
   });
 
 });

@@ -140,5 +140,5 @@ describe('ItemAdminSearchResultActionsComponent', () => {
       const link = a.nativeElement.href;
       expect(link).toContain(new URLCombiner(getItemEditRoute(id), ITEM_EDIT_PUBLIC_PATH).toString());
     });
-  })
+  });
 });

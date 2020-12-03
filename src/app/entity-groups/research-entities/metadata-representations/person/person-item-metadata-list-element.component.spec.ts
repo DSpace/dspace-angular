@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { Item } from '../../../../core/shared/item.model';
 import { PersonItemMetadataListElementComponent } from './person-item-metadata-list-element.component';
@@ -18,8 +21,11 @@ describe('PersonItemMetadataListElementComponent', () => {
   let comp: PersonItemMetadataListElementComponent;
   let fixture: ComponentFixture<PersonItemMetadataListElementComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports:[
+        NgbModule
+      ],
       declarations: [PersonItemMetadataListElementComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PersonItemMetadataListElementComponent, {
@@ -41,7 +47,7 @@ describe('PersonItemMetadataListElementComponent', () => {
 
   it('should show the description on hover over the link in a tooltip', () => {
     const link = fixture.debugElement.query(By.css('a'));
-    link.triggerEventHandler('mouseover', null);
+    link.triggerEventHandler('mouseenter', null);
     fixture.detectChanges();
     const tooltip = fixture.debugElement.query(By.css('.item-list-job-title')).nativeElement.textContent;
     expect(tooltip).toBe(jobTitle);

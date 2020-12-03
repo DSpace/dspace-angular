@@ -1,26 +1,26 @@
 import { TestBed } from '@angular/core/testing';
+
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
-
 import { Observable, of as observableOf } from 'rxjs';
-import * as operators from 'rxjs/operators';
+import { TestScheduler } from 'rxjs/testing';
+
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { StoreMock } from '../../shared/testing/store.mock';
-import { spyOnOperator } from '../../shared/testing/utils.test';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { ObjectCacheService } from './object-cache.service';
 import { CommitSSBAction, EmptySSBAction, ServerSyncBufferActionTypes } from './server-sync-buffer.actions';
-
 import { ServerSyncBufferEffects } from './server-sync-buffer.effects';
 import { storeModuleConfig } from '../../app.reducer';
 
 describe('ServerSyncBufferEffects', () => {
   let ssbEffects: ServerSyncBufferEffects;
   let actions: Observable<any>;
+  let testScheduler: TestScheduler;
   const testConfig = {
     cache:
       {
@@ -72,20 +72,25 @@ describe('ServerSyncBufferEffects', () => {
 
   describe('setTimeoutForServerSync', () => {
     beforeEach(() => {
-      spyOnOperator(operators, 'delay').and.returnValue((v) => v);
+      testScheduler = new TestScheduler((actual, expected) => {
+        expect(actual).toEqual(expected);
+      });
     });
 
     it('should return a COMMIT action in response to an ADD action', () => {
-      actions = hot('a', {
-        a: {
-          type: ServerSyncBufferActionTypes.ADD,
-          payload: { href: selfLink, method: RestRequestMethod.PUT }
-        }
+      // tslint:disable-next-line:no-shadowed-variable
+      testScheduler.run(({ hot, expectObservable }) => {
+        actions = hot('a', {
+          a: {
+            type: ServerSyncBufferActionTypes.ADD,
+            payload: { href: selfLink, method: RestRequestMethod.PUT }
+          }
+        });
+
+        expectObservable(ssbEffects.setTimeoutForServerSync).toBe('b', {
+          b: new CommitSSBAction(RestRequestMethod.PUT)
+        });
       });
-
-      const expected = cold('b', { b: new CommitSSBAction(RestRequestMethod.PUT) });
-
-      expect(ssbEffects.setTimeoutForServerSync).toBeObservable(expected);
     });
   });
 

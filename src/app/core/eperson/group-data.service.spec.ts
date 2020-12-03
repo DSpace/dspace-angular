@@ -48,7 +48,7 @@ describe('GroupDataService', () => {
       return observableOf({
         completed: true,
         response: { isSuccessful: successful, payload: groups } as any
-      } as RequestEntry)
+      } as RequestEntry);
     };
     restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
     groupsEndpoint = `${restEndpointURL}/groups`;
@@ -85,7 +85,7 @@ describe('GroupDataService', () => {
       halService,
       null,
     );
-  };
+  }
 
   beforeEach(() => {
     init();

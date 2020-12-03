@@ -55,7 +55,7 @@ describe('ThumbnailComponent', () => {
         comp.defaultImage = 'http://default.img';
         comp.errorHandler();
         expect(comp.src).toBe(THUMBNAIL_PLACEHOLDER);
-      })
+      });
     });
   });
 });

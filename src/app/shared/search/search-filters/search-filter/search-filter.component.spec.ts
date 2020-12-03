@@ -39,13 +39,13 @@ describe('SearchFilterComponent', () => {
     initializeFilter: (filter) => {
     },
     getSelectedValuesForFilter: (filter) => {
-      return observableOf([filterName1, filterName2, filterName3])
+      return observableOf([filterName1, filterName2, filterName3]);
     },
     isFilterActive: (filter) => {
       return observableOf([filterName1, filterName2, filterName3].indexOf(filter) >= 0);
     },
     isCollapsed: (filter) => {
-      return observableOf(true)
+      return observableOf(true);
     }
     /* tslint:enable:no-empty */
 
@@ -89,7 +89,7 @@ describe('SearchFilterComponent', () => {
     });
 
     it('should call toggle with the correct filter configuration name', () => {
-      expect(filterService.toggle).toHaveBeenCalledWith(mockFilterConfig.name)
+      expect(filterService.toggle).toHaveBeenCalledWith(mockFilterConfig.name);
     });
   });
 
@@ -100,7 +100,7 @@ describe('SearchFilterComponent', () => {
     });
 
     it('should call initialCollapse with the correct filter configuration name', () => {
-      expect(filterService.initializeFilter).toHaveBeenCalledWith(mockFilterConfig)
+      expect(filterService.initializeFilter).toHaveBeenCalledWith(mockFilterConfig);
     });
   });
 

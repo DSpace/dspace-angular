@@ -122,6 +122,6 @@ describe('NotificationComponent', () => {
     deContent = fixture.debugElement.query(By.css('.notification-html'));
     elContent = deContent.nativeElement;
     expect(elContent.innerHTML).toEqual(htmlContent);
-  })
+  });
 
 });

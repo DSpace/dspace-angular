@@ -1,13 +1,12 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { CookieService } from '../services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { LANG_COOKIE, LocaleService, LANG_ORIGIN } from './locale.service';
+import { LANG_COOKIE, LANG_ORIGIN, LocaleService } from './locale.service';
 import { AuthService } from '../auth/auth.service';
-import { AuthServiceMock } from 'src/app/shared/mocks/auth.service.mock';
 import { NativeWindowRef } from '../services/window.service';
 
 describe('LocaleService test suite', () => {
@@ -15,14 +14,19 @@ describe('LocaleService test suite', () => {
   let serviceAsAny: any;
   let cookieService: CookieService;
   let translateService: TranslateService;
-  let authService: AuthService;
   let window;
   let spyOnGet;
   let spyOnSet;
+  let authService;
+
+  authService = jasmine.createSpyObj('AuthService', {
+    isAuthenticated: jasmine.createSpy('isAuthenticated'),
+    isAuthenticationLoaded: jasmine.createSpy('isAuthenticationLoaded')
+  });
 
   const langList = ['en', 'it', 'de'];
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -34,7 +38,7 @@ describe('LocaleService test suite', () => {
       ],
       providers: [
         { provide: CookieService, useValue: new CookieServiceMock() },
-        { provide: AuthService, userValue: AuthServiceMock }
+        { provide: AuthService, userValue: authService }
       ]
     });
   }));
@@ -42,7 +46,6 @@ describe('LocaleService test suite', () => {
   beforeEach(() => {
     cookieService = TestBed.inject(CookieService);
     translateService = TestBed.inject(TranslateService);
-    authService = TestBed.inject(AuthService);
     window = new NativeWindowRef();
     service = new LocaleService(window, cookieService, translateService, authService);
     serviceAsAny = service;

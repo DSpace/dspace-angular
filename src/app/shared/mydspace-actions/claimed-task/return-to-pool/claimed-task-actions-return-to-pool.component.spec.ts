@@ -70,7 +70,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
     });
 
     it('should call claimedTaskService\'s returnToPoolTask', () => {
-      expect(claimedTaskService.returnToPoolTask).toHaveBeenCalledWith(object.id)
+      expect(claimedTaskService.returnToPoolTask).toHaveBeenCalledWith(object.id);
     });
 
     it('should emit a successful processCompleted event', () => {

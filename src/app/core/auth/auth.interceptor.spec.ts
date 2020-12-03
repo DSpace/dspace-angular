@@ -104,6 +104,6 @@ describe(`AuthInterceptor`, () => {
 
       httpMock.expectNone('dspace-spring-rest/api/submission/workspaceitems');
     });
-  })
+  });
 
 });

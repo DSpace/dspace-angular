@@ -56,5 +56,5 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
     const a = fixture.debugElement.query(By.css('a'));
     const link = a.nativeElement.href;
     expect(link).toContain(getCommunityEditRoute(id));
-  })
+  });
 });

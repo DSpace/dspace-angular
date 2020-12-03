@@ -77,7 +77,7 @@ describe('requestReducer', () => {
     expect(newState[id1].requestPending).toEqual(false);
     expect(newState[id1].responsePending).toEqual(true);
     expect(newState[id1].completed).toEqual(state[id1].completed);
-    expect(newState[id1].response).toEqual(undefined)
+    expect(newState[id1].response).toEqual(undefined);
   });
 
   it('should leave \'requestPending\' untouched, set \'responsePending\' to false and \'completed\' to true for the given RestRequest in the state, in response to a COMPLETE action', () => {
@@ -93,7 +93,7 @@ describe('requestReducer', () => {
     expect(newState[id1].completed).toEqual(true);
     expect(newState[id1].response.isSuccessful).toEqual(response.isSuccessful);
     expect(newState[id1].response.statusCode).toEqual(response.statusCode);
-    expect(newState[id1].response.timeAdded).toBeTruthy()
+    expect(newState[id1].response.timeAdded).toBeTruthy();
   });
 
   it('should leave \'requestPending\' untouched, should leave \'responsePending\' untouched and leave \'completed\' untouched, but update the response\'s timeAdded for the given RestRequest in the state, in response to a COMPLETE action', () => {

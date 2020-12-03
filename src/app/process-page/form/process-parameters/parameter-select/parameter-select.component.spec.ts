@@ -28,7 +28,7 @@ describe('ParameterSelectComponent', () => {
           type: ScriptParameterType.FILE
         }
       ),
-    ]
+    ];
   }
   beforeEach(async(() => {
     init();

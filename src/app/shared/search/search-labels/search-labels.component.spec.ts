@@ -56,6 +56,6 @@ describe('SearchLabelsComponent', () => {
       comp.appliedFilters.subscribe((filters) => {
         expect(filters).toBe(mockFilters);
       });
-    })
+    });
   });
 });

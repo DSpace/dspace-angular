@@ -53,7 +53,7 @@ describe('DSpaceObjectDataService', () => {
       notificationsService,
       http,
       comparator
-    )
+    );
   });
 
   describe('findById', () => {

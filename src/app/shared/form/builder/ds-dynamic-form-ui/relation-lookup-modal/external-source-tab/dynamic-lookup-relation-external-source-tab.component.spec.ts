@@ -186,7 +186,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     });
 
     it('should open a new ExternalSourceEntryImportModalComponent', () => {
-      expect(modalService.open).toHaveBeenCalledWith(ExternalSourceEntryImportModalComponent, jasmine.any(Object))
+      expect(modalService.open).toHaveBeenCalledWith(ExternalSourceEntryImportModalComponent, jasmine.any(Object));
     });
   });
 });

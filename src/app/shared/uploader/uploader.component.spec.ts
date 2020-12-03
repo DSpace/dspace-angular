@@ -73,7 +73,7 @@ class TestComponent {
 
   /* tslint:disable:no-empty */
   public onBeforeUpload = () => {
-  };
+  }
 
   onCompleteItem(event) {
   }

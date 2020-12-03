@@ -47,7 +47,7 @@ describe('GroupFormComponent', () => {
   let expected;
 
   beforeEach(async(() => {
-    groups = [GroupMock, GroupMock2]
+    groups = [GroupMock, GroupMock2];
     groupName = 'testGroupName';
     groupDescription = 'testDescription';
     expected = Object.assign(new Group(), {
@@ -71,7 +71,7 @@ describe('GroupFormComponent', () => {
         return '/admin/access-control/groups';
       },
       editGroup(group: Group) {
-        this.activeGroup = group
+        this.activeGroup = group;
       },
       cancelEditGroup(): void {
         this.activeGroup = null;
@@ -80,11 +80,11 @@ describe('GroupFormComponent', () => {
         return observableOf({ payload: null, hasSucceeded: true });
       },
       tryToCreate(group: Group): Observable<RestResponse> {
-        this.allGroups = [...this.allGroups, group]
+        this.allGroups = [...this.allGroups, group];
         return observableOf(new RestResponse(true, 200, 'Success'));
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
       }
     };
     builderService = getMockFormBuilderService();

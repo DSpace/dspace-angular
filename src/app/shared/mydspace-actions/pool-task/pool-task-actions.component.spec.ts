@@ -119,7 +119,7 @@ describe('PoolTaskActionsComponent', () => {
 
     expect(component.workflowitem$).toBeObservable(cold('(b|)', {
       b: rdWorkflowitem.payload
-    }))
+    }));
   });
 
   it('should display claim task button', () => {

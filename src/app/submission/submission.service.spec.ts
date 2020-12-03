@@ -895,7 +895,7 @@ describe('SubmissionService test suite', () => {
       service.retrieveSubmission('826').subscribe((r) => {
         expect(r).toEqual(createFailedRemoteDataObject(null,
           new RemoteDataError(500, 'Internal Server Error', 'Error message')
-        ))
+        ));
       });
     });
   });

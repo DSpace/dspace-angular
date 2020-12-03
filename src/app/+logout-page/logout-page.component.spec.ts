@@ -25,7 +25,7 @@ describe('LogoutPageComponent', () => {
   });
 
   it('should create instance', () => {
-    expect(comp).toBeDefined()
+    expect(comp).toBeDefined();
   });
 
 });

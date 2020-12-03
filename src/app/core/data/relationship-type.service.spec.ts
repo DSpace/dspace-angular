@@ -100,7 +100,7 @@ describe('RelationshipTypeService', () => {
       expected.subscribe((e) => {
         expect(e).toBe(buildList);
         done();
-      })
+      });
     });
   });
 
@@ -111,7 +111,7 @@ describe('RelationshipTypeService', () => {
       expected.subscribe((e) => {
         expect(e).toBe(relationshipType1);
         done();
-      })
+      });
     });
   });
 

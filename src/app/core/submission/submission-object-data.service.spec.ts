@@ -90,7 +90,7 @@ describe('SubmissionObjectDataService', () => {
           expect(rd.hasFailed).toBe(true);
           expect(rd.error).toBeDefined();
           done();
-        })
+        });
       });
     });
 

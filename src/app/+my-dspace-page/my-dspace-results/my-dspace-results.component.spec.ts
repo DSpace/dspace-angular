@@ -53,6 +53,6 @@ describe('MyDSpaceResultsComponent', () => {
 
     const linkDes = fixture.debugElement.queryAll(By.css('text-muted'));
 
-    expect(linkDes).toBeDefined()
+    expect(linkDes).toBeDefined();
   });
 });

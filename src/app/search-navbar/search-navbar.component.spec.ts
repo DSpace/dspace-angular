@@ -115,7 +115,7 @@ describe('SearchNavbarComponent', () => {
           expect(router.navigate).toHaveBeenCalled();
         });
       });
-    })
+    });
 
   });
 });

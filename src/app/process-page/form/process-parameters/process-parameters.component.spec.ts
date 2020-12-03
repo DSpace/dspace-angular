@@ -25,7 +25,7 @@ describe('ProcessParametersComponent', () => {
       Object.assign(new ProcessParameter(), { name: '-a', value: 'bla' }),
       Object.assign(new ProcessParameter(), { name: '-b', value: '123' }),
       Object.assign(new ProcessParameter(), { name: '-c', value: 'value' }),
-    ]
+    ];
   }
 
   beforeEach(async(() => {

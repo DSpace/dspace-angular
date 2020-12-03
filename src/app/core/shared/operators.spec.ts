@@ -178,7 +178,7 @@ describe('Core Module - RxJS Operators', () => {
         e: testRCEs.e.response
       });
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 
@@ -247,7 +247,7 @@ describe('Core Module - RxJS Operators', () => {
         e: testRCEs.e.response
       });
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 

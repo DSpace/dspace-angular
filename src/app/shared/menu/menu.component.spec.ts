@@ -51,7 +51,7 @@ describe('MenuComponent', () => {
     });
     it('should trigger the toggleMenu function on the menu service', () => {
       expect(menuService.toggleMenu).toHaveBeenCalledWith(comp.menuID);
-    })
+    });
   });
 
   describe('expand', () => {
@@ -61,7 +61,7 @@ describe('MenuComponent', () => {
     });
     it('should trigger the expandMenu function on the menu service', () => {
       expect(menuService.expandMenu).toHaveBeenCalledWith(comp.menuID);
-    })
+    });
   });
 
   describe('collapse', () => {
@@ -71,7 +71,7 @@ describe('MenuComponent', () => {
     });
     it('should trigger the collapseMenu function on the menu service', () => {
       expect(menuService.collapseMenu).toHaveBeenCalledWith(comp.menuID);
-    })
+    });
   });
 
   describe('expandPreview', () => {
@@ -82,7 +82,7 @@ describe('MenuComponent', () => {
       expect(menuService.expandMenuPreview).not.toHaveBeenCalled();
       tick(1);
       expect(menuService.expandMenuPreview).toHaveBeenCalledWith(comp.menuID);
-    }))
+    }));
   });
 
   describe('collapsePreview', () => {
@@ -93,6 +93,6 @@ describe('MenuComponent', () => {
       expect(menuService.collapseMenuPreview).not.toHaveBeenCalled();
       tick(1);
       expect(menuService.collapseMenuPreview).toHaveBeenCalledWith(comp.menuID);
-    }))
+    }));
   });
 });

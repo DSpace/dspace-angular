@@ -40,7 +40,7 @@ describe('ObjectNotFoundComponent', () => {
     });
 
     it('should create instance', () => {
-      expect(comp).toBeDefined()
+      expect(comp).toBeDefined();
     });
 
     it('should have id and idType', () => {

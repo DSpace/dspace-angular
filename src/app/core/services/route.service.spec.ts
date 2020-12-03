@@ -150,7 +150,7 @@ describe('RouteService', () => {
 
       service.getHistory().subscribe((history) => {
         expect(history).toEqual(['url', 'newurl']);
-      })
-    })
-  })
+      });
+    });
+  });
 });

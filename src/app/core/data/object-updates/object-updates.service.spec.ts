@@ -219,7 +219,7 @@ describe('ObjectUpdatesService', () => {
     });
     describe('when updates are emtpy', () => {
       beforeEach(() => {
-        (service as any).getObjectEntry.and.returnValue(observableOf({}))
+        (service as any).getObjectEntry.and.returnValue(observableOf({}));
       });
 
       it('should return false when there are no updates', () => {

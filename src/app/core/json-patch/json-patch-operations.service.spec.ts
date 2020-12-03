@@ -83,7 +83,7 @@ describe('JsonPatchOperationsService test suite', () => {
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful, timeAdded: timestampResponse } as any
-    } as RequestEntry)
+    } as RequestEntry);
   };
 
   function initTestService(): TestService {

@@ -78,5 +78,5 @@ describe('FullItemPageComponent', () => {
     for (const metadatum of mockItem.allMetadata([])) {
       expect(table.nativeElement.innerHTML).toContain(metadatum.value);
     }
-  })
+  });
 });

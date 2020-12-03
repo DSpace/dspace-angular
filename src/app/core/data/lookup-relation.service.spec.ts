@@ -86,13 +86,13 @@ describe('LookupRelationService', () => {
 
     it('should start with 0', () => {
       result.pipe(take(1)).subscribe((amount) => {
-        expect(amount).toEqual(0)
+        expect(amount).toEqual(0);
       });
     });
 
     it('should return the correct total amount', () => {
       result.pipe(skip(1)).subscribe((amount) => {
-        expect(amount).toEqual(localResults.length)
+        expect(amount).toEqual(localResults.length);
       });
     });
 
@@ -110,13 +110,13 @@ describe('LookupRelationService', () => {
 
     it('should start with 0', () => {
       result.pipe(take(1)).subscribe((amount) => {
-        expect(amount).toEqual(0)
+        expect(amount).toEqual(0);
       });
     });
 
     it('should return the correct total amount', () => {
       result.pipe(skip(1)).subscribe((amount) => {
-        expect(amount).toEqual(totalExternal)
+        expect(amount).toEqual(totalExternal);
       });
     });
   });

@@ -40,7 +40,7 @@ describe('LangSwitchComponent', () => {
     return jasmine.createSpyObj('LocaleService', {
       setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode'),
       refreshAfterChangeLanguage: jasmine.createSpy('refreshAfterChangeLanguage')
-    })
+    });
   }
 
   describe('with English and Deutsch activated, English as default', () => {

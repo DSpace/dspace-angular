@@ -60,7 +60,7 @@ describe('BreadcrumbsComponent', () => {
     expectedBreadcrumbs = [
       new Breadcrumb(breadcrumbConfigA.key, breadcrumbConfigA.url),
       new Breadcrumb(breadcrumbConfigB.key, breadcrumbConfigB.url)
-    ]
+    ];
 
   }
 
@@ -109,7 +109,7 @@ describe('BreadcrumbsComponent', () => {
   describe('resolveBreadcrumbs', () => {
     it('should return the correct breadcrumbs', () => {
       const breadcrumbs = component.resolveBreadcrumbs(route.root);
-      getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: expectedBreadcrumbs })
-    })
-  })
+      getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: expectedBreadcrumbs });
+    });
+  });
 });

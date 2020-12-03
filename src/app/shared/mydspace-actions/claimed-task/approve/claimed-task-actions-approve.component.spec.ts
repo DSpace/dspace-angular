@@ -76,7 +76,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
     });
 
     it('should call claimedTaskService\'s submitTask with the expected body', () => {
-      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
+      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody);
     });
 
     it('should emit a successful processCompleted event', () => {

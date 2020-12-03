@@ -67,8 +67,8 @@ describe('MetadataFieldFormComponent', () => {
 
   afterEach(() => {
     component = null;
-    registryService = null
-  })
+    registryService = null;
+  });
 
   describe('when submitting the form', () => {
     const element = 'fakeElement';

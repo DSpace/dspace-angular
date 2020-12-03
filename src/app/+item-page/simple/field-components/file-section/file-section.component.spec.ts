@@ -103,15 +103,15 @@ describe('FileSectionComponent', () => {
         it('should call the service to retrieve more bitstreams', () => {
             const viewMore = fixture.debugElement.query(By.css('.bitstream-view-more'));
             viewMore.triggerEventHandler('click', null);
-            expect(bitstreamDataService.findAllByItemAndBundleName).toHaveBeenCalled()
-        })
+            expect(bitstreamDataService.findAllByItemAndBundleName).toHaveBeenCalled();
+        });
 
         it('one bitstream should be on the page', () => {
             const viewMore = fixture.debugElement.query(By.css('.bitstream-view-more'));
             viewMore.triggerEventHandler('click', null);
             const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
             expect(fileDownloadLink.length).toEqual(1);
-        })
+        });
 
         describe('when it is then clicked again', () => {
             beforeEach(() => {
@@ -120,12 +120,12 @@ describe('FileSectionComponent', () => {
                 viewMore.triggerEventHandler('click', null);
                 fixture.detectChanges();
 
-            })
+            });
             it('should contain another bitstream', () => {
                 const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
                 expect(fileDownloadLink.length).toEqual(2);
-            })
-        })
+            });
+        });
     });
 
     describe('when its the last page of bitstreams', () => {
@@ -139,12 +139,12 @@ describe('FileSectionComponent', () => {
         it('should not contain a view more link', () => {
             const viewMore = fixture.debugElement.query(By.css('.bitstream-view-more'));
             expect(viewMore).toBeNull();
-        })
+        });
 
         it('should contain a view less link', () => {
             const viewLess = fixture.debugElement.query(By.css('.bitstream-collapse'));
             expect(viewLess).toBeDefined();
-        })
+        });
 
         it('clicking on the view less link should reset the pages and call getNextPage()', () => {
             const pageInfo = Object.assign(new PageInfo(), {
@@ -166,7 +166,7 @@ describe('FileSectionComponent', () => {
             expect(bitstreamDataService.findAllByItemAndBundleName).toHaveBeenCalled();
             expect(comp.currentPage).toBe(1);
             expect(comp.isLastPage).toBeFalse();
-        })
+        });
 
-    })
-})
+    });
+});

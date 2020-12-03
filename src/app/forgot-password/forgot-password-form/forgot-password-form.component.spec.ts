@@ -113,5 +113,5 @@ describe('ForgotPasswordFormComponent', () => {
 
       expect(ePersonDataService.patchPasswordWithToken).not.toHaveBeenCalled();
     });
-  })
+  });
 });

@@ -82,7 +82,7 @@ describe('BrowseService', () => {
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful, payload: browseDefinitions } as any
-    } as RequestEntry)
+    } as RequestEntry);
   };
 
   function initTestService() {
@@ -204,7 +204,7 @@ describe('BrowseService', () => {
       it('should throw an Error', () => {
 
         const definitionID = 'invalidID';
-        const expected = cold('--#-', undefined, new Error(`No metadata browse definition could be found for id '${definitionID}'`))
+        const expected = cold('--#-', undefined, new Error(`No metadata browse definition could be found for id '${definitionID}'`));
 
         expect(service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(definitionID))).toBeObservable(expected);
       });

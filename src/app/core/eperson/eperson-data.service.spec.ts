@@ -65,7 +65,7 @@ describe('EPersonDataService', () => {
       return observableOf({
         completed: true,
         response: { isSuccessful: successful, payload: epeople } as any
-      } as RequestEntry)
+      } as RequestEntry);
     };
     restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
     epersonsEndpoint = `${restEndpointURL}/epersons`;
@@ -257,14 +257,14 @@ describe('EPersonDataService', () => {
 
       service.getActiveEPerson().subscribe((activeEPerson: EPerson) => {
         expect(activeEPerson).toEqual(EPersonMock);
-      })
+      });
     });
 
     it('should retrieve the ePerson currently getting edited, null if none being edited', () => {
       service.getActiveEPerson().subscribe((activeEPerson: EPerson) => {
         expect(activeEPerson).toEqual(null);
-      })
-    })
+      });
+    });
   });
 
   describe('cancelEditEPerson', () => {

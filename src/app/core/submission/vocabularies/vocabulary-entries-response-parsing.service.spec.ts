@@ -8,7 +8,7 @@ describe('VocabularyEntriesResponseParsingService', () => {
   let service: VocabularyEntriesResponseParsingService;
   const metadata = 'dc.type';
   const collectionUUID = '8b39g7ya-5a4b-438b-851f-be1d5b4a1c5a';
-  const entriesRequestURL = `https://rest.api/rest/api/submission/vocabularies/types/entries?metadata=${metadata}&collection=${collectionUUID}`
+  const entriesRequestURL = `https://rest.api/rest/api/submission/vocabularies/types/entries?metadata=${metadata}&collection=${collectionUUID}`;
 
   beforeEach(() => {
     service = new VocabularyEntriesResponseParsingService(getMockObjectCacheService());

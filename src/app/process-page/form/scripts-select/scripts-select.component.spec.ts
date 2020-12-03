@@ -28,7 +28,7 @@ describe('ScriptsSelectComponent', () => {
       {
         findAll: createSuccessfulRemoteDataObject$(new PaginatedList(undefined, [script1, script2]))
       }
-    )
+    );
   }
 
   beforeEach(async(() => {

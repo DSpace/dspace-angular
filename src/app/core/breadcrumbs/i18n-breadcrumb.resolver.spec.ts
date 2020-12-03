@@ -38,7 +38,7 @@ describe('I18nBreadcrumbResolver', () => {
 
     it('should resolve throw an error when no breadcrumbKey is defined', () => {
       expect(() => {
-        resolver.resolve({ data: {} } as any, undefined)
+        resolver.resolve({ data: {} } as any, undefined);
       }).toThrow();
     });
   });

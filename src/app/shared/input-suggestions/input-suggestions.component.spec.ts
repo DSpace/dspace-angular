@@ -208,7 +208,7 @@ describe('InputSuggestionsComponent', () => {
       it('should call onKeydown', () => {
         expect(comp.onKeydown).toHaveBeenCalled();
         fixture.detectChanges();
-      })
+      });
     });
     describe('when onKeydown is triggered with the Enter key', () => {
       beforeEach(() => {

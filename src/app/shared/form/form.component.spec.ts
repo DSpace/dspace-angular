@@ -429,7 +429,7 @@ describe('FormComponent test suite', () => {
 
       expect(formComp.removeArrayItem.emit).toHaveBeenCalled();
     }));
-  })
+  });
 });
 
 // declare a test component

@@ -127,7 +127,7 @@ describe('ExportMetadataSelectorComponent', () => {
     beforeEach((done) => {
       component.navigate(mockItem).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
-        done()
+        done();
       });
     });
     it('should not invoke metadata-export script', () => {
@@ -141,7 +141,7 @@ describe('ExportMetadataSelectorComponent', () => {
       spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       component.navigate(mockCollection).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
-        done()
+        done();
       });
     });
     it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
@@ -166,7 +166,7 @@ describe('ExportMetadataSelectorComponent', () => {
       spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       component.navigate(mockCommunity).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
-        done()
+        done();
       });
     });
     it('metadata-export script is invoked with its -i handle and -f uuid.csv', () => {
@@ -198,7 +198,7 @@ describe('ExportMetadataSelectorComponent', () => {
       }));
       component.navigate(mockCommunity).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
-        done()
+        done();
       });
     });
     it('error notification is shown', () => {

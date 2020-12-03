@@ -15,7 +15,7 @@ describe('TruncatablePartComponent', () => {
   const truncatableServiceStub: any = {
     isCollapsed: (id: string) => {
       if (id === id1) {
-        return observableOf(true)
+        return observableOf(true);
       } else {
         return observableOf(false);
       }

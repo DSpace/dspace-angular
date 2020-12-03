@@ -91,14 +91,14 @@ describe('FullFileSectionComponent', () => {
 
             it ('should give the value to the currentpage', () => {
                 expect(comp.originalOptions.currentPage).toBe(2);
-            })
+            });
             it ('should call the next function on the originalCurrentPage', (done) => {
                 comp.originalCurrentPage$.subscribe((event) => {
                     expect(event).toEqual(2);
                     done();
-                })
-            })
-        })
+                });
+            });
+        });
 
         describe('when we press the pageChange button for license bundle', () => {
             beforeEach(() => {
@@ -108,13 +108,13 @@ describe('FullFileSectionComponent', () => {
 
             it ('should give the value to the currentpage', () => {
                 expect(comp.licenseOptions.currentPage).toBe(2);
-            })
+            });
             it ('should call the next function on the licenseCurrentPage', (done) => {
                 comp.licenseCurrentPage$.subscribe((event) => {
                     expect(event).toEqual(2);
                     done();
-                })
-            })
-        })
-    })
-})
+                });
+            });
+        });
+    });
+});

@@ -51,13 +51,13 @@ describe('MembersListComponent', () => {
       epersonMembers: epersonMembers,
       subgroupMembers: subgroupMembers,
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()))
+        return createSuccessfulRemoteDataObject$(new PaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()));
       },
       searchByScope(scope: string, query: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), allEPersons))
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), allEPersons));
         }
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
       },
       clearEPersonRequests() {
         // empty
@@ -82,9 +82,9 @@ describe('MembersListComponent', () => {
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), this.allGroups))
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), this.allGroups));
         }
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
       },
       addMemberToGroup(parentGroup, eperson: EPerson): Observable<RestResponse> {
         this.epersonMembers = [...this.epersonMembers, eperson];
@@ -106,7 +106,7 @@ describe('MembersListComponent', () => {
           }
         });
         if (this.epersonMembers === undefined) {
-          this.epersonMembers = []
+          this.epersonMembers = [];
         }
         return observableOf(new RestResponse(true, 200, 'Success'));
       }
@@ -189,8 +189,8 @@ describe('MembersListComponent', () => {
                   expect(addButton).toBeDefined();
                 }
               }
-            })
-          })
+            });
+          });
         });
       });
 
@@ -211,7 +211,7 @@ describe('MembersListComponent', () => {
               expect(addButton).toBeUndefined();
               expect(deleteButton).toBeDefined();
             }
-          })
+          });
         });
       });
 
@@ -231,7 +231,7 @@ describe('MembersListComponent', () => {
               expect(deleteButton).toBeUndefined();
               expect(addButton).toBeDefined();
             }
-          })
+          });
         });
       });
     });

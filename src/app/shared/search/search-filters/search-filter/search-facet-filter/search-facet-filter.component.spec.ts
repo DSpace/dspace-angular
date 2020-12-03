@@ -131,7 +131,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call isFilterActiveWithValue on the filterService with the correct filter parameter name and the passed value', () => {
-      expect(filterService.isFilterActiveWithValue).toHaveBeenCalledWith(mockFilterConfig.paramName, values[1].value)
+      expect(filterService.isFilterActiveWithValue).toHaveBeenCalledWith(mockFilterConfig.paramName, values[1].value);
     });
   });
 
@@ -153,7 +153,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call incrementPage on the filterService with the correct filter parameter name', () => {
-      expect(filterService.incrementPage).toHaveBeenCalledWith(mockFilterConfig.name)
+      expect(filterService.incrementPage).toHaveBeenCalledWith(mockFilterConfig.name);
     });
   });
 
@@ -175,7 +175,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call getPage on the filterService with the correct filter parameter name', () => {
-      expect(filterService.getPage).toHaveBeenCalledWith(mockFilterConfig.name)
+      expect(filterService.getPage).toHaveBeenCalledWith(mockFilterConfig.name);
     });
   });
 
@@ -217,7 +217,7 @@ describe('SearchFacetFilterComponent', () => {
   describe('when updateFilterValueList is called', () => {
     beforeEach(() => {
       spyOn(comp, 'showFirstPageOnly');
-      comp.updateFilterValueList()
+      comp.updateFilterValueList();
     });
 
     it('should call showFirstPageOnly and empty the filter', () => {

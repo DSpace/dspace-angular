@@ -164,7 +164,7 @@ describe('UserMenuComponent', () => {
       const span = deUserMenu.query(By.css('.dropdown-item-text'));
       expect(span).toBeDefined();
       expect(span.nativeElement.innerHTML).toBe(user);
-    })
+    });
 
   });
 

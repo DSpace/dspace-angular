@@ -95,7 +95,7 @@ describe('DataService', () => {
 
   beforeEach(() => {
     service = initTestService();
-  })
+  });
 
   describe('getFindAllHref', () => {
 
@@ -146,7 +146,7 @@ describe('DataService', () => {
     });
 
     it('should include all provided options in href', () => {
-      const sortOptions = new SortOptions('field1', SortDirection.DESC)
+      const sortOptions = new SortOptions('field1', SortDirection.DESC);
       options = {
         currentPage: 6,
         elementsPerPage: 10,

@@ -72,7 +72,7 @@ describe('GroupRegistryComponent', () => {
           return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allGroups));
         }
         const result = this.allGroups.find((group: Group) => {
-          return (group.id.includes(query))
+          return (group.id.includes(query));
         });
         return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
       }
@@ -115,7 +115,7 @@ describe('GroupRegistryComponent', () => {
       expect(groupIdsFound.find((foundEl) => {
         return (foundEl.nativeElement.textContent.trim() === group.uuid);
       })).toBeTruthy();
-    })
+    });
   });
 
   describe('search', () => {

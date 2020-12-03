@@ -10,11 +10,11 @@ describe('MetadataRepresentation decorator function', () => {
   const type4 = 'RandomType';
   let prefix;
   /* tslint:disable:max-classes-per-file */
-  class Test1PlainText {};
-  class Test1Authority {};
-  class Test2Item {};
-  class Test2ItemSubmission {};
-  class Test3ItemSubmission {};
+  class Test1PlainText {}
+  class Test1Authority {}
+  class Test2Item {}
+  class Test2ItemSubmission {}
+  class Test3ItemSubmission {}
   /* tslint:enable:max-classes-per-file */
 
   beforeEach(() => {

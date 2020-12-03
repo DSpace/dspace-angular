@@ -126,7 +126,7 @@ describe('BrowseByMetadataPageComponent', () => {
       comp.items$.subscribe((result) => {
         expect(result.payload.page).toEqual(mockItems);
       });
-    })
+    });
   });
 
   describe('when calling browseParamsToOptions', () => {
@@ -151,7 +151,7 @@ describe('BrowseByMetadataPageComponent', () => {
       expect(result.sort.direction).toEqual(SortDirection.ASC);
       expect(result.sort.field).toEqual('fake-field');
       expect(result.scope).toEqual('fake-scope');
-    })
+    });
   });
 });
 

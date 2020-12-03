@@ -13,7 +13,7 @@ describe('HostWindowService', () => {
     MD_MIN = 768,
     LG_MIN = 992,
     XL_MIN = 1200
-  };
+  }
 
   describe('', () => {
     beforeEach(() => {

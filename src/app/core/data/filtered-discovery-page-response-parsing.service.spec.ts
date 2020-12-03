@@ -31,6 +31,6 @@ describe('FilteredDiscoveryPageResponseParsingService', () => {
     it('should return a FilteredDiscoveryQueryResponse containing the correct query', () => {
       const response = service.parse(request, mockResponse);
       expect((response as FilteredDiscoveryQueryResponse).filterQuery).toBe(mockResponse.payload['discovery-query']);
-    })
+    });
   });
 });

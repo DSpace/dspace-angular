@@ -108,7 +108,7 @@ describe('MetadataService', () => {
     requestService = new RequestService(objectCacheService, uuidService, store, undefined);
     remoteDataBuildService = new RemoteDataBuildService(objectCacheService, undefined, requestService);
     const mockBitstreamDataService = {
-      findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+      findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
         if (item.equals(ItemMock)) {
           return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [MockBitstream1, MockBitstream2]));
         } else {
@@ -271,6 +271,6 @@ describe('MetadataService', () => {
       }
     ] as MetadataValue[];
     return publishedMockItem;
-  }
+  };
 
 });

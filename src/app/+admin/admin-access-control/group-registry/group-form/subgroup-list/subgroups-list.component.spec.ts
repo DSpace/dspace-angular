@@ -51,16 +51,16 @@ describe('SubgroupsListComponent', () => {
         return this.activeGroup;
       },
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList<Group>(new PageInfo(), this.subgroups))
+        return createSuccessfulRemoteDataObject$(new PaginatedList<Group>(new PageInfo(), this.subgroups));
       },
       getGroupEditPageRouterLink(group: Group): string {
         return '/admin/access-control/groups/' + group.id;
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), allGroups))
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), allGroups));
         }
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
       },
       addSubGroupToGroup(parentGroup, subgroup: Group): Observable<RestResponse> {
         this.subgroups = [...this.subgroups, subgroup];
@@ -126,7 +126,7 @@ describe('SubgroupsListComponent', () => {
       expect(groupIdsFound.find((foundEl) => {
         return (foundEl.nativeElement.textContent.trim() === group.uuid);
       })).toBeTruthy();
-    })
+    });
   });
 
   describe('if first group delete button is pressed', () => {
@@ -164,7 +164,7 @@ describe('SubgroupsListComponent', () => {
           expect(groupIdsFound.find((foundEl) => {
             return (foundEl.nativeElement.textContent.trim() === group.uuid);
           })).toBeTruthy();
-        })
+        });
       });
 
       describe('if group is already a subgroup', () => {
@@ -180,7 +180,7 @@ describe('SubgroupsListComponent', () => {
                 expect(addButton).toBeUndefined();
                 expect(deleteButton).toBeDefined();
               }
-            })
+            });
           } else {
             getSubgroups.map((group: Group) => {
               groupsFound.map((foundGroupRowElement) => {
@@ -196,8 +196,8 @@ describe('SubgroupsListComponent', () => {
                     expect(addButton).toBeDefined();
                   }
                 }
-              })
-            })
+              });
+            });
           }
         });
       });

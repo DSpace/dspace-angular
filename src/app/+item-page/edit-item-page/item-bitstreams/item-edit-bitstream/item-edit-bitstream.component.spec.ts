@@ -107,13 +107,13 @@ describe('ItemEditBitstreamComponent', () => {
 
   describe('when canRemove is called', () => {
     it('should return true', () => {
-      expect(comp.canRemove()).toEqual(true)
+      expect(comp.canRemove()).toEqual(true);
     });
   });
 
   describe('when canUndo is called', () => {
     it('should return false', () => {
-      expect(comp.canUndo()).toEqual(false)
+      expect(comp.canUndo()).toEqual(false);
     });
   });
 });

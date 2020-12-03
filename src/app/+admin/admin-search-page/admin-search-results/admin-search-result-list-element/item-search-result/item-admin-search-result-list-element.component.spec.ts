@@ -97,5 +97,5 @@ describe('ItemAdminSearchResultListElementComponent', () => {
       const badge = fixture.debugElement.query(By.css('div.private-badge'));
       expect(badge).not.toBeNull();
     });
-  })
+  });
 });

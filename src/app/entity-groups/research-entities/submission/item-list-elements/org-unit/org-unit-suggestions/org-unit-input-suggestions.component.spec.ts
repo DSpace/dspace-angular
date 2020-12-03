@@ -10,7 +10,7 @@ let suggestions: string[];
 let testValue;
 
 function init() {
-  suggestions = ['test', 'suggestion', 'example']
+  suggestions = ['test', 'suggestion', 'example'];
   testValue = 'bla';
 }
 

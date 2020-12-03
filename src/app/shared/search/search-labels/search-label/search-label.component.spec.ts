@@ -71,7 +71,7 @@ describe('SearchLabelComponent', () => {
         // Should contain only filter2 and page: length == 2
         expect(Object.keys(params).length).toBe(2);
       });
-    })
+    });
   });
 
   describe('when normalizeFilterValue is called', () => {
@@ -83,6 +83,6 @@ describe('SearchLabelComponent', () => {
 
       result = comp.normalizeFilterValue(value3);
       expect(result).toBe(normValue3);
-    })
+    });
   });
 });

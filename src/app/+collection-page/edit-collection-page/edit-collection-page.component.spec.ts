@@ -50,6 +50,6 @@ describe('EditCollectionPageComponent', () => {
   describe('type', () => {
     it('should have the right type set', () => {
       expect((comp as any).type).toEqual('collection');
-    })
+    });
   });
 });

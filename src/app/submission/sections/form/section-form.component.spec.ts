@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -142,20 +142,21 @@ describe('SubmissionSectionformComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionformComponent>;
   let submissionServiceStub: SubmissionServiceStub;
-  let sectionsServiceStub: SectionsServiceStub;
   let notificationsServiceStub: NotificationsServiceStub;
-  let formService: any;
-  let formConfigService: any;
+  let formService: any = getMockFormService();
+
   let formOperationsService: any;
   let formBuilderService: any;
   let translateService: any;
 
+  const sectionsServiceStub: any = new SectionsServiceStub();
+  const formConfigService: any = getMockSubmissionFormsConfigService();
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
   const parsedSectionErrors: any = mockUploadResponse1ParsedErrors.traditionalpageone;
   const formConfigData = new ConfigData(new PageInfo(), testFormConfiguration);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -172,16 +173,16 @@ describe('SubmissionSectionformComponent test suite', () => {
       providers: [
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
-        { provide: FormService, useValue: getMockFormService() },
-        { provide: SubmissionFormsConfigService, useValue: getMockSubmissionFormsConfigService() },
+        { provide: FormService, useValue: formService },
+        { provide: SubmissionFormsConfigService, useValue: formConfigService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        { provide: SectionsService, useClass: SectionsServiceStub },
+        { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: ObjectCacheService, useValue: { remove: () => {/*do nothing*/}, hasBySelfLinkObservable: () => observableOf(false) } },
         { provide: RequestService, useValue: { removeByHrefSubstring: () => {/*do nothing*/}, hasByHrefObservable: () => observableOf(false) } },
         { provide: 'collectionIdProvider', useValue: collectionId },
-        { provide: 'sectionDataProvider', useValue: sectionObject },
+        { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
         { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => observableOf(new RemoteData(false, false, true, null, new WorkspaceItem())) } },
         ChangeDetectorRef,
@@ -197,6 +198,11 @@ describe('SubmissionSectionformComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      const sectionData = {};
+      formService.isValid.and.returnValue(observableOf(true));
+      formConfigService.getConfigByHref.and.returnValue(observableOf(formConfigData));
+      sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
+
       const html = `
         <ds-submission-section-form></ds-submission-section-form>`;
 
@@ -221,9 +227,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
-      sectionsServiceStub = TestBed.inject(SectionsService as any);
       formService = TestBed.inject(FormService);
-      formConfigService = TestBed.inject(SubmissionFormsConfigService);
       formBuilderService = TestBed.inject(FormBuilderService);
       formOperationsService = TestBed.inject(SectionFormOperationsService);
       translateService = TestBed.inject(TranslateService);

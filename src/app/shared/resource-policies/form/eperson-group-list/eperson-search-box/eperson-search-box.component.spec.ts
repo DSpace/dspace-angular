@@ -90,19 +90,19 @@ describe('EpersonSearchBoxComponent test suite', () => {
       const data = {
         scope: 'metadata',
         query: 'test'
-      }
+      };
 
       const event: SearchEvent = {
         scope: 'metadata',
         query: 'test'
-      }
+      };
       spyOn(comp.search, 'emit');
 
       comp.submit(data);
 
       expect(comp.search.emit).toHaveBeenCalledWith(event);
     });
-  })
+  });
 });
 
 // declare a test component

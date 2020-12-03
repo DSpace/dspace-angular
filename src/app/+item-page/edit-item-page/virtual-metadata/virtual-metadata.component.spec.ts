@@ -98,5 +98,5 @@ describe('VirtualMetadataComponent', () => {
         true
       );
     });
-  })
+  });
 });

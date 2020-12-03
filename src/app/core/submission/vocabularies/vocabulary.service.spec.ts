@@ -176,7 +176,7 @@ describe('VocabularyService', () => {
   const vocabularyOptions: VocabularyOptions = {
     name: vocabularyId,
     closed: false
-  }
+  };
   const pageInfo = new PageInfo();
   const array = [vocabulary, hierarchicalVocabulary];
   const arrayEntries = [vocabularyEntry, vocabularyEntry2, vocabularyEntry3];
@@ -193,7 +193,7 @@ describe('VocabularyService', () => {
   const getRequestEntries$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful, payload: arrayEntries } as any
-    } as RequestEntry)
+    } as RequestEntry);
   };
   objectCache = {} as ObjectCacheService;
   const notificationsService = {} as NotificationsService;
@@ -474,7 +474,7 @@ describe('VocabularyService', () => {
       it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
         scheduler.schedule(() => service.findEntryDetailById('testValue', hierarchicalVocabulary.id));
         scheduler.flush();
-        const expectedId = `${hierarchicalVocabulary.id}:testValue`
+        const expectedId = `${hierarchicalVocabulary.id}:testValue`;
         expect((service as any).vocabularyEntryDetailDataService.findById).toHaveBeenCalledWith(expectedId);
       });
 

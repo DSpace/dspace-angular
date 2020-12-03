@@ -89,19 +89,19 @@ describe('GroupSearchBoxComponent test suite', () => {
     it('should emit new search event', () => {
       const data = {
         query: 'test'
-      }
+      };
 
       const event: SearchEvent = {
         scope: '',
         query: 'test'
-      }
+      };
       spyOn(comp.search, 'emit');
 
       comp.submit(data);
 
       expect(comp.search.emit).toHaveBeenCalledWith(event);
     });
-  })
+  });
 });
 
 // declare a test component

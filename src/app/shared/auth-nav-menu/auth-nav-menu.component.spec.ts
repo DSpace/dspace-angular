@@ -246,8 +246,8 @@ describe('AuthNavMenuComponent', () => {
           const logoutDropdownMenu = deNavMenuItem.query(By.css('ds-user-menu'));
           expect(logoutDropdownMenu.nativeElement).toBeDefined();
         });
-      })
-    })
+      });
+    });
   });
 
   describe('when is a mobile view', () => {
@@ -356,6 +356,6 @@ describe('AuthNavMenuComponent', () => {
         const logoutDropdownMenu = deNavMenuItem.query(By.css('a[id=logoutLink]'));
         expect(logoutDropdownMenu.nativeElement).toBeDefined();
       }));
-    })
-  })
+    });
+  });
 });

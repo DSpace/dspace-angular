@@ -94,7 +94,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         expect(containsFieldInput(fields, key)).toBeTruthy();
       });
     }
-  }
+  };
 }
 
 /**

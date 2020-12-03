@@ -1,9 +1,12 @@
-import * as ngrx from '@ngrx/store';
-import { Store } from '@ngrx/store';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+
+import { Store, StoreModule } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { CoreState } from '../core.reducers';
+
+import { coreReducers, CoreState } from '../core.reducers';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { Item } from '../shared/item.model';
 import {
@@ -13,14 +16,16 @@ import {
   RemoveFromObjectCacheAction
 } from './object-cache.actions';
 import { Patch } from './object-cache.reducer';
-
 import { ObjectCacheService } from './object-cache.service';
 import { AddToSSBAction } from './server-sync-buffer.actions';
+import { storeModuleConfig } from '../../app.reducer';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;
   let store: Store<CoreState>;
+  let mockStore: MockStore<CoreState>;
   let linkServiceStub;
+  let initialState: any;
 
   const selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
   const requestUUID = '4d3a4ce8-a375-4b98-859b-39f0a014d736';
@@ -48,12 +53,36 @@ describe('ObjectCacheService', () => {
       timeAdded: timestamp,
       msToLive: msToLive
     };
-    invalidCacheEntry = Object.assign({}, cacheEntry, { msToLive: -1 })
+    invalidCacheEntry = Object.assign({}, cacheEntry, { msToLive: -1 });
+    initialState = {
+      core: {
+        'cache/object': {  },
+        'cache/syncbuffer': {  },
+        'cache/object-updates': {  },
+        'data/request': {  },
+        'index': {  },
+      }
+    };
   }
+
+  beforeEach(waitForAsync(() => {
+
+    TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot(coreReducers, storeModuleConfig)
+      ],
+      providers: [
+        provideMockStore({ initialState }),
+        { provide: ObjectCacheService, useValue: service }
+      ]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     init();
-    store = new Store<CoreState>(undefined, undefined, undefined);
+    store = TestBed.inject(Store);
+    mockStore = store as MockStore<CoreState>;
+    mockStore.setState(initialState);
     linkServiceStub = {
       removeResolvedLinks: (a) => a
     };
@@ -83,11 +112,14 @@ describe('ObjectCacheService', () => {
 
   describe('getBySelfLink', () => {
     it('should return an observable of the cached object with the specified self link and type', () => {
-      spyOnProperty(ngrx, 'select').and.callFake(() => {
-        return () => {
-          return () => observableOf(cacheEntry);
-        };
+      const state = Object.assign({}, initialState, {
+        core: Object.assign({}, initialState.core, {
+          'cache/object': {
+            'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7': cacheEntry
+          }
+        })
       });
+      mockStore.setState(state);
 
       // due to the implementation of spyOn above, this subscribe will be synchronous
       service.getObjectBySelfLink(selfLink).pipe(first()).subscribe((o) => {
@@ -99,11 +131,14 @@ describe('ObjectCacheService', () => {
     });
 
     it('should not return a cached object that has exceeded its time to live', () => {
-      spyOnProperty(ngrx, 'select').and.callFake(() => {
-        return () => {
-          return () => observableOf(invalidCacheEntry);
-        };
+      const state = Object.assign({}, initialState, {
+        core: Object.assign({}, initialState.core, {
+          'cache/object': {
+            'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7': invalidCacheEntry
+          }
+        })
       });
+      mockStore.setState(state);
 
       let getObsHasFired = false;
       const subscription = service.getObjectBySelfLink(selfLink).subscribe((o) => getObsHasFired = true);
@@ -128,32 +163,38 @@ describe('ObjectCacheService', () => {
 
   describe('has', () => {
     it('should return true if the object with the supplied self link is cached and still valid', () => {
-      spyOnProperty(ngrx, 'select').and.callFake(() => {
-        return () => {
-          return () => observableOf(cacheEntry);
-        };
+      const state = Object.assign({}, initialState, {
+        core: Object.assign({}, initialState.core, {
+          'cache/object': {
+            'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7': cacheEntry
+          }
+        })
       });
+      mockStore.setState(state);
 
       expect(service.hasBySelfLink(selfLink)).toBe(true);
     });
 
     it('should return false if the object with the supplied self link isn\'t cached', () => {
-      spyOnProperty(ngrx, 'select').and.callFake(() => {
-        return () => {
-          return () => observableOf(undefined);
-        };
+      const state = Object.assign({}, initialState, {
+        core: Object.assign({}, initialState.core, {
+          'cache/object': {
+            'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7': undefined
+          }
+        })
       });
-
+      mockStore.setState(state);
       expect(service.hasBySelfLink(selfLink)).toBe(false);
     });
 
     it('should return false if the object with the supplied self link is cached but has exceeded its time to live', () => {
-      spyOnProperty(ngrx, 'select').and.callFake(() => {
-        return () => {
-          return () => observableOf(invalidCacheEntry);
-        };
+      const state = Object.assign({}, initialState, {
+        core: Object.assign({}, initialState.core, {
+          'cache/object': {
+            'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7': invalidCacheEntry
+          }
+        })
       });
-
       expect(service.hasBySelfLink(selfLink)).toBe(false);
     });
   });

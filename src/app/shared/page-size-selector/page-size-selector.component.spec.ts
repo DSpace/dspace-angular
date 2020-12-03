@@ -74,7 +74,7 @@ describe('PageSizeSelectorComponent', () => {
         expect(childElements.length).toEqual(options.pageSizeOptions.length);
         done();
       }
-    )
+    );
   });
 
   it('should have the proper rpp value selected by default', (done) => {

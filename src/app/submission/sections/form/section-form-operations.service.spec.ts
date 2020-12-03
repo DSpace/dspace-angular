@@ -758,6 +758,6 @@ describe('SectionFormOperationsService test suite', () => {
 
       expect(jsonPatchOpBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath('path'));
     });
-  })
+  });
 
 });

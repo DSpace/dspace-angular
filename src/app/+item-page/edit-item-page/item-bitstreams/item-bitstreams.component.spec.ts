@@ -213,7 +213,7 @@ describe('ItemBitstreamsComponent', () => {
         finish: () => {
           done();
         }
-      })
+      });
     });
 
     it('should send out a patch for the move operation', () => {

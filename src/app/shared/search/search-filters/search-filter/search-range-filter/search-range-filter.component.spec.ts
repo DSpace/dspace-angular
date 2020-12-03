@@ -7,7 +7,7 @@ import { SearchFilterConfig } from '../../../search-filter-config.model';
 import { FilterType } from '../../../filter-type.model';
 import { FacetValue } from '../../../facet-value.model';
 import { FormsModule } from '@angular/forms';
-import { of as observableOf } from 'rxjs'
+import { of as observableOf } from 'rxjs';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { PaginatedList } from '../../../../../core/data/paginated-list';

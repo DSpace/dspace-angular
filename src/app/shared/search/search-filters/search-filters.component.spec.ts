@@ -62,7 +62,7 @@ describe('SearchFiltersComponent', () => {
     });
 
     it('should call getSearchLink on the searchService', () => {
-      expect(searchService.getSearchLink).toHaveBeenCalled()
+      expect(searchService.getSearchLink).toHaveBeenCalled();
     });
   });
 

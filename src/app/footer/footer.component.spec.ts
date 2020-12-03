@@ -45,7 +45,7 @@ describe('Footer component', () => {
         FooterComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
+    });
   }));
 
   // synchronous beforeEach

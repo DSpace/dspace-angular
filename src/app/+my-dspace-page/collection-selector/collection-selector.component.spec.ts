@@ -106,7 +106,7 @@ describe('CollectionSelectorComponent', () => {
 
   // tslint:disable-next-line: max-classes-per-file
   const collectionDataServiceMock = {
-    getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
+    getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
       return hot( 'a|', {
         a: createSuccessfulRemoteDataObject(
           new PaginatedList(new PageInfo(), collections)

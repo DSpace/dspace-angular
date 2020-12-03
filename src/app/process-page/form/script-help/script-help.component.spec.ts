@@ -60,6 +60,6 @@ describe('ScriptHelpComponent', () => {
     script.parameters.forEach((parameter, index) => {
       expect(rows[index].queryAll(By.css('td'))[0].nativeElement.textContent).toContain(parameter.name);
       expect(rows[index].queryAll(By.css('td'))[1].nativeElement.textContent.trim()).toEqual(parameter.description);
-    })
+    });
   });
 });

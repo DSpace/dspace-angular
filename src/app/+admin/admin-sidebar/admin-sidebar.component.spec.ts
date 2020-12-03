@@ -72,7 +72,7 @@ describe('AdminSidebarComponent', () => {
 
       it('should set the sidebarClosed to false', () => {
         expect(comp.sidebarClosed).toBeFalsy();
-      })
+      });
     });
 
     describe('when collapsing', () => {
@@ -83,8 +83,8 @@ describe('AdminSidebarComponent', () => {
 
       it('should set the sidebarOpen to false', () => {
         expect(comp.sidebarOpen).toBeFalsy();
-      })
-    })
+      });
+    });
   });
 
   describe('finishSlide', () => {
@@ -96,7 +96,7 @@ describe('AdminSidebarComponent', () => {
 
       it('should set the sidebarClosed to true', () => {
         expect(comp.sidebarClosed).toBeTruthy();
-      })
+      });
     });
 
     describe('when collapsing', () => {
@@ -107,8 +107,8 @@ describe('AdminSidebarComponent', () => {
 
       it('should set the sidebarOpen to true', () => {
         expect(comp.sidebarOpen).toBeTruthy();
-      })
-    })
+      });
+    });
   });
 
   describe('when the collapse icon is clicked', () => {

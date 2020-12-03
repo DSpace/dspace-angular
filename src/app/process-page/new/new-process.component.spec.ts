@@ -44,7 +44,7 @@ describe('NewProcessComponent', () => {
             }
         })
       }
-    )
+    );
   }
 
   beforeEach(async(() => {

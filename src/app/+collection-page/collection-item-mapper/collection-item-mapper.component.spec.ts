@@ -108,15 +108,15 @@ describe('CollectionItemMapperComponent', () => {
       return observableOf('');
     },
     getQueryParameterValue: () => {
-      return observableOf('')
+      return observableOf('');
     },
     getQueryParamsWithPrefix: () => {
-      return observableOf('')
+      return observableOf('');
     }
   };
   const fixedFilterServiceStub = {
     getQueryByFilterName: () => {
-      return observableOf('')
+      return observableOf('');
     }
   };
 
@@ -197,7 +197,7 @@ describe('CollectionItemMapperComponent', () => {
 
     it('should build a solr query to exclude the provided collection', () => {
       expect(result).toEqual(expected);
-    })
+    });
   });
 
   describe('onCancel', () => {

@@ -238,7 +238,7 @@ describe('EditBitstreamPageComponent', () => {
   });
   describe('when navigateToItemEditBitstreams is called, and the component has an itemId', () => {
     it('should redirect to the item edit page on the bitstreams tab with the itemId from the component', () => {
-      comp.itemId = 'some-uuid1'
+      comp.itemId = 'some-uuid1';
       comp.navigateToItemEditBitstreams();
       expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute('some-uuid1'), 'bitstreams']);
     });

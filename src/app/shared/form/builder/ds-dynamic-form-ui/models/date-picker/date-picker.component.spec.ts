@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +9,11 @@ import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dyna
 import { DsDatePickerComponent } from './date-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService
+} from '../../../../../testing/dynamic-form-mock-services';
+
 
 export const DATE_TEST_GROUP = new FormGroup({
   date: new FormControl()
@@ -26,10 +31,6 @@ export const DATE_TEST_MODEL_CONFIG = {
   toggleIcon: 'fas fa-calendar'
 };
 
-const mockDynamicFormValidationService = jasmine.createSpyObj('DynamicFormValidationService', {
-  showErrorMessages: jasmine.createSpy('showErrorMessages')
-});
-
 describe('DsDatePickerComponent test suite', () => {
 
   let testComp: TestComponent;
@@ -39,7 +40,7 @@ describe('DsDatePickerComponent test suite', () => {
   let html;
 
   // async beforeEach
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
@@ -52,7 +53,7 @@ describe('DsDatePickerComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         DsDatePickerComponent,
-        { provide: DynamicFormLayoutService, useValue: {} },
+        { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

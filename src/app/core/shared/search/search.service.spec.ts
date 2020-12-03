@@ -88,7 +88,7 @@ describe('SearchService', () => {
           })
         );
       },
-      aggregate: (input: Array<Observable<RemoteData<any>>>): Observable<RemoteData<any[]>> => {
+      aggregate: (input: Observable<RemoteData<any>>[]): Observable<RemoteData<any[]>> => {
         return createSuccessfulRemoteDataObject$([]);
       }
     };

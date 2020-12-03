@@ -269,7 +269,7 @@ describe('EditInPlaceFieldComponent', () => {
           const expected = '(a|)';
           scheduler.expectObservable(comp.canSetEditable()).toBe(expected, { a: false });
         });
-      })
+      });
     });
   });
 
@@ -412,7 +412,7 @@ describe('EditInPlaceFieldComponent', () => {
         const expected = '(a|)';
         scheduler.expectObservable(comp.canRemove()).toBe(expected, { a: false });
       });
-    })
+    });
   });
 
   describe('canUndo', () => {

@@ -1,5 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
-import * as ngrx from '@ngrx/store';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
@@ -16,7 +15,6 @@ import { storeModuleConfig } from '../../../app.reducer';
 
 describe('SidebarFilterService', () => {
   let service: SidebarFilterService;
-  let selectSpy;
   let store: any;
   let initialState;
 
@@ -38,7 +36,7 @@ describe('SidebarFilterService', () => {
 
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -54,7 +52,6 @@ describe('SidebarFilterService', () => {
   beforeEach(() => {
     store = TestBed.inject(Store);
     service = new SidebarFilterService(store);
-    selectSpy = spyOnProperty(ngrx, 'select').and.callThrough();
     spyOn(store, 'dispatch');
   });
 

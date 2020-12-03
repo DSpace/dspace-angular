@@ -51,7 +51,7 @@ describe('ItemTemplateDataService', () => {
   const bs = {} as BrowseService;
   const objectCache = {
     getObjectBySelfLink(self) {
-      return observableOf({})
+      return observableOf({});
     },
     addPatch(self, operations) {
       // Do nothing

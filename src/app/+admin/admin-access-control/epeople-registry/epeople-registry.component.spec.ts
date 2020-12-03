@@ -52,7 +52,7 @@ describe('EPeopleRegistryComponent', () => {
       searchByScope(scope: string, query: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (scope === 'email') {
           const result = this.allEpeople.find((ePerson: EPerson) => {
-            return ePerson.email === query
+            return ePerson.email === query;
           });
           return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
         }
@@ -61,7 +61,7 @@ describe('EPeopleRegistryComponent', () => {
             return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allEpeople));
           }
           const result = this.allEpeople.find((ePerson: EPerson) => {
-            return (ePerson.name.includes(query) || ePerson.email.includes(query))
+            return (ePerson.name.includes(query) || ePerson.email.includes(query));
           });
           return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
         }
@@ -132,7 +132,7 @@ describe('EPeopleRegistryComponent', () => {
       expect(ePeopleIdsFound.find((foundEl) => {
         return (foundEl.nativeElement.textContent.trim() === ePerson.uuid);
       })).toBeTruthy();
-    })
+    });
   });
 
   describe('search', () => {
@@ -192,7 +192,7 @@ describe('EPeopleRegistryComponent', () => {
             expect(component.isEPersonFormShown).toEqual(true);
           }
 
-        })
+        });
       });
 
       it('EPerson search section is hidden', () => {
@@ -240,6 +240,6 @@ describe('EPeopleRegistryComponent', () => {
         expect(deleteButton.nativeElement.disabled).toBe(true);
       });
 
-    })
-  })
+    });
+  });
 });

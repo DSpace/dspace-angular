@@ -95,7 +95,7 @@ describe('ProcessDetailComponent', () => {
   it('should display the process\'s parameters', () => {
     const args = fixture.debugElement.query(By.css('#process-arguments')).nativeElement;
     process.parameters.forEach((param) => {
-      expect(args.textContent).toContain(`${param.name} ${param.value}`)
+      expect(args.textContent).toContain(`${param.name} ${param.value}`);
     });
   });
 

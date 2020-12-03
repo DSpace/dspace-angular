@@ -97,28 +97,33 @@ describe('CollectionRolesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should display a collection admin role component', () => {
+  it('should display a collection admin role component', (done) => {
     expect(de.query(By.css('ds-comcol-role .collection-admin')))
       .toBeTruthy();
+    done();
   });
 
-  it('should display a submitters role component', () => {
+  it('should display a submitters role component', (done) => {
     expect(de.query(By.css('ds-comcol-role .submitters')))
       .toBeTruthy();
+    done();
   });
 
-  it('should display a default item read role component', () => {
+  it('should display a default item read role component', (done) => {
     expect(de.query(By.css('ds-comcol-role .item_read')))
       .toBeTruthy();
+    done();
   });
 
-  it('should display a default bitstream read role component', () => {
+  it('should display a default bitstream read role component', (done) => {
     expect(de.query(By.css('ds-comcol-role .bitstream_read')))
       .toBeTruthy();
+    done();
   });
 
-  it('should display a test workflow role component', () => {
+  it('should display a test workflow role component', (done) => {
     expect(de.query(By.css('ds-comcol-role .test')))
       .toBeTruthy();
+    done();
   });
 });

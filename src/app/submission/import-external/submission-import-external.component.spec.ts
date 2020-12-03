@@ -91,7 +91,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       scheduler = getTestScheduler();
-      mockExternalSourceService.getExternalSourceEntries.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])))
+      mockExternalSourceService.getExternalSourceEntries.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
     });
 
     afterEach(() => {
@@ -131,7 +131,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
     it('Should call \'router.navigate\'', () => {
       comp.routeData = { sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources').and.callFake(() => null);
-      compAsAny.router.navigate.and.returnValue( new Promise(() => {return;}))
+      compAsAny.router.navigate.and.returnValue( new Promise(() => {return;}));
       const event = { sourceId: 'orcidV2', query: 'dummy' };
 
       scheduler.schedule(() => comp.getExternalSourceData(event));

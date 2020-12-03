@@ -56,7 +56,7 @@ const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, expected, filter?) => 
     it('should return ' + shouldReturn, () => {
       expect(result).toEqual(expected);
     });
-  })
+  });
 };
 
 describe('Metadata', () => {

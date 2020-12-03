@@ -78,7 +78,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
     beforeEach(() => {
       spyOn(component, 'navigate');
       spyOn(component, 'close');
-      component.selectObject(item)
+      component.selectObject(item);
     });
     it('should call the close and navigate method on the component with the given DSO', () => {
       expect(component.close).toHaveBeenCalled();

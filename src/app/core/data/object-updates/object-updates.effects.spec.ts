@@ -77,7 +77,7 @@ describe('ObjectUpdatesEffects', () => {
         beforeEach(() => {
           infoNotification = new Notification('id', NotificationType.Info, 'info');
           infoNotification.options.timeOut = 0;
-          removeAction = new RemoveObjectUpdatesAction(testURL)
+          removeAction = new RemoveObjectUpdatesAction(testURL);
         });
         it('should return a RemoveObjectUpdatesAction', () => {
           actions = hot('a|', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });

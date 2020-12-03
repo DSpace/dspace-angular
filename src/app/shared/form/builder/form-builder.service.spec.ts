@@ -469,8 +469,8 @@ describe('FormBuilderService test suite', () => {
     ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).value = 'test one';
 
     service.clearAllModelsValue(formModel);
-    expect(((formModel[0] as DynamicRowGroupModel).get(1) as DynamicOneboxModel).value).toEqual(undefined)
-    expect(((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).value).toEqual(undefined)
+    expect(((formModel[0] as DynamicRowGroupModel).get(1) as DynamicOneboxModel).value).toEqual(undefined);
+    expect(((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).value).toEqual(undefined);
   });
 
   it('should return true when model has a custom group model as parent', () => {

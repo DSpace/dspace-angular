@@ -29,7 +29,7 @@ describe('WorkflowItemAdminWorkflowListElementComponent', () => {
   function init() {
     itemRD$ = createSuccessfulRemoteDataObject$(new Item());
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
-    object = new WorkflowItemSearchResult()
+    object = new WorkflowItemSearchResult();
     wfi = new WorkflowItem();
     wfi.item = itemRD$;
     object.indexableObject = wfi;

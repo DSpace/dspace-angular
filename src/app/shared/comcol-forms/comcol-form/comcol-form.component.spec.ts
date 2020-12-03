@@ -153,7 +153,7 @@ describe('ComColFormComponent', () => {
             operations: operations,
           }
         );
-      })
+      });
     });
 
     describe('onCancel', () => {

@@ -233,7 +233,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
       tick();
 
-      expect(fileService.downloadFile).toHaveBeenCalled()
+      expect(fileService.downloadFile).toHaveBeenCalled();
     }));
 
     it('should save Bitstream File data properly when form is valid', fakeAsync(() => {

@@ -30,7 +30,7 @@ describe('BrowserHardRedirectService', () => {
 
     it('should update the location', () => {
       expect(mockLocation.href).toEqual(redirect);
-    })
+    });
   });
 
   describe('when requesting the current route', () => {

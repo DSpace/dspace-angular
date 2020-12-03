@@ -41,7 +41,7 @@ describe('ExistingRelationListElementComponent', () => {
     listID = '1234-listID';
     submissionItem = Object.assign(new Item(), { uuid: uuid1 });
     metadataFields = ['dc.contributor.author'];
-    relationshipOptions = Object.assign(new RelationshipOptions(), { relationshipType: 'isPublicationOfAuthor', filter: 'test.filter', searchConfiguration: 'personConfiguration', nameVariants: true })
+    relationshipOptions = Object.assign(new RelationshipOptions(), { relationshipType: 'isPublicationOfAuthor', filter: 'test.filter', searchConfiguration: 'personConfiguration', nameVariants: true });
     relatedItem = Object.assign(new Item(), { uuid: uuid2 });
     leftItemRD$ = createSuccessfulRemoteDataObject$(relatedItem);
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
@@ -96,5 +96,5 @@ describe('ExistingRelationListElementComponent', () => {
       const action = new RemoveRelationshipAction(submissionItem, relatedItem, relationshipOptions.relationshipType, submissionId);
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
-  })
+  });
 });

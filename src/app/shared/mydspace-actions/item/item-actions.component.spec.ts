@@ -54,7 +54,7 @@ mockObject = Object.assign(new Item(), {
   }
 });
 
-const searchService = getMockSearchService()
+const searchService = getMockSearchService();
 
 const requestServce = getMockRequestService();
 

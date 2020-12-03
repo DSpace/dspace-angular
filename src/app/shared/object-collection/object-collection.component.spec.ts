@@ -47,6 +47,6 @@ describe('ObjectCollectionComponent', () => {
 
     expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeDefined();
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeNull();
-  })
+  });
 
 });

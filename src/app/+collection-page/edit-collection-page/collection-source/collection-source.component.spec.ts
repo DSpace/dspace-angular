@@ -172,7 +172,7 @@ describe('CollectionSourceComponent', () => {
     });
 
     it('should send a field update', () => {
-      expect(objectUpdatesService.saveAddFieldUpdate).toHaveBeenCalledWith(router.url, comp.contentSource)
+      expect(objectUpdatesService.saveAddFieldUpdate).toHaveBeenCalledWith(router.url, comp.contentSource);
     });
 
     it('should display the form', () => {

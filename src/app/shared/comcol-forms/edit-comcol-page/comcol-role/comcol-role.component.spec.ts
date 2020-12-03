@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ComcolRoleComponent } from './comcol-role.component';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { By } from '@angular/platform-browser';
@@ -16,35 +16,18 @@ describe('ComcolRoleComponent', () => {
   let comp: ComcolRoleComponent;
   let de: DebugElement;
 
-  let requestService;
-  let groupService;
-
   let group;
   let statusCode;
 
-  beforeEach(() => {
+  const requestService = {hasByHrefObservable: () => observableOf(true)};
 
-    requestService = {hasByHrefObservable: () => observableOf(true)};
+  const groupService = {
+    findByHref: jasmine.createSpy('findByHref'),
+    createComcolGroup: jasmine.createSpy('createComcolGroup').and.returnValue(observableOf({})),
+    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(observableOf({}))
+  };
 
-    groupService = {
-      findByHref: () => undefined,
-      createComcolGroup: jasmine.createSpy('createComcolGroup'),
-      deleteComcolGroup: jasmine.createSpy('deleteComcolGroup'),
-    };
-
-    spyOn(groupService, 'findByHref').and.callFake((link) => {
-      if (link === 'test role link') {
-        return observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          group,
-          statusCode,
-        ));
-      }
-    });
-
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         SharedModule,
@@ -57,19 +40,35 @@ describe('ComcolRoleComponent', () => {
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
-    }).compileComponents();
+    }).compileComponents().then(() => {
+      groupService.findByHref.and.callFake((link) => {
+        if (link === 'test role link') {
+          return observableOf(new RemoteData(
+            false,
+            false,
+            true,
+            undefined,
+            group,
+            statusCode,
+          ));
+        } else {
+          console.log('ERRORE');
+        }
+      });
 
-    fixture = TestBed.createComponent(ComcolRoleComponent);
-    comp = fixture.componentInstance;
-    de = fixture.debugElement;
+      fixture = TestBed.createComponent(ComcolRoleComponent);
+      comp = fixture.componentInstance;
+      de = fixture.debugElement;
 
-    comp.comcolRole = {
-      name: 'test role name',
-      href: 'test role link',
-    };
+      comp.comcolRole = {
+        name: 'test role name',
+        href: 'test role link',
+      };
 
-    fixture.detectChanges();
-  });
+      fixture.detectChanges();
+    });
+
+  }));
 
   describe('when there is no group yet', () => {
 
@@ -79,13 +78,14 @@ describe('ComcolRoleComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should have a create button but no restrict or delete button', () => {
+    it('should have a create button but no restrict or delete button', (done) => {
       expect(de.query(By.css('.btn.create')))
         .toBeTruthy();
       expect(de.query(By.css('.btn.restrict')))
         .toBeNull();
       expect(de.query(By.css('.btn.delete')))
         .toBeNull();
+      done();
     });
 
     describe('when the create button is pressed', () => {
@@ -94,8 +94,9 @@ describe('ComcolRoleComponent', () => {
         de.query(By.css('.btn.create')).nativeElement.click();
       });
 
-      it('should call the groupService create method', () => {
+      it('should call the groupService create method', (done) => {
         expect(groupService.createComcolGroup).toHaveBeenCalled();
+        done();
       });
     });
   });
@@ -110,13 +111,14 @@ describe('ComcolRoleComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should have a restrict button but no create or delete button', () => {
+    it('should have a restrict button but no create or delete button', (done) => {
       expect(de.query(By.css('.btn.create')))
         .toBeNull();
       expect(de.query(By.css('.btn.restrict')))
         .toBeTruthy();
       expect(de.query(By.css('.btn.delete')))
         .toBeNull();
+      done();
     });
 
     describe('when the restrict button is pressed', () => {
@@ -125,8 +127,9 @@ describe('ComcolRoleComponent', () => {
         de.query(By.css('.btn.restrict')).nativeElement.click();
       });
 
-      it('should call the groupService create method', () => {
+      it('should call the groupService create method', (done) => {
         expect(groupService.createComcolGroup).toHaveBeenCalledWith(comp.dso, 'test role name', 'test role link');
+        done();
       });
     });
   });
@@ -141,13 +144,14 @@ describe('ComcolRoleComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should have a delete button but no create or restrict button', () => {
+    it('should have a delete button but no create or restrict button', (done) => {
       expect(de.query(By.css('.btn.create')))
         .toBeNull();
       expect(de.query(By.css('.btn.restrict')))
         .toBeNull();
       expect(de.query(By.css('.btn.delete')))
         .toBeTruthy();
+      done();
     });
 
     describe('when the delete button is pressed', () => {
@@ -156,8 +160,9 @@ describe('ComcolRoleComponent', () => {
         de.query(By.css('.btn.delete')).nativeElement.click();
       });
 
-      it('should call the groupService delete method', () => {
+      it('should call the groupService delete method', (done) => {
         expect(groupService.deleteComcolGroup).toHaveBeenCalled();
+        done();
       });
     });
   });

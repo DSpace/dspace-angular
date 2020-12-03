@@ -288,7 +288,7 @@ describe('CommunityListComponent', () => {
           expect(allNodes.find((foundEl) => {
             return (foundEl.nativeElement.textContent.trim() === subcom.name);
           })).toBeTruthy();
-        })
+        });
       });
     });
   });

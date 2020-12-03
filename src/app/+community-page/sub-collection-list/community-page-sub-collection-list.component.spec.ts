@@ -97,7 +97,7 @@ describe('CommunityPageSubCollectionList Component', () => {
       let currentPage = options.currentPage;
       let elementsPerPage = options.elementsPerPage;
       if (currentPage === undefined) {
-        currentPage = 1
+        currentPage = 1;
       }
       elementsPerPage = 5;
       const startPageIndex = (currentPage - 1) * elementsPerPage;

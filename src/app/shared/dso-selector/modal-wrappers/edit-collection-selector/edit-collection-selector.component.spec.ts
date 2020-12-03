@@ -1,12 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router.stub';
-import * as collectionRouterPaths from '../../../../+collection-page/collection-page-routing-paths';
 import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
 import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
@@ -23,9 +20,9 @@ describe('EditCollectionSelectorComponent', () => {
   const router = new RouterStub();
   const collectionRD = createSuccessfulRemoteDataObject(collection);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
-  const editPath = 'testEditPath';
+  const editPath = '/collections/1234-1234-1234-1234/edit';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [EditCollectionSelectorComponent],
@@ -53,10 +50,6 @@ describe('EditCollectionSelectorComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOnProperty(collectionRouterPaths, 'getCollectionEditRoute').and.callFake(() => {
-      return () => editPath;
-    });
-
     fixture = TestBed.createComponent(EditCollectionSelectorComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;

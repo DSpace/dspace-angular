@@ -88,7 +88,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     expect(component.rejectForm.reset).toHaveBeenCalled();
     expect(component.modalRef).toBeDefined();
 
-    component.modalRef.close()
+    component.modalRef.close();
   });
 
   describe('on form submit', () => {
@@ -114,7 +114,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     });
 
     it('should call claimedTaskService\'s submitTask with the expected body', () => {
-      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
+      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody);
     });
 
     it('should emit a successful processCompleted event', () => {

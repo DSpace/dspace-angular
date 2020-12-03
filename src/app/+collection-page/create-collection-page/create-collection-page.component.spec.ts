@@ -44,6 +44,6 @@ describe('CreateCollectionPageComponent', () => {
   describe('frontendURL', () => {
     it('should have the right frontendURL set', () => {
       expect((comp as any).frontendURL).toEqual('/collections/');
-    })
+    });
   });
 });

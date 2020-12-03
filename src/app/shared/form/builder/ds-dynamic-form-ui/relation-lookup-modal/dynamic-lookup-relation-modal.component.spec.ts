@@ -135,7 +135,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     it('should call close on the modal', () => {
       component.close();
       expect(component.modal.close).toHaveBeenCalled();
-    })
+    });
   });
 
   describe('select', () => {
@@ -150,7 +150,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
-    })
+    });
   });
 
   describe('deselect', () => {
@@ -167,6 +167,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
-    })
+    });
   });
 });

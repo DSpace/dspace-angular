@@ -130,7 +130,7 @@ describe('CommunityListService', () => {
         let currentPage = options.currentPage;
         const elementsPerPage = 3;
         if (currentPage === undefined) {
-          currentPage = 1
+          currentPage = 1;
         }
         const startPageIndex = (currentPage - 1) * elementsPerPage;
         let endPageIndex = (currentPage * elementsPerPage);
@@ -144,7 +144,7 @@ describe('CommunityListService', () => {
         let currentPage = options.currentPage;
         let elementsPerPage = options.elementsPerPage;
         if (currentPage === undefined) {
-          currentPage = 1
+          currentPage = 1;
         }
         if (elementsPerPage === 0) {
           return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), (foundCom.subcommunities as [Community])));
@@ -169,7 +169,7 @@ describe('CommunityListService', () => {
         let currentPage = options.currentPage;
         let elementsPerPage = options.elementsPerPage;
         if (currentPage === undefined) {
-          currentPage = 1
+          currentPage = 1;
         }
         if (elementsPerPage === 0) {
           return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), (foundCom.collections as [Collection])));
@@ -561,7 +561,7 @@ describe('CommunityListService', () => {
             });
             mockCollectionsPage2.map((collection) => {
               expect(flatNodeList.find((flatnode) => (flatnode.id === collection.id))).toBeTruthy();
-            })
+            });
           });
           it('the collections of the test community are a level higher than the parent community', () => {
             mockCollectionsPage1.map((collection) => {
@@ -569,7 +569,7 @@ describe('CommunityListService', () => {
             });
             mockCollectionsPage2.map((collection) => {
               expect((flatNodeList.find((flatnode) => (flatnode.id === collection.id))).level).toEqual(flatNodeList[0].level + 1);
-            })
+            });
           });
         });
       });
