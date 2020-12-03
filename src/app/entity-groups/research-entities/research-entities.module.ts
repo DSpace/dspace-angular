@@ -26,7 +26,7 @@ import { OrgUnitInputSuggestionsComponent } from './submission/item-list-element
 import { OrgUnitSearchResultListSubmissionElementComponent } from './submission/item-list-elements/org-unit/org-unit-search-result-list-submission-element.component';
 import { ExternalSourceEntryListSubmissionElementComponent } from './submission/item-list-elements/external-source-entry/external-source-entry-list-submission-element.component';
 
-const ENTRY_COMPONENTS = [
+const COMPONENTS = [
   OrgUnitComponent,
   PersonComponent,
   ProjectComponent,
@@ -59,7 +59,7 @@ const ENTRY_COMPONENTS = [
     ItemPageModule
   ],
   declarations: [
-    ...ENTRY_COMPONENTS,
+    ...COMPONENTS,
   ]
 })
 export class ResearchEntitiesModule {

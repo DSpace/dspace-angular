@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ViewTrackerComponent } from './angulartics/dspace/view-tracker.component';
-import { StatisticsService } from './statistics.service';
 
 @NgModule({
   imports: [

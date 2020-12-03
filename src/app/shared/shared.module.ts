@@ -98,7 +98,6 @@ import { InputSuggestionsComponent } from './input-suggestions/input-suggestions
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
-import { MenuModule } from './menu/menu.module';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import { PlainTextMetadataListElementComponent } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 import { ItemMetadataListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
@@ -229,7 +228,6 @@ const MODULES = [
   NouisliderModule,
   MomentModule,
   TextMaskModule,
-  MenuModule,
   DragDropModule,
   CdkTreeModule
 ];
@@ -350,7 +348,6 @@ const COMPONENTS = [
   SearchFacetFilterComponent,
   SearchLabelsComponent,
   SearchLabelComponent,
-  SearchFacetFilterComponent,
   SearchFacetFilterWrapperComponent,
   SearchRangeFilterComponent,
   SearchTextFilterComponent,
@@ -362,8 +359,6 @@ const COMPONENTS = [
   SearchSwitchConfigurationComponent,
   SearchAuthorityFilterComponent,
   PageSizeSelectorComponent,
-  CommunitySearchResultGridElementComponent,
-  CollectionSearchResultGridElementComponent,
   ListableObjectComponentLoaderComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
@@ -401,87 +396,25 @@ const COMPONENTS = [
   CollectionDropdownComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent
-];
-
-const ENTRY_COMPONENTS = [
-  // put shared entry components (components that are created dynamically) here
-  CollectionListElementComponent,
-  CommunityListElementComponent,
-  SearchResultListElementComponent,
-  CommunitySearchResultListElementComponent,
-  CollectionSearchResultListElementComponent,
-  CollectionGridElementComponent,
-  CommunityGridElementComponent,
-  CommunitySearchResultGridElementComponent,
-  CollectionSearchResultGridElementComponent,
-  SearchResultGridElementComponent,
+  VocabularyTreeviewComponent,
+  CurationFormComponent,
   PublicationListElementComponent,
-  PublicationGridElementComponent,
-  PublicationSearchResultListElementComponent,
-  PublicationSearchResultGridElementComponent,
-  BrowseEntryListElementComponent,
-  SearchResultDetailElementComponent,
+  SearchResultListElementComponent,
   SearchResultGridElementComponent,
-  DsDynamicListComponent,
-  DsDynamicLookupComponent,
-  DsDynamicDisabledComponent,
-  DsDynamicLookupRelationModalComponent,
-  DsDynamicScrollableDropdownComponent,
-  DsDynamicTagComponent,
-  DsDynamicOneboxComponent,
-  DsDynamicRelationGroupComponent,
-  DsDatePickerComponent,
-  DsDynamicFormGroupComponent,
-  DsDynamicFormArrayComponent,
-  DsDatePickerInlineComponent,
-  StartsWithDateComponent,
-  StartsWithTextComponent,
-  DSOSelectorComponent,
-  CreateCommunityParentSelectorComponent,
-  CreateCollectionParentSelectorComponent,
-  CreateItemParentSelectorComponent,
-  EditCommunitySelectorComponent,
-  EditCollectionSelectorComponent,
-  EditItemSelectorComponent,
-  StartsWithTextComponent,
+  SearchResultDetailElementComponent,
+  BrowseEntryListElementComponent,
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
-  CustomSwitchComponent,
-  ItemMetadataRepresentationListElementComponent,
-  SearchResultsComponent,
-  CollectionSearchResultGridElementComponent,
-  CommunitySearchResultGridElementComponent,
-  SearchFacetFilterComponent,
-  SearchRangeFilterComponent,
-  SearchTextFilterComponent,
-  SearchHierarchyFilterComponent,
-  SearchBooleanFilterComponent,
-  SearchFacetOptionComponent,
-  SearchFacetSelectedOptionComponent,
-  SearchFacetRangeOptionComponent,
-  SearchAuthorityFilterComponent,
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
+  PublicationGridElementComponent,
+  PublicationSearchResultGridElementComponent,
+  ItemMetadataRepresentationListElementComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
-  ExternalSourceEntryImportModalComponent,
-  ExistingRelationListElementComponent,
-  LogInPasswordComponent,
-  LogInShibbolethComponent,
-  ItemVersionsComponent,
   BundleListElementComponent,
-  ItemVersionsNoticeComponent,
-  ClaimedTaskActionsApproveComponent,
-  ClaimedTaskActionsRejectComponent,
-  ClaimedTaskActionsReturnToPoolComponent,
-  ClaimedTaskActionsEditMetadataComponent,
-  CollectionDropdownComponent,
-  FileDownloadLinkComponent,
-  CurationFormComponent,
-  ExportMetadataSelectorComponent,
-  ConfirmationModalComponent,
-  VocabularyTreeviewComponent
+  StartsWithDateComponent,
+  StartsWithTextComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -522,14 +455,13 @@ const DIRECTIVES = [
 
 @NgModule({
   imports: [
-    ...ROOT_MODULES,
     ...MODULES,
+    ...ROOT_MODULES
   ],
   declarations: [
     ...PIPES,
     ...COMPONENTS,
     ...DIRECTIVES,
-    ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS
   ],
   providers: [
@@ -541,6 +473,7 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     ...DIRECTIVES,
+    TranslateModule,
     CurationFormComponent
   ]
 })

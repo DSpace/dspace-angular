@@ -18,7 +18,7 @@ import { JournalVolumeSearchResultListElementComponent } from './item-list-eleme
 import { JournalIssueSearchResultGridElementComponent } from './item-grid-elements/search-result-grid-elements/journal-issue/journal-issue-search-result-grid-element.component';
 import { JournalVolumeSearchResultGridElementComponent } from './item-grid-elements/search-result-grid-elements/journal-volume/journal-volume-search-result-grid-element.component';
 
-const ENTRY_COMPONENTS = [
+const COMPONENTS = [
   JournalComponent,
   JournalIssueComponent,
   JournalVolumeComponent,
@@ -43,7 +43,7 @@ const ENTRY_COMPONENTS = [
     ItemPageModule
   ],
   declarations: [
-    ...ENTRY_COMPONENTS
+    ...COMPONENTS
   ]
 })
 export class JournalEntitiesModule {
