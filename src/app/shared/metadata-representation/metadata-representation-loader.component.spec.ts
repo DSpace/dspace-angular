@@ -25,7 +25,7 @@ class TestType implements MetadataRepresentation {
     return '';
   }
 }
-describe('MetadataRepresentationLoaderComponent', () => {
+xdescribe('MetadataRepresentationLoaderComponent', () => {
   let comp: MetadataRepresentationLoaderComponent;
   let fixture: ComponentFixture<MetadataRepresentationLoaderComponent>;
 
@@ -58,6 +58,6 @@ describe('MetadataRepresentationLoaderComponent', () => {
   describe('When the component is rendered', () => {
     it('should call the getMetadataRepresentationComponent function with the right entity type, representation type and context', () => {
       expect(metadataRepresentationDecorator.getMetadataRepresentationComponent).toHaveBeenCalledWith(testType, testRepresentationType, testContext);
-    })
+    });
   });
 });
