@@ -40,7 +40,7 @@
         </form>
 
         <ds-pagination
-          *ngIf="(ePeopleDto$ | async)?.totalElements > 0"
+          *ngIf="(pageInfoState$ | async)?.totalElements > 0"
           [paginationOptions]="config"
           [pageInfoState]="pageInfoState$"
           [collectionSize]="(pageInfoState$ | async)?.totalElements"

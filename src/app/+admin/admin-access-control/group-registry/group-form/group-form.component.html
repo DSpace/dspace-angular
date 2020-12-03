@@ -1,6 +1,11 @@
 <div class="container">
   <div class="group-form row">
     <div class="col-12">
+      <ds-alert *ngIf="groupBeingEdited?.permanent" [type]="AlertTypeEnum.Warning"
+                [content]="messagePrefix + '.alert.permanent'"></ds-alert>
+      <ds-alert *ngIf="!(canEdit$ | async) && (groupDataService.getActiveGroup() | async)" [type]="AlertTypeEnum.Warning"
+                [content]="(messagePrefix + '.alert.workflowGroup' | translate:{ name: (getLinkedDSO(groupBeingEdited) | async)?.payload?.name, comcol: (getLinkedDSO(groupBeingEdited) | async)?.payload?.type, comcolEditRolesRoute: (getLinkedEditRolesRoute(groupBeingEdited) | async) })">
+      </ds-alert>
 
       <div *ngIf="groupDataService.getActiveGroup() | async; then editheader; else createHeader"></div>
 
@@ -18,10 +23,18 @@
                [formLayout]="formLayout"
                (cancel)="onCancel()"
                (submitForm)="onSubmit()">
+        <div *ngIf="groupBeingEdited != null" class="row">
+          <button class="btn btn-light delete-button" [disabled]="!(canEdit$ | async) || groupBeingEdited.permanent"
+                  (click)="delete()">
+            <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
+          </button>
+        </div>
       </ds-form>
 
-      <ds-members-list *ngIf="groupBeingEdited != null" [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>
-      <ds-subgroups-list *ngIf="groupBeingEdited != null"  [messagePrefix]="messagePrefix + '.subgroups-list'"></ds-subgroups-list>
+      <ds-members-list *ngIf="groupBeingEdited != null"
+                       [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>
+      <ds-subgroups-list *ngIf="groupBeingEdited != null"
+                         [messagePrefix]="messagePrefix + '.subgroups-list'"></ds-subgroups-list>
 
       <div>
         <button [routerLink]="[this.groupDataService.getGroupRegistryRouterLink()]"
