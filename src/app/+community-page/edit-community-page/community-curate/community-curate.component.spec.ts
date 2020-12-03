@@ -17,7 +17,7 @@ describe('CommunityCurateComponent', () => {
   let dsoNameService;
 
   const community = Object.assign(new Community(), {
-    handle: '123456789/1', metadata: {'dc.title': ['Community Name']}
+    metadata: {'dc.title': ['Community Name'], 'dc.identifier.uri': [ { value: '123456789/1'}]}
   });
 
   beforeEach(async(() => {

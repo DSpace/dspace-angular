@@ -17,7 +17,7 @@ describe('CollectionCurateComponent', () => {
   let dsoNameService;
 
   const collection = Object.assign(new Collection(), {
-    handle: '123456789/1', metadata: {'dc.title': ['Collection Name']}
+    metadata: {'dc.title': ['Collection Name'], 'dc.identifier.uri': [ { value: '123456789/1'}]}
   });
 
   beforeEach(async(() => {
