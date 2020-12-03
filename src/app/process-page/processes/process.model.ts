@@ -1,3 +1,5 @@
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { PROCESS_OUTPUT_TYPE } from '../../core/shared/process-output.resource-type';
 import { ProcessStatus } from './process-status.model';
 import { ProcessParameter } from './process-parameter.model';
 import { CacheableObject } from '../../core/cache/object-cache.reducer';
@@ -85,4 +87,11 @@ export class Process implements CacheableObject {
    */
   @link(SCRIPT)
   script?: Observable<RemoteData<Script>>;
+
+  /**
+   * The output logs created by this Process
+   * Will be undefined unless the output {@link HALLink} has been resolved.
+   */
+  @link(PROCESS_OUTPUT_TYPE)
+  output?: Observable<RemoteData<Bitstream>>;
 }

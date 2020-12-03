@@ -21,12 +21,14 @@ import {
   configureRequest,
   getRemoteDataPayload,
   getResponseFromEntry,
+  getSucceededOrNoContentResponse,
   getSucceededRemoteData
 } from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RestResponse } from '../cache/response.models';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import {Collection} from '../shared/collection.model';
 
 export abstract class ComColDataService<T extends CacheableObject> extends DataService<T> {
   protected abstract cds: CommunityDataService;
@@ -118,5 +120,24 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
         getResponseFromEntry()
       );
     }
+  }
+
+  public refreshCache(dso: T) {
+    const parentCommunityUrl = this.parentCommunityUrlLookup(dso as any);
+    if (!hasValue(parentCommunityUrl)) {
+      return;
+    }
+    this.findByHref(parentCommunityUrl).pipe(
+      getSucceededOrNoContentResponse(),
+      take(1),
+    ).subscribe((rd: RemoteData<any>) => {
+      const href = rd.hasSucceeded && !isEmpty(rd.payload.id) ? rd.payload.id : this.halService.getEndpoint('communities/search/top');
+      this.requestService.removeByHrefSubstring(href)
+    });
+  }
+
+  private parentCommunityUrlLookup(dso: Collection | Community) {
+    const parentCommunity = dso._links.parentCommunity;
+    return isNotEmpty(parentCommunity) ? parentCommunity.href : null;
   }
 }

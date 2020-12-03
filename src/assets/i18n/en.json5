@@ -768,6 +768,8 @@
 
   "collection.page.browse.recent.empty": "No items to show",
 
+  "collection.page.edit": "Edit this collection",
+
   "collection.page.handle": "Permanent URI for this collection",
 
   "collection.page.license": "License",
@@ -935,6 +937,8 @@
 
   "community.form.title": "Name",
 
+  "community.page.edit": "Edit this community",
+
   "community.page.handle": "Permanent URI for this community",
 
   "community.page.license": "License",
@@ -1045,6 +1049,8 @@
 
   "dso-selector.create.collection.head": "New collection",
 
+  "dso-selector.create.collection.sub-level": "Create a new collection in",
+
   "dso-selector.create.community.head": "New community",
 
   "dso-selector.create.community.sub-level": "Create a new community in",
@@ -1052,6 +1058,8 @@
   "dso-selector.create.community.top-level": "Create a new top-level community",
 
   "dso-selector.create.item.head": "New item",
+
+  "dso-selector.create.item.sub-level": "Create a new item in",
 
   "dso-selector.create.submission.head": "New submission",
 
@@ -1253,6 +1261,8 @@
 
 
   "home.description": "",
+
+  "home.breadcrumbs": "Home",
 
   "home.title": "DSpace Angular :: Home",
 
@@ -1556,15 +1566,19 @@
 
   "item.edit.relationships.discard-button": "Discard",
 
+  "item.edit.relationships.edit.buttons.add": "Add",
+
   "item.edit.relationships.edit.buttons.remove": "Remove",
 
   "item.edit.relationships.edit.buttons.undo": "Undo changes",
+
+  "item.edit.relationships.no-relationships": "No relationships",
 
   "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
   "item.edit.relationships.notifications.discarded.title": "Changes discarded",
 
-  "item.edit.relationships.notifications.failed.title": "Error deleting relationship",
+  "item.edit.relationships.notifications.failed.title": "Error editing relationships",
 
   "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
 
@@ -1680,6 +1694,8 @@
 
   "item.page.date": "Date",
 
+  "item.page.edit": "Edit this item",
+
   "item.page.files": "Files",
 
   "item.page.filesection.description": "Description:",
@@ -1786,6 +1802,8 @@
 
   "journal.page.description": "Description",
 
+  "journal.page.edit": "Edit this item",
+
   "journal.page.editor": "Editor-in-Chief",
 
   "journal.page.issn": "ISSN",
@@ -1804,6 +1822,8 @@
 
   "journalissue.page.description": "Description",
 
+  "journalissue.page.edit": "Edit this item",
+
   "journalissue.page.issuedate": "Issue Date",
 
   "journalissue.page.journal-issn": "Journal ISSN",
@@ -1821,6 +1841,8 @@
   "journalvolume.listelement.badge": "Journal Volume",
 
   "journalvolume.page.description": "Description",
+
+  "journalvolume.page.edit": "Edit this item",
 
   "journalvolume.page.issuedate": "Issue Date",
 
@@ -2184,6 +2206,8 @@
 
   "orgunit.page.description": "Description",
 
+  "orgunit.page.edit": "Edit this item",
+
   "orgunit.page.id": "ID",
 
   "orgunit.page.titleprefix": "Organizational Unit: ",
@@ -2202,7 +2226,11 @@
 
   "person.listelement.badge": "Person",
 
+  "person.listelement.no-title": "No name found",
+
   "person.page.birthdate": "Birth Date",
+
+  "person.page.edit": "Edit this item",
 
   "person.page.email": "Email Address",
 
@@ -2274,7 +2302,11 @@
 
   "process.detail.output" : "Process Output",
 
-  "process.detail.output.alert" : "Work in progress - Process output is not available yet",
+  "process.detail.logs.button": "Retrieve process output",
+
+  "process.detail.logs.loading": "Retrieving",
+
+  "process.detail.logs.none": "This process has no output",
 
   "process.detail.output-files" : "Output Files",
 
@@ -2435,6 +2467,8 @@
 
   "project.page.description": "Description",
 
+  "project.page.edit": "Edit this item",
+
   "project.page.expectedcompletion": "Expected Completion",
 
   "project.page.funder": "Funders",
@@ -2454,6 +2488,8 @@
   "publication.listelement.badge": "Publication",
 
   "publication.page.description": "Description",
+
+  "publication.page.edit": "Edit this item",
 
   "publication.page.journal-issn": "Journal ISSN",
 
@@ -2540,6 +2576,10 @@
 
 
   "relationships.isAuthorOf": "Authors",
+
+  "relationships.isAuthorOf.Person": "Authors (persons)",
+
+  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
 
   "relationships.isIssueOf": "Journal Issues",
 
@@ -2948,7 +2988,7 @@
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
-  "submission.import-external.source.orcidV2": "ORCID",
+  "submission.import-external.source.orcid": "ORCID",
 
   "submission.import-external.source.pubmed": "Pubmed",
 
@@ -2968,7 +3008,7 @@
 
   "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Author": "Import remote author",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
 
@@ -2976,11 +3016,11 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.title": "Import Remote Author",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.added.local-entity": "Successfully added local author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.added.new-entity": "Successfully imported and added external author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
 
@@ -2996,11 +3036,15 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcidV2": "Importing from ORCID",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
 
@@ -3043,18 +3087,37 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Local Organizational Units ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Local Data Packages ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Local Data Files ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidV2": "ORCID ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
 
@@ -3065,14 +3128,29 @@
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
 
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
 
   "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
 
   "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
 
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.Project": "Projects",
+
+  "submission.sections.describe.relationship-lookup.title.Publication": "Publications",
+
+  "submission.sections.describe.relationship-lookup.title.Person": "Authors",
+
+  "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organizational Units",
+
+  "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
+
+  "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
+
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
 
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
 
@@ -3089,12 +3167,27 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Selected Organizational Units",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Selected Data Packages",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Selected Data Files",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
@@ -3102,13 +3195,15 @@
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
 
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidV2": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
 
@@ -3321,7 +3416,7 @@
 
   "uploader.drag-message": "Drag & Drop your files here",
 
-  "uploader.or": ", or",
+  "uploader.or": ", or ",
 
   "uploader.processing": "Processing",
 

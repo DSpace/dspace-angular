@@ -75,6 +75,10 @@ export const getSucceededRemoteWithNotEmptyData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded && isNotEmpty(rd.payload)));
 
+export const getSucceededOrNoContentResponse = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded || rd.hasNoContent));
+
 /**
  * Get the first successful remotely retrieved object
  *

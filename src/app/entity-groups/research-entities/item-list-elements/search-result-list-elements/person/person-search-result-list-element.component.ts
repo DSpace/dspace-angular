@@ -15,4 +15,10 @@ import { Item } from '../../../../../core/shared/item.model';
  * The component for displaying a list element for an item search result of the type Person
  */
 export class PersonSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+
+  get name() {
+    return this.value ?
+      this.value :
+      this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
+  }
 }
