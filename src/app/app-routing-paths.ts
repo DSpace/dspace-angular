@@ -55,12 +55,6 @@ export function getDSORoute(dso: DSpaceObject): string {
   }
 }
 
-export const UNAUTHORIZED_PATH = '401';
-
-export function getUnauthorizedRoute() {
-  return `/${UNAUTHORIZED_PATH}`;
-}
-
 export const FORBIDDEN_PATH = '403';
 
 export function getForbiddenRoute() {

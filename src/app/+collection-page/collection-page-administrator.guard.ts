@@ -7,6 +7,7 @@ import { of as observableOf } from 'rxjs';
 import { DsoPageFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-feature.guard';
 import { Observable } from 'rxjs/internal/Observable';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { AuthService } from '../core/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,9 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 export class CollectionPageAdministratorGuard extends DsoPageFeatureGuard<Collection> {
   constructor(protected resolver: CollectionPageResolver,
               protected authorizationService: AuthorizationDataService,
-              protected router: Router) {
-    super(resolver, authorizationService, router);
+              protected router: Router,
+              protected authService: AuthService) {
+    super(resolver, authorizationService, router, authService);
   }
 
   /**

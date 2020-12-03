@@ -13,7 +13,7 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { getForbiddenRoute, getPageNotFoundRoute, getUnauthorizedRoute } from '../../app-routing-paths';
+import { getForbiddenRoute, getPageNotFoundRoute } from '../../app-routing-paths';
 import { getEndUserAgreementPath } from '../../info/info-routing-paths';
 import { AuthService } from '../auth/auth.service';
 
@@ -190,11 +190,7 @@ export const redirectOn4xx = (router: Router, authService: AuthService) =>
             router.navigateByUrl(getPageNotFoundRoute(), {skipLocationChange: true});
           } else if (rd.error.statusCode === 403 || rd.error.statusCode === 401) {
             if (isAuthenticated) {
-              if (rd.error.statusCode === 403) {
-                router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
-              } else if (rd.error.statusCode === 401) {
-                router.navigateByUrl(getUnauthorizedRoute(), {skipLocationChange: true});
-              }
+              router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
             } else {
               authService.setRedirectUrl(router.url);
               router.navigateByUrl('login');
@@ -205,14 +201,25 @@ export const redirectOn4xx = (router: Router, authService: AuthService) =>
       }));
 
 /**
- * Operator that returns a UrlTree to the unauthorized page when the boolean received is false
- * @param router
+ * Operator that returns a UrlTree to a forbidden page or the login page when the boolean received is false
+ * @param router      The router used to navigate to a forbidden page
+ * @param authService The AuthService used to determine whether or not the user is logged in
+ * @param redirectUrl The URL to redirect back to after logging in
  */
-export const returnUnauthorizedUrlTreeOnFalse = (router: Router) =>
+export const returnForbiddenUrlTreeOrLoginOnFalse = (router: Router, authService: AuthService, redirectUrl: string) =>
   (source: Observable<boolean>): Observable<boolean | UrlTree> =>
-    source.pipe(
-      map((authorized: boolean) => {
-        return authorized ? authorized : router.parseUrl(getUnauthorizedRoute())
+    observableCombineLatest(source, authService.isAuthenticated()).pipe(
+      map(([authorized, authenticated]: [boolean, boolean]) => {
+        if (authorized) {
+          return authorized;
+        } else {
+          if (authenticated) {
+            return router.parseUrl(getForbiddenRoute());
+          } else {
+            authService.setRedirectUrl(redirectUrl);
+            return router.parseUrl('login');
+          }
+        }
       }));
 
 /**

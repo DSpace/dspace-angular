@@ -226,13 +226,6 @@ describe('Core Module - RxJS Operators', () => {
       expect(router.navigateByUrl).toHaveBeenCalledWith('/403', { skipLocationChange: true });
     });
 
-    it('should call navigateByUrl to a 401 page, when the remote data contains a 401 error', () => {
-      const testRD = createFailedRemoteDataObject(undefined, new RemoteDataError(401, 'Unauthorized', 'The current user is unauthorized'));
-
-      observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/401', { skipLocationChange: true });
-    });
-
     it('should not call navigateByUrl to a 404, 403 or 401 page, when the remote data contains another error than a 404, 403 or 401', () => {
       const testRD = createFailedRemoteDataObject(undefined, new RemoteDataError(500, 'Server Error', 'Something went wrong'));
 

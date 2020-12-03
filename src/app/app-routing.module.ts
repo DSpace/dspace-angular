@@ -5,16 +5,15 @@ import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import {
-  UNAUTHORIZED_PATH,
   WORKFLOW_ITEM_MODULE_PATH,
   FORGOT_PASSWORD_PATH,
   REGISTER_PATH,
   PROFILE_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
-  INFO_MODULE_PATH, FORBIDDEN_PATH
+  INFO_MODULE_PATH,
+  FORBIDDEN_PATH,
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './+collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './+community-page/community-page-routing-paths';
@@ -69,7 +68,6 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
             },
             { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard] },
             { path: INFO_MODULE_PATH, loadChildren: './info/info.module#InfoModule' },
-            { path: UNAUTHORIZED_PATH, component: UnauthorizedComponent },
             { path: FORBIDDEN_PATH, component: ForbiddenComponent },
             {
               path: 'statistics',
