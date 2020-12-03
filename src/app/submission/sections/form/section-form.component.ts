@@ -174,14 +174,9 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   onSectionInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.formId = this.formService.getUniqueId(this.sectionData.id);
-<<<<<<< HEAD
+    this.sectionService.dispatchSetSectionFormId(this.submissionId, this.sectionData.id, this.formId);
     this.formConfigService.findByHref(this.sectionData.config).pipe(
       map((configData: RemoteData<ConfigObject>) => configData.payload),
-=======
-    this.sectionService.dispatchSetSectionFormId(this.submissionId, this.sectionData.id, this.formId);
-    this.formConfigService.getConfigByHref(this.sectionData.config).pipe(
-      map((configData: ConfigData) => configData.payload),
->>>>>>> [835] Auto-save in new Item Submission form breaks the form
       tap((config: SubmissionFormsModel) => this.formConfig = config),
       flatMap(() =>
         observableCombineLatest(

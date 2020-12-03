@@ -8,7 +8,7 @@ import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scrol
 import { isEqual } from 'lodash';
 
 import { SubmissionState } from '../submission.reducers';
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import {
   DisableSectionAction,
   EnableSectionAction,
