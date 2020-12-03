@@ -73,8 +73,12 @@ export class MenuEffects {
 
     if (hasValue(data) && hasValue(data.menu) && hasValue(data.menu[menuID])) {
 
-      let menuSections: MenuSection[] = data.menu[menuID];
+      let menuSections: MenuSection[] | MenuSection = data.menu[menuID];
       menuSections = this.resolveSubstitutions(menuSections, params);
+
+      if (!Array.isArray(menuSections)) {
+        menuSections = [menuSections];
+      }
 
       if (!last) {
         return [...menuSections, ...this.resolveRouteMenuSections(route.firstChild, menuID)]
