@@ -45,7 +45,7 @@ export class SubmissionObjectDataService {
    * @param id The identifier of a submission object
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findById(id: string, ...linksToFollow: Array<FollowLinkConfig<SubmissionObject>>): Observable<RemoteData<SubmissionObject>> {
+  findById(id: string, ...linksToFollow: FollowLinkConfig<SubmissionObject>[]): Observable<RemoteData<SubmissionObject>> {
     switch (this.submissionService.getSubmissionScope()) {
       case SubmissionScopeType.WorkspaceItem:
         return this.workspaceitemDataService.findById(id,...linksToFollow);

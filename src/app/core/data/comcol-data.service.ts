@@ -97,7 +97,7 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
   public getLogoEndpoint(id: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((href: string) => this.halService.getEndpoint('logo', `${href}/${id}`))
-    )
+    );
   }
 
   /**

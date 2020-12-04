@@ -62,7 +62,7 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
       .subscribe((entry) => {
         const config: PaginatedSearchOptions = entry.searchOptions;
         const searchQueryResponse: SearchQueryResponse = entry.response;
-        const filters: Array<{ filter: string, operator: string, value: string, label: string; }> = [];
+        const filters: { filter: string, operator: string, value: string, label: string; }[] = [];
         const appliedFilters = searchQueryResponse.appliedFilters || [];
         for (let i = 0, filtersLength = appliedFilters.length; i < filtersLength; i++) {
           const appliedFilter = appliedFilters[i];
@@ -84,7 +84,7 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
             },
             filters: filters,
           },
-        })
+        });
       });
   }
 }

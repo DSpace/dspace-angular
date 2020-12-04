@@ -155,7 +155,7 @@ export class MetadataRegistryComponent {
           this.forceUpdateSchemas();
         });
       }
-    )
+    );
   }
 
   /**
@@ -172,9 +172,9 @@ export class MetadataRegistryComponent {
     );
     messages.subscribe(([head, content]) => {
       if (success) {
-        this.notificationsService.success(head, content)
+        this.notificationsService.success(head, content);
       } else {
-        this.notificationsService.error(head, content)
+        this.notificationsService.error(head, content);
       }
     });
   }

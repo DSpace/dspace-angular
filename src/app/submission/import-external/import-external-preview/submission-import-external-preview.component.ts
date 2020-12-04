@@ -27,7 +27,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
    * The entry metadata list
    */
-  public metadataList: Array<{ key: string, value: MetadataValue }>;
+  public metadataList: { key: string, value: MetadataValue }[];
   /**
    * The modal for the entry preview
    */
@@ -60,7 +60,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
         key: key,
         value: Metadata.first(this.externalSourceEntry.metadata, key)
       });
-    })
+    });
   }
 
   /**
@@ -84,7 +84,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
         return this.submissionService.createSubmissionFromExternalSource(this.externalSourceEntry._links.self.href, collectionListEntry.collection.id);
       })
     ).subscribe((submissionObjects: SubmissionObject[]) => {
-      let isValid = false
+      let isValid = false;
       if (submissionObjects.length === 1) {
         if (submissionObjects[0] !== null) {
           isValid = true;

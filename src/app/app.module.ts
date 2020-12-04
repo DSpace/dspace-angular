@@ -47,7 +47,7 @@ export function getBase() {
   return environment.ui.nameSpace;
 }
 
-export function getMetaReducers(): Array<MetaReducer<AppState>> {
+export function getMetaReducers(): MetaReducer<AppState>[] {
   return environment.debug ? [...appMetaReducers, ...debugMetaReducers] : appMetaReducers;
 }
 

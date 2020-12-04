@@ -139,9 +139,9 @@ export class MyDSpacePageComponent implements OnInit {
       .pipe(
         map((configuration: string) => {
           if (configuration === 'workspace') {
-            return Context.Workspace
+            return Context.Workspace;
           } else {
-            return Context.Workflow
+            return Context.Workflow;
           }
         })
       );
@@ -152,7 +152,7 @@ export class MyDSpacePageComponent implements OnInit {
    * Set the sidebar to a collapsed state
    */
   public closeSidebar(): void {
-    this.sidebarService.collapse()
+    this.sidebarService.collapse();
   }
 
   /**

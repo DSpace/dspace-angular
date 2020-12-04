@@ -213,7 +213,7 @@ export class Metadata {
             delete (val as any).key;
             return val;
           }
-        )
+        );
       });
     return metadataMap;
   }
@@ -229,7 +229,7 @@ export class Metadata {
     if (isNotEmpty(mdMap[key])) {
       mdMap[key][0].value = value;
     } else {
-      mdMap[key] = [Object.assign(new MetadataValue(), { value: value })]
+      mdMap[key] = [Object.assign(new MetadataValue(), { value: value })];
     }
   }
 }

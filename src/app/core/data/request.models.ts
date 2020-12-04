@@ -61,7 +61,7 @@ export class GetRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.GET, body, options)
+    super(uuid, href, RestRequestMethod.GET, body, options);
   }
 }
 
@@ -72,7 +72,7 @@ export class PostRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.POST, body)
+    super(uuid, href, RestRequestMethod.POST, body);
   }
 }
 
@@ -87,7 +87,7 @@ export class MultipartPostRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.POST, body)
+    super(uuid, href, RestRequestMethod.POST, body);
   }
 }
 
@@ -98,7 +98,7 @@ export class PutRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.PUT, body)
+    super(uuid, href, RestRequestMethod.PUT, body);
   }
 }
 
@@ -109,7 +109,7 @@ export class DeleteRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.DELETE, body)
+    super(uuid, href, RestRequestMethod.DELETE, body);
   }
 }
 
@@ -120,7 +120,7 @@ export class OptionsRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.OPTIONS, body)
+    super(uuid, href, RestRequestMethod.OPTIONS, body);
   }
 }
 
@@ -131,7 +131,7 @@ export class HeadRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.HEAD, body)
+    super(uuid, href, RestRequestMethod.HEAD, body);
   }
 }
 
@@ -144,7 +144,7 @@ export class PatchRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   ) {
-    super(uuid, href, RestRequestMethod.PATCH, body)
+    super(uuid, href, RestRequestMethod.PATCH, body);
   }
 }
 

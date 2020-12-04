@@ -32,7 +32,7 @@ class DataServiceImpl extends DataService<DSpaceObject> {
     super();
   }
 
-  getIDHref(endpoint, resourceID,  ...linksToFollow: Array<FollowLinkConfig<DSpaceObject>>): string {
+  getIDHref(endpoint, resourceID,  ...linksToFollow: FollowLinkConfig<DSpaceObject>[]): string {
     return this.buildHrefFromFindOptions( endpoint.replace(/\{\?uuid\}/, `?uuid=${resourceID}`),
       {}, [], ...linksToFollow);
   }

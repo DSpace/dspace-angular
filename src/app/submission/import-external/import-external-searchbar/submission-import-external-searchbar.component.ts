@@ -162,7 +162,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       ).subscribe((externalSource: RemoteData<PaginatedList<ExternalSource>>) => {
         externalSource.payload.page.forEach((element) => {
           this.sourceList.push({ id: element.id, name: element.name });
-        })
+        });
         this.pageInfo = externalSource.payload.pageInfo;
         this.cdr.detectChanges();
       });

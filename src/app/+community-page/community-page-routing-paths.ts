@@ -13,11 +13,11 @@ export function getCommunityPageRoute(communityId: string) {
 }
 
 export function getCommunityEditRoute(id: string) {
-  return new URLCombiner(getCommunityModuleRoute(), id, COMMUNITY_EDIT_PATH).toString()
+  return new URLCombiner(getCommunityModuleRoute(), id, COMMUNITY_EDIT_PATH).toString();
 }
 
 export function getCommunityCreateRoute() {
-  return new URLCombiner(getCommunityModuleRoute(), COMMUNITY_CREATE_PATH).toString()
+  return new URLCombiner(getCommunityModuleRoute(), COMMUNITY_CREATE_PATH).toString();
 }
 
 export const COMMUNITY_CREATE_PATH = 'create';

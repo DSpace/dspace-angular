@@ -81,7 +81,7 @@ export class ComcolRoleComponent implements OnInit {
   hasNoGroup$(): Observable<boolean> {
     return this.groupRD$.pipe(
       map((groupRD) => groupRD.statusCode === 204),
-    )
+    );
   }
 
   /**
@@ -90,7 +90,7 @@ export class ComcolRoleComponent implements OnInit {
   hasAnonymousGroup$(): Observable<boolean> {
     return this.group$.pipe(
       map((group) => group.name === 'Anonymous'),
-    )
+    );
   }
 
   /**
@@ -99,7 +99,7 @@ export class ComcolRoleComponent implements OnInit {
   hasCustomGroup$(): Observable<boolean> {
     return this.hasAnonymousGroup$().pipe(
       map((anonymous) => !anonymous),
-    )
+    );
   }
 
   /**

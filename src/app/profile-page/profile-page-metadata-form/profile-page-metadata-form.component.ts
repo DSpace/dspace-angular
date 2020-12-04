@@ -133,7 +133,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
         }
         if (fieldModel.id === 'language') {
           (fieldModel as DynamicSelectModel<string>).options =
-            this.activeLangs.map((langConfig) => Object.assign({ value: langConfig.code, label: langConfig.label }))
+            this.activeLangs.map((langConfig) => Object.assign({ value: langConfig.code, label: langConfig.label }));
         }
       }
     );

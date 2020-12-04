@@ -17,8 +17,8 @@ import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 
 export interface SubmissionObjectError {
-  message: string,
-  paths: string[],
+  message: string;
+  paths: string[];
 }
 
 /**

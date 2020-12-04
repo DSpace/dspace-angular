@@ -196,7 +196,7 @@ export const returnUnauthorizedUrlTreeOnFalse = (router: Router) =>
   (source: Observable<boolean>): Observable<boolean | UrlTree> =>
     source.pipe(
       map((authorized: boolean) => {
-        return authorized ? authorized : router.parseUrl(getUnauthorizedRoute())
+        return authorized ? authorized : router.parseUrl(getUnauthorizedRoute());
       }));
 
 /**
@@ -280,7 +280,7 @@ export const metadataFieldsToString = () =>
     source.pipe(
       hasValueOperator(),
       map((fieldRD: RemoteData<PaginatedList<MetadataField>>) => {
-        return fieldRD.payload.page.filter((object: MetadataField) => hasValue(object))
+        return fieldRD.payload.page.filter((object: MetadataField) => hasValue(object));
       }),
       switchMap((fields: MetadataField[]) => {
         const fieldSchemaArray = fields.map((field: MetadataField) => {
@@ -291,7 +291,7 @@ export const metadataFieldsToString = () =>
         });
         return observableCombineLatest(fieldSchemaArray);
       }),
-      map((fieldSchemaArray: Array<{ field: MetadataField, schema: MetadataSchema }>): string[] => {
-        return fieldSchemaArray.map((fieldSchema: { field: MetadataField, schema: MetadataSchema }) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString())
+      map((fieldSchemaArray: { field: MetadataField, schema: MetadataSchema }[]): string[] => {
+        return fieldSchemaArray.map((fieldSchema: { field: MetadataField, schema: MetadataSchema }) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString());
       })
     );

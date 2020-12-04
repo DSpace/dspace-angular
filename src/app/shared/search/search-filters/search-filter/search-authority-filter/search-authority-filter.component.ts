@@ -28,7 +28,7 @@ export class SearchAuthorityFilterComponent extends SearchFacetFilterComponent i
     const params = {};
     hashes.map((hash) => {
       const [key, val] = hash.split('=');
-      params[key] = decodeURIComponent(val)
+      params[key] = decodeURIComponent(val);
     });
 
     return params[this.filterConfig.paramName];

@@ -53,7 +53,7 @@ export class SearchQueryResponse {
    * The results for this query
    */
   @autoserializeAs(SearchResult)
-  objects: Array<SearchResult<DSpaceObject>>;
+  objects: SearchResult<DSpaceObject>[];
 
   @autoserialize
   facets: any; // TODO

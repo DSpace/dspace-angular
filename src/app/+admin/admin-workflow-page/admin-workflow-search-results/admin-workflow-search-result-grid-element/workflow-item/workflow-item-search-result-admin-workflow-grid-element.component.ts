@@ -84,7 +84,7 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
         (componentRef.instance as any).listID = this.listID;
         componentRef.changeDetectorRef.detectChanges();
       }
-    )
+    );
   }
 
   /**
@@ -92,7 +92,7 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(item: Item): GenericConstructor<Component> {
-    return getListableObjectComponent(item.getRenderTypes(), ViewMode.GridElement, undefined)
+    return getListableObjectComponent(item.getRenderTypes(), ViewMode.GridElement, undefined);
   }
 
 }

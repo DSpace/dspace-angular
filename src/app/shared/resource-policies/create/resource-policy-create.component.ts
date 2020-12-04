@@ -107,6 +107,6 @@ export class ResourcePolicyCreateComponent implements OnInit {
       } else {
         this.notificationsService.error(null, this.translate.get('resource-policies.create.page.failure.content'));
       }
-    })
+    });
   }
 }

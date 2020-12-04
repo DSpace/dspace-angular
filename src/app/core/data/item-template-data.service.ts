@@ -101,7 +101,7 @@ class DataServiceImpl extends ItemDataService {
    * @param collectionID
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByCollectionID(collectionID: string, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<Item>> {
+  findByCollectionID(collectionID: string, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
     this.setCollectionEndpoint(collectionID);
     return super.findById(collectionID, ...linksToFollow);
   }
@@ -175,7 +175,7 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
    * @param collectionID
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByCollectionID(collectionID: string, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<Item>> {
+  findByCollectionID(collectionID: string, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
     return this.dataService.findByCollectionID(collectionID, ...linksToFollow);
   }
 

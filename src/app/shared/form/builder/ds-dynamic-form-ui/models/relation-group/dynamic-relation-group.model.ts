@@ -8,11 +8,11 @@ import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../ds-dynamic-form-
  * Dynamic Group Model configuration interface
  */
 export interface DynamicRelationGroupModelConfig extends DsDynamicInputModelConfig {
-  submissionId: string,
-  formConfiguration: FormRowModel[],
-  mandatoryField: string,
-  relationFields: string[],
-  scopeUUID: string,
+  submissionId: string;
+  formConfiguration: FormRowModel[];
+  mandatoryField: string;
+  relationFields: string[];
+  scopeUUID: string;
   submissionScope: string;
 }
 
@@ -63,6 +63,6 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
         });
       return [emptyItem];
     }
-    return this.value as any[]
+    return this.value as any[];
   }
 }

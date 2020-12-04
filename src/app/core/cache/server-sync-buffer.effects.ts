@@ -39,7 +39,7 @@ export class ServerSyncBufferEffects {
         const timeoutInSeconds = autoSyncConfig.timePerMethod[action.payload.method] || autoSyncConfig.defaultTime;
         return observableOf(new CommitSSBAction(action.payload.method)).pipe(
           delay(timeoutInSeconds * 1000),
-        )
+        );
       })
     );
 
@@ -57,7 +57,7 @@ export class ServerSyncBufferEffects {
           select(serverSyncBufferSelector()),
           take(1), /* necessary, otherwise delay will not have any effect after the first run */
           switchMap((bufferState: ServerSyncBufferState) => {
-            const actions: Array<Observable<Action>> = bufferState.buffer
+            const actions: Observable<Action>[] = bufferState.buffer
               .filter((entry: ServerSyncBufferEntry) => {
                 /* If there's a request method, filter
                  If there's no filter, commit everything */

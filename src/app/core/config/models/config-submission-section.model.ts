@@ -9,8 +9,8 @@ import { ConfigObject } from './config.model';
  * An interface that define section visibility and its properties.
  */
 export interface SubmissionSectionVisibility {
-  main: any,
-  other: any
+  main: any;
+  other: any;
 }
 
 @typedObject
@@ -49,6 +49,6 @@ export class SubmissionSectionModel extends ConfigObject {
   _links: {
     self: HALLink;
     config: HALLink;
-  }
+  };
 
 }

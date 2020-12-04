@@ -95,7 +95,7 @@ export class SubmissionObjectEffects {
             sectionData,
             sectionErrors
           )
-        )
+        );
       });
       return { action: action, definition: definition, mappedActions: mappedActions };
     }),

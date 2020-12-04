@@ -4,7 +4,7 @@ export const mockTruncatableService: any = {
   /* tslint:disable:no-empty */
   isCollapsed: (id: string) => {
     if (id === '1') {
-      return observableOf(true)
+      return observableOf(true);
     } else {
       return observableOf(false);
     }

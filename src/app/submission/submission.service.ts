@@ -109,7 +109,7 @@ export class SubmissionService {
   createSubmission(collectionId?: string): Observable<SubmissionObject> {
     return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, null, collectionId).pipe(
       map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
-      catchError(() => observableOf({} as SubmissionObject)))
+      catchError(() => observableOf({} as SubmissionObject)));
   }
 
   /**
@@ -216,7 +216,7 @@ export class SubmissionService {
       find((isPending: boolean) => !isPending)
     ).subscribe(() => {
       this.store.dispatch(new SaveSubmissionFormAction(submissionId));
-    })
+    });
   }
 
   /**
@@ -540,7 +540,7 @@ export class SubmissionService {
       catchError((errorResponse: ErrorResponse) => {
         return createFailedRemoteDataObject$(null,
           new RemoteDataError(errorResponse.statusCode, errorResponse.statusText, errorResponse.errorMessage)
-        )
+        );
       })
     );
   }

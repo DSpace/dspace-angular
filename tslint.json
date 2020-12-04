@@ -43,8 +43,14 @@
     "member-access": false,
     "member-ordering": [
       true,
-      "static-before-instance",
-      "variables-before-functions"
+      {
+        "order": [
+          "static-field",
+          "instance-field",
+          "static-method",
+          "instance-method"
+        ]
+      }
     ],
     "no-access-missing-member": false,
     "no-arg": true,
@@ -99,7 +105,7 @@
     ],
     "radix": true,
     "semicolon": [
-      "always"
+      true
     ],
     "trailing-comma": [
       false,

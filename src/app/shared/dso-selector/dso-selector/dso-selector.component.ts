@@ -106,10 +106,10 @@ export class DSOSelectorComponent implements OnInit {
                 dsoTypes: this.types,
                 pagination: this.defaultPagination
               })
-            )
+            );
           }
         )
-      )
+      );
   }
 
   /**

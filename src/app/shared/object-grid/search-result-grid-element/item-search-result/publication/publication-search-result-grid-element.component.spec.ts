@@ -151,5 +151,5 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
         });
       });
     });
-  }
+  };
 }

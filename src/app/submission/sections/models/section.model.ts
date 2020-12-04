@@ -8,7 +8,7 @@ import { SectionsService } from '../sections.service';
 import { hasValue, isNotUndefined } from '../../../shared/empty.util';
 
 export interface SectionDataModel {
-  sectionData: SectionDataObject
+  sectionData: SectionDataObject;
 }
 
 /**

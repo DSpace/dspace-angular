@@ -97,7 +97,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
       ).pipe(
         map(([itemVersion, latestVersion]: [Version, Version]) => itemVersion.id === latestVersion.id),
         startWith(true)
-      )
+      );
     }
   }
 

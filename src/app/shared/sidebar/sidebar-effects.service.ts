@@ -1,6 +1,6 @@
 import { map, tap, filter } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects'
+import { Effect, Actions, ofType } from '@ngrx/effects';
 import * as fromRouter from '@ngrx/router-store';
 
 import { SidebarCollapseAction } from './sidebar.actions';
@@ -17,7 +17,7 @@ export class SidebarEffects {
       ofType(fromRouter.ROUTER_NAVIGATION),
       filter((action) => this.previousPath !== this.getBaseUrl(action)),
       tap((action) => {
-        this.previousPath = this.getBaseUrl(action)
+        this.previousPath = this.getBaseUrl(action);
       }),
       map(() => new SidebarCollapseAction())
     );

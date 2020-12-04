@@ -49,10 +49,10 @@ export class SubmissionSectionUploadAccessConditionsComponent implements OnInit 
             const accessConditionEntry = Object.assign({}, accessCondition);
             accessConditionEntry.name = group.name;
             this.accessConditionsList.push(accessConditionEntry);
-          })
+          });
       } else {
         this.accessConditionsList.push(accessCondition);
       }
-    })
+    });
   }
 }

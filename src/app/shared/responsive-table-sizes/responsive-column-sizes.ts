@@ -41,6 +41,6 @@ export class ResponsiveColumnSizes {
    * Build the bootstrap responsive column classes matching the values of this object
    */
   buildClasses(): string {
-    return `col-${this.xs} col-sm-${this.sm} col-md-${this.md} col-lg-${this.lg} col-xl-${this.xl}`
+    return `col-${this.xs} col-sm-${this.sm} col-md-${this.md} col-lg-${this.lg} col-xl-${this.xl}`;
   }
 }

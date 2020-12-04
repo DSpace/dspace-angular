@@ -306,7 +306,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
           this.submissionService.getSubmissionObjectLinkName(),
           this.submissionId,
           this.pathCombiner.rootElement,
-          this.pathCombiner.subRootElement)
+          this.pathCombiner.subRootElement);
       })
     ).subscribe((result: SubmissionObject[]) => {
       if (result[0].sections.upload) {

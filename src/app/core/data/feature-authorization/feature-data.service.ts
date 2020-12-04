@@ -50,7 +50,7 @@ export class FeatureDataService extends DataService<Feature> {
    * @return {Observable<RemoteData<PaginatedList<Feature>>}
    *    Return an observable that emits response from the server
    */
-  searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Feature>>): Observable<RemoteData<PaginatedList<Feature>>> {
+  searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Feature>[]): Observable<RemoteData<PaginatedList<Feature>>> {
     const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
 
     return hrefObs.pipe(

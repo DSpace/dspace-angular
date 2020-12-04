@@ -117,7 +117,7 @@ export class ItemStatusComponent implements OnInit {
    * @returns {string}  url
    */
   getItemPage(item: Item): string {
-    return getItemPageRoute(item.id)
+    return getItemPageRoute(item.id);
   }
 
   /**

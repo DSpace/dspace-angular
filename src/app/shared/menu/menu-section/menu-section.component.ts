@@ -105,7 +105,7 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
           section.id,
           this.getItemModelInjector(section.model),
           this.getMenuItemComponent(section.model)
-        )
+        );
       })
     );
   }

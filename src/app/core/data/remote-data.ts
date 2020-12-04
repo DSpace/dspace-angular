@@ -24,13 +24,13 @@ export class RemoteData<T> {
 
   get state(): RemoteDataState {
     if (this.isSuccessful === true && hasValue(this.payload)) {
-      return RemoteDataState.Success
+      return RemoteDataState.Success;
     } else if (this.isSuccessful === false) {
-      return RemoteDataState.Failed
+      return RemoteDataState.Failed;
     } else if (this.requestPending === true) {
-      return RemoteDataState.RequestPending
+      return RemoteDataState.RequestPending;
     } else {
-      return RemoteDataState.ResponsePending
+      return RemoteDataState.ResponsePending;
     }
   }
 

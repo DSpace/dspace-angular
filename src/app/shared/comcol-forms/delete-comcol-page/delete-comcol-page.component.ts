@@ -49,10 +49,10 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements 
       .subscribe((response: RestResponse) => {
         if (response.isSuccessful) {
           const successMessage = this.translate.instant((dso as any).type + '.delete.notification.success');
-          this.notifications.success(successMessage)
+          this.notifications.success(successMessage);
         } else {
           const errorMessage = this.translate.instant((dso as any).type + '.delete.notification.fail');
-          this.notifications.error(errorMessage)
+          this.notifications.error(errorMessage);
         }
         this.router.navigate(['/']);
       });

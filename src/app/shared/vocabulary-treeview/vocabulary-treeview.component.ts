@@ -161,7 +161,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       this.treeControl.expand(newNode);
     }
     return newNode;
-  };
+  }
 
   /**
    * Get tree level for a given node

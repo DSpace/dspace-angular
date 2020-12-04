@@ -36,8 +36,8 @@ interface CollectionListEntryItem {
  * An interface to represent an entry in the collection list
  */
 export interface CollectionListEntry {
-  communities: CollectionListEntryItem[],
-  collection: CollectionListEntryItem
+  communities: CollectionListEntryItem[];
+  collection: CollectionListEntryItem;
 }
 
 @Component({

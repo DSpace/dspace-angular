@@ -129,7 +129,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
         take(1))
         .subscribe((fieldNames: string[]) => {
           this.setInputSuggestions(fieldNames);
-        })
+        });
     } else {
       this.metadataFieldSuggestions.next([]);
     }

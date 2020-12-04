@@ -114,7 +114,7 @@ export class LocaleService {
             }
             return languages;
           })
-        )
+        );
       })
     );
   }
@@ -144,7 +144,7 @@ export class LocaleService {
    */
   setCurrentLanguageCode(lang?: string): void {
     if (isEmpty(lang)) {
-      lang = this.getCurrentLanguageCode()
+      lang = this.getCurrentLanguageCode();
     }
     this.translate.use(lang);
     this.saveLanguageCodeToCookie(lang);

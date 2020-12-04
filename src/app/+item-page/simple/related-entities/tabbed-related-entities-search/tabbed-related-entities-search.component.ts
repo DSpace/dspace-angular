@@ -18,11 +18,11 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
    * The types of relationships to fetch items for
    * e.g. 'isAuthorOfPublication'
    */
-  @Input() relationTypes: Array<{
+  @Input() relationTypes: {
     label: string,
     filter: string,
     configuration?: string
-  }>;
+  }[];
 
   /**
    * The item to render relationships for

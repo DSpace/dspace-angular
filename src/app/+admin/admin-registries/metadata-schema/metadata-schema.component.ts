@@ -182,7 +182,7 @@ export class MetadataSchemaComponent implements OnInit {
           this.forceUpdateFields();
         });
       }
-    )
+    );
   }
 
   /**
@@ -199,9 +199,9 @@ export class MetadataSchemaComponent implements OnInit {
     );
     messages.subscribe(([head, content]) => {
       if (success) {
-        this.notificationsService.success(head, content)
+        this.notificationsService.success(head, content);
       } else {
-        this.notificationsService.error(head, content)
+        this.notificationsService.error(head, content);
       }
     });
   }

@@ -133,7 +133,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
         Object.assign(new Relationship(), relationship, {uuid: relationship.id})
       )),
       switchMap((relationships: Relationship[]) => {
-        return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>
+        return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>;
       }),
       map((fieldUpdates: FieldUpdates) =>
         Object.values(fieldUpdates)

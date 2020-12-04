@@ -67,7 +67,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
             .subscribe((response: RestResponse) => {
               this.processingDelete$.next(false);
               this.handleActionResponse(response.isSuccessful);
-            })
+            });
         }
       }
     );

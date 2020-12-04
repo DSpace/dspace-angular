@@ -20,7 +20,7 @@ export class VocabularyServiceStub {
   }
 
   getList() {
-    return this._payload
+    return this._payload;
   }
 
   getVocabularyEntries(vocabularyOptions: VocabularyOptions, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {

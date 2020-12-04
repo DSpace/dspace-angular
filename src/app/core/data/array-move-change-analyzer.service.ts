@@ -28,7 +28,7 @@ export class ArrayMoveChangeAnalyzer<T> {
             op: 'move',
             from: '/' + movedIndex,
             path: '/' + otherIndex
-          }) as MoveOperation)
+          }) as MoveOperation);
         }
       }
     });

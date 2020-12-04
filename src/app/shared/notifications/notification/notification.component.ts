@@ -110,7 +110,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.timer = setTimeout(this.instance, (this.speed - this.diff));
     }
     this.zone.run(() => this.cdr.detectChanges());
-  };
+  }
 
   public remove() {
     if (this.animate) {
@@ -140,7 +140,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
           value = observableOf(item.value);
         }
       }
-      this[key] = value
+      this[key] = value;
     } else {
       this[key] = this.domSanitizer.bypassSecurityTrustHtml(item);
     }

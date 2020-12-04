@@ -81,7 +81,7 @@ export class MenuEffects {
       }
 
       if (!last) {
-        return [...menuSections, ...this.resolveRouteMenuSections(route.firstChild, menuID)]
+        return [...menuSections, ...this.resolveRouteMenuSections(route.firstChild, menuID)];
       } else {
         return [...menuSections];
       }

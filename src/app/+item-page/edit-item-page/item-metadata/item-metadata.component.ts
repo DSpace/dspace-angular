@@ -122,7 +122,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
             this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
             this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
           }
-        )
+        );
       } else {
         this.notificationsService.error(this.getNotificationTitle('invalid'), this.getNotificationContent('invalid'));
       }

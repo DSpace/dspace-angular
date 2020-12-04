@@ -37,7 +37,7 @@ export class RequestExecuteAction implements Action {
    *    the request's uuid
    */
   constructor(uuid: string) {
-    this.payload = uuid
+    this.payload = uuid;
   }
 }
 
@@ -97,7 +97,7 @@ export class RequestRemoveAction implements Action {
    *    the request's uuid
    */
   constructor(uuid: string) {
-    this.uuid = uuid
+    this.uuid = uuid;
   }
 }
 

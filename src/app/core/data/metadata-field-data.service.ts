@@ -50,7 +50,7 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    * @param options       The options info used to retrieve the fields
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findBySchema(schema: MetadataSchema, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>) {
+  findBySchema(schema: MetadataSchema, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<MetadataField>[]) {
     const optionsWithSchema = Object.assign(new FindListOptions(), options, {
       searchParams: [new RequestParam('schema', schema.prefix)]
     });
@@ -71,7 +71,7 @@ export class MetadataFieldDataService extends DataService<MetadataField> {
    * @param options   The options info used to retrieve the fields
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, exactName: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+  searchByFieldNameParams(schema: string, element: string, qualifier: string, query: string, exactName: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
     const optionParams = Object.assign(new FindListOptions(), options, {
       searchParams: [
         new RequestParam('schema', hasValue(schema) ? schema : ''),

@@ -128,7 +128,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
                 getSucceededRemoteData(),
                 getRemoteDataPayload(),
                 map((listTotalGroups: PaginatedList<Group>) => listTotalGroups.page.filter((groupInList: Group) => groupInList.id === possibleSubgroup.id)),
-                map((groups: Group[]) => groups.length > 0))
+                map((groups: Group[]) => groups.length > 0));
           }
         } else {
           return observableOf(false);
@@ -238,7 +238,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
       }
-    })
+    });
   }
 
   /**

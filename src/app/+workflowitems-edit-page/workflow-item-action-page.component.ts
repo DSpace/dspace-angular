@@ -52,14 +52,14 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
       if (successful) {
         const title = this.translationService.get('workflow-item.' + this.type + '.notification.success.title');
         const content = this.translationService.get('workflow-item.' + this.type + '.notification.success.content');
-        this.notificationsService.success(title, content)
+        this.notificationsService.success(title, content);
       } else {
         const title = this.translationService.get('workflow-item.' + this.type + '.notification.error.title');
         const content = this.translationService.get('workflow-item.' + this.type + '.notification.error.content');
-        this.notificationsService.error(title, content)
+        this.notificationsService.error(title, content);
       }
       this.previousPage();
-    })
+    });
   }
 
   /**

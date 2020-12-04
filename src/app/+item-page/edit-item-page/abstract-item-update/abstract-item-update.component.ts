@@ -38,7 +38,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     public translateService: TranslateService,
     public route: ActivatedRoute
   ) {
-    super(objectUpdatesService, notificationsService, translateService)
+    super(objectUpdatesService, notificationsService, translateService);
   }
 
   /**

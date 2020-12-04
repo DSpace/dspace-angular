@@ -44,7 +44,7 @@ export class ShowMoreFlatNode {
 }
 
 // Helper method to combine an flatten an array of observables of flatNode arrays
-export const combineAndFlatten = (obsList: Array<Observable<FlatNode[]>>): Observable<FlatNode[]> =>
+export const combineAndFlatten = (obsList: Observable<FlatNode[]>[]): Observable<FlatNode[]> =>
   observableCombineLatest([...obsList]).pipe(
     map((matrix: any[][]) => [].concat(...matrix))
   );
@@ -138,18 +138,18 @@ export class CommunityListService {
       topCommunities.push(this.getTopCommunities(pagination));
     }
     const topComs$ = observableCombineLatest([...topCommunities]).pipe(
-      map((coms: Array<PaginatedList<Community>>) => {
+      map((coms: PaginatedList<Community>[]) => {
         const newPages: Community[][] = coms.map((unit: PaginatedList<Community>) => unit.page);
         const newPage: Community[] = [].concat(...newPages);
         let newPageInfo = new PageInfo();
         if (coms && coms.length > 0) {
-          newPageInfo = Object.assign({}, coms[0].pageInfo, { currentPage })
+          newPageInfo = Object.assign({}, coms[0].pageInfo, { currentPage });
         }
         return new PaginatedList(newPageInfo, newPage);
       })
     );
     return topComs$.pipe(mergeMap((topComs: PaginatedList<Community>) => this.transformListOfCommunities(topComs, 0, null, expandedNodes)));
-  };
+  }
 
   /**
    * Puts the initial top level communities in a list to be called upon
@@ -185,7 +185,7 @@ export class CommunityListService {
       }
       let obsList = listOfPaginatedCommunities.page
         .map((community: Community) => {
-          return this.transformCommunity(community, level, parent, expandedNodes)
+          return this.transformCommunity(community, level, parent, expandedNodes);
         });
       if (currentPage < listOfPaginatedCommunities.totalPages && currentPage === listOfPaginatedCommunities.currentPage) {
         obsList = [...obsList, observableOf([showMoreFlatNode('community', level, parent)])];

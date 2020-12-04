@@ -31,5 +31,5 @@ export class FacetValue implements HALResource {
   _links: {
     self: HALLink
     search: HALLink
-  }
+  };
 }

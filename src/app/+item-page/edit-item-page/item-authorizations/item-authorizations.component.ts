@@ -22,7 +22,7 @@ import { FindListOptions } from '../../../core/data/request.models';
  */
 interface BundleBitstreamsMapEntry {
   id: string;
-  bitstreams: Observable<PaginatedList<Bitstream>>
+  bitstreams: Observable<PaginatedList<Bitstream>>;
 }
 
 @Component({
@@ -89,7 +89,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataWithNotEmptyPayload(),
       catchError((error) => {
         console.error(error);
-        return observableOf(new PaginatedList(null, []))
+        return observableOf(new PaginatedList(null, []));
       })
     );
 
@@ -105,9 +105,9 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
         mergeMap((list: PaginatedList<Bundle>) => list.page),
         map((bundle: Bundle) => ({ id: bundle.id, bitstreams: this.getBundleBitstreams(bundle) }))
       ).subscribe((entry: BundleBitstreamsMapEntry) => {
-        this.bundleBitstreamsMap.set(entry.id, entry.bitstreams)
+        this.bundleBitstreamsMap.set(entry.id, entry.bitstreams);
       })
-    )
+    );
   }
 
   /**
@@ -117,7 +117,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
     return this.item$.pipe(
       map((item: Item) => item.id),
       first((UUID: string) => isNotEmpty(UUID))
-    )
+    );
   }
 
   /**
@@ -139,9 +139,9 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataPayload(),
       catchError((error) => {
         console.error(error);
-        return observableOf(new PaginatedList(null, []))
+        return observableOf(new PaginatedList(null, []));
       })
-    )
+    );
   }
 
   /**
@@ -150,6 +150,6 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs
       .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe())
+      .forEach((subscription) => subscription.unsubscribe());
   }
 }

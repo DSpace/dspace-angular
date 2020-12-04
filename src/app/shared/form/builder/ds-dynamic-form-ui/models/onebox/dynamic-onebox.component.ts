@@ -76,8 +76,8 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * Converts an item from the result list to a `string` to display in the `<input>` field.
    */
   formatter = (x: { display: string }) => {
-    return (typeof x === 'object') ? x.display : x
-  };
+    return (typeof x === 'object') ? x.display : x;
+  }
 
   /**
    * Converts a stream of text values from the `<input>` element to the stream of the array of items
@@ -112,8 +112,8 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       map((list: PaginatedList<VocabularyEntry>) => list.page),
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed$)
-    )
-  };
+    );
+  }
 
   /**
    * Initialize the component, setting up the init form value
@@ -231,7 +231,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       }, () => {
         return;
       });
-    }))
+    }));
   }
 
   /**

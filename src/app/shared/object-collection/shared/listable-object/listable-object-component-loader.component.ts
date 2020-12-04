@@ -83,6 +83,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(): GenericConstructor<Component> {
-    return getListableObjectComponent(this.object.getRenderTypes(), this.viewMode, this.context)
+    return getListableObjectComponent(this.object.getRenderTypes(), this.viewMode, this.context);
   }
 }

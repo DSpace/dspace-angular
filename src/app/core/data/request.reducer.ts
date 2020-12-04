@@ -10,11 +10,11 @@ export class RequestEntry {
   requestPending: boolean;
   responsePending: boolean;
   completed: boolean;
-  response: RestResponse
+  response: RestResponse;
 }
 
 export interface RequestState {
-  [uuid: string]: RequestEntry
+  [uuid: string]: RequestEntry;
 }
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)

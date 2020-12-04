@@ -45,5 +45,5 @@ export class ExternalSource extends CacheableObject {
   _links: {
     self: HALLink;
     entries: HALLink;
-  }
+  };
 }

@@ -56,7 +56,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
             switchMap((r: boolean) => {
               return observableOf(r);
             })
-          )
+          );
         } else {
           const modalRefExport = this.modalService.open(ExportMetadataSelectorComponent);
           modalRefExport.componentInstance.dsoRD = createSuccessfulRemoteDataObject(dso);

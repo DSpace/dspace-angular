@@ -42,7 +42,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
               protected http: HttpClient,
               protected comparator: DefaultChangeAnalyzer<RelationshipType>,
               protected appStore: Store<AppState>) {
-    super()
+    super();
   }
 
   /**

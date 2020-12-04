@@ -66,6 +66,6 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
       context: { index: index - 1}
     });
 
-    this.onChange($event)
+    this.onChange($event);
   }
 }

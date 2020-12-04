@@ -110,7 +110,7 @@ export class SearchService implements OnDestroy {
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
    */
-  search<T extends DSpaceObject>(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+  search<T extends DSpaceObject>(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     return this.getPaginatedResults<T>(this.searchEntries(searchOptions), ...linksToFollow);
   }
 
@@ -155,7 +155,7 @@ export class SearchService implements OnDestroy {
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
    */
-  getPaginatedResults<T extends DSpaceObject>(searchEntries: Observable<{ searchOptions: PaginatedSearchOptions, requestEntry: RequestEntry }>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+  getPaginatedResults<T extends DSpaceObject>(searchEntries: Observable<{ searchOptions: PaginatedSearchOptions, requestEntry: RequestEntry }>, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     const requestEntryObs: Observable<RequestEntry> = searchEntries.pipe(
       map((entry) => entry.requestEntry),
     );
@@ -172,12 +172,12 @@ export class SearchService implements OnDestroy {
       map((sqr: SearchQueryResponse) => {
         return sqr.objects
           .filter((sr: SearchResult<DSpaceObject>) => isNotUndefined(sr._links.indexableObject))
-          .map((sr: SearchResult<DSpaceObject>) => new GetRequest(this.requestService.generateRequestId(), sr._links.indexableObject.href))
+          .map((sr: SearchResult<DSpaceObject>) => new GetRequest(this.requestService.generateRequestId(), sr._links.indexableObject.href));
       }),
       // Send a request for each item to ensure fresh cache
       tap((reqs: RestRequest[]) => reqs.forEach((req: RestRequest) => this.requestService.configure(req))),
       map((reqs: RestRequest[]) => reqs.map((req: RestRequest) => this.rdb.buildSingle(req.href, ...linksToFollow))),
-      switchMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input)),
+      switchMap((input: Observable<RemoteData<DSpaceObject>>[]) => this.rdb.aggregate(input)),
     );
 
     // Create search results again with the correct dso objects linked to each result
@@ -214,7 +214,7 @@ export class SearchService implements OnDestroy {
         const requestEntry = searchEntry.requestEntry;
         if (tDomainList.indexOf(undefined) > -1 && requestEntry && requestEntry.completed) {
           this.requestService.removeByHrefSubstring(requestEntry.request.href);
-          return this.search(searchEntry.searchOptions)
+          return this.search(searchEntry.searchOptions);
         } else {
           return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
         }
@@ -348,7 +348,7 @@ export class SearchService implements OnDestroy {
             return observableCombineLatest(community.subcommunities, community.collections).pipe(
               map(([subCommunities, collections]) => {
                 /*if this is a community, we also need to show the direct children*/
-                return [community, ...subCommunities.payload.page, ...collections.payload.page]
+                return [community, ...subCommunities.payload.page, ...collections.payload.page];
               })
             );
           } else {
@@ -394,7 +394,7 @@ export class SearchService implements OnDestroy {
         };
 
         this.router.navigate(hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], navigationExtras);
-      })
+      });
   }
 
   /**

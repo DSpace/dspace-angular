@@ -99,7 +99,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subs.push(this.route.params.subscribe((params) => {
-      this.setActiveGroup(params.groupId)
+      this.setActiveGroup(params.groupId);
     }));
     combineLatest(
       this.translateService.get(`${this.messagePrefix}.groupName`),
@@ -263,7 +263,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
             getRemoteDataPayload())
           .subscribe((group: Group) => {
             this.groupDataService.editGroup(group);
-          })
+          });
       }
     });
   }

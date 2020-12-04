@@ -51,7 +51,7 @@ export abstract class Reorderable {
    * differs from the newIndex
    */
   get hasMoved(): boolean {
-    return this.oldIndex !== this.newIndex
+    return this.oldIndex !== this.newIndex;
   }
 }
 
@@ -123,9 +123,9 @@ export class ReorderableRelationship extends Reorderable {
    */
   getPlace(): number {
     if (this.useLeftItem) {
-      return this.relationship.rightPlace
+      return this.relationship.rightPlace;
     } else {
-      return this.relationship.leftPlace
+      return this.relationship.leftPlace;
     }
   }
 }

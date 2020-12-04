@@ -151,4 +151,4 @@ export type FormAction = FormInitAction
   | FormStatusChangeAction
   | FormAddError
   | FormClearErrorsAction
-  | FormRemoveErrorAction
+  | FormRemoveErrorAction;

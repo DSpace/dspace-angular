@@ -56,7 +56,7 @@ export class RegistryService {
    * @param options The options used to retrieve the schemas
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataSchemas(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
+  public getMetadataSchemas(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
     return this.metadataSchemaService.findAll(options, ...linksToFollow);
   }
 
@@ -65,7 +65,7 @@ export class RegistryService {
    * @param prefix The prefux of the schema to find
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataSchemaByPrefix(prefix: string, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<MetadataSchema>> {
+  public getMetadataSchemaByPrefix(prefix: string, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<MetadataSchema>> {
     // Temporary options to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
     const options: FindListOptions = Object.assign(new FindListOptions(), {
       elementsPerPage: 10000
@@ -85,7 +85,7 @@ export class RegistryService {
    * @param options The options info used to retrieve the fields
    * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataFieldsBySchema(schema: MetadataSchema, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+  public getMetadataFieldsBySchema(schema: MetadataSchema, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
     return this.metadataFieldService.findBySchema(schema, options, ...linksToFollow);
   }
 
@@ -294,7 +294,7 @@ export class RegistryService {
    * @param linksToFollow
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
-  queryMetadataFields(query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+  queryMetadataFields(query: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
     return this.metadataFieldService.searchByFieldNameParams(null, null, null, query, null, options, ...linksToFollow);
   }
 }

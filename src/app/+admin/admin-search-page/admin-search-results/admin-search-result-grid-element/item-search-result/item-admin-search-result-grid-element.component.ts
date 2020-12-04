@@ -60,6 +60,6 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(): GenericConstructor<Component> {
-    return getListableObjectComponent(this.object.getRenderTypes(), ViewMode.GridElement, undefined)
+    return getListableObjectComponent(this.object.getRenderTypes(), ViewMode.GridElement, undefined);
   }
 }

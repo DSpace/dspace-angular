@@ -27,7 +27,7 @@ export function metadataRepresentationComponent(entityType: string, mdRepresenta
       throw new Error(`There can't be more than one component to render Entity of type "${entityType}" in MetadataRepresentation "${mdRepresentationType}" with context "${context}"`);
     }
     map.get(entityType).get(mdRepresentationType).set(context, component);
-  }
+  };
 }
 
 /**

@@ -49,15 +49,15 @@ export function formReducer(state = initialState, action: FormAction): FormState
     }
 
     case FormActionTypes.FORM_ADD_ERROR: {
-      return addFormErrors(state, action as FormAddError)
+      return addFormErrors(state, action as FormAddError);
     }
 
     case FormActionTypes.FORM_REMOVE_ERROR: {
-      return removeFormError(state, action as FormRemoveErrorAction)
+      return removeFormError(state, action as FormRemoveErrorAction);
     }
 
     case FormActionTypes.FORM_CLEAR_ERRORS: {
-      return clearsFormErrors(state, action as FormClearErrorsAction)
+      return clearsFormErrors(state, action as FormClearErrorsAction);
     }
 
     default: {

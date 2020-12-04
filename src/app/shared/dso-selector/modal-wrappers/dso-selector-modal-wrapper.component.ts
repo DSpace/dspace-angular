@@ -65,7 +65,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
         .map((route: ActivatedRouteSnapshot) => route.children)
         .reduce((combined: ActivatedRouteSnapshot[], current: ActivatedRouteSnapshot[]) => [...combined, ...current]);
       if (isNotEmpty(nextLevelRoutes)) {
-        return this.findRouteData(predicate, ...nextLevelRoutes)
+        return this.findRouteData(predicate, ...nextLevelRoutes);
       } else {
         return undefined;
       }

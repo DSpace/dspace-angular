@@ -105,7 +105,7 @@ export class VocabularyTreeviewService {
         .subscribe((hierarchy: string[]) => {
           this.initValueHierarchy = hierarchy;
           this.retrieveTopNodes(pageInfo, []);
-      })
+      });
     } else {
       this.retrieveTopNodes(pageInfo, []);
     }
@@ -115,7 +115,7 @@ export class VocabularyTreeviewService {
    * Returns array of the tree's nodes
    */
   getData(): Observable<TreeviewNode[]> {
-    return this.dataChange
+    return this.dataChange;
   }
 
   /**
@@ -161,7 +161,7 @@ export class VocabularyTreeviewService {
       }
       parent.childrenChange.next(children);
       this.dataChange.next(this.dataChange.value);
-    })
+    });
 
   }
 
@@ -197,14 +197,14 @@ export class VocabularyTreeviewService {
         if (isEmpty(value) || findIndex(acc, (node) => node.item.otherInformation.id === value.item.otherInformation.id) !== -1) {
           return acc;
         } else {
-          return [...acc, value]
+          return [...acc, value];
         }
       }, []),
       merge(this.hideSearchingWhenUnsubscribed$)
     ).subscribe((nodes: TreeviewNode[]) => {
       this.dataChange.next(nodes);
       this.loading.next(false);
-    })
+    });
   }
 
   /**
@@ -342,7 +342,7 @@ export class VocabularyTreeviewService {
           return findIndex(node.children, (nodeEntry) => nodeEntry.item.otherInformation.id === entry.item.otherInformation.id) === -1;
         });
       newChildren.forEach((entry: TreeviewNode) => {
-        entry.loadMoreParentItem = node.item
+        entry.loadMoreParentItem = node.item;
       });
       node.children.push(...newChildren);
     }
@@ -350,7 +350,7 @@ export class VocabularyTreeviewService {
     if (node.item.hasOtherInformation() && isNotEmpty(node.item.otherInformation.parent)) {
       return this.getParentNode(node.item.otherInformation.id).pipe(
         mergeMap((parentItem: VocabularyEntryDetail) => this.getNodeHierarchy(parentItem, [node], toStore))
-      )
+      );
     } else {
       return observableOf(node);
     }

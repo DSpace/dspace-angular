@@ -68,7 +68,7 @@ export class ItemTypeDataService {
    * @param href            The url of {@link ItemType} we want to retrieve
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<ItemType>> {
+  findByHref(href: string, ...linksToFollow: FollowLinkConfig<ItemType>[]): Observable<RemoteData<ItemType>> {
     return this.dataService.findByHref(href, ...linksToFollow);
   }
 
@@ -78,7 +78,7 @@ export class ItemTypeDataService {
    * @param href            The url of the {@link ItemType} we want to retrieve
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByAllHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<PaginatedList<ItemType>>> {
+  findByAllHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<ItemType>[]): Observable<RemoteData<PaginatedList<ItemType>>> {
     return this.dataService.findAllByHref(href, findListOptions, ...linksToFollow);
   }
 }

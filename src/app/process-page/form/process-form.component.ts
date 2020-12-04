@@ -92,7 +92,7 @@ export class ProcessFormComponent implements OnInit {
           const content = this.translationService.get('process.new.notification.error.content');
           this.notificationsService.error(title, content);
         }
-      })
+      });
   }
 
   /**

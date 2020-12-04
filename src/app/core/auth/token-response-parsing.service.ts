@@ -16,7 +16,7 @@ export class TokenResponseParsingService implements ResponseParsingService {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload.token) && (data.statusCode === 200)) {
       return new TokenResponse(data.payload.token, true, data.statusCode, data.statusText);
     } else {
-      return new TokenResponse(null, false, data.statusCode, data.statusText)
+      return new TokenResponse(null, false, data.statusCode, data.statusText);
     }
   }
 

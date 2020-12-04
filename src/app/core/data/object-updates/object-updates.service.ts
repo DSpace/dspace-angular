@@ -72,7 +72,7 @@ export class ObjectUpdatesService {
    * @param changeType The last type of change applied to this field
    */
   private saveFieldUpdate(url: string, field: Identifiable, changeType: FieldChangeType) {
-    this.store.dispatch(new AddFieldUpdateAction(url, field, changeType))
+    this.store.dispatch(new AddFieldUpdateAction(url, field, changeType));
   }
 
   /**
@@ -139,7 +139,7 @@ export class ObjectUpdatesService {
         fieldUpdates[object.uuid] = fieldUpdate;
       }
       return fieldUpdates;
-    }))
+    }));
   }
 
   /**
@@ -153,7 +153,7 @@ export class ObjectUpdatesService {
       filter((fieldState) => hasValue(fieldState)),
       map((fieldState) => fieldState.editable),
       distinctUntilChanged()
-    )
+    );
   }
 
   /**
@@ -167,7 +167,7 @@ export class ObjectUpdatesService {
       filter((fieldState) => hasValue(fieldState)),
       map((fieldState) => fieldState.isValid),
       distinctUntilChanged()
-    )
+    );
   }
 
   /**
@@ -178,10 +178,10 @@ export class ObjectUpdatesService {
     const objectUpdates = this.getObjectEntry(url);
     return objectUpdates.pipe(
       map((entry: ObjectUpdatesEntry) => {
-        return Object.values(entry.fieldStates).findIndex((state: FieldState) => !state.isValid) < 0
+        return Object.values(entry.fieldStates).findIndex((state: FieldState) => !state.isValid) < 0;
       }),
       distinctUntilChanged()
-    )
+    );
   }
 
   /**
@@ -317,7 +317,7 @@ export class ObjectUpdatesService {
         }
       });
       return fields;
-    }))
+    }));
   }
 
   /**
@@ -333,7 +333,7 @@ export class ObjectUpdatesService {
    * @param url The page's url to check for in the store
    */
   isReinstatable(url: string): Observable<boolean> {
-    return this.hasUpdates(url + OBJECT_UPDATES_TRASH_PATH)
+    return this.hasUpdates(url + OBJECT_UPDATES_TRASH_PATH);
   }
 
   /**

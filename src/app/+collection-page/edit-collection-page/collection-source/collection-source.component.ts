@@ -432,7 +432,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   updateContentSource(updateHarvestType: boolean) {
     this.inputModels.forEach(
       (fieldModel: DynamicInputModel) => {
-        this.updateContentSourceField(fieldModel, updateHarvestType)
+        this.updateContentSourceField(fieldModel, updateHarvestType);
       }
     );
     this.saveFieldUpdate();

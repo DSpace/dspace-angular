@@ -41,7 +41,7 @@ export class DSOBreadcrumbsService implements BreadcrumbsService<ChildHALResourc
       switchMap((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => {
         if (hasValue(parentRD.payload)) {
           const parent = parentRD.payload;
-          return this.getBreadcrumbs(parent, getDSORoute(parent))
+          return this.getBreadcrumbs(parent, getDSORoute(parent));
         }
         return observableOf([]);
 

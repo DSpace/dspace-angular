@@ -25,7 +25,7 @@ export class TreeviewNode {
   }
 
   updatePageInfo(pageInfo: PageInfo) {
-    this.pageInfo = pageInfo
+    this.pageInfo = pageInfo;
   }
 }
 

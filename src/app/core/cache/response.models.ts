@@ -193,7 +193,7 @@ export class PostPatchSuccessResponse extends RestResponse {
 
 export class SubmissionSuccessResponse extends RestResponse {
   constructor(
-    public dataDefinition: Array<SubmissionObject | ConfigObject | string>,
+    public dataDefinition: (SubmissionObject | ConfigObject | string)[],
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo

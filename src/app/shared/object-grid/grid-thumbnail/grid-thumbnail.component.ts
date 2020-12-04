@@ -33,7 +33,7 @@ export class GridThumbnailComponent implements OnInit {
     if (hasValue(this.thumbnail) && hasValue(this.thumbnail._links) && this.thumbnail._links.content.href) {
       this.src = this.thumbnail._links.content.href;
     } else {
-      this.src = this.defaultImage
+      this.src = this.defaultImage;
     }
   }
 

@@ -69,7 +69,7 @@ export class GroupDataService extends DataService<Group> {
    * Retrieves all groups
    * @param pagination The pagination info used to retrieve the groups
    */
-  public getGroups(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Group>>): Observable<RemoteData<PaginatedList<Group>>> {
+  public getGroups(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Group>[]): Observable<RemoteData<PaginatedList<Group>>> {
     const hrefObs = this.getFindAllHref(options, this.linkPath, ...linksToFollow);
     hrefObs.pipe(
       filter((href: string) => hasValue(href)),
@@ -89,7 +89,7 @@ export class GroupDataService extends DataService<Group> {
    * @param options
    * @param linksToFollow
    */
-  public searchGroups(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Group>>): Observable<RemoteData<PaginatedList<Group>>> {
+  public searchGroups(query: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Group>[]): Observable<RemoteData<PaginatedList<Group>>> {
     const searchParams = [new RequestParam('query', query)];
     let findListOptions = new FindListOptions();
     if (options) {
@@ -231,7 +231,7 @@ export class GroupDataService extends DataService<Group> {
    * Method to retrieve the group that is currently being edited
    */
   public getActiveGroup(): Observable<Group> {
-    return this.store.pipe(select(editGroupSelector))
+    return this.store.pipe(select(editGroupSelector));
   }
 
   /**
@@ -276,12 +276,12 @@ export class GroupDataService extends DataService<Group> {
   public startEditingNewGroup(newGroup: Group): string {
     this.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (newGroup === activeGroup) {
-        this.cancelEditGroup()
+        this.cancelEditGroup();
       } else {
-        this.editGroup(newGroup)
+        this.editGroup(newGroup);
       }
     });
-    return this.getGroupEditPageRouterLinkWithID(newGroup.id)
+    return this.getGroupEditPageRouterLinkWithID(newGroup.id);
   }
 
   /**

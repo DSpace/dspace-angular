@@ -56,9 +56,9 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     if (isNotEmpty(this.model.value) && (this.model.value instanceof FormFieldMetadataValueObject)) {
       let initEntry$: Observable<VocabularyEntry>;
       if (this.model.value.hasAuthority()) {
-        initEntry$ = this.vocabularyService.getVocabularyEntryByID(this.model.value.authority, this.model.vocabularyOptions)
+        initEntry$ = this.vocabularyService.getVocabularyEntryByID(this.model.value.authority, this.model.vocabularyOptions);
       } else {
-        initEntry$ = this.vocabularyService.getVocabularyEntryByValue(this.model.value.value, this.model.vocabularyOptions)
+        initEntry$ = this.vocabularyService.getVocabularyEntryByValue(this.model.value.value, this.model.vocabularyOptions);
       }
       initValue$ = initEntry$.pipe(map((initEntry: VocabularyEntry) => {
         if (isNotEmpty(initEntry)) {

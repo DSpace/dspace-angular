@@ -68,7 +68,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
                     operationsList.children[key].body.forEach((entry) => {
                       body.push(entry.operation);
                     });
-                  })
+                  });
               }
             }
             return this.getRequestInstance(requestId, endpointURL, body);

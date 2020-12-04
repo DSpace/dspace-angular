@@ -37,11 +37,11 @@ import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 
 export interface ResourcePolicyEvent {
-  object: ResourcePolicy,
+  object: ResourcePolicy;
   target: {
     type: string,
     uuid: string
-  }
+  };
 }
 
 @Component({
@@ -155,7 +155,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
         ).subscribe((dsoRD: RemoteData<DSpaceObject>) => {
           this.resourcePolicyGrant = dsoRD.payload;
         })
-      )
+      );
     }
   }
 
@@ -167,7 +167,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
   isFormValid(): Observable<boolean> {
     return this.formService.isValid(this.formId).pipe(
       map((isValid: boolean) => isValid && isNotEmpty(this.resourcePolicyGrant))
-    )
+    );
   }
 
   /**
@@ -205,7 +205,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     formModel.push(new DynamicFormGroupModel(dateGroupConfig, RESOURCE_POLICY_FORM_DATE_GROUP_LAYOUT));
 
     this.initModelsValue(formModel);
-    return formModel
+    return formModel;
   }
 
   /**
@@ -228,7 +228,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
             model.value = this.resourcePolicy[model.id];
           }
         }
-      })
+      });
     }
 
     return formModel;
@@ -282,7 +282,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
           uuid: this.resourcePolicyGrant.id
         };
         this.submit.emit(eventPayload);
-      })
+      });
   }
 
   /**
@@ -311,6 +311,6 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     this.formModel = null;
     this.subs
       .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe())
+      .forEach((subscription) => subscription.unsubscribe());
   }
 }

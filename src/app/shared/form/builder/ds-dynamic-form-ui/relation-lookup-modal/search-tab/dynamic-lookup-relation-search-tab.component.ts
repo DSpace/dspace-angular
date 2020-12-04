@@ -146,10 +146,10 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Selects a page in the store
    * @param page The page to select
    */
-  selectPage(page: Array<SearchResult<Item>>) {
+  selectPage(page: SearchResult<Item>[]) {
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: Array<SearchResult<Item>>) => {
+      .subscribe((selection: SearchResult<Item>[]) => {
         const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
         this.selectObject.emit(...filteredPage);
       });
@@ -160,11 +160,11 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    * Deselects a page in the store
    * @param page the page to deselect
    */
-  deselectPage(page: Array<SearchResult<Item>>) {
+  deselectPage(page: SearchResult<Item>[]) {
     this.allSelected = false;
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: Array<SearchResult<Item>>) => {
+      .subscribe((selection: SearchResult<Item>[]) => {
         const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) >= 0);
         this.deselectObject.emit(...filteredPage);
       });
@@ -190,7 +190,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     ).subscribe((results) => {
         this.selection$
           .pipe(take(1))
-          .subscribe((selection: Array<SearchResult<Item>>) => {
+          .subscribe((selection: SearchResult<Item>[]) => {
             const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
             this.selectObject.emit(...filteredResults);
           });
@@ -206,7 +206,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.allSelected = false;
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: Array<SearchResult<Item>>) => this.deselectObject.emit(...selection));
+      .subscribe((selection: SearchResult<Item>[]) => this.deselectObject.emit(...selection));
     this.selectableListService.deselectAll(this.listId);
   }
 

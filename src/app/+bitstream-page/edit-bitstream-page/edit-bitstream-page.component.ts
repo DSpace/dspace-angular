@@ -326,7 +326,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.updateFieldTranslations();
       })
     );
-  };
+  }
 
   /**
    * Update the current form values with bitstream properties

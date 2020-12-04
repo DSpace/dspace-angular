@@ -29,7 +29,7 @@ export class RemoteDataBuildService {
    * @param href$             Observable href of object we want to retrieve
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  buildSingle<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
+  buildSingle<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -117,7 +117,7 @@ export class RemoteDataBuildService {
    * @param href$             Observable href of objects we want to retrieve
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  buildList<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
+  buildList<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -154,7 +154,7 @@ export class RemoteDataBuildService {
     return this.toRemoteDataObservable(requestEntry$, payload$);
   }
 
-  aggregate<T>(input: Array<Observable<RemoteData<T>>>): Observable<RemoteData<T[]>> {
+  aggregate<T>(input: Observable<RemoteData<T>>[]): Observable<RemoteData<T[]>> {
 
     if (isEmpty(input)) {
       return createSuccessfulRemoteDataObject$([]);
@@ -223,7 +223,7 @@ export class RemoteDataBuildService {
           error,
           payload
         );
-      }))
+      }));
   }
 
   private toPaginatedList<T>(input: Observable<RemoteData<T[] | PaginatedList<T>>>, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<T>>> {
@@ -232,7 +232,7 @@ export class RemoteDataBuildService {
         const rdAny = rd as any;
         const newRD = new RemoteData(rdAny.requestPending, rdAny.responsePending, rdAny.isSuccessful, rd.error, undefined);
         if (Array.isArray(rd.payload)) {
-          return Object.assign(newRD, { payload: new PaginatedList(pageInfo, rd.payload) })
+          return Object.assign(newRD, { payload: new PaginatedList(pageInfo, rd.payload) });
         } else if (isNotUndefined(rd.payload)) {
           return Object.assign(newRD, { payload: new PaginatedList(pageInfo, rd.payload.page) });
         } else {

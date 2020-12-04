@@ -54,7 +54,7 @@ export class BundleDataService extends DataService<Bundle> {
    * @param options the {@link FindListOptions} for the request
    * @param linksToFollow the {@link FollowLinkConfig}s for the request
    */
-  findAllByItem(item: Item, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<PaginatedList<Bundle>>> {
+  findAllByItem(item: Item, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<PaginatedList<Bundle>>> {
     return this.findAllByHref(item._links.bundles.href, options,  ...linksToFollow);
   }
 
@@ -66,7 +66,7 @@ export class BundleDataService extends DataService<Bundle> {
    * @param linksToFollow the {@link FollowLinkConfig}s for the request
    */
   // TODO should be implemented rest side
-  findByItemAndName(item: Item, bundleName: string, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<Bundle>> {
+  findByItemAndName(item: Item, bundleName: string, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
     return this.findAllByItem(item, { elementsPerPage: Number.MAX_SAFE_INTEGER }, ...linksToFollow).pipe(
       map((rd: RemoteData<PaginatedList<Bundle>>) => {
         if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
@@ -81,7 +81,7 @@ export class BundleDataService extends DataService<Bundle> {
               matchingBundle
             );
           } else {
-            return new RemoteData(false, false, false, new RemoteDataError(404, 'Not found', `The bundle with name ${bundleName} was not found.` ))
+            return new RemoteData(false, false, false, new RemoteDataError(404, 'Not found', `The bundle with name ${bundleName} was not found.` ));
           }
         } else {
           return rd as any;
@@ -108,7 +108,7 @@ export class BundleDataService extends DataService<Bundle> {
    * @param searchOptions   The search options to use
    * @param linksToFollow   The {@link FollowLinkConfig}s for the request
    */
-  getBitstreams(bundleId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  getBitstreams(bundleId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
     const hrefObs = this.getBitstreamsEndpoint(bundleId, searchOptions);
 
     hrefObs.pipe(

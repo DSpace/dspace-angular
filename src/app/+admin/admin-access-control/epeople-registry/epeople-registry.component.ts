@@ -114,7 +114,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   onPageChange(event) {
     if (this.config.currentPage !== event) {
       this.config.currentPage = event;
-      this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery })
+      this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
     }
   }
 
@@ -139,7 +139,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
       currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize
     }).subscribe((peopleRD) => {
-        this.ePeople$.next(peopleRD)
+        this.ePeople$.next(peopleRD);
       }
     ));
 
@@ -157,7 +157,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
                   );
           })).pipe(map((dtos: EpersonDtoModel[]) => {
               return new PaginatedList(epeople.pageInfo, dtos);
-          }))
+          }));
         })).subscribe((value) => {
           this.ePeopleDto$.next(value);
           this.pageInfoState$.next(value.pageInfo);
@@ -195,7 +195,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
         this.isEPersonFormShown = true;
       }
     });
-    this.scrollToTop()
+    this.scrollToTop();
   }
 
   /**
@@ -220,7 +220,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
                 const errorResponse = restResponse as ErrorResponse;
                 this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + ePerson.id + ' with code: ' + errorResponse.statusCode + ' and message: ' + errorResponse.errorMessage);
               }
-            })
+            });
           }}
       });
     }

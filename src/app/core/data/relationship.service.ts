@@ -164,7 +164,7 @@ export class RelationshipService extends DataService<Relationship> {
     ).subscribe(([item1, item2]) => {
       this.refreshRelationshipItemsInCache(item1);
       this.refreshRelationshipItemsInCache(item2);
-    })
+    });
   }
 
   /**
@@ -191,7 +191,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                        should be automatically resolved
    */
-  getItemRelationshipsArray(item: Item, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<Relationship[]> {
+  getItemRelationshipsArray(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
     return this.findAllByHref(item._links.relationships.href, undefined, ...linksToFollow).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -228,7 +228,7 @@ export class RelationshipService extends DataService<Relationship> {
           }
         })
         )
-      ))
+      ));
   }
 
   /**
@@ -265,7 +265,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param label
    * @param options
    */
-  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<RemoteData<PaginatedList<Relationship>>> {
+  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<RemoteData<PaginatedList<Relationship>>> {
     let findListOptions = new FindListOptions();
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);
@@ -296,10 +296,10 @@ export class RelationshipService extends DataService<Relationship> {
             map(() => relationship),
             startWith(undefined)
           );
-        }))
+        }));
       }),
       map((relationships: Relationship[]) => relationships.filter(((relationship) => hasValue(relationship)))),
-    )
+    );
   }
 
   private isItemInUUIDArray(itemRD$: Observable<RemoteData<Item>>, uuids: string[]) {
@@ -339,7 +339,7 @@ export class RelationshipService extends DataService<Relationship> {
         }),
         filter((relationship) => hasValue(relationship)),
         take(1)
-      )
+      );
   }
 
   /**
@@ -395,7 +395,7 @@ export class RelationshipService extends DataService<Relationship> {
             getSucceededRemoteData(),
             getRemoteDataPayload(),
             map((type) => {
-              return { relation, type }
+              return { relation, type };
             })
           )
         ),

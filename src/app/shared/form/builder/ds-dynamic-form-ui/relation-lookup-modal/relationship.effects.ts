@@ -79,7 +79,7 @@ export class RelationshipEffects {
                 delete this.initialActionMap[identifier];
 
               }
-            )
+            );
           } else {
             this.debounceMap[identifier].next(action.type);
           }
@@ -176,7 +176,7 @@ export class RelationshipEffects {
       take(1),
       switchMap(() => this.refreshWorkspaceItemInCache(submissionId)),
     ).subscribe((submissionObject: SubmissionObject) => {
-      this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false))
+      this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false));
     });
   }
 
@@ -196,7 +196,7 @@ export class RelationshipEffects {
           filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
           take(1),
           switchMap(() => this.submissionObjectService.findById(submissionId, followLink('item')).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
-        )
+        );
       })
     );
   }

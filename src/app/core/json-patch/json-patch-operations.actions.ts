@@ -276,4 +276,4 @@ export type PatchOperationsActions
   | NewPatchRemoveOperationAction
   | NewPatchReplaceOperationAction
   | RollbacktPatchOperationsAction
-  | StartTransactionPatchOperationsAction
+  | StartTransactionPatchOperationsAction;

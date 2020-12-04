@@ -109,7 +109,7 @@ export class EditRelationshipComponent implements OnChanges {
             keepLeftVirtualMetadata: selection[0] === true,
             keepRightVirtualMetadata: selection[1] === true,
           }
-        ) as DeleteRelationship
+        ) as DeleteRelationship;
       }),
       take(1),
     ).subscribe((deleteRelationship: DeleteRelationship) =>

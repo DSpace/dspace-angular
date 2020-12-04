@@ -441,10 +441,10 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
                   this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + eperson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.statusText);
                 }
                 this.cancelForm.emit();
-              })
+              });
             }}
         });
-    })
+    });
   }
 
   /**

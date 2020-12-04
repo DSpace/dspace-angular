@@ -46,7 +46,7 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
    * @return an observable that emits true when the deletion was successful, false when it failed
    */
   delete(id: string): Observable<RestResponse> {
-    return this.deleteWFI(id, true)
+    return this.deleteWFI(id, true);
   }
 
   /**

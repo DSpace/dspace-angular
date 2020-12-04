@@ -65,7 +65,7 @@ export class VersionHistoryDataService extends DataService<VersionHistory> {
    * @param searchOptions     The search options to use
    * @param linksToFollow     HAL Links to follow on the Versions
    */
-  getVersions(versionHistoryId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Version>>): Observable<RemoteData<PaginatedList<Version>>> {
+  getVersions(versionHistoryId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: FollowLinkConfig<Version>[]): Observable<RemoteData<PaginatedList<Version>>> {
     const hrefObs = this.getVersionsEndpoint(versionHistoryId).pipe(
       map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
     );

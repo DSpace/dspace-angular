@@ -60,5 +60,5 @@ export class ContentSource implements HALResource {
   @deserialize
   _links: {
     self: HALLink
-  }
+  };
 }

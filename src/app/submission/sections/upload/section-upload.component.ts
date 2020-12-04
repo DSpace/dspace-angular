@@ -30,7 +30,7 @@ export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
 
 export interface AccessConditionGroupsMapEntry {
   accessCondition: string;
-  groups: Group[]
+  groups: Group[];
 }
 
 /**
@@ -186,7 +186,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
             : POLICY_DEFAULT_NO_LIST;
 
           this.availableGroups = new Map();
-          const mapGroups$: Array<Observable<AccessConditionGroupsMapEntry>> = [];
+          const mapGroups$: Observable<AccessConditionGroupsMapEntry>[] = [];
           // Retrieve Groups for accessCondition Policies
           this.availableAccessConditionOptions.forEach((accessCondition: AccessConditionOption) => {
             if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
@@ -231,7 +231,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
       observableCombineLatest(this.configMetadataForm$,
         this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id)).pipe(
         filter(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
-          return isNotEmpty(configMetadataForm) && isNotUndefined(fileList)
+          return isNotEmpty(configMetadataForm) && isNotUndefined(fileList);
         }),
         distinctUntilChanged())
         .subscribe(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {

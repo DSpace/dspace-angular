@@ -158,7 +158,7 @@ export class ItemDeleteComponent
    */
   getRelationshipMessageKey(label: string): string {
     if (hasValue(label) && label.indexOf('Of') > -1) {
-      return `relationships.${label.substring(0, label.indexOf('Of') + 2)}`
+      return `relationships.${label.substring(0, label.indexOf('Of') + 2)}`;
     } else {
       return label;
     }
@@ -176,7 +176,7 @@ export class ItemDeleteComponent
           map((isLeftItem) => isLeftItem ? relationshipType.leftwardType : relationshipType.rightwardType),
         )
       ),
-    )
+    );
   }
 
   /**
@@ -267,7 +267,7 @@ export class ItemDeleteComponent
                   return {
                     metadataField: key,
                     metadataValue: metadata,
-                  }
+                  };
                 }))
               .reduce((previous, current) => previous.concat(current))
           ),

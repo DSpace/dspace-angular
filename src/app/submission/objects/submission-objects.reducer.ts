@@ -78,7 +78,7 @@ export interface SubmissionSectionObject {
   /**
    * A boolean representing if this section is collapsed
    */
-  collapsed: boolean,
+  collapsed: boolean;
 
   /**
    * A boolean representing if this section is enabled
@@ -135,12 +135,12 @@ export interface SubmissionObjectEntry {
   /**
    * The collection this submission belonging to
    */
-  collection?: string,
+  collection?: string;
 
   /**
    * The configuration name that define this submission
    */
-  definition?: string,
+  definition?: string;
 
   /**
    * The submission self url
@@ -748,7 +748,7 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
     };
   } else {
     newData = filesData;
-    newData.files.push(action.payload.data)
+    newData.files.push(action.payload.data);
   }
 
   return Object.assign({}, state, {

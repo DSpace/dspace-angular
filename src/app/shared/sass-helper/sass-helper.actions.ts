@@ -26,4 +26,4 @@ export class AddCSSVariableAction implements Action {
 }
 /* tslint:enable:max-classes-per-file */
 
-export type CSSVariableAction = AddCSSVariableAction
+export type CSSVariableAction = AddCSSVariableAction;

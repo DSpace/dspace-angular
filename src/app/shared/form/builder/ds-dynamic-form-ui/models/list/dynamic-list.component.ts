@@ -20,10 +20,10 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 export interface ListItem {
-  id: string,
-  label: string,
-  value: boolean,
-  index: number
+  id: string;
+  label: string;
+  value: boolean;
+  index: number;
 }
 
 /**

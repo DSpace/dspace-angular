@@ -105,7 +105,7 @@ export class ItemCollectionMapperComponent implements OnInit {
     this.itemCollectionsRD$ = observableCombineLatest(this.itemRD$, this.shouldUpdate$).pipe(
       map(([itemRD, shouldUpdate]) => {
         if (shouldUpdate) {
-          return itemRD.payload
+          return itemRD.payload;
         }
       }),
       switchMap((item: Item) => this.itemDataService.getMappedCollections(item.id))
@@ -283,7 +283,7 @@ export class ItemCollectionMapperComponent implements OnInit {
       getRemoteDataPayload(),
       take(1)
     ).subscribe((item: Item) => {
-      this.router.navigate(['/items/', item.id])
+      this.router.navigate(['/items/', item.id]);
     });
   }
 

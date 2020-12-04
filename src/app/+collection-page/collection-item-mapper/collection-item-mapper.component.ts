@@ -122,7 +122,7 @@ export class CollectionItemMapperComponent implements OnInit {
         if (shouldUpdate) {
           return this.collectionDataService.getMappedItems(collectionRD.payload.id, Object.assign(options, {
             sort: this.defaultSortOptions
-          }),followLink('owningCollection'))
+          }),followLink('owningCollection'));
         }
       })
     );
@@ -249,7 +249,7 @@ export class CollectionItemMapperComponent implements OnInit {
       getRemoteDataPayload(),
       take(1)
     ).subscribe((collection: Collection) => {
-      this.router.navigate(['/collections/', collection.id])
+      this.router.navigate(['/collections/', collection.id]);
     });
   }
 

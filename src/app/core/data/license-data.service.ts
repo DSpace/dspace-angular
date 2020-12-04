@@ -68,7 +68,7 @@ export class LicenseDataService {
    * @param href            The URL of object we want to retrieve
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<License>>): Observable<RemoteData<License>> {
+  findByHref(href: string, ...linksToFollow: FollowLinkConfig<License>[]): Observable<RemoteData<License>> {
     return this.dataService.findByHref(href, ...linksToFollow);
   }
 
@@ -78,7 +78,7 @@ export class LicenseDataService {
    * @param href            The URL of object we want to retrieve
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByAllHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<License>>): Observable<RemoteData<PaginatedList<License>>> {
+  findByAllHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<License>[]): Observable<RemoteData<PaginatedList<License>>> {
     return this.dataService.findAllByHref(href, findListOptions, ...linksToFollow);
   }
 }

@@ -227,7 +227,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       // If authority
       this.subs.push(initChipsValue$.pipe(
         mergeMap((valueModel) => {
-          const returnList: Array<Observable<any>> = [];
+          const returnList: Observable<any>[] = [];
           valueModel.forEach((valueObj) => {
             const returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
@@ -264,7 +264,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
                 )
               })
             )
-          )
+          );
         }),
         scan((acc: any[], valueObj: any) => {
           if (acc.length === 0) {

@@ -70,7 +70,7 @@ export class GroupsRegistryComponent implements OnInit {
    */
   onPageChange(event) {
     this.config.currentPage = event;
-    this.search({ query: this.currentSearchQuery })
+    this.search({ query: this.currentSearchQuery });
   }
 
   /**
@@ -105,7 +105,7 @@ export class GroupsRegistryComponent implements OnInit {
         } else {
           this.notificationsService.error(this.translateService.get(this.messagePrefix + 'notification.deleted.failure', { name: group.name }));
         }
-      })
+      });
     }
   }
 
@@ -114,7 +114,7 @@ export class GroupsRegistryComponent implements OnInit {
    */
   public forceUpdateGroup() {
     this.groupService.clearGroupsRequests();
-    this.search({ query: this.currentSearchQuery })
+    this.search({ query: this.currentSearchQuery });
   }
 
   /**

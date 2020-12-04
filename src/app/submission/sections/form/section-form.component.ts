@@ -172,7 +172,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
                 filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
                 take(1),
                 switchMap(() => this.submissionObjectService.findById(this.submissionId, followLink('item')).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
-              )
+              );
             })
           )]
         )),
@@ -188,7 +188,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
           this.isLoading = false;
           this.cdr.detectChanges();
         }
-      })
+      });
   }
 
   /**
@@ -320,14 +320,14 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
        */
       this.sectionService.getSectionState(this.submissionId, this.sectionData.id, this.sectionData.sectionType).pipe(
         filter((sectionState: SubmissionSectionObject) => {
-          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
+          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors));
         }),
         distinctUntilChanged())
         .subscribe((sectionState: SubmissionSectionObject) => {
           this.fieldsOnTheirWayToBeRemoved = new Map();
           this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errors);
         })
-    )
+    );
   }
 
   /**

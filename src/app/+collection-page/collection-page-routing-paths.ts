@@ -13,11 +13,11 @@ export function getCollectionPageRoute(collectionId: string) {
 }
 
 export function getCollectionEditRoute(id: string) {
-  return new URLCombiner(getCollectionModuleRoute(), id, COLLECTION_EDIT_PATH).toString()
+  return new URLCombiner(getCollectionModuleRoute(), id, COLLECTION_EDIT_PATH).toString();
 }
 
 export function getCollectionCreateRoute() {
-  return new URLCombiner(getCollectionModuleRoute(), COLLECTION_CREATE_PATH).toString()
+  return new URLCombiner(getCollectionModuleRoute(), COLLECTION_CREATE_PATH).toString();
 }
 
 export const COLLECTION_CREATE_PATH = 'create';

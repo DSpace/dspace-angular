@@ -90,7 +90,7 @@ export class ObjectCacheService {
       select(selfLinkFromUuidSelector(uuid)),
       mergeMap((selfLink: string) => this.getObjectBySelfLink<T>(selfLink)
       )
-    )
+    );
   }
 
   /**
@@ -118,7 +118,7 @@ export class ObjectCacheService {
         if (typeof type !== 'function') {
           throw new Error(`${type} is not a valid constructor for ${JSON.stringify(entry.data)}`);
         }
-        return Object.assign(new type(), entry.data) as T
+        return Object.assign(new type(), entry.data) as T;
       })
     );
   }

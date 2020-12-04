@@ -146,7 +146,7 @@ export class SearchComponent implements OnInit {
    * Set the sidebar to a collapsed state
    */
   public closeSidebar(): void {
-    this.sidebarService.collapse()
+    this.sidebarService.collapse();
   }
 
   /**

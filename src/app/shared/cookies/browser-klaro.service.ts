@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as Klaro from 'klaro'
+import * as Klaro from 'klaro';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -168,7 +168,7 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.en[app.name] = { title: this.getTitleTranslation(app.name), description: this.getDescriptionTranslation(app.name) };
       app.purposes.forEach((purpose) => {
         this.klaroConfig.translations.en.purposes[purpose] = this.getPurposeTranslation(purpose);
-      })
+      });
     });
   }
 
@@ -223,9 +223,9 @@ export class BrowserKlaroService extends KlaroService {
         take(1),
         switchMap((operations: Operation[]) => {
             if (isNotEmpty(operations)) {
-              return this.ePersonService.patch(user, operations)
+              return this.ePersonService.patch(user, operations);
             }
-            return observableOf(undefined)
+            return observableOf(undefined);
           }
         )
       ).subscribe();
@@ -244,7 +244,7 @@ export class BrowserKlaroService extends KlaroService {
    * @param user
    */
   updateSettingsForUsers(user: EPerson) {
-    this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)))
+    this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)));
   }
 
   /**
@@ -252,6 +252,6 @@ export class BrowserKlaroService extends KlaroService {
    * @param identifier The user's uuid
    */
   getStorageName(identifier: string) {
-    return 'klaro-' + identifier
+    return 'klaro-' + identifier;
   }
 }

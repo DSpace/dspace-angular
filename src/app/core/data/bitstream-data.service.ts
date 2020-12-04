@@ -68,7 +68,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
    * @param bundle the bundle to retrieve bitstreams from
    * @param options options for the find all request
    */
-  findAllByBundle(bundle: Bundle, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  findAllByBundle(bundle: Bundle, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.findAllByHref(bundle._links.bitstreams.href, options, ...linksToFollow);
   }
 
@@ -163,13 +163,13 @@ export class BitstreamDataService extends DataService<Bitstream> {
    * @param options the {@link FindListOptions} for the request
    * @param linksToFollow the {@link FollowLinkConfig}s for the request
    */
-  public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bundleService.findByItemAndName(item, bundleName).pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {
         if (bundleRD.hasSucceeded && hasValue(bundleRD.payload)) {
           return this.findAllByBundle(bundleRD.payload, options, ...linksToFollow);
         } else if (!bundleRD.hasSucceeded && bundleRD.error.statusCode === 404) {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
         } else {
           return [bundleRD as any];
         }

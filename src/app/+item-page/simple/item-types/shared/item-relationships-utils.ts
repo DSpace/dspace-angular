@@ -17,7 +17,7 @@ import { hasValue } from '../../../../shared/empty.util';
 export const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
   (a: T[], b: T[]): boolean => {
     if (!Array.isArray(a) || ! Array.isArray(b)) {
-      return false
+      return false;
     }
 
     const aIds = a.map(mapFn);
@@ -95,6 +95,6 @@ export const paginatedRelationsToItems = (thisId: string) =>
           map((relatedItems: Item[]) =>
             Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } )})
           )
-        )
+        );
       })
     );

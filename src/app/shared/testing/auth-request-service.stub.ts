@@ -79,7 +79,7 @@ export class AuthRequestServiceStub {
     const vars = query.split('&');
     for (const param of vars) {
       const pair = param.split('=');
-      obj[pair[0]] = pair[1]
+      obj[pair[0]] = pair[1];
     }
     return obj;
   }

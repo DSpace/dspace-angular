@@ -77,7 +77,7 @@ export class BrowseService {
       ensureArrayHasValue(),
       map((definitions: BrowseDefinition[]) => definitions
         .map((definition: BrowseDefinition) => {
-          return Object.assign(new BrowseDefinition(), definition)
+          return Object.assign(new BrowseDefinition(), definition);
         })),
       distinctUntilChanged(),
     );

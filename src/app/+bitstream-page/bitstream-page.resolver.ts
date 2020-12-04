@@ -34,7 +34,7 @@ export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
      * The self links defined in this list are expected to be requested somewhere in the near future
      * Requesting them as embeds will limit the number of requests
      */
-    get followLinks(): Array<FollowLinkConfig<Bitstream>> {
+    get followLinks(): FollowLinkConfig<Bitstream>[] {
         return [
             followLink('bundle', undefined, true, followLink('item')),
             followLink('format')

@@ -59,4 +59,4 @@ export class RemoveNameVariantAction extends NameVariantListAction {
  */
 export type NameVariantAction
   = SetNameVariantAction
-  | RemoveNameVariantAction
+  | RemoveNameVariantAction;

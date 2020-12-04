@@ -94,7 +94,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
         // user clicked cancel: use the name variant only for this relation, no further action required
       }).finally(() => {
         this.select(value);
-      })
+      });
     }
   }
 

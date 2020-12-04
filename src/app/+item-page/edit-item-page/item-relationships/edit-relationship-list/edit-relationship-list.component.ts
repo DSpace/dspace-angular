@@ -64,7 +64,7 @@ export class EditRelationshipListComponent implements OnInit {
     return this.getLabel().pipe(
       map((label) => {
         if (hasValue(label) && label.indexOf('Of') > -1) {
-          return `relationships.${label.substring(0, label.indexOf('Of') + 2)}`
+          return `relationships.${label.substring(0, label.indexOf('Of') + 2)}`;
         } else {
           return label;
         }

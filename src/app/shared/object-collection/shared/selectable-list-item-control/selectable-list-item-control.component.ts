@@ -46,7 +46,7 @@ export class SelectableListItemControlComponent implements OnInit {
       } else {
         this.deselectObject.emit(this.object);
       }
-    })
+    });
   }
 
   selectCheckbox(value: boolean) {

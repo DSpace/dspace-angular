@@ -113,7 +113,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
             }
           }
         })
-    )
+    );
   }
 
   /**

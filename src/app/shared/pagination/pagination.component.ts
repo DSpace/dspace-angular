@@ -8,7 +8,7 @@ import {
   OnInit,
   Output,
   ViewEncapsulation
-} from '@angular/core'
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, Subscription } from 'rxjs';
@@ -367,7 +367,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
         sort: Object.assign(
           new SortOptions(this.sortField, this.sortDirection)
         )
-      })
+      });
   }
 
   /**
@@ -555,6 +555,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * @returns true if a bottom pages should be shown, else returns false
    */
   get shouldShowBottomPager(): boolean {
-    return this.hasMultiplePages || !this.hidePagerWhenSinglePage
+    return this.hasMultiplePages || !this.hidePagerWhenSinglePage;
   }
 }

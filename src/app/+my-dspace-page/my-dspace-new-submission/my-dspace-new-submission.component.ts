@@ -31,7 +31,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   /**
    * Output that emits the workspace item when the upload has completed
    */
-  @Output() uploadEnd = new EventEmitter<Array<SearchResult<DSpaceObject>>>();
+  @Output() uploadEnd = new EventEmitter<SearchResult<DSpaceObject>[]>();
 
   /**
    * The UploaderOptions object

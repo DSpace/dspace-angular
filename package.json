@@ -29,6 +29,7 @@
     "test": "npm run ng-high-memory -- test --sourceMap=true --watch=true",
     "test:headless": "npm run ng-high-memory -- test --watch=false --sourceMap=true --browsers=ChromeHeadless --code-coverage",
     "lint": "ng lint",
+    "lint-fix": "npm run ng-high-memory lint --fix=true",
     "e2e": "ng e2e",
     "e2e:ci": "ng e2e --protractor-config=./e2e/protractor-ci.conf.js",
     "compile:server": "webpack --config webpack.server.config.js --progress --color",

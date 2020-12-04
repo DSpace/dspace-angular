@@ -97,7 +97,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param options
    * @param linksToFollow
    */
-  private getEpeopleByEmail(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEpeopleByEmail(query: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
     const searchParams = [new RequestParam('email', query)];
     return this.getEPeopleBy(searchParams, this.searchByEmailPath, options, ...linksToFollow);
   }
@@ -108,7 +108,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param options
    * @param linksToFollow
    */
-  private getEpeopleByMetadata(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEpeopleByMetadata(query: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
     const searchParams = [new RequestParam('query', query)];
     return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, ...linksToFollow);
   }
@@ -120,7 +120,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param options
    * @param linksToFollow
    */
-  private getEPeopleBy(searchParams: RequestParam[], searchMethod: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEPeopleBy(searchParams: RequestParam[], searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
     let findListOptions = new FindListOptions();
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);

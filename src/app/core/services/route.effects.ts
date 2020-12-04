@@ -1,6 +1,6 @@
 import { map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { ResetRouteStateAction, RouteActionTypes } from './route.actions';
 import { RouterActionTypes } from '../../core/router/router.actions';
 import { RouteService } from './route.service';

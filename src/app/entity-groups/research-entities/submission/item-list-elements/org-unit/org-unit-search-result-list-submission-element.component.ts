@@ -100,7 +100,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
         // user clicked cancel: use the name variant only for this relation, no further action required
       }).finally(() => {
         this.select(value);
-      })
+      });
     }
   }
 

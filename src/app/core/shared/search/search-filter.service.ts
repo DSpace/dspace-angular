@@ -83,7 +83,7 @@ export class SearchFilterService {
         currentPage: page || 1,
         pageSize: size || pagination.pageSize
       });
-    }))
+    }));
   }
 
   /**
@@ -98,9 +98,9 @@ export class SearchFilterService {
     return observableCombineLatest(sortDirection$, sortField$).pipe(map(([sortDirection, sortField]) => {
         const field = sortField || defaultSort.field;
         const direction = SortDirection[sortDirection] || defaultSort.direction;
-        return new SortOptions(field, direction)
+        return new SortOptions(field, direction);
       }
-    ))
+    ));
   }
 
   /**
@@ -137,7 +137,7 @@ export class SearchFilterService {
           return prefixValues;
         }
       )
-    )
+    );
   }
 
   /**

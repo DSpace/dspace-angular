@@ -25,7 +25,7 @@ export class CollectionRolesComponent implements OnInit {
     return this.dsoRD$.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
-    )
+    );
   }
 
   /**

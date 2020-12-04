@@ -38,7 +38,7 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject {
   /**
    * Method that returns as which type of object this object should be rendered
    */
-  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+  getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     return [this.constructor as GenericConstructor<ListableObject>];
   }
 }

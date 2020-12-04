@@ -16,15 +16,15 @@ import { historyReducer, HistoryState } from './history/history.reducer';
 
 export interface CoreState {
   'bitstreamFormats': BitstreamFormatRegistryState;
-  'cache/object': ObjectCacheState,
-  'cache/syncbuffer': ServerSyncBufferState,
-  'cache/object-updates': ObjectUpdatesState
-  'data/request': RequestState,
+  'cache/object': ObjectCacheState;
+  'cache/syncbuffer': ServerSyncBufferState;
+  'cache/object-updates': ObjectUpdatesState;
+  'data/request': RequestState;
   'history': HistoryState;
-  'index': MetaIndexState,
-  'auth': AuthState,
-  'json/patch': JsonPatchOperationsState,
-  'route': RouteState
+  'index': MetaIndexState;
+  'auth': AuthState;
+  'json/patch': JsonPatchOperationsState;
+  'route': RouteState;
 }
 
 export const coreReducers: ActionReducerMap<CoreState> = {

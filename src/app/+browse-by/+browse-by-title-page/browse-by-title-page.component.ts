@@ -44,7 +44,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
         .subscribe((params) => {
           this.browseId = params.id || this.defaultBrowseId;
           this.updatePageWithItems(browseParamsToOptions(params, this.paginationConfig, this.sortConfig, this.browseId), undefined);
-          this.updateParent(params.scope)
+          this.updateParent(params.scope);
         }));
     this.updateStartsWithTextOptions();
   }

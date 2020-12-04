@@ -1,28 +1,28 @@
 import { Config } from './config.interface';
 
 interface AutosaveConfig extends Config {
-  metadata: string[],
-  timer: number
+  metadata: string[];
+  timer: number;
 }
 
 interface IconsConfig extends Config {
-  metadata: MetadataIconConfig[],
+  metadata: MetadataIconConfig[];
   authority: {
     confidence: ConfidenceIconConfig[];
-  }
+  };
 }
 
 export interface MetadataIconConfig extends Config {
-  name: string,
+  name: string;
   style: string;
 }
 
 export interface ConfidenceIconConfig extends Config {
-  value: any,
+  value: any;
   style: string;
 }
 
 export interface SubmissionConfig extends Config {
-  autosave: AutosaveConfig,
-  icons: IconsConfig
+  autosave: AutosaveConfig;
+  icons: IconsConfig;
 }
