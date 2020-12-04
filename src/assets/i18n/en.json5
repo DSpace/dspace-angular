@@ -8,6 +8,14 @@
 
 
 
+  "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+
+  "403.link.home-page": "Take me to the home page",
+
+  "403.forbidden": "forbidden",
+
+
+
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
 
   "404.link.home-page": "Take me to the home page",
@@ -280,6 +288,10 @@
 
   "admin.access-control.groups.title": "DSpace Angular :: Groups",
 
+  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
+
+  "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
+
   "admin.access-control.groups.head": "Groups",
 
   "admin.access-control.groups.button.add": "Add group",
@@ -308,8 +320,15 @@
 
   "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
 
-  "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
 
+  "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+
+
+
+  "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+
+  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
 
   "admin.access-control.groups.form.head.create": "Create group",
 
@@ -324,6 +343,28 @@
   "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
 
   "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+
+  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+
+  "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+
+  "admin.access-control.groups.form.actions.delete": "Delete Group",
+
+  "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+
+  "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
+
+  "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
+
+  "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
+
+  "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+
+  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
 
   "admin.access-control.groups.form.members-list.head": "EPeople",
 

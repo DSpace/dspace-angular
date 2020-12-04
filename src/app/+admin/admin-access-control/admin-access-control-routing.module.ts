@@ -13,12 +13,12 @@ import { GROUP_EDIT_PATH } from './admin-access-control-routing-paths';
       {
         path: `${GROUP_EDIT_PATH}/:groupId`,
         component: GroupFormComponent,
-        data: {title: 'admin.registries.schema.title'}
+        data: {title: 'admin.access-control.groups.title.singleGroup'}
       },
       {
         path: `${GROUP_EDIT_PATH}/newGroup`,
         component: GroupFormComponent,
-        data: {title: 'admin.registries.schema.title'}
+        data: {title: 'admin.access-control.groups.title.addGroup'}
       },
     ])
   ]
