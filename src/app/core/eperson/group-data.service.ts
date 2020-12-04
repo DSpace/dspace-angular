@@ -22,11 +22,18 @@ import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { CreateRequest, DeleteRequest, FindListOptions, FindListRequest, PostRequest } from '../data/request.models';
+import {
+  CreateRequest,
+  DeleteRequest,
+  FindListOptions,
+  FindListRequest,
+  PatchRequest,
+  PostRequest
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getRemoteDataPayload, getResponseFromEntry } from '../shared/operators';
+import { getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 import { dataService } from '../cache/builders/build-decorators';
@@ -46,10 +53,10 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
 })
 @dataService(GROUP)
 export class GroupDataService extends DataService<Group> {
-  public ePersonsEndpoint = 'epersons';
-  public subgroupsEndpoint = 'subgroups';
   protected linkPath = 'groups';
   protected browseEndpoint = '';
+  public ePersonsEndpoint = 'epersons';
+  public subgroupsEndpoint = 'subgroups';
 
   constructor(
     protected comparator: DSOChangeAnalyzer<Group>,
@@ -271,6 +278,19 @@ export class GroupDataService extends DataService<Group> {
     this.requestService.configure(deleteRequest);
 
     return this.fetchResponse(requestId);
+  }
+
+  /**
+   * Gets the restResponse from the requestService
+   * @param requestId
+   */
+  protected fetchResponse(requestId: string): Observable<RestResponse> {
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: RestResponse) => {
+        return response;
+      })
+    );
   }
 
   /**

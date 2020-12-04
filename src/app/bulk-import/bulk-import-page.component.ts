@@ -13,9 +13,10 @@ import { RemoteData } from '../core/data/remote-data';
 import { RequestEntry } from '../core/data/request.reducer';
 import { RequestService } from '../core/data/request.service';
 import { Collection } from '../core/shared/collection.model';
-import { redirectOn404Or401 } from '../core/shared/operators';
+import { redirectOn4xx } from '../core/shared/operators';
 import { ProcessParameter } from '../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { AuthService } from '../core/auth/auth.service';
 
 /**
  * Page to perform an items bulk imports into the given collection.
@@ -39,6 +40,7 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
   processingImport$: BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(false);
 
   constructor(
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private dsoNameService: DSONameService,
     private scriptService: ScriptDataService,
@@ -61,7 +63,7 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
 
     this.subs.push(this.route.data.pipe(
       map((data) => data.collection as RemoteData<Collection>),
-      redirectOn404Or401(this.router),
+      redirectOn4xx(this.router, this.authService),
       take(1)
     ).subscribe((remoteData) => {
       if (remoteData.payload) {

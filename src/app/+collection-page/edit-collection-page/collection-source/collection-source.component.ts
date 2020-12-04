@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import {
   DynamicFormControlModel,
@@ -326,7 +326,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       getSucceededRemoteData(),
       map((col) => col.payload),
       tap((col) => this.initializeEmailAndTransform(col)),
-      switchMap((col) => this.collectionService.getContentSource(col.id)),
+      switchMap((col) => this.collectionService.getContentSource(col.uuid)),
       take(1)
     ).subscribe((contentSource: ContentSource) => {
       this.initializeOriginalContentSource(contentSource);
