@@ -55,7 +55,7 @@ export class ItemMoveComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.pipe(map((data) => data.item), getSucceededRemoteData()) as Observable<RemoteData<Item>>;
+    this.itemRD$ = this.route.data.pipe(map((data) => data.dso), getSucceededRemoteData()) as Observable<RemoteData<Item>>;
     this.itemRD$.subscribe((rd) => {
         this.itemId = rd.payload.id;
       }

@@ -19,6 +19,7 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CommunitySearchResultGridElementComponent } from './community-search-result-grid-element.component';
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 
 let communitySearchResultGridElementComponent: CommunitySearchResultGridElementComponent;
 let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
@@ -52,6 +53,9 @@ mockCommunityWithoutAbstract.indexableObject = Object.assign(new Community(), {
     ]
   }
 });
+const linkService = jasmine.createSpyObj('linkService', {
+  resolveLink: mockCommunityWithAbstract
+});
 
 describe('CommunitySearchResultGridElementComponent', () => {
   beforeEach(async(() => {
@@ -72,6 +76,7 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: {} },
+        { provide: LinkService, useValue: linkService}
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]

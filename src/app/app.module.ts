@@ -41,7 +41,7 @@ import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -116,6 +116,8 @@ const DECLARATIONS = [
   NotificationComponent,
   NotificationsBoardComponent,
   SearchNavbarComponent,
+  BreadcrumbsComponent,
+  ForbiddenComponent,
 ];
 
 const EXPORTS = [
@@ -133,8 +135,6 @@ const EXPORTS = [
   ],
   declarations: [
     ...DECLARATIONS,
-    BreadcrumbsComponent,
-    UnauthorizedComponent,
   ],
   exports: [
     ...EXPORTS

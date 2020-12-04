@@ -4,6 +4,7 @@ import { UsageReportService } from '../../core/statistics/usage-report-data.serv
 import { ActivatedRoute , Router} from '@angular/router';
 import { Collection } from '../../core/shared/collection.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * Component representing the statistics page for a collection.
@@ -30,12 +31,14 @@ export class CollectionStatisticsPageComponent extends StatisticsPageComponent<C
     protected router: Router,
     protected usageReportService: UsageReportService,
     protected nameService: DSONameService,
+    protected authService: AuthService
   ) {
     super(
       route,
       router,
       usageReportService,
       nameService,
+      authService,
     );
   }
 }

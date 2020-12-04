@@ -280,7 +280,7 @@ export class EPersonDataService extends DataService<EPerson> {
   patchPasswordWithToken(uuid: string, token: string, password: string): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
 
-    const operation = Object.assign({ op: 'replace', path: '/password', value: password });
+    const operation = Object.assign({ op: 'add', path: '/password', value: password });
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, uuid)),

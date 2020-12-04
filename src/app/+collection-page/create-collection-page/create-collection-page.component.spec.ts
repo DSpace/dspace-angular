@@ -12,6 +12,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { CreateCollectionPageComponent } from './create-collection-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import {RequestService} from '../../core/data/request.service';
 
 describe('CreateCollectionPageComponent', () => {
   let comp: CreateCollectionPageComponent;
@@ -29,7 +30,8 @@ describe('CreateCollectionPageComponent', () => {
         },
         { provide: RouteService, useValue: { getQueryParameterValue: () => observableOf('1234') } },
         { provide: Router, useValue: {} },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: RequestService, useValue: {}}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

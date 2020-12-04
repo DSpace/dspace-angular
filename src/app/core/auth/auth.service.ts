@@ -453,7 +453,7 @@ export class AuthService {
    * Clear redirect url
    */
   clearRedirectUrl() {
-    this.store.dispatch(new SetRedirectUrlAction(''));
+    this.store.dispatch(new SetRedirectUrlAction(undefined));
     this.storage.remove(REDIRECT_COOKIE);
   }
 

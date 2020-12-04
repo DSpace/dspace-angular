@@ -3437,8 +3437,8 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Von LC Name importieren",
   
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcidV2": "Importing from ORCID",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcidV2": "Von ORCID importieren",
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Von ORCID importieren",
   
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Von Sherpa Zeitschriften importieren",
@@ -3521,8 +3521,8 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Verlage ({{ count }})",
   
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidV2": "ORCID ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidV2": "ORCID ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
   
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Namen ({{ count }})",
@@ -3581,8 +3581,8 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Suchergebnisse",
   
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.orcidV2": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidV2": "Suchergebnisse",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Suchergebnisse",
   
   // "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Suchergebnisse",

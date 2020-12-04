@@ -47,7 +47,7 @@ export class EditItemPageComponent implements OnInit {
     this.pages = this.route.routeConfig.children
       .map((child: any) => child.path)
       .filter((path: string) => isNotEmpty(path)); // ignore reroutes
-    this.itemRD$ = this.route.data.pipe(map((data) => data.item));
+    this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
   }
 
   /**

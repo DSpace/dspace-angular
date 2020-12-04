@@ -61,6 +61,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
   }
 
   select(value) {
+    this.relationshipService.setNameVariant(this.listID, this.dso.uuid, value);
     this.selectableListService.isObjectSelected(this.listID, this.object)
       .pipe(take(1))
       .subscribe((selected) => {
@@ -68,7 +69,6 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
           this.selectableListService.selectSingle(this.listID, this.object);
         }
       });
-    this.relationshipService.setNameVariant(this.listID, this.dso.uuid, value);
   }
 
   selectCustom(value) {

@@ -6,7 +6,6 @@ import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
 import * as decorators from './build-decorators';
-import { getDataServiceFor } from './build-decorators';
 import { LinkService } from './link.service';
 
 const spyOnFunction = <T>(obj: T, func: keyof T) => {

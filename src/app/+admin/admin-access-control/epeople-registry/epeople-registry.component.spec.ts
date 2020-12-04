@@ -44,7 +44,7 @@ describe('EPeopleRegistryComponent', () => {
       activeEPerson: null,
       allEpeople: mockEPeople,
       getEPeople(): Observable<RemoteData<PaginatedList<EPerson>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allEpeople));
+        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: this.allEpeople.length, totalElements: this.allEpeople.length, totalPages: 1, currentPage: 1 }), this.allEpeople));
       },
       getActiveEPerson(): Observable<EPerson> {
         return observableOf(this.activeEPerson);
@@ -54,18 +54,18 @@ describe('EPeopleRegistryComponent', () => {
           const result = this.allEpeople.find((ePerson: EPerson) => {
             return ePerson.email === query;
           });
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: [result].length, totalElements: [result].length, totalPages: 1, currentPage: 1 }), [result]));
         }
         if (scope === 'metadata') {
           if (query === '') {
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allEpeople));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: this.allEpeople.length, totalElements: this.allEpeople.length, totalPages: 1, currentPage: 1 }), this.allEpeople));
           }
           const result = this.allEpeople.find((ePerson: EPerson) => {
             return (ePerson.name.includes(query) || ePerson.email.includes(query));
           });
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: [result].length, totalElements: [result].length, totalPages: 1, currentPage: 1 }), [result]));
         }
-        return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allEpeople));
+        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: this.allEpeople.length, totalElements: this.allEpeople.length, totalPages: 1, currentPage: 1 }), this.allEpeople));
       },
       deleteEPerson(ePerson: EPerson): Observable<boolean> {
         this.allEpeople = this.allEpeople.filter((ePerson2: EPerson) => {

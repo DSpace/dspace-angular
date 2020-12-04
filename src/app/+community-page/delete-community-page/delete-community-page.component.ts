@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DeleteComColPageComponent } from '../../shared/comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import {RequestService} from '../../core/data/request.service';
 
 /**
  * Component that represents the page where a user can delete an existing Community
@@ -22,8 +23,10 @@ export class DeleteCommunityPageComponent extends DeleteComColPageComponent<Comm
     protected router: Router,
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,
-    protected translate: TranslateService
+    protected translate: TranslateService,
+    protected requestService: RequestService
   ) {
-    super(dsoDataService, router, route, notifications, translate);
+    super(dsoDataService, router, route, notifications, translate, requestService);
   }
+
 }

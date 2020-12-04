@@ -13,6 +13,7 @@ import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { getCollectionEditRoute } from '../../../../../+collection-page/collection-page-routing-paths';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
 
 describe('CollectionAdminSearchResultGridElementComponent', () => {
   let component: CollectionAdminSearchResultGridElementComponent;
@@ -26,6 +27,11 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
     searchResult.indexableObject = new Collection();
     searchResult.indexableObject.uuid = id;
   }
+
+  const linkService = jasmine.createSpyObj('linkService', {
+    resolveLink: {}
+  });
+
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
@@ -39,6 +45,7 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
+        { provide: LinkService, useValue: linkService}
       ]
     })
       .compileComponents();

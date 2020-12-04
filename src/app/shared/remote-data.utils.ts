@@ -69,3 +69,24 @@ export function createPendingRemoteDataObject<T>(object?: T): RemoteData<T> {
 export function createPendingRemoteDataObject$<T>(object?: T): Observable<RemoteData<T>> {
   return observableOf(createPendingRemoteDataObject(object));
 }
+
+/**
+ * Method to create a remote data object with no content
+ */
+export function createNoContentRemoteDataObject<T>(): RemoteData<T> {
+  return new RemoteData(
+    true,
+    true,
+    true,
+    null,
+    null,
+    204
+  );
+}
+
+/**
+ * Method to create a remote data object that has succeeded with no content, wrapped in an observable
+ */
+export function createNoContentRemoteDataObject$<T>(): Observable<RemoteData<T>> {
+  return observableOf(createNoContentRemoteDataObject());
+}

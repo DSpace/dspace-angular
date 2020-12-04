@@ -120,7 +120,7 @@ export class ProfilePageComponent implements OnInit {
       this.notificationsService.error(this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.general'));
     }
     if (!this.invalidSecurity && passEntered) {
-      const operation = Object.assign({op: 'replace', path: '/password', value: this.password});
+      const operation = Object.assign({op: 'add', path: '/password', value: this.password});
       this.epersonService.patch(this.currentUser, [operation]).subscribe((response: RestResponse) => {
         if (response.isSuccessful) {
           this.notificationsService.success(

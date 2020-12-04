@@ -54,7 +54,7 @@ describe('ExistingMetadataListElementComponent', () => {
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
     submissionId = '1234';
-    reoRel = new ReorderableRelationship(relationship, true, relationshipService, {} as any, submissionId);
+    reoRel = new ReorderableRelationship(relationship, true, {} as any, {} as any, submissionId);
   }
 
   beforeEach(async(() => {

@@ -11,8 +11,9 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
-import { redirectOn404Or401 } from '../../core/shared/operators';
+import { redirectOn4xx } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * This component renders a simple item page.
@@ -48,6 +49,7 @@ export class ItemPageComponent implements OnInit {
     private router: Router,
     private items: ItemDataService,
     private metadataService: MetadataService,
+    private authService: AuthService,
   ) { }
 
   /**
@@ -55,8 +57,8 @@ export class ItemPageComponent implements OnInit {
    */
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
-      map((data) => data.item as RemoteData<Item>),
-      redirectOn404Or401(this.router)
+      map((data) => data.dso as RemoteData<Item>),
+      redirectOn4xx(this.router, this.authService)
     );
     this.metadataService.processRemoteData(this.itemRD$);
   }

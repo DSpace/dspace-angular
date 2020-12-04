@@ -1,6 +1,11 @@
-<h2 class="item-page-title-field">
-  {{'journalissue.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
-</h2>
+<div class="d-flex flex-row">
+  <h2 class="item-page-title-field mr-auto">
+    {{'journalissue.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
+  </h2>
+  <div class="pl-2">
+    <ds-dso-page-edit-button [pageRoutePrefix]="'items'" [dso]="object" [tooltipMsg]="'journalissue.page.edit'"></ds-dso-page-edit-button>
+  </div>
+</div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>

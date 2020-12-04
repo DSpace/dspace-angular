@@ -15,11 +15,16 @@ import { Bitstream } from '../core/shared/bitstream.model';
 import { Collection } from '../core/shared/collection.model';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { Item } from '../core/shared/item.model';
-import { getSucceededRemoteData, redirectOn404Or401, toDSpaceObjectListRD } from '../core/shared/operators';
+import {
+  getSucceededRemoteData,
+  redirectOn4xx,
+  toDSpaceObjectListRD
+} from '../core/shared/operators';
 
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { AuthService } from '../core/auth/auth.service';
 
 @Component({
   selector: 'ds-collection-page',
@@ -47,7 +52,8 @@ export class CollectionPageComponent implements OnInit {
     private searchService: SearchService,
     private metadata: MetadataService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
@@ -59,7 +65,7 @@ export class CollectionPageComponent implements OnInit {
   ngOnInit(): void {
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
-      redirectOn404Or401(this.router),
+      redirectOn4xx(this.router, this.authService),
       take(1)
     );
     this.logoRD$ = this.collectionRD$.pipe(

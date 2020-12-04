@@ -140,6 +140,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
       elementsPerPage: this.config.pageSize
     }).subscribe((peopleRD) => {
         this.ePeople$.next(peopleRD);
+        this.pageInfoState$.next(peopleRD.payload.pageInfo);
       }
     ));
 

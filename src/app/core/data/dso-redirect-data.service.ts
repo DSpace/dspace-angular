@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { filter, take, tap } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -11,7 +11,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFinishedRemoteData } from '../shared/operators';
 import { DataService } from './data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RemoteData } from './remote-data';
@@ -56,7 +55,7 @@ export class DsoRedirectDataService extends DataService<any> {
   findByIdAndIDType(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<FindByIDRequest>> {
     this.setLinkPath(identifierType);
     return this.findById(id).pipe(
-      getFinishedRemoteData(),
+      filter((response) => hasValue(response.error) || hasValue(response.payload)),
       take(1),
       tap((response) => {
         if (response.hasSucceeded) {

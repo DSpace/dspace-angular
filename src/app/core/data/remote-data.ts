@@ -55,4 +55,8 @@ export class RemoteData<T> {
     return this.state === RemoteDataState.Success;
   }
 
+  get hasNoContent(): boolean {
+    return this.statusCode === 204;
+  }
+
 }

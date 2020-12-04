@@ -30,6 +30,6 @@ export class ItemVersionHistoryComponent {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.parent.data.pipe(map((data) => data.item)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Item>>;
+    this.itemRD$ = this.route.parent.data.pipe(map((data) => data.dso)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Item>>;
   }
 }

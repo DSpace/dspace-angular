@@ -20,9 +20,9 @@ import {
 } from '../../../../shared/remote-data.utils';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { EditInPlaceFieldComponent } from './edit-in-place-field.component';
-import { FilterInputSuggestionsComponent } from '../../../../shared/input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { MockComponent, MockDirective } from 'ng-mocks';
 import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
+import { ValidationSuggestionsComponent } from '../../../../shared/input-suggestions/validation-suggestions/validation-suggestions.component';
 
 let comp: EditInPlaceFieldComponent;
 let fixture: ComponentFixture<EditInPlaceFieldComponent>;
@@ -88,7 +88,7 @@ describe('EditInPlaceFieldComponent', () => {
       declarations: [
         EditInPlaceFieldComponent,
         MockDirective(DebounceDirective),
-        MockComponent(FilterInputSuggestionsComponent)
+        MockComponent(ValidationSuggestionsComponent)
       ],
       providers: [
         { provide: RegistryService, useValue: metadataFieldService },

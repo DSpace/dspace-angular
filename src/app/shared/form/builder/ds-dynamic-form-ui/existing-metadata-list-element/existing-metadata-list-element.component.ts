@@ -138,7 +138,7 @@ export class ReorderableRelationship extends Reorderable {
   templateUrl: './existing-metadata-list-element.component.html',
   styleUrls: ['./existing-metadata-list-element.component.scss']
 })
-export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy {
+export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() listId: string;
   @Input() submissionItem: Item;
   @Input() reoRel: ReorderableRelationship;
