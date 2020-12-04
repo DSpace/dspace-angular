@@ -787,6 +787,8 @@
 
   "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
 
+  "collection.edit.tabs.source.form.adminEmail": "Admin's email",
+
   "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
 
   "collection.edit.tabs.source.form.harvestType": "Content being harvested",
@@ -804,6 +806,10 @@
   "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
 
   "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
+
+  "collection.edit.tabs.source.form.preTransform": "Pre transformation name",
+
+  "collection.edit.tabs.source.form.postTransform": "Post transformation name",
 
   "collection.edit.tabs.source.head": "Content Source",
 
