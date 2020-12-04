@@ -136,12 +136,13 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     }));
     this.canEdit$ = this.groupDataService.getActiveGroup().pipe(
       switchMap((group: Group) => {
+        console.log(group);
         return observableCombineLatest(
-          this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
+          this.authorizationService.isAuthorized(FeatureID.CanDelete, isNotEmpty(group) ? group.self : undefined),
           this.hasLinkedDSO(group),
           (isAuthorized: ObservedValueOf<Observable<boolean>>, hasLinkedDSO: ObservedValueOf<Observable<boolean>>) => {
             return isAuthorized && !hasLinkedDSO;
-          })
+          });
       })
     );
     observableCombineLatest(
@@ -360,11 +361,11 @@ export class GroupFormComponent implements OnInit, OnDestroy {
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.title', { name: group.name }),
                     this.translateService.get(this.messagePrefix + '.notification.deleted.failure.content', { cause: optionalErrorMessage }));
                 }
-              })
+              });
           }
         }
       });
-    })
+    });
   }
 
   /**
@@ -397,7 +398,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           if (hasValue(rd) && hasValue(rd.payload)) {
             return true;
           } else {
-            return false
+            return false;
           }
         }),
         catchError(() => observableOf(false)),
@@ -427,7 +428,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       return this.getLinkedDSO(group).pipe(
         map((rd: RemoteData<DSpaceObject>) => {
           if (hasValue(rd) && hasValue(rd.payload)) {
-            const dso = rd.payload
+            const dso = rd.payload;
             switch ((dso as any).type) {
               case Community.type.value:
                 return getCommunityEditRolesRoute(rd.payload.id);
@@ -436,7 +437,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
             }
           }
         })
-      )
+      );
     }
   }
 }

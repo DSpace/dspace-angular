@@ -81,7 +81,7 @@ export class ProcessDetailComponent implements OnInit {
     this.retrievingOutputLogs$ = new BehaviorSubject<boolean>(false);
     this.processRD$ = this.route.data.pipe(
       map((data) => {
-        return data.process as RemoteData<Process>
+        return data.process as RemoteData<Process>;
       }),
       redirectOn4xx(this.router, this.authService)
     );
@@ -128,7 +128,7 @@ export class ProcessDetailComponent implements OnInit {
               return hasValue(token) ? new URLCombiner(url, `?authentication-token=${token}`).toString() : url;
             }));
         })
-      )
+      );
     });
     this.outputLogs$ = this.outputLogFileUrl$.pipe(take(1),
       mergeMap((url: string) => {

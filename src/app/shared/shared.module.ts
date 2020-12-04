@@ -425,22 +425,10 @@ const COMPONENTS = [
   BundleListElementComponent,
   StartsWithDateComponent,
   StartsWithTextComponent,
-  ItemVersionsNoticeComponent,
-  ClaimedTaskActionsApproveComponent,
-  ClaimedTaskActionsRejectComponent,
-  ClaimedTaskActionsReturnToPoolComponent,
-  ClaimedTaskActionsEditMetadataComponent,
-  CollectionDropdownComponent,
-  FileDownloadLinkComponent,
-  CurationFormComponent,
-  ExportMetadataSelectorComponent,
-  ConfirmationModalComponent,
-  VocabularyTreeviewComponent,
   SidebarSearchListElementComponent,
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
-  AuthorizedCollectionSelectorComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -495,14 +483,13 @@ const DIRECTIVES = [
   providers: [
     ...PROVIDERS
   ],
-    exports: [
-        ...MODULES,
-        ...PIPES,
-        ...COMPONENTS,
-        ...SHARED_ITEM_PAGE_COMPONENTS,
-        ...DIRECTIVES,
-    TranslateModule,
-        CurationFormComponent
+  exports: [
+    ...MODULES,
+    ...PIPES,
+    ...COMPONENTS,
+    ...SHARED_ITEM_PAGE_COMPONENTS,
+    ...DIRECTIVES,
+    TranslateModule
   ]
 })
 

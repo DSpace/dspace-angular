@@ -1,10 +1,10 @@
+import { distinctUntilChanged, filter, map, mergeMap, share, switchMap, take, tap } from 'rxjs/operators';
 import {
-  distinctUntilChanged,
-  filter, first,map, mergeMap, share, switchMap,
-  take,
-  tap
-} from 'rxjs/operators';
-import { merge as observableMerge, Observable, throwError as observableThrowError, combineLatest as observableCombineLatest } from 'rxjs';
+  combineLatest as observableCombineLatest,
+  merge as observableMerge,
+  Observable,
+  throwError as observableThrowError
+} from 'rxjs';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
@@ -13,7 +13,7 @@ import { HALResource } from '../shared/hal-resource.model';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { DeleteRequest, FindListOptions, FindByIDRequest, RestRequest } from './request.models';
+import { DeleteRequest, FindByIDRequest, FindListOptions, RestRequest } from './request.models';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -28,7 +28,7 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { RestResponse } from '../cache/response.models';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import {Collection} from '../shared/collection.model';
+import { Collection } from '../shared/collection.model';
 
 export abstract class ComColDataService<T extends CacheableObject> extends DataService<T> {
   protected abstract cds: CommunityDataService;
@@ -132,7 +132,7 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
       take(1),
     ).subscribe((rd: RemoteData<any>) => {
       const href = rd.hasSucceeded && !isEmpty(rd.payload.id) ? rd.payload.id : this.halService.getEndpoint('communities/search/top');
-      this.requestService.removeByHrefSubstring(href)
+      this.requestService.removeByHrefSubstring(href);
     });
   }
 

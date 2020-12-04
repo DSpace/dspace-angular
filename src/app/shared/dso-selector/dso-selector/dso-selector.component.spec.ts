@@ -42,7 +42,7 @@ describe('DSOSelectorComponent', () => {
         return createSuccessfulRemoteDataObject$(createPaginatedList(nextPageResults));
       }
     }
-  }
+  };
 
   function createSearchResult(name: string): ItemSearchResult {
     return Object.assign(new ItemSearchResult(), {
@@ -56,7 +56,7 @@ describe('DSOSelectorComponent', () => {
           ]
         }
       })
-    })
+    });
   }
 
   beforeEach(async(() => {

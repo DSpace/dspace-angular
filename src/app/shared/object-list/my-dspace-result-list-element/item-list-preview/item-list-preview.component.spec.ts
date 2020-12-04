@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -9,6 +9,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;
@@ -66,7 +67,7 @@ const mockItemWithEntityType: Item = Object.assign(new Item(), {
 });
 
 describe('ItemListPreviewComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -75,6 +76,7 @@ describe('ItemListPreviewComponent', () => {
             useClass: TranslateLoaderMock
           }
         }),
+        NoopAnimationsModule
       ],
       declarations: [ItemListPreviewComponent, TruncatePipe],
       providers: [
@@ -88,7 +90,7 @@ describe('ItemListPreviewComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemListPreviewComponent);
     component = fixture.componentInstance;
 

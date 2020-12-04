@@ -77,7 +77,7 @@ export interface VirtualMetadataSource {
 }
 
 export interface RelationshipIdentifiable extends Identifiable {
-  nameVariant?: string,
+  nameVariant?: string;
   relatedItem: Item;
   relationship: Relationship;
   type: RelationshipType;

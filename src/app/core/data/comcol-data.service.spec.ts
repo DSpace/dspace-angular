@@ -10,14 +10,13 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindByIDRequest, FindListOptions } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
-import {createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$} from '../../shared/remote-data.utils';
+import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 const LINK_NAME = 'test';
 
@@ -192,7 +191,7 @@ describe('ComColDataService', () => {
         };
         service = initTestService();
 
-      })
+      });
       describe('cache refreshed top level community', () => {
         beforeEach(() => {
           spyOn(rdbService, 'buildSingle').and.returnValue(createNoContentRemoteDataObject$());

@@ -45,7 +45,7 @@ describe('ProcessDetailComponent', () => {
   let processOutput;
 
   function init() {
-    processOutput = 'Process Started'
+    processOutput = 'Process Started';
     process = Object.assign(new Process(), {
       processId: 1,
       scriptName: 'script-name',

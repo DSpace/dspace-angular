@@ -133,7 +133,7 @@ export function app() {
       windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
       max: (environment.ui as UIServerConfig).rateLimiter.max
     });
-    app.use(limiter);
+    server.use(limiter);
   }
 
   /*

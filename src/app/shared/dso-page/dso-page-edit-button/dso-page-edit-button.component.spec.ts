@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { By } from '@angular/platform-browser';
-import { TooltipModule } from 'ngx-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('DsoPageEditButtonComponent', () => {
   let component: DsoPageEditButtonComponent;
@@ -29,7 +29,7 @@ describe('DsoPageEditButtonComponent', () => {
     });
     TestBed.configureTestingModule({
       declarations: [ DsoPageEditButtonComponent ],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), TooltipModule.forRoot()],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService }
       ]

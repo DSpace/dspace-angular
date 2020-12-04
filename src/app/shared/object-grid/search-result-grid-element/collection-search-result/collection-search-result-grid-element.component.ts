@@ -30,6 +30,7 @@ export class CollectionSearchResultGridElementComponent extends SearchResultGrid
     super(truncatableService, bitstreamDataService);
   }
 
+  // @ts-ignore
   @Input() set dso(dso: Collection) {
     this._dso = dso;
     if (hasValue(this._dso) && hasNoValue(this._dso.logo)) {

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { createSelector, Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
-import { Observable, of as observableOf } from 'rxjs';
+
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+
 import { AppState } from '../app.reducer';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { FindListOptions } from '../core/data/request.models';
@@ -149,7 +150,7 @@ export class CommunityListService {
       })
     );
     return topComs$.pipe(switchMap((topComs: PaginatedList<Community>) => this.transformListOfCommunities(topComs, 0, null, expandedNodes)));
-  };
+  }
 
   /**
    * Puts the initial top level communities in a list to be called upon
@@ -304,13 +305,7 @@ export class CommunityListService {
 
     let hasChildren$: Observable<boolean>;
     hasChildren$ = observableCombineLatest(hasSubcoms$, hasColls$).pipe(
-      map(([hasSubcoms, hasColls]: [boolean, boolean]) => {
-        if (hasSubcoms || hasColls) {
-          return true;
-        } else {
-          return false;
-        }
-      })
+      map(([hasSubcoms, hasColls]: [boolean, boolean]) => hasSubcoms || hasColls)
     );
 
     return hasChildren$;

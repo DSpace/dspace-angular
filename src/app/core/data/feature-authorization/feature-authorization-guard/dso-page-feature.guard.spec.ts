@@ -6,7 +6,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { DSpaceObject } from '../../../shared/dspace-object.model';
 import { DsoPageFeatureGuard } from './dso-page-feature.guard';
 import { FeatureID } from '../feature-id';
-import { Observable } from 'rxjs/internal/Observable';
 import { AuthService } from '../../../auth/auth.service';
 
 /**

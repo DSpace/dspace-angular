@@ -15,7 +15,6 @@ import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operato
   selector: 'ds-search-result-grid-element',
   template: ``
 })
-
 export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
   /**
    * The DSpaceObject of the search result

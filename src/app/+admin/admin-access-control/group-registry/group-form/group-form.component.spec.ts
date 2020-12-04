@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -52,7 +52,7 @@ describe('GroupFormComponent', () => {
   let groupDescription;
   let expected;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     groups = [GroupMock, GroupMock2];
     groupName = 'testGroupName';
     groupDescription = 'testDescription';
@@ -103,7 +103,7 @@ describe('GroupFormComponent', () => {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
         return null;
       }
-    }
+    };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
     router = new RouterMock();
@@ -145,10 +145,6 @@ describe('GroupFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create GroupFormComponent', inject([GroupFormComponent], (comp: GroupFormComponent) => {
-    expect(comp).toBeDefined();
-  }));
-
   describe('when submitting the form', () => {
     beforeEach(() => {
       spyOn(component.submitForm, 'emit');
@@ -161,7 +157,7 @@ describe('GroupFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a new group using the correct values', async(() => {
+      it('should emit a new group using the correct values', waitForAsync(() => {
         fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
         });
@@ -176,8 +172,9 @@ describe('GroupFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit the existing group using the correct new values', async(() => {
+      it('should emit the existing group using the correct new values', waitForAsync(() => {
         const expected2 = Object.assign(new Group(), {
+          id: undefined,
           name: 'newGroupName',
           metadata: {
             'dc.description': [
@@ -186,6 +183,7 @@ describe('GroupFormComponent', () => {
               }
             ],
           },
+          _links: undefined
         });
         fixture.whenStable().then(() => {
           expect(component.submitForm.emit).toHaveBeenCalledWith(expected2);
@@ -193,7 +191,7 @@ describe('GroupFormComponent', () => {
       }));
       it('should emit success notification', () => {
         expect(notificationService.success).toHaveBeenCalled();
-      })
+      });
     });
   });
 

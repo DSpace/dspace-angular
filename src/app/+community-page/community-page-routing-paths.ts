@@ -22,7 +22,7 @@ export function getCommunityCreateRoute() {
 }
 
 export function getCommunityEditRolesRoute(id) {
-  return new URLCombiner(getCollectionPageRoute(id), COMMUNITY_EDIT_PATH, COMMUNITY_EDIT_ROLES_PATH).toString()
+  return new URLCombiner(getCollectionPageRoute(id), COMMUNITY_EDIT_PATH, COMMUNITY_EDIT_ROLES_PATH).toString();
 }
 
 export const COMMUNITY_CREATE_PATH = 'create';

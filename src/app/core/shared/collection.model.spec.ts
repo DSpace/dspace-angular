@@ -8,7 +8,7 @@ describe('Collection', () => {
 
     beforeEach(() => {
       metadataValue = {'dc.identifier.uri': [ { value: '123456789/1'}]};
-    })
+    });
 
     it('should return the handle value from metadata', () => {
       const community = Object.assign(new Collection(), { metadata: metadataValue });

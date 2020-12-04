@@ -87,7 +87,7 @@ describe('GroupRegistryComponent', () => {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
         return createSuccessfulRemoteDataObject$(undefined);
       }
-    }
+    };
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true)
     });

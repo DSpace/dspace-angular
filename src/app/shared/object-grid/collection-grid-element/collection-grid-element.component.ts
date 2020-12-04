@@ -25,6 +25,7 @@ export class CollectionGridElementComponent extends AbstractListableElementCompo
     super();
   }
 
+  // @ts-ignore
   @Input() set object(object: Collection) {
     this._object = object;
     if (hasValue(this._object) && hasNoValue(this._object.logo)) {
