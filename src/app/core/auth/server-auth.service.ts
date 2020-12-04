@@ -13,7 +13,7 @@ import { AuthTokenInfo } from './models/auth-token-info.model';
 /**
  * The auth service.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ServerAuthService extends AuthService {
 
   /**

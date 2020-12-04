@@ -11,7 +11,7 @@ import { SearchOptions } from '../shared/search/search-options.model';
 /**
  * The statistics service
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class StatisticsService {
 
   constructor(

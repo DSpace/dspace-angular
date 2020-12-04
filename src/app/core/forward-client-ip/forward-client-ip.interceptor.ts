@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 /**
  * Http Interceptor intercepting Http Requests, adding the client's IP to their X-Forwarded-For header
  */

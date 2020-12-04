@@ -14,13 +14,13 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import {
+  hasNoValue,
   hasValue,
   hasValueOperator,
   isEmpty,
   isNotEmpty,
   isNotNull,
-  isNotUndefined,
-  hasNoValue
+  isNotUndefined
 } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
 import {
@@ -28,8 +28,8 @@ import {
   getAuthenticationToken,
   getRedirectUrl,
   isAuthenticated,
-  isTokenRefreshing,
-  isAuthenticatedLoaded
+  isAuthenticatedLoaded,
+  isTokenRefreshing
 } from './selectors';
 import { AppState } from '../../app.reducer';
 import {
@@ -53,7 +53,7 @@ export const IMPERSONATING_COOKIE = 'dsImpersonatingEPerson';
 /**
  * The auth service.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
 
   /**
@@ -100,7 +100,7 @@ export class AuthService {
         } else {
           throw(new Error('Invalid email or password'));
         }
-      }))
+      }));
 
   }
 
@@ -153,7 +153,7 @@ export class AuthService {
         } else {
           throw(new Error('Not authenticated'));
         }
-      }))
+      }));
   }
 
   /**
@@ -163,7 +163,7 @@ export class AuthService {
   public retrieveAuthenticatedUserByHref(userHref: string): Observable<EPerson> {
     return this.epersonService.findByHref(userHref).pipe(
       getAllSucceededRemoteDataPayload()
-    )
+    );
   }
 
   /**
@@ -173,7 +173,7 @@ export class AuthService {
   public retrieveAuthenticatedUserById(userId: string): Observable<EPerson> {
     return this.epersonService.findById(userId).pipe(
       getAllSucceededRemoteDataPayload()
-    )
+    );
   }
 
   /**
@@ -186,7 +186,7 @@ export class AuthService {
       hasValueOperator(),
       switchMap((id: string) => this.epersonService.findById(id) ),
       getAllSucceededRemoteDataPayload()
-    )
+    );
   }
 
   /**
@@ -273,7 +273,7 @@ export class AuthService {
         } else {
           throw(new Error('auth.errors.invalid-user'));
         }
-      }))
+      }));
   }
 
   /**
@@ -317,7 +317,7 @@ export class AuthService {
           return token.expires - (60 * 5 * 1000) < Date.now();
         }
       })
-    )
+    );
   }
 
   /**
@@ -446,7 +446,7 @@ export class AuthService {
         if (hasNoValue(currentRedirectUrl)) {
           this.setRedirectUrl(newRedirectUrl);
         }
-      })
+      });
   }
 
   /**

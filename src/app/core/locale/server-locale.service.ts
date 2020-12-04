@@ -2,9 +2,9 @@ import { LANG_ORIGIN, LocaleService } from './locale.service';
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
-import { isEmpty, isNotEmpty } from 'src/app/shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ServerLocaleService extends LocaleService {
 
   /**
@@ -52,7 +52,7 @@ export class ServerLocaleService extends LocaleService {
             }
             return languages;
           })
-        )
+        );
       })
     );
   }

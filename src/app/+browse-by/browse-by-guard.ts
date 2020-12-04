@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
 import { hasNoValue, hasValue } from '../shared/empty.util';
 import { map } from 'rxjs/operators';

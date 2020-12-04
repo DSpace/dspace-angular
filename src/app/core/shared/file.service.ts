@@ -9,7 +9,7 @@ import { hasValue } from '../../shared/empty.util';
 /**
  * Provides utility methods to save files on the client-side.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class FileService {
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
@@ -40,5 +40,5 @@ export class FileService {
     const contentDisposition = res.headers.get('content-disposition') || '';
     const matches = /filename="([^;]+)"/ig.exec(contentDisposition) || [];
     return (matches[1] || 'untitled').trim().replace(/\.[^/.]+$/, '');
-  };
+  }
 }

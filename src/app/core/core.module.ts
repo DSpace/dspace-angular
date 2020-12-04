@@ -101,7 +101,6 @@ import { Community } from './shared/community.model';
 import { DSpaceObject } from './shared/dspace-object.model';
 import { ExternalSourceEntry } from './shared/external-source-entry.model';
 import { ExternalSource } from './shared/external-source.model';
-import { FileService } from './shared/file.service';
 import { HALEndpointService } from './shared/hal-endpoint.service';
 import { ItemType } from './shared/item-relationships/item-type.model';
 import { RelationshipType } from './shared/item-relationships/relationship-type.model';
@@ -253,7 +252,6 @@ const PROVIDERS = [
   WorkspaceitemDataService,
   WorkflowItemDataService,
   UploaderService,
-  FileService,
   DSpaceObjectDataService,
   ConfigurationDataService,
   DSOChangeAnalyzer,

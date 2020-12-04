@@ -6,7 +6,7 @@ import { HardRedirectService } from './hard-redirect.service';
 /**
  * Service for performing hard redirects within the server app module
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ServerHardRedirectService extends HardRedirectService {
 
   constructor(

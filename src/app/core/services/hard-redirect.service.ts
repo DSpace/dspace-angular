@@ -5,7 +5,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 /**
  * Service to take care of hard redirects
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export abstract class HardRedirectService {
 
   /**
