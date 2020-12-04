@@ -5,6 +5,7 @@ import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 
 import { DSpaceObject } from '../../shared/dspace-object.model';
+import { DSPACE_OBJECT } from '../../shared/dspace-object.resource-type';
 import { HALLink } from '../../shared/hal-link.model';
 import { EPerson } from './eperson.model';
 import { EPERSON } from './eperson.resource-type';
@@ -41,6 +42,7 @@ export class Group extends DSpaceObject {
     self: HALLink;
     subgroups: HALLink;
     epersons: HALLink;
+    object: HALLink;
   };
 
   /**
@@ -56,5 +58,12 @@ export class Group extends DSpaceObject {
    */
   @link(EPERSON, true)
   public epersons?: Observable<RemoteData<PaginatedList<EPerson>>>;
+
+  /**
+   * Connected dspace object, the community or collection connected to a workflow group (204 no content for non-workflow groups)
+   * Will be undefined unless the object {@link HALLink} has been resolved (can only be resolved for workflow groups)
+   */
+  @link(DSPACE_OBJECT)
+  public object?: Observable<RemoteData<DSpaceObject>>;
 
 }

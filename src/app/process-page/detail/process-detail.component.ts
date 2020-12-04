@@ -12,7 +12,7 @@ import { ProcessDataService } from '../../core/data/processes/process-data.servi
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstSucceededRemoteDataPayload, redirectOn404Or401 } from '../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { hasValue } from '../../shared/empty.util';
@@ -84,7 +84,7 @@ export class ProcessDetailComponent implements OnInit {
       map((data) => {
         return data.process as RemoteData<Process>
       }),
-      redirectOn404Or401(this.router)
+      redirectOn4xx(this.router, this.authService)
     );
 
     this.filesRD$ = this.processRD$.pipe(

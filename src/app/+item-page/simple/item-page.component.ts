@@ -11,8 +11,9 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
-import { redirectOn404Or401 } from '../../core/shared/operators';
+import { redirectOn4xx } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { AuthService } from '../../core/auth/auth.service';
 import { Tab } from 'src/app/core/layout/models/tab.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 
@@ -55,6 +56,7 @@ export class ItemPageComponent implements OnInit {
     private router: Router,
     private items: ItemDataService,
     private metadataService: MetadataService,
+    private authService: AuthService,
   ) { }
 
   /**
@@ -63,7 +65,7 @@ export class ItemPageComponent implements OnInit {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>),
-      redirectOn404Or401(this.router)
+      redirectOn4xx(this.router, this.authService)
     );
     this.tabsRD$ = this.route.data.pipe(
       map((data) => data.tabs as RemoteData<PaginatedList<Tab>>),
