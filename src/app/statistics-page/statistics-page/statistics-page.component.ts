@@ -14,7 +14,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
  */
 @Component({
   selector: 'ds-statistics-page',
-  templateUrl: ''
+  template: ''
 })
 export abstract class StatisticsPageComponent<T extends DSpaceObject> implements OnInit {
 
