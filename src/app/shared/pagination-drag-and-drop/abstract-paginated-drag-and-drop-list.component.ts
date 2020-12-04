@@ -9,7 +9,7 @@ import { hasValue } from '../empty.util';
 import { paginatedListToArray } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Directive, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
 import { compareArraysUsing } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
@@ -36,7 +36,10 @@ export const compareArraysUsingFieldUuids = () =>
  *
  * An example component extending from this abstract component: PaginatedDragAndDropBitstreamListComponent
  */
-@Directive()
+@Component({
+  selector: 'ds-paginated-drag-drop-abstract',
+  template: ''
+})
 export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpaceObject> implements OnDestroy {
   /**
    * A view on the child pagination component

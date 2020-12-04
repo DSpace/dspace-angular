@@ -1,8 +1,9 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   DynamicFormControlModel,
   DynamicFormValueControlModel,
-  DynamicInputModel, DynamicSelectModel
+  DynamicInputModel,
+  DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -124,7 +125,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
    */
   setFormValues() {
     this.formModel.forEach(
-      (fieldModel: DynamicInputModel | DynamicSelectModel<string>) => {
+      (fieldModel: any) => {
         if (fieldModel.name === 'email') {
           fieldModel.value = this.user.email;
         } else {

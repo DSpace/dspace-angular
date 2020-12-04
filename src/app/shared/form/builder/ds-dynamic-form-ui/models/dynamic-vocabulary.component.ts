@@ -1,4 +1,4 @@
-import { EventEmitter, Input, Output, Directive } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import {
@@ -19,7 +19,10 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 /**
  * An abstract class to be extended by form components that handle vocabulary
  */
-@Directive()
+@Component({
+  selector: 'ds-dynamic-vocabulary',
+  template: ''
+})
 export abstract class DsDynamicVocabularyComponent extends DynamicFormControlComponent {
 
   @Input() abstract group: FormGroup;

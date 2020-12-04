@@ -1,4 +1,4 @@
-import { OnInit, Directive } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 import { map, switchMap } from 'rxjs/operators';
@@ -12,7 +12,10 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 /**
  * Class representing an abstract statistics page component.
  */
-@Directive()
+@Component({
+  selector: 'ds-statistics-page',
+  templateUrl: ''
+})
 export abstract class StatisticsPageComponent<T extends DSpaceObject> implements OnInit {
 
   /**
