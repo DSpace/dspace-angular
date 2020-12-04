@@ -16,11 +16,17 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VarDirective } from '../shared/utils/var.directive';
+import { AuthService } from '../core/auth/auth.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: [],
   relationships: createRelationshipsObservable()
+});
+
+const authService = jasmine.createSpyObj('authService', {
+  isAuthenticated: of(true),
+  setRedirectUrl: {}
 });
 
 describe('CrisItemPageComponent', () => {
@@ -43,7 +49,8 @@ describe('CrisItemPageComponent', () => {
       providers: [
         {provide: ActivatedRoute, useValue: mockRoute},
         {provide: ItemDataService, useValue: {}},
-        {provide: Router, useValue: {}}
+        {provide: Router, useValue: {}},
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
