@@ -7,12 +7,13 @@ import { flatMap, map, take } from 'rxjs/operators';
 import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
-import { getFirstSucceededRemoteDataPayload, redirectToPageNotFoundOn404 } from '../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, redirectOn4xx } from '../core/shared/operators';
 import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { ItemDataService } from '../core/data/item-data.service';
 import { OpenaireSuggestion } from '../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import { AuthService } from '../core/auth/auth.service';
 
 @Component({
   selector: 'ds-suggestion-page',
@@ -52,6 +53,7 @@ export class SuggestionsPageComponent implements OnInit {
   researcherName: any;
 
   constructor(
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private suggestionService: SuggestionsService,
@@ -68,7 +70,7 @@ export class SuggestionsPageComponent implements OnInit {
 
     this.targetRD$ = this.route.data.pipe(
       map((data: Data) => data.suggestionTargets as RemoteData<OpenaireSuggestionTarget>),
-      redirectToPageNotFoundOn404(this.router)
+      redirectOn4xx(this.router, this.authService)
     );
 
     this.targetId$ = this.targetRD$.pipe(
