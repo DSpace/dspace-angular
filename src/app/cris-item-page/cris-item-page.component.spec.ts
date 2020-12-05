@@ -34,7 +34,7 @@ describe('CrisItemPageComponent', () => {
   let fixture: ComponentFixture<CrisItemPageComponent>;
 
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: of({ item: createSuccessfulRemoteDataObject(mockItem) })
+    data: of({ dso: createSuccessfulRemoteDataObject(mockItem) })
   });
 
   beforeEach(async(() => {
