@@ -21,6 +21,7 @@
     "start:dev": "npm-run-all --parallel config:dev:watch serve",
     "start:prod": "yarn run build:prod && yarn run serve:ssr",
     "build": "ng build",
+    "build:stats": "ng build --stats-json",
     "build:prod": "yarn run build:ssr",
     "build:ssr": "yarn run build:client-and-server-bundles && yarn run compile:server",
     "ng-high-memory": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng",
@@ -48,7 +49,8 @@
     "preundeploy": "pm2 stop dist/server.js",
     "undeploy": "pm2 delete dist/server.js",
     "postundeploy": "npm run clean:dist",
-    "sync-i18n": "yarn run config:dev && ts-node --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts"
+    "sync-i18n": "yarn run config:dev && ts-node --project ./tsconfig.ts-node.json scripts/sync-i18n-files.ts",
+    "view-stats": "webpack-bundle-analyzer dist/browser/stats.json"
   },
   "browser": {
     "fs": false,
