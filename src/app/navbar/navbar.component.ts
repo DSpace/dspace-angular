@@ -55,19 +55,6 @@ export class NavbarComponent extends MenuComponent {
           link: `/community-list`
         } as LinkMenuItemModel
       },
-
-      /* Statistics */
-      {
-        id: 'statistics',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.statistics',
-          link: ''
-        } as LinkMenuItemModel,
-        index: 2
-      },
     ];
 
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, Object.assign(menuSection, {

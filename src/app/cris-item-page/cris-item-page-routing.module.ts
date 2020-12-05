@@ -9,7 +9,7 @@ const routes: Routes = [
     path: ':id',
     component: CrisItemPageComponent,
     resolve: {
-      item: CrisItemPageResolver,
+      dso: CrisItemPageResolver,
       breadcrumb: ItemBreadcrumbResolver
     }
   },
@@ -17,7 +17,7 @@ const routes: Routes = [
     path: ':id/:tab',
     component: CrisItemPageComponent,
     resolve: {
-      item: CrisItemPageResolver,
+      dso: CrisItemPageResolver,
       breadcrumb: ItemBreadcrumbResolver
     }
   }

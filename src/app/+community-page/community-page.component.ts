@@ -13,7 +13,8 @@ import { MetadataService } from '../core/metadata/metadata.service';
 
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
-import { redirectToPageNotFoundOn404 } from '../core/shared/operators';
+import { redirectOn4xx } from '../core/shared/operators';
+import { AuthService } from '../core/auth/auth.service';
 
 @Component({
   selector: 'ds-community-page',
@@ -39,7 +40,8 @@ export class CommunityPageComponent implements OnInit {
     private communityDataService: CommunityDataService,
     private metadata: MetadataService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {
 
   }
@@ -47,7 +49,7 @@ export class CommunityPageComponent implements OnInit {
   ngOnInit(): void {
     this.communityRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Community>),
-      redirectToPageNotFoundOn404(this.router)
+      redirectOn4xx(this.router, this.authService)
     );
     this.logoRD$ = this.communityRD$.pipe(
       map((rd: RemoteData<Community>) => rd.payload),

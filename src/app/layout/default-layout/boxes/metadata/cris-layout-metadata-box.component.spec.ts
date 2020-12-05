@@ -89,9 +89,10 @@ describe('CrisLayoutMetadataBoxComponent', () => {
     fixture.detectChanges();
   });
 
-  it('check rows rendering', () => {
+  it('check rows rendering', (done) => {
     const rowsFound = fixture.debugElement.queryAll(By.css('div[ds-row]'));
 
     expect(rowsFound.length).toEqual(2);
+    done()
   });
 });

@@ -92,20 +92,18 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Get all collections the user is authorized to submit to
    *
    * @param query limit the returned collection to those with metadata values matching the query terms.
-   * @param metadata limit the returned collection to those that have the metadata contained in this parameter.
-   * @param metadatavalue limit the returned collection to those with metadata value matching this parameter.
+   * @param entityType The entity type used to limit the returned collection
    * @param options The [[FindListOptions]] object
    * @param linksToFollow The array of [[FollowLinkConfig]]
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollectionAndMetadata(query: string, metadata: string, metadatavalue: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
-    const searchHref = 'findSubmitAuthorizedAndMetadata';
+  getAuthorizedCollectionByEntityType(query: string, entityType: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findSubmitAuthorizedByEntityType';
     options = Object.assign({}, options, {
       searchParams: [
         new RequestParam('query', query),
-        new RequestParam('metadata', metadata),
-        new RequestParam('metadatavalue', metadatavalue)
+        new RequestParam('entityType', entityType)
       ]
     });
 
@@ -138,18 +136,22 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Get all collections the user is authorized to submit to, by community and has the metadata
    *
    * @param communityId The community id
-   * @param entityType The entity type
+   * @param entityType The entity type used to limit the returned collection
    * @param options The [[FindListOptions]] object
    * @param linksToFollow The array of [[FollowLinkConfig]]
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  findAuthorizedByCommunityAndRelationshipType(communityId: string, entityType: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>)
-    : Observable<RemoteData<PaginatedList<Collection>>> {
-    const searchHref = 'findSubmitAuthorizedByCommunityAndMetadata';
-    const searchParams =  [new RequestParam('uuid', communityId),
-                           new RequestParam('metadata', 'relationship.type')];
-    searchParams.push(new RequestParam('metadatavalue', entityType));
+  getAuthorizedCollectionByCommunityAndEntityType(
+    communityId: string,
+    entityType: string,
+    options: FindListOptions = {},
+    ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findSubmitAuthorizedByCommunityAndEntityType';
+    const searchParams = [
+      new RequestParam('uuid', communityId),
+      new RequestParam('entityType', entityType)
+    ];
 
     options = Object.assign({}, options, {
       searchParams: searchParams

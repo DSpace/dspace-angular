@@ -6,6 +6,16 @@
 
   "401.unauthorized": "unauthorized",
 
+
+
+  "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+
+  "403.link.home-page": "Take me to the home page",
+
+  "403.forbidden": "forbidden",
+
+
+
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
 
   "404.link.home-page": "Take me to the home page",
@@ -284,6 +294,10 @@
 
   "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
 
+  "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
+
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
 
   "admin.access-control.epeople.form.table.id": "ID",
@@ -301,6 +315,10 @@
 
 
   "admin.access-control.groups.title": "DSpace Angular :: Groups",
+
+  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
+
+  "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
 
   "admin.access-control.groups.head": "Groups",
 
@@ -330,12 +348,19 @@
 
   "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
 
-  "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
+
+  "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
 
   "admin.access-control.groups.notification.edit.success": "Successfully edited group \"{{name}}\"",
 
   "admin.access-control.groups.notification.edit.failure": "Failed to edit group \"{{name}}\"",
 
+
+
+  "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+
+  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
 
   "admin.access-control.groups.form.head.create": "Create group",
 
@@ -350,6 +375,28 @@
   "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
 
   "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+
+  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+
+  "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+
+  "admin.access-control.groups.form.actions.delete": "Delete Group",
+
+  "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+
+  "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
+
+  "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
+
+  "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
+
+  "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+
+  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
 
   "admin.access-control.groups.form.members-list.head": "EPeople",
 
@@ -576,6 +623,12 @@
 
   "browse.metadata.dateissued": "Issue Date",
 
+  "browse.metadata.eqdatecreated": "Date Created",
+
+  "browse.metadata.eqdatemodified": "Date Modified",
+
+  "browse.metadata.eqtitle": "Title",
+
   "browse.metadata.ouname" : "Name",
 
   "browse.metadata.pjtitle" : "Title",
@@ -595,6 +648,12 @@
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
+
+  "browse.metadata.eqdatecreated.breadcrumbs": "Browse by Creation Date",
+
+  "browse.metadata.eqdatemodified.breadcrumbs": "Browse by Modification Date",
+
+  "browse.metadata.eqtitle.breadcrumbs": "Browse by Title",
 
   "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
 
@@ -784,6 +843,8 @@
 
   "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
 
+  "collection.edit.tabs.source.form.adminEmail": "Admin's email",
+
   "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
 
   "collection.edit.tabs.source.form.harvestType": "Content being harvested",
@@ -801,6 +862,10 @@
   "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
 
   "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
+
+  "collection.edit.tabs.source.form.preTransform": "Pre transformation name",
+
+  "collection.edit.tabs.source.form.postTransform": "Post transformation name",
 
   "collection.edit.tabs.source.head": "Content Source",
 
@@ -841,6 +906,10 @@
   "collection.edit.template.title": "Edit Template Item",
 
 
+  "collection-export.success": "Export of the collection's items started successfully",
+
+  "collection-export.error": "An error occurs starting the collection's items export",
+
 
   "collection.form.abstract": "Short Description",
 
@@ -872,7 +941,11 @@
 
   "collection.page.browse.recent.empty": "No items to show",
 
+  "collection.page.edit": "Edit this collection",
+
   "collection.page.bulk-import": "Import items into this collection",
+
+  "collection.page.export": "Export items from this collection",
 
   "collection.page.handle": "Permanent URI for this collection",
 
@@ -1037,6 +1110,8 @@
 
   "community.form.title": "Name",
 
+  "community.page.edit": "Edit this community",
+
   "community.page.handle": "Permanent URI for this community",
 
   "community.page.license": "License",
@@ -1150,6 +1225,8 @@
 
   "dso-selector.create.collection.head": "New collection",
 
+  "dso-selector.create.collection.sub-level": "Create a new collection in",
+
   "dso-selector.create.community.head": "New community",
 
   "dso-selector.create.community.sub-level": "Create a new community in",
@@ -1157,6 +1234,8 @@
   "dso-selector.create.community.top-level": "Create a new top-level community",
 
   "dso-selector.create.item.head": "New item",
+
+  "dso-selector.create.item.sub-level": "Create a new item in",
 
   "dso-selector.create.submission.head": "New submission",
 
@@ -1182,7 +1261,15 @@
 
   "confirmation-modal.export-metadata.confirm": "Export",
 
+  "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
 
+  "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
+
+  "confirmation-modal.delete-eperson.cancel": "Cancel",
+
+  "confirmation-modal.delete-eperson.confirm": "Delete",
+
+  "equipment.listelement.badge": "Equipment",
 
   "error.bitstream": "Error fetching bitstream",
 
@@ -1233,6 +1320,11 @@
 
   "explore.index.birthDate" : "Birthday",
 
+  "explore.index.chart.pie.itemtype_filter" : "Item Type",
+
+  "explore.index.chart.bar.dateIssued.year": "Year",
+
+
   "explore.index.dateIssued" : "Date issued",
 
   "explore.index.dateissued" : "Date issued",
@@ -1241,13 +1333,25 @@
 
   "explore.index.dc.title" : "Title",
 
+  "explore.index.editor" : "Editor",
+
+  "explore.index.eqtitle" : "Title",
+
+  "explore.index.eqowner" : "Researcher",
+
+  "explore.index.eqorgunit" : "Organization",
+
   "explore.index.entityType" : "Entity type",
 
   "explore.index.familyName" : "Family name",
 
+  "explore.index.funding" : "Funding",
+
   "explore.index.givenName" : "Given name",
 
   "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
+
+  "explore.index.investigators" : "Researchers",
 
   "explore.index.isAuthorOfPublication" : "Publication's author",
 
@@ -1283,6 +1387,8 @@
 
   "explore.index.knowsLanguage" : "Knows languages",
 
+  "explore.index.organization" : "Organization",
+
   "explore.index.organizationAddressCountry" : "Organization address country",
 
   "explore.index.organizationAddressLocality" : "Organization address locality",
@@ -1296,6 +1402,10 @@
   "explore.index.original_bundle_filenames" : "Original bundle filenames",
 
   "explore.index.ouname" : "Name",
+
+  "explore.index.projectOrgUnits" : "Organizations",
+
+  "explore.index.personOrgUnits" : "Organizations",
 
   "explore.index.pjtitle" : "Title",
 
@@ -1313,11 +1423,17 @@
 
   "explore.index.type" : "Type",
 
+  "explore.search-section.infrastructure.title": "Infrastructure",
+
   "explore.search-section.fundings.title": "Search Projects",
+
+  "explore.search-section.fundings_and_projects.title": "Search Projects",
 
   "explore.search-section.orgunits.title": "Search Organizations",
 
   "explore.search-section.publications.title": "Search Research Outputs",
+
+  "explore.search-section.researchoutputs.title": "Search Research Outputs",
 
   "explore.search-section.researcherprofiles.title": "Search People",
 
@@ -1325,15 +1441,25 @@
 
   "explore.search-section.reset-button": "Reset",
 
+  "explore.infrastructure.breadcrumbs": "Infrastructure",
+
   "explore.fundings.breadcrumbs": "Projects",
+
+  "explore.fundings_and_projects.breadcrumbs": "Projects",
 
   "explore.orgunits.breadcrumbs": "Organizations",
 
   "explore.publications.breadcrumbs": "Research Outputs",
 
+  "explore.researchoutputs.breadcrumbs": "Research Outputs",
+
   "explore.researcherprofiles.breadcrumbs": "People",
 
   "explore.title": "Explore section",
+
+
+  "file-section.error.header": "Error obtaining files for this item",
+
 
 
   "footer.copyright": "copyright © 2002-{{ year }}",
@@ -1460,9 +1586,12 @@
 
   "form.submit": "Submit",
 
+  "funding.listelement.badge" : "Funding",
 
 
   "home.description": "",
+
+  "home.breadcrumbs": "Home",
 
   "home.title": "DSpace Cris Angular :: Home",
 
@@ -1672,6 +1801,8 @@
 
   "item.edit.metadata.notifications.discarded.title": "Changed discarded",
 
+  "item.edit.metadata.notifications.error.title": "An error occurred",
+
   "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
 
   "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
@@ -1766,15 +1897,19 @@
 
   "item.edit.relationships.discard-button": "Discard",
 
+  "item.edit.relationships.edit.buttons.add": "Add",
+
   "item.edit.relationships.edit.buttons.remove": "Remove",
 
   "item.edit.relationships.edit.buttons.undo": "Undo changes",
+
+  "item.edit.relationships.no-relationships": "No relationships",
 
   "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
 
   "item.edit.relationships.notifications.discarded.title": "Changes discarded",
 
-  "item.edit.relationships.notifications.failed.title": "Error deleting relationship",
+  "item.edit.relationships.notifications.failed.title": "Error editing relationships",
 
   "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
 
@@ -1890,6 +2025,8 @@
 
   "item.page.date": "Date",
 
+  "item.page.edit": "Edit this item",
+
   "item.page.files": "Files",
 
   "item.page.filesection.description": "Description:",
@@ -1934,25 +2071,65 @@
 
   "item.page.filesection.license.bundle" : "License bundle",
 
+  "item.preview.dc.description.tableOfContents" : "Table of Contents",
+
+  "item.preview.dc.identifier.doi" : "DOI",
+
+  "item.preview.dc.publisher" : "Publisher",
+
+  "item.preview.dc.relation.ispartof" : "Journal or Serie",
+
+  "item.preview.dc.identifier.isbn" : "ISBN",
+
   "item.preview.dc.identifier.uri": "Identifier:",
 
+  "item.preview.dc.contributor.advisor" : "Advisor",
+
   "item.preview.dc.contributor.author": "Authors:",
+
+  "item.preview.dc.contributor.editor": "Editors:",
+
+  "item.preview.dc.date.embargoEnd" : "Embargo End",
 
   "item.preview.dc.date.issued": "Published date:",
 
   "item.preview.dc.description.abstract": "Abstract:",
 
+  "item.preview.dc.description.sponsorship" : "Sponsorship",
+
   "item.preview.dc.identifier.other": "Other identifier:",
 
+  "item.preview.dc.identifier.pmid" : "Pubmed Id",
+
   "item.preview.dc.language.iso": "Language:",
+
+  "item.preview.dc.relation.uri" : "Relation URI",
+
+  "item.preview.dc.rights" : "Rights",
+
+  "item.preview.dc.rights.uri" : "Rights URI",
 
   "item.preview.dc.subject": "Subjects:",
 
   "item.preview.dc.title": "Title:",
 
+  "item.preview.dc.title.alternative" : "Alternative Title",
+
+  "item.preview.dc.type": "Type:",
+
+  "item.preview.dc.type.version" : "Version",
+
   "item.preview.dc.identifier": "Identifier:",
 
   "item.preview.dc.source": "Source:",
+
+  "item.preview.dc.relation.isbn" : "ISBN",
+
+  "item.preview.dc.relation.issn" : "ISSN",
+
+  "item.preview.oaire.citation.issue" : "Issue",
+
+  "item.preview.oaire.citation.volume" : "Volume",
 
   "item.preview.person.familyName": "Surname:",
 
@@ -2000,6 +2177,8 @@
 
   "journal.page.description": "Description",
 
+  "journal.page.edit": "Edit this item",
+
   "journal.page.editor": "Editor-in-Chief",
 
   "journal.page.issn": "ISSN",
@@ -2018,6 +2197,8 @@
 
   "journalissue.page.description": "Description",
 
+  "journalissue.page.edit": "Edit this item",
+
   "journalissue.page.issuedate": "Issue Date",
 
   "journalissue.page.journal-issn": "Journal ISSN",
@@ -2035,6 +2216,8 @@
   "journalvolume.listelement.badge": "Journal Volume",
 
   "journalvolume.page.description": "Description",
+
+  "journalvolume.page.edit": "Edit this item",
 
   "journalvolume.page.issuedate": "Issue Date",
 
@@ -2148,13 +2331,19 @@
 
   "menu.section.browse_community_by_title": "By Title",
 
+  "menu.section.explore_infrastructure": "Infrastructure",
+
   "menu.section.explore_publications": "Research Outputs",
+
+  "menu.section.explore_researchoutputs": "Research Outputs",
 
   "menu.section.explore_researcherprofiles": "People",
 
   "menu.section.explore_orgunits": "Organizations",
 
   "menu.section.explore_fundings": "Projects",
+
+  "menu.section.explore_fundings_and_projects": "Projects",
 
   "menu.section.communities_and_collections": "Communities & Collections",
 
@@ -2568,6 +2757,8 @@
 
   "orgunit.page.description": "Description",
 
+  "orgunit.page.edit": "Edit this item",
+
   "orgunit.page.id": "ID",
 
   "orgunit.page.titleprefix": "Organizational Unit: ",
@@ -2586,7 +2777,11 @@
 
   "person.listelement.badge": "Person",
 
+  "person.listelement.no-title": "No name found",
+
   "person.page.birthdate": "Birth Date",
+
+  "person.page.edit": "Edit this item",
 
   "person.page.email": "Email Address",
 
@@ -2749,7 +2944,11 @@
 
   "process.detail.output" : "Process Output",
 
-  "process.detail.output.alert" : "Work in progress - Process output is not available yet",
+  "process.detail.logs.button": "Retrieve process output",
+
+  "process.detail.logs.loading": "Retrieving",
+
+  "process.detail.logs.none": "This process has no output",
 
   "process.detail.output-files" : "Output Files",
 
@@ -2787,6 +2986,49 @@
 
   "process.overview.new": "New",
 
+
+  "audit.overview.title": "Audit Logs Overview",
+
+  "audit.overview.table.id" : "Audit ID",
+
+  "audit.overview.table.objectUUID" : "Object ID",
+
+  "audit.overview.table.objectType" : "Object Type",
+
+  "audit.overview.table.subjectUUID" : "Subject ID",
+
+  "audit.overview.table.subjectType" : "Subject Type",
+
+  "audit.overview.table.entityType" : "Audit Type",
+
+  "audit.overview.table.eperson" : "EPerson",
+
+  "audit.overview.table.timestamp" : "Time",
+
+  "audit.overview.breadcrumbs": "Audit Logs Overview",
+
+  "audit.object.overview.title": "Subject Audit Logs Overview",
+
+
+  "audit.detail.title" : "Audit Detail",
+
+  "audit.detail.id" : "Audit Id",
+
+  "audit.detail.subjectUUID" : "Subject ID",
+
+  "audit.detail.subjectType" : "Subject Type",
+
+  "audit.detail.eventType" : "Audit Type",
+
+  "audit.detail.eperson" : "EPerson",
+
+  "audit.detail.timeStamp" : "Time",
+
+  "audit.detail.back" : "All Audit Logs",
+
+  "audit.detail.back.subject": "Subject Audit Logs",
+
+  "patent.listelement.badge": "Patent",
 
   "profile.breadcrumbs": "Update Profile",
 
@@ -2912,6 +3154,8 @@
 
   "project.page.description": "Description",
 
+  "project.page.edit": "Edit this item",
+
   "project.page.expectedcompletion": "Expected Completion",
 
   "project.page.funder": "Funders",
@@ -2931,6 +3175,8 @@
   "publication.listelement.badge": "Publication",
 
   "publication.page.description": "Description",
+
+  "publication.page.edit": "Edit this item",
 
   "publication.page.journal-issn": "Journal ISSN",
 
@@ -3017,6 +3263,10 @@
 
 
   "relationships.isAuthorOf": "Authors",
+
+  "relationships.isAuthorOf.Person": "Authors (persons)",
+
+  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
 
   "relationships.isIssueOf": "Journal Issues",
 
@@ -3209,6 +3459,14 @@
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
 
+  "search.filters.filter.chart.bar.dateIssued.year.head": "Year",
+
+  "search.filters.filter.chart.bar.dateIssued.year.placeholder": "Year",
+
+  "search.filters.filter.chart.pie.itemtype_filter.head": "Type",
+
+  "search.filters.filter.chart.pie.itemtype_filter.placeholder": "Type",
+
   "search.filters.filter.creativeDatePublished.head": "Date Published",
 
   "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
@@ -3237,17 +3495,37 @@
 
   "search.filters.filter.discoverable.head": "Private",
 
+  "search.filters.filter.editor.head": "Editor",
+
+  "search.filters.filter.editor.placeholder": "Editor",
+
   "search.filters.filter.withdrawn.head": "Withdrawn",
 
   "search.filters.filter.entityType.head": "Item Type",
 
   "search.filters.filter.entityType.placeholder": "Item Type",
 
+  "search.filters.filter.eqowner.head": "Researcher",
+
+  "search.filters.filter.eqowner.placeholder": "Researcher",
+
+  "search.filters.filter.eqorgunit.head": "Organization",
+
+  "search.filters.filter.eqorgunit.placeholder": "Organization",
+
+  "search.filters.filter.funding.head": "Funding",
+
+  "search.filters.filter.funding.placeholder": "Funding",
+
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
   "search.filters.filter.itemtype.head": "Type",
 
   "search.filters.filter.itemtype.placeholder": "Type",
+
+  "search.filters.filter.investigators.head": "Researcher",
+
+  "search.filters.filter.investigators.placeholder": "Researcher",
 
   "search.filters.filter.jobTitle.head": "Job Title",
 
@@ -3257,6 +3535,15 @@
 
   "search.filters.filter.knowsLanguage.placeholder": "Known language",
 
+
+  "search.filters.filter.projectOrgUnits.head" : "Organizations",
+
+  "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
+
+  "search.filters.filter.personOrgUnits.head" : "Organizations",
+
+  "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
+
   "search.filters.filter.namedresourcetype.head": "Status",
 
   "search.filters.filter.namedresourcetype.placeholder": "Status",
@@ -3264,6 +3551,10 @@
   "search.filters.filter.objectpeople.head": "People",
 
   "search.filters.filter.objectpeople.placeholder": "People",
+
+  "search.filters.filter.organization.head": "Organization",
+
+  "search.filters.filter.organization.placeholder": "Organization",
 
   "search.filters.filter.organizationAddressCountry.head": "Country",
 
@@ -3370,6 +3661,30 @@
 
 
 
+  "statistics.title": "Statistics",
+
+  "statistics.header": "Statistics for {{ scope }}",
+
+  "statistics.breadcrumbs": "Statistics",
+
+  "statistics.page.no-data": "No data available",
+
+  "statistics.table.no-data": "No data available",
+
+  "statistics.table.title.TotalVisits": "Total visits",
+
+  "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
+
+  "statistics.table.title.TotalDownloads": "File Visits",
+
+  "statistics.table.title.TopCountries": "Top country views",
+
+  "statistics.table.title.TopCities": "Top city views",
+
+  "statistics.table.header.views": "Views",
+
+
+
   "submission.edit.title": "Edit Submission",
 
   "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
@@ -3430,6 +3745,8 @@
   "submission.import-external.search.source.hint": "Pick an external source",
 
   "submission.import-external.source.arxiv": "arXiv",
+
+  "submission.import-external.source.crossref": "CrossRef",
 
   "submission.import-external.source.loading": "Loading ...",
 
@@ -3520,13 +3837,15 @@
 
   "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Author": "Import remote author",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
 
@@ -3548,9 +3867,9 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.title": "Import Remote Author",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.added.local-entity": "Successfully added local author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.added.new-entity": "Successfully imported and added external author to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
 
@@ -3568,9 +3887,15 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
 
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.crossref": "Importing from CrossRef",
+
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
 
@@ -3613,18 +3938,39 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Local Organizational Units ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Local Data Packages ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Local Data Files ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "Crossref ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidV2": "ORCID ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
 
@@ -3635,14 +3981,29 @@
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
 
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
 
   "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
 
   "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
 
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.Project": "Projects",
+
+  "submission.sections.describe.relationship-lookup.title.Publication": "Publications",
+
+  "submission.sections.describe.relationship-lookup.title.Person": "Authors",
+
+  "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organizational Units",
+
+  "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
+
+  "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
+
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
 
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
 
@@ -3659,20 +4020,39 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Selected Organizational Units",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Selected Data Packages",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Selected Data Files",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
 
+  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
 
@@ -3746,6 +4126,8 @@
 
   "submission.sections.submit.progressbar.describe.event": "Event basic information",
 
+  "submission.sections.submit.progressbar.describe.funding": "Funding basic information",
+
   "submission.sections.submit.progressbar.describe.journal": "Journal basic information",
 
   "submission.sections.submit.progressbar.describe.orgunit": "Org Unit basic information",
@@ -3755,6 +4137,8 @@
   "submission.sections.submit.progressbar.describe.patent_indexing": "Patent indexing",
 
   "submission.sections.submit.progressbar.describe.patent_references": "Patent references",
+
+  "submission.sections.submit.progressbar.describe.person": "Person basic information",
 
   "submission.sections.submit.progressbar.describe.product": "Product basic information",
 
@@ -3954,7 +4338,7 @@
 
   "uploader.drag-message": "Drag & Drop your files here",
 
-  "uploader.or": ", or",
+  "uploader.or": ", or ",
 
   "uploader.processing": "Processing",
 

@@ -39,3 +39,4 @@ package-lock.json
 .java-version
 
 .env
+/nbproject/

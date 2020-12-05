@@ -1,12 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, mergeMap, startWith, take } from 'rxjs/operators';
@@ -25,6 +17,9 @@ import { EditItemDataService } from '../../core/submission/edititem-data.service
 import { EditItem } from '../../core/submission/models/edititem.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { EditItemMode } from '../../core/submission/models/edititem-mode.model';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * This component defines the default layout for all DSpace Items.
@@ -72,9 +67,10 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
 
   constructor(
     private tabService: TabDataService,
-    public cd: ChangeDetectorRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private editItemService: EditItemDataService
+    private editItemService: EditItemDataService,
+    private authService: AuthService,
+    private authorizationService: AuthorizationDataService
   ) {
     super();
   }
@@ -175,6 +171,20 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     return this.sidebarStatus$.asObservable().pipe(
       map((status: boolean) => !status)
     );
+  }
+
+  /**
+   * Return if the user is the administrator
+   */
+  isAdministrator() {
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
+  }
+
+  /**
+   * Return if the user is authenticated
+   */
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
   }
 
   ngOnDestroy(): void {

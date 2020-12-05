@@ -6,6 +6,7 @@ import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
 import { map } from 'rxjs/operators';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
 import { FeatureAuthorizationGuard } from './feature-authorization.guard';
+import { AuthService } from '../../../auth/auth.service';
 
 /**
  * Abstract Guard for preventing unauthorized access to {@link DSpaceObject} pages that require rights for a specific feature
@@ -14,8 +15,9 @@ import { FeatureAuthorizationGuard } from './feature-authorization.guard';
 export abstract class DsoPageFeatureGuard<T extends DSpaceObject> extends FeatureAuthorizationGuard {
   constructor(protected resolver: Resolve<RemoteData<T>>,
               protected authorizationService: AuthorizationDataService,
-              protected router: Router) {
-    super(authorizationService, router);
+              protected router: Router,
+              protected authService: AuthService) {
+    super(authorizationService, router, authService);
   }
 
   /**

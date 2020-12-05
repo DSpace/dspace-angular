@@ -1,17 +1,13 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EntityDropdownComponent } from './entity-dropdown.component';
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
-import { Observable, of } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
 import { PaginatedList } from 'src/app/core/data/paginated-list';
 import { getTestScheduler } from 'jasmine-marbles';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { NO_ERRORS_SCHEMA, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { EntityTypeService } from '../../core/data/entity-type.service';
-import { FindListOptions } from 'src/app/core/data/request.models';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
@@ -52,28 +48,19 @@ const listElementMock: ItemType = Object.assign(
   }
 );
 
-// tslint:disable-next-line: max-classes-per-file
-class EntityTypeServiceMock {
-  getAllAuthorizedRelationshipType(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<PaginatedList<ItemType>>> {
-    return of(
-        createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), entities)
-        )
-    );
-  };
-  getAllAuthorizedRelationshipTypeImport(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<PaginatedList<ItemType>>> {
-    return of(
-        createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), entities)
-        )
-    );
-  };
-}
-
 describe('EntityDropdownComponent', () => {
   let component: EntityDropdownComponent;
+  let componentAsAny: any;
   let fixture: ComponentFixture<EntityDropdownComponent>;
   let scheduler: TestScheduler;
+
+  const entityTypeServiceMock: any = jasmine.createSpyObj('EntityTypeService', {
+    getAllAuthorizedRelationshipType: jasmine.createSpy('getAllAuthorizedRelationshipType'),
+    getAllAuthorizedRelationshipTypeImport: jasmine.createSpy('getAllAuthorizedRelationshipTypeImport')
+  });
+
+  const paginatedEntities = new PaginatedList(new PageInfo(), entities);
+  const paginatedEntitiesRD$ = createSuccessfulRemoteDataObject$(paginatedEntities);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -87,9 +74,9 @@ describe('EntityDropdownComponent', () => {
       ],
       declarations: [ EntityDropdownComponent ],
       providers: [
-        {provide: EntityTypeService, useClass: EntityTypeServiceMock},
-        {provide: ChangeDetectorRef, useValue: {}},
-        {provide: ElementRef, userValue: {}}
+        {provide: EntityTypeService, useValue: entityTypeServiceMock},
+        {provide: ElementRef, userValue: {}},
+        ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -100,40 +87,41 @@ describe('EntityDropdownComponent', () => {
     scheduler = getTestScheduler();
     fixture = TestBed.createComponent(EntityDropdownComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-    component.isSubmission = false;
+    componentAsAny = fixture.componentInstance;
+    componentAsAny.entityTypeService.getAllAuthorizedRelationshipType.and.returnValue(paginatedEntitiesRD$);
+    componentAsAny.entityTypeService.getAllAuthorizedRelationshipTypeImport.and.returnValue(paginatedEntitiesRD$);
+    component.isSubmission = true;
   });
 
-  it('should populate entities list with five items', () => {
+  it('should init component with entities list', () => {
+    spyOn(component.subs, 'push');
+    spyOn(component, 'resetPagination');
+    spyOn(component, 'populateEntityList').and.callThrough();
+
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
     const elements = fixture.debugElement.queryAll(By.css('.entity-item'));
+
     expect(elements.length).toEqual(5);
+    expect(component.subs.push).toHaveBeenCalled();
+    expect(component.resetPagination).toHaveBeenCalled();
+    expect(component.populateEntityList).toHaveBeenCalled();
+    expect((component as any).entityTypeService.getAllAuthorizedRelationshipType).toHaveBeenCalled();
   });
 
-  it('should trigger onSelect method when select a new entity from list', fakeAsync(() => {
+  it('should trigger onSelect method when select a new entity from list', () => {
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+
     spyOn(component, 'onSelect');
     const entityItem = fixture.debugElement.query(By.css('.entity-item:nth-child(2)'));
     entityItem.triggerEventHandler('click', null);
-    fixture.detectChanges();
-    tick();
-    fixture.whenStable().then(() => {
-      expect(component.onSelect).toHaveBeenCalled();
-    });
-  }));
 
-  it('should init component with entity list', fakeAsync(() => {
-    spyOn(component.subs, 'push').and.callThrough();
-    spyOn(component, 'resetPagination').and.callThrough();
-    spyOn(component, 'populateEntityList').and.callThrough();
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
 
-    fixture.whenStable().then(() => {
-      expect(component.subs.push).toHaveBeenCalled();
-      expect(component.resetPagination).toHaveBeenCalled();
-      expect(component.populateEntityList).toHaveBeenCalled();
-    });
-  }));
+    expect(component.onSelect).toHaveBeenCalled();
+  });
 
   it('should emit selectionChange event when selecting a new entity', () => {
     spyOn(component.selectionChange, 'emit').and.callThrough();
@@ -159,37 +147,12 @@ describe('EntityDropdownComponent', () => {
     expect(component.searchListEntity).toEqual([]);
   });
 
-  it('should invoke the method getAllAuthorizedRelationshipType of EntityTypeService', fakeAsync(() => {
-    component.isSubmission = true;
-    spyOn((component as any).entityTypeService, 'getAllAuthorizedRelationshipType').and.returnValue(
-      of(
-        createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), entities)
-        )
-      )
-    );
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect((component as any).entityTypeService.getAllAuthorizedRelationshipType).toHaveBeenCalled();
-    });
-  }));
-
-  it('should invoke the method getAllAuthorizedRelationshipTypeImport of EntityTypeService', fakeAsync(() => {
+  it('should invoke the method getAllAuthorizedRelationshipTypeImport of EntityTypeService when isSubmission is false', () => {
     component.isSubmission = false;
-    spyOn((component as any).entityTypeService, 'getAllAuthorizedRelationshipTypeImport').and.returnValue(
-      of(
-        createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), entities)
-        )
-      )
-    );
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect((component as any).entityTypeService.getAllAuthorizedRelationshipTypeImport).toHaveBeenCalled();
-    });
-  }));
+
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+
+    expect((component as any).entityTypeService.getAllAuthorizedRelationshipTypeImport).toHaveBeenCalled();
+  });
 });

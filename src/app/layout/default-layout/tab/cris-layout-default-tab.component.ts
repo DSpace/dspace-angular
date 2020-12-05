@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, ComponentRef } from '@angular/core';
-import { Box } from 'src/app/core/layout/models/box.model';
+import { Box } from '../../../core/layout/models/box.model';
 import { CrisLayoutLoaderDirective } from '../../directives/cris-layout-loader.directive';
 import { CrisLayoutTab as CrisLayoutTabObj } from '../../models/cris-layout-tab.model';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { LayoutTab } from '../../enums/layout-tab.enum';
-import { BoxDataService } from 'src/app/core/layout/box-data.service';
+import { BoxDataService } from '../../../core/layout/box-data.service';
 import { CrisLayoutTab } from '../../decorators/cris-layout-tab.decorator';
-import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
+import { getFirstSucceededRemoteListPayload } from '../../../core/shared/operators';
 import { getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
-import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
-import { followLink } from 'src/app/shared/utils/follow-link-config.model';
+import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { Subscription } from 'rxjs';
-import { hasValue } from 'src/app/shared/empty.util';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
@@ -52,17 +52,16 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
     this.showLoader = true;
     this.subs.push(this.boxService.findByItem(this.item.id, this.tab.id, followLink('configuration'))
       .pipe(getFirstSucceededRemoteListPayload())
-      .subscribe(
-        (next) => {
+      .subscribe({
+        next: (next) => {
           this.boxes = next;
           this.addBoxes(this.boxes);
           this.cd.markForCheck();
         },
-        undefined,
-        () => {
+        complete: () => {
           this.showLoader = false;
         }
-      ));
+      }));
   }
 
   addBoxes(boxes: Box[]) {

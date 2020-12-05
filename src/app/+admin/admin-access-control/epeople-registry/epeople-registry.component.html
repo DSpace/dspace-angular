@@ -4,7 +4,7 @@
 
       <h2 id="header" class="border-bottom pb-2">{{labelPrefix + 'head' | translate}}</h2>
 
-      <ds-eperson-form *ngIf="isEPersonFormShown" (submitForm)="forceUpdateEPeople()"
+      <ds-eperson-form *ngIf="isEPersonFormShown" (submitForm)="reset()"
                        (cancelForm)="isEPersonFormShown = false"></ds-eperson-form>
 
       <div *ngIf="!isEPersonFormShown">
@@ -40,10 +40,10 @@
         </form>
 
         <ds-pagination
-          *ngIf="(ePeople | async)?.payload?.totalElements > 0"
+          *ngIf="(pageInfoState$ | async)?.totalElements > 0"
           [paginationOptions]="config"
-          [pageInfoState]="(ePeople | async)?.payload"
-          [collectionSize]="(ePeople | async)?.payload?.totalElements"
+          [pageInfoState]="pageInfoState$"
+          [collectionSize]="(pageInfoState$ | async)?.totalElements"
           [hideGear]="true"
           [hidePagerWhenSinglePage]="true"
           (pageChange)="onPageChange($event)">
@@ -59,21 +59,21 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let eperson of (ePeople | async)?.payload?.page"
-                  [ngClass]="{'table-primary' : isActive(eperson) | async}">
-                <td>{{eperson.id}}</td>
-                <td>{{eperson.name}}</td>
-                <td>{{eperson.email}}</td>
+              <tr *ngFor="let epersonDto of (ePeopleDto$ | async)?.page"
+                  [ngClass]="{'table-primary' : isActive(epersonDto.eperson) | async}">
+                <td>{{epersonDto.eperson.id}}</td>
+                <td>{{epersonDto.eperson.name}}</td>
+                <td>{{epersonDto.eperson.email}}</td>
                 <td>
                   <div class="btn-group edit-field">
-                    <button (click)="toggleEditEPerson(eperson)"
+                    <button class="delete-button" (click)="toggleEditEPerson(epersonDto.eperson)"
                             class="btn btn-outline-primary btn-sm access-control-editEPersonButton"
-                            title="{{labelPrefix + 'table.edit.buttons.edit' | translate: {name: eperson.name} }}">
+                            title="{{labelPrefix + 'table.edit.buttons.edit' | translate: {name: epersonDto.eperson.name} }}">
                       <i class="fas fa-edit fa-fw"></i>
                     </button>
-                    <button (click)="deleteEPerson(eperson)"
+                    <button [disabled]="!epersonDto.ableToDelete" (click)="deleteEPerson(epersonDto.eperson)"
                             class="btn btn-outline-danger btn-sm access-control-deleteEPersonButton"
-                            title="{{labelPrefix + 'table.edit.buttons.remove' | translate: {name: eperson.name} }}">
+                            title="{{labelPrefix + 'table.edit.buttons.remove' | translate: {name: epersonDto.eperson.name} }}">
                       <i class="fas fa-trash-alt fa-fw"></i>
                     </button>
                   </div>
@@ -85,7 +85,7 @@
 
         </ds-pagination>
 
-        <div *ngIf="(ePeople | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
+        <div *ngIf="(pageInfoState$ | async)?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
           {{labelPrefix + 'no-items' | translate}}
         </div>
       </div>

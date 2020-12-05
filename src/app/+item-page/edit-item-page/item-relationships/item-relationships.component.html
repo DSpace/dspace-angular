@@ -19,14 +19,19 @@
           <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>
         </button>
       </div>
-      <div *ngFor="let relationshipType of relationshipTypes$ | async" class="mb-4">
-        <ds-edit-relationship-list
-          [url]="url"
-          [item]="item"
-          [itemType]="entityType"
-          [relationshipType]="relationshipType"
-        ></ds-edit-relationship-list>
-      </div>
+      <ng-container *ngVar="relationshipTypes$ | async as relationshipTypes">
+        <ng-container *ngIf="relationshipTypes">
+          <div *ngFor="let relationshipType of relationshipTypes" class="mb-4">
+            <ds-edit-relationship-list
+              [url]="url"
+              [item]="item"
+              [itemType]="entityType$ | async"
+              [relationshipType]="relationshipType"
+            ></ds-edit-relationship-list>
+          </div>
+        </ng-container>
+        <ds-loading *ngIf="!relationshipTypes"></ds-loading>
+      </ng-container>
       <div class="button-row bottom">
         <div class="float-right">
           <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"

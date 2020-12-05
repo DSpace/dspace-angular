@@ -8,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -20,6 +19,7 @@ import {
   createFailedRemoteDataObject$, createPendingRemoteDataObject$, createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
+import { AuthService } from '../../core/auth/auth.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
@@ -30,6 +30,7 @@ const mockItem: Item = Object.assign(new Item(), {
 describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
+  let authService: AuthService;
 
   const mockMetadataService = {
     /* tslint:disable:no-empty */
@@ -37,10 +38,15 @@ describe('ItemPageComponent', () => {
     /* tslint:enable:no-empty */
   };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ item: createSuccessfulRemoteDataObject(mockItem) })
+    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
   });
 
   beforeEach(async(() => {
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {}
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -53,7 +59,8 @@ describe('ItemPageComponent', () => {
         {provide: ActivatedRoute, useValue: mockRoute},
         {provide: ItemDataService, useValue: {}},
         {provide: MetadataService, useValue: mockMetadataService},
-        {provide: Router, useValue: {}}
+        {provide: Router, useValue: {}},
+        { provide: AuthService, useValue: authService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

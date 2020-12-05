@@ -13,7 +13,8 @@ import {
   getRequestFromRequestUUID,
   getResourceLinksFromResponse,
   getResponseFromEntry,
-  getSucceededRemoteData, redirectToPageNotFoundOn404
+  getSucceededRemoteData,
+  redirectOn4xx
 } from './operators';
 import { RemoteData } from '../data/remote-data';
 import { RemoteDataError } from '../data/remote-data-error';
@@ -199,31 +200,66 @@ describe('Core Module - RxJS Operators', () => {
     });
   });
 
-  describe('redirectToPageNotFoundOn404', () => {
+  describe('redirectOn4xx', () => {
     let router;
+    let authService;
+
     beforeEach(() => {
       router = jasmine.createSpyObj('router', ['navigateByUrl']);
+      authService = jasmine.createSpyObj('authService', {
+        isAuthenticated: observableOf(true),
+        setRedirectUrl: {}
+      });
     });
 
     it('should call navigateByUrl to a 404 page, when the remote data contains a 404 error', () => {
       const testRD = createFailedRemoteDataObject(undefined, new RemoteDataError(404, 'Not Found', 'Object was not found'));
 
-      observableOf(testRD).pipe(redirectToPageNotFoundOn404(router)).subscribe();
+      observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
       expect(router.navigateByUrl).toHaveBeenCalledWith('/404', { skipLocationChange: true });
     });
 
-    it('should not call navigateByUrl to a 404 page, when the remote data contains another error than a 404', () => {
+    it('should call navigateByUrl to a 403 page, when the remote data contains a 403 error', () => {
+      const testRD = createFailedRemoteDataObject(undefined, new RemoteDataError(403, 'Forbidden', 'Forbidden access'));
+
+      observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/403', { skipLocationChange: true });
+    });
+
+    it('should not call navigateByUrl to a 404, 403 or 401 page, when the remote data contains another error than a 404, 403 or 401', () => {
       const testRD = createFailedRemoteDataObject(undefined, new RemoteDataError(500, 'Server Error', 'Something went wrong'));
 
-      observableOf(testRD).pipe(redirectToPageNotFoundOn404(router)).subscribe();
+      observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
       expect(router.navigateByUrl).not.toHaveBeenCalled();
     });
 
-    it('should not call navigateByUrl to a 404 page, when the remote data contains no error', () => {
+    it('should not call navigateByUrl to a 404, 403 or 401 page, when the remote data contains no error', () => {
       const testRD = createSuccessfulRemoteDataObject(undefined);
 
-      observableOf(testRD).pipe(redirectToPageNotFoundOn404(router)).subscribe();
+      observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
       expect(router.navigateByUrl).not.toHaveBeenCalled();
+    });
+
+    describe('when the user is not authenticated', () => {
+      beforeEach(() => {
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
+      });
+
+      it('should set the redirect url and navigate to login when the remote data contains a 401 error', () => {
+        const testRD = createFailedRemoteDataObject(undefined, new RemoteDataError(401, 'Unauthorized', 'The current user is unauthorized'));
+
+        observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
+        expect(authService.setRedirectUrl).toHaveBeenCalled();
+        expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+      });
+
+      it('should set the redirect url and navigate to login when the remote data contains a 403 error', () => {
+        const testRD = createFailedRemoteDataObject(undefined, new RemoteDataError(403, 'Forbidden', 'Forbidden access'));
+
+        observableOf(testRD).pipe(redirectOn4xx(router, authService)).subscribe();
+        expect(authService.setRedirectUrl).toHaveBeenCalled();
+        expect(router.navigateByUrl).toHaveBeenCalledWith('login');
+      });
     });
   });
 

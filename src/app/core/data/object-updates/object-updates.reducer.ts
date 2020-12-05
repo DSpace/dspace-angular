@@ -13,7 +13,11 @@ import {
   SelectVirtualMetadataAction,
 } from './object-updates.actions';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import {Relationship} from '../../shared/item-relationships/relationship.model';
+import { Relationship} from '../../shared/item-relationships/relationship.model';
+import { InjectionToken } from '@angular/core';
+import { PatchOperationService } from './patch-operation-service/patch-operation.service';
+import { Item} from '../../shared/item.model';
+import { RelationshipType} from '../../shared/item-relationships/relationship-type.model';
 
 /**
  * Path where discarded objects are saved
@@ -48,7 +52,7 @@ export interface Identifiable {
  */
 export interface FieldUpdate {
   field: Identifiable,
-  changeType: FieldChangeType
+  changeType: FieldChangeType,
 }
 
 /**
@@ -72,11 +76,18 @@ export interface VirtualMetadataSource {
   [uuid: string]: boolean,
 }
 
+export interface RelationshipIdentifiable extends Identifiable {
+  nameVariant?: string,
+  relatedItem: Item;
+  relationship: Relationship;
+  type: RelationshipType;
+}
+
 /**
  * A fieldupdate interface which represents a relationship selected to be deleted,
  * along with a selection of the virtual metadata to keep
  */
-export interface DeleteRelationship extends Relationship {
+export interface DeleteRelationship extends RelationshipIdentifiable {
   keepLeftVirtualMetadata: boolean,
   keepRightVirtualMetadata: boolean,
 }
@@ -89,6 +100,7 @@ export interface ObjectUpdatesEntry {
   fieldUpdates: FieldUpdates;
   virtualMetadataSources: VirtualMetadataSources;
   lastModified: Date;
+  patchOperationServiceToken?: InjectionToken<PatchOperationService>;
 }
 
 /**
@@ -163,6 +175,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
   const url: string = action.payload.url;
   const fields: Identifiable[] = action.payload.fields;
   const lastModifiedServer: Date = action.payload.lastModified;
+  const patchOperationServiceToken: InjectionToken<PatchOperationService> = action.payload.patchOperationServiceToken;
   const fieldStates = createInitialFieldStates(fields);
   const newPageState = Object.assign(
     {},
@@ -170,7 +183,8 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
     { fieldStates: fieldStates },
     { fieldUpdates: {} },
     { virtualMetadataSources: {} },
-    { lastModified: lastModifiedServer }
+    { lastModified: lastModifiedServer },
+    { patchOperationServiceToken }
   );
   return Object.assign({}, state, { [url]: newPageState });
 }
@@ -184,7 +198,7 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
   const url: string = action.payload.url;
   const field: Identifiable = action.payload.field;
   const changeType: FieldChangeType = action.payload.changeType;
-  const pageState: ObjectUpdatesEntry = state[url] || {};
+  const pageState: ObjectUpdatesEntry = state[url] || {fieldUpdates: {}};
 
   let states = pageState.fieldStates;
   if (changeType === FieldChangeType.ADD) {

@@ -4,7 +4,7 @@ export const environment = {
    * e.g.
    * rest: {
    *   host: 'rest.api',
-   *   nameSpace: '/rest/api',
+   *   nameSpace: '/rest',
    * }
    */
   rest: {

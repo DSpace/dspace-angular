@@ -1,61 +1,71 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectorRef, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
+
+import { cold } from 'jasmine-marbles';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
 import { CrisPageLoaderComponent } from './cris-page-loader.component';
 import { CrisLayoutDefaultComponent } from './default-layout/cris-layout-default.component';
-import { ChangeDetectorRef, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CrisLayoutLoaderDirective } from './directives/cris-layout-loader.directive';
 import { LayoutPage } from './enums/layout-page.enum';
 import { Item } from '../core/shared/item.model';
 import { spyOnExported } from '../shared/testing/utils.test';
 import * as CrisLayoutDecorators from './decorators/cris-layout-page.decorator';
 import { TabDataService } from '../core/layout/tab-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FollowLinkConfig } from '../shared/utils/follow-link-config.model';
-import { Tab } from '../core/layout/models/tab.model';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../core/data/remote-data';
-import { PaginatedList } from '../core/data/paginated-list';
-import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
-import { PageInfo } from '../core/shared/page-info.model';
-import { cold } from 'jasmine-marbles';
-import { tabs } from '../shared/testing/tab.mock';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditItemDataService } from '../core/submission/edititem-data.service';
 import { EditItem } from '../core/submission/models/edititem.model';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { AuthService } from '../core/auth/auth.service';
+import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
+import { tabs } from '../shared/testing/tab.mock';
+import { PageInfo } from '../core/shared/page-info.model';
+import { PaginatedList } from '../core/data/paginated-list';
 
 const testType = LayoutPage.DEFAULT;
 
-class TestItem {
-  firstMetadataValue(key: string): string {
-    return testType;
+const mockItem = Object.assign(new Item(), {
+  id: 'fake-id',
+  handle: 'fake/handle',
+  lastModified: '2018',
+  metadata: {
+    'dc.title': [
+      {
+        language: null,
+        value: 'test'
+      }
+    ],
+    'relationship.type': [
+      {
+        language: null,
+        value: testType
+      }
+    ]
   }
-}
+});
 
-// tslint:disable-next-line: max-classes-per-file
-class TabDataServiceMock {
-  findByItem(itemUuid: string, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
-    return cold('a|', {
-      a: createSuccessfulRemoteDataObject(
-        new PaginatedList(new PageInfo(), tabs)
-      )
-    });
-  }
-}
+const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
+  findByItem: jasmine.createSpy('findByItem')
+});
 
-const editItem: EditItem = Object.assign({});
+const editItem: EditItem = Object.assign({
+  modes: observableOf({})
+});
 
-// tslint:disable-next-line: max-classes-per-file
-class EditItemDataServiceMock {
-  findById(itemUuid: string, linkToFollow?: FollowLinkConfig<EditItem>): Observable<RemoteData<EditItem>> {
-    return cold('a|', {
-      a: createSuccessfulRemoteDataObject(
-        editItem
-      )
-    });
-  }
-}
+const editItemDataServiceMock: any = jasmine.createSpyObj('EditItemDataService', {
+  findById: jasmine.createSpy('findById')
+});
+
+const authorizationDataServiceMock: any = jasmine.createSpyObj('AuthorizationDataService', {
+  isAuthorized: jasmine.createSpy('isAuthorized')
+});
+
+const authServiceMock: any = jasmine.createSpyObj('AuthService', {
+  isAuthenticated: jasmine.createSpy('isAuthenticated')
+});
 
 describe('CrisPageLoaderComponent', () => {
   let component: CrisPageLoaderComponent;
@@ -72,8 +82,10 @@ describe('CrisPageLoaderComponent', () => {
       declarations: [CrisPageLoaderComponent, CrisLayoutDefaultComponent, CrisLayoutLoaderDirective],
       providers: [
         ComponentFactoryResolver,
-        { provide: TabDataService, useClass: TabDataServiceMock },
-        { provide: EditItemDataService, useClass: EditItemDataServiceMock },
+        { provide: TabDataService, useValue: tabDataServiceMock },
+        { provide: EditItemDataService, useValue: editItemDataServiceMock },
+        { provide: AuthorizationDataService, useValue: authorizationDataServiceMock },
+        { provide: AuthService, useValue: authServiceMock },
         { provide: Router, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
         { provide: ComponentFactoryResolver, useValue: {} },
@@ -90,14 +102,27 @@ describe('CrisPageLoaderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisPageLoaderComponent);
     component = fixture.componentInstance;
-    component.item = new TestItem() as Item;
+    component.item = mockItem;
     spyOnExported(CrisLayoutDecorators, 'getCrisLayoutPage').and.returnValue(CrisLayoutDefaultComponent);
+    tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
+      a: createSuccessfulRemoteDataObject(
+        new PaginatedList(new PageInfo(), tabs)
+      )
+    }));
+    editItemDataServiceMock.findById.and.returnValue(cold('a|', {
+      a: createSuccessfulRemoteDataObject(
+        editItem
+      )
+    }));
+    authorizationDataServiceMock.isAuthorized.and.returnValue(observableOf(true))
+    authServiceMock.isAuthenticated.and.returnValue(observableOf(true))
     fixture.detectChanges();
   });
 
   describe('When the component is rendered', () => {
-    it('should call the getCrisLayoutPage function with the right types', () => {
-      expect(CrisLayoutDecorators.getCrisLayoutPage).toHaveBeenCalledWith(new TestItem() as Item);
+    it('should call the getCrisLayoutPage function with the right types', (done) => {
+      expect(CrisLayoutDecorators.getCrisLayoutPage).toHaveBeenCalledWith(mockItem);
+      done();
     })
   });
 });

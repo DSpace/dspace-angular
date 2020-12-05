@@ -270,7 +270,7 @@ export class ObjectCacheService {
   /**
    * Add operations to the existing list of operations for an ObjectCacheEntry
    * Makes sure the ServerSyncBuffer for this ObjectCacheEntry is updated
-   * @param {string} uuid
+   * @param selfLink
    *     the uuid of the ObjectCacheEntry
    * @param {Operation[]} patch
    *     list of operations to perform
@@ -295,8 +295,8 @@ export class ObjectCacheService {
   /**
    * Apply the existing operations on an ObjectCacheEntry in the store
    * NB: this does not make any server side changes
-   * @param {string} uuid
-   *     the uuid of the ObjectCacheEntry
+   * @param selfLink
+   *     the link of the ObjectCacheEntry
    */
   private applyPatchesToCachedObject(selfLink: string) {
     this.store.dispatch(new ApplyPatchObjectCacheAction(selfLink));

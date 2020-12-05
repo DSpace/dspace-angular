@@ -1,6 +1,11 @@
-<h2 class="item-page-title-field">
-  {{'person.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="getPersonName()" [separator]="', '"></ds-metadata-values>
-</h2>
+<div class="d-flex flex-row">
+  <h2 class="item-page-title-field mr-auto">
+    {{'person.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="getPersonName()" [separator]="', '"></ds-metadata-values>
+  </h2>
+  <div class="pl-2">
+    <ds-dso-page-edit-button [pageRoutePrefix]="'items'" [dso]="object" [tooltipMsg]="'person.page.edit'"></ds-dso-page-edit-button>
+  </div>
+</div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>

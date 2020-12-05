@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
@@ -25,7 +25,7 @@ let fieldUpdate2;
 let relationships;
 let relationshipType;
 
-let fixture;
+let fixture: ComponentFixture<EditRelationshipComponent>;
 let comp: EditRelationshipComponent;
 let de;
 let el;
@@ -91,11 +91,17 @@ describe('EditRelationshipComponent', () => {
     });
 
     fieldUpdate1 = {
-      field: relationships[0],
+      field: {
+        uuid: relationships[0].uuid,
+        relationship: relationships[0],
+      },
       changeType: undefined
     };
     fieldUpdate2 = {
-      field: relationships[1],
+      field: {
+        uuid: relationships[1].uuid,
+        relationship: relationships[1],
+      },
       changeType: FieldChangeType.REMOVE
     };
 

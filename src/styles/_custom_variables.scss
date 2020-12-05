@@ -36,4 +36,8 @@ $edit-item-language-field-width: 43px !default;
 
 $thumbnail-max-width: 175px !default;
 
+$dso-selector-list-max-height: 475px !default;
+$dso-selector-current-background-color: #eeeeee;
+$dso-selector-current-background-hover-color: darken($dso-selector-current-background-color, 10%);
+
 $date-picker-input-max-width: 300px;

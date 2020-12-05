@@ -10,6 +10,8 @@ import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { BITSTREAM } from './bitstream.resource-type';
 import { Bitstream } from './bitstream.model';
+import {ITEM} from './item.resource-type';
+import {Item} from './item.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -24,6 +26,7 @@ export class Bundle extends DSpaceObject {
     self: HALLink;
     primaryBitstream: HALLink;
     bitstreams: HALLink;
+    item: HALLink;
   };
 
   /**
@@ -39,4 +42,11 @@ export class Bundle extends DSpaceObject {
    */
   @link(BITSTREAM, true)
   bitstreams?: Observable<RemoteData<PaginatedList<Bitstream>>>;
+
+    /**
+     * The owning item for this Bundle
+     * Will be undefined unless the Item{@link HALLink} has been resolved.
+     */
+  @link(ITEM)
+  item?: Observable<RemoteData<Item>>;
 }

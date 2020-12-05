@@ -212,6 +212,16 @@ import { EntityDropdownComponent } from './entity-dropdown/entity-dropdown.compo
 import { DsSelectComponent } from './ds-select/ds-select.component';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { CurationFormComponent } from '../curation-form/curation-form.component';
+import { PublicationSidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/item-types/publication/publication-sidebar-search-list-element.component';
+import { SidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/sidebar-search-list-element.component';
+import { CollectionSidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/collection/collection-sidebar-search-list-element.component';
+import { CommunitySidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/community/community-sidebar-search-list-element.component';
+import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
+import { HoverClassDirective } from './hover-class.directive';
+import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
+import { ItemExportComponent } from './item-export/item-export/item-export.component';
+import { ItemExportModalWrapperComponent } from './item-export/item-export-modal-wrapper/item-export-modal-wrapper.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -334,6 +344,7 @@ const COMPONENTS = [
   BrowseByComponent,
   InputSuggestionsComponent,
   FilterInputSuggestionsComponent,
+  ValidationSuggestionsComponent,
   DsoInputSuggestionsComponent,
   DSOSelectorComponent,
   CreateCommunityParentSelectorComponent,
@@ -407,7 +418,10 @@ const COMPONENTS = [
   EntityDropdownComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent
+  VocabularyTreeviewComponent,
+  AuthorizedCollectionSelectorComponent,
+  ItemExportComponent,
+  ItemExportModalWrapperComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -489,12 +503,19 @@ const ENTRY_COMPONENTS = [
   CurationFormComponent,
   ExportMetadataSelectorComponent,
   ConfirmationModalComponent,
-  VocabularyTreeviewComponent
+  VocabularyTreeviewComponent,
+  SidebarSearchListElementComponent,
+  PublicationSidebarSearchListElementComponent,
+  CollectionSidebarSearchListElementComponent,
+  CommunitySidebarSearchListElementComponent,
+  AuthorizedCollectionSelectorComponent,
+  ItemExportComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
   MetadataFieldWrapperComponent,
   MetadataValuesComponent,
+  DsoPageEditButtonComponent
 ];
 
 const PROVIDERS = [
@@ -525,7 +546,8 @@ const DIRECTIVES = [
   FileValidator,
   ClaimedTaskActionsDirective,
   NgForTrackByIdDirective,
-  MetadataFieldValidator
+  MetadataFieldValidator,
+  HoverClassDirective
 ];
 
 @NgModule({
@@ -538,19 +560,19 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...SHARED_ITEM_PAGE_COMPONENTS
+    ...SHARED_ITEM_PAGE_COMPONENTS,
   ],
   providers: [
     ...PROVIDERS
   ],
-  exports: [
-    ...MODULES,
-    ...PIPES,
-    ...COMPONENTS,
-    ...SHARED_ITEM_PAGE_COMPONENTS,
-    ...DIRECTIVES,
-    CurationFormComponent
-  ],
+    exports: [
+        ...MODULES,
+        ...PIPES,
+        ...COMPONENTS,
+        ...SHARED_ITEM_PAGE_COMPONENTS,
+        ...DIRECTIVES,
+        CurationFormComponent
+    ],
   entryComponents: [
     ...ENTRY_COMPONENTS
   ]

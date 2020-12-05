@@ -1,22 +1,21 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+
+import { getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
+import { of as observableOf } from 'rxjs';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { CollectionDropdownComponent } from './collection-dropdown.component';
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
-import { Observable, of } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { PaginatedList } from 'src/app/core/data/paginated-list';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
-import { PageInfo } from 'src/app/core/shared/page-info.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { PageInfo } from '../../core/shared/page-info.model';
 import { Collection } from '../../core/shared/collection.model';
-import { NO_ERRORS_SCHEMA, ChangeDetectorRef, ElementRef } from '@angular/core';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
-import { FindListOptions } from 'src/app/core/data/request.models';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { TestScheduler } from 'rxjs/testing';
-import { By } from '@angular/platform-browser';
-import { Community } from 'src/app/core/shared/community.model';
+import { Community } from '../../core/shared/community.model';
 
 const community: Community = Object.assign(new Community(), {
   id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
@@ -34,7 +33,7 @@ const collections: Collection[] = [
         language: 'en_US',
         value: 'Community 1-Collection 1'
       }],
-    parentCommunity: of(
+    parentCommunity: observableOf(
       new RemoteData(false, false, true, undefined, community, 200)
     )
   }),
@@ -47,7 +46,7 @@ const collections: Collection[] = [
         language: 'en_US',
         value: 'Community 1-Collection 2'
       }],
-    parentCommunity: of(
+    parentCommunity: observableOf(
       new RemoteData(false, false, true, undefined, community, 200)
     )
   }),
@@ -60,7 +59,7 @@ const collections: Collection[] = [
         language: 'en_US',
         value: 'Community 1-Collection 3'
       }],
-    parentCommunity: of(
+    parentCommunity: observableOf(
       new RemoteData(false, false, true, undefined, community, 200)
     )
   }),
@@ -73,7 +72,7 @@ const collections: Collection[] = [
         language: 'en_US',
         value: 'Community 1-Collection 4'
       }],
-    parentCommunity: of(
+    parentCommunity: observableOf(
       new RemoteData(false, false, true, undefined, community, 200)
     )
   }),
@@ -86,50 +85,40 @@ const collections: Collection[] = [
         language: 'en_US',
         value: 'Community 1-Collection 5'
       }],
-    parentCommunity: of(
+    parentCommunity: observableOf(
       new RemoteData(false, false, true, undefined, community, 200)
     )
   })
 ];
 
 const listElementMock = {
-    communities: [
-      {
-        id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
-        name: 'Community 1'
-      }
-    ],
-    collection: {
-      id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
-      uuid: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
-      name: 'Collection 3'
+  communities: [
+    {
+      id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
+      name: 'Community 1'
     }
-  };
-
-// tslint:disable-next-line: max-classes-per-file
-class CollectionDataServiceMock {
-  getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
-    return of(
-        createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), collections)
-        )
-    );
-  };
-
-  getAuthorizedCollectionAndMetadata(query: string, metadata: string, metadatavalue: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
-    return of(
-        createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), collections)
-        )
-    );
+  ],
+  collection: {
+    id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
+    uuid: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
+    name: 'Collection 3'
   }
-}
+};
 
 describe('CollectionDropdownComponent', () => {
   let component: CollectionDropdownComponent;
+  let componentAsAny: any;
   let fixture: ComponentFixture<CollectionDropdownComponent>;
   let scheduler: TestScheduler;
   const searchedCollection = 'TEXT';
+
+  const collectionDataServiceMock: any = jasmine.createSpyObj('CollectionDataService', {
+    getAuthorizedCollection: jasmine.createSpy('getAuthorizedCollection'),
+    getAuthorizedCollectionByEntityType: jasmine.createSpy('getAuthorizedCollectionByEntityType')
+  });
+
+  const paginatedCollection = new PaginatedList(new PageInfo(), collections);
+  const paginatedCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedCollection);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -141,54 +130,55 @@ describe('CollectionDropdownComponent', () => {
           }
         })
       ],
-      declarations: [ CollectionDropdownComponent ],
+      declarations: [CollectionDropdownComponent],
       providers: [
-        {provide: CollectionDataService, useClass: CollectionDataServiceMock},
-        {provide: ChangeDetectorRef, useValue: {}},
-        {provide: ElementRef, userValue: {}}
+        { provide: CollectionDataService, useValue: collectionDataServiceMock },
+        { provide: ElementRef, useValue: {} },
+        ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     scheduler = getTestScheduler();
     fixture = TestBed.createComponent(CollectionDropdownComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    componentAsAny = component;
+    componentAsAny.collectionDataService.getAuthorizedCollection.and.returnValue(paginatedCollectionRD$);
+    componentAsAny.collectionDataService.getAuthorizedCollectionByEntityType.and.returnValue(paginatedCollectionRD$);
   });
 
-  it('should populate collections list with five items', () => {
+  it('should init component with collection list', () => {
+    spyOn(component.subs, 'push');
+    spyOn(component, 'resetPagination');
+    spyOn(component, 'populateCollectionList').and.callThrough();
+
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
     const elements = fixture.debugElement.queryAll(By.css('.collection-item'));
+
     expect(elements.length).toEqual(5);
+    expect(component.subs.push).toHaveBeenCalled();
+    expect(component.resetPagination).toHaveBeenCalled();
+    expect(component.populateCollectionList).toHaveBeenCalled();
+    expect((component as any).collectionDataService.getAuthorizedCollection).toHaveBeenCalled();
   });
 
-  it('should trigger onSelect method when select a new collection from list', fakeAsync(() => {
-    spyOn(component, 'onSelect');
+  it('should trigger onSelect method when select a new collection from list', () => {
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+
+    spyOn(component, 'onSelect').and.callThrough();
     const collectionItem = fixture.debugElement.query(By.css('.collection-item:nth-child(2)'));
     collectionItem.triggerEventHandler('click', null);
-    fixture.detectChanges();
-    tick();
-    fixture.whenStable().then(() => {
-      expect(component.onSelect).toHaveBeenCalled();
-    });
-  }));
 
-  it('should init component with collection list', fakeAsync(() => {
-    spyOn(component.subs, 'push').and.callThrough();
-    spyOn(component, 'resetPagination').and.callThrough();
-    spyOn(component, 'populateCollectionList').and.callThrough();
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
 
-    fixture.whenStable().then(() => {
-      expect(component.subs.push).toHaveBeenCalled();
-      expect(component.resetPagination).toHaveBeenCalled();
-      expect(component.populateCollectionList).toHaveBeenCalled();
-    });
-  }));
+    expect(component.onSelect).toHaveBeenCalled();
+  });
 
   it('should emit collectionChange event when selecting a new collection', () => {
     spyOn(component.selectionChange, 'emit').and.callThrough();
@@ -199,36 +189,23 @@ describe('CollectionDropdownComponent', () => {
     expect(component.selectionChange.emit).toHaveBeenCalledWith(listElementMock as any);
   });
 
-  it('should reset collections list after reset of searchField', fakeAsync(() => {
+  it('should reset collections list after reset of searchField', () => {
     spyOn(component.subs, 'push').and.callThrough();
-    spyOn(component, 'reset').and.callThrough();
     spyOn(component.searchField, 'setValue').and.callThrough();
     spyOn(component, 'resetPagination').and.callThrough();
     spyOn(component, 'populateCollectionList').and.callThrough();
-    component.reset();
-    const input = fixture.debugElement.query(By.css('input.form-control'));
-    const el = input.nativeElement;
-    el.value = searchedCollection;
-    el.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    tick(500);
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
 
-    fixture.whenStable().then(() => {
-      expect(component.reset).toHaveBeenCalled();
-      expect(component.searchField.setValue).toHaveBeenCalledWith('');
-      expect(component.resetPagination).toHaveBeenCalled();
-      expect(component.currentQuery).toEqual('');
-      expect(component.populateCollectionList).toHaveBeenCalledWith(component.currentQuery, component.currentPage);
-      expect(component.searchListCollection).toEqual(collections as any);
-      expect(component.subs.push).toHaveBeenCalled();
-    });
-  }));
+    scheduler.schedule(() => component.reset());
+    scheduler.flush();
 
-  it('should reset searchField when dropdown menu has been closed', () => {
-    spyOn(component.searchField, 'setValue').and.callThrough();
-    component.reset();
-
-    expect(component.searchField.setValue).toHaveBeenCalled();
+    expect(component.searchField.setValue).toHaveBeenCalledWith('');
+    expect(component.resetPagination).toHaveBeenCalled();
+    expect(component.currentQuery).toEqual('');
+    expect(component.populateCollectionList).toHaveBeenCalledWith(component.currentQuery, component.currentPage);
+    expect(component.searchListCollection.length).toEqual(5);
+    expect(component.subs.push).toHaveBeenCalled();
   });
 
   it('should change loader status', () => {
@@ -247,15 +224,10 @@ describe('CollectionDropdownComponent', () => {
     expect(component.searchListCollection).toEqual([]);
   });
 
-  it('should invoke the method getAuthorizedCollectionAndMetadata of CollectionDataService', fakeAsync(() => {
-    spyOn((component as any).collectionDataService, 'getAuthorizedCollectionAndMetadata');
-    component.metadata = 'relationship.type';
-    component.metadatavalue = 'rel';
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect((component as any).collectionDataService.getAuthorizedCollectionAndMetadata).toHaveBeenCalled();
-    });
-  }));
+  it('should invoke the method getAuthorizedCollectionByEntityType of CollectionDataService when entityType is set',() => {
+    component.entityType = 'rel';
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+    expect((component as any).collectionDataService.getAuthorizedCollectionByEntityType).toHaveBeenCalled();
+  });
 });

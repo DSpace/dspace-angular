@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { createSelector, Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
 import { Observable, of as observableOf } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { AppState } from '../app.reducer';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { FindListOptions } from '../core/data/request.models';
-import { map, flatMap } from 'rxjs/operators';
 import { Community } from '../core/shared/community.model';
 import { Collection } from '../core/shared/collection.model';
-import { getSucceededRemoteData } from '../core/shared/operators';
 import { PageInfo } from '../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { RemoteData } from '../core/data/remote-data';
@@ -148,7 +147,7 @@ export class CommunityListService {
         return new PaginatedList(newPageInfo, newPage);
       })
     );
-    return topComs$.pipe(flatMap((topComs: PaginatedList<Community>) => this.transformListOfCommunities(topComs, 0, null, expandedNodes)));
+    return topComs$.pipe(switchMap((topComs: PaginatedList<Community>) => this.transformListOfCommunities(topComs, 0, null, expandedNodes)));
   };
 
   /**
@@ -228,9 +227,13 @@ export class CommunityListService {
           currentPage: i
         })
           .pipe(
-            getSucceededRemoteData(),
-            flatMap((rd: RemoteData<PaginatedList<Community>>) =>
-              this.transformListOfCommunities(rd.payload, level + 1, communityFlatNode, expandedNodes))
+            switchMap((rd: RemoteData<PaginatedList<Community>>) => {
+              if (hasValue(rd) && hasValue(rd.payload)) {
+                return this.transformListOfCommunities(rd.payload, level + 1, communityFlatNode, expandedNodes);
+              } else {
+                return [];
+              }
+            })
           );
 
         subcoms = [...subcoms, nextSetOfSubcommunitiesPage];
@@ -246,14 +249,17 @@ export class CommunityListService {
           currentPage: i
         })
           .pipe(
-            getSucceededRemoteData(),
             map((rd: RemoteData<PaginatedList<Collection>>) => {
-              let nodes = rd.payload.page
-                .map((collection: Collection) => toFlatNode(collection, observableOf(false), level + 1, false, communityFlatNode));
-              if (currentCollectionPage < rd.payload.totalPages && currentCollectionPage === rd.payload.currentPage) {
-                nodes = [...nodes, showMoreFlatNode('collection', level + 1, communityFlatNode)];
+              if (hasValue(rd) && hasValue(rd.payload)) {
+                let nodes = rd.payload.page
+                  .map((collection: Collection) => toFlatNode(collection, observableOf(false), level + 1, false, communityFlatNode));
+                if (currentCollectionPage < rd.payload.totalPages && currentCollectionPage === rd.payload.currentPage) {
+                  nodes = [...nodes, showMoreFlatNode('collection', level + 1, communityFlatNode)];
+                }
+                return nodes;
+              } else {
+                return [];
               }
-              return nodes;
             }),
           );
         collections = [...collections, nextSetOfCollectionsPage];
@@ -275,14 +281,24 @@ export class CommunityListService {
     let hasColls$: Observable<boolean>;
     hasSubcoms$ = this.communityDataService.findByParent(community.uuid, { elementsPerPage: 1 })
       .pipe(
-        getSucceededRemoteData(),
-        map((results) => results.payload.totalElements > 0),
+        map((rd: RemoteData<PaginatedList<Community>>) => {
+          if (hasValue(rd) && hasValue(rd.payload)) {
+            return rd.payload.totalElements > 0;
+          } else {
+            return false;
+          }
+        }),
       );
 
     hasColls$ = this.collectionDataService.findByParent(community.uuid, { elementsPerPage: 1 })
       .pipe(
-        getSucceededRemoteData(),
-        map((results) => results.payload.totalElements > 0),
+        map((rd: RemoteData<PaginatedList<Collection>>) => {
+          if (hasValue(rd) && hasValue(rd.payload)) {
+            return rd.payload.totalElements > 0;
+          } else {
+            return false;
+          }
+        }),
       );
 
     let hasChildren$: Observable<boolean>;
