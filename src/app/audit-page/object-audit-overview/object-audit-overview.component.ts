@@ -14,7 +14,8 @@ import { AuditDataService } from '../../core/audit/audit-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { getSucceededRemoteData, redirectOn404Or401 } from '../../core/shared/operators';
+import { getSucceededRemoteData, redirectOn4xx } from '../../core/shared/operators';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * Component displaying a list of all audit about a object in a paginated table
@@ -59,7 +60,8 @@ export class ObjectAuditOverviewComponent implements OnInit {
    */
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
-  constructor(protected route: ActivatedRoute,
+  constructor(protected authService: AuthService,
+              protected route: ActivatedRoute,
               protected router: Router,
               protected auditService: AuditDataService,
               protected itemService: ItemDataService,
@@ -70,7 +72,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap) => {
       this.itemService.findById(paramMap.get('objectId')).pipe(
         getSucceededRemoteData(),
-        redirectOn404Or401(this.router),
+        redirectOn4xx(this.router, this.authService),
         take(1)
       ).subscribe((rd) => {
         this.object = rd.payload;

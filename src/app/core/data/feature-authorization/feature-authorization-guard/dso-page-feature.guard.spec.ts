@@ -7,6 +7,7 @@ import { DSpaceObject } from '../../../shared/dspace-object.model';
 import { DsoPageFeatureGuard } from './dso-page-feature.guard';
 import { FeatureID } from '../feature-id';
 import { Observable } from 'rxjs/internal/Observable';
+import { AuthService } from '../../../auth/auth.service';
 
 /**
  * Test implementation of abstract class DsoPageAdministratorGuard
@@ -15,8 +16,9 @@ class DsoPageFeatureGuardImpl extends DsoPageFeatureGuard<any> {
   constructor(protected resolver: Resolve<RemoteData<any>>,
               protected authorizationService: AuthorizationDataService,
               protected router: Router,
+              protected authService: AuthService,
               protected featureID: FeatureID) {
-    super(resolver, authorizationService, router);
+    super(resolver, authorizationService, router, authService);
   }
 
   getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
@@ -28,6 +30,7 @@ describe('DsoPageAdministratorGuard', () => {
   let guard: DsoPageFeatureGuard<any>;
   let authorizationService: AuthorizationDataService;
   let router: Router;
+  let authService: AuthService;
   let resolver: Resolve<RemoteData<any>>;
   let object: DSpaceObject;
 
@@ -45,7 +48,10 @@ describe('DsoPageAdministratorGuard', () => {
     resolver = jasmine.createSpyObj('resolver', {
       resolve: createSuccessfulRemoteDataObject$(object)
     });
-    guard = new DsoPageFeatureGuardImpl(resolver, authorizationService, router, undefined);
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true)
+    });
+    guard = new DsoPageFeatureGuardImpl(resolver, authorizationService, router, authService, undefined);
   }
 
   beforeEach(() => {

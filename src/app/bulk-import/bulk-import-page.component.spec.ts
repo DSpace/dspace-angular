@@ -7,8 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { before } from 'lodash';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { RestResponse } from '../core/cache/response.models';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
@@ -23,6 +22,7 @@ import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { BulkImportPageComponent } from './bulk-import-page.component';
+import { AuthService } from '../core/auth/auth.service';
 
 describe('BulkImportPageComponent', () => {
 
@@ -45,6 +45,11 @@ describe('BulkImportPageComponent', () => {
   const fileList: FileList = Object.assign({}, {
     item: (index: number) => file,
     length: 10
+  });
+
+  const authService = jasmine.createSpyObj('authService', {
+    isAuthenticated: of(true),
+    setRedirectUrl: {}
   });
 
   beforeEach(() => {
@@ -79,7 +84,8 @@ describe('BulkImportPageComponent', () => {
         { provide: ScriptDataService, useValue: scriptDataService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ActivatedRoute, useValue: route },
-        { provide: Router, useValue: router }
+        { provide: Router, useValue: router },
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
