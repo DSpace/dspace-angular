@@ -22,6 +22,7 @@ import { RouterStub } from '../shared/testing/router.stub';
 import { RemoteData } from '../core/data/remote-data';
 import { mockSuggestionTargetsObjectOne } from '../shared/mocks/reciter-suggestion-targets.mock';
 import { ItemDataService } from '../core/data/item-data.service';
+import { AuthService } from '../core/auth/auth.service';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
@@ -36,6 +37,11 @@ describe('SuggestionPageComponent', () => {
   };
   const itemServiceMock = jasmine.createSpyObj('ItemDataService', {
     importExternalSourceEntry: jasmine.createSpy('importExternalSourceEntry')
+  });
+
+  const authService = jasmine.createSpyObj('authService', {
+    isAuthenticated: observableOf(true),
+    setRedirectUrl: {}
   });
 
   beforeEach(async(() => {
@@ -53,6 +59,7 @@ describe('SuggestionPageComponent', () => {
         VarDirective
       ],
       providers: [
+        { provide: AuthService, useValue: authService },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: itemServiceMock },
         { provide: Router, useValue: router },

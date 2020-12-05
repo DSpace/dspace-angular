@@ -66,8 +66,7 @@ export class SuggestionListElementComponent implements OnInit {
   openDialog(entity: ItemType) {
     const modalRef = this.modalService.open(CreateItemParentSelectorComponent);
     modalRef.componentInstance.emitOnly = true;
-    modalRef.componentInstance.metadata = 'relationship.type';
-    modalRef.componentInstance.metadatavalue = entity.label;
+    modalRef.componentInstance.entityType = entity.label;
 
     modalRef.componentInstance.select.pipe(take(1))
       .subscribe((collection: Collection) => {
