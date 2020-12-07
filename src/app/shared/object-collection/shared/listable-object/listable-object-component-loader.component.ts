@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
@@ -61,6 +61,19 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    */
   @ViewChild(ListableObjectDirective, {static: true}) listableObjectDirective: ListableObjectDirective;
 
+  /**
+   * View on the badges template, to be passed on to the loaded component (which will place the badges in the desired
+   * location, or on top if not specified)
+   */
+  @ViewChild('badges', { static: true }) badges: ElementRef;
+
+  /**
+   * The provided object as any
+   * This is required to access the object's "isDiscoverable" and "isWithdrawn" properties from the template without
+   * knowing the object's type
+   */
+  objectAsAny: any;
+
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
   }
 
@@ -68,12 +81,20 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    * Setup the dynamic child component
    */
   ngOnInit(): void {
+    this.objectAsAny = this.object as any;
+
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
 
     const viewContainerRef = this.listableObjectDirective.viewContainerRef;
     viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(componentFactory);
+    const componentRef = viewContainerRef.createComponent(
+      componentFactory,
+      0,
+      undefined,
+      [
+        [this.badges.nativeElement],
+      ]);
     (componentRef.instance as any).object = this.object;
     (componentRef.instance as any).index = this.index;
     (componentRef.instance as any).linkType = this.linkType;

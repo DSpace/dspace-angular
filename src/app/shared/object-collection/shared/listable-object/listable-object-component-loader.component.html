@@ -1,1 +1,9 @@
+<div #badges>
+  <div *ngIf="objectAsAny && !objectAsAny.isDiscoverable" class="private-badge">
+    <span class="badge badge-danger">{{ "admin.search.item.private" | translate }}</span>
+  </div>
+  <div *ngIf="objectAsAny && objectAsAny.isWithdrawn" class="withdrawn-badge">
+    <span class="badge badge-warning">{{ "admin.search.item.withdrawn" | translate }}</span>
+  </div>
+</div>
 <ng-template dsListableObject></ng-template>
