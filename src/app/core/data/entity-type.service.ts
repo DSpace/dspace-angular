@@ -88,30 +88,10 @@ export class EntityTypeService extends DataService<ItemType> {
    * @param label
    */
   getEntityTypeByLabel(label: string): Observable<RemoteData<ItemType>> {
-
-    // TODO: Remove mock data once REST API supports this
-    /*
-    href$.pipe(take(1)).subscribe((href) => {
-      const request = new GetRequest(this.requestService.generateRequestId(), href);
-      this.requestService.configure(request);
+    let endPoint;
+    this.halService.getEndpoint(this.linkPath).pipe(take(1)).subscribe((result) => {
+      endPoint = result;
     });
-
-    return this.rdbService.buildSingle<EntityType>(href$);
-    */
-
-    // Mock:
-    const index = [
-      'Publication',
-      'Person',
-      'Project',
-      'OrgUnit',
-      'Journal',
-      'JournalVolume',
-      'JournalIssue',
-      'DataPackage',
-      'DataFile',
-    ].indexOf(label);
-
-    return this.findById((index + 1) + '');
+    return this.findByHref(endPoint + '/label/' + label);
   }
 }
