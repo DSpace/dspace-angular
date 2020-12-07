@@ -117,7 +117,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.6.3",
     "rxjs-spy": "^7.5.3",
-    "sass-resources-loader": "^2.0.0",
+    "sass-resources-loader": "^2.1.1",
     "sortablejs": "1.7.0",
     "tslib": "^2.0.0",
     "webfontloader": "1.6.28",
