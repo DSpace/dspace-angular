@@ -54,6 +54,8 @@ import { environment } from '../../../environments/environment';
 import { storeModuleConfig } from '../../app.reducer';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { RootDataService } from '../data/root-data.service';
+import { Root } from '../data/root.model';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -92,6 +94,7 @@ describe('MetadataService', () => {
   let remoteDataBuildService: RemoteDataBuildService;
   let itemDataService: ItemDataService;
   let authService: AuthService;
+  let rootService: RootDataService;
 
   let location: Location;
   let router: Router;
@@ -131,6 +134,11 @@ describe('MetadataService', () => {
         }
       }
     };
+    rootService = jasmine.createSpyObj('rootService', {
+      findRoot: createSuccessfulRemoteDataObject$(Object.assign(new Root(), {
+        dspaceVersion: 'mock-dspace-version'
+      }))
+    });
 
     TestBed.configureTestingModule({
       imports: [
@@ -169,6 +177,7 @@ describe('MetadataService', () => {
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: mockBitstreamFormatDataService },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: RootDataService, useValue: rootService },
         Meta,
         Title,
         // tslint:disable-next-line:no-empty
@@ -221,6 +230,13 @@ describe('MetadataService', () => {
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
     expect(tagStore.get('citation_technical_report_institution')[0].content).toEqual('Mock Publisher');
+  }));
+
+  it('items page should set meta tag for Generator containing the current DSpace version', fakeAsync(() => {
+    spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(ItemMock));
+    router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+    tick();
+    expect(tagStore.get('Generator')[0].content).toEqual('mock-dspace-version');
   }));
 
   it('other navigation should title and description', fakeAsync(() => {

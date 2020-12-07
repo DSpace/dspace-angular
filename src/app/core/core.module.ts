@@ -172,6 +172,8 @@ import { EndUserAgreementCookieGuard } from './end-user-agreement/end-user-agree
 import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
 import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { UsageReport } from './statistics/models/usage-report.model';
+import { RootDataService } from './data/root-data.service';
+import { Root } from './data/root.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -302,6 +304,7 @@ const PROVIDERS = [
   EndUserAgreementCurrentUserGuard,
   EndUserAgreementCookieGuard,
   EndUserAgreementService,
+  RootDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -374,6 +377,7 @@ export const models =
     VocabularyEntryDetail,
     ConfigurationProperty,
     UsageReport,
+    Root,
   ];
 
 @NgModule({

@@ -15,7 +15,7 @@ export class HALEndpointService {
   constructor(private requestService: RequestService) {
   }
 
-  protected getRootHref(): string {
+  public getRootHref(): string {
     return new RESTURLCombiner('/api').toString();
   }
 
