@@ -232,24 +232,18 @@ describe('MetadataService', () => {
     expect(tagStore.get('citation_technical_report_institution')[0].content).toEqual('Mock Publisher');
   }));
 
-  it('items page should set meta tag for Generator containing the current DSpace version', fakeAsync(() => {
-    spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(ItemMock));
-    router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
-    tick();
-    expect(tagStore.get('Generator')[0].content).toEqual('mock-dspace-version');
-  }));
-
-  it('other navigation should title and description', fakeAsync(() => {
+  it('other navigation should add title, description and Generator', fakeAsync(() => {
     spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(ItemMock));
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
     expect(tagStore.size).toBeGreaterThan(0);
     router.navigate(['/other']);
     tick();
-    expect(tagStore.size).toEqual(2);
+    expect(tagStore.size).toEqual(3);
     expect(title.getTitle()).toEqual('Dummy Title');
     expect(tagStore.get('title')[0].content).toEqual('Dummy Title');
     expect(tagStore.get('description')[0].content).toEqual('This is a dummy item component for testing!');
+    expect(tagStore.get('Generator')[0].content).toEqual('mock-dspace-version');
   }));
 
   describe('when the item has no bitstreams', () => {

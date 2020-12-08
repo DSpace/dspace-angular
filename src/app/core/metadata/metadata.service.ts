@@ -93,6 +93,8 @@ export class MetadataService {
         this.addMetaTag('description', translatedDescription);
       });
     }
+
+    this.setGenerator();
   }
 
   private initialize(dspaceObject: DSpaceObject): void {
@@ -137,8 +139,6 @@ export class MetadataService {
     if (this.isTechReport()) {
       this.setCitationTechReportInstitutionTag();
     }
-
-    this.setGenerator();
 
     // this.setCitationJournalTitleTag();
     // this.setCitationVolumeTag();
