@@ -6,6 +6,7 @@ import { getListableObjectComponent } from './listable-object.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
+import { hasValue } from '../../../empty.util';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
@@ -57,6 +58,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
   @Input() value: string;
 
   /**
+   * Whether or not informational badges (e.g. Private, Withdrawn) should be hidden
+   */
+  @Input() hideBadges = false;
+
+  /**
    * Directive hook used to place the dynamic child component
    */
   @ViewChild(ListableObjectDirective, {static: true}) listableObjectDirective: ListableObjectDirective;
@@ -68,11 +74,14 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
   @ViewChild('badges', { static: true }) badges: ElementRef;
 
   /**
-   * The provided object as any
-   * This is required to access the object's "isDiscoverable" and "isWithdrawn" properties from the template without
-   * knowing the object's type
+   * Whether or not the "Private" badge should be displayed for this listable object
    */
-  objectAsAny: any;
+  privateBadge = false;
+
+  /**
+   * Whether or not the "Withdrawn" badge should be displayed for this listable object
+   */
+  withdrawnBadge = false;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
   }
@@ -81,7 +90,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    * Setup the dynamic child component
    */
   ngOnInit(): void {
-    this.objectAsAny = this.object as any;
+    this.initBadges();
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
 
@@ -103,6 +112,19 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
     (componentRef.instance as any).context = this.context;
     (componentRef.instance as any).viewMode = this.viewMode;
     (componentRef.instance as any).value = this.value;
+  }
+
+  /**
+   * Initialize which badges should be visible in the listable component
+   */
+  initBadges() {
+    let objectAsAny = this.object as any;
+    if (hasValue(objectAsAny.indexableObject)) {
+      objectAsAny = objectAsAny.indexableObject;
+    }
+    const objectExistsAndValidViewMode = hasValue(objectAsAny) && this.viewMode !== ViewMode.StandalonePage;
+    this.privateBadge = objectExistsAndValidViewMode && hasValue(objectAsAny.isDiscoverable) && !objectAsAny.isDiscoverable;
+    this.withdrawnBadge = objectExistsAndValidViewMode && hasValue(objectAsAny.isWithdrawn) && objectAsAny.isWithdrawn;
   }
 
   /**

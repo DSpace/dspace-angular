@@ -218,6 +218,7 @@ import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-select
 import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
+import { ItemAlertsComponent } from './item/item-alerts/item-alerts.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -504,7 +505,8 @@ const ENTRY_COMPONENTS = [
 const SHARED_ITEM_PAGE_COMPONENTS = [
   MetadataFieldWrapperComponent,
   MetadataValuesComponent,
-  DsoPageEditButtonComponent
+  DsoPageEditButtonComponent,
+  ItemAlertsComponent,
 ];
 
 const PROVIDERS = [
