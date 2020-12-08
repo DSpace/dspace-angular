@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { isEmpty } from '../../empty.util';
+import { hasValue, isEmpty } from '../../empty.util';
+import { getResourceTypeValueFor } from '../../../core/cache/object-cache.reducer';
 
 @Component({
   selector: 'ds-type-badge',
@@ -24,7 +25,12 @@ export class TypeBadgeComponent {
     if (!isEmpty(renderTypes.length)) {
       const renderType = renderTypes[0];
       if (renderType instanceof Function) {
-        this._typeMessage = `${object.type.toString().toLowerCase()}.listelement.badge`;
+        const resourceTypeValue = getResourceTypeValueFor(object.type);
+        if (hasValue(resourceTypeValue)) {
+          this._typeMessage = `${resourceTypeValue.toLowerCase()}.listelement.badge`;
+        } else {
+          this._typeMessage = `${renderType.name.toLowerCase()}.listelement.badge`;
+        }
       } else {
         this._typeMessage = `${renderType.toLowerCase()}.listelement.badge`;
       }
