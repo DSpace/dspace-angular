@@ -58,4 +58,8 @@ export class DSpaceObjectDataService {
   findById(uuid: string): Observable<RemoteData<DSpaceObject>> {
     return this.dataService.findById(uuid);
   }
+
+  findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
+    return this.dataService.findByHref(href);
+  }
 }

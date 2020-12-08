@@ -24,6 +24,10 @@ export class ServerResponseService {
     return this.setStatus(401, message)
   }
 
+  setForbidden(message = 'Forbidden'): this {
+    return this.setStatus(403, message)
+  }
+
   setNotFound(message = 'Not found'): this {
     return this.setStatus(404, message)
   }

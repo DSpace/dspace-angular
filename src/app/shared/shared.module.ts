@@ -216,6 +216,7 @@ import { CommunitySidebarSearchListElementComponent } from './object-list/sideba
 import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
 import { HoverClassDirective } from './hover-class.directive';
+import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
 import { ItemSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
 
 const MODULES = [
@@ -338,6 +339,7 @@ const COMPONENTS = [
   BrowseByComponent,
   InputSuggestionsComponent,
   FilterInputSuggestionsComponent,
+  ValidationSuggestionsComponent,
   DsoInputSuggestionsComponent,
   DSOSelectorComponent,
   CreateCommunityParentSelectorComponent,

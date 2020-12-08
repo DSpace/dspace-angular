@@ -8,9 +8,10 @@ import {
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { Observable } from 'rxjs/internal/Observable';
-import { returnUnauthorizedUrlTreeOnFalse } from '../../../shared/operators';
+import { returnForbiddenUrlTreeOrLoginOnFalse } from '../../../shared/operators';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { AuthService } from '../../../auth/auth.service';
 
 /**
  * Abstract Guard for preventing unauthorized activating and loading of routes when a user
@@ -19,7 +20,8 @@ import { switchMap } from 'rxjs/operators';
  */
 export abstract class FeatureAuthorizationGuard implements CanActivate {
   constructor(protected authorizationService: AuthorizationDataService,
-              protected router: Router) {
+              protected router: Router,
+              protected authService: AuthService) {
   }
 
   /**
@@ -29,7 +31,7 @@ export abstract class FeatureAuthorizationGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     return observableCombineLatest(this.getFeatureID(route, state), this.getObjectUrl(route, state), this.getEPersonUuid(route, state)).pipe(
       switchMap(([featureID, objectUrl, ePersonUuid]) => this.authorizationService.isAuthorized(featureID, objectUrl, ePersonUuid)),
-      returnUnauthorizedUrlTreeOnFalse(this.router)
+      returnForbiddenUrlTreeOrLoginOnFalse(this.router, this.authService, state.url)
     );
   }
 
