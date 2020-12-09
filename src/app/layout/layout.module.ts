@@ -28,6 +28,7 @@ import { OrcidSyncSettingsComponent } from './custom-layout/orcid-sync-settings/
 import { CrisLayoutMetricsBoxComponent } from './default-layout/boxes/metrics/cris-layout-metrics-box.component';
 import { MetricRowComponent } from './default-layout/boxes/components/metric-row/metric-row.component';
 import { MetricComponent } from './default-layout/boxes/components/metric/metric.component';
+import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { MetricComponent } from './default-layout/boxes/components/metric/metric
     CommonModule,
     SharedModule,
     SearchPageModule,
-    MyDSpacePageModule
+    MyDSpacePageModule,
+    ContextMenuModule
   ],
   entryComponents: [
     CrisLayoutDefaultComponent,
