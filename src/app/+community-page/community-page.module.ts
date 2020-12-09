@@ -11,14 +11,16 @@ import { CreateCommunityPageComponent } from './create-community-page/create-com
 import { CommunityFormComponent } from './community-form/community-form.component';
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { StatisticsModule } from '../statistics/statistics.module';
+import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    CommunityPageRoutingModule,
-    StatisticsModule.forRoot()
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        CommunityPageRoutingModule,
+        StatisticsModule.forRoot(),
+        ContextMenuModule
+    ],
   declarations: [
     CommunityPageComponent,
     CommunityPageSubCollectionListComponent,
