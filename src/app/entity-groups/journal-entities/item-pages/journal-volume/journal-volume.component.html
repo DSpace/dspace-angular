@@ -3,7 +3,7 @@
     {{'journalvolume.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
   </h2>
   <div class="pl-2">
-    <ds-dso-page-edit-button [pageRoutePrefix]="'items'" [dso]="object" [tooltipMsg]="'journalvolume.page.edit'"></ds-dso-page-edit-button>
+    <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
   </div>
 </div>
 <div class="row">
