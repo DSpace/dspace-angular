@@ -13,15 +13,17 @@ import { EditItemPageModule } from '../+item-page/edit-item-page/edit-item-page.
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
 import { SearchService } from '../core/shared/search/search.service';
 import { StatisticsModule } from '../statistics/statistics.module';
+import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    CollectionPageRoutingModule,
-    StatisticsModule.forRoot(),
-    EditItemPageModule
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        CollectionPageRoutingModule,
+        StatisticsModule.forRoot(),
+        EditItemPageModule,
+        ContextMenuModule
+    ],
   declarations: [
     CollectionPageComponent,
     CreateCollectionPageComponent,
