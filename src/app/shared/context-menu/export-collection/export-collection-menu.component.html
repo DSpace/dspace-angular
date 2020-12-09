@@ -1,0 +1,4 @@
+<button *ngIf="(isCollectionAdmin() | async)" class="dropdown-item"
+        (click)="$event.preventDefault();exportCollection();">
+  {{'context-menu.actions.export-item.btn' | translate}}
+</button>
