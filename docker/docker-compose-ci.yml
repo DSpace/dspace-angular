@@ -1,4 +1,13 @@
-# Docker Compose for running the DSpace backend for e2e testing in CI
+#
+# The contents of this file are subject to the license and copyright
+# detailed in the LICENSE and NOTICE files at the root of the source
+# tree and available online at
+#
+# http://www.dspace.org/license/
+#
+
+# Docker Compose for running the DSpace backend for e2e testing in a CI environment
+# This is used by our GitHub CI at .github/workflows/build.yml
 networks:
   dspacenet:
 services:
@@ -20,7 +29,9 @@ services:
   dspacedb:
     container_name: dspacedb
     environment:
-      LOADSQL: https://www.dropbox.com/s/xh3ack0vg0922p2/configurable-entities-2019-05-08.sql?dl=1
+      # This LOADSQL should be kept in sync with the LOADSQL in
+      # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/db.entities.yml
+      LOADSQL: https://www.dropbox.com/s/4ap1y6deseoc8ws/dspace7-entities-2019-11-28.sql?dl=1
       PGDATA: /pgdata
     image: dspace/dspace-postgres-pgcrypto:loadsql
     networks:
