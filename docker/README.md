@@ -5,7 +5,7 @@
   - Starts DSpace Angular with Docker Compose from the current branch.  This file assumes that a DSpace 7 REST instance will also be started in Docker.
 - docker-compose-rest.yml
   - Runs a published instance of the DSpace 7 REST API - persists data in Docker volumes
-- docker-compose-travis.yml
+- docker-compose-ci.yml
   - Runs a published instance of the DSpace 7 REST API for CI testing.  The database is re-populated from a SQL dump on each startup.
 - cli.yml
   - Docker compose file that provides a DSpace CLI container to work with a running DSpace REST container.
