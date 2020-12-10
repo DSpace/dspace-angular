@@ -88,10 +88,10 @@ export class EntityTypeService extends DataService<ItemType> {
    * @param label
    */
   getEntityTypeByLabel(label: string): Observable<RemoteData<ItemType>> {
-    let endPoint;
-    this.halService.getEndpoint(this.linkPath).pipe(take(1)).subscribe((result) => {
-      endPoint = result;
-    });
-    return this.findByHref(endPoint + '/label/' + label);
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      take(1),
+      switchMap((endPoint: string) =>
+        this.findByHref(endPoint + '/label/' + label))
+    );
   }
 }
