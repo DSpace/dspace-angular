@@ -3,6 +3,6 @@
    [queryParams]="removeQueryParams" queryParamsHandling="merge">
     <input type="checkbox" [checked]="true" class="my-1 align-self-stretch"/>
     <span class="filter-value pl-1 text-capitalize">
-        {{ 'search.filters.' + filterConfig.name + '.' + selectedValue.value | translate: {default: selectedValue.value} }}
+        {{ 'search.filters.' + filterConfig.name + '.' + selectedValue.value | translate: {default: selectedValue.label} }}
     </span>
 </a>
