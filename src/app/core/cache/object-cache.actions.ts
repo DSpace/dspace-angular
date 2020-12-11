@@ -23,9 +23,10 @@ export class AddToObjectCacheAction implements Action {
   type = ObjectCacheActionTypes.ADD;
   payload: {
     objectToCache: CacheableObject;
-    timeAdded: number;
+    timeCompleted: number;
     msToLive: number;
     requestUUID: string;
+    alternativeLink?: string;
   };
 
   /**
@@ -33,17 +34,18 @@ export class AddToObjectCacheAction implements Action {
    *
    * @param objectToCache
    *    the object to add
-   * @param timeAdded
+   * @param timeCompleted
    *    the time it was added
    * @param msToLive
    *    the amount of milliseconds before it should expire
-   * @param requestHref
-   *    The href of the request that resulted in this object
+   * @param requestUUID
+   *    The uuid of the request that resulted in this object
    *    This isn't necessarily the same as the object's self
    *    link, it could have been part of a list for example
+   *  @param alternativeLink An optional alternative link to this object
    */
-  constructor(objectToCache: CacheableObject, timeAdded: number, msToLive: number, requestUUID: string) {
-    this.payload = { objectToCache, timeAdded, msToLive, requestUUID };
+  constructor(objectToCache: CacheableObject, timeCompleted: number, msToLive: number, requestUUID: string, alternativeLink?: string) {
+    this.payload = { objectToCache, timeCompleted, msToLive, requestUUID, alternativeLink };
   }
 }
 
@@ -66,7 +68,7 @@ export class RemoveFromObjectCacheAction implements Action {
 }
 
 /**
- * An ngrx action to reset the timeAdded property of all cached objects
+ * An ngrx action to reset the timeCompleted property of all cached objects
  */
 export class ResetObjectCacheTimestampsAction implements Action {
   type = ObjectCacheActionTypes.RESET_TIMESTAMPS;
@@ -76,7 +78,7 @@ export class ResetObjectCacheTimestampsAction implements Action {
    * Create a new ResetObjectCacheTimestampsAction
    *
    * @param newTimestamp
-   *    the new timeAdded all objects should get
+   *    the new timeCompleted all objects should get
    */
   constructor(newTimestamp: number) {
     this.payload = newTimestamp;

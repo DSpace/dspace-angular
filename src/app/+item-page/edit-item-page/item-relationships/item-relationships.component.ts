@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import {
   DeleteRelationship,
@@ -7,8 +7,12 @@ import {
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map, startWith, switchMap, take} from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip} from 'rxjs';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+  zip as observableZip
+} from 'rxjs';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -17,16 +21,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RelationshipService } from '../../../core/data/relationship.service';
-import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import { hasValue } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -78,10 +83,11 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    * Update the item (and view) when it's removed in the request cache
    */
   public initializeItemUpdate(): void {
-    this.itemRD$ = this.requestService.hasByHrefObservable(this.item.self).pipe(
+    this.itemRD$ = this.requestService.hasByHref$(this.item.self).pipe(
       filter((exists: boolean) => !exists),
       switchMap(() => this.itemService.findById(
         this.item.uuid,
+        true,
         followLink('owningCollection'),
         followLink('bundles'),
         followLink('relationships')),
@@ -90,7 +96,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     );
 
     this.itemRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
     ).subscribe((item) => {
       this.item = item;
@@ -108,7 +114,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     if (label !== undefined) {
 
       this.entityType$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
       );
 
@@ -119,7 +125,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
             followLink('leftType'),
             followLink('rightType'))
             .pipe(
-              getSucceededRemoteData(),
+              getFirstSucceededRemoteData(),
               getRemoteDataPayload(),
               map((relationshipTypes) => relationshipTypes.page),
             )
@@ -162,6 +168,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     const addRelatedItems$: Observable<RelationshipIdentifiable[]> = this.objectUpdatesService.getFieldUpdates(this.url, []).pipe(
       map((fieldUpdates: FieldUpdates) =>
         Object.values(fieldUpdates)
+          .filter((fieldUpdate: FieldUpdate) => hasValue(fieldUpdate))
           .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.ADD)
           .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as RelationshipIdentifiable)
       ),
@@ -191,7 +198,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     });
   }
 
-  deleteRelationships(deleteRelationshipIDs: DeleteRelationship[]): Observable<RestResponse[]> {
+  deleteRelationships(deleteRelationshipIDs: DeleteRelationship[]): Observable<Array<RemoteData<NoContent>>> {
     return observableZip(...deleteRelationshipIDs.map((deleteRelationship) => {
         let copyVirtualMetadata: string;
         if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
@@ -208,7 +215,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     ));
   }
 
-  addRelationships(addRelatedItems: RelationshipIdentifiable[]): Observable<RestResponse[]> {
+  addRelationships(addRelatedItems: RelationshipIdentifiable[]): Observable<Array<RemoteData<Relationship>>> {
     return observableZip(...addRelatedItems.map((addRelationship) =>
       this.entityType$.pipe(
         switchMap((entityType) => this.entityTypeService.isLeftType(addRelationship.type, entityType)),
@@ -240,11 +247,11 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    * - Success notification in case there's at least one successful response
    * @param responses
    */
-  displayNotifications(responses: RestResponse[]) {
-    const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
-    const successfulResponses = responses.filter((response: RestResponse) => response.isSuccessful);
+  displayNotifications(responses: Array<RemoteData<NoContent>>) {
+    const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
+    const successfulResponses = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
 
-    failedResponses.forEach((response: ErrorResponse) => {
+    failedResponses.forEach((response: RemoteData<NoContent>) => {
       this.notificationsService.error(this.getNotificationTitle('failed'), response.errorMessage);
     });
     if (successfulResponses.length > 0) {

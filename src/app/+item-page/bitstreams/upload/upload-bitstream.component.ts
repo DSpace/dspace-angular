@@ -11,7 +11,7 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import {
@@ -103,7 +103,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.itemId = this.route.snapshot.params.id;
-    this.itemRD$ = this.route.data.pipe(map((data) => data.item));
+    this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
     this.bundlesRD$ = this.itemRD$.pipe(
       switchMap((itemRD: RemoteData<Item>) => itemRD.payload.bundles)
     );

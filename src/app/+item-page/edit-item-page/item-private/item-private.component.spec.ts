@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Item } from '../../../core/shared/item.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +15,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemPrivateComponent } from './item-private.component';
 import { RestResponse } from '../../../core/cache/response.models';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 let comp: ItemPrivateComponent;
 let fixture: ComponentFixture<ItemPrivateComponent>;
@@ -46,14 +45,12 @@ describe('ItemPrivateComponent', () => {
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      setDiscoverable: observableOf(new RestResponse(true, 200, 'OK'))
+      setDiscoverable: createSuccessfulRemoteDataObject$(mockItem)
     });
 
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject({
-          id: 'fake-id'
-        })
+        dso: createSuccessfulRemoteDataObject(mockItem)
       })
     };
 
@@ -98,9 +95,8 @@ describe('ItemPrivateComponent', () => {
       spyOn(comp, 'processRestResponse');
       comp.performAction();
 
-      expect(mockItemDataService.setDiscoverable).toHaveBeenCalledWith(mockItem.id, false);
+      expect(mockItemDataService.setDiscoverable).toHaveBeenCalledWith(mockItem, false);
       expect(comp.processRestResponse).toHaveBeenCalled();
     });
   });
-})
-;
+});

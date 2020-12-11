@@ -18,6 +18,7 @@ import {
 import { COLLECTION_MODULE_PATH } from './+collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './+community-page/community-page-routing-paths';
 import { ITEM_MODULE_PATH } from './+item-page/item-page-routing-paths';
+import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { ReloadGuard } from './core/reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
@@ -66,7 +67,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
               path: PROFILE_MODULE_PATH,
               loadChildren: './profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
             },
-            { path: 'processes', loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard] },
+            { path: PROCESS_MODULE_PATH, loadChildren: './process-page/process-page.module#ProcessPageModule', canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard] },
             { path: INFO_MODULE_PATH, loadChildren: './info/info.module#InfoModule' },
             { path: FORBIDDEN_PATH, component: ForbiddenComponent },
             {

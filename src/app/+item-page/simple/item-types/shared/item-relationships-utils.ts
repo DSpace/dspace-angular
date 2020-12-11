@@ -1,11 +1,14 @@
 import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { distinctUntilChanged, flatMap, map, switchMap } from 'rxjs/operators';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteData
+} from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 
 /**
@@ -72,7 +75,7 @@ export const relationsToItems = (thisId: string) =>
 export const paginatedRelationsToItems = (thisId: string) =>
   (source: Observable<RemoteData<PaginatedList<Relationship>>>): Observable<RemoteData<PaginatedList<Item>>> =>
     source.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       switchMap((relationshipsRD: RemoteData<PaginatedList<Relationship>>) => {
         return observableCombineLatest(
           relationshipsRD.payload.page.map((rel: Relationship) =>

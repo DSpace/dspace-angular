@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
 import { fadeIn } from '../../shared/animations/fade';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
+import { takeUntilCompletedRemoteData } from '../../core/shared/operators';
 
 @Component({
   selector: 'ds-community-page-sub-community-list',
@@ -75,7 +75,7 @@ export class CommunityPageSubCommunityListComponent implements OnInit {
       currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize,
       sort: { field: this.sortConfig.field, direction: this.sortConfig.direction }
-    }).pipe(take(1)).subscribe((results) => {
+    }).pipe(takeUntilCompletedRemoteData()).subscribe((results) => {
       this.subCommunitiesRDObs.next(results);
     });
   }

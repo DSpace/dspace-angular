@@ -4,6 +4,7 @@ import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
+import { hasValue } from '../../empty.util';
 
 @Component({
   selector: 'ds-dso-input-suggestions',
@@ -42,9 +43,11 @@ export class DsoInputSuggestionsComponent extends InputSuggestionsComponent {
   currentObject: DSpaceObject;
 
   onSubmit(data: DSpaceObject) {
-    this.value = data.name;
-    this.currentObject = data;
-    this.submitSuggestion.emit(data);
+    if (hasValue(data)) {
+      this.value = data.name;
+      this.currentObject = data;
+      this.submitSuggestion.emit(data);
+    }
   }
 
   onClickSuggestion(data: DSpaceObject) {

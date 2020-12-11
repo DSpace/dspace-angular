@@ -1,11 +1,19 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { ExternalSourceService } from '../../../core/data/external-source.service';
 import { ExternalSource } from '../../../core/shared/external-source.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
@@ -112,7 +120,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
     this.externalService.findAll(this.findListOptions).pipe(
       catchError(() => {
         const pageInfo = new PageInfo();
-        const paginatedList = new PaginatedList(pageInfo, []);
+        const paginatedList = buildPaginatedList(pageInfo, []);
         const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
         return observableOf(paginatedListRD);
       }),
@@ -154,7 +162,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       this.sub = this.externalService.findAll(this.findListOptions).pipe(
         catchError(() => {
           const pageInfo = new PageInfo();
-          const paginatedList = new PaginatedList(pageInfo, []);
+          const paginatedList = buildPaginatedList(pageInfo, []);
           const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
           return observableOf(paginatedListRD);
         }),

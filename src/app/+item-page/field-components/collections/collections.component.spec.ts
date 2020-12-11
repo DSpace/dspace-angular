@@ -7,7 +7,10 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/remote-data.utils';
 import { CollectionsComponent } from './collections.component';
 
 let collectionsComponent: CollectionsComponent;
@@ -23,11 +26,14 @@ const mockCollection1: Collection = Object.assign(new Collection(), {
         value: 'Short description'
       }
     ]
+  },
+  _links: {
+    self: { href: 'collection-selflink' }
   }
 });
 
 const succeededMockItem: Item = Object.assign(new Item(), {owningCollection: createSuccessfulRemoteDataObject$(mockCollection1)});
-const failedMockItem: Item = Object.assign(new Item(), {owningCollection: createFailedRemoteDataObject$(mockCollection1)});
+const failedMockItem: Item = Object.assign(new Item(), {owningCollection: createFailedRemoteDataObject$('error', 500)});
 
 describe('CollectionsComponent', () => {
   collectionDataServiceStub = {
@@ -35,7 +41,7 @@ describe('CollectionsComponent', () => {
       if (item === succeededMockItem) {
         return createSuccessfulRemoteDataObject$(mockCollection1);
       } else {
-        return createFailedRemoteDataObject$(mockCollection1);
+        return createFailedRemoteDataObject$('error', 500);
       }
     }
   };

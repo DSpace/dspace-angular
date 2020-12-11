@@ -1,12 +1,12 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/request.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { ErrorResponse, RestResponse, TaskResponse } from '../cache/response.models';
+import { ParsedResponse } from '../cache/response.models';
 
 /**
  * Provides methods to parse response for a task request.
@@ -29,19 +29,14 @@ export class TaskResponseParsingService extends BaseResponseParsingService imple
    * Parses data from the tasks endpoints
    *
    * @param {RestRequest} request
-   * @param {DSpaceRESTV2Response} data
+   * @param {RawRestResponse} data
    * @returns {RestResponse}
    */
-  parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+  parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
     if (this.isSuccessStatus(data.statusCode)) {
-      return new TaskResponse( data.statusCode, data.statusText);
+      return new ParsedResponse(data.statusCode);
     } else {
-      return new ErrorResponse(
-        Object.assign(
-          new Error('Unexpected response from server'),
-          { statusCode: data.statusCode, statusText: data.statusText }
-        )
-      );
+      throw new Error('Unexpected response from server');
     }
   }
 

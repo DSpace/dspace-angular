@@ -21,6 +21,7 @@ import {
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
 import { RequestEntry } from '../data/request.reducer';
+import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
@@ -29,7 +30,8 @@ class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitio
   constructor(
     protected requestService: RequestService,
     protected store: Store<CoreState>,
-    protected halService: HALEndpointService) {
+    protected halService: HALEndpointService,
+    protected rdbService: RemoteDataBuildService) {
 
     super();
   }
@@ -57,7 +59,7 @@ describe('JsonPatchOperationsService test suite', () => {
                   path: '/testResourceType/testResourceId/testField',
                   value: ['test']
                 },
-                timeAdded: timestamp
+                timeCompleted: timestamp
               },
             ]
           } as JsonPatchOperationsEntry
@@ -82,7 +84,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
-      response: { isSuccessful: successful, timeAdded: timestampResponse } as any
+      response: { isSuccessful: successful, timeCompleted: timestampResponse } as any
     } as RequestEntry)
   };
 
@@ -90,7 +92,8 @@ describe('JsonPatchOperationsService test suite', () => {
     return new TestService(
       requestService,
       store,
-      halService
+      halService,
+      rdbService
     );
 
   }
@@ -103,6 +106,18 @@ describe('JsonPatchOperationsService test suite', () => {
     });
   }
 
+  function spyOnRdbServiceAndReturnSuccessfulRemoteData() {
+    spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(
+      observableOf(Object.assign(createSuccessfulRemoteDataObject({ dataDefinition: 'test' }), { timeCompleted: new Date().getTime() + 10000 }))
+    );
+  }
+
+  function spyOnRdbServiceAndReturnFailedRemoteData() {
+    spyOn(rdbService, 'buildFromRequestUUID').and.returnValue(
+      observableOf(Object.assign(createFailedRemoteDataObject('Error', 500), { timeCompleted: new Date().getTime() + 10000 }))
+    );
+  }
+
   beforeEach(() => {
     store = getStore();
     requestService = getMockRequestService(getRequestEntry$(true));
@@ -110,6 +125,7 @@ describe('JsonPatchOperationsService test suite', () => {
     scheduler = getTestScheduler();
     halService = new HALEndpointServiceStub(resourceEndpointURL);
     service = initTestService();
+    spyOnRdbServiceAndReturnSuccessfulRemoteData();
 
     spyOn(Date.prototype, 'getTime').and.callFake(() => {
       return timestamp;
@@ -161,6 +177,7 @@ describe('JsonPatchOperationsService test suite', () => {
         scheduler = getTestScheduler();
         halService = new HALEndpointServiceStub(resourceEndpointURL);
         service = initTestService();
+        spyOnRdbServiceAndReturnFailedRemoteData();
 
         store.select.and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
         store.dispatch.and.callThrough();
@@ -224,6 +241,7 @@ describe('JsonPatchOperationsService test suite', () => {
         scheduler = getTestScheduler();
         halService = new HALEndpointServiceStub(resourceEndpointURL);
         service = initTestService();
+        spyOnRdbServiceAndReturnFailedRemoteData();
 
         store.select.and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
         store.dispatch.and.callThrough();

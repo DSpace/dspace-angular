@@ -16,10 +16,9 @@ import { PaginatedSearchOptions } from '../../shared/search/paginated-search-opt
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { configureRequest } from '../shared/operators';
 import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * A service handling all external source requests

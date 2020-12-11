@@ -20,7 +20,7 @@ import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { ExternalSourceService } from '../../../../../core/data/external-source.service';
 import { Router } from '@angular/router';

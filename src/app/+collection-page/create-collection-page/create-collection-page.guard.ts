@@ -5,8 +5,9 @@ import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
-import { map, tap, find } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Observable, of as observableOf } from 'rxjs';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 
 /**
  * Prevent creation of a collection without a parent community provided
@@ -30,7 +31,7 @@ export class CreateCollectionPageGuard implements CanActivate {
     }
     return this.communityService.findById(parentID)
       .pipe(
-        find((communityRD: RemoteData<Community>) => hasValue(communityRD.payload) || hasValue(communityRD.error)),
+        getFirstCompletedRemoteData(),
         map((communityRD: RemoteData<Community>) => hasValue(communityRD) && communityRD.hasSucceeded && hasValue(communityRD.payload)),
         tap((isValid: boolean) => {
           if (!isValid) {

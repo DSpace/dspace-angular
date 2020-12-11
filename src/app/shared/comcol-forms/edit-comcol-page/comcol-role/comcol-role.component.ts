@@ -4,12 +4,19 @@ import { Community } from '../../../../core/shared/community.model';
 import { Observable } from 'rxjs';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
-import { filter, map } from 'rxjs/operators';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import { map, switchMap } from 'rxjs/operators';
+import {
+  getFirstCompletedRemoteData,
+  getAllCompletedRemoteData
+} from '../../../../core/shared/operators';
 import { RequestService } from '../../../../core/data/request.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { HALLink } from '../../../../core/shared/hal-link.model';
 import { getGroupEditRoute } from '../../../../+admin/admin-access-control/admin-access-control-routing-paths';
+import { hasValue, hasNoValue } from '../../../empty.util';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { NoContent } from '../../../../core/shared/NoContent.model';
+import { filter } from 'rxjs/internal/operators/filter';
 
 /**
  * Component for managing a community or collection role.
@@ -25,13 +32,42 @@ export class ComcolRoleComponent implements OnInit {
    * The community or collection to manage.
    */
   @Input()
-  dso: Community|Collection;
+  dso: Community | Collection;
 
   /**
    * The role to manage
    */
-  @Input()
-  comcolRole: HALLink;
+  comcolRole$: BehaviorSubject<HALLink> = new BehaviorSubject(undefined);
+
+  /**
+   * The group for this role, as an observable remote data.
+   */
+  groupRD$: Observable<RemoteData<Group>>
+
+  /**
+   * The group for this role, as an observable.
+   */
+  group$: Observable<Group>
+
+  /**
+   * The link to the group edit page as an observable.
+   */
+  editGroupLink$: Observable<string>
+
+  /**
+   * True if there is no group for this ComcolRole.
+   */
+  hasNoGroup$: Observable<boolean>
+
+  /**
+   * Return true if the group for this ComcolRole is the Anonymous group, as an observable.
+   */
+  hasAnonymousGroup$: Observable<boolean>
+
+  /**
+   * Return true if there is a group for this ComcolRole other than the Anonymous group, as an observable.
+   */
+  hasCustomGroup$: Observable<boolean>
 
   constructor(
     protected requestService: RequestService,
@@ -47,80 +83,80 @@ export class ComcolRoleComponent implements OnInit {
   }
 
   /**
-   * The group for this role, as an observable remote data.
+   * The role to manage
    */
-  get groupRD$(): Observable<RemoteData<Group>> {
-    return this.groupService.findByHref(this.groupLink).pipe(
-      filter((groupRD) => !!groupRD.statusCode),
-    );
+  @Input()
+  set comcolRole(newRole: HALLink) {
+    this.comcolRole$.next(newRole);
   }
 
-  /**
-   * The group for this role, as an observable.
-   */
-  get group$(): Observable<Group> {
-    return this.groupRD$.pipe(
-      getSucceededRemoteData(),
-      filter((groupRD) => groupRD != null),
-      getRemoteDataPayload(),
-    );
-  }
-
-  /**
-   * The link to the group edit page as an observable.
-   */
-  get editGroupLink$(): Observable<string> {
-    return this.group$.pipe(
-      map((group) => getGroupEditRoute(group.id)),
-    );
-  }
-
-  /**
-   * Return true if there is no group for this ComcolRole, as an observable.
-   */
-  hasNoGroup$(): Observable<boolean> {
-    return this.groupRD$.pipe(
-      map((groupRD) => groupRD.statusCode === 204),
-    )
-  }
-
-  /**
-   * Return true if the group for this ComcolRole is the Anonymous group, as an observable.
-   */
-  hasAnonymousGroup$(): Observable<boolean> {
-    return this.group$.pipe(
-      map((group) => group.name === 'Anonymous'),
-    )
-  }
-
-  /**
-   * Return true if there is a group for this ComcolRole other than the Anonymous group, as an observable.
-   */
-  hasCustomGroup$(): Observable<boolean> {
-    return this.hasAnonymousGroup$().pipe(
-      map((anonymous) => !anonymous),
-    )
+  get comcolRole(): HALLink {
+    return this.comcolRole$.getValue();
   }
 
   /**
    * Create a group for this community or collection role.
    */
   create() {
-    this.groupService.createComcolGroup(this.dso, this.comcolRole.name, this.groupLink).subscribe();
+    this.groupService.createComcolGroup(this.dso, this.comcolRole.name, this.groupLink).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((rd: RemoteData<Group>) => {
+      if (rd.hasSucceeded) {
+        this.groupService.clearGroupsRequests();
+        this.requestService.setStaleByHrefSubstring(this.comcolRole.href);
+      } else {
+        // TODO show error notification
+      }
+    });
   }
 
   /**
    * Delete the group for this community or collection role.
    */
   delete() {
-    this.groupService.deleteComcolGroup(this.groupLink).subscribe();
+    this.groupService.deleteComcolGroup(this.groupLink).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((rd: RemoteData<NoContent>) => {
+      if (rd.hasSucceeded) {
+        this.groupService.clearGroupsRequests();
+        this.requestService.setStaleByHrefSubstring(this.comcolRole.href);
+      } else {
+        // TODO show error notification
+      }
+    });
   }
 
   ngOnInit(): void {
-    this.requestService.hasByHrefObservable(this.groupLink)
-      .pipe(
-        filter((hasByHrefObservable) => !hasByHrefObservable),
-      )
-      .subscribe(() => this.groupRD$.subscribe());
+    this.groupRD$ = this.comcolRole$.pipe(
+      filter((role: HALLink) => hasValue(role)),
+      switchMap((role: HALLink) => this.groupService.findByHref(role.href)),
+      getAllCompletedRemoteData(),
+    )
+
+    this.group$ = this.groupRD$.pipe(
+      map((rd: RemoteData<Group>) => {
+        if (hasValue(rd.payload)) {
+          return rd.payload
+        } else {
+          return undefined;
+        }
+      })
+    );
+
+    this.editGroupLink$ = this.group$.pipe(
+      map((group: Group) => hasValue(group) ? getGroupEditRoute(group.id) : undefined),
+    );
+
+    this.hasNoGroup$ = this.group$.pipe(
+      map((group: Group) => hasNoValue(group)),
+    );
+
+    this.hasAnonymousGroup$ = this.group$.pipe(
+      map((group: Group) => hasValue(group) && group.name === 'Anonymous'),
+    );
+
+    this.hasCustomGroup$ = this.group$.pipe(
+      map((group: Group) => hasValue(group) && group.name !== 'Anonymous'),
+    )
   }
 }

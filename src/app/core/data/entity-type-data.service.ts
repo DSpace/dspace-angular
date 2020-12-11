@@ -13,7 +13,7 @@ import { ItemType } from '../shared/item-relationships/item-type.model';
 import { ITEM_TYPE } from '../shared/item-relationships/item-type.resource-type';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
@@ -65,21 +65,25 @@ export class ItemTypeDataService {
   /**
    * Returns an observable of {@link RemoteData} of an {@link ItemType}, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the {@link ItemType}
-   * @param href            The url of {@link ItemType} we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param href              The url of {@link ItemType} we want to retrieve
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<ItemType>> {
-    return this.dataService.findByHref(href, ...linksToFollow);
+  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<ItemType>> {
+    return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns a list of observables of {@link RemoteData} of {@link ItemType}s, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the {@link ItemType}
-   * @param href            The url of the {@link ItemType} we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param href              The url of the {@link ItemType} we want to retrieve
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByAllHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<PaginatedList<ItemType>>> {
-    return this.dataService.findAllByHref(href, findListOptions, ...linksToFollow);
+  findByAllHref(href: string, reRequestOnStale = true, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ItemType>>): Observable<RemoteData<PaginatedList<ItemType>>> {
+    return this.dataService.findAllByHref(href, findListOptions, reRequestOnStale, ...linksToFollow);
   }
 }
 /* tslint:enable:max-classes-per-file */

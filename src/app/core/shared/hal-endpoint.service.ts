@@ -5,18 +5,23 @@ import { EndpointMapRequest } from '../data/request.models';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { Injectable } from '@angular/core';
-import { EndpointMap, EndpointMapSuccessResponse } from '../cache/response.models';
-import { getResponseFromEntry } from './operators';
-import { URLCombiner } from '../url-combiner/url-combiner';
+import { EndpointMap } from '../cache/response.models';
+import { getFirstCompletedRemoteData } from './operators';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RemoteData } from '../data/remote-data';
+import { UnCacheableObject } from './uncacheable-object.model';
 
 @Injectable()
 export class HALEndpointService {
 
-  constructor(private requestService: RequestService) {
+  constructor(
+    private requestService: RequestService,
+    private rdbService: RemoteDataBuildService
+) {
   }
 
   protected getRootHref(): string {
-    return new RESTURLCombiner('/api').toString();
+    return new RESTURLCombiner().toString();
   }
 
   protected getRootEndpointMap(): Observable<EndpointMap> {
@@ -31,14 +36,22 @@ export class HALEndpointService {
       this.requestService.configure(request);
     }
 
-    return this.requestService.getByHref(request.href).pipe(
-      getResponseFromEntry(),
-      map((response: EndpointMapSuccessResponse) => response.endpointMap),
-      );
+    return this.rdbService.buildFromHref<UnCacheableObject>(href).pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<UnCacheableObject>) => {
+        if (hasValue(response.payload)) {
+          return response.payload._links;
+        } else {
+          console.warn(`No _links section found at ${href}`);
+          return undefined;
+        }
+      }),
+    );
   }
 
   public getEndpoint(linkPath: string, startHref?: string): Observable<string> {
-    return this.getEndpointAt(startHref || this.getRootHref(), ...linkPath.split('/')).pipe(take(1));
+    const halNames = linkPath.split('/').filter((name: string) => isNotEmpty(name));
+    return this.getEndpointAt(startHref || this.getRootHref(), ...halNames).pipe(take(1));
   }
 
   /**
@@ -54,12 +67,11 @@ export class HALEndpointService {
 
     const nextHref$ = this.getEndpointMapAt(href).pipe(
       map((endpointMap: EndpointMap): string => {
-        /*TODO remove if/else block once the rest response contains _links for facets*/
         const nextName = halNames[0];
         if (hasValue(endpointMap) && hasValue(endpointMap[nextName])) {
-          return endpointMap[nextName];
+          return endpointMap[nextName].href;
         } else {
-          return new URLCombiner(href, nextName).toString();
+          throw new Error(`${JSON.stringify(endpointMap)} doesn't contain the link ${nextName}`);
         }
       })
     ) as Observable<string>;

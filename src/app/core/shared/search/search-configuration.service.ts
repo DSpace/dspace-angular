@@ -11,7 +11,7 @@ import { RemoteData } from '../../data/remote-data';
 import { DSpaceObjectType } from '../dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { RouteService } from '../../services/route.service';
-import { getSucceededRemoteData } from '../operators';
+import { getFirstSucceededRemoteData } from '../operators';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
@@ -85,7 +85,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   protected initDefaults() {
     this.defaults
-      .pipe(getSucceededRemoteData())
+      .pipe(getFirstSucceededRemoteData())
       .subscribe((defRD: RemoteData<PaginatedSearchOptions>) => {
           const defs = defRD.payload;
           this.paginatedSearchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
@@ -263,7 +263,7 @@ export class SearchConfigurationService implements OnDestroy {
         scope: this.defaultScope,
         query: this.defaultQuery
       });
-      this._defaults = createSuccessfulRemoteDataObject$(options);
+      this._defaults = createSuccessfulRemoteDataObject$(options, new Date().getTime());
     }
     return this._defaults;
   }

@@ -3,7 +3,6 @@ import { ActionsSubject, Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { BehaviorSubject, EMPTY, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { defaultUUID, getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -20,9 +19,8 @@ import {
   PutRequest,
   RestRequest
 } from './request.models';
-import { RequestEntry } from './request.reducer';
+import { RequestEntry, RequestEntryState } from './request.reducer';
 import { RequestService } from './request.service';
-import { parseJsonSchemaToCommandDescription } from '@angular/cli/utilities/json-schema';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -47,7 +45,7 @@ describe('RequestService', () => {
     scheduler = getTestScheduler();
 
     objectCache = getMockObjectCacheService();
-    (objectCache.hasBySelfLink as any).and.returnValue(false);
+    (objectCache.hasByHref as any).and.returnValue(false);
 
     uuidService = getMockUUIDService();
 
@@ -108,7 +106,7 @@ describe('RequestService', () => {
     describe('when the request has reached the store, before the server responds', () => {
       beforeEach(() => {
         spyOn(service, 'getByHref').and.returnValue(observableOf({
-          completed: false
+          state: RequestEntryState.ResponsePending
         } as RequestEntry))
       });
 
@@ -123,7 +121,7 @@ describe('RequestService', () => {
     describe('after the server responds', () => {
       beforeEach(() => {
         spyOn(service, 'getByHref').and.returnValues(observableOf({
-          completed: true
+          state: RequestEntryState.Success
         } as RequestEntry));
       });
 
@@ -139,13 +137,20 @@ describe('RequestService', () => {
 
   describe('getByUUID', () => {
     describe('if the request with the specified UUID exists in the store', () => {
+      let entry;
+
       beforeEach(() => {
         let callCounter = 0;
+        entry = {
+          state: RequestEntryState.Success,
+          response: {
+            timeCompleted: new Date().getTime()
+          },
+          request: new GetRequest('request-uuid', 'request-href')
+        };
         const responses = [
           cold('a', { // A direct hit in the request cache
-            a: {
-              completed: true
-            }
+            a: entry
           }),
           cold('b', { b: undefined }), // No hit in the index
           cold('c', { c: undefined })  // So no mapped hit in the request cache
@@ -162,9 +167,7 @@ describe('RequestService', () => {
       it('should return an Observable of the RequestEntry', () => {
         const result = service.getByUUID(testUUID);
         const expected = cold('b', {
-          b: {
-            completed: true
-          }
+          b: entry
         });
 
         expect(result).toBeObservable(expected);
@@ -196,15 +199,22 @@ describe('RequestService', () => {
     });
 
     describe(`if the request with the specified UUID wasn't sent, because it was already cached`, () => {
+      let entry;
+
       beforeEach(() => {
         let callCounter = 0;
+        entry = {
+          state: RequestEntryState.Success,
+          response: {
+            timeCompleted: new Date().getTime()
+          },
+          request: new GetRequest('request-uuid', 'request-href')
+        };
         const responses = [
           cold('a', { a: undefined }), // No direct hit in the request cache with that UUID
           cold('b', { b: 'otherRequestUUID' }), // A hit in the index, which returns the uuid of the cached request
           cold('c', {   // the call to retrieve the cached request using the UUID from the index
-            c: {
-              completed: true
-            }
+            c: entry
           })
         ];
         selectSpy.and.callFake(() => {
@@ -220,9 +230,7 @@ describe('RequestService', () => {
         const result = service.getByUUID(testUUID);
 
         scheduler.expectObservable(result).toBe('c', {
-          c: {
-            completed: true
-          }
+          c: entry
         });
       });
     });
@@ -293,6 +301,7 @@ describe('RequestService', () => {
 
       it('should track it on it\'s way to the store', () => {
         spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
+        spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(false);
         service.configure(request);
         expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).toHaveBeenCalledWith(request);
       });
@@ -347,9 +356,9 @@ describe('RequestService', () => {
     describe('when the request is cached', () => {
       describe('in the ObjectCache', () => {
         beforeEach(() => {
-          (objectCache.hasBySelfLink as any).and.returnValue(true);
-          (objectCache.hasByUUID as any).and.returnValue(true);
+          (objectCache.getByHref as any).and.returnValue(observableOf({ requestUUID: 'some-uuid' }));
           spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
+          spyOn(serviceAsAny, 'hasByUUID').and.returnValue(true);
         });
 
         it('should return true for GetRequest', () => {
@@ -361,8 +370,9 @@ describe('RequestService', () => {
       });
       describe('in the request cache', () => {
         beforeEach(() => {
-          (objectCache.hasBySelfLink as any).and.returnValue(false);
-          spyOn(serviceAsAny, 'hasByHref').and.returnValue(true);
+          (objectCache.getByHref as any).and.returnValue(observableOf(undefined));
+          spyOn(serviceAsAny, 'hasByHref').and.returnValues(true);
+          spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
         });
         it('should return true', () => {
           const result = serviceAsAny.isCachedOrPending(testGetRequest);
@@ -387,6 +397,12 @@ describe('RequestService', () => {
     });
 
     describe('when the request is neither cached nor pending', () => {
+      beforeEach(() => {
+        (objectCache.getByHref as any).and.returnValue(EMPTY);
+        spyOn(serviceAsAny, 'hasByHref').and.returnValues(false);
+        spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
+      });
+
       it('should return false', () => {
         const result = serviceAsAny.isCachedOrPending(testGetRequest);
         const expected = false;
@@ -440,9 +456,17 @@ describe('RequestService', () => {
 
   describe('trackRequestsOnTheirWayToTheStore', () => {
     let request: GetRequest;
+    let entry;
 
     beforeEach(() => {
       request = testGetRequest;
+      entry = {
+        state: RequestEntryState.Success,
+        response: {
+          timeCompleted: new Date().getTime()
+        },
+        request: request
+      };
     });
 
     describe('when the method is called with a new request', () => {
@@ -457,104 +481,13 @@ describe('RequestService', () => {
       it('should stop tracking the request', () => {
         selectSpy.and.callFake(() => {
           return () => {
-            return () => observableOf({ request });
+            return () => observableOf(entry);
           };
         });
         serviceAsAny.trackRequestsOnTheirWayToTheStore(request);
         expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
       });
     });
-  });
-
-  describe('isValid', () => {
-    describe('when the given entry has no value', () => {
-      let valid;
-      beforeEach(() => {
-        const entry = undefined;
-        valid = serviceAsAny.isValid(entry);
-      });
-      it('return an observable emitting false', () => {
-        expect(valid).toBe(false);
-      })
-    });
-
-    describe('when the given entry has a value, but the request is not completed', () => {
-      let valid;
-      const requestEntry = { completed: false };
-      beforeEach(() => {
-        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry as RequestEntry));
-        valid = serviceAsAny.isValid(requestEntry);
-      });
-      it('return an observable emitting false', () => {
-        expect(valid).toBe(false);
-      })
-    });
-
-    describe('when the given entry has a value, but the response is not successful', () => {
-      let valid;
-      const requestEntry = { completed: true, response: { isSuccessful: false } };
-      beforeEach(() => {
-        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry as RequestEntry));
-        valid = serviceAsAny.isValid(requestEntry);
-      });
-      it('return an observable emitting false', () => {
-        expect(valid).toBe(false);
-      })
-    });
-
-    describe('when the given UUID has a value, its response was successful, but the response is outdated', () => {
-      let valid;
-      const now = 100000;
-      const timeAdded = 99899;
-      const msToLive = 100;
-      const requestEntry = {
-        completed: true,
-        response: {
-          isSuccessful: true,
-          timeAdded: timeAdded
-        },
-        request: {
-          responseMsToLive: msToLive,
-        }
-      };
-
-      beforeEach(() => {
-        spyOn(Date.prototype, 'getTime').and.returnValue(now);
-        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry as RequestEntry));
-        valid = serviceAsAny.isValid(requestEntry);
-      });
-
-      it('return an observable emitting false', () => {
-        expect(valid).toBe(false);
-      })
-    });
-
-    describe('when the given UUID has a value, a cached entry is found, its response was successful, and the response is not outdated', () => {
-      let valid;
-      const now = 100000;
-      const timeAdded = 99999;
-      const msToLive = 100;
-
-      const requestEntry = {
-        completed: true,
-        response: {
-          isSuccessful: true,
-          timeAdded: timeAdded
-        },
-        request: {
-          responseMsToLive: msToLive
-        }
-      };
-      beforeEach(() => {
-        spyOn(Date.prototype, 'getTime').and.returnValue(now);
-        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry as RequestEntry));
-        valid = serviceAsAny.isValid(requestEntry);
-      });
-
-      it('return an observable emitting true', () => {
-        expect(valid).toBe(true);
-      })
-    })
   });
 
   describe('hasByHref', () => {
@@ -568,24 +501,22 @@ describe('RequestService', () => {
       });
     });
 
-    describe('when isValid returns false', () => {
+    describe('when the RequestEntry is undefined', () => {
       beforeEach(() => {
         spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
-        spyOn(service as any, 'isValid').and.returnValue(false);
       });
       it('hasByHref should return false', () => {
-        const result = service.hasByHref('');
+        const result = service.hasByHref('', false);
         expect(result).toBe(false);
       });
     });
 
-    describe('when isValid returns true', () => {
+    describe('when the RequestEntry is not undefined', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
-        spyOn(service as any, 'isValid').and.returnValue(true);
+        spyOn(service, 'getByHref').and.returnValue(observableOf({} as any));
       });
       it('hasByHref should return true', () => {
-        const result = service.hasByHref('');
+        const result = service.hasByHref('', false);
         expect(result).toBe(true);
       });
     });

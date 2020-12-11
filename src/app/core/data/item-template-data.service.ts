@@ -19,7 +19,8 @@ import { CollectionDataService } from './collection-data.service';
 import { switchMap, map } from 'rxjs/operators';
 import { BundleDataService } from './bundle-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { RestResponse } from '../cache/response.models';
+import { NoContent } from '../shared/NoContent.model';
+import { hasValue } from '../../shared/empty.util';
 import { Operation } from 'fast-json-patch';
 
 /* tslint:disable:max-classes-per-file */
@@ -99,11 +100,13 @@ class DataServiceImpl extends ItemDataService {
   /**
    * Set the collection ID and send a find by ID request
    * @param collectionID
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByCollectionID(collectionID: string, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<Item>> {
+  findByCollectionID(collectionID: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<Item>> {
     this.setCollectionEndpoint(collectionID);
-    return super.findById(collectionID, ...linksToFollow);
+    return super.findById(collectionID, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -123,7 +126,9 @@ class DataServiceImpl extends ItemDataService {
    */
   deleteByCollectionID(item: Item, collectionID: string): Observable<boolean> {
     this.setRegularEndpoint();
-    return super.delete(item.uuid).pipe(map((response: RestResponse) => response.isSuccessful));
+    return super.delete(item.uuid).pipe(
+      map((response: RemoteData<NoContent>) => hasValue(response) && response.hasSucceeded)
+    );
   }
 }
 
@@ -166,17 +171,19 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
     return this.dataService.update(object);
   }
 
-  patch(dso: Item, operations: Operation[]): Observable<RestResponse> {
+  patch(dso: Item, operations: Operation[]): Observable<RemoteData<Item>> {
     return this.dataService.patch(dso, operations);
   }
 
   /**
    * Find an item template by collection ID
    * @param collectionID
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByCollectionID(collectionID: string, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<Item>> {
-    return this.dataService.findByCollectionID(collectionID, ...linksToFollow);
+  findByCollectionID(collectionID: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<Item>> {
+    return this.dataService.findByCollectionID(collectionID, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -197,3 +204,4 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
     return this.dataService.deleteByCollectionID(item, collectionID);
   }
 }
+/* tslint:enable:max-classes-per-file */

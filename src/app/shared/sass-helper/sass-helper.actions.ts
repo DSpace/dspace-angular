@@ -24,6 +24,5 @@ export class AddCSSVariableAction implements Action {
     this.payload = {name, value};
   }
 }
-/* tslint:enable:max-classes-per-file */
 
 export type CSSVariableAction = AddCSSVariableAction

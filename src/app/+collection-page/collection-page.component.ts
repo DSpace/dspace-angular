@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, of as observableOf, Observable, Subject } from 'rxjs';
-import { filter, flatMap, map, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter, flatMap, map, startWith, switchMap, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
-import { PaginatedList } from '../core/data/paginated-list';
+import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 
 import { MetadataService } from '../core/metadata/metadata.service';
@@ -16,13 +16,13 @@ import { Collection } from '../core/shared/collection.model';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { Item } from '../core/shared/item.model';
 import {
-  getSucceededRemoteData,
+  getFirstSucceededRemoteData,
   redirectOn4xx,
   toDSpaceObjectListRD
 } from '../core/shared/operators';
 
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
-import { hasNoValue, hasValue, isNotEmpty } from '../shared/empty.util';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { AuthService } from '../core/auth/auth.service';
 
@@ -81,7 +81,7 @@ export class CollectionPageComponent implements OnInit {
 
     this.itemRD$ = this.paginationChanges$.pipe(
       switchMap((dto) => this.collectionRD$.pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         map((rd) => rd.payload.id),
         switchMap((id: string) => {
           return this.searchService.search(

@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { getResponseFromEntry } from '../core/shared/operators';
-import { DSOSuccessResponse } from '../core/cache/response.models';
-import { filter, map, take } from 'rxjs/operators';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { map } from 'rxjs/operators';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
@@ -15,6 +14,7 @@ import { ConfigurationDataService } from '../core/data/configuration-data.servic
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/internal/operators/find';
+import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 
 export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
 
@@ -88,18 +88,13 @@ export class CurationFormComponent implements OnInit {
       }
     }
     this.scriptDataService.invoke('curate', [
-          {name: '-t', value: taskName},
-          {name: '-i', value: handle},
-        ], []).pipe(getResponseFromEntry()).subscribe((response: DSOSuccessResponse) => {
-      if (response.isSuccessful) {
+      { name: '-t', value: taskName },
+      { name: '-i', value: handle },
+    ], []).pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<Process>) => {
+      if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('curation.form.submit.success.head'),
           this.translateService.get('curation.form.submit.success.content'));
-        this.processDataService.findByHref(response.resourceSelfLinks[0]).pipe(
-          filter((processRD: RemoteData<Process>) => hasValue(processRD) && hasValue(processRD.payload)),
-          take(1))
-          .subscribe((processRD: RemoteData<Process>) => {
-            this.router.navigate(['/processes', processRD.payload.processId]);
-          });
+        this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
       } else {
         this.notificationsService.error(this.translateService.get('curation.form.submit.error.head'),
           this.translateService.get('curation.form.submit.error.content'));

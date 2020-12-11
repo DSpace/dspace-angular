@@ -14,7 +14,7 @@ import { CommunityDataService } from '../../../../../core/data/community-data.se
 import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
@@ -43,7 +43,7 @@ function init() {
     new ItemSearchResult(),
     {
       indexableObject: Object.assign(new Item(), {
-        bundles: createSuccessfulRemoteDataObject$(new PaginatedList(undefined, [])),
+        bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, [])),
         metadata: {
           'dc.title': [
             {
@@ -70,7 +70,7 @@ function init() {
     new ItemSearchResult(),
     {
       indexableObject: Object.assign(new Item(), {
-        bundles: createSuccessfulRemoteDataObject$(new PaginatedList(undefined, [])),
+        bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, [])),
         metadata: {
           'dc.title': [
             {

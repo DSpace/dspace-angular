@@ -20,12 +20,13 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { RESOURCE_POLICY } from './models/resource-policy.resource-type';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { ActionType } from './models/action-type.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { map } from 'rxjs/operators';
-import { RestResponse } from '../cache/response.models';
+import { NoContent } from '../shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -102,7 +103,10 @@ export class ResourcePolicyService {
    * @return an observable that emits true when the deletion was successful, false when it failed
    */
   delete(resourcePolicyID: string): Observable<boolean> {
-    return this.dataService.delete(resourcePolicyID).pipe(map((response: RestResponse) => response.isSuccessful));
+    return this.dataService.delete(resourcePolicyID).pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<NoContent>) => response.hasSucceeded)
+    );
   }
 
   /**
@@ -117,21 +121,25 @@ export class ResourcePolicyService {
   /**
    * Returns an observable of {@link RemoteData} of a {@link ResourcePolicy}, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the {@link ResourcePolicy}
-   * @param href            The url of {@link ResourcePolicy} we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param href              The url of {@link ResourcePolicy} we want to retrieve
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<ResourcePolicy>> {
-    return this.dataService.findByHref(href, ...linksToFollow);
+  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<ResourcePolicy>> {
+    return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns an observable of {@link RemoteData} of a {@link ResourcePolicy}, based on its ID, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the object
-   * @param id              ID of {@link ResourcePolicy} we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param id                ID of {@link ResourcePolicy} we want to retrieve
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findById(id: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<ResourcePolicy>> {
-    return this.dataService.findById(id, ...linksToFollow);
+  findById(id: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<ResourcePolicy>> {
+    return this.dataService.findById(id, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -147,49 +155,56 @@ export class ResourcePolicyService {
   /**
    * Return the {@link ResourcePolicy} list for a {@link EPerson}
    *
-   * @param UUID           UUID of a given {@link EPerson}
-   * @param resourceUUID   Limit the returned policies to the specified DSO
-   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param UUID              UUID of a given {@link EPerson}
+   * @param resourceUUID      Limit the returned policies to the specified DSO
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByEPerson(UUID: string, resourceUUID?: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+  searchByEPerson(UUID: string, resourceUUID?: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(resourceUUID)) {
       options.searchParams.push(new RequestParam('resource', resourceUUID))
     }
-    return this.dataService.searchBy(this.searchByEPersonMethod, options, ...linksToFollow)
+    return this.dataService.searchBy(this.searchByEPersonMethod, options, reRequestOnStale, ...linksToFollow)
   }
 
   /**
    * Return the {@link ResourcePolicy} list for a {@link Group}
    *
-   * @param UUID           UUID of a given {@link Group}
-   * @param resourceUUID   Limit the returned policies to the specified DSO
-   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param UUID              UUID of a given {@link Group}
+   * @param resourceUUID      Limit the returned policies to the specified DSO
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByGroup(UUID: string, resourceUUID?: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+  searchByGroup(UUID: string, resourceUUID?: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(resourceUUID)) {
       options.searchParams.push(new RequestParam('resource', resourceUUID))
     }
-    return this.dataService.searchBy(this.searchByGroupMethod, options, ...linksToFollow)
+    return this.dataService.searchBy(this.searchByGroupMethod, options, reRequestOnStale, ...linksToFollow)
   }
 
   /**
    * Return the {@link ResourcePolicy} list for a given DSO
    *
-   * @param UUID           UUID of a given DSO
-   * @param action         Limit the returned policies to the specified {@link ActionType}
-   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param UUID              UUID of a given DSO
+   * @param action            Limit the returned policies to the specified {@link ActionType}
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByResource(UUID: string, action?: ActionType, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+  searchByResource(UUID: string, action?: ActionType, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(action)) {
       options.searchParams.push(new RequestParam('action', action))
     }
-    return this.dataService.searchBy(this.searchByResourceMethod, options, ...linksToFollow)
+    return this.dataService.searchBy(this.searchByResourceMethod, options, reRequestOnStale, ...linksToFollow)
   }
 
 }
+/* tslint:enable:max-classes-per-file */

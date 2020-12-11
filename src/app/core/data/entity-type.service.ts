@@ -15,9 +15,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import {switchMap, take, map} from 'rxjs/operators';
 import { RemoteData } from './remote-data';
 import {RelationshipType} from '../shared/item-relationships/relationship-type.model';
-import {PaginatedList} from './paginated-list';
+import {PaginatedList} from './paginated-list.model';
 import {ItemType} from '../shared/item-relationships/item-type.model';
-import {getRemoteDataPayload, getSucceededRemoteData} from '../shared/operators';
+import {getRemoteDataPayload, getFirstSucceededRemoteData} from '../shared/operators';
 
 /**
  * Service handling all ItemType requests
@@ -60,7 +60,7 @@ export class EntityTypeService extends DataService<ItemType> {
   isLeftType(relationshipType: RelationshipType, itemType: ItemType): Observable<boolean> {
 
     return relationshipType.leftType.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((leftType) => leftType.uuid === itemType.uuid),
     );

@@ -1,6 +1,6 @@
 import { Registration } from '../shared/registration.model';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
-import { RegistrationSuccessResponse } from '../cache/response.models';
+import { ParsedResponse } from '../cache/response.models';
 
 describe('RegistrationResponseParsingService', () => {
   describe('parse', () => {
@@ -16,7 +16,7 @@ describe('RegistrationResponseParsingService', () => {
     it('should parse a registration response', () => {
       const expected = registrationResponseParsingService.parse({} as any, data);
 
-      expect(expected).toEqual(new RegistrationSuccessResponse(registration, 200, 'Success'));
+      expect(expected).toEqual(new ParsedResponse(200, undefined, registration));
     });
   });
 });

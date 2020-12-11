@@ -28,7 +28,7 @@ import {
   SubmissionSectionObject
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
-import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SectionDataObject } from './sections/models/section-data.model';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
@@ -40,7 +40,6 @@ import { SubmissionDefinitionsModel } from '../core/config/models/config-submiss
 import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
 import { RemoteData } from '../core/data/remote-data';
 import { ErrorResponse } from '../core/cache/response.models';
-import { RemoteDataError } from '../core/data/remote-data-error';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
@@ -538,9 +537,7 @@ export class SubmissionService {
       map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),
       catchError((errorResponse: ErrorResponse) => {
-        return createFailedRemoteDataObject$(null,
-          new RemoteDataError(errorResponse.statusCode, errorResponse.statusText, errorResponse.errorMessage)
-        )
+        return createFailedRemoteDataObject$<SubmissionObject>(errorResponse.errorMessage, errorResponse.statusCode)
       })
     );
   }

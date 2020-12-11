@@ -1,6 +1,6 @@
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { typedObject } from '../cache/builders/build-decorators';
-import { TypedObject } from '../cache/object-cache.reducer';
+import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { BROWSE_DEFINITION } from './browse-definition.resource-type';
 import { HALLink } from './hal-link.model';
@@ -8,7 +8,7 @@ import { ResourceType } from './resource-type';
 import { SortOption } from './sort-option.model';
 
 @typedObject
-export class BrowseDefinition implements TypedObject {
+export class BrowseDefinition extends CacheableObject {
   static type = BROWSE_DEFINITION;
 
   /**

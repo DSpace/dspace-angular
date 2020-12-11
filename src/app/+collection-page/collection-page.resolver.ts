@@ -4,9 +4,8 @@ import { Collection } from '../core/shared/collection.model';
 import { Observable } from 'rxjs';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { RemoteData } from '../core/data/remote-data';
-import { find } from 'rxjs/operators';
-import { hasValue } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific collection before the route is activated
@@ -24,8 +23,8 @@ export class CollectionPageResolver implements Resolve<RemoteData<Collection>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Collection>> {
-    return this.collectionService.findById(route.params.id, followLink('logo')).pipe(
-      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
+    return this.collectionService.findById(route.params.id, false, followLink('logo')).pipe(
+      getFirstCompletedRemoteData()
     );
   }
 }

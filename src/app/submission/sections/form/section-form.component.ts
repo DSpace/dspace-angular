@@ -2,7 +2,16 @@ import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  flatMap,
+  map,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { isEqual } from 'lodash';
 
@@ -12,10 +21,12 @@ import { FormService } from '../../../shared/form/form.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import { hasNoValue, hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
-import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
+import {
+  SubmissionSectionError,
+  SubmissionSectionObject
+} from '../../objects/submission-objects.reducer';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { SectionDataObject } from '../models/section-data.model';
 import { renderSectionFor } from '../sections-decorator';
@@ -27,13 +38,15 @@ import { SectionsService } from '../sections.service';
 import { difference } from '../../../shared/object.util';
 import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { environment } from '../../../../environments/environment';
+import { ConfigObject } from '../../../core/config/models/config.model';
+import { RemoteData } from '../../../core/data/remote-data';
 
 /**
  * This component represents a section that contains a Form.
@@ -155,8 +168,8 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   onSectionInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.formId = this.formService.getUniqueId(this.sectionData.id);
-    this.formConfigService.getConfigByHref(this.sectionData.config).pipe(
-      map((configData: ConfigData) => configData.payload),
+    this.formConfigService.findByHref(this.sectionData.config).pipe(
+      map((configData: RemoteData<ConfigObject>) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
       flatMap(() =>
         observableCombineLatest(
@@ -166,12 +179,12 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
               this.objectCache.remove(href);
               this.requestService.removeByHrefSubstring(this.submissionId);
               return observableCombineLatest(
-                this.objectCache.hasBySelfLinkObservable(href),
-                this.requestService.hasByHrefObservable(href)
+                this.objectCache.hasByHref$(href),
+                this.requestService.hasByHref$(href)
               ).pipe(
                 filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
                 take(1),
-                switchMap(() => this.submissionObjectService.findById(this.submissionId, followLink('item')).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
+                switchMap(() => this.submissionObjectService.findById(this.submissionId, false, followLink('item')).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
               )
             })
           )

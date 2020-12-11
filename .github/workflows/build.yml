@@ -65,6 +65,13 @@ jobs:
       - name: Run specs (unit tests)
         run: yarn run test:headless
 
+      # NOTE: Angular CLI only supports code coverage for specs. See https://github.com/angular/angular-cli/issues/6286
+      # Upload coverage reports to Codecov (for Node v12 only)
+      # https://github.com/codecov/codecov-action
+      - name: Upload coverage to Codecov.io
+        uses: codecov/codecov-action@v1
+        if: matrix.node-version == '12.x'
+
       # Using docker-compose start backend using CI configuration
       # and load assetstore from a cached copy
       - name: Start DSpace REST Backend via Docker (for e2e tests)
@@ -78,10 +85,3 @@ jobs:
 
       - name: Shutdown Docker containers
         run: docker-compose -f ./docker/docker-compose-ci.yml down
-
-      # NOTE: Angular CLI only supports code coverage for specs. See https://github.com/angular/angular-cli/issues/6286
-      # Upload coverage reports to Codecov (for Node v12 only)
-      # https://github.com/codecov/codecov-action
-      - name: Upload coverage to Codecov.io
-        uses: codecov/codecov-action@v1
-        if: matrix.node-version == '12.x'

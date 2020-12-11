@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, mergeMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, flatMap, map, tap } from 'rxjs/operators';
 
 import { RequestService } from '../data/request.service';
-import { isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty, hasValue } from '../../shared/empty.util';
 import {
-  DeleteRequest, GetRequest,
+  DeleteRequest,
   PostRequest,
   RestRequest,
   SubmissionDeleteRequest,
@@ -15,12 +15,13 @@ import {
   SubmissionRequest
 } from '../data/request.models';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache/response.models';
-import { getResponseFromEntry } from '../shared/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import {URLCombiner} from '../url-combiner/url-combiner';
+import { RemoteData } from '../data/remote-data';
+import { SubmissionResponse } from './submission-response.model';
 
 /**
  * The service handling all submission REST requests
@@ -44,19 +45,17 @@ export class SubmissionRestService {
    *     server response
    */
   protected fetchRequest(requestId: string): Observable<SubmitDataResponseDefinitionObject> {
-    const responses = this.requestService.getByUUID(requestId).pipe(
-      getResponseFromEntry()
-    );
-    const errorResponses = responses.pipe(
-      filter((response: RestResponse) => !response.isSuccessful),
-      mergeMap((error: ErrorResponse) => observableThrowError(error))
-    );
-    const successResponses = responses.pipe(
-      filter((response: RestResponse) => response.isSuccessful),
-      map((response: SubmissionSuccessResponse) => response.dataDefinition as any),
+    return this.rdbService.buildFromRequestUUID<SubmissionResponse>(requestId).pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<SubmissionResponse>) => {
+        if (response.hasFailed) {
+          throw new Error(response.errorMessage);
+        } else {
+          return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
+        }
+      }),
       distinctUntilChanged()
     );
-    return observableMerge(errorResponses, successResponses);
   }
 
   /**

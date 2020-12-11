@@ -133,7 +133,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
       (model as DynamicCheckboxModel).valueUpdates.next(false);
     }
 
-    this.licenseText$ = this.collectionDataService.findById(this.collectionId, followLink('license')).pipe(
+    this.licenseText$ = this.collectionDataService.findById(this.collectionId, true, followLink('license')).pipe(
       filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
       flatMap((collectionData: RemoteData<Collection>) => (collectionData.payload as any).license),
       find((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))),

@@ -16,13 +16,13 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { FindListOptions, GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { Bitstream } from '../shared/bitstream.model';
-import { RemoteDataError } from './remote-data-error';
+import { RequestEntryState } from './request.reducer';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API
@@ -50,38 +50,52 @@ export class BundleDataService extends DataService<Bundle> {
   /**
    * Retrieve all {@link Bundle}s in the given {@link Item}
    *
-   * @param item the {@link Item} the {@link Bundle}s are a part of
-   * @param options the {@link FindListOptions} for the request
-   * @param linksToFollow the {@link FollowLinkConfig}s for the request
+   * @param item              the {@link Item} the {@link Bundle}s are a part of
+   * @param options           the {@link FindListOptions} for the request
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     the {@link FollowLinkConfig}s for the request
    */
-  findAllByItem(item: Item, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<PaginatedList<Bundle>>> {
-    return this.findAllByHref(item._links.bundles.href, options,  ...linksToFollow);
+  findAllByItem(item: Item, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<PaginatedList<Bundle>>> {
+    return this.findAllByHref(item._links.bundles.href, options, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Retrieve a {@link Bundle} in the given {@link Item} by name
    *
-   * @param item the {@link Item} the {@link Bundle}s are a part of
-   * @param bundleName the name of the {@link Bundle} to retrieve
-   * @param linksToFollow the {@link FollowLinkConfig}s for the request
+   * @param item              the {@link Item} the {@link Bundle}s are a part of
+   * @param bundleName        the name of the {@link Bundle} to retrieve
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     the {@link FollowLinkConfig}s for the request
    */
   // TODO should be implemented rest side
-  findByItemAndName(item: Item, bundleName: string, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<Bundle>> {
-    return this.findAllByItem(item, { elementsPerPage: Number.MAX_SAFE_INTEGER }, ...linksToFollow).pipe(
+  findByItemAndName(item: Item, bundleName: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<Bundle>> {
+    return this.findAllByItem(item, { elementsPerPage: Number.MAX_SAFE_INTEGER }, reRequestOnStale, ...linksToFollow).pipe(
       map((rd: RemoteData<PaginatedList<Bundle>>) => {
         if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
           const matchingBundle = rd.payload.page.find((bundle: Bundle) =>
             bundle.name === bundleName);
           if (hasValue(matchingBundle)) {
             return new RemoteData(
-              false,
-              false,
-              true,
-              undefined,
-              matchingBundle
+              rd.timeCompleted,
+              rd.msToLive,
+              rd.lastUpdated,
+              RequestEntryState.Success,
+              null,
+              matchingBundle,
+              200
             );
           } else {
-            return new RemoteData(false, false, false, new RemoteDataError(404, 'Not found', `The bundle with name ${bundleName} was not found.` ))
+            return new RemoteData(
+              rd.timeCompleted,
+              rd.msToLive,
+              rd.lastUpdated,
+              RequestEntryState.Error,
+              `The bundle with name ${bundleName} was not found.`,
+              null,
+              404
+            );
           }
         } else {
           return rd as any;
