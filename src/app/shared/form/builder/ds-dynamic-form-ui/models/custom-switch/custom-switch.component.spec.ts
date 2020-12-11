@@ -1,6 +1,6 @@
 import { DynamicFormsCoreModule, DynamicFormService } from '@ng-dynamic-forms/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -18,7 +18,7 @@ describe('CustomSwitchComponent', () => {
   let debugElement: DebugElement;
   let testElement: DebugElement;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,

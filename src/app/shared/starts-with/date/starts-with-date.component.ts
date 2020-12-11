@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { renderStartsWithFor, StartsWithType } from '../starts-with-decorator';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 import { hasValue } from '../../empty.util';
@@ -29,6 +31,12 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
    * Currently selected year
    */
   startsWithYear: number;
+
+  public constructor(@Inject('startsWithOptions') public startsWithOptions: any[],
+                     protected route: ActivatedRoute,
+                     protected router: Router) {
+    super(startsWithOptions, route, router);
+  }
 
   ngOnInit() {
     this.monthOptions = [
