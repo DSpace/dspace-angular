@@ -23,6 +23,16 @@ const COMPONENTS = [
   ExportItemMenuComponent,
   RequestCorrectionMenuComponent,
   ExportCollectionMenuComponent
+];
+
+const ENTRY_COMPONENTS = [
+  BulkImportMenuComponent,
+  DsoPageEditMenuComponent,
+  AuditItemMenuComponent,
+  EditItemMenuComponent,
+  ExportItemMenuComponent,
+  RequestCorrectionMenuComponent,
+  ExportCollectionMenuComponent
 ]
 
 const MODULE = [
@@ -42,7 +52,7 @@ const MODULE = [
     COMPONENTS
   ],
   entryComponents: [
-    COMPONENTS
+    ENTRY_COMPONENTS
   ]
 })
 export class ContextMenuModule {

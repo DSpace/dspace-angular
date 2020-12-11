@@ -6,10 +6,6 @@ import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 /**
  * This component renders a context menu option that provides the links to edit item page.
  */
-@Component({
-  selector: 'ds-context-menu-entry',
-  template: ''
-})
 export abstract class ContextMenuEntryComponent {
 
   /**
