@@ -289,6 +289,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
                     return {
                       displayValue: this.getDisplayValue(facet, data),
                       value: stripOperatorFromFilterValue(this.getFacetValue(facet))
+                    };
+                  });
                 }
               ));
         }
