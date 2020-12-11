@@ -23,7 +23,7 @@ import { ItemSearchResult } from '../../../../object-collection/shared/item-sear
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { PublicationSearchResultGridElementComponent } from './publication-search-result-grid-element.component';
+import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
@@ -71,7 +71,7 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
   }
 });
 
-describe('PublicationGridElementComponent', getEntityGridElementTestComponent(PublicationSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['authors', 'date', 'abstract']));
+describe('ItemGridElementComponent', getEntityGridElementTestComponent(ItemSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['authors', 'date', 'abstract']));
 
 /**
  * Create test cases for a grid component of an entity.

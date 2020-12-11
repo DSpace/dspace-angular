@@ -208,7 +208,7 @@ describe('SearchFacetFilterComponent', () => {
 
     it('should call navigate on the router with the right searchlink and parameters', () => {
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
-        queryParams: { [mockFilterConfig.paramName]: [...selectedValues, testValue] },
+        queryParams: { [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), testValue] },
         queryParamsHandling: 'merge'
       });
     });

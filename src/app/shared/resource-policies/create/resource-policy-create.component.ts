@@ -101,7 +101,9 @@ export class ResourcePolicyCreateComponent implements OnInit {
       first((response: RemoteData<ResourcePolicy>) => !response.isResponsePending)
     ).subscribe((responseRD: RemoteData<ResourcePolicy>) => {
       this.processing$.next(false);
-      if (responseRD.hasSucceeded) {
+      // NOTE Currently due to a bug a successful 201 response has failed
+      // TODO review it when https://github.com/DSpace/dspace-angular/issues/739 is fixed
+      if (responseRD.hasSucceeded || responseRD.statusCode === 201) {
         this.notificationsService.success(null, this.translate.get('resource-policies.create.page.success.content'));
         this.redirectToAuthorizationsPage();
       } else {

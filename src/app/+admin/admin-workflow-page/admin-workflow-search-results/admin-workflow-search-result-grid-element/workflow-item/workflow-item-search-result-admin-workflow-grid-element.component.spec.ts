@@ -12,7 +12,7 @@ import { WorkflowItem } from '../../../../../core/submission/models/workflowitem
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { PublicationGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
+import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -43,7 +43,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [WorkflowItemSearchResultAdminWorkflowGridElementComponent, PublicationGridElementComponent, ListableObjectDirective],
+        declarations: [WorkflowItemSearchResultAdminWorkflowGridElementComponent, ItemGridElementComponent, ListableObjectDirective],
         imports: [
           NoopAnimationsModule,
           TranslateModule.forRoot(),
@@ -60,7 +60,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
       })
       .overrideComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent, {
         set: {
-          entryComponents: [PublicationGridElementComponent]
+          entryComponents: [ItemGridElementComponent]
         }
       })
       .compileComponents();

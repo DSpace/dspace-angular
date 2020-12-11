@@ -155,7 +155,7 @@ describe('ItemListPreviewComponent', () => {
     });
 
     it('should show the entity type span', () => {
-      const entityField = fixture.debugElement.query(By.css('ds-item-type-badge'));
+      const entityField = fixture.debugElement.query(By.css('ds-type-badge'));
       expect(entityField).not.toBeNull();
     });
   });

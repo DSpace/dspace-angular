@@ -15,7 +15,7 @@ describe('RelatedEntitiesSearchComponent', () => {
   });
   const mockRelationType = 'publicationsOfAuthor';
   const mockConfiguration = 'publication';
-  const mockFilter= `f.${mockRelationType}=${mockItem.id}`;
+  const mockFilter= `f.${mockRelationType}=${mockItem.id},equals`;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

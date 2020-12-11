@@ -4,11 +4,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { TruncatePipe } from '../../utils/truncate.pipe';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ItemTypeBadgeComponent } from './item-type-badge.component';
 import { By } from '@angular/platform-browser';
+import { TypeBadgeComponent } from './type-badge.component';
 
-let comp: ItemTypeBadgeComponent;
-let fixture: ComponentFixture<ItemTypeBadgeComponent>;
+let comp: TypeBadgeComponent;
+let fixture: ComponentFixture<TypeBadgeComponent>;
 
 const type = 'authorOfPublication';
 
@@ -40,15 +40,15 @@ describe('ItemTypeBadgeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ItemTypeBadgeComponent, TruncatePipe],
+      declarations: [TypeBadgeComponent, TruncatePipe],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemTypeBadgeComponent, {
+    }).overrideComponent(TypeBadgeComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(ItemTypeBadgeComponent);
+    fixture = TestBed.createComponent(TypeBadgeComponent);
     comp = fixture.componentInstance;
   }));
 
@@ -70,9 +70,9 @@ describe('ItemTypeBadgeComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not show a badge', () => {
+    it('should show an item badge', () => {
       const badge = fixture.debugElement.query(By.css('span.badge'));
-      expect(badge).toBeNull();
+      expect(badge.nativeElement.textContent).toContain('item');
     });
   });
 });
