@@ -137,28 +137,32 @@ describe('ResourcePolicyEditComponent test suite', () => {
       fixture.destroy();
     });
 
-    it('should init component properly', () => {
+    it('should init component properly', (done) => {
       fixture.detectChanges();
       expect(compAsAny.resourcePolicy).toEqual(resourcePolicy);
+      done();
     });
 
-    it('should redirect to authorizations page', () => {
+    it('should redirect to authorizations page', (done) => {
       comp.redirectToAuthorizationsPage();
       expect(compAsAny.router.navigate).toHaveBeenCalled();
+      done();
     });
 
-    it('should return true when is Processing', () => {
+    it('should return true when is Processing', (done) => {
       compAsAny.processing$.next(true);
       expect(comp.isProcessing()).toBeObservable(cold('a', {
         a: true
       }));
+      done();
     });
 
-    it('should return false when is not Processing', () => {
+    it('should return false when is not Processing', (done) => {
       compAsAny.processing$.next(false);
       expect(comp.isProcessing()).toBeObservable(cold('a', {
         a: false
       }));
+      done();
     });
 
     describe('', () => {

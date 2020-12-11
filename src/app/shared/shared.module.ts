@@ -218,6 +218,8 @@ import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-
 import { HoverClassDirective } from './hover-class.directive';
 import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
 import { ItemSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
+import { ResourcePolicyEditComponent } from './resource-policies/edit/resource-policy-edit.component';
+import { ResourcePolicyCreateComponent } from './resource-policies/create/resource-policy-create.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -405,6 +407,8 @@ const COMPONENTS = [
   ImpersonateNavbarComponent,
   ResourcePoliciesComponent,
   ResourcePolicyFormComponent,
+  ResourcePolicyEditComponent,
+  ResourcePolicyCreateComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
