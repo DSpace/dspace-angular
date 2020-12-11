@@ -1,4 +1,4 @@
-import { MoveOperation } from 'fast-json-patch/lib/core';
+import { MoveOperation } from 'fast-json-patch';
 import { Injectable } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { hasValue } from '../../shared/empty.util';

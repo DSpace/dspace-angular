@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
-import { Operation } from 'fast-json-patch/lib/core';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import { filter, map, take, tap } from 'rxjs/operators';
 import {

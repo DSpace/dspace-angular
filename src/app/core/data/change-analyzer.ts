@@ -1,4 +1,4 @@
-import { Operation } from 'fast-json-patch/lib/core';
+import { Operation } from 'fast-json-patch';
 import { CacheableObject } from '../cache/object-cache.reducer';
 
 /**
