@@ -46,7 +46,7 @@ export const getResourceTypeValueFor = (type: any): string => {
       return type.value;
     }
   }
-}
+};
 
 /* tslint:disable:max-classes-per-file */
 /**
