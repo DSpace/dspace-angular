@@ -12,7 +12,7 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../+item-page/edit-item-page/edit-item-page.routing-paths';
-import { getSucceededRemoteWithNotEmptyData } from '../../../core/shared/operators';
+import { getSucceededRemoteWithNotEmptyDataOrFailed } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-resource-policy-edit',
@@ -89,11 +89,11 @@ export class ResourcePolicyEditComponent implements OnInit {
       _links: this.resourcePolicy._links
     });
     this.resourcePolicyService.update(updatedObject).pipe(
-      getSucceededRemoteWithNotEmptyData(),
+      getSucceededRemoteWithNotEmptyDataOrFailed(),
       take(1)
     ).subscribe((responseRD: RemoteData<ResourcePolicy>) => {
       this.processing$.next(false);
-      if (responseRD.hasSucceeded) {
+      if (responseRD && responseRD.hasSucceeded) {
         this.notificationsService.success(null, this.translate.get('resource-policies.edit.page.success.content'));
         this.redirectToAuthorizationsPage();
       } else {
