@@ -8,12 +8,12 @@ import { Item } from '../../../../../../core/shared/item.model';
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
 @Component({
-  selector: 'ds-publication-search-result-list-element',
-  styleUrls: ['./publication-search-result-list-element.component.scss'],
-  templateUrl: './publication-search-result-list-element.component.html'
+  selector: 'ds-item-search-result-list-element',
+  styleUrls: ['./item-search-result-list-element.component.scss'],
+  templateUrl: './item-search-result-list-element.component.html'
 })
 /**
  * The component for displaying a list element for an item search result of the type Publication
  */
-export class PublicationSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 }

@@ -1,3 +1,17 @@
+#
+# The contents of this file are subject to the license and copyright
+# detailed in the LICENSE and NOTICE files at the root of the source
+# tree and available online at
+#
+# http://www.dspace.org/license/
+#
+
+#
+# This is a copy of the cli.ingest.yml that is available in the DSpace/DSpace
+# (Backend) at:
+# https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/cli.assetstore.yml
+#
+# Therefore, it should be kept in sync with that file
 version: "3.7"
 
 networks:
@@ -8,7 +22,7 @@ services:
     networks:
       dspacenet: {}
     environment:
-      - LOADASSETS=https://www.dropbox.com/s/zv7lj8j2lp3egjs/assetstore.tar.gz?dl=1
+      - LOADASSETS=https://www.dropbox.com/s/v3ahfcuatklbmi0/assetstore-2019-11-28.tar.gz?dl=1
     entrypoint:
       - /bin/bash
       - '-c'
@@ -21,3 +35,5 @@ services:
         fi
 
         /dspace/bin/dspace index-discovery
+        /dspace/bin/dspace oai import
+        /dspace/bin/dspace oai clean-cache
