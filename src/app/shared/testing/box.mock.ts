@@ -13,6 +13,7 @@ export const boxMetadata: Box = {
   style: 'col-md-4',
   priority: 0,
   clear: false,
+  maxColumns: null,
   security: 0,
   boxType: 'metadata',
   _links: {
@@ -37,6 +38,7 @@ export const boxSearch: Box = {
   style: 'col-md-10',
   priority: 0,
   clear: false,
+  maxColumns: null,
   security: 0,
   boxType: 'search',
   _links: {
@@ -61,6 +63,7 @@ export const boxMetrics: Box = {
   style: 'col-md-2',
   priority: 0,
   clear: false,
+  maxColumns: null,
   security: 0,
   boxType: 'metrics',
   _links: {

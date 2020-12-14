@@ -20,6 +20,8 @@ import { ITEM } from './item.resource-type';
 import { ChildHALResource } from './child-hal-resource.model';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
+import { Metric } from "./metric.model";
+import { METRIC } from "./metric.resource-type";
 
 /**
  * Class representing a DSpace Item
@@ -70,6 +72,7 @@ export class Item extends DSpaceObject implements ChildHALResource {
     owningCollection: HALLink;
     templateItemOf: HALLink;
     version: HALLink;
+    metrics: HALLink;
     self: HALLink;
   };
 
@@ -100,6 +103,13 @@ export class Item extends DSpaceObject implements ChildHALResource {
    */
   @link(RELATIONSHIP, true)
   relationships?: Observable<RemoteData<PaginatedList<Relationship>>>;
+
+  /**
+   * The list of the Item's metrics
+   * Will be undefined unless the metrics {@link HALLink} has been resolved.
+   */
+  @link(METRIC, true)
+  metrics?: Observable<RemoteData<PaginatedList<Metric>>>;
 
   /**
    * Method that returns as which type of object this object should be rendered

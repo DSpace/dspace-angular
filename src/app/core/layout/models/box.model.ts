@@ -64,6 +64,9 @@ export class Box extends CacheableObject {
   clear: boolean;
 
   @autoserialize
+  maxColumns: number;
+
+  @autoserialize
   security: number;
 
   @autoserialize

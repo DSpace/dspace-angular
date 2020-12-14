@@ -28,7 +28,8 @@ export class ItemBreadcrumbResolver extends DSOBreadcrumbResolver<Item> {
           followLink('parentCommunity'))
       ),
       followLink('bundles'),
-      followLink('relationships')
+      followLink('relationships'),
+      followLink('metrics'),
     ];
   }
 }
