@@ -30,6 +30,7 @@ import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.c
 import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
+import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
     CollectionsComponent,
     FullFileSectionComponent,
     PublicationComponent,
+    UntypedItemComponent,
     RelatedItemsComponent,
     ItemComponent,
     GenericItemPageFieldComponent,
@@ -75,7 +77,8 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
     TabbedRelatedEntitiesSearchComponent
   ],
   entryComponents: [
-    PublicationComponent
+    PublicationComponent,
+    UntypedItemComponent
   ]
 })
 export class ItemPageModule {
