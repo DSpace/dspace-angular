@@ -2,7 +2,6 @@ import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
 import { MenuID } from '../../../shared/menu/initial-menus-state';
 import { MenuService } from '../../../shared/menu/menu.service';
-import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
 import { MenuSection } from '../../../shared/menu/menu.reducer';
 
@@ -15,7 +14,6 @@ import { MenuSection } from '../../../shared/menu/menu.reducer';
   styleUrls: ['./admin-sidebar-section.component.scss'],
 
 })
-@rendersSectionForMenu(MenuID.ADMIN, false)
 export class AdminSidebarSectionComponent extends MenuSectionComponent implements OnInit {
 
   /**

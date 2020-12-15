@@ -5,7 +5,6 @@ import { MenuID } from '../../shared/menu/initial-menus-state';
 import { slide } from '../../shared/animations/slide';
 import { first } from 'rxjs/operators';
 import { HostWindowService } from '../../shared/host-window.service';
-import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
 
 /**
  * Represents an expandable section in the navbar
@@ -16,7 +15,6 @@ import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator'
   styleUrls: ['./expandable-navbar-section.component.scss'],
   animations: [slide]
 })
-@rendersSectionForMenu(MenuID.PUBLIC, true)
 export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements OnInit {
   /**
    * This section resides in the Public Navbar

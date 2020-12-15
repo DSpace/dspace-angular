@@ -1,20 +1,7 @@
 import { MenuItemType } from './initial-menus-state';
-
-const menuMenuItemComponentMap = new Map();
-
-/**
- * Decorator function to link a MenuItemType to a Component
- * @param {MenuItemType} type The MenuItemType of the MenuSection's model
- * @returns {(sectionComponent: GenericContructor) => void}
- */
-export function rendersMenuItemForType(type: MenuItemType) {
-  return function decorator(sectionComponent: any) {
-    if (!sectionComponent) {
-      return;
-    }
-    menuMenuItemComponentMap.set(type, sectionComponent);
-  };
-}
+import { LinkMenuItemComponent } from './menu-item/link-menu-item.component';
+import { OnClickMenuItemComponent } from './menu-item/onclick-menu-item.component';
+import { TextMenuItemComponent } from './menu-item/text-menu-item.component';
 
 /**
  * Retrieves the Component matching a given MenuItemType
@@ -22,5 +9,12 @@ export function rendersMenuItemForType(type: MenuItemType) {
  * @returns {GenericConstructor} The constructor of the Component that matches the MenuItemType
  */
 export function getComponentForMenuItemType(type: MenuItemType) {
-  return menuMenuItemComponentMap.get(type);
+  switch (type) {
+    case MenuItemType.LINK:
+      return LinkMenuItemComponent;
+    case MenuItemType.ONCLICK:
+      return OnClickMenuItemComponent;
+    case MenuItemType.TEXT:
+      return TextMenuItemComponent;
+  }
 }
