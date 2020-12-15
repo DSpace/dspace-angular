@@ -78,7 +78,7 @@ export class BrowserKlaroService extends KlaroService {
         }
 
         /**
-         * Add all message keys for apps and purposes
+         * Add all message keys for services and purposes
          */
         this.addAppMessages();
 
@@ -88,8 +88,7 @@ export class BrowserKlaroService extends KlaroService {
          * Show the configuration if the configuration has not been confirmed
          */
         this.translateConfiguration();
-        Klaro.renderKlaro(this.klaroConfig, false);
-        Klaro.initialize();
+        Klaro.setup(this.klaroConfig);
       });
 
   }
@@ -161,10 +160,10 @@ export class BrowserKlaroService extends KlaroService {
   }
 
   /**
-   * Add message keys for all apps and purposes
+   * Add message keys for all services and purposes
    */
   addAppMessages() {
-    this.klaroConfig.apps.forEach((app) => {
+    this.klaroConfig.services.forEach((app) => {
       this.klaroConfig.translations.en[app.name] = { title: this.getTitleTranslation(app.name), description: this.getDescriptionTranslation(app.name) };
       app.purposes.forEach((purpose) => {
         this.klaroConfig.translations.en.purposes[purpose] = this.getPurposeTranslation(purpose);
