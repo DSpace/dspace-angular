@@ -13,7 +13,7 @@ import { type } from '../ngrx/type';
 export const FormActionTypes = {
   FORM_INIT: type('dspace/form/FORM_INIT'),
   FORM_CHANGE: type('dspace/form/FORM_CHANGE'),
-  FORM_ADDITIONAL: type('dspace/form/FORM_ADDITIONAL'),
+  FORM_ADD_TOUCHED: type('dspace/form/FORM_ADD_TOUCHED'),
   FORM_REMOVE: type('dspace/form/FORM_REMOVE'),
   FORM_STATUS_CHANGE: type('dspace/form/FORM_STATUS_CHANGE'),
   FORM_ADD_ERROR: type('dspace/form/FORM_ADD_ERROR'),
@@ -28,7 +28,6 @@ export class FormInitAction implements Action {
     formId: string;
     formData: any;
     valid: boolean;
-    formAdditional: any;
   };
 
   /**
@@ -41,8 +40,8 @@ export class FormInitAction implements Action {
    * @param valid
    *    the Form validation status
    */
-  constructor(formId: string, formData: any, valid: boolean, formAdditional?: any) {
-    this.payload = {formId, formData, valid, formAdditional};
+  constructor(formId: string, formData: any, valid: boolean) {
+    this.payload = {formId, formData, valid};
   }
 }
 
@@ -66,23 +65,23 @@ export class FormChangeAction implements Action {
   }
 }
 
-export class FormSetAdditionalAction implements Action {
-  type = FormActionTypes.FORM_ADDITIONAL;
+export class FormAddTouchedAction implements Action {
+  type = FormActionTypes.FORM_ADD_TOUCHED;
   payload: {
     formId: string;
-    additionalData: any;
+    touched: string[];
   };
 
   /**
-   * Create a new FormSetAdditionalAction
+   * Create a new FormAddTouchedAction
    *
    * @param formId
    *    the Form's ID
-   * @param additionalData
-   *    the additionalData Object
+   * @param touched
+   *    the array containing new touched fields
    */
-  constructor(formId: string, additionalData: any) {
-    this.payload = {formId, additionalData};
+  constructor(formId: string, touched: string[]) {
+    this.payload = {formId, touched};
   }
 }
 
@@ -169,7 +168,7 @@ export class FormClearErrorsAction implements Action {
  */
 export type FormAction = FormInitAction
   | FormChangeAction
-  | FormSetAdditionalAction
+  | FormAddTouchedAction
   | FormRemoveAction
   | FormStatusChangeAction
   | FormAddError

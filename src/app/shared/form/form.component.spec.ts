@@ -120,7 +120,7 @@ function init() {
       },
       valid: false,
       errors: [],
-      additional: {}
+      touched: {}
     }
   };
 

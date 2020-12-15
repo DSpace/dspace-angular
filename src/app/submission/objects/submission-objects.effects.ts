@@ -59,6 +59,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators'
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import parseSectionErrorPaths, {SectionErrorPath} from '../utils/parseSectionErrorPaths';
+import { FormState } from '../../shared/form/form.reducer';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -431,24 +432,29 @@ function getForm(forms, currentState, sectionId) {
 /**
  * Filter sectionErrors accordingly to this rules:
  * 1. if notifications are enabled return all errors
- * 2. if sectionType is different from submission-form return all errors
+ * 2. if sectionType is different from 'submission-form' return all errors
  * 3. otherwise return errors only for those fields marked as touched inside the section form
  * @param sectionForm
+ *  The form related to the section
  * @param sectionErrors
+ *  The section errors array
+ * @param sectionType
+ *  The section type
  * @param notify
+ *  Whether notifications are enabled
  */
-function filterErrors(sectionForm, sectionErrors, sectionType, notify): any {
+function filterErrors(sectionForm: FormState, sectionErrors: SubmissionSectionError[], sectionType: string, notify: boolean): any {
   if (notify || sectionType !== SectionsType.SubmissionForm) {
     return sectionErrors;
   }
-  if (!sectionForm || !sectionForm.additional || !sectionForm.additional.touched) {
+  if (!sectionForm || !sectionForm.touched) {
     return [];
   }
   const filteredErrors = [];
   sectionErrors.forEach((error: SubmissionSectionError) => {
     const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
     errorPaths.forEach((path: SectionErrorPath) => {
-      if (path.fieldId && sectionForm.additional.touched[path.fieldId]) {
+      if (path.fieldId && sectionForm.touched[path.fieldId]) {
         filteredErrors.push(error);
       }
     });

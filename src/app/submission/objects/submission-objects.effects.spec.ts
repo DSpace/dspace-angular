@@ -384,10 +384,8 @@ describe('SubmissionObjectEffects test suite', () => {
         },
         forms: {
           '2_traditionalpageone': {
-            additional: {
-              touched: {
-                'dc.title': true
-              }
+            touched: {
+              'dc.title': true
             }
           }
         }

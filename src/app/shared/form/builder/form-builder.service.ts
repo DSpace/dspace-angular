@@ -384,7 +384,7 @@ export class FormBuilderService extends DynamicFormService {
 
     const result = iterateControlModels([model]);
 
-    return result;
+    return Object.keys(result);
   }
 
 }

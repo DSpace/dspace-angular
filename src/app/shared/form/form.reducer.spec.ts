@@ -6,7 +6,7 @@ import {
   FormInitAction,
   FormRemoveAction,
   FormRemoveErrorAction,
-  FormSetAdditionalAction,
+  FormAddTouchedAction,
   FormStatusChangeAction
 } from './form.actions';
 
@@ -23,7 +23,7 @@ describe('formReducer', () => {
         },
         valid: false,
         errors: [],
-        additional: {}
+        touched: {}
       }
     };
     const formId = 'testForm';
@@ -51,7 +51,7 @@ describe('formReducer', () => {
         },
         valid: false,
         errors: [],
-        additional: {}
+        touched: {}
       }
     };
     const formId = 'testForm';
@@ -71,7 +71,7 @@ describe('formReducer', () => {
         },
         valid: false,
         errors: [],
-        additional: {}
+        touched: {}
       }
     };
 
@@ -93,7 +93,7 @@ describe('formReducer', () => {
         },
         valid: false,
         errors: [],
-        additional: {}
+        touched: {}
       }
     };
     const state = {
@@ -106,7 +106,7 @@ describe('formReducer', () => {
         },
         valid: false,
         errors: [],
-        additional: {}
+        touched: {}
       }
     };
     const formId = 'testForm';
@@ -134,7 +134,7 @@ describe('formReducer', () => {
         },
         valid: false,
         errors: [],
-        additional: {}
+        touched: {}
       }
     };
     const state = {
@@ -147,7 +147,7 @@ describe('formReducer', () => {
         },
         valid: true,
         errors: [],
-        additional: {}
+        touched: {}
       }
     };
     const formId = 'testForm';
@@ -169,7 +169,7 @@ describe('formReducer', () => {
         },
         valid: true,
         errors: [],
-        additional: {}
+        touched: {}
       }
     };
 
@@ -214,7 +214,7 @@ describe('formReducer', () => {
             message: 'error.validation.required'
           }
         ],
-        additional: {}
+        touched: {}
       }
     };
 
@@ -247,7 +247,7 @@ describe('formReducer', () => {
         },
         valid: true,
         errors: [],
-        additional: {}
+        touched: {}
       }
     };
 
@@ -276,7 +276,7 @@ describe('formReducer', () => {
             message: 'error.validation.required'
           }
         ],
-        additional: {}
+        touched: {}
       }
     };
 
@@ -299,7 +299,7 @@ describe('formReducer', () => {
         },
         valid: false,
         errors: [],
-        additional: {}
+        touched: {}
       }
     };
     const state = {
@@ -312,21 +312,15 @@ describe('formReducer', () => {
         },
         valid: false,
         errors: [],
-        additional: {
-          touched: {
-            title: true
-          }
+        touched: {
+          title: true
         }
       }
     };
     const formId = 'testForm';
-    const additionalData = {
-      touched: {
-       title: true
-      }
-    };
+    const touched = ['title'];
 
-    const action = new FormSetAdditionalAction(formId, additionalData);
+    const action = new FormAddTouchedAction(formId, touched);
     const newState = formReducer(initState, action);
 
     expect(newState).toEqual(state);
@@ -343,10 +337,8 @@ describe('formReducer', () => {
         },
         valid: false,
         errors: [],
-        additional: {
-          touched: {
-            title: true
-          }
+        touched: {
+          title: true
         }
       }
     };
@@ -360,22 +352,16 @@ describe('formReducer', () => {
         },
         valid: false,
         errors: [],
-        additional: {
-          touched: {
-            title: true,
-            author: true
-          }
+        touched: {
+          title: true,
+          author: true
         }
       }
     };
     const formId = 'testForm';
-    const additionalData = {
-      touched: {
-        author: true
-      }
-    };
+    const touched = ['author'];
 
-    const action = new FormSetAdditionalAction(formId, additionalData);
+    const action = new FormAddTouchedAction(formId, touched);
     const newState = formReducer(initState, action);
 
     expect(newState).toEqual(state);

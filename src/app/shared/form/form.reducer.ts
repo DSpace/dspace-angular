@@ -4,9 +4,8 @@ import {
   FormAddError,
   FormChangeAction, FormClearErrorsAction,
   FormInitAction,
-  FormRemoveAction,
-  FormRemoveErrorAction, FormSetAdditionalAction,
-  FormStatusChangeAction
+  FormRemoveAction, FormRemoveErrorAction,
+  FormStatusChangeAction, FormAddTouchedAction
 } from './form.actions';
 import { hasValue } from '../empty.util';
 import { isEqual, uniqWith } from 'lodash';
@@ -17,11 +16,15 @@ export interface FormError {
   fieldIndex: number;
 }
 
+export interface FormTouchedState {
+  [key: string]: boolean
+}
+
 export interface FormEntry {
   data: any;
   valid: boolean;
   errors: FormError[];
-  additional: any;
+  touched: FormTouchedState;
 }
 
 export interface FormState {
@@ -41,8 +44,8 @@ export function formReducer(state = initialState, action: FormAction): FormState
       return changeDataForm(state, action as FormChangeAction);
     }
 
-    case FormActionTypes.FORM_ADDITIONAL: {
-      return additionalData(state, action as FormSetAdditionalAction);
+    case FormActionTypes.FORM_ADD_TOUCHED: {
+      return changeTouchedState(state, action as FormAddTouchedAction);
     }
 
     case FormActionTypes.FORM_REMOVE: {
@@ -132,8 +135,8 @@ function initForm(state: FormState, action: FormInitAction): FormState {
   const formState = {
     data: action.payload.formData,
     valid: action.payload.valid,
+    touched: {},
     errors: [],
-    additional: action.payload.formAdditional ? action.payload.formAdditional : {}
   };
   if (!hasValue(state[action.payload.formId])) {
     return Object.assign({}, state, {
@@ -220,25 +223,19 @@ function removeForm(state: FormState, action: FormRemoveAction): FormState {
 }
 
 /**
- * Compute the additional data state of the form. New touched fields are merged with the previous ones.
+ * Compute the touched state of the form. New touched fields are merged with the previous ones.
  * @param state
  * @param action
  */
-function additionalData(state: FormState, action: FormSetAdditionalAction): FormState {
+function changeTouchedState(state: FormState, action: FormAddTouchedAction): FormState {
   if (hasValue(state[action.payload.formId])) {
-
     const newState = Object.assign({}, state);
 
-    const newAdditional = newState[action.payload.formId].additional ? {...newState[action.payload.formId].additional} : {};
+    const newForm = Object.assign({}, newState[action.payload.formId]);
+    newState[action.payload.formId] = newForm;
 
-    const newTouchedValue = newAdditional.touched ? {...newAdditional.touched,
-      ...action.payload.additionalData.touched} : { ...action.payload.additionalData.touched};
-    newAdditional.touched = newTouchedValue;
-
-    newState[action.payload.formId] = Object.assign({}, newState[action.payload.formId], {
-        additional: newAdditional
-      }
-    );
+    newForm.touched = { ... newForm.touched};
+    action.payload.touched.forEach((field) => newForm[field] = true);
 
     return newState;
   } else {
