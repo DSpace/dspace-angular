@@ -948,7 +948,7 @@ describe('SubmissionService test suite', () => {
     });
 
     it('should start Auto Save', fakeAsync(() => {
-      const duration = environment.submission.autosave.timer * (1000 * 60);
+      const duration = environment.submission.autosave.timer;
 
       service.startAutoSave('826');
       const sub = (service as any).timer$.subscribe();

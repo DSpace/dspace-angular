@@ -581,8 +581,7 @@ export class SubmissionService {
     }
 
     // AUTOSAVE submission
-    // Retrieve interval from config and convert to milliseconds
-    const duration = environment.submission.autosave.timer * (1000 * 60);
+    const duration = environment.submission.autosave.timer;
     // Dispatch save action after given duration
     this.timer$ = observableTimer(duration, duration);
     this.autoSaveSub = this.timer$
