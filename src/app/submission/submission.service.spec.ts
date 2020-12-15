@@ -757,13 +757,13 @@ describe('SubmissionService test suite', () => {
     });
   });
 
-  describe('hasNotSavedModification', () => {
+  describe('hasUnsavedModification', () => {
     it('should call jsonPatchOperationService hasPendingOperation observable', () => {
       (service as any).jsonPatchOperationService.hasPendingOperations = jasmine.createSpy('hasPendingOperations')
         .and.returnValue(observableOf(true));
 
       scheduler = getTestScheduler();
-      scheduler.schedule(() => service.hasNotSavedModification());
+      scheduler.schedule(() => service.hasUnsavedModification());
       scheduler.flush();
 
       expect((service as any).jsonPatchOperationService.hasPendingOperations).toHaveBeenCalledWith('sections');

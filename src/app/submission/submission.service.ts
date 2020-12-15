@@ -437,7 +437,7 @@ export class SubmissionService {
    * @return Observable<boolean>
    *    observable with submission unsaved modification presence
    */
-  hasNotSavedModification(): Observable<boolean> {
+  hasUnsavedModification(): Observable<boolean> {
     return this.jsonPatchOperationService.hasPendingOperations('sections');
   }
 

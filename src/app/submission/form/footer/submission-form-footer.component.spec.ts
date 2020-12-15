@@ -225,7 +225,7 @@ describe('SubmissionFormFooterComponent Component', () => {
     });
 
     it('should disable save button when all modifications had been saved', () => {
-      comp.hasNotSavedModification = observableOf(false);
+      comp.hasUnsavedModification = observableOf(false);
       fixture.detectChanges();
 
       const saveBtn: any = fixture.debugElement.query(By.css('#save'));
@@ -233,7 +233,7 @@ describe('SubmissionFormFooterComponent Component', () => {
     });
 
     it('should enable save button when there are not saved modifications', () => {
-      comp.hasNotSavedModification = observableOf(true);
+      comp.hasUnsavedModification = observableOf(true);
       fixture.detectChanges();
 
       const saveBtn: any = fixture.debugElement.query(By.css('#save'));

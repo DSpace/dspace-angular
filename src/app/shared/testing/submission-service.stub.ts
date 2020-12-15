@@ -20,7 +20,7 @@ export class SubmissionServiceStub {
   getSubmissionStatus = jasmine.createSpy('getSubmissionStatus');
   getSubmissionSaveProcessingStatus = jasmine.createSpy('getSubmissionSaveProcessingStatus');
   getSubmissionDepositProcessingStatus = jasmine.createSpy('getSubmissionDepositProcessingStatus');
-  hasNotSavedModification = jasmine.createSpy('hasNotSavedModification');
+  hasUnsavedModification = jasmine.createSpy('hasUnsavedModification');
   isSectionHidden = jasmine.createSpy('isSectionHidden');
   isSubmissionLoading = jasmine.createSpy('isSubmissionLoading');
   notifyNewSection = jasmine.createSpy('notifyNewSection');

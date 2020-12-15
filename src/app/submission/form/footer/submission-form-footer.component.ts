@@ -52,7 +52,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
   /**
    * A boolean representing if submission form has unsaved modifications
    */
-  public hasNotSavedModification: Observable<boolean>;
+  public hasUnsavedModification: Observable<boolean>;
 
   /**
    * Initialize instance variables
@@ -78,7 +78,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
       this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
       this.processingDepositStatus = this.submissionService.getSubmissionDepositProcessingStatus(this.submissionId);
       this.showDepositAndDiscard = observableOf(this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem);
-      this.hasNotSavedModification = this.submissionService.hasNotSavedModification();
+      this.hasUnsavedModification = this.submissionService.hasUnsavedModification();
     }
   }
 
