@@ -27,11 +27,13 @@
             "allowedCommonJsDependencies": [
               "angular2-text-mask",
               "cerialize",
-              "fast-json-patch",
+              "core-js",
               "lodash",
               "jwt-decode",
               "url-parse",
-              "uuid"
+              "uuid",
+              "webfontloader",
+              "zone.js"
             ],
             "outputPath": "dist/browser",
             "index": "src/index.html",
