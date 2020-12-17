@@ -1,8 +1,6 @@
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,6 +17,12 @@ import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
@@ -73,7 +77,7 @@ describe('BitstreamFormatsComponent', () => {
     bitstreamFormat3,
     bitstreamFormat4
   ];
-  const mockFormatsRD = new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFormatsList));
+  const mockFormatsRD = createSuccessfulRemoteDataObject(createPaginatedList(mockFormatsList));
 
   const initAsync = () => {
     notificationsServiceStub = new NotificationsServiceStub();
@@ -82,12 +86,12 @@ describe('BitstreamFormatsComponent', () => {
 
     bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
       findAll: observableOf(mockFormatsRD),
-      find: observableOf(new RemoteData(false, false, true, undefined, mockFormatsList[0])),
+      find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
       getSelectedBitstreamFormats: hot('a', {a: mockFormatsList}),
       selectBitstreamFormat: {},
       deselectBitstreamFormat: {},
       deselectAllBitstreamFormats: {},
-      delete: observableOf(true),
+      delete: createSuccessfulRemoteDataObject$({}),
       clearBitStreamFormatRequests: observableOf('cleared')
     });
 
@@ -204,12 +208,12 @@ describe('BitstreamFormatsComponent', () => {
 
         bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
           findAll: observableOf(mockFormatsRD),
-          find: observableOf(new RemoteData(false, false, true, undefined, mockFormatsList[0])),
+          find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
           getSelectedBitstreamFormats: observableOf(mockFormatsList),
           selectBitstreamFormat: {},
           deselectBitstreamFormat: {},
           deselectAllBitstreamFormats: {},
-          delete: observableOf({ isSuccessful: true }),
+          delete: createNoContentRemoteDataObject$(),
           clearBitStreamFormatRequests: observableOf('cleared')
         });
 
@@ -250,7 +254,7 @@ describe('BitstreamFormatsComponent', () => {
 
         bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
           findAll: observableOf(mockFormatsRD),
-          find: observableOf(new RemoteData(false, false, true, undefined, mockFormatsList[0])),
+          find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
           getSelectedBitstreamFormats: observableOf(mockFormatsList),
           selectBitstreamFormat: {},
           deselectBitstreamFormat: {},

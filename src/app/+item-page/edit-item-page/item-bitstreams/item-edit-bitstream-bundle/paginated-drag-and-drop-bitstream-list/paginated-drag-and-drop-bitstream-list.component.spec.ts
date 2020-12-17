@@ -7,7 +7,6 @@ import { VarDirective } from '../../../../../shared/utils/var.directive';
 import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';
 import { ObjectUpdatesService } from '../../../../../core/data/object-updates/object-updates.service';
 import { BundleDataService } from '../../../../../core/data/bundle-data.service';
-import { createMockRDObs } from '../../item-bitstreams.component.spec';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../../../core/shared/bitstream-format.model';
 import { of as observableOf } from 'rxjs/internal/observable/of';
@@ -49,7 +48,7 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     name: 'Fake Bitstream 1',
     bundleName: 'ORIGINAL',
     description: 'Description',
-    format: createMockRDObs(format)
+    format: createSuccessfulRemoteDataObject$(format)
   });
   const fieldUpdate1 = {
     field: bitstream1,
@@ -60,7 +59,7 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     name: 'Fake Bitstream 2',
     bundleName: 'ORIGINAL',
     description: 'Description',
-    format: createMockRDObs(format)
+    format: createSuccessfulRemoteDataObject$(format)
   });
   const fieldUpdate2 = {
     field: bitstream2,
@@ -107,7 +106,7 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     objectValuesPipe = new ObjectValuesPipe();
 
     requestService = jasmine.createSpyObj('requestService', {
-      hasByHrefObservable: observableOf(true)
+      hasByHref$: observableOf(true)
     });
 
     TestBed.configureTestingModule({

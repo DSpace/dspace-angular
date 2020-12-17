@@ -2982,6 +2982,10 @@
 
 
 
+  "sorting.ASC": "Ascending",
+
+  "sorting.DESC": "Descending",
+
   "sorting.dc.title.ASC": "Title Ascending",
 
   "sorting.dc.title.DESC": "Title Descending",

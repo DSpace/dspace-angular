@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { RequestEntry, RequestEntryState } from '../../core/data/request.reducer';
+import { of as observableOf } from 'rxjs/internal/observable/of';
+import { UnCacheableObject } from '../../core/shared/uncacheable-object.model';
 
 /**
  * Returns true if a Native Element has a specified css class.
@@ -58,7 +62,7 @@ export function spyOnOperator(obj: any, prop: string): any {
  * @param objects An array representing the paginated list's page
  */
 export function createPaginatedList<T>(objects?: T[]): PaginatedList<T> {
-  return new PaginatedList(new PageInfo(), objects);
+  return buildPaginatedList(new PageInfo(), objects);
 }
 
 /**
@@ -70,4 +74,24 @@ export function spyOnExported<T>(target: T, prop: keyof T): jasmine.Spy {
   const spy = jasmine.createSpy(`${prop}Spy`);
   spyOnProperty(target, prop).and.returnValue(spy);
   return spy;
+}
+
+/**
+ * Create a mock request entry to be used in testing
+ * @param unCacheableObject
+ * @param statusCode
+ * @param errorMessage
+ */
+export function createRequestEntry$(unCacheableObject?: UnCacheableObject, statusCode = 200, errorMessage?: string): Observable<RequestEntry> {
+  return observableOf({
+    request: undefined,
+    state: RequestEntryState.Success,
+    response: {
+      timeCompleted: new Date().getTime(),
+      statusCode,
+      errorMessage,
+      unCacheableObject
+    },
+    lastUpdated: new Date().getTime()
+  });
 }

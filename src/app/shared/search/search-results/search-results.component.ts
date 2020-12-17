@@ -3,7 +3,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../animations/fade';
 import { SearchResult } from '../search-result.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { hasNoValue, isNotEmpty } from '../../empty.util';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';

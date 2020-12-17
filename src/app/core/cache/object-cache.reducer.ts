@@ -6,7 +6,8 @@ import {
   AddToObjectCacheAction,
   RemoveFromObjectCacheAction,
   ResetObjectCacheTimestampsAction,
-  AddPatchObjectCacheAction, ApplyPatchObjectCacheAction
+  AddPatchObjectCacheAction,
+  ApplyPatchObjectCacheAction
 } from './object-cache.actions';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheEntry } from './cache-entry';
@@ -57,7 +58,6 @@ export const getResourceTypeValueFor = (type: any): string => {
 export class CacheableObject extends TypedObject implements HALResource {
   uuid?: string;
   handle?: string;
-
   _links: {
     self: HALLink;
   }
@@ -72,12 +72,42 @@ export class CacheableObject extends TypedObject implements HALResource {
  * An entry in the ObjectCache
  */
 export class ObjectCacheEntry implements CacheEntry {
+  /**
+   * The object being cached
+   */
   data: CacheableObject;
-  timeAdded: number;
+
+  /**
+   * The timestamp for when this entry was set to completed
+   */
+  timeCompleted: number;
+
+  /**
+   * The number of milliseconds after the entry completes until it becomes stale
+   */
   msToLive: number;
+
+  /**
+   * The UUID of the request that caused this entry to be added
+   */
   requestUUID: string;
+
+  /**
+   * An array of patches that were made on the client side to this entry, but haven't been sent to the server yet
+   */
   patches: Patch[] = [];
+
+  /**
+   * Whether this entry has changes that haven't been sent to the server yet
+   */
   isDirty: boolean;
+
+  /**
+   * A list of links, apart from the self link, that also uniquely identify this object
+   * e.g. https://rest.api/collections/12345/logo could be an alternative link for a
+   * bitstream
+   */
+  alternativeLinks: string[];
 }
 
 /* tslint:enable:max-classes-per-file */
@@ -145,15 +175,17 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
  *    the new state, with the object added, or overwritten.
  */
 function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheAction): ObjectCacheState {
-  const existing = state[action.payload.objectToCache._links.self.href];
+  const existing = state[action.payload.objectToCache._links.self.href] || {} as any;
+  const newAltLinks = hasValue(action.payload.alternativeLink) ? [action.payload.alternativeLink] : [];
   return Object.assign({}, state, {
     [action.payload.objectToCache._links.self.href]: {
       data: action.payload.objectToCache,
-      timeAdded: action.payload.timeAdded,
+      timeCompleted: action.payload.timeCompleted,
       msToLive: action.payload.msToLive,
       requestUUID: action.payload.requestUUID,
-      isDirty: (hasValue(existing) ? isNotEmpty(existing.patches) : false),
-      patches: (hasValue(existing) ? existing.patches : [])
+      isDirty: isNotEmpty(existing.patches),
+      patches: existing.patches || [],
+      alternativeLinks: [...(existing.alternativeLinks || []), ...newAltLinks]
     }
   });
 }
@@ -180,20 +212,20 @@ function removeFromObjectCache(state: ObjectCacheState, action: RemoveFromObject
 }
 
 /**
- * Set the timeAdded timestamp of every cached object to the specified value
+ * Set the timeCompleted timestamp of every cached object to the specified value
  *
  * @param state
  *    the current state
  * @param action
  *    a ResetObjectCacheTimestampsAction
  * @return ObjectCacheState
- *    the new state, with all timeAdded timestamps set to the specified value
+ *    the new state, with all timeCompleted timestamps set to the specified value
  */
 function resetObjectCacheTimestamps(state: ObjectCacheState, action: ResetObjectCacheTimestampsAction): ObjectCacheState {
   const newState = Object.create(null);
   Object.keys(state).forEach((key) => {
     newState[key] = Object.assign({}, state[key], {
-      timeAdded: action.payload
+      timeCompleted: action.payload
     });
   });
   return newState;

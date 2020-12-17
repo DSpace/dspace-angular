@@ -3,8 +3,8 @@ import { ScriptDataService } from '../../../core/data/processes/script-data.serv
 import { Script } from '../../scripts/script.model';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { ControlContainer, NgForm } from '@angular/forms';
@@ -49,7 +49,7 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.scripts$ = this.scriptService.findAll({ elementsPerPage: Number.MAX_SAFE_INTEGER })
       .pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         map((paginatedList: PaginatedList<Script>) => paginatedList.page)
       );

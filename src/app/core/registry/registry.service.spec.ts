@@ -19,8 +19,6 @@ import {
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { StoreMock } from '../../shared/testing/store.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-
-import { RestResponse } from '../cache/response.models';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { RegistryService } from './registry.service';
@@ -28,8 +26,13 @@ import { storeModuleConfig } from '../../app.reducer';
 import { FindListOptions } from '../data/request.models';
 import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { RemoteData } from '../data/remote-data';
+import { NoContent } from '../shared/NoContent.model';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -127,7 +130,7 @@ describe('RegistryService', () => {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(mockSchemasList)),
       findById: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
       createOrUpdateMetadataSchema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
-      delete: observableOf(new RestResponse(true, 200, 'OK')),
+      delete: createNoContentRemoteDataObject$(),
       clearRequests: observableOf('href')
     });
 
@@ -136,7 +139,7 @@ describe('RegistryService', () => {
       findById: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       create: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       put: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
-      delete: observableOf(new RestResponse(true, 200, 'OK')),
+      delete: createNoContentRemoteDataObject$(),
       clearRequests: observableOf('href')
     });
   }
@@ -184,7 +187,7 @@ describe('RegistryService', () => {
 
     it('should call metadataSchemaService.findById with the correct ID', (done) => {
       result.subscribe(() => {
-        expect(metadataSchemaService.findById).toHaveBeenCalledWith(`${mockSchemasList[0].id}`);
+        expect(metadataSchemaService.findById).toHaveBeenCalledWith(`${mockSchemasList[0].id}`, true);
         done();
       });
     });
@@ -342,29 +345,29 @@ describe('RegistryService', () => {
   });
 
   describe('when deleteMetadataSchema is called', () => {
-    let result: Observable<RestResponse>;
+    let result: Observable<RemoteData<NoContent>>;
 
     beforeEach(() => {
       result = registryService.deleteMetadataSchema(mockSchemasList[0].id);
     });
 
     it('should return a successful response', () => {
-      result.subscribe((response: RestResponse) => {
-        expect(response.isSuccessful).toBe(true);
+      result.subscribe((response: RemoteData<NoContent>) => {
+        expect(response.hasSucceeded).toBe(true);
       });
     });
   });
 
   describe('when deleteMetadataField is called', () => {
-    let result: Observable<RestResponse>;
+    let result: Observable<RemoteData<NoContent>>;
 
     beforeEach(() => {
       result = registryService.deleteMetadataField(mockFieldsList[0].id);
     });
 
     it('should return a successful response', () => {
-      result.subscribe((response: RestResponse) => {
-        expect(response.isSuccessful).toBe(true);
+      result.subscribe((response: RemoteData<NoContent>) => {
+        expect(response.hasSucceeded).toBe(true);
       });
     });
   });

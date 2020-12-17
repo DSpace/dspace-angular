@@ -1,10 +1,7 @@
 import { ItemSelectComponent } from './item-select.component';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../../core/shared/item.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../../shared.module';
@@ -15,6 +12,8 @@ import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/internal/observable/of';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { createPaginatedList } from '../../testing/utils.test';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
@@ -53,7 +52,7 @@ describe('ItemSelectComponent', () => {
         }]
     })
   ];
-  const mockItems = of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), mockItemList)));
+  const mockItems = createSuccessfulRemoteDataObject$(createPaginatedList(mockItemList));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,

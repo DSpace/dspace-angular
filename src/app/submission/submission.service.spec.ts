@@ -15,7 +15,7 @@ import { SubmissionRestService } from '../core/submission/submission-rest.servic
 import { RouteService } from '../core/services/route.service';
 import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import {
   mockSubmissionDefinition,
@@ -35,11 +35,9 @@ import {
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
-import { RemoteDataError } from '../core/data/remote-data-error';
 import { throwError as observableThrowError } from 'rxjs/internal/observable/throwError';
 import {
   createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
 import { getMockSearchService } from '../shared/mocks/search-service.mock';
 import { getMockRequestService } from '../shared/mocks/request.service.mock';
@@ -883,8 +881,7 @@ describe('SubmissionService test suite', () => {
 
       const result = service.retrieveSubmission('826');
       const expected = cold('(b|)', {
-        b: createSuccessfulRemoteDataObject(
-          mockSubmissionRestResponse[0])
+        b: jasmine.objectContaining({ payload: mockSubmissionRestResponse[0] })
       });
 
       expect(result).toBeObservable(expected);
@@ -894,15 +891,16 @@ describe('SubmissionService test suite', () => {
       (service as any).restService.getDataById.and.callFake(
         () => observableThrowError({
           statusCode: 500,
-          statusText: 'Internal Server Error',
-          errorMessage: 'Error message'
+          errorMessage: 'Internal Server Error',
         })
       );
 
       service.retrieveSubmission('826').subscribe((r) => {
-        expect(r).toEqual(createFailedRemoteDataObject(null,
-          new RemoteDataError(500, 'Internal Server Error', 'Error message')
-        ))
+        const expectedRD = createFailedRemoteDataObject('Internal Server Error',500) as any;
+        expect(r.payload).toEqual(expectedRD.payload);
+        expect(r.statusCode).toEqual(expectedRD.statusCode);
+        expect(r.errorMessage).toEqual(expectedRD.errorMessage);
+        expect(r.hasSucceeded).toEqual(expectedRD.hasSucceeded);
       });
     });
   });

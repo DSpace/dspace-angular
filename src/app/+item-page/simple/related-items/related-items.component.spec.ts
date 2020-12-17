@@ -2,8 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RelatedItemsComponent } from './related-items-component';
 import { Item } from '../../../core/shared/item.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from '../item-types/shared/item.component.spec';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -11,19 +9,20 @@ import { RelationshipService } from '../../../core/data/relationship.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 const parentItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
 const mockItem1: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
 const mockItem2: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
@@ -38,7 +37,7 @@ describe('RelatedItemsComponent', () => {
   beforeEach(async(() => {
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
-        getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockItems)),
+        getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList(mockItems)),
       }
     );
 

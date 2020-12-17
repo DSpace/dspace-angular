@@ -6,14 +6,18 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { TranslateService } from '@ngx-translate/core';
 import { Group } from '../core/eperson/models/group.model';
 import { RemoteData } from '../core/data/remote-data';
-import { PaginatedList } from '../core/data/paginated-list';
+import { PaginatedList } from '../core/data/paginated-list.model';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  getFirstCompletedRemoteData
+} from '../core/shared/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { AuthService } from '../core/auth/auth.service';
-import { ErrorResponse, RestResponse } from '../core/cache/response.models';
+import { Operation } from 'fast-json-patch';
 
 @Component({
   selector: 'ds-profile-page',
@@ -72,7 +76,7 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.authService.getAuthenticatedUserFromStore().pipe(
       filter((user: EPerson) => hasValue(user.id)),
-      switchMap((user: EPerson) => this.epersonService.findById(user.id, followLink('groups'))),
+      switchMap((user: EPerson) => this.epersonService.findById(user.id, true, followLink('groups'))),
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       tap((user: EPerson) => this.currentUser = user)
@@ -120,16 +124,18 @@ export class ProfilePageComponent implements OnInit {
       this.notificationsService.error(this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.general'));
     }
     if (!this.invalidSecurity && passEntered) {
-      const operation = Object.assign({op: 'add', path: '/password', value: this.password});
-      this.epersonService.patch(this.currentUser, [operation]).subscribe((response: RestResponse) => {
-        if (response.isSuccessful) {
+      const operation = {op: 'add', path: '/password', value: this.password} as Operation;
+      this.epersonService.patch(this.currentUser, [operation]).pipe(
+        getFirstCompletedRemoteData()
+      ).subscribe((response: RemoteData<EPerson>) => {
+        if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'success.title'),
             this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'success.content')
           );
         } else {
           this.notificationsService.error(
-            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'), (response as ErrorResponse).errorMessage
+            this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.title'), response.errorMessage
           );
         }
       });

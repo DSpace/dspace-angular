@@ -7,8 +7,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RequestService } from '../../../../core/data/request.service';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$
+} from '../../../remote-data.utils';
 
 describe('ComcolRoleComponent', () => {
 
@@ -21,10 +24,11 @@ describe('ComcolRoleComponent', () => {
 
   let group;
   let statusCode;
+  let comcolRole;
 
   beforeEach(() => {
 
-    requestService = {hasByHrefObservable: () => observableOf(true)};
+    requestService = { hasByHref$: () => observableOf(true) };
 
     groupService = {
       findByHref: () => undefined,
@@ -34,14 +38,13 @@ describe('ComcolRoleComponent', () => {
 
     spyOn(groupService, 'findByHref').and.callFake((link) => {
       if (link === 'test role link') {
-        return observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          group,
-          statusCode,
-        ));
+        if (statusCode === 204) {
+          return createSuccessfulRemoteDataObject$(null);
+        } else if (statusCode === 200) {
+          return createSuccessfulRemoteDataObject$(group);
+        } else {
+          return createFailedRemoteDataObject$('error', statusCode);
+        }
       }
     });
 
@@ -63,10 +66,11 @@ describe('ComcolRoleComponent', () => {
     comp = fixture.componentInstance;
     de = fixture.debugElement;
 
-    comp.comcolRole = {
+    comcolRole = {
       name: 'test role name',
       href: 'test role link',
     };
+    comp.comcolRole = comcolRole;
 
     fixture.detectChanges();
   });
@@ -76,6 +80,7 @@ describe('ComcolRoleComponent', () => {
     beforeEach(() => {
       group = null;
       statusCode = 204;
+      comp.comcolRole = comcolRole;
       fixture.detectChanges();
     });
 
@@ -107,6 +112,7 @@ describe('ComcolRoleComponent', () => {
         name: 'Anonymous'
       };
       statusCode = 200;
+      comp.comcolRole = comcolRole;
       fixture.detectChanges();
     });
 
@@ -138,6 +144,7 @@ describe('ComcolRoleComponent', () => {
         name: 'custom group name'
       };
       statusCode = 200;
+      comp.comcolRole = comcolRole;
       fixture.detectChanges();
     });
 

@@ -13,7 +13,7 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { USAGE_REPORT } from './models/usage-report.resource-type';
 import { UsageReport } from './models/usage-report.model';
 import { Observable } from 'rxjs';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../shared/operators';
 import { map } from 'rxjs/operators';
 
 /**
@@ -23,7 +23,7 @@ import { map } from 'rxjs/operators';
 @dataService(USAGE_REPORT)
 export class UsageReportService extends DataService<UsageReport> {
 
-  protected linkPath = 'statistics/usagereports';
+  protected linkPath = 'usagereports';
 
   constructor(
     protected comparator: DefaultChangeAnalyzer<UsageReport>,
@@ -40,7 +40,7 @@ export class UsageReportService extends DataService<UsageReport> {
 
   getStatistic(scope: string, type: string): Observable<UsageReport> {
     return this.findById(`${scope}_${type}`).pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
     );
   }
@@ -53,8 +53,8 @@ export class UsageReportService extends DataService<UsageReport> {
       }],
       currentPage: page,
       elementsPerPage: size,
-    }).pipe(
-      getSucceededRemoteData(),
+    }, false).pipe(
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((list) => list.page),
     );

@@ -1,6 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  inject,
+  TestBed,
+  tick
+} from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -8,7 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../../../../../core/cache/response.models';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
@@ -52,13 +60,13 @@ describe('MembersListComponent', () => {
       epersonMembers: epersonMembers,
       subgroupMembers: subgroupMembers,
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()))
       },
       searchByScope(scope: string, query: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), allEPersons))
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allEPersons))
         }
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
       },
       clearEPersonRequests() {
         // empty
@@ -83,9 +91,9 @@ describe('MembersListComponent', () => {
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), this.allGroups))
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), this.allGroups))
         }
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
       },
       addMemberToGroup(parentGroup, eperson: EPerson): Observable<RestResponse> {
         this.epersonMembers = [...this.epersonMembers, eperson];

@@ -21,7 +21,7 @@ describe('SearchFilterService', () => {
   const filterName1 = 'test name';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
-    type: FilterType.text,
+    filterType: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false,
     pageSize: 2

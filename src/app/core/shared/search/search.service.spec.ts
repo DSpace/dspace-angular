@@ -1,9 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-
 import { SearchService } from './search.service';
 import { Router, UrlTree } from '@angular/router';
 import { RequestService } from '../../data/request.service';
@@ -15,9 +13,6 @@ import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-
 import { RemoteData } from '../../data/remote-data';
 import { RequestEntry } from '../../data/request.reducer';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { FacetConfigSuccessResponse, SearchSuccessResponse } from '../../cache/response.models';
-import { SearchQueryResponse } from '../../../shared/search/search-query-response.model';
-import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
 import { CommunityDataService } from '../../data/community-data.service';
 import { ViewMode } from '../view-mode.model';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
@@ -26,6 +21,7 @@ import { RouteService } from '../../services/route.service';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { SearchObjects } from '../../../shared/search/search-objects.model';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -90,6 +86,11 @@ describe('SearchService', () => {
       },
       aggregate: (input: Array<Observable<RemoteData<any>>>): Observable<RemoteData<any[]>> => {
         return createSuccessfulRemoteDataObject$([]);
+      },
+      buildFromHref: (href: string): Observable<RemoteData<any>> => {
+        return createSuccessfulRemoteDataObject$(Object.assign(new SearchObjects(), {
+          page: []
+        }))
       }
     };
 
@@ -159,10 +160,9 @@ describe('SearchService', () => {
     describe('when search is called', () => {
       const endPoint = 'http://endpoint.com/test/test';
       const searchOptions = new PaginatedSearchOptions({});
-      const queryResponse = Object.assign(new SearchQueryResponse(), { objects: [] });
-      const response = new SearchSuccessResponse(queryResponse, 200, 'OK');
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+        spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
         /* tslint:disable:no-empty */
         searchService.search(searchOptions).subscribe((t) => {
         }); // subscribe to make sure all methods are called
@@ -178,16 +178,15 @@ describe('SearchService', () => {
       });
 
       it('should call getByHref on the request service with the correct request url', () => {
-        expect((searchService as any).requestService.getByHref).toHaveBeenCalledWith(endPoint);
+        expect((searchService as any).rdb.buildFromHref).toHaveBeenCalledWith(endPoint);
       });
     });
 
     describe('when getConfig is called without a scope', () => {
       const endPoint = 'http://endpoint.com/test/config';
-      const filterConfig = [new SearchFilterConfig()];
-      const response = new FacetConfigSuccessResponse(filterConfig,  200, 'OK');
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+        spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
         /* tslint:disable:no-empty */
         searchService.getConfig(null).subscribe((t) => {
         }); // subscribe to make sure all methods are called
@@ -202,8 +201,8 @@ describe('SearchService', () => {
         expect((searchService as any).requestService.configure).toHaveBeenCalled();
       });
 
-      it('should call getByHref on the request service with the correct request url', () => {
-        expect((searchService as any).requestService.getByHref).toHaveBeenCalledWith(endPoint);
+      it('should call configure containing a request with the correct request url', () => {
+        expect((searchService as any).requestService.configure).toHaveBeenCalledWith(jasmine.objectContaining({ href: endPoint }));
       });
     });
 
@@ -211,8 +210,6 @@ describe('SearchService', () => {
       const endPoint = 'http://endpoint.com/test/config';
       const scope = 'test';
       const requestUrl = endPoint + '?scope=' + scope;
-      const filterConfig = [new SearchFilterConfig()];
-      const response = new FacetConfigSuccessResponse(filterConfig, 200, 'OK');
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
         /* tslint:disable:no-empty */
@@ -229,8 +226,8 @@ describe('SearchService', () => {
         expect((searchService as any).requestService.configure).toHaveBeenCalled();
       });
 
-      it('should call getByHref on the request service with the correct request url', () => {
-        expect((searchService as any).requestService.getByHref).toHaveBeenCalledWith(requestUrl);
+      it('should call configure containing a request with the correct request url', () => {
+        expect((searchService as any).requestService.configure).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }));
       });
     });
   });

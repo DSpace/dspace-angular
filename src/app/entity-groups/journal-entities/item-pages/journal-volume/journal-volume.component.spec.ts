@@ -1,6 +1,6 @@
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { JournalVolumeComponent } from './journal-volume.component';
 import { of as observableOf } from 'rxjs';
@@ -11,7 +11,7 @@ import {
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'publicationvolume.volumeNumber': [
       {

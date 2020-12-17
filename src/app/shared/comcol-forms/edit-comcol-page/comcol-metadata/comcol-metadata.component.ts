@@ -4,18 +4,20 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, map, take } from 'rxjs/operators';
-import { getSucceededRemoteData } from '../../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { hasValue, isEmpty } from '../../../empty.util';
 import { ResourceType } from '../../../../core/shared/resource-type';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Community } from '../../../../core/shared/community.model';
+import { Collection } from '../../../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-comcol-metadata',
   template: ''
 })
-export class ComcolMetadataComponent<TDomain extends DSpaceObject> implements OnInit {
+export class ComcolMetadataComponent<TDomain extends Community | Collection> implements OnInit {
   /**
    * Frontend endpoint for this type of DSO
    */
@@ -61,9 +63,9 @@ export class ComcolMetadataComponent<TDomain extends DSpaceObject> implements On
     }
 
     if (!isEmpty(event.operations)) {
-      this.dsoDataService.patch(event.dso, event.operations)
-        .subscribe(async (response) => {
-          if (response.isSuccessful) {
+      this.dsoDataService.patch(event.dso, event.operations).pipe(getFirstCompletedRemoteData())
+        .subscribe(async (response: RemoteData<DSpaceObject>) => {
+          if (response.hasSucceeded) {
             if (!newLogo && !deleteLogo) {
               await this.router.navigate([this.frontendURL + event.dso.uuid]);
             }
@@ -82,7 +84,7 @@ export class ComcolMetadataComponent<TDomain extends DSpaceObject> implements On
    */
   navigateToHomePage() {
     this.dsoRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       take(1)
     ).subscribe((dsoRD: RemoteData<TDomain>) => {
       this.router.navigate([this.frontendURL + dsoRD.payload.id]);

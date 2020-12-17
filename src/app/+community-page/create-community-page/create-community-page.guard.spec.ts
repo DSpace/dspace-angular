@@ -2,7 +2,10 @@ import { CreateCommunityPageGuard } from './create-community-page.guard';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { Community } from '../../core/shared/community.model';
 import { first } from 'rxjs/operators';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
 
 describe('CreateCommunityPageGuard', () => {
   describe('canActivate', () => {
@@ -18,7 +21,7 @@ describe('CreateCommunityPageGuard', () => {
           } else if (id === 'invalid-id') {
             return createSuccessfulRemoteDataObject$(undefined);
           } else if (id === 'error-id') {
-            return createFailedRemoteDataObject$(new Community());
+            return createFailedRemoteDataObject$('not found', 404);
           }
         }
       };

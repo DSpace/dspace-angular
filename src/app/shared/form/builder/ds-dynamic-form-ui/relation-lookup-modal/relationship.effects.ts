@@ -3,8 +3,17 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { debounceTime, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
-import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, UpdateRelationshipAction, UpdateRelationshipNameVariantAction } from './relationship.actions';
+import {
+  getRemoteDataPayload,
+  getFirstSucceededRemoteData
+} from '../../../../../core/shared/operators';
+import {
+  AddRelationshipAction,
+  RelationshipAction,
+  RelationshipActionTypes,
+  UpdateRelationshipAction,
+  UpdateRelationshipNameVariantAction
+} from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
 import { hasNoValue, hasValue } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
@@ -190,12 +199,12 @@ export class RelationshipEffects {
         this.objectCache.remove(href);
         this.requestService.removeByHrefSubstring(submissionId);
         return combineLatest(
-          this.objectCache.hasBySelfLinkObservable(href),
-          this.requestService.hasByHrefObservable(href)
+          this.objectCache.hasByHref$(href),
+          this.requestService.hasByHref$(href)
         ).pipe(
           filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
           take(1),
-          switchMap(() => this.submissionObjectService.findById(submissionId, followLink('item')).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
+          switchMap(() => this.submissionObjectService.findById(submissionId, false, followLink('item')).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
         )
       })
     );
