@@ -21,6 +21,8 @@ import { ItemSearchResultListElementSubmissionComponent } from '../shared/object
 import { WorkflowItemSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workflow-item-search-result/workflow-item-search-result-list-element.component';
 import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-search-result/pool-search-result-detail-element.component';
 import { CollectionSelectorComponent } from './collection-selector/collection-selector.component';
+import { ClaimedApprovedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-approved-search-result/claimed-approved-search-result-list-element.component';
+import { ClaimedDeclinedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-declined-search-result/claimed-declined-search-result-list-element.component';
 
 @NgModule({
   imports: [
@@ -34,6 +36,8 @@ import { CollectionSelectorComponent } from './collection-selector/collection-se
     WorkspaceItemSearchResultListElementComponent,
     WorkflowItemSearchResultListElementComponent,
     ClaimedSearchResultListElementComponent,
+    ClaimedApprovedSearchResultListElementComponent,
+    ClaimedDeclinedSearchResultListElementComponent,
     PoolSearchResultListElementComponent,
     ItemSearchResultDetailElementComponent,
     WorkspaceItemSearchResultDetailElementComponent,
@@ -53,6 +57,8 @@ import { CollectionSelectorComponent } from './collection-selector/collection-se
     WorkspaceItemSearchResultListElementComponent,
     WorkflowItemSearchResultListElementComponent,
     ClaimedSearchResultListElementComponent,
+    ClaimedApprovedSearchResultListElementComponent,
+    ClaimedDeclinedSearchResultListElementComponent,
     PoolSearchResultListElementComponent,
     ItemSearchResultDetailElementComponent,
     WorkspaceItemSearchResultDetailElementComponent,

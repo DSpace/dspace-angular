@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
@@ -6,16 +6,19 @@ import { getListableObjectComponent } from './listable-object.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
+import { hasValue } from '../../../empty.util';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
-  // styleUrls: ['./listable-object-component-loader.component.scss'],
+  styleUrls: ['./listable-object-component-loader.component.scss'],
   templateUrl: './listable-object-component-loader.component.html'
 })
 /**
  * Component for determining what component to use depending on the item's relationship type (relationship.type)
  */
-export class ListableObjectComponentLoaderComponent implements OnInit {
+export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy {
   /**
    * The item or metadata to determine the component for
    */
@@ -61,6 +64,12 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    */
   @ViewChild(ListableObjectDirective, {static: true}) listableObjectDirective: ListableObjectDirective;
 
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  protected subs: Subscription[] = [];
+
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
   }
 
@@ -68,13 +77,23 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    * Setup the dynamic child component
    */
   ngOnInit(): void {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
+    this.instantiateComponent(this.object);
+  }
+
+  ngOnDestroy() {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
+  }
+
+  private instantiateComponent(object) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(object));
 
     const viewContainerRef = this.listableObjectDirective.viewContainerRef;
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as any).object = this.object;
+    (componentRef.instance as any).object = object;
     (componentRef.instance as any).index = this.index;
     (componentRef.instance as any).linkType = this.linkType;
     (componentRef.instance as any).listID = this.listID;
@@ -82,13 +101,21 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
     (componentRef.instance as any).context = this.context;
     (componentRef.instance as any).viewMode = this.viewMode;
     (componentRef.instance as any).value = this.value;
+
+    if ((componentRef.instance as any).reloadedObject) {
+      this.subs.push((componentRef.instance as any).reloadedObject.subscribe((reloadedObject: DSpaceObject) => {
+        if (reloadedObject) {
+          this.instantiateComponent(reloadedObject);
+        }
+      }));
+    }
   }
 
   /**
    * Fetch the component depending on the item's relationship type, view mode and context
    * @returns {GenericConstructor<Component>}
    */
-  private getComponent(): GenericConstructor<Component> {
-    return getListableObjectComponent(this.object.getRenderTypes(), this.viewMode, this.context)
+  private getComponent(object): GenericConstructor<Component> {
+    return getListableObjectComponent(object.getRenderTypes(), this.viewMode, this.context)
   }
 }

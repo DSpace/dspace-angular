@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Injector, Input } from '@angular/core';
+import { EventEmitter, Injector, Input, Output } from '@angular/core';
 
 import { find, take, tap } from 'rxjs/operators';
 
@@ -12,8 +12,13 @@ import { NotificationOptions } from '../notifications/models/notification-option
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { SearchService } from '../../core/shared/search/search.service';
+
+export interface MyDSpaceActionsResult {
+  result: boolean,
+  reloadedObject: DSpaceObject,
+}
 
 /**
  * Abstract class for all different representations of mydspace actions
@@ -26,7 +31,18 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
   @Input() abstract object: T;
 
   /**
-   * Instance of DataService realted to mydspace object
+   * Emit to notify the instantiator when the action has been performed.
+   */
+  @Output() processCompleted = new EventEmitter<MyDSpaceActionsResult>();
+
+  /**
+   * A boolean representing if an operation is pending
+   * @type {BehaviorSubject<boolean>}
+   */
+  public processing$ = new BehaviorSubject<boolean>(false);
+
+  /**
+   * Instance of DataService related to mydspace object
    */
   protected objectDataService: TService;
 

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import { ChangeDetectionStrategy, ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
 import { ListableObject } from '../listable-object.model';
@@ -9,6 +9,7 @@ import * as listableObjectDecorators from './listable-object.decorator';
 import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { ListableObjectDirective } from './listable-object.directive';
 import { spyOnExported } from '../../../testing/utils.test';
+import { By } from '@angular/platform-browser';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -54,5 +55,21 @@ describe('ListableObjectComponentLoaderComponent', () => {
     it('should call the getListableObjectComponent function with the right types, view mode and context', () => {
       expect(listableObjectDecorators.getListableObjectComponent).toHaveBeenCalledWith([testType], testViewMode, testContext);
     })
+  });
+
+  describe('When a reloadedObject is emitted', () => {
+
+    it('should re-instantiate the listable component ', fakeAsync(() => {
+
+      spyOn((comp as any), 'instantiateComponent').and.returnValue(null);
+
+      const listableComponent = fixture.debugElement.query(By.css('ds-item-list-element')).componentInstance;
+      const reloadedObject: any = 'object';
+      (listableComponent as any).reloadedObject.emit(reloadedObject);
+      tick();
+
+      expect((comp as any).instantiateComponent).toHaveBeenCalledWith(reloadedObject);
+    }))
+
   });
 });

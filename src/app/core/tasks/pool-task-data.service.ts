@@ -13,8 +13,11 @@ import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PoolTask } from './models/pool-task-object.model';
 import { POOL_TASK } from './models/pool-task-object.resource-type';
-import { ProcessTaskResponse } from './models/process-task-response';
 import { TasksService } from './tasks.service';
+import { RemoteData } from '../data/remote-data';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { FindListOptions } from '../data/request.models';
+import { RequestParam } from '../cache/models/request-param.model';
 
 /**
  * The service handling all REST requests for PoolTask
@@ -56,14 +59,30 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
   }
 
   /**
-   * Make a request to claim the given task
-   *
-   * @param scopeId
-   *    The task id
-   * @return {Observable<ProcessTaskResponse>}
-   *    Emit the server response
+   * Search a pool task by item uuid.
+   * @param uuid
+   *   The item uuid
+   * @return {Observable<RemoteData<ClaimedTask>>}
+   *    The server response
    */
-  public claimTask(scopeId: string): Observable<ProcessTaskResponse> {
-    return this.postToEndpoint(this.linkPath, {}, scopeId, this.makeHttpOptions());
+  public findByItem(uuid: string): Observable<RemoteData<PoolTask>> {
+    const options = new FindListOptions();
+    options.searchParams = [
+      new RequestParam('uuid', uuid)
+    ];
+    return this.searchTask('findByItem', options, followLink('workflowitem'));
   }
+
+  /**
+   * Get the Href of the pool task
+   *
+   * @param poolTaskId
+   *   the poolTask id
+   * @return {Observable<string>>}
+   *    the Href
+   */
+  public getPoolTaskEndpointById(poolTaskId): Observable<string> {
+    return this.getEndpointById(poolTaskId);
+  }
+
 }

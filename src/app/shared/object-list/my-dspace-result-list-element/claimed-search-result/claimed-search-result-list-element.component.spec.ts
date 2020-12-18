@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -15,11 +15,10 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { By } from '@angular/platform-browser';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;
-
-const compIndex = 1;
 
 const mockResultObject: ClaimedTaskSearchResult = new ClaimedTaskSearchResult();
 mockResultObject.hitHighlights = {};
@@ -99,4 +98,16 @@ describe('ClaimedSearchResultListElementComponent', () => {
   it('should have properly status', () => {
     expect(component.status).toEqual(MyDspaceItemStatusType.VALIDATION);
   });
+
+  it('should forward claimed-task-actions processComplete event to reloadObject event emitter', fakeAsync(() => {
+    spyOn(component.reloadedObject, 'emit').and.callThrough();
+    const actionPayload: any = { reloadedObject: {}};
+
+    const actionsComponent = fixture.debugElement.query(By.css('ds-claimed-task-actions'));
+    actionsComponent.triggerEventHandler('processCompleted', actionPayload)
+    tick();
+
+    expect(component.reloadedObject.emit).toHaveBeenCalledWith(actionPayload.reloadedObject);
+
+  }));
 });

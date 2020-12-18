@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -16,11 +16,17 @@ import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service'
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
 import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { getMockRequestService } from '../../mocks/request.service.mock';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
+import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
+import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+
+let mockDataService: PoolTaskDataService;
+let mockClaimedTaskDataService: ClaimedTaskDataService;
 
 let component: PoolTaskActionsComponent;
 let fixture: ComponentFixture<PoolTaskActionsComponent>;
@@ -28,10 +34,6 @@ let fixture: ComponentFixture<PoolTaskActionsComponent>;
 let mockObject: PoolTask;
 let notificationsServiceStub: NotificationsServiceStub;
 let router: RouterStub;
-
-const mockDataService = jasmine.createSpyObj('PoolTaskDataService', {
-  claimTask: jasmine.createSpy('claimTask')
-});
 
 const searchService = getMockSearchService();
 
@@ -73,6 +75,8 @@ mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkfl
 
 describe('PoolTaskActionsComponent', () => {
   beforeEach(async(() => {
+    mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null)
+    mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null, null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -88,6 +92,7 @@ describe('PoolTaskActionsComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: PoolTaskDataService, useValue: mockDataService },
+        { provide: ClaimedTaskDataService, useValue: mockClaimedTaskDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce }
       ],
@@ -128,63 +133,182 @@ describe('PoolTaskActionsComponent', () => {
     expect(btn).toBeDefined();
   });
 
-  it('should call claimTask method on claim', fakeAsync(() => {
-    spyOn(component, 'reload');
-    mockDataService.claimTask.and.returnValue(observableOf({hasSucceeded: true}));
+  it('should call claim task with href of getPoolTaskEndpointById', ((done) => {
 
-    component.claim();
-    fixture.detectChanges();
+    const poolTaskHref = 'poolTaskHref';
+    const remoteClaimTaskResponse: any = new ProcessTaskResponse(true, null, null);
+    const remoteReloadedObjectResponse: any = createSuccessfulRemoteDataObject(new PoolTask());
 
-    fixture.whenStable().then(() => {
-      expect(mockDataService.claimTask).toHaveBeenCalledWith(mockObject.id);
-    });
+    spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(observableOf(poolTaskHref));
+    spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(observableOf(remoteClaimTaskResponse));
+    spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(observableOf(remoteReloadedObjectResponse));
 
-  }));
+    (component as any).objectDataService = mockDataService;
 
-  it('should display a success notification on claim success', async(() => {
-    spyOn(component, 'reload');
-    mockDataService.claimTask.and.returnValue(observableOf({hasSucceeded: true}));
+    spyOn(component, 'handleReloadableActionResponse').and.callThrough();
 
-    component.claim();
-    fixture.detectChanges();
+    component.startActionExecution().subscribe( (result) => {
 
-    fixture.whenStable().then(() => {
+      expect(mockDataService.getPoolTaskEndpointById).toHaveBeenCalledWith(mockObject.id);
+      expect(mockClaimedTaskDataService.claimTask).toHaveBeenCalledWith(mockObject.id, poolTaskHref);
+      expect(mockClaimedTaskDataService.findByItem).toHaveBeenCalledWith(component.itemUuid);
+
+      expect(result instanceof PoolTaskSearchResult).toBeTrue();
+
+      expect(component.handleReloadableActionResponse).toHaveBeenCalledWith(true, result);
+
       expect(notificationsServiceStub.success).toHaveBeenCalled();
-    });
+
+      done();
+    })
+
   }));
 
-  it('should reload page on claim success', async(() => {
-    spyOn(router, 'navigateByUrl');
-    router.url = 'test.url/test';
-    mockDataService.claimTask.and.returnValue(observableOf({hasSucceeded: true}));
+  // general reload assertion
+  describe('on reload action init', () => {
 
-    component.claim();
-    fixture.detectChanges();
-
-    fixture.whenStable().then(() => {
-      expect(router.navigateByUrl).toHaveBeenCalledWith('test.url/test');
+    beforeEach(() => {
+      spyOn(component, 'initReloadAnchor').and.returnValue(null);
+      spyOn(component, 'initObjects');
     });
-  }));
 
-  it('should display an error notification on claim failure', async(() => {
-    mockDataService.claimTask.and.returnValue(observableOf({hasSucceeded: false}));
+    it('should call initReloadAnchor and initObjects on init', async(() => {
+      component.ngOnInit();
 
-    component.claim();
-    fixture.detectChanges();
+      fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      expect(notificationsServiceStub.error).toHaveBeenCalled();
+      fixture.whenStable().then(() => {
+        expect(component.initReloadAnchor).toHaveBeenCalled();
+        expect(component.initObjects).toHaveBeenCalled();
+      });
+
+    }));
+
+  })
+
+  describe('on action execution fail', () => {
+
+    let remoteClaimTaskErrorResponse;
+
+    beforeEach(() => {
+
+      mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+
+      const poolTaskHref = 'poolTaskHref';
+      remoteClaimTaskErrorResponse = new ProcessTaskResponse(false, null, null);
+      const remoteReloadedObjectResponse: any = createSuccessfulRemoteDataObject(new PoolTask());
+
+      spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(observableOf(poolTaskHref));
+      spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(observableOf(remoteReloadedObjectResponse));
+      spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(observableOf(remoteClaimTaskErrorResponse));
+      spyOn(component, 'reloadObjectExecution').and.callThrough();
+      spyOn(component.processCompleted, 'emit').and.callThrough();
+
+      (component as any).objectDataService = mockDataService;
     });
-  }));
 
-  it('should clear the object cache by href', async(() => {
-    component.reload();
-    fixture.detectChanges();
+    it('should show error notification', (done) => {
 
-    fixture.whenStable().then(() => {
-      expect(searchService.getEndpoint).toHaveBeenCalled();
-      expect(requestServce.removeByHrefSubstring).toHaveBeenCalledWith('discover/search/objects');
+      component.startActionExecution().subscribe( (result) => {
+        expect(notificationsServiceStub.error).toHaveBeenCalled();
+        done();
+      })
     });
-  }));
+
+    it('should not call reloadObject', (done) => {
+
+      component.startActionExecution().subscribe( (result) => {
+        expect(component.reloadObjectExecution).not.toHaveBeenCalled();
+        done();
+      })
+
+    });
+
+    it('should not emit processCompleted', (done) => {
+
+      component.startActionExecution().subscribe( (result) => {
+        expect(component.processCompleted.emit).not.toHaveBeenCalled();
+        done();
+      })
+
+    });
+
+  });
+
+  describe('on action execution success', () => {
+
+    beforeEach(() => {
+
+      mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+
+      const poolTaskHref = 'poolTaskHref';
+      const remoteClaimTaskResponse: any = new ProcessTaskResponse(true, null, null);
+      const remoteReloadedObjectResponse: any = createSuccessfulRemoteDataObject(new PoolTask());
+
+      spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(observableOf(poolTaskHref));
+      spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(observableOf(remoteReloadedObjectResponse));
+      spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(observableOf(remoteClaimTaskResponse));
+      spyOn(component, 'reloadObjectExecution').and.callThrough();
+      spyOn(component, 'convertReloadedObject').and.callThrough();
+      spyOn(component.processCompleted, 'emit').and.callThrough();
+
+      (component as any).objectDataService = mockDataService;
+    });
+
+    it('should reloadObject in case of action execution success', (done) => {
+
+      component.startActionExecution().subscribe( (result) => {
+        expect(component.reloadObjectExecution).toHaveBeenCalled();
+        done();
+      })
+    });
+
+    it('should convert the reloaded object', (done) => {
+
+      component.startActionExecution().subscribe( (result) => {
+        expect(component.convertReloadedObject).toHaveBeenCalled();
+        done();
+      })
+    });
+
+    it('should emit the reloaded object in case of success', (done) => {
+
+      component.startActionExecution().subscribe( (result) => {
+        expect(component.processCompleted.emit).toHaveBeenCalledWith({result: true, reloadedObject: result as any});
+        done();
+      })
+    });
+
+  });
+
+  describe('on action execution success but without a reloadedObject', () => {
+
+    beforeEach(() => {
+
+      mockDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
+
+      const poolTaskHref = 'poolTaskHref';
+      const remoteClaimTaskResponse: any = new ProcessTaskResponse(true, null, null);
+      const remoteReloadedObjectResponse: any = createFailedRemoteDataObject();
+
+      spyOn(mockDataService, 'getPoolTaskEndpointById').and.returnValue(observableOf(poolTaskHref));
+      spyOn(mockClaimedTaskDataService, 'findByItem').and.returnValue(observableOf(remoteReloadedObjectResponse));
+      spyOn(mockClaimedTaskDataService, 'claimTask').and.returnValue(observableOf(remoteClaimTaskResponse));
+
+      spyOn(component, 'convertReloadedObject').and.returnValue(null);
+      spyOn(component, 'reload').and.returnValue(null);
+
+      (component as any).objectDataService = mockDataService;
+    });
+
+    it('should call reload method', (done) => {
+
+      component.startActionExecution().subscribe( (result) => {
+        expect(component.reload).toHaveBeenCalled();
+        done();
+      })
+    });
+
+  });
 
 });

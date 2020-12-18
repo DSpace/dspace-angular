@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
@@ -12,11 +12,28 @@ import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.m
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { Router } from '@angular/router';
+import { RouterStub } from '../../../testing/router.stub';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { RequestService } from '../../../../core/data/request.service';
+import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { getMockSearchService } from '../../../mocks/search-service.mock';
+import { getMockRequestService } from '../../../mocks/request.service.mock';
+import { of } from 'rxjs';
+import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
 
 let component: ClaimedTaskActionsRejectComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsRejectComponent>;
 let formBuilder: FormBuilder;
 let modalService: NgbModal;
+
+const searchService = getMockSearchService();
+
+const requestService = getMockRequestService();
+
+let mockPoolTaskDataService: PoolTaskDataService;
 
 describe('ClaimedTaskActionsRejectComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
@@ -25,6 +42,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
   });
 
   beforeEach(async(() => {
+    mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null, null, null, null, null);
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
@@ -39,6 +57,12 @@ describe('ClaimedTaskActionsRejectComponent', () => {
       declarations: [ClaimedTaskActionsRejectComponent],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
+        { provide: Injector, useValue: {} },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: Router, useValue: new RouterStub() },
+        { provide: SearchService, useValue: searchService },
+        { provide: RequestService, useValue: requestService },
+        { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
         FormBuilder,
         NgbModal
       ],
@@ -55,6 +79,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
     modalService = TestBed.get(NgbModal);
     component.object = object;
     component.modalRef = modalService.open('ok');
+    spyOn(component, 'initReloadAnchor').and.returnValue(undefined);
     fixture.detectChanges();
   });
 
@@ -96,6 +121,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
 
     beforeEach(() => {
       spyOn(component.processCompleted, 'emit');
+      spyOn(component, 'startActionExecution').and.returnValue(of(null));
 
       expectedBody = {
         [component.option]: 'true',
@@ -113,12 +139,39 @@ describe('ClaimedTaskActionsRejectComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should call claimedTaskService\'s submitTask with the expected body', () => {
-      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
+    it('should start the action execution', () => {
+      expect(component.startActionExecution).toHaveBeenCalled();
     });
 
-    it('should emit a successful processCompleted event', () => {
-      expect(component.processCompleted.emit).toHaveBeenCalledWith(true);
+    describe('actionExecution', () => {
+      beforeEach(() => {
+        component.actionExecution().subscribe();
+        fixture.detectChanges();
+      });
+
+      it('should call claimedTaskService\'s submitTask', () => {
+        expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
+      });
+    });
+
+  });
+
+  describe('reloadObjectExecution', () => {
+
+    it('should return the component object itself', (done) => {
+      component.reloadObjectExecution().subscribe((val) => {
+        expect(val).toEqual(component.object);
+        done();
+      });
     });
   });
+
+  describe('convertReloadedObject', () => {
+
+    it('should return a ClaimedDeclinedTaskSearchResult instance', () => {
+      const reloadedObject = component.convertReloadedObject(component.object);
+      expect(reloadedObject instanceof ClaimedDeclinedTaskSearchResult).toEqual(true);
+    });
+  });
+
 });

@@ -1,30 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-
 import { Observable } from 'rxjs';
 
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
+import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
+import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 
 /**
- * This component renders pool task object for the search result in the list view.
+ * This component renders claimed task object for the search result in the list view.
+ * The task can be claimed, claimed declined or claimed approved.
  */
-@Component({
-  selector: 'ds-pool-search-result-list-element',
-  styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './pool-search-result-list-element.component.html',
-})
-
-@listableObjectComponent(PoolTaskSearchResult, ViewMode.ListElement)
-export class PoolSearchResultListElementComponent extends SearchResultListElementComponent<PoolTaskSearchResult, PoolTask> implements OnInit {
+export abstract class AbstractClaimedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
 
   /**
    * A boolean representing if to show submitter information
@@ -34,19 +24,14 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   /**
    * Represent item's status
    */
-  public status = MyDspaceItemStatusType.WAITING_CONTROLLER;
+  public status = MyDspaceItemStatusType.VALIDATION;
 
   /**
    * The workflowitem object that belonging to the result object
    */
   public workflowitemRD$: Observable<RemoteData<WorkflowItem>>;
 
-  /**
-   * The index of this list element
-   */
-  public index: number;
-
-  constructor(
+  protected constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService
   ) {
@@ -63,5 +48,4 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     ), followLink('action'));
     this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
-
 }
