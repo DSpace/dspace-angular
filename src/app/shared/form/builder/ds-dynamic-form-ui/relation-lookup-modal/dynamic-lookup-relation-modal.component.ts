@@ -153,11 +153,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       ).pipe(
         getAllSucceededRemoteDataPayload()
       );
-    } else {
-      this.externalSourcesRD$ = this.externalSourceService.findAll().pipe(
-        getAllSucceededRemoteDataPayload(),
-        map((list: PaginatedList<ExternalSource>) => list.page)
-      );
     }
 
     this.setTotals();
