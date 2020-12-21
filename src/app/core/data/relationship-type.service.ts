@@ -60,7 +60,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
           } else if (type.rightwardType === label) {
             return this.checkType(type, secondType, firstType);
           } else {
-            return [];
+            return [null];
           }
         }),
       );
