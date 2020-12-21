@@ -240,7 +240,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
 
     const sectionDataToCheck = {};
     Object.keys(sectionData).forEach((key) => {
-      if (this.sectionMetadata.includes(key)) {
+      if (this.sectionMetadata && this.sectionMetadata.includes(key)) {
         sectionDataToCheck[key] = sectionData[key];
       }
     })

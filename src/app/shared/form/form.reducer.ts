@@ -235,7 +235,7 @@ function changeTouchedState(state: FormState, action: FormAddTouchedAction): For
     newState[action.payload.formId] = newForm;
 
     newForm.touched = { ... newForm.touched};
-    action.payload.touched.forEach((field) => newForm[field] = true);
+    action.payload.touched.forEach((field) => newForm.touched[field] = true);
 
     return newState;
   } else {

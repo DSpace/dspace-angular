@@ -443,7 +443,7 @@ function getForm(forms, currentState, sectionId) {
  * @param notify
  *  Whether notifications are enabled
  */
-function filterErrors(sectionForm: FormState, sectionErrors: SubmissionSectionError[], sectionType: string, notify: boolean): any {
+function filterErrors(sectionForm: FormState, sectionErrors: SubmissionSectionError[], sectionType: string, notify: boolean): SubmissionSectionError[] {
   if (notify || sectionType !== SectionsType.SubmissionForm) {
     return sectionErrors;
   }

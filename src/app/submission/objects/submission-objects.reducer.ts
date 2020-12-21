@@ -695,7 +695,7 @@ function setSectionFormId(state: SubmissionObjectState, action: SetSectionFormId
  */
 function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDataAction): SubmissionObjectState {
   if (isNotEmpty(state[ action.payload.submissionId ])
-      && isNotEmpty(state[ action.payload.submissionId ].sections[ action.payload.sectionId])) {
+    && isNotEmpty(state[ action.payload.submissionId ].sections[ action.payload.sectionId])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
@@ -718,8 +718,10 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
  * Keep the existent otherwise.
  * @param newMetadata
  * @param oldMetadata
+ * @return
+ *   new sectionMetadata value
  */
-function reduceSectionMetadata(newMetadata: string[], oldMetadata: string[]) {
+function reduceSectionMetadata(newMetadata: string[], oldMetadata: string[]): string[] {
   if (newMetadata) {
     return newMetadata;
   }
