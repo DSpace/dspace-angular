@@ -15,7 +15,7 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { Observable} from 'rxjs/internal/Observable';
 import { of} from 'rxjs/internal/observable/of';
 import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getSearchResultFor } from '../search/search-result-element-decorator';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
 
@@ -128,9 +128,13 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
   private _reloadObject(): Observable<DSpaceObject> {
     return this.reloadObjectExecution().pipe(
       switchMap((res) => {
-        return res instanceof RemoteData ? of(res).pipe(getFirstSucceededRemoteDataPayload()) : of(res)
+        if (res instanceof RemoteData) {
+          return of(res).pipe(getFirstCompletedRemoteData(), map((completed) => completed.payload))
+        } else {
+          return of(res);
+        }
       })).pipe(map((dso) => {
-      return this.convertReloadedObject(dso);
+      return dso ? this.convertReloadedObject(dso) : dso;
     }))
   }
 

@@ -79,7 +79,10 @@ export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReload
    * Retrieve the itemUuid.
    */
   initReloadAnchor() {
-    (this.object as any).workflowitem.pipe(
+    if (!(this.object as any).workflowitem) {
+      return;
+    }
+    this.object.workflowitem.pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((workflowItem: WorkflowItem) => workflowItem.item.pipe(getFirstSucceededRemoteDataPayload())
       ))
