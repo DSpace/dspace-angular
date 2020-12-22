@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ClaimedApprovedTaskSearchResult } from '../../../../object-collection/shared/claimed-approved-task-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
@@ -20,8 +19,7 @@ import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-objec
 @Component({
   selector: 'ds-claimed-approved-search-result-list-element',
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './claimed-approved-search-result-list-element.component.html',
-  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
+  templateUrl: './claimed-approved-search-result-list-element.component.html'
 })
 @listableObjectComponent(ClaimedApprovedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedApprovedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
@@ -34,7 +32,7 @@ export class ClaimedApprovedSearchResultListElementComponent extends SearchResul
   /**
    * Represent item's status
    */
-  public status = MyDspaceItemStatusType.VALIDATION;
+  public status = MyDspaceItemStatusType.APPROVED;
 
   /**
    * The workflowitem object that belonging to the result object

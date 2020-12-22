@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ClaimedDeclinedTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-search-result.model';
@@ -21,8 +20,7 @@ import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-objec
 @Component({
   selector: 'ds-claimed-declined-search-result-list-element',
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
-  templateUrl: './claimed-declined-search-result-list-element.component.html',
-  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
+  templateUrl: './claimed-declined-search-result-list-element.component.html'
 })
 @listableObjectComponent(ClaimedDeclinedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedDeclinedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
@@ -35,7 +33,7 @@ export class ClaimedDeclinedSearchResultListElementComponent extends SearchResul
   /**
    * Represent item's status
    */
-  public status = MyDspaceItemStatusType.VALIDATION;
+  public status = MyDspaceItemStatusType.DECLINED;
 
   /**
    * The workflowitem object that belonging to the result object
