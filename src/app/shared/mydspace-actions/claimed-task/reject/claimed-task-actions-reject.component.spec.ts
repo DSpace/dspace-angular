@@ -151,18 +151,17 @@ describe('ClaimedTaskActionsRejectComponent', () => {
 
     beforeEach(() => {
       spyOn((component.rejectForm as any), 'get').and.returnValue({value: 'required'});
-
       expectedBody = {
         [component.option]: 'true',
         reason: 'required'
       };
-
-      component.actionExecution().subscribe();
-      fixture.detectChanges();
     });
 
-    it('should call claimedTaskService\'s submitTask with the proper reason', () => {
-      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
+    it('should call claimedTaskService\'s submitTask with the proper reason', (done) => {
+      component.actionExecution().subscribe(() => {
+        expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody);
+        done();
+      });
     });
   });
 

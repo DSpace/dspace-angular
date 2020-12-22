@@ -102,18 +102,22 @@ describe('ClaimedTaskActionsApproveComponent', () => {
     it('should start the action execution', () => {
       expect(component.startActionExecution).toHaveBeenCalled();
     });
+  });
 
-    describe('actionExecution', () => {
-      beforeEach(() => {
-        component.actionExecution().subscribe();
-        fixture.detectChanges();
+  describe('actionExecution', () => {
+
+    it('should call claimedTaskService\'s submitTask', (done) => {
+
+      const expectedBody = {
+        [component.option]: 'true'
+      };
+
+      component.actionExecution().subscribe(() => {
+        expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody);
+        done();
       });
-
-      it('should call claimedTaskService\'s submitTask', () => {
-        expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
-      });
-
     });
+
   });
 
   describe('reloadObjectExecution', () => {
