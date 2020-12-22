@@ -143,17 +143,27 @@ describe('ClaimedTaskActionsRejectComponent', () => {
       expect(component.startActionExecution).toHaveBeenCalled();
     });
 
-    describe('actionExecution', () => {
-      beforeEach(() => {
-        component.actionExecution().subscribe();
-        fixture.detectChanges();
-      });
+  });
 
-      it('should call claimedTaskService\'s submitTask', () => {
-        expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
-      });
+  describe('actionExecution', () => {
+
+    let expectedBody;
+
+    beforeEach(() => {
+      spyOn((component.rejectForm as any), 'get').and.returnValue({value: 'required'});
+
+      expectedBody = {
+        [component.option]: 'true',
+        reason: 'required'
+      };
+
+      component.actionExecution().subscribe();
+      fixture.detectChanges();
     });
 
+    it('should call claimedTaskService\'s submitTask with the proper reason', () => {
+      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
+    });
   });
 
   describe('reloadObjectExecution', () => {
