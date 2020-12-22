@@ -89,8 +89,20 @@ export const environment: GlobalConfig = {
           style: 'fas fa-user'
         },
         {
-          name: 'local.contributor.affiliation',
+          name: 'dc.contributor.editor',
+          style: 'fas fa-user'
+        },
+        {
+          name: 'oairecerif.author.affiliation',
           style: 'fas fa-university'
+        },
+        {
+          name: 'oairecerif.editor.affiliation',
+          style: 'fas fa-university'
+        },
+        {
+          name: 'dc.relation.grantno',
+          style: 'fas fa-info-circle'
         },
         // default configuration
         {
