@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
-import { AbstractClaimedSearchResultListElementComponent } from '../abstract-claimed-search-result-list-element.component';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ClaimedDeclinedTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-search-result.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { MyDspaceItemStatusType } from '../../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { Observable } from 'rxjs';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { followLink } from '../../../../utils/follow-link-config.model';
+import { SearchResultListElementComponent } from '../../../search-result-list-element/search-result-list-element.component';
+import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/claimed-task-search-result.model';
+import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
 
 /**
  * This component renders claimed task declined object for the search result in the list view.
@@ -18,20 +24,40 @@ import { MyDspaceItemStatusType } from '../../../../object-collection/shared/myd
   templateUrl: './claimed-declined-search-result-list-element.component.html',
   providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
 })
-
 @listableObjectComponent(ClaimedDeclinedTaskSearchResult, ViewMode.ListElement)
-export class ClaimedDeclinedSearchResultListElementComponent extends AbstractClaimedSearchResultListElementComponent {
+export class ClaimedDeclinedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
+
+  /**
+   * A boolean representing if to show submitter information
+   */
+  public showSubmitter = true;
 
   /**
    * Represent item's status
    */
-  public status = MyDspaceItemStatusType.DECLINED;
+  public status = MyDspaceItemStatusType.VALIDATION;
 
-  constructor(
+  /**
+   * The workflowitem object that belonging to the result object
+   */
+  public workflowitemRD$: Observable<RemoteData<WorkflowItem>>;
+
+  public constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService
   ) {
-    super(linkService, truncatableService);
+    super(truncatableService);
+  }
+
+  /**
+   * Initialize all instance variables
+   */
+  ngOnInit() {
+    super.ngOnInit();
+    this.linkService.resolveLinks(this.dso, followLink('workflowitem', null, true,
+      followLink('item'), followLink('submitter')
+    ), followLink('action'));
+    this.workflowitemRD$ = this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>;
   }
 
 }
