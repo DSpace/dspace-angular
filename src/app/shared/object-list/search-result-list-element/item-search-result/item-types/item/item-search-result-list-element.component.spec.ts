@@ -2,14 +2,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
-import { PublicationSearchResultListElementComponent } from './publication-search-result-list-element.component';
+import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
 import { Item } from '../../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 
-let publicationListElementComponent: PublicationSearchResultListElementComponent;
-let fixture: ComponentFixture<PublicationSearchResultListElementComponent>;
+let publicationListElementComponent: ItemSearchResultListElementComponent;
+let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
 
 const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   indexableObject:
@@ -64,22 +64,22 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchRe
     })
 });
 
-describe('PublicationListElementComponent', () => {
+describe('ItemListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PublicationSearchResultListElementComponent, TruncatePipe],
+      declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PublicationSearchResultListElementComponent, {
+    }).overrideComponent(ItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(PublicationSearchResultListElementComponent);
+    fixture = TestBed.createComponent(ItemSearchResultListElementComponent);
     publicationListElementComponent = fixture.componentInstance;
 
   }));

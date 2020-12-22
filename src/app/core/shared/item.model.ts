@@ -1,7 +1,6 @@
 import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs/internal/Observable';
 import { isEmpty } from '../../shared/empty.util';
-import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
@@ -105,9 +104,9 @@ export class Item extends DSpaceObject implements ChildHALResource {
    * Method that returns as which type of object this object should be rendered
    */
   getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
-    let entityType = this.firstMetadataValue('relationship.type');
+    const entityType = this.firstMetadataValue('relationship.type');
     if (isEmpty(entityType)) {
-      entityType = DEFAULT_ENTITY_TYPE;
+      return super.getRenderTypes();
     }
     return [entityType, ...super.getRenderTypes()];
   }

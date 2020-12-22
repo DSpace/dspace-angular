@@ -820,6 +820,10 @@
 
   "collection.edit.tabs.curate.title": "Collection Edit - Curate",
 
+  "collection.edit.tabs.authorizations.head": "Authorizations",
+
+  "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+
   "collection.edit.tabs.metadata.head": "Edit Metadata",
 
   "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
@@ -921,6 +925,10 @@
   "collection.form.errors.submissionDefinition.required": "Please choose a submission definition for this collection",
 
   "collection.form.submissionDefinition": "Submission definition",
+
+
+
+  "collection.listelement.badge": "Collection",
 
 
 
@@ -1028,6 +1036,14 @@
   "community.edit.tabs.roles.head": "Assign Roles",
 
   "community.edit.tabs.roles.title": "Community Edit - Roles",
+
+  "community.edit.tabs.authorizations.head": "Authorizations",
+
+  "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
+
+
+
+  "community.listelement.badge": "Community",
 
 
 
@@ -1999,6 +2015,28 @@
   "item.edit.withdraw.header": "Withdraw item: {{ id }}",
 
   "item.edit.withdraw.success": "The item was withdrawn successfully",
+
+
+
+  "item.listelement.badge": "Item",
+
+  "item.page.description": "Description",
+
+  "item.page.edit": "Edit this item",
+
+  "item.page.journal-issn": "Journal ISSN",
+
+  "item.page.journal-title": "Journal Title",
+
+  "item.page.publisher": "Publisher",
+
+  "item.page.titleprefix": "Item: ",
+
+  "item.page.volume-title": "Volume Title",
+
+  "item.search.results.head": "Item Search Results",
+
+  "item.search.title": "DSpace Angular :: Item Search",
 
 
 
@@ -3142,6 +3180,10 @@
 
   "resource-policies.add.for.item": "Add a new Item policy",
 
+  "resource-policies.add.for.community": "Add a new Community policy",
+
+  "resource-policies.add.for.collection": "Add a new Collection policy",
+
   "resource-policies.create.page.heading": "Create new resource policy for ",
 
   "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
@@ -3223,6 +3265,10 @@
   "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
 
   "resource-policies.table.headers.title.for.item": "Policies for Item",
+
+  "resource-policies.table.headers.title.for.community": "Policies for Community",
+
+  "resource-policies.table.headers.title.for.collection": "Policies for Collection",
 
 
 

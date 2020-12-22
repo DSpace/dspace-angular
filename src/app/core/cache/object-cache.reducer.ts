@@ -33,6 +33,21 @@ export abstract class TypedObject {
   type: ResourceType;
 }
 
+/**
+ * Get the string value for an object that may be a string or a ResourceType
+ *
+ * @param type the object to get the type value for
+ */
+export const getResourceTypeValueFor = (type: any): string => {
+  if (hasValue(type)) {
+    if (typeof type === 'string') {
+      return type;
+    } else if (typeof type.value === 'string') {
+      return type.value;
+    }
+  }
+}
+
 /* tslint:disable:max-classes-per-file */
 /**
  * An interface to represent objects that can be cached

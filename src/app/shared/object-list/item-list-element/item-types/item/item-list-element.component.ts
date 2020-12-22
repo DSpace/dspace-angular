@@ -7,12 +7,12 @@ import { Item } from '../../../../../core/shared/item.model';
 @listableObjectComponent('Publication', ViewMode.ListElement)
 @listableObjectComponent(Item, ViewMode.ListElement)
 @Component({
-  selector: 'ds-publication-list-element',
-  styleUrls: ['./publication-list-element.component.scss'],
-  templateUrl: './publication-list-element.component.html'
+  selector: 'ds-item-list-element',
+  styleUrls: ['./item-list-element.component.scss'],
+  templateUrl: './item-list-element.component.html'
 })
 /**
  * The component for displaying a list element for an item of the type Publication
  */
-export class PublicationListElementComponent extends AbstractListableElementComponent<Item> {
+export class ItemListElementComponent extends AbstractListableElementComponent<Item> {
 }
