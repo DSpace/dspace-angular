@@ -18,11 +18,9 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { hot, cold } from 'jasmine-marbles';
+import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { SectionsService } from '../../sections/sections.service';
-import { componentFactoryName } from '@angular/compiler';
-import { Collection } from 'src/app/core/shared/collection.model';
 
 describe('SubmissionFormCollectionComponent Component', () => {
 
@@ -259,6 +257,43 @@ describe('SubmissionFormCollectionComponent Component', () => {
           a: mockCollectionList[1].collection.name
         }));
       });
+
+      it('dropdown should be invisible when there is no choice ', fakeAsync(() => {
+
+        comp.hasChoice = false;
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+          expect(dropdownMenu.nativeElement.classList).toContain('d-none');
+        });
+      }));
+
+      it('should listen to hasChoice events', () => {
+
+        comp.onHasChoice(true);
+        expect(comp.hasChoice).toBe(true);
+
+        comp.onHasChoice(false);
+        expect(comp.hasChoice).toBe(false);
+      });
+
+      it('dropdown button should have no-caret class when there is no choice ', fakeAsync(() => {
+
+        comp.hasChoice = false;
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+          expect(dropdowBtn.nativeElement.classList).toContain('no-caret');
+        });
+      }));
+
+      it('dropdown button should be disabled if there is no choice', fakeAsync(() => {
+        comp.hasChoice = false
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(dropdowBtn.nativeElement.disabled).toBeTruthy();
+        });
+      }));
     });
 
   });
