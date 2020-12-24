@@ -564,6 +564,20 @@ export class SubmissionService {
     ).subscribe();
   }
 
+  redirectToItemPage(submissionId: string) {
+    // This assures that the cache is empty before redirecting to mydspace.
+    // See https://github.com/DSpace/dspace-angular/pull/468
+    this.searchService.getEndpoint().pipe(
+      take(1),
+      tap((url) => this.requestService.removeByHrefSubstring(url)),
+      // Now, do redirect.
+      tap(() => {
+        const itemUuid = submissionId.indexOf(':') > -1 ? submissionId.split(':')[0] : submissionId;
+        this.router.navigateByUrl('/items/' + itemUuid, { replaceUrl: true });
+      })
+    ).subscribe();
+  }
+
   /**
    * Dispatch a new [CancelSubmissionFormAction]
    */

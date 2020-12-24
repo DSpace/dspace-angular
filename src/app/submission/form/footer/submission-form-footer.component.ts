@@ -109,4 +109,15 @@ export class SubmissionFormFooterComponent implements OnChanges {
       }
     );
   }
+
+  /**
+   * Compute the proper label for the save for later button
+   */
+  public saveForLaterLabel(): string {
+    if (this.submissionService.getSubmissionScope() === SubmissionScopeType.EditItem) {
+      return 'submission.general.save-later.edit-item';
+    }
+    return 'submission.general.save-later';
+  }
+
 }

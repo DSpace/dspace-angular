@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
@@ -15,6 +15,7 @@ import { SubmissionRestServiceStub } from '../../../shared/testing/submission-re
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { createTestComponent } from '../../../shared/testing/utils.test';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
 describe('SubmissionFormFooterComponent Component', () => {
 
@@ -224,6 +225,32 @@ describe('SubmissionFormFooterComponent Component', () => {
 
       expect(depositBtn.nativeElement.disabled).toBeFalsy();
     });
+
+    describe( 'submission form footer buttons\' labels', () => {
+
+      it('should use saveForLaterLabel method for the save for later button', () => {
+
+        spyOn(comp, 'saveForLaterLabel').and.returnValue('saveForLaterLabel');
+
+        fixture.detectChanges();
+        const saveForLaterBtn: any = fixture.debugElement.query(By.css('#saveForLater'));
+
+        expect(comp.saveForLaterLabel).toHaveBeenCalled();
+        expect(saveForLaterBtn.nativeElement.innerText).toContain('saveForLaterLabel');
+      });
+
+      it('should display the proper saveForLaterLabel for save for later button', () => {
+        submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.EditItem);
+        expect(comp.saveForLaterLabel()).toBe('submission.general.save-later.edit-item');
+
+        submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
+        expect(comp.saveForLaterLabel()).toBe('submission.general.save-later');
+
+        submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
+        expect(comp.saveForLaterLabel()).toBe('submission.general.save-later');
+
+      });
+    })
 
   });
 });

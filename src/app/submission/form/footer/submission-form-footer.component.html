@@ -21,7 +21,7 @@
             id="saveForLater"
             [disabled]="(processingSaveStatus | async)"
             (click)="saveLater($event)">
-      <span>{{'submission.general.save-later' | translate}}</span>
+      <span>{{ saveForLaterLabel() | translate}}</span>
     </button>
     <button *ngIf="(showDepositAndDiscard | async)"
             type="button"
