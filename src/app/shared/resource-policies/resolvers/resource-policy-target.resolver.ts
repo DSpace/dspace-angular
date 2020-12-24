@@ -2,14 +2,14 @@ import { Injectable, Injector } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/operators';
 
 import { getDataServiceFor } from '../../../core/cache/builders/build-decorators';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { DataService } from '../../../core/data/data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { hasValue, isEmpty } from '../../empty.util';
+import { isEmpty } from '../../empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
@@ -47,7 +47,7 @@ export class ResourcePolicyTargetResolver implements Resolve<RemoteData<DSpaceOb
     }).get(provider);
 
     return this.dataService.findById(policyTargetId).pipe(
-      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
+      getFirstCompletedRemoteData(),
     );
   }
 }

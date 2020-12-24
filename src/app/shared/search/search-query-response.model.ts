@@ -1,12 +1,11 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { autoserialize } from 'cerialize';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { SearchResult } from './search-result.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 
 /**
  * Class representing the response returned by the server when performing a search request
  */
-export class SearchQueryResponse {
+export abstract class SearchQueryResponse<T> extends PaginatedList<T> {
   /**
    * The scope used in the search request represented by the UUID of a DSpaceObject
    */
@@ -38,53 +37,17 @@ export class SearchQueryResponse {
   configuration: string;
 
   /**
-   * The sort parameters used in the search request
-   */
-  @autoserialize
-  public type: string;
-
-  /**
    * Pagination configuration for this response
    */
   @autoserialize
-  page: PageInfo;
+  pageInfo: PageInfo;
 
   /**
    * The results for this query
    */
-  @autoserializeAs(SearchResult)
-  objects: Array<SearchResult<DSpaceObject>>;
+  @autoserialize
+  page: T[];
 
   @autoserialize
   facets: any; // TODO
-
-  /**
-   * The REST url to retrieve the current response
-   */
-  @autoserialize
-  self: string;
-
-  /**
-   * The REST url to retrieve the next response
-   */
-  @autoserialize
-  next: string;
-
-  /**
-   * The REST url to retrieve the previous response
-   */
-  @autoserialize
-  previous: string;
-
-  /**
-   * The REST url to retrieve the first response
-   */
-  @autoserialize
-  first: string;
-
-  /**
-   * The REST url to retrieve the last response
-   */
-  @autoserialize
-  last: string;
 }

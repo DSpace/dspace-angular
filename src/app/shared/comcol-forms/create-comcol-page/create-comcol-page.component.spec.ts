@@ -2,17 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { RouteService } from '../../../core/services/route.service';
 import { Router } from '@angular/router';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { Community } from '../../../core/shared/community.model';
 import { SharedModule } from '../../shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { CreateComColPageComponent } from './create-comcol-page.component';
 import {
-  createFailedRemoteDataObject$, createNoContentRemoteDataObject$,
+  createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$
 } from '../../remote-data.utils';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
@@ -22,8 +21,8 @@ import { RequestService } from '../../../core/data/request.service';
 import {getTestScheduler} from 'jasmine-marbles';
 
 describe('CreateComColPageComponent', () => {
-  let comp: CreateComColPageComponent<DSpaceObject>;
-  let fixture: ComponentFixture<CreateComColPageComponent<DSpaceObject>>;
+  let comp: CreateComColPageComponent<any>;
+  let fixture: ComponentFixture<CreateComColPageComponent<any>>;
   let communityDataService: CommunityDataService;
   let dsoDataService: CommunityDataService;
   let routeService: RouteService;
@@ -160,7 +159,7 @@ describe('CreateComColPageComponent', () => {
 
       it('should neither navigate nor refresh cache on failure', () => {
         spyOn(router, 'navigate');
-        spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$(newCommunity));
+        spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$('server error', 500));
         spyOn(dsoDataService, 'refreshCache')
         scheduler.schedule(() => comp.onSubmit(data));
         scheduler.flush();

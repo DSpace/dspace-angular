@@ -9,9 +9,10 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import {
   createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
 } from '../../remote-data.utils';
-import { createTestComponent } from '../../testing/utils.test';
+import { createPaginatedList, createTestComponent } from '../../testing/utils.test';
 import { ResourcePolicyCreateComponent } from './resource-policy-create.component';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { NotificationsService } from '../../notifications/notifications.service';
@@ -21,7 +22,6 @@ import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-s
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { RouterStub } from '../../testing/router.stub';
 import { Item } from '../../../core/shared/item.model';
-import { createMockRDPaginatedObs } from '../../../+item-page/edit-item-page/item-bitstreams/item-bitstreams.component.spec';
 import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { GroupMock } from '../../testing/group-mock';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
@@ -73,7 +73,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
     _links: {
       self: { href: 'item-selflink' }
     },
-    bundles: createMockRDPaginatedObs([])
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([]))
   });
 
   const resourcePolicyService: any = getMockResourcePolicyService();
@@ -152,29 +152,33 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       fixture.destroy();
     });
 
-    it('should init component properly', () => {
+    it('should init component properly', (done) => {
       fixture.detectChanges();
       expect(compAsAny.targetResourceUUID).toBe('itemUUID');
       expect(compAsAny.targetResourceName).toBe('test item');
+      done();
     });
 
-    it('should redirect to authorizations page', () => {
+    it('should redirect to authorizations page', (done) => {
       comp.redirectToAuthorizationsPage();
       expect(compAsAny.router.navigate).toHaveBeenCalled();
+      done();
     });
 
-    it('should return true when is Processing', () => {
+    it('should return true when is Processing', (done) => {
       compAsAny.processing$.next(true);
       expect(comp.isProcessing()).toBeObservable(cold('a', {
         a: true
       }));
+      done();
     });
 
-    it('should return false when is not Processing', () => {
+    it('should return false when is not Processing', (done) => {
       compAsAny.processing$.next(false);
       expect(comp.isProcessing()).toBeObservable(cold('a', {
         a: false
       }));
+      done();
     });
 
     describe('when target type is group', () => {
@@ -203,7 +207,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify error when creation is not successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject({})));
+        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));
@@ -241,7 +245,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify error when creation is not successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject({})));
+        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));

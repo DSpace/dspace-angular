@@ -1,12 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { defaultIfEmpty, filter, first, map, switchMap, take } from 'rxjs/operators';
+import { defaultIfEmpty, filter, map, switchMap, take } from 'rxjs/operators';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest as observableCombineLatest, combineLatest, Observable, of as observableOf } from 'rxjs';
+import {
+  combineLatest as observableCombineLatest,
+  combineLatest,
+  Observable,
+  of as observableOf
+} from 'rxjs';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import {
+  getRemoteDataPayload,
+  getFirstSucceededRemoteData,
+  getFirstCompletedRemoteData
+} from '../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { Item } from '../../../core/shared/item.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
@@ -20,8 +29,9 @@ import { RelationshipService } from '../../../core/data/relationship.service';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { RestResponse } from '../../../core/cache/response.models';
 import { getItemEditRoute } from '../../item-page-routing-paths';
+import { RemoteData } from '../../../core/data/remote-data';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-item-delete',
@@ -105,10 +115,10 @@ export class ItemDeleteComponent
     const label = this.item.firstMetadataValue('relationship.type');
     if (label !== undefined) {
       this.types$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         switchMap((entityType) => this.entityTypeService.getEntityTypeRelationships(entityType.id)),
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         map((relationshipTypes) => relationshipTypes.page),
         switchMap((types) =>
@@ -220,7 +230,7 @@ export class ItemDeleteComponent
       followLink('rightItem'),
     );
     return relationship.relationshipType.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       filter((relationshipType: RelationshipType) => hasValue(relationshipType) && isNotEmpty(relationshipType.uuid))
     );
@@ -238,7 +248,7 @@ export class ItemDeleteComponent
         relationship,
         this.isLeftItem(relationship).pipe(
           switchMap((isLeftItem) => isLeftItem ? relationship.rightItem : relationship.leftItem),
-          getSucceededRemoteData(),
+          getFirstSucceededRemoteData(),
           getRemoteDataPayload(),
         ),
       );
@@ -285,7 +295,7 @@ export class ItemDeleteComponent
   private isLeftItem(relationship: Relationship): Observable<boolean> {
 
     return relationship.leftItem.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid)),
       map((leftItem) => leftItem.uuid === this.item.uuid)
@@ -327,9 +337,9 @@ export class ItemDeleteComponent
         )
       ),
     ).subscribe((types) => {
-      this.itemDataService.delete(this.item.id, types).pipe(first()).subscribe(
-        (response: RestResponse) => {
-          this.notify(response.isSuccessful);
+      this.itemDataService.delete(this.item.id, types).pipe(getFirstCompletedRemoteData()).subscribe(
+        (rd: RemoteData<NoContent>) => {
+          this.notify(rd.hasSucceeded);
         }
       );
     });

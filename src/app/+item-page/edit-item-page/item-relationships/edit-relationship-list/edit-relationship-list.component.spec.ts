@@ -6,19 +6,16 @@ import { of as observableOf } from 'rxjs/internal/observable/of';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../../core/data/paginated-list';
-import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
 import { RelationshipService } from '../../../../core/data/relationship.service';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { getMockLinkService } from '../../../../shared/mocks/link-service.mock';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { SharedModule } from '../../../../shared/shared.module';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -60,20 +57,8 @@ describe('EditRelationshipListComponent', () => {
     relationshipType = Object.assign(new RelationshipType(), {
       id: '1',
       uuid: '1',
-      leftType: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          entityType,
-        )),
-      rightType: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          relatedEntityType,
-        )),
+      leftType: createSuccessfulRemoteDataObject$(entityType),
+      rightType: createSuccessfulRemoteDataObject$(relatedEntityType),
       leftwardType: 'isAuthorOfPublication',
       rightwardType: 'isPublicationOfAuthor',
     });
@@ -92,53 +77,17 @@ describe('EditRelationshipListComponent', () => {
         self: url + '/2',
         id: '2',
         uuid: '2',
-        relationshipType: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          relationshipType
-        )),
-        leftItem: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          item,
-        )),
-        rightItem: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          author1,
-        )),
+        relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
+        leftItem: createSuccessfulRemoteDataObject$(item),
+        rightItem: createSuccessfulRemoteDataObject$(author1),
       }),
       Object.assign(new Relationship(), {
         self: url + '/3',
         id: '3',
         uuid: '3',
-        relationshipType: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          relationshipType
-        )),
-        leftItem: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          item,
-        )),
-        rightItem: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          author2,
-        )),
+        relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
+        leftItem: createSuccessfulRemoteDataObject$(item),
+        rightItem: createSuccessfulRemoteDataObject$(author2),
       })
     ];
 
@@ -148,13 +97,7 @@ describe('EditRelationshipListComponent', () => {
       },
       id: 'publication',
       uuid: 'publication',
-      relationships: observableOf(new RemoteData(
-        false,
-        false,
-        true,
-        undefined,
-        new PaginatedList(new PageInfo(), relationships),
-      ))
+      relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships))
     });
 
     fieldUpdate1 = {
@@ -185,8 +128,8 @@ describe('EditRelationshipListComponent', () => {
 
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
-        getRelatedItemsByLabel: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [author1, author2]))),
-        getItemRelationshipsByLabel: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), relationships))),
+        getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList([author1, author2])),
+        getItemRelationshipsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList(relationships)),
         isLeftItem: observableOf(true),
       }
     );

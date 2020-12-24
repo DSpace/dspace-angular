@@ -10,14 +10,17 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription, combineLatest, of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { switchMap, take } from 'rxjs/operators';
-import { RestResponse } from '../../../../core/cache/response.models';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import {
+  getRemoteDataPayload,
+  getFirstSucceededRemoteData,
+  getFirstCompletedRemoteData
+} from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -28,6 +31,7 @@ import { FeatureID } from '../../../../core/data/feature-authorization/feature-i
 import { ConfirmationModalComponent } from '../../../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequestService } from '../../../../core/data/request.service';
+import { NoContent } from '../../../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -314,9 +318,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   createNewEPerson(values) {
     const ePersonToCreate = Object.assign(new EPerson(), values);
 
-    const response = this.epersonService.tryToCreate(ePersonToCreate);
-    response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
-      if (restResponse.isSuccessful) {
+    const response = this.epersonService.create(ePersonToCreate);
+    response.pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((rd: RemoteData<EPerson>) => {
+      if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: ePersonToCreate.name }));
         this.submitForm.emit(ePersonToCreate);
       } else {
@@ -354,8 +360,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     });
 
     const response = this.epersonService.updateEPerson(editedEperson);
-    response.pipe(take(1)).subscribe((restResponse: RestResponse) => {
-      if (restResponse.isSuccessful) {
+    response.pipe(take(1)).subscribe((rd: RemoteData<EPerson>) => {
+      if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: editedEperson.name }));
         this.submitForm.emit(editedEperson);
       } else {
@@ -380,7 +386,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     this.subs.push(this.epersonService.searchByScope('email', ePerson.email, {
       currentPage: 1,
       elementsPerPage: 0
-    }).pipe(getSucceededRemoteData(), getRemoteDataPayload())
+    }).pipe(getFirstSucceededRemoteData(), getRemoteDataPayload())
       .subscribe((list: PaginatedList<EPerson>) => {
         if (list.totalElements > 0) {
           this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.' + notificationSection + '.failure.emailInUse', {
@@ -434,12 +440,12 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         modalRef.componentInstance.response.pipe(take(1)).subscribe((confirm: boolean) => {
           if (confirm) {
             if (hasValue(eperson.id)) {
-              this.epersonService.deleteEPerson(eperson).pipe(take(1)).subscribe((restResponse: RestResponse) => {
-                if (restResponse.isSuccessful) {
+              this.epersonService.deleteEPerson(eperson).pipe(take(1)).subscribe((restResponse: RemoteData<NoContent>) => {
+                if (restResponse.hasSucceeded) {
                   this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: eperson.name }));
                   this.reset();
                 } else {
-                  this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + eperson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.statusText);
+                  this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + eperson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
                 }
                 this.cancelForm.emit();
               })

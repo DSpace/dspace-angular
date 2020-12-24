@@ -1,7 +1,21 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, reduce, take, tap } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  flatMap,
+  map,
+  reduce,
+  tap,
+  switchMap
+} from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
@@ -23,7 +37,9 @@ import { SectionsService } from '../sections.service';
 import { SubmissionService } from '../../submission.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -146,13 +162,18 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
    * Initialize all instance variables and retrieve collection default access conditions
    */
   onSectionInit() {
-    const config$ = this.uploadsConfigService.getConfigByHref(this.sectionData.config).pipe(
+    const config$ = this.uploadsConfigService.findByHref(this.sectionData.config, false, followLink('metadata')).pipe(
+      getFirstSucceededRemoteData(),
       map((config) => config.payload));
 
     // retrieve configuration for the bitstream's metadata form
     this.configMetadataForm$ = config$.pipe(
-      take(1),
-      map((config: SubmissionUploadsModel) => config.metadata));
+      switchMap((config: SubmissionUploadsModel) =>
+        config.metadata.pipe(
+          getFirstSucceededRemoteData(),
+          map((remoteData: RemoteData<SubmissionFormsModel>) => remoteData.payload)
+        )
+      ));
 
     this.subs.push(
       this.submissionService.getSubmissionObject(this.submissionId).pipe(

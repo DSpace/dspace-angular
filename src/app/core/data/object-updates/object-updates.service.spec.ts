@@ -4,14 +4,17 @@ import { ObjectUpdatesService } from './object-updates.service';
 import {
   DiscardObjectUpdatesAction,
   FieldChangeType,
-  InitializeFieldsAction, ReinstateObjectUpdatesAction, RemoveFieldUpdateAction, SelectVirtualMetadataAction,
+  InitializeFieldsAction,
+  ReinstateObjectUpdatesAction,
+  RemoveFieldUpdateAction,
+  SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction
 } from './object-updates.actions';
 import { of as observableOf } from 'rxjs';
 import { Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { OBJECT_UPDATES_TRASH_PATH } from './object-updates.reducer';
-import {Relationship} from '../../shared/item-relationships/relationship.model';
+import { Relationship } from '../../shared/item-relationships/relationship.model';
 import { Injector } from '@angular/core';
 
 describe('ObjectUpdatesService', () => {
@@ -32,7 +35,6 @@ describe('ObjectUpdatesService', () => {
   };
 
   const modDate = new Date(2010, 2, 11);
-  const injectionToken = 'fake-injection-token';
   let patchOperationService;
   let injector: Injector;
 
@@ -43,14 +45,14 @@ describe('ObjectUpdatesService', () => {
       [identifiable3.uuid]: { editable: true, isNew: true, isValid: true },
     };
 
-    const objectEntry = {
-      fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}, patchOperationServiceToken: injectionToken
-    };
-    store = new Store<CoreState>(undefined, undefined, undefined);
-    spyOn(store, 'dispatch');
     patchOperationService = jasmine.createSpyObj('patchOperationService', {
       fieldUpdatesToPatchOperations: []
     });
+    const objectEntry = {
+      fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}, patchOperationService
+    };
+    store = new Store<CoreState>(undefined, undefined, undefined);
+    spyOn(store, 'dispatch');
     injector = jasmine.createSpyObj('injector', {
       get: patchOperationService
     });
@@ -294,9 +296,9 @@ describe('ObjectUpdatesService', () => {
       result$ = service.createPatch(url);
     });
 
-    it('should inject the service using the token stored in the entry', (done) => {
+    it('should inject the service stored in the entry', (done) => {
       result$.subscribe(() => {
-        expect(injector.get).toHaveBeenCalledWith(injectionToken);
+        expect(injector.get).toHaveBeenCalledWith(patchOperationService);
         done();
       });
     });

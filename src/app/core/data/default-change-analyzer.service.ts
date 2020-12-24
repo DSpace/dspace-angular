@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { compare } from 'fast-json-patch';
 import { Operation } from 'fast-json-patch/lib/core';
 import { getClassForType } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/object-cache.reducer';
-import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
+import { TypedObject } from '../cache/object-cache.reducer';
+import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { ChangeAnalyzer } from './change-analyzer';
 
 /**
@@ -11,7 +11,7 @@ import { ChangeAnalyzer } from './change-analyzer';
  * CacheableObjects
  */
 @Injectable()
-export class DefaultChangeAnalyzer<T extends CacheableObject> implements ChangeAnalyzer<T> {
+export class DefaultChangeAnalyzer<T extends TypedObject> implements ChangeAnalyzer<T> {
   /**
    * Compare the metadata of two CacheableObject and return the differences as
    * a JsonPatch Operation Array

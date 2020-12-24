@@ -1,7 +1,7 @@
 import { deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../cache/builders/build-decorators';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';

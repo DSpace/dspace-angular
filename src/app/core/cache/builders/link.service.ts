@@ -61,12 +61,13 @@ export class LinkService {
 
         try {
           if (matchingLinkDef.isList) {
-            model[linkToFollow.name] = service.findAllByHref(href, linkToFollow.findListOptions, ...linkToFollow.linksToFollow);
+            model[linkToFollow.name] = service.findAllByHref(href, linkToFollow.findListOptions, true, ...linkToFollow.linksToFollow);
           } else {
-            model[linkToFollow.name] = service.findByHref(href, ...linkToFollow.linksToFollow);
+            model[linkToFollow.name] = service.findByHref(href, true, ...linkToFollow.linksToFollow);
           }
         } catch (e) {
-          throw new Error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} from ${href}`);
+          console.error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} at ${href}`);
+          throw e;
         }
       }
     }

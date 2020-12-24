@@ -12,11 +12,9 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 import { RestResponse } from '../../../core/cache/response.models';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { ErrorComponent } from '../../../shared/error/error.component';
@@ -38,6 +36,12 @@ import { SearchServiceStub } from '../../../shared/testing/search-service.stub';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemCollectionMapperComponent } from './item-collection-mapper.component';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 describe('ItemCollectionMapperComponent', () => {
   let comp: ItemCollectionMapperComponent;
@@ -55,7 +59,7 @@ describe('ItemCollectionMapperComponent', () => {
     id: '932c7d50-d85a-44cb-b9dc-b427b12877bd',
     name: 'test-item'
   });
-  const mockItemRD: RemoteData<Item> = new RemoteData<Item>(false, false, true, null, mockItem);
+  const mockItemRD: RemoteData<Item> = createSuccessfulRemoteDataObject(mockItem);
   const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
@@ -74,10 +78,10 @@ describe('ItemCollectionMapperComponent', () => {
   const searchConfigServiceStub = {
     paginatedSearchOptions: mockSearchOptions
   };
-  const mockCollectionsRD = new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []));
+  const mockCollectionsRD = createSuccessfulRemoteDataObject(createPaginatedList([]));
   const itemDataServiceStub = {
-    mapToCollection: () => of(new RestResponse(true, 200, 'OK')),
-    removeMappingFromCollection: () => of(new RestResponse(true, 200, 'OK')),
+    mapToCollection: () => createSuccessfulRemoteDataObject$({}),
+    removeMappingFromCollection: () => createSuccessfulRemoteDataObject$({}),
     getMappedCollections: () => of(mockCollectionsRD),
     /* tslint:disable:no-empty */
     clearMappedCollectionsRequests: () => {}
@@ -143,7 +147,7 @@ describe('ItemCollectionMapperComponent', () => {
     });
 
     it('should display an error message if at least one mapping was unsuccessful', () => {
-      spyOn(itemDataService, 'mapToCollection').and.returnValue(of(new RestResponse(false, 404, 'Not Found')));
+      spyOn(itemDataService, 'mapToCollection').and.returnValue(createFailedRemoteDataObject$('Not Found', 404));
       comp.mapCollections(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
@@ -160,7 +164,7 @@ describe('ItemCollectionMapperComponent', () => {
     });
 
     it('should display an error message if the removal of at least one mapping was unsuccessful', () => {
-      spyOn(itemDataService, 'removeMappingFromCollection').and.returnValue(of(new RestResponse(false, 404, 'Not Found')));
+      spyOn(itemDataService, 'removeMappingFromCollection').and.returnValue(createFailedRemoteDataObject$('Not Found', 404));
       comp.removeMappings(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();

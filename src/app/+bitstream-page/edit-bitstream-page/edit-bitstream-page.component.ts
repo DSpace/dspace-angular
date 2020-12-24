@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, mergeMap, switchMap} from 'rxjs/operators';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import {
@@ -22,22 +22,22 @@ import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-  getSucceededRemoteData
+  getFirstSucceededRemoteData,
+  getFirstCompletedRemoteData
 } from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { RestResponse } from '../../core/cache/response.models';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
-import {Bundle} from '../../core/shared/bundle.model';
-import {Item} from '../../core/shared/item.model';
+import { Bundle } from '../../core/shared/bundle.model';
+import { Item } from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -299,12 +299,12 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
 
     const bitstream$ = this.bitstreamRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload()
     );
 
     const allFormats$ = this.bitstreamFormatsRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload()
     );
 
@@ -438,16 +438,15 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     if (isNewFormat) {
       bitstream$ = this.bitstreamService.updateFormat(this.bitstream, selectedFormat).pipe(
-        switchMap((formatResponse: RestResponse) => {
-          if (hasValue(formatResponse) && !formatResponse.isSuccessful) {
+        getFirstCompletedRemoteData(),
+        map((formatResponse: RemoteData<Bitstream>) => {
+          if (hasValue(formatResponse) && formatResponse.hasFailed) {
             this.notificationsService.error(
               this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.format.title'),
-              formatResponse.statusText
+              formatResponse.errorMessage
             );
           } else {
-            return this.bitstreamService.findById(this.bitstream.id).pipe(
-              getFirstSucceededRemoteDataPayload()
-            );
+            return formatResponse.payload;
           }
         })
       );

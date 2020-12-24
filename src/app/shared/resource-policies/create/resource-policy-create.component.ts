@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { first, map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -13,6 +13,7 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../+item-page/edit-item-page/edit-item-page.routing-paths';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-resource-policy-create',
@@ -98,7 +99,7 @@ export class ResourcePolicyCreateComponent implements OnInit {
       response$ = this.resourcePolicyService.create(event.object, this.targetResourceUUID, null, event.target.uuid);
     }
     response$.pipe(
-      first((response: RemoteData<ResourcePolicy>) => !response.isResponsePending)
+      getFirstCompletedRemoteData()
     ).subscribe((responseRD: RemoteData<ResourcePolicy>) => {
       this.processing$.next(false);
       if (responseRD.hasSucceeded) {

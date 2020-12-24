@@ -7,7 +7,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { PageInfo } from '../shared/page-info.model';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList, buildPaginatedList } from './paginated-list.model';
 import { RelationshipTypeService } from './relationship-type.service';
 import { RequestService } from './request.service';
 
@@ -59,7 +59,7 @@ describe('RelationshipTypeService', () => {
       rightType: createSuccessfulRemoteDataObject$(orgUnitType)
     });
 
-    buildList = createSuccessfulRemoteDataObject(new PaginatedList(new PageInfo(), [relationshipType1, relationshipType2]));
+    buildList = createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [relationshipType1, relationshipType2]));
     rdbService = getMockRemoteDataBuildService(undefined, observableOf(buildList));
     objectCache = Object.assign({
       /* tslint:disable:no-empty */

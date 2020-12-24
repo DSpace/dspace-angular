@@ -2,14 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController, } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { LocaleService } from './locale.service';
 import { LocaleInterceptor } from './locale.interceptor';
 import { of } from 'rxjs';
 
 describe(`LocaleInterceptor`, () => {
-  let service: DSpaceRESTv2Service;
+  let service: DspaceRestService;
   let httpMock: HttpTestingController;
   let localeService: any;
 
@@ -24,7 +24,7 @@ describe(`LocaleInterceptor`, () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
-        DSpaceRESTv2Service,
+        DspaceRestService,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: LocaleInterceptor,
@@ -34,7 +34,7 @@ describe(`LocaleInterceptor`, () => {
       ],
     });
 
-    service = TestBed.get(DSpaceRESTv2Service);
+    service = TestBed.get(DspaceRestService);
     httpMock = TestBed.get(HttpTestingController);
     localeService = TestBed.get(LocaleService);
 

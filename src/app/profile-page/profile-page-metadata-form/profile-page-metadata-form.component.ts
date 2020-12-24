@@ -1,8 +1,9 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   DynamicFormControlModel,
   DynamicFormValueControlModel,
-  DynamicInputModel, DynamicSelectModel
+  DynamicInputModel,
+  DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -11,7 +12,7 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { LangConfig } from '../../../config/lang-config.interface';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { cloneDeep } from 'lodash';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { environment } from '../../../environments/environment';
@@ -194,7 +195,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
 
     if (changed) {
       this.epersonService.update(Object.assign(cloneDeep(this.user), {metadata: newMetadata})).pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload()
       ).subscribe((user) => {
         this.user = user;

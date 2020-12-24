@@ -27,7 +27,7 @@ describe('SearchFacetOptionComponent', () => {
 
   const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
-    type: FilterType.range,
+    filterType: FilterType.range,
     hasFacets: false,
     isOpenByDefault: false,
     pageSize: 2,
@@ -37,7 +37,7 @@ describe('SearchFacetOptionComponent', () => {
 
   const mockAuthorityFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName2,
-    type: FilterType.authority,
+    filterType: FilterType.authority,
     hasFacets: false,
     isOpenByDefault: false,
     pageSize: 2
@@ -130,7 +130,7 @@ describe('SearchFacetOptionComponent', () => {
       comp.addQueryParams = {};
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
-        [mockFilterConfig.paramName]: [value1, value.value],
+        [mockFilterConfig.paramName]: [`${value1},${operator}`, value.value + ',equals'],
         page: 1
       });
     });
@@ -145,7 +145,7 @@ describe('SearchFacetOptionComponent', () => {
       comp.addQueryParams = {};
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
-        [mockAuthorityFilterConfig.paramName]: [value1, `${value2},${operator}`],
+        [mockAuthorityFilterConfig.paramName]: [value1 + ',equals', `${value2},${operator}`],
         page: 1
       });
     });

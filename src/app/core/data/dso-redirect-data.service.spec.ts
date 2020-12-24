@@ -11,6 +11,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DsoRedirectDataService } from './dso-redirect-data.service';
 import { FindByIDRequest, IdentifierType } from './request.models';
 import { RequestService } from './request.service';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 
 describe('DsoRedirectDataService', () => {
   let scheduler: TestScheduler;
@@ -47,16 +48,10 @@ describe('DsoRedirectDataService', () => {
       navigate: jasmine.createSpy('navigate')
     };
 
-    remoteData = {
-      isSuccessful: true,
-      error: undefined,
-      hasSucceeded: true,
-      isLoading: false,
-      payload: {
-        type: 'item',
-        uuid: '123456789'
-      }
-    };
+    remoteData = createSuccessfulRemoteDataObject({
+      type: 'item',
+      uuid: '123456789'
+    });
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('a', {

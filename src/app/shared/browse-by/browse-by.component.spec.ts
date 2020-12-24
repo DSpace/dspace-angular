@@ -7,8 +7,7 @@ import { of as observableOf } from 'rxjs';
 import { SharedModule } from '../shared.module';
 import { CommonModule } from '@angular/common';
 import { Item } from '../../core/shared/item.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
@@ -44,7 +43,7 @@ describe('BrowseByComponent', () => {
       ]
     })
   ];
-  const mockItemsRD$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockItems));
+  const mockItemsRD$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockItems));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

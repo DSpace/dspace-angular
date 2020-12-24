@@ -7,6 +7,7 @@ import { EditCommunityPageComponent } from './edit-community-page.component';
 import { CommunityCurateComponent } from './community-curate/community-curate.component';
 import { CommunityMetadataComponent } from './community-metadata/community-metadata.component';
 import { CommunityRolesComponent } from './community-roles/community-roles.component';
+import { CommunityAuthorizationsComponent } from './community-authorizations/community-authorizations.component';
 
 /**
  * Module that contains all components related to the Edit Community page administrator functionality
@@ -22,7 +23,8 @@ import { CommunityRolesComponent } from './community-roles/community-roles.compo
     EditCommunityPageComponent,
     CommunityCurateComponent,
     CommunityMetadataComponent,
-    CommunityRolesComponent
+    CommunityRolesComponent,
+    CommunityAuthorizationsComponent
   ]
 })
 export class EditCommunityPageModule {

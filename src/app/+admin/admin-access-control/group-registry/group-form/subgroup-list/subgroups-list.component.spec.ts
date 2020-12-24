@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../../../../../core/cache/response.models';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
 import { Group } from '../../../../../core/eperson/models/group.model';
@@ -52,16 +52,16 @@ describe('SubgroupsListComponent', () => {
         return this.activeGroup;
       },
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList<Group>(new PageInfo(), this.subgroups))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList<Group>(new PageInfo(), this.subgroups))
       },
       getGroupEditPageRouterLink(group: Group): string {
         return '/admin/access-control/groups/' + group.id;
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), allGroups))
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allGroups))
         }
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
       },
       addSubGroupToGroup(parentGroup, subgroup: Group): Observable<RestResponse> {
         this.subgroups = [...this.subgroups, subgroup];

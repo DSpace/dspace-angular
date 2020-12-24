@@ -9,7 +9,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -47,11 +47,11 @@ describe('GroupRegistryComponent', () => {
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/epersons':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/epersons':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 1, totalPages: 1, currentPage: 1 }), [EPersonMock]));
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 1, totalPages: 1, currentPage: 1 }), [EPersonMock]));
           default:
-            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
         }
       }
     };
@@ -60,11 +60,11 @@ describe('GroupRegistryComponent', () => {
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/groups':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/groups':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 1, totalPages: 1, currentPage: 1 }), [GroupMock2]));
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 1, totalPages: 1, currentPage: 1 }), [GroupMock2]));
           default:
-            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
+            return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
         }
       },
       getGroupEditPageRouterLink(group: Group): string {
@@ -75,12 +75,12 @@ describe('GroupRegistryComponent', () => {
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: this.allGroups.length, totalElements: this.allGroups.length, totalPages: 1, currentPage: 1 }), this.allGroups));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: this.allGroups.length, totalElements: this.allGroups.length, totalPages: 1, currentPage: 1 }), this.allGroups));
         }
         const result = this.allGroups.find((group: Group) => {
           return (group.id.includes(query))
         });
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: [result].length, totalElements: [result].length, totalPages: 1, currentPage: 1 }), [result]));
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: [result].length, totalElements: [result].length, totalPages: 1, currentPage: 1 }), [result]));
       }
     };
     dsoDataServiceStub = {

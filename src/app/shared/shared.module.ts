@@ -21,7 +21,7 @@ import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { ExportMetadataSelectorComponent } from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
-import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
+import { ItemListElementComponent } from './object-list/item-list-element/item-types/item/item-list-element.component';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { MetadataFieldValidator } from './utils/metadatafield-validator.directive';
@@ -160,13 +160,12 @@ import { ItemSelectComponent } from './object-select/item-select/item-select.com
 import { CollectionSelectComponent } from './object-select/collection-select/collection-select.component';
 import { FilterInputSuggestionsComponent } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { DsoInputSuggestionsComponent } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
-import { PublicationGridElementComponent } from './object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
-import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
+import { ItemGridElementComponent } from './object-grid/item-grid-element/item-types/item/item-grid-element.component';
+import { TypeBadgeComponent } from './object-list/type-badge/type-badge.component';
 import { MetadataRepresentationLoaderComponent } from './metadata-representation/metadata-representation-loader.component';
 import { MetadataRepresentationDirective } from './metadata-representation/metadata-representation.directive';
 import { ListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/listable-object-component-loader.component';
-import { PublicationSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-types/publication/publication-search-result-list-element.component';
-import { PublicationSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/publication/publication-search-result-grid-element.component';
+import { ItemSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
 import { SearchLabelComponent } from './search/search-labels/search-label/search-label.component';
 import { ItemMetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
@@ -218,6 +217,23 @@ import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-select
 import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
+import { ItemSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
+import { ResourcePolicyEditComponent } from './resource-policies/edit/resource-policy-edit.component';
+import { ResourcePolicyCreateComponent } from './resource-policies/create/resource-policy-create.component';
+import { SearchObjects } from './search/search-objects.model';
+import { SearchResult } from './search/search-result.model';
+import { FacetConfigResponse } from './search/facet-config-response.model';
+import { FacetValues } from './search/facet-values.model';
+
+/**
+ * Declaration needed to make sure all decorator functions are called in time
+ */
+export const MODELS = [
+  SearchObjects,
+  FacetConfigResponse,
+  FacetValues,
+  SearchResult
+];
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -383,7 +399,7 @@ const COMPONENTS = [
   BrowseByComponent,
   AbstractTrackableComponent,
   ComcolMetadataComponent,
-  ItemTypeBadgeComponent,
+  TypeBadgeComponent,
   BrowseByComponent,
   AbstractTrackableComponent,
   CustomSwitchComponent,
@@ -399,12 +415,14 @@ const COMPONENTS = [
   LogInPasswordComponent,
   LogInContainerComponent,
   ItemVersionsComponent,
-  PublicationSearchResultListElementComponent,
+  ItemSearchResultListElementComponent,
   ItemVersionsNoticeComponent,
   ModifyItemOverviewComponent,
   ImpersonateNavbarComponent,
   ResourcePoliciesComponent,
   ResourcePolicyFormComponent,
+  ResourcePolicyEditComponent,
+  ResourcePolicyCreateComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
@@ -428,10 +446,10 @@ const ENTRY_COMPONENTS = [
   CommunitySearchResultGridElementComponent,
   CollectionSearchResultGridElementComponent,
   SearchResultGridElementComponent,
-  PublicationListElementComponent,
-  PublicationGridElementComponent,
-  PublicationSearchResultListElementComponent,
-  PublicationSearchResultGridElementComponent,
+  ItemListElementComponent,
+  ItemGridElementComponent,
+  ItemSearchResultListElementComponent,
+  ItemSearchResultGridElementComponent,
   BrowseEntryListElementComponent,
   SearchResultDetailElementComponent,
   SearchResultGridElementComponent,

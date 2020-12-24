@@ -13,13 +13,12 @@ import { Process } from '../../../process-page/processes/process.model';
 import { dataService } from '../../cache/builders/build-decorators';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, switchMap } from 'rxjs/operators';
-import { ProcessFilesRequest, RestRequest } from '../request.models';
-import { configureRequest, filterSuccessfulResponses } from '../../shared/operators';
-import { GenericSuccessResponse } from '../../cache/response.models';
-import { PaginatedList } from '../paginated-list';
+import { switchMap, take } from 'rxjs/operators';
+import { GetRequest } from '../request.models';
+import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
 import { RemoteData } from '../remote-data';
+import { isNotEmptyOperator } from '../../../shared/empty.util';
 
 @Injectable()
 @dataService(PROCESS)
@@ -53,18 +52,16 @@ export class ProcessDataService extends DataService<Process> {
    * @param processId The ID of the process
    */
   getFiles(processId: string): Observable<RemoteData<PaginatedList<Bitstream>>> {
-    const request$ = this.getFilesEndpoint(processId).pipe(
-      map((href) => new ProcessFilesRequest(this.requestService.generateRequestId(), href)),
-      configureRequest(this.requestService)
-    );
-    const requestEntry$ = request$.pipe(
-      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
-    );
-    const payload$ = requestEntry$.pipe(
-      filterSuccessfulResponses(),
-      map((response: GenericSuccessResponse<PaginatedList<Bitstream>>) => response.payload)
+    const href$ = this.getFilesEndpoint(processId).pipe(
+      isNotEmptyOperator(),
+      take(1)
     );
 
-    return this.rdbService.toRemoteDataObservable(requestEntry$, payload$);
+    href$.subscribe((href: string) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.configure(request);
+    });
+
+    return this.rdbService.buildList(href$);
   }
 }

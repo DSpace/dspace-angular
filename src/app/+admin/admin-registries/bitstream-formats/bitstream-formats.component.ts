@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
@@ -11,7 +11,7 @@ import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { RestResponse } from '../../../core/cache/response.models';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 /**
  * This component renders a list of bitstream formats
@@ -65,7 +65,7 @@ export class BitstreamFormatsComponent implements OnInit {
         const tasks$ = [];
         for (const format of formats) {
           if (hasValue(format.id)) {
-            tasks$.push(this.bitstreamFormatService.delete(format.id).pipe(map((response: RestResponse) => response.isSuccessful)));
+            tasks$.push(this.bitstreamFormatService.delete(format.id).pipe(map((response: RemoteData<NoContent>) => response.hasSucceeded)));
           }
         }
         zip(...tasks$).subscribe((results: boolean[]) => {

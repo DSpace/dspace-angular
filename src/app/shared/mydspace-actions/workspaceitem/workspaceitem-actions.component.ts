@@ -11,7 +11,9 @@ import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestService } from '../../../core/data/request.service';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { RestResponse } from '../../../core/cache/response.models';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { RemoteData } from '../../../core/data/remote-data';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 /**
  * This component represents actions related to WorkspaceItem object.
@@ -64,9 +66,10 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
         if (result === 'ok') {
           this.processingDelete$.next(true);
           this.objectDataService.delete(this.object.id)
-            .subscribe((response: RestResponse) => {
+            .pipe(getFirstCompletedRemoteData())
+            .subscribe((response: RemoteData<NoContent>) => {
               this.processingDelete$.next(false);
-              this.handleActionResponse(response.isSuccessful);
+              this.handleActionResponse(response.hasSucceeded);
             })
         }
       }
