@@ -80,6 +80,8 @@ describe('FormBuilderService test suite', () => {
 
     const vocabularyOptions: VocabularyOptions = {
       name: 'type_programme',
+      metadata: null,
+      scope: null,
       closed: false
     };
 

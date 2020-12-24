@@ -151,6 +151,8 @@ export class VocabularyService {
   getVocabularyEntries(vocabularyOptions: VocabularyOptions, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
 
     const options: VocabularyFindOptions = new VocabularyFindOptions(
+      vocabularyOptions.scope,
+      vocabularyOptions.metadata,
       null,
       null,
       null,
@@ -180,6 +182,8 @@ export class VocabularyService {
    */
   getVocabularyEntriesByValue(value: string, exact: boolean, vocabularyOptions: VocabularyOptions, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
     const options: VocabularyFindOptions = new VocabularyFindOptions(
+      vocabularyOptions.scope,
+      vocabularyOptions.metadata,
       null,
       value,
       exact,
@@ -230,6 +234,8 @@ export class VocabularyService {
   getVocabularyEntryByID(ID: string, vocabularyOptions: VocabularyOptions): Observable<VocabularyEntry> {
     const pageInfo = new PageInfo()
     const options: VocabularyFindOptions = new VocabularyFindOptions(
+      vocabularyOptions.scope,
+      vocabularyOptions.metadata,
       null,
       null,
       null,
@@ -258,18 +264,13 @@ export class VocabularyService {
   /**
    * Return the controlled {@link Vocabulary} configured for the specified metadata and collection if any.
    *
-   * @param metadata        The metadata for the request
-   * @param collection      The collection for the request
+   * @param vocabularyOptions  The {@link VocabularyOptions} for the request to which the entry belongs
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<PaginatedList<Vocabulary>>>}
    *    Return an observable that emits object list
    */
-  searchVocabularyByMetadataAndCollection(metadata: string, collection: string, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
-    const options: VocabularyFindOptions = new VocabularyFindOptions();
-    options.searchParams = [
-      new RequestParam('metadata', metadata),
-      new RequestParam('collection', collection)
-    ]
+  searchVocabularyByMetadataAndCollection(vocabularyOptions: VocabularyOptions, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
+    const options: VocabularyFindOptions = new VocabularyFindOptions(vocabularyOptions.scope, vocabularyOptions.metadata);
 
     return this.vocabularyDataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options).pipe(
       first((href: string) => hasValue(href)),
@@ -338,6 +339,8 @@ export class VocabularyService {
       null,
       null,
       null,
+      null,
+      null,
       pageInfo.elementsPerPage,
       pageInfo.currentPage
     );
@@ -355,6 +358,8 @@ export class VocabularyService {
    */
   searchTopEntries(name: string, pageInfo: PageInfo, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
     const options: VocabularyFindOptions = new VocabularyFindOptions(
+      null,
+      null,
       null,
       null,
       null,

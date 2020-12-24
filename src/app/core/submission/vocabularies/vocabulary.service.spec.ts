@@ -169,12 +169,14 @@ describe('VocabularyService', () => {
   const collectionUUID = '8b39g7ya-5a4b-438b-851f-be1d5b4a1c5a';
   const entryID = 'dsfsfsdf-5a4b-438b-851f-be1d5b4a1c5a';
   const searchRequestURL = `https://rest.api/rest/api/submission/vocabularies/search/byMetadataAndCollection?metadata=${metadata}&collection=${collectionUUID}`;
-  const entriesRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries`;
-  const entriesByValueRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?filter=test&exact=false`;
-  const entryByValueRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?filter=test&exact=true`;
-  const entryByIDRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?entryID=${entryID}`;
+  const entriesRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}`;
+  const entriesByValueRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}&filter=test&exact=false`;
+  const entryByValueRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}&filter=test&exact=true`;
+  const entryByIDRequestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}/entries?metadata=${metadata}&collection=${collectionUUID}&entryID=${entryID}`;
   const vocabularyOptions: VocabularyOptions = {
     name: vocabularyId,
+    metadata: metadata,
+    scope: collectionUUID,
     closed: false
   }
   const pageInfo = new PageInfo();
@@ -317,14 +319,14 @@ describe('VocabularyService', () => {
 
       describe('searchVocabularyByMetadataAndCollection', () => {
         it('should proxy the call to vocabularyDataService.findVocabularyByHref', () => {
-          scheduler.schedule(() => service.searchVocabularyByMetadataAndCollection(metadata, collectionUUID).subscribe());
+          scheduler.schedule(() => service.searchVocabularyByMetadataAndCollection(vocabularyOptions).subscribe());
           scheduler.flush();
 
           expect((service as any).vocabularyDataService.findByHref).toHaveBeenCalledWith(searchRequestURL);
         });
 
         it('should return a RemoteData<Vocabulary> for the search', () => {
-          const result = service.searchVocabularyByMetadataAndCollection(metadata, collectionUUID);
+          const result = service.searchVocabularyByMetadataAndCollection(vocabularyOptions);
           const expected = cold('a|', {
             a: vocabularyRD
           });
@@ -529,6 +531,8 @@ describe('VocabularyService', () => {
           null,
           null,
           null,
+          null,
+          null,
           pageInfo.elementsPerPage,
           pageInfo.currentPage
         );
@@ -550,6 +554,8 @@ describe('VocabularyService', () => {
     describe('searchByTop', () => {
       it('should proxy the call to vocabularyEntryDetailDataService.searchBy', () => {
         const options: VocabularyFindOptions = new VocabularyFindOptions(
+          null,
+          null,
           null,
           null,
           null,
