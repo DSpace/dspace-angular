@@ -89,7 +89,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       this.model.scopeUUID,
       {},
       this.model.submissionScope,
-      this.model.readOnly);
+      this.model.readOnly,
+      null,
+      true);
     this.formBuilderService.addFormModel(this.formId, this.formModel);
     this.initChipsFromModelValue();
   }

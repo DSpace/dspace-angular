@@ -12,7 +12,8 @@ describe('DisabledFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: null,
-    collectionUUID: null
+    collectionUUID: null,
+    isInnerForm: false
   };
 
   beforeEach(() => {

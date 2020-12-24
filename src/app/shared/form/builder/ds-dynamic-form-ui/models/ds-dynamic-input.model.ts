@@ -26,7 +26,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   submissionId: string;
   hasSelectableMetadata: boolean;
   metadataValue?: FormFieldMetadataValueObject;
-
+  isModelOfInnerForm?: boolean;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -43,6 +43,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() submissionId: string;
   @serializable() hasSelectableMetadata: boolean;
   @serializable() metadataValue: FormFieldMetadataValueObject;
+  @serializable() isModelOfInnerForm: boolean;
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
