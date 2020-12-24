@@ -30,7 +30,7 @@ describe('RootDataService', () => {
 
     it('should call findByHref using the root endpoint', (done) => {
       result$.subscribe(() => {
-        expect((service as any).dataService.findByHref).toHaveBeenCalledWith(rootEndpoint);
+        expect((service as any).dataService.findByHref).toHaveBeenCalledWith(rootEndpoint, true);
         done();
       });
     });
