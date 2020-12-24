@@ -15,6 +15,8 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FindListOptions } from './request.models';
+import { PaginatedList } from './paginated-list';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -67,6 +69,27 @@ export class RootDataService {
    */
   findRoot(...linksToFollow: Array<FollowLinkConfig<Root>>): Observable<RemoteData<Root>> {
     return this.dataService.findByHref(this.halService.getRootHref(), ...linksToFollow);
+  }
+
+  /**
+   * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
+   * @param href            The url of object we want to retrieve
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<Root>>): Observable<RemoteData<Root>> {
+    return this.dataService.findByHref(href, ...linksToFollow);
+  }
+
+  /**
+   * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list of {@link FollowLinkConfig},
+   * to automatically resolve {@link HALLink}s of the object
+   * @param href            The url of object we want to retrieve
+   * @param findListOptions Find list options object
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   */
+  findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Root>>): Observable<RemoteData<PaginatedList<Root>>> {
+    return this.dataService.findAllByHref(href, findListOptions, ...linksToFollow);
   }
 }
 /* tslint:enable:max-classes-per-file */
