@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
-import { map } from 'rxjs/operators';
-import { redirectToPageNotFoundOn404 } from '../core/shared/operators';
-import { Observable } from 'rxjs';
+import { redirectOn4xx } from '../core/shared/operators';
 import { fadeInOut } from '../shared/animations/fade';
+import { AuthService } from '../core/auth/auth.service';
 
 /**
  * This component is the entry point for the page that renders items.
@@ -19,22 +22,18 @@ import { fadeInOut } from '../shared/animations/fade';
 export class CrisItemPageComponent implements OnInit {
 
   itemRD$: Observable<RemoteData<Item>>;
-  item: Item;
 
   constructor(
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
     this.itemRD$ = this.route.data.pipe(
-      map((data) => data.item as RemoteData<Item>),
-      redirectToPageNotFoundOn404(this.router)
+      map((data) => data.dso as RemoteData<Item>),
+      redirectOn4xx(this.router, this.authService)
     );
-    this.itemRD$.subscribe(
-      (next) => {
-        this.item = next.payload;
-      }
-    );
+
   }
 
 }

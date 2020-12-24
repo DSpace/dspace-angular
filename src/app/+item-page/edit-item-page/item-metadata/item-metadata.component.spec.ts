@@ -22,13 +22,14 @@ import { FieldChangeType } from '../../../core/data/object-updates/object-update
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { Metadata } from '../../../core/shared/metadata.utils';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../../shared/remote-data.utils';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { DSOSuccessResponse } from '../../../core/cache/response.models';
 
 let comp: any;
 let fixture: ComponentFixture<ItemMetadataComponent>;
@@ -43,6 +44,7 @@ const router = new RouterStub();
 let metadataFieldService;
 let paginatedMetadataFields;
 let routeStub;
+let objectCacheService;
 
 const mdSchema = Object.assign(new MetadataSchema(), { prefix: 'dc' });
 const mdField1 = Object.assign(new MetadataField(), {
@@ -101,6 +103,8 @@ const fieldUpdate3 = {
   changeType: undefined
 };
 
+const operation1 = { op: 'remove', path: '/metadata/dc.title/1' };
+
 let scheduler: TestScheduler;
 let item;
 describe('ItemMetadataComponent', () => {
@@ -119,12 +123,14 @@ describe('ItemMetadataComponent', () => {
       ;
       itemService = jasmine.createSpyObj('itemService', {
         update: createSuccessfulRemoteDataObject$(item),
-        commitUpdates: {}
+        commitUpdates: {},
+        patch: observableOf(new DSOSuccessResponse(['item-selflink'], 200, 'OK')),
+        findByHref: createSuccessfulRemoteDataObject$(item)
       });
       routeStub = {
         data: observableOf({}),
         parent: {
-          data: observableOf({ item: createSuccessfulRemoteDataObject(item) })
+          data: observableOf({ dso: createSuccessfulRemoteDataObject(item) })
         }
       };
       paginatedMetadataFields = new PaginatedList(undefined, [mdField1, mdField2, mdField3]);
@@ -148,9 +154,13 @@ describe('ItemMetadataComponent', () => {
           getLastModified: observableOf(date),
           hasUpdates: observableOf(true),
           isReinstatable: observableOf(false), // should always return something --> its in ngOnInit
-          isValidPage: observableOf(true)
+          isValidPage: observableOf(true),
+          createPatch: observableOf([
+            operation1
+          ])
         }
       );
+      objectCacheService = jasmine.createSpyObj('objectCacheService', ['addPatch']);
 
       TestBed.configureTestingModule({
         imports: [SharedModule, TranslateModule.forRoot()],
@@ -162,6 +172,7 @@ describe('ItemMetadataComponent', () => {
           { provide: ActivatedRoute, useValue: routeStub },
           { provide: NotificationsService, useValue: notificationsService },
           { provide: RegistryService, useValue: metadataFieldService },
+          { provide: ObjectCacheService, useValue: objectCacheService },
         ], schemas: [
           NO_ERRORS_SCHEMA
         ]
@@ -215,8 +226,8 @@ describe('ItemMetadataComponent', () => {
     });
 
     it('it should call reinstateFieldUpdates on the objectUpdatesService with the correct url and metadata', () => {
-      expect(objectUpdatesService.getUpdatedFields).toHaveBeenCalledWith(url, comp.item.metadataAsList);
-      expect(itemService.update).toHaveBeenCalledWith(Object.assign(comp.item, { metadata: Metadata.toMetadataMap(comp.item.metadataAsList) }));
+      expect(objectUpdatesService.createPatch).toHaveBeenCalledWith(url);
+      expect(itemService.patch).toHaveBeenCalledWith(comp.item, [ operation1 ]);
       expect(objectUpdatesService.getFieldUpdates).toHaveBeenCalledWith(url, comp.item.metadataAsList);
     });
   });

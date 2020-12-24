@@ -17,16 +17,23 @@ import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { Item } from '../core/shared/item.model';
 import {
   getSucceededRemoteData,
-  redirectToPageNotFoundOn404,
+  redirectOn4xx,
   toDSpaceObjectListRD
 } from '../core/shared/operators';
 
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasNoValue, hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { AuthService } from '../core/auth/auth.service';
 import { getBulkImportRoute } from '../app-routing-paths';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { ScriptDataService } from '../core/data/processes/script-data.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { RequestEntry } from '../core/data/request.reducer';
+import { ProcessParameter } from '../process-page/processes/process-parameter.model';
+import { TranslateService } from '@ngx-translate/core';
+import { RequestService } from '../core/data/request.service';
 
 @Component({
   selector: 'ds-collection-page',
@@ -55,7 +62,12 @@ export class CollectionPageComponent implements OnInit {
     private metadata: MetadataService,
     private route: ActivatedRoute,
     private router: Router,
-    private authorizationService: AuthorizationDataService
+    private authService: AuthService,
+    private authorizationService: AuthorizationDataService,
+    private scriptService: ScriptDataService,
+    private translationService: TranslateService,
+    private requestService: RequestService,
+    private notificationsService: NotificationsService
   ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
@@ -67,7 +79,7 @@ export class CollectionPageComponent implements OnInit {
   ngOnInit(): void {
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
-      redirectToPageNotFoundOn404(this.router),
+      redirectOn4xx(this.router, this.authService),
       take(1)
     );
     this.logoRD$ = this.collectionRD$.pipe(
@@ -119,6 +131,29 @@ export class CollectionPageComponent implements OnInit {
       paginationConfig: this.paginationConfig,
       sortConfig: this.sortConfig
     });
+  }
+
+  exportCollection(collection: Collection) {
+
+    const stringParameters: ProcessParameter[] = [
+      { name: '-c', value: collection.id }
+    ];
+
+    this.scriptService.invoke('collection-export', stringParameters, [])
+      .pipe(take(1))
+      .subscribe((requestEntry: RequestEntry) => {
+        if (requestEntry.response.isSuccessful) {
+          this.notificationsService.success(this.translationService.get('collection-export.success'));
+          this.navigateToProcesses();
+        } else {
+          this.notificationsService.error(this.translationService.get('collection-export.error'));
+        }
+      })
+  }
+
+  private navigateToProcesses() {
+    this.requestService.removeByHrefSubstring('/processes');
+    this.router.navigateByUrl('/processes');
   }
 
   getBulkImportPageRouterLink(collection: Collection) {

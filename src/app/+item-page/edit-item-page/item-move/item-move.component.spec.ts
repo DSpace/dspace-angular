@@ -44,7 +44,7 @@ describe('ItemMoveComponent', () => {
 
   const routeStub = {
     data: observableOf({
-      item: new RemoteData(false, false, true, null, {
+      dso: new RemoteData(false, false, true, null, {
         id: 'item1'
       })
     })

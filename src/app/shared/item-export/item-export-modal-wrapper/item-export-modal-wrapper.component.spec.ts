@@ -1,12 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ViewContainerRef } from '@angular/core';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { of as observableOf } from 'rxjs';
 
 import { ItemExportModalWrapperComponent } from './item-export-modal-wrapper.component';
 import { AuthService } from '../../../core/auth/auth.service';
-import { ViewContainerRef } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 describe('ItemExportModalWrapperComponent', () => {
   let component: ItemExportModalWrapperComponent;
+  let componentAsAny: any;
   let fixture: ComponentFixture<ItemExportModalWrapperComponent>;
 
   const modalService = {
@@ -26,7 +29,7 @@ describe('ItemExportModalWrapperComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ItemExportModalWrapperComponent],
       providers: [
-        { provide: AuthService, useClass: authServiceMock },
+        { provide: AuthService, useValue: authServiceMock },
         { provide: NgbModal, useValue: modalService },
         ViewContainerRef
       ]
@@ -37,6 +40,8 @@ describe('ItemExportModalWrapperComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemExportModalWrapperComponent);
     component = fixture.componentInstance;
+    componentAsAny = fixture.componentInstance;
+    componentAsAny.authService.isAuthenticated.and.returnValue(observableOf(true))
     fixture.detectChanges();
   });
 

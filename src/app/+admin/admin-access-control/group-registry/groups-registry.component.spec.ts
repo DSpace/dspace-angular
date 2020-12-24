@@ -6,14 +6,18 @@ import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
+import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Group } from '../../../core/eperson/models/group.model';
 import { RouteService } from '../../../core/services/route.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { GroupMock, GroupMock2 } from '../../../shared/testing/group-mock';
@@ -30,6 +34,8 @@ describe('GroupRegistryComponent', () => {
   let fixture: ComponentFixture<GroupsRegistryComponent>;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
+  let dsoDataServiceStub: any;
+  let authorizationService: AuthorizationDataService;
 
   let mockGroups;
   let mockEPeople;
@@ -41,11 +47,11 @@ describe('GroupRegistryComponent', () => {
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/epersons':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, []));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/epersons':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, [EPersonMock]));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 1, totalPages: 1, currentPage: 1 }), [EPersonMock]));
           default:
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, []));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
         }
       }
     };
@@ -54,11 +60,11 @@ describe('GroupRegistryComponent', () => {
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
         switch (href) {
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/groups':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, []));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/groups':
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, [GroupMock2]));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 1, totalPages: 1, currentPage: 1 }), [GroupMock2]));
           default:
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, []));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: 0, totalPages: 0, currentPage: 1 }), []));
         }
       },
       getGroupEditPageRouterLink(group: Group): string {
@@ -69,14 +75,22 @@ describe('GroupRegistryComponent', () => {
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allGroups));
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: this.allGroups.length, totalElements: this.allGroups.length, totalPages: 1, currentPage: 1 }), this.allGroups));
         }
         const result = this.allGroups.find((group: Group) => {
           return (group.id.includes(query))
         });
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
+        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: [result].length, totalElements: [result].length, totalPages: 1, currentPage: 1 }), [result]));
       }
     };
+    dsoDataServiceStub = {
+      findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
+        return createSuccessfulRemoteDataObject$(undefined);
+      }
+    }
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true)
+    });
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -90,9 +104,12 @@ describe('GroupRegistryComponent', () => {
       providers: [GroupsRegistryComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
+        { provide: DSpaceObjectDataService, useValue: dsoDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterMock() },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

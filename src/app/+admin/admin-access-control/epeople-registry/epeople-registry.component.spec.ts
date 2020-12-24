@@ -24,6 +24,8 @@ import { getMockTranslateService } from '../../../shared/mocks/translate.service
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { RequestService } from '../../../core/data/request.service';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -33,6 +35,8 @@ describe('EPeopleRegistryComponent', () => {
 
   let mockEPeople;
   let ePersonDataServiceStub: any;
+  let authorizationService: AuthorizationDataService;
+  let modalService;
 
   beforeEach(async(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
@@ -40,7 +44,7 @@ describe('EPeopleRegistryComponent', () => {
       activeEPerson: null,
       allEpeople: mockEPeople,
       getEPeople(): Observable<RemoteData<PaginatedList<EPerson>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allEpeople));
+        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: this.allEpeople.length, totalElements: this.allEpeople.length, totalPages: 1, currentPage: 1 }), this.allEpeople));
       },
       getActiveEPerson(): Observable<EPerson> {
         return observableOf(this.activeEPerson);
@@ -50,18 +54,18 @@ describe('EPeopleRegistryComponent', () => {
           const result = this.allEpeople.find((ePerson: EPerson) => {
             return ePerson.email === query
           });
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: [result].length, totalElements: [result].length, totalPages: 1, currentPage: 1 }), [result]));
         }
         if (scope === 'metadata') {
           if (query === '') {
-            return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allEpeople));
+            return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: this.allEpeople.length, totalElements: this.allEpeople.length, totalPages: 1, currentPage: 1 }), this.allEpeople));
           }
           const result = this.allEpeople.find((ePerson: EPerson) => {
             return (ePerson.name.includes(query) || ePerson.email.includes(query))
           });
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [result]));
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: [result].length, totalElements: [result].length, totalPages: 1, currentPage: 1 }), [result]));
         }
-        return createSuccessfulRemoteDataObject$(new PaginatedList(null, this.allEpeople));
+        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: this.allEpeople.length, totalElements: this.allEpeople.length, totalPages: 1, currentPage: 1 }), this.allEpeople));
       },
       deleteEPerson(ePerson: EPerson): Observable<boolean> {
         this.allEpeople = this.allEpeople.filter((ePerson2: EPerson) => {
@@ -82,6 +86,9 @@ describe('EPeopleRegistryComponent', () => {
         return '/admin/access-control/epeople';
       }
     };
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true)
+    });
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
     TestBed.configureTestingModule({
@@ -94,11 +101,13 @@ describe('EPeopleRegistryComponent', () => {
         }),
       ],
       declarations: [EPeopleRegistryComponent],
-      providers: [EPeopleRegistryComponent,
+      providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterStub() },
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -107,12 +116,14 @@ describe('EPeopleRegistryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EPeopleRegistryComponent);
     component = fixture.componentInstance;
+    modalService = (component as any).modalService;
+    spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
     fixture.detectChanges();
   });
 
-  it('should create EPeopleRegistryComponent', inject([EPeopleRegistryComponent], (comp: EPeopleRegistryComponent) => {
-    expect(comp).toBeDefined();
-  }));
+  it('should create EPeopleRegistryComponent', () => {
+    expect(component).toBeDefined();
+  });
 
   it('should display list of ePeople', () => {
     const ePeopleIdsFound = fixture.debugElement.queryAll(By.css('#epeople tr td:first-child'));
@@ -215,4 +226,20 @@ describe('EPeopleRegistryComponent', () => {
     });
   });
 
+  describe('delete EPerson button when the isAuthorized returns false', () => {
+    let ePeopleDeleteButton;
+    beforeEach(() => {
+      authorizationService = jasmine.createSpyObj('authorizationService', {
+        isAuthorized: observableOf(false)
+      });
+    });
+
+    it ('should be disabled', () => {
+      ePeopleDeleteButton = fixture.debugElement.queryAll(By.css('#epeople tr td div button.delete-button'));
+      ePeopleDeleteButton.forEach((deleteButton) => {
+        expect(deleteButton.nativeElement.disabled).toBe(true);
+      });
+
+    })
+  })
 });

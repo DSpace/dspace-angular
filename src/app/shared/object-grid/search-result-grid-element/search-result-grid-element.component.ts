@@ -6,10 +6,10 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-result-grid-element',
@@ -32,9 +32,6 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
     protected bitstreamDataService: BitstreamDataService
   ) {
     super();
-    if (hasValue(this.object)) {
-      this.isCollapsed$ = this.isCollapsed();
-    }
   }
 
   /**
@@ -43,6 +40,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   ngOnInit(): void {
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
+      this.isCollapsed$ = this.isCollapsed();
     }
   }
 

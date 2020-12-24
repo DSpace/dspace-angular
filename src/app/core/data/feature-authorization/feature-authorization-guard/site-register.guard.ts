@@ -5,6 +5,7 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { Observable } from 'rxjs/internal/Observable';
 import { FeatureID } from '../feature-id';
 import { of as observableOf } from 'rxjs';
+import { AuthService } from '../../../auth/auth.service';
 
 /**
  * Prevent unauthorized activating and loading of routes when the current authenticated user doesn't have registration
@@ -14,8 +15,8 @@ import { of as observableOf } from 'rxjs';
   providedIn: 'root'
 })
 export class SiteRegisterGuard extends FeatureAuthorizationGuard {
-  constructor(protected authorizationService: AuthorizationDataService, protected router: Router) {
-    super(authorizationService, router);
+  constructor(protected authorizationService: AuthorizationDataService, protected router: Router, protected authService: AuthService) {
+    super(authorizationService, router, authService);
   }
 
   /**

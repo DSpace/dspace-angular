@@ -32,7 +32,8 @@ import { enableProdMode } from '@angular/core';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasValue, hasNoValue } from './src/app/shared/empty.util';
+import { hasNoValue, hasValue } from './src/app/shared/empty.util';
+import { UIServerConfig } from './src/config/ui-server-config.interface';
 
 /*
  * Set path for the browser application's dist folder
@@ -119,6 +120,19 @@ function cacheControl(req, res, next) {
   // instruct browser to revalidate
   res.header('Cache-Control', environment.cache.control || 'max-age=60');
   next();
+}
+
+/**
+ * Checks if the rateLimiter property is present
+ * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.
+ */
+if (hasValue((environment.ui as UIServerConfig).rateLimiter)) {
+  const RateLimit = require('express-rate-limit');
+  const limiter = new RateLimit({
+    windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
+    max: (environment.ui as UIServerConfig).rateLimiter.max
+  });
+  app.use(limiter);
 }
 
 /*
@@ -209,8 +223,9 @@ if (environment.ui.ssl) {
       certificate: certificate
     });
   } else {
+    console.warn('Disabling certificate validation and proceeding with a self-signed certificate. If this is a production server, it is recommended that you configure a valid certificate instead.');
 
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // lgtm[js/disabling-certificate-validation]
 
     pem.createCertificate({
       days: 1,

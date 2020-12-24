@@ -1,7 +1,8 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -11,7 +12,6 @@ import { SearchFilterService } from '../../../core/shared/search/search-filter.s
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-search-filters',
@@ -45,9 +45,15 @@ export class SearchFiltersComponent implements OnInit {
   searchLink: string;
 
   /**
+   * For chart regular expression
+   */
+  chartReg = new RegExp(/^chart./, 'i')
+
+  /**
    * Initialize instance variables
    * @param {SearchService} searchService
    * @param {SearchConfigurationService} searchConfigService
+   * @param {Router} router
    * @param {SearchFilterService} filterService
    */
   constructor(
@@ -58,9 +64,19 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filters = this.searchConfigService.searchOptions.pipe(
-      switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getSucceededRemoteData())),
-    );
+    this.filters = this.searchConfigService.searchOptions
+      .pipe(
+        switchMap((options) =>
+          this.searchService
+            .getConfig(options.scope, options.configuration)
+            .pipe(getSucceededRemoteData())
+        ),
+        map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
+          payload: rd.payload.filter((filter: SearchFilterConfig) =>
+            !this.chartReg.test(filter.type)
+          )})
+        ),
+      );
 
     this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);

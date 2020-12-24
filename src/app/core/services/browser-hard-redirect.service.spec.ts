@@ -2,11 +2,12 @@ import {TestBed} from '@angular/core/testing';
 import {BrowserHardRedirectService} from './browser-hard-redirect.service';
 
 describe('BrowserHardRedirectService', () => {
-
+  const origin = 'test origin';
   const mockLocation = {
     href: undefined,
     pathname: '/pathname',
     search: '/search',
+    origin
   } as Location;
 
   const service: BrowserHardRedirectService = new BrowserHardRedirectService(mockLocation);
@@ -38,4 +39,12 @@ describe('BrowserHardRedirectService', () => {
       expect(service.getCurrentRoute()).toEqual(mockLocation.pathname + mockLocation.search);
     });
   });
+
+  describe('when requesting the origin', () => {
+
+    it('should return the location origin', () => {
+      expect(service.getRequestOrigin()).toEqual(origin);
+    });
+  });
+
 });

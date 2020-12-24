@@ -435,7 +435,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.repeatable = this.model.repeatable;
     modalComp.listId = this.listId;
     modalComp.relationshipOptions = this.model.relationship;
-    modalComp.label = this.model.label;
+    modalComp.label = this.model.relationship.relationshipType;
     modalComp.metadataFields = this.model.metadataFields;
     modalComp.item = this.item;
     modalComp.collection = this.collection;

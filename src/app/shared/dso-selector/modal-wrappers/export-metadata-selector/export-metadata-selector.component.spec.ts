@@ -53,12 +53,26 @@ describe('ExportMetadataSelectorComponent', () => {
   const mockCollection: Collection = Object.assign(new Collection(), {
     id: 'test-collection-1-1',
     name: 'test-collection-1',
-    handle: 'fake/test-collection-1',
+    metadata: {
+      'dc.identifier.uri': [
+        {
+          language: null,
+          value: 'fake/test-collection-1'
+        }
+      ]
+    }
   });
 
   const mockCommunity = Object.assign(new Community(), {
     id: 'test-uuid',
-    handle: 'fake/test-community-1',
+    metadata: {
+      'dc.identifier.uri': [
+        {
+          language: null,
+          value: 'fake/test-community-1'
+        }
+      ]
+    }
   });
 
   const itemRD = createSuccessfulRemoteDataObject(mockItem);

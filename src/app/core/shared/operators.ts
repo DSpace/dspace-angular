@@ -13,8 +13,9 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { getUnauthorizedRoute } from '../../app-routing-paths';
-import { getEndUserAgreementPath } from '../../info/info-routing.module';
+import { getForbiddenRoute, getPageNotFoundRoute } from '../../app-routing-paths';
+import { getEndUserAgreementPath } from '../../info/info-routing-paths';
+import { AuthService } from '../auth/auth.service';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
@@ -74,6 +75,10 @@ export const getSucceededRemoteData = () =>
 export const getSucceededRemoteWithNotEmptyData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded && isNotEmpty(rd.payload)));
+
+export const getSucceededRemoteWithNotEmptyDataOrFailed = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(find((rd: RemoteData<T>) => (rd.hasSucceeded && isNotEmpty(rd.payload)) || rd.hasFailed));
 
 export const getSucceededOrNoContentResponse = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
@@ -175,28 +180,50 @@ export const getAllSucceededRemoteListPayload = () =>
     );
 
 /**
- * Operator that checks if a remote data object contains a page not found error
- * When it does contain such an error, it will redirect the user to a page not found, without altering the current URL
+ * Operator that checks if a remote data object returned a 401 or 404 error
+ * When it does contain such an error, it will redirect the user to the related error page, without altering the current URL
  * @param router The router used to navigate to a new page
+ * @param authService Service to check if the user is authenticated
  */
-export const redirectToPageNotFoundOn404 = (router: Router) =>
+export const redirectOn4xx = (router: Router, authService: AuthService) =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    source.pipe(
-      tap((rd: RemoteData<T>) => {
-        if (rd.hasFailed && rd.error.statusCode === 404) {
-          router.navigateByUrl('/404', { skipLocationChange: true });
+    observableCombineLatest(source, authService.isAuthenticated()).pipe(
+      map(([rd, isAuthenticated]: [RemoteData<T>, boolean]) => {
+        if (rd.hasFailed) {
+          if (rd.error.statusCode === 404) {
+            router.navigateByUrl(getPageNotFoundRoute(), {skipLocationChange: true});
+          } else if (rd.error.statusCode === 403 || rd.error.statusCode === 401) {
+            if (isAuthenticated) {
+              router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
+            } else {
+              authService.setRedirectUrl(router.url);
+              router.navigateByUrl('login');
+            }
+          }
         }
+        return rd;
       }));
 
 /**
- * Operator that returns a UrlTree to the unauthorized page when the boolean received is false
- * @param router
+ * Operator that returns a UrlTree to a forbidden page or the login page when the boolean received is false
+ * @param router      The router used to navigate to a forbidden page
+ * @param authService The AuthService used to determine whether or not the user is logged in
+ * @param redirectUrl The URL to redirect back to after logging in
  */
-export const returnUnauthorizedUrlTreeOnFalse = (router: Router) =>
+export const returnForbiddenUrlTreeOrLoginOnFalse = (router: Router, authService: AuthService, redirectUrl: string) =>
   (source: Observable<boolean>): Observable<boolean | UrlTree> =>
-    source.pipe(
-      map((authorized: boolean) => {
-        return authorized ? authorized : router.parseUrl(getUnauthorizedRoute())
+    observableCombineLatest(source, authService.isAuthenticated()).pipe(
+      map(([authorized, authenticated]: [boolean, boolean]) => {
+        if (authorized) {
+          return authorized;
+        } else {
+          if (authenticated) {
+            return router.parseUrl(getForbiddenRoute());
+          } else {
+            authService.setRedirectUrl(redirectUrl);
+            return router.parseUrl('login');
+          }
+        }
       }));
 
 /**

@@ -1,0 +1,6 @@
+<a *ngIf="isAuthorized$ | async"
+   [routerLink]="['/' + pageRoutePrefix, dso.id, 'edit']"
+   class="edit-button btn btn-outline-primary"
+   [tooltip]="tooltipMsg | translate">
+  <i class="fas fa-edit"></i>
+</a>

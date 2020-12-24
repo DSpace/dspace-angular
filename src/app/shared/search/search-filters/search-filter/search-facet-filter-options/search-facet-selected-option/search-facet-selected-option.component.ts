@@ -7,8 +7,8 @@ import { SearchFilterService } from '../../../../../../core/shared/search/search
 import { hasValue } from '../../../../../empty.util';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { FacetValue } from '../../../../facet-value.model';
-import { FilterType } from '../../../../filter-type.model';
 import { currentPath } from '../../../../../utils/route.utils';
+import { getFacetValueForType } from '../../../../search.utils';
 
 @Component({
   selector: 'ds-search-facet-selected-option',
@@ -101,19 +101,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
    * Retrieve facet value related to facet type
    */
   private getFacetValue(facetValue: FacetValue): string {
-    if (this.filterConfig.type === FilterType.authority) {
-      const search = facetValue._links.search.href;
-      const hashes = search.slice(search.indexOf('?') + 1).split('&');
-      const params = {};
-      hashes.map((hash) => {
-        const [key, val] = hash.split('=');
-        params[key] = decodeURIComponent(val)
-      });
-
-      return params[this.filterConfig.paramName];
-    } else {
-      return facetValue.value;
-    }
+    return getFacetValueForType(facetValue, this.filterConfig);
   }
 
   /**

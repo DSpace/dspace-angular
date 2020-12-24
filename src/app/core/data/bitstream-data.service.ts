@@ -30,6 +30,8 @@ import { RestResponse } from '../cache/response.models';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { combineLatest as observableCombineLatest } from 'rxjs';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { PageInfo } from '../shared/page-info.model';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
@@ -165,8 +167,10 @@ export class BitstreamDataService extends DataService<Bitstream> {
   public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bundleService.findByItemAndName(item, bundleName).pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {
-        if (hasValue(bundleRD.payload)) {
+        if (bundleRD.hasSucceeded && hasValue(bundleRD.payload)) {
           return this.findAllByBundle(bundleRD.payload, options, ...linksToFollow);
+        } else if (!bundleRD.hasSucceeded && bundleRD.error.statusCode === 404) {
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
         } else {
           return [bundleRD as any];
         }

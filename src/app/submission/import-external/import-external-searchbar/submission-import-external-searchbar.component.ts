@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ExternalSourceService } from '../../../core/data/external-source.service';
 import { ExternalSource } from '../../../core/shared/external-source.model';
@@ -196,4 +198,5 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       this.sub.unsubscribe();
     }
   }
+
 }

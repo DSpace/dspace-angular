@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {flatMap, map, take} from 'rxjs/operators';
+import {flatMap, take} from 'rxjs/operators';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -11,7 +11,6 @@ import { Community } from '../../../core/shared/community.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getFirstSucceededRemoteDataPayload,
-  getSucceededOrNoContentResponse,
 } from '../../../core/shared/operators';
 import { ResourceType } from '../../../core/shared/resource-type';
 import {hasValue, isEmpty, isNotEmpty, isNotUndefined} from '../../empty.util';
@@ -101,7 +100,7 @@ export class CreateComColPageComponent<TDomain extends DSpaceObject> implements 
           } else {
             this.navigateToNewPage();
           }
-          this.refreshCache(dsoRD);
+          this.dsoDataService.refreshCache(dsoRD);
         }
         this.notificationsService.success(null, this.translate.get(this.type.value + '.create.notifications.success'));
       });
@@ -114,24 +113,5 @@ export class CreateComColPageComponent<TDomain extends DSpaceObject> implements 
     if (hasValue(this.newUUID)) {
       this.router.navigate([this.frontendURL + this.newUUID]);
     }
-  }
-
-  private refreshCache(dso: TDomain) {
-      const parentCommunityUrl = this.parentCommunityUrl(dso as any);
-      if (!hasValue(parentCommunityUrl)) {
-        return;
-      }
-      this.dsoDataService.findByHref(parentCommunityUrl).pipe(
-        getSucceededOrNoContentResponse(),
-        take(1),
-      ).subscribe((rd: RemoteData<TDomain>) => {
-        const href = rd.hasSucceeded && !isEmpty(rd.payload.id) ? rd.payload.id : 'communities/search/top';
-        this.requestService.removeByHrefSubstring(href)
-      });
-  }
-
-  private parentCommunityUrl(dso: Collection | Community) {
-    const parentCommunity = dso._links.parentCommunity;
-    return isNotEmpty(parentCommunity) ? parentCommunity.href : null;
   }
 }

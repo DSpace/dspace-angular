@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -20,7 +20,8 @@ import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../shared/operators';
-import { environment } from '../../../environments/environment';
+import { HardRedirectService } from '../services/hard-redirect.service';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 @Injectable()
 export class MetadataService {
@@ -39,6 +40,7 @@ export class MetadataService {
     private dsoNameService: DSONameService,
     private bitstreamDataService: BitstreamDataService,
     private bitstreamFormatDataService: BitstreamFormatDataService,
+    private redirectService: HardRedirectService
   ) {
     // TODO: determine what open graph meta tags are needed and whether
     // the differ per route. potentially add image based on DSpaceObject
@@ -254,7 +256,7 @@ export class MetadataService {
    */
   private setCitationAbstractUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
-      const value = [environment.ui.baseUrl, this.router.url].join('');
+      const value = new URLCombiner(this.redirectService.getRequestOrigin(), this.router.url).toString();
       this.addMetaTag('citation_abstract_html_url', value);
     }
   }
@@ -279,7 +281,8 @@ export class MetadataService {
               getFirstSucceededRemoteDataPayload()
             ).subscribe((format: BitstreamFormat) => {
               if (format.mimetype === 'application/pdf') {
-                this.addMetaTag('citation_pdf_url', bitstream._links.content.href);
+                const rewrittenURL= this.redirectService.rewriteDownloadURL(bitstream._links.content.href);
+                this.addMetaTag('citation_pdf_url', rewrittenURL);
               }
             });
           }

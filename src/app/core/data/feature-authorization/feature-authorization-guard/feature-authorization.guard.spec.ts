@@ -4,6 +4,7 @@ import { FeatureID } from '../feature-id';
 import { of as observableOf } from 'rxjs';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
+import { AuthService } from '../../../auth/auth.service';
 
 /**
  * Test implementation of abstract class FeatureAuthorizationGuard
@@ -12,10 +13,11 @@ import { Observable } from 'rxjs/internal/Observable';
 class FeatureAuthorizationGuardImpl extends FeatureAuthorizationGuard {
   constructor(protected authorizationService: AuthorizationDataService,
               protected router: Router,
+              protected authService: AuthService,
               protected featureId: FeatureID,
               protected objectUrl: string,
               protected ePersonUuid: string) {
-    super(authorizationService, router);
+    super(authorizationService, router, authService);
   }
 
   getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
@@ -35,6 +37,7 @@ describe('FeatureAuthorizationGuard', () => {
   let guard: FeatureAuthorizationGuard;
   let authorizationService: AuthorizationDataService;
   let router: Router;
+  let authService: AuthService;
 
   let featureId: FeatureID;
   let objectUrl: string;
@@ -51,7 +54,10 @@ describe('FeatureAuthorizationGuard', () => {
     router = jasmine.createSpyObj('router', {
       parseUrl: {}
     });
-    guard = new FeatureAuthorizationGuardImpl(authorizationService, router, featureId, objectUrl, ePersonUuid);
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true)
+    });
+    guard = new FeatureAuthorizationGuardImpl(authorizationService, router, authService, featureId, objectUrl, ePersonUuid);
   }
 
   beforeEach(() => {
@@ -60,7 +66,7 @@ describe('FeatureAuthorizationGuard', () => {
 
   describe('canActivate', () => {
     it('should call authorizationService.isAuthenticated with the appropriate arguments', () => {
-      guard.canActivate(undefined, undefined).subscribe();
+      guard.canActivate(undefined, { url: 'current-url' } as any).subscribe();
       expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId, objectUrl, ePersonUuid);
     });
   });

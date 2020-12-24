@@ -5,9 +5,10 @@
     </button>
   </div>
   <div class="modal-body">
-    <ds-collection-dropdown
-      [entityType]="entityType"
-      (selectionChange)="selectObject($event.collection)">
-    </ds-collection-dropdown>
+    <h5 *ngIf="header" class="px-2">{{header | translate}}</h5>
+    <ds-authorized-collection-selector [currentDSOId]="dsoRD?.payload.uuid"
+                                       [entityType]="entityType"
+                                       [types]="selectorTypes"
+                                       (onSelect)="selectObject($event)"></ds-authorized-collection-selector>
   </div>
 </div>
