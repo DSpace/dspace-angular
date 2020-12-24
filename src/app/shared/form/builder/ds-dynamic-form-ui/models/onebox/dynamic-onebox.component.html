@@ -20,34 +20,45 @@
   </ul>
 </ng-template>
 
-<div *ngIf="!(isHierarchicalVocabulary() | async)" class="position-relative right-addon">
-  <i *ngIf="searching" class="fas fa-circle-notch fa-spin fa-2x fa-fw text-primary position-absolute mt-1 p-0" aria-hidden="true"></i>
-  <i *ngIf="!searching"
-     dsAuthorityConfidenceState
-     class="far fa-circle fa-2x fa-fw position-absolute mt-1 p-0"
-     aria-hidden="true"
-     [authorityValue]="currentValue"
-     (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
-  <input #instance="ngbTypeahead"
-         class="form-control"
-         [attr.autoComplete]="model.autoComplete"
-         [class.is-invalid]="showErrorMessages"
-         [dynamicId]="bindId && model.id"
-         [inputFormatter]="formatter"
-         [name]="model.name"
-         [ngbTypeahead]="search"
-         [placeholder]="model.placeholder"
-         [readonly]="model.readOnly"
-         [resultTemplate]="rt"
-         [type]="model.inputType"
-         [(ngModel)]="currentValue"
-         (blur)="onBlur($event)"
-         (focus)="onFocus($event)"
-         (change)="onChange($event)"
-         (input)="onInput($event)"
-         (selectItem)="onSelectItem($event)">
+<div *ngIf="!(isHierarchicalVocabulary() | async)" class="form-row position-relative align-items-center">
+  <div class="col right-addon">
+    <i *ngIf="searching" class="fas fa-circle-notch fa-spin fa-2x fa-fw text-primary position-absolute mt-1 p-0" aria-hidden="true"></i>
+    <i *ngIf="!searching"
+       dsAuthorityConfidenceState
+       class="far fa-circle fa-2x fa-fw position-absolute mt-1 p-0 pr-2"
+       aria-hidden="true"
+       [authorityValue]="currentValue"
+       (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
+    <input #instance="ngbTypeahead"
+           class="form-control"
+           [attr.autoComplete]="model.autoComplete"
+           [class.is-invalid]="showErrorMessages"
+           [dynamicId]="bindId && model.id"
+           [inputFormatter]="formatter"
+           [name]="model.name"
+           [ngbTypeahead]="search"
+           [placeholder]="model.placeholder"
+           [readonly]="model.readOnly"
+           [resultTemplate]="rt"
+           [type]="model.inputType"
+           [(ngModel)]="currentValue"
+           (blur)="onBlur($event)"
+           (focus)="onFocus($event)"
+           (change)="onChange($event)"
+           (input)="onInput($event)"
+           (selectItem)="onSelectItem($event)">
 
-  <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+    <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+  </div>
+  <div *ngIf="(hasExternalSource() | async) && !model?.isModelOfInnerForm" class="col-auto text-center">
+    <button class="btn btn-secondary"
+            ngbTooltip="{{'form.external.source-help' | translate}}"
+            [disabled]="!model?.value || hasAuthorityValue()"
+            (click)="createEntityFromMetadata()">
+      <i class="far fa-share-square"></i>
+    </button>
+  </div>
+
 </div>
 
 <input *ngIf="(isHierarchicalVocabulary() | async)"

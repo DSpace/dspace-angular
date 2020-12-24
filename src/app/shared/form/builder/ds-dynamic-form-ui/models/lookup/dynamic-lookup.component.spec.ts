@@ -5,7 +5,7 @@ import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@ang
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
@@ -158,7 +158,8 @@ describe('Dynamic Lookup component', () => {
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} },
-        { provide: FormBuilderService }
+        { provide: FormBuilderService },
+        NgbModal
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, O
 import { FormGroup } from '@angular/forms';
 
 import { of as observableOf, Subscription } from 'rxjs';
-import { catchError, distinctUntilChanged } from 'rxjs/operators';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { catchError, distinctUntilChanged, take } from 'rxjs/operators';
+import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
@@ -17,6 +17,9 @@ import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormBuilderService } from '../../../form-builder.service';
+import { CreateItemParentSelectorComponent } from '../../../../../dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyExternalSourceComponent } from '../../../../../vocabulary-external-source/vocabulary-external-source.component';
 
 /**
  * Component representing a lookup or lookup-name input field
@@ -45,12 +48,13 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
   protected subs: Subscription[] = [];
 
   constructor(protected vocabularyService: VocabularyService,
-              private cdr: ChangeDetectorRef,
+              protected cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
-              protected formBuilderService: FormBuilderService
+              protected formBuilderService: FormBuilderService,
+              protected modalService: NgbModal
   ) {
-    super(vocabularyService, layoutService, validationService, formBuilderService);
+    super(vocabularyService, layoutService, validationService, formBuilderService, modalService);
   }
 
   /**
@@ -64,6 +68,8 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
+    this.initVocabulary();
+
     if (isNotEmpty(this.model.value)) {
       this.setCurrentValue(this.model.value, true);
     }

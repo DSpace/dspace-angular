@@ -44,6 +44,19 @@ export class Vocabulary implements CacheableObject {
   preloadLevel: any;
 
   /**
+   * If externalSource is available represent the entity type that can be use to create a new entity from
+   * this vocabulary
+   */
+  @autoserialize
+  entity: string;
+
+  /**
+   * If available represent that this vocabulary can be use to create a new entity
+   */
+  @autoserialize
+  externalSource: string;
+
+  /**
    * A string representing the kind of Vocabulary model
    */
   @excludeFromEquals

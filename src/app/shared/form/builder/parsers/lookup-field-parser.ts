@@ -12,6 +12,8 @@ export class LookupFieldParser extends FieldParser {
 
       this.setValues(lookupModelConfig, fieldValue, true);
 
+      lookupModelConfig.submissionScope = this.parserOptions.submissionScope;
+
       return new DynamicLookupModel(lookupModelConfig);
 
     }

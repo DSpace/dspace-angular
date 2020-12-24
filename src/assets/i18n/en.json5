@@ -1549,6 +1549,10 @@
 
   "form.edit-help": "Click here to edit the selected value",
 
+  "form.external.source-help": "Click here to create a new item from this field",
+
+  "form.external.source.group-help": "Click here to create a new item from this group of fields",
+
   "form.first-name": "First name",
 
   "form.group-collapse": "Collapse",
@@ -4212,7 +4216,37 @@
 
 
 
+  "vocabulary.import-external.preview.title.Dataset": "Dataset Preview",
 
+  "vocabulary.import-external.preview.title.Equipment": "Equipment Preview",
+
+  "vocabulary.import-external.preview.title.Event": "Event Preview",
+
+  "vocabulary.import-external.preview.title.Funding": "Funding Preview",
+
+  "vocabulary.import-external.preview.title.Journal": "Journal Preview",
+
+  "vocabulary.import-external.preview.title.Mainwork": "Mainwork Preview",
+
+  "vocabulary.import-external.preview.title.OrgUnit": "Publisher Preview",
+
+  "vocabulary.import-external.preview.title.Patent": "Patent Preview",
+
+  "vocabulary.import-external.preview.title.Person": "Person Preview",
+
+  "vocabulary.import-external.preview.title.Project": "Project Preview",
+
+  "vocabulary.import-external.preview.title.Publication": "Publication Preview",
+
+  "vocabulary.import-external.preview.subtitle": "The metadata below will be used to create the new entity.",
+
+  "vocabulary.import-external.preview.button.import": "Create entity",
+
+  "vocabulary.import-external.preview.not-found": "It's not possible to create an entity from given source.",
+
+  "vocabulary.import-external.preview.import.error": "An error occurs during the creation process.",
+
+  "vocabulary.import-external.preview.import.success": "Entity created successfully.",
 
   "vocabulary-treeview.header": "Hierarchical tree view",
 

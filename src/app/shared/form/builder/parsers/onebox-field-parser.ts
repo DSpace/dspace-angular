@@ -78,6 +78,7 @@ export class OneboxFieldParser extends FieldParser {
     } else if (this.configData.selectableMetadata[0].controlledVocabulary) {
       const oneboxModelConfig: DsDynamicOneboxModelConfig = this.initModel(null, label);
       this.setVocabularyOptions(oneboxModelConfig, this.parserOptions.collectionUUID);
+      oneboxModelConfig.submissionScope = this.parserOptions.submissionScope;
       this.setValues(oneboxModelConfig, fieldValue, true);
 
       return new DynamicOneboxModel(oneboxModelConfig);

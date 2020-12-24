@@ -78,6 +78,14 @@
               (click)="saveChanges()">{{'form.save' | translate}}
       </button>
     </div>
+    <div *ngIf="(hasExternalSource() | async) && !model?.isModelOfInnerForm" class="col-auto text-center">
+      <button class="btn btn-secondary"
+              ngbTooltip="{{'form.external.source-help' | translate}}"
+              [disabled]="!model?.value || hasAuthorityValue()"
+              (click)="createEntityFromMetadata()">
+        <i class="far fa-share-square"></i>
+      </button>
+    </div>
   </div>
 
   <div ngbDropdownMenu

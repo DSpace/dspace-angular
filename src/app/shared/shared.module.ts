@@ -232,6 +232,7 @@ import { SearchChartFilterWrapperComponent } from './search/search-charts/search
 import { SearchChartComponent } from './search/search-charts/search-chart/search-chart.component';
 import { ChartsModule } from '../charts/charts.module';
 import { SearchChartFilterComponent } from './search/search-charts/search-chart/search-chart-filter/search-chart-filter.component';
+import { VocabularyExternalSourceComponent } from './vocabulary-external-source/vocabulary-external-source.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -441,7 +442,8 @@ const COMPONENTS = [
   SearchChartLineComponent,
   SearchChartFilterWrapperComponent,
   SearchChartComponent,
-  SearchChartFilterComponent
+  SearchChartFilterComponent,
+  VocabularyExternalSourceComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -536,7 +538,8 @@ const ENTRY_COMPONENTS = [
   SearchChartLineComponent,
   SearchChartFilterWrapperComponent,
   SearchChartComponent,
-  SearchChartFilterComponent
+  SearchChartFilterComponent,
+  VocabularyExternalSourceComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

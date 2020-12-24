@@ -1,5 +1,6 @@
 export interface ParserOptions {
   readOnly: boolean;
   submissionScope: string;
-  collectionUUID: string
+  collectionUUID: string;
+  isInnerForm: boolean;
 }
