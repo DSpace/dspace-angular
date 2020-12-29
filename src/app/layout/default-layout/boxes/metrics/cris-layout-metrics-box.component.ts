@@ -4,12 +4,13 @@ import { CrisLayoutBox } from 'src/app/layout/decorators/cris-layout-box.decorat
 import { LayoutTab } from 'src/app/layout/enums/layout-tab.enum';
 import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
 import { LayoutPage } from 'src/app/layout/enums/layout-page.enum';
-import { getAllSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
 import { Subscription } from 'rxjs';
 import { hasValue } from 'src/app/shared/empty.util';
-import { MetricsComponent } from "../../../../core/layout/models/metrics-component.model";
-import { MetricsComponentsDataService } from "../../../../core/layout/metrics-components-data.service";
-import { Metric } from "../../../../core/shared/metric.model";
+import { MetricsComponent } from '../../../../core/layout/models/metrics-component.model';
+import { MetricsComponentsDataService } from '../../../../core/layout/metrics-components-data.service';
+import { Metric } from '../../../../core/shared/metric.model';
+import { ItemDataService } from '../../../../core/data/item-data.service';
 
 export interface MetricRow {
   metrics: Metric[];
@@ -52,7 +53,8 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements O
 
   constructor(
     public cd: ChangeDetectorRef,
-    private metricscomponentsService: MetricsComponentsDataService
+    private metricscomponentsService: MetricsComponentsDataService,
+    private itemService: ItemDataService
   ) {
     super();
   }
@@ -64,9 +66,11 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements O
       .subscribe(
         (next) => {
           this.metricscomponents = next;
-          this.metricRows = this.metricscomponentsService
-            .getMatchingMetrics(this.item, this.box.maxColumns, this.metricscomponents.metrics);
-          this.cd.markForCheck();
+          this.itemService.getMetrics(this.item.uuid).pipe(getFirstSucceededRemoteDataPayload()).subscribe((result) => {
+            this.metricRows = this.metricscomponentsService
+              .getMatchingMetrics(result.page, this.box.maxColumns, this.metricscomponents.metrics);
+            this.cd.markForCheck();
+          })
         }
       ));
   }

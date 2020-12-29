@@ -4,10 +4,10 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MetricRowComponent } from "./metric-row.component";
-import { MetricComponent } from "../metric/metric.component";
-import { metricRowsMock } from "../../metrics/cris-layout-metrics-box.component.spec";
-import { By } from "@angular/platform-browser";
+import { MetricRowComponent } from './metric-row.component';
+import { MetricComponent } from '../metric/metric.component';
+import { metricRowsMock } from '../../metrics/cris-layout-metrics-box.component.spec';
+import { By } from '@angular/platform-browser';
 
 describe('MetricRowComponent', () => {
   let component: MetricRowComponent;
@@ -37,7 +37,7 @@ describe('MetricRowComponent', () => {
   });
 
   describe('When the component is rendered', () => {
-    fit('check metrics rendering', (done) => {
+    it('check metrics rendering', (done) => {
       const rowsFound = fixture.debugElement.queryAll(By.css('ds-metric'));
 
       expect(rowsFound.length).toEqual(2);

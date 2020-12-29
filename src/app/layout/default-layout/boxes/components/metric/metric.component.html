@@ -1,12 +1,42 @@
-<div *ngIf="metric" class="metric-container {{metric.metricType}}">
-  <div><span>Id: </span>{{ metric.id }}</div>
-  <div><span>deltaPeriod1: </span>{{ metric.deltaPeriod1 }}</div>
-  <div><span>deltaPeriod1: </span>{{ metric.deltaPeriod1 }}</div>
-  <div><span>startDate: </span>{{ metric.startDate }}</div>
-  <div><span>endDate: </span>{{ metric.endDate }}</div>
-  <div><span>last: </span>{{ metric.last }}</div>
-  <div><span>metricCount: </span>{{ metric.metricCount }}</div>
-  <div><span>metricType: </span>{{ metric.metricType }}</div>
-  <div><span>rank: </span>{{ metric.rank }}</div>
-  <div><span>remark: </span>{{ metric.remark }}</div>
+<div *ngIf="metric" class="container alert alert-info metric-container {{metric.metricType}}">
+  <div class="row">
+    <div class="col-3 text-left">
+<!--      <i class="fa fa-eye"></i>-->
+    </div>
+    <div class="col-6 text-uppercase font-weight-bold text-center">
+      {{metric.metricType}}
+    </div>
+    <div class="col-3 text-right">
+      <span ngbTooltip="{{'metric.rank' | translate}}"
+            class="badge badge-light">{{ metric.rank }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <strong>{{ metric.metricCount }}</strong>
+      <span *ngIf="getDetailUrl()"
+            ngbTooltip="{{'metric.detail-url'}}">
+            <a href="{{ getDetailUrl() }}}"><i class="fas fa-info-circle"></i></a>
+          </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="text-left">
+        <small><span><em>DeltaPeriod1</em></span><br>{{ metric.deltaPeriod1 }}</small>
+      </div>
+    </div>
+    <div class="col">
+      <div class="text-right">
+        <small><span><em>DeltaPeriod2</em></span><br>{{ metric.deltaPeriod2 }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center">
+      <small>Acquisition Date</small><br>
+      {{ metric.acquisitionDate | date }}
+    </div>
+  </div>
 </div>

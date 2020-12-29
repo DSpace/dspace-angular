@@ -1,19 +1,19 @@
-import { Metric } from "../shared/metric.model";
-import { MetricsComponentsDataService } from "./metrics-components-data.service";
-import { MetricsComponent, MetricType } from "./models/metrics-component.model";
-import { TestScheduler } from "rxjs/testing";
-import { RequestService } from "../data/request.service";
-import { RemoteDataBuildService } from "../cache/builders/remote-data-build.service";
-import { ObjectCacheService } from "../cache/object-cache.service";
-import { HALEndpointService } from "../shared/hal-endpoint.service";
-import { RequestEntry } from "../data/request.reducer";
-import { createSuccessfulRemoteDataObject } from "../../shared/remote-data.utils";
-import { cold, getTestScheduler, hot } from "jasmine-marbles";
-import { RestResponse } from "../cache/response.models";
-import { of } from "rxjs";
-import { NotificationsService } from "../../shared/notifications/notifications.service";
-import { HttpClient } from "@angular/common/http";
-import { METRICSCOMPONENT } from "./models/metrics-component.resource-type";
+import { Metric } from '../shared/metric.model';
+import { MetricsComponentsDataService } from './metrics-components-data.service';
+import { MetricsComponent } from './models/metrics-component.model';
+import { TestScheduler } from 'rxjs/testing';
+import { RequestService } from '../data/request.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RequestEntry } from '../data/request.reducer';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { RestResponse } from '../cache/response.models';
+import { of } from 'rxjs';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { METRICSCOMPONENT } from './models/metrics-component.resource-type';
 
 describe('MetricsComponentsDataService', () => {
 
@@ -82,14 +82,14 @@ describe('MetricsComponentsDataService', () => {
   });
 
   describe('findById', () => {
-    fit('should proxy the call to dataservice.findById', () => {
+    it('should proxy the call to dataservice.findById', () => {
       scheduler.schedule(() => service.findById(metricsComponentID));
       scheduler.flush();
 
       expect((service as any).dataService.findById).toHaveBeenCalledWith(metricsComponentID.toString());
     });
 
-    fit('should return a RemoteData<MetricsComponent> for the object with the given id', () => {
+    it('should return a RemoteData<MetricsComponent> for the object with the given id', () => {
       const result = service.findById(metricsComponentID);
       const expected = cold('a|', {
         a: metricsComponentRD
@@ -102,12 +102,12 @@ describe('MetricsComponentsDataService', () => {
 
     it('should filter metrics out of the box scope', () => {
 
-      let metrics: Metric[] = []
-      let metricTypes: MetricType[] = [];
+      const metrics: Metric[] = []
+      const metricTypes: string[] = [];
 
       metrics.push({...metricMock, metricType: 'views'});
       metrics.push({...metricMock, metricType: 'downloads'});
-      metricTypes.push({...metricTypeMock, type: 'views'});
+      metricTypes.push('views');
 
       const result = service.computeMetricsRows(metrics, 1, metricTypes);
 
@@ -119,14 +119,14 @@ describe('MetricsComponentsDataService', () => {
 
     it('should order metrics based on metricType.position', () => {
 
-      let metrics: Metric[] = []
-      let metricTypes: MetricType[] = [];
+      const metrics: Metric[] = []
+      const metricTypes: string[] = [];
 
       metrics.push({...metricMock, metricType: 'views'});
       metrics.push({...metricMock, metricType: 'downloads'});
 
-      metricTypes.push({...metricTypeMock, type: 'views', position: 1});
-      metricTypes.push({...metricTypeMock, type: 'downloads', position: 0});
+      metricTypes.push('downloads');
+      metricTypes.push('views');
 
       const result = service.computeMetricsRows(metrics, 2, metricTypes);
 
@@ -139,8 +139,8 @@ describe('MetricsComponentsDataService', () => {
 
     it('should split rows based on maxColumn', () => {
 
-      let metrics: Metric[] = []
-      let metricTypes: MetricType[] = [];
+      const metrics: Metric[] = []
+      const metricTypes: string[] = [];
 
       metrics.push({...metricMock, metricType: 'views'});
       metrics.push({...metricMock, metricType: 'views'});
@@ -148,7 +148,7 @@ describe('MetricsComponentsDataService', () => {
       metrics.push({...metricMock, metricType: 'views'});
       metrics.push({...metricMock, metricType: 'views'});
 
-      metricTypes.push({...metricTypeMock, type: 'views', position: 1});
+      metricTypes.push('views');
 
       const result = service.computeMetricsRows(metrics, 2, metricTypes);
 
@@ -158,12 +158,12 @@ describe('MetricsComponentsDataService', () => {
 
     it('should fill the last row with null values to reach maxColumn', () => {
 
-      let metrics: Metric[] = []
-      let metricTypes: MetricType[] = [];
+      const metrics: Metric[] = []
+      const metricTypes: string[] = [];
 
       metrics.push({...metricMock, metricType: 'views'});
 
-      metricTypes.push({...metricTypeMock, type: 'views', position: 1});
+      metricTypes.push('views');
 
       const result = service.computeMetricsRows(metrics, 3, metricTypes);
 
@@ -179,12 +179,6 @@ describe('MetricsComponentsDataService', () => {
 
 });
 
-const metricTypeMock = {
-  id: 1,
-  type: 'mockType',
-  position:0
-}
-
 const metricMock = {
   acquisitionDate: new Date(),
   deltaPeriod1: null,
@@ -193,7 +187,7 @@ const metricMock = {
   id: '1',
   last: true,
   metricCount: 333,
-  metricType: "views",
+  metricType: 'views',
   rank: null,
   remark: null,
   startDate: null,

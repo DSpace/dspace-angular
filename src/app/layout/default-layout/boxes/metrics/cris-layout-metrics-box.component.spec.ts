@@ -13,10 +13,12 @@ import { By } from '@angular/platform-browser';
 import { boxMetadata } from 'src/app/shared/testing/box.mock';
 import { TextComponent } from '../components/text/text.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { CrisLayoutMetricsBoxComponent } from "./cris-layout-metrics-box.component";
-import { metricsComponent } from "../../../../shared/testing/metrics-components.mock";
-import { MetricsComponent } from "../../../../core/layout/models/metrics-component.model";
-import { MetricsComponentsDataService } from "../../../../core/layout/metrics-components-data.service";
+import { CrisLayoutMetricsBoxComponent, MetricRow } from './cris-layout-metrics-box.component';
+import { metricsComponent } from '../../../../shared/testing/metrics-components.mock';
+import { MetricsComponent } from '../../../../core/layout/models/metrics-component.model';
+import { MetricsComponentsDataService } from '../../../../core/layout/metrics-components-data.service';
+import { Metric } from '../../../../core/shared/metric.model';
+import { ItemDataService } from '../../../../core/data/item-data.service';
 
 export const metric1Mock = {
   acquisitionDate: new Date(),
@@ -26,7 +28,7 @@ export const metric1Mock = {
   id: 1,
   last: true,
   metricCount: 333,
-  metricType: "views",
+  metricType: 'views',
   rank: null,
   remark: null,
   startDate: null,
@@ -45,14 +47,22 @@ class MetricsComponentsDataServiceMock {
     return of(
       createSuccessfulRemoteDataObject(metricsComponent)
     );
+  };
+  getMatchingMetrics(metrics: Metric[], maxColumn: number, metricTypes: string[]): MetricRow[] {
+    return metricRowsMock as any;
   }
 }
+
+let itemDataService: ItemDataService;
 
 describe('CrisLayoutMetricsBoxComponent', () => {
   let component: CrisLayoutMetricsBoxComponent;
   let fixture: ComponentFixture<CrisLayoutMetricsBoxComponent>;
 
   beforeEach(async(() => {
+
+    itemDataService = new ItemDataService(null, null, null, null, null, null, null, null, null, null);
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -64,6 +74,7 @@ describe('CrisLayoutMetricsBoxComponent', () => {
       SharedModule],
       providers: [
         { provide: MetricsComponentsDataService, useClass: MetricsComponentsDataServiceMock },
+        { provide: ItemDataService, useValue: itemDataService }
       ],
       declarations: [
         CrisLayoutMetricsBoxComponent,
@@ -80,6 +91,11 @@ describe('CrisLayoutMetricsBoxComponent', () => {
   }));
 
   beforeEach(() => {
+
+    spyOn(itemDataService, 'getMetrics').and.returnValue(of(
+      createSuccessfulRemoteDataObject({pageInfo: {}, page: ['views']} as any)
+    ))
+
     fixture = TestBed.createComponent(CrisLayoutMetricsBoxComponent);
     component = fixture.componentInstance;
     component.item = {
@@ -87,12 +103,10 @@ describe('CrisLayoutMetricsBoxComponent', () => {
     } as any;
 
     component.box = boxMetadata;
-    component.metricRows = metricRowsMock as any;
-    component.metricscomponents = metricsComponent;
     fixture.detectChanges();
   });
 
-  fit('check metrics rows rendering', (done) => {
+  it('check metrics rows rendering', (done) => {
     const rowsFound = fixture.debugElement.queryAll(By.css('div[ds-metric-row]'));
 
     expect(rowsFound.length).toEqual(1);

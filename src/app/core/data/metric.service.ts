@@ -9,9 +9,9 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { Metric } from "../shared/metric.model";
-import { dataService } from "../cache/builders/build-decorators";
-import { METRIC } from "../shared/metric.resource-type";
+import { Metric } from '../shared/metric.model';
+import { dataService } from '../cache/builders/build-decorators';
+import { METRIC } from '../shared/metric.resource-type';
 
 /**
  * A service handling all external source requests

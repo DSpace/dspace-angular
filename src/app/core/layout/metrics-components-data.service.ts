@@ -13,11 +13,10 @@ import { dataService } from '../cache/builders/build-decorators';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
-import { METRICSCOMPONENT } from "./models/metrics-component.resource-type";
-import { MetricsComponent, MetricType } from "./models/metrics-component.model";
-import { Item } from "../shared/item.model";
-import { Metric } from "../shared/metric.model";
-import {MetricRow} from "../../layout/default-layout/boxes/metrics/cris-layout-metrics-box.component";
+import { METRICSCOMPONENT } from './models/metrics-component.resource-type';
+import { MetricsComponent } from './models/metrics-component.model';
+import { Metric } from '../shared/metric.model';
+import { MetricRow } from '../../layout/default-layout/boxes/metrics/cris-layout-metrics-box.component';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<MetricsComponent> {
@@ -68,43 +67,23 @@ export class MetricsComponentsDataService {
   /**
    * Get matching metrics for item.
    */
-  getMatchingMetrics(item: Item, maxColumn: number, metricTypes: MetricType[]): MetricRow[] {
-
-    // Test cases
-    // should filter metrics out of the box scope
-    // should order metrics based on metricType.position
-    // should split row based on maxColumn
-    // should fill the last row
-
-
-
-    let metrics = []
-
-    metrics.push({...metricMock, metricType: "views", metricCount: 111});
-    metrics.push({...metricMock, metricType: "downloads", metricCount: 222});
-    metrics.push({...metricMock, metricType: "metric1", metricCount: 333});
-    metrics.push({...metricMock, metricType: "metric2", metricCount: 444});
-    metrics.push({...metricMock, metricType: "metric3", metricCount: 555});
-    metrics.push({...metricMock, metricType: "metric4", metricCount: 666});
-    metrics.push({...metricMock, metricType: "metric5", metricCount: 777});
+  getMatchingMetrics(metrics: Metric[], maxColumn: number, metricTypes: string[]): MetricRow[] {
 
     const metricRows = this.computeMetricsRows(metrics, 3, metricTypes);
 
     return metricRows;
   }
 
-  computeMetricsRows(itemMetrics: Metric[], maxColumn, metricTypes: MetricType[]): MetricRow[] {
-
-    debugger;
+  computeMetricsRows(itemMetrics: Metric[], maxColumn, metricTypes: string[]): MetricRow[] {
 
     // support
     const typeMap = {};
-    metricTypes.forEach(type => typeMap[type.type] = type);
+    metricTypes.forEach((type) => typeMap[type] = type);
 
     // filter, enrich, order
     const metrics = itemMetrics
-      .filter(metric => typeMap[metric.metricType])
-      .map(metric => {
+      .filter((metric) => typeMap[metric.metricType])
+      .map((metric) => {
        return { ...metric, position: typeMap[metric.metricType].position};
       })
       .sort((metric) => metric.position);
@@ -129,16 +108,16 @@ export class MetricsComponentsDataService {
 }
 
 const metricMock = {
-  acquisitionDate: "2020-12-10T12:01:17.000+0000",
+  acquisitionDate: '2020-12-10T12:01:17.000+0000',
   deltaPeriod1: null,
   deltaPeriod2: null,
   endDate: null,
   id: 1,
   last: true,
   metricCount: 333,
-  metricType: "views",
+  metricType: 'views',
   rank: null,
   remark: null,
   startDate: null,
-  type: "metric"
+  type: 'metric'
 }

@@ -4,13 +4,7 @@ import { autoserialize, deserialize } from 'cerialize';
 import { HALLink } from '../../shared/hal-link.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
-import { METRICSCOMPONENT } from "./metrics-component.resource-type";
-
-export interface MetricType {
-  id: number;
-  type: string;
-  position: number;
-}
+import { METRICSCOMPONENT } from './metrics-component.resource-type';
 
 /**
  * Describes a type of metricscomponent
@@ -33,7 +27,7 @@ export class MetricsComponent extends CacheableObject {
   id: string;
 
   @autoserialize
-  metrics: MetricType[];
+  metrics: string[];
 
   /**
    * The {@link HALLink}s for this metricscomponent

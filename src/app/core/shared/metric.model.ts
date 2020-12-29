@@ -1,10 +1,10 @@
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { METRIC } from "./metric.resource-type";
-import { typedObject } from "../cache/builders/build-decorators";
-import { CacheableObject } from "../cache/object-cache.reducer";
-import { excludeFromEquals } from "../utilities/equals.decorators";
-import { ResourceType } from "./resource-type";
-import { HALLink } from "./hal-link.model";
+import { autoserialize, deserialize } from 'cerialize';
+import { METRIC } from './metric.resource-type';
+import { typedObject } from '../cache/builders/build-decorators';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { excludeFromEquals } from '../utilities/equals.decorators';
+import { ResourceType } from './resource-type';
+import { HALLink } from './hal-link.model';
 
 /**
  * Describes a type of Item

@@ -4,9 +4,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MetricComponent } from "../metric/metric.component";
-import { metric1Mock } from "../../metrics/cris-layout-metrics-box.component.spec";
-import { By } from "@angular/platform-browser";
+import { MetricComponent } from '../metric/metric.component';
+import { metric1Mock } from '../../metrics/cris-layout-metrics-box.component.spec';
+import { By } from '@angular/platform-browser';
 
 describe('MetricComponent', () => {
   let component: MetricComponent;
@@ -35,7 +35,7 @@ describe('MetricComponent', () => {
   });
 
   describe('When the component is rendered', () => {
-    fit('check metric data rendered', (done) => {
+    it('check metric data rendered', (done) => {
       const rowsFound = fixture.debugElement.queryAll(By.css('.metric-container'));
 
       expect(rowsFound.length).toEqual(1);

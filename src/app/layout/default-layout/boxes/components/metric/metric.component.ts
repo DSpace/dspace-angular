@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Metric } from "../../../../../core/shared/metric.model";
+import { Component, Input } from '@angular/core';
+import { Metric } from '../../../../../core/shared/metric.model';
 
 /**
  * This component renders the rows of metadata boxes
@@ -9,17 +9,18 @@ import { Metric } from "../../../../../core/shared/metric.model";
   templateUrl: './metric.component.html',
   styleUrls: ['./metric.component.scss']
 })
-export class MetricComponent implements OnInit {
+export class MetricComponent {
 
   /**
    * Current row configuration
    */
   @Input() metric: Metric;
 
-  constructor() {}
-
-  ngOnInit() {
-
+  /**
+   * Get the detail url form metric remark if present.
+   */
+  getDetailUrl() {
+    const remark = this.metric.remark;
+    return remark ? (remark as any).detailUrl : null;
   }
-
 }

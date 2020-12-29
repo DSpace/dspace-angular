@@ -20,7 +20,7 @@ import { ITEM } from '../shared/item.resource-type';
 import {
   configureRequest,
   filterSuccessfulResponses,
-  getRequestFromRequestHref, getRequestFromRequestUUID,
+  getRequestFromRequestUUID,
   getResponseFromEntry
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -45,6 +45,7 @@ import { PaginatedSearchOptions } from '../../shared/search/paginated-search-opt
 import { Bundle } from '../shared/bundle.model';
 import { MetadataMap } from '../shared/metadata.models';
 import { BundleDataService } from './bundle-data.service';
+import { Metric } from '../shared/metric.model';
 
 @Injectable()
 @dataService(ITEM)
@@ -252,6 +253,35 @@ export class ItemDataService extends DataService<Item> {
     });
 
     return this.rdbService.buildList<Bundle>(hrefObs);
+  }
+
+  /**
+   * Get the endpoint for an item's metrics
+   * @param itemId
+   */
+  public getMetricsEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((url: string) => this.halService.getEndpoint('metrics', `${url}/${itemId}`))
+    );
+  }
+
+  /**
+   * Get an item's metrics using paginated search options
+   * @param itemId          The item's ID
+   * @param searchOptions   The search options to use
+   */
+  public getMetrics(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Metric>>> {
+    const hrefObs = this.getMetricsEndpoint(itemId).pipe(
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+    );
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.configure(request);
+    });
+
+    return this.rdbService.buildList<Metric>(hrefObs);
   }
 
   /**

@@ -19,8 +19,8 @@ import { ITEM } from './item.resource-type';
 import { ChildHALResource } from './child-hal-resource.model';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
-import { Metric } from "./metric.model";
-import { METRIC } from "./metric.resource-type";
+import { Metric } from './metric.model';
+import { METRIC } from './metric.resource-type';
 
 /**
  * Class representing a DSpace Item
