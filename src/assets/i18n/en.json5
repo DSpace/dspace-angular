@@ -2070,6 +2070,14 @@
 
   "item.page.link.simple": "Simple item page",
 
+  "item.page.metric.deltaPeriod1": "Last Week",
+
+  "item.page.metric.deltaPeriod2": "Last Month",
+
+  "item.page.metric.label.scopusCitation": "Scopus citations",
+
+  "item.page.metric.label.wosCitation": "WOS citations",
+
   "item.page.person.search.title": "Articles by this author",
 
   "item.page.related-items.view-more": "Show {{ amount }} more",
