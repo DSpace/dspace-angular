@@ -2076,7 +2076,19 @@
 
   "item.page.metric.label.scopusCitation": "Scopus citations",
 
+  "item.page.metric.label.scopus-author-h-index": "H-index",
+
+  "item.page.metric.label.scopus-author-coauthor-count": "Coauthor",
+
+  "item.page.metric.label.scopus-author-cited-count": "Cited By",
+
+  "item.page.metric.label.scopus-author-citation-count": "Author Citations",
+
+  "item.page.metric.label.scopus-author-document-count": "Author Documents",
+
   "item.page.metric.label.wosCitation": "WOS citations",
+
+  "item.page.metric.label.wosPersonCitation": "WOS citations",
 
   "item.page.person.search.title": "Articles by this author",
 
