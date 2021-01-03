@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -151,5 +151,37 @@ describe('ComcolPageBrowseByComponent', () => {
     expect(secondOption.label).toEqual('browse.comcol.by.ouname');
     expect(secondOption.routerLink).toEqual('/browse/ouname');
     expect(secondOption.params).toEqual({ scope: orgUnitId});
+  });
+
+  it('should display browse options when options are more then one',  () => {
+
+    fixture = TestBed.createComponent(ComcolPageBrowseByComponent);
+    component = fixture.componentInstance;
+    component.id = publicationId;
+    component.contentType = 'collection';
+
+    fixture.detectChanges();
+
+    expect(component.allOptions.length).toEqual(3);
+
+    const navElement = fixture.debugElement.query(By.css('nav'));
+    expect(navElement).toBeTruthy();
+
+  });
+
+  it('should not display browse options when options aren\'t more then one',  () => {
+
+    fixture = TestBed.createComponent(ComcolPageBrowseByComponent);
+    component = fixture.componentInstance;
+    component.id = communityId;
+    component.contentType = 'community';
+
+    fixture.detectChanges();
+
+    expect(component.allOptions.length).toEqual(1);
+
+    const navElement = fixture.debugElement.query(By.css('nav'));
+    expect(navElement).toBeNull();
+
   });
 })
