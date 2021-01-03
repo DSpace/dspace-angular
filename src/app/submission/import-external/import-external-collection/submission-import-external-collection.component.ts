@@ -22,6 +22,11 @@ export class SubmissionImportExternalCollectionComponent {
   public entityType: string;
 
   /**
+   * If a collection choice is available
+   */
+  public hasChoice: boolean = null;
+
+  /**
    * Initialize the component variables.
    * @param {NgbActiveModal} activeModal
    */
@@ -41,5 +46,28 @@ export class SubmissionImportExternalCollectionComponent {
    */
   public closeCollectionModal(): void {
     this.activeModal.dismiss(false);
+  }
+
+  /**
+   * Propagate the onlySelectable collection
+   * @param theOnlySelectable
+   */
+  public theOnlySelectable(theOnlySelectable: CollectionListEntry) {
+    this.selectedEvent.emit(theOnlySelectable);
+  }
+
+  /**
+   * Set the hasChoice state
+   * @param hasChoice
+   */
+  public onHasChoice(hasChoice: boolean) {
+    this.hasChoice = hasChoice;
+  }
+
+  /**
+   * If the component is in loading state.
+   */
+  public isLoading(): boolean {
+    return this.hasChoice !== true;
   }
 }

@@ -5,7 +5,11 @@
     </button>
   </div>
   <div class="modal-body">
-    <ds-collection-dropdown (selectionChange)="selectObject($event)"
+    <ds-loading *ngIf="isLoading()"></ds-loading>
+    <ds-collection-dropdown [ngClass]="{'d-none': isLoading()}"
+                            (selectionChange)="selectObject($event)"
+                            (hasChoice)="onHasChoice($event)"
+                            (theOnlySelectable)="theOnlySelectable($event)"
                             [entityType]="entityType">
     </ds-collection-dropdown>
   </div>
