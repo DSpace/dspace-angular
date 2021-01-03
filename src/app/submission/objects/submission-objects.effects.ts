@@ -66,6 +66,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -265,7 +266,14 @@ export class SubmissionObjectEffects {
   @Effect({ dispatch: false }) saveForLaterSubmissionSuccess$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'))),
-    tap(() => this.submissionService.redirectToMyDSpace()));
+    tap((action: SaveForLaterSubmissionFormSuccessAction) => {
+      const scope = this.submissionService.getSubmissionScope();
+      if (scope === SubmissionScopeType.EditItem) {
+        this.submissionService.redirectToItemPage(action.payload.submissionId);
+      } else {
+        this.submissionService.redirectToMyDSpace();
+      }
+    }));
 
   /**
    * Show a notification on success and redirect to MyDSpace page

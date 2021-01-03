@@ -54,6 +54,7 @@ import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-da
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { EditItemDataService } from 'src/app/core/submission/edititem-data.service';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;
@@ -690,6 +691,24 @@ describe('SubmissionObjectEffects test suite', () => {
       submissionObjectEffects.saveForLaterSubmissionSuccess$.subscribe(() => {
         expect(notificationsServiceStub.success).toHaveBeenCalled();
         expect(submissionServiceStub.redirectToMyDSpace).toHaveBeenCalled();
+      });
+    });
+
+    it('should redirect to item page when the submission scope is EditItem', () => {
+
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.EditItem);
+
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS,
+          payload: {
+            submissionId: submissionId,
+            submissionObject: mockSubmissionRestResponse
+          }
+        }
+      });
+      submissionObjectEffects.saveForLaterSubmissionSuccess$.subscribe(() => {
+        expect(submissionServiceStub.redirectToEditItem).toHaveBeenCalled();
       });
     });
   });

@@ -909,6 +909,27 @@ describe('SubmissionService test suite', () => {
     });
   });
 
+  describe('redirectToEditItem', () => {
+    it('should redirect to Item page', () => {
+      scheduler = getTestScheduler();
+
+      const itemUuid = 'd62fc60f-e9a5-48e6-973a-90819acf23ae';
+      let itemSubmissionId = itemUuid + ':FULL';
+
+      scheduler.schedule(() => service.redirectToItemPage(itemSubmissionId));
+      scheduler.flush();
+
+      expect((service as any).router.navigateByUrl).toHaveBeenCalledWith('/items/' + itemUuid, { replaceUrl: true });
+
+      itemSubmissionId = itemUuid;
+      scheduler.schedule(() => service.redirectToItemPage(itemSubmissionId));
+      scheduler.flush();
+
+      expect((service as any).router.navigateByUrl).toHaveBeenCalledWith('/items/' + itemUuid, { replaceUrl: true });
+
+    });
+  });
+
   describe('resetAllSubmissionObjects', () => {
     it('should dispatch a new CancelSubmissionFormAction', () => {
       service.resetAllSubmissionObjects();
