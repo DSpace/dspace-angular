@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
-import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
+import { ParsedResponse } from '../cache/response.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { ContentSource } from '../shared/content-source.model';
 import { MetadataConfig } from '../shared/metadata-config.model';
-import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
+import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 
 @Injectable()
 /**
- * A ResponseParsingService used to parse DSpaceRESTV2Response coming from the REST API to a ContentSource object
- * wrapped in a ContentSourceSuccessResponse
+ * A ResponseParsingService used to parse RawRestResponse coming from the REST API to a ContentSource object
  */
-export class ContentSourceResponseParsingService implements ResponseParsingService {
+export class ContentSourceResponseParsingService extends DspaceRestResponseParsingService {
 
-  parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+  parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
     const payload = data.payload;
 
     const deserialized = new DSpaceSerializer(ContentSource).deserialize(payload);
@@ -25,7 +24,9 @@ export class ContentSourceResponseParsingService implements ResponseParsingServi
     }
     deserialized.metadataConfigs = metadataConfigs;
 
-    return new ContentSourceSuccessResponse(deserialized, data.statusCode, data.statusText);
+    this.addToObjectCache(deserialized, request, data)
+
+    return new ParsedResponse(data.statusCode, deserialized._links.self);
   }
 
 }

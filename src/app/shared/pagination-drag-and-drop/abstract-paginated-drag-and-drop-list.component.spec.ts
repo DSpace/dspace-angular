@@ -3,7 +3,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
 import { ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { FieldUpdates } from '../../core/data/object-updates/object-updates.reducer';

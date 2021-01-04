@@ -18,7 +18,7 @@ describe('RegistrationResolver', () => {
     resolver = new RegistrationResolver(epersonRegistrationService);
   });
   describe('resolve', () => {
-    it('should resolve a registration based on the token', () => {
+    it('should resolve a registration based on the token', (done) => {
       resolver.resolve({params: {token: token}} as any, undefined)
         .pipe(first())
         .subscribe(
@@ -26,6 +26,7 @@ describe('RegistrationResolver', () => {
             expect(resolved.token).toEqual(token);
             expect(resolved.email).toEqual('test@email.org');
             expect(resolved.user).toEqual('user-uuid');
+            done();
           }
         );
     });

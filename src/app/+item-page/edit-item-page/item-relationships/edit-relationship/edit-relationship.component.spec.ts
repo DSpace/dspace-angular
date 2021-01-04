@@ -4,14 +4,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../../core/data/paginated-list';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
 import { EditRelationshipComponent } from './edit-relationship.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
 
 let objectUpdatesService;
 const url = 'http://test-url.com/test-url';
@@ -49,7 +48,7 @@ describe('EditRelationshipComponent', () => {
       },
       id: 'publication',
       uuid: 'publication',
-      relationships: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), relationships)))
+      relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships))
     });
 
     relatedItem = Object.assign(new Item(), {
@@ -65,9 +64,9 @@ describe('EditRelationshipComponent', () => {
         uuid: '2',
         leftId: 'author1',
         rightId: 'publication',
-        relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType)),
-        leftItem: observableOf(new RemoteData(false, false, true, undefined, relatedItem)),
-        rightItem: observableOf(new RemoteData(false, false, true, undefined, item)),
+        relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
+        leftItem: createSuccessfulRemoteDataObject$(relatedItem),
+        rightItem: createSuccessfulRemoteDataObject$(item),
       }),
       Object.assign(new Relationship(), {
         _links: {
@@ -77,7 +76,7 @@ describe('EditRelationshipComponent', () => {
         uuid: '3',
         leftId: 'author2',
         rightId: 'publication',
-        relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
+        relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
       })
     ];
 

@@ -17,18 +17,22 @@ import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
 import { DataService } from '../data/data.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions, FindListRequest, PatchRequest, PostRequest, } from '../data/request.models';
+import {
+  FindListOptions,
+  FindListRequest,
+  PatchRequest,
+  PostRequest,
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData, } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { EPERSON } from './models/eperson.resource-type';
-import { RequestEntry } from '../data/request.reducer';
+import { NoContent } from '../shared/NoContent.model';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -93,34 +97,43 @@ export class EPersonDataService extends DataService<EPerson> {
 
   /**
    * Returns a search result list of EPeople, by email query (/eperson/epersons/search/{@link searchByEmailPath}?email=<>)
-   * @param query     email query
+   * @param query             email query
    * @param options
-   * @param linksToFollow
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
+   *                          should be automatically resolved
    */
-  private getEpeopleByEmail(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEpeopleByEmail(query: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
     const searchParams = [new RequestParam('email', query)];
-    return this.getEPeopleBy(searchParams, this.searchByEmailPath, options, ...linksToFollow);
+    return this.getEPeopleBy(searchParams, this.searchByEmailPath, options, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns a search result list of EPeople, by metadata query (/eperson/epersons/search/{@link searchByMetadataPath}?query=<>)
    * @param query     metadata query
    * @param options
-   * @param linksToFollow
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
+   *                          should be automatically resolved
    */
-  private getEpeopleByMetadata(query: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEpeopleByMetadata(query: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
     const searchParams = [new RequestParam('query', query)];
-    return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, ...linksToFollow);
+    return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns a search result list of EPeople in a given searchMethod, with given searchParams
-   * @param searchParams    query parameters in the search
-   * @param searchMethod    searchBy path
+   * @param searchParams      query parameters in the search
+   * @param searchMethod      searchBy path
    * @param options
-   * @param linksToFollow
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
+   *                          should be automatically resolved
    */
-  private getEPeopleBy(searchParams: RequestParam[], searchMethod: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
+  private getEPeopleBy(searchParams: RequestParam[], searchMethod: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<EPerson>>): Observable<RemoteData<PaginatedList<EPerson>>> {
     let findListOptions = new FindListOptions();
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);
@@ -130,7 +143,7 @@ export class EPersonDataService extends DataService<EPerson> {
     } else {
       findListOptions.searchParams = searchParams;
     }
-    return this.searchBy(searchMethod, findListOptions, ...linksToFollow);
+    return this.searchBy(searchMethod, findListOptions, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -138,11 +151,11 @@ export class EPersonDataService extends DataService<EPerson> {
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} ePerson The given object
    */
-  public updateEPerson(ePerson: EPerson): Observable<RestResponse> {
+  public updateEPerson(ePerson: EPerson): Observable<RemoteData<EPerson>> {
     const requestId = this.requestService.generateRequestId();
     const oldVersion$ = this.findByHref(ePerson._links.self.href);
     oldVersion$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((oldEPerson: EPerson) => {
         const operations = this.generateOperations(oldEPerson, ePerson);
@@ -152,7 +165,7 @@ export class EPersonDataService extends DataService<EPerson> {
       take(1)
     ).subscribe();
 
-    return this.fetchResponse(requestId);
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
   /**
@@ -223,7 +236,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * Method to delete an EPerson
    * @param ePerson The EPerson to delete
    */
-  public deleteEPerson(ePerson: EPerson): Observable<RestResponse> {
+  public deleteEPerson(ePerson: EPerson): Observable<RemoteData<NoContent>> {
     return this.delete(ePerson.id);
   }
 
@@ -255,7 +268,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param eperson
    * @param token
    */
-  public createEPersonForToken(eperson: EPerson, token: string) {
+  public createEPersonForToken(eperson: EPerson, token: string): Observable<RemoteData<EPerson>> {
     const requestId = this.requestService.generateRequestId();
     const hrefObs = this.getBrowseEndpoint().pipe(
       map((href: string) => `${href}?token=${token}`));
@@ -267,7 +280,7 @@ export class EPersonDataService extends DataService<EPerson> {
       })
     ).subscribe();
 
-    return this.fetchResponse(requestId);
+    return this.rdbService.buildFromRequestUUID(requestId);
 
   }
 
@@ -277,7 +290,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * @param token     The forgot password token
    * @param password  The new password value
    */
-  patchPasswordWithToken(uuid: string, token: string, password: string): Observable<RestResponse> {
+  patchPasswordWithToken(uuid: string, token: string, password: string): Observable<RemoteData<EPerson>> {
     const requestId = this.requestService.generateRequestId();
 
     const operation = Object.assign({ op: 'add', path: '/password', value: password });
@@ -294,9 +307,7 @@ export class EPersonDataService extends DataService<EPerson> {
       })
     ).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response)
-    );
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
+
 }

@@ -39,7 +39,7 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 import { ItemDataService } from '../data/item-data.service';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -111,9 +111,9 @@ describe('MetadataService', () => {
     const mockBitstreamDataService = {
       findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
         if (item.equals(ItemMock)) {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [MockBitstream1, MockBitstream2]));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [MockBitstream1, MockBitstream2]));
         } else {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
         }
       },
     };

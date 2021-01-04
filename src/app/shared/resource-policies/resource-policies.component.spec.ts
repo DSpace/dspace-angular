@@ -12,12 +12,14 @@ import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Bundle } from '../../core/shared/bundle.model';
-import { createMockRDPaginatedObs } from '../../+item-page/edit-item-page/item-bitstreams/item-bitstreams.component.spec';
 import { Item } from '../../core/shared/item.model';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { getMockLinkService } from '../mocks/link-service.mock';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
-import { createTestComponent } from '../testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../remote-data.utils';
+import { createPaginatedList, createTestComponent } from '../testing/utils.test';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
@@ -27,7 +29,7 @@ import { GroupDataService } from '../../core/eperson/group-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { RouterStub } from '../testing/router.stub';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ResourcePoliciesComponent } from './resource-policies.component';
 import { PolicyType } from '../../core/resource-policy/models/policy-type.model';
@@ -118,7 +120,7 @@ describe('ResourcePoliciesComponent test suite', () => {
     _links: {
       self: { href: 'bundle1-selflink' }
     },
-    bitstreams: createMockRDPaginatedObs([bitstream1, bitstream2])
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
   });
   const bundle2 = Object.assign(new Bundle(), {
     id: 'bundle2',
@@ -126,7 +128,7 @@ describe('ResourcePoliciesComponent test suite', () => {
     _links: {
       self: { href: 'bundle2-selflink' }
     },
-    bitstreams: createMockRDPaginatedObs([bitstream3, bitstream4])
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4]))
   });
 
   const item = Object.assign(new Item(), {
@@ -135,7 +137,7 @@ describe('ResourcePoliciesComponent test suite', () => {
     _links: {
       self: { href: 'item-selflink' }
     },
-    bundles: createMockRDPaginatedObs([bundle1, bundle2])
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle1, bundle2]))
   });
 
   const routeStub = {
@@ -186,7 +188,7 @@ describe('ResourcePoliciesComponent test suite', () => {
 
   const pageInfo = new PageInfo();
   const array = [resourcePolicy, anotherResourcePolicy];
-  const paginatedList = new PaginatedList(pageInfo, array);
+  const paginatedList = buildPaginatedList(pageInfo, array);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   beforeEach(async(() => {

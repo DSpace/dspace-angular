@@ -1,9 +1,8 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/request.models';
-import { RestResponse } from '../cache/response.models';
 import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
@@ -30,6 +29,7 @@ import { MetadataSchemaDataService } from '../data/metadata-schema-data.service'
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
+import { NoContent } from '../shared/NoContent.model';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -53,19 +53,23 @@ export class RegistryService {
 
   /**
    * Retrieves all metadata schemas
-   * @param options The options used to retrieve the schemas
-   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param options           The options used to retrieve the schemas
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataSchemas(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
-    return this.metadataSchemaService.findAll(options, ...linksToFollow);
+  public getMetadataSchemas(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
+    return this.metadataSchemaService.findAll(options, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Retrieves a metadata schema by its prefix
    * @param prefix The prefux of the schema to find
-   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataSchemaByPrefix(prefix: string, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<MetadataSchema>> {
+  public getMetadataSchemaByPrefix(prefix: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<MetadataSchema>> {
     // Temporary options to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
     const options: FindListOptions = Object.assign(new FindListOptions(), {
       elementsPerPage: 10000
@@ -75,18 +79,20 @@ export class RegistryService {
       map((schemas: PaginatedList<MetadataSchema>) => schemas.page),
       isNotEmptyOperator(),
       map((schemas: MetadataSchema[]) => schemas.filter((schema) => schema.prefix === prefix)[0]),
-      flatMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, ...linksToFollow))
+      flatMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, reRequestOnStale, ...linksToFollow))
     );
   }
 
   /**
    * retrieves all metadata fields that belong to a certain metadata schema
-   * @param schema The schema to filter by
-   * @param options The options info used to retrieve the fields
-   * @param linksToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param schema            The schema to filter by
+   * @param options           The options info used to retrieve the fields
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataFieldsBySchema(schema: MetadataSchema, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return this.metadataFieldService.findBySchema(schema, options, ...linksToFollow);
+  public getMetadataFieldsBySchema(schema: MetadataSchema, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+    return this.metadataFieldService.findBySchema(schema, options, reRequestOnStale, ...linksToFollow);
   }
 
   public editMetadataSchema(schema: MetadataSchema) {
@@ -212,7 +218,7 @@ export class RegistryService {
    * Method to delete a metadata schema
    * @param id The id of the metadata schema to delete
    */
-  public deleteMetadataSchema(id: number): Observable<RestResponse> {
+  public deleteMetadataSchema(id: number): Observable<RemoteData<NoContent>> {
     return this.metadataSchemaService.delete(`${id}`);
   }
 
@@ -258,7 +264,7 @@ export class RegistryService {
    * Method to delete a metadata field
    * @param id The id of the metadata field to delete
    */
-  public deleteMetadataField(id: number): Observable<RestResponse> {
+  public deleteMetadataField(id: number): Observable<RemoteData<NoContent>> {
     return this.metadataFieldService.delete(`${id}`);
   }
 
@@ -288,11 +294,16 @@ export class RegistryService {
 
   /**
    * Retrieve a filtered paginated list of metadata fields
-   * @param query {string} The query to use for the metadata field name, can be part of the fully qualified field,
-   * should start with the start of the schema, element or qualifier (e.g. “dc.ti”, “contributor”, “auth”, “contributor.ot”)
+   * @param query {string}    The query to use for the metadata field name, can be part of the fully
+   *                          qualified field, should start with the start of the schema, element or
+   *                          qualifier (e.g. “dc.ti”, “contributor”, “auth”, “contributor.ot”)
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
+   *                          should be automatically resolved
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
-  queryMetadataFields(query: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return this.metadataFieldService.searchByFieldNameParams(null, null, null, query, null, options, ...linksToFollow);
+  queryMetadataFields(query: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+    return this.metadataFieldService.searchByFieldNameParams(null, null, null, query, null, options, reRequestOnStale, ...linksToFollow);
   }
 }

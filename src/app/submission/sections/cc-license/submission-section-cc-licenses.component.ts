@@ -5,7 +5,7 @@ import {
   Option,
   SubmissionCcLicence
 } from '../../../core/submission/models/submission-cc-license.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -254,7 +254,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         this.sectionData.data = data;
       }),
       this.submissionCcLicensesDataService.findAll({elementsPerPage: Number.MAX_SAFE_INTEGER}).pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         map((list) => list.page),
       ).subscribe(

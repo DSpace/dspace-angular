@@ -9,7 +9,7 @@ import { isNotEmpty } from '../empty.util';
  * @param searchFilterConfig
  */
 export function getFacetValueForType(facetValue: FacetValue, searchFilterConfig: SearchFilterConfig): string {
-  const regex = new RegExp(`[?|&]${searchFilterConfig.paramName}=(${facetValue.value}[^&]*)`, 'g');
+  const regex = new RegExp(`[?|&]${escapeRegExp(searchFilterConfig.paramName)}=(${escapeRegExp(facetValue.value)}[^&]*)`, 'g');
   if (isNotEmpty(facetValue._links)) {
     const values = regex.exec(facetValue._links.search.href);
     if (isNotEmpty(values)) {
@@ -17,6 +17,15 @@ export function getFacetValueForType(facetValue: FacetValue, searchFilterConfig:
     }
   }
   return addOperatorToFilterValue(facetValue.value, 'equals');
+}
+
+/**
+ * Escape a string to be used in a JS regular expression
+ *
+ * @param input the string to escape
+ */
+export function escapeRegExp(input: string): string {
+  return input.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
 /**

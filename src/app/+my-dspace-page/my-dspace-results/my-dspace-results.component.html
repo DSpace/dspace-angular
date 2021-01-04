@@ -9,5 +9,5 @@
   </ds-viewable-collection>
 </div>
 <ds-loading *ngIf="isLoading()" message="{{'loading.mydspace-results' | translate}}"></ds-loading>
-<ds-error *ngIf="searchResults?.hasFailed && (!searchResults?.error || searchResults?.error?.statusCode != 400)" message="{{'error.search-results' | translate}}"></ds-error>
+<ds-error *ngIf="searchResults?.hasFailed && (!searchResults?.errorMessage || searchResults?.statusCode != 400)" message="{{'error.search-results' | translate}}"></ds-error>
 <h3 *ngIf="searchResults?.payload?.page.length == 0" class="text-center text-muted" ><span>{{'mydspace.results.no-results' | translate}}</span></h3>

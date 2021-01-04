@@ -15,8 +15,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action.component';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../../../core/cache/response.models';
 import {
+  createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../../shared/remote-data.utils';
@@ -50,8 +50,8 @@ let routerStub;
 let mockItemDataService;
 let routeStub;
 let notificationsServiceStub;
-let successfulRestResponse;
-let failRestResponse;
+let successfulRemoteData;
+let failedRemoteData;
 
 describe('AbstractSimpleItemActionComponent', () => {
   beforeEach(async(() => {
@@ -97,8 +97,8 @@ describe('AbstractSimpleItemActionComponent', () => {
   }));
 
   beforeEach(() => {
-    successfulRestResponse = new RestResponse(true, 200, 'OK');
-    failRestResponse = new RestResponse(false, 500, 'Internal Server Error');
+    successfulRemoteData = createSuccessfulRemoteDataObject({ });
+    failedRemoteData = createFailedRemoteDataObject('Internal Server Error', 500);
 
     fixture = TestBed.createComponent(MySimpleItemActionComponent);
     comp = fixture.componentInstance;
@@ -132,15 +132,15 @@ describe('AbstractSimpleItemActionComponent', () => {
     expect(comp.performAction).toHaveBeenCalled();
   });
 
-  it('should process a RestResponse to navigate and display success notification', () => {
-    comp.processRestResponse(successfulRestResponse);
+  it('should process a RemoteData to navigate and display success notification', () => {
+    comp.processRestResponse(successfulRemoteData);
 
     expect(notificationsServiceStub.success).toHaveBeenCalled();
     expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem.id)]);
   });
 
-  it('should process a RestResponse to navigate and display success notification', () => {
-    comp.processRestResponse(failRestResponse);
+  it('should process a RemoteData to navigate and display success notification', () => {
+    comp.processRestResponse(failedRemoteData);
 
     expect(notificationsServiceStub.error).toHaveBeenCalled();
     expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditRoute(mockItem.id)]);

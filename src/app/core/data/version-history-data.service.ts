@@ -14,7 +14,7 @@ import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
 import { map, switchMap, take } from 'rxjs/operators';
 import { dataService } from '../cache/builders/build-decorators';

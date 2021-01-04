@@ -215,7 +215,10 @@ export class SubmissionObjectEffects {
     switchMap(([action, state]: [DepositSubmissionAction, any]) => {
       return this.submissionService.depositSubmission(state.submission.objects[action.payload.submissionId].selfUrl).pipe(
         map(() => new DepositSubmissionSuccessAction(action.payload.submissionId)),
-        catchError(() => observableOf(new DepositSubmissionErrorAction(action.payload.submissionId))));
+        catchError((error) => {
+          console.log('submission error', error);
+          return observableOf(new DepositSubmissionErrorAction(action.payload.submissionId));
+        }));
     }));
 
   /**
@@ -265,7 +268,7 @@ export class SubmissionObjectEffects {
     switchMap(([action, section]: [UpdateSectionDataAction, SubmissionSectionObject]) => {
       if (section.sectionType === SectionsType.SubmissionForm) {
         const submissionObject$ = this.submissionObjectService
-          .findById(action.payload.submissionId, followLink('item')).pipe(
+          .findById(action.payload.submissionId, false, followLink('item')).pipe(
             getFirstSucceededRemoteDataPayload()
           );
 

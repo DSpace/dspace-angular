@@ -11,6 +11,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 describe('CollectionRolesComponent', () => {
 
@@ -23,11 +24,7 @@ describe('CollectionRolesComponent', () => {
     const route = {
       parent: {
         data: observableOf({
-          dso: new RemoteData(
-            false,
-            false,
-            true,
-            undefined,
+          dso: createSuccessfulRemoteDataObject(
             Object.assign(new Collection(), {
               _links: {
                 irrelevant: {
@@ -52,25 +49,18 @@ describe('CollectionRolesComponent', () => {
                   },
                 ],
               },
-            }),
+            })
           ),
         })
       }
     };
 
     const requestService = {
-      hasByHrefObservable: () => observableOf(true),
+      hasByHref$: () => observableOf(true),
     };
 
     const groupDataService = {
-      findByHref: () => observableOf(new RemoteData(
-        false,
-        false,
-        true,
-        undefined,
-        {},
-        200,
-      )),
+      findByHref: () => createSuccessfulRemoteDataObject$({}),
     };
 
     TestBed.configureTestingModule({

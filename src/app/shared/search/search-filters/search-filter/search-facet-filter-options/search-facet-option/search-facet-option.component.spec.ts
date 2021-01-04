@@ -27,7 +27,7 @@ describe('SearchFacetOptionComponent', () => {
 
   const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
-    type: FilterType.range,
+    filterType: FilterType.range,
     hasFacets: false,
     isOpenByDefault: false,
     pageSize: 2,
@@ -37,7 +37,7 @@ describe('SearchFacetOptionComponent', () => {
 
   const mockAuthorityFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName2,
-    type: FilterType.authority,
+    filterType: FilterType.authority,
     hasFacets: false,
     isOpenByDefault: false,
     pageSize: 2
