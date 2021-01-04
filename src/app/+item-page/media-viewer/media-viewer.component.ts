@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
@@ -80,13 +80,14 @@ export class MediaViewerComponent implements OnInit {
         this.item,
         bundleName,
         {},
+        true,
         followLink('format')
       )
       .pipe(
         filter(
           (bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) =>
             hasValue(bitstreamsRD) &&
-            (hasValue(bitstreamsRD.error) || hasValue(bitstreamsRD.payload))
+            (hasValue(bitstreamsRD.errorMessage) || hasValue(bitstreamsRD.payload))
         ),
         take(1)
       );
