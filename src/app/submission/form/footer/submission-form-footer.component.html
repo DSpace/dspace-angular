@@ -12,7 +12,7 @@
     <button type="button"
             class="btn btn-info"
             id="save"
-            [disabled]="(processingSaveStatus | async)"
+            [disabled]="(processingSaveStatus | async) || !(hasUnsavedModification | async)"
             (click)="save($event)">
       <span>{{'submission.general.save' | translate}}</span>
     </button>

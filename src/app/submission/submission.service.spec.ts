@@ -46,6 +46,8 @@ import { SearchService } from '../core/shared/search/search.service';
 import { Item } from '../core/shared/item.model';
 import { storeModuleConfig } from '../app.reducer';
 import { environment } from '../../environments/environment';
+import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
+import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
@@ -345,6 +347,7 @@ describe('SubmissionService test suite', () => {
   const router = new RouterMock();
   const selfUrl = 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826';
   const submissionDefinition: any = mockSubmissionDefinition;
+  const submissionJsonPatchOperationsService = new SubmissionJsonPatchOperationsServiceStub();
 
   let scheduler: TestScheduler;
   let service: SubmissionService;
@@ -371,6 +374,7 @@ describe('SubmissionService test suite', () => {
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
+        { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsService },
         NotificationsService,
         RouteService,
         SubmissionService,
@@ -487,8 +491,15 @@ describe('SubmissionService test suite', () => {
 
   describe('dispatchSave', () => {
     it('should dispatch a new SaveSubmissionFormAction', () => {
-      service.dispatchSave(submissionId,);
+      service.dispatchSave(submissionId);
       const expected = new SaveSubmissionFormAction(submissionId);
+
+      expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
+    });
+
+    it('should dispatch a new SaveSubmissionFormAction with manual flag', () => {
+      service.dispatchSave(submissionId, true);
+      const expected = new SaveSubmissionFormAction(submissionId, true);
 
       expect((service as any).store.dispatch).toHaveBeenCalledWith(expected);
     });
@@ -746,6 +757,20 @@ describe('SubmissionService test suite', () => {
     });
   });
 
+  describe('hasUnsavedModification', () => {
+    it('should call jsonPatchOperationService hasPendingOperation observable', () => {
+      (service as any).jsonPatchOperationService.hasPendingOperations = jasmine.createSpy('hasPendingOperations')
+        .and.returnValue(observableOf(true));
+
+      scheduler = getTestScheduler();
+      scheduler.schedule(() => service.hasUnsavedModification());
+      scheduler.flush();
+
+      expect((service as any).jsonPatchOperationService.hasPendingOperations).toHaveBeenCalledWith('sections');
+
+    });
+  });
+
   describe('isSectionHidden', () => {
     it('should return true/false when section is hidden/visible', () => {
       let section: any = {
@@ -915,8 +940,15 @@ describe('SubmissionService test suite', () => {
   });
 
   describe('startAutoSave', () => {
+
+    let environmentAutoSaveTimerOriginalValue;
+
+    beforeEach(() => {
+      environmentAutoSaveTimerOriginalValue = environment.submission.autosave.timer;
+    });
+
     it('should start Auto Save', fakeAsync(() => {
-      const duration = environment.submission.autosave.timer * (1000 * 60);
+      const duration = environment.submission.autosave.timer;
 
       service.startAutoSave('826');
       const sub = (service as any).timer$.subscribe();
@@ -930,6 +962,19 @@ describe('SubmissionService test suite', () => {
       sub.unsubscribe();
       (service as any).autoSaveSub.unsubscribe();
     }));
+
+    it('should not start Auto Save if timer is 0', fakeAsync(() => {
+      environment.submission.autosave.timer = 0;
+
+      service.startAutoSave('826');
+
+      expect((service as any).autoSaveSub).toBeUndefined();
+    }));
+
+    afterEach(() => {
+      environment.submission.autosave.timer = environmentAutoSaveTimerOriginalValue;
+    })
+
   });
 
   describe('stopAutoSave', () => {
