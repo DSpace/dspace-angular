@@ -1,6 +1,8 @@
 <div class="card" [@focusShadow]="(isCollapsed$ | async)?'blur':'focus'">
   <ds-truncatable [id]="dso.id">
-    <ng-content></ng-content>
+    <div class="position-absolute ml-1">
+      <ng-content></ng-content>
+    </div>
     <a *ngIf="linkType != linkTypes.None"
        [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
        rel="noopener noreferrer" [routerLink]="['/items/' + dso.id]"
