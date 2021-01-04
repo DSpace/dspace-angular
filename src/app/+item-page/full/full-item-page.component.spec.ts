@@ -20,6 +20,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
+import { AuthService } from '../../core/auth/auth.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
@@ -45,7 +46,14 @@ describe('FullItemPageComponent', () => {
   let comp: FullItemPageComponent;
   let fixture: ComponentFixture<FullItemPageComponent>;
 
+  let authService: AuthService;
+
   beforeEach(async(() => {
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {}
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -57,7 +65,8 @@ describe('FullItemPageComponent', () => {
       providers: [
         {provide: ActivatedRoute, useValue: routeStub},
         {provide: ItemDataService, useValue: {}},
-        {provide: MetadataService, useValue: metadataServiceStub}
+        {provide: MetadataService, useValue: metadataServiceStub},
+        { provide: AuthService, useValue: authService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

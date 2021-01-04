@@ -30,6 +30,7 @@ import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.c
 import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
+import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
 
 import { MediaViewerComponent } from './media-viewer/media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
@@ -60,6 +61,7 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     CollectionsComponent,
     FullFileSectionComponent,
     PublicationComponent,
+    UntypedItemComponent,
     RelatedItemsComponent,
     ItemComponent,
     GenericItemPageFieldComponent,
@@ -83,6 +85,9 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     ItemPageTitleFieldComponent,
     TabbedRelatedEntitiesSearchComponent,
   ],
-  entryComponents: [PublicationComponent],
+  entryComponents: [
+    PublicationComponent,
+    UntypedItemComponent
+  ]
 })
 export class ItemPageModule {}

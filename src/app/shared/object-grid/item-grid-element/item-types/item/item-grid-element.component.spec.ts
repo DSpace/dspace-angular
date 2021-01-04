@@ -4,7 +4,7 @@ import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { PublicationGridElementComponent } from './publication-grid-element.component';
+import { ItemGridElementComponent } from './item-grid-element.component';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { Item } from '../../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
@@ -41,7 +41,7 @@ const mockItem = Object.assign(new Item(), {
   }
 });
 
-describe('PublicationGridElementComponent', () => {
+describe('ItemGridElementComponent', () => {
   let comp;
   let fixture;
 
@@ -52,18 +52,18 @@ describe('PublicationGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
-      declarations: [PublicationGridElementComponent, TruncatePipe],
+      declarations: [ItemGridElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PublicationGridElementComponent, {
+    }).overrideComponent(ItemGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(PublicationGridElementComponent);
+    fixture = TestBed.createComponent(ItemGridElementComponent);
     comp = fixture.componentInstance;
   }));
 
@@ -74,7 +74,7 @@ describe('PublicationGridElementComponent', () => {
     });
 
     it(`should contain a PublicationGridElementComponent`, () => {
-      const publicationGridElement = fixture.debugElement.query(By.css(`ds-publication-search-result-grid-element`));
+      const publicationGridElement = fixture.debugElement.query(By.css(`ds-item-search-result-grid-element`));
       expect(publicationGridElement).not.toBeNull();
     });
   });

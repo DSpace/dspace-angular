@@ -8,13 +8,13 @@ import { Item } from '../../../../../core/shared/item.model';
 @listableObjectComponent('Publication', ViewMode.GridElement)
 @listableObjectComponent(Item, ViewMode.GridElement)
 @Component({
-  selector: 'ds-publication-grid-element',
-  styleUrls: ['./publication-grid-element.component.scss'],
-  templateUrl: './publication-grid-element.component.html',
+  selector: 'ds-item-grid-element',
+  styleUrls: ['./item-grid-element.component.scss'],
+  templateUrl: './item-grid-element.component.html',
   animations: [focusShadow]
 })
 /**
  * The component for displaying a grid element for an item of the type Publication
  */
-export class PublicationGridElementComponent extends AbstractListableElementComponent<Item> {
+export class ItemGridElementComponent extends AbstractListableElementComponent<Item> {
 }

@@ -6,7 +6,7 @@ import { GenericConstructor } from '../../../../core/shared/generic-constructor'
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import * as listableObjectDecorators from './listable-object.decorator';
-import { PublicationListElementComponent } from '../../../object-list/item-list-element/item-types/publication/publication-list-element.component';
+import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { ListableObjectDirective } from './listable-object.directive';
 import { spyOnExported } from '../../../testing/utils.test';
 
@@ -27,13 +27,13 @@ describe('ListableObjectComponentLoaderComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [],
-      declarations: [ListableObjectComponentLoaderComponent, PublicationListElementComponent, ListableObjectDirective],
+      declarations: [ListableObjectComponentLoaderComponent, ItemListElementComponent, ListableObjectDirective],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [ComponentFactoryResolver]
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [PublicationListElementComponent]
+        entryComponents: [ItemListElementComponent]
       }
     }).compileComponents();
   }));
@@ -45,7 +45,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
     comp.object = new TestType();
     comp.viewMode = testViewMode;
     comp.context = testContext;
-    spyOnExported(listableObjectDecorators, 'getListableObjectComponent').and.returnValue(PublicationListElementComponent);
+    spyOnExported(listableObjectDecorators, 'getListableObjectComponent').and.returnValue(ItemListElementComponent);
     fixture.detectChanges();
 
   }));

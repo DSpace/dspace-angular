@@ -9,13 +9,13 @@ import { ItemSearchResult } from '../../../../object-collection/shared/item-sear
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement)
 @Component({
-  selector: 'ds-publication-search-result-grid-element',
-  styleUrls: ['./publication-search-result-grid-element.component.scss'],
-  templateUrl: './publication-search-result-grid-element.component.html',
+  selector: 'ds-item-search-result-grid-element',
+  styleUrls: ['./item-search-result-grid-element.component.scss'],
+  templateUrl: './item-search-result-grid-element.component.html',
   animations: [focusShadow]
 })
 /**
  * The component for displaying a grid element for an item search result of the type Publication
  */
-export class PublicationSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
+export class ItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
 }

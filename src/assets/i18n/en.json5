@@ -8,6 +8,14 @@
 
 
 
+  "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+
+  "403.link.home-page": "Take me to the home page",
+
+  "403.forbidden": "forbidden",
+
+
+
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
 
   "404.link.home-page": "Take me to the home page",
@@ -280,6 +288,10 @@
 
   "admin.access-control.groups.title": "DSpace Angular :: Groups",
 
+  "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
+
+  "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
+
   "admin.access-control.groups.head": "Groups",
 
   "admin.access-control.groups.button.add": "Add group",
@@ -308,8 +320,15 @@
 
   "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
 
-  "admin.access-control.groups.notification.deleted.failure": "Failed to delete group \"{{name}}\"",
+  "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
 
+  "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
+
+
+
+  "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
+
+  "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
 
   "admin.access-control.groups.form.head.create": "Create group",
 
@@ -324,6 +343,28 @@
   "admin.access-control.groups.form.notification.created.failure": "Failed to create Group \"{{name}}\"",
 
   "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Failed to create Group with name: \"{{name}}\", make sure the name is not already in use.",
+
+  "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
+
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+
+  "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
+
+  "admin.access-control.groups.form.actions.delete": "Delete Group",
+
+  "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
+
+  "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
+
+  "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
+
+  "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
+
+  "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
+
+  "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
+
+  "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
 
   "admin.access-control.groups.form.members-list.head": "EPeople",
 
@@ -674,6 +715,10 @@
 
   "collection.edit.tabs.curate.title": "Collection Edit - Curate",
 
+  "collection.edit.tabs.authorizations.head": "Authorizations",
+
+  "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+
   "collection.edit.tabs.metadata.head": "Edit Metadata",
 
   "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
@@ -757,6 +802,10 @@
   "collection.form.tableofcontents": "News (HTML)",
 
   "collection.form.title": "Name",
+
+
+
+  "collection.listelement.badge": "Collection",
 
 
 
@@ -860,6 +909,14 @@
   "community.edit.tabs.roles.head": "Assign Roles",
 
   "community.edit.tabs.roles.title": "Community Edit - Roles",
+
+  "community.edit.tabs.authorizations.head": "Authorizations",
+
+  "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
+
+
+
+  "community.listelement.badge": "Community",
 
 
 
@@ -1673,6 +1730,28 @@
   "item.edit.withdraw.header": "Withdraw item: {{ id }}",
 
   "item.edit.withdraw.success": "The item was withdrawn successfully",
+
+
+
+  "item.listelement.badge": "Item",
+
+  "item.page.description": "Description",
+
+  "item.page.edit": "Edit this item",
+
+  "item.page.journal-issn": "Journal ISSN",
+
+  "item.page.journal-title": "Journal Title",
+
+  "item.page.publisher": "Publisher",
+
+  "item.page.titleprefix": "Item: ",
+
+  "item.page.volume-title": "Volume Title",
+
+  "item.search.results.head": "Item Search Results",
+
+  "item.search.title": "DSpace Angular :: Item Search",
 
 
 
@@ -2616,6 +2695,10 @@
 
   "resource-policies.add.for.item": "Add a new Item policy",
 
+  "resource-policies.add.for.community": "Add a new Community policy",
+
+  "resource-policies.add.for.collection": "Add a new Collection policy",
+
   "resource-policies.create.page.heading": "Create new resource policy for ",
 
   "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
@@ -2697,6 +2780,10 @@
   "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
 
   "resource-policies.table.headers.title.for.item": "Policies for Item",
+
+  "resource-policies.table.headers.title.for.community": "Policies for Community",
+
+  "resource-policies.table.headers.title.for.collection": "Policies for Collection",
 
 
 

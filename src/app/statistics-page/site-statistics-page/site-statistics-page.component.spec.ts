@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { SiteDataService } from '../../core/data/site-data.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 describe('SiteStatisticsPageComponent', () => {
 
@@ -55,6 +56,11 @@ describe('SiteStatisticsPageComponent', () => {
       }))
     };
 
+    const authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {}
+    });
+
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -72,6 +78,7 @@ describe('SiteStatisticsPageComponent', () => {
         { provide: DSpaceObjectDataService, useValue: {} },
         { provide: DSONameService, useValue: nameService },
         { provide: SiteDataService, useValue: siteService },
+        { provide: AuthService, useValue: authService },
       ],
     })
       .compileComponents();

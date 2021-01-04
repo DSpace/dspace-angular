@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Site } from '../../core/shared/site.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { switchMap } from 'rxjs/operators';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * Component representing the site-wide statistics page.
@@ -30,12 +31,14 @@ export class SiteStatisticsPageComponent extends StatisticsPageComponent<Site> {
     protected usageReportService: UsageReportService,
     protected nameService: DSONameService,
     protected siteService: SiteDataService,
+    protected authService: AuthService,
   ) {
     super(
       route,
       router,
       usageReportService,
       nameService,
+      authService,
     );
   }
 

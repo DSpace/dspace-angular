@@ -8,6 +8,7 @@ import { CollectionPageModule } from '../collection-page.module';
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
 import { CollectionCurateComponent } from './collection-curate/collection-curate.component';
 import { CollectionSourceComponent } from './collection-source/collection-source.component';
+import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
 
 /**
  * Module that contains all components related to the Edit Collection page administrator functionality
@@ -24,7 +25,8 @@ import { CollectionSourceComponent } from './collection-source/collection-source
     CollectionMetadataComponent,
     CollectionRolesComponent,
     CollectionCurateComponent,
-    CollectionSourceComponent
+    CollectionSourceComponent,
+    CollectionAuthorizationsComponent
   ]
 })
 export class EditCollectionPageModule {

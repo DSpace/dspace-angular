@@ -5,7 +5,7 @@
  * @returns {string}              Query
  */
 export function getQueryByRelations(relationType: string, itemUUID: string): string {
-  return `query=relation.${relationType}:${itemUUID}`;
+  return `query=relation.${relationType}:"${itemUUID}"`;
 }
 
 /**
@@ -14,5 +14,5 @@ export function getQueryByRelations(relationType: string, itemUUID: string): str
  * @param itemUUID        The item's UUID
  */
 export function getFilterByRelation(relationType: string, itemUUID: string): string {
-  return `f.${relationType}=${itemUUID}`;
+  return `f.${relationType}=${itemUUID},equals`;
 }

@@ -12,4 +12,11 @@ export class AuthServiceMock {
   public getShortlivedToken(): Observable<string> {
     return observableOf('token');
   }
+
+  public isAuthenticated(): Observable<boolean> {
+    return observableOf(true);
+  }
+
+  public setRedirectUrl(url: string) {
+  }
 }

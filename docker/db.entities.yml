@@ -6,11 +6,17 @@
 # http://www.dspace.org/license/
 #
 
+#
+# This is a copy of the db.entities.yml that is available in the DSpace/DSpace
+# (Backend) at:
+# https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/db.entities.yml
+#
+# # Therefore, it should be kept in sync with that file
 version: "3.7"
 
 services:
   dspacedb:
     image: dspace/dspace-postgres-pgcrypto:loadsql
     environment:
-      # Double underbars in env names will be replaced with periods for apache commons
-      - LOADSQL=https://www.dropbox.com/s/xh3ack0vg0922p2/configurable-entities-2019-05-08.sql?dl=1
+      # This LOADSQL should be kept in sync with the URL in DSpace/DSpace
+      - LOADSQL=https://www.dropbox.com/s/4ap1y6deseoc8ws/dspace7-entities-2019-11-28.sql?dl=1
