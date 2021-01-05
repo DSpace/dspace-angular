@@ -1,8 +1,6 @@
 import { Component, Inject } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { EditItemDataService } from '../../../core/submission/edititem-data.service';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
@@ -25,13 +23,11 @@ export class ExportItemMenuComponent extends ContextMenuEntryComponent {
    *
    * @param {DSpaceObject} injectedContextMenuObject
    * @param {DSpaceObjectType} injectedContextMenuObjectType
-   * @param {EditItemDataService} editItemService
    * @param {modalService} modalService
    */
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
-    private editItemService: EditItemDataService,
     private modalService: NgbModal,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType);

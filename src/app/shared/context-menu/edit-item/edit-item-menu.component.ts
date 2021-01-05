@@ -63,7 +63,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
 
   ngOnInit(): void {
     // Retrieve edit modes
-    this. sub = this.editItemService.findById(this.contextMenuObject.id + ':none', followLink('modes')).pipe(
+    this.sub = this.editItemService.findById(this.contextMenuObject.id + ':none', followLink('modes')).pipe(
       getAllSucceededRemoteDataPayload(),
       mergeMap((editItem: EditItem) => editItem.modes.pipe(
         getFirstSucceededRemoteListPayload())
@@ -86,7 +86,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
    */
   isEditAvailable(): Observable<boolean> {
     return this.editModes$.asObservable().pipe(
-      map((editModes) => isNotEmpty(editModes) && editModes.length === 1)
+      map((editModes) => isNotEmpty(editModes) && editModes.length > 0)
     );
   }
 

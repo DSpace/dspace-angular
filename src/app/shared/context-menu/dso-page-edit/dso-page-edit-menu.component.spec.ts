@@ -57,7 +57,7 @@ describe('DsoPageEditMenuComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should render a link', () => {
+    it('should render a button', () => {
       const link = fixture.debugElement.query(By.css('button'));
       expect(link).not.toBeNull();
     });
@@ -70,7 +70,7 @@ describe('DsoPageEditMenuComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not render a link', () => {
+    it('should not render a button', () => {
       const link = fixture.debugElement.query(By.css('button'));
       expect(link).toBeNull();
     });

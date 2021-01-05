@@ -1,4 +1,4 @@
-<ng-container *ngIf="(isEditAvailable() | async) && (getEditModes() | async)?.length > 0">
+<ng-container *ngIf="(isEditAvailable() | async)">
   <button ngbDropdownItem
           *ngFor="let editMode of (getEditModes() | async)"
           [routerLink]="['/edit-items', contextMenuObject.id + ':' + editMode.name]">
