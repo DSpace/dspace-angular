@@ -16,6 +16,9 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { RequestService } from '../../../core/data/request.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Process } from '../../../process-page/processes/process.model';
 
 /**
  * This component renders a context menu option that provides to export an item.
@@ -61,9 +64,9 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
     ];
 
     this.scriptService.invoke('collection-export', stringParameters, [])
-      .pipe(take(1))
-      .subscribe((requestEntry: RequestEntry) => {
-        if (requestEntry.response.isSuccessful) {
+      .pipe(getFirstCompletedRemoteData())
+      .subscribe((rd: RemoteData<Process>) => {
+        if (rd.isSuccess) {
           this.notificationService.success(this.translationService.get('collection-export.success'));
           this.navigateToProcesses();
         } else {

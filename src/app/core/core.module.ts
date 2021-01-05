@@ -35,6 +35,7 @@ import { BrowseService } from './browse/browse.service';
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { ObjectCacheService } from './cache/object-cache.service';
 import { SubmissionDefinitionsModel } from './config/models/config-submission-definitions.model';
+import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsModel } from './config/models/config-submission-forms.model';
 import { SubmissionSectionModel } from './config/models/config-submission-section.model';
 import { SubmissionUploadsModel } from './config/models/config-submission-uploads.model';
@@ -254,6 +255,7 @@ const PROVIDERS = [
   SubmissionCcLicenseDataService,
   SubmissionCcLicenseUrlDataService,
   SubmissionFormsConfigService,
+  SubmissionDefinitionsConfigService,
   SubmissionRestService,
   SubmissionResponseParsingService,
   SubmissionJsonPatchOperationsService,
