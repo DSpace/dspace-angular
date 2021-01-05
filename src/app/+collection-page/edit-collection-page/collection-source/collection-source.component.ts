@@ -24,7 +24,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
@@ -323,11 +323,11 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.collectionRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
 
     this.collectionRD$.pipe(
-      getFirstSucceededRemoteData(),
+      getFirstCompletedRemoteData(),
       map((col) => col.payload),
       tap((col) => this.initializeEmailAndTransform(col)),
       switchMap((col) => this.collectionService.getContentSource(col.uuid)),
-      getFirstCompletedRemoteData(),
+      getFirstCompletedRemoteData()
     ).subscribe((rd: RemoteData<ContentSource>) => {
       this.initializeOriginalContentSource(rd.payload);
     });
@@ -477,6 +477,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       getFirstSucceededRemoteData(),
       switchMap((coll) => this.updateCollection(coll.payload)),
       map((col) => col.payload.uuid),
+      take(1),
       switchMap((uuid) => this.collectionService.updateContentSource(uuid, this.contentSource)),
       take(1)
     ).subscribe((result: ContentSource | INotification) => {

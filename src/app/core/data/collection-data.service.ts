@@ -100,7 +100,12 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollectionByEntityType(query: string, entityType: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
+  getAuthorizedCollectionByEntityType(
+    query: string,
+    entityType: string,
+    options: FindListOptions = {},
+    reRequestOnStale = true,
+    ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findSubmitAuthorizedByEntityType';
     options = Object.assign({}, options, {
       searchParams: [

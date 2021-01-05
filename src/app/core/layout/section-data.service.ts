@@ -17,7 +17,7 @@ import { SECTION } from './models/section.resource-type';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 
 class DataServiceImpl extends DataService<Section> {
     protected linkPath = 'sections';

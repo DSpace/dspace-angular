@@ -4,10 +4,10 @@ import { hasValue } from '../empty.util';
 import { startWith, switchMap, reduce } from 'rxjs/operators';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { FindListOptions } from 'src/app/core/data/request.models';
-import { PaginatedList } from 'src/app/core/data/paginated-list';
+import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { EntityTypeService } from '../../core/data/entity-type.service';
-import { getSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
 
 @Component({
   selector: 'ds-entity-dropdown',
@@ -153,7 +153,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
       searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipTypeImport(findOptions);
     }
     this.searchListEntity$ = searchListEntity$.pipe(
-        getSucceededRemoteWithNotEmptyData(),
+        getFirstSucceededRemoteWithNotEmptyData(),
         switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => {
           if ( (this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements ) {
             this.hasNextPage = false;

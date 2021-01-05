@@ -109,7 +109,7 @@ describe('EPersonFormComponent', () => {
       getGroupRegistryRouterLink: ''
     });
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      registerEmail: observableOf(new RestResponse(true, 200, 'Success'))
+      registerEmail: createSuccessfulRemoteDataObject$(null)
     });
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,

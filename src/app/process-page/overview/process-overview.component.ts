@@ -10,9 +10,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators'
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { flatMap, map } from 'rxjs/operators';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { RoleService } from 'src/app/core/roles/role.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { of } from 'rxjs';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 
 @Component({

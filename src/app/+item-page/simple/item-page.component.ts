@@ -15,7 +15,7 @@ import { redirectOn4xx } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { Tab } from 'src/app/core/layout/models/tab.model';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 
 /**
  * This component renders a simple item page.

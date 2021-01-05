@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/operators';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { Collection } from '../core/shared/collection.model';
-import { hasValue } from '../shared/empty.util';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific collection before the route is activated
@@ -23,8 +22,6 @@ export class BulkImportPageResolver implements Resolve<RemoteData<Collection>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Collection>> {
-    return this.collectionService.findById(route.params.id).pipe(
-      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
-    );
+    return this.collectionService.findById(route.params.id).pipe(getFirstCompletedRemoteData());
   }
 }

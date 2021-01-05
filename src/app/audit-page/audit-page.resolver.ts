@@ -6,7 +6,7 @@ import { find } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
 import { Audit } from '../core/audit/model/audit.model';
 import { AuditDataService } from '../core/audit/audit-data.service';
-import { getAllSucceededRemoteData } from '../core/shared/operators';
+import { getAllSucceededRemoteData, getFirstSucceededRemoteData } from '../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific audit before the route is activated
@@ -25,8 +25,7 @@ export class AuditPageResolver implements Resolve<RemoteData<Audit>> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Audit>> {
     return this.auditService.findById(route.params.id).pipe(
-      getAllSucceededRemoteData(),
-      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
+      getFirstSucceededRemoteData()
     );
   }
 }

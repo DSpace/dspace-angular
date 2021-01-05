@@ -4,7 +4,7 @@ import { CrisLayoutBox as CrisLayoutBoxObj } from 'src/app/layout/models/cris-la
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { LayoutTab } from '../../enums/layout-tab.enum';
 import { LayoutBox } from '../../enums/layout-box.enum';
-import { NgForm, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { Operation } from 'fast-json-patch';
 import { TranslateService } from '@ngx-translate/core';
@@ -138,9 +138,9 @@ export class OrcidSyncSettingsComponent extends CrisLayoutBoxObj implements OnIn
 
     this.itemDataService.patch(this.item, operations)
       .subscribe((restResponse) => {
-        if (restResponse.isSuccessful) {
+        if (restResponse.isSuccess) {
           this.notificationsService.success(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.success'));
-          this.requestService.removeByHrefSubstring(this.item._links.self.href);
+          this.requestService.setStaleByHrefSubstring(this.item._links.self.href);
           this.itemDataService.findById(this.item.id)
             .pipe(getFirstSucceededRemoteDataPayload())
             .subscribe((item) => this.item = item);

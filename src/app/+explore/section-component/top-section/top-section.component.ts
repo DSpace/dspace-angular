@@ -9,6 +9,7 @@ import { SearchService } from 'src/app/core/shared/search/search.service';
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from 'src/app/shared/search/paginated-search-options.model';
 import { SearchQueryResponse } from 'src/app/shared/search/search-query-response.model';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 
 /**
  * Component representing the Top component section.
@@ -46,11 +47,9 @@ export class TopSectionComponent implements OnInit {
             pagination: pagination,
             sort: new SortOptions(this.topSection.sortField, sortDirection)
         })).pipe(
-            filter((result) => result.requestEntry && !result.requestEntry.responsePending),
-            map( (result) => result.requestEntry.response),
-            filter((response) => response.isSuccessful),
-            map<any, SearchQueryResponse>((response) => response.results),
-            map( (queryResponse) => queryResponse.objects.map((searchResult) => searchResult._embedded.indexableObject) )
+            getFirstSucceededRemoteData(),
+            // TODO which type?
+            map( (queryResponse: any) => queryResponse.objects.map((searchResult) => searchResult._embedded.indexableObject) )
         );
     }
 

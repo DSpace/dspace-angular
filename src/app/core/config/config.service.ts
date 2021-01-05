@@ -14,6 +14,8 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { map } from 'rxjs/operators';
+import { FindListOptions } from '../data/request.models';
+import { PaginatedList } from '../data/paginated-list.model';
 
 class DataServiceImpl extends DataService<ConfigObject> {
   constructor(
@@ -64,4 +66,9 @@ export abstract class ConfigService {
       })
     );
   }
+
+  findAll(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ConfigObject>>): Observable<RemoteData<PaginatedList<ConfigObject>>> {
+    return this.dataService.findAll(options, reRequestOnStale, ...linksToFollow);
+  }
+
 }

@@ -69,7 +69,7 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
       }
       const operations = this.getOperationsToEditText();
       this.subs.push(this.siteService.patch(this.site, operations).subscribe((restResponse) => {
-        if (restResponse.isSuccessful) {
+        if (restResponse.isSuccess) {
           this.notificationsService.success(this.translateService.get('admin.edit-user-agreement.success'));
           if ( result === 'edit-with-reset' ) {
             this.deleteAllUserAgreementMetadataValues();

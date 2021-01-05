@@ -14,10 +14,10 @@ import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import {PaginatedList} from './paginated-list.model';
 import { ItemType } from '../shared/item-relationships/item-type.model';
-import {getRemoteDataPayload, getFirstSucceededRemoteData} from '../shared/operators';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
+import { PaginatedList } from './paginated-list.model';
 
 /**
  * Service handling all ItemType requests

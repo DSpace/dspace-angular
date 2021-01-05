@@ -3,10 +3,9 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { RemoteData } from '../core/data/remote-data';
 import { Tab } from '../core/layout/models/tab.model';
 import { TabDataService } from '../core/layout/tab-data.service';
-import { Observable, pipe } from 'rxjs';
-import { find } from 'rxjs/operators';
-import { hasValue } from '../shared/empty.util';
-import { PaginatedList } from '../core/data/paginated-list';
+import { Observable } from 'rxjs';
+import { PaginatedList } from '../core/data/paginated-list.model';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * This class represents a resolver that requests the tabs of specific
@@ -27,9 +26,7 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<PaginatedList<Tab>>> {
     return this.tabService.findByItem(
         route.params.id // Item UUID
-      ).pipe(
-        find((RD) => hasValue(RD.error) || RD.hasSucceeded)
-      );
+      ).pipe(getFirstCompletedRemoteData());
   }
 
 }
