@@ -104,11 +104,15 @@ export class CollectionPageComponent implements OnInit {
   }
 
   onPaginationChange(event) {
-    this.paginationConfig.currentPage = +event.page || this.paginationConfig.currentPage;
-    this.paginationConfig.pageSize = +event.pageSize || this.paginationConfig.pageSize;
-    this.sortConfig.direction = event.sortDirection || this.sortConfig.direction;
-    this.sortConfig.field = event.sortField || this.sortConfig.field;
-
+    this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
+      currentPage: event.pagination.currentPage || this.paginationConfig.currentPage,
+      pageSize: event.pagination.pageSize || this.paginationConfig.pageSize,
+      id: 'collection-page-pagination'
+    });
+    this.sortConfig = Object.assign(new SortOptions('dc.date.accessioned', SortDirection.DESC), {
+      direction: event.sort.direction || this.sortConfig.direction,
+      field: event.sort.field || this.sortConfig.field
+    });
     this.paginationChanges$.next({
       paginationConfig: this.paginationConfig,
       sortConfig: this.sortConfig
