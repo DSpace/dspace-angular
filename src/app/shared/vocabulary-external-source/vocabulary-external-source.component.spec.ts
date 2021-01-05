@@ -127,6 +127,7 @@ describe('VocabularyExternalSourceComponent', () => {
     component = null;
     componentAsAny = null;
   });
+
   describe('when external source is retrieved successfully', () => {
 
     beforeEach(() => {
@@ -204,7 +205,6 @@ describe('VocabularyExternalSourceComponent', () => {
 
     it('should init component properly', () => {
 
-      const expectedMedata = Metadata.toViewModelList(externalEntry.metadata)
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
 
