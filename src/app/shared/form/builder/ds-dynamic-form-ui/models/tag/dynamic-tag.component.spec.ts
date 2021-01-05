@@ -22,6 +22,8 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { FormBuilderService } from '../../../form-builder.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 
 function createKeyUpEvent(key: number) {
   /* tslint:disable:no-empty */
@@ -94,6 +96,7 @@ describe('DsDynamicTagComponent test suite', () => {
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} },
         { provide: FormBuilderService },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
         NgbModal
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

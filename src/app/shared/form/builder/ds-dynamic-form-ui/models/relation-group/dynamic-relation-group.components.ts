@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { BehaviorSubject, combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, flatMap, map, mergeMap, scan, take } from 'rxjs/operators';
 import {
   DynamicFormControlComponent,
@@ -36,6 +36,7 @@ import { VocabularyExternalSourceComponent } from '../../../../../vocabulary-ext
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 
 /**
  * Component representing a group input field
@@ -64,7 +65,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   /**
    * The vocabulary entry
    */
-  public vocabulary$: BehaviorSubject<Vocabulary> = new BehaviorSubject<Vocabulary>(null);
+  public vocabulary$: Observable<Vocabulary>;
   private selectedChipItem: ChipsItem;
   private selectedChipItemIndex: number;
   private subs: Subscription[] = [];
@@ -77,7 +78,8 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
-              protected modalService: NgbModal
+              protected modalService: NgbModal,
+              protected submissionService: SubmissionService
   ) {
     super(layoutService, validationService);
   }
@@ -188,7 +190,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     if ((this.model as any).submissionScope === SubmissionScopeType.WorkflowItem && model.vocabularyOptions && isNotEmpty(model.vocabularyOptions.name)) {
       return this.vocabulary$.pipe(
         filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
-        map((vocabulary: Vocabulary) => isNotEmpty(vocabulary.entity) && isNotEmpty(vocabulary.externalSource))
+        map((vocabulary: Vocabulary) => isNotEmpty(vocabulary.entity) && isNotEmpty(vocabulary.getExternalSourceByMetadata(this.model.mandatoryField)))
       )
     } else {
       return observableOf(false);
@@ -211,7 +213,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
         size: 'lg',
       });
       modalRef.componentInstance.entityType = vocabulary.entity;
-      modalRef.componentInstance.externalSourceIdentifier = vocabulary.externalSource;
+      modalRef.componentInstance.externalSourceIdentifier = vocabulary.getExternalSourceByMetadata(this.model.mandatoryField);
       modalRef.componentInstance.submissionObjectID = this.model.submissionId;
       modalRef.componentInstance.metadataPlace = this.selectedChipItemIndex.toString(10) || '0';
 
@@ -234,6 +236,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, authority);
     model.valueUpdates.next(valueWithAuthority);
     this.modifyChip();
+    setTimeout(() => {
+      this.submissionService.dispatchSave(this.model.submissionId);
+    }, 100);
   }
 
   ngOnDestroy(): void {
@@ -392,15 +397,10 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   private retrieveVocabulary(vocabularyOptions: VocabularyOptions): void {
-    this.vocabularyService.searchVocabularyByMetadataAndCollection(vocabularyOptions).pipe(
+    this.vocabulary$ = this.vocabularyService.findVocabularyById(vocabularyOptions.name).pipe(
       getFirstSucceededRemoteDataPayload(),
       distinctUntilChanged(),
-    ).subscribe((vocabulary: Vocabulary) => {
-      // NOTE due to an issue with vocabulary endpoint that returns external source only with ByMetadataAndCollection method,
-      // is not possible to assign directly the observable to avoid vocabulary is overwritten when cache try to retrieve it by using self url
-      this.vocabulary$.next(vocabulary);
-      this.vocabularyService.clearSearchVocabularyByMetadataAndCollectionRequest(vocabularyOptions);
-    });
+    );
   }
 
 }

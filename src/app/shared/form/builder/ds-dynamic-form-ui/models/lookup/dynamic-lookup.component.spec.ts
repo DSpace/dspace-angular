@@ -1,5 +1,5 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -23,6 +23,11 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { FormBuilderService } from '../../../form-builder.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
+import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
+import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
 
 let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
   vocabularyOptions: {
@@ -72,7 +77,44 @@ let LOOKUP_TEST_GROUP = new FormGroup({
   lookup: new FormControl(),
   lookupName: new FormControl()
 });
-
+const vocabulary = Object.assign(new Vocabulary(), {
+  id: 'vocabulary',
+  name: 'vocabulary',
+  scrollable: true,
+  hierarchical: false,
+  preloadLevel: 0,
+  type: 'vocabulary',
+  _links: {
+    self: {
+      url: 'self'
+    },
+    entries: {
+      url: 'entries'
+    }
+  }
+});
+const vocabularyExternal: any = Object.assign(new Vocabulary(), {
+  id: 'author',
+  name: 'author',
+  scrollable: true,
+  hierarchical: false,
+  preloadLevel: 1,
+  entity: 'test',
+  externalSource: {
+    lookup: 'authorExternalSource',
+    lookupName: 'authorExternalSource'
+  },
+  type: 'vocabulary',
+  uuid: 'vocabulary-author',
+  _links: {
+    self: {
+      href: 'https://rest.api/rest/api/submission/vocabularies/types'
+    },
+    entries: {
+      href: 'https://rest.api/rest/api/submission/vocabularies/types/entries'
+    },
+  }
+});
 describe('Dynamic Lookup component', () => {
   function init() {
     LOOKUP_TEST_MODEL_CONFIG = {
@@ -130,6 +172,7 @@ describe('Dynamic Lookup component', () => {
   let lookupComp: DsDynamicLookupComponent;
   let testFixture: ComponentFixture<TestComponent>;
   let lookupFixture: ComponentFixture<DsDynamicLookupComponent>;
+  let debugElement: DebugElement;
   let html;
   let vocabularyServiceStub: VocabularyServiceStub;
 
@@ -159,6 +202,7 @@ describe('Dynamic Lookup component', () => {
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} },
         { provide: FormBuilderService },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
         NgbModal
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -170,9 +214,10 @@ describe('Dynamic Lookup component', () => {
   });
 
   describe('DynamicLookUpComponent', () => {
-    // synchronous beforeEach
-    beforeEach(() => {
-      html = `
+    describe('', () => {
+      // synchronous beforeEach
+      beforeEach(() => {
+        html = `
       <ds-dynamic-lookup
         [bindId]="bindId"
         [group]="group"
@@ -181,23 +226,24 @@ describe('Dynamic Lookup component', () => {
         (blur)="onBlur($event)"
         (change)="onValueChange($event)"
         (focus)="onFocus($event)"></ds-dynamic-lookup>`;
-
-      testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
-      testComp = testFixture.componentInstance;
+        spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
+        testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
+        testComp = testFixture.componentInstance;
+      });
+      afterEach(() => {
+        testFixture.destroy();
+        testComp = null;
+      });
+      it('should create DsDynamicLookupComponent', inject([DsDynamicLookupComponent], (app: DsDynamicLookupComponent) => {
+        expect(app).toBeDefined();
+      }));
     });
-    afterEach(() => {
-      testFixture.destroy();
-      testComp = null;
-    });
-    it('should create DsDynamicLookupComponent', inject([DsDynamicLookupComponent], (app: DsDynamicLookupComponent) => {
-      expect(app).toBeDefined();
-    }));
 
     describe('when model is DynamicLookupModel', () => {
 
       describe('', () => {
         beforeEach(() => {
-
+          spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
           lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
@@ -217,6 +263,7 @@ describe('Dynamic Lookup component', () => {
 
       describe('and init model value is empty', () => {
         beforeEach(() => {
+          spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
           lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
@@ -300,7 +347,7 @@ describe('Dynamic Lookup component', () => {
 
       describe('and init model value is not empty', () => {
         beforeEach(() => {
-
+          spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
           lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
@@ -341,7 +388,7 @@ describe('Dynamic Lookup component', () => {
       });
       describe('and init model value is not empty with authority', () => {
         beforeEach(() => {
-
+          spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
           lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
@@ -380,13 +427,53 @@ describe('Dynamic Lookup component', () => {
 
         });
       });
+
+      describe('and model has vocabulary with external source', () => {
+        beforeEach(() => {
+          spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabularyExternal));
+          lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
+          lookupComp = lookupFixture.componentInstance; // FormComponent test instance
+          debugElement = lookupFixture.debugElement;
+          lookupComp.group = LOOKUP_TEST_GROUP;
+          lookupComp.model = new DynamicLookupModel(LOOKUP_TEST_MODEL_CONFIG);
+        });
+
+        afterEach(() => {
+          lookupFixture.destroy();
+          lookupComp = null;
+        });
+        describe('and submission scope is workspaceitem', () => {
+          beforeEach(() => {
+            lookupComp.model.submissionScope = SubmissionScopeType.WorkspaceItem;
+            lookupFixture.detectChanges();
+          });
+
+          it('should not display external source button', inject([FormBuilderService], (service: FormBuilderService) => {
+            const testElement = debugElement.query(By.css('i.fa-share-square'));
+            expect(testElement).toBeNull();
+          }));
+        });
+
+        describe('and submission scope is workflowitem', () => {
+          beforeEach(() => {
+            lookupComp.model.submissionScope = SubmissionScopeType.WorkflowItem;
+            lookupFixture.detectChanges();
+          });
+
+          it('should display external source button', inject([FormBuilderService], (service: FormBuilderService) => {
+            const testElement = debugElement.query(By.css('i.fa-share-square'));
+            expect(testElement).not.toBeNull();
+          }));
+        });
+
+      });
     });
 
     describe('when model is DynamicLookupNameModel', () => {
 
       describe('', () => {
         beforeEach(() => {
-
+          spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
           lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
@@ -416,7 +503,7 @@ describe('Dynamic Lookup component', () => {
       describe('and init model value is empty', () => {
 
         beforeEach(() => {
-
+          spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
           lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
@@ -469,7 +556,7 @@ describe('Dynamic Lookup component', () => {
 
       describe('and init model value is not empty', () => {
         beforeEach(() => {
-
+          spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
           lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
@@ -512,7 +599,7 @@ describe('Dynamic Lookup component', () => {
 
       describe('and init model value is not empty with authority', () => {
         beforeEach(() => {
-
+          spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabulary));
           lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
           lookupComp = lookupFixture.componentInstance; // FormComponent test instance
           lookupComp.group = LOOKUP_TEST_GROUP;
@@ -551,6 +638,46 @@ describe('Dynamic Lookup component', () => {
           expect(saveBtnEl.textContent.trim()).toBe('form.save');
 
         });
+      });
+
+      describe('and model has vocabulary with external source', () => {
+        beforeEach(() => {
+          spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabularyExternal));
+          lookupFixture = TestBed.createComponent(DsDynamicLookupComponent);
+          debugElement = lookupFixture.debugElement;
+          lookupComp = lookupFixture.componentInstance; // FormComponent test instance
+          lookupComp.group = LOOKUP_TEST_GROUP;
+          lookupComp.model = new DynamicLookupNameModel(LOOKUP_NAME_TEST_MODEL_CONFIG);
+        });
+
+        afterEach(() => {
+          lookupFixture.destroy();
+          lookupComp = null;
+        });
+        describe('and submission scope is workspaceitem', () => {
+          beforeEach(() => {
+            lookupComp.model.submissionScope = SubmissionScopeType.WorkspaceItem;
+            lookupFixture.detectChanges();
+          });
+
+          it('should not display external source button', inject([FormBuilderService], (service: FormBuilderService) => {
+            const testElement = debugElement.query(By.css('i.fa-share-square'));
+            expect(testElement).toBeNull();
+          }));
+        });
+
+        describe('and submission scope is workflowitem', () => {
+          beforeEach(() => {
+            lookupComp.model.submissionScope = SubmissionScopeType.WorkflowItem;
+            lookupFixture.detectChanges();
+          });
+
+          it('should display external source button', inject([FormBuilderService], (service: FormBuilderService) => {
+            const testElement = debugElement.query(By.css('i.fa-share-square'));
+            expect(testElement).not.toBeNull();
+          }));
+        });
+
       });
     });
   });

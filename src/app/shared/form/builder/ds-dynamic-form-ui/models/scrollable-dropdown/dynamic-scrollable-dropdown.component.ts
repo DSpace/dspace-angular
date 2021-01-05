@@ -16,6 +16,7 @@ import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { FormBuilderService } from '../../../form-builder.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 
 /**
  * Component representing a dropdown input field
@@ -44,9 +45,10 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
               protected formBuilderService: FormBuilderService,
-              protected modalService: NgbModal
+              protected modalService: NgbModal,
+              protected submissionService: SubmissionService
   ) {
-    super(vocabularyService, layoutService, validationService, formBuilderService, modalService);
+    super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
 
   /**

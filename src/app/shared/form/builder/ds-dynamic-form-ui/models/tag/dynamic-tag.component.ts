@@ -18,6 +18,7 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormBuilderService } from '../../../form-builder.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 
 /**
  * Component representing a tag input field
@@ -53,9 +54,10 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
               protected formBuilderService: FormBuilderService,
-              protected modalService: NgbModal
+              protected modalService: NgbModal,
+              protected submissionService: SubmissionService
   ) {
-    super(vocabularyService, layoutService, validationService, formBuilderService, modalService);
+    super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
 
   /**
@@ -162,8 +164,6 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   }
 
   updateModel(event) {
-    /*    this.model.valueUpdates.next(this.chips.getChipsItems());
-        this.change.emit(event);*/
     this.dispatchUpdate(this.chips.getChipsItems());
   }
 

@@ -46,4 +46,5 @@ export class VocabularyServiceStub {
   searchVocabularyByMetadataAndCollection(vocabularyOptions: VocabularyOptions): Observable<RemoteData<Vocabulary>> {
     return;
   }
+
 }

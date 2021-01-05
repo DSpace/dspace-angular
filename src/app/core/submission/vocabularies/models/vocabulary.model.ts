@@ -5,6 +5,11 @@ import { VOCABULARY } from './vocabularies.resource-type';
 import { CacheableObject } from '../../../cache/object-cache.reducer';
 import { typedObject } from '../../../cache/builders/build-decorators';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { isNotEmpty } from '../../../../shared/empty.util';
+
+export interface VocabularyExternalSourceMap {
+  [metadata: string]: string
+}
 
 /**
  * Model class for a Vocabulary
@@ -54,7 +59,7 @@ export class Vocabulary implements CacheableObject {
    * If available represent that this vocabulary can be use to create a new entity
    */
   @autoserialize
-  externalSource: string;
+  externalSource: VocabularyExternalSourceMap;
 
   /**
    * A string representing the kind of Vocabulary model
@@ -71,4 +76,13 @@ export class Vocabulary implements CacheableObject {
     self: HALLink,
     entries: HALLink
   };
+
+  public getExternalSourceByMetadata(metadata): string {
+    let sourceIdentifier = null;
+    if (isNotEmpty(this.externalSource) && this.externalSource.hasOwnProperty(metadata)) {
+      sourceIdentifier = this.externalSource[metadata];
+    }
+
+    return sourceIdentifier;
+  }
 }

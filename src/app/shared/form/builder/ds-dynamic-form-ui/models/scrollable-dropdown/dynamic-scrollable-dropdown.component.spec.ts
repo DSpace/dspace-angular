@@ -17,6 +17,8 @@ import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.mo
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent, hasClass } from '../../../../../testing/utils.test';
 import { FormBuilderService } from '../../../form-builder.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 
 export const SD_TEST_GROUP = new FormGroup({
   dropdown: new FormControl(),
@@ -78,6 +80,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} },
         { provide: FormBuilderService },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
         NgbModal
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

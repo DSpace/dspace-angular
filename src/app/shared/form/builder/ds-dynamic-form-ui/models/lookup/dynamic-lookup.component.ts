@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, O
 import { FormGroup } from '@angular/forms';
 
 import { of as observableOf, Subscription } from 'rxjs';
-import { catchError, distinctUntilChanged, take } from 'rxjs/operators';
+import { catchError, distinctUntilChanged } from 'rxjs/operators';
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
@@ -17,9 +17,7 @@ import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormBuilderService } from '../../../form-builder.service';
-import { CreateItemParentSelectorComponent } from '../../../../../dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyExternalSourceComponent } from '../../../../../vocabulary-external-source/vocabulary-external-source.component';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 
 /**
  * Component representing a lookup or lookup-name input field
@@ -52,9 +50,10 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
               protected formBuilderService: FormBuilderService,
-              protected modalService: NgbModal
+              protected modalService: NgbModal,
+              protected submissionService: SubmissionService
   ) {
-    super(vocabularyService, layoutService, validationService, formBuilderService, modalService);
+    super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
 
   /**

@@ -45,6 +45,8 @@ export class VocabularyExternalSourceComponent implements OnInit {
 
   public loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  private modalRef: NgbModalRef;
+
   /**
    * The the source item uuid
    */
@@ -99,13 +101,13 @@ export class VocabularyExternalSourceComponent implements OnInit {
    * Start the import of an entry by opening up a collection choice modal window.
    */
   public import(): void {
-    const modalRef = this.modalService.open(CreateItemParentSelectorComponent, {
+    this.modalRef = this.modalService.open(CreateItemParentSelectorComponent, {
       size: 'lg',
     });
-    modalRef.componentInstance.entityType = this.entityType;
-    modalRef.componentInstance.emitOnly = true;
+    this.modalRef.componentInstance.entityType = this.entityType;
+    this.modalRef.componentInstance.emitOnly = true;
 
-    modalRef.componentInstance.select.pipe(take(1)).subscribe((collection: Collection) => {
+    this.modalRef.componentInstance.select.pipe(take(1)).subscribe((collection: Collection) => {
       this.loading$.next(true);
       this.createEntityFromExternalSource(this.externalSourceEntry, collection.uuid);
     });

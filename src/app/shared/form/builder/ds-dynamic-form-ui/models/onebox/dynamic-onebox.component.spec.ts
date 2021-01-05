@@ -1,5 +1,5 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -26,6 +26,10 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
 import { FormBuilderService } from '../../../form-builder.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
+import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
+import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
 
 export let ONEBOX_TEST_GROUP;
 
@@ -72,12 +76,13 @@ describe('DsDynamicOneboxComponent test suite', () => {
   let testComp: TestComponent;
   let oneboxComponent: DsDynamicOneboxComponent;
   let testFixture: ComponentFixture<TestComponent>;
+  let debugElement: DebugElement;
   let oneboxCompFixture: ComponentFixture<DsDynamicOneboxComponent>;
   let vocabularyServiceStub: any;
   let modalService: any;
   let html;
   let modal;
-  const vocabulary = {
+  const vocabulary = Object.assign(new Vocabulary(), {
     id: 'vocabulary',
     name: 'vocabulary',
     scrollable: true,
@@ -92,9 +97,29 @@ describe('DsDynamicOneboxComponent test suite', () => {
         url: 'entries'
       }
     }
-  }
-
-  const hierarchicalVocabulary = {
+  });
+  const vocabularyExternal: any = Object.assign(new Vocabulary(), {
+    id: 'author',
+    name: 'author',
+    scrollable: true,
+    hierarchical: false,
+    preloadLevel: 1,
+    entity: 'test',
+    externalSource: {
+      onebox: 'authorExternalSource'
+    },
+    type: 'vocabulary',
+    uuid: 'vocabulary-author',
+    _links: {
+      self: {
+        href: 'https://rest.api/rest/api/submission/vocabularies/types'
+      },
+      entries: {
+        href: 'https://rest.api/rest/api/submission/vocabularies/types/entries'
+      },
+    }
+  });
+  const hierarchicalVocabulary = Object.assign(new Vocabulary(), {
     id: 'hierarchicalVocabulary',
     name: 'hierarchicalVocabulary',
     scrollable: true,
@@ -109,7 +134,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         url: 'entries'
       }
     }
-  }
+  });
 
   // async beforeEach
   beforeEach(() => {
@@ -147,7 +172,8 @@ describe('DsDynamicOneboxComponent test suite', () => {
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} },
         { provide: NgbModal, useValue: modal },
-        { provide: FormBuilderService }
+        { provide: FormBuilderService },
+        { provide: SubmissionService, useClass: SubmissionServiceStub }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -187,6 +213,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
       beforeEach(() => {
 
         oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
+        debugElement = oneboxCompFixture.debugElement;
         oneboxComponent = oneboxCompFixture.componentInstance; // FormComponent test instance
         oneboxComponent.group = ONEBOX_TEST_GROUP;
         oneboxComponent.model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
@@ -199,6 +226,8 @@ describe('DsDynamicOneboxComponent test suite', () => {
       });
 
       it('should init component properly', () => {
+        const testElement = debugElement.query(By.css('i.fa-share-square'));
+        expect(testElement).toBeNull();
         expect(oneboxComponent.currentValue).not.toBeDefined();
       });
 
@@ -443,6 +472,42 @@ describe('DsDynamicOneboxComponent test suite', () => {
         expect((oneboxComponent as any).modalService.open).toHaveBeenCalled();
         done();
       });
+    });
+
+  });
+
+  describe('Has vocabulary with external source', () => {
+    beforeEach(() => {
+      spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabularyExternal));
+      oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
+      debugElement = oneboxCompFixture.debugElement;
+      oneboxComponent = oneboxCompFixture.componentInstance; // FormComponent test instance
+      oneboxComponent.group = ONEBOX_TEST_GROUP;
+      oneboxComponent.model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
+    });
+
+    describe('and submission scope is workspaceitem', () => {
+      beforeEach(() => {
+        oneboxComponent.model.submissionScope = SubmissionScopeType.WorkspaceItem;
+        oneboxCompFixture.detectChanges();
+      });
+
+      it('should not display external source button', inject([FormBuilderService], (service: FormBuilderService) => {
+        const testElement = debugElement.query(By.css('i.fa-share-square'));
+        expect(testElement).toBeNull();
+      }));
+    });
+
+    describe('and submission scope is workflowitem', () => {
+      beforeEach(() => {
+        oneboxComponent.model.submissionScope = SubmissionScopeType.WorkflowItem;
+        oneboxCompFixture.detectChanges();
+      });
+
+      it('should display external source button', inject([FormBuilderService], (service: FormBuilderService) => {
+        const testElement = debugElement.query(By.css('i.fa-share-square'));
+        expect(testElement).not.toBeNull();
+      }));
     });
 
   });

@@ -7,7 +7,7 @@ import {
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
@@ -21,6 +21,7 @@ import { Vocabulary } from '../../../../../core/submission/vocabularies/models/v
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { VocabularyExternalSourceComponent } from '../../../../vocabulary-external-source/vocabulary-external-source.component';
 import { SubmissionScopeType } from '../../../../../core/submission/submission-scope-type';
+import { SubmissionService } from '../../../../../submission/submission.service';
 
 /**
  * An abstract class to be extended by form components that handle vocabulary
@@ -38,7 +39,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   /**
    * The vocabulary entry
    */
-  public vocabulary$: BehaviorSubject<Vocabulary> = new BehaviorSubject<Vocabulary>(null);
+  public vocabulary$: Observable<Vocabulary> = observableOf(null);
 
   /**
    * The PageInfo object
@@ -49,7 +50,8 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
                         protected layoutService: DynamicFormLayoutService,
                         protected validationService: DynamicFormValidationService,
                         protected formBuilderService: FormBuilderService,
-                        protected modalService: NgbModal
+                        protected modalService: NgbModal,
+                        protected submissionService: SubmissionService
   ) {
     super(layoutService, validationService);
   }
@@ -119,7 +121,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         size: 'lg',
       });
       modalRef.componentInstance.entityType = vocabulary.entity;
-      modalRef.componentInstance.externalSourceIdentifier = vocabulary.externalSource;
+      modalRef.componentInstance.externalSourceIdentifier = vocabulary.getExternalSourceByMetadata(this.model.name);
       modalRef.componentInstance.sourceItemUUID = this.model.name;
       modalRef.componentInstance.submissionObjectID = this.model.submissionId;
       modalRef.componentInstance.metadataPlace = this.model.place || '0';
@@ -143,7 +145,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   hasExternalSource(): Observable<boolean> {
     return this.vocabulary$.pipe(
       filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
-      map((vocabulary: Vocabulary) => isNotEmpty(vocabulary.entity) && isNotEmpty(vocabulary.externalSource)
+      map((vocabulary: Vocabulary) => isNotEmpty(vocabulary.entity) && isNotEmpty(vocabulary.getExternalSourceByMetadata(this.model.name))
         && (this.model as any).submissionScope === SubmissionScopeType.WorkflowItem)
     );
   }
@@ -152,15 +154,10 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
    * Retrieve vocabulary object
    */
   initVocabulary(): void {
-    this.vocabularyService.searchVocabularyByMetadataAndCollection(this.model.vocabularyOptions).pipe(
+    this.vocabulary$ = this.vocabularyService.findVocabularyById(this.model.vocabularyOptions.name).pipe(
       getFirstSucceededRemoteDataPayload(),
       distinctUntilChanged(),
-    ).subscribe((vocabulary: Vocabulary) => {
-      // NOTE due to an issue with vocabulary endpoint that returns external source only with ByMetadataAndCollection method,
-      // is not possible to assign directly the observable to avoid vocabulary is overwritten when cache try to retrieve it by using self url
-      this.vocabulary$.next(vocabulary);
-      this.vocabularyService.clearSearchVocabularyByMetadataAndCollectionRequest(this.model.vocabularyOptions);
-    });
+    )
   }
 
   /**
@@ -199,6 +196,9 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, authority);
     this.model.valueUpdates.next(valueWithAuthority);
     this.change.emit(valueWithAuthority);
+    setTimeout(() => {
+      this.submissionService.dispatchSave(this.model.submissionId);
+    }, 100);
   }
 
   /**
@@ -249,4 +249,5 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     newValue.authority = value.substring(value.lastIndexOf('::') + 2);
     return newValue;
   }
+
 }
