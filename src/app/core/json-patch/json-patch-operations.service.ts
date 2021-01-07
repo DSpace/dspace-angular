@@ -162,6 +162,18 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
   }
 
   /**
+   * Select the jsonPatch operation related to the specified resource type.
+   * @param resourceType
+   */
+  public hasPendingOperations(resourceType: string): Observable<boolean> {
+    return this.store.select(jsonPatchOperationsByResourceType(resourceType)).pipe(
+      map((val) =>  !isEmpty(val) && Object.values(val.children)
+        .filter((section) => !isEmpty((section as any).body)).length > 0),
+      distinctUntilChanged(),
+    );
+  }
+
+  /**
    * Make a new JSON Patch request with all operations related to the specified resource id
    *
    * @param linkPath

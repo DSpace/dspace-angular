@@ -119,7 +119,8 @@ function init() {
         dc_identifier_issn: null
       },
       valid: false,
-      errors: []
+      errors: [],
+      touched: {}
     }
   };
 

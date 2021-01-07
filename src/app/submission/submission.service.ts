@@ -45,6 +45,7 @@ import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { Item } from '../core/shared/item.model';
 import { environment } from '../../environments/environment';
+import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 
 /**
  * A service that provides methods used in submission process.
@@ -82,7 +83,8 @@ export class SubmissionService {
               protected store: Store<SubmissionState>,
               protected translate: TranslateService,
               protected searchService: SearchService,
-              protected requestService: RequestService) {
+              protected requestService: RequestService,
+              protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
   }
 
   /**
@@ -209,12 +211,14 @@ export class SubmissionService {
    *
    * @param submissionId
    *    The submission id
+   * @param manual
+   *    whether is a manual save, default false
    */
-  dispatchSave(submissionId) {
+  dispatchSave(submissionId, manual?: boolean) {
     this.getSubmissionSaveProcessingStatus(submissionId).pipe(
       find((isPending: boolean) => !isPending)
     ).subscribe(() => {
-      this.store.dispatch(new SaveSubmissionFormAction(submissionId));
+      this.store.dispatch(new SaveSubmissionFormAction(submissionId, manual));
     })
   }
 
@@ -428,6 +432,16 @@ export class SubmissionService {
   }
 
   /**
+   * Return whether submission unsaved modification are present
+   *
+   * @return Observable<boolean>
+   *    observable with submission unsaved modification presence
+   */
+  hasUnsavedModification(): Observable<boolean> {
+    return this.jsonPatchOperationService.hasPendingOperations('sections');
+  }
+
+  /**
    * Return the visibility status of the specified section
    *
    * @param sectionData
@@ -562,9 +576,12 @@ export class SubmissionService {
    */
   startAutoSave(submissionId) {
     this.stopAutoSave();
+    if (environment.submission.autosave.timer === 0) {
+      return;
+    }
+
     // AUTOSAVE submission
-    // Retrieve interval from config and convert to milliseconds
-    const duration = environment.submission.autosave.timer * (1000 * 60);
+    const duration = environment.submission.autosave.timer;
     // Dispatch save action after given duration
     this.timer$ = observableTimer(duration, duration);
     this.autoSaveSub = this.timer$

@@ -13,7 +13,7 @@ import {
   tap
 } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { isEqual } from 'lodash';
+import { isEqual, findIndex } from 'lodash';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -102,6 +102,12 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   protected formData: any = Object.create({});
 
   /**
+   * Store the
+   * @protected
+   */
+  protected sectionMetadata: string[];
+
+  /**
    * The [JsonPatchOperationPathCombiner] object
    * @type {JsonPatchOperationPathCombiner}
    */
@@ -168,6 +174,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   onSectionInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.formId = this.formService.getUniqueId(this.sectionData.id);
+    this.sectionService.dispatchSetSectionFormId(this.submissionId, this.sectionData.id, this.formId);
     this.formConfigService.findByHref(this.sectionData.config).pipe(
       map((configData: RemoteData<ConfigObject>) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
@@ -230,16 +237,25 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    *    the section data retrieved from the server
    */
   hasMetadataEnrichment(sectionData: WorkspaceitemSectionFormObject): boolean {
+
+    const sectionDataToCheck = {};
+    Object.keys(sectionData).forEach((key) => {
+      if (this.sectionMetadata && this.sectionMetadata.includes(key)) {
+        sectionDataToCheck[key] = sectionData[key];
+      }
+    })
+
     const diffResult = [];
 
     // compare current form data state with section data retrieved from store
-    const diffObj = difference(sectionData, this.formData);
+    const diffObj = difference(sectionDataToCheck, this.formData);
 
     // iterate over differences to check whether they are actually different
     Object.keys(diffObj)
       .forEach((key) => {
         diffObj[key].forEach((value) => {
-          if (value.hasOwnProperty('value')) {
+          // the findIndex extra check excludes values already present in the form but in different positions
+          if (value.hasOwnProperty('value') && findIndex(this.formData[key], { value: value.value }) < 0) {
             diffResult.push(value);
           }
         });
@@ -262,6 +278,9 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         sectionData,
         this.submissionService.getSubmissionScope()
       );
+      const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
+      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, [], sectionMetadata);
+
     } catch (e) {
       const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
       const sectionError: SubmissionSectionError = {
@@ -283,15 +302,19 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    */
   updateForm(sectionData: WorkspaceitemSectionFormObject, errors: SubmissionSectionError[]): void {
 
-    if (hasValue(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
+    if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
-      this.isUpdating = true;
-      this.formModel = null;
-      this.cdr.detectChanges();
-      this.initForm(sectionData);
-      this.checksForErrors(errors);
-      this.isUpdating = false;
-      this.cdr.detectChanges();
+      if (this.hasMetadataEnrichment(sectionData)) {
+        this.isUpdating = true;
+        this.formModel = null;
+        this.cdr.detectChanges();
+        this.initForm(sectionData);
+        this.checksForErrors(errors);
+        this.isUpdating = false;
+        this.cdr.detectChanges();
+      } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errors)) {
+        this.checksForErrors(errors);
+      }
     } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errors)) {
       this.checksForErrors(errors);
     }
@@ -338,6 +361,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         distinctUntilChanged())
         .subscribe((sectionState: SubmissionSectionObject) => {
           this.fieldsOnTheirWayToBeRemoved = new Map();
+          this.sectionMetadata = sectionState.metadata;
           this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errors);
         })
     )

@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
@@ -60,9 +60,30 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
   @Input() value: string;
 
   /**
+   * Whether or not informational badges (e.g. Private, Withdrawn) should be hidden
+   */
+  @Input() hideBadges = false;
+
+  /**
    * Directive hook used to place the dynamic child component
    */
   @ViewChild(ListableObjectDirective, {static: true}) listableObjectDirective: ListableObjectDirective;
+
+  /**
+   * View on the badges template, to be passed on to the loaded component (which will place the badges in the desired
+   * location, or on top if not specified)
+   */
+  @ViewChild('badges', { static: true }) badges: ElementRef;
+
+  /**
+   * Whether or not the "Private" badge should be displayed for this listable object
+   */
+  privateBadge = false;
+
+  /**
+   * Whether or not the "Withdrawn" badge should be displayed for this listable object
+   */
+  withdrawnBadge = false;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -87,12 +108,21 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
   }
 
   private instantiateComponent(object) {
+
+    this.initBadges();
+
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(object));
 
     const viewContainerRef = this.listableObjectDirective.viewContainerRef;
     viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(componentFactory);
+    const componentRef = viewContainerRef.createComponent(
+      componentFactory,
+      0,
+      undefined,
+      [
+        [this.badges.nativeElement],
+      ]);
     (componentRef.instance as any).object = object;
     (componentRef.instance as any).index = this.index;
     (componentRef.instance as any).linkType = this.linkType;
@@ -109,6 +139,19 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
         }
       }));
     }
+  }
+
+  /**
+   * Initialize which badges should be visible in the listable component
+   */
+  initBadges() {
+    let objectAsAny = this.object as any;
+    if (hasValue(objectAsAny.indexableObject)) {
+      objectAsAny = objectAsAny.indexableObject;
+    }
+    const objectExistsAndValidViewMode = hasValue(objectAsAny) && this.viewMode !== ViewMode.StandalonePage;
+    this.privateBadge = objectExistsAndValidViewMode && hasValue(objectAsAny.isDiscoverable) && !objectAsAny.isDiscoverable;
+    this.withdrawnBadge = objectExistsAndValidViewMode && hasValue(objectAsAny.isWithdrawn) && objectAsAny.isWithdrawn;
   }
 
   /**
