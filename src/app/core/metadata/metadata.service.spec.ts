@@ -38,7 +38,7 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 import { ItemDataService } from '../data/item-data.service';
-import { PaginatedList, buildPaginatedList } from '../data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -57,7 +57,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 /* tslint:disable:max-classes-per-file */
 @Component({
   template: `
-      <router-outlet></router-outlet>`
+    <router-outlet></router-outlet>`
 })
 class TestComponent {
   constructor(private metadata: MetadataService) {
@@ -171,8 +171,16 @@ describe('MetadataService', () => {
         Meta,
         Title,
         // tslint:disable-next-line:no-empty
-        { provide: ItemDataService, useValue: { findById: () => {} } },
-        { provide: HardRedirectService, useValue: { rewriteDownloadURL: (a) => a, getRequestOrigin: () => environment.ui.baseUrl }},
+        {
+          provide: ItemDataService, useValue: {
+            findById: () => {
+            }
+          }
+        },
+        {
+          provide: HardRedirectService,
+          useValue: { rewriteDownloadURL: (a) => a, getRequestOrigin: () => environment.ui.baseUrl }
+        },
         BrowseService,
         MetadataService
       ],

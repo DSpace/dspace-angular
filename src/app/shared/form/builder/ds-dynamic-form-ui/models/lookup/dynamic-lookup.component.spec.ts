@@ -136,7 +136,7 @@ describe('Dynamic Lookup component', () => {
   let html;
   let vocabularyServiceStub: VocabularyServiceStub;
 
-  // async beforeEach
+  // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     vocabularyServiceStub = new VocabularyServiceStub();
     TestBed.configureTestingModule({

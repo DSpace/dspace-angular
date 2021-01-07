@@ -1,5 +1,5 @@
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -12,7 +12,8 @@ import { SearchServiceStub } from '../testing/search-service.stub';
 import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({ template: '' })
-class DummyComponent { }
+class DummyComponent {
+}
 
 describe('ViewModeSwitchComponent', () => {
   let comp: ViewModeSwitchComponent;
@@ -20,7 +21,7 @@ describe('ViewModeSwitchComponent', () => {
   const searchService = new SearchServiceStub();
   let listButton: HTMLElement;
   let gridButton: HTMLElement;
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({

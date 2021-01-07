@@ -1,5 +1,5 @@
 import { ItemVersionsNoticeComponent } from './item-versions-notice.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -52,7 +52,7 @@ describe('ItemVersionsNoticeComponent', () => {
     getVersions: createSuccessfulRemoteDataObject$(createPaginatedList(versions))
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ItemVersionsNoticeComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],

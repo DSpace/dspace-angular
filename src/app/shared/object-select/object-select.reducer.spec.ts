@@ -1,7 +1,10 @@
 import {
-  ObjectSelectionDeselectAction, ObjectSelectionInitialDeselectAction,
-  ObjectSelectionInitialSelectAction, ObjectSelectionResetAction,
-  ObjectSelectionSelectAction, ObjectSelectionSwitchAction
+  ObjectSelectionDeselectAction,
+  ObjectSelectionInitialDeselectAction,
+  ObjectSelectionInitialSelectAction,
+  ObjectSelectionResetAction,
+  ObjectSelectionSelectAction,
+  ObjectSelectionSwitchAction
 } from './object-select.actions';
 import { objectSelectionReducer } from './object-select.reducer';
 

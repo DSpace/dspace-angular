@@ -14,7 +14,7 @@ import { UnCacheableObject } from '../../shared/uncacheable-object.model';
 import { RemoteData } from '../../data/remote-data';
 import { Observable, of as observableOf } from 'rxjs';
 import { RequestEntry, RequestEntryState } from '../../data/request.reducer';
-import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { take } from 'rxjs/operators';
 import { HALLink } from '../../shared/hal-link.model';
 
@@ -397,7 +397,7 @@ describe('RemoteDataBuildService', () => {
       });
 
       it(`should return false if the requestEntry's request has no id`, () => {
-        expect((service as any).hasExactMatchInObjectCache('href', { request: {}})).toEqual(false);
+        expect((service as any).hasExactMatchInObjectCache('href', { request: {} })).toEqual(false);
       });
     });
 

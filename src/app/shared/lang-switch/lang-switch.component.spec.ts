@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -52,7 +52,7 @@ describe('LangSwitchComponent', () => {
     let translate: TranslateService;
     let http: HttpTestingController;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
       const mockConfig = {
         languages: [{
@@ -98,12 +98,12 @@ describe('LangSwitchComponent', () => {
       expect(component).toBeDefined();
     });
 
-    it('should identify English as the label for the current active language in the component', async(() => {
+    it('should identify English as the label for the current active language in the component', waitForAsync(() => {
       fixture.detectChanges();
       expect(component.currentLangLabel()).toEqual('English');
     }));
 
-    it('should be initialized with more than one language active', async(() => {
+    it('should be initialized with more than one language active', waitForAsync(() => {
       fixture.detectChanges();
       expect(component.moreThanOneLanguage).toBeTruthy();
     }));
@@ -138,7 +138,7 @@ describe('LangSwitchComponent', () => {
     let translate: TranslateService;
     let http: HttpTestingController;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
       const mockConfig = {
         languages: [{

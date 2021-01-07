@@ -1,4 +1,4 @@
-import { async, inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
@@ -184,7 +184,7 @@ describe('AuthService test', () => {
 
   describe('', () => {
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       init();
       TestBed.configureTestingModule({
         imports: [
@@ -253,7 +253,7 @@ describe('AuthService test', () => {
   });
 
   describe('', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       init();
       TestBed.configureTestingModule({
         imports: [
@@ -470,7 +470,7 @@ describe('AuthService test', () => {
   });
 
   describe('when user is not logged in', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       init();
       TestBed.configureTestingModule({
         imports: [

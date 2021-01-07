@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ParameterSelectComponent } from './parameter-select.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -30,7 +30,7 @@ describe('ParameterSelectComponent', () => {
       ),
     ];
   }
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [FormsModule],

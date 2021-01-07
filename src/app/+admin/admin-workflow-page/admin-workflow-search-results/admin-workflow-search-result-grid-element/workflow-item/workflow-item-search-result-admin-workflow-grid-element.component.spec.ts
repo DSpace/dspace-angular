@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,7 +39,7 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
     linkService = getMockLinkService();
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule(
       {
@@ -51,9 +51,11 @@ describe('WorkflowItemAdminWorkflowGridElementComponent', () => {
         ],
         providers: [
           { provide: LinkService, useValue: linkService },
-          { provide: TruncatableService, useValue: {
+          {
+            provide: TruncatableService, useValue: {
               isCollapsed: () => observableOf(true),
-            } },
+            }
+          },
           { provide: BitstreamDataService, useValue: {} },
         ],
         schemas: [NO_ERRORS_SCHEMA]

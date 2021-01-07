@@ -19,9 +19,9 @@ describe('CreateCollectionParentSelectorComponent', () => {
   community.metadata = {
     'dc.title': [
       Object.assign(new MetadataValue(), {
-      value: 'Community title',
-      language: undefined
-    })]
+        value: 'Community title',
+        language: undefined
+      })]
   };
   const router = new RouterStub();
   const communityRD = createSuccessfulRemoteDataObject(community);

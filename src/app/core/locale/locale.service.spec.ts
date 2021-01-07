@@ -99,14 +99,14 @@ describe('LocaleService test suite', () => {
 
     it('should set the given language', () => {
       service.setCurrentLanguageCode('it');
-      expect(translateService.use).toHaveBeenCalledWith( 'it');
+      expect(translateService.use).toHaveBeenCalledWith('it');
       expect(service.saveLanguageCodeToCookie).toHaveBeenCalledWith('it');
     });
 
     it('should set the current language', () => {
       spyOn(service, 'getCurrentLanguageCode').and.returnValue('es');
       service.setCurrentLanguageCode();
-      expect(translateService.use).toHaveBeenCalledWith( 'es');
+      expect(translateService.use).toHaveBeenCalledWith('es');
       expect(service.saveLanguageCodeToCookie).toHaveBeenCalledWith('es');
     });
   });

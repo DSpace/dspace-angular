@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -101,7 +101,7 @@ describe('TopLevelCommunityList Component', () => {
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -140,7 +140,7 @@ describe('TopLevelCommunityList Component', () => {
 
   it('should update list of top-communities on pagination change', () => {
     const pagination = Object.create({
-      pagination:{
+      pagination: {
         id: comp.pageId,
         currentPage: 2,
         pageSize: 5

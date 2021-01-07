@@ -4,7 +4,7 @@ import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { ProcessDetailComponent } from './process-detail.component';
 import {
-  async,
+  waitForAsync,
   ComponentFixture,
   discardPeriodicTasks,
   fakeAsync,
@@ -106,7 +106,7 @@ describe('ProcessDetailComponent', () => {
     });
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],

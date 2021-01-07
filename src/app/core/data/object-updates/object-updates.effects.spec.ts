@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Observable, Subject } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
@@ -11,10 +11,7 @@ import {
   RemoveFieldUpdateAction,
   RemoveObjectUpdatesAction
 } from './object-updates.actions';
-import {
-  INotification,
-  Notification
-} from '../../../shared/notifications/models/notification.model';
+import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { filter } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
@@ -25,7 +22,7 @@ describe('ObjectUpdatesEffects', () => {
   let testURL = 'www.dspace.org/dspace7';
   let testUUID = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
   const fakeID = 'id';
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [
         ObjectUpdatesEffects,
@@ -84,9 +81,9 @@ describe('ObjectUpdatesEffects', () => {
           updatesEffects.removeAfterDiscardOrReinstateOnUndo$.pipe(
             filter(((action) => hasValue(action))))
             .subscribe((t) => {
-              expect(t).toEqual(removeAction);
-            }
-          )
+                expect(t).toEqual(removeAction);
+              }
+            )
           ;
         });
       });

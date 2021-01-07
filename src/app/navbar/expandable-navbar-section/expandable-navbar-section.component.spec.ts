@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
 import { By } from '@angular/platform-browser';
@@ -16,7 +16,7 @@ describe('ExpandableNavbarSectionComponent', () => {
   const menuService = new MenuServiceStub();
 
   describe('on larger screens', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule],
         declarations: [ExpandableNavbarSectionComponent, TestComponent],
@@ -93,7 +93,7 @@ describe('ExpandableNavbarSectionComponent', () => {
   });
 
   describe('on smaller, mobile screens', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule],
         declarations: [ExpandableNavbarSectionComponent, TestComponent],

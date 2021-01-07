@@ -7,18 +7,15 @@ import { RequestService } from '../data/request.service';
 import {
   configureRequest,
   getAllSucceededRemoteData,
+  getFirstSucceededRemoteData,
   getRemoteDataPayload,
   getRequestFromRequestHref,
   getRequestFromRequestUUID,
   getResponseFromEntry,
-  getFirstSucceededRemoteData,
   redirectOn4xx
 } from './operators';
 import { of as observableOf } from 'rxjs';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject
-} from '../../shared/remote-data.utils';
+import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;

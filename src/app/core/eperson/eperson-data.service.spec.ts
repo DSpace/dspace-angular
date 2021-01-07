@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { compare, Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -70,7 +70,7 @@ describe('EPersonDataService', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-          useClass: TranslateLoaderMock
+            useClass: TranslateLoaderMock
           }
         }),
       ],
@@ -225,7 +225,7 @@ describe('EPersonDataService', () => {
   });
 
   describe('clearEPersonRequests', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       scheduler = getTestScheduler();
       halService = {
         getEndpoint(linkPath: string): Observable<string> {
@@ -292,7 +292,7 @@ describe('EPersonDataService', () => {
   });
   describe('patchPasswordWithToken', () => {
     it('should sent a patch request with an uuid, token and new password to the epersons endpoint', () => {
-      service.patchPasswordWithToken('test-uuid', 'test-token','test-password');
+      service.patchPasswordWithToken('test-uuid', 'test-token', 'test-password');
 
       const operation = Object.assign({ op: 'add', path: '/password', value: 'test-password' });
       const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/test-uuid?token=test-token', [operation]);

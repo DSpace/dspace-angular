@@ -14,7 +14,7 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { DSpaceObjectDataService } from '../../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { PaginatedList, buildPaginatedList } from '../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
@@ -144,7 +144,10 @@ describe('GroupFormComponent', () => {
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
-        { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) } },
+        {
+          provide: ActivatedRoute,
+          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) }
+        },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
       ],

@@ -4,9 +4,9 @@ import {
   RequestErrorAction,
   RequestExecuteAction,
   RequestRemoveAction,
+  RequestStaleAction,
   RequestSuccessAction,
-  ResetResponseTimestampsAction,
-  RequestStaleAction
+  ResetResponseTimestampsAction
 } from './request.actions';
 import { GetRequest } from './request.models';
 import { RequestEntryState, requestReducer, RequestState } from './request.reducer';
@@ -120,7 +120,7 @@ describe('requestReducer', () => {
         statusCode: 200
       }
     });
-    const state = Object.assign({}, testInitState, {[id1]: update});
+    const state = Object.assign({}, testInitState, { [id1]: update });
     const timeStamp = 1000;
     const action = new ResetResponseTimestampsAction(timeStamp);
     const newState = requestReducer(state, action);

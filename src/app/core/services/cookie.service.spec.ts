@@ -1,15 +1,15 @@
 import { CookieService, ICookieService } from './cookie.service';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 describe(CookieService.name, () => {
   let service: ICookieService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [
         CookieService,
-        {provide: REQUEST, useValue: {}}
+        { provide: REQUEST, useValue: {} }
       ]
     });
   }));
@@ -22,7 +22,7 @@ describe(CookieService.name, () => {
     TestBed.resetTestingModule();
   });
 
-  it('should construct', async(() => {
+  it('should construct', waitForAsync(() => {
     expect(service).toBeDefined();
   }));
 });

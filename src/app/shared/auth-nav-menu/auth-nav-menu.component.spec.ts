@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
@@ -55,9 +55,10 @@ describe('AuthNavMenuComponent', () => {
       userId: EPersonMock.id
     };
   }
+
   describe('when is a not mobile view', () => {
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       const window = new HostWindowServiceStub(800);
       serviceInit();
 
@@ -251,7 +252,7 @@ describe('AuthNavMenuComponent', () => {
   });
 
   describe('when is a mobile view', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       const window = new HostWindowServiceStub(300);
       serviceInit();
 

@@ -4,7 +4,7 @@ import { PersonGridElementComponent } from './person-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
@@ -43,7 +43,7 @@ describe('PersonGridElementComponent', () => {
     isCollapsed: (id: number) => observableOf(true),
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [PersonGridElementComponent, TruncatePipe],
@@ -56,7 +56,7 @@ describe('PersonGridElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(PersonGridElementComponent);
     comp = fixture.componentInstance;
   }));

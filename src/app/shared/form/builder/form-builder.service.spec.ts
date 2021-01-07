@@ -16,7 +16,8 @@ import {
   DynamicFileUploadModel,
   DynamicFormArrayModel,
   DynamicFormControlModel,
-  DynamicFormGroupModel, DynamicFormValidationService,
+  DynamicFormGroupModel,
+  DynamicFormValidationService,
   DynamicFormValueControlModel,
   DynamicInputModel,
   DynamicRadioGroupModel,
@@ -38,9 +39,7 @@ import { DynamicOneboxModel } from './ds-dynamic-form-ui/models/onebox/dynamic-o
 import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { FormFieldModel } from './models/form-field.model';
-import {
-  SubmissionFormsModel
-} from '../../../core/config/models/config-submission-forms.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { FormBuilderService } from './form-builder.service';
 import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -193,15 +192,38 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicColorPickerModel({ id: 'testColorPicker' }),
 
-      new DynamicOneboxModel({ id: 'testOnebox', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: false }),
+      new DynamicOneboxModel({
+        id: 'testOnebox',
+        repeatable: false,
+        metadataFields: [],
+        submissionId: '1234',
+        hasSelectableMetadata: false
+      }),
 
-      new DynamicScrollableDropdownModel({ id: 'testScrollableDropdown', vocabularyOptions: vocabularyOptions, repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: false }),
+      new DynamicScrollableDropdownModel({
+        id: 'testScrollableDropdown',
+        vocabularyOptions: vocabularyOptions,
+        repeatable: false,
+        metadataFields: [],
+        submissionId: '1234',
+        hasSelectableMetadata: false
+      }),
 
-      new DynamicTagModel({ id: 'testTag', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: false }),
+      new DynamicTagModel({
+        id: 'testTag',
+        repeatable: false,
+        metadataFields: [],
+        submissionId: '1234',
+        hasSelectableMetadata: false
+      }),
 
-      new DynamicListCheckboxGroupModel({id: 'testCheckboxList', vocabularyOptions: vocabularyOptions, repeatable: true}),
+      new DynamicListCheckboxGroupModel({
+        id: 'testCheckboxList',
+        vocabularyOptions: vocabularyOptions,
+        repeatable: true
+      }),
 
-      new DynamicListRadioGroupModel({id: 'testRadioList', vocabularyOptions: vocabularyOptions, repeatable: false}),
+      new DynamicListRadioGroupModel({ id: 'testRadioList', vocabularyOptions: vocabularyOptions, repeatable: false }),
 
       new DynamicRelationGroupModel({
         submissionId,
@@ -248,9 +270,21 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicDsDatePickerModel({ id: 'testDate' }),
 
-      new DynamicLookupModel({ id: 'testLookup', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: true }),
+      new DynamicLookupModel({
+        id: 'testLookup',
+        repeatable: false,
+        metadataFields: [],
+        submissionId: '1234',
+        hasSelectableMetadata: true
+      }),
 
-      new DynamicLookupNameModel({ id: 'testLookupName', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: true }),
+      new DynamicLookupNameModel({
+        id: 'testLookupName',
+        repeatable: false,
+        metadataFields: [],
+        submissionId: '1234',
+        hasSelectableMetadata: true
+      }),
 
       new DynamicQualdropModel({ id: 'testCombobox', readOnly: false, required: false }),
 

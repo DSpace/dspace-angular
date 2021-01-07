@@ -1,5 +1,5 @@
 import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -22,7 +22,7 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
     }
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ExternalSourceEntryListSubmissionElementComponent],
       imports: [TranslateModule.forRoot()],

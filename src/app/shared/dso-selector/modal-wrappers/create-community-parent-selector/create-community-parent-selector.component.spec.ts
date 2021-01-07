@@ -16,7 +16,12 @@ describe('CreateCommunityParentSelectorComponent', () => {
 
   const community = new Community();
   community.uuid = '1234-1234-1234-1234';
-  community.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Community title', language: undefined })] };
+  community.metadata = {
+    'dc.title': [Object.assign(new MetadataValue(), {
+      value: 'Community title',
+      language: undefined
+    })]
+  };
   const router = new RouterStub();
   const communityRD = createSuccessfulRemoteDataObject(community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);

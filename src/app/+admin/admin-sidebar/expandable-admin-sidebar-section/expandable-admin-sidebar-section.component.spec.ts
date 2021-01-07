@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ExpandableAdminSidebarSectionComponent } from './expandable-admin-sidebar-section.component';
 import { MenuService } from '../../../shared/menu/menu.service';
@@ -16,12 +16,12 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
   let fixture: ComponentFixture<ExpandableAdminSidebarSectionComponent>;
   const menuService = new MenuServiceStub();
   const iconString = 'test';
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, TranslateModule.forRoot()],
       declarations: [ExpandableAdminSidebarSectionComponent, TestComponent],
       providers: [
-        { provide: 'sectionDataProvider', useValue: {icon: iconString} },
+        { provide: 'sectionDataProvider', useValue: { icon: iconString } },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
       ]
@@ -54,7 +54,10 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
     beforeEach(() => {
       spyOn(menuService, 'toggleActiveSection');
       const sidebarToggler = fixture.debugElement.query(By.css('a.shortcut-icon'));
-      sidebarToggler.triggerEventHandler('click', {preventDefault: () => {/**/}});
+      sidebarToggler.triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
     });
 
     it('should call toggleActiveSection on the menuService', () => {
@@ -66,7 +69,10 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
     beforeEach(() => {
       spyOn(menuService, 'toggleActiveSection');
       const sidebarToggler = fixture.debugElement.query(By.css('.sidebar-collapsible')).query(By.css('a'));
-      sidebarToggler.triggerEventHandler('click', {preventDefault: () => {/**/}});
+      sidebarToggler.triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
     });
 
     it('should call toggleActiveSection on the menuService', () => {

@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { PaginatedList, buildPaginatedList } from '../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { FindListOptions } from '../../../../core/data/request.models';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
@@ -121,7 +121,7 @@ describe('EPersonFormComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])}
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -281,19 +281,19 @@ describe('EPersonFormComponent', () => {
 
     });
 
-    it ('the delete button should be active if the eperson can be deleted', () => {
+    it('the delete button should be active if the eperson can be deleted', () => {
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
       expect(deleteButton.nativeElement.disabled).toBe(false);
     });
 
-    it ('the delete button should be disabled if the eperson cannot be deleted', () => {
+    it('the delete button should be disabled if the eperson cannot be deleted', () => {
       component.canDelete$ = observableOf(false);
       fixture.detectChanges();
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
       expect(deleteButton.nativeElement.disabled).toBe(true);
     });
 
-    it ('should call the epersonFormComponent delete when clicked on the button' , () => {
+    it('should call the epersonFormComponent delete when clicked on the button', () => {
       spyOn(component, 'delete').and.stub();
       spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
@@ -301,7 +301,7 @@ describe('EPersonFormComponent', () => {
       expect(component.delete).toHaveBeenCalled();
     });
 
-    it ('should call the epersonService delete when clicked on the button' , () => {
+    it('should call the epersonService delete when clicked on the button', () => {
       // ePersonDataServiceStub.activeEPerson = eperson;
       spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));

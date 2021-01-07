@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProcessParametersComponent } from './process-parameters.component';
 import { ProcessParameter } from '../../processes/process-parameter.model';
@@ -28,7 +28,7 @@ describe('ProcessParametersComponent', () => {
     ];
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [

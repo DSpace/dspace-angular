@@ -37,9 +37,9 @@ describe('RelationshipTypeService', () => {
     publicationTypeString = 'Publication';
     personTypeString = 'Person';
     orgUnitTypeString = 'OrgUnit';
-    publicationType = Object.assign(new ItemType(), {label: publicationTypeString});
-    personType = Object.assign(new ItemType(), {label: personTypeString});
-    orgUnitType = Object.assign(new ItemType(), {label: orgUnitTypeString});
+    publicationType = Object.assign(new ItemType(), { label: publicationTypeString });
+    personType = Object.assign(new ItemType(), { label: personTypeString });
+    orgUnitType = Object.assign(new ItemType(), { label: orgUnitTypeString });
 
     relationshipType1 = Object.assign(new RelationshipType(), {
       id: '1',
@@ -72,6 +72,7 @@ describe('RelationshipTypeService', () => {
     itemService = undefined;
 
   }
+
   function initTestService() {
     return new RelationshipTypeService(
       itemService,

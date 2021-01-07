@@ -25,7 +25,7 @@ describe('SubmissionRestService test suite', () => {
   const resourceEndpointURL = 'https://rest.api/endpoint';
   const resourceEndpoint = 'workspaceitems';
   const resourceScope = '260';
-  const body = { test: new FormFieldMetadataValueObject('test')};
+  const body = { test: new FormFieldMetadataValueObject('test') };
   const resourceHref = resourceEndpointURL + '/' + resourceEndpoint + '/' + resourceScope + '?projection=full';
   const timestampResponse = 1545994811992;
 

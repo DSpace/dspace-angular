@@ -1,5 +1,5 @@
 import { CreateProfileComponent } from './create-profile.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Registration } from '../../core/shared/registration.model';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -41,7 +41,7 @@ describe('CreateProfileComponent', () => {
   let valuesWithAgreement;
   let epersonWithAgreement: EPerson;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     values = {
       metadata: {
         'eperson.firstname': [

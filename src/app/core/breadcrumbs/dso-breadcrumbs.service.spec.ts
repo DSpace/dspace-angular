@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { getMockLinkService } from '../../shared/mocks/link-service.mock';
 import { LinkService } from '../cache/builders/link.service';
@@ -43,7 +43,7 @@ describe('DSOBreadcrumbsService', () => {
       {
         type: 'community',
         metadata: {
-          'dc.title': [{value: 'community'}]
+          'dc.title': [{ value: 'community' }]
         },
         uuid: communityUUID,
         parentCommunity: observableOf(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
@@ -59,7 +59,7 @@ describe('DSOBreadcrumbsService', () => {
       {
         type: 'collection',
         metadata: {
-          'dc.title': [{value: 'collection'}]
+          'dc.title': [{ value: 'collection' }]
         },
         uuid: collectionUUID,
         parentCommunity: createSuccessfulRemoteDataObject$(testCommunity),
@@ -74,7 +74,7 @@ describe('DSOBreadcrumbsService', () => {
       {
         type: 'item',
         metadata: {
-          'dc.title': [{value: 'item'}]
+          'dc.title': [{ value: 'item' }]
         },
         uuid: itemUUID,
         owningCollection: createSuccessfulRemoteDataObject$(testCollection),
@@ -88,7 +88,7 @@ describe('DSOBreadcrumbsService', () => {
     dsoNameService = { getName: (dso) => getName(dso) };
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       providers: [

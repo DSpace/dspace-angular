@@ -101,7 +101,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   let control2: FormControl;
   let model2: DsDynamicInputModel;
 
-  // async beforeEach
+  // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     init();
 

@@ -1,5 +1,5 @@
 import { ProcessDetailFieldComponent } from './process-detail-field.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,7 +12,7 @@ describe('ProcessDetailFieldComponent', () => {
 
   let title;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     title = 'fake.title.message';
 
     TestBed.configureTestingModule({

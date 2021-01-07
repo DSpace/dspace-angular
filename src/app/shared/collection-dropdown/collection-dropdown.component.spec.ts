@@ -103,9 +103,9 @@ const listElementMock = {
 class CollectionDataServiceMock {
   getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
     return observableOf(
-        createSuccessfulRemoteDataObject(
-          buildPaginatedList(new PageInfo(), collections)
-        )
+      createSuccessfulRemoteDataObject(
+        buildPaginatedList(new PageInfo(), collections)
+      )
     );
   }
 }
@@ -141,7 +141,7 @@ describe('CollectionDropdownComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -14,10 +14,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemReinstateComponent } from './item-reinstate.component';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 let comp: ItemReinstateComponent;
 let fixture: ComponentFixture<ItemReinstateComponent>;

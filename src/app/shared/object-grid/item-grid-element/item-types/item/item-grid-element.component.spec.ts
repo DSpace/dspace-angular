@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
@@ -49,7 +49,7 @@ describe('ItemGridElementComponent', () => {
     isCollapsed: (id: number) => observableOf(true),
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [ItemGridElementComponent, TruncatePipe],
@@ -62,7 +62,7 @@ describe('ItemGridElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemGridElementComponent);
     comp = fixture.componentInstance;
   }));

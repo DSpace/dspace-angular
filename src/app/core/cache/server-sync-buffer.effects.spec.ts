@@ -117,9 +117,9 @@ describe('ServerSyncBufferEffects', () => {
         });
 
         const expected = cold('(bc)', {
-            b: new ApplyPatchObjectCacheAction(selfLink),
-            c: new EmptySSBAction(RestRequestMethod.PATCH)
-          });
+          b: new ApplyPatchObjectCacheAction(selfLink),
+          c: new EmptySSBAction(RestRequestMethod.PATCH)
+        });
 
         expect(ssbEffects.commitServerSyncBuffer).toBeObservable(expected);
       });

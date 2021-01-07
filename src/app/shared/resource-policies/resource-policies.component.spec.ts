@@ -15,10 +15,7 @@ import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { getMockLinkService } from '../mocks/link-service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList, createTestComponent } from '../testing/utils.test';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../notifications/notifications.service';

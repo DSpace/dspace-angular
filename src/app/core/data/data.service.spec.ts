@@ -164,10 +164,12 @@ describe('DataService', () => {
     });
 
     it('should include all searchParams in href if any provided in options', () => {
-      options = { searchParams: [
-        new RequestParam('param1', 'test'),
-        new RequestParam('param2', 'test2'),
-        ] };
+      options = {
+        searchParams: [
+          new RequestParam('param1', 'test'),
+          new RequestParam('param2', 'test2'),
+        ]
+      };
       const expected = `${endpoint}?param1=test&param2=test2`;
 
       (service as any).getFindAllHref(options).subscribe((value) => {

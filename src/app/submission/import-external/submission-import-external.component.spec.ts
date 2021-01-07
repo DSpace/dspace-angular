@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 
 import { getTestScheduler } from 'jasmine-marbles';
 import { TranslateModule } from '@ngx-translate/core';
@@ -41,7 +41,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
   };
   const mockExternalSourceService: any = getMockExternalSourceService();
 
-  beforeEach(async (() => {
+  beforeEach(waitForAsync (() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot()

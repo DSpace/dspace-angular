@@ -22,13 +22,13 @@ describe('SidebarFilterService', () => {
 
     initialState = {
       sidebarFilter: {
-        filter_1 : {
+        filter_1: {
           filterCollapsed: true
         },
-        filter_2 : {
+        filter_2: {
           filterCollapsed: false
         },
-        filter_3 : {
+        filter_3: {
           filterCollapsed: true
         }
       }

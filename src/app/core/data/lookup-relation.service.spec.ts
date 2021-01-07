@@ -43,7 +43,12 @@ describe('LookupRelationService', () => {
 
   function init() {
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
-      getExternalSourceEntries: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: totalExternal, totalPages: totalExternal, currentPage: 1 }), [{}]))
+      getExternalSourceEntries: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
+        elementsPerPage: 1,
+        totalElements: totalExternal,
+        totalPages: totalExternal,
+        currentPage: 1
+      }), [{}]))
     });
     searchService = jasmine.createSpyObj('searchService', {
       search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { RouteService } from '../../../core/services/route.service';
 import { Router } from '@angular/router';
@@ -10,10 +10,7 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CreateComColPageComponent } from './create-comcol-page.component';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
-} from '../../remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
@@ -79,7 +76,9 @@ describe('CreateComColPageComponent', () => {
       create: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
       getLogoEndpoint: () => observableOf(logoEndpoint),
       findByHref: () => null,
-      refreshCache: () => {return;}
+      refreshCache: () => {
+        return;
+      }
     };
 
     routeServiceStub = {
@@ -95,7 +94,7 @@ describe('CreateComColPageComponent', () => {
 
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     initializeVars();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
@@ -105,7 +104,7 @@ describe('CreateComColPageComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: RequestService, useValue: requestServiceStub}
+        { provide: RequestService, useValue: requestServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -142,7 +141,8 @@ describe('CreateComColPageComponent', () => {
             },
             queue: [],
             /* tslint:disable:no-empty */
-            uploadAll: () => {}
+            uploadAll: () => {
+            }
             /* tslint:enable:no-empty */
           }
         };
@@ -186,7 +186,8 @@ describe('CreateComColPageComponent', () => {
               {}
             ],
             /* tslint:disable:no-empty */
-            uploadAll: () => {}
+            uploadAll: () => {
+            }
             /* tslint:enable:no-empty */
           }
         };

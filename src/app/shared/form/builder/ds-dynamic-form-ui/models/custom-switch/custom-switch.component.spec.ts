@@ -10,7 +10,7 @@ import { CustomSwitchComponent } from './custom-switch.component';
 
 describe('CustomSwitchComponent', () => {
 
-  const testModel = new DynamicCustomSwitchModel({id: 'switch'});
+  const testModel = new DynamicCustomSwitchModel({ id: 'switch' });
   const formModel = [testModel];
   let formGroup: FormGroup;
   let fixture: ComponentFixture<CustomSwitchComponent>;

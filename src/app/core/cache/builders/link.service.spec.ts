@@ -41,6 +41,7 @@ class TestDataService {
   findAllByHref(href: string, findListOptions: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
     return 'findAllByHref';
   }
+
   findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
     return 'findByHref';
   }
@@ -104,10 +105,10 @@ xdescribe('LinkService', () => {
           isList: true
         });
         spyOnFunction(decorators, 'getDataServiceFor').and.returnValue(TestDataService);
-        service.resolveLink(testModel, followLink('predecessor', { some: 'options '} as any, true, followLink('successor')));
+        service.resolveLink(testModel, followLink('predecessor', { some: 'options ' } as any, true, followLink('successor')));
       });
       it('should call dataservice.findAllByHref with the correct href, findListOptions,  and nested links', () => {
-        expect(testDataService.findAllByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options '} as any, true, followLink('successor'));
+        expect(testDataService.findAllByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options ' } as any, true, followLink('successor'));
       });
     });
     describe('either way', () => {

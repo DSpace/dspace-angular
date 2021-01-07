@@ -70,7 +70,7 @@ describe('DsDynamicTagComponent test suite', () => {
   let chips: Chips;
   let modelValue: any;
 
-  // async beforeEach
+  // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     const vocabularyServiceStub = new VocabularyServiceStub();
     init();

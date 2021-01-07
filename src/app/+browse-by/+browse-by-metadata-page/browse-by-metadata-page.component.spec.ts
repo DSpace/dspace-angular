@@ -1,5 +1,5 @@
 import { BrowseByMetadataPageComponent, browseParamsToOptions } from './browse-by-metadata-page.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowseService } from '../../core/browse/browse.service';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,7 +11,7 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { Observable, of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
@@ -82,7 +82,7 @@ describe('BrowseByMetadataPageComponent', () => {
     params: observableOf({})
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [BrowseByMetadataPageComponent, EnumKeysPipe, VarDirective],

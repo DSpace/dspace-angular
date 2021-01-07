@@ -82,11 +82,11 @@ describe('ObjectCacheService', () => {
     operations = [{ op: 'replace', path: '/name', value: 'random string' } as Operation];
     initialState = {
       core: {
-        'cache/object': {  },
-        'cache/syncbuffer': {  },
-        'cache/object-updates': {  },
-        'data/request': {  },
-        'index': {  }
+        'cache/object': {},
+        'cache/syncbuffer': {},
+        'cache/object-updates': {},
+        'data/request': {},
+        'index': {}
       }
     };
   }

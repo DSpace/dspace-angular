@@ -1,5 +1,5 @@
 import { EditItemTemplatePageComponent } from './edit-item-template-page.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -18,7 +18,7 @@ describe('EditItemTemplatePageComponent', () => {
   let itemTemplateService: ItemTemplateDataService;
   let collection: Collection;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     collection = Object.assign(new Collection(), {
       uuid: 'collection-id',
       id: 'collection-id',

@@ -59,7 +59,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
     submissionServiceStub.getActiveSectionId.and.returnValue(observableOf('traditionalpageone'));
   }
 
-  // async beforeEach
+  // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({

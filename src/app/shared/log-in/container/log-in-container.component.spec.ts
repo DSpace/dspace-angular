@@ -41,7 +41,7 @@ describe('LogInContainerComponent', () => {
         TestComponent
       ],
       providers: [
-        {provide: AuthService, useClass: AuthServiceStub},
+        { provide: AuthService, useClass: AuthServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
         LogInContainerComponent
       ],

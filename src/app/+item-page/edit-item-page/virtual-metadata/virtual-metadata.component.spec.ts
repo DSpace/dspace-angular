@@ -45,7 +45,7 @@ describe('VirtualMetadataComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [VirtualMetadataComponent, VarDirective],
       providers: [
-        {provide: ObjectUpdatesService, useValue: objectUpdatesService},
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

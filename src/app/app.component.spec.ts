@@ -48,7 +48,7 @@ describe('App component', () => {
     });
   }
 
-  // async beforeEach
+  // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
       imports: [

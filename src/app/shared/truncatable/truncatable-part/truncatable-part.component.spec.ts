@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { TruncatablePartComponent } from './truncatable-part.component';
 import { TruncatableService } from '../truncatable.service';
@@ -21,7 +21,7 @@ describe('TruncatablePartComponent', () => {
       }
     }
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [TruncatablePartComponent],

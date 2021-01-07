@@ -1,4 +1,4 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -7,7 +7,7 @@ import { notificationsReducer } from '../notifications.reducers';
 import { Store, StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsBoardComponent } from './notifications-board.component';
-import { AppState, storeModuleConfig } from '../../../app.reducer';
+import { AppState } from '../../../app.reducer';
 import { NotificationComponent } from '../notification/notification.component';
 import { Notification } from '../models/notification.model';
 import { NotificationType } from '../models/notification-type';
@@ -19,12 +19,12 @@ describe('NotificationsBoardComponent', () => {
   let comp: NotificationsBoardComponent;
   let fixture: ComponentFixture<NotificationsBoardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        StoreModule.forRoot({notificationsReducer}, {
+        StoreModule.forRoot({ notificationsReducer }, {
           runtimeChecks: {
             strictStateImmutability: false,
             strictActionImmutability: false

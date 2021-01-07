@@ -46,11 +46,11 @@ describe('RequestService', () => {
 
   const initialState: any = {
     core: {
-      'cache/object': {  },
-      'cache/syncbuffer': {  },
-      'cache/object-updates': {  },
-      'data/request': {  },
-      'index': {  },
+      'cache/object': {},
+      'cache/syncbuffer': {},
+      'cache/object-updates': {},
+      'data/request': {},
+      'index': {},
     }
   };
 
@@ -249,7 +249,7 @@ describe('RequestService', () => {
       });
     });
 
-    });
+  });
 
   describe('getByHref', () => {
     describe('when the request with the specified href exists in the store', () => {

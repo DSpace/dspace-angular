@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../utils/truncate.pipe';
@@ -14,20 +14,20 @@ const mockValue: BrowseEntry = Object.assign(new BrowseEntry(), {
 });
 
 describe('MetadataListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BrowseEntryListElementComponent , TruncatePipe],
+      declarations: [BrowseEntryListElementComponent, TruncatePipe],
       providers: [
-        { provide: 'objectElementProvider', useValue: {mockValue}}
+        { provide: 'objectElementProvider', useValue: { mockValue } }
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(BrowseEntryListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(BrowseEntryListElementComponent);
     browseEntryListElementComponent = fixture.componentInstance;
   }));

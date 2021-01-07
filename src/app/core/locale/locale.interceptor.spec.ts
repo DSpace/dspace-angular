@@ -30,7 +30,7 @@ describe(`LocaleInterceptor`, () => {
           useClass: LocaleInterceptor,
           multi: true,
         },
-        {provide: LocaleService, useValue: mockLocaleService},
+        { provide: LocaleService, useValue: mockLocaleService },
       ],
     });
 

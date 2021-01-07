@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DsoPageEditButtonComponent } from './dso-page-edit-button.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
@@ -17,7 +17,7 @@ describe('DsoPageEditButtonComponent', () => {
   let authorizationService: AuthorizationDataService;
   let dso: DSpaceObject;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
@@ -28,7 +28,7 @@ describe('DsoPageEditButtonComponent', () => {
       isAuthorized: observableOf(true)
     });
     TestBed.configureTestingModule({
-      declarations: [ DsoPageEditButtonComponent ],
+      declarations: [DsoPageEditButtonComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService }

@@ -114,7 +114,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
     }
   };
 
-  // async beforeEach
+  // waitForAsync beforeEach
   beforeEach(() => {
     vocabularyServiceStub = new VocabularyServiceStub();
 
@@ -154,7 +154,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 
-    });
+  });
 
   describe('', () => {
     // synchronous beforeEach

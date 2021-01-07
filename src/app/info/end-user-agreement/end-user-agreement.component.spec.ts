@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
@@ -29,7 +29,7 @@ describe('EndUserAgreementComponent', () => {
     redirectUrl = 'redirect/url';
 
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
-      hasCurrentUserOrCookieAcceptedAgreement : observableOf(false),
+      hasCurrentUserOrCookieAcceptedAgreement: observableOf(false),
       setUserAcceptedAgreement: observableOf(true)
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
@@ -45,11 +45,11 @@ describe('EndUserAgreementComponent', () => {
     }) as any;
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot() ],
-      declarations: [ EndUserAgreementComponent ],
+      imports: [TranslateModule.forRoot()],
+      declarations: [EndUserAgreementComponent],
       providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },

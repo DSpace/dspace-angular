@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -64,7 +64,7 @@ describe('BreadcrumbsComponent', () => {
 
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [BreadcrumbsComponent, VarDirective],

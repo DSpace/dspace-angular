@@ -8,10 +8,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RequestService } from '../../../../core/data/request.service';
 import { of as observableOf } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
-} from '../../../remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 
 describe('ComcolRoleComponent', () => {
 
@@ -61,11 +58,11 @@ describe('ComcolRoleComponent', () => {
       comp = fixture.componentInstance;
       de = fixture.debugElement;
 
-    comcolRole = {
+      comcolRole = {
         name: 'test role name',
         href: 'test role link',
       };
-    comp.comcolRole = comcolRole;
+      comp.comcolRole = comcolRole;
 
       fixture.detectChanges();
     });

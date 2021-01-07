@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
@@ -32,7 +32,7 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
     resolveLink: {}
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -45,7 +45,7 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService}
+        { provide: LinkService, useValue: linkService }
       ]
     })
       .compileComponents();

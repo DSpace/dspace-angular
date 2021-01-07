@@ -1,5 +1,5 @@
 import { BrowseByDatePageComponent } from './browse-by-date-page.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -65,7 +65,7 @@ describe('BrowseByDatePageComponent', () => {
     detectChanges: () => fixture.detectChanges()
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [BrowseByDatePageComponent, EnumKeysPipe, VarDirective],

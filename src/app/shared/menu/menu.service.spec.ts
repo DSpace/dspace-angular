@@ -80,7 +80,7 @@ describe('MenuService', () => {
 
     initialState = {
       menus: {
-        'admin-sidebar' : fakeMenu
+        'admin-sidebar': fakeMenu
       }
     };
 
@@ -144,7 +144,7 @@ describe('MenuService', () => {
     describe('when the subsection list is not empty', () => {
       it('should return the MenuSections with the given parentID', () => {
 
-        const result = service.getSubSectionsByParentID(MenuID.ADMIN,'section');
+        const result = service.getSubSectionsByParentID(MenuID.ADMIN, 'section');
         const expected = cold('b', {
           b: [subSection4]
         });
@@ -179,14 +179,14 @@ describe('MenuService', () => {
 
     describe('when the subsection list is empty', () => {
       beforeEach(() => {
-/*        selectSpy.and.callFake(() => {
-          return () => {
-            return () => hot('a', {
-                a: []
-              }
-            );
-          };
-        });*/
+        /*        selectSpy.and.callFake(() => {
+                  return () => {
+                    return () => hot('a', {
+                        a: []
+                      }
+                    );
+                  };
+                });*/
       });
       it('should return false', () => {
 

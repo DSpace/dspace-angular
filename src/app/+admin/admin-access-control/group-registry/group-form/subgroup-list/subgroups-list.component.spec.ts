@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { RestResponse } from '../../../../../core/cache/response.models';
-import { PaginatedList, buildPaginatedList } from '../../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
 import { Group } from '../../../../../core/eperson/models/group.model';
@@ -36,7 +36,7 @@ describe('SubgroupsListComponent', () => {
   let allGroups;
   let routerStub;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     activeGroup = GroupMock;
     subgroups = [GroupMock2];
     allGroups = [GroupMock, GroupMock2];

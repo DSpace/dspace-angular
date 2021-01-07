@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -50,7 +50,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
     select: jasmine.createSpy('select')
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         SharedModule,

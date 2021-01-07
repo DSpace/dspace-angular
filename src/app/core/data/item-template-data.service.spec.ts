@@ -58,7 +58,7 @@ describe('ItemTemplateDataService', () => {
   } as any;
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
-      return cold('a', {a: itemEndpoint});
+      return cold('a', { a: itemEndpoint });
     }
   } as HALEndpointService;
   const notificationsService = {} as NotificationsService;

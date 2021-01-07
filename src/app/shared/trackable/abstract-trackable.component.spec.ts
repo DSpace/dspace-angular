@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AbstractTrackableComponent } from './abstract-trackable.component';
 import { INotification, Notification } from '../notifications/models/notification.model';
 import { NotificationType } from '../notifications/models/notification-type';
@@ -30,7 +30,7 @@ describe('AbstractTrackableComponent', () => {
 
   const url = 'http://test-url.com/test-url';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         saveAddFieldUpdate: {},
@@ -49,8 +49,8 @@ describe('AbstractTrackableComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [AbstractTrackableComponent],
       providers: [
-        {provide: ObjectUpdatesService, useValue: objectUpdatesService},
-        {provide: NotificationsService, useValue: notificationsService},
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: NotificationsService, useValue: notificationsService },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -83,7 +83,7 @@ describe('AbstractTrackableComponent', () => {
 
     it('should return an observable that emits true', () => {
       const expected = '(a|)';
-      scheduler.expectObservable(comp.isReinstatable()).toBe(expected, {a: true});
+      scheduler.expectObservable(comp.isReinstatable()).toBe(expected, { a: true });
     });
   });
 
@@ -94,7 +94,7 @@ describe('AbstractTrackableComponent', () => {
 
     it('should return an observable that emits true', () => {
       const expected = '(a|)';
-      scheduler.expectObservable(comp.hasChanges()).toBe(expected, {a: true});
+      scheduler.expectObservable(comp.hasChanges()).toBe(expected, { a: true });
     });
   });
 

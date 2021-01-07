@@ -1,5 +1,5 @@
 import { CommunityGridElementComponent } from './community-grid-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Community } from '../../../core/shared/community.model';
@@ -35,21 +35,21 @@ const linkService = jasmine.createSpyObj('linkService', {
 });
 
 describe('CommunityGridElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommunityGridElementComponent ],
+      declarations: [CommunityGridElementComponent],
       providers: [
-        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract)},
-        { provide: LinkService, useValue: linkService}
+        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
+        { provide: LinkService, useValue: linkService }
       ],
 
-    schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(CommunityGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(CommunityGridElementComponent);
     communityGridElementComponent = fixture.componentInstance;
   }));

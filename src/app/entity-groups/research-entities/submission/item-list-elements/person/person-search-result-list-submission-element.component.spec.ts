@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -87,7 +87,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     }
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
@@ -117,7 +117,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(PersonSearchResultListSubmissionElementComponent);
     personListElementComponent = fixture.componentInstance;
 

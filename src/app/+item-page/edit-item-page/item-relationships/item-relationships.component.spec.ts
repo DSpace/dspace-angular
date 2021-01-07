@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -63,7 +63,7 @@ let relationships;
 let relationshipType;
 
 describe('ItemRelationshipsComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     const date = new Date();
 
     relationshipType = Object.assign(new RelationshipType(), {

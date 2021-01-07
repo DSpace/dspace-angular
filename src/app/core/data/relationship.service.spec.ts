@@ -12,10 +12,7 @@ import { RelationshipService } from './relationship.service';
 import { RequestService } from './request.service';
 import { RequestEntry } from './request.reducer';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createPaginatedList, spyOnOperator } from '../../shared/testing/utils.test';
@@ -106,7 +103,10 @@ xdescribe('RelationshipService', () => {
 
   const buildList$ = createSuccessfulRemoteDataObject$(createPaginatedList(relatedItems));
   const relationships$ = createSuccessfulRemoteDataObject$(createPaginatedList(relationships));
-  const rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, {'href': buildList$, 'https://rest.api/core/publication/relationships': relationships$});
+  const rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, {
+    'href': buildList$,
+    'https://rest.api/core/publication/relationships': relationships$
+  });
   const objectCache = Object.assign({
     /* tslint:disable:no-empty */
     remove: () => {

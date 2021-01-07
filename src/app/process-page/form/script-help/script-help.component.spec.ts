@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScriptHelpComponent } from './script-help.component';
 import { ScriptParameter } from '../../scripts/script-parameter.model';
@@ -26,7 +26,7 @@ describe('ScriptHelpComponent', () => {
     );
     script = Object.assign(new Script(), { parameters: [param1, param2] });
   }
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [

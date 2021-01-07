@@ -26,10 +26,7 @@ import { storeModuleConfig } from '../../app.reducer';
 import { FindListOptions } from '../data/request.models';
 import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
+import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteData } from '../data/remote-data';
 import { NoContent } from '../shared/NoContent.model';

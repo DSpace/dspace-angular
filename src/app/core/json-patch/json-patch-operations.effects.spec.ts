@@ -26,7 +26,7 @@ describe('JsonPatchOperationsEffects test suite', () => {
     TestBed.configureTestingModule({
       providers: [
         JsonPatchOperationsEffects,
-        {provide: Store, useValue: store},
+        { provide: Store, useValue: store },
         provideMockActions(() => actions),
         // other providers
       ],
@@ -40,7 +40,7 @@ describe('JsonPatchOperationsEffects test suite', () => {
       actions = hot('--a-', {
         a: {
           type: JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS,
-          payload: {resourceType: testJsonPatchResourceType, resourceId: testJsonPatchResourceId}
+          payload: { resourceType: testJsonPatchResourceType, resourceId: testJsonPatchResourceId }
         }
       });
 

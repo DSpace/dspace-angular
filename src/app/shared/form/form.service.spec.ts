@@ -1,12 +1,8 @@
 import { Store, StoreModule } from '@ngrx/store';
-import { async, inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import {
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicInputModel
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 
 import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
@@ -89,7 +85,7 @@ describe('FormService test suite', () => {
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({ formReducer }, {

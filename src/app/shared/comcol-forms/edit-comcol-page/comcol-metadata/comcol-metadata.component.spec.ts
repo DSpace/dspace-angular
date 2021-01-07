@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -68,7 +68,7 @@ describe('ComColMetadataComponent', () => {
 
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     initializeVars();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
@@ -167,7 +167,8 @@ describe('ComColMetadataComponent', () => {
               {}
             ],
             /* tslint:disable:no-empty */
-            uploadAll: () => {}
+            uploadAll: () => {
+            }
             /* tslint:enable:no-empty */
           }
         };

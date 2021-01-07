@@ -1,5 +1,5 @@
 import { StoreModule } from '@ngrx/store';
-import { async, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { waitForAsync, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -352,7 +352,7 @@ describe('SubmissionService test suite', () => {
 
   const requestServce = getMockRequestService();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [

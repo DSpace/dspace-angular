@@ -52,8 +52,8 @@ describe('RelationshipEffects', () => {
     testUUID2 = '7f66a4d0-8557-4e77-8b1e-19930895f10a';
     leftTypeString = 'Publication';
     rightTypeString = 'Person';
-    leftType = Object.assign(new ItemType(), {label: leftTypeString});
-    rightType = Object.assign(new ItemType(), {label: rightTypeString});
+    leftType = Object.assign(new ItemType(), { label: leftTypeString });
+    rightType = Object.assign(new ItemType(), { label: rightTypeString });
     leftTypeMD = Object.assign(new MetadataValue(), { value: leftTypeString });
     rightTypeMD = Object.assign(new MetadataValue(), { value: rightTypeString });
     relationshipID = '1234';
@@ -96,6 +96,7 @@ describe('RelationshipEffects', () => {
         () => observableOf(relationshipType)
     };
   }
+
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
@@ -104,13 +105,15 @@ describe('RelationshipEffects', () => {
         provideMockActions(() => actions),
         { provide: RelationshipTypeService, useValue: mockRelationshipTypeService },
         { provide: RelationshipService, useValue: mockRelationshipService },
-        { provide: SubmissionObjectDataService, useValue: {
-          findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem())},
+        {
+          provide: SubmissionObjectDataService, useValue: {
+            findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem())
+          },
           getHrefByID: () => observableOf('')
         },
         { provide: Store, useValue: jasmine.createSpyObj('store', ['dispatch']) },
-        { provide: ObjectCacheService, useValue: {}},
-        { provide: RequestService, useValue: {}},
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: RequestService, useValue: {} },
       ],
     });
   }));
@@ -248,7 +251,7 @@ describe('RelationshipEffects', () => {
               actions = hot('a', { a: action });
               expectObservable(relationEffects.mapLastActions$).toBe('b', { b: undefined });
               flush();
-              expect((relationEffects as any).removeRelationship).toHaveBeenCalledWith(leftItem, rightItem, relationshipType.leftwardType, '1234', );
+              expect((relationEffects as any).removeRelationship).toHaveBeenCalledWith(leftItem, rightItem, relationshipType.leftwardType, '1234',);
             });
           });
         });

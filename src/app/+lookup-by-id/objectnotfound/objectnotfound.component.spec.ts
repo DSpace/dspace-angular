@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ObjectNotFoundComponent } from './objectnotfound.component';
@@ -21,7 +21,7 @@ describe('ObjectNotFoundComponent', () => {
     params: observableOf({id: handleId, idType: handlePrefix})
   });
   describe('uuid request', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
           TranslateModule.forRoot()
@@ -51,7 +51,7 @@ describe('ObjectNotFoundComponent', () => {
   });
 
   describe( 'legacy handle request', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
           TranslateModule.forRoot()

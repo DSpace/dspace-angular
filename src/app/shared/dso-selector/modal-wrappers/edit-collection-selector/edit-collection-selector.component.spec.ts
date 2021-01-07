@@ -16,7 +16,12 @@ describe('EditCollectionSelectorComponent', () => {
 
   const collection = new Collection();
   collection.uuid = '1234-1234-1234-1234';
-  collection.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Collection title', language: undefined })] };
+  collection.metadata = {
+    'dc.title': [Object.assign(new MetadataValue(), {
+      value: 'Collection title',
+      language: undefined
+    })]
+  };
   const router = new RouterStub();
   const collectionRD = createSuccessfulRemoteDataObject(collection);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);

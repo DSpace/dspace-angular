@@ -31,14 +31,14 @@ describe(`AuthInterceptor`, () => {
       imports: [HttpClientTestingModule],
       providers: [
         DspaceRestService,
-        {provide: AuthService, useValue: authServiceStub},
-        {provide: Router, useClass: RouterStub},
+        { provide: AuthService, useValue: authServiceStub },
+        { provide: Router, useClass: RouterStub },
         {
           provide: HTTP_INTERCEPTORS,
           useClass: AuthInterceptor,
           multi: true,
         },
-        {provide: Store, useValue: store},
+        { provide: Store, useValue: store },
       ],
     });
 

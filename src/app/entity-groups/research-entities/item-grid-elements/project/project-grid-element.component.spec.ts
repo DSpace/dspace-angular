@@ -4,7 +4,7 @@ import { ProjectGridElementComponent } from './project-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { async, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
@@ -37,7 +37,7 @@ describe('ProjectGridElementComponent', () => {
     isCollapsed: (id: number) => observableOf(true),
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [ProjectGridElementComponent, TruncatePipe],
@@ -50,7 +50,7 @@ describe('ProjectGridElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ProjectGridElementComponent);
     comp = fixture.componentInstance;
   }));

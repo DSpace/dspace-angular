@@ -39,7 +39,7 @@ describe('DsDatePickerComponent test suite', () => {
   let dateFixture: ComponentFixture<DsDatePickerComponent>;
   let html;
 
-  // async beforeEach
+  // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({

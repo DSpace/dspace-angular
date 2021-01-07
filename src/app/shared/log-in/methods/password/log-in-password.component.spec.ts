@@ -74,7 +74,7 @@ describe('LogInPasswordComponent', () => {
 
   }));
 
-  beforeEach( () => {
+  beforeEach(() => {
     // create component and test fixture
     fixture = TestBed.createComponent(LogInPasswordComponent);
 

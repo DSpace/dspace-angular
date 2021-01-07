@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../core/cache/response.models';
 import { CommonModule } from '@angular/common';
@@ -24,7 +24,7 @@ describe('RegisterEmailComponent', () => {
   let epersonRegistrationService: EpersonRegistrationService;
   let notificationsService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();

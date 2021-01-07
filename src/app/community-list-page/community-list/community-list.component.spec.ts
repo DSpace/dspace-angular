@@ -1,12 +1,7 @@
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { CommunityListComponent } from './community-list.component';
-import {
-  CommunityListService,
-  FlatNode,
-  showMoreFlatNode,
-  toFlatNode
-} from '../community-list-service';
+import { CommunityListService, FlatNode, showMoreFlatNode, toFlatNode } from '../community-list-service';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
@@ -112,7 +107,7 @@ describe('CommunityListComponent', () => {
   ];
   let communityListServiceStub;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     communityListServiceStub = {
       pageSize: 2,
       expandedNodes: [],

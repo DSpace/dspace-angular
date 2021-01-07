@@ -74,7 +74,7 @@ describe('DsDynamicListComponent test suite', () => {
 
   const vocabularyServiceStub = new VocabularyServiceStub();
 
-  // async beforeEach
+  // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({

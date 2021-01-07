@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../core/shared/item.model';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
@@ -61,7 +61,7 @@ describe('BrowseByTitlePageComponent', () => {
     data: observableOf({ metadata: 'title' })
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [BrowseByTitlePageComponent, EnumKeysPipe, VarDirective],

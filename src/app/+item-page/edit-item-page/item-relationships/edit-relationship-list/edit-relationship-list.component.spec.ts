@@ -1,5 +1,5 @@
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -40,7 +40,7 @@ let relationshipType;
 
 describe('EditRelationshipListComponent', () => {
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     entityType = Object.assign(new ItemType(), {
       id: 'Publication',
