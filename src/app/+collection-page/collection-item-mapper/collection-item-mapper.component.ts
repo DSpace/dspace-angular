@@ -1,12 +1,13 @@
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
@@ -19,7 +20,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ItemDataService } from '../../core/data/item-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
@@ -58,6 +59,7 @@ export class CollectionItemMapperComponent implements OnInit {
    * The collection to map items to
    */
   collectionRD$: Observable<RemoteData<Collection>>;
+  collectionName$: Observable<string>;
 
   /**
    * Search options
@@ -101,11 +103,22 @@ export class CollectionItemMapperComponent implements OnInit {
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
               private collectionDataService: CollectionDataService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private dsoNameService: DSONameService) {
   }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.data.pipe(map((data) => data.dso)).pipe(getFirstSucceededRemoteData()) as Observable<RemoteData<Collection>>;
+    this.collectionRD$ = this.route.data.pipe(
+      take(1),
+      map((data) => data.dso),
+    );
+
+    this.collectionName$ = this.collectionRD$.pipe(
+      filter((rd: RemoteData<Collection>) => hasValue(rd)),
+      map((rd: RemoteData<Collection>) => {
+        return this.dsoNameService.getName(rd.payload);
+      })
+    );
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.loadItemLists();
   }
