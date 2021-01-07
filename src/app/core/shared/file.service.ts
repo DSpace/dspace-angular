@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { AuthService } from '../auth/auth.service';
 import { take } from 'rxjs/operators';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
@@ -32,9 +32,9 @@ export class FileService {
    * Derives file name from the http response
    * by looking inside content-disposition
    * @param res
-   *    http DSpaceRESTV2Response
+   *    http RawRestResponse
    */
-  getFileNameFromResponseContentDisposition(res: DSpaceRESTV2Response) {
+  getFileNameFromResponseContentDisposition(res: RawRestResponse) {
     // NOTE: to be able to retrieve 'Content-Disposition' header,
     // you need to set 'Access-Control-Expose-Headers': 'Content-Disposition' ON SERVER SIDE
     const contentDisposition = res.headers.get('content-disposition') || '';

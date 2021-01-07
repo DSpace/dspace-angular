@@ -3,7 +3,7 @@ import { MetadatumViewModel } from '../../../shared/metadata.models';
 import { FieldUpdates } from '../object-updates.reducer';
 import { Operation } from 'fast-json-patch';
 import { FieldChangeType } from '../object-updates.actions';
-import { InjectionToken } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MetadataPatchOperation } from './operations/metadata/metadata-patch-operation.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { MetadataPatchAddOperation } from './operations/metadata/metadata-patch-add-operation.model';
@@ -11,18 +11,12 @@ import { MetadataPatchRemoveOperation } from './operations/metadata/metadata-pat
 import { MetadataPatchReplaceOperation } from './operations/metadata/metadata-patch-replace-operation.model';
 
 /**
- * Token to use for injecting this service anywhere you want
- * This token can used to store in the object-updates store
- */
-export const METADATA_PATCH_OPERATION_SERVICE_TOKEN = new InjectionToken<MetadataPatchOperationService>('MetadataPatchOperationService', {
-  providedIn: 'root',
-  factory: () => new MetadataPatchOperationService(),
-});
-
-/**
  * Service transforming {@link FieldUpdates} into {@link Operation}s for metadata values
  * This expects the fields within every {@link FieldUpdate} to be {@link MetadatumViewModel}s
  */
+@Injectable({
+  providedIn: 'root'
+})
 export class MetadataPatchOperationService implements PatchOperationService {
 
   /**

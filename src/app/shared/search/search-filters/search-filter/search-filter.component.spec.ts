@@ -10,7 +10,6 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchFilterComponent } from './search-filter.component';
 import { SearchFilterConfig } from '../../search-filter-config.model';
 import { FilterType } from '../../filter-type.model';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
 
@@ -24,7 +23,7 @@ describe('SearchFilterComponent', () => {
   const nonExistingFilter2 = 'non existing 2';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
-    type: FilterType.text,
+    filterType: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false
   });

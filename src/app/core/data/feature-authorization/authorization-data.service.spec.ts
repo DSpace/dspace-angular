@@ -9,8 +9,7 @@ import { FeatureID } from './feature-id';
 import { hasValue } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { Authorization } from '../../shared/authorization.model';
-import { RemoteData } from '../remote-data';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { Feature } from '../../shared/feature.model';
 
@@ -69,7 +68,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should call searchBy with the site\'s url', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self));
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self), true);
       });
     });
 
@@ -79,7 +78,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should call searchBy with the site\'s url and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self, null, FeatureID.LoginOnBehalfOf));
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self, null, FeatureID.LoginOnBehalfOf), true);
       });
     });
 
@@ -89,7 +88,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should call searchBy with the object\'s url and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, null, FeatureID.LoginOnBehalfOf));
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, null, FeatureID.LoginOnBehalfOf), true);
       });
     });
 
@@ -99,7 +98,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should call searchBy with the object\'s url, user\'s uuid and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePersonUuid, FeatureID.LoginOnBehalfOf));
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePersonUuid, FeatureID.LoginOnBehalfOf), true);
       });
     });
   });
@@ -134,7 +133,7 @@ describe('AuthorizationDataService', () => {
 
     describe('when searchByObject returns a 401', () => {
       beforeEach(() => {
-        spyOn(service, 'searchByObject').and.returnValue(observableOf(new RemoteData(false, false, true, undefined, undefined, 401)));
+        spyOn(service, 'searchByObject').and.returnValue(createFailedRemoteDataObject$('Unauthorized', 401));
       });
 
       it('should return false', (done) => {

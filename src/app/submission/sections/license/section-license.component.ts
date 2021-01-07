@@ -129,7 +129,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
     // Retrieve license accepted status
     (model as DynamicCheckboxModel).value = (this.sectionData.data as WorkspaceitemSectionLicenseObject).granted;
 
-    this.licenseText$ = this.collectionDataService.findById(this.collectionId, followLink('license')).pipe(
+    this.licenseText$ = this.collectionDataService.findById(this.collectionId, true, followLink('license')).pipe(
       filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
       mergeMap((collectionData: RemoteData<Collection>) => (collectionData.payload as any).license),
       find((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))),

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DataService } from '../data/data.service';
-import { getRemoteDataPayload } from '../shared/operators';
-import { filter, map, take } from 'rxjs/operators';
+import { getRemoteDataPayload, getFirstCompletedRemoteData } from '../shared/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
@@ -29,9 +29,8 @@ export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceO
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<T>> {
     const uuid = route.params.id;
-    return this.dataService.findById(uuid, ...this.followLinks).pipe(
-      filter((rd) => hasValue(rd.error) || hasValue(rd.payload)),
-      take(1),
+    return this.dataService.findById(uuid, false, ...this.followLinks).pipe(
+      getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       map((object: T) => {
         if (hasValue(object)) {

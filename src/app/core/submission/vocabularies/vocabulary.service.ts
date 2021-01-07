@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, mergeMap, take } from 'rxjs/operators';
 
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { dataService } from '../../cache/builders/build-decorators';
 import { DataService } from '../../data/data.service';
 import { RequestService } from '../../data/request.service';
-import { FindListOptions, RestRequest, VocabularyEntriesRequest } from '../../data/request.models';
+import { FindListOptions, GetRequest } from '../../data/request.models';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
@@ -18,19 +18,15 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ChangeAnalyzer } from '../../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../../data/default-change-analyzer.service';
-import { PaginatedList } from '../../data/paginated-list';
+import { PaginatedList } from '../../data/paginated-list.model';
 import { Vocabulary } from './models/vocabulary.model';
 import { VOCABULARY } from './models/vocabularies.resource-type';
 import { VocabularyEntry } from './models/vocabulary-entry.model';
 import { isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import {
-  configureRequest,
-  filterSuccessfulResponses,
   getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload,
-  getRequestFromRequestHref
+  getFirstSucceededRemoteListPayload
 } from '../../shared/operators';
-import { GenericSuccessResponse } from '../../cache/response.models';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
 import { RequestParam } from '../../cache/models/request-param.model';
@@ -106,38 +102,44 @@ export class VocabularyService {
   /**
    * Returns an observable of {@link RemoteData} of a {@link Vocabulary}, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the {@link Vocabulary}
-   * @param href            The url of {@link Vocabulary} we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param href              The url of {@link Vocabulary} we want to retrieve
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<Vocabulary>>}
    *    Return an observable that emits vocabulary object
    */
-  findVocabularyByHref(href: string, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<any>> {
-    return this.vocabularyDataService.findByHref(href, ...linksToFollow);
+  findVocabularyByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<any>> {
+    return this.vocabularyDataService.findByHref(href, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns an observable of {@link RemoteData} of a {@link Vocabulary}, based on its ID, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the object
-   * @param name            The name of {@link Vocabulary} we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param name              The name of {@link Vocabulary} we want to retrieve
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<Vocabulary>>}
    *    Return an observable that emits vocabulary object
    */
-  findVocabularyById(name: string, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<Vocabulary>> {
-    return this.vocabularyDataService.findById(name, ...linksToFollow);
+  findVocabularyById(name: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<Vocabulary>> {
+    return this.vocabularyDataService.findById(name, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
    * info should be added to the objects
    *
-   * @param options       Find list options object
-   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param options           Find list options object
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<PaginatedList<Vocabulary>>>}
    *    Return an observable that emits object list
    */
-  findAllVocabularies(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<PaginatedList<Vocabulary>>> {
-    return this.vocabularyDataService.findAll(options, ...linksToFollow);
+  findAllVocabularies(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<PaginatedList<Vocabulary>>> {
+    return this.vocabularyDataService.findAll(options, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -258,58 +260,66 @@ export class VocabularyService {
   /**
    * Returns an observable of {@link RemoteData} of a {@link VocabularyEntryDetail}, based on an href, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the {@link VocabularyEntryDetail}
-   * @param href            The url of {@link VocabularyEntryDetail} we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param href              The url of {@link VocabularyEntryDetail} we want to retrieve
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<VocabularyEntryDetail>>}
    *    Return an observable that emits vocabulary object
    */
-  findEntryDetailByHref(href: string, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<VocabularyEntryDetail>> {
-    return this.vocabularyEntryDetailDataService.findByHref(href, ...linksToFollow);
+  findEntryDetailByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<VocabularyEntryDetail>> {
+    return this.vocabularyEntryDetailDataService.findByHref(href, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns an observable of {@link RemoteData} of a {@link VocabularyEntryDetail}, based on its ID, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the object
-   * @param id              The entry id for which to provide detailed information.
-   * @param name            The name of {@link Vocabulary} to which the entry belongs
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param id                The entry id for which to provide detailed information.
+   * @param name              The name of {@link Vocabulary} to which the entry belongs
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<VocabularyEntryDetail>>}
    *    Return an observable that emits VocabularyEntryDetail object
    */
-  findEntryDetailById(id: string, name: string, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<VocabularyEntryDetail>> {
+  findEntryDetailById(id: string, name: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<VocabularyEntryDetail>> {
     const findId = `${name}:${id}`;
-    return this.vocabularyEntryDetailDataService.findById(findId, ...linksToFollow);
+    return this.vocabularyEntryDetailDataService.findById(findId, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Returns the parent detail entry for a given detail entry, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the object
-   * @param value           The entry value for which to provide parent.
-   * @param name            The name of {@link Vocabulary} to which the entry belongs
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param value             The entry value for which to provide parent.
+   * @param name              The name of {@link Vocabulary} to which the entry belongs
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>>}
    *    Return an observable that emits a PaginatedList of VocabularyEntryDetail
    */
-  getEntryDetailParent(value: string, name: string, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<VocabularyEntryDetail>> {
+  getEntryDetailParent(value: string, name: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<VocabularyEntryDetail>> {
     const linkPath = `${name}:${value}/parent`;
 
     return this.vocabularyEntryDetailDataService.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${linkPath}`),
-      mergeMap((href) => this.vocabularyEntryDetailDataService.findByHref(href, ...linksToFollow))
+      mergeMap((href) => this.vocabularyEntryDetailDataService.findByHref(href, reRequestOnStale, ...linksToFollow))
     );
   }
 
   /**
    * Returns the list of children detail entries for a given detail entry, with a list of {@link FollowLinkConfig},
    * to automatically resolve {@link HALLink}s of the object
-   * @param value           The entry value for which to provide children list.
-   * @param name            The name of {@link Vocabulary} to which the entry belongs
-   * @param pageInfo        The {@link PageInfo} for the request
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param value             The entry value for which to provide children list.
+   * @param name              The name of {@link Vocabulary} to which the entry belongs
+   * @param pageInfo          The {@link PageInfo} for the request
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    * @return {Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>>}
    *    Return an observable that emits a PaginatedList of VocabularyEntryDetail
    */
-  getEntryDetailChildren(value: string, name: string, pageInfo: PageInfo, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
+  getEntryDetailChildren(value: string, name: string, pageInfo: PageInfo, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
     const linkPath = `${name}:${value}/children`;
     const options: VocabularyFindOptions = new VocabularyFindOptions(
       null,
@@ -320,18 +330,20 @@ export class VocabularyService {
       pageInfo.currentPage
     );
     return this.vocabularyEntryDetailDataService.getFindAllHref(options, linkPath).pipe(
-      mergeMap((href) => this.vocabularyEntryDetailDataService.findAllByHref(href, options, ...linksToFollow))
+      mergeMap((href) => this.vocabularyEntryDetailDataService.findAllByHref(href, options, reRequestOnStale, ...linksToFollow))
     );
   }
 
   /**
    * Return the top level {@link VocabularyEntryDetail} list for a given hierarchical vocabulary
    *
-   * @param name           The name of hierarchical {@link Vocabulary} to which the entries belongs
-   * @param pageInfo       The {@link PageInfo} for the request
-   * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param name              The name of hierarchical {@link Vocabulary} to which the entries belongs
+   * @param pageInfo          The {@link PageInfo} for the request
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchTopEntries(name: string, pageInfo: PageInfo, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
+  searchTopEntries(name: string, pageInfo: PageInfo, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
     const options: VocabularyFindOptions = new VocabularyFindOptions(
       null,
       null,
@@ -341,7 +353,7 @@ export class VocabularyService {
       pageInfo.currentPage
     );
     options.searchParams = [new RequestParam('vocabulary', name)];
-    return this.vocabularyEntryDetailDataService.searchBy(this.searchTopMethod, options, ...linksToFollow);
+    return this.vocabularyEntryDetailDataService.searchBy(this.searchTopMethod, options, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -358,32 +370,15 @@ export class VocabularyService {
  * @param rdb
  */
 export const getVocabularyEntriesFor = (requestService: RequestService, rdb: RemoteDataBuildService) =>
-  (source: Observable<string>): Observable<RemoteData<PaginatedList<VocabularyEntry>>> =>
-    source.pipe(
-      map((href: string) => new VocabularyEntriesRequest(requestService.generateRequestId(), href)),
-      configureRequest(requestService),
-      toRDPaginatedVocabularyEntries(requestService, rdb)
-    );
+  (source: Observable<string>): Observable<RemoteData<PaginatedList<VocabularyEntry>>> => {
+    const requestId = requestService.generateRequestId();
 
-/**
- * Operator for turning a RestRequest into a PaginatedList of VocabularyEntry
- * @param requestService
- * @param rdb
- */
-export const toRDPaginatedVocabularyEntries = (requestService: RequestService, rdb: RemoteDataBuildService) =>
-  (source: Observable<RestRequest>): Observable<RemoteData<PaginatedList<VocabularyEntry>>> => {
-    const href$ = source.pipe(map((request: RestRequest) => request.href));
+    source.pipe(take(1)).subscribe((href: string) => {
+      const request = new GetRequest(requestId, href);
+      requestService.configure(request);
+    });
 
-    const requestEntry$ = href$.pipe(getRequestFromRequestHref(requestService));
-
-    const payload$ = requestEntry$.pipe(
-      filterSuccessfulResponses(),
-      map((response: GenericSuccessResponse<VocabularyEntry[]>) => new PaginatedList(response.pageInfo, response.payload)),
-      map((list: PaginatedList<VocabularyEntry>) => Object.assign(list, {
-        page: list.page ? list.page.map((entry: VocabularyEntry) => Object.assign(new VocabularyEntry(), entry)) : list.page
-      })),
-      distinctUntilChanged()
-    );
-
-    return rdb.toRemoteDataObservable(requestEntry$, payload$);
+    return rdb.buildList(source);
   };
+
+/* tslint:enable:max-classes-per-file */

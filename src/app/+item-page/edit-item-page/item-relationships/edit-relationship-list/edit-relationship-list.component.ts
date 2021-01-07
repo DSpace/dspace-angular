@@ -11,14 +11,14 @@ import {
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { Item } from '../../../../core/shared/item.model';
-import { defaultIfEmpty, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
-import { hasValue } from '../../../../shared/empty.util';
+import { defaultIfEmpty, map, mergeMap, switchMap, take, } from 'rxjs/operators';
+import { hasValue, hasValueOperator } from '../../../../shared/empty.util';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-  getSucceededRemoteData
+  getFirstSucceededRemoteData,
 } from '../../../../core/shared/operators';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
@@ -27,6 +27,8 @@ import { ItemSearchResult } from '../../../../shared/object-collection/shared/it
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../shared/search/search-result.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../core/data/remote-data';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -115,10 +117,10 @@ export class EditRelationshipListComponent implements OnInit {
       this.relationshipType.leftType,
       this.relationshipType.rightType,
     ].map((itemTypeRD) => itemTypeRD.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
     ))).pipe(
-      map((itemTypes) => [
+      map((itemTypes: ItemType[]) => [
         this.relationshipType.leftwardType,
         this.relationshipType.rightwardType,
       ][itemTypes.findIndex((itemType) => itemType.id === this.itemType.id)]),
@@ -253,9 +255,9 @@ export class EditRelationshipListComponent implements OnInit {
   private getRelatedItem(relationship: Relationship): Observable<Item> {
     return this.relationshipService.isLeftItem(relationship, this.item).pipe(
       switchMap((isLeftItem) => isLeftItem ? relationship.rightItem : relationship.leftItem),
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-    );
+    ) as Observable<Item>;
   }
 
   ngOnInit(): void {
@@ -265,10 +267,11 @@ export class EditRelationshipListComponent implements OnInit {
         this.relationshipType.leftType,
         this.relationshipType.rightType,
       ].map((type) => type.pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
       ))).pipe(
-        map((relatedTypes) => relatedTypes.find((relatedType) => relatedType.uuid !== this.itemType.uuid)),
+        map((relatedTypes: ItemType[]) => relatedTypes.find((relatedType) => relatedType.uuid !== this.itemType.uuid)),
+        hasValueOperator()
       );
 
     this.relatedEntityType$.pipe(
@@ -298,9 +301,11 @@ export class EditRelationshipListComponent implements OnInit {
         map((fieldUpdates) => {
           const fieldUpdatesFiltered: FieldUpdates = {};
           Object.keys(fieldUpdates).forEach((uuid) => {
-            const field = fieldUpdates[uuid].field;
-            if ((field as RelationshipIdentifiable).type.id === this.relationshipType.id) {
-              fieldUpdatesFiltered[uuid] = fieldUpdates[uuid];
+            if (hasValue(fieldUpdates[uuid])) {
+              const field = fieldUpdates[uuid].field;
+              if ((field as RelationshipIdentifiable).type.id === this.relationshipType.id) {
+                fieldUpdatesFiltered[uuid] = fieldUpdates[uuid];
+              }
             }
           });
           return fieldUpdatesFiltered;
@@ -310,26 +315,20 @@ export class EditRelationshipListComponent implements OnInit {
   }
 
   private getItemRelationships() {
-    this.linkService.resolveLink(this.item, followLink('relationships'));
+    this.linkService.resolveLink(this.item,
+      followLink('relationships', undefined, true,
+        followLink('relationshipType'),
+        followLink('leftItem'),
+        followLink('rightItem'),
+      ));
     return this.item.relationships.pipe(
       getAllSucceededRemoteData(),
-      map((relationships) => relationships.payload.page.filter((relationship) => relationship)),
-      filter((relationships) => relationships.every((relationship) => !!relationship)),
-      tap((relationships: Relationship[]) =>
-        relationships.forEach((relationship: Relationship) => {
-          this.linkService.resolveLinks(
-            relationship,
-            followLink('relationshipType'),
-            followLink('leftItem'),
-            followLink('rightItem'),
-          );
-        })
-      ),
+      map((relationships: RemoteData<PaginatedList<Relationship>>) => relationships.payload.page.filter((relationship: Relationship) => hasValue(relationship))),
       switchMap((itemRelationships: Relationship[]) =>
         observableCombineLatest(
           itemRelationships
             .map((relationship) => relationship.relationshipType.pipe(
-              getSucceededRemoteData(),
+              getFirstSucceededRemoteData(),
               getRemoteDataPayload(),
             ))
         ).pipe(

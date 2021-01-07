@@ -16,21 +16,19 @@ import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { BundleDataService } from './bundle-data.service';
-import { CommunityDataService } from './community-data.service';
 import { DataService } from './data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList, buildPaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { RemoteDataError } from './remote-data-error';
 import { FindListOptions, PutRequest } from './request.models';
 import { RequestService } from './request.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { RestResponse } from '../cache/response.models';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { configureRequest, getResponseFromEntry } from '../shared/operators';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { configureRequest } from '../shared/operators';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
+import { RequestEntryState } from './request.reducer';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
@@ -50,7 +48,6 @@ export class BitstreamDataService extends DataService<Bitstream> {
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
-    protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
@@ -65,11 +62,15 @@ export class BitstreamDataService extends DataService<Bitstream> {
   /**
    * Retrieves the {@link Bitstream}s in a given bundle
    *
-   * @param bundle the bundle to retrieve bitstreams from
-   * @param options options for the find all request
+   * @param bundle            the bundle to retrieve bitstreams from
+   * @param options           options for the find all request
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
+   *                          should be automatically resolved
    */
-  findAllByBundle(bundle: Bundle, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
-    return this.findAllByHref(bundle._links.bitstreams.href, options, ...linksToFollow);
+  findAllByBundle(bundle: Bundle, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    return this.findAllByHref(bundle._links.bitstreams.href, options, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -85,11 +86,13 @@ export class BitstreamDataService extends DataService<Bitstream> {
             map((bitstreamRD: RemoteData<PaginatedList<Bitstream>>) => {
               if (hasValue(bitstreamRD.payload) && hasValue(bitstreamRD.payload.page)) {
                 return new RemoteData(
-                  false,
-                  false,
-                  true,
-                  undefined,
-                  bitstreamRD.payload.page[0]
+                  bitstreamRD.timeCompleted,
+                  bitstreamRD.msToLive,
+                  bitstreamRD.lastUpdated,
+                  bitstreamRD.state,
+                  bitstreamRD.errorMessage,
+                  bitstreamRD.payload.page[0],
+                  bitstreamRD.statusCode
                 );
               } else {
                 return bitstreamRD as any;
@@ -125,19 +128,23 @@ export class BitstreamDataService extends DataService<Bitstream> {
                 );
                 if (hasValue(matchingThumbnail)) {
                   return new RemoteData(
-                    false,
-                    false,
-                    true,
-                    undefined,
-                    matchingThumbnail
+                    bitstreamRD.timeCompleted,
+                    bitstreamRD.msToLive,
+                    bitstreamRD.lastUpdated,
+                    bitstreamRD.state,
+                    bitstreamRD.errorMessage,
+                    matchingThumbnail,
+                    bitstreamRD.statusCode
                   );
                 } else {
                   return new RemoteData(
-                    false,
-                    false,
-                    false,
-                    new RemoteDataError(404, '404', 'No matching thumbnail found'),
-                    undefined
+                    bitstreamRD.timeCompleted,
+                    bitstreamRD.msToLive,
+                    bitstreamRD.lastUpdated,
+                    RequestEntryState.Error,
+                    'No matching thumbnail found',
+                    undefined,
+                    404
                   );
                 }
               } else {
@@ -158,18 +165,21 @@ export class BitstreamDataService extends DataService<Bitstream> {
    * The {@link Item} is technically redundant, but is available
    * in all current use cases, and having it simplifies this method
    *
-   * @param item the {@link Item} the {@link Bundle} is a part of
-   * @param bundleName the name of the {@link Bundle} we want to find {@link Bitstream}s for
+   * @param item              the {@link Item} the {@link Bundle} is a part of
+   * @param bundleName        the name of the {@link Bundle} we want to find {@link Bitstream}s for
    * @param options the {@link FindListOptions} for the request
-   * @param linksToFollow the {@link FollowLinkConfig}s for the request
+   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
+   *                          the response becomes stale
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
+   *                          should be automatically resolved
    */
-  public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bundleService.findByItemAndName(item, bundleName).pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {
         if (bundleRD.hasSucceeded && hasValue(bundleRD.payload)) {
-          return this.findAllByBundle(bundleRD.payload, options, ...linksToFollow);
-        } else if (!bundleRD.hasSucceeded && bundleRD.error.statusCode === 404) {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
+          return this.findAllByBundle(bundleRD.payload, options, reRequestOnStale, ...linksToFollow);
+        } else if (!bundleRD.hasSucceeded && bundleRD.statusCode === 404) {
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []), new Date().getTime());
         } else {
           return [bundleRD as any];
         }
@@ -182,7 +192,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
    * @param bitstream
    * @param format
    */
-  updateFormat(bitstream: Bitstream, format: BitstreamFormat): Observable<RestResponse> {
+  updateFormat(bitstream: Bitstream, format: BitstreamFormat): Observable<RemoteData<Bitstream>> {
     const requestId = this.requestService.generateRequestId();
     const bitstreamHref$ = this.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${bitstream.id}`),
@@ -205,9 +215,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
       this.requestService.removeByHrefSubstring(bitstream.self + '/format');
     });
 
-    return this.requestService.getByUUID(requestId).pipe(
-      getResponseFromEntry()
-    );
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
 }

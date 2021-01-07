@@ -13,11 +13,11 @@ import {
   SelectVirtualMetadataAction,
 } from './object-updates.actions';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import { Relationship} from '../../shared/item-relationships/relationship.model';
-import { InjectionToken } from '@angular/core';
+import { Relationship } from '../../shared/item-relationships/relationship.model';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';
-import { Item} from '../../shared/item.model';
-import { RelationshipType} from '../../shared/item-relationships/relationship-type.model';
+import { Item } from '../../shared/item.model';
+import { RelationshipType } from '../../shared/item-relationships/relationship-type.model';
+import { GenericConstructor } from '../../shared/generic-constructor';
 
 /**
  * Path where discarded objects are saved
@@ -100,7 +100,7 @@ export interface ObjectUpdatesEntry {
   fieldUpdates: FieldUpdates;
   virtualMetadataSources: VirtualMetadataSources;
   lastModified: Date;
-  patchOperationServiceToken?: InjectionToken<PatchOperationService>;
+  patchOperationService?: GenericConstructor<PatchOperationService>;
 }
 
 /**
@@ -175,7 +175,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
   const url: string = action.payload.url;
   const fields: Identifiable[] = action.payload.fields;
   const lastModifiedServer: Date = action.payload.lastModified;
-  const patchOperationServiceToken: InjectionToken<PatchOperationService> = action.payload.patchOperationServiceToken;
+  const patchOperationService: GenericConstructor<PatchOperationService> = action.payload.patchOperationService;
   const fieldStates = createInitialFieldStates(fields);
   const newPageState = Object.assign(
     {},
@@ -184,7 +184,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
     { fieldUpdates: {} },
     { virtualMetadataSources: {} },
     { lastModified: lastModifiedServer },
-    { patchOperationServiceToken }
+    { patchOperationService }
   );
   return Object.assign({}, state, { [url]: newPageState });
 }

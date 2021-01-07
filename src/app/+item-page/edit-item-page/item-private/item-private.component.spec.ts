@@ -15,7 +15,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemPrivateComponent } from './item-private.component';
 import { RestResponse } from '../../../core/cache/response.models';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 let comp: ItemPrivateComponent;
 let fixture: ComponentFixture<ItemPrivateComponent>;
@@ -45,14 +45,12 @@ describe('ItemPrivateComponent', () => {
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      setDiscoverable: observableOf(new RestResponse(true, 200, 'OK'))
+      setDiscoverable: createSuccessfulRemoteDataObject$(mockItem)
     });
 
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject({
-          id: 'fake-id'
-        })
+        dso: createSuccessfulRemoteDataObject(mockItem)
       })
     };
 
@@ -97,9 +95,8 @@ describe('ItemPrivateComponent', () => {
       spyOn(comp, 'processRestResponse');
       comp.performAction();
 
-      expect(mockItemDataService.setDiscoverable).toHaveBeenCalledWith(mockItem.id, false);
+      expect(mockItemDataService.setDiscoverable).toHaveBeenCalledWith(mockItem, false);
       expect(comp.processRestResponse).toHaveBeenCalled();
     });
   });
-})
-;
+});

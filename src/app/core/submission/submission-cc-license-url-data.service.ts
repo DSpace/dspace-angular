@@ -15,7 +15,7 @@ import { SUBMISSION_CC_LICENSE_URL } from './models/submission-cc-licence-link.r
 import { Field, Option, SubmissionCcLicence } from './models/submission-cc-license.model';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../shared/operators';
 import { isNotEmpty } from '../../shared/empty.util';
 
 @Injectable()
@@ -62,7 +62,7 @@ export class SubmissionCcLicenseUrlDataService extends DataService<SubmissionCcL
       }
     ).pipe(
       switchMap((href) => this.findByHref(href)),
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((response) => response.url),
     );

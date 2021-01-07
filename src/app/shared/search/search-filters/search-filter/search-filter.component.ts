@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { filter, first, map, startWith, switchMap, take } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 
 import { SearchFilterConfig } from '../../search-filter-config.model';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';

@@ -21,6 +21,7 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockUploadConfigResponse,
+  mockUploadConfigResponseMetadata,
   mockUploadFiles
 } from '../../../../../shared/mocks/submission.mock';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -47,7 +48,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     [mockUploadConfigResponse.accessConditionOptions[2].name, [mockGroup as any]],
   ]);
   const collectionPolicyType = POLICY_DEFAULT_WITH_LIST;
-  const configMetadataForm: any = mockUploadConfigResponse.metadata;
+  const configMetadataForm: any = mockUploadConfigResponseMetadata;
   const fileIndex = '0';
   const fileId = '123456-test-upload';
   const fileData: any = mockUploadFiles[0];

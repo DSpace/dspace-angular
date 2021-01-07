@@ -7,7 +7,6 @@ import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { BrowseService } from '../browse/browse.service';
 import { cold } from 'jasmine-marbles';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -56,7 +55,7 @@ describe('ItemTemplateDataService', () => {
     addPatch(self, operations) {
       // Do nothing
     }
-  } as ObjectCacheService;
+  } as any;
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
       return cold('a', {a: itemEndpoint});

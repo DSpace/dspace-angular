@@ -16,12 +16,15 @@ import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, s
 import { hasValue } from '../empty.util';
 import { RemoteData } from '../../core/data/remote-data';
 import { FindListOptions } from '../../core/data/request.models';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Community } from '../../core/shared/community.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
-import { getFirstSucceededRemoteDataPayload, getSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteWithNotEmptyData
+} from '../../core/shared/operators';
 
 /**
  * An interface to represent a collection entry
@@ -188,9 +191,9 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
       currentPage: page
     };
     this.searchListCollection$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, followLink('parentCommunity'))
+      .getAuthorizedCollection(query, findOptions, false, followLink('parentCommunity'))
       .pipe(
-        getSucceededRemoteWithNotEmptyData(),
+        getFirstSucceededRemoteWithNotEmptyData(),
         switchMap((collections: RemoteData<PaginatedList<Collection>>) => {
           if ( (this.searchListCollection.length + findOptions.elementsPerPage) >= collections.payload.totalElements ) {
             this.hasNextPage = false;

@@ -38,10 +38,10 @@ class TestModel implements HALResource {
 
 @Injectable()
 class TestDataService {
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<any>[]) {
+  findAllByHref(href: string, findListOptions: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
     return 'findAllByHref';
   }
-  findByHref(href: string, ...linksToFollow: FollowLinkConfig<any>[]) {
+  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
     return 'findByHref';
   }
 }
@@ -92,7 +92,7 @@ xdescribe('LinkService', () => {
         service.resolveLink(testModel, followLink('predecessor', {}, true, followLink('successor')));
       });
       it('should call dataservice.findByHref with the correct href and nested links', () => {
-        expect(testDataService.findByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, followLink('successor'));
+        expect(testDataService.findByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, true, followLink('successor'));
       });
     });
     describe(`when the linkdefinition concerns a list`, () => {
@@ -107,7 +107,7 @@ xdescribe('LinkService', () => {
         service.resolveLink(testModel, followLink('predecessor', { some: 'options '} as any, true, followLink('successor')));
       });
       it('should call dataservice.findAllByHref with the correct href, findListOptions,  and nested links', () => {
-        expect(testDataService.findAllByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options '} as any, followLink('successor'));
+        expect(testDataService.findAllByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options '} as any, true, followLink('successor'));
       });
     });
     describe('either way', () => {

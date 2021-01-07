@@ -2,11 +2,12 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { CollectionSelectorComponent } from './collection-selector.component';
@@ -16,9 +17,8 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
 import { FindListOptions } from '../../core/data/request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { PageInfo } from '../../core/shared/page-info.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { MockElementRef } from '../../shared/testing/element-ref.mock';
@@ -46,9 +46,7 @@ describe('CollectionSelectorComponent', () => {
           language: 'en_US',
           value: 'Community 1-Collection 1'
         }],
-      parentCommunity: of(
-        new RemoteData(false, false, true, undefined, community, 200)
-      )
+      parentCommunity: createSuccessfulRemoteDataObject$(community)
     }),
     Object.assign(new Collection(), {
       id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
@@ -59,9 +57,7 @@ describe('CollectionSelectorComponent', () => {
           language: 'en_US',
           value: 'Community 1-Collection 2'
         }],
-      parentCommunity: of(
-        new RemoteData(false, false, true, undefined, community, 200)
-      )
+      parentCommunity: createSuccessfulRemoteDataObject$(community)
     }),
     Object.assign(new Collection(), {
       id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
@@ -72,9 +68,7 @@ describe('CollectionSelectorComponent', () => {
           language: 'en_US',
           value: 'Community 1-Collection 3'
         }],
-      parentCommunity: of(
-        new RemoteData(false, false, true, undefined, community, 200)
-      )
+      parentCommunity: createSuccessfulRemoteDataObject$(community)
     }),
     Object.assign(new Collection(), {
       id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
@@ -85,9 +79,7 @@ describe('CollectionSelectorComponent', () => {
           language: 'en_US',
           value: 'Community 1-Collection 4'
         }],
-      parentCommunity: of(
-        new RemoteData(false, false, true, undefined, community, 200)
-      )
+      parentCommunity: createSuccessfulRemoteDataObject$(community)
     }),
     Object.assign(new Collection(), {
       id: 'a5159760-f362-4659-9e81-e3253ad91ede',
@@ -98,9 +90,7 @@ describe('CollectionSelectorComponent', () => {
           language: 'en_US',
           value: 'Community 1-Collection 5'
         }],
-      parentCommunity: of(
-        new RemoteData(false, false, true, undefined, community, 200)
-      )
+      parentCommunity: createSuccessfulRemoteDataObject$(community)
     })
   ];
 
@@ -108,9 +98,7 @@ describe('CollectionSelectorComponent', () => {
   const collectionDataServiceMock = {
     getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
       return hot( 'a|', {
-        a: createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), collections)
-        )
+        a: createSuccessfulRemoteDataObject(createPaginatedList(collections))
       });
     }
   };

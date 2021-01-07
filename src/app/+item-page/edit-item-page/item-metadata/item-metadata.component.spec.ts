@@ -21,7 +21,6 @@ import { Item } from '../../../core/shared/item.model';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import {
@@ -30,6 +29,7 @@ import {
 } from '../../../shared/remote-data.utils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { DSOSuccessResponse } from '../../../core/cache/response.models';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 let comp: any;
 let fixture: ComponentFixture<ItemMetadataComponent>;
@@ -133,7 +133,7 @@ describe('ItemMetadataComponent', () => {
           data: observableOf({ dso: createSuccessfulRemoteDataObject(item) })
         }
       };
-      paginatedMetadataFields = new PaginatedList(undefined, [mdField1, mdField2, mdField3]);
+      paginatedMetadataFields = createPaginatedList([mdField1, mdField2, mdField3]);
 
       metadataFieldService = jasmine.createSpyObj({
         getAllMetadataFields: createSuccessfulRemoteDataObject$(paginatedMetadataFields)

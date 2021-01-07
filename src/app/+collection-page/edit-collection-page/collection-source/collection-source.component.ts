@@ -26,7 +26,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { cloneDeep } from 'lodash';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { MetadataConfig } from '../../../core/shared/metadata-config.model';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { RequestService } from '../../../core/data/request.service';
@@ -254,12 +254,12 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.collectionRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
 
     this.collectionRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       map((col) => col.payload.uuid),
       switchMap((uuid) => this.collectionService.getContentSource(uuid)),
-      take(1)
-    ).subscribe((contentSource: ContentSource) => {
-      this.initializeOriginalContentSource(contentSource);
+      getFirstCompletedRemoteData(),
+    ).subscribe((rd: RemoteData<ContentSource>) => {
+      this.initializeOriginalContentSource(rd.payload);
     });
 
     this.updateFieldTranslations();
@@ -375,7 +375,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   onSubmit() {
     // Remove cached harvester request to allow for latest harvester to be displayed when switching tabs
     this.collectionRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       map((col) => col.payload.uuid),
       switchMap((uuid) => this.collectionService.getHarvesterEndpoint(uuid)),
       take(1)
@@ -383,7 +383,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
 
     // Update harvester
     this.collectionRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       map((col) => col.payload.uuid),
       switchMap((uuid) => this.collectionService.updateContentSource(uuid, this.contentSource)),
       take(1)

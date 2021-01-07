@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { RestResponse } from '../core/cache/response.models';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Registration } from '../core/shared/registration.model';
+import { RemoteData } from '../core/data/remote-data';
 
 @Component({
   selector: 'ds-register-email-form',
@@ -52,8 +53,8 @@ export class RegisterEmailFormComponent implements OnInit {
    */
   register() {
     if (!this.form.invalid) {
-      this.epersonRegistrationService.registerEmail(this.email.value).subscribe((response: RestResponse) => {
-          if (response.isSuccessful) {
+      this.epersonRegistrationService.registerEmail(this.email.value).subscribe((response: RemoteData<Registration>) => {
+          if (response.hasSucceeded) {
             this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
               this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
             this.router.navigate(['/home']);

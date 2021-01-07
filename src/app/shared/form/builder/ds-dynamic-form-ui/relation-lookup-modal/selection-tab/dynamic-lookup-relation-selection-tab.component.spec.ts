@@ -12,7 +12,10 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { RemoteData } from '../../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import {
+  PaginatedList,
+  buildPaginatedList
+} from '../../../../../../core/data/paginated-list.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 
@@ -88,5 +91,5 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
 });
 
 function createSelection(content: ListableObject[]): Observable<RemoteData<PaginatedList<ListableObject>>> {
-  return createSuccessfulRemoteDataObject$(new PaginatedList(undefined, content));
+  return createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, content));
 }

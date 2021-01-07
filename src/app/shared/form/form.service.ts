@@ -1,5 +1,5 @@
 import { map, distinctUntilChanged, filter } from 'rxjs/operators';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -7,16 +7,16 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { formObjectFromIdSelector } from './selectors';
 import { FormBuilderService } from './builder/form-builder.service';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { isEmpty, isNotUndefined } from '../empty.util';
 import { uniqueId } from 'lodash';
 import {
   FormChangeAction,
   FormInitAction,
-  FormRemoveAction, FormRemoveErrorAction,
+  FormRemoveAction, FormRemoveErrorAction, FormAddTouchedAction,
   FormStatusChangeAction
 } from './form.actions';
-import { FormEntry } from './form.reducer';
+import { FormEntry, FormTouchedState } from './form.reducer';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -47,6 +47,18 @@ export class FormService {
       select(formObjectFromIdSelector(formId)),
       filter((state) => isNotUndefined(state)),
       map((state) => state.data),
+      distinctUntilChanged()
+    );
+  }
+
+  /**
+   * Method to retrieve form's touched state
+   */
+  public getFormTouchedState(formId: string): Observable<FormTouchedState> {
+    return this.store.pipe(
+      select(formObjectFromIdSelector(formId)),
+      filter((state) => isNotUndefined(state)),
+      map((state) => state.touched),
       distinctUntilChanged()
     );
   }
@@ -167,6 +179,11 @@ export class FormService {
 
   public changeForm(formId: string, model: DynamicFormControlModel[]) {
     this.store.dispatch(new FormChangeAction(formId, this.formBuilderService.getValueFromModel(model)));
+  }
+
+  public setTouched(formId: string, model: DynamicFormControlModel[], event: DynamicFormControlEvent) {
+    const ids = this.formBuilderService.getMetadataIdsFromEvent(event);
+    this.store.dispatch(new FormAddTouchedAction(formId, ids));
   }
 
   public removeError(formId: string, eventModelId: string, fieldIndex: number) {

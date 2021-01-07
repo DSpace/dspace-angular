@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Process } from '../processes/process.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { FindListOptions } from '../../core/data/request.models';

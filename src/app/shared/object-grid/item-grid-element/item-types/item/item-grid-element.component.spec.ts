@@ -8,11 +8,11 @@ import { ItemGridElementComponent } from './item-grid-element.component';
 import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 
 const mockItem = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {

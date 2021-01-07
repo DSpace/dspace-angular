@@ -15,7 +15,7 @@ import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 

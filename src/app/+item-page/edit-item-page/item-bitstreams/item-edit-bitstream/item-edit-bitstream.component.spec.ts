@@ -6,10 +6,10 @@ import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { createMockRDObs } from '../item-bitstreams.component.spec';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -29,7 +29,7 @@ const bitstream = Object.assign(new Bitstream(), {
   name: 'Fake Bitstream',
   bundleName: 'ORIGINAL',
   description: 'Description',
-  format: createMockRDObs(format)
+  format: createSuccessfulRemoteDataObject$(format)
 });
 const fieldUpdate = {
   field: bitstream,

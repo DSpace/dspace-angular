@@ -4,19 +4,22 @@ import { By } from '@angular/platform-browser';
 
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
 import { CollectionDropdownComponent } from './collection-dropdown.component';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { Collection } from '../../core/shared/collection.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { Community } from '../../core/shared/community.model';
 import { MockElementRef } from '../testing/element-ref.mock';
+import { FollowLinkConfig } from '../utils/follow-link-config.model';
+import { FindListOptions } from '../../core/data/request.models';
+import { Observable } from 'rxjs/internal/Observable';
 
 const community: Community = Object.assign(new Community(), {
   id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
@@ -34,9 +37,7 @@ const collections: Collection[] = [
         language: 'en_US',
         value: 'Community 1-Collection 1'
       }],
-    parentCommunity: observableOf(
-      new RemoteData(false, false, true, undefined, community, 200)
-    )
+    parentCommunity: createSuccessfulRemoteDataObject$(community)
   }),
   Object.assign(new Collection(), {
     id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
@@ -47,9 +48,7 @@ const collections: Collection[] = [
         language: 'en_US',
         value: 'Community 1-Collection 2'
       }],
-    parentCommunity: observableOf(
-      new RemoteData(false, false, true, undefined, community, 200)
-    )
+    parentCommunity: createSuccessfulRemoteDataObject$(community)
   }),
   Object.assign(new Collection(), {
     id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
@@ -60,9 +59,7 @@ const collections: Collection[] = [
         language: 'en_US',
         value: 'Community 1-Collection 3'
       }],
-    parentCommunity: observableOf(
-      new RemoteData(false, false, true, undefined, community, 200)
-    )
+    parentCommunity: createSuccessfulRemoteDataObject$(community)
   }),
   Object.assign(new Collection(), {
     id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
@@ -73,9 +70,7 @@ const collections: Collection[] = [
         language: 'en_US',
         value: 'Community 1-Collection 4'
       }],
-    parentCommunity: observableOf(
-      new RemoteData(false, false, true, undefined, community, 200)
-    )
+    parentCommunity: createSuccessfulRemoteDataObject$(community)
   }),
   Object.assign(new Collection(), {
     id: 'a5159760-f362-4659-9e81-e3253ad91ede',
@@ -86,9 +81,7 @@ const collections: Collection[] = [
         language: 'en_US',
         value: 'Community 1-Collection 5'
       }],
-    parentCommunity: observableOf(
-      new RemoteData(false, false, true, undefined, community, 200)
-    )
+    parentCommunity: createSuccessfulRemoteDataObject$(community)
   })
 ];
 
@@ -106,6 +99,17 @@ const listElementMock = {
   }
 };
 
+// tslint:disable-next-line: max-classes-per-file
+class CollectionDataServiceMock {
+  getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
+    return observableOf(
+        createSuccessfulRemoteDataObject(
+          buildPaginatedList(new PageInfo(), collections)
+        )
+    );
+  }
+}
+
 describe('CollectionDropdownComponent', () => {
   let component: CollectionDropdownComponent;
   let componentAsAny: any;
@@ -116,7 +120,7 @@ describe('CollectionDropdownComponent', () => {
     getAuthorizedCollection: jasmine.createSpy('getAuthorizedCollection')
   });
 
-  const paginatedCollection = new PaginatedList(new PageInfo(), collections);
+  const paginatedCollection = buildPaginatedList(new PageInfo(), collections);
   const paginatedCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedCollection);
 
   beforeEach(waitForAsync(() => {

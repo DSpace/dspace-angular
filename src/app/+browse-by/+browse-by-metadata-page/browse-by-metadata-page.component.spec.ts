@@ -11,7 +11,7 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { Observable, of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
@@ -156,5 +156,5 @@ describe('BrowseByMetadataPageComponent', () => {
 });
 
 export function toRemoteData(objects: any[]): Observable<RemoteData<PaginatedList<any>>> {
-  return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), objects));
+  return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), objects));
 }

@@ -2,7 +2,11 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  SearchFilterService
+} from '../../../../../core/shared/search/search-filter.service';
 import { SearchFilterConfig } from '../../../search-filter-config.model';
 import { FilterType } from '../../../filter-type.model';
 import { FacetValue } from '../../../facet-value.model';
@@ -10,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { of as observableOf } from 'rxjs';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RouterStub } from '../../../../testing/router.stub';
 import { Router } from '@angular/router';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
@@ -29,7 +33,7 @@ describe('SearchFacetFilterComponent', () => {
   const value3 = 'another value3';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
-    type: FilterType.text,
+    filterType: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false,
     pageSize: 2
@@ -81,7 +85,7 @@ describe('SearchFacetFilterComponent', () => {
   let router;
   const page = observableOf(0);
 
-  const mockValues = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), values));
+  const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],

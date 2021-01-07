@@ -15,7 +15,7 @@ import {
   getMockExternalSourceService
 } from '../../../shared/mocks/external-source.service.mock';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ExternalSource } from '../../../core/shared/external-source.model';
 import { FindListOptions } from '../../../core/data/request.models';
@@ -33,8 +33,8 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   let paginatedList: PaginatedList<ExternalSource>;
 
   const mockExternalSourceService: any = getMockExternalSourceService();
-  paginatedList = new PaginatedList(new PageInfo(), [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
-  const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+  paginatedList = buildPaginatedList(new PageInfo(), [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
+  let paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   beforeEach(waitForAsync(() => {
     scheduler = getTestScheduler();
@@ -85,6 +85,9 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionImportExternalSearchbarComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
+      const pageInfo = new PageInfo();
+      paginatedList = buildPaginatedList(pageInfo, [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
+      paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
       compAsAny.externalService.findAll.and.returnValue(observableOf(paginatedListRD));
       sourceList = [
         {id: 'orcid', name: 'orcid'},

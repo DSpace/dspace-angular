@@ -6,7 +6,7 @@ import { Process } from './processes/process.model';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
 import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../core/shared/operators';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 
 /**
@@ -27,8 +27,8 @@ export class ProcessBreadcrumbResolver implements Resolve<BreadcrumbConfig<Proce
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<Process>> {
     const id = route.params.id;
 
-    return this.processService.findById(route.params.id, followLink('script')).pipe(
-      getSucceededRemoteData(),
+    return this.processService.findById(route.params.id, false, followLink('script')).pipe(
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((object: Process) => {
         const fullPath = state.url;

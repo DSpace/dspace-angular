@@ -1,92 +1,105 @@
 import { RemoteData } from '../core/data/remote-data';
 import { Observable, of as observableOf } from 'rxjs';
-import { RemoteDataError } from '../core/data/remote-data-error';
+import { environment } from '../../environments/environment';
+import { RequestEntryState } from '../core/data/request.reducer';
+
+/**
+ * A fixed timestamp to use in tests
+ */
+const FIXED_TIMESTAMP = new Date().getTime();
 
 /**
  * Method to create a remote data object that has succeeded
  * @param object The object to wrap
+ * @param timeCompleted the moment when the remoteData was completed
  */
-export function createSuccessfulRemoteDataObject<T>(object: T): RemoteData<T> {
+export function createSuccessfulRemoteDataObject<T>(object: T, timeCompleted = FIXED_TIMESTAMP): RemoteData<T> {
   return new RemoteData(
-    false,
-    false,
-    true,
+    timeCompleted,
+    environment.cache.msToLive.default,
+    timeCompleted,
+    RequestEntryState.Success,
     undefined,
-    object
+    object,
+    200
   );
 }
 
 /**
  * Method to create a remote data object that has succeeded, wrapped in an observable
  * @param object The object to wrap
+ * @param timeCompleted the moment when the remoteData was completed
  */
-export function createSuccessfulRemoteDataObject$<T>(object: T): Observable<RemoteData<T>> {
-  return observableOf(createSuccessfulRemoteDataObject(object));
+export function createSuccessfulRemoteDataObject$<T>(object: T, timeCompleted?: number): Observable<RemoteData<T>> {
+  return observableOf(createSuccessfulRemoteDataObject(object, timeCompleted));
 }
 
 /**
  * Method to create a remote data object that has failed
- * @param object The object to wrap
- * @param error The RemoteDataError that caused the failure
+ *
+ * @param errorMessage  the error message
+ * @param statusCode    the status code
+ * @param timeCompleted the moment when the remoteData was completed
  */
-export function createFailedRemoteDataObject<T>(object?: T, error?: RemoteDataError): RemoteData<T> {
+export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCode?: number, timeCompleted = 1577836800000): RemoteData<T> {
   return new RemoteData(
-    false,
-    false,
-    false,
-    error,
-    object
+    timeCompleted,
+    environment.cache.msToLive.default,
+    timeCompleted,
+    RequestEntryState.Error,
+    errorMessage,
+    undefined,
+    statusCode
   );
 }
 
 /**
  * Method to create a remote data object that has failed, wrapped in an observable
- * @param object The object to wrap
- * @param error The RemoteDataError that caused the failure
+ *
+ * @param errorMessage  the error message
+ * @param statusCode    the status code
+ * @param timeCompleted the moment when the remoteData was completed
  */
-export function createFailedRemoteDataObject$<T>(object?: T, error?: RemoteDataError): Observable<RemoteData<T>> {
-  return observableOf(createFailedRemoteDataObject(object, error));
+export function createFailedRemoteDataObject$<T>(errorMessage?: string, statusCode?: number, timeCompleted?: number): Observable<RemoteData<T>> {
+  return observableOf(createFailedRemoteDataObject(errorMessage, statusCode, timeCompleted));
 }
 
 /**
  * Method to create a remote data object that is still pending
- * @param object The object to wrap
+ * @param lastVerified the moment when the remoteData was last verified
  */
-export function createPendingRemoteDataObject<T>(object?: T): RemoteData<T> {
+export function createPendingRemoteDataObject<T>(lastVerified = FIXED_TIMESTAMP): RemoteData<T> {
   return new RemoteData(
-    true,
-    true,
-    true,
-    null,
-    object
+    undefined,
+    environment.cache.msToLive.default,
+    lastVerified,
+    RequestEntryState.ResponsePending,
+    undefined,
+    undefined,
+    undefined
   );
 }
 
 /**
  * Method to create a remote data object that is still pending, wrapped in an observable
- * @param object The object to wrap
+ * @param lastVerified the moment when the remoteData was last verified
  */
-export function createPendingRemoteDataObject$<T>(object?: T): Observable<RemoteData<T>> {
-  return observableOf(createPendingRemoteDataObject(object));
+export function createPendingRemoteDataObject$<T>(lastVerified?: number): Observable<RemoteData<T>> {
+  return observableOf(createPendingRemoteDataObject(lastVerified));
 }
 
 /**
  * Method to create a remote data object with no content
+ * @param timeCompleted the moment when the remoteData was completed
  */
-export function createNoContentRemoteDataObject<T>(): RemoteData<T> {
-  return new RemoteData(
-    true,
-    true,
-    true,
-    null,
-    null,
-    204
-  );
+export function createNoContentRemoteDataObject<T>(timeCompleted?: number): RemoteData<T> {
+  return createSuccessfulRemoteDataObject(undefined, timeCompleted);
 }
 
 /**
  * Method to create a remote data object that has succeeded with no content, wrapped in an observable
+ * @param timeCompleted the moment when the remoteData was completed
  */
-export function createNoContentRemoteDataObject$<T>(): Observable<RemoteData<T>> {
-  return observableOf(createNoContentRemoteDataObject());
+export function createNoContentRemoteDataObject$<T>(timeCompleted?: number): Observable<RemoteData<T>> {
+  return createSuccessfulRemoteDataObject$(undefined, timeCompleted);
 }

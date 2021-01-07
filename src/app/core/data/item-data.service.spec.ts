@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { Observable, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -10,11 +10,11 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemDataService } from './item-data.service';
-import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
+import { DeleteRequest, FindListOptions, PostRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -23,9 +23,6 @@ describe('ItemDataService', () => {
   const requestService = Object.assign(getMockRequestService(), {
     generateRequestId(): string {
       return scopeID;
-    },
-    configure(request: RestRequest) {
-      // Do nothing
     },
     getByHref(requestHref: string) {
       const responseCacheEntry = new RequestEntry();
@@ -36,17 +33,15 @@ describe('ItemDataService', () => {
       // Do nothing
     }
   }) as RequestService;
-  const rdbService = jasmine.createSpyObj('rdbService', {
-    toRemoteDataObservable: observableOf({})
-  });
+  const rdbService = getMockRemoteDataBuildService();
+
+  const itemEndpoint = 'https://rest.api/core/items';
 
   const store = {} as Store<CoreState>;
   const objectCache = {} as ObjectCacheService;
-  const halEndpointService = {
-    getEndpoint(linkPath: string): Observable<string> {
-      return cold('a', { a: itemEndpoint });
-    }
-  } as HALEndpointService;
+  const halEndpointService = jasmine.createSpyObj('halService', {
+    getEndpoint: observableOf(itemEndpoint)
+  });
   const bundleService = jasmine.createSpyObj('bundleService', {
     findByHref: {}
   });
@@ -68,7 +63,6 @@ describe('ItemDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const itemEndpoint = 'https://rest.api/core/items';
   const ScopedItemEndpoint = `https://rest.api/core/items/${scopeID}`;
 
   function initMockBrowseService(isSuccessful: boolean) {
@@ -124,56 +118,11 @@ describe('ItemDataService', () => {
     });
   });
 
-  describe('getItemWithdrawEndpoint', () => {
-    beforeEach(() => {
-      scheduler = getTestScheduler();
-      service = initTestService();
-
-    });
-
-    it('should return the endpoint to withdraw and reinstate items', () => {
-      const result = service.getItemWithdrawEndpoint(scopeID);
-      const expected = cold('a', { a: ScopedItemEndpoint });
-
-      expect(result).toBeObservable(expected);
-    });
-
-    it('should setWithDrawn', () => {
-      const expected = new RestResponse(true, 200, 'OK');
-      const result = service.setWithDrawn(scopeID, true);
-      result.subscribe((v) => expect(v).toEqual(expected));
-
-    });
-  });
-
-  describe('getItemDiscoverableEndpoint', () => {
-    beforeEach(() => {
-      scheduler = getTestScheduler();
-      service = initTestService();
-
-    });
-
-    it('should return the endpoint to make an item private or public', () => {
-      const result = service.getItemDiscoverableEndpoint(scopeID);
-      const expected = cold('a', { a: ScopedItemEndpoint });
-
-      expect(result).toBeObservable(expected);
-    });
-
-    it('should setDiscoverable', () => {
-      const expected = new RestResponse(true, 200, 'OK');
-      const result = service.setDiscoverable(scopeID, false);
-      result.subscribe((v) => expect(v).toEqual(expected));
-
-    });
-  });
-
   describe('removeMappingFromCollection', () => {
     let result;
 
     beforeEach(() => {
       service = initTestService();
-      spyOn(requestService, 'configure');
       result = service.removeMappingFromCollection('item-id', 'collection-id');
     });
 
@@ -187,7 +136,6 @@ describe('ItemDataService', () => {
 
     beforeEach(() => {
       service = initTestService();
-      spyOn(requestService, 'configure');
       result = service.mapToCollection('item-id', 'collection-href');
     });
 
@@ -207,12 +155,14 @@ describe('ItemDataService', () => {
 
     beforeEach(() => {
       service = initTestService();
-      spyOn(requestService, 'configure');
       result = service.importExternalSourceEntry(externalSourceEntry, 'collection-id');
     });
 
-    it('should configure a POST request', () => {
-      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest)));
+    it('should configure a POST request', (done) => {
+      result.subscribe(() => {
+        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest));
+        done();
+      });
     });
   });
 
@@ -223,12 +173,14 @@ describe('ItemDataService', () => {
 
     beforeEach(() => {
       service = initTestService();
-      spyOn(requestService, 'configure');
       result = service.createBundle(itemId, bundleName);
     });
 
-    it('should configure a POST request', () => {
-      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest)));
+    it('should configure a POST request', (done) => {
+      result.subscribe(() => {
+        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest));
+        done();
+      });
     });
   });
 

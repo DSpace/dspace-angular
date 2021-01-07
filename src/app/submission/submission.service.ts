@@ -28,7 +28,7 @@ import {
   SubmissionSectionObject
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
-import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SectionDataObject } from './sections/models/section-data.model';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
@@ -40,12 +40,12 @@ import { SubmissionDefinitionsModel } from '../core/config/models/config-submiss
 import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
 import { RemoteData } from '../core/data/remote-data';
 import { ErrorResponse } from '../core/cache/response.models';
-import { RemoteDataError } from '../core/data/remote-data-error';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { Item } from '../core/shared/item.model';
 import { environment } from '../../environments/environment';
+import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 
 /**
  * A service that provides methods used in submission process.
@@ -75,6 +75,7 @@ export class SubmissionService {
    * @param {TranslateService} translate
    * @param {SearchService} searchService
    * @param {RequestService} requestService
+   * @param {SubmissionJsonPatchOperationsService} jsonPatchOperationService
    */
   constructor(protected notificationsService: NotificationsService,
               protected restService: SubmissionRestService,
@@ -83,7 +84,8 @@ export class SubmissionService {
               protected store: Store<SubmissionState>,
               protected translate: TranslateService,
               protected searchService: SearchService,
-              protected requestService: RequestService) {
+              protected requestService: RequestService,
+              protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
   }
 
   /**
@@ -210,12 +212,14 @@ export class SubmissionService {
    *
    * @param submissionId
    *    The submission id
+   * @param manual
+   *    whether is a manual save, default false
    */
-  dispatchSave(submissionId) {
+  dispatchSave(submissionId, manual?: boolean) {
     this.getSubmissionSaveProcessingStatus(submissionId).pipe(
       find((isPending: boolean) => !isPending)
     ).subscribe(() => {
-      this.store.dispatch(new SaveSubmissionFormAction(submissionId));
+      this.store.dispatch(new SaveSubmissionFormAction(submissionId, manual));
     });
   }
 
@@ -429,6 +433,16 @@ export class SubmissionService {
   }
 
   /**
+   * Return whether submission unsaved modification are present
+   *
+   * @return Observable<boolean>
+   *    observable with submission unsaved modification presence
+   */
+  hasUnsavedModification(): Observable<boolean> {
+    return this.jsonPatchOperationService.hasPendingOperations('sections');
+  }
+
+  /**
    * Return the visibility status of the specified section
    *
    * @param sectionData
@@ -538,9 +552,7 @@ export class SubmissionService {
       map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),
       catchError((errorResponse: ErrorResponse) => {
-        return createFailedRemoteDataObject$(null,
-          new RemoteDataError(errorResponse.statusCode, errorResponse.statusText, errorResponse.errorMessage)
-        );
+        return createFailedRemoteDataObject$<SubmissionObject>(errorResponse.errorMessage, errorResponse.statusCode);
       })
     );
   }
@@ -565,9 +577,12 @@ export class SubmissionService {
    */
   startAutoSave(submissionId) {
     this.stopAutoSave();
+    if (environment.submission.autosave.timer === 0) {
+      return;
+    }
+
     // AUTOSAVE submission
-    // Retrieve interval from config and convert to milliseconds
-    const duration = environment.submission.autosave.timer * (1000 * 60);
+    const duration = environment.submission.autosave.timer;
     // Dispatch save action after given duration
     this.timer$ = observableTimer(duration, duration);
     this.autoSaveSub = this.timer$

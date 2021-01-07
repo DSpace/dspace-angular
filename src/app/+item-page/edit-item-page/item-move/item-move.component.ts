@@ -3,15 +3,17 @@ import { first, map } from 'rxjs/operators';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteData,
+  getFirstCompletedRemoteData
+} from '../../../core/shared/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Observable, of as observableOf } from 'rxjs';
-import { RestResponse } from '../../../core/cache/response.models';
 import { Collection } from '../../../core/shared/collection.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -55,7 +57,7 @@ export class ItemMoveComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.pipe(map((data) => data.dso), getSucceededRemoteData()) as Observable<RemoteData<Item>>;
+    this.itemRD$ = this.route.data.pipe(map((data) => data.dso), getFirstSucceededRemoteData()) as Observable<RemoteData<Item>>;
     this.itemRD$.subscribe((rd) => {
         this.itemId = rd.payload.id;
       }
@@ -114,10 +116,10 @@ export class ItemMoveComponent implements OnInit {
    */
   moveCollection() {
     this.processing = true;
-    this.itemDataService.moveToCollection(this.itemId, this.selectedCollection).pipe(first()).subscribe(
-      (response: RestResponse) => {
+    this.itemDataService.moveToCollection(this.itemId, this.selectedCollection).pipe(getFirstCompletedRemoteData()).subscribe(
+      (response: RemoteData<Collection>) => {
         this.router.navigate([getItemEditRoute(this.itemId)]);
-        if (response.isSuccessful) {
+        if (response.hasSucceeded) {
           this.notificationsService.success(this.translateService.get('item.edit.move.success'));
         } else {
           this.notificationsService.error(this.translateService.get('item.edit.move.error'));

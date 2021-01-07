@@ -46,7 +46,7 @@ export class RemoveFromIndexByValueAction implements Action {
   type = IndexActionTypes.REMOVE_BY_VALUE;
   payload: {
     name: IndexName,
-    value: string
+    value: any
   };
 
   /**
@@ -57,7 +57,7 @@ export class RemoveFromIndexByValueAction implements Action {
    * @param value
    *    the value to remove the UUID for
    */
-  constructor(name: IndexName, value: string) {
+  constructor(name: IndexName, value: any) {
     this.payload = { name, value };
   }
 

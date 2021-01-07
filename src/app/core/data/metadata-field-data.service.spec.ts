@@ -59,7 +59,7 @@ describe('MetadataFieldDataService', () => {
       const expectedOptions = Object.assign(new FindListOptions(), {
         searchParams: [new RequestParam('schema', schema.prefix)]
       });
-      expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions);
+      expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions, true);
     });
   });
 

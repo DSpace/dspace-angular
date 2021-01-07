@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -15,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthService } from '../../core/auth/auth.service';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 
 describe('CollectionStatisticsPageComponent', () => {
 
@@ -26,14 +26,10 @@ describe('CollectionStatisticsPageComponent', () => {
 
     const activatedRoute = {
       data: observableOf({
-        scope: new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
+        scope: createSuccessfulRemoteDataObject(
           Object.assign(new Collection(), {
             id: 'collection_id',
-          }),
+          })
         )
       })
     };

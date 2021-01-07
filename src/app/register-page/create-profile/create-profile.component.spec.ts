@@ -11,7 +11,6 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../../core/cache/response.models';
 import { By } from '@angular/platform-browser';
 import { CoreState } from '../../core/core.reducers';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -22,6 +21,7 @@ import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -111,7 +111,7 @@ describe('CreateProfileComponent', () => {
     notificationsService = new NotificationsServiceStub();
 
     ePersonDataService = jasmine.createSpyObj('ePersonDataService', {
-      createEPersonForToken: observableOf(new RestResponse(true, 200, 'Success'))
+      createEPersonForToken: createSuccessfulRemoteDataObject$({})
     });
 
     store = jasmine.createSpyObj('store', {
@@ -218,7 +218,7 @@ describe('CreateProfileComponent', () => {
 
     it('should submit an eperson for creation and stay on page on error', () => {
 
-      (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 500, 'Error')));
+      (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 500));
 
       comp.firstName.patchValue('First');
       comp.lastName.patchValue('Last');
@@ -236,7 +236,7 @@ describe('CreateProfileComponent', () => {
     });
     it('should submit not create an eperson when the user info form is invalid', () => {
 
-      (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 500, 'Error')));
+      (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 500));
 
       comp.firstName.patchValue('');
       comp.lastName.patchValue('Last');
@@ -251,7 +251,7 @@ describe('CreateProfileComponent', () => {
     });
     it('should submit not create an eperson when the password is invalid', () => {
 
-      (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(observableOf(new RestResponse(false, 500, 'Error')));
+      (ePersonDataService.createEPersonForToken as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Error', 500));
 
       comp.firstName.patchValue('First');
       comp.lastName.patchValue('Last');

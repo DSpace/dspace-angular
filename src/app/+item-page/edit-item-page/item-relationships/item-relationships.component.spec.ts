@@ -11,24 +11,20 @@ import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { RelationshipService } from '../../../core/data/relationship.service';
-import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import {
-  INotification,
-  Notification
-} from '../../../shared/notifications/models/notification.model';
+import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SharedModule } from '../../../shared/shared.module';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemRelationshipsComponent } from './item-relationships.component';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -84,7 +80,7 @@ describe('ItemRelationshipsComponent', () => {
         },
         id: '2',
         uuid: '2',
-        relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
+        relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
       }),
       Object.assign(new Relationship(), {
         _links: {
@@ -92,7 +88,7 @@ describe('ItemRelationshipsComponent', () => {
         },
         id: '3',
         uuid: '3',
-        relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
+        relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
       })
     ];
 
@@ -102,7 +98,7 @@ describe('ItemRelationshipsComponent', () => {
       },
       id: 'publication',
       uuid: 'publication',
-      relationships: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), relationships))),
+      relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships)),
       lastModified: date
     });
 
@@ -119,10 +115,10 @@ describe('ItemRelationshipsComponent', () => {
       uuid: 'author2'
     });
 
-    relationships[0].leftItem = observableOf(new RemoteData(false, false, true, undefined, author1));
-    relationships[0].rightItem = observableOf(new RemoteData(false, false, true, undefined, item));
-    relationships[1].leftItem = observableOf(new RemoteData(false, false, true, undefined, author2));
-    relationships[1].rightItem = observableOf(new RemoteData(false, false, true, undefined, item));
+    relationships[0].leftItem = createSuccessfulRemoteDataObject$(author1);
+    relationships[0].rightItem = createSuccessfulRemoteDataObject$(item);
+    relationships[1].leftItem = createSuccessfulRemoteDataObject$(author2);
+    relationships[1].rightItem = createSuccessfulRemoteDataObject$(item);
 
     fieldUpdate1 = {
       field: relationships[0],
@@ -137,12 +133,12 @@ describe('ItemRelationshipsComponent', () => {
     };
 
     itemService = jasmine.createSpyObj('itemService', {
-      findById: observableOf(new RemoteData(false, false, true, undefined, item))
+      findById: createSuccessfulRemoteDataObject$(item)
     });
     routeStub = {
       data: observableOf({}),
       parent: {
-        data: observableOf({ dso: new RemoteData(false, false, true, null, item) })
+        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) })
       }
     };
 
@@ -184,7 +180,7 @@ describe('ItemRelationshipsComponent', () => {
     requestService = jasmine.createSpyObj('requestService',
       {
         removeByHrefSubstring: {},
-        hasByHrefObservable: observableOf(false)
+        hasByHref$: observableOf(false)
       }
     );
 
@@ -194,20 +190,8 @@ describe('ItemRelationshipsComponent', () => {
 
     entityTypeService = jasmine.createSpyObj('entityTypeService',
       {
-        getEntityTypeByLabel: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          null,
-          entityType,
-        )),
-        getEntityTypeRelationships: observableOf(new RemoteData(
-          false,
-          false,
-          true,
-          null,
-          new PaginatedList(new PageInfo(), [relationshipType]),
-        )),
+        getEntityTypeByLabel: createSuccessfulRemoteDataObject$(entityType),
+        getEntityTypeRelationships: createSuccessfulRemoteDataObject$(createPaginatedList([relationshipType])),
       }
     );
 

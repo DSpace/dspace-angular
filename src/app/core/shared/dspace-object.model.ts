@@ -39,7 +39,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   id: string;
 
   /**
-   * The universally unique identifier of this DSpaceObject
+   * The universally unique ide ntifier of this DSpaceObject
    */
   @autoserializeAs(String)
   uuid: string;

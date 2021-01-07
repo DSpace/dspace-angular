@@ -1,11 +1,12 @@
 import { Operation } from 'fast-json-patch';
-import { CacheableObject } from '../cache/object-cache.reducer';
+
+import { TypedObject } from '../cache/object-cache.reducer';
 
 /**
  * An interface to determine what differs between two
  * NormalizedObjects
  */
-export interface ChangeAnalyzer<T extends CacheableObject> {
+export interface ChangeAnalyzer<T extends TypedObject> {
 
   /**
    * Compare two objects and return their differences as a

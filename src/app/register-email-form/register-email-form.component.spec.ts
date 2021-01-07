@@ -13,6 +13,7 @@ import { By } from '@angular/platform-browser';
 import { RouterStub } from '../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RegisterEmailFormComponent } from './register-email-form.component';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 
 describe('RegisterEmailComponent', () => {
 
@@ -29,7 +30,7 @@ describe('RegisterEmailComponent', () => {
     notificationsService = new NotificationsServiceStub();
 
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      registerEmail: observableOf(new RestResponse(true, 200, 'Success'))
+      registerEmail: createSuccessfulRemoteDataObject$({})
     });
 
     TestBed.configureTestingModule({

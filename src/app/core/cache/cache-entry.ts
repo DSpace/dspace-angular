@@ -1,4 +1,4 @@
 export interface CacheEntry {
-  timeAdded: number;
+  timeCompleted: number;
   msToLive: number;
 }

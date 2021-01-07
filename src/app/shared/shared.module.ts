@@ -215,9 +215,24 @@ import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-select
 import { DsoPageEditButtonComponent } from './dso-page/dso-page-edit-button/dso-page-edit-button.component';
 import { HoverClassDirective } from './hover-class.directive';
 import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
+import { ItemAlertsComponent } from './item/item-alerts/item-alerts.component';
 import { ItemSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
 import { ResourcePolicyEditComponent } from './resource-policies/edit/resource-policy-edit.component';
 import { ResourcePolicyCreateComponent } from './resource-policies/create/resource-policy-create.component';
+import { SearchObjects } from './search/search-objects.model';
+import { SearchResult } from './search/search-result.model';
+import { FacetConfigResponse } from './search/facet-config-response.model';
+import { FacetValues } from './search/facet-values.model';
+
+/**
+ * Declaration needed to make sure all decorator functions are called in time
+ */
+export const MODELS = [
+  SearchObjects,
+  FacetConfigResponse,
+  FacetValues,
+  SearchResult
+];
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -440,7 +455,8 @@ const COMPONENTS = [
 const SHARED_ITEM_PAGE_COMPONENTS = [
   MetadataFieldWrapperComponent,
   MetadataValuesComponent,
-  DsoPageEditButtonComponent
+  DsoPageEditButtonComponent,
+  ItemAlertsComponent,
 ];
 
 const PROVIDERS = [

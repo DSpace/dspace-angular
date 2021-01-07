@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { startWith, switchMap, } from 'rxjs/operators';
-import { PaginatedList } from '../core/data/paginated-list';
+import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
-import { getSucceededRemoteData } from '../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../core/shared/operators';
 import { RouteService } from '../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
@@ -122,7 +122,7 @@ export class SearchComponent implements OnInit {
     this.searchLink = this.getSearchLink();
     this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$.pipe(
-      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData(), startWith(undefined))))
+      switchMap((options) => this.service.search(options).pipe(getFirstSucceededRemoteData(), startWith(undefined))))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });

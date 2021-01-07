@@ -1,14 +1,14 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-filter-config.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { Router } from '@angular/router';
@@ -59,7 +59,7 @@ export class SearchFiltersComponent implements OnInit {
 
   ngOnInit(): void {
     this.filters = this.searchConfigService.searchOptions.pipe(
-      switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getSucceededRemoteData())),
+      switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getFirstSucceededRemoteData())),
     );
 
     this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
