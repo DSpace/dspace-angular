@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 
-import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, find, flatMap, map, switchMap, tap } from 'rxjs/operators';
 
 import { DataService } from '../data/data.service';
 import {
@@ -13,12 +13,11 @@ import {
 } from '../data/request.models';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ProcessTaskResponse } from './models/process-task-response';
-import {getFirstCompletedRemoteData, getResponseFromEntry} from '../shared/operators';
-import { ErrorResponse, MessageResponse, RestResponse } from '../cache/response.models';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import {HttpOptions} from '../dspace-rest/dspace-rest.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 /**
  * An abstract class that provides methods to handle task requests.

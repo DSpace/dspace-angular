@@ -99,9 +99,4 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
     });
     return reloadedObject;
   }
-
-  // mock
-  actionExecution(): Observable<any> {
-    return of({ hasSucceeded: true});
-  }
 }

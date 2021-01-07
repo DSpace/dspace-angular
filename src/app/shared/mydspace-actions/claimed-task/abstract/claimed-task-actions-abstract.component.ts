@@ -10,7 +10,7 @@ import { RequestService} from '../../../../core/data/request.service';
 import { Observable} from 'rxjs';
 import { RemoteData} from '../../../../core/data/remote-data';
 import { WorkflowItem} from '../../../../core/submission/models/workflowitem.model';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { CLAIMED_TASK } from '../../../../core/tasks/models/claimed-task-object.resource-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';

@@ -12,7 +12,6 @@ import { spyOnExported } from '../../../testing/utils.test';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { Item } from '../../../../core/shared/item.model';
-import { By } from '@angular/platform-browser';
 
 const testType = 'TestType';
 const testContext = Context.Search;

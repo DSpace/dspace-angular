@@ -49,9 +49,4 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
     return reloadedObject;
   }
 
-  // mock
-  actionExecution(): Observable<any> {
-    return of({ hasSucceeded: true});
-  }
-
 }
