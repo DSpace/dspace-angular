@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ListableObject } from '../listable-object.model';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { map, skip, take } from 'rxjs/operators';

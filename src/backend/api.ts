@@ -10,7 +10,6 @@ import COLLECTIONS from './data/collections.json';
 import ITEMS from './data/items.json';
 import BUNDLES from './data/bundles.json';
 import BITSTREAMS from './data/bitstreams.json';
-import METADATA from './data/metadata.json';
 
 // you would use cookies/token etc
 const USER_ID = 'f9d98cf1-1b96-464e-8755-bcc2a5c09077'; // hardcoded as an example

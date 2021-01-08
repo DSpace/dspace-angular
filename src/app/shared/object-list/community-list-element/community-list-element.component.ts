@@ -1,4 +1,4 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Community } from '../../../core/shared/community.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';

@@ -9,7 +9,7 @@ import { SITE } from './site.resource-type';
 @typedObject
 @inheritSerialization(DSpaceObject)
 export class Site extends DSpaceObject {
-​
+
   static type = SITE;
-​
+
 }

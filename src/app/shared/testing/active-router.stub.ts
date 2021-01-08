@@ -1,6 +1,5 @@
-
-import {map} from 'rxjs/operators';
-import { convertToParamMap, ParamMap, Params } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { convertToParamMap, Params } from '@angular/router';
 
 import { BehaviorSubject } from 'rxjs';
 
