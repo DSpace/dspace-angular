@@ -171,12 +171,7 @@ describe('MetadataService', () => {
         Meta,
         Title,
         // tslint:disable-next-line:no-empty
-        {
-          provide: ItemDataService, useValue: {
-            findById: () => {
-            }
-          }
-        },
+        { provide: ItemDataService, useValue: { findById: () => { } } },
         {
           provide: HardRedirectService,
           useValue: { rewriteDownloadURL: (a) => a, getRequestOrigin: () => environment.ui.baseUrl }
