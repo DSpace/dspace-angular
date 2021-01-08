@@ -15,7 +15,7 @@ import { VarDirective } from '../../utils/var.directive';
 import { take } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { SidebarService } from '../../sidebar/sidebar.service';
-import { SidebarServiceStub } from '../../testing/SidebarServiceStub';
+import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
 
 describe('SearchSettingsComponent', () => {
 

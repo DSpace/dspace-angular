@@ -24,7 +24,7 @@ import { RouteService } from '../core/services/route.service';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
-import { SidebarServiceStub } from '../shared/testing/SidebarServiceStub';
+import { SidebarServiceStub } from '../shared/testing/sidebar-service.stub';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;

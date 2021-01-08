@@ -7,7 +7,7 @@ import { of as observableOf } from 'rxjs';
 import { PageWithSidebarComponent } from './page-with-sidebar.component';
 import { SidebarService } from './sidebar.service';
 import { HostWindowService } from '../host-window.service';
-import { SidebarServiceStub } from '../testing/SidebarServiceStub';
+import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 
 describe('PageWithSidebarComponent', () => {
   let comp: PageWithSidebarComponent;

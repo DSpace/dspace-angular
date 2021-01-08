@@ -28,7 +28,7 @@ import { RoleDirective } from '../shared/roles/role.directive';
 import { RoleService } from '../core/roles/role.service';
 import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { SidebarServiceStub } from '../shared/testing/SidebarServiceStub';
+import { SidebarServiceStub } from '../shared/testing/sidebar-service.stub';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;

@@ -178,16 +178,6 @@ describe('MenuService', () => {
     });
 
     describe('when the subsection list is empty', () => {
-      beforeEach(() => {
-        /*        selectSpy.and.callFake(() => {
-                  return () => {
-                    return () => hot('a', {
-                        a: []
-                      }
-                    );
-                  };
-                });*/
-      });
       it('should return false', () => {
 
         const result = service.hasSubSections(MenuID.ADMIN, 'fakeId');
