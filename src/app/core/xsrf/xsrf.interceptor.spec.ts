@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpHeaders, HTTP_INTERCEPTORS, HttpResponse, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { HttpHeaders, HTTP_INTERCEPTORS, HttpResponse, HttpXsrfTokenExtractor, HttpErrorResponse } from '@angular/common/http';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { CookieService } from '../services/cookie.service';
@@ -145,6 +145,40 @@ describe(`XsrfInterceptor`, () => {
       headers: new HttpHeaders().set('DSPACE-XSRF-TOKEN', mockNewXSRFToken),
       status: mockStatusCode,
       statusText: mockStatusText
+    });
+  });
+
+  it('should update XSRF-TOKEN cookie when DSPACE-XSRF-TOKEN header found in error response', (done) => {
+    // Create a mock XSRF token to be returned in response within DSPACE-XSRF-TOKEN header
+    // In this situation, we are mocking a CSRF token mismatch, which causes our backend to send a new token
+    const mockNewXSRFToken = '987654321zyxwut';
+    const mockErrorCode = 403;
+    const mockErrorText = 'Forbidden';
+    const mockErrorMessage = 'CSRF token mismatch';
+
+    service.request(RestRequestMethod.GET, 'server/api/core/items').subscribe({
+      error: (error) => {
+        expect(error).toBeTruthy();
+
+        // ensure mock error (added in below flush() call) is returned.
+        expect(error.statusCode).toBe(mockErrorCode);
+        expect(error.statusText).toBe(mockErrorText);
+
+        // ensure our XSRF-TOKEN cookie exists & has the same value as the new DSPACE-XSRF-TOKEN header
+        expect(cookieService.get('XSRF-TOKEN')).toBeDefined();
+        expect(cookieService.get('XSRF-TOKEN')).toBe(mockNewXSRFToken.toString());
+
+        done();
+      }
+    });
+
+    const httpRequest = httpMock.expectOne('server/api/core/items');
+
+    // Flush & create mock error response (including sending back a new XSRF token in header)
+    httpRequest.flush(mockErrorMessage, {
+      headers: new HttpHeaders().set('DSPACE-XSRF-TOKEN', mockNewXSRFToken),
+      status: mockErrorCode,
+      statusText: mockErrorText
     });
   });
 

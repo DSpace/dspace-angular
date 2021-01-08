@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { tap, filter } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { CookieService } from '../services/cookie.service';
+import { throwError } from 'rxjs';
 
 /**
  * Custom Http Interceptor intercepting Http Requests & Responses to
@@ -42,6 +43,11 @@ export class XsrfInterceptor implements HttpInterceptor {
      * @param next
      */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        // Name of XSRF header we may send in requests to backend (this is a standard name defined by Angular)
+        const requestCsrfHeader = 'X-XSRF-TOKEN';
+        // Name of XSRF header we may receive in responses from backend
+        const responseCsrfHeader = 'DSPACE-XSRF-TOKEN';
+
         // Ensure EVERY request from Angular includes "withCredentials: true".
         // This allows Angular to receive & send cookies via a CORS request (to
         // the backend). ONLY requests with credentials will:
@@ -65,29 +71,47 @@ export class XsrfInterceptor implements HttpInterceptor {
             const token = this.tokenExtractor.getToken() as string;
 
             // send token in request's X-XSRF-TOKEN header (anti-CSRF security) to backend
-            const headerName = 'X-XSRF-TOKEN';
-            if (token !== null && !req.headers.has(headerName)) {
-                req = req.clone({ headers: req.headers.set(headerName, token) });
+            if (token !== null && !req.headers.has(requestCsrfHeader)) {
+                req = req.clone({ headers: req.headers.set(requestCsrfHeader, token) });
             }
         }
         // Pass to next interceptor, but intercept EVERY response event as well
         return next.handle(req).pipe(
             // Check event that came back...is it an HttpResponse from backend?
-            filter((event) => event instanceof HttpResponse),
-                tap((response: HttpResponse<any>) => {
+            tap((response) => {
+                if (response instanceof HttpResponse) {
                     // For every response that comes back, check for the custom
                     // DSPACE-XSRF-TOKEN header sent from the backend.
-                    if (response.headers.has('DSPACE-XSRF-TOKEN')) {
+                    if (response.headers.has(responseCsrfHeader)) {
                         // value of header is a new XSRF token
-                        const newToken = response.headers.get('DSPACE-XSRF-TOKEN');
-
-                        // save token value as a *new* value of our client-side
-                        // XSRF-TOKEN cookie. (This is the same cookie we use to
-                        // send back the X-XSRF-TOKEN header. See request logic above)
-                        this.cookieService.remove('XSRF-TOKEN');
-                        this.cookieService.set('XSRF-TOKEN', newToken);
+                        this.saveXsrfToken(response.headers.get(responseCsrfHeader));
                     }
-                })
+                }
+            }),
+            catchError((error) => {
+                if (error instanceof HttpErrorResponse) {
+                    // For every error that comes back, also check for the custom
+                    // DSPACE-XSRF-TOKEN header sent from the backend.
+                    if (error.headers.has(responseCsrfHeader)) {
+                        // value of header is a new XSRF token
+                        this.saveXsrfToken(error.headers.get(responseCsrfHeader));
+                    }
+                }
+                // Return error response as is.
+                return throwError(error);
+            })
         ) as any;
+    }
+
+    /**
+     * Save XSRF token found in response
+     * @param token token found
+     */
+    private saveXsrfToken(token: string) {
+        // Save token value as a *new* value of our client-side XSRF-TOKEN cookie.
+        // This is the cookie that is parsed by Angular's tokenExtractor(),
+        // which we will send back in the X-XSRF-TOKEN header per Angular best practices.
+        this.cookieService.remove('XSRF-TOKEN');
+        this.cookieService.set('XSRF-TOKEN', token);
     }
 }
