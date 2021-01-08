@@ -121,6 +121,13 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     return model.value == null;
   }
 
+  hasMandatoryFieldAuthority() {
+    const model = this.getMandatoryFieldModel();
+    return hasValue(model.value)
+      && typeof model.value === 'object'
+      && (model.value as any).hasAuthority();
+  }
+
   onBlur(event) {
     this.blur.emit();
   }
@@ -198,7 +205,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   canImport() {
-    return !this.isMandatoryFieldEmpty() && this.editMode;
+    return !this.isMandatoryFieldEmpty() && this.editMode && !this.hasMandatoryFieldAuthority();
   }
 
   /**

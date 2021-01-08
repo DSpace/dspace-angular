@@ -7,6 +7,8 @@ import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { RemoteData } from '../../core/data/remote-data';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { Vocabulary } from '../../core/submission/vocabularies/models/vocabulary.model';
+import { FollowLinkConfig } from '../utils/follow-link-config.model';
+import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 export class VocabularyServiceStub {
 
@@ -47,4 +49,7 @@ export class VocabularyServiceStub {
     return;
   }
 
+  findEntryDetailById(id: string, name: string, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<VocabularyEntry> {
+    return observableOf(Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 }));
+  }
 }

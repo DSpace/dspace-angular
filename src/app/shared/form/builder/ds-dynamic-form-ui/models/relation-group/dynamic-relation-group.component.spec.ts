@@ -31,6 +31,7 @@ import { SubmissionService } from '../../../../../../submission/submission.servi
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -151,7 +152,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   let control2: FormControl;
   let model2: DsDynamicInputModel;
 
-  const vocabularyService = new VocabularyServiceStub();
+  const vocabularyService: any = new VocabularyServiceStub();
 
   // async beforeEach
   beforeEach(async(() => {
@@ -422,8 +423,49 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       it('should display external source button', inject([FormBuilderService], (service: FormBuilderService) => {
         const testElement = debugElement.query(By.css('i.fa-share-square'));
         expect(testElement).not.toBeNull();
+        expect(testElement.parent.nativeElement.disabled).toBeFalsy();
       }));
     });
+  });
+
+  describe('when init model value has authority and submission scope is workflowitem', () => {
+    beforeEach(() => {
+      const entryValue = Object.assign(new VocabularyEntryDetail(), {
+        value: 'test author',
+        dispaly: 'test author',
+        authority: 'authorityTest'
+      });
+      spyOn(vocabularyService, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(vocabularyExternal));
+      spyOn(vocabularyService, 'findEntryDetailById').and.returnValue(createSuccessfulRemoteDataObject$(entryValue));
+      groupFixture = TestBed.createComponent(DsDynamicRelationGroupComponent);
+      debugElement = groupFixture.debugElement;
+      groupComp = groupFixture.componentInstance; // FormComponent test instance
+      groupComp.formId = 'testForm';
+      groupComp.group = FORM_GROUP_TEST_GROUP;
+      groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
+      groupComp.model.submissionScope = SubmissionScopeType.WorkflowItem;
+      modelValue = [{
+        'dc.contributor.author': new FormFieldMetadataValueObject('test author', null, 'authorityTest'),
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+      }];
+      groupComp.model.value = modelValue;
+      groupFixture.detectChanges();
+      groupComp.onChipSelected(0);
+      groupFixture.detectChanges();
+
+    });
+
+    afterEach(() => {
+      groupFixture.destroy();
+      groupComp = null;
+    });
+
+    it('should display external source button', inject([FormBuilderService], (service: FormBuilderService) => {
+      const testElement = debugElement.query(By.css('i.fa-share-square'));
+      expect(testElement).not.toBeNull();
+      expect(testElement.parent.nativeElement.disabled).toBeTruthy();
+    }));
+
   });
 });
 
