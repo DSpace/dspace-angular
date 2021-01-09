@@ -2074,6 +2074,10 @@
 
   "item.page.metric.deltaPeriod2": "Last Month",
 
+  "item.page.metric.label.altmetrics": "Altmetrics",
+
+  "item.page.metric.label.google-scholar": "Google Scholar",
+
   "item.page.metric.label.scopusCitation": "Scopus citations",
 
   "item.page.metric.label.scopus-author-h-index": "H-index",
