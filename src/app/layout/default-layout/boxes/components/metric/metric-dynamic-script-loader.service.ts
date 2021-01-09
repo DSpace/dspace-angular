@@ -72,7 +72,7 @@ export class MetricDynamicScriptLoaderService {
     if (metricType === 'dimensions') {
       return this.loadScript('dimensions');
     }
-    if (metricType === 'altmetric') {
+    if (metricType === 'altmetric' || metricType === 'altmetrics') {
       return this.loadScript('altmetric');
     }
     return Promise.resolve();
