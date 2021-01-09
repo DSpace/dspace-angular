@@ -1,42 +1,58 @@
-<div *ngIf="metric" class="container alert alert-info metric-container {{metric.metricType}}">
-  <div class="row">
-    <div class="col-3 text-left">
-<!--      <i class="fa fa-eye"></i>-->
+<ng-container *ngIf="metric && metricTypeEnum">
+  <ng-container *ngIf="metricTypeEnum === metricEnumValues.EMBEDDED then embedded;"></ng-container>
+  <ng-container *ngIf="metricTypeEnum === metricEnumValues.DSPACECRIS then dspacecris;"></ng-container>
+</ng-container>
+
+<ng-template #embedded>
+  <div class="container alert alert-warning text-center h-100">
+    <div class="font-weight-bold">
+      {{metric.metricType | translate}}
     </div>
-    <div class="col-6 font-weight-bold text-center">
-      {{'item.page.metric.label.' + metric.metricType | translate}}
-    </div>
-    <div class="col-3 text-right">
+    <div [innerHtml]="sanitizedInnerHtml"></div>
+  </div>
+</ng-template>
+
+<ng-template #dspacecris>
+  <div class="container alert alert-info metric-container {{metric.metricType}} h-100">
+    <div class="row">
+      <div class="col-3 text-left">
+        <!--      <i class="fa fa-eye"></i>-->
+      </div>
+      <div class="col-6 font-weight-bold text-center">
+        {{'item.page.metric.label.' + metric.metricType | translate}}
+      </div>
+      <div class="col-3 text-right">
       <span ngbTooltip="{{'metric.rank' | translate}}"
             class="badge badge-light">{{ metric.rank }}</span>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col text-center">
-      <strong>{{ metric.metricCount }}</strong>
-      <span *ngIf="getDetailUrl()"
-            ngbTooltip="{{'metric.detail-url'}}">
+    <div class="row">
+      <div class="col text-center">
+        <strong>{{ metric.metricCount }}</strong>
+        <span *ngIf="getDetailUrl()"
+              ngbTooltip="{{'metric.detail-url'}}">
             <a href="{{ getDetailUrl() }}}"><i class="fas fa-info-circle"></i></a>
           </span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="text-left">
-        <small><span><em>{{'item.page.metric.deltaPeriod1' | translate}}</em></span><br>{{ metric.deltaPeriod1 }}</small>
       </div>
     </div>
-    <div class="col">
-      <div class="text-right">
-        <small><span><em>{{'item.page.metric.deltaPeriod2' | translate}}</em></span><br>{{ metric.deltaPeriod2 }}</small>
+    <div class="row">
+      <div class="col">
+        <div class="text-left">
+          <small><span><em>{{'item.page.metric.deltaPeriod1' | translate}}</em></span><br>{{ metric.deltaPeriod1 }}</small>
+        </div>
+      </div>
+      <div class="col">
+        <div class="text-right">
+          <small><span><em>{{'item.page.metric.deltaPeriod2' | translate}}</em></span><br>{{ metric.deltaPeriod2 }}</small>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-12 text-center">
-      <small>Acquisition Date</small><br>
-      {{ metric.acquisitionDate | date }}
+    <div class="row">
+      <div class="col-12 text-center">
+        <small>Acquisition Date</small><br>
+        {{ metric.acquisitionDate | date }}
+      </div>
     </div>
   </div>
-</div>
+</ng-template>

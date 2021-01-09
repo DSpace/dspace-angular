@@ -25,7 +25,7 @@ export const metric1Mock = {
   deltaPeriod1: null,
   deltaPeriod2: null,
   endDate: null,
-  id: 1,
+  id: '1',
   last: true,
   metricCount: 333,
   metricType: 'views',
