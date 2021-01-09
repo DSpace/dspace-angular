@@ -2124,9 +2124,17 @@
 
   "item.preview.dc.identifier.doi" : "DOI",
 
+  "item.preview.dc.identifier.issn" : "ISSN",
+
+  "item.preview.dc.identifier.scopus" : "Scopus id",
+
   "item.preview.dc.publisher" : "Publisher",
 
+  "item.preview.dc.relation.grantno" : "Grant no.",
+
   "item.preview.dc.relation.ispartof" : "Journal or Serie",
+
+  "item.preview.dc.relation.ispartofseries" : "Serie",
 
   "item.preview.dc.identifier.isbn" : "ISBN",
 
@@ -2180,12 +2188,15 @@
 
   "item.preview.oaire.citation.volume" : "Volume",
 
+  "item.preview.oairecerif.affiliation.orgunit": "Affiliation",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
 
   "item.preview.person.identifier.orcid": "ORCID:",
 
+  "item.preview.person.identifier.scopus-author-id": "Scopus Author Id",
 
   "item.select.confirm": "Confirm selected",
 
