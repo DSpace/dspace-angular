@@ -86,6 +86,11 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
               .then((m) => m.ItemPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
+          { path: 'entities/:entity-type',
+            loadChildren: () => import('./+item-page/item-page.module')
+              .then((m) => m.ItemPageModule),
+            canActivate: [EndUserAgreementCurrentUserGuard]
+          },
           {
             path: BITSTREAM_MODULE_PATH,
             loadChildren: () => import('./+bitstream-page/bitstream-page.module')
