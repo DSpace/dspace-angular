@@ -19,6 +19,8 @@ import { ChangeAnalyzer } from '../data/change-analyzer';
 import { compare, Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
 const LINK_NAME = 'test';
 
@@ -57,8 +59,8 @@ describe('TasksService', () => {
   const linkPath = 'testTask';
   const requestService = getMockRequestService();
   const halService: any = new HALEndpointServiceStub(taskEndpoint);
-  const rdbService = {} as RemoteDataBuildService;
-  const notificationsService = {} as NotificationsService;
+  const rdbService = getMockRemoteDataBuildService();
+  const notificationsService = new NotificationsServiceStub() as any;
   const http = {} as HttpClient;
   const comparator = new DummyChangeAnalyzer() as any;
   const objectCache = {
