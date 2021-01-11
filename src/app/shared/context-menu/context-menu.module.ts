@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ContextMenuComponent } from './context-menu.component';
-import { RequestCorrectionMenuComponent } from './request-correction/request-correction-menu.component';
 import { EditItemMenuComponent } from './edit-item/edit-item-menu.component';
 import { ExportItemMenuComponent } from './export-item/export-item-menu.component';
 import { AuditItemMenuComponent } from './audit-item/audit-item-menu.component';
@@ -21,7 +20,6 @@ const COMPONENTS = [
   ContextMenuComponent,
   EditItemMenuComponent,
   ExportItemMenuComponent,
-  RequestCorrectionMenuComponent,
   ExportCollectionMenuComponent
 ];
 
@@ -31,7 +29,6 @@ const ENTRY_COMPONENTS = [
   AuditItemMenuComponent,
   EditItemMenuComponent,
   ExportItemMenuComponent,
-  RequestCorrectionMenuComponent,
   ExportCollectionMenuComponent
 ]
 
