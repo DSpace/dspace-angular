@@ -69,17 +69,6 @@ export class MetricsComponentsDataService {
    */
   getMatchingMetrics(metrics: Metric[], maxColumn: number, metricTypes: string[]): MetricRow[] {
 
-    // metrics = []
-    //
-    // metrics.push({...metricMock, metricType: 'views', metricCount: 111});
-    // metrics.push({...metricMock, metricType: 'downloads', metricCount: 222});
-    // metrics.push({...metricMock, metricType: 'metric1', metricCount: 333});
-    // metrics.push({...metricMock, metricType: 'altmetric', remark: altMetricExample});
-    // metrics.push({...metricMock, metricType: 'googleScholar', remark: googleExample});
-    // metrics.push({...metricMock, metricType: 'metric5', metricCount: 777});
-    //
-    // metricTypes = ['views', 'downloads', 'metric1', 'altmetric', 'googleScholar'];
-
     const metricRows = this.computeMetricsRows(metrics, 3, metricTypes);
 
     return metricRows;
@@ -117,25 +106,3 @@ export class MetricsComponentsDataService {
   }
 
 }
-
-const metricMock = {
-  acquisitionDate: new Date(),
-  deltaPeriod1: null,
-  deltaPeriod2: null,
-  endDate: null,
-  id: '1',
-  last: true,
-  metricCount: 333,
-  metricType: 'views',
-  rank: null,
-  remark: null,
-  startDate: null,
-  type: null,
-  _links: null
-}
-
-const googleExample = '<a target="_blank" title="" \n' +
-  'href="https://scholar.google.com/scholar?as_q=&amp;as_epq=A strong regioregularity effect in self-organizing conjugated polymer films and high-efficiency polythiophene: fullerene solar cells&amp;as_occt=any"\n' +
-  ' >Check</a>';
-
-const altMetricExample = '<div class=\'altmetric-embed\' data-badge-popover=\'bottom\' data-badge-type=\'donut\' data-doi="10.1038/nature.2012.9872"></div>';

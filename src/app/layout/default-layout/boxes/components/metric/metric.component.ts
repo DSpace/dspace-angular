@@ -53,16 +53,10 @@ export class MetricComponent implements OnInit {
   }
 
   /**
-   * TODO: remove mocked cases (keep only includes and else)
+   * Set the metricTypeEnum based on the provided metric.id.
    */
   setMetricTypeEnum() {
     if ((this.metric.id + '').includes('/')) {
-      this.metricTypeEnum = MetricTypeEnum.EMBEDDED;
-    } else if (this.metric.metricType === 'dimensions') {
-      this.metricTypeEnum = MetricTypeEnum.EMBEDDED;
-    } else if (this.metric.metricType === 'altmetrics') {
-      this.metricTypeEnum = MetricTypeEnum.EMBEDDED;
-    } else if (this.metric.metricType === 'google-scholar') {
       this.metricTypeEnum = MetricTypeEnum.EMBEDDED;
     } else {
       this.metricTypeEnum = MetricTypeEnum.DSPACECRIS;

@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 
+export enum METRIC_SCRIPT_ENUM {
+  DIMENSIONS = 'dimensions',
+  ALTMETRICS = 'altmetric'
+}
+
 interface Scripts {
-  name: string;
+  name: METRIC_SCRIPT_ENUM;
   src: string;
 }
 
 export const ScriptStore: Scripts[] = [
-  { name: 'altmetric', src: 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js' },
-  { name: 'dimensions', src: 'https://badge.dimensions.ai/badge.js' }
+  { name: METRIC_SCRIPT_ENUM.ALTMETRICS, src: 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js' },
+  { name: METRIC_SCRIPT_ENUM.DIMENSIONS, src: 'https://badge.dimensions.ai/badge.js' }
 ];
 
 declare var document: any;
@@ -69,12 +74,13 @@ export class MetricDynamicScriptLoaderService {
   }
 
   public loadMetricScript(metricType: string): Promise<any> {
-    if (metricType === 'dimensions') {
+    if (metricType === METRIC_SCRIPT_ENUM.DIMENSIONS) {
       return this.loadScript('dimensions');
     }
-    if (metricType === 'altmetric' || metricType === 'altmetrics') {
+    if (metricType === METRIC_SCRIPT_ENUM.ALTMETRICS) {
       return this.loadScript('altmetric');
     }
+    console.warn('no mapped script found for', metricType);
     return Promise.resolve();
   }
 
