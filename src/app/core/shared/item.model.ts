@@ -1,7 +1,6 @@
 import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs/internal/Observable';
 import { isEmpty } from '../../shared/empty.util';
-import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { link, typedObject } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
@@ -20,6 +19,8 @@ import { ITEM } from './item.resource-type';
 import { ChildHALResource } from './child-hal-resource.model';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
+import { Metric } from './metric.model';
+import { METRIC } from './metric.resource-type';
 
 /**
  * Class representing a DSpace Item
@@ -70,6 +71,7 @@ export class Item extends DSpaceObject implements ChildHALResource {
     owningCollection: HALLink;
     templateItemOf: HALLink;
     version: HALLink;
+    metrics: HALLink;
     self: HALLink;
   };
 
@@ -102,12 +104,19 @@ export class Item extends DSpaceObject implements ChildHALResource {
   relationships?: Observable<RemoteData<PaginatedList<Relationship>>>;
 
   /**
+   * The list of the Item's metrics
+   * Will be undefined unless the metrics {@link HALLink} has been resolved.
+   */
+  @link(METRIC, true)
+  metrics?: Observable<RemoteData<PaginatedList<Metric>>>;
+
+  /**
    * Method that returns as which type of object this object should be rendered
    */
   getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
-    let entityType = this.firstMetadataValue('relationship.type');
+    const entityType = this.firstMetadataValue('relationship.type');
     if (isEmpty(entityType)) {
-      entityType = DEFAULT_ENTITY_TYPE;
+      return super.getRenderTypes();
     }
     return [entityType, ...super.getRenderTypes()];
   }

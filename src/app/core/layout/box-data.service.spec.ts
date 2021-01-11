@@ -39,6 +39,7 @@ describe('BoxDataService', () => {
     style: 'col-md-4',
     priority: 0,
     clear: false,
+    maxColumns: null,
     security: 0,
     boxType: 'metadata',
     _links: {
@@ -63,6 +64,7 @@ describe('BoxDataService', () => {
     style: 'col-md-10',
     priority: 0,
     clear: false,
+    maxColumns: null,
     security: 0,
     boxType: 'search',
     _links: {
@@ -87,6 +89,7 @@ describe('BoxDataService', () => {
     style: 'col-md-2',
     priority: 0,
     clear: false,
+    maxColumns: null,
     security: 0,
     boxType: 'metrics',
     _links: {

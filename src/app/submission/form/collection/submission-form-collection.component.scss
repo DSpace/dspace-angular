@@ -13,3 +13,7 @@
   left: 0 !important;
   box-shadow: $btn-focus-box-shadow;
 }
+
+.no-caret.dropdown-toggle:after {
+  content: none
+}

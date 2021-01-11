@@ -11,7 +11,9 @@ import {
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
   DepositSubmissionErrorAction,
-  DepositSubmissionSuccessAction, DiscardSubmissionErrorAction, DiscardSubmissionSuccessAction,
+  DepositSubmissionSuccessAction,
+  DiscardSubmissionErrorAction,
+  DiscardSubmissionSuccessAction,
   InitSectionAction,
   InitSubmissionFormAction,
   SaveForLaterSubmissionFormSuccessAction,
@@ -19,10 +21,10 @@ import {
   SaveSubmissionFormSuccessAction,
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
-  SubmissionObjectActionTypes,
-  UpdateSectionDataAction,
   SetDuplicateDecisionErrorAction,
-  SetDuplicateDecisionSuccessAction
+  SetDuplicateDecisionSuccessAction,
+  SubmissionObjectActionTypes,
+  UpdateSectionDataAction
 } from './submission-objects.actions';
 import {
   mockSectionsData,
@@ -32,9 +34,9 @@ import {
   mockSubmissionDefinition,
   mockSubmissionDefinitionResponse,
   mockSubmissionId,
+  mockSubmissionRestResponse,
   mockSubmissionSelfUrl,
-  mockSubmissionState,
-  mockSubmissionRestResponse
+  mockSubmissionState
 } from '../../shared/mocks/submission.mock';
 import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
@@ -54,6 +56,7 @@ import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-da
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { EditItemDataService } from 'src/app/core/submission/edititem-data.service';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;
@@ -676,7 +679,8 @@ describe('SubmissionObjectEffects test suite', () => {
   });
 
   describe('saveForLaterSubmissionSuccess$', () => {
-    it('should display a new success notification and redirect to mydspace', () => {
+    it('should display a new success notification and redirect to mydspace', (done) => {
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS,
@@ -691,6 +695,26 @@ describe('SubmissionObjectEffects test suite', () => {
         expect(notificationsServiceStub.success).toHaveBeenCalled();
         expect(submissionServiceStub.redirectToMyDSpace).toHaveBeenCalled();
       });
+      done();
+    });
+
+    it('should redirect to item page when the submission scope is EditItem', (done) => {
+
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.EditItem);
+
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS,
+          payload: {
+            submissionId: submissionId,
+            submissionObject: mockSubmissionRestResponse
+          }
+        }
+      });
+      submissionObjectEffects.saveForLaterSubmissionSuccess$.subscribe(() => {
+        expect(submissionServiceStub.redirectToItemPage).toHaveBeenCalled();
+      });
+      done();
     });
   });
 

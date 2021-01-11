@@ -198,6 +198,10 @@ import { AuditDataService } from './audit/audit-data.service';
 import { Audit } from './audit/model/audit.model';
 import { ItemExportFormatService } from './itemexportformat/item-export.service';
 import { ItemExportFormat } from './itemexportformat/model/item-export-format.model';
+import { MetricsComponentsDataService } from './layout/metrics-components-data.service';
+import { MetricsComponent } from './layout/models/metrics-component.model';
+import { Metric } from './shared/metric.model';
+import { MetricService } from './data/metric.service';
 import { OpenaireBrokerTopicObject } from './openaire/broker/models/openaire-broker-topic.model';
 import { OpenaireBrokerEventObject } from './openaire/broker/models/openaire-broker-event.model';
 import { OpenaireSuggestionTarget } from './openaire/reciter-suggestions/models/openaire-suggestion-target.model';
@@ -354,6 +358,8 @@ const PROVIDERS = [
   TabDataService,
   BoxDataService,
   MetadataComponentsDataService,
+  MetricsComponentsDataService,
+  MetricService,
   VocabularyService,
   VocabularyEntriesResponseParsingService,
   VocabularyTreeviewService,
@@ -418,6 +424,8 @@ export const models =
     Tab,
     Box,
     MetadataComponent,
+    MetricsComponent,
+    Metric,
     Vocabulary,
     VocabularyEntry,
     VocabularyEntryDetail,

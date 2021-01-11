@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { GenericItemPageFieldComponent } from './simple/field-components/specific-field/generic/generic-item-page-field.component';
 
 import { ItemPageComponent } from './simple/item-page.component';
@@ -30,8 +30,10 @@ import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.c
 import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
+import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
 import { CrisItemPageModule } from '../cris-item-page/cris-item-page.module';
 import { SubmissionModule } from '../submission/submission.module';
+import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 
 @NgModule({
   imports: [
@@ -42,7 +44,8 @@ import { SubmissionModule } from '../submission/submission.module';
     SearchPageModule,
     StatisticsModule.forRoot(),
     CrisItemPageModule,
-    SubmissionModule
+    SubmissionModule,
+    ContextMenuModule
   ],
   declarations: [
     ItemPageComponent,
@@ -58,6 +61,7 @@ import { SubmissionModule } from '../submission/submission.module';
     CollectionsComponent,
     FullFileSectionComponent,
     PublicationComponent,
+    UntypedItemComponent,
     RelatedItemsComponent,
     ItemComponent,
     GenericItemPageFieldComponent,
@@ -79,7 +83,8 @@ import { SubmissionModule } from '../submission/submission.module';
     TabbedRelatedEntitiesSearchComponent
   ],
   entryComponents: [
-    PublicationComponent
+    PublicationComponent,
+    UntypedItemComponent
   ]
 })
 export class ItemPageModule {

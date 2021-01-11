@@ -30,6 +30,7 @@ export class ItemPageResolver implements Resolve<RemoteData<Item>> {
       followLink('bundles', new FindListOptions(), true, followLink('bitstreams')),
       followLink('relationships'),
       followLink('version', undefined, true, followLink('versionhistory')),
+      followLink('metrics')
     ).pipe(
       find((RD) => hasValue(RD.error) || RD.hasSucceeded),
     );

@@ -120,6 +120,12 @@ describe('CollectionDropdownComponent', () => {
   const paginatedCollection = new PaginatedList(new PageInfo(), collections);
   const paginatedCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedCollection);
 
+  const paginatedEmptyCollection = new PaginatedList(new PageInfo(), []);
+  const paginatedEmptyCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedEmptyCollection);
+
+  const paginatedOneElementCollection = new PaginatedList(new PageInfo(), [collections[0]]);
+  const paginatedOneElementCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedOneElementCollection);
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -229,5 +235,42 @@ describe('CollectionDropdownComponent', () => {
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
     expect((component as any).collectionDataService.getAuthorizedCollectionByEntityType).toHaveBeenCalled();
+  });
+
+  it('should emit hasChoice true when totalElements is greater then one', () => {
+    spyOn(component.hasChoice, 'emit').and.callThrough();
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(component.hasChoice.emit).toHaveBeenCalledWith(true);
+  });
+
+  it('should emit hasChoice false when totalElements is not greater then one', () => {
+
+    componentAsAny.collectionDataService.getAuthorizedCollection.and.returnValue(paginatedEmptyCollectionRD$);
+    componentAsAny.collectionDataService.getAuthorizedCollectionByEntityType.and.returnValue(paginatedEmptyCollectionRD$);
+
+    spyOn(component.hasChoice, 'emit').and.callThrough();
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(component.hasChoice.emit).toHaveBeenCalledWith(false);
+  });
+
+  it('should emit theOnlySelectable when totalElements is equal to one', () => {
+
+    componentAsAny.collectionDataService.getAuthorizedCollection.and.returnValue(paginatedOneElementCollectionRD$);
+    componentAsAny.collectionDataService.getAuthorizedCollectionByEntityType.and.returnValue(paginatedOneElementCollectionRD$);
+
+    spyOn(component.theOnlySelectable, 'emit').and.callThrough();
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const expectedTheOnlySelectable = {
+      communities: [ { id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', name: 'Community 1', uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88' } ],
+      collection: { id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', name: 'Collection 1' }
+    }
+
+    expect(component.theOnlySelectable.emit).toHaveBeenCalledWith(expectedTheOnlySelectable);
   });
 });

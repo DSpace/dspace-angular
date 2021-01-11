@@ -833,6 +833,10 @@
 
   "collection.edit.tabs.curate.title": "Collection Edit - Curate",
 
+  "collection.edit.tabs.authorizations.head": "Authorizations",
+
+  "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
+
   "collection.edit.tabs.metadata.head": "Edit Metadata",
 
   "collection.edit.tabs.metadata.title": "Collection Edit - Metadata",
@@ -937,13 +941,15 @@
 
 
 
+  "collection.listelement.badge": "Collection",
+
+
+
   "collection.page.browse.recent.head": "Recent Submissions",
 
   "collection.page.browse.recent.empty": "No items to show",
 
   "collection.page.edit": "Edit this collection",
-
-  "collection.page.bulk-import": "Import items into this collection",
 
   "collection.page.export": "Export items from this collection",
 
@@ -1042,6 +1048,14 @@
 
   "community.edit.tabs.roles.title": "Community Edit - Roles",
 
+  "community.edit.tabs.authorizations.head": "Authorizations",
+
+  "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
+
+
+
+  "community.listelement.badge": "Community",
+
 
 
   "comcol-role.edit.no-group": "None",
@@ -1124,6 +1138,37 @@
 
   "community.sub-community-list.head": "Communities of this Community",
 
+  "context-menu.actions": "Actions",
+
+  "context-menu.actions.audit-item.btn": "Audit",
+
+  "context-menu.actions.bulk-import.btn": "Import items into collection",
+
+  "context-menu.actions.export-item.btn": "Export",
+
+  "context-menu.actions.label": "Options",
+
+  "context-menu.actions.edit-item.btn.FULL": "Edit item",
+
+  "context-menu.actions.request-correction.btn": "Request correction",
+
+  "context-menu.actions.request-correction.confirm.cancel": "Cancel",
+
+  "context-menu.actions.request-correction.confirm.submit": "Yes, I'm sure",
+
+  "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+
+  "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
+
+  "context-menu.actions.request-correction.info": "Are you sure you want to proceed with this operation?",
+
+  "context-menu.actions.request-correction.title": "Request correction",
+
+  "context-menu.actions.dso-page-edit.COMMUNITY.btn": "Administer",
+
+  "context-menu.actions.dso-page-edit.COLLECTION.btn": "Administer",
+
+  "context-menu.actions.dso-page-edit.ITEM.btn": "Administer",
 
   "datafile.listelement.badge": "Data File",
 
@@ -2015,6 +2060,28 @@
 
 
 
+  "item.listelement.badge": "Item",
+
+  "item.page.description": "Description",
+
+  "item.page.edit": "Edit this item",
+
+  "item.page.journal-issn": "Journal ISSN",
+
+  "item.page.journal-title": "Journal Title",
+
+  "item.page.publisher": "Publisher",
+
+  "item.page.titleprefix": "Item: ",
+
+  "item.page.volume-title": "Volume Title",
+
+  "item.search.results.head": "Item Search Results",
+
+  "item.search.title": "DSpace Angular :: Item Search",
+
+
+
   "item.page.abstract": "Abstract",
 
   "item.page.author": "Authors",
@@ -2044,6 +2111,30 @@
   "item.page.link.full": "Full item page",
 
   "item.page.link.simple": "Simple item page",
+
+  "item.page.metric.deltaPeriod1": "Last Week",
+
+  "item.page.metric.deltaPeriod2": "Last Month",
+
+  "item.page.metric.label.altmetrics": "Altmetrics",
+
+  "item.page.metric.label.google-scholar": "Google Scholar",
+
+  "item.page.metric.label.scopusCitation": "Scopus citations",
+
+  "item.page.metric.label.scopus-author-h-index": "H-index",
+
+  "item.page.metric.label.scopus-author-coauthor-count": "Coauthor",
+
+  "item.page.metric.label.scopus-author-cited-count": "Cited By",
+
+  "item.page.metric.label.scopus-author-citation-count": "Author Citations",
+
+  "item.page.metric.label.scopus-author-document-count": "Author Documents",
+
+  "item.page.metric.label.wosCitation": "WOS citations",
+
+  "item.page.metric.label.wosPersonCitation": "WOS citations",
 
   "item.page.person.search.title": "Articles by this author",
 
@@ -2075,9 +2166,17 @@
 
   "item.preview.dc.identifier.doi" : "DOI",
 
+  "item.preview.dc.identifier.issn" : "ISSN",
+
+  "item.preview.dc.identifier.scopus" : "Scopus id",
+
   "item.preview.dc.publisher" : "Publisher",
 
+  "item.preview.dc.relation.grantno" : "Grant no.",
+
   "item.preview.dc.relation.ispartof" : "Journal or Serie",
+
+  "item.preview.dc.relation.ispartofseries" : "Serie",
 
   "item.preview.dc.identifier.isbn" : "ISBN",
 
@@ -2131,12 +2230,15 @@
 
   "item.preview.oaire.citation.volume" : "Volume",
 
+  "item.preview.oairecerif.affiliation.orgunit": "Affiliation",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
 
   "item.preview.person.identifier.orcid": "ORCID:",
 
+  "item.preview.person.identifier.scopus-author-id": "Scopus Author Id",
 
   "item.select.confirm": "Confirm selected",
 
@@ -3326,6 +3428,10 @@
 
   "resource-policies.add.for.item": "Add a new Item policy",
 
+  "resource-policies.add.for.community": "Add a new Community policy",
+
+  "resource-policies.add.for.collection": "Add a new Collection policy",
+
   "resource-policies.create.page.heading": "Create new resource policy for ",
 
   "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
@@ -3408,6 +3514,10 @@
 
   "resource-policies.table.headers.title.for.item": "Policies for Item",
 
+  "resource-policies.table.headers.title.for.community": "Policies for Community",
+
+  "resource-policies.table.headers.title.for.collection": "Policies for Collection",
+
 
 
   "search.description": "",
@@ -3450,6 +3560,18 @@
   "search.filters.applied.f.withdrawn": "Withdrawn",
 
 
+  "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
+
+  "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
+
+  "search.filters.applied.charts.default.title": "Search Output",
+
+  "search.filters.applied.charts.RELATION.Person.researchoutputs.title": "Research Output",
+
+  "search.filters.applied.charts.no.data.found": "No data found",
+
+
+
 
   "search.filters.filter.author.head": "Author",
 
@@ -3458,14 +3580,6 @@
   "search.filters.filter.birthDate.head": "Birth Date",
 
   "search.filters.filter.birthDate.placeholder": "Birth Date",
-
-  "search.filters.filter.chart.bar.dateIssued.year.head": "Year",
-
-  "search.filters.filter.chart.bar.dateIssued.year.placeholder": "Year",
-
-  "search.filters.filter.chart.pie.itemtype_filter.head": "Type",
-
-  "search.filters.filter.chart.pie.itemtype_filter.placeholder": "Type",
 
   "search.filters.filter.creativeDatePublished.head": "Date Published",
 
@@ -3583,6 +3697,7 @@
   "search.filters.filter.submitter.head": "Submitter",
 
   "search.filters.filter.submitter.placeholder": "Submitter",
+
 
 
 
@@ -3704,6 +3819,8 @@
   "submission.general.save": "Save",
 
   "submission.general.save-later": "Save for later",
+
+  "submission.general.save-later.edit-item": "Save and return",
 
 
   "submission.import-external.page.title": "Import metadata from an external source",

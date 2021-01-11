@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, 
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { hasValue } from '../empty.util';
-import { map, mergeMap, startWith, debounceTime, distinctUntilChanged, switchMap, reduce } from 'rxjs/operators';
+import { map, mergeMap, startWith, debounceTime, distinctUntilChanged, switchMap, reduce, take } from 'rxjs/operators';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { FindListOptions } from 'src/app/core/data/request.models';
 import { PaginatedList } from 'src/app/core/data/paginated-list';
@@ -96,6 +96,16 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
    * If present this value is used to filter collection list by entity type
    */
   @Input() entityType: string;
+
+  /**
+   * Emit to notify whether collections to choice from are more than one
+   */
+  @Output() hasChoice = new EventEmitter<boolean>();
+
+  /**
+   * Emit to notify the only selectable collection.
+   */
+  @Output() theOnlySelectable = new EventEmitter<CollectionListEntry>();
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -199,6 +209,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
           if ( (this.searchListCollection.length + findOptions.elementsPerPage) >= collections.payload.totalElements ) {
             this.hasNextPage = false;
           }
+          this.emitSelectionEvents(collections);
           return collections.payload.page;
         }),
         mergeMap((collection: Collection) => collection.parentCommunity.pipe(
@@ -248,4 +259,28 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   hideShowLoader(hideShow: boolean) {
     this.isLoadingList.next(hideShow);
   }
+
+  /**
+   * Emit events related to the number of selectable collections.
+   * hasChoice containing whether there are more then one selectable collections.
+   * theOnlySelectable containing the only collection available.
+   * @param collections
+   * @private
+   */
+  private emitSelectionEvents(collections: RemoteData<PaginatedList<Collection>>) {
+    this.hasChoice.emit(collections.payload.totalElements > 1);
+    if (collections.payload.totalElements === 1) {
+      const collection = collections.payload.page[0];
+      collections.payload.page[0].parentCommunity.pipe(
+        getFirstSucceededRemoteDataPayload(),
+        take(1)
+      ).subscribe((community: Community) => {
+        this.theOnlySelectable.emit({
+          communities: [{ id: community.id, name: community.name, uuid: community.id }],
+          collection: { id: collection.id, uuid: collection.id, name: collection.name }
+        })
+      });
+    }
+  }
+
 }

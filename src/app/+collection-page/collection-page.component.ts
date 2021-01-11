@@ -1,39 +1,25 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, of as observableOf, Observable, Subject } from 'rxjs';
-import { filter, flatMap, map, startWith, switchMap, take, tap } from 'rxjs/operators';
+
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter, flatMap, map, startWith, switchMap, take } from 'rxjs/operators';
+
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
-
 import { MetadataService } from '../core/metadata/metadata.service';
 import { Bitstream } from '../core/shared/bitstream.model';
-
 import { Collection } from '../core/shared/collection.model';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { Item } from '../core/shared/item.model';
-import {
-  getSucceededRemoteData,
-  redirectOn4xx,
-  toDSpaceObjectListRD
-} from '../core/shared/operators';
-
+import { getSucceededRemoteData, redirectOn4xx, toDSpaceObjectListRD } from '../core/shared/operators';
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
-import { hasNoValue, hasValue, isNotEmpty } from '../shared/empty.util';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { AuthService } from '../core/auth/auth.service';
-import { getBulkImportRoute } from '../app-routing-paths';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { RequestEntry } from '../core/data/request.reducer';
-import { ProcessParameter } from '../process-page/processes/process-parameter.model';
-import { TranslateService } from '@ngx-translate/core';
-import { RequestService } from '../core/data/request.service';
 
 @Component({
   selector: 'ds-collection-page',
@@ -62,12 +48,7 @@ export class CollectionPageComponent implements OnInit {
     private metadata: MetadataService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
-    private authorizationService: AuthorizationDataService,
-    private scriptService: ScriptDataService,
-    private translationService: TranslateService,
-    private requestService: RequestService,
-    private notificationsService: NotificationsService
+    private authService: AuthService
   ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
@@ -133,34 +114,4 @@ export class CollectionPageComponent implements OnInit {
     });
   }
 
-  exportCollection(collection: Collection) {
-
-    const stringParameters: ProcessParameter[] = [
-      { name: '-c', value: collection.id }
-    ];
-
-    this.scriptService.invoke('collection-export', stringParameters, [])
-      .pipe(take(1))
-      .subscribe((requestEntry: RequestEntry) => {
-        if (requestEntry.response.isSuccessful) {
-          this.notificationsService.success(this.translationService.get('collection-export.success'));
-          this.navigateToProcesses();
-        } else {
-          this.notificationsService.error(this.translationService.get('collection-export.error'));
-        }
-      })
-  }
-
-  private navigateToProcesses() {
-    this.requestService.removeByHrefSubstring('/processes');
-    this.router.navigateByUrl('/processes');
-  }
-
-  getBulkImportPageRouterLink(collection: Collection) {
-    return getBulkImportRoute(collection);
-  }
-
-  isCollectionAdmin(collection: Collection): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, collection.self, undefined);
-  }
 }
