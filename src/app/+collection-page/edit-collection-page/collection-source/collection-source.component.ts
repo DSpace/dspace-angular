@@ -323,10 +323,11 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.collectionRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
 
     this.collectionRD$.pipe(
-      getFirstCompletedRemoteData(),
+      getFirstSucceededRemoteData(),
       map((col) => col.payload),
       tap((col) => this.initializeEmailAndTransform(col)),
-      switchMap((col) => this.collectionService.getContentSource(col.uuid)),
+      map((col) => col.uuid),
+      switchMap((uuid) => this.collectionService.getContentSource(uuid)),
       getFirstCompletedRemoteData()
     ).subscribe((rd: RemoteData<ContentSource>) => {
       this.initializeOriginalContentSource(rd.payload);
@@ -475,8 +476,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     // Update harvester
     this.collectionRD$.pipe(
       getFirstSucceededRemoteData(),
-      switchMap((coll) => this.updateCollection(coll.payload)),
-      map((col) => col.payload.uuid),
+      tap((c) => console.log('pre', c)),
+      switchMap((coll) => this.updateCollection(coll.payload) as Observable<string>),
+      tap((c) => console.log('post', c)),
       take(1),
       switchMap((uuid) => this.collectionService.updateContentSource(uuid, this.contentSource)),
       take(1)
@@ -491,7 +493,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     });
   }
 
-  updateCollection(collection: Collection): Observable<any> {
+  updateCollection(collection: Collection): Observable<string|Observable<never>> {
 
     const operations: Operation[] = [];
     this.addOperation(operations, this.adminEmailModel, 'cris.harvesting.email', collection);
@@ -501,10 +503,10 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     return this.collectionService.patch(collection, operations).pipe(
       getFirstCompletedRemoteData(),
       map((response) => {
-        if (!response.hasSucceeded) {
+        if (!response.isSuccess) {
           return throwError('The collection update fails');
         }
-        return collection.id;
+        return collection.uuid;
       }));
   }
 

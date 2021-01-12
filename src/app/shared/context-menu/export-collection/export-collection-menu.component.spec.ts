@@ -18,6 +18,8 @@ import { RequestService } from '../../../core/data/request.service';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { RequestEntry } from '../../../core/data/request.reducer';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { Process } from '../../../process-page/processes/process.model';
 
 describe('ExportCollectionMenuComponent', () => {
   let component: ExportCollectionMenuComponent;
@@ -99,7 +101,7 @@ describe('ExportCollectionMenuComponent', () => {
           isSuccessful: true
         }
       });
-      scriptDataService.invoke.and.returnValue(observableOf(requestEntry));
+      scriptDataService.invoke.and.returnValue(createSuccessfulRemoteDataObject$(new Process()));
       spyOn(componentAsAny, 'navigateToProcesses').and.callThrough();
 
       scheduler.schedule(() => component.exportCollection());

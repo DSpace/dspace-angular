@@ -10,15 +10,14 @@ import { FormsModule } from '@angular/forms';
 import { of as observableOf } from 'rxjs';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { RouterStub } from '../../../../testing/router.stub';
 import { Router } from '@angular/router';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { SearchChartFilterComponent } from './search-chart-filter.component';
+import { createPaginatedList } from '../../../../testing/utils.test';
 
 describe('SearchChartFilterComponent', () => {
   let comp: SearchChartFilterComponent;
@@ -81,7 +80,7 @@ describe('SearchChartFilterComponent', () => {
   let router;
   const page = observableOf(0);
 
-  const mockValues = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), values));
+  const mockValues = createSuccessfulRemoteDataObject$(createPaginatedList(values));
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],

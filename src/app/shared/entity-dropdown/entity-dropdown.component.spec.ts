@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EntityDropdownComponent } from './entity-dropdown.component';
-import { PaginatedList } from 'src/app/core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { PageInfo } from 'src/app/core/shared/page-info.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { EntityTypeService } from '../../core/data/entity-type.service';
@@ -11,6 +10,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
+import { createPaginatedList } from '../testing/utils.test';
 
 const entities: ItemType[] = [
   Object.assign(new ItemType(), {
@@ -59,7 +59,7 @@ describe('EntityDropdownComponent', () => {
     getAllAuthorizedRelationshipTypeImport: jasmine.createSpy('getAllAuthorizedRelationshipTypeImport')
   });
 
-  const paginatedEntities = new PaginatedList(new PageInfo(), entities);
+  const paginatedEntities = createPaginatedList(entities);
   const paginatedEntitiesRD$ = createSuccessfulRemoteDataObject$(paginatedEntities);
 
   beforeEach(async(() => {

@@ -1,25 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrisLayoutDefaultSidebarComponent } from './cris-layout-default-sidebar.component';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
-import { Tab } from 'src/app/core/layout/models/tab.model';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { Tab } from '../../../core/layout/models/tab.model';
 import { Observable } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { PaginatedList } from 'src/app/core/data/paginated-list';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { cold } from 'jasmine-marbles';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
-import { PageInfo } from 'src/app/core/shared/page-info.model';
-import { tabs } from 'src/app/shared/testing/tab.mock';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { tabs } from '../../../shared/testing/tab.mock';
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA, SimpleChanges } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 class TabDataServiceMock {
   findByItem(itemUuid: string, linkToFollow?: FollowLinkConfig<Tab>): Observable<RemoteData<PaginatedList<Tab>>> {
     return cold('a|', {
-      a: createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), tabs)
-        )
+      a: createSuccessfulRemoteDataObject(createPaginatedList(tabs))
     });
   }
 }

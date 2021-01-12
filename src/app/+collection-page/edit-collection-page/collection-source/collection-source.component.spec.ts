@@ -20,7 +20,6 @@ import { Collection } from '../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { RestResponse } from '../../../core/cache/response.models';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -115,7 +114,9 @@ describe('CollectionSourceComponent', () => {
       getContentSource: createSuccessfulRemoteDataObject$(contentSource),
       updateContentSource: observableOf(contentSource),
       getHarvesterEndpoint: observableOf('harvester-endpoint'),
-      patch: observableOf(new RestResponse(true, 200, 'OK'))
+      patch: createSuccessfulRemoteDataObject$(Object.assign(new Collection(), {
+        uuid: 'fake-collection-id'
+      }))
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
 
