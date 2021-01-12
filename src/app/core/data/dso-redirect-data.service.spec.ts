@@ -116,6 +116,23 @@ describe('DsoRedirectDataService', () => {
       scheduler.flush();
       expect(router.navigate).toHaveBeenCalledWith([remoteData.payload.type + 's/' + remoteData.payload.uuid]);
     });
+    it('should navigate to entities route with the corresponding entity type', () => {
+      remoteData.payload.type = 'item';
+      remoteData.payload.metadata =  {
+        'relationship.type': [
+          {
+            language: 'en_US',
+            value: 'Publication'
+          }
+        ],
+      };
+      const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);
+      // The framework would normally subscribe but do it here so we can test navigation.
+      redir.subscribe();
+      scheduler.schedule(() => redir);
+      scheduler.flush();
+      expect(router.navigate).toHaveBeenCalledWith(['entities/publication/' + remoteData.payload.uuid]);
+    });
 
     it('should navigate to collections route', () => {
       remoteData.payload.type = 'collection';
