@@ -357,6 +357,7 @@ export class SubmissionService {
         Object.keys(sections)
           .filter((sectionId) => !this.isSectionHidden(sections[sectionId] as SubmissionSectionObject))
           .filter((sectionId) => !sections[sectionId].enabled)
+          .filter((sectionId) => sections[sectionId].sectionType !== SectionsType.DetectDuplicate)
           .forEach((sectionId) => {
             const sectionObject: SectionDataObject = Object.create({});
             sectionObject.header = sections[sectionId].header;
