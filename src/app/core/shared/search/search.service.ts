@@ -29,7 +29,7 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import {
   getFirstSucceededRemoteData,
   getFirstCompletedRemoteData,
-  getRemoteDataPayload, configureRequest, getResponseFromEntry
+  getRemoteDataPayload
 } from '../operators';
 import { RouteService } from '../../services/route.service';
 import { SearchConfigResponseParsingService } from '../../data/search-config-response-parsing.service';
@@ -236,7 +236,18 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
    */
   getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
-    const href$ = this.halService.getEndpoint(this.facetLinkPathPrefix).pipe(
+    return this.getFilterConfigByLink(this.facetLinkPathPrefix, scope, configurationName);
+  }
+
+  /**
+   * Request the filter configuration for a given scope or the whole repository by a link name
+   * @param {link}   link the link to use for the request
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
+   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
+   */
+  private getFilterConfigByLink(link: string, scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+    const href$ = this.halService.getEndpoint(link).pipe(
       map((url: string) => {
         const args: string[] = [];
 
@@ -257,13 +268,13 @@ export class SearchService implements OnDestroy {
     );
 
     href$.pipe(take(1)).subscribe((url: string) => {
-        let request = new this.request(this.requestService.generateRequestId(), url);
-        request = Object.assign(request, {
-          getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return FacetConfigResponseParsingService;
-          }
-        });
-        this.requestService.configure(request);
+      let request = new this.request(this.requestService.generateRequestId(), url);
+      request = Object.assign(request, {
+        getResponseParser(): GenericConstructor<ResponseParsingService> {
+          return FacetConfigResponseParsingService;
+        }
+      });
+      this.requestService.configure(request);
     });
 
     return this.rdb.buildFromHref(href$).pipe(
@@ -284,7 +295,6 @@ export class SearchService implements OnDestroy {
       })
     )
   }
-
   /**
    * Method to request a single page of filter values for a given value
    * @param {SearchFilterConfig} filterConfig The filter config for which we want to request filter values
@@ -323,44 +333,7 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
    */
   searchFacets(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
-    const requestObs = this.halService.getEndpoint(this.searchFacetLinkPath).pipe(
-      map((url: string) => {
-        const args: string[] = [];
-
-        if (isNotEmpty(scope)) {
-          args.push(`scope=${scope}`);
-        }
-
-        if (isNotEmpty(configurationName)) {
-          args.push(`configuration=${configurationName}`);
-        }
-
-        if (isNotEmpty(args)) {
-          url = new URLCombiner(url, `?${args.join('&')}`).toString();
-        }
-
-        const request = new this.request(this.requestService.generateRequestId(), url);
-        return Object.assign(request, {
-          getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return FacetConfigResponseParsingService;
-          }
-        });
-      }),
-      configureRequest(this.requestService)
-    );
-
-    const requestEntryObs = requestObs.pipe(
-      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
-    );
-
-    // get search results from response cache
-    const facetConfigObs: Observable<SearchFilterConfig[]> = requestEntryObs.pipe(
-      getResponseFromEntry(),
-      map((response: FacetConfigResponse) =>
-        response.results.map((result: any) => Object.assign(new SearchFilterConfig(), result)))
-    );
-
-    return this.rdb.toRemoteDataObservable(requestEntryObs, facetConfigObs);
+    return this.getFilterConfigByLink(this.searchFacetLinkPath, scope, configurationName);
   }
 
   /**
@@ -447,8 +420,8 @@ export class SearchService implements OnDestroy {
    * @param {string} configurationName the name of the configuration
    * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
    */
-  getSearchConfigurationFor( scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
-    const requestObs = this.halService.getEndpoint(this.configurationLinkPath).pipe(
+  getSearchConfigurationFor(scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
+    const href$ = this.halService.getEndpoint(this.configurationLinkPath).pipe(
       map((url: string) => {
         const args: string[] = [];
 
@@ -464,26 +437,21 @@ export class SearchService implements OnDestroy {
           url = new URLCombiner(url, `?${args.join('&')}`).toString();
         }
 
-        const request = new this.request(this.requestService.generateRequestId(), url);
-        return Object.assign(request, {
-          getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return SearchConfigResponseParsingService;
-          }
-        });
+        return url;
       }),
-      configureRequest(this.requestService)
     );
 
-    const requestEntryObs = requestObs.pipe(
-      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
-    );
+    href$.pipe(take(1)).subscribe((url: string) => {
+      let request = new this.request(this.requestService.generateRequestId(), url);
+      request = Object.assign(request, {
+        getResponseParser(): GenericConstructor<ResponseParsingService> {
+          return SearchConfigResponseParsingService;
+        }
+      });
+      this.requestService.configure(request);
+    });
 
-    // get search results from response cache
-    const searchConfigObs: Observable<SearchConfig> = requestEntryObs.pipe(
-      getResponseFromEntry(),
-      map((response: SearchConfigSuccessResponse) => Object.assign(new SearchConfig(), response.results)));
-
-    return this.rdb.toRemoteDataObservable(requestEntryObs, searchConfigObs);
+    return this.rdb.buildFromHref(href$);
   }
 
   /**

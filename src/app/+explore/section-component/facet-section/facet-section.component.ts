@@ -54,7 +54,7 @@ export class FacetSectionComponent implements OnInit {
             configuration: this.facetSection.discoveryConfigurationName,
             page: 1
         };
-        if ( facet.type === 'date') {
+        if ( facet.filterType === 'date') {
             const dates = value.split('-');
             if ( dates.length === 2) {
                 queryParams[facet.paramName + '.min'] = dates[0].trim();

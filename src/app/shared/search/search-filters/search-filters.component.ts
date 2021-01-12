@@ -73,7 +73,7 @@ export class SearchFiltersComponent implements OnInit {
         ),
         map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
           payload: rd.payload.filter((filter: SearchFilterConfig) =>
-            !this.chartReg.test(filter.type.value)
+            !this.chartReg.test(filter.filterType)
           )})
         ),
       );
