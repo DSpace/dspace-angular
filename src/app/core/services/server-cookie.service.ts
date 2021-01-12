@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CookieAttributes } from 'js-cookie';
 import { CookieService, ICookieService } from './cookie.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class ServerCookieService extends CookieService implements ICookieService {
 
   public set(name: string, value: any, options?: CookieAttributes): void {

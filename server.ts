@@ -118,11 +118,6 @@ export function app() {
    */
   server.use('/sitemap**', createProxyMiddleware({ target: `${environment.rest.baseUrl}/sitemaps`, changeOrigin: true }));
 
-  // TODO: implement data requests securely
-  server.get('/api/**', (req, res) => {
-    res.status(404).send('data requests are not yet supported');
-  });
-
   /**
    * Checks if the rateLimiter property is present
    * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.

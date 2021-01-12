@@ -148,7 +148,6 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     this.canEdit$ = this.groupDataService.getActiveGroup().pipe(
       hasValueOperator(),
       switchMap((group: Group) => {
-        console.log(group);
         return observableCombineLatest(
           this.authorizationService.isAuthorized(FeatureID.CanDelete, isNotEmpty(group) ? group.self : undefined),
           this.hasLinkedDSO(group),
