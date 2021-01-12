@@ -27,7 +27,7 @@ import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/obj
 import { Subscription } from 'rxjs/internal/Subscription';
 import { cloneDeep } from 'lodash';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { MetadataConfig } from '../../../core/shared/metadata-config.model';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { RequestService } from '../../../core/data/request.service';
@@ -323,13 +323,13 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.collectionRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
 
     this.collectionRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       map((col) => col.payload),
       tap((col) => this.initializeEmailAndTransform(col)),
       switchMap((col) => this.collectionService.getContentSource(col.uuid)),
-      take(1)
-    ).subscribe((contentSource: ContentSource) => {
-      this.initializeOriginalContentSource(contentSource);
+      getFirstCompletedRemoteData(),
+    ).subscribe((rd: RemoteData<ContentSource>) => {
+      this.initializeOriginalContentSource(rd.payload);
     });
 
     this.updateFieldTranslations();
@@ -466,7 +466,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   onSubmit() {
     // Remove cached harvester request to allow for latest harvester to be displayed when switching tabs
     this.collectionRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       map((col) => col.payload.uuid),
       switchMap((uuid) => this.collectionService.getHarvesterEndpoint(uuid)),
       take(1)
@@ -474,9 +474,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
 
     // Update harvester
     this.collectionRD$.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       switchMap((coll) => this.updateCollection(coll.payload)),
-      take(1),
+      map((col) => col.payload.uuid),
       switchMap((uuid) => this.collectionService.updateContentSource(uuid, this.contentSource)),
       take(1)
     ).subscribe((result: ContentSource | INotification) => {
@@ -498,8 +498,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.addOperation(operations, this.postTransformModel, 'cris.harvesting.postTransform', collection);
 
     return this.collectionService.patch(collection, operations).pipe(
+      getFirstCompletedRemoteData(),
       map((response) => {
-        if (!response.isSuccessful) {
+        if (!response.hasSucceeded) {
           return throwError('The collection update fails');
         }
         return collection.id;

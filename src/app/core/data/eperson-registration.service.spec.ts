@@ -1,17 +1,20 @@
 import { RequestService } from './request.service';
 import { EpersonRegistrationService } from './eperson-registration.service';
-import { RegistrationSuccessResponse, RestResponse } from '../cache/response.models';
+import { RestResponse } from '../cache/response.models';
 import { RequestEntry } from './request.reducer';
 import { cold } from 'jasmine-marbles';
 import { PostRequest } from './request.models';
 import { Registration } from '../shared/registration.model';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { of as observableOf } from 'rxjs/internal/observable/of';
 
 describe('EpersonRegistrationService', () => {
   let service: EpersonRegistrationService;
   let requestService: RequestService;
 
   let halService: any;
+  let rdbService: any;
 
   const registration = new Registration();
   registration.email = 'test@mail.org';
@@ -20,7 +23,10 @@ describe('EpersonRegistrationService', () => {
   registrationWithUser.email = 'test@mail.org';
   registrationWithUser.user = 'test-uuid';
 
+  let rd;
+
   beforeEach(() => {
+    rd = createSuccessfulRemoteDataObject(registrationWithUser);
     halService = new HALEndpointServiceStub('rest-url');
 
     requestService = jasmine.createSpyObj('requestService', {
@@ -29,8 +35,12 @@ describe('EpersonRegistrationService', () => {
       getByUUID: cold('a',
         {a: Object.assign(new RequestEntry(), {response: new RestResponse(true, 200, 'Success')})})
     });
+    rdbService = jasmine.createSpyObj('rdbService', {
+      buildFromRequestUUID: observableOf(rd)
+    });
     service = new EpersonRegistrationService(
       requestService,
+      rdbService,
       halService
     );
   });
@@ -61,17 +71,11 @@ describe('EpersonRegistrationService', () => {
       const expected = service.registerEmail('test@mail.org');
 
       expect(requestService.configure).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration));
-      expect(expected).toBeObservable(cold('a', {a: new RestResponse(true, 200, 'Success')}));
+      expect(expected).toBeObservable(cold('(a|)', {a: rd}));
     });
   });
 
   describe('searchByToken', () => {
-    beforeEach(() => {
-      (requestService.getByUUID as jasmine.Spy).and.returnValue(
-        cold('a',
-          {a: Object.assign(new RequestEntry(), {response: new RegistrationSuccessResponse(registrationWithUser, 200, 'Success')})})
-      );
-    });
     it('should return a registration corresponding to the provided token', () => {
       const expected = service.searchByToken('test-token');
 

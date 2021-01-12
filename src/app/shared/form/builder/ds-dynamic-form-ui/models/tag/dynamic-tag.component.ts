@@ -13,7 +13,10 @@ import { Chips } from '../../../../../chips/models/chips.model';
 import { hasValue, isNotEmpty, isUndefined } from '../../../../../empty.util';
 import { environment } from '../../../../../../../environments/environment';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import {
+  PaginatedList,
+  buildPaginatedList
+} from '../../../../../../core/data/paginated-list.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
@@ -80,7 +83,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf(new PaginatedList(
+              return observableOf(buildPaginatedList(
                 new PageInfo(),
                 []
               ));

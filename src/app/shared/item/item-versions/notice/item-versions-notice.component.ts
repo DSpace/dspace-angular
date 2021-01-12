@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { VersionHistory } from '../../../../core/shared/version-history.model';
 import { Version } from '../../../../core/shared/version.model';
-import { hasValue } from '../../../empty.util';
+import { hasValue, hasValueOperator } from '../../../empty.util';
 import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
 import { filter, map, startWith, switchMap } from 'rxjs/operators';
 import { followLink } from '../../../utils/follow-link-config.model';
@@ -78,6 +78,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
       this.versionHistoryRD$ = this.versionRD$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
+        hasValueOperator(),
         switchMap((version: Version) => version.versionhistory)
       );
       const versionHistory$ = this.versionHistoryRD$.pipe(
@@ -89,6 +90,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
           this.versionHistoryService.getVersions(versionHistory.id, latestVersionSearch, followLink('item'))),
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
+        hasValueOperator(),
         filter((versions) => versions.page.length > 0),
         map((versions) => versions.page[0])
       );

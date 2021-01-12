@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Item } from '../../../core/shared/item.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,8 +14,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemPublicComponent } from './item-public.component';
-import { RestResponse } from '../../../core/cache/response.models';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 let comp: ItemPublicComponent;
 let fixture: ComponentFixture<ItemPublicComponent>;
@@ -27,8 +25,6 @@ let routerStub;
 let mockItemDataService: ItemDataService;
 let routeStub;
 let notificationsServiceStub;
-let successfulRestResponse;
-let failRestResponse;
 
 describe('ItemPublicComponent', () => {
   beforeEach(async(() => {
@@ -46,14 +42,12 @@ describe('ItemPublicComponent', () => {
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      setDiscoverable: observableOf(new RestResponse(true, 200, 'OK'))
+      setDiscoverable: createSuccessfulRemoteDataObject$(mockItem)
     });
 
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject({
-          id: 'fake-id'
-        })
+        dso: createSuccessfulRemoteDataObject(mockItem)
       })
     };
 
@@ -74,9 +68,6 @@ describe('ItemPublicComponent', () => {
   }));
 
   beforeEach(() => {
-    successfulRestResponse = new RestResponse(true, 200, 'OK');
-    failRestResponse = new RestResponse(false, 500, 'Internal Server Error');
-
     fixture = TestBed.createComponent(ItemPublicComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
@@ -98,9 +89,8 @@ describe('ItemPublicComponent', () => {
       spyOn(comp, 'processRestResponse');
       comp.performAction();
 
-      expect(mockItemDataService.setDiscoverable).toHaveBeenCalledWith(mockItem.id, true);
+      expect(mockItemDataService.setDiscoverable).toHaveBeenCalledWith(mockItem, true);
       expect(comp.processRestResponse).toHaveBeenCalled();
     });
   });
-})
-;
+});

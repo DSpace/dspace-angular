@@ -1,7 +1,7 @@
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { RestRequest } from './request.models';
-import { RestResponse } from '../cache/response.models';
+import { ParsedResponse } from '../cache/response.models';
 
 export interface ResponseParsingService {
-  parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse;
+  parse(request: RestRequest, data: RawRestResponse): ParsedResponse;
 }

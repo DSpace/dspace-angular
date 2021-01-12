@@ -2,6 +2,7 @@ export class SectionsServiceStub {
 
   checkSectionErrors = jasmine.createSpy('checkSectionErrors');
   dispatchRemoveSectionErrors = jasmine.createSpy('dispatchRemoveSectionErrors');
+  dispatchSetSectionFormId = jasmine.createSpy('dispatchSetSectionFormId');
   getSectionData = jasmine.createSpy('getSectionData');
   getSectionErrors = jasmine.createSpy('getSectionErrors');
   getSectionState = jasmine.createSpy('getSectionState');

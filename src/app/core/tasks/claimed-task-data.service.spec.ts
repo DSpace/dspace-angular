@@ -8,7 +8,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CoreState } from '../core.reducers';
 import { ClaimedTaskDataService } from './claimed-task-data.service';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 describe('ClaimedTaskDataService', () => {
   let service: ClaimedTaskDataService;

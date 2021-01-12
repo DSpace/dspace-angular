@@ -34,7 +34,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { dateToISOFormat, stringToNgbDateStruct } from '../../date.util';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 
 export interface ResourcePolicyEvent {
@@ -144,10 +144,10 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
       this.requestService.removeByHrefSubstring(this.resourcePolicy._links.eperson.href);
       this.requestService.removeByHrefSubstring(this.resourcePolicy._links.group.href);
       const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href).pipe(
-        getSucceededRemoteData()
+        getFirstSucceededRemoteData()
       );
       const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href).pipe(
-        getSucceededRemoteData()
+        getFirstSucceededRemoteData()
       );
       const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableRace(epersonRD$, groupRD$);
       this.subs.push(

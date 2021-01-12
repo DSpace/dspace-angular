@@ -11,8 +11,6 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../core/shared/item.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginatedList } from '../../core/data/paginated-list';
 import { of as observableOf } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
@@ -21,9 +19,10 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: {
       'dc.title': [
         {

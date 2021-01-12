@@ -200,7 +200,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
       });
 
       it('should notify error when update is not successful', () => {
-        compAsAny.resourcePolicyService.update.and.returnValue(observableOf(createFailedRemoteDataObject({})));
+        compAsAny.resourcePolicyService.update.and.returnValue(observableOf(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.updateResourcePolicy(eventPayload));

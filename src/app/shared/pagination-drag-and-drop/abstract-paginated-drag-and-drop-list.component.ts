@@ -1,13 +1,17 @@
 import { FieldUpdate, FieldUpdates } from '../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../empty.util';
-import { paginatedListToArray } from '../../core/shared/operators';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { hasValue } from '../empty.util';
+import {
+  paginatedListToArray,
+  getFirstSucceededRemoteData,
+  getAllSucceededRemoteData
+} from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
@@ -134,12 +138,13 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
    */
   initializeUpdates(): void {
     this.objectsRD$.pipe(
+      getFirstSucceededRemoteData(),
       paginatedListToArray(),
-      take(1)
     ).subscribe((objects: T[]) => {
       this.objectUpdatesService.initialize(this.url, objects, new Date());
     });
     this.updates$ = this.objectsRD$.pipe(
+      getAllSucceededRemoteData(),
       paginatedListToArray(),
       switchMap((objects: T[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, objects))
     );

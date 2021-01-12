@@ -84,7 +84,8 @@ describe('FormService test suite', () => {
     testForm: {
       data: formData,
       valid: false,
-      errors: []
+      errors: [],
+      touched: {}
     }
   };
 

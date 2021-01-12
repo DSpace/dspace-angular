@@ -6,7 +6,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../../../../core/cache/response.models';
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
@@ -15,6 +14,11 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../../shared/remote-data.utils';
 
 describe('EditBitstreamFormatComponent', () => {
   let comp: EditBitstreamFormatComponent;
@@ -32,7 +36,7 @@ describe('EditBitstreamFormatComponent', () => {
 
   const routeStub = {
     data: observableOf({
-      bitstreamFormat: new RemoteData(false, false, true, null, bitstreamFormat)
+      bitstreamFormat: createSuccessfulRemoteDataObject(bitstreamFormat)
     })
   };
 
@@ -44,7 +48,7 @@ describe('EditBitstreamFormatComponent', () => {
     router =  new RouterStub();
     notificationService = new NotificationsServiceStub();
     bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-      updateBitstreamFormat: observableOf(new RestResponse(true, 200, 'Success'))
+      updateBitstreamFormat: createSuccessfulRemoteDataObject$({})
     });
 
     TestBed.configureTestingModule({
@@ -73,7 +77,8 @@ describe('EditBitstreamFormatComponent', () => {
     it('should initialise the bitstreamFormat based on the route', () => {
 
       comp.bitstreamFormatRD$.subscribe((format: RemoteData<BitstreamFormat>) => {
-        expect(format).toEqual(new RemoteData(false, false, true, null, bitstreamFormat));
+        const expected = createSuccessfulRemoteDataObject(bitstreamFormat);
+        expect(format.payload).toEqual(expected.payload);
       });
     });
   });
@@ -94,7 +99,7 @@ describe('EditBitstreamFormatComponent', () => {
       router =  new RouterStub();
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-        updateBitstreamFormat: observableOf(new RestResponse(false, 400, 'Bad Request'))
+        updateBitstreamFormat: createFailedRemoteDataObject$('Error', 500)
       });
 
       TestBed.configureTestingModule({

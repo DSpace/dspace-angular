@@ -3,14 +3,17 @@ import { FormControl } from '@angular/forms';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { hasValue } from '../empty.util';
 import { map, mergeMap, startWith, debounceTime, distinctUntilChanged, switchMap, reduce, take } from 'rxjs/operators';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { FindListOptions } from 'src/app/core/data/request.models';
-import { PaginatedList } from 'src/app/core/data/paginated-list';
-import { Community } from 'src/app/core/shared/community.model';
-import { CollectionDataService } from 'src/app/core/data/collection-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { FindListOptions } from '../../core/data/request.models';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { Community } from '../../core/shared/community.model';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { followLink } from '../utils/follow-link-config.model';
-import { getFirstSucceededRemoteDataPayload, getSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteWithNotEmptyData
+} from '../../core/shared/operators';
 
 /**
  * An interface to represent a collection entry
@@ -198,13 +201,14 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
         query,
         this.entityType,
         findOptions,
+        true,
         followLink('parentCommunity'));
     } else {
       searchListService$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, followLink('parentCommunity'));
+      .getAuthorizedCollection(query, findOptions, true, followLink('parentCommunity'));
     }
     this.searchListCollection$ = searchListService$.pipe(
-        getSucceededRemoteWithNotEmptyData(),
+        getFirstSucceededRemoteWithNotEmptyData(),
         switchMap((collections: RemoteData<PaginatedList<Collection>>) => {
           if ( (this.searchListCollection.length + findOptions.elementsPerPage) >= collections.payload.totalElements ) {
             this.hasNextPage = false;

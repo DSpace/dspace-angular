@@ -32,8 +32,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormFieldModel } from '../../../shared/form/builder/models/form-field.model';
-import { ConfigData } from '../../../core/config/config-data';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { DynamicRowGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -41,18 +39,19 @@ import { SubmissionSectionError } from '../../objects/submission-objects.reducer
 import { DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
     getConfigByName: jasmine.createSpy('getConfigByName'),
-    getConfigBySearch: jasmine.createSpy('getConfigBySearch')
+    getConfigBySearch: jasmine.createSpy('getConfigBySearch'),
+    findByHref: jasmine.createSpy('findByHref'),
   });
 }
 
@@ -153,7 +152,6 @@ describe('SubmissionSectionformComponent test suite', () => {
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
   const parsedSectionErrors: any = mockUploadResponse1ParsedErrors.traditionalpageone;
-  const formConfigData = new ConfigData(new PageInfo(), testFormConfiguration);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -178,12 +176,12 @@ describe('SubmissionSectionformComponent test suite', () => {
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
-        { provide: ObjectCacheService, useValue: { remove: () => {/*do nothing*/}, hasBySelfLinkObservable: () => observableOf(false) } },
-        { provide: RequestService, useValue: { removeByHrefSubstring: () => {/*do nothing*/}, hasByHrefObservable: () => observableOf(false) } },
+        { provide: ObjectCacheService, useValue: { remove: () => {/*do nothing*/}, hasBySelfLinkObservable: () => observableOf(false), hasByHref$: () => observableOf(false) } },
+        { provide: RequestService, useValue: { removeByHrefSubstring: () => {/*do nothing*/}, hasByHref$: () => observableOf(false) } },
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
-        { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => observableOf(new RemoteData(false, false, true, null, new WorkspaceItem())) } },
+        { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
         SubmissionSectionformComponent
       ],
@@ -242,7 +240,7 @@ describe('SubmissionSectionformComponent test suite', () => {
     it('should init section properly', () => {
       const sectionData = {};
       formService.isValid.and.returnValue(observableOf(true));
-      formConfigService.getConfigByHref.and.returnValue(observableOf(formConfigData));
+      formConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(testFormConfiguration));
       sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
       spyOn(comp, 'initForm');
       spyOn(comp, 'subscriptions');
@@ -250,7 +248,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       comp.onSectionInit();
       fixture.detectChanges();
 
-      expect(compAsAny.formConfig).toEqual(formConfigData.payload);
+      expect(compAsAny.formConfig).toEqual(testFormConfiguration);
       expect(comp.sectionData.errors).toEqual([]);
       expect(comp.sectionData.data).toEqual(sectionData);
       expect(comp.isLoading).toBeFalsy();
@@ -289,6 +287,7 @@ describe('SubmissionSectionformComponent test suite', () => {
         'dc.title': [new FormFieldMetadataValueObject('test')]
       };
       compAsAny.formData = {};
+      compAsAny.sectionMetadata = ['dc.title'];
 
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeTruthy();
     });
@@ -298,7 +297,16 @@ describe('SubmissionSectionformComponent test suite', () => {
         'dc.title': [new FormFieldMetadataValueObject('test')]
       };
       compAsAny.formData = newSectionData;
+      compAsAny.sectionMetadata = ['dc.title'];
+      expect(comp.hasMetadataEnrichment(newSectionData)).toBeFalsy();
+    });
 
+    it('should return false when metadata has Metadata Enrichment but not belonging to sectionMetadata', () => {
+      const newSectionData = {
+        'dc.title': [new FormFieldMetadataValueObject('test')]
+      };
+      compAsAny.formData = newSectionData;
+      compAsAny.sectionMetadata = [];
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeFalsy();
     });
 
@@ -312,6 +320,7 @@ describe('SubmissionSectionformComponent test suite', () => {
       comp.sectionData.data = {};
       comp.sectionData.errors = [];
       compAsAny.formData = {};
+      compAsAny.sectionMetadata = ['dc.title'];
 
       comp.updateForm(sectionData, sectionError);
 
@@ -331,10 +340,11 @@ describe('SubmissionSectionformComponent test suite', () => {
       comp.sectionData.data = {};
       comp.sectionData.errors = [];
       compAsAny.formData = sectionData;
+      compAsAny.sectionMetadata = ['dc.title'];
 
       comp.updateForm(sectionData, parsedSectionErrors);
 
-      expect(comp.initForm).toHaveBeenCalled();
+      expect(comp.initForm).not.toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
       expect(comp.sectionData.data).toEqual(sectionData);
     });

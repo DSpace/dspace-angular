@@ -110,7 +110,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
           this.changeDetectorRef.detectChanges();
         }
       } else {
-        if (submissionObjectRD.error.statusCode === 404) {
+        if (submissionObjectRD.statusCode === 404) {
           // redirect to not found page
           this.router.navigate(['/404'], { skipLocationChange: true });
         }

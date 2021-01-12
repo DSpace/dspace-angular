@@ -253,6 +253,7 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onFocus(event: DynamicFormControlEvent): void {
+    this.formService.setTouched(this.formId, this.formModel, event);
     this.focus.emit(event);
   }
 

@@ -9,20 +9,21 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { Item } from '../../core/shared/item.model';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from './item-types/shared/item.component.spec';
 import { of as observableOf } from 'rxjs';
 import {
-  createFailedRemoteDataObject$, createPendingRemoteDataObject$, createSuccessfulRemoteDataObject,
+  createFailedRemoteDataObject$,
+  createPendingRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
@@ -77,7 +78,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item is loading', () => {
     beforeEach(() => {
-      comp.itemRD$ = createPendingRemoteDataObject$(undefined);
+      comp.itemRD$ = createPendingRemoteDataObject$();
       // comp.itemRD$ = observableOf(new RemoteData(true, true, true, null, undefined));
       fixture.detectChanges();
     });
@@ -90,7 +91,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item failed loading', () => {
     beforeEach(() => {
-      comp.itemRD$ = createFailedRemoteDataObject$(undefined);
+      comp.itemRD$ = createFailedRemoteDataObject$('server error', 500);
       fixture.detectChanges();
     });
 

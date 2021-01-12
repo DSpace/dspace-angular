@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { ObjectDetailComponent } from './object-detail.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
@@ -28,7 +28,7 @@ describe('ObjectDetailComponent', () => {
     Object.assign (new DSpaceObject(), { ten: 10 }),
   ];
   const pageInfo = Object.assign(new PageInfo(), {elementsPerPage: 1, totalElements: 10, totalPages: 10, currentPage: 1});
-  const mockRD = createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, testObjects));
+  const mockRD = createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, testObjects));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

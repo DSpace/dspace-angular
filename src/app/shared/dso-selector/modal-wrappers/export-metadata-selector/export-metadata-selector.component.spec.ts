@@ -14,7 +14,11 @@ import { ConfirmationModalComponent } from '../../../confirmation-modal/confirma
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../remote-data.utils';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
@@ -85,13 +89,7 @@ describe('ExportMetadataSelectorComponent', () => {
     });
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: observableOf({
-          response:
-            {
-              isSuccessful: true,
-              resourceSelfLinks: ['https://localhost:8080/api/core/processes/45']
-            }
-        })
+        invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
       }
     );
     TestBed.configureTestingModule({
@@ -204,12 +202,7 @@ describe('ExportMetadataSelectorComponent', () => {
     beforeEach((done) => {
       spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
       jasmine.getEnv().allowRespy(true);
-      spyOn(scriptService, 'invoke').and.returnValue(observableOf({
-        response:
-          {
-            isSuccessful: false,
-          }
-      }));
+      spyOn(scriptService, 'invoke').and.returnValue(createFailedRemoteDataObject$('Error', 500));
       component.navigate(mockCommunity).subscribe((succeeded: boolean) => {
         scriptRequestSucceeded = succeeded;
         done()

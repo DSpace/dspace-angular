@@ -22,7 +22,10 @@ import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.u
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import {
+  PaginatedList,
+  buildPaginatedList
+} from '../../../../../../core/data/paginated-list.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
@@ -104,7 +107,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf(new PaginatedList(
+              return observableOf(buildPaginatedList(
                 new PageInfo(),
                 []
               ));

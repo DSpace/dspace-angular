@@ -1,25 +1,38 @@
 import { Injectable } from '@angular/core';
 import { SearchFilterConfig } from '../../shared/search/search-filter-config.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { FacetConfigSuccessResponse, RestResponse } from '../cache/response.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
-import { BaseResponseParsingService } from './base-response-parsing.service';
-import { ResponseParsingService } from './parsing.service';
+import { ParsedResponse } from '../cache/response.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RestRequest } from './request.models';
+import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
+import { FacetConfigResponse } from '../../shared/search/facet-config-response.model';
 
 @Injectable()
-export class FacetConfigResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
-  toCache = false;
-  constructor(
-    protected objectCache: ObjectCacheService,
-  ) { super();
-  }
-  parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+export class FacetConfigResponseParsingService extends DspaceRestResponseParsingService {
+  parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
 
     const config = data.payload._embedded.facets;
     const serializer = new DSpaceSerializer(SearchFilterConfig);
-    const facetConfig = serializer.deserializeArray(config);
-    return new FacetConfigSuccessResponse(facetConfig, data.statusCode, data.statusText);
+    const filters = serializer.deserializeArray(config);
+
+    const _links = {
+      self: data.payload._links.self
+    };
+
+    // fill in the missing links section
+    filters.forEach((filterConfig: SearchFilterConfig) => {
+      _links[filterConfig.name] = {
+        href: filterConfig._links.self.href
+      }
+    })
+
+    const facetConfigResponse = Object.assign(new FacetConfigResponse(), {
+      filters,
+      _links
+    });
+
+    this.addToObjectCache(facetConfigResponse, request, data);
+
+    return new ParsedResponse(data.statusCode, facetConfigResponse._links.self);
   }
 }

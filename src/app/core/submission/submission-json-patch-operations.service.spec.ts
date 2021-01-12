@@ -8,18 +8,21 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from './submission-json-patch-operations.service';
 import { RequestService } from '../data/request.service';
 import { SubmissionPatchRequest } from '../data/request.models';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
 describe('SubmissionJsonPatchOperationsService', () => {
   let scheduler: TestScheduler;
   let service: SubmissionJsonPatchOperationsService;
   const requestService = {} as RequestService;
   const store = {} as Store<CoreState>;
+  const rdbService = {} as RemoteDataBuildService;
   const halEndpointService = {} as HALEndpointService;
 
   function initTestService() {
     return new SubmissionJsonPatchOperationsService(
       requestService,
       store,
+      rdbService,
       halEndpointService
     );
   }

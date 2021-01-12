@@ -350,6 +350,17 @@ describe('submissionReducer test suite', () => {
     expect(newState[826].sections.traditionalpageone.data).toEqual(data);
   });
 
+  it('should update submission section metadata properly', () => {
+    const data = {
+    } as any;
+    const metadata = ['dc.title', 'dc.contributor.author'];
+
+    const action = new UpdateSectionDataAction(submissionId, 'traditionalpageone', data, [], metadata);
+    const newState = submissionObjectReducer(initState, action);
+
+    expect(newState[826].sections.traditionalpageone.metadata).toEqual(metadata);
+  });
+
   it('should add submission section errors properly', () => {
     const errors = [
       {

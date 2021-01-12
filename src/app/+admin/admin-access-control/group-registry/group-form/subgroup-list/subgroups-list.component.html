@@ -18,7 +18,7 @@
     </div>
   </form>
 
-  <ds-pagination *ngIf="(groupsSearch | async)?.payload.totalElements > 0"
+  <ds-pagination *ngIf="(groupsSearch | async)?.payload?.totalElements > 0"
                  [paginationOptions]="configSearch"
                  [pageInfoState]="(groupsSearch | async)?.payload"
                  [collectionSize]="(groupsSearch | async)?.payload?.totalElements"
@@ -65,14 +65,14 @@
     </div>
   </ds-pagination>
 
-  <div *ngIf="(groupsSearch | async)?.payload.totalElements == 0 && searchDone" class="alert alert-info w-100 mb-2"
+  <div *ngIf="(groupsSearch | async)?.payload?.totalElements == 0 && searchDone" class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-items' | translate}}
   </div>
 
   <h4>{{messagePrefix + '.headSubgroups' | translate}}</h4>
 
-  <ds-pagination *ngIf="(subgroupsOfGroup | async)?.payload.totalElements > 0"
+  <ds-pagination *ngIf="(subgroupsOfGroup | async)?.payload?.totalElements > 0"
                  [paginationOptions]="config"
                  [pageInfoState]="(subgroupsOfGroup | async)?.payload"
                  [collectionSize]="(subgroupsOfGroup | async)?.payload?.totalElements"
@@ -109,7 +109,7 @@
     </div>
   </ds-pagination>
 
-  <div *ngIf="(subgroupsOfGroup | async)?.payload.totalElements == 0" class="alert alert-info w-100 mb-2"
+  <div *ngIf="(subgroupsOfGroup | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-subgroups-yet' | translate}}
   </div>

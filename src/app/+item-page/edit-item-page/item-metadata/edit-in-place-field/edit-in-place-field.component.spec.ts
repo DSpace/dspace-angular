@@ -9,7 +9,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { MetadataFieldDataService } from '../../../../core/data/metadata-field-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
@@ -66,7 +66,7 @@ describe('EditInPlaceFieldComponent', () => {
   beforeEach(async(() => {
     scheduler = getTestScheduler();
 
-    paginatedMetadataFields = new PaginatedList(undefined, [mdField1, mdField2, mdField3]);
+    paginatedMetadataFields = buildPaginatedList(undefined, [mdField1, mdField2, mdField3]);
 
     metadataFieldService = jasmine.createSpyObj({
       queryMetadataFields: createSuccessfulRemoteDataObject$(paginatedMetadataFields),
@@ -221,7 +221,7 @@ describe('EditInPlaceFieldComponent', () => {
     }));
 
     it('it should call queryMetadataFields on the metadataFieldService with the correct query', () => {
-      expect(metadataFieldService.queryMetadataFields).toHaveBeenCalledWith(query, null, followLink('schema'));
+      expect(metadataFieldService.queryMetadataFields).toHaveBeenCalledWith(query, null, false, followLink('schema'));
     });
 
     it('it should set metadataFieldSuggestions to the right value', () => {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestResponse } from '../cache/response.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 
@@ -19,7 +19,7 @@ export class StatusCodeOnlyResponseParsingService implements ResponseParsingServ
    * @param request The request that was sent to the server
    * @param data The response to parse
    */
-  parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+  parse(request: RestRequest, data: RawRestResponse): RestResponse {
     const isSuccessful = data.statusCode >= 200 && data.statusCode < 300;
     return new RestResponse(isSuccessful, data.statusCode, data.statusText);
   }

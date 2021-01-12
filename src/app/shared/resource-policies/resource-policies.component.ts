@@ -2,14 +2,23 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BehaviorSubject, from as observableFrom, Observable, Subscription } from 'rxjs';
-import { concatMap, distinctUntilChanged, filter, map, reduce, scan, startWith, take } from 'rxjs/operators';
+import {
+  concatMap,
+  distinctUntilChanged,
+  filter,
+  map,
+  reduce,
+  scan,
+  startWith,
+  take
+} from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ResourcePolicyService } from '../../core/resource-policy/resource-policy.service';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataWithNotEmptyPayload,
-  getSucceededRemoteData
+  getAllSucceededRemoteData
 } from '../../core/shared/operators';
 import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -149,7 +158,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         } else {
           this.notificationsService.error(null, this.translate.get('resource-policies.delete.failure.content'));
         }
-        this.initResourcePolicyLIst();
+        this.requestService.setStaleByHrefSubstring(this.resourceUUID);
         this.processingDelete$.next(false);
       })
     )
@@ -244,11 +253,11 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * Initialize the resource's policies list
    */
   initResourcePolicyLIst() {
-    this.resourcePolicyService.searchByResource(this.resourceUUID, null,
+    this.requestService.setStaleByHrefSubstring(this.resourceUUID);
+    this.subs.push(this.resourcePolicyService.searchByResource(this.resourceUUID, null, true,
       followLink('eperson'), followLink('group')).pipe(
       filter(() => this.isActive),
-      getSucceededRemoteData(),
-      take(1)
+      getAllSucceededRemoteData()
     ).subscribe((result) => {
       const entries = result.payload.page.map((policy: ResourcePolicy) => ({
         id: policy.id,
@@ -257,9 +266,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
       }));
       this.resourcePoliciesEntries$.next(entries);
       // Remove cached request
-      this.requestService.removeByHrefSubstring(this.resourceUUID);
       this.cdr.detectChanges();
-    });
+    }));
   }
 
   /**

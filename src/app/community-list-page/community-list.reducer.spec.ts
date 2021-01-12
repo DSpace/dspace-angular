@@ -1,5 +1,5 @@
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { PaginatedList } from '../core/data/paginated-list';
+import { buildPaginatedList } from '../core/data/paginated-list.model';
 import { Community } from '../core/shared/community.model';
 import { PageInfo } from '../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
@@ -17,8 +17,8 @@ describe('communityListReducer', () => {
     Object.assign(new Community(), {
       id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
       uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
-      subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockSubcommunities1Page1)),
-      collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+      subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
+      collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
       name: 'community1',
     }), observableOf(true), 0, false, null
   );

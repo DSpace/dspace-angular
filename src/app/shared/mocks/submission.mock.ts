@@ -1,9 +1,10 @@
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Group } from '../../core/eperson/models/group.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export const mockSectionsData = {
   traditionalpageone: {
@@ -49,6 +50,21 @@ export const mockSectionsErrors = [
       '/sections/traditionalpageone/dc.contributor.author',
       '/sections/traditionalpageone/dc.title',
       '/sections/traditionalpageone/dc.date.issued'
+    ]
+  },
+  {
+    message: 'error.validation.license.notgranted',
+    paths: [
+      '/sections/license'
+    ]
+  }
+];
+
+export const mockSectionsErrorsTwo = [
+  {
+    message: 'error.validation.required',
+    paths: [
+      '/sections/traditionalpageone/dc.title',
     ]
   },
   {
@@ -918,7 +934,7 @@ export const mockSubmissionDefinitionResponse = {
 
 export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
   isDefault: true,
-  sections: new PaginatedList(new PageInfo(), [
+  sections: buildPaginatedList(new PageInfo(), [
     {
       mandatory: true,
       sectionType: 'utils',
@@ -1047,6 +1063,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         enabled: true,
         data: {},
         errors: [],
+        formId: '2_traditionalpageone',
         isLoading: false,
         isValid: false,
         removePending: false
@@ -1247,6 +1264,61 @@ export const mockSectionsList = [
   }
 ];
 
+export const mockUploadConfigResponseMetadata = {
+  rows: [
+    {
+      fields: [
+        {
+          input: {
+            type: 'onebox'
+          },
+          label: 'Title',
+          mandatory: true,
+          repeatable: false,
+          mandatoryMessage: 'You must enter a main title for this item.',
+          hints: 'Enter the name of the file.',
+          selectableMetadata: [
+            {
+              metadata: 'dc.title',
+              label: null,
+              controlledVocabulary: null,
+              closed: null
+            }
+          ],
+          languageCodes: []
+        }
+      ]
+    },
+    {
+      fields: [
+        {
+          input: {
+            type: 'textarea'
+          },
+          label: 'Description',
+          mandatory: false,
+          repeatable: true,
+          hints: 'Enter a description for the file',
+          selectableMetadata: [
+            {
+              metadata: 'dc.description',
+              label: null,
+              controlledVocabulary: null,
+              closed: null
+            }
+          ],
+          languageCodes: []
+        }
+      ]
+    }
+  ],
+  name: 'bitstream-metadata',
+  type: 'submissionform',
+  _links: {
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata' }
+  },
+}
+
 export const mockUploadConfigResponse = {
   accessConditionOptions: [
     {
@@ -1276,60 +1348,7 @@ export const mockUploadConfigResponse = {
       hasEndDate: false
     }
   ],
-  metadata: {
-    rows: [
-      {
-        fields: [
-          {
-            input: {
-              type: 'onebox'
-            },
-            label: 'Title',
-            mandatory: true,
-            repeatable: false,
-            mandatoryMessage: 'You must enter a main title for this item.',
-            hints: 'Enter the name of the file.',
-            selectableMetadata: [
-              {
-                metadata: 'dc.title',
-                label: null,
-                controlledVocabulary: null,
-                closed: null
-              }
-            ],
-            languageCodes: []
-          }
-        ]
-      },
-      {
-        fields: [
-          {
-            input: {
-              type: 'textarea'
-            },
-            label: 'Description',
-            mandatory: false,
-            repeatable: true,
-            hints: 'Enter a description for the file',
-            selectableMetadata: [
-              {
-                metadata: 'dc.description',
-                label: null,
-                controlledVocabulary: null,
-                closed: null
-              }
-            ],
-            languageCodes: []
-          }
-        ]
-      }
-    ],
-    name: 'bitstream-metadata',
-    type: 'submissionform',
-    _links: {
-      self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata' }
-    },
-  },
+  metadata: createSuccessfulRemoteDataObject$(mockUploadConfigResponseMetadata),
   required: true,
   maxSize: 536870912,
   name: 'upload',
@@ -1341,8 +1360,7 @@ export const mockUploadConfigResponse = {
 };
 
 // Clone the object and change one property
-export const mockUploadConfigResponseNotRequired = JSON.parse(JSON.stringify(mockUploadConfigResponse));
-mockUploadConfigResponseNotRequired.required = false;
+export const mockUploadConfigResponseNotRequired = Object.assign({}, mockUploadConfigResponse, { required: false });
 
 export const mockAccessConditionOptions = [
   {

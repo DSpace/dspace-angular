@@ -38,7 +38,7 @@ describe('EndUserAgreementService', () => {
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
       update: createSuccessfulRemoteDataObject$(userWithMetadata),
-      patch: observableOf(new RestResponse(true, 200, 'OK'))
+      patch: createSuccessfulRemoteDataObject$({})
     });
 
     service = new EndUserAgreementService(cookie, authService, ePersonService);

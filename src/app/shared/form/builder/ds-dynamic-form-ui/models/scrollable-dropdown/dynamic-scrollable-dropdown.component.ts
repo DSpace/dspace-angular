@@ -12,7 +12,10 @@ import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { isEmpty } from '../../../../../empty.util';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import {
+  PaginatedList,
+  buildPaginatedList
+} from '../../../../../../core/data/paginated-list.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { FormBuilderService } from '../../../form-builder.service';
@@ -55,7 +58,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     this.updatePageInfo(this.model.maxOptions, 1)
     this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo).pipe(
       getFirstSucceededRemoteDataPayload(),
-      catchError(() => observableOf(new PaginatedList(
+      catchError(() => observableOf(buildPaginatedList(
         new PageInfo(),
         []
         ))
@@ -111,7 +114,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       );
       this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo).pipe(
         getFirstSucceededRemoteDataPayload(),
-        catchError(() => observableOf(new PaginatedList(
+        catchError(() => observableOf(buildPaginatedList(
           new PageInfo(),
           []
           ))

@@ -9,9 +9,11 @@ import { SharedModule } from '../../shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { CreateComColPageComponent } from './create-comcol-page.component';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$
+} from '../../remote-data.utils';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
@@ -19,8 +21,8 @@ import { RequestService } from '../../../core/data/request.service';
 import { getTestScheduler } from 'jasmine-marbles';
 
 describe('CreateComColPageComponent', () => {
-  let comp: CreateComColPageComponent<DSpaceObject>;
-  let fixture: ComponentFixture<CreateComColPageComponent<DSpaceObject>>;
+  let comp: CreateComColPageComponent<any>;
+  let fixture: ComponentFixture<CreateComColPageComponent<any>>;
   let communityDataService: CommunityDataService;
   let dsoDataService: CommunityDataService;
   let routeService: RouteService;
@@ -157,7 +159,7 @@ describe('CreateComColPageComponent', () => {
 
       it('should neither navigate nor refresh cache on failure', () => {
         spyOn(router, 'navigate');
-        spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$(newCommunity));
+        spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$('server error', 500));
         spyOn(dsoDataService, 'refreshCache')
         scheduler.schedule(() => comp.onSubmit(data));
         scheduler.flush();

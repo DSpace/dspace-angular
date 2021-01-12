@@ -15,10 +15,11 @@ import { COMMUNITY } from '../shared/community.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ComColDataService } from './comcol-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { FindListOptions, FindListRequest } from './request.models';
 import { RequestService } from './request.service';
+import { BitstreamDataService } from './bitstream-data.service';
 
 @Injectable()
 @dataService(COMMUNITY)
@@ -34,6 +35,7 @@ export class CommunityDataService extends ComColDataService<Community> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
+    protected bitstreamDataService: BitstreamDataService,
     protected http: HttpClient,
     protected comparator: DSOChangeAnalyzer<Community>
   ) {

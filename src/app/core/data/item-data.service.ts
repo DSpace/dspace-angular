@@ -9,42 +9,35 @@ import { BrowseService } from '../browse/browse.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Collection } from '../shared/collection.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
-import {
-  configureRequest,
-  filterSuccessfulResponses,
-  getRequestFromRequestUUID,
-  getResponseFromEntry
-} from '../shared/operators';
+import { configureRequest } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 
 import { DataService } from './data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import {
   DeleteRequest,
   FindListOptions,
   GetRequest,
-  MappedCollectionsRequest,
-  PatchRequest,
   PostRequest,
   PutRequest,
   RestRequest
 } from './request.models';
-import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { Bundle } from '../shared/bundle.model';
 import { MetadataMap } from '../shared/metadata.models';
 import { BundleDataService } from './bundle-data.service';
+import { Operation } from 'fast-json-patch';
+import { NoContent } from '../shared/NoContent.model';
 import { Metric } from '../shared/metric.model';
 
 @Injectable()
@@ -102,14 +95,13 @@ export class ItemDataService extends DataService<Item> {
    * @param itemId        The item's id
    * @param collectionId  The collection's id
    */
-  public removeMappingFromCollection(itemId: string, collectionId: string): Observable<RestResponse> {
+  public removeMappingFromCollection(itemId: string, collectionId: string): Observable<RemoteData<NoContent>> {
     return this.getMappedCollectionsEndpoint(itemId, collectionId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
-      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
-      getResponseFromEntry()
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid)),
     );
   }
 
@@ -118,7 +110,7 @@ export class ItemDataService extends DataService<Item> {
    * @param itemId          The item's id
    * @param collectionHref  The collection's self link
    */
-  public mapToCollection(itemId: string, collectionHref: string): Observable<RestResponse> {
+  public mapToCollection(itemId: string, collectionHref: string): Observable<RemoteData<NoContent>> {
     return this.getMappedCollectionsEndpoint(itemId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
@@ -130,8 +122,7 @@ export class ItemDataService extends DataService<Item> {
         return new PostRequest(this.requestService.generateRequestId(), endpointURL, collectionHref, options);
       }),
       configureRequest(this.requestService),
-      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
-      getResponseFromEntry()
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid))
     );
   }
 
@@ -140,90 +131,47 @@ export class ItemDataService extends DataService<Item> {
    * @param itemId    The item's id
    */
   public getMappedCollections(itemId: string): Observable<RemoteData<PaginatedList<Collection>>> {
-    const request$ = this.getMappedCollectionsEndpoint(itemId).pipe(
+    const href$ = this.getMappedCollectionsEndpoint(itemId).pipe(
       isNotEmptyOperator(),
-      distinctUntilChanged(),
-      map((endpointURL: string) => new MappedCollectionsRequest(this.requestService.generateRequestId(), endpointURL)),
-      configureRequest(this.requestService)
+      take(1)
     );
 
-    const requestEntry$ = request$.pipe(
-      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
-    );
-    const payload$ = requestEntry$.pipe(
-      filterSuccessfulResponses(),
-      map((response: GenericSuccessResponse<PaginatedList<Collection>>) => response.payload)
-    );
+    href$.subscribe((href: string) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.configure(request);
+    });
 
-    return this.rdbService.toRemoteDataObservable(requestEntry$, payload$);
-  }
-
-  /**
-   * Get the endpoint for item withdrawal and reinstatement
-   * @param itemId
-   */
-  public getItemWithdrawEndpoint(itemId: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, itemId))
-    );
-  }
-
-  /**
-   * Get the endpoint to make item private and public
-   * @param itemId
-   */
-  public getItemDiscoverableEndpoint(itemId: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, itemId))
-    );
+    return this.rdbService.buildList(href$);
   }
 
   /**
    * Set the isWithdrawn state of an item to a specified state
-   * @param itemId
+   * @param item
    * @param withdrawn
    */
-  public setWithDrawn(itemId: string, withdrawn: boolean) {
-    const patchOperation = [{
+  public setWithDrawn(item: Item, withdrawn: boolean): Observable<RemoteData<Item>> {
+
+    const patchOperation = {
       op: 'replace', path: '/withdrawn', value: withdrawn
-    }];
+    } as Operation;
     this.requestService.removeByHrefSubstring('/discover');
 
-    return this.getItemWithdrawEndpoint(itemId).pipe(
-      distinctUntilChanged(),
-      map((endpointURL: string) =>
-        new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
-      ),
-      configureRequest(this.requestService),
-      map((request: RestRequest) => request.uuid),
-      getRequestFromRequestUUID(this.requestService),
-      filter((requestEntry: RequestEntry) => requestEntry.completed),
-      map((requestEntry: RequestEntry) => requestEntry.response)
-    );
+    return this.patch(item, [patchOperation]);
   }
 
   /**
    * Set the isDiscoverable state of an item to a specified state
-   * @param itemId
+   * @param item
    * @param discoverable
    */
-  public setDiscoverable(itemId: string, discoverable: boolean) {
-    const patchOperation = [{
+  public setDiscoverable(item: Item, discoverable: boolean): Observable<RemoteData<Item>> {
+    const patchOperation = {
       op: 'replace', path: '/discoverable', value: discoverable
-    }];
+    } as Operation;
     this.requestService.removeByHrefSubstring('/discover');
 
-    return this.getItemDiscoverableEndpoint(itemId).pipe(
-      distinctUntilChanged(),
-      map((endpointURL: string) =>
-        new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
-      ),
-      configureRequest(this.requestService),
-      map((request: RestRequest) => request.uuid),
-      getRequestFromRequestUUID(this.requestService),
-      filter((requestEntry: RequestEntry) => requestEntry.completed),
-      map((requestEntry: RequestEntry) => requestEntry.response)
-    );
+    return this.patch(item, [patchOperation]);
+;
   }
 
   /**
@@ -310,19 +258,7 @@ export class ItemDataService extends DataService<Item> {
       this.requestService.configure(request);
     });
 
-    const selfLink$ = this.requestService.getByUUID(requestId).pipe(
-      getResponseFromEntry(),
-      map((response: any) => {
-        if (isNotEmpty(response.resourceSelfLinks)) {
-          return response.resourceSelfLinks[0];
-        }
-      }),
-      distinctUntilChanged()
-    ) as Observable<string>;
-
-    return selfLink$.pipe(
-      switchMap((selfLink: string) => this.bundleService.findByHref(selfLink)),
-    );
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
   /**
@@ -341,7 +277,7 @@ export class ItemDataService extends DataService<Item> {
    * @param itemId
    * @param collection
    */
-  public moveToCollection(itemId: string, collection: Collection): Observable<RestResponse> {
+  public moveToCollection(itemId: string, collection: Collection): Observable<RemoteData<Collection>> {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
@@ -358,10 +294,7 @@ export class ItemDataService extends DataService<Item> {
       })
     ).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response)
-    );
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
   /**
@@ -386,16 +319,7 @@ export class ItemDataService extends DataService<Item> {
       })
     ).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
-      getResponseFromEntry(),
-      map((response: any) => {
-        if (isNotEmpty(response.resourceSelfLinks)) {
-          return response.resourceSelfLinks[0];
-        }
-      }),
-      switchMap((selfLink: string) => this.findByHref(selfLink))
-    );
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
   /**

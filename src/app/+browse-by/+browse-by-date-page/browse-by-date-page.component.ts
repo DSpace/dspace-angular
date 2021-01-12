@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions
@@ -43,7 +43,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
 
   ngOnInit(): void {
     this.startsWithType = StartsWithType.date;
-    this.updatePage(new BrowseEntrySearchOptions(null, this.paginationConfig, this.sortConfig));
+    this.updatePage(new BrowseEntrySearchOptions(this.defaultBrowseId, this.paginationConfig, this.sortConfig));
     this.subs.push(
       observableCombineLatest(
         this.route.params,

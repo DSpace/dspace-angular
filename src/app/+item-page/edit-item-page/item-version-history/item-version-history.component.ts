@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { map } from 'rxjs/operators';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { ActivatedRoute } from '@angular/router';
 import { AlertType } from '../../../shared/alert/aletr-type';
 
@@ -30,6 +30,6 @@ export class ItemVersionHistoryComponent {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.parent.data.pipe(map((data) => data.dso)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Item>>;
+    this.itemRD$ = this.route.parent.data.pipe(map((data) => data.dso)).pipe(getFirstSucceededRemoteData()) as Observable<RemoteData<Item>>;
   }
 }

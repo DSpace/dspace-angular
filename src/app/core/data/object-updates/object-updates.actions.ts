@@ -2,8 +2,8 @@ import {type} from '../../../shared/ngrx/type';
 import {Action} from '@ngrx/store';
 import {Identifiable} from './object-updates.reducer';
 import {INotification} from '../../../shared/notifications/models/notification.model';
-import { InjectionToken } from '@angular/core';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';
+import { GenericConstructor } from '../../shared/generic-constructor';
 
 /**
  * The list of ObjectUpdatesAction type definitions
@@ -41,7 +41,7 @@ export class InitializeFieldsAction implements Action {
     url: string,
     fields: Identifiable[],
     lastModified: Date,
-    patchOperationServiceToken?: InjectionToken<PatchOperationService>
+    patchOperationService?: GenericConstructor<PatchOperationService>
   };
 
   /**
@@ -51,15 +51,15 @@ export class InitializeFieldsAction implements Action {
    *    the unique url of the page for which the fields are being initialized
    * @param fields The identifiable fields of which the updates are kept track of
    * @param lastModified The last modified date of the object that belongs to the page
-   * @param patchOperationServiceToken An InjectionToken referring to the {@link PatchOperationService} used for creating a patch
+   * @param patchOperationService A {@link PatchOperationService} used for creating a patch
    */
   constructor(
     url: string,
     fields: Identifiable[],
     lastModified: Date,
-    patchOperationServiceToken?: InjectionToken<PatchOperationService>
+    patchOperationService?: GenericConstructor<PatchOperationService>
   ) {
-    this.payload = { url, fields, lastModified, patchOperationServiceToken };
+    this.payload = { url, fields, lastModified, patchOperationService };
   }
 }
 

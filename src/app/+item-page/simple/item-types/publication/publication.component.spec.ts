@@ -12,14 +12,12 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../core/shared/item.model';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
-import { PageInfo } from '../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -29,9 +27,10 @@ import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { createRelationshipsObservable } from '../shared/item.component.spec';
 import { PublicationComponent } from './publication.component';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: new MetadataMap(),
   relationships: createRelationshipsObservable()
 });

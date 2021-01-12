@@ -12,11 +12,10 @@ import { of as observableOf } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { RestResponse } from '../../../../core/cache/response.models';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { DSpaceObjectDataService } from '../../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
@@ -35,6 +34,7 @@ import { getMockTranslateService } from '../../../../shared/mocks/translate.serv
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { Operation } from 'fast-json-patch';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -71,6 +71,7 @@ describe('GroupFormComponent', () => {
     groupsDataServiceStub = {
       allGroups: groups,
       activeGroup: null,
+      createdGroup: null,
       getActiveGroup(): Observable<Group> {
         return observableOf(this.activeGroup);
       },
@@ -80,7 +81,10 @@ describe('GroupFormComponent', () => {
       editGroup(group: Group) {
         this.activeGroup = group
       },
-      updateGroup(group: Group) {
+      clearGroupsRequests() {
+        return null;
+      },
+      patch(group: Group, operations: Operation[]) {
         return null;
       },
       cancelEditGroup(): void {
@@ -89,12 +93,21 @@ describe('GroupFormComponent', () => {
       findById(id: string) {
         return observableOf({ payload: null, hasSucceeded: true });
       },
-      tryToCreate(group: Group): Observable<RestResponse> {
-        this.allGroups = [...this.allGroups, group]
-        return observableOf(new RestResponse(true, 200, 'Success'));
+      findByHref(href: string) {
+        return createSuccessfulRemoteDataObject$(this.createdGroup);
+      },
+      create(group: Group): Observable<RemoteData<Group>> {
+        this.allGroups = [...this.allGroups, group];
+        this.createdGroup = Object.assign({}, group, {
+          _links: { self: { href: 'group-selflink' } }
+        });
+        return createSuccessfulRemoteDataObject$(this.createdGroup);
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+      },
+      getGroupEditPageRouterLinkWithID(id: string) {
+        return `group-edit-page-for-${id}`;
       }
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -171,7 +184,7 @@ describe('GroupFormComponent', () => {
     describe('with active Group', () => {
       beforeEach(() => {
         spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(observableOf(expected));
-        spyOn(groupsDataServiceStub, 'updateGroup').and.returnValue(observableOf(new RestResponse(true, 200, 'OK')));
+        spyOn(groupsDataServiceStub, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(expected));
         component.groupName.value = 'newGroupName';
         component.onSubmit();
         fixture.detectChanges();

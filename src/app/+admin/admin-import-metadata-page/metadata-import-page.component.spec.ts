@@ -19,6 +19,7 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';
 import { MetadataImportPageComponent } from './metadata-import-page.component';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('MetadataImportPageComponent', () => {
   let comp: MetadataImportPageComponent;
@@ -36,13 +37,7 @@ describe('MetadataImportPageComponent', () => {
     notificationService = new NotificationsServiceStub();
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: observableOf({
-          response:
-            {
-              isSuccessful: true,
-              resourceSelfLinks: ['https://localhost:8080/api/core/processes/45']
-            }
-        })
+        invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
       }
     );
     user = Object.assign(new EPerson(), {
@@ -133,12 +128,7 @@ describe('MetadataImportPageComponent', () => {
     describe('if proceed is pressed; but script invoke fails', () => {
       beforeEach(fakeAsync(() => {
         jasmine.getEnv().allowRespy(true);
-        spyOn(scriptService, 'invoke').and.returnValue(observableOf({
-          response:
-            {
-              isSuccessful: false,
-            }
-        }));
+        spyOn(scriptService, 'invoke').and.returnValue(createFailedRemoteDataObject$('Error', 500));
         const proceed = fixture.debugElement.query(By.css('#proceedButton')).nativeElement;
         proceed.click();
         fixture.detectChanges();

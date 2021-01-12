@@ -20,9 +20,11 @@ describe('requestReducer', () => {
   const testState: MetaIndexState = {
     [IndexName.OBJECT]: {
       [key1]: val1
-    },[IndexName.REQUEST]: {
+    }, [IndexName.ALTERNATIVE_OBJECT_LINK]: {
       [key1]: val1
-    },[IndexName.UUID_MAPPING]: {
+    }, [IndexName.REQUEST]: {
+      [key1]: val1
+    }, [IndexName.UUID_MAPPING]: {
       [key1]: val1
     }
   };

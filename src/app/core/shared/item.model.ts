@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { isEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { link, typedObject } from '../cache/builders/build-decorators';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { Bundle } from './bundle.model';
 import { BUNDLE } from './bundle.resource-type';
