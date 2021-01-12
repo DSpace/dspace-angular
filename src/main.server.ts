@@ -4,7 +4,8 @@ import 'reflect-metadata';
 
 import { enableProdMode } from '@angular/core';
 /******************************************************************
- * Load `$localize` - used if i18n tags appear in Angular templates.
+ * Load `$localize` - not used for i18n in this project, we use ngx-translate.
+ * It's used for localization of dates, numbers, currencies, etc.
  */
 import '@angular/localize/init';
 
