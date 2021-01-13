@@ -13,7 +13,7 @@ import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
   toDSpaceObjectListRD,
-  getAllSucceededRemoteData
+  getAllSucceededRemoteData, getFirstCompletedRemoteData
 } from '../../../core/shared/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
@@ -135,7 +135,8 @@ export class ItemCollectionMapperComponent implements OnInit {
 
     const owningCollectionRD$ = this.itemRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((item: Item) => this.collectionDataService.findOwningCollectionFor(item))
+      switchMap((item: Item) => this.collectionDataService.findOwningCollectionFor(item)),
+      getAllSucceededRemoteData(),
     );
     const itemCollectionsAndOptions$ = observableCombineLatest(
       this.itemCollectionsRD$,
@@ -175,7 +176,12 @@ export class ItemCollectionMapperComponent implements OnInit {
 
     // Map the item to the collections found in ids, excluding the collections the item is already mapped to
     const responses$ = itemIdAndExcludingIds$.pipe(
-      switchMap(([itemId, excludingIds]) => observableCombineLatest(this.filterIds(ids, excludingIds).map((id: string) => this.itemDataService.mapToCollection(itemId, id))))
+      switchMap(([itemId, excludingIds]) =>
+        observableCombineLatest(
+          this.filterIds(ids, excludingIds).map((id: string) =>
+            this.itemDataService.mapToCollection(itemId, id).pipe(getFirstCompletedRemoteData())
+        ))
+      )
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.add');
@@ -189,7 +195,11 @@ export class ItemCollectionMapperComponent implements OnInit {
     const responses$ = this.itemRD$.pipe(
       getFirstSucceededRemoteData(),
       map((itemRD: RemoteData<Item>) => itemRD.payload.id),
-      switchMap((itemId: string) => observableCombineLatest(ids.map((id: string) => this.itemDataService.removeMappingFromCollection(itemId, id))))
+      switchMap((itemId: string) => observableCombineLatest(
+        ids.map((id: string) =>
+          this.itemDataService.removeMappingFromCollection(itemId, id).pipe(getFirstCompletedRemoteData())
+        ))
+      )
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.remove');
