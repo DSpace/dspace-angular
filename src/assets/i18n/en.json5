@@ -914,6 +914,8 @@
 
   "collection.form.rights": "Copyright text (HTML)",
 
+  "collection.form.sharedWorkspace": "Shared workspace",
+
   "collection.form.tableofcontents": "News (HTML)",
 
   "collection.form.title": "Name",

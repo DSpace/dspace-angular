@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
+  DynamicCheckboxModel,
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
@@ -27,6 +28,7 @@ import { catchError, map } from 'rxjs/operators';
 import {
   collectionFormEntityTypeSelectionConfig,
   collectionFormModels,
+  collectionFormSharedWorkspaceCheckboxConfig,
   collectionFormSubmissionDefinitionSelectionConfig
 } from './collection-form.models';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -62,6 +64,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
    */
   submissionDefinitionSelection: DynamicSelectModel<string> = new DynamicSelectModel(collectionFormSubmissionDefinitionSelectionConfig);
 
+  sharedWorkspaceChekbox: DynamicCheckboxModel = new DynamicCheckboxModel(collectionFormSharedWorkspaceCheckboxConfig);
+
   /**
    * The dynamic form fields used for creating/editing a collection
    * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
@@ -85,9 +89,11 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
 
     let currentRelationshipValue: MetadataValue[];
     let currentDefinitionValue: MetadataValue[];
+    let currentSharedWorkspaceValue: MetadataValue[];
     if (this.dso && this.dso.metadata) {
       currentRelationshipValue = this.dso.metadata['relationship.type'];
       currentDefinitionValue = this.dso.metadata['cris.submission.definition'];
+      currentSharedWorkspaceValue = this.dso.metadata['cris.workspace.shared'];
     }
 
     const entities$: Observable<ItemType[]> = this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
@@ -129,8 +135,13 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           }
         });
 
-        this.formModel = [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection];
+        this.formModel = [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.sharedWorkspaceChekbox];
+
         super.ngOnInit();
+
+        if (currentSharedWorkspaceValue && currentSharedWorkspaceValue.length > 0) {
+          this.sharedWorkspaceChekbox.value = currentSharedWorkspaceValue[0].value === 'true';
+        }
     });
 
   }
