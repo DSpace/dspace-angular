@@ -80,14 +80,14 @@ describe('ItemCollectionMapperComponent', () => {
   const itemDataServiceStub = {
     mapToCollection: () => createSuccessfulRemoteDataObject$({}),
     removeMappingFromCollection: () => createSuccessfulRemoteDataObject$({}),
-    getMappedCollectionsEndpoint: () => of('rest/api/mappedCollectionsEndpoint'),
+    getMappedCollectionsEndpoint: () => observableOf('rest/api/mappedCollectionsEndpoint'),
     getMappedCollections: () => observableOf(mockCollectionsRD),
     /* tslint:disable:no-empty */
     clearMappedCollectionsRequests: () => {}
     /* tslint:enable:no-empty */
   };
   const collectionDataServiceStub = {
-    findAllByHref: () => of(mockCollectionsRD)
+    findAllByHref: () => observableOf(mockCollectionsRD)
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(mockCollectionsRD),

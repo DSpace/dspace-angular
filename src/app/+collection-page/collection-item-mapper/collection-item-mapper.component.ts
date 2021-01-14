@@ -143,7 +143,7 @@ export class CollectionItemMapperComponent implements OnInit {
           sort: this.defaultSortOptions
         }),!shouldUpdate, false, followLink('owningCollection')).pipe(
           getAllSucceededRemoteData()
-        )
+        );
       })
     );
     this.mappedItemsRD$ = collectionAndOptions$.pipe(
