@@ -308,8 +308,6 @@
 
   "admin.access-control.groups.table.members": "Members",
 
-  "admin.access-control.groups.table.comcol": "Community / Collection",
-
   "admin.access-control.groups.table.edit": "Edit",
 
   "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",

@@ -169,16 +169,16 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   /**
    * Delete Group
    */
-  deleteGroup(group: Group) {
-    if (hasValue(group.id)) {
-      this.groupService.delete(group.id).pipe(getFirstCompletedRemoteData())
+  deleteGroup(group: GroupDtoModel) {
+    if (hasValue(group.group.id)) {
+      this.groupService.delete(group.group.id).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<NoContent>) => {
           if (rd.hasSucceeded) {
-            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.name }));
+            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.group.name }));
             this.reset();
           } else {
             this.notificationsService.error(
-              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: group.name }),
+              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: group.group.name }),
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
       });
@@ -194,7 +194,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     ).subscribe((href: string) => {
       this.requestService.setStaleByHrefSubstring(href);
     });
-  }
+}
 
   /**
    * Get the members (epersons embedded value of a group)
@@ -231,15 +231,6 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       query: '',
     });
     this.search({ query: '' });
-  }
-
-  /**
-   * Extract optional UUID from a group name => To be resolved to community or collection with link
-   * (Or will be resolved in backend and added to group object, tbd) //TODO
-   * @param groupName
-   */
-  getOptionalComColFromName(groupName: string): string {
-    return this.groupService.getUUIDFromString(groupName);
   }
 
   /**

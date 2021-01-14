@@ -2,9 +2,9 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
+import { Observable, of as observableOf, Subscription, BehaviorSubject, ObservedValueOf, combineLatest as observableCombineLatest} from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
+import {buildPaginatedList, PaginatedList} from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
@@ -17,6 +17,7 @@ import {
 } from '../../../../../core/shared/operators';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
+import {EpersonDtoModel} from '../../../../../core/eperson/models/eperson-dto.model';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -25,6 +26,8 @@ enum SubKey {
   Members,
   ActiveGroup,
   SearchResults,
+  MembersDTO,
+  SearchResultsDTO,
 }
 
 @Component({
@@ -43,10 +46,12 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * EPeople being displayed in search result, initially all members, after search result of search
    */
   searchResults$: BehaviorSubject<RemoteData<PaginatedList<EPerson>>> = new BehaviorSubject(undefined);
+  ePeopleSearchDtos: BehaviorSubject<PaginatedList<EpersonDtoModel>> = new BehaviorSubject<PaginatedList<EpersonDtoModel>>(undefined);
   /**
    * List of EPeople members of currently active group being edited
    */
   members$: BehaviorSubject<RemoteData<PaginatedList<EPerson>>> = new BehaviorSubject(undefined);
+  ePeopleMembersOfGroupDtos: BehaviorSubject<PaginatedList<EpersonDtoModel>> = new BehaviorSubject<PaginatedList<EpersonDtoModel>>(undefined);
 
   /**
    * Pagination config used to display the list of EPeople that are result of EPeople search
@@ -138,8 +143,11 @@ export class MembersListComponent implements OnInit, OnDestroy {
         elementsPerPage: this.config.pageSize
       }
     ).subscribe((rd: RemoteData<PaginatedList<EPerson>>) => {
-      this.members$.next(rd);
-    }));
+        this.members$.next(rd);
+        if (rd.payload !== undefined) {
+          this.setEpersonDTOsFromResult(rd, this.ePeopleMembersOfGroupDtos, SubKey.MembersDTO);
+        }
+      }));
   }
 
   /**
@@ -160,11 +168,11 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * Deletes a given EPerson from the members list of the group currently being edited
    * @param ePerson   EPerson we want to delete as member from group that is currently being edited
    */
-  deleteMemberFromGroup(ePerson: EPerson) {
+  deleteMemberFromGroup(ePerson: EpersonDtoModel) {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
-        const response = this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson);
-        this.showNotifications('deleteMember', response, ePerson.name, activeGroup);
+        const response = this.groupDataService.deleteMemberFromGroup(activeGroup, ePerson.eperson);
+        this.showNotifications('deleteMember', response, ePerson.eperson.name, activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -175,11 +183,12 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * Adds a given EPerson to the members list of the group currently being edited
    * @param ePerson   EPerson we want to add as member to group that is currently being edited
    */
-  addMemberToGroup(ePerson: EPerson) {
+  addMemberToGroup(ePerson: EpersonDtoModel) {
+    ePerson.memberOfGroup = true;
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
-        const response = this.groupDataService.addMemberToGroup(activeGroup, ePerson);
-        this.showNotifications('addMember', response, ePerson.name, activeGroup);
+        const response = this.groupDataService.addMemberToGroup(activeGroup, ePerson.eperson);
+        this.showNotifications('addMember', response, ePerson.eperson.name, activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -234,7 +243,28 @@ export class MembersListComponent implements OnInit, OnDestroy {
       elementsPerPage: this.configSearch.pageSize
     }).subscribe((rd: RemoteData<PaginatedList<EPerson>>) => {
       this.searchResults$.next(rd);
+      if (rd.payload !== undefined) {
+        this.setEpersonDTOsFromResult(rd, this.ePeopleSearchDtos, SubKey.SearchResultsDTO);
+      }
     }));
+  }
+
+  private setEpersonDTOsFromResult(rd: RemoteData<PaginatedList<EPerson>>, addTo: BehaviorSubject<PaginatedList<EpersonDtoModel>>, subkey) {
+    this.unsubFrom(subkey);
+    const dtos$ = observableCombineLatest(...rd.payload.page.map((member: EPerson) => {
+      const dto$: Observable<EpersonDtoModel> = observableCombineLatest(
+        this.isMemberOfGroup(member), (isMember: ObservedValueOf<Observable<boolean>>) => {
+          const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
+          epersonDtoModel.eperson = member;
+          epersonDtoModel.memberOfGroup = isMember;
+          return epersonDtoModel;
+        });
+      return dto$;
+    }));
+    this.subs.set(subkey,dtos$.pipe(map((dtos: EpersonDtoModel[]) => {
+      const paginatedListOfDTOs = buildPaginatedList(rd.payload.pageInfo, dtos);
+      addTo.next(paginatedListOfDTOs);
+    })).subscribe());
   }
 
   /**
