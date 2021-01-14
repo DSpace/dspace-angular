@@ -23,7 +23,6 @@ import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 
-
 /**
  * Check if one side of a RelationshipType is the ItemType with the given label
  *
