@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { ItemPageModule } from '../../+item-page/item-page.module';
 import { JournalComponent } from './item-pages/journal/journal.component';
 import { JournalIssueComponent } from './item-pages/journal-issue/journal-issue.component';
 import { JournalVolumeComponent } from './item-pages/journal-volume/journal-volume.component';
@@ -45,8 +44,7 @@ const COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
-    ItemPageModule
+    SharedModule
   ],
   declarations: [
     ...COMPONENTS

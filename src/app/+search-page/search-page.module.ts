@@ -4,7 +4,6 @@ import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { SearchComponent } from './search.component';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
 import { SearchTrackerComponent } from './search-tracker.component';
 import { StatisticsModule } from '../statistics/statistics.module';
@@ -16,7 +15,6 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 const components = [
   SearchPageComponent,
   SearchComponent,
-  ConfigurationSearchPageComponent,
   SearchTrackerComponent
 ];
 

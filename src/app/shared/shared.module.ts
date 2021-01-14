@@ -223,6 +223,12 @@ import { SearchObjects } from './search/search-objects.model';
 import { SearchResult } from './search/search-result.model';
 import { FacetConfigResponse } from './search/facet-config-response.model';
 import { FacetValues } from './search/facet-values.model';
+import { GenericItemPageFieldComponent } from '../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
+import { RelatedItemsComponent } from '../+item-page/simple/related-items/related-items-component';
+import { TabbedRelatedEntitiesSearchComponent } from '../+item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
+import { RelatedEntitiesSearchComponent } from '../+item-page/simple/related-entities/related-entities-search/related-entities-search.component';
+import { ConfigurationSearchPageComponent } from '../+search-page/configuration-search-page.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -452,11 +458,20 @@ const COMPONENTS = [
   CommunitySidebarSearchListElementComponent,
 ];
 
+const SHARED_SEARCH_PAGE_COMPONENTS = [
+  ConfigurationSearchPageComponent
+];
+
 const SHARED_ITEM_PAGE_COMPONENTS = [
   MetadataFieldWrapperComponent,
   MetadataValuesComponent,
   DsoPageEditButtonComponent,
   ItemAlertsComponent,
+  GenericItemPageFieldComponent,
+  MetadataRepresentationListComponent,
+  RelatedItemsComponent,
+  RelatedEntitiesSearchComponent,
+  TabbedRelatedEntitiesSearchComponent
 ];
 
 const PROVIDERS = [
@@ -500,7 +515,8 @@ const DIRECTIVES = [
     ...PIPES,
     ...COMPONENTS,
     ...DIRECTIVES,
-    ...SHARED_ITEM_PAGE_COMPONENTS
+    ...SHARED_ITEM_PAGE_COMPONENTS,
+    ...SHARED_SEARCH_PAGE_COMPONENTS
   ],
   providers: [
     ...PROVIDERS
@@ -510,6 +526,7 @@ const DIRECTIVES = [
     ...PIPES,
     ...COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
+    ...SHARED_SEARCH_PAGE_COMPONENTS,
     ...DIRECTIVES,
     TranslateModule
   ]

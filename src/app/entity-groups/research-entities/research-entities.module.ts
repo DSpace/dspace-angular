@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { ItemPageModule } from '../../+item-page/item-page.module';
 import { OrgUnitComponent } from './item-pages/org-unit/org-unit.component';
 import { PersonComponent } from './item-pages/person/person.component';
 import { ProjectComponent } from './item-pages/project/project.component';
@@ -61,8 +60,7 @@ const COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
-    ItemPageModule
+    SharedModule
   ],
   declarations: [
     ...COMPONENTS,
