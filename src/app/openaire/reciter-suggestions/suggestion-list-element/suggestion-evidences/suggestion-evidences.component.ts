@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { fadeIn } from '../../../../shared/animations/fade';
 import { SuggestionEvidences } from '../../../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
 
@@ -11,11 +11,5 @@ import { SuggestionEvidences } from '../../../../core/openaire/reciter-suggestio
 export class SuggestionEvidencesComponent {
 
   @Input() evidences: SuggestionEvidences;
-
-  @Output() backClicked = new EventEmitter();
-
-  back() {
-    this.backClicked.emit({});
-  }
 
 }

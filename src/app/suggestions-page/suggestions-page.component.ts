@@ -46,9 +46,6 @@ export class SuggestionsPageComponent implements OnInit {
   targetRD$: Observable<RemoteData<OpenaireSuggestionTarget>>;
   targetId$: Observable<string>;
 
-  evidences: any;
-  isShowEvidence = false;
-
   suggestionId: any;
   researcherName: any;
 
@@ -121,24 +118,6 @@ export class SuggestionsPageComponent implements OnInit {
       .subscribe((res) => {
         this.updatePage();
       });
-  }
-
-  /**
-   * Used to to see evidence
-   * @evidences
-   */
-  seeEvidence(evidences) {
-    this.evidences = evidences;
-    this.isShowEvidence = true;
-  }
-
-  /**
-   * Used to show suggestion list
-   * @param event
-   */
-  back(event) {
-    this.evidences = {};
-    this.isShowEvidence = false;
   }
 
   /**

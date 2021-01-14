@@ -1,10 +1,6 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <div *ngIf="isShowEvidence">
-        <ds-suggestion-evidences (backClicked)="back($event)" [evidences]="evidences"></ds-suggestion-evidences>
-      </div>
-      <div *ngIf="!isShowEvidence">
         <ng-container *ngVar="(suggestionsRD$ | async) as subCollectionsRD">
           <div *ngIf="subCollectionsRD?.pageInfo?.totalElements > 0">
             <h2>{{'reciter.suggestion.suggestionFor' | translate}} {{researcherName}} {{'reciter.suggestion.from.source' | translate}} {{'reciter.suggestion.source.oaire' | translate}}</h2>
@@ -15,13 +11,12 @@
               <ul class="list-unstyled">
                 <li *ngFor="let object of subCollectionsRD?.page; let i = index; let last = last" class="mt-4 mb-4">
                   <ds-suggestion-list-item [object]="object" (notMineClicked)="notMine($event)"
-                    (seeEvidenceClicked)="seeEvidence($event)" (approveAndImport)="approveAndImport($event)"></ds-suggestion-list-item>
+                    (approveAndImport)="approveAndImport($event)"></ds-suggestion-list-item>
                 </li>
               </ul>
             </ds-pagination>
           </div>
         </ng-container>
-      </div>
     </div>
   </div>
 </div>

@@ -1,7 +1,4 @@
 <div>
-  <div class="text-right mb-3">
-    <button (click)="back()" class="btn btn-primary">Back</button>
-  </div>
   <div class="table-responsive" *ngIf="evidences">
     <table class="table">
       <thead>
@@ -13,7 +10,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let evidence of evidences | dsObjectKeys">
-          <td>{{evidence}}</td>
+          <td>{{evidence | translate}}</td>
           <td>{{evidences[evidence].score}}</td>
           <td>{{evidences[evidence].notes}}</td>
         </tr>

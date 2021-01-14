@@ -2838,11 +2838,15 @@
 
   "reciter.suggestion.seeEvidence": "See evidence",
 
+  "reciter.suggestion.hideEvidence": "Hide evidence",
+
   "reciter.suggestion.suggestionFor": "Suggestion for",
 
   "reciter.suggestion.source.oaire": "OpenAIRE Graph",
 
   "reciter.suggestion.from.source": "from the ",
+
+  "reciter.suggestion.totalScore": "Total Score",
 
 
 

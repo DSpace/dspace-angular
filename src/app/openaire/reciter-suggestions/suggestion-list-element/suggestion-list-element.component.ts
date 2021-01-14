@@ -23,15 +23,12 @@ export class SuggestionListElementComponent implements OnInit {
 
   public listableObject: any;
 
+  public seeEvidence = false;
+
   /**
    * The component is used to Delete suggestion
    */
   @Output() notMineClicked = new EventEmitter();
-
-  /**
-   * The component is used to See Evidence
-   */
-  @Output() seeEvidenceClicked = new EventEmitter();
 
   /**
    * The component is used to approve & import
@@ -82,10 +79,10 @@ export class SuggestionListElementComponent implements OnInit {
   }
 
   /**
-   * See the Evidence
+   * Toggle See Evidence
    */
-  seeEvidences() {
-    this.seeEvidenceClicked.emit(this.object.evidences);
+  toggleSeeEvidences() {
+    this.seeEvidence = !this.seeEvidence;
   }
 
 }
