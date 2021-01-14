@@ -23,9 +23,11 @@
                       [paginationOptions]="paginationConfig"
                       [collectionSize]="(totalElements$ | async)"
                       [hideGear]="false"
-                      [hideSortOptions]="true"
+                      [hideSortOptions]="false"
+                      [sortOptions]="paginationSortConfig"
                       [hidePagerWhenSinglePage]="false"
                       [disableRouteParameterUpdate]="false"
+                      (sortDirectionChange)="setSortDirection($event)"
                       (pageChange)="setPage($event)">
 
         <ds-loading class="container" *ngIf="(isEventLoading | async)" message="{{'openaire.broker.loading' | translate}}"></ds-loading>
@@ -37,6 +39,7 @@
             <table id="events" class="table table-striped table-hover table-bordered">
               <thead>
               <tr>
+                <th scope="col">{{'openaire.broker.event.table.trust' | translate}}</th>
                 <th scope="col">{{'openaire.broker.event.table.publication' | translate}}</th>
                 <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') == -1" scope="col">{{'openaire.broker.event.table.details' | translate}}</th>
                 <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') !== -1" scope="col">{{'openaire.broker.event.table.project-details' | translate}}</th>
@@ -45,6 +48,8 @@
               </thead>
               <tbody>
                 <tr *ngFor="let eventElement of (eventsUpdated$ | async); let i = index">
+                  <td>{{eventElement?.event?.trust}}
+                  </td>
                   <td><a *ngIf="(eventElement?.event?.target|async)?.payload"
                          [routerLink]="['/items', (eventElement?.event?.target|async)?.payload?.id]">{{eventElement.title}}</a>
                   </td>

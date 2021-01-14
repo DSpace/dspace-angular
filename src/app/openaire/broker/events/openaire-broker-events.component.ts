@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, from, Observable, of as observableOf, Subscription } from 'rxjs';
 import { filter, flatMap, map, scan, take } from 'rxjs/operators';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import { FindListOptions } from '../../../core/data/request.models';
@@ -127,6 +127,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     this.paginationConfig.pageSize = this.elementsPerPage;
     this.paginationConfig.currentPage = 1;
     this.paginationConfig.pageSizeOptions = [ 5, 10, 20, 30, 50 ];
+    this.paginationSortConfig = new SortOptions('trust', SortDirection.DESC);
 
     this.subs.push(
       combineLatest(
@@ -157,6 +158,19 @@ export class OpenaireBrokerEventsComponent implements OnInit {
   public setPage(page: number) {
     if (this.paginationConfig.currentPage !== page) {
       this.paginationConfig.currentPage = page;
+      this.getOpenaireBrokerEvents();
+    }
+  }
+
+  /**
+   * Set the current sort direction for the pagination system.
+   *
+   * @param {SortDirection} direction
+   *    the current sort direction
+   */
+  public setSortDirection(direction: SortDirection) {
+    if (this.paginationSortConfig.direction !== direction) {
+      this.paginationSortConfig = new SortOptions('trust', direction);
       this.getOpenaireBrokerEvents();
     }
   }
@@ -343,6 +357,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     const options: FindListOptions = {
       elementsPerPage: this.paginationConfig.pageSize,
       currentPage: this.paginationConfig.currentPage,
+      sort: this.paginationSortConfig
     };
     this.subs.push(
       this.openaireBrokerEventRestService.getEventsByTopic(

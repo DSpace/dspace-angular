@@ -2718,6 +2718,8 @@
 
   "openaire.broker.noEvents": "No suggestions found.",
 
+  "openaire.broker.event.table.trust": "Trust",
+
   "openaire.broker.event.table.publication": "Publication",
 
   "openaire.broker.event.table.details": "Details",
