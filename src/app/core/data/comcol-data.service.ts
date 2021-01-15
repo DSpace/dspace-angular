@@ -1,5 +1,5 @@
 import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
@@ -116,15 +116,16 @@ export abstract class ComColDataService<T extends Community | Collection> extend
     if (!hasValue(parentCommunityUrl)) {
       return;
     }
-    this.findByHref(parentCommunityUrl).pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe((rd: RemoteData<any>) => {
+    observableCombineLatest([
+      this.findByHref(parentCommunityUrl).pipe(
+        getFirstCompletedRemoteData(),
+      ),
+      this.halService.getEndpoint('communities/search/top').pipe(take(1))
+    ]).subscribe(([rd, topHref]: [RemoteData<any>, string]) => {
       if (rd.hasSucceeded && isNotEmpty(rd.payload) && isNotEmpty(rd.payload.id)) {
-        this.requestService.removeByHrefSubstring(rd.payload.id);
+        this.requestService.setStaleByHrefSubstring(rd.payload.id);
       } else {
-        this.halService.getEndpoint('communities/search/top')
-          .pipe(take(1))
-          .subscribe((href) => this.requestService.removeByHrefSubstring(href));
+        this.requestService.setStaleByHrefSubstring(topHref);
       }
     });
   }
