@@ -910,6 +910,8 @@
 
   "collection.form.rights": "Copyright text (HTML)",
 
+  "collection.form.sharedWorkspace": "Shared workspace",
+
   "collection.form.tableofcontents": "News (HTML)",
 
   "collection.form.title": "Name",
@@ -3388,6 +3390,14 @@
 
   "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
 
+  "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
+
+  "search.filters.applied.charts.graphpubldate.tab" : "Visualization by Date",
+
+  "search.filters.applied.charts.graphpubldateltr.tab" : "Visualization Demo LTR",
+
+  "search.filters.applied.charts.graphpubldatetrl.tab" : "Visualization Demo RTL",
+
   "search.filters.applied.charts.default.title": "Search Output",
 
   "search.filters.applied.charts.RELATION.Person.researchoutputs.title": "Research Output",
@@ -3689,7 +3699,11 @@
 
   "submission.import-external.search.source.hint": "Pick an external source",
 
+  "submission.import-external.source.ads": "Ads",
+
   "submission.import-external.source.arxiv": "arXiv",
+
+  "submission.import-external.source.cinii": "Cinii",
 
   "submission.import-external.source.crossref": "CrossRef",
 
@@ -3702,6 +3716,8 @@
   "submission.import-external.source.orcid": "ORCID",
 
   "submission.import-external.source.pubmed": "Pubmed",
+
+  "submission.import-external.source.pubmedeu": "Pubmed EU",
 
   "submission.import-external.source.lcname": "Library of Congress Names",
 
