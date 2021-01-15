@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
-import { concatAll, flatMap, map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { flatMap, map, take } from 'rxjs/operators';
 
 import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload, redirectOn4xx } from '../core/shared/operators';
-import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
+import {SuggestionBulkResult, SuggestionsService} from '../openaire/reciter-suggestions/suggestions.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { ItemDataService } from '../core/data/item-data.service';
 import { OpenaireSuggestion } from '../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { AuthService } from '../core/auth/auth.service';
 import { SuggestionApproveAndImport } from '../openaire/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-suggestion-page',
@@ -58,7 +60,9 @@ export class SuggestionsPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private suggestionService: SuggestionsService,
-    private itemService: ItemDataService
+    private itemService: ItemDataService,
+    private notificationService: NotificationsService,
+    private translateService: TranslateService
   ) {
   }
 
@@ -114,60 +118,78 @@ export class SuggestionsPageComponent implements OnInit {
   }
 
   /**
-   * Used to delete suggestion
+   * Used to delete a suggestion.
    * @suggestionId
    */
   notMine(suggestionId) {
-    this.notMineImpl(suggestionId).subscribe((res) => {
+    this.suggestionService.notMine(suggestionId).subscribe((res) => {
       this.updatePage();
     });
   }
 
   /**
-   * Used to bulk delete suggestion
-   * @suggestionId
+   * Used to delete all selected suggestions.
    */
   notMineAllSelected() {
     this.isBulkOperationPending = true;
-    forkJoin(Object.values(this.selectedSuggestions)
-      .map((suggestion: OpenaireSuggestion) => this.notMineImpl(suggestion.id)))
-      .pipe(concatAll(), take(1))
-      .subscribe((res) => {
-        console.log('All selections processed');
+    this.suggestionService
+      .notMineMultiple(Object.values(this.selectedSuggestions))
+      .subscribe((results: SuggestionBulkResult) => {
         this.updatePage();
         this.isBulkOperationPending = false;
+        if (results.success > 0) {
+          this.notificationService.success(
+            this.translateService.get('reciter.suggestion.notMine.bulk.success',
+              {count: results.success}));
+        }
+        if (results.fails > 0) {
+          this.notificationService.error(
+            this.translateService.get('reciter.suggestion.notMine.bulk.error',
+              {count: results.fails}));
+        }
+      })
+  }
+
+  /**
+   * Used to approve & import.
+   * @param event contains the suggestion and the target collection
+   */
+  approveAndImport(event: SuggestionApproveAndImport) {
+    this.suggestionService.approveAndImport(this.itemService, event.suggestion, event.collectionId)
+      .subscribe((response: any) => {
+        this.notificationService.success('reciter.suggestion.approveAndImport.success');
+        this.updatePage();
       });
   }
 
   /**
-   * Used to approve & import
-   * @param event
-   */
-  approveAndImport(event: SuggestionApproveAndImport) {
-    this.approveAndImportImpl(event.suggestion, event.collectionId).subscribe((response: any) => {
-      console.log('All selections processed');
-      this.updatePage();
-    });
-  }
-
-  /**
-   * Used to bulk approve & import
+   * Used to approve & import all selected suggestions.
+   * @param event contains the target collection
    */
   approveAndImportAllSelected(event: SuggestionApproveAndImport) {
     this.isBulkOperationPending = true;
-    forkJoin(Object.values(this.selectedSuggestions)
-      .map((suggestion: OpenaireSuggestion) => this.approveAndImportImpl(suggestion, event.collectionId)))
-      .pipe(concatAll(), take(1))
-      .subscribe((result) => {
+    this.suggestionService
+      .approveAndImportMultiple(this.itemService, Object.values(this.selectedSuggestions), event.collectionId)
+      .subscribe((results: SuggestionBulkResult) => {
         this.updatePage();
         this.isBulkOperationPending = false;
+        if (results.success > 0) {
+          this.notificationService.success(
+            this.translateService.get('reciter.suggestion.approveAndImport.bulk.success',
+              {count: results.success}));
+        }
+        if (results.fails > 0) {
+          this.notificationService.error(
+            this.translateService.get('reciter.suggestion.approveAndImport.bulk.error',
+              {count: results.fails}));
+        }
     })
   }
 
   /**
    * When a specific suggestion is selected.
-   * @param object
-   * @param selected
+   * @param object the suggestions
+   * @param selected the new selected value for the suggestion
    */
   onSelected(object: OpenaireSuggestion, selected: boolean) {
     if (selected) {
@@ -178,8 +200,8 @@ export class SuggestionsPageComponent implements OnInit {
   }
 
   /**
-   * When the toggle select all occurs.
-   * @param suggestions
+   * When Toggle Select All occurs.
+   * @param suggestions all the visible suggestions inside the page
    */
   onToggleSelectAll(suggestions: OpenaireSuggestion[]) {
     if ( this.getSelectedSuggestionsCount() > 0) {
@@ -198,46 +220,4 @@ export class SuggestionsPageComponent implements OnInit {
     return Object.keys(this.selectedSuggestions).length
   }
 
-  /**
-   * Perform the approve and import operation.
-   * @param suggestion
-   * @param collectionId
-   * @private
-   */
-  private approveAndImportImpl(suggestion, collectionId): Observable<any> {
-    return this.itemService.importExternalSourceEntry(suggestion.externalSourceUri, collectionId)
-      .pipe(
-        getFirstSucceededRemoteDataPayload(),
-        switchMap((res) => {
-          return this.suggestionService.deleteReviewedSuggestion(suggestion.id).pipe(
-            // catchError((error) => {
-            //   console.error('The approve and import request for id ' + suggestion.id + ' has failed');
-            //   console.log('The operation is skipped');
-            //   return of(null);
-            // })
-          );
-        }),
-        // catchError((error) => {
-        //   console.error('The approve and import request for id ' + suggestion.id + ' has failed');
-        //   console.log('The operation is skipped');
-        //   return of(null);
-        // })
-      );
-    ;
-  }
-
-  /**
-   * Perform the delete operation.
-   * @param suggestionId
-   * @private
-   */
-  private notMineImpl(suggestionId): Observable<any> {
-    return this.suggestionService.deleteReviewedSuggestion(suggestionId).pipe(
-      // catchError((error) => {
-      //   console.error('The delete request for id ' + suggestionId + ' has failed');
-      //   console.log('The operation is skipped');
-      //   return of(null);
-      // })
-    )
-  }
 }

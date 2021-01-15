@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of as observableOf } from 'rxjs';
-import { flatMap, map, take } from 'rxjs/operators';
+import { forkJoin, Observable, of as observableOf, throwError } from 'rxjs';
+import { catchError, flatMap, map, switchMap, take } from 'rxjs/operators';
 
 import { OpenaireSuggestionsDataService } from '../../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
@@ -16,11 +16,19 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import {
   getAllSucceededRemoteDataPayload,
-  getFinishedRemoteData,
+  getFinishedRemoteData, getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload
 } from '../../core/shared/operators';
 import { RestResponse } from '../../core/cache/response.models';
 import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
+import { of } from 'rxjs/internal/observable/of';
+import { tap } from 'rxjs/internal/operators/tap';
+import { ItemDataService } from '../../core/data/item-data.service';
+
+export interface SuggestionBulkResult {
+  success: number;
+  fails: number;
+}
 
 /**
  * The service handling all Suggestion Target  requests to the REST service.
@@ -151,4 +159,72 @@ export class SuggestionsService {
       take(1)
     )
   }
+
+  /**
+   * Perform the approve and import operation over a single suggestion
+   * @param suggestion target suggestion
+   * @param collectionId the collectionId
+   * @param itemService injected dependency
+   * @private
+   */
+  public approveAndImport(itemService: ItemDataService, suggestion: OpenaireSuggestion, collectionId: string): Observable<string> {
+    return itemService.importExternalSourceEntry(suggestion.externalSourceUri, collectionId)
+      .pipe(
+        getFirstSucceededRemoteDataPayload(),
+        tap((res) => {
+          console.log(res);
+        }),
+        switchMap((res) => {
+          return this.deleteReviewedSuggestion(suggestion.id).pipe(
+            catchError((error) => of(null))
+          );
+        }),
+        catchError((error) => of(null))
+      );
+    ;
+  }
+
+  /**
+   * Perform the delete operation over a single suggestion.
+   * @param suggestionId
+   */
+  public notMine(suggestionId): Observable<any> {
+    return this.deleteReviewedSuggestion(suggestionId).pipe(
+      catchError((error) => of(null))
+    )
+  }
+
+  /**
+   * Perform a bulk approve and import operation.
+   * @param itemService injected dependency
+   * @param suggestions the array containing the suggestions
+   * @param collectionId the collectionId
+   */
+  public approveAndImportMultiple(itemService: ItemDataService,
+                                  suggestions: OpenaireSuggestion[],
+                                  collectionId: string): Observable<SuggestionBulkResult> {
+
+    return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) => this.approveAndImport(itemService, suggestion, collectionId)))
+      .pipe(map((results: string[]) => {
+        return {
+          success: results.filter((result) => result != null).length,
+          fails: results.filter((result) => result == null).length
+        }
+      }), take(1));
+  }
+
+  /**
+   * Perform a bulk notMine operation.
+   * @param suggestions the array containing the suggestions
+   */
+  public notMineMultiple(suggestions: OpenaireSuggestion[]): Observable<SuggestionBulkResult> {
+    return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) => this.notMine(suggestion.id)))
+      .pipe(map((results: string[]) => {
+        return {
+          success: results.filter((result) => result != null).length,
+          fails: results.filter((result) => result == null).length
+        }
+      }), take(1));
+  }
+
 }

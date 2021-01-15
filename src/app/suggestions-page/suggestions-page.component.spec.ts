@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { SuggestionsPageComponent } from './suggestions-page.component';
@@ -23,6 +23,9 @@ import { RemoteData } from '../core/data/remote-data';
 import { mockSuggestionTargetsObjectOne } from '../shared/mocks/reciter-suggestion-targets.mock';
 import { ItemDataService } from '../core/data/item-data.service';
 import { AuthService } from '../core/auth/auth.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
+import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
@@ -64,6 +67,8 @@ describe('SuggestionPageComponent', () => {
         { provide: ItemDataService, useValue: itemServiceMock },
         { provide: Router, useValue: router },
         { provide: SuggestionsService, useValue: mockSuggestionsService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: TranslateService, useValue: getMockTranslateService() },
         SuggestionsPageComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]

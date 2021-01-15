@@ -2836,11 +2836,21 @@
 
   "reciter.suggestion.approveAndImport": "Approve & import",
 
+  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully",
+
   "reciter.suggestion.approveAndImport.bulk": "Approve & import Selected",
 
-  "reciter.suggestion.notMine": "Not mine",
+  "reciter.suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
+
+  "reciter.suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
+
+  "reciter.suggestion.notMine.success": "The suggestion has been discarded",
 
   "reciter.suggestion.notMine.bulk": "Not mine Selected",
+
+  "reciter.suggestion.notMine.bulk.success": "{{ count }} suggestions have been discarded ",
+
+  "reciter.suggestion.notMine.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
 
   "reciter.suggestion.seeEvidence": "See evidence",
 

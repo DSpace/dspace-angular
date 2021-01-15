@@ -279,7 +279,7 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
     });
 
     describe('getOpenaireBrokerEvents', () => {
-      fit('should call the "openaireBrokerEventRestService.getEventsByTopic" to take data and "setEventUpdated" to populate eventData', () => {
+      it('should call the "openaireBrokerEventRestService.getEventsByTopic" to take data and "setEventUpdated" to populate eventData', () => {
         comp.paginationConfig = new PaginationComponentOptions();
         comp.paginationConfig.pageSize = 10;
         comp.paginationConfig.currentPage = 1;
