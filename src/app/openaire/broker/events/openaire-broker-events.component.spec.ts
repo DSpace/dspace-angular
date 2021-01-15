@@ -30,6 +30,7 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { FindListOptions } from '../../../core/data/request.models';
+import {SortDirection, SortOptions} from '../../../core/cache/models/sort-options.model';
 
 describe('OpenaireBrokerEventsComponent test suite', () => {
   let fixture: ComponentFixture<OpenaireBrokerEventsComponent>;
@@ -278,14 +279,16 @@ describe('OpenaireBrokerEventsComponent test suite', () => {
     });
 
     describe('getOpenaireBrokerEvents', () => {
-      it('should call the "openaireBrokerEventRestService.getEventsByTopic" to take data and "setEventUpdated" to populate eventData', () => {
+      fit('should call the "openaireBrokerEventRestService.getEventsByTopic" to take data and "setEventUpdated" to populate eventData', () => {
         comp.paginationConfig = new PaginationComponentOptions();
         comp.paginationConfig.pageSize = 10;
         comp.paginationConfig.currentPage = 1;
+        comp.paginationSortConfig = new SortOptions('trust', SortDirection.DESC);
         comp.topic = activatedRouteParamsMap.id;
         const options: FindListOptions = {
           elementsPerPage: comp.paginationConfig.pageSize,
           currentPage: comp.paginationConfig.currentPage,
+          sort: comp.paginationSortConfig
         };
 
         const pageInfo = new PageInfo({
