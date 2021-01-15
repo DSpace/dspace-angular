@@ -49,6 +49,12 @@ export class OpenaireSuggestion implements CacheableObject {
   externalSourceUri: string;
 
   /**
+   * The Total Score of the suggestion
+   */
+  @autoserialize
+  score: number;
+
+  /**
    * The total number of suggestions provided by Suggestion Target for
    */
   @autoserialize
