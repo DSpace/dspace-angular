@@ -3,16 +3,6 @@
     <div class="col-12">
       <h3 id="header" class="border-bottom pb-2">{{'reciter.suggestion.title'| translate}}</h3>
 
-      <div class="mb-3 mt-3">
-        <button class="btn btn-light">Select / Deselect All</button>
-        <em>({{ 3 }})</em>
-        <ds-suggestion-actions *ngIf="3 > 0"
-                               class="mt-2"
-                               [isBulk]="true"
-        ></ds-suggestion-actions>
-        <i class='fas fa-circle-notch fa-spin'></i>
-      </div>
-
       <ds-loading class="container" *ngIf="(isTargetsLoading() | async)" message="{{'reciter.suggestion.loading' | translate}}"></ds-loading>
       <ds-pagination *ngIf="!(isTargetsLoading() | async)"
                      [paginationOptions]="paginationConfig"
