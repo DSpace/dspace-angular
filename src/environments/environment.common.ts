@@ -65,9 +65,9 @@ export const environment: GlobalConfig = {
   submission: {
     autosave: {
       // NOTE: which metadata trigger an autosave
-      metadata: [],
+      metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
       // NOTE: every how many minutes submission is saved automatically
-      timer: 0
+      timer: 5
     },
     icons: {
       metadata: [
