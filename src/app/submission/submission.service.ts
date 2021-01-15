@@ -666,7 +666,7 @@ export class SubmissionService {
     }
 
     // AUTOSAVE submission
-    const duration = environment.submission.autosave.timer;
+    const duration = environment.submission.autosave.timer * (1000 * 60);
     // Dispatch save action after given duration
     this.timer$ = observableTimer(duration, duration);
     this.autoSaveSub = this.timer$
