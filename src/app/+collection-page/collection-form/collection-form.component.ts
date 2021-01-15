@@ -21,7 +21,6 @@ import { DynamicFormOptionConfig } from '@ng-dynamic-forms/core/lib/model/dynami
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
-import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { SubmissionDefinitionModel } from '../../core/config/models/config-submission-definition.model';
 import { catchError, map } from 'rxjs/operators';
@@ -31,7 +30,8 @@ import {
   collectionFormSharedWorkspaceCheckboxConfig,
   collectionFormSubmissionDefinitionSelectionConfig
 } from './collection-form.models';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
 
 /**
  * Form used for creating and editing collections
@@ -101,7 +101,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     );
 
     const definitions$: Observable<SubmissionDefinitionModel[]> = this.submissionDefinitionService
-      .getConfigAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
+      .findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
         map((result: any) => result.payload as PaginatedList<SubmissionDefinitionModel>),
         map((result: PaginatedList<SubmissionDefinitionModel>) => result.page),
         catchError(() => observableOf([]))

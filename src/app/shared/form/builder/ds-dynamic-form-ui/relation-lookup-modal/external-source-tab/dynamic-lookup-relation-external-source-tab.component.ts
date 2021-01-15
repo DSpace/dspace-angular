@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ExternalSourceService } from '../../../../../../core/data/external-source.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
 import { startWith, switchMap } from 'rxjs/operators';

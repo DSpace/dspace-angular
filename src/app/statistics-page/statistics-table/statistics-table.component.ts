@@ -3,7 +3,7 @@ import { Point, UsageReport } from '../../core/statistics/models/usage-report.mo
 import { Observable, of } from 'rxjs';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { map } from 'rxjs/operators';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 
 /**
@@ -54,7 +54,7 @@ export class StatisticsTableComponent implements OnInit {
     switch (this.report.reportType) {
       case 'TotalVisits':
         return this.dsoService.findById(point.id).pipe(
-          getSucceededRemoteData(),
+          getFirstSucceededRemoteData(),
           getRemoteDataPayload(),
           map((item) => this.nameService.getName(item)),
         );

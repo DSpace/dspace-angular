@@ -1,13 +1,12 @@
 import { Router, UrlTree } from '@angular/router';
 import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
-import { filter, find, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
+import { filter, find, flatMap, map, switchMap, take, tap, takeWhile } from 'rxjs/operators';
+import { hasValue, hasValueOperator, isNotEmpty, hasNoValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/search-result.model';
-import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RestRequest } from '../data/request.models';
-import { RequestEntry } from '../data/request.reducer';
+import { RequestEntry, ResponseState } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
@@ -35,25 +34,11 @@ export const getRequestFromRequestUUID = (requestService: RequestService) =>
       hasValueOperator()
     );
 
-export const filterSuccessfulResponses = () =>
-  (source: Observable<RequestEntry>): Observable<RestResponse> =>
-    source.pipe(
-      getResponseFromEntry(),
-      filter((response: RestResponse) => response.isSuccessful === true),
-    );
-
 export const getResponseFromEntry = () =>
-  (source: Observable<RequestEntry>): Observable<RestResponse> =>
+  (source: Observable<RequestEntry>): Observable<ResponseState> =>
     source.pipe(
       filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
       map((entry: RequestEntry) => entry.response)
-    );
-
-export const getResourceLinksFromResponse = () =>
-  (source: Observable<RequestEntry>): Observable<string[]> =>
-    source.pipe(
-      filterSuccessfulResponses(),
-      map((response: DSOSuccessResponse) => response.resourceSelfLinks),
     );
 
 export const configureRequest = (requestService: RequestService) =>
@@ -68,21 +53,25 @@ export const getPaginatedListPayload = () =>
   <T>(source: Observable<PaginatedList<T>>): Observable<T[]> =>
     source.pipe(map((list: PaginatedList<T>) => list.page));
 
-export const getSucceededRemoteData = () =>
+export const getAllCompletedRemoteData = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(filter((rd: RemoteData<T>) => hasValue(rd) && rd.hasCompleted));
+
+export const getFirstCompletedRemoteData = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(getAllCompletedRemoteData(), take(1));
+
+export const takeUntilCompletedRemoteData = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(takeWhile((rd: RemoteData<T>) => hasNoValue(rd) || rd.isLoading, true));
+
+export const getFirstSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(filter((rd: RemoteData<T>) => rd.hasSucceeded), take(1));
 
-export const getSucceededRemoteWithNotEmptyData = () =>
+export const getFirstSucceededRemoteWithNotEmptyData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded && isNotEmpty(rd.payload)));
-
-export const getSucceededRemoteWithNotEmptyDataOrFailed = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    source.pipe(find((rd: RemoteData<T>) => (rd.hasSucceeded && isNotEmpty(rd.payload)) || rd.hasFailed));
-
-export const getSucceededOrNoContentResponse = () =>
-  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded || rd.hasNoContent));
 
 /**
  * Get the first successful remotely retrieved object
@@ -97,7 +86,7 @@ export const getSucceededOrNoContentResponse = () =>
 export const getFirstSucceededRemoteDataPayload = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload()
     );
 
@@ -114,7 +103,7 @@ export const getFirstSucceededRemoteDataPayload = () =>
 export const getFirstSucceededRemoteDataWithNotEmptyPayload = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(
-      getSucceededRemoteWithNotEmptyData(),
+      getFirstSucceededRemoteWithNotEmptyData(),
       getRemoteDataPayload()
     );
 
@@ -152,7 +141,7 @@ export const getAllSucceededRemoteDataPayload = () =>
 export const getFirstSucceededRemoteListPayload = () =>
   <T>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
     source.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       getPaginatedListPayload()
     );
@@ -190,9 +179,9 @@ export const redirectOn4xx = (router: Router, authService: AuthService) =>
     observableCombineLatest(source, authService.isAuthenticated()).pipe(
       map(([rd, isAuthenticated]: [RemoteData<T>, boolean]) => {
         if (rd.hasFailed) {
-          if (rd.error.statusCode === 404) {
+          if (rd.statusCode === 404) {
             router.navigateByUrl(getPageNotFoundRoute(), {skipLocationChange: true});
-          } else if (rd.error.statusCode === 403 || rd.error.statusCode === 401) {
+          } else if (rd.statusCode === 403 || rd.statusCode === 401) {
             if (isAuthenticated) {
               router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
             } else {
@@ -265,9 +254,10 @@ export const toDSpaceObjectListRD = () =>
  * @returns {(source: Observable<RemoteData<BrowseDefinition[]>>) => Observable<any>}
  */
 export const getBrowseDefinitionLinks = (definitionID: string) =>
-  (source: Observable<RemoteData<BrowseDefinition[]>>): Observable<any> =>
+  (source: Observable<RemoteData<PaginatedList<BrowseDefinition>>>): Observable<any> =>
     source.pipe(
       getRemoteDataPayload(),
+      getPaginatedListPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
         .find((def: BrowseDefinition) => def.id === definitionID)
       ),

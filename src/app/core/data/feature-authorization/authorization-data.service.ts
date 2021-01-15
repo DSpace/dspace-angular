@@ -15,20 +15,18 @@ import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
 import { AuthService } from '../../auth/auth.service';
 import { SiteDataService } from '../site-data.service';
-import { FindListOptions, FindListRequest } from '../request.models';
+import { FindListOptions } from '../request.models';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../remote-data';
-import { PaginatedList } from '../paginated-list';
-import { catchError, find, map, switchMap, tap } from 'rxjs/operators';
+import { PaginatedList } from '../paginated-list.model';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
-import {
-  addSiteObjectUrlIfEmpty,
-  oneAuthorizationMatchesFeature
-} from './authorization-utils';
+import { addSiteObjectUrlIfEmpty, oneAuthorizationMatchesFeature } from './authorization-utils';
 import { FeatureID } from './feature-id';
+import { getFirstCompletedRemoteData } from '../../shared/operators';
 
 /**
  * A service to retrieve {@link Authorization}s from the REST API
@@ -64,6 +62,7 @@ export class AuthorizationDataService extends DataService<Authorization> {
    */
   isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {
     return this.searchByObject(featureId, objectUrl, ePersonUuid, {}, followLink('feature')).pipe(
+      getFirstCompletedRemoteData(),
       map((authorizationRD) => {
         if (authorizationRD.statusCode !== 401 && hasValue(authorizationRD.payload) && isNotEmpty(authorizationRD.payload.page)) {
           return authorizationRD.payload.page;
@@ -91,35 +90,8 @@ export class AuthorizationDataService extends DataService<Authorization> {
     return observableOf(new AuthorizationSearchParams(objectUrl, ePersonUuid, featureId)).pipe(
       addSiteObjectUrlIfEmpty(this.siteService),
       switchMap((params: AuthorizationSearchParams) => {
-        return this.searchBy(this.searchByObjectPath, this.createSearchOptions(params.objectUrl, options, params.ePersonUuid, params.featureId), ...linksToFollow);
+        return this.searchBy(this.searchByObjectPath, this.createSearchOptions(params.objectUrl, options, params.ePersonUuid, params.featureId), true, ...linksToFollow);
       })
-    );
-  }
-
-  /**
-   * Make a new FindListRequest with given search method
-   *
-   * @param searchMethod The search method for the object
-   * @param options The [[FindListOptions]] object
-   * @param linksToFollow The array of [[FollowLinkConfig]]
-   * @return {Observable<RemoteData<PaginatedList<Authorization>>}
-   *    Return an observable that emits response from the server
-   */
-  searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Authorization>>): Observable<RemoteData<PaginatedList<Authorization>>> {
-    const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
-
-    return hrefObs.pipe(
-      find((href: string) => hasValue(href)),
-      tap((href: string) => {
-          const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
-
-          this.requestService.configure(request);
-        }
-      ),
-      switchMap((href) => this.requestService.getByHref(href)),
-      switchMap((href) =>
-        this.rdbService.buildList<Authorization>(hrefObs, ...linksToFollow) as Observable<RemoteData<PaginatedList<Authorization>>>
-      )
     );
   }
 

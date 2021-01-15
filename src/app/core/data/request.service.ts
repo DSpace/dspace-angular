@@ -3,25 +3,30 @@ import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
-import { filter, map, mergeMap, take, switchMap, startWith } from 'rxjs/operators';
-import { cloneDeep, remove } from 'lodash';
-import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../shared/empty.util';
-import { CacheableObject } from '../cache/object-cache.reducer';
+import { filter, map, mergeMap, take, switchMap, tap } from 'rxjs/operators';
+import { cloneDeep } from 'lodash';
+import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../../shared/empty.util';
+import { CacheableObject, ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { IndexName, IndexState, MetaIndexState } from '../index/index.reducer';
 import {
   originalRequestUUIDFromRequestUUIDSelector,
   requestIndexSelector,
-  uuidFromHrefSelector
+  uuidFromHrefSelector,
+  getUrlWithoutEmbedParams
 } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
-import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
+import {
+  RequestConfigureAction,
+  RequestExecuteAction,
+  RequestStaleAction
+} from './request.actions';
 import { GetRequest, RestRequest } from './request.models';
-import { RequestEntry, RequestState } from './request.reducer';
+import { RequestEntry, RequestState, hasCompleted, isStale, isLoading } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
-import { AddToIndexAction, RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import { AddToIndexAction } from '../index/index.actions';
 import { coreSelector } from '../core.selectors';
 
 /**
@@ -63,10 +68,42 @@ const uuidsFromHrefSubstringSelector =
 const getUuidsFromHrefSubstring = (state: IndexState, href: string): string[] => {
   let result = [];
   if (isNotEmpty(state)) {
-    result = Object.keys(state).filter((key) => key.startsWith(href)).map((key) => state[key]);
+    result = Object.keys(state).filter((key) => key.includes(href)).map((key) => state[key]);
   }
   return result;
 };
+
+/**
+ * Check whether a cached entry exists and isn't stale
+ *
+ * @param entry
+ *    the entry to check
+ * @return boolean
+ *    false if the entry has no value, or its time to live has exceeded,
+ *    true otherwise
+ */
+const isValid = (entry: RequestEntry): boolean => {
+  if (hasNoValue(entry)) {
+    // undefined entries are invalid
+    return false
+  } else {
+    if (isLoading(entry.state)) {
+      // entries that are still loading are always valid
+      return true;
+    } else {
+      if (isStale(entry.state)) {
+        // entries that are stale are always invalid
+        return false;
+      } else {
+        // check whether it should be stale
+        const timeOutdated = entry.response.timeCompleted + entry.request.responseMsToLive;
+        const now = new Date().getTime();
+        const isOutDated = now > timeOutdated;
+        return !isOutDated;
+      }
+    }
+  }
+}
 
 /**
  * A service to interact with the request state in the store
@@ -101,7 +138,7 @@ export class RequestService {
     this.getByHref(request.href).pipe(
       take(1))
       .subscribe((re: RequestEntry) => {
-        isPending = (hasValue(re) && !re.completed)
+        isPending = (hasValue(re) && !hasCompleted(re.state))
       });
     return isPending;
   }
@@ -117,7 +154,7 @@ export class RequestService {
       this.store.pipe(
         select(originalRequestUUIDFromRequestUUIDSelector(uuid)),
         switchMap((originalUUID) => {
-              return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
+            return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
           },
         ),
       ),
@@ -131,6 +168,11 @@ export class RequestService {
           entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers)
         }
         return entry;
+      }),
+      tap((entry: RequestEntry) => {
+        if (hasValue(entry) && !isStale(entry.state) && !isValid(entry)) {
+          this.store.dispatch(new RequestStaleAction(uuid));
+        }
       })
     );
   }
@@ -198,22 +240,32 @@ export class RequestService {
   }
 
   /**
-   * Remove all request cache providing (part of) the href
-   * This also includes href-to-uuid index cache
+   * Set all requests that match (part of) the href to stale
+   *
+   * @param href    A substring of the request(s) href
+   * @return        Returns an observable emitting whether or not the cache is removed
+   * @deprecated    use setStaleByHrefSubstring instead
+   */
+  removeByHrefSubstring(href: string): Observable<boolean> {
+    return this.setStaleByHrefSubstring(href);
+  }
+
+  /**
+   * Set all requests that match (part of) the href to stale
+   *
    * @param href    A substring of the request(s) href
    * @return        Returns an observable emitting whether or not the cache is removed
    */
-  removeByHrefSubstring(href: string): Observable<boolean> {
+  setStaleByHrefSubstring(href: string): Observable<boolean> {
     this.store.pipe(
       select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
       take(1)
     ).subscribe((uuids: string[]) => {
       for (const uuid of uuids) {
-        this.removeByUuid(uuid);
+        this.store.dispatch(new RequestStaleAction(uuid));
       }
     });
     this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((reqHref: string) => reqHref.indexOf(href) < 0);
-    this.indexStore.dispatch(new RemoveFromIndexBySubstringAction(IndexName.REQUEST, href));
 
     return this.store.pipe(
       select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
@@ -222,24 +274,27 @@ export class RequestService {
   }
 
   /**
-   * Remove request cache using the request's UUID
-   * @param uuid
-   */
-  removeByUuid(uuid: string) {
-    this.store.dispatch(new RequestRemoveAction(uuid));
-  }
-
-  /**
    * Check if a request is in the cache or if it's still pending
    * @param {GetRequest} request The request to check
    * @returns {boolean} True if the request is cached or still pending
    */
   public isCachedOrPending(request: GetRequest): boolean {
-    const inReqCache = this.hasByHref(request.href);
-    const inObjCache = this.objectCache.hasBySelfLink(request.href);
-    const isCached = inReqCache || inObjCache;
-    const isPending = this.isPending(request);
-    return isCached || isPending;
+    if (this.isPending(request)) {
+      return true;
+    } else {
+      const urlWithoutEmbedParams = getUrlWithoutEmbedParams(request.href);
+      if (this.hasByHref(urlWithoutEmbedParams) === true) {
+        return true;
+      } else {
+        let inObjCache = false;
+        this.objectCache.getByHref(urlWithoutEmbedParams)
+          .subscribe((entry: ObjectCacheEntry) => {
+            inObjCache = this.hasByUUID(entry.requestUUID);
+          }).unsubscribe();
+
+        return inObjCache;
+      }
+    }
   }
 
   /**
@@ -260,25 +315,11 @@ export class RequestService {
    */
   private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
-    this.getByHref(request.href).pipe(
+    this.getByUUID(request.uuid).pipe(
       filter((re: RequestEntry) => hasValue(re)),
       take(1)
     ).subscribe((re: RequestEntry) => {
       this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
-    });
-  }
-
-  /**
-   * This method remove requests that are on their way to the store.
-   */
-  private clearRequestsOnTheirWayToTheStore(request: GetRequest) {
-    this.getByHref(request.href).pipe(
-      filter((re: RequestEntry) => hasValue(re)),
-      take(1)
-    ).subscribe((re: RequestEntry) => {
-      if (!re.responsePending) {
-        remove(this.requestsOnTheirWayToTheStore, (item) => item === request.href);
-      }
     });
   }
 
@@ -291,50 +332,76 @@ export class RequestService {
   }
 
   /**
-   * Check whether a cached response should still be valid
+   * Check whether the request with the specified href is cached
    *
-   * @param entry
-   *    the entry to check
+   * @param href
+   *    The link of the request to check
+   * @param checkValidity
+   *    Whether or not to check the validity of an entry if one is found
    * @return boolean
-   *    false if the uuid has no value, the response was not successful or its time to
-   *    live was exceeded, true otherwise
+   *    true if a request with the specified href is cached and is valid (if checkValidity is true)
+   *    false otherwise
    */
-  private isValid(entry: RequestEntry): boolean {
-    if (hasValue(entry) && entry.completed && entry.response.isSuccessful) {
-      const timeOutdated = entry.response.timeAdded + entry.request.responseMsToLive;
-      const isOutDated = new Date().getTime() > timeOutdated;
-      return !isOutDated;
-    } else {
-      return false;
-    }
+  hasByHref(href: string, checkValidity = true): boolean {
+    let result = false;
+    /* NB: that this is only a solution because the select method is synchronous, see: https://github.com/ngrx/store/issues/296#issuecomment-269032571*/
+    this.hasByHref$(href, checkValidity)
+      .subscribe((hasByHref: boolean) => result = hasByHref)
+      .unsubscribe();
+    return result;
   }
 
   /**
    * Check whether the request with the specified href is cached
    *
    * @param href
-   *    The link of the request to check
-   * @return boolean
-   *    true if the request with the specified href is cached,
+   *    The href of the request to check
+   * @param checkValidity
+   *    Whether or not to check the validity of an entry if one is found
+   * @return Observable<boolean>
+   *    true if a request with the specified href is cached and is valid (if checkValidity is true)
    *    false otherwise
    */
-  hasByHref(href: string): boolean {
+  hasByHref$(href: string, checkValidity = true): Observable<boolean> {
+    return this.getByHref(href).pipe(
+      map((requestEntry: RequestEntry) => checkValidity ? isValid(requestEntry) : hasValue(requestEntry))
+    );
+  }
+
+  /**
+   * Check whether the request with the specified uuid is cached
+   *
+   * @param uuid
+   *    The link of the request to check
+   * @param checkValidity
+   *    Whether or not to check the validity of an entry if one is found
+   * @return boolean
+   *    true if a request with the specified uuid is cached and is valid (if checkValidity is true)
+   *    false otherwise
+   */
+  hasByUUID(uuid: string, checkValidity = true): boolean {
     let result = false;
     /* NB: that this is only a solution because the select method is synchronous, see: https://github.com/ngrx/store/issues/296#issuecomment-269032571*/
-    this.getByHref(href).pipe(
-      take(1)
-    ).subscribe((requestEntry: RequestEntry) => result = this.isValid(requestEntry));
+    this.hasByUUID$(uuid, checkValidity)
+      .subscribe((hasByUUID: boolean) => result = hasByUUID)
+      .unsubscribe();
     return result;
   }
 
   /**
-   * Create an observable that emits a new value whenever the availability of the cached request changes.
-   * The value it emits is a boolean stating if the request exists in cache or not.
-   * @param href  The href of the request to observe
+   * Check whether the request with the specified uuid is cached
+   *
+   * @param uuid
+   *    The uuid of the request to check
+   * @param checkValidity
+   *    Whether or not to check the validity of an entry if one is found
+   * @return Observable<boolean>
+   *    true if a request with the specified uuid is cached and is valid (if checkValidity is true)
+   *    false otherwise
    */
-  hasByHrefObservable(href: string): Observable<boolean> {
-    return this.getByHref(href).pipe(
-      map((requestEntry: RequestEntry) => this.isValid(requestEntry))
+  hasByUUID$(uuid: string, checkValidity = true): Observable<boolean> {
+    return this.getByUUID(uuid).pipe(
+      map((requestEntry: RequestEntry) => checkValidity ? isValid(requestEntry) : hasValue(requestEntry))
     );
   }
 

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { flatMap, take } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { FindListOptions } from '../../core/data/request.models';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -14,8 +13,9 @@ import { AuditDataService } from '../../core/audit/audit-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { getSucceededRemoteData, redirectOn4xx } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, redirectOn4xx } from '../../core/shared/operators';
 import { AuthService } from '../../core/auth/auth.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 
 /**
  * Component displaying a list of all audit about a object in a paginated table
@@ -71,9 +71,8 @@ export class ObjectAuditOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
       this.itemService.findById(paramMap.get('objectId')).pipe(
-        getSucceededRemoteData(),
+        getFirstCompletedRemoteData(),
         redirectOn4xx(this.router, this.authService),
-        take(1)
       ).subscribe((rd) => {
         this.object = rd.payload;
         this.setAudits();

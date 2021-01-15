@@ -6,7 +6,7 @@ import { Collection } from '../core/shared/collection.model';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { Observable } from 'rxjs';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../core/shared/operators';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
 import { getDSORoute } from '../app-routing-paths';
@@ -29,7 +29,7 @@ export class BrowseByDSOBreadcrumbResolver {
     const uuid = route.queryParams.scope;
     if (hasValue(uuid)) {
       return this.dataService.findById(uuid).pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         map((object: Community | Collection) => {
           return { provider: this.breadcrumbService, key: object, url: getDSORoute(object) };

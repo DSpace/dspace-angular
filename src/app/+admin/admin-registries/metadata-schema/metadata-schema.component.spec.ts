@@ -1,7 +1,7 @@
 import { MetadataSchemaComponent } from './metadata-schema.component';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -100,11 +100,11 @@ describe('MetadataSchemaComponent', () => {
       schema: createSuccessfulRemoteDataObject$(mockSchemasList[1])
     }
   ];
-  const mockSchemas = createSuccessfulRemoteDataObject$(new PaginatedList(null, mockSchemasList));
+  const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
   /* tslint:disable:no-empty */
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
-    getMetadataFieldsBySchema: (schema: MetadataSchema) => createSuccessfulRemoteDataObject$(new PaginatedList(null, mockFieldsList.filter((value) => value.id === 3 || value.id === 4))),
+    getMetadataFieldsBySchema: (schema: MetadataSchema) => createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockFieldsList.filter((value) => value.id === 3 || value.id === 4))),
     getMetadataSchemaByPrefix: (schemaName: string) => createSuccessfulRemoteDataObject$(mockSchemasList.filter((value) => value.prefix === schemaName)[0]),
     getActiveMetadataField: () => observableOf(undefined),
     getSelectedMetadataFields: () => observableOf([]),

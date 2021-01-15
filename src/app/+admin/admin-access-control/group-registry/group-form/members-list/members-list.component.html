@@ -24,7 +24,7 @@
     </div>
   </form>
 
-  <ds-pagination *ngIf="(ePeopleSearch | async)?.payload.totalElements > 0"
+  <ds-pagination *ngIf="(ePeopleSearch | async)?.payload?.totalElements > 0"
                  [paginationOptions]="configSearch"
                  [pageInfoState]="(ePeopleSearch | async)?.payload"
                  [collectionSize]="(ePeopleSearch | async)?.payload?.totalElements"
@@ -70,7 +70,7 @@
 
   </ds-pagination>
 
-  <div *ngIf="(ePeopleSearch | async)?.payload.totalElements == 0 && searchDone"
+  <div *ngIf="(ePeopleSearch | async)?.payload?.totalElements == 0 && searchDone"
        class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-items' | translate}}
@@ -78,7 +78,7 @@
 
   <h4>{{messagePrefix + '.headMembers' | translate}}</h4>
 
-  <ds-pagination *ngIf="(ePeopleMembersOfGroup | async)?.payload.totalElements > 0"
+  <ds-pagination *ngIf="(ePeopleMembersOfGroup | async)?.payload?.totalElements > 0"
                  [paginationOptions]="config"
                  [pageInfoState]="(ePeopleMembersOfGroup | async)?.payload"
                  [collectionSize]="(ePeopleMembersOfGroup | async)?.payload?.totalElements"
@@ -116,7 +116,7 @@
 
   </ds-pagination>
 
-  <div *ngIf="(ePeopleMembersOfGroup | async)?.payload.totalElements == 0" class="alert alert-info w-100 mb-2"
+  <div *ngIf="(ePeopleMembersOfGroup | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-members-yet' | translate}}
   </div>

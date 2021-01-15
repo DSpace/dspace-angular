@@ -1,5 +1,4 @@
-<ds-loading *ngIf="(dataSource.loading$ | async) && loadingNode === undefined " class="ds-loading"></ds-loading>
-
+<ds-loading *ngIf="(dataSource.loading$ | async) && !loadingNode" class="ds-loading"></ds-loading>
 <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <!-- This is the tree node template for show more node -->
   <cdk-tree-node *cdkTreeNodeDef="let node; when: isShowMore" cdkTreeNodePadding

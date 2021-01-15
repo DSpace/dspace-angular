@@ -18,7 +18,7 @@ class TestService extends BaseResponseParsingService {
   }
 
   public cache<ObjectDomain>(obj, request: RestRequest, data: any) {
-    super.cache(obj, request, data);
+    super.cache(obj, request, data, undefined);
   }
 }
 
@@ -62,7 +62,7 @@ describe('BaseResponseParsingService', () => {
 
       it('should call objectCache add', () => {
         service.cache(obj, request, {});
-        expect(objectCache.add).toHaveBeenCalledWith(obj, request.responseMsToLive, request.uuid);
+        expect(objectCache.add).toHaveBeenCalledWith(obj, request.responseMsToLive, request.uuid, undefined);
       });
     });
   });

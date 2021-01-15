@@ -13,10 +13,11 @@ import { RemoteData } from '../core/data/remote-data';
 import { RequestEntry } from '../core/data/request.reducer';
 import { RequestService } from '../core/data/request.service';
 import { Collection } from '../core/shared/collection.model';
-import { redirectOn4xx } from '../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, redirectOn4xx } from '../core/shared/operators';
 import { ProcessParameter } from '../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { AuthService } from '../core/auth/auth.service';
+import { Process } from '../process-page/processes/process.model';
 
 /**
  * Page to perform an items bulk imports into the given collection.
@@ -99,9 +100,9 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
     }
 
     this.scriptService.invoke('bulk-import', stringParameters, [file])
-      .pipe(take(1))
-      .subscribe((requestEntry: RequestEntry) => {
-        if (requestEntry.response.isSuccessful) {
+      .pipe(getFirstCompletedRemoteData())
+      .subscribe((rd: RemoteData<Process>) => {
+        if (rd.isSuccess) {
           this.notificationsService.success(this.translationService.get('bulk-import.success'));
           this.navigateToProcesses();
         } else {
@@ -124,7 +125,7 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
   }
 
   private navigateToProcesses() {
-    this.requestService.removeByHrefSubstring('/processes');
+    this.requestService.setStaleByHrefSubstring('/processes');
     this.router.navigateByUrl('/processes');
   }
 

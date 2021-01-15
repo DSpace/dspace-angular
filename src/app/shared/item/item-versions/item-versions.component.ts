@@ -7,13 +7,14 @@ import { VersionHistory } from '../../../core/shared/version-history.model';
 import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
 import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 import { AlertType } from '../../alert/aletr-type';
 import { followLink } from '../../utils/follow-link-config.model';
+import { hasValueOperator } from '../../empty.util';
 
 @Component({
   selector: 'ds-item-versions',
@@ -98,11 +99,13 @@ export class ItemVersionsComponent implements OnInit {
     this.versionHistoryRD$ = this.versionRD$.pipe(
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
+      hasValueOperator(),
       switchMap((version: Version) => version.versionhistory)
     );
     const versionHistory$ = this.versionHistoryRD$.pipe(
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
+      hasValueOperator(),
     );
     this.versionsRD$ = observableCombineLatest(versionHistory$, this.currentPage$).pipe(
       switchMap(([versionHistory, page]: [VersionHistory, number]) =>
@@ -113,6 +116,7 @@ export class ItemVersionsComponent implements OnInit {
     this.hasEpersons$ = this.versionsRD$.pipe(
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
+      hasValueOperator(),
       map((versions: PaginatedList<Version>) => versions.page.filter((version: Version) => version.eperson !== undefined).length > 0),
       startWith(false)
     );

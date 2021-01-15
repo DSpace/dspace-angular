@@ -8,7 +8,7 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { CreateRequest, PutRequest } from './request.models';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 
 describe('MetadataSchemaDataService', () => {
   let metadataSchemaService: MetadataSchemaDataService;
@@ -30,9 +30,7 @@ describe('MetadataSchemaDataService', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', {
       error: {}
     });
-    rdbService = jasmine.createSpyObj('rdbService', {
-      buildSingle: createSuccessfulRemoteDataObject$(undefined)
-    });
+    rdbService = getMockRemoteDataBuildService();
     metadataSchemaService = new MetadataSchemaDataService(requestService, rdbService, undefined, halService, undefined, undefined, undefined, notificationsService);
   }
 

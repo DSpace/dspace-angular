@@ -57,7 +57,7 @@ describe('ItemTemplateDataService', () => {
     addPatch(self, operations) {
       // Do nothing
     }
-  } as ObjectCacheService;
+  } as any;
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
       return cold('a', {a: itemEndpoint});

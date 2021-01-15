@@ -97,7 +97,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
   getRemoteDataPayload,
-  getSucceededRemoteData
+  getFirstSucceededRemoteData
 } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
@@ -106,7 +106,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.reducer';
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Collection } from '../../../../core/shared/collection.model';
@@ -280,6 +280,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
             const relationshipsRD$ = this.relationshipService.getItemRelationshipsByLabel(item,
               relationshipOptions.relationshipType,
               undefined,
+              true,
               followLink('leftItem'),
               followLink('rightItem'),
               followLink('relationshipType')
@@ -301,7 +302,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
             return relationshipsRD$.pipe(
               paginatedRelationsToItems(item.uuid),
-              getSucceededRemoteData(),
+              getFirstSucceededRemoteData(),
               map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((i) => Object.assign(new ItemSearchResult(), { indexableObject: i }))),
             )
           })
@@ -316,7 +317,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       }
 
       if (hasValue(this.value) && this.value.isVirtual) {
-        const relationship$ = this.relationshipService.findById(this.value.virtualValue, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
+        const relationship$ = this.relationshipService.findById(this.value.virtualValue, true, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
           .pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
@@ -467,7 +468,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   private setItem() {
     const submissionObject$ = this.submissionObjectService
-      .findById(this.model.submissionId, followLink('item'), followLink('collection')).pipe(
+      .findById(this.model.submissionId, true, followLink('item'), followLink('collection')).pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload()
       );

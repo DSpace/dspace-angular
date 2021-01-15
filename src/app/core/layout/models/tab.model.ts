@@ -10,7 +10,7 @@ import { BOX } from './box.resource-type';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../data/remote-data';
 import { Box } from './box.model';
-import { PaginatedList } from '../../data/paginated-list';
+import { PaginatedList } from '../../data/paginated-list.model';
 
 /**
  * Describes a type of Tab

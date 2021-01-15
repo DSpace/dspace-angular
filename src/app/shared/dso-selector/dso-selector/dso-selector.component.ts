@@ -24,7 +24,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { SearchResult } from '../../search/search-result.model';
 
 @Component({
@@ -133,7 +133,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
     if (isNotEmpty(this.currentDSOId)) {
       currentDSOResult$ = this.search(this.getCurrentDSOQuery(), 1);
     } else {
-      currentDSOResult$ = observableOf(new PaginatedList(undefined, []));
+      currentDSOResult$ = observableOf(buildPaginatedList(undefined, []));
     }
 
     // Combine current DSO, query and page

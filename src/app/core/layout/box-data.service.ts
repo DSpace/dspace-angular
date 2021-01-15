@@ -16,7 +16,7 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 
@@ -80,7 +80,7 @@ export class BoxDataService {
       new RequestParam('uuid', itemUuid),
       new RequestParam('tab', tabId)
     ];
-    return this.dataService.searchBy(this.searchFindByItem, options, ...linksToFollow);
+    return this.dataService.searchBy(this.searchFindByItem, options, true, ...linksToFollow);
   }
 
   /**
@@ -92,6 +92,6 @@ export class BoxDataService {
   findByEntityType(entityType: string, ...linksToFollow: Array<FollowLinkConfig<Box>>): Observable<RemoteData<PaginatedList<Box>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('type', entityType)]
-    return this.dataService.searchBy(this.searchFindByEntityType, options, ...linksToFollow);
+    return this.dataService.searchBy(this.searchFindByEntityType, options, true, ...linksToFollow);
   }
 }

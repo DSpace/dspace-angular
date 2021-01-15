@@ -54,7 +54,7 @@ describe('FacetSectionComponent', () => {
 
   const mockAuthorFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: 'author',
-    type: FilterType.text,
+    filterType: FilterType.text,
     _embedded: {
       values: [authorFirstValue, authorSecondValue]
     }
@@ -62,7 +62,7 @@ describe('FacetSectionComponent', () => {
 
   const mockSubjectFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: 'subject',
-    type: FilterType.hierarchy,
+    filterType: FilterType.hierarchy,
     _embedded: {
       values: []
     }
@@ -70,7 +70,7 @@ describe('FacetSectionComponent', () => {
 
   const mockDateIssuedFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: 'dateIssued',
-    type: FilterType.range,
+    filterType: FilterType.range,
     _embedded: {
       values: [dateIssuedValue]
     }

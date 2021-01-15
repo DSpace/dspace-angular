@@ -1,7 +1,8 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
 import { RestRequest } from './request.models';
-import { RestResponse } from '../cache/response.models';
+import { HALLink } from '../shared/hal-link.model';
+import { UnCacheableObject } from '../shared/uncacheable-object.model';
 
 /**
  * The list of RequestAction type definitions
@@ -9,24 +10,36 @@ import { RestResponse } from '../cache/response.models';
 export const RequestActionTypes = {
   CONFIGURE: type('dspace/core/data/request/CONFIGURE'),
   EXECUTE: type('dspace/core/data/request/EXECUTE'),
-  COMPLETE: type('dspace/core/data/request/COMPLETE'),
+  SUCCESS: type('dspace/core/data/request/SUCCESS'),
+  ERROR: type('dspace/core/data/request/ERROR'),
+  STALE: type('dspace/core/data/request/STALE'),
   RESET_TIMESTAMPS: type('dspace/core/data/request/RESET_TIMESTAMPS'),
   REMOVE: type('dspace/core/data/request/REMOVE')
 };
 
 /* tslint:disable:max-classes-per-file */
-export class RequestConfigureAction implements Action {
+export abstract class RequestUpdateAction implements Action {
+  abstract type: string;
+  lastUpdated: number;
+
+  constructor() {
+    this.lastUpdated = new Date().getTime();
+  }
+}
+
+export class RequestConfigureAction extends RequestUpdateAction {
   type = RequestActionTypes.CONFIGURE;
   payload: RestRequest;
 
   constructor(
     request: RestRequest
   ) {
+    super();
     this.payload = request;
   }
 }
 
-export class RequestExecuteAction implements Action {
+export class RequestExecuteAction extends RequestUpdateAction {
   type = RequestActionTypes.EXECUTE;
   payload: string;
 
@@ -37,36 +50,107 @@ export class RequestExecuteAction implements Action {
    *    the request's uuid
    */
   constructor(uuid: string) {
+    super();
     this.payload = uuid
   }
 }
 
 /**
- * An ngrx action to indicate a response was returned
+ * An ngrx action to indicate a successful response was returned
  */
-export class RequestCompleteAction implements Action {
-  type = RequestActionTypes.COMPLETE;
+export class RequestSuccessAction extends RequestUpdateAction {
+  type = RequestActionTypes.SUCCESS;
   payload: {
     uuid: string,
-    response: RestResponse
+    timeCompleted: number,
+    statusCode: number,
+    link?: HALLink,
+    unCacheableObject?: UnCacheableObject
   };
 
   /**
-   * Create a new RequestCompleteAction
+   * Create a new RequestSuccessAction
    *
    * @param uuid
    *    the request's uuid
+   * @param statusCode
+   *    the statusCode of the response
+   * @param link
+   *    the HALlink to the object that was returned, and has been cached
+   * @param unCacheableObject
+   *    in case the REST API returns an object that can't be cached, because it doesn't have a self
+   *    link, provide it here
    */
-  constructor(uuid: string, response: RestResponse) {
+  constructor(uuid: string, statusCode: number, link?: HALLink, unCacheableObject?: UnCacheableObject) {
+    super();
     this.payload = {
       uuid,
-      response
+      timeCompleted: new Date().getTime(),
+      statusCode,
+      link,
+      unCacheableObject
     };
   }
 }
 
 /**
- * An ngrx action to reset the timeAdded property of all responses in the cached objects
+ * An ngrx action to indicate an error response was returned
+ */
+export class RequestErrorAction extends RequestUpdateAction {
+  type = RequestActionTypes.ERROR;
+  payload: {
+    uuid: string,
+    timeCompleted: number,
+    statusCode: number,
+    errorMessage: string
+  };
+
+  /**
+   * Create a new RequestErrorAction
+   *
+   * @param uuid
+   *    the request's uuid
+   * @param statusCode
+   *    the statusCode of the response
+   * @param errorMessage
+   *    the error message in the response
+   */
+  constructor(uuid: string, statusCode: number, errorMessage: string) {
+    super();
+    this.payload = {
+      uuid,
+      timeCompleted: new Date().getTime(),
+      statusCode,
+      errorMessage
+    };
+  }
+}
+
+/**
+ * An ngrx action to indicate the response to this request is stale
+ */
+export class RequestStaleAction extends RequestUpdateAction {
+  type = RequestActionTypes.STALE;
+  payload: {
+    uuid: string,
+  };
+
+  /**
+   * Create a new RequestStaleAction
+   *
+   * @param uuid
+   *    the request's uuid
+   */
+  constructor(uuid: string) {
+    super();
+    this.payload = {
+      uuid,
+    };
+  }
+}
+
+/**
+ * An ngrx action to reset the timeCompleted property of all responses in the cached objects
  */
 export class ResetResponseTimestampsAction implements Action {
   type = RequestActionTypes.RESET_TIMESTAMPS;
@@ -76,7 +160,7 @@ export class ResetResponseTimestampsAction implements Action {
    * Create a new ResetResponseTimestampsAction
    *
    * @param newTimestamp
-   *    the new timeAdded all objects should get
+   *    the new timeCompleted all objects should get
    */
   constructor(newTimestamp: number) {
     this.payload = newTimestamp;
@@ -109,6 +193,8 @@ export class RequestRemoveAction implements Action {
 export type RequestAction
   = RequestConfigureAction
   | RequestExecuteAction
-  | RequestCompleteAction
+  | RequestSuccessAction
+  | RequestErrorAction
+  | RequestStaleAction
   | ResetResponseTimestampsAction
   | RequestRemoveAction;

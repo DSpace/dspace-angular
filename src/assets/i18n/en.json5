@@ -494,13 +494,9 @@
 
   "admin.search.item.move": "Move",
 
-  "admin.search.item.private": "Private",
-
   "admin.search.item.reinstate": "Reinstate",
 
   "admin.search.item.withdraw": "Withdraw",
-
-  "admin.search.item.withdrawn": "Withdrawn",
 
   "admin.search.title": "Administrative Search",
 
@@ -1661,9 +1657,21 @@
 
 
 
+  "item.alerts.private": "This item is private",
+
+  "item.alerts.withdrawn": "This item has been withdrawn",
+
+
+
   "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
 
   "item.edit.authorizations.title": "Edit item's Policies",
+
+
+
+  "item.badge.private": "Private",
+
+  "item.badge.withdrawn": "Withdrawn",
 
 
 
@@ -3593,6 +3601,10 @@
   "search.view-switch.show-list": "Show as list",
 
 
+
+  "sorting.ASC": "Ascending",
+
+  "sorting.DESC": "Descending",
 
   "sorting.dc.title.ASC": "Title Ascending",
 

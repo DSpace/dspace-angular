@@ -18,6 +18,7 @@ import {
 } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { TestScheduler } from 'rxjs/testing';
 import { CoreState } from '../core.reducers';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 
 describe('BitstreamFormatDataService', () => {
   let service: BitstreamFormatDataService;
@@ -29,7 +30,6 @@ describe('BitstreamFormatDataService', () => {
 
   const responseCacheEntry = new RequestEntry();
   responseCacheEntry.response = new RestResponse(true, 200, 'Success');
-  responseCacheEntry.completed = true;
 
   const store = {
     dispatch(action: Action) {
@@ -47,9 +47,16 @@ describe('BitstreamFormatDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const rdbService = {} as RemoteDataBuildService;
+
+  let rd;
+  let rdbService: RemoteDataBuildService;
 
   function initTestService(halService) {
+    rd = createSuccessfulRemoteDataObject({});
+    rdbService = jasmine.createSpyObj('rdbService', {
+      buildFromRequestUUID: observableOf(rd)
+    });
+
     return new BitstreamFormatDataService(
       requestService,
       rdbService,
@@ -141,7 +148,7 @@ describe('BitstreamFormatDataService', () => {
       const updatedBistreamFormat = new BitstreamFormat();
       updatedBistreamFormat.uuid = 'updated-uuid';
 
-      const expected = cold('(b)', {b: new RestResponse(true, 200, 'Success')});
+      const expected = cold('(b|)', {b: rd});
       const result = service.updateBitstreamFormat(updatedBistreamFormat);
 
       expect(result).toBeObservable(expected);
@@ -165,7 +172,7 @@ describe('BitstreamFormatDataService', () => {
       const newFormat = new BitstreamFormat();
       newFormat.uuid = 'new-uuid';
 
-      const expected = cold('(b)', {b: new RestResponse(true, 200, 'Success')});
+      const expected = cold('(b|)', {b: rd});
       const result = service.createBitstreamFormat(newFormat);
 
       expect(result).toBeObservable(expected);
@@ -281,7 +288,7 @@ describe('BitstreamFormatDataService', () => {
       format.uuid = 'format-uuid';
       format.id = 'format-id';
 
-      const expected = cold('(b|)', { b: responseCacheEntry.response });
+      const expected = cold('(b|)', { b: rd });
       const result = service.delete(format.id);
 
       expect(result).toBeObservable(expected);

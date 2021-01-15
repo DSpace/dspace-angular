@@ -2,7 +2,7 @@ import { Observable, of as observableOf } from 'rxjs';
 
 import { PageInfo } from '../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { RemoteData } from '../../core/data/remote-data';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
@@ -24,11 +24,11 @@ export class VocabularyServiceStub {
   }
 
   getVocabularyEntries(vocabularyOptions: VocabularyOptions, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
-    return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), this._payload));
+    return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), this._payload));
   }
 
   getVocabularyEntriesByValue(value: string, exact: boolean, vocabularyOptions: VocabularyOptions, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {
-    return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), this._payload));
+    return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), this._payload));
   }
 
   getVocabularyEntryByValue(value: string, vocabularyOptions: VocabularyOptions): Observable<VocabularyEntry> {

@@ -59,6 +59,6 @@ export class SearchcomponentService {
   }
 
   findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<SearchComponent>>): Observable<RemoteData<SearchComponent>> {
-    return this.dataService.findByHref(href, ...linksToFollow);
+    return this.dataService.findByHref(href, true, ...linksToFollow);
   }
 }

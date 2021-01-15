@@ -7,7 +7,7 @@ import { ScriptsSelectComponent } from './scripts-select.component';
 import { Script } from '../../scripts/script.model';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
@@ -26,7 +26,7 @@ describe('ScriptsSelectComponent', () => {
     script2 = new Script();
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        findAll: createSuccessfulRemoteDataObject$(new PaginatedList(undefined, [script1, script2]))
+        findAll: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, [script1, script2]))
       }
     )
   }

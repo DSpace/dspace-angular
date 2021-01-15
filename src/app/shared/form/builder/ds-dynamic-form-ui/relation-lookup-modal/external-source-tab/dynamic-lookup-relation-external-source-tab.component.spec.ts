@@ -130,7 +130,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
 
   describe('when the external entries are loading', () => {
     beforeEach(() => {
-      component.entriesRD$ = createPendingRemoteDataObject$(undefined);
+      component.entriesRD$ = createPendingRemoteDataObject$();
       fixture.detectChanges();
     });
 
@@ -147,7 +147,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
 
   describe('when the external entries failed loading', () => {
     beforeEach(() => {
-      component.entriesRD$ = createFailedRemoteDataObject$(undefined);
+      component.entriesRD$ = createFailedRemoteDataObject$('server error', 500);
       fixture.detectChanges();
     });
 

@@ -12,6 +12,8 @@ import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { Subscription } from 'rxjs';
 import { hasValue } from '../../../shared/empty.util';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
@@ -53,7 +55,7 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
     this.subs.push(this.boxService.findByItem(this.item.id, this.tab.id, followLink('configuration'))
       .pipe(getFirstSucceededRemoteListPayload())
       .subscribe({
-        next: (next) => {
+        next: (next: Box[]) => {
           this.boxes = next;
           this.addBoxes(this.boxes);
           this.cd.markForCheck();

@@ -4,12 +4,16 @@ import {
   DiscardObjectUpdatesAction,
   FieldChangeType,
   InitializeFieldsAction,
-  ReinstateObjectUpdatesAction, RemoveAllObjectUpdatesAction,
-  RemoveFieldUpdateAction, RemoveObjectUpdatesAction, SelectVirtualMetadataAction,
-  SetEditableFieldUpdateAction, SetValidFieldUpdateAction
+  ReinstateObjectUpdatesAction,
+  RemoveAllObjectUpdatesAction,
+  RemoveFieldUpdateAction,
+  RemoveObjectUpdatesAction,
+  SelectVirtualMetadataAction,
+  SetEditableFieldUpdateAction,
+  SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { OBJECT_UPDATES_TRASH_PATH, objectUpdatesReducer } from './object-updates.reducer';
-import {Relationship} from '../../shared/item-relationships/relationship.model';
+import { Relationship } from '../../shared/item-relationships/relationship.model';
 
 class NullAction extends RemoveFieldUpdateAction {
   type = null;
@@ -232,7 +236,7 @@ describe('objectUpdatesReducer', () => {
         fieldUpdates: {},
         virtualMetadataSources: {},
         lastModified: modDate,
-        patchOperationServiceToken: undefined
+        patchOperationService: undefined
       }
     };
     const newState = objectUpdatesReducer(testState, action);

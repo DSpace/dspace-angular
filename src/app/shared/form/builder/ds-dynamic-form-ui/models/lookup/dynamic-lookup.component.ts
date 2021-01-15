@@ -13,7 +13,10 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import {
+  PaginatedList,
+  buildPaginatedList
+} from '../../../../../../core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormBuilderService } from '../../../form-builder.service';
@@ -224,7 +227,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
     ).pipe(
       getFirstSucceededRemoteDataPayload(),
       catchError(() =>
-        observableOf(new PaginatedList(
+        observableOf(buildPaginatedList(
           new PageInfo(),
           []
         ))

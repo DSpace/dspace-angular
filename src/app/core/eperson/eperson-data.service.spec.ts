@@ -12,14 +12,10 @@ import { EPeopleRegistryCancelEPersonAction, EPeopleRegistryEditEPersonAction } 
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core.reducers';
 import { ChangeAnalyzer } from '../data/change-analyzer';
-import { PaginatedList } from '../data/paginated-list';
-import { RemoteData } from '../data/remote-data';
-import { DeleteByIDRequest, FindListOptions, PatchRequest, PostRequest } from '../data/request.models';
-import { RequestEntry } from '../data/request.reducer';
+import { DeleteRequest, FindListOptions, PatchRequest, PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { PageInfo } from '../shared/page-info.model';
 import { EPersonDataService } from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
 import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
@@ -28,6 +24,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
 
 describe('EPersonDataService', () => {
   let service: EPersonDataService;
@@ -43,8 +40,6 @@ describe('EPersonDataService', () => {
   let epeople$;
   let rdbService;
 
-  let getRequestEntry$;
-
   function initTestService() {
     return new EPersonDataService(
       requestService,
@@ -59,16 +54,10 @@ describe('EPersonDataService', () => {
   }
 
   function init() {
-    getRequestEntry$ = (successful: boolean) => {
-      return observableOf({
-        completed: true,
-        response: { isSuccessful: successful, payload: epeople } as any
-      } as RequestEntry)
-    };
     restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
     epersonsEndpoint = `${restEndpointURL}/epersons`;
     epeople = [EPersonMock, EPersonMock2];
-    epeople$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [epeople]));
+    epeople$ = createSuccessfulRemoteDataObject$(createPaginatedList([epeople]));
     rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons': epeople$ });
     halService = new HALEndpointServiceStub(restEndpointURL);
 
@@ -91,7 +80,7 @@ describe('EPersonDataService', () => {
 
   beforeEach(() => {
     init();
-    requestService = getMockRequestService(getRequestEntry$(true));
+    requestService = getMockRequestService(createRequestEntry$(epeople));
     store = new Store<CoreState>(undefined, undefined, undefined);
     service = initTestService();
     spyOn(store, 'dispatch');
@@ -107,7 +96,7 @@ describe('EPersonDataService', () => {
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('query', ''))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
     });
 
     it('search metadata scope and no query', () => {
@@ -115,7 +104,7 @@ describe('EPersonDataService', () => {
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('query', ''))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
     });
 
     it('search metadata scope and with query', () => {
@@ -123,7 +112,7 @@ describe('EPersonDataService', () => {
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('query', 'test'))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
     });
 
     it('search email scope and no query', () => {
@@ -131,7 +120,7 @@ describe('EPersonDataService', () => {
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('email', ''))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byEmail', options);
+      expect(service.searchBy).toHaveBeenCalledWith('byEmail', options, true);
     });
   });
 
@@ -281,12 +270,12 @@ describe('EPersonDataService', () => {
 
   describe('deleteEPerson', () => {
     beforeEach(() => {
-      spyOn(service, 'findById').and.returnValue(getRemotedataObservable(EPersonMock));
+      spyOn(service, 'findById').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
       service.deleteEPerson(EPersonMock).subscribe();
     });
 
     it('should send DeleteRequest', () => {
-      const expected = new DeleteByIDRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, EPersonMock.uuid);
+      const expected = new DeleteRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid);
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
   });
@@ -311,10 +300,6 @@ describe('EPersonDataService', () => {
   });
 
 });
-
-function getRemotedataObservable(obj: any): Observable<RemoteData<any>> {
-  return observableOf(new RemoteData(false, false, true, undefined, obj));
-}
 
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
   diff(object1: Item, object2: Item): Operation[] {

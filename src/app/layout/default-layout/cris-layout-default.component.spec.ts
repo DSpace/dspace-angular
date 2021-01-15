@@ -10,15 +10,13 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { CrisLayoutDefaultComponent } from './cris-layout-default.component';
 import { LayoutPage } from '../enums/layout-page.enum';
-import { PaginatedList } from '../../core/data/paginated-list';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { tabPersonProfile, tabPersonTest, tabs } from '../../shared/testing/tab.mock';
 import { TabDataService } from '../../core/layout/tab-data.service';
 import { CrisLayoutDefaultTabComponent } from './tab/cris-layout-default-tab.component';
 import * as CrisLayoutTabDecorators from '../decorators/cris-layout-tab.decorator';
 import { Item } from '../../core/shared/item.model';
-import { spyOnExported } from '../../shared/testing/utils.test';
+import { createPaginatedList, spyOnExported } from '../../shared/testing/utils.test';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
 import { EditItemDataService } from '../../core/submission/edititem-data.service';
@@ -135,9 +133,7 @@ describe('CrisLayoutDefaultComponent', () => {
   describe('When the component is rendered with more then one tab', () => {
     beforeEach(() => {
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
-        a: createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), tabs)
-        )
+        a: createSuccessfulRemoteDataObject(createPaginatedList(tabs))
       }))
     });
 
@@ -192,9 +188,7 @@ describe('CrisLayoutDefaultComponent', () => {
 
     beforeEach(() => {
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
-        a: createSuccessfulRemoteDataObject(
-          new PaginatedList(new PageInfo(), [tabPersonProfile])
-        )
+        a: createSuccessfulRemoteDataObject(createPaginatedList([tabPersonProfile]))
       }))
     });
 

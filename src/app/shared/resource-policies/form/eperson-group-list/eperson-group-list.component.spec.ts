@@ -16,7 +16,7 @@ import { EpersonGroupListComponent, SearchEvent } from './eperson-group-list.com
 import { EPersonMock } from '../../../testing/eperson.mock';
 import { GroupMock } from '../../../testing/group-mock';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -54,10 +54,10 @@ describe('EpersonGroupListComponent test suite', () => {
     }
   );
 
-  const epersonPaginatedList = new PaginatedList(new PageInfo(), [EPersonMock, EPersonMock]);
+  const epersonPaginatedList = buildPaginatedList(new PageInfo(), [EPersonMock, EPersonMock]);
   const epersonPaginatedListRD = createSuccessfulRemoteDataObject(epersonPaginatedList);
 
-  const groupPaginatedList = new PaginatedList(new PageInfo(), [GroupMock, GroupMock]);
+  const groupPaginatedList = buildPaginatedList(new PageInfo(), [GroupMock, GroupMock]);
   const groupPaginatedListRD = createSuccessfulRemoteDataObject(groupPaginatedList);
 
   beforeEach(async(() => {

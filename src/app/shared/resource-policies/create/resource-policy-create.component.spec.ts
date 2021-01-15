@@ -9,9 +9,10 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import {
   createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
 } from '../../remote-data.utils';
-import { createTestComponent } from '../../testing/utils.test';
+import { createPaginatedList, createTestComponent } from '../../testing/utils.test';
 import { ResourcePolicyCreateComponent } from './resource-policy-create.component';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { NotificationsService } from '../../notifications/notifications.service';
@@ -21,7 +22,6 @@ import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-s
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { RouterStub } from '../../testing/router.stub';
 import { Item } from '../../../core/shared/item.model';
-import { createMockRDPaginatedObs } from '../../../+item-page/edit-item-page/item-bitstreams/item-bitstreams.component.spec';
 import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
 import { GroupMock } from '../../testing/group-mock';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
@@ -73,7 +73,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
     _links: {
       self: { href: 'item-selflink' }
     },
-    bundles: createMockRDPaginatedObs([])
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([]))
   });
 
   const resourcePolicyService: any = getMockResourcePolicyService();
@@ -207,7 +207,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify error when creation is not successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject({})));
+        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));
@@ -245,7 +245,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify error when creation is not successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject({})));
+        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));

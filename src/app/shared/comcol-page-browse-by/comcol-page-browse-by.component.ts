@@ -108,7 +108,7 @@ export class ComcolPageBrowseByComponent implements OnInit {
    * @param remoteData the remote data coming from the previous search
    */
   searchForBaseBrowseCollectionPropertyIfDataNotFound(remoteData: RemoteData<ConfigurationProperty>): Observable<RemoteData<ConfigurationProperty>> {
-    if (remoteData.hasFailed && remoteData.error.statusCode === 404 && this.contentType === 'collection') {
+    if (remoteData.hasFailed && remoteData.statusCode === 404 && this.contentType === 'collection') {
       return this.configurationService.findByPropertyName('browse.collection')
         .pipe(getFinishedRemoteData());
     } else {

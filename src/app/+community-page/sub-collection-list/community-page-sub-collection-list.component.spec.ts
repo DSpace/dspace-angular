@@ -13,7 +13,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { FindListOptions } from '../../core/data/request.models';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
@@ -105,7 +105,7 @@ describe('CommunityPageSubCollectionList Component', () => {
       if (endPageIndex > subCollList.length) {
         endPageIndex = subCollList.length;
       }
-      return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), subCollList.slice(startPageIndex, endPageIndex)));
+      return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), subCollList.slice(startPageIndex, endPageIndex)));
 
     }
   };

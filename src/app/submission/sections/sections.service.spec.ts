@@ -380,4 +380,25 @@ describe('SectionsService test suite', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new UpdateSectionDataAction(submissionId, sectionId, data, []));
     });
   });
+
+  describe('computeSectionConfiguredMetadata', () => {
+    it('should return the configured metadata of the section from the form configuration', () => {
+
+      const formConfig = {
+        rows: [{
+          fields: [{
+            selectableMetadata: [{
+              metadata: 'dc.contributor.author'
+            }]
+          }]
+        }]
+      }
+
+      const expectedConfiguredMetadata =  [ 'dc.contributor.author' ];
+
+      const configuredMetadata = service.computeSectionConfiguredMetadata(formConfig as any);
+
+      expect(configuredMetadata).toEqual(expectedConfiguredMetadata);
+    });
+  });
 });

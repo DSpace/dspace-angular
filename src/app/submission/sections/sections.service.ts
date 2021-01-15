@@ -15,6 +15,7 @@ import {
   InertSectionErrorsAction,
   RemoveSectionErrorsAction,
   SectionStatusChangeAction,
+  SetSectionFormId,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
 import {
@@ -36,6 +37,8 @@ import { SubmissionService } from '../submission.service';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from './sections-type';
 import { normalizeSectionData } from '../../core/submission/submission-response-parsing.service';
+import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
+import { parseReviver } from '@ng-dynamic-forms/core';
 
 /**
  * A service that provides methods used in submission process.
@@ -131,6 +134,18 @@ export class SectionsService {
    */
   public dispatchRemoveSectionErrors(submissionId, sectionId) {
     this.store.dispatch(new RemoveSectionErrorsAction(submissionId, sectionId));
+  }
+
+  /**
+   * Dispatch a new [SetSectionFormId]
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param formId
+   *    The form id
+   */
+  public dispatchSetSectionFormId(submissionId, sectionId, formId) {
+    this.store.dispatch(new SetSectionFormId(submissionId, sectionId, formId));
   }
 
   /**
@@ -335,8 +350,10 @@ export class SectionsService {
    *    The section data
    * @param errors
    *    The list of section errors
+   * @param metadata
+   *    The section metadata
    */
-  public updateSectionData(submissionId: string, sectionId: string, data: WorkspaceitemSectionDataType, errors: SubmissionSectionError[] = []) {
+  public updateSectionData(submissionId: string, sectionId: string, data: WorkspaceitemSectionDataType, errors: SubmissionSectionError[] = [], metadata?: string[]) {
     if (isNotEmpty(data)) {
       const isAvailable$ = this.isSectionAvailable(submissionId, sectionId);
       const isEnabled$ = this.isSectionEnabled(submissionId, sectionId);
@@ -345,7 +362,7 @@ export class SectionsService {
         take(1),
         filter(([available, enabled]: [boolean, boolean]) => available))
         .subscribe(([available, enabled]: [boolean, boolean]) => {
-          this.store.dispatch(new UpdateSectionDataAction(submissionId, sectionId, data, errors));
+          this.store.dispatch(new UpdateSectionDataAction(submissionId, sectionId, data, errors, metadata));
         });
     }
   }
@@ -377,4 +394,30 @@ export class SectionsService {
   public setSectionStatus(submissionId: string, sectionId: string, status: boolean) {
     this.store.dispatch(new SectionStatusChangeAction(submissionId, sectionId, status));
   }
+
+  /**
+   * Compute the list of selectable metadata for the section configuration.
+   * @param formConfig
+   */
+  public computeSectionConfiguredMetadata(formConfig: string | SubmissionFormsModel): string[] {
+    const metadata = [];
+    const rawData = typeof formConfig === 'string' ? JSON.parse(formConfig, parseReviver) : formConfig;
+    if (rawData.rows && !isEmpty(rawData.rows)) {
+      rawData.rows.forEach((currentRow) => {
+        if (currentRow.fields && !isEmpty(currentRow.fields)) {
+          currentRow.fields.forEach((field) => {
+            if (field.selectableMetadata && !isEmpty(field.selectableMetadata)) {
+              field.selectableMetadata.forEach((selectableMetadata) => {
+                if (!metadata.includes(selectableMetadata.metadata)) {
+                  metadata.push(selectableMetadata.metadata);
+                }
+              })
+            }
+          })
+        }
+      });
+    }
+    return metadata;
+  }
+
 }

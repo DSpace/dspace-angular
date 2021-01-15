@@ -170,7 +170,7 @@ describe('SubmissionFormFooterComponent Component', () => {
       comp.save(null);
       fixture.detectChanges();
 
-      expect(submissionServiceStub.dispatchSave).toHaveBeenCalledWith(submissionId);
+      expect(submissionServiceStub.dispatchSave).toHaveBeenCalledWith(submissionId, true);
     });
 
     it('should call dispatchSaveForLater on save for later', () => {
@@ -224,6 +224,22 @@ describe('SubmissionFormFooterComponent Component', () => {
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
 
       expect(depositBtn.nativeElement.disabled).toBeFalsy();
+    });
+
+    it('should disable save button when all modifications had been saved', () => {
+      comp.hasUnsavedModification = observableOf(false);
+      fixture.detectChanges();
+
+      const saveBtn: any = fixture.debugElement.query(By.css('#save'));
+      expect(saveBtn.nativeElement.disabled).toBeTruthy();
+    });
+
+    it('should enable save button when there are not saved modifications', () => {
+      comp.hasUnsavedModification = observableOf(true);
+      fixture.detectChanges();
+
+      const saveBtn: any = fixture.debugElement.query(By.css('#save'));
+      expect(saveBtn.nativeElement.disabled).toBeFalsy();
     });
 
     describe( 'submission form footer buttons\' labels', () => {

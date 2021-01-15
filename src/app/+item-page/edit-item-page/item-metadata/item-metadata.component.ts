@@ -4,19 +4,18 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { cloneDeep } from 'lodash';
-import { first, switchMap, tap } from 'rxjs/operators';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { first, switchMap } from 'rxjs/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataValue, MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { UpdateDataService } from '../../../core/data/update-data.service';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { Operation } from 'fast-json-patch';
-import { METADATA_PATCH_OPERATION_SERVICE_TOKEN } from '../../../core/data/object-updates/patch-operation-service/metadata-patch-operation.service';
-import { DSOSuccessResponse, ErrorResponse } from '../../../core/cache/response.models';
+import { MetadataPatchOperationService } from '../../../core/data/object-updates/patch-operation-service/metadata-patch-operation.service';
 
 @Component({
   selector: 'ds-item-metadata',
@@ -87,7 +86,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
-    this.objectUpdatesService.initialize(this.url, this.item.metadataAsList, this.item.lastModified, METADATA_PATCH_OPERATION_SERVICE_TOKEN);
+    this.objectUpdatesService.initialize(this.url, this.item.metadataAsList, this.item.lastModified, MetadataPatchOperationService);
   }
 
   /**
@@ -101,26 +100,20 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
           first(),
           switchMap((patch: Operation[]) => {
             return this.updateService.patch(this.item, patch).pipe(
-              tap((response) => {
-                if (!response.isSuccessful) {
-                  this.notificationsService.error(this.getNotificationTitle('error'), (response as ErrorResponse).errorMessage);
-                }
-              }),
-              switchMap((response: DSOSuccessResponse) => {
-                if (isNotEmpty(response.resourceSelfLinks)) {
-                  return this.itemService.findByHref(response.resourceSelfLinks[0]);
-                }
-              }),
-              getSucceededRemoteData()
+              getFirstCompletedRemoteData()
             );
           })
         ).subscribe(
           (rd: RemoteData<Item>) => {
-            this.item = rd.payload;
-            this.checkAndFixMetadataUUIDs();
-            this.initializeOriginalFields();
-            this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
-            this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
+            if (rd.hasFailed) {
+              this.notificationsService.error(this.getNotificationTitle('error'), rd.errorMessage);
+            } else {
+              this.item = rd.payload;
+              this.checkAndFixMetadataUUIDs();
+              this.initializeOriginalFields();
+              this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
+              this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
+            }
           }
         )
       } else {

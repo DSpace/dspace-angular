@@ -55,7 +55,7 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
    * Find the correct component based on the filter config's type
    */
   private getSearchFilter() {
-    const type: FilterType = this.filterConfig.type;
+    const type: FilterType = this.filterConfig.filterType;
     return renderFilterType(type);
   }
 }

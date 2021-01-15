@@ -4,12 +4,12 @@ import { BitstreamDataService } from '../../../../core/data/bitstream-data.servi
 
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import { filter, take } from 'rxjs/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { hasValue } from '../../../../shared/empty.util';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 /**
  * This component renders the file section of the item
@@ -66,11 +66,10 @@ export class FileSectionComponent implements OnInit {
       currentPage: this.currentPage,
       elementsPerPage: this.pageSize
     }).pipe(
-      filter((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => hasValue(bitstreamsRD) && (hasValue(bitstreamsRD.error) || hasValue(bitstreamsRD.payload))),
-      take(1),
+      getFirstCompletedRemoteData(),
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
-      if (bitstreamsRD.error) {
-        this.notificationsService.error(this.translateService.get('file-section.error.header'), `${bitstreamsRD.error.statusCode} ${bitstreamsRD.error.message}`);
+      if (bitstreamsRD.errorMessage) {
+        this.notificationsService.error(this.translateService.get('file-section.error.header'), `${bitstreamsRD.statusCode} ${bitstreamsRD.errorMessage}`);
       } else if (hasValue(bitstreamsRD.payload)) {
         const current: Bitstream[] = this.bitstreams$.getValue();
         this.bitstreams$.next([...current, ...bitstreamsRD.payload.page]);

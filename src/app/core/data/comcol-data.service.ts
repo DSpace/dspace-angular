@@ -1,44 +1,29 @@
-import {
-  distinctUntilChanged,
-  filter, first,map, mergeMap, share, switchMap,
-  take,
-  tap
-} from 'rxjs/operators';
-import { merge as observableMerge, Observable, throwError as observableThrowError, combineLatest as observableCombineLatest } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
 import { HALLink } from '../shared/hal-link.model';
-import { HALResource } from '../shared/hal-resource.model';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { DeleteRequest, FindListOptions, FindByIDRequest, RestRequest } from './request.models';
-import { PaginatedList } from './paginated-list';
+import { FindListOptions, FindByIDRequest } from './request.models';
+import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import {
-  configureRequest,
-  getRemoteDataPayload,
-  getResponseFromEntry,
-  getSucceededOrNoContentResponse,
-  getSucceededRemoteData
-} from '../shared/operators';
-import { CacheableObject } from '../cache/object-cache.reducer';
-import { RestResponse } from '../cache/response.models';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Bitstream } from '../shared/bitstream.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import {Collection} from '../shared/collection.model';
+import { Collection } from '../shared/collection.model';
+import { BitstreamDataService } from './bitstream-data.service';
+import { NoContent } from '../shared/NoContent.model';
+import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
-export abstract class ComColDataService<T extends CacheableObject> extends DataService<T> {
+export abstract class ComColDataService<T extends Community | Collection> extends DataService<T> {
   protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
   protected abstract halService: HALEndpointService;
-
-  /**
-   * Linkpath of endpoint to delete the logo
-   */
-  protected logoDeleteLinkpath = 'bitstreams';
+  protected abstract bitstreamDataService: BitstreamDataService;
 
   /**
    * Get the scoped endpoint URL by fetching the object with
@@ -63,23 +48,20 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
           this.requestService.configure(request);
         }));
 
-      const responses = scopeCommunityHrefObs.pipe(
-        mergeMap((href: string) => this.requestService.getByHref(href)),
-        getResponseFromEntry()
-      );
-      const errorResponses = responses.pipe(
-        filter((response) => !response.isSuccessful),
-        mergeMap(() => observableThrowError(new Error(`The Community with scope ${options.scopeID} couldn't be retrieved`)))
-      );
-      const successResponses = responses.pipe(
-        filter((response) => response.isSuccessful),
-        mergeMap(() => this.objectCache.getObjectByUUID(options.scopeID)),
-        map((hr: HALResource) => hr._links[linkPath]),
+      return scopeCommunityHrefObs.pipe(
+        switchMap((href: string) => this.rdbService.buildSingle<Community>(href)),
+        getFirstCompletedRemoteData(),
+        map((response: RemoteData<Community>) => {
+          if (response.hasFailed) {
+            throw new Error(`The Community with scope ${options.scopeID} couldn't be retrieved`);
+          } else {
+            return response.payload._links[linkPath]
+          }
+        }),
         filter((halLink: HALLink) => isNotEmpty(halLink)),
-        map((halLink: HALLink) => halLink.href)
+        map((halLink: HALLink) => halLink.href),
+        distinctUntilChanged()
       );
-
-      return observableMerge(errorResponses, successResponses).pipe(distinctUntilChanged(), share());
     }
   }
 
@@ -98,27 +80,34 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
    */
   public getLogoEndpoint(id: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((href: string) => this.halService.getEndpoint('logo', `${href}/${id}`))
-    )
+      // We can't use HalLinkService to discover the logo link itself, as objects without a logo
+      // don't have the link, and this method is also used in the createLogo method.
+      map((href: string) => new URLCombiner(href, id, 'logo').toString())
+    );
   }
 
   /**
    * Delete the logo from the community or collection
    * @param dso The object to delete the logo from
    */
-  public deleteLogo(dso: DSpaceObject): Observable<RestResponse> {
-    const logo$ = (dso as any).logo;
+  public deleteLogo(dso: T): Observable<RemoteData<NoContent>> {
+    const logo$ = dso.logo;
     if (hasValue(logo$)) {
-      return observableCombineLatest(
-        logo$.pipe(getSucceededRemoteData(), getRemoteDataPayload(), take(1)),
-        this.halService.getEndpoint(this.logoDeleteLinkpath)
-      ).pipe(
-        map(([logo, href]: [Bitstream, string]) => `${href}/${logo.id}`),
-        map((href: string) => new DeleteRequest(this.requestService.generateRequestId(), href)),
-        configureRequest(this.requestService),
-        switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-        getResponseFromEntry()
+      // We need to fetch the logo before deleting it, because rest doesn't allow us to send a
+      // DELETE request to a `/logo` link. So we need to use the bitstream self link.
+      return logo$.pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((logoRd: RemoteData<Bitstream>) => {
+          if (logoRd.hasFailed) {
+            console.error(`Couldn't retrieve the logo '${dso._links.logo.href}' in order to delete it.`);
+            return [logoRd];
+          } else {
+            return this.bitstreamDataService.deleteByHref(logoRd.payload._links.self.href);
+          }
+        })
       );
+    } else {
+      return createFailedRemoteDataObject$(`The given object doesn't have a logo`, 400);
     }
   }
 
@@ -128,11 +117,15 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
       return;
     }
     this.findByHref(parentCommunityUrl).pipe(
-      getSucceededOrNoContentResponse(),
-      take(1),
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<any>) => {
-      const href = rd.hasSucceeded && !isEmpty(rd.payload.id) ? rd.payload.id : this.halService.getEndpoint('communities/search/top');
-      this.requestService.removeByHrefSubstring(href)
+      if (rd.hasSucceeded && isNotEmpty(rd.payload) && isNotEmpty(rd.payload.id)) {
+        this.requestService.removeByHrefSubstring(rd.payload.id)
+      } else {
+        this.halService.getEndpoint('communities/search/top')
+          .pipe(take(1))
+          .subscribe((href) => this.requestService.removeByHrefSubstring(href));
+      }
     });
   }
 

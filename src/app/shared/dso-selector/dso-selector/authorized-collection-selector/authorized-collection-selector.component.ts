@@ -3,15 +3,14 @@ import { DSOSelectorComponent } from '../dso-selector.component';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { PaginatedList } from '../../../../core/data/paginated-list';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { map } from 'rxjs/operators';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { FindListOptions } from '../../../../core/data/request.models';
 
 @Component({
@@ -64,7 +63,7 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
     }
     return searchListService$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((list) => new PaginatedList(list.pageInfo, list.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))))
+      map((list) => buildPaginatedList(list.pageInfo, list.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))))
     );
   }
 }

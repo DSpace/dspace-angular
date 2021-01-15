@@ -31,6 +31,7 @@ import {
   SaveSubmissionSectionFormSuccessAction,
   SectionStatusChangeAction,
   SetActiveSectionAction,
+  SetSectionFormId,
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
@@ -91,6 +92,11 @@ export interface SubmissionSectionObject {
   enabled: boolean;
 
   /**
+   * The list of the metadata ids of the section.
+   */
+  metadata: string[];
+
+  /**
    * The section data object
    */
   data: WorkspaceitemSectionDataType;
@@ -114,6 +120,11 @@ export interface SubmissionSectionObject {
    * A boolean representing if this section is valid
    */
   isValid: boolean;
+
+  /**
+   * The formId related to this section
+   */
+  formId: string;
 }
 
 /**
@@ -271,6 +282,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.INIT_SECTION: {
       return initSection(state, action as InitSectionAction);
+    }
+
+    case SubmissionObjectActionTypes.SET_SECTION_FORM_ID: {
+      return setSectionFormId(state, action as SetSectionFormId);
     }
 
     case SubmissionObjectActionTypes.ENABLE_SECTION: {
@@ -680,6 +695,33 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
 }
 
 /**
+ * Set a section form id.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an SetSectionFormId
+ * @return SubmissionObjectState
+ *    the new state
+ */
+function setSectionFormId(state: SubmissionObjectState, action: SetSectionFormId): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
+          [ action.payload.sectionId ]: {
+            ...state[ action.payload.submissionId ].sections [action.payload.sectionId],
+            formId: action.payload.formId
+          }
+        })
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
  * Update section's data.
  *
  * @param state
@@ -691,14 +733,15 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
  */
 function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDataAction): SubmissionObjectState {
   if (isNotEmpty(state[ action.payload.submissionId ])
-      && isNotEmpty(state[ action.payload.submissionId ].sections[ action.payload.sectionId])) {
+    && isNotEmpty(state[ action.payload.submissionId ].sections[ action.payload.sectionId])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
           [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
             enabled: true,
             data: action.payload.data,
-            errors: action.payload.errors
+            errors: action.payload.errors,
+            metadata: reduceSectionMetadata(action.payload.metadata, state[ action.payload.submissionId ].sections [ action.payload.sectionId ].metadata)
           })
         })
       })
@@ -706,6 +749,24 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
   } else {
     return state;
   }
+}
+
+/**
+ * Updates the state of the section metadata only when a new value is provided.
+ * Keep the existent otherwise.
+ * @param newMetadata
+ * @param oldMetadata
+ * @return
+ *   new sectionMetadata value
+ */
+function reduceSectionMetadata(newMetadata: string[], oldMetadata: string[]): string[] {
+  if (newMetadata) {
+    return newMetadata;
+  }
+  if (oldMetadata) {
+    return [...oldMetadata];
+  }
+  return undefined;
 }
 
 /**

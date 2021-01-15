@@ -8,7 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { ChartData } from '../../../../../charts/models/chart-data';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { FacetValue } from '../../../facet-value.model';
 import { isNotEmpty } from '../../../../empty.util';
 

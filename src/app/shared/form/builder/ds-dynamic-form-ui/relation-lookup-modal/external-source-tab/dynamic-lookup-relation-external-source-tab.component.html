@@ -20,9 +20,9 @@
         </ds-viewable-collection>
         <ds-loading *ngIf="!entriesRD || !entriesRD?.payload || entriesRD?.isLoading"
                     message="{{'loading.search-results' | translate}}"></ds-loading>
-        <ds-error   *ngIf="entriesRD?.hasFailed && (!entriesRD?.error || entriesRD?.error?.statusCode != 400)"
+        <ds-error   *ngIf="entriesRD?.hasFailed && (!entriesRD?.errorMessage || entriesRD?.statusCode != 400)"
                     message="{{'error.search-results' | translate}}"></ds-error>
-        <div *ngIf="entriesRD?.payload?.page?.length == 0 || entriesRD?.error?.statusCode == 400" id="empty-external-entry-list">
+        <div *ngIf="entriesRD?.payload?.page?.length == 0 || entriesRD?.statusCode == 400" id="empty-external-entry-list">
           {{ 'search.results.empty' | translate }}
         </div>
       </ng-container>

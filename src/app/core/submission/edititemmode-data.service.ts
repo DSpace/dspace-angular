@@ -15,7 +15,7 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<EditItemMode> {
