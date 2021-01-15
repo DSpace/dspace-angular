@@ -71,4 +71,8 @@ export abstract class ConfigService {
     return this.dataService.findAll(options, reRequestOnStale, ...linksToFollow);
   }
 
+  findByName(name: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ConfigObject>>): Observable<RemoteData<ConfigObject>> {
+    return this.dataService.findById(name, reRequestOnStale, ...linksToFollow);
+  }
+
 }
