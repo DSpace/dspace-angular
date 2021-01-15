@@ -54,7 +54,7 @@ export const IMPERSONATING_COOKIE = 'dsImpersonatingEPerson';
 /**
  * The auth service.
  */
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class AuthService {
 
   /**

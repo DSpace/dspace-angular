@@ -29,6 +29,7 @@ import {
   locationProvider,
   LocationToken
 } from '../../app/core/services/browser-hard-redirect.service';
+import { LocaleService } from '../../app/core/locale/locale.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -89,6 +90,10 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: SubmissionService,
       useClass: SubmissionService
+    },
+    {
+      provide: LocaleService,
+      useClass: LocaleService
     },
     {
       provide: HardRedirectService,

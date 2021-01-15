@@ -14,7 +14,7 @@ import { RemoteData } from '../data/remote-data';
 /**
  * The auth service.
  */
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class ServerAuthService extends AuthService {
 
   /**

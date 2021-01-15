@@ -17,7 +17,7 @@ export interface ICookieService {
   remove(name: string, options?: CookieAttributes): void;
 }
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export abstract class CookieService implements ICookieService {
   protected readonly cookieSource = new Subject<{ readonly [key: string]: any }>();
   public readonly cookies$ = this.cookieSource.asObservable();

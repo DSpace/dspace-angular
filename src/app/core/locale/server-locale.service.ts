@@ -4,7 +4,7 @@ import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class ServerLocaleService extends LocaleService {
 
   /**

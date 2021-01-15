@@ -24,9 +24,7 @@ export enum LANG_ORIGIN {
 /**
  * Service to provide localization handler
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LocaleService {
 
   /**
