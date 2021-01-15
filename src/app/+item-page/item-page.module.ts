@@ -23,14 +23,18 @@ import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.c
 import { StatisticsModule } from '../statistics/statistics.module';
 import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
+import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
+import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    SharedModule.withEntryComponents(),
     ItemPageRoutingModule,
     EditItemPageModule,
-    StatisticsModule.forRoot()
+    StatisticsModule.forRoot(),
+    JournalEntitiesModule.withEntryComponents(),
+    ResearchEntitiesModule.withEntryComponents()
   ],
   declarations: [
     ItemPageComponent,

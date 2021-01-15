@@ -106,8 +106,8 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
           },
           {
             path: 'browse',
-            loadChildren: () => import('./+browse-by/browse-by.module')
-              .then((m) => m.BrowseByModule),
+            loadChildren: () => import('./+browse-by/browse-by-page.module')
+              .then((m) => m.BrowseByPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {

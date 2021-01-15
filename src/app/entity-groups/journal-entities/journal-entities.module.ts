@@ -20,7 +20,8 @@ import { JournalVolumeSidebarSearchListElementComponent } from './item-list-elem
 import { JournalIssueSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal-issue/journal-issue-sidebar-search-list-element.component';
 import { JournalSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal/journal-sidebar-search-list-element.component';
 
-const COMPONENTS = [
+const ENTRY_COMPONENTS = [
+  // put only entry components that use custom decorator
   JournalComponent,
   JournalIssueComponent,
   JournalVolumeComponent,
@@ -47,9 +48,19 @@ const COMPONENTS = [
     SharedModule
   ],
   declarations: [
-    ...COMPONENTS
+    ...ENTRY_COMPONENTS
   ]
 })
 export class JournalEntitiesModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: JournalEntitiesModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 
 }

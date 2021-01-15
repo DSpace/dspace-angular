@@ -28,7 +28,8 @@ import { OrgUnitSidebarSearchListElementComponent } from './item-list-elements/s
 import { PersonSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/person/person-sidebar-search-list-element.component';
 import { ProjectSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/project/project-sidebar-search-list-element.component';
 
-const COMPONENTS = [
+const ENTRY_COMPONENTS = [
+// put only entry components that use custom decorator
   OrgUnitComponent,
   PersonComponent,
   ProjectComponent,
@@ -47,14 +48,18 @@ const COMPONENTS = [
   OrgUnitSearchResultGridElementComponent,
   ProjectSearchResultGridElementComponent,
   PersonSearchResultListSubmissionElementComponent,
-  PersonInputSuggestionsComponent,
-  NameVariantModalComponent,
   OrgUnitSearchResultListSubmissionElementComponent,
   OrgUnitInputSuggestionsComponent,
   ExternalSourceEntryListSubmissionElementComponent,
   OrgUnitSidebarSearchListElementComponent,
   PersonSidebarSearchListElementComponent,
   ProjectSidebarSearchListElementComponent,
+];
+
+const COMPONENTS = [
+  NameVariantModalComponent,
+  PersonInputSuggestionsComponent,
+  ...ENTRY_COMPONENTS
 ];
 
 @NgModule({
@@ -67,5 +72,14 @@ const COMPONENTS = [
   ]
 })
 export class ResearchEntitiesModule {
-
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: ResearchEntitiesModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 }

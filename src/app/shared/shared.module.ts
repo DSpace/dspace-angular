@@ -437,11 +437,9 @@ const COMPONENTS = [
   SearchResultGridElementComponent,
   ItemListElementComponent,
   ItemGridElementComponent,
-  ItemSearchResultListElementComponent,
   ItemSearchResultGridElementComponent,
   BrowseEntryListElementComponent,
   SearchResultDetailElementComponent,
-  BrowseEntryListElementComponent,
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
@@ -456,6 +454,59 @@ const COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
   CommunitySidebarSearchListElementComponent,
+];
+
+const ENTRY_COMPONENTS = [
+  // put only entry components that use custom decorator
+  CollectionListElementComponent,
+  CommunityListElementComponent,
+  SearchResultListElementComponent,
+  CommunitySearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  CollectionGridElementComponent,
+  CommunityGridElementComponent,
+  CommunitySearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
+  SearchResultGridElementComponent,
+  ItemListElementComponent,
+  ItemGridElementComponent,
+  ItemSearchResultListElementComponent,
+  ItemSearchResultGridElementComponent,
+  BrowseEntryListElementComponent,
+  SearchResultDetailElementComponent,
+  StartsWithDateComponent,
+  StartsWithTextComponent,
+  CreateCommunityParentSelectorComponent,
+  CreateCollectionParentSelectorComponent,
+  CreateItemParentSelectorComponent,
+  EditCommunitySelectorComponent,
+  EditCollectionSelectorComponent,
+  EditItemSelectorComponent,
+  PlainTextMetadataListElementComponent,
+  ItemMetadataListElementComponent,
+  MetadataRepresentationListElementComponent,
+  CustomSwitchComponent,
+  ItemMetadataRepresentationListElementComponent,
+  SearchResultsComponent,
+  SearchFacetFilterComponent,
+  SearchRangeFilterComponent,
+  SearchTextFilterComponent,
+  SearchHierarchyFilterComponent,
+  SearchBooleanFilterComponent,
+  SearchFacetOptionComponent,
+  SearchFacetSelectedOptionComponent,
+  SearchFacetRangeOptionComponent,
+  SearchAuthorityFilterComponent,
+  LogInPasswordComponent,
+  LogInShibbolethComponent,
+  BundleListElementComponent,
+  ClaimedTaskActionsApproveComponent,
+  ClaimedTaskActionsRejectComponent,
+  ClaimedTaskActionsReturnToPoolComponent,
+  ClaimedTaskActionsEditMetadataComponent,
+  PublicationSidebarSearchListElementComponent,
+  CollectionSidebarSearchListElementComponent,
+  CommunitySidebarSearchListElementComponent
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [
@@ -536,5 +587,14 @@ const DIRECTIVES = [
  * This module handles all components and pipes that need to be shared among multiple other modules
  */
 export class SharedModule {
-
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: SharedModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 }

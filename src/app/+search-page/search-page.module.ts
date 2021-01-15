@@ -11,6 +11,8 @@ import { SearchPageComponent } from './search-page.component';
 import { SidebarFilterService } from '../shared/sidebar/filter/sidebar-filter.service';
 import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
+import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 
 const components = [
   SearchPageComponent,
@@ -21,9 +23,11 @@ const components = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    SharedModule.withEntryComponents(),
     CoreModule.forRoot(),
-    StatisticsModule.forRoot()
+    StatisticsModule.forRoot(),
+    JournalEntitiesModule.withEntryComponents(),
+    ResearchEntitiesModule.withEntryComponents()
   ],
   declarations: components,
   providers: [
