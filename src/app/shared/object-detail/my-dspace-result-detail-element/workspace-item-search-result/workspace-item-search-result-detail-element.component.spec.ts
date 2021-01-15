@@ -10,6 +10,8 @@ import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
+import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 
 let component: WorkspaceItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultDetailElementComponent>;
@@ -18,6 +20,7 @@ const compIndex = 1;
 
 const mockResultObject: WorkflowItemSearchResult = new WorkflowItemSearchResult();
 mockResultObject.hitHighlights = {};
+const linkService = getMockLinkService();
 
 const item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -58,7 +61,8 @@ describe('WorkspaceItemSearchResultDetailElementComponent', () => {
       declarations: [WorkspaceItemSearchResultDetailElementComponent],
       providers: [
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
-        { provide: 'indexElementProvider', useValue: (compIndex) }
+        { provide: 'indexElementProvider', useValue: (compIndex) },
+        { provide: LinkService, useValue: linkService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(WorkspaceItemSearchResultDetailElementComponent, {

@@ -11,6 +11,8 @@ import { find } from 'rxjs/operators';
 import { isNotUndefined } from '../../../empty.util';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { followLink } from '../../../utils/follow-link-config.model';
 
 /**
  * This component renders workflowitem object for the search result in the detail view.
@@ -34,11 +36,18 @@ export class WorkflowItemSearchResultDetailElementComponent extends SearchResult
    */
   public status = MyDspaceItemStatusType.WORKFLOW;
 
+  constructor(
+    protected linkService: LinkService
+  ) {
+    super();
+  }
+
   /**
    * Initialize all instance variables
    */
   ngOnInit() {
     super.ngOnInit();
+    this.linkService.resolveLink(this.dso, followLink('item'));
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 
