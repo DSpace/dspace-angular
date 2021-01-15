@@ -4,13 +4,30 @@
         <ng-container *ngVar="(suggestionsRD$ | async) as subCollectionsRD">
           <div *ngIf="subCollectionsRD?.pageInfo?.totalElements > 0">
             <h2>{{'reciter.suggestion.suggestionFor' | translate}} {{researcherName}} {{'reciter.suggestion.from.source' | translate}} {{'reciter.suggestion.source.oaire' | translate}}</h2>
+
+            <div class="mb-3 mt-3">
+              <button class="btn btn-light" (click)="onToggleSelectAll(subCollectionsRD.page)">Select / Deselect All</button>
+              <em>({{ getSelectedSuggestionsCount() }})</em>
+              <ds-suggestion-actions *ngIf="getSelectedSuggestionsCount() > 0"
+                                      class="mt-2"
+                                     [isBulk]="true"
+                                     (approveAndImport)="approveAndImportAllSelected($event)"
+                                     (notMineClicked)="notMineAllSelected()"
+              ></ds-suggestion-actions>
+              <i class='fas fa-circle-notch fa-spin' *ngIf="isBulkOperationPending"></i>
+            </div>
+
             <ds-pagination [paginationOptions]="config" [pageInfoState]="subCollectionsRD?.pageInfo"
               [collectionSize]="subCollectionsRD?.pageInfo?.totalElements" [sortOptions]="sortConfig" [hideGear]="false"
               [hidePagerWhenSinglePage]="false" [hidePaginationDetail]="false"
               (pageChange)="onPaginationChange($event)">
               <ul class="list-unstyled">
                 <li *ngFor="let object of subCollectionsRD?.page; let i = index; let last = last" class="mt-4 mb-4">
-                  <ds-suggestion-list-item [object]="object" (notMineClicked)="notMine($event)"
+                  <ds-suggestion-list-item
+                    [object]="object"
+                    [isSelected]="selectedSuggestions[object.id]"
+                    (notMineClicked)="notMine($event)"
+                    (selected)="onSelected(object, $event)"
                     (approveAndImport)="approveAndImport($event)"></ds-suggestion-list-item>
                 </li>
               </ul>

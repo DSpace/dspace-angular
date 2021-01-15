@@ -1,15 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { take } from 'rxjs/operators';
 
 import { fadeIn } from '../../../shared/animations/fade';
 import { OpenaireSuggestion } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { Item } from '../../../core/shared/item.model';
 import { isNotEmpty } from '../../../shared/empty.util';
-import { Collection } from '../../../core/shared/collection.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { CreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+
+export interface SuggestionApproveAndImport {
+  suggestion: OpenaireSuggestion,
+  collectionId: string;
+}
 
 @Component({
   selector: 'ds-suggestion-list-item',
@@ -20,6 +21,8 @@ import { CreateItemParentSelectorComponent } from '../../../shared/dso-selector/
 export class SuggestionListElementComponent implements OnInit {
 
   @Input() object: OpenaireSuggestion;
+
+  @Input() isSelected = false;
 
   public listableObject: any;
 
@@ -36,6 +39,11 @@ export class SuggestionListElementComponent implements OnInit {
   @Output() approveAndImport = new EventEmitter();
 
   /**
+   * New value whether the element is selected
+   */
+  @Output() selected = new EventEmitter<boolean>();
+
+  /**
    * Initialize instance variables
    *
    * @param {NgbModal} modalService
@@ -50,25 +58,25 @@ export class SuggestionListElementComponent implements OnInit {
   }
 
   /**
-   * Delete the suggestion
+   * Approve and import the suggestion
    */
-  notMine() {
-    this.notMineClicked.emit(this.object.id);
+  onApproveAndImport(event: SuggestionApproveAndImport) {
+    this.approveAndImport.emit(event);
   }
 
   /**
-   * Method called on clicking the button "approve & import", It opens a dialog for
-   * select a collection and it emits an approveAndImport event.
+   * Delete the suggestion
    */
-  openDialog(entity: ItemType) {
-    const modalRef = this.modalService.open(CreateItemParentSelectorComponent);
-    modalRef.componentInstance.emitOnly = true;
-    modalRef.componentInstance.entityType = entity.label;
+  onNotMine(suggestionId: string) {
+    this.notMineClicked.emit(suggestionId);
+  }
 
-    modalRef.componentInstance.select.pipe(take(1))
-      .subscribe((collection: Collection) => {
-        this.approveAndImport.emit({ suggestion: this.object, collectionId: collection.id });
-      })
+  /**
+   * Change is selected value.
+   */
+  changeSelected(event) {
+    this.isSelected = event.target.checked;
+    this.selected.next(this.isSelected);
   }
 
   /**
@@ -79,10 +87,10 @@ export class SuggestionListElementComponent implements OnInit {
   }
 
   /**
-   * Toggle See Evidence
+   * Set the see evidence variable.
    */
-  toggleSeeEvidences() {
-    this.seeEvidence = !this.seeEvidence;
+  onSeeEvidences(seeEvidence: boolean) {
+    this.seeEvidence = seeEvidence;
   }
 
 }

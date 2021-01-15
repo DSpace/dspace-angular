@@ -21,6 +21,7 @@ import { OpenaireSuggestionsDataService } from '../core/openaire/reciter-suggest
 import { SuggestionTargetsComponent } from './reciter-suggestions/suggestion-targets/suggestion-targets.component';
 import { SuggestionListElementComponent } from './reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionEvidencesComponent } from './reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+import { SuggestionActionsComponent } from './reciter-suggestions/suggestion-actions/suggestion-actions.component';
 
 const MODULES = [
   CommonModule,
@@ -34,6 +35,7 @@ const COMPONENTS = [
   OpenaireBrokerTopicsComponent,
   OpenaireBrokerEventsComponent,
   SuggestionTargetsComponent,
+  SuggestionActionsComponent,
   SuggestionListElementComponent,
   SuggestionEvidencesComponent
 ];

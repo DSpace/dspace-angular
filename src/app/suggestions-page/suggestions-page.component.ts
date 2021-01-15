@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { flatMap, map, take } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { concatAll, flatMap, map, switchMap, take } from 'rxjs/operators';
 
 import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
 import { PaginatedList } from '../core/data/paginated-list';
@@ -14,6 +14,7 @@ import { ItemDataService } from '../core/data/item-data.service';
 import { OpenaireSuggestion } from '../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { AuthService } from '../core/auth/auth.service';
+import { SuggestionApproveAndImport } from '../openaire/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
 
 @Component({
   selector: 'ds-suggestion-page',
@@ -48,6 +49,9 @@ export class SuggestionsPageComponent implements OnInit {
 
   suggestionId: any;
   researcherName: any;
+
+  selectedSuggestions: { [id: string]: OpenaireSuggestion } = {};
+  isBulkOperationPending = false;
 
   constructor(
     private authService: AuthService,
@@ -114,9 +118,24 @@ export class SuggestionsPageComponent implements OnInit {
    * @suggestionId
    */
   notMine(suggestionId) {
-    this.suggestionService.deleteReviewedSuggestion(suggestionId)
+    this.notMineImpl(suggestionId).subscribe((res) => {
+      this.updatePage();
+    });
+  }
+
+  /**
+   * Used to bulk delete suggestion
+   * @suggestionId
+   */
+  notMineAllSelected() {
+    this.isBulkOperationPending = true;
+    forkJoin(Object.values(this.selectedSuggestions)
+      .map((suggestion: OpenaireSuggestion) => this.notMineImpl(suggestion.id)))
+      .pipe(concatAll(), take(1))
       .subscribe((res) => {
+        console.log('All selections processed');
         this.updatePage();
+        this.isBulkOperationPending = false;
       });
   }
 
@@ -124,9 +143,101 @@ export class SuggestionsPageComponent implements OnInit {
    * Used to approve & import
    * @param event
    */
-  approveAndImport(event) {
-    this.itemService.importExternalSourceEntry(event.suggestion.externalSourceUri, event.collectionId).pipe().subscribe((response: any) => {
+  approveAndImport(event: SuggestionApproveAndImport) {
+    this.approveAndImportImpl(event.suggestion, event.collectionId).subscribe((response: any) => {
+      console.log('All selections processed');
       this.updatePage();
     });
+  }
+
+  /**
+   * Used to bulk approve & import
+   */
+  approveAndImportAllSelected(event: SuggestionApproveAndImport) {
+    this.isBulkOperationPending = true;
+    forkJoin(Object.values(this.selectedSuggestions)
+      .map((suggestion: OpenaireSuggestion) => this.approveAndImportImpl(suggestion, event.collectionId)))
+      .pipe(concatAll(), take(1))
+      .subscribe((result) => {
+        this.updatePage();
+        this.isBulkOperationPending = false;
+    })
+  }
+
+  /**
+   * When a specific suggestion is selected.
+   * @param object
+   * @param selected
+   */
+  onSelected(object: OpenaireSuggestion, selected: boolean) {
+    if (selected) {
+      this.selectedSuggestions[object.id] = object;
+    } else {
+      delete this.selectedSuggestions[object.id];
+    }
+  }
+
+  /**
+   * When the toggle select all occurs.
+   * @param suggestions
+   */
+  onToggleSelectAll(suggestions: OpenaireSuggestion[]) {
+    if ( this.getSelectedSuggestionsCount() > 0) {
+      this.selectedSuggestions = {};
+    } else {
+      suggestions.forEach((suggestion) => {
+        this.selectedSuggestions[suggestion.id] = suggestion;
+      })
+    }
+  }
+
+  /**
+   * The current number of selected suggestions.
+   */
+  getSelectedSuggestionsCount(): number {
+    return Object.keys(this.selectedSuggestions).length
+  }
+
+  /**
+   * Perform the approve and import operation.
+   * @param suggestion
+   * @param collectionId
+   * @private
+   */
+  private approveAndImportImpl(suggestion, collectionId): Observable<any> {
+    return this.itemService.importExternalSourceEntry(suggestion.externalSourceUri, collectionId)
+      .pipe(
+        getFirstSucceededRemoteDataPayload(),
+        switchMap((res) => {
+          return this.suggestionService.deleteReviewedSuggestion(suggestion.id).pipe(
+            // catchError((error) => {
+            //   console.error('The approve and import request for id ' + suggestion.id + ' has failed');
+            //   console.log('The operation is skipped');
+            //   return of(null);
+            // })
+          );
+        }),
+        // catchError((error) => {
+        //   console.error('The approve and import request for id ' + suggestion.id + ' has failed');
+        //   console.log('The operation is skipped');
+        //   return of(null);
+        // })
+      );
+    ;
+  }
+
+  /**
+   * Perform the delete operation.
+   * @param suggestionId
+   * @private
+   */
+  private notMineImpl(suggestionId): Observable<any> {
+    return this.suggestionService.deleteReviewedSuggestion(suggestionId).pipe(
+      // catchError((error) => {
+      //   console.error('The delete request for id ' + suggestionId + ' has failed');
+      //   console.log('The operation is skipped');
+      //   return of(null);
+      // })
+    )
   }
 }

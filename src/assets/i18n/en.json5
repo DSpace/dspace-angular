@@ -2836,7 +2836,11 @@
 
   "reciter.suggestion.approveAndImport": "Approve & import",
 
+  "reciter.suggestion.approveAndImport.bulk": "Approve & import Selected",
+
   "reciter.suggestion.notMine": "Not mine",
+
+  "reciter.suggestion.notMine.bulk": "Not mine Selected",
 
   "reciter.suggestion.seeEvidence": "See evidence",
 
