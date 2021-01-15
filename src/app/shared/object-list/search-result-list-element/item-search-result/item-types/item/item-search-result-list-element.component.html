@@ -2,7 +2,7 @@
 
 <ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
-       [routerLink]="['/items/' + dso.id]" class="lead"
+       [routerLink]="[itemPageRoute]" class="lead"
        [innerHTML]="firstMetadataValue('dc.title')"></a>
     <span *ngIf="linkType == linkTypes.None" class="lead"
           [innerHTML]="firstMetadataValue('dc.title')"></span>

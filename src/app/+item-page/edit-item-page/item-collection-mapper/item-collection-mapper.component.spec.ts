@@ -56,6 +56,7 @@ describe('ItemCollectionMapperComponent', () => {
   const mockCollection = Object.assign(new Collection(), { id: 'collection1' });
   const mockItem: Item = Object.assign(new Item(), {
     id: '932c7d50-d85a-44cb-b9dc-b427b12877bd',
+    uuid: '932c7d50-d85a-44cb-b9dc-b427b12877bd',
     name: 'test-item'
   });
   const mockItemRD: RemoteData<Item> = createSuccessfulRemoteDataObject(mockItem);
@@ -207,7 +208,7 @@ describe('ItemCollectionMapperComponent', () => {
     });
 
     it('should navigate to the item page', () => {
-      expect(router.navigate).toHaveBeenCalledWith(['/items/', mockItem.id]);
+      expect(router.navigate).toHaveBeenCalledWith(['/items/' + mockItem.uuid]);
     });
   });
 

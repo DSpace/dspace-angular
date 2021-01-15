@@ -11,6 +11,7 @@ import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { environment } from '../../../../environments/environment';
+import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-abstract-item-update',
@@ -29,6 +30,11 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    * Should be initialized in the initializeUpdates method of the child component
    */
   updates$: Observable<FieldUpdates>;
+
+  /**
+   * Route to the item's page
+   */
+  itemPageRoute: string;
 
   constructor(
     public itemService: ItemDataService,
@@ -52,6 +58,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
       map((data: RemoteData<Item>) => data.payload)
     ).subscribe((item: Item) => {
       this.item = item;
+      this.itemPageRoute = getItemPageRoute(this.item);
       this.postItemInit();
     });
 

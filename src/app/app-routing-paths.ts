@@ -51,7 +51,7 @@ export function getDSORoute(dso: DSpaceObject): string {
     case Collection.type.value:
       return getCollectionPageRoute(dso.uuid);
     case Item.type.value:
-      return getItemPageRoute(dso.uuid);
+      return getItemPageRoute(dso as Item);
   }
 }
 

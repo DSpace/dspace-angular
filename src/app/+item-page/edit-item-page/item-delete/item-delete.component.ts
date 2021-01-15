@@ -355,7 +355,7 @@ export class ItemDeleteComponent
       this.router.navigate(['']);
     } else {
       this.notificationsService.error(this.translateService.get('item.edit.' + this.messageKey + '.error'));
-      this.router.navigate([getItemEditRoute(this.item.id)]);
+      this.router.navigate([getItemEditRoute(this.item)]);
     }
   }
 }

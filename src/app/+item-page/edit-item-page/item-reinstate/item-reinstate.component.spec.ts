@@ -47,9 +47,9 @@ describe('ItemReinstateComponent', () => {
 
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject({
+        dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
           id: 'fake-id'
-        })
+        }))
       })
     };
 

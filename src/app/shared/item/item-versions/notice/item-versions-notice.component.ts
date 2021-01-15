@@ -109,7 +109,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
    */
   getItemPage(item: Item): string {
     if (hasValue(item)) {
-      return getItemPageRoute(item.id);
+      return getItemPageRoute(item);
     }
   }
 }

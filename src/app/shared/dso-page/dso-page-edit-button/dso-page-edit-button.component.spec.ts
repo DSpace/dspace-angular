@@ -40,7 +40,7 @@ describe('DsoPageEditButtonComponent', () => {
     fixture = TestBed.createComponent(DsoPageEditButtonComponent);
     component = fixture.componentInstance;
     component.dso = dso;
-    component.pageRoutePrefix = 'test';
+    component.pageRoute = 'test';
     fixture.detectChanges();
   });
 

@@ -20,6 +20,7 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import { Metadata } from '../shared/metadata.utils';
+import { getItemPageRoute } from '../../+item-page/item-page-routing-paths';
 
 @Injectable()
 export class DsoRedirectDataService extends DataService<any> {
@@ -64,15 +65,16 @@ export class DsoRedirectDataService extends DataService<any> {
         if (response.hasSucceeded) {
           const dso = response.payload;
           const uuid = dso.uuid;
-          let newRoute = this.getEndpointFromDSOType(response.payload.type);
-          if (dso.type.startsWith('item')) {
-            const relation = Metadata.firstValue(dso.metadata, 'relationship.type');
-            if (hasValue(relation)) {
-              newRoute = `entities/${relation.toLowerCase()}`;
+          if (hasValue(uuid)) {
+            let newRoute = this.getEndpointFromDSOType(response.payload.type);
+            if (dso.type.startsWith('item')) {
+              newRoute = getItemPageRoute(dso as Item);
+            } else if (hasValue(newRoute)) {
+              newRoute += '/' + uuid;
             }
-          }
-          if (hasValue(uuid) && hasValue(newRoute)) {
-            this.router.navigate([newRoute + '/' + uuid]);
+            if (hasValue(newRoute)) {
+              this.router.navigate([newRoute]);
+            }
           }
         }
       })

@@ -25,6 +25,7 @@ import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-collection-mapper',
@@ -289,7 +290,7 @@ export class ItemCollectionMapperComponent implements OnInit {
       getRemoteDataPayload(),
       take(1)
     ).subscribe((item: Item) => {
-      this.router.navigate(['/items/', item.id]);
+      this.router.navigate([getItemPageRoute(item)]);
     });
   }
 
