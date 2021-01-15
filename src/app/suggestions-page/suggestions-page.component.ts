@@ -137,6 +137,7 @@ export class SuggestionsPageComponent implements OnInit {
       .subscribe((results: SuggestionBulkResult) => {
         this.updatePage();
         this.isBulkOperationPending = false;
+        this.selectedSuggestions = {};
         if (results.success > 0) {
           this.notificationService.success(
             this.translateService.get('reciter.suggestion.notMine.bulk.success',
@@ -173,6 +174,7 @@ export class SuggestionsPageComponent implements OnInit {
       .subscribe((results: SuggestionBulkResult) => {
         this.updatePage();
         this.isBulkOperationPending = false;
+        this.selectedSuggestions = {};
         if (results.success > 0) {
           this.notificationService.success(
             this.translateService.get('reciter.suggestion.approveAndImport.bulk.success',

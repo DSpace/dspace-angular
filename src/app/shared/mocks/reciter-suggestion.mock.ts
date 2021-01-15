@@ -10,7 +10,7 @@ export const mockSuggestionPublicationOne: OpenaireSuggestion =  {
   display: 'publication one',
   source: 'reciter',
   externalSourceUri: 'https://dspace7.4science.cloud/server/api/integration/reciterSourcesEntry/pubmed/entryValues/24694772',
-  score: 48,
+  score: '48',
   evidences: {
     acceptedRejectedEvidence: {
       score: '2.7',
@@ -112,7 +112,7 @@ export const mockSuggestionPublicationTwo: OpenaireSuggestion =  {
   display: 'publication two',
   source: 'reciter',
   externalSourceUri: 'https://dspace7.4science.cloud/server/api/integration/reciterSourcesEntry/pubmed/entryValues/24694772',
-  score: 48,
+  score: '48',
   evidences: {
     acceptedRejectedEvidence: {
       score: '2.7',

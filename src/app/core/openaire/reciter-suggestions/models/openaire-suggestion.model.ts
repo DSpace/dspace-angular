@@ -52,7 +52,7 @@ export class OpenaireSuggestion implements CacheableObject {
    * The Total Score of the suggestion
    */
   @autoserialize
-  score: number;
+  score: string;
 
   /**
    * The total number of suggestions provided by Suggestion Target for

@@ -2844,6 +2844,8 @@
 
   "reciter.suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
 
+  "reciter.suggestion.notMine": "Not mine",
+
   "reciter.suggestion.notMine.success": "The suggestion has been discarded",
 
   "reciter.suggestion.notMine.bulk": "Not mine Selected",
@@ -3794,6 +3796,9 @@
 
   "sorting.score.DESC": "Relevance",
 
+  "sorting.ASC": "Ascending",
+
+  "sorting.DESC": "Descending",
 
 
   "statistics.title": "Statistics",
