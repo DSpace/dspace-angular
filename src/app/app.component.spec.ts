@@ -15,7 +15,7 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
 import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
 import { MetadataServiceMock } from './shared/mocks/metadata-service.mock';
-import { AngularticsMock } from './shared/mocks/angulartics.service.mock';
+import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
 import { AuthServiceMock } from './shared/mocks/auth.service.mock';
 import { AuthService } from './core/auth/auth.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -65,8 +65,8 @@ describe('App component', () => {
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MetadataServiceMock() },
-        { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsMock() },
-        { provide: Angulartics2DSpace, useValue: new AngularticsMock() },
+        { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsProviderMock() },
+        { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
