@@ -14,6 +14,12 @@ const effects = [
   NavbarEffects
 ];
 
+const ENTRY_COMPONENTS = [
+  // put only entry components that use custom decorator
+  NavbarSectionComponent,
+  ExpandableNavbarSectionComponent,
+];
+
 @NgModule({
   imports: [
     CommonModule,
@@ -44,4 +50,15 @@ const effects = [
  * This module handles all components and pipes that are necessary for the horizontal navigation bar
  */
 export class NavbarModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: NavbarModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
+
 }

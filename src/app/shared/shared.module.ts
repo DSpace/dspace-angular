@@ -229,6 +229,9 @@ import { RelatedItemsComponent } from '../+item-page/simple/related-items/relate
 import { TabbedRelatedEntitiesSearchComponent } from '../+item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedEntitiesSearchComponent } from '../+item-page/simple/related-entities/related-entities-search/related-entities-search.component';
 import { ConfigurationSearchPageComponent } from '../+search-page/configuration-search-page.component';
+import { LinkMenuItemComponent } from './menu/menu-item/link-menu-item.component';
+import { OnClickMenuItemComponent } from './menu/menu-item/onclick-menu-item.component';
+import { TextMenuItemComponent } from './menu/menu-item/text-menu-item.component';
 
 /**
  * Declaration needed to make sure all decorator functions are called in time
@@ -506,7 +509,10 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskActionsEditMetadataComponent,
   PublicationSidebarSearchListElementComponent,
   CollectionSidebarSearchListElementComponent,
-  CommunitySidebarSearchListElementComponent
+  CommunitySidebarSearchListElementComponent,
+  LinkMenuItemComponent,
+  OnClickMenuItemComponent,
+  TextMenuItemComponent
 ];
 
 const SHARED_SEARCH_PAGE_COMPONENTS = [
