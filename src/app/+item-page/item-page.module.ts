@@ -26,6 +26,12 @@ import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-i
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 
+const ENTRY_COMPONENTS = [
+  // put only entry components that use custom decorator
+  PublicationComponent,
+  UntypedItemComponent
+];
+
 @NgModule({
   imports: [
     CommonModule,
@@ -57,5 +63,15 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
   ]
 })
 export class ItemPageModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: ItemPageModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 
 }
