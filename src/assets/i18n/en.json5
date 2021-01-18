@@ -3904,7 +3904,9 @@
 
   "submission.import-external.source.scopus": "Scopus",
 
-  "submission.import-external.source.openaire": "OpenAIRE",
+  "submission.import-external.source.openaire": "OpenAIRE by Author",
+
+  "submission.import-external.source.openaireTitle": "OpenAIRE by Title",
 
   "submission.import-external.source.epo": "European Patent Office (EPO)",
 

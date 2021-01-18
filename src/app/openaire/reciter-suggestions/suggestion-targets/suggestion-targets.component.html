@@ -17,7 +17,7 @@
         <ds-loading class="container" *ngIf="(isTargetsProcessing() | async)" message="'reciter.suggestion.loading' | translate"></ds-loading>
         <ng-container *ngIf="!(isTargetsProcessing() | async)">
           <div *ngIf="!(targets$|async) || (targets$|async)?.length == 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
-            {{'reciter.suggestion.noTarget' | translate}}
+            {{'reciter.suggestion.noTargets' | translate}}
           </div>
           <div *ngIf="(targets$|async) && (targets$|async)?.length != 0" class="table-responsive mt-2">
             <table id="epeople" class="table table-striped table-hover table-bordered">
