@@ -14,7 +14,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Community } from '../../core/shared/community.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { Collection } from '../../core/shared/collection.model';
 import { of as observableOf } from 'rxjs';
@@ -86,8 +86,8 @@ describe('CommunityListComponent', () => {
       Object.assign(new Community(), {
         id: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
         uuid: '7669c72a-3f2a-451f-a3b9-9210e7a4c02f',
-        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockSubcommunities1Page1)),
-        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+        subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
+        collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community1',
       }), observableOf(true), 0, false, null
     ),
@@ -95,8 +95,8 @@ describe('CommunityListComponent', () => {
       Object.assign(new Community(), {
         id: '9076bd16-e69a-48d6-9e41-0238cb40d863',
         uuid: '9076bd16-e69a-48d6-9e41-0238cb40d863',
-        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
+        subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+        collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
         name: 'community2',
       }), observableOf(true), 0, false, null
     ),
@@ -104,8 +104,8 @@ describe('CommunityListComponent', () => {
       Object.assign(new Community(), {
         id: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
         uuid: 'efbf25e1-2d8c-4c28-8f3e-2e04c215be24',
-        subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-        collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+        subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+        collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community3',
       }), observableOf(false), 0, false, null
     ),
@@ -114,15 +114,9 @@ describe('CommunityListComponent', () => {
 
   beforeEach(async(() => {
     communityListServiceStub = {
-      topPageSize: 2,
-      topCurrentPage: 1,
-      collectionPageSize: 2,
-      subcommunityPageSize: 2,
+      pageSize: 2,
       expandedNodes: [],
       loadingNode: null,
-      getNextPageTopCommunities() {
-        this.topCurrentPage++;
-      },
       getLoadingNodeFromStore() {
         return observableOf(this.loadingNode);
       },
@@ -133,12 +127,12 @@ describe('CommunityListComponent', () => {
         this.expandedNodes = expandedNodes;
         this.loadingNode = loadingNode;
       },
-      loadCommunities(expandedNodes) {
+      loadCommunities(options, expandedNodes) {
         let flatnodes;
         let showMoreTopComNode = false;
         flatnodes = [...mockTopFlatnodesUnexpanded];
-        const currentPage = this.topCurrentPage;
-        const elementsPerPage = this.topPageSize;
+        const currentPage = options.currentPage;
+        const elementsPerPage = this.pageSize;
         let endPageIndex = (currentPage * elementsPerPage);
         if (endPageIndex >= flatnodes.length) {
           endPageIndex = flatnodes.length;
@@ -171,14 +165,14 @@ describe('CommunityListComponent', () => {
                   collFlatnodes = [...collFlatnodes, toFlatNode(coll, observableOf(false), topNode.level + 1, false, topNode)];
                 });
                 if (isNotEmpty(subComFlatnodes)) {
-                  const endSubComIndex = this.subcommunityPageSize * expandedParent.currentCommunityPage;
+                  const endSubComIndex = this.pageSize * expandedParent.currentCommunityPage;
                   flatnodes = [...flatnodes, ...subComFlatnodes.slice(0, endSubComIndex)];
                   if (subComFlatnodes.length > endSubComIndex) {
                     flatnodes = [...flatnodes, showMoreFlatNode('community', topNode.level + 1, expandedParent)];
                   }
                 }
                 if (isNotEmpty(collFlatnodes)) {
-                  const endColIndex = this.collectionPageSize * expandedParent.currentCollectionPage;
+                  const endColIndex = this.pageSize * expandedParent.currentCollectionPage;
                   flatnodes = [...flatnodes, ...collFlatnodes.slice(0, endColIndex)];
                   if (collFlatnodes.length > endColIndex) {
                     flatnodes = [...flatnodes, showMoreFlatNode('collection', topNode.level + 1, expandedParent)];

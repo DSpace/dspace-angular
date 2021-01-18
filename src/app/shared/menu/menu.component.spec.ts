@@ -7,19 +7,25 @@ import { MenuComponent } from './menu.component';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
 import { MenuSection } from './menu.reducer';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MenuID } from './initial-menus-state';
 
 describe('MenuComponent', () => {
   let comp: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
   let menuService: MenuService;
+  let router: any;
+
+  const mockMenuID = 'mock-menuID' as MenuID;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [MenuComponent],
       providers: [
         { provide: Injector, useValue: {} },
-        { provide: MenuService, useClass: MenuServiceStub },
+        { provide: MenuService, useClass: MenuServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MenuComponent, {
@@ -30,7 +36,9 @@ describe('MenuComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MenuComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
+    comp.menuID = mockMenuID;
     menuService = (comp as any).menuService;
+    router = TestBed.get(Router);
     spyOn(comp as any, 'getSectionDataInjector').and.returnValue(MenuSection);
     spyOn(comp as any, 'getSectionComponent').and.returnValue(observableOf({}));
     fixture.detectChanges();

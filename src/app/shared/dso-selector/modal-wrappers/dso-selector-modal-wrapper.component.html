@@ -5,6 +5,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <ds-dso-selector [currentDSOId]="(dsoRD$ | async)?.payload.uuid ? 'search.resourceid:' + (dsoRD$ | async)?.payload.uuid : null" [type]="selectorType" (onSelect)="selectObject($event)"></ds-dso-selector>
+    <h5 *ngIf="header" class="px-2">{{header | translate}}</h5>
+    <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" (onSelect)="selectObject($event)"></ds-dso-selector>
   </div>
 </div>

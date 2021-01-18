@@ -25,9 +25,29 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() listID: string;
 
   /**
+   * The value to display for this element
+   */
+  @Input() value: string;
+
+  /**
    * The index of this element
    */
   @Input() index: number;
+
+  /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel = true;
+
+  /**
+   * The context we matched on to get this component
+   */
+  @Input() context: Context;
+
+  /**
+   * The viewmode we matched on to get this component
+   */
+  @Input() viewMode: ViewMode;
 
   /**
    * The available link types

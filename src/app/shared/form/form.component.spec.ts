@@ -92,7 +92,6 @@ function init() {
       groupFactory: () => {
         return [
           new DynamicInputModel({
-
             id: 'bootstrapArrayGroupInput',
             placeholder: 'example array group input',
             readOnly: false
@@ -120,7 +119,8 @@ function init() {
         dc_identifier_issn: null
       },
       valid: false,
-      errors: []
+      errors: [],
+      touched: {}
     }
   };
 
@@ -362,7 +362,7 @@ describe('FormComponent test suite', () => {
 
       spyOn((formComp as any).formService, 'validateAllFormFields');
 
-      form.next(formState.testForm)
+      form.next(formState.testForm);
       formFixture.detectChanges();
 
       formComp.onSubmit();
@@ -418,7 +418,7 @@ describe('FormComponent test suite', () => {
     }));
 
     it('should dispatch FormChangeAction when an item has been removed from an array', inject([FormBuilderService], (service: FormBuilderService) => {
-      formComp.removeItem(new Event('click'), formComp.formModel[0] as DynamicFormArrayModel, 0);
+      formComp.removeItem(new Event('click'), formComp.formModel[0] as DynamicFormArrayModel, 1);
 
       expect(store.dispatch).toHaveBeenCalledWith(new FormChangeAction('testFormArray', service.getValueFromModel(formComp.formModel)));
     }));
@@ -426,7 +426,7 @@ describe('FormComponent test suite', () => {
     it('should emit removeArrayItem Event when an item has been removed from an array', inject([FormBuilderService], (service: FormBuilderService) => {
       spyOn(formComp.removeArrayItem, 'emit');
 
-      formComp.removeItem(new Event('click'), formComp.formModel[0] as DynamicFormArrayModel, 0);
+      formComp.removeItem(new Event('click'), formComp.formModel[0] as DynamicFormArrayModel, 1);
 
       expect(formComp.removeArrayItem.emit).toHaveBeenCalled();
     }));

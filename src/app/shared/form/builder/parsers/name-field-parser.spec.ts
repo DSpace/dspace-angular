@@ -14,7 +14,7 @@ describe('NameFieldParser test suite', () => {
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
-    authorityUuid: null
+    collectionUUID: null
   };
 
   beforeEach(() => {
@@ -95,7 +95,7 @@ describe('NameFieldParser test suite', () => {
     initFormValues = {
       name: [new FormFieldMetadataValueObject('test, name')],
     };
-    const expectedValue = new FormFieldMetadataValueObject('test, name');
+    const expectedValue = new FormFieldMetadataValueObject('test, name', undefined, undefined, 'test');
 
     const parser = new NameFieldParser(submissionId, field1, initFormValues, parserOptions);
 

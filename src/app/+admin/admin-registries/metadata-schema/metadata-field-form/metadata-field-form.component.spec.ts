@@ -27,9 +27,11 @@ describe('MetadataFieldFormComponent', () => {
   /* tslint:disable:no-empty */
   const registryServiceStub = {
     getActiveMetadataField: () => observableOf(undefined),
-    createOrUpdateMetadataField: (field: MetadataField) => observableOf(field),
+    createMetadataField: (field: MetadataField) => observableOf(field),
+    updateMetadataField: (field: MetadataField) => observableOf(field),
     cancelEditMetadataField: () => {},
     cancelEditMetadataSchema: () => {},
+    clearMetadataFieldRequests: () => observableOf(undefined)
   };
   const formBuilderServiceStub = {
     createFormGroup: () => {
@@ -74,7 +76,6 @@ describe('MetadataFieldFormComponent', () => {
     const scopeNote = 'fakeScopeNote';
 
     const expected = Object.assign(new MetadataField(), {
-      schema: metadataSchema,
       element: element,
       qualifier: qualifier,
       scopeNote: scopeNote

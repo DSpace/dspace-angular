@@ -3,10 +3,14 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
 import { first, map } from 'rxjs/operators';
-import { DataService } from '../../../core/data/data.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import { RequestService } from '../../../core/data/request.service';
+import { ComColDataService } from '../../../core/data/comcol-data.service';
+import { Community } from '../../../core/shared/community.model';
+import { Collection } from '../../../core/shared/collection.model';
 
 /**
  * Component representing the delete page for communities and collections
@@ -15,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'ds-delete-comcol',
   template: ''
 })
-export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
+export class DeleteComColPageComponent<TDomain extends Community | Collection> implements OnInit {
   /**
    * Frontend endpoint for this type of DSO
    */
@@ -26,11 +30,12 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements 
   public dsoRD$: Observable<RemoteData<TDomain>>;
 
   public constructor(
-    protected dsoDataService: DataService<TDomain>,
+    protected dsoDataService: ComColDataService<TDomain>,
     protected router: Router,
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,
-    protected translate: TranslateService
+    protected translate: TranslateService,
+    protected requestService: RequestService
   ) {
   }
 
@@ -44,11 +49,12 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements 
    */
   onConfirm(dso: TDomain) {
     this.dsoDataService.delete(dso.id)
-      .pipe(first())
-      .subscribe((success: boolean) => {
-        if (success) {
+      .pipe(getFirstCompletedRemoteData())
+      .subscribe((response: RemoteData<NoContent>) => {
+        if (response.hasSucceeded) {
           const successMessage = this.translate.instant((dso as any).type + '.delete.notification.success');
           this.notifications.success(successMessage)
+          this.dsoDataService.refreshCache(dso);
         } else {
           const errorMessage = this.translate.instant((dso as any).type + '.delete.notification.fail');
           this.notifications.error(errorMessage)

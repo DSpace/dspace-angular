@@ -2,6 +2,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { AdminSidebarComponent } from './admin-sidebar.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
@@ -9,28 +10,40 @@ import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service
 import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service.stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
-
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;
   let fixture: ComponentFixture<AdminSidebarComponent>;
   const menuService = new MenuServiceStub();
+  let authorizationService: AuthorizationDataService;
+  let scriptService;
 
   beforeEach(async(() => {
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true)
+    });
+    scriptService = jasmine.createSpyObj('scriptService', { scriptWithNameExistsAndCanExecute: observableOf(true) });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [AdminSidebarComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: AuthService, useClass: AuthServiceStub },
+        { provide: ActivatedRoute, useValue: {} },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ScriptDataService, useValue: scriptService },
         {
           provide: NgbModal, useValue: {
-            open: () => {/*comment*/}
+            open: () => {/*comment*/
+            }
           }
         }
       ],

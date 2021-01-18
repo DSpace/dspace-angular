@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, of as observableOf, Observable, Subject } from 'rxjs';
-import { filter, flatMap, map, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter, flatMap, map, startWith, switchMap, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
-import { PaginatedList } from '../core/data/paginated-list';
+import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 
 import { MetadataService } from '../core/metadata/metadata.service';
@@ -16,14 +16,15 @@ import { Collection } from '../core/shared/collection.model';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { Item } from '../core/shared/item.model';
 import {
-  getSucceededRemoteData,
-  redirectToPageNotFoundOn404,
+  getFirstSucceededRemoteData,
+  redirectOn4xx,
   toDSpaceObjectListRD
 } from '../core/shared/operators';
 
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
-import { hasNoValue, hasValue, isNotEmpty } from '../shared/empty.util';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { AuthService } from '../core/auth/auth.service';
 
 @Component({
   selector: 'ds-collection-page',
@@ -51,7 +52,8 @@ export class CollectionPageComponent implements OnInit {
     private searchService: SearchService,
     private metadata: MetadataService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
@@ -63,7 +65,7 @@ export class CollectionPageComponent implements OnInit {
   ngOnInit(): void {
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
-      redirectToPageNotFoundOn404(this.router),
+      redirectOn4xx(this.router, this.authService),
       take(1)
     );
     this.logoRD$ = this.collectionRD$.pipe(
@@ -79,7 +81,7 @@ export class CollectionPageComponent implements OnInit {
 
     this.itemRD$ = this.paginationChanges$.pipe(
       switchMap((dto) => this.collectionRD$.pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         map((rd) => rd.payload.id),
         switchMap((id: string) => {
           return this.searchService.search(
@@ -87,7 +89,7 @@ export class CollectionPageComponent implements OnInit {
                 scope: id,
                 pagination: dto.paginationConfig,
                 sort: dto.sortConfig,
-                dsoType: DSpaceObjectType.ITEM
+                dsoTypes: [DSpaceObjectType.ITEM]
               })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>
         }),
         startWith(undefined) // Make sure switching pages shows loading component

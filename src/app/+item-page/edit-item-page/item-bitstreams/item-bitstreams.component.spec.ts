@@ -1,8 +1,5 @@
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { Item } from '../../../core/shared/item.model';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';
@@ -13,7 +10,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
-import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
+import {
+  INotification,
+  Notification
+} from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -26,6 +26,11 @@ import { RestResponse } from '../../../core/cache/response.models';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -55,7 +60,7 @@ const bundle = Object.assign(new Bundle(), {
   _links: {
     self: { href: 'bundle1-selflink' }
   },
-  bitstreams: createMockRDPaginatedObs([bitstream1, bitstream2])
+  bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
 });
 const moveOperations = [
   {
@@ -114,7 +119,7 @@ describe('ItemBitstreamsComponent', () => {
       }
     );
     bitstreamService = jasmine.createSpyObj('bitstreamService', {
-      deleteAndReturnResponse: jasmine.createSpy('deleteAndReturnResponse')
+      delete: jasmine.createSpy('delete')
     });
     objectCache = jasmine.createSpyObj('objectCache', {
       remove: jasmine.createSpy('remove')
@@ -130,18 +135,19 @@ describe('ItemBitstreamsComponent', () => {
       _links: {
         self: { href: 'item-selflink' }
       },
-      bundles: createMockRDPaginatedObs([bundle]),
+      bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
       lastModified: date
     });
     itemService = Object.assign( {
-      getBitstreams: () => createMockRDPaginatedObs([bitstream1, bitstream2]),
-      findById: () => createMockRDObs(item),
-      getBundles: () => createMockRDPaginatedObs([bundle])
+      getBitstreams: () => createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
+      findById: () => createSuccessfulRemoteDataObject$(item),
+      getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
     });
     route = Object.assign({
       parent: {
-        data: observableOf({ item: createMockRD(item) })
+        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) })
       },
+      data: observableOf({}),
       url: url
     });
     bundleService = jasmine.createSpyObj('bundleService', {
@@ -181,15 +187,41 @@ describe('ItemBitstreamsComponent', () => {
       comp.submit();
     });
 
-    it('should call deleteAndReturnResponse on the bitstreamService for the marked field', () => {
-      expect(bitstreamService.deleteAndReturnResponse).toHaveBeenCalledWith(bitstream2.id);
+    it('should call delete on the bitstreamService for the marked field', () => {
+      expect(bitstreamService.delete).toHaveBeenCalledWith(bitstream2.id);
     });
 
-    it('should not call deleteAndReturnResponse on the bitstreamService for the unmarked field', () => {
-      expect(bitstreamService.deleteAndReturnResponse).not.toHaveBeenCalledWith(bitstream1.id);
+    it('should not call delete on the bitstreamService for the unmarked field', () => {
+      expect(bitstreamService.delete).not.toHaveBeenCalledWith(bitstream1.id);
+    });
+  });
+
+  describe('when dropBitstream is called', () => {
+    const event = {
+      fromIndex: 0,
+      toIndex: 50,
+      // tslint:disable-next-line:no-empty
+      finish: () => {}
+    };
+
+    beforeEach(() => {
+      comp.dropBitstream(bundle, event);
+    });
+  });
+
+  describe('when dropBitstream is called', () => {
+    beforeEach((done) => {
+      comp.dropBitstream(bundle, {
+        fromIndex: 0,
+        toIndex: 50,
+        // tslint:disable-next-line:no-empty
+        finish: () => {
+          done();
+        }
+      })
     });
 
-    it('should send out a patch for the move operations', () => {
+    it('should send out a patch for the move operation', () => {
       expect(bundleService.patch).toHaveBeenCalled();
     });
   });
@@ -208,15 +240,3 @@ describe('ItemBitstreamsComponent', () => {
     });
   });
 });
-
-export function createMockRDPaginatedObs(list: any[]) {
-  return createMockRDObs(new PaginatedList(new PageInfo(), list));
-}
-
-export function createMockRDObs(obj: any) {
-  return observableOf(createMockRD(obj));
-}
-
-export function createMockRD(obj: any) {
-  return new RemoteData(false, false, true, null, obj);
-}

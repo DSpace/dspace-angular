@@ -9,7 +9,10 @@ export enum Context {
   Workflow = 'workflow',
   Workspace = 'workspace',
   AdminMenu = 'adminMenu',
-  SubmissionModal = 'submissionModal',
+  EntitySearchModalWithNameVariants = 'EntitySearchModalWithNameVariants',
+  EntitySearchModal = 'EntitySearchModal',
   AdminSearch = 'adminSearch',
   AdminWorkflowSearch = 'adminWorkflowSearch',
+  SideBarSearchModal = 'sideBarSearchModal',
+  SideBarSearchModalCurrent = 'sideBarSearchModalCurrent',
 }

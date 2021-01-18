@@ -1,13 +1,5 @@
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output, ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
@@ -23,6 +15,9 @@ import { Observable, Subscription } from 'rxjs';
 import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { FormEntry, FormError } from './form.reducer';
+import { QUALDROP_GROUP_SUFFIX } from './builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+
+const QUALDROP_GROUP_REGEX = new RegExp(`${QUALDROP_GROUP_SUFFIX}_\\d+$`);
 
 /**
  * The default form component.
@@ -160,8 +155,8 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formValid = this.getFormGroupValidStatus();
 
     this.subs.push(this.formGroup.statusChanges.pipe(
-      filter((currentStatus) => this.formValid !== this.getFormGroupValidStatus()))
-      .subscribe((currentStatus) => {
+      filter(() => this.formValid !== this.getFormGroupValidStatus()))
+      .subscribe(() => {
         this.formService.setStatusChanged(this.formId, this.getFormGroupValidStatus());
         this.formValid = this.getFormGroupValidStatus();
       }));
@@ -258,6 +253,7 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onFocus(event: DynamicFormControlEvent): void {
+    this.formService.setTouched(this.formId, this.formModel, event);
     this.focus.emit(event);
   }
 
@@ -304,15 +300,55 @@ export class FormComponent implements OnDestroy, OnInit {
 
   removeItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
-    this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
+    this.removeArrayItem.emit(this.getEvent($event, arrayContext, index - 1, 'remove'));
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
     this.formService.changeForm(this.formId, this.formModel);
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
-    this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
-    this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
+
+    // First emit the new value so it can be sent to the server
+    const value = formArrayControl.controls[0].value;
+    const event = this.getEvent($event, arrayContext, 0, 'add');
+    this.addArrayItem.emit(event);
+    this.change.emit(event);
+
+    // Next: update the UI so the user sees the changes
+    // without having to wait for the server's reply
+
+    // add an empty new field at the bottom
+    this.formBuilderService.addFormArrayGroup(formArrayControl, arrayContext);
+
+    // set that field to the new value
+    const model = arrayContext.groups[arrayContext.groups.length - 1].group[0] as any;
+    if (model.hasAuthority) {
+      model.value = Object.values(value)[0];
+      const ctrl = formArrayControl.controls[formArrayControl.length - 1];
+      const ctrlValue = ctrl.value;
+      const ctrlValueKey = Object.keys(ctrlValue)[0];
+      ctrl.setValue({
+        [ctrlValueKey]: model.value
+      });
+    } else if (this.formBuilderService.isQualdropGroup(model)) {
+      const ctrl = formArrayControl.controls[formArrayControl.length - 1];
+      const ctrlKey = Object.keys(ctrl.value).find((key: string) => isNotEmpty(key.match(QUALDROP_GROUP_REGEX)));
+      const valueKey = Object.keys(value).find((key: string) => isNotEmpty(key.match(QUALDROP_GROUP_REGEX)));
+      if (ctrlKey !== valueKey) {
+        Object.defineProperty(value, ctrlKey, Object.getOwnPropertyDescriptor(value, valueKey));
+        delete value[valueKey];
+      }
+      ctrl.setValue(value);
+    } else {
+      formArrayControl.controls[formArrayControl.length - 1].setValue(value);
+    }
+
+    // Clear the topmost field by removing the filled out version and inserting a new, empty version.
+    // Doing it this way ensures an empty value of the correct type is added without a bunch of ifs here
+    this.formBuilderService.removeFormArrayGroup(0, formArrayControl, arrayContext);
+    this.formBuilderService.insertFormArrayGroup(0, formArrayControl, arrayContext);
+
+    // Tell the formService that it should rerender.
     this.formService.changeForm(this.formId, this.formModel);
   }
 

@@ -2,14 +2,14 @@ import {
   createRelationshipsObservable,
   getItemPageFieldsTest
 } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { Item } from '../../../../core/shared/item.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { PersonComponent } from './person.component';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'person.email': [
       {

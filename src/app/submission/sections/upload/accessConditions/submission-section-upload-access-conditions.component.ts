@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { find } from 'rxjs/operators';
 
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { ResourcePolicy } from '../../../../core/shared/resource-policy.model';
+import { ResourcePolicy } from '../../../../core/resource-policy/models/resource-policy.model';
 import { isEmpty } from '../../../../shared/empty.util';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -42,7 +42,7 @@ export class SubmissionSectionUploadAccessConditionsComponent implements OnInit 
   ngOnInit() {
     this.accessConditions.forEach((accessCondition: ResourcePolicy) => {
       if (isEmpty(accessCondition.name)) {
-        this.groupService.findById(accessCondition.groupUUID).pipe(
+        this.groupService.findByHref(accessCondition._links.group.href).pipe(
           find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded))
           .subscribe((rd: RemoteData<Group>) => {
             const group: Group = rd.payload;

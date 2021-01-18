@@ -28,7 +28,11 @@ import { SubmissionSectionUploadFileViewComponent } from './sections/upload/file
 import { SubmissionSectionUploadAccessConditionsComponent } from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 import { storeModuleConfig } from '../app.reducer';
-import { CoreState } from '../core/core.reducers';
+import { SubmissionImportExternalComponent } from './import-external/submission-import-external.component';
+import { SubmissionImportExternalSearchbarComponent } from './import-external/import-external-searchbar/submission-import-external-searchbar.component';
+import { SubmissionImportExternalPreviewComponent } from './import-external/import-external-preview/submission-import-external-preview.component';
+import { SubmissionImportExternalCollectionComponent } from './import-external/import-external-collection/submission-import-external-collection.component';
+import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 
 @NgModule({
   imports: [
@@ -44,8 +48,8 @@ import { CoreState } from '../core/core.reducers';
     SubmissionSectionUploadComponent,
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
+    SubmissionSectionCcLicensesComponent,
     SectionsDirective,
-    SubmissionSectionContainerComponent,
     SubmissionEditComponent,
     SubmissionFormSectionAddComponent,
     SubmissionFormCollectionComponent,
@@ -53,19 +57,29 @@ import { CoreState } from '../core/core.reducers';
     SubmissionFormFooterComponent,
     SubmissionSubmitComponent,
     SubmissionUploadFilesComponent,
+    SubmissionSectionContainerComponent,
     SubmissionSectionUploadFileComponent,
     SubmissionSectionUploadFileEditComponent,
-    SubmissionSectionUploadFileViewComponent
+    SubmissionSectionUploadFileViewComponent,
+    SubmissionImportExternalComponent,
+    SubmissionImportExternalSearchbarComponent,
+    SubmissionImportExternalPreviewComponent,
+    SubmissionImportExternalCollectionComponent
   ],
   entryComponents: [
     SubmissionSectionUploadComponent,
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
-    SubmissionSectionContainerComponent],
+    SubmissionSectionContainerComponent,
+    SubmissionImportExternalPreviewComponent,
+    SubmissionImportExternalCollectionComponent,
+    SubmissionSectionCcLicensesComponent
+  ],
   exports: [
     SubmissionEditComponent,
     SubmissionFormComponent,
-    SubmissionSubmitComponent
+    SubmissionSubmitComponent,
+    SubmissionImportExternalComponent
   ],
   providers: [
     SectionUploadService,

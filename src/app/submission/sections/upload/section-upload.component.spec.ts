@@ -1,7 +1,10 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
+import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -20,30 +23,28 @@ import {
   mockSubmissionId,
   mockSubmissionState,
   mockUploadConfigResponse,
-  mockUploadConfigResponseNotRequired, mockUploadFiles,
+  mockUploadConfigResponseNotRequired,
+  mockUploadFiles,
 } from '../../../shared/mocks/submission.mock';
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
 import { SubmissionUploadsConfigService } from '../../../core/config/submission-uploads-config.service';
 import { SectionUploadService } from './section-upload.service';
 import { SubmissionSectionUploadComponent } from './section-upload.component';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { cold, hot } from 'jasmine-marbles';
 import { Collection } from '../../../core/shared/collection.model';
-import { ResourcePolicy } from '../../../core/shared/resource-policy.model';
-import { ResourcePolicyService } from '../../../core/data/resource-policy.service';
-import { ConfigData } from '../../../core/config/config-data';
-import { PageInfo } from '../../../core/shared/page-info.model';
+import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
 import { Group } from '../../../core/eperson/models/group.model';
 import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
+import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
 
 function getMockSubmissionUploadsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('SubmissionUploadsConfigService', {
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
     getConfigByName: jasmine.createSpy('getConfigByName'),
-    getConfigBySearch: jasmine.createSpy('getConfigBySearch')
+    getConfigBySearch: jasmine.createSpy('getConfigBySearch'),
+    findByHref: jasmine.createSpy('findByHref')
   });
 }
 
@@ -96,7 +97,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       },
       errors: [],
       header: 'submit.progressbar.describe.upload',
-      id: 'upload',
+      id: 'upload-id',
       sectionType: SectionsType.Upload
     };
     submissionId = mockSubmissionId;
@@ -204,9 +205,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 
-      uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
-        new ConfigData(new PageInfo(), mockUploadConfigResponse as any)
-      ));
+      uploadsConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new SubmissionUploadsModel(), mockUploadConfigResponse)));
 
       groupService.findById.and.returnValues(
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
@@ -244,9 +243,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 
-      uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
-        new ConfigData(new PageInfo(), mockUploadConfigResponse as any)
-      ));
+      uploadsConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new SubmissionUploadsModel(), mockUploadConfigResponse)));
 
       groupService.findById.and.returnValues(
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
@@ -283,9 +280,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 
-      uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
-        new ConfigData(new PageInfo(), mockUploadConfigResponse as any)
-      ));
+      uploadsConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new SubmissionUploadsModel(), mockUploadConfigResponse)));
 
       groupService.findById.and.returnValues(
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
@@ -314,9 +309,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 
-      uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
-        new ConfigData(new PageInfo(), mockUploadConfigResponseNotRequired as any)
-      ));
+      uploadsConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new SubmissionUploadsModel(), mockUploadConfigResponseNotRequired)));
 
       groupService.findById.and.returnValues(
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),

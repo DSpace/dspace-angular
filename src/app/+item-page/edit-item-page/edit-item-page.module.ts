@@ -29,6 +29,8 @@ import { ItemEditBitstreamDragHandleComponent } from './item-bitstreams/item-edi
 import { PaginatedDragAndDropBitstreamListComponent } from './item-bitstreams/item-edit-bitstream-bundle/paginated-drag-and-drop-bitstream-list/paginated-drag-and-drop-bitstream-list.component';
 import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.component';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
+import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
+import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -67,9 +69,14 @@ import { ItemVersionHistoryComponent } from './item-version-history/item-version
     ItemMoveComponent,
     ItemEditBitstreamDragHandleComponent,
     VirtualMetadataComponent,
+    ItemAuthorizationsComponent
   ],
   providers: [
-    BundleDataService
+    BundleDataService,
+    ObjectValuesPipe
+  ],
+  exports: [
+    ItemMetadataComponent
   ]
 })
 export class EditItemPageModule {

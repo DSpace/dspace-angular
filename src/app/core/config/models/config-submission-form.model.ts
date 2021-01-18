@@ -2,7 +2,7 @@ import { autoserialize, inheritSerialization } from 'cerialize';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { ConfigObject } from './config.model';
 import { FormFieldModel } from '../../../shared/form/builder/models/form-field.model';
-import { ResourceType } from '../../shared/resource-type';
+import { SUBMISSION_FORM_TYPE } from './config-type';
 
 /**
  * An interface that define a form row and its properties.
@@ -17,7 +17,7 @@ export interface FormRowModel {
 @typedObject
 @inheritSerialization(ConfigObject)
 export class SubmissionFormModel extends ConfigObject {
-  static type = new ResourceType('submissionform');
+  static type = SUBMISSION_FORM_TYPE;
 
   /**
    * An array of [FormRowModel] that are present in this form

@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
-import { ComcolRole } from '../../../shared/comcol-forms/edit-comcol-page/comcol-role/comcol-role';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { HALLink } from '../../../core/shared/hal-link.model';
 
 /**
  * Component for managing a collection's roles
@@ -19,33 +19,14 @@ export class CollectionRolesComponent implements OnInit {
   dsoRD$: Observable<RemoteData<Collection>>;
 
   /**
-   * The collection to manage, as an observable.
-   */
-  get collection$(): Observable<Collection> {
-    return this.dsoRD$.pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-    )
-  }
-
-  /**
    * The different roles for the collection, as an observable.
    */
-  getComcolRoles(): Observable<ComcolRole[]> {
-    return this.collection$.pipe(
-      map((collection) =>
-        [
-          ComcolRole.COLLECTION_ADMIN,
-          ComcolRole.SUBMITTERS,
-          ComcolRole.ITEM_READ,
-          ComcolRole.BITSTREAM_READ,
-          ...Object.keys(collection._links)
-            .filter((link) => link.startsWith('workflowGroups/'))
-            .map((link) => new ComcolRole(link.substr('workflowGroups/'.length), link)),
-        ]
-      ),
-    );
-  }
+  comcolRoles$: Observable<HALLink[]>
+
+  /**
+   * The collection to manage, as an observable.
+   */
+  collection$: Observable<Collection>
 
   constructor(
     protected route: ActivatedRoute,
@@ -56,6 +37,33 @@ export class CollectionRolesComponent implements OnInit {
     this.dsoRD$ = this.route.parent.data.pipe(
       first(),
       map((data) => data.dso),
+    );
+
+    this.collection$ = this.dsoRD$.pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    );
+
+    this.comcolRoles$ = this.collection$.pipe(
+      map((collection) => [
+        {
+          name: 'collection-admin',
+          href: collection._links.adminGroup.href,
+        },
+        {
+          name: 'submitters',
+          href: collection._links.submittersGroup.href,
+        },
+        {
+          name: 'item_read',
+          href: collection._links.itemReadGroup.href,
+        },
+        {
+          name: 'bitstream_read',
+          href: collection._links.bitstreamReadGroup.href,
+        },
+        ...collection._links.workflowGroups,
+      ]),
     );
   }
 }

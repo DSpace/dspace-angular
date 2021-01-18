@@ -1,7 +1,7 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../../cache/builders/build-decorators';
-import { PaginatedList } from '../../data/paginated-list';
+import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
 
 import { DSpaceObject } from '../../shared/dspace-object.model';
@@ -56,6 +56,12 @@ export class EPerson extends DSpaceObject {
    */
   @autoserialize
   public selfRegistered: boolean;
+
+  /**
+   * The password of this EPerson
+   */
+  @autoserialize
+  public password: string;
 
   /**
    * Getter to retrieve the EPerson's full name as a string

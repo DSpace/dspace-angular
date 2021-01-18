@@ -1,20 +1,16 @@
 import { Injectable } from '@angular/core';
-import { RestResponse, SearchSuccessResponse } from '../cache/response.models';
-import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
-import { DSOResponseParsingService } from './dso-response-parsing.service';
-import { ResponseParsingService } from './parsing.service';
+import { ParsedResponse } from '../cache/response.models';
+import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RestRequest } from './request.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { hasValue } from '../../shared/empty.util';
-import { SearchQueryResponse } from '../../shared/search/search-query-response.model';
+import { SearchObjects } from '../../shared/search/search-objects.model';
 import { MetadataMap, MetadataValue } from '../shared/metadata.models';
+import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 
 @Injectable()
-export class MyDSpaceResponseParsingService implements ResponseParsingService {
-  constructor(private dsoParser: DSOResponseParsingService) {
-  }
-
-  parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+export class MyDSpaceResponseParsingService extends DspaceRestResponseParsingService {
+  parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
     // fallback for unexpected empty response
     const emptyPayload = {
       _embedded: {
@@ -41,12 +37,8 @@ export class MyDSpaceResponseParsingService implements ResponseParsingService {
     const dsoSelfLinks = payload._embedded.objects
       .filter((object) => hasValue(object._embedded))
       .map((object) => object._embedded.indexableObject)
-      .map((dso) => this.dsoParser.parse(request, {
-        payload: dso,
-        statusCode: data.statusCode,
-        statusText: data.statusText
-      }))
-      .map((obj) => obj.resourceSelfLinks)
+      .map((dso) => this.process(dso, request))
+      .map((obj) => obj._links.self.href)
       .reduce((combined, thisElement) => [...combined, ...thisElement], []);
 
     const objects = payload._embedded.objects
@@ -57,8 +49,10 @@ export class MyDSpaceResponseParsingService implements ResponseParsingService {
         _embedded: this.filterEmbeddedObjects(object)
       }));
     payload.objects = objects;
-    const deserialized = new DSpaceSerializer(SearchQueryResponse).deserialize(payload);
-    return new SearchSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(payload));
+    const deserialized = new DSpaceSerializer(SearchObjects).deserialize(payload);
+    deserialized.pageInfo = this.processPageInfo(payload)
+    this.addToObjectCache(deserialized, request, data);
+    return new ParsedResponse(data.statusCode, deserialized._links.self);
   }
 
   protected filterEmbeddedObjects(object) {

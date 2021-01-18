@@ -6,20 +6,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { Community } from '../../../../core/shared/community.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { SharedModule } from '../../../shared.module';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../remote-data.utils';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {
-  let comp: ComcolMetadataComponent<DSpaceObject>;
-  let fixture: ComponentFixture<ComcolMetadataComponent<DSpaceObject>>;
-  let dsoDataService: CommunityDataService;
+  let comp: ComcolMetadataComponent<any>;
+  let fixture: ComponentFixture<ComcolMetadataComponent<any>>;
+  let dsoDataService;
   let router: Router;
 
   let community;
@@ -49,6 +50,7 @@ describe('ComColMetadataComponent', () => {
 
     communityDataServiceStub = {
       update: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
+      patch: () => null,
       getLogoEndpoint: () => observableOf(logoEndpoint)
     };
 
@@ -59,7 +61,7 @@ describe('ComColMetadataComponent', () => {
     routeStub = {
       parent: {
         data: observableOf({
-          dso: new RemoteData(false, false, true, null, community)
+          dso: createSuccessfulRemoteDataObject(community)
         })
       }
     };
@@ -95,37 +97,56 @@ describe('ComColMetadataComponent', () => {
     describe('with an empty queue in the uploader', () => {
       beforeEach(() => {
         data = {
-          dso: Object.assign(new Community(), {
-            metadata: [{
-              key: 'dc.title',
-              value: 'test'
-            }]
-          }),
+          operations: [
+            {
+              op: 'replace',
+              path: '/metadata/dc.title',
+              value: {
+                value: 'test',
+                language: null,
+              },
+            },
+          ],
+          dso: new Community(),
           uploader: {
             options: {
               url: ''
             },
             queue: [],
             /* tslint:disable:no-empty */
-            uploadAll: () => {}
+            uploadAll: () => {
+            }
             /* tslint:enable:no-empty */
-          }
-        }
+          },
+          deleteLogo: false,
+        };
+        spyOn(router, 'navigate');
       });
 
-      it('should navigate when successful', () => {
-        spyOn(router, 'navigate');
-        comp.onSubmit(data);
-        fixture.detectChanges();
-        expect(router.navigate).toHaveBeenCalled();
+      describe('when successful', () => {
+
+        beforeEach(() => {
+          spyOn(dsoDataService, 'patch').and.returnValue(createSuccessfulRemoteDataObject$({}));
+        });
+
+        it('should navigate', () => {
+          comp.onSubmit(data);
+          fixture.detectChanges();
+          expect(router.navigate).toHaveBeenCalled();
+        });
       });
 
-      it('should not navigate on failure', () => {
-        spyOn(router, 'navigate');
-        spyOn(dsoDataService, 'update').and.returnValue(createFailedRemoteDataObject$(newCommunity));
-        comp.onSubmit(data);
-        fixture.detectChanges();
-        expect(router.navigate).not.toHaveBeenCalled();
+      describe('on failure', () => {
+
+        beforeEach(() => {
+          spyOn(dsoDataService, 'patch').and.returnValue(createFailedRemoteDataObject$('Error', 500));
+        });
+
+        it('should not navigate', () => {
+          comp.onSubmit(data);
+          fixture.detectChanges();
+          expect(router.navigate).not.toHaveBeenCalled();
+        });
       });
     });
 

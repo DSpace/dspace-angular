@@ -2,16 +2,19 @@ import { Component } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { map, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
-import { RestResponse } from '../../../core/cache/response.models';
 import { zip } from 'rxjs/internal/observable/zip';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -37,6 +40,11 @@ export class MetadataRegistryComponent {
     pageSize: 25
   });
 
+  /**
+   * Whether or not the list of MetadataSchemas needs an update
+   */
+  needsUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
   constructor(private registryService: RegistryService,
               private notificationsService: NotificationsService,
               private router: Router,
@@ -50,14 +58,17 @@ export class MetadataRegistryComponent {
    */
   onPageChange(event) {
     this.config.currentPage = event;
-    this.updateSchemas();
+    this.forceUpdateSchemas();
   }
 
   /**
    * Update the list of schemas by fetching it from the rest api or cache
    */
   private updateSchemas() {
-    this.metadataSchemas = this.registryService.getMetadataSchemas(this.config);
+    this.metadataSchemas = this.needsUpdate$.pipe(
+      filter((update) => update === true),
+      switchMap(() => this.registryService.getMetadataSchemas(toFindListOptions(this.config)))
+    );
   }
 
   /**
@@ -65,8 +76,7 @@ export class MetadataRegistryComponent {
    * a new REST call
    */
   public forceUpdateSchemas() {
-    this.registryService.clearMetadataSchemaRequests().subscribe();
-    this.updateSchemas();
+    this.needsUpdate$.next(true);
   }
 
   /**
@@ -125,17 +135,18 @@ export class MetadataRegistryComponent {
    * Delete all the selected metadata schemas
    */
   deleteSchemas() {
+    this.registryService.clearMetadataSchemaRequests().subscribe();
     this.registryService.getSelectedMetadataSchemas().pipe(take(1)).subscribe(
       (schemas) => {
         const tasks$ = [];
         for (const schema of schemas) {
           if (hasValue(schema.id)) {
-            tasks$.push(this.registryService.deleteMetadataSchema(schema.id));
+            tasks$.push(this.registryService.deleteMetadataSchema(schema.id).pipe(getFirstCompletedRemoteData()));
           }
         }
-        zip(...tasks$).subscribe((responses: RestResponse[]) => {
-          const successResponses = responses.filter((response: RestResponse) => response.isSuccessful);
-          const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
+        zip(...tasks$).subscribe((responses: Array<RemoteData<NoContent>>) => {
+          const successResponses = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
+          const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
           if (successResponses.length > 0) {
             this.showNotification(true, successResponses.length);
           }

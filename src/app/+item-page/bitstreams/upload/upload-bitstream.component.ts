@@ -11,16 +11,16 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { getBitstreamModulePath } from '../../../app-routing.module';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import {
   getFirstSucceededRemoteDataPayload
 } from '../../../core/shared/operators';
 import { UploaderComponent } from '../../../shared/uploader/uploader.component';
-import { getItemEditPath } from '../../item-page-routing.module';
 import { RequestService } from '../../../core/data/request.service';
+import { getBitstreamModuleRoute } from '../../../app-routing-paths';
+import { getItemEditRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-upload-bitstream',
@@ -103,7 +103,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.itemId = this.route.snapshot.params.id;
-    this.itemRD$ = this.route.data.pipe(map((data) => data.item));
+    this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
     this.bundlesRD$ = this.itemRD$.pipe(
       switchMap((itemRD: RemoteData<Item>) => itemRD.payload.bundles)
     );
@@ -171,7 +171,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
 
     // Bring over the item ID as a query parameter
     const queryParams = { itemId: this.itemId };
-    this.router.navigate([getBitstreamModulePath(), bitstream.id, 'edit'], { queryParams: queryParams });
+    this.router.navigate([getBitstreamModuleRoute(), bitstream.id, 'edit'], { queryParams: queryParams });
   }
 
   /**
@@ -196,7 +196,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    * When cancel is clicked, navigate back to the item's edit bitstreams page
    */
   onCancel() {
-    this.router.navigate([getItemEditPath(this.itemId), 'bitstreams']);
+    this.router.navigate([getItemEditRoute(this.itemId), 'bitstreams']);
   }
 
   /**

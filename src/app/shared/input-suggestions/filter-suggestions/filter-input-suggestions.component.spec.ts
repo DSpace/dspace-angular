@@ -14,10 +14,10 @@ describe('FilterInputSuggestionsComponent', () => {
   let fixture: ComponentFixture<FilterInputSuggestionsComponent>;
   let de: DebugElement;
   let el: HTMLElement;
-  const suggestions = [{displayValue: 'suggestion uno', value: 'suggestion uno'}, {
+  const suggestions = [{ displayValue: 'suggestion uno', value: 'suggestion uno' }, {
     displayValue: 'suggestion dos',
     value: 'suggestion dos'
-  }, {displayValue: 'suggestion tres', value: 'suggestion tres'}];
+  }, { displayValue: 'suggestion tres', value: 'suggestion tres' }];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -26,7 +26,7 @@ describe('FilterInputSuggestionsComponent', () => {
       providers: [],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FilterInputSuggestionsComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

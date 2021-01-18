@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { AdminAccessControlModule } from './admin-access-control/admin-access-control.module';
+import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
 import { AdminRegistriesModule } from './admin-registries/admin-registries.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
@@ -16,6 +17,7 @@ import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './adm
 import { WorkflowItemAdminWorkflowActionsComponent } from './admin-workflow-page/admin-workflow-search-results/workflow-item-admin-workflow-actions.component';
 import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './admin-workflow-page/admin-workflow-search-results/admin-workflow-search-result-list-element/workflow-item/workflow-item-search-result-admin-workflow-list-element.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
+import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 
 @NgModule({
   imports: [
@@ -35,10 +37,13 @@ import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow
     CommunityAdminSearchResultGridElementComponent,
     CollectionAdminSearchResultGridElementComponent,
     ItemAdminSearchResultActionsComponent,
+    AdminCurationTasksComponent,
 
     WorkflowItemSearchResultAdminWorkflowListElementComponent,
     WorkflowItemSearchResultAdminWorkflowGridElementComponent,
-    WorkflowItemAdminWorkflowActionsComponent
+    WorkflowItemAdminWorkflowActionsComponent,
+
+    MetadataImportPageComponent
 
   ],
   entryComponents: [
@@ -52,7 +57,9 @@ import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow
 
     WorkflowItemSearchResultAdminWorkflowListElementComponent,
     WorkflowItemSearchResultAdminWorkflowGridElementComponent,
-    WorkflowItemAdminWorkflowActionsComponent
+    WorkflowItemAdminWorkflowActionsComponent,
+
+    MetadataImportPageComponent
   ]
 })
 export class AdminModule {

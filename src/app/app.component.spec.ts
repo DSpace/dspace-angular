@@ -1,35 +1,21 @@
-import {
-  async,
-  ComponentFixture,
-  inject,
-  TestBed
-} from '@angular/core/testing';
-
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  DebugElement
-} from '@angular/core';
-
+import * as ngrx from '@ngrx/store';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { By } from '@angular/platform-browser';
-
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Store, StoreModule } from '@ngrx/store';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
-
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { HostWindowResizeAction } from './shared/host-window.actions';
-
 import { MetadataService } from './core/metadata/metadata.service';
 
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
-
 import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
 import { MetadataServiceMock } from './shared/mocks/metadata-service.mock';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { AngularticsMock } from './shared/mocks/angulartics.service.mock';
 import { AuthServiceMock } from './shared/mocks/auth.service.mock';
 import { AuthService } from './core/auth/auth.service';
@@ -39,29 +25,33 @@ import { CSSVariableServiceStub } from './shared/testing/css-variable-service.st
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { HostWindowService } from './shared/host-window.service';
 import { HostWindowServiceStub } from './shared/testing/host-window-service.stub';
-import { ActivatedRoute, Router } from '@angular/router';
 import { RouteService } from './core/services/route.service';
 import { MockActivatedRoute } from './shared/mocks/active-router.mock';
 import { RouterMock } from './shared/mocks/router.mock';
-import { CookieServiceMock } from './shared/mocks/cookie.service.mock';
-import { CookieService } from './core/services/cookie.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { storeModuleConfig } from './app.reducer';
+import { LocaleService } from './core/locale/locale.service';
+import { authReducer } from './core/auth/auth.reducer';
+import { cold } from 'jasmine-marbles';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
-let de: DebugElement;
-let el: HTMLElement;
 const menuService = new MenuServiceStub();
 
 describe('App component', () => {
+
+  function getMockLocaleService(): LocaleService {
+    return jasmine.createSpyObj('LocaleService', {
+      setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode')
+    })
+  }
 
   // async beforeEach
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        StoreModule.forRoot({}, storeModuleConfig),
+        StoreModule.forRoot(authReducer, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -81,7 +71,7 @@ describe('App component', () => {
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-        { provide: CookieService, useValue: new CookieServiceMock()},
+        { provide: LocaleService, useValue: getMockLocaleService() },
         AppComponent,
         RouteService
       ],
@@ -91,12 +81,19 @@ describe('App component', () => {
 
   // synchronous beforeEach
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppComponent);
+    spyOnProperty(ngrx, 'select').and.callFake(() => {
+      return () => {
+        return () => cold('a', {
+          a: {
+            core: { auth: { loading: false } }
+          }
+        })
+      };
+    });
 
+    fixture = TestBed.createComponent(AppComponent);
     comp = fixture.componentInstance; // component test instance
-    // query for the <div class='outer-wrapper'> by CSS element selector
-    de = fixture.debugElement.query(By.css('div.outer-wrapper'));
-    el = de.nativeElement;
+    fixture.detectChanges();
   });
 
   it('should create component', inject([AppComponent], (app: AppComponent) => {

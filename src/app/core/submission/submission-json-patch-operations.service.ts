@@ -8,6 +8,7 @@ import { JsonPatchOperationsService } from '../json-patch/json-patch-operations.
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
 import { SubmissionPatchRequest } from '../data/request.models';
 import { CoreState } from '../core.reducers';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
 /**
  * A service that provides methods to make JSON Patch requests.
@@ -20,6 +21,7 @@ export class SubmissionJsonPatchOperationsService extends JsonPatchOperationsSer
   constructor(
     protected requestService: RequestService,
     protected store: Store<CoreState>,
+    protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService) {
 
     super();

@@ -6,7 +6,10 @@ import { ListableObject } from '../../../../../object-collection/shared/listable
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { map, switchMap, take } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import {
+  PaginatedList,
+  buildPaginatedList
+} from '../../../../../../core/data/paginated-list.model';
 import { Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
@@ -30,9 +33,9 @@ import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.uti
  */
 export class DsDynamicLookupRelationSelectionTabComponent {
   /**
-   * The label to use to display i18n messages (describing the type of relationship)
+   * A string that describes the type of relationship
    */
-  @Input() label: string;
+  @Input() relationshipType: string;
 
   /**
    * The ID of the list to add/remove selected items to/from
@@ -102,7 +105,7 @@ export class DsDynamicLookupRelationSelectionTabComponent {
                   currentPage: pagination.currentPage,
                   totalPages: Math.ceil(selected.length / pagination.pageSize)
                 });
-              return createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, selection));
+              return createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, selection));
             })
           );
         })

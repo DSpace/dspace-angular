@@ -5,19 +5,22 @@ import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../../core/shared/item.model';
-import {
-  ITEM_EDIT_DELETE_PATH,
-  ITEM_EDIT_MOVE_PATH,
-  ITEM_EDIT_PRIVATE_PATH,
-  ITEM_EDIT_PUBLIC_PATH,
-  ITEM_EDIT_REINSTATE_PATH,
-  ITEM_EDIT_WITHDRAW_PATH
-} from '../../../+item-page/edit-item-page/edit-item-page.routing.module';
-import { getItemEditPath } from '../../../+item-page/item-page-routing.module';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { WorkflowItemAdminWorkflowActionsComponent } from './workflow-item-admin-workflow-actions.component';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { getWorkflowItemDeletePath, getWorkflowItemSendBackPath } from '../../../+workflowitems-edit-page/workflowitems-edit-page-routing.module';
+import {
+    getWorkflowItemSendBackRoute,
+    getWorkflowItemDeleteRoute
+} from '../../../+workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { getItemEditRoute } from '../../../+item-page/item-page-routing-paths';
+import {
+  ITEM_EDIT_MOVE_PATH,
+  ITEM_EDIT_DELETE_PATH,
+  ITEM_EDIT_PUBLIC_PATH,
+  ITEM_EDIT_PRIVATE_PATH,
+  ITEM_EDIT_REINSTATE_PATH,
+  ITEM_EDIT_WITHDRAW_PATH
+} from '../../../+item-page/edit-item-page/edit-item-page.routing-paths';
 
 describe('WorkflowItemAdminWorkflowActionsComponent', () => {
   let component: WorkflowItemAdminWorkflowActionsComponent;
@@ -57,12 +60,12 @@ describe('WorkflowItemAdminWorkflowActionsComponent', () => {
   it('should render a delete button with the correct link', () => {
     const button = fixture.debugElement.query(By.css('a.delete-link'));
     const link = button.nativeElement.href;
-    expect(link).toContain(new URLCombiner(getWorkflowItemDeletePath(wfi.id)).toString());
+    expect(link).toContain(new URLCombiner(getWorkflowItemDeleteRoute(wfi.id)).toString());
   });
 
   it('should render a move button with the correct link', () => {
     const a = fixture.debugElement.query(By.css('a.send-back-link'));
     const link = a.nativeElement.href;
-    expect(link).toContain(new URLCombiner(getWorkflowItemSendBackPath(wfi.id)).toString());
+    expect(link).toContain(new URLCombiner(getWorkflowItemSendBackRoute(wfi.id)).toString());
   });
 });

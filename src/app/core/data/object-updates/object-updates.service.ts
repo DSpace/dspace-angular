@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
 import { coreSelector } from '../../core.selectors';
@@ -8,16 +8,15 @@ import {
   Identifiable,
   OBJECT_UPDATES_TRASH_PATH,
   ObjectUpdatesEntry,
-  ObjectUpdatesState, OrderPage,
+  ObjectUpdatesState,
   VirtualMetadataSource
 } from './object-updates.reducer';
 import { Observable } from 'rxjs';
 import {
-  AddFieldUpdateAction, AddPageToCustomOrderAction,
+  AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
   InitializeFieldsAction,
-  MoveFieldUpdateAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
   SelectVirtualMetadataAction,
@@ -25,11 +24,17 @@ import {
   SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  hasValueOperator
+} from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
-import { ArrayMoveChangeAnalyzer } from '../array-move-change-analyzer.service';
-import { MoveOperation } from 'fast-json-patch/lib/core';
-import { flatten } from '@angular/compiler';
+import { Operation } from 'fast-json-patch';
+import { PatchOperationService } from './patch-operation-service/patch-operation.service';
+import { GenericConstructor } from '../../shared/generic-constructor';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -53,8 +58,7 @@ function virtualMetadataSourceSelector(url: string, source: string): MemoizedSel
 @Injectable()
 export class ObjectUpdatesService {
   constructor(private store: Store<CoreState>,
-              private comparator: ArrayMoveChangeAnalyzer<string>) {
-
+              private injector: Injector) {
   }
 
   /**
@@ -62,31 +66,10 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are being mapped
    * @param fields The initial fields for the page's object
    * @param lastModified The date the object was last modified
+   * @param patchOperationService A {@link PatchOperationService} used for creating a patch
    */
-  initialize(url, fields: Identifiable[], lastModified: Date): void {
-    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified));
-  }
-
-  /**
-   * Method to dispatch an InitializeFieldsAction to the store and keeping track of the order objects are stored
-   * @param url The page's URL for which the changes are being mapped
-   * @param fields The initial fields for the page's object
-   * @param lastModified The date the object was last modified
-   * @param pageSize The page size to use for adding pages to the custom order
-   * @param page The first page to populate the custom order with
-   */
-  initializeWithCustomOrder(url, fields: Identifiable[], lastModified: Date, pageSize = 9999, page = 0): void {
-    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified, fields.map((field) => field.uuid), pageSize, page));
-  }
-
-  /**
-   * Method to dispatch an AddPageToCustomOrderAction, adding a new page to an already existing custom order tracking
-   * @param url     The URL for which the changes are being mapped
-   * @param fields  The fields to add a new page for
-   * @param page    The page number (starting from index 0)
-   */
-  addPageToCustomOrder(url, fields: Identifiable[], page: number): void {
-    this.store.dispatch(new AddPageToCustomOrderAction(url, fields, fields.map((field) => field.uuid), page));
+  initialize(url, fields: Identifiable[], lastModified: Date, patchOperationService?: GenericConstructor<PatchOperationService>): void {
+    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified, patchOperationService));
   }
 
   /**
@@ -153,7 +136,9 @@ export class ObjectUpdatesService {
    */
   getFieldUpdatesExclusive(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
     const objectUpdates = this.getObjectEntry(url);
-    return objectUpdates.pipe(map((objectEntry) => {
+    return objectUpdates.pipe(
+      hasValueOperator(),
+      map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
       for (const object of initialFields) {
         let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
@@ -161,31 +146,6 @@ export class ObjectUpdatesService {
           fieldUpdate = { field: object, changeType: undefined };
         }
         fieldUpdates[object.uuid] = fieldUpdate;
-      }
-      return fieldUpdates;
-    }))
-  }
-
-  /**
-   * Method that combines the state's updates with the initial values (when there's no update),
-   * sorted by their custom order to create a FieldUpdates object
-   * @param url The URL of the page for which the FieldUpdates should be requested
-   * @param initialFields The initial values of the fields
-   * @param page The page to retrieve
-   */
-  getFieldUpdatesByCustomOrder(url: string, initialFields: Identifiable[], page = 0): Observable<FieldUpdates> {
-    const objectUpdates = this.getObjectEntry(url);
-    return objectUpdates.pipe(map((objectEntry) => {
-      const fieldUpdates: FieldUpdates = {};
-      if (hasValue(objectEntry) && hasValue(objectEntry.customOrder) && isNotEmpty(objectEntry.customOrder.newOrderPages) && page < objectEntry.customOrder.newOrderPages.length) {
-        for (const uuid of objectEntry.customOrder.newOrderPages[page].order) {
-          let fieldUpdate = objectEntry.fieldUpdates[uuid];
-          if (isEmpty(fieldUpdate)) {
-            const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
-            fieldUpdate = {field: identifiable, changeType: undefined};
-          }
-          fieldUpdates[uuid] = fieldUpdate;
-        }
       }
       return fieldUpdates;
     }))
@@ -258,19 +218,6 @@ export class ObjectUpdatesService {
    */
   saveChangeFieldUpdate(url: string, field: Identifiable) {
     this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
-  }
-
-  /**
-   * Dispatches a MoveFieldUpdateAction
-   * @param url       The page's URL for which the changes are saved
-   * @param from      The index of the object to move
-   * @param to        The index to move the object to
-   * @param fromPage  The page to move the object from
-   * @param toPage    The page to move the object to
-   * @param field     Optional field to add to the fieldUpdates list (useful if we want to track updates across multiple pages)
-   */
-  saveMoveFieldUpdate(url: string, from: number, to: number, fromPage = 0, toPage = 0, field?: Identifiable) {
-    this.store.dispatch(new MoveFieldUpdateAction(url, from, to, fromPage, toPage, field));
   }
 
   /**
@@ -387,7 +334,7 @@ export class ObjectUpdatesService {
    * @param url The page's url to check for in the store
    */
   hasUpdates(url: string): Observable<boolean> {
-    return this.getObjectEntry(url).pipe(map((objectEntry) => hasValue(objectEntry) && (isNotEmpty(objectEntry.fieldUpdates) || objectEntry.customOrder.changed)));
+    return this.getObjectEntry(url).pipe(map((objectEntry) => hasValue(objectEntry) && isNotEmpty(objectEntry.fieldUpdates)));
   }
 
   /**
@@ -407,17 +354,20 @@ export class ObjectUpdatesService {
   }
 
   /**
-   * Get move operations based on the custom order
-   * @param url The page's url
+   * Create a patch from the current object-updates state
+   * The {@link ObjectUpdatesEntry} should contain a patchOperationService, in order to define how a patch should
+   * be created. If it doesn't, an empty patch will be returned.
+   * @param url The URL of the page for which the patch should be created
    */
-  getMoveOperations(url: string): Observable<MoveOperation[]> {
+  createPatch(url: string): Observable<Operation[]> {
     return this.getObjectEntry(url).pipe(
-      map((objectEntry) => objectEntry.customOrder),
-      map((customOrder) => this.comparator.diff(
-        flatten(customOrder.initialOrderPages.map((orderPage: OrderPage) => orderPage.order)),
-        flatten(customOrder.newOrderPages.map((orderPage: OrderPage) => orderPage.order)))
-      )
+      map((entry) => {
+        let patch = [];
+        if (hasValue(entry.patchOperationService)) {
+          patch = this.injector.get(entry.patchOperationService).fieldUpdatesToPatchOperations(entry.fieldUpdates);
+        }
+        return patch;
+      })
     );
   }
-
 }

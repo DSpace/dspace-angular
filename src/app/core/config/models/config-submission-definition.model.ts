@@ -1,10 +1,10 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { typedObject } from '../../cache/builders/build-decorators';
-import { PaginatedList } from '../../data/paginated-list';
+import { PaginatedList } from '../../data/paginated-list.model';
 import { HALLink } from '../../shared/hal-link.model';
-import { ResourceType } from '../../shared/resource-type';
 import { SubmissionSectionModel } from './config-submission-section.model';
 import { ConfigObject } from './config.model';
+import { SUBMISSION_DEFINITION_TYPE } from './config-type';
 
 /**
  * Class for the configuration describing the submission
@@ -12,7 +12,7 @@ import { ConfigObject } from './config.model';
 @typedObject
 @inheritSerialization(ConfigObject)
 export class SubmissionDefinitionModel extends ConfigObject {
-  static type = new ResourceType('submissiondefinition');
+  static type = SUBMISSION_DEFINITION_TYPE;
 
   /**
    * A boolean representing if this submission definition is the default or not

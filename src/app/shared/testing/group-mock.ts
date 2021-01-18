@@ -12,8 +12,10 @@ export const GroupMock2: Group = Object.assign(new Group(), {
             href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2',
         },
         subgroups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/subgroups' },
+        object: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/object' },
         epersons: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/epersons' }
     },
+    _name: 'testgroupname2',
     id: 'testgroupid2',
     uuid: 'testgroupid2',
     type: 'group',
@@ -30,8 +32,10 @@ export const GroupMock: Group = Object.assign(new Group(), {
             href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid',
         },
         subgroups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/subgroups' },
+        object: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid2/object' },
         epersons: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/epersons' }
     },
+    _name: 'testgroupname',
     id: 'testgroupid',
     uuid: 'testgroupid',
     type: 'group',

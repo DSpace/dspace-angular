@@ -40,5 +40,4 @@ export class FilterInputSuggestionsComponent extends InputSuggestionsComponent {
     this.queryInput.nativeElement.focus();
     return false;
   }
-
 }

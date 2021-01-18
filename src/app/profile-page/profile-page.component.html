@@ -10,7 +10,11 @@
     <div class="card mb-4">
       <div class="card-header">{{'profile.card.security' | translate}}</div>
       <div class="card-body">
-        <ds-profile-page-security-form [user]="user"></ds-profile-page-security-form>
+        <ds-profile-page-security-form
+                [FORM_PREFIX]="'profile.security.form.'"
+                (isInvalid)="setInvalid($event)"
+                (passwordValue)="setPasswordValue($event)"
+        ></ds-profile-page-security-form>
       </div>
     </div>
     <button class="btn btn-outline-primary" (click)="updateProfile()">{{'profile.form.submit' | translate}}</button>

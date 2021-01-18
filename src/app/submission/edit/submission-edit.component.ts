@@ -13,6 +13,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { Collection } from '../../core/shared/collection.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -59,6 +60,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @type {Array}
    */
   private subs: Subscription[] = [];
+  public item: Item;
 
   /**
    * Initialize instance variables
@@ -96,11 +98,12 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
           this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
           this.selfUrl = submissionObjectRD.payload._links.self.href;
           this.sections = submissionObjectRD.payload.sections;
+          this.item = submissionObjectRD.payload.item as Item;
           this.submissionDefinition = (submissionObjectRD.payload.submissionDefinition as SubmissionDefinitionsModel);
           this.changeDetectorRef.detectChanges();
         }
       } else {
-        if (submissionObjectRD.error.statusCode === 404) {
+        if (submissionObjectRD.statusCode === 404) {
           // redirect to not found page
           this.router.navigate(['/404'], { skipLocationChange: true });
         }

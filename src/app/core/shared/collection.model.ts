@@ -1,7 +1,7 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import { deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../cache/builders/build-decorators';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
@@ -10,24 +10,16 @@ import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { License } from './license.model';
 import { LICENSE } from './license.resource-type';
-import { ResourcePolicy } from './resource-policy.model';
-import { RESOURCE_POLICY } from './resource-policy.resource-type';
+import { ResourcePolicy } from '../resource-policy/models/resource-policy.model';
+import { RESOURCE_POLICY } from '../resource-policy/models/resource-policy.resource-type';
 import { COMMUNITY } from './community.resource-type';
 import { Community } from './community.model';
 import { ChildHALResource } from './child-hal-resource.model';
-import { GROUP } from '../eperson/models/group.resource-type';
-import { Group } from '../eperson/models/group.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
 export class Collection extends DSpaceObject implements ChildHALResource {
   static type = COLLECTION;
-
-  /**
-   * A string representing the unique handle of this Collection
-   */
-  @autoserialize
-  handle: string;
 
   /**
    * The {@link HALLink}s for this Collection
@@ -41,6 +33,11 @@ export class Collection extends DSpaceObject implements ChildHALResource {
     defaultAccessConditions: HALLink;
     logo: HALLink;
     parentCommunity: HALLink;
+    workflowGroups: HALLink[];
+    adminGroup: HALLink;
+    submittersGroup: HALLink;
+    itemReadGroup: HALLink;
+    bitstreamReadGroup: HALLink;
     self: HALLink;
   };
 
@@ -73,10 +70,11 @@ export class Collection extends DSpaceObject implements ChildHALResource {
   parentCommunity?: Observable<RemoteData<Community>>;
 
   /**
-   * The administrators group of this community.
+   * A string representing the unique handle of this Collection
    */
-  @link(GROUP)
-  adminGroup?: Observable<RemoteData<Group>>;
+  get handle(): string {
+    return this.firstMetadataValue('dc.identifier.uri');
+  }
 
   /**
    * The introductory text of this Collection

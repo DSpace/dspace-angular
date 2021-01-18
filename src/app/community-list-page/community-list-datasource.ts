@@ -1,7 +1,10 @@
+import { Subscription } from 'rxjs/internal/Subscription';
+import { FindListOptions } from '../core/data/request.models';
+import { hasValue } from '../shared/empty.util';
 import { CommunityListService, FlatNode } from './community-list-service';
 import { CollectionViewer, DataSource } from '@angular/cdk/typings/collections';
 import { BehaviorSubject, Observable, } from 'rxjs';
-import { finalize, take, } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 /**
  * DataSource object needed by a CDK Tree to render its nodes.
@@ -13,6 +16,7 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
 
   private communityList$ = new BehaviorSubject<FlatNode[]>([]);
   public loading$ = new BehaviorSubject<boolean>(false);
+  private subLoadCommunities: Subscription;
 
   constructor(private communityListService: CommunityListService) {
   }
@@ -21,11 +25,12 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
     return this.communityList$.asObservable();
   }
 
-  loadCommunities(expandedNodes: FlatNode[]) {
+  loadCommunities(findOptions: FindListOptions, expandedNodes: FlatNode[]) {
     this.loading$.next(true);
-
-    this.communityListService.loadCommunities(expandedNodes).pipe(
-      take(1),
+    if (hasValue(this.subLoadCommunities)) {
+      this.subLoadCommunities.unsubscribe();
+    }
+    this.subLoadCommunities = this.communityListService.loadCommunities(findOptions, expandedNodes).pipe(
       finalize(() => this.loading$.next(false)),
     ).subscribe((flatNodes: FlatNode[]) => {
       this.communityList$.next(flatNodes);

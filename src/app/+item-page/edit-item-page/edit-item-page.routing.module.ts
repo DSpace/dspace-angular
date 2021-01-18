@@ -14,13 +14,23 @@ import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
-
-export const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
-export const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
-export const ITEM_EDIT_PRIVATE_PATH = 'private';
-export const ITEM_EDIT_PUBLIC_PATH = 'public';
-export const ITEM_EDIT_DELETE_PATH = 'delete';
-export const ITEM_EDIT_MOVE_PATH = 'move';
+import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
+import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
+import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
+import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
+import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
+import {
+  ITEM_EDIT_AUTHORIZATIONS_PATH,
+  ITEM_EDIT_MOVE_PATH,
+  ITEM_EDIT_DELETE_PATH,
+  ITEM_EDIT_PUBLIC_PATH,
+  ITEM_EDIT_PRIVATE_PATH,
+  ITEM_EDIT_REINSTATE_PATH,
+  ITEM_EDIT_WITHDRAW_PATH
+} from './edit-item-page.routing-paths';
+import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
+import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -90,10 +100,12 @@ export const ITEM_EDIT_MOVE_PATH = 'move';
           {
             path: ITEM_EDIT_WITHDRAW_PATH,
             component: ItemWithdrawComponent,
+            canActivate: [ItemPageWithdrawGuard]
           },
           {
             path: ITEM_EDIT_REINSTATE_PATH,
             component: ItemReinstateComponent,
+            canActivate: [ItemPageReinstateGuard]
           },
           {
             path: ITEM_EDIT_PRIVATE_PATH,
@@ -111,12 +123,45 @@ export const ITEM_EDIT_MOVE_PATH = 'move';
             path: ITEM_EDIT_MOVE_PATH,
             component: ItemMoveComponent,
             data: { title: 'item.edit.move.title' },
+          },
+          {
+            path: ITEM_EDIT_AUTHORIZATIONS_PATH,
+            children: [
+              {
+                path: 'create',
+                resolve: {
+                  resourcePolicyTarget: ResourcePolicyTargetResolver
+                },
+                component: ResourcePolicyCreateComponent,
+                data: { title: 'resource-policies.create.page.title' }
+              },
+              {
+                path: 'edit',
+                resolve: {
+                  resourcePolicy: ResourcePolicyResolver
+                },
+                component: ResourcePolicyEditComponent,
+                data: { title: 'resource-policies.edit.page.title' }
+              },
+              {
+                path: '',
+                component: ItemAuthorizationsComponent,
+                data: { title: 'item.edit.authorizations.title' }
+              }
+            ]
           }
         ]
       }
     ])
   ],
-  providers: []
+  providers: [
+    I18nBreadcrumbResolver,
+    I18nBreadcrumbsService,
+    ResourcePolicyResolver,
+    ResourcePolicyTargetResolver,
+    ItemPageReinstateGuard,
+    ItemPageWithdrawGuard
+  ]
 })
 export class EditItemPageRoutingModule {
 

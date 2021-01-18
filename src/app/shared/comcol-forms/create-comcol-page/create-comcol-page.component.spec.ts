@@ -9,7 +9,6 @@ import { SharedModule } from '../../shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { CreateComColPageComponent } from './create-comcol-page.component';
 import {
   createFailedRemoteDataObject$,
@@ -18,10 +17,12 @@ import {
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { RequestService } from '../../../core/data/request.service';
+import {getTestScheduler} from 'jasmine-marbles';
 
 describe('CreateComColPageComponent', () => {
-  let comp: CreateComColPageComponent<DSpaceObject>;
-  let fixture: ComponentFixture<CreateComColPageComponent<DSpaceObject>>;
+  let comp: CreateComColPageComponent<any>;
+  let fixture: ComponentFixture<CreateComColPageComponent<any>>;
   let communityDataService: CommunityDataService;
   let dsoDataService: CommunityDataService;
   let routeService: RouteService;
@@ -29,9 +30,12 @@ describe('CreateComColPageComponent', () => {
 
   let community;
   let newCommunity;
+  let parentCommunity;
   let communityDataServiceStub;
   let routeServiceStub;
   let routerStub;
+  let requestServiceStub;
+  let scheduler;
 
   const logoEndpoint = 'rest/api/logo/endpoint';
 
@@ -41,7 +45,18 @@ describe('CreateComColPageComponent', () => {
       metadata: [{
         key: 'dc.title',
         value: 'test community'
-      }]
+      }],
+      _links: {}
+    });
+
+    parentCommunity = Object.assign(new Community(), {
+      uuid: 'a20da287-e174-466a-9926-f66as300d399',
+      id: 'a20da287-e174-466a-9926-f66as300d399',
+      metadata: [{
+        key: 'dc.title',
+        value: 'parent community'
+      }],
+      _links: {}
     });
 
     newCommunity = Object.assign(new Community(), {
@@ -49,7 +64,8 @@ describe('CreateComColPageComponent', () => {
       metadata: [{
         key: 'dc.title',
         value: 'new community'
-      }]
+      }],
+      _links: {}
     });
 
     communityDataServiceStub = {
@@ -61,7 +77,9 @@ describe('CreateComColPageComponent', () => {
         }]
       })),
       create: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
-      getLogoEndpoint: () => observableOf(logoEndpoint)
+      getLogoEndpoint: () => observableOf(logoEndpoint),
+      findByHref: () => null,
+      refreshCache: () => {return}
     };
 
     routeServiceStub = {
@@ -70,6 +88,10 @@ describe('CreateComColPageComponent', () => {
     routerStub = {
       navigate: (commands) => commands
     };
+
+    requestServiceStub = jasmine.createSpyObj('RequestService', {
+      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring'),
+    });
 
   }
 
@@ -82,7 +104,8 @@ describe('CreateComColPageComponent', () => {
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: RequestService, useValue: requestServiceStub}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -97,6 +120,7 @@ describe('CreateComColPageComponent', () => {
     communityDataService = (comp as any).communityDataService;
     routeService = (comp as any).routeService;
     router = (comp as any).router;
+    scheduler = getTestScheduler();
   });
 
   describe('onSubmit', () => {
@@ -111,6 +135,7 @@ describe('CreateComColPageComponent', () => {
               value: 'test'
             }]
           }),
+          _links: {},
           uploader: {
             options: {
               url: ''
@@ -123,19 +148,23 @@ describe('CreateComColPageComponent', () => {
         };
       });
 
-      it('should navigate when successful', () => {
+      it('should navigate and refresh cache when successful', () => {
         spyOn(router, 'navigate');
-        comp.onSubmit(data);
-        fixture.detectChanges();
+        spyOn((dsoDataService as any), 'refreshCache')
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         expect(router.navigate).toHaveBeenCalled();
+        expect((dsoDataService as any).refreshCache).toHaveBeenCalled();
       });
 
-      it('should not navigate on failure', () => {
+      it('should neither navigate nor refresh cache on failure', () => {
         spyOn(router, 'navigate');
-        spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$(newCommunity));
-        comp.onSubmit(data);
-        fixture.detectChanges();
+        spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$('server error', 500));
+        spyOn(dsoDataService, 'refreshCache')
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         expect(router.navigate).not.toHaveBeenCalled();
+        expect((dsoDataService as any).refreshCache).not.toHaveBeenCalled();
       });
     });
 
@@ -148,6 +177,7 @@ describe('CreateComColPageComponent', () => {
               value: 'test'
             }]
           }),
+          _links: {},
           uploader: {
             options: {
               url: ''
@@ -164,21 +194,21 @@ describe('CreateComColPageComponent', () => {
 
       it('should not navigate', () => {
         spyOn(router, 'navigate');
-        comp.onSubmit(data);
-        fixture.detectChanges();
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         expect(router.navigate).not.toHaveBeenCalled();
       });
 
       it('should set the uploader\'s url to the logo\'s endpoint', () => {
-        comp.onSubmit(data);
-        fixture.detectChanges();
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         expect(data.uploader.options.url).toEqual(logoEndpoint);
       });
 
       it('should call the uploader\'s uploadAll', () => {
         spyOn(data.uploader, 'uploadAll');
-        comp.onSubmit(data);
-        fixture.detectChanges();
+        scheduler.schedule(() => comp.onSubmit(data));
+        scheduler.flush();
         expect(data.uploader.uploadAll).toHaveBeenCalled();
       });
     });

@@ -34,9 +34,9 @@ import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scro
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
-import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+import { DynamicOneboxModel } from './ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import { AuthorityOptions } from '../../../core/integration/models/authority-options.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { FormFieldModel } from './models/form-field.model';
 import {
   SubmissionFormsModel
@@ -56,10 +56,10 @@ describe('FormBuilderService test suite', () => {
   let testFormConfiguration: SubmissionFormsModel;
   let service: FormBuilderService;
 
-  const submissionId =  '1234';
+  const submissionId = '1234';
 
   function testValidator() {
-    return {testValidator: {valid: true}};
+    return { testValidator: { valid: true } };
   }
 
   function testAsyncValidator() {
@@ -71,18 +71,16 @@ describe('FormBuilderService test suite', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [
-        {provide: FormBuilderService, useClass: FormBuilderService},
-        {provide: DynamicFormValidationService, useValue: {}},
-        {provide: NG_VALIDATORS, useValue: testValidator, multi: true},
-        {provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true}
+        { provide: FormBuilderService, useClass: FormBuilderService },
+        { provide: DynamicFormValidationService, useValue: {} },
+        { provide: NG_VALIDATORS, useValue: testValidator, multi: true },
+        { provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true }
       ]
     });
 
-    const authorityOptions: AuthorityOptions = {
-      closed: false,
-      metadata: 'list',
+    const vocabularyOptions: VocabularyOptions = {
       name: 'type_programme',
-      scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+      closed: false
     };
 
     testModel = [
@@ -148,9 +146,9 @@ describe('FormBuilderService test suite', () => {
         }
       ),
 
-      new DynamicTextAreaModel({id: 'testTextArea'}),
+      new DynamicTextAreaModel({ id: 'testTextArea' }),
 
-      new DynamicCheckboxModel({id: 'testCheckbox'}),
+      new DynamicCheckboxModel({ id: 'testCheckbox' }),
 
       new DynamicFormArrayModel(
         {
@@ -158,10 +156,10 @@ describe('FormBuilderService test suite', () => {
           initialCount: 5,
           groupFactory: () => {
             return [
-              new DynamicInputModel({id: 'testFormArrayGroupInput'}),
+              new DynamicInputModel({ id: 'testFormArrayGroupInput' }),
               new DynamicFormArrayModel({
                 id: 'testNestedFormArray', groupFactory: () => [
-                  new DynamicInputModel({id: 'testNestedFormArrayGroupInput'})
+                  new DynamicInputModel({ id: 'testNestedFormArrayGroupInput' })
                 ]
               })
             ];
@@ -173,37 +171,37 @@ describe('FormBuilderService test suite', () => {
         {
           id: 'testFormGroup',
           group: [
-            new DynamicInputModel({id: 'nestedTestInput'}),
-            new DynamicTextAreaModel({id: 'nestedTestTextArea'})
+            new DynamicInputModel({ id: 'nestedTestInput' }),
+            new DynamicTextAreaModel({ id: 'nestedTestTextArea' })
           ]
         }
       ),
 
-      new DynamicSliderModel({id: 'testSlider'}),
+      new DynamicSliderModel({ id: 'testSlider' }),
 
-      new DynamicSwitchModel({id: 'testSwitch'}),
+      new DynamicSwitchModel({ id: 'testSwitch' }),
 
-      new DynamicDatePickerModel({id: 'testDatepicker', value: new Date()}),
+      new DynamicDatePickerModel({ id: 'testDatepicker', value: new Date() }),
 
-      new DynamicFileUploadModel({id: 'testFileUpload'}),
+      new DynamicFileUploadModel({ id: 'testFileUpload' }),
 
-      new DynamicEditorModel({id: 'testEditor'}),
+      new DynamicEditorModel({ id: 'testEditor' }),
 
-      new DynamicTimePickerModel({id: 'testTimePicker'}),
+      new DynamicTimePickerModel({ id: 'testTimePicker' }),
 
-      new DynamicRatingModel({id: 'testRating'}),
+      new DynamicRatingModel({ id: 'testRating' }),
 
-      new DynamicColorPickerModel({id: 'testColorPicker'}),
+      new DynamicColorPickerModel({ id: 'testColorPicker' }),
 
-      new DynamicTypeaheadModel({id: 'testTypeahead', repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicOneboxModel({ id: 'testOnebox', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: false }),
 
-      new DynamicScrollableDropdownModel({id: 'testScrollableDropdown', authorityOptions: authorityOptions, repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicScrollableDropdownModel({ id: 'testScrollableDropdown', vocabularyOptions: vocabularyOptions, repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: false }),
 
-      new DynamicTagModel({id: 'testTag', repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicTagModel({ id: 'testTag', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: false }),
 
-      new DynamicListCheckboxGroupModel({id: 'testCheckboxList', authorityOptions: authorityOptions, repeatable: true}),
+      new DynamicListCheckboxGroupModel({id: 'testCheckboxList', vocabularyOptions: vocabularyOptions, repeatable: true}),
 
-      new DynamicListRadioGroupModel({id: 'testRadioList', authorityOptions: authorityOptions, repeatable: false}),
+      new DynamicListRadioGroupModel({id: 'testRadioList', vocabularyOptions: vocabularyOptions, repeatable: false}),
 
       new DynamicRelationGroupModel({
         submissionId,
@@ -211,28 +209,28 @@ describe('FormBuilderService test suite', () => {
         formConfiguration: [{
           fields: [{
             hints: 'Enter the name of the author.',
-            input: {type: 'onebox'},
+            input: { type: 'onebox' },
             label: 'Authors',
             languageCodes: [],
             mandatory: 'true',
             mandatoryMessage: 'Required field!',
             repeatable: false,
             selectableMetadata: [{
-              authority: 'RPAuthority',
+              controlledVocabulary: 'RPAuthority',
               closed: false,
               metadata: 'dc.contributor.author'
-            }],
+            }]
           } as FormFieldModel]
         } as FormRowModel, {
           fields: [{
             hints: 'Enter the affiliation of the author.',
-            input: {type: 'onebox'},
+            input: { type: 'onebox' },
             label: 'Affiliation',
             languageCodes: [],
             mandatory: 'false',
             repeatable: false,
             selectableMetadata: [{
-              authority: 'OUAuthority',
+              controlledVocabulary: 'OUAuthority',
               closed: false,
               metadata: 'local.contributor.affiliation'
             }]
@@ -244,29 +242,35 @@ describe('FormBuilderService test suite', () => {
         scopeUUID: '',
         submissionScope: '',
         repeatable: false,
-        metadataFields: []
+        metadataFields: [],
+        hasSelectableMetadata: true
       }),
 
-      new DynamicDsDatePickerModel({id: 'testDate'}),
+      new DynamicDsDatePickerModel({ id: 'testDate' }),
 
-      new DynamicLookupModel({id: 'testLookup', repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicLookupModel({ id: 'testLookup', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: true }),
 
-      new DynamicLookupNameModel({id: 'testLookupName', repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicLookupNameModel({ id: 'testLookupName', repeatable: false, metadataFields: [], submissionId: '1234', hasSelectableMetadata: true }),
 
-      new DynamicQualdropModel({id: 'testCombobox', readOnly: false, required: false}),
+      new DynamicQualdropModel({ id: 'testCombobox', readOnly: false, required: false }),
 
       new DynamicRowArrayModel(
         {
           id: 'testFormRowArray',
           initialCount: 5,
           notRepeatable: false,
+          relationshipConfig: undefined,
+          submissionId: '1234',
           groupFactory: () => {
             return [
-              new DynamicInputModel({id: 'testFormRowArrayGroupInput'})
+              new DynamicInputModel({ id: 'testFormRowArrayGroupInput' })
             ];
           },
-          required: false
-        }
+          required: false,
+          metadataKey: 'dc.contributor.author',
+          metadataFields: ['dc.contributor.author'],
+          hasSelectableMetadata: true
+        },
       ),
     ];
 
@@ -284,7 +288,7 @@ describe('FormBuilderService test suite', () => {
               selectableMetadata: [
                 {
                   metadata: 'journal',
-                  authority: 'JOURNALAuthority',
+                  controlledVocabulary: 'JOURNALAuthority',
                   closed: false
                 }
               ],
@@ -364,7 +368,7 @@ describe('FormBuilderService test suite', () => {
               selectableMetadata: [
                 {
                   metadata: 'conference',
-                  authority: 'EVENTAuthority',
+                  controlledVocabulary: 'EVENTAuthority',
                   closed: false
                 }
               ],
@@ -433,7 +437,7 @@ describe('FormBuilderService test suite', () => {
 
     expect(formModel[2] instanceof DynamicRowGroupModel).toBe(true);
     expect((formModel[2] as DynamicRowGroupModel).group.length).toBe(1);
-    expect((formModel[2] as DynamicRowGroupModel).get(0) instanceof DynamicTypeaheadModel).toBe(true);
+    expect((formModel[2] as DynamicRowGroupModel).get(0) instanceof DynamicOneboxModel).toBe(true);
   });
 
   it('should return form\'s fields value from form model', () => {
@@ -449,7 +453,7 @@ describe('FormBuilderService test suite', () => {
     };
     expect(service.getValueFromModel(formModel)).toEqual(value);
 
-    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicTypeaheadModel).valueUpdates.next('test one');
+    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).valueUpdates.next('test one');
     value = {
       issue: [new FormFieldMetadataValueObject('test')],
       conference: [new FormFieldMetadataValueObject('test one')]
@@ -462,11 +466,11 @@ describe('FormBuilderService test suite', () => {
     const value = {} as any;
 
     ((formModel[0] as DynamicRowGroupModel).get(1) as DsDynamicInputModel).valueUpdates.next('test');
-    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicTypeaheadModel).valueUpdates.next('test one');
+    ((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).valueUpdates.next('test one');
 
     service.clearAllModelsValue(formModel);
-    expect(((formModel[0] as DynamicRowGroupModel).get(1) as DynamicTypeaheadModel).value).toEqual(undefined)
-    expect(((formModel[2] as DynamicRowGroupModel).get(0) as DynamicTypeaheadModel).value).toEqual(undefined)
+    expect(((formModel[0] as DynamicRowGroupModel).get(1) as DynamicOneboxModel).value).toEqual(undefined)
+    expect(((formModel[2] as DynamicRowGroupModel).get(0) as DynamicOneboxModel).value).toEqual(undefined)
   });
 
   it('should return true when model has a custom group model as parent', () => {
@@ -628,7 +632,7 @@ describe('FormBuilderService test suite', () => {
 
   it('should throw when unknown DynamicFormControlModel id is specified in JSON', () => {
 
-    expect(() => service.fromJSON([{id: 'test'}]))
+    expect(() => service.fromJSON([{ id: 'test' }]))
       .toThrow(new Error(`unknown form control model type defined on JSON object with id "test"`));
   });
 
@@ -648,8 +652,8 @@ describe('FormBuilderService test suite', () => {
     const formGroup = service.createFormGroup(testModel);
     const nestedFormGroup = formGroup.controls.testFormGroup as FormGroup;
     const nestedFormGroupModel = testModel[7] as DynamicFormGroupModel;
-    const newModel1 = new DynamicInputModel({id: 'newInput1'});
-    const newModel2 = new DynamicInputModel({id: 'newInput2'});
+    const newModel1 = new DynamicInputModel({ id: 'newInput1' });
+    const newModel2 = new DynamicInputModel({ id: 'newInput2' });
 
     service.addFormGroupControl(formGroup, testModel, newModel1);
     service.addFormGroupControl(nestedFormGroup, nestedFormGroupModel, newModel2);
@@ -666,8 +670,8 @@ describe('FormBuilderService test suite', () => {
     const formGroup = service.createFormGroup(testModel);
     const nestedFormGroup = formGroup.controls.testFormGroup as FormGroup;
     const nestedFormGroupModel = testModel[7] as DynamicFormGroupModel;
-    const newModel1 = new DynamicInputModel({id: 'newInput1'});
-    const newModel2 = new DynamicInputModel({id: 'newInput2'});
+    const newModel1 = new DynamicInputModel({ id: 'newInput1' });
+    const newModel2 = new DynamicInputModel({ id: 'newInput2' });
 
     service.insertFormGroupControl(4, formGroup, testModel, newModel1);
     service.insertFormGroupControl(0, nestedFormGroup, nestedFormGroupModel, newModel2);

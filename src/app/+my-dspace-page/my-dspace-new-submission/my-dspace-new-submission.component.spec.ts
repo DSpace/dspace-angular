@@ -15,16 +15,34 @@ import { createTestComponent } from '../../shared/testing/utils.test';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission.component';
 import { AppState } from '../../app.reducer';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { SharedModule } from '../../shared/shared.module';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
 import { UploaderService } from '../../shared/uploader/uploader.service';
+import { By } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HostWindowService } from '../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
+import { UploaderComponent } from 'src/app/shared/uploader/uploader.component';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 
-  const translateService: any = getMockTranslateService();
+  const translateService: TranslateService = jasmine.createSpyObj('translateService', {
+    get: (key: string): any => { observableOf(key) },
+    instant: jasmine.createSpy('instant')
+  });
+
+  const uploader: any = jasmine.createSpyObj('uploader', {
+    clearQueue: jasmine.createSpy('clearQueue')
+  });
+
+  const modalService = {
+    open: () => {
+      return { result: new Promise((res, rej) => {/****/}) };
+    }
+  };
+
   const store: Store<AppState> = jasmine.createSpyObj('store', {
     /* tslint:disable:no-empty */
     dispatch: {},
@@ -54,9 +72,11 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: ScrollToService, useValue: getMockScrollToService() },
         { provide: Store, useValue: store },
         { provide: TranslateService, useValue: translateService },
+        { provide: NgbModal, useValue: modalService },
         ChangeDetectorRef,
         MyDSpaceNewSubmissionComponent,
-        UploaderService
+        UploaderService,
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -86,6 +106,35 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
     }));
   });
 
+  describe('', () => {
+    let fixture: ComponentFixture<MyDSpaceNewSubmissionComponent>;
+    let comp: MyDSpaceNewSubmissionComponent;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(MyDSpaceNewSubmissionComponent);
+      comp = fixture.componentInstance;
+      comp.uploadFilesOptions.authToken = 'user-auth-token';
+      comp.uploadFilesOptions.url = 'https://fake.upload-api.url';
+      comp.uploaderComponent = TestBed.createComponent(UploaderComponent).componentInstance;
+      comp.uploaderComponent.uploader = uploader;
+    });
+
+    it('should call app.openDialog', () => {
+      spyOn(comp, 'openDialog');
+      const submissionButton = fixture.debugElement.query(By.css('button.btn-primary'));
+      submissionButton.triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
+      expect(comp.openDialog).toHaveBeenCalled();
+    });
+
+    it('should show a collection selector if only one file are uploaded', () => {
+      spyOn((comp as any).modalService, 'open').and.returnValue({ result: new Promise((res, rej) => {/****/}) });
+      comp.afterFileLoaded(['']);
+      expect((comp as any).modalService.open).toHaveBeenCalled();
+    });
+  });
 });
 
 // declare a test component

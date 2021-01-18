@@ -1,30 +1,41 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { Community } from '../../../core/shared/community.model';
 import { SharedModule } from '../../shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { DataService } from '../../../core/data/data.service';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { RequestService } from '../../../core/data/request.service';
+import { getTestScheduler } from 'jasmine-marbles';
+import { ComColDataService } from '../../../core/data/comcol-data.service';
+import {
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$
+} from '../../remote-data.utils';
 
 describe('DeleteComColPageComponent', () => {
-  let comp: DeleteComColPageComponent<DSpaceObject>;
-  let fixture: ComponentFixture<DeleteComColPageComponent<DSpaceObject>>;
+  let comp: DeleteComColPageComponent<any>;
+  let fixture: ComponentFixture<DeleteComColPageComponent<any>>;
   let dsoDataService: CommunityDataService;
   let router: Router;
 
   let community;
   let newCommunity;
+  let parentCommunity;
   let routerStub;
   let routeStub;
   let notificationsService;
+  let translateServiceStub;
+  let requestServiceStub;
+
+  let scheduler;
+
   const validUUID = 'valid-uuid';
   const invalidUUID = 'invalid-uuid';
   const frontendURL = '/testType';
@@ -45,10 +56,21 @@ describe('DeleteComColPageComponent', () => {
       }]
     });
 
+    parentCommunity = Object.assign(new Community(), {
+      uuid: 'a20da287-e174-466a-9926-f66as300d399',
+      id: 'a20da287-e174-466a-9926-f66as300d399',
+      metadata: [{
+        key: 'dc.title',
+        value: 'parent community'
+      }]
+    });
+
     dsoDataService = jasmine.createSpyObj(
       'dsoDataService',
       {
-        delete: observableOf(true)
+        delete: createNoContentRemoteDataObject$(),
+        findByHref: jasmine.createSpy('findByHref'),
+        refreshCache: jasmine.createSpy('refreshCache')
       });
 
     routerStub = {
@@ -59,6 +81,14 @@ describe('DeleteComColPageComponent', () => {
       data: observableOf(community)
     };
 
+    requestServiceStub = jasmine.createSpyObj('RequestService', {
+      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring')
+    });
+
+    translateServiceStub = jasmine.createSpyObj('TranslateService', {
+      instant: jasmine.createSpy('instant')
+    });
+
   }
 
   beforeEach(async(() => {
@@ -66,10 +96,12 @@ describe('DeleteComColPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       providers: [
-        { provide: DataService, useValue: dsoDataService },
+        { provide: ComColDataService, useValue: dsoDataService },
         { provide: Router, useValue: routerStub },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: TranslateService, useValue: translateServiceStub},
+        { provide: RequestService, useValue: requestServiceStub}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -82,43 +114,63 @@ describe('DeleteComColPageComponent', () => {
     notificationsService = (comp as any).notifications;
     (comp as any).frontendURL = frontendURL;
     router = (comp as any).router;
+    scheduler = getTestScheduler();
   });
 
   describe('onConfirm', () => {
     let data1;
     let data2;
     beforeEach(() => {
-      data1 = Object.assign(new Community(), {
-        uuid: validUUID,
-        metadata: [{
-          key: 'dc.title',
-          value: 'test'
-        }]
-      });
+      data1 = {
+        dso: Object.assign(new Community(), {
+          uuid: validUUID,
+          metadata: [{
+            key: 'dc.title',
+            value: 'test'
+          }]
+        }),
+        _links: {}
+      };
 
-      data2 = Object.assign(new Community(), {
-        uuid: invalidUUID,
-        metadata: [{
-          key: 'dc.title',
-          value: 'test'
-        }]
-      });
+      data2 = {
+        dso: Object.assign(new Community(), {
+          uuid: invalidUUID,
+          metadata: [{
+            key: 'dc.title',
+            value: 'test'
+          }]
+        }),
+        _links: {},
+        uploader: {
+          options: {
+            url: ''
+          },
+          queue: [],
+          /* tslint:disable:no-empty */
+          uploadAll: () => {}
+          /* tslint:enable:no-empty */
+        }
+      };
     });
 
     it('should show an error notification on failure', () => {
-      (dsoDataService.delete as any).and.returnValue(observableOf(false));
+      (dsoDataService.delete as any).and.returnValue(createFailedRemoteDataObject$('Error', 500));
       spyOn(router, 'navigate');
-      comp.onConfirm(data2);
+      scheduler.schedule(() => comp.onConfirm(data2));
+      scheduler.flush();
       fixture.detectChanges();
       expect(notificationsService.error).toHaveBeenCalled();
+      expect(dsoDataService.refreshCache).not.toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalled();
     });
 
     it('should show a success notification on success and navigate', () => {
       spyOn(router, 'navigate');
-      comp.onConfirm(data1);
+      scheduler.schedule(() => comp.onConfirm(data1));
+      scheduler.flush();
       fixture.detectChanges();
       expect(notificationsService.success).toHaveBeenCalled();
+      expect(dsoDataService.refreshCache).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalled();
     });
 

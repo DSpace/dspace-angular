@@ -1,11 +1,11 @@
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
+import { MetaReducer, Store, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -21,6 +21,7 @@ import { AppComponent } from './app.component';
 import { appEffects } from './app.effects';
 import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 import { appReducers, AppState, storeModuleConfig } from './app.reducer';
+import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 
 import { CoreModule } from './core/core.module';
 import { ClientCookieService } from './core/services/client-cookie.service';
@@ -40,6 +41,7 @@ import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -90,6 +92,15 @@ const PROVIDERS = [
     useClass: DSpaceRouterStateSerializer
   },
   ClientCookieService,
+  // Check the authentication token when the app initializes
+  {
+    provide: APP_INITIALIZER,
+    useFactory: (store: Store<AppState>,) => {
+      return () => store.dispatch(new CheckAuthenticationTokenAction());
+    },
+    deps: [ Store ],
+    multi: true
+  },
   ...DYNAMIC_MATCHER_PROVIDERS,
 ];
 
@@ -105,6 +116,8 @@ const DECLARATIONS = [
   NotificationComponent,
   NotificationsBoardComponent,
   SearchNavbarComponent,
+  BreadcrumbsComponent,
+  ForbiddenComponent,
 ];
 
 const EXPORTS = [
@@ -122,7 +135,6 @@ const EXPORTS = [
   ],
   declarations: [
     ...DECLARATIONS,
-    BreadcrumbsComponent,
   ],
   exports: [
     ...EXPORTS

@@ -1,7 +1,19 @@
 import { Location } from '@angular/common';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FileUploader } from 'ng2-file-upload';
 import { combineLatest as observableCombineLatest } from 'rxjs';
@@ -9,7 +21,6 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
@@ -17,14 +28,15 @@ import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { Community } from '../../../core/shared/community.model';
-
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { UploaderOptions } from '../../uploader/uploader-options.model';
 import { UploaderComponent } from '../../uploader/uploader.component';
+import { Operation } from 'fast-json-patch';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -34,7 +46,7 @@ import { UploaderComponent } from '../../uploader/uploader.component';
   styleUrls: ['./comcol-form.component.scss'],
   templateUrl: './comcol-form.component.html'
 })
-export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDestroy {
+export class ComColFormComponent<T extends Collection | Community> implements OnInit, OnDestroy {
 
   /**
    * The logo uploader component
@@ -85,7 +97,8 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
   @Output() submitForm: EventEmitter<{
     dso: T,
     uploader: FileUploader,
-    deleteLogo: boolean
+    deleteLogo: boolean,
+    operations: Operation[],
   }> = new EventEmitter();
 
   /**
@@ -140,10 +153,10 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
 
     if (hasValue(this.dso.id)) {
       this.subs.push(
-        observableCombineLatest(
+        observableCombineLatest([
           this.dsoService.getLogoEndpoint(this.dso.id),
-          (this.dso as any).logo
-        ).subscribe(([href, logoRD]: [string, RemoteData<Bitstream>]) => {
+          this.dso.logo
+        ]).subscribe(([href, logoRD]: [string, RemoteData<Bitstream>]) => {
           this.uploadFilesOptions.url = href;
           this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
           // If the object already contains a logo, send out a PUT request instead of POST for setting a new logo
@@ -165,21 +178,22 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * Checks which new fields were added and sends the updated version of the DSO to the parent component
    */
   onSubmit() {
-    if (this.markLogoForDeletion && hasValue(this.dso.id)) {
-      this.dsoService.deleteLogo(this.dso).subscribe((response: RestResponse) => {
-        if (response.isSuccessful) {
+    if (this.markLogoForDeletion && hasValue(this.dso.id) && hasValue(this.dso._links.logo)) {
+      this.dsoService.deleteLogo(this.dso).pipe(
+        getFirstCompletedRemoteData()
+      ).subscribe((response: RemoteData<NoContent>) => {
+        if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
             this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
           );
         } else {
-          const errorResponse = response as ErrorResponse;
           this.notificationsService.error(
             this.translate.get(this.type.value + '.edit.logo.notifications.delete.error.title'),
-            errorResponse.errorMessage
+            response.errorMessage
           );
         }
-        (this.dso as any).logo = undefined;
+        this.dso.logo = undefined;
         this.uploadFilesOptions.method = RestRequestMethod.POST;
         this.refreshCache();
         this.finish.emit();
@@ -189,9 +203,9 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
     const formMetadata = {}  as MetadataMap;
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
       const value: MetadataValue = {
-          value: fieldModel.value as string,
-          language: null
-        } as any;
+        value: fieldModel.value as string,
+        language: null
+      } as any;
       if (formMetadata.hasOwnProperty(fieldModel.name)) {
         formMetadata[fieldModel.name].push(value);
       } else {
@@ -206,10 +220,26 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
       },
       type: Community.type
     });
+
+    const operations: Operation[] = [];
+    this.formModel.forEach((fieldModel: DynamicInputModel) => {
+      if (fieldModel.value !== this.dso.firstMetadataValue(fieldModel.name)) {
+        operations.push({
+          op: 'replace',
+          path: `/metadata/${fieldModel.name}`,
+          value: {
+            value: fieldModel.value,
+            language: null,
+          },
+        });
+      }
+    });
+
     this.submitForm.emit({
       dso: updatedDSO,
       uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
-      deleteLogo: this.markLogoForDeletion
+      deleteLogo: this.markLogoForDeletion,
+      operations: operations,
     });
   }
 
@@ -257,7 +287,9 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * The request was successful, display a success notification
    */
   public onCompleteItem() {
-    this.refreshCache();
+    if (hasValue(this.dso.id)) {
+      this.refreshCache();
+    }
     this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.success'));
     this.finish.emit();
   }

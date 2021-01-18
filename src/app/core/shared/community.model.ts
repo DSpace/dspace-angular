@@ -1,10 +1,8 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import { deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../cache/builders/build-decorators';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { Group } from '../eperson/models/group.model';
-import { GROUP } from '../eperson/models/group.resource-type';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { Collection } from './collection.model';
@@ -18,12 +16,6 @@ import { ChildHALResource } from './child-hal-resource.model';
 @inheritSerialization(DSpaceObject)
 export class Community extends DSpaceObject implements ChildHALResource {
   static type = COMMUNITY;
-
-  /**
-   * A string representing the unique handle of this Community
-   */
-  @autoserialize
-  handle: string;
 
   /**
    * The {@link HALLink}s for this Community
@@ -67,10 +59,11 @@ export class Community extends DSpaceObject implements ChildHALResource {
   parentCommunity?: Observable<RemoteData<Community>>;
 
   /**
-   * The administrators group of this community.
+   * A string representing the unique handle of this Community
    */
-  @link(GROUP)
-  adminGroup?: Observable<RemoteData<Group>>;
+  get handle(): string {
+    return this.firstMetadataValue('dc.identifier.uri');
+  }
 
   /**
    * The introductory text of this Community

@@ -3,7 +3,7 @@ import { ExternalSourceService } from './external-source.service';
 import { SearchService } from '../shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { PaginatedList } from './paginated-list';
+import { buildPaginatedList } from './paginated-list.model';
 import { PageInfo } from '../shared/page-info.model';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
@@ -43,7 +43,7 @@ describe('LookupRelationService', () => {
 
   function init() {
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
-      getExternalSourceEntries: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: totalExternal, totalPages: totalExternal, currentPage: 1 }), [{}]))
+      getExternalSourceEntries: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: totalExternal, totalPages: totalExternal, currentPage: 1 }), [{}]))
     });
     searchService = jasmine.createSpyObj('searchService', {
       search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),

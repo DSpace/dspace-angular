@@ -10,7 +10,7 @@ import {
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map, switchMap, tap, } from 'rxjs/operators';
 
-import { PaginatedList } from '../core/data/paginated-list';
+import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
@@ -19,7 +19,7 @@ import { PaginatedSearchOptions } from '../shared/search/paginated-search-option
 import { SearchService } from '../core/shared/search/search.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue } from '../shared/empty.util';
-import { getSucceededRemoteData } from '../core/shared/operators';
+import { getFirstSucceededRemoteData } from '../core/shared/operators';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { RoleType } from '../core/roles/role-types';
@@ -126,7 +126,7 @@ export class MyDSpacePageComponent implements OnInit {
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.sub = this.searchOptions$.pipe(
       tap(() => this.resultsRD$.next(null)),
-      switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getSucceededRemoteData())))
+      switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getFirstSucceededRemoteData())))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });

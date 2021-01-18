@@ -41,8 +41,16 @@ describe('DSOSelectorModalWrapperComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
         {
           provide: ActivatedRoute,
-          useValue: { root: { firstChild: { firstChild: { data: observableOf({ item: itemRD }) } } } }
-        }
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: itemRD,
+                },
+              },
+            }
+          }
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -63,11 +71,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
   });
 
   it('should initially set the DSO to the activated route\'s item/collection/community', () => {
-    component.dsoRD$
-      .pipe(first())
-      .subscribe((a) => {
-        expect(a).toEqual(itemRD);
-      })
+    expect(component.dsoRD).toEqual(itemRD);
   });
 
   describe('selectObject', () => {
@@ -120,7 +124,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
 })
 class TestComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;
-  selectorType = DSpaceObjectType.ITEM;
+  selectorTypes = [DSpaceObjectType.ITEM];
   action = SelectorActionType.EDIT;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute) {

@@ -9,23 +9,21 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestError } from '../../../core/data/request.models';
 import { RequestService } from '../../../core/data/request.service';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { Community } from '../../../core/shared/community.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { hasValue } from '../../empty.util';
 import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { VarDirective } from '../../utils/var.directive';
 import { ComColFormComponent } from './comcol-form.component';
+import { Operation } from 'fast-json-patch';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 
 describe('ComColFormComponent', () => {
-  let comp: ComColFormComponent<DSpaceObject>;
-  let fixture: ComponentFixture<ComColFormComponent<DSpaceObject>>;
+  let comp: ComColFormComponent<any>;
+  let fixture: ComponentFixture<ComColFormComponent<any>>;
   let location: Location;
   const formServiceStub: any = {
     createFormGroup: (fModel: DynamicFormControlModel[]) => {
@@ -40,11 +38,8 @@ describe('ComColFormComponent', () => {
     }
   };
   const dcTitle = 'dc.title';
-  const dcRandom = 'dc.random';
   const dcAbstract = 'dc.description.abstract';
 
-  const titleMD = { [dcTitle]: [{ value: 'Community Title', language: null }] };
-  const randomMD = { [dcRandom]: [{ value: 'Random metadata excluded from form', language: null }] };
   const abstractMD = { [dcAbstract]: [{ value: 'Community description', language: null }] };
   const newTitleMD = { [dcTitle]: [{ value: 'New Community Title', language: null }] };
   const formModel = [
@@ -63,7 +58,7 @@ describe('ComColFormComponent', () => {
   const logoEndpoint = 'rest/api/logo/endpoint';
   const dsoService = Object.assign({
     getLogoEndpoint: () => observableOf(logoEndpoint),
-    deleteLogo: () => observableOf({})
+    deleteLogo: () => createSuccessfulRemoteDataObject$({})
   });
   const notificationsService = new NotificationsServiceStub();
 
@@ -71,10 +66,10 @@ describe('ComColFormComponent', () => {
   const locationStub = jasmine.createSpyObj('location', ['back']);
   /* tslint:enable:no-empty */
 
-  const requestServiceStub = jasmine.createSpyObj({
+  const requestServiceStub = jasmine.createSpyObj('requestService', {
     removeByHrefSubstring: {}
   });
-  const objectCacheStub = jasmine.createSpyObj({
+  const objectCacheStub = jasmine.createSpyObj('objectCache', {
     remove: {}
   });
 
@@ -112,33 +107,47 @@ describe('ComColFormComponent', () => {
       });
 
       it('should emit the new version of the community', () => {
-        comp.dso = Object.assign(
-          new Community(),
-          {
-            metadata: {
-              ...titleMD,
-              ...randomMD
-            }
-          }
-        );
+        comp.dso = new Community();
         comp.onSubmit();
+
+        const operations: Operation[] = [
+          {
+            op: 'replace',
+            path: '/metadata/dc.title',
+            value: {
+              value: 'New Community Title',
+              language: null,
+            },
+          },
+          {
+            op: 'replace',
+            path: '/metadata/dc.description.abstract',
+            value: {
+              value: 'Community description',
+              language: null,
+            },
+          },
+        ];
 
         expect(comp.submitForm.emit).toHaveBeenCalledWith(
           {
-            dso: Object.assign(
-              {},
-              new Community(),
-              {
+            dso: Object.assign({}, comp.dso, {
                 metadata: {
-                  ...newTitleMD,
-                  ...randomMD,
-                  ...abstractMD
+                  'dc.title': [{
+                    value: 'New Community Title',
+                    language: null,
+                  }],
+                  'dc.description.abstract': [{
+                    value: 'Community description',
+                    language: null,
+                  }],
                 },
-                type: Community.type
-              },
+                type: Community.type,
+              }
             ),
             uploader: undefined,
-            deleteLogo: false
+            deleteLogo: false,
+            operations: operations,
           }
         );
       })
@@ -164,11 +173,6 @@ describe('ComColFormComponent', () => {
       it('should emit finish', () => {
         expect(comp.finish.emit).toHaveBeenCalled();
       });
-
-      it('should remove the object\'s cache', () => {
-        expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalled();
-        expect(objectCacheStub.remove).toHaveBeenCalled();
-      });
     });
 
     describe('onUploadError', () => {
@@ -192,7 +196,7 @@ describe('ComColFormComponent', () => {
       beforeEach(() => {
         initComponent(Object.assign(new Community(), {
           id: 'community-id',
-          logo: observableOf(new RemoteData(false, false, true, null, undefined)),
+          logo: createSuccessfulRemoteDataObject$(undefined),
           _links: { self: { href: 'community-self' } }
         }));
       });
@@ -210,8 +214,11 @@ describe('ComColFormComponent', () => {
       beforeEach(() => {
         initComponent(Object.assign(new Community(), {
           id: 'community-id',
-          logo: observableOf(new RemoteData(false, false, true, null, {})),
-          _links: { self: { href: 'community-self' } }
+          logo: createSuccessfulRemoteDataObject$({}),
+          _links: {
+            self: { href: 'community-self' },
+            logo: { href: 'community-logo' },
+          }
         }));
       });
 
@@ -229,23 +236,24 @@ describe('ComColFormComponent', () => {
         });
 
         describe('when dsoService.deleteLogo returns a successful response', () => {
-          const response = new RestResponse(true, 200, 'OK');
-
           beforeEach(() => {
-            spyOn(dsoService, 'deleteLogo').and.returnValue(observableOf(response));
+            spyOn(dsoService, 'deleteLogo').and.returnValue(createSuccessfulRemoteDataObject$({}));
             comp.onSubmit();
           });
 
           it('should display a success notification', () => {
             expect(notificationsService.success).toHaveBeenCalled();
           });
+
+          it('should remove the object\'s cache', () => {
+            expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalled();
+            expect(objectCacheStub.remove).toHaveBeenCalled();
+          });
         });
 
         describe('when dsoService.deleteLogo returns an error response', () => {
-          const response = new ErrorResponse(new RequestError('this error was purposely thrown, to test error notifications'));
-
           beforeEach(() => {
-            spyOn(dsoService, 'deleteLogo').and.returnValue(observableOf(response));
+            spyOn(dsoService, 'deleteLogo').and.returnValue(createFailedRemoteDataObject$('Error', 500));
             comp.onSubmit();
           });
 

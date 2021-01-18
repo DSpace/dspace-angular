@@ -38,6 +38,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let pSearchOptions;
   let externalSourceService;
   let lookupRelationService;
+  let submissionId;
 
   const externalSources = [
     Object.assign(new ExternalSource(), {
@@ -63,7 +64,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
     selection$ = observableOf([searchResult1, searchResult2]);
     selectableListService = { getSelectableList: () => selection$ };
-    relationship = { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true } as RelationshipOptions;
+    relationship = Object.assign(new RelationshipOptions(), { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true, searchConfiguration: 'personConfig' });
     nameVariant = 'Doe, J.';
     metadataField = 'dc.contributor.author';
     pSearchOptions = new PaginatedSearchOptions({});
@@ -74,6 +75,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       getTotalLocalResults: observableOf(totalLocal),
       getTotalExternalResults: observableOf(totalExternal)
     });
+    submissionId = '1234';
   }
 
   beforeEach(async(() => {
@@ -117,6 +119,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     component.relationshipOptions = relationship;
     component.item = item;
     component.metadataFields = metadataField;
+    component.submissionId = submissionId;
     fixture.detectChanges();
   });
 
@@ -142,8 +145,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
     it('should dispatch an AddRelationshipAction for each selected object', () => {
       component.select(searchResult1, searchResult2);
-      const action = new AddRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, nameVariant);
-      const action2 = new AddRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, nameVariant);
+      const action = new AddRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, submissionId, nameVariant);
+      const action2 = new AddRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, submissionId, nameVariant);
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
@@ -159,8 +162,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
     it('should dispatch an RemoveRelationshipAction for each deselected object', () => {
       component.deselect(searchResult1, searchResult2);
-      const action = new RemoveRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType);
-      const action2 = new RemoveRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType);
+      const action = new RemoveRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, submissionId);
+      const action2 = new RemoveRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, submissionId);
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);

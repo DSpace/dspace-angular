@@ -3,16 +3,24 @@ import { RegistryService } from '../../../core/registry/registry.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { map, take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
-import { RestResponse } from '../../../core/cache/response.models';
 import { zip } from 'rxjs/internal/observable/zip';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData
+} from '../../../core/shared/operators';
+import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 @Component({
   selector: 'ds-metadata-schema',
@@ -24,21 +32,15 @@ import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
  * The admin can create, edit or delete metadata fields here.
  */
 export class MetadataSchemaComponent implements OnInit {
-
-  /**
-   * The namespace of the metadata schema
-   */
-  namespace;
-
   /**
    * The metadata schema
    */
-  metadataSchema: Observable<RemoteData<MetadataSchema>>;
+  metadataSchema$: Observable<MetadataSchema>;
 
   /**
    * A list of all the fields attached to this metadata schema
    */
-  metadataFields: Observable<RemoteData<PaginatedList<MetadataField>>>;
+  metadataFields$: Observable<RemoteData<PaginatedList<MetadataField>>>;
 
   /**
    * Pagination config used to display the list of metadata fields
@@ -48,6 +50,11 @@ export class MetadataSchemaComponent implements OnInit {
     pageSize: 25,
     pageSizeOptions: [25, 50, 100, 200]
   });
+
+  /**
+   * Whether or not the list of MetadataFields needs an update
+   */
+  needsUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(private registryService: RegistryService,
               private route: ActivatedRoute,
@@ -68,7 +75,7 @@ export class MetadataSchemaComponent implements OnInit {
    * @param params
    */
   initialize(params) {
-    this.metadataSchema = this.registryService.getMetadataSchemaByName(params.schemaName);
+    this.metadataSchema$ = this.registryService.getMetadataSchemaByPrefix(params.schemaName).pipe(getFirstSucceededRemoteDataPayload());
     this.updateFields();
   }
 
@@ -78,18 +85,20 @@ export class MetadataSchemaComponent implements OnInit {
    */
   onPageChange(event) {
     this.config.currentPage = event;
-    this.updateFields();
+    this.forceUpdateFields();
   }
 
   /**
    * Update the list of fields by fetching it from the rest api or cache
    */
   private updateFields() {
-    this.metadataSchema.subscribe((schemaData) => {
-      const schema = schemaData.payload;
-      this.metadataFields = this.registryService.getMetadataFieldsBySchema(schema, this.config);
-      this.namespace = {namespace: schemaData.payload.namespace};
-    });
+    this.metadataFields$ = combineLatest(this.metadataSchema$, this.needsUpdate$).pipe(
+      switchMap(([schema, update]: [MetadataSchema, boolean]) => {
+        if (update) {
+          return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), true, followLink('schema'));
+        }
+      })
+    );
   }
 
   /**
@@ -97,8 +106,7 @@ export class MetadataSchemaComponent implements OnInit {
    * a new REST call
    */
   public forceUpdateFields() {
-    this.registryService.clearMetadataFieldRequests().subscribe();
-    this.updateFields();
+    this.needsUpdate$.next(true);
   }
 
   /**
@@ -157,17 +165,18 @@ export class MetadataSchemaComponent implements OnInit {
    * Delete all the selected metadata fields
    */
   deleteFields() {
+    this.registryService.clearMetadataFieldRequests().subscribe();
     this.registryService.getSelectedMetadataFields().pipe(take(1)).subscribe(
       (fields) => {
         const tasks$ = [];
         for (const field of fields) {
           if (hasValue(field.id)) {
-            tasks$.push(this.registryService.deleteMetadataField(field.id));
+            tasks$.push(this.registryService.deleteMetadataField(field.id).pipe(getFirstCompletedRemoteData()));
           }
         }
-        zip(...tasks$).subscribe((responses: RestResponse[]) => {
-          const successResponses = responses.filter((response: RestResponse) => response.isSuccessful);
-          const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
+        zip(...tasks$).subscribe((responses: Array<RemoteData<NoContent>>) => {
+          const successResponses = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
+          const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
           if (successResponses.length > 0) {
             this.showNotification(true, successResponses.length);
           }

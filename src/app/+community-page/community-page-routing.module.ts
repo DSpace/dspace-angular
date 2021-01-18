@@ -7,28 +7,13 @@ import { CreateCommunityPageComponent } from './create-community-page/create-com
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { CreateCommunityPageGuard } from './create-community-page/create-community-page.guard';
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
-import { getCommunityModulePath } from '../app-routing.module';
 import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
-
-export const COMMUNITY_PARENT_PARAMETER = 'parent';
-
-export function getCommunityPageRoute(communityId: string) {
-  return new URLCombiner(getCommunityModulePath(), communityId).toString();
-}
-
-export function getCommunityEditPath(id: string) {
-  return new URLCombiner(getCommunityModulePath(), id, COMMUNITY_EDIT_PATH).toString()
-}
-
-export function getCommunityCreatePath() {
-  return new URLCombiner(getCommunityModulePath(), COMMUNITY_CREATE_PATH).toString()
-}
-
-const COMMUNITY_CREATE_PATH = 'create';
-const COMMUNITY_EDIT_PATH = 'edit';
+import { COMMUNITY_EDIT_PATH, COMMUNITY_CREATE_PATH } from './community-page-routing-paths';
+import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
+import { MenuItemType } from '../shared/menu/initial-menus-state';
+import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 
 @NgModule({
   imports: [
@@ -49,7 +34,7 @@ const COMMUNITY_EDIT_PATH = 'edit';
           {
             path: COMMUNITY_EDIT_PATH,
             loadChildren: './edit-community-page/edit-community-page.module#EditCommunityPageModule',
-            canActivate: [AuthenticatedGuard]
+            canActivate: [CommunityPageAdministratorGuard]
           },
           {
             path: 'delete',
@@ -62,7 +47,21 @@ const COMMUNITY_EDIT_PATH = 'edit';
             component: CommunityPageComponent,
             pathMatch: 'full',
           }
-        ]
+        ],
+        data: {
+          menu: {
+            public: [{
+              id: 'statistics_community_:id',
+              active: true,
+              visible: true,
+              model: {
+                type: MenuItemType.LINK,
+                text: 'menu.section.statistics',
+                link: 'statistics/communities/:id/',
+              } as LinkMenuItemModel,
+            }],
+          },
+        },
       },
     ])
   ],
@@ -71,7 +70,8 @@ const COMMUNITY_EDIT_PATH = 'edit';
     CommunityBreadcrumbResolver,
     DSOBreadcrumbsService,
     LinkService,
-    CreateCommunityPageGuard
+    CreateCommunityPageGuard,
+    CommunityPageAdministratorGuard
   ]
 })
 export class CommunityPageRoutingModule {

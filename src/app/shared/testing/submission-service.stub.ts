@@ -2,6 +2,7 @@ export class SubmissionServiceStub {
 
   changeSubmissionCollection = jasmine.createSpy('changeSubmissionCollection');
   createSubmission = jasmine.createSpy('createSubmission');
+  createSubmissionFromExternalSource = jasmine.createSpy('createSubmissionFromExternalSource');
   depositSubmission = jasmine.createSpy('depositSubmission');
   discardSubmission = jasmine.createSpy('discardSubmission');
   dispatchInit = jasmine.createSpy('dispatchInit');
@@ -19,6 +20,7 @@ export class SubmissionServiceStub {
   getSubmissionStatus = jasmine.createSpy('getSubmissionStatus');
   getSubmissionSaveProcessingStatus = jasmine.createSpy('getSubmissionSaveProcessingStatus');
   getSubmissionDepositProcessingStatus = jasmine.createSpy('getSubmissionDepositProcessingStatus');
+  hasUnsavedModification = jasmine.createSpy('hasUnsavedModification');
   isSectionHidden = jasmine.createSpy('isSectionHidden');
   isSubmissionLoading = jasmine.createSpy('isSubmissionLoading');
   notifyNewSection = jasmine.createSpy('notifyNewSection');

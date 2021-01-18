@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { Observable } from 'rxjs/internal/Observable';
-import { find } from 'rxjs/operators';
-import { hasValue } from '../shared/empty.util';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
+import {followLink, FollowLinkConfig} from '../shared/utils/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific bitstream before the route is activated
@@ -23,9 +23,20 @@ export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Bitstream>> {
-    return this.bitstreamService.findById(route.params.id)
+    return this.bitstreamService.findById(route.params.id, false, ...this.followLinks)
       .pipe(
-        find((RD) => hasValue(RD.error) || RD.hasSucceeded),
+        getFirstCompletedRemoteData(),
       );
   }
+    /**
+     * Method that returns the follow links to already resolve
+     * The self links defined in this list are expected to be requested somewhere in the near future
+     * Requesting them as embeds will limit the number of requests
+     */
+    get followLinks(): Array<FollowLinkConfig<Bitstream>> {
+        return [
+            followLink('bundle', undefined, true, followLink('item')),
+            followLink('format')
+        ];
+    }
 }

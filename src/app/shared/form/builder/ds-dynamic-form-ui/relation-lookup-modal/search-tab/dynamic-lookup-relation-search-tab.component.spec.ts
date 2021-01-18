@@ -12,7 +12,7 @@ import { RelationshipOptions } from '../../../models/relationship-options.model'
 import { of as observableOf } from 'rxjs';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
-import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
@@ -39,7 +39,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   let lookupRelationService;
 
   function init() {
-    relationship = { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true } as RelationshipOptions;
+    relationship = Object.assign(new RelationshipOptions(), { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true, searchConfiguration: 'personConfig' });
     pSearchOptions = new PaginatedSearchOptions({});
     item1 = Object.assign(new Item(), { uuid: 'e1c51c69-896d-42dc-8221-1d5f2ad5516e' });
     item2 = Object.assign(new Item(), { uuid: 'c8279647-1acc-41ae-b036-951d5f65649b' });
@@ -52,7 +52,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
     selection$ = observableOf([searchResult1, searchResult2]);
 
-    results = new PaginatedList(undefined, [searchResult1, searchResult2, searchResult3]);
+    results = buildPaginatedList(undefined, [searchResult1, searchResult2, searchResult3]);
     selectableListService = jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']);
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
       getLocalResults: createSuccessfulRemoteDataObject$(results)

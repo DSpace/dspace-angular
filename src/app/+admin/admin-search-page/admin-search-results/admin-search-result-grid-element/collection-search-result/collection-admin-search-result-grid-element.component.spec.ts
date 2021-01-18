@@ -12,7 +12,8 @@ import { CollectionSearchResult } from '../../../../../shared/object-collection/
 import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { getCollectionEditPath } from '../../../../../+collection-page/collection-page-routing.module';
+import { getCollectionEditRoute } from '../../../../../+collection-page/collection-page-routing-paths';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
 
 describe('CollectionAdminSearchResultGridElementComponent', () => {
   let component: CollectionAdminSearchResultGridElementComponent;
@@ -26,6 +27,11 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
     searchResult.indexableObject = new Collection();
     searchResult.indexableObject.uuid = id;
   }
+
+  const linkService = jasmine.createSpyObj('linkService', {
+    resolveLink: {}
+  });
+
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
@@ -39,6 +45,7 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
+        { provide: LinkService, useValue: linkService}
       ]
     })
       .compileComponents();
@@ -61,6 +68,6 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
   it('should render an edit button with the correct link', () => {
     const a = fixture.debugElement.query(By.css('a.edit-link'));
     const link = a.nativeElement.href;
-    expect(link).toContain(getCollectionEditPath(id));
+    expect(link).toContain(getCollectionEditRoute(id));
   })
 });

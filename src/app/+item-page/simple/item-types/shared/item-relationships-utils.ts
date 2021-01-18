@@ -1,11 +1,14 @@
 import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { distinctUntilChanged, flatMap, map, switchMap } from 'rxjs/operators';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import { getFinishedRemoteData, getSucceededRemoteData } from '../../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteData
+} from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 
 /**
@@ -72,19 +75,22 @@ export const relationsToItems = (thisId: string) =>
 export const paginatedRelationsToItems = (thisId: string) =>
   (source: Observable<RemoteData<PaginatedList<Relationship>>>): Observable<RemoteData<PaginatedList<Item>>> =>
     source.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       switchMap((relationshipsRD: RemoteData<PaginatedList<Relationship>>) => {
         return observableCombineLatest(
-          ...relationshipsRD.payload.page.map((rel: Relationship) => observableCombineLatest(rel.leftItem.pipe(getFinishedRemoteData()), rel.rightItem.pipe(getFinishedRemoteData())))
-        ).pipe(
+          relationshipsRD.payload.page.map((rel: Relationship) =>
+            observableCombineLatest([
+              rel.leftItem.pipe(getFirstSucceededRemoteDataPayload()),
+              rel.rightItem.pipe(getFirstSucceededRemoteDataPayload())]
+            )
+          )).pipe(
           map((arr) =>
             arr
-              .filter(([leftItem, rightItem]) => leftItem.hasSucceeded && rightItem.hasSucceeded)
               .map(([leftItem, rightItem]) => {
-                if (leftItem.payload.id === thisId) {
-                  return rightItem.payload;
-                } else if (rightItem.payload.id === thisId) {
-                  return leftItem.payload;
+                if (leftItem.id === thisId) {
+                  return rightItem;
+                } else if (rightItem.id === thisId) {
+                  return leftItem;
                 }
               })
               .filter((item: Item) => hasValue(item))

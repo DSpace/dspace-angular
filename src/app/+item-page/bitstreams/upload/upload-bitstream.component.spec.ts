@@ -16,7 +16,10 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { RequestService } from '../../../core/data/request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
@@ -192,7 +195,7 @@ describe('UploadBistreamComponent', () => {
   function createUploadBitstreamTestingModule(queryParams) {
     routeStub = {
       data: observableOf({
-        item: createSuccessfulRemoteDataObject(mockItem)
+        dso: createSuccessfulRemoteDataObject(mockItem)
       }),
       queryParams: observableOf(queryParams),
       snapshot: {

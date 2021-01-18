@@ -39,7 +39,7 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 import { ItemDataService } from '../data/item-data.service';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -52,10 +52,13 @@ import { UUIDService } from '../shared/uuid.service';
 import { MetadataService } from './metadata.service';
 import { environment } from '../../../environments/environment';
 import { storeModuleConfig } from '../../app.reducer';
+import { HardRedirectService } from '../services/hard-redirect.service';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
-  template: `<router-outlet></router-outlet>`
+  template: `
+      <router-outlet></router-outlet>`
 })
 class TestComponent {
   constructor(private metadata: MetadataService) {
@@ -108,9 +111,9 @@ describe('MetadataService', () => {
     const mockBitstreamDataService = {
       findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
         if (item.equals(ItemMock)) {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [MockBitstream1, MockBitstream2]));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [MockBitstream1, MockBitstream2]));
         } else {
-          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
         }
       },
     };
@@ -168,7 +171,9 @@ describe('MetadataService', () => {
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         Meta,
         Title,
-        ItemDataService,
+        // tslint:disable-next-line:no-empty
+        { provide: ItemDataService, useValue: { findById: () => {} } },
+        { provide: HardRedirectService, useValue: { rewriteDownloadURL: (a) => a, getRequestOrigin: () => environment.ui.baseUrl }},
         BrowseService,
         MetadataService
       ],
@@ -207,7 +212,7 @@ describe('MetadataService', () => {
     tick();
     expect(tagStore.get('citation_dissertation_name')[0].content).toEqual('Test PowerPoint Document');
     expect(tagStore.get('citation_dissertation_institution')[0].content).toEqual('Mock Publisher');
-    expect(tagStore.get('citation_abstract_html_url')[0].content).toEqual([environment.ui.baseUrl, router.url].join(''));
+    expect(tagStore.get('citation_abstract_html_url')[0].content).toEqual(new URLCombiner(environment.ui.baseUrl, router.url).toString());
     expect(tagStore.get('citation_pdf_url')[0].content).toEqual('https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content');
   }));
 

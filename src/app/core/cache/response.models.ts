@@ -1,31 +1,26 @@
-import { SearchQueryResponse } from '../../shared/search/search-query-response.model';
-import { AuthStatus } from '../auth/models/auth-status.model';
 import { RequestError } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../config/models/config.model';
-import { FacetValue } from '../../shared/search/facet-value.model';
-import { SearchFilterConfig } from '../../shared/search/search-filter-config.model';
-import { IntegrationModel } from '../integration/models/integration.model';
-import { RegistryMetadataschemasResponse } from '../registry/registry-metadataschemas-response.model';
-import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
-import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
-import { PaginatedList } from '../data/paginated-list';
-import { SubmissionObject } from '../submission/models/submission-object.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { MetadataField } from '../metadata/metadata-field.model';
-import { ContentSource } from '../shared/content-source.model';
+import { HALLink } from '../shared/hal-link.model';
+import { UnCacheableObject } from '../shared/uncacheable-object.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
   public toCache = true;
-  public timeAdded: number;
+  public timeCompleted: number;
 
   constructor(
     public isSuccessful: boolean,
     public statusCode: number,
     public statusText: string
   ) {
+  }
+}
+
+export class ParsedResponse extends RestResponse {
+  constructor(statusCode: number, public link?: HALLink, public unCacheableObject?: UnCacheableObject) {
+    super(true, statusCode, `${statusCode}`);
   }
 }
 
@@ -40,121 +35,8 @@ export class DSOSuccessResponse extends RestResponse {
   }
 }
 
-/**
- * A successful response containing a list of MetadataSchemas wrapped in a RegistryMetadataschemasResponse
- */
-export class RegistryMetadataschemasSuccessResponse extends RestResponse {
-  constructor(
-    public metadataschemasResponse: RegistryMetadataschemasResponse,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-/**
- * A successful response containing a list of MetadataFields wrapped in a RegistryMetadatafieldsResponse
- */
-export class RegistryMetadatafieldsSuccessResponse extends RestResponse {
-  constructor(
-    public metadatafieldsResponse: RegistryMetadatafieldsResponse,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-/**
- * A successful response containing a list of BitstreamFormats wrapped in a RegistryBitstreamformatsResponse
- */
-export class RegistryBitstreamformatsSuccessResponse extends RestResponse {
-  constructor(
-    public bitstreamformatsResponse: RegistryBitstreamformatsResponse,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-/**
- * A successful response containing exactly one MetadataSchema
- */
-export class MetadataschemaSuccessResponse extends RestResponse {
-  constructor(
-    public metadataschema: MetadataSchema,
-    public statusCode: number,
-    public statusText: string,
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-/**
- * A successful response containing exactly one MetadataField
- */
-export class MetadatafieldSuccessResponse extends RestResponse {
-  constructor(
-    public metadatafield: MetadataField,
-    public statusCode: number,
-    public statusText: string,
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-export class SearchSuccessResponse extends RestResponse {
-  constructor(
-    public results: SearchQueryResponse,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-export class FacetConfigSuccessResponse extends RestResponse {
-  constructor(
-    public results: SearchFilterConfig[],
-    public statusCode: number,
-    public statusText: string,
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-export class FacetValueMap {
-  [name: string]: FacetValueSuccessResponse
-}
-
-export class FacetValueSuccessResponse extends RestResponse {
-  constructor(
-    public results: FacetValue[],
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo) {
-    super(true, statusCode, statusText);
-  }
-}
-
-export class FacetValueMapSuccessResponse extends RestResponse {
-  constructor(
-    public results: FacetValueMap,
-    public statusCode: number,
-    public statusText: string
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
 export class EndpointMap {
-  [linkPath: string]: string
+  [linkPath: string]: HALLink
 }
 
 export class EndpointMapSuccessResponse extends RestResponse {
@@ -162,17 +44,6 @@ export class EndpointMapSuccessResponse extends RestResponse {
     public endpointMap: EndpointMap,
     public statusCode: number,
     public statusText: string
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-export class GenericSuccessResponse<T> extends RestResponse {
-  constructor(
-    public payload: T,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
   ) {
     super(true, statusCode, statusText);
   }
@@ -199,43 +70,23 @@ export class ConfigSuccessResponse extends RestResponse {
   }
 }
 
-export class AuthStatusResponse extends RestResponse {
-  public toCache = false;
-
+/**
+ * A REST Response containing a token
+ */
+export class TokenResponse extends RestResponse {
   constructor(
-    public response: AuthStatus,
+    public token: string,
+    public isSuccessful: boolean,
     public statusCode: number,
-    public statusText: string,
+    public statusText: string
   ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-export class IntegrationSuccessResponse extends RestResponse {
-  constructor(
-    public dataDefinition: PaginatedList<IntegrationModel>,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
+    super(isSuccessful, statusCode, statusText);
   }
 }
 
 export class PostPatchSuccessResponse extends RestResponse {
   constructor(
     public dataDefinition: any,
-    public statusCode: number,
-    public statusText: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-export class SubmissionSuccessResponse extends RestResponse {
-  constructor(
-    public dataDefinition: Array<SubmissionObject | ConfigObject | string>,
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo
@@ -285,19 +136,6 @@ export class FilteredDiscoveryQueryResponse extends RestResponse {
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-/**
- * A successful response containing exactly one MetadataSchema
- */
-export class ContentSourceSuccessResponse extends RestResponse {
-  constructor(
-    public contentsource: ContentSource,
-    public statusCode: number,
-    public statusText: string,
   ) {
     super(true, statusCode, statusText);
   }

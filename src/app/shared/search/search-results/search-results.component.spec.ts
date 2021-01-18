@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed, async, tick, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { Community } from '../../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchResultsComponent } from './search-results.component';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
+import { createFailedRemoteDataObject } from '../../remote-data.utils';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
@@ -46,13 +46,13 @@ describe('SearchResultsComponent', () => {
   });
 
   it('should display error message if error is != 400', () => {
-    (comp as any).searchResults = { hasFailed: true, error: { statusCode: 500 } };
+    (comp as any).searchResults = createFailedRemoteDataObject('Error', 500);
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('ds-error'))).not.toBeNull();
   });
 
   it('should display link with new search where query is quoted if search return a error 400', () => {
-    (comp as any).searchResults = { hasFailed: true, error: { statusCode: 400 } };
+    (comp as any).searchResults = createFailedRemoteDataObject('Error', 400);
     (comp as any).searchConfig = { query: 'foobar' };
     fixture.detectChanges();
 
@@ -96,7 +96,6 @@ describe('SearchResultsComponent', () => {
 
 export const objects = [
   Object.assign(new Community(), {
-    handle: '10673/11',
     logo: {
       self: {
         _isScalar: true,
@@ -149,12 +148,17 @@ export const objects = [
           language: null,
           value: 'OR2017 - Demonstration'
         }
+      ],
+      'dc.identifier.uri': [
+        {
+          language: null,
+          value: 'http://localhost:4000/handle/10673/11'
+        }
       ]
     }
   }),
   Object.assign(new Community(),
     {
-      handle: '10673/1',
       logo: {
         self: {
           _isScalar: true,
@@ -206,6 +210,12 @@ export const objects = [
           {
             language: null,
             value: 'Sample Community'
+          }
+        ],
+        'dc.identifier.uri': [
+          {
+            language: null,
+            value: 'http://localhost:4000/handle/10673/1'
           }
         ]
       }

@@ -6,7 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router.stub';
-import * as communityRouter from '../../../../+community-page/community-page-routing.module';
+import * as communityRouterPaths from '../../../../+community-page/community-page-routing-paths';
 import { Community } from '../../../../core/shared/community.model';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
@@ -33,7 +33,15 @@ describe('CreateCommunityParentSelectorComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
         {
           provide: ActivatedRoute,
-          useValue: { root: { firstChild: { firstChild: { data: observableOf({ community: communityRD }) } } } }
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: communityRD,
+                },
+              },
+            }
+          },
         },
         {
           provide: Router, useValue: router
@@ -45,7 +53,7 @@ describe('CreateCommunityParentSelectorComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOnProperty(communityRouter, 'getCommunityCreatePath').and.callFake(() => {
+    spyOnProperty(communityRouterPaths, 'getCommunityCreateRoute').and.callFake(() => {
       return () => createPath;
     });
 
