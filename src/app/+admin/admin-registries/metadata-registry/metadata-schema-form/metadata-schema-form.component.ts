@@ -1,5 +1,10 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { DynamicFormControlModel, DynamicFormLayout, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicFormLayout,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
@@ -96,14 +101,19 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
           required: true,
         });
       this.formModel = [
-        this.namespace,
-        this.name
+        new DynamicFormGroupModel(
+          {
+            id: 'metadatadataschemagroup',
+            group:[this.namespace, this.name]
+          })
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.registryService.getActiveMetadataSchema().subscribe((schema) => {
         this.formGroup.patchValue({
-          name: schema != null ? schema.prefix : '',
-          namespace: schema != null ? schema.namespace : ''
+          metadatadataschemagroup:{
+            name: schema != null ? schema.prefix : '',
+            namespace: schema != null ? schema.namespace : ''
+          }
         });
       });
     });
@@ -154,8 +164,10 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
    */
   clearFields() {
     this.formGroup.patchValue({
-      prefix: '',
-      namespace: ''
+      metadatadataschemagroup:{
+        prefix: '',
+        namespace: ''
+      }
     });
   }
 
