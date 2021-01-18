@@ -8,6 +8,8 @@ import { ItemAdminSearchResultGridElementComponent } from './admin-search-result
 import { CommunityAdminSearchResultGridElementComponent } from './admin-search-results/admin-search-result-grid-element/community-search-result/community-admin-search-result-grid-element.component';
 import { CollectionAdminSearchResultGridElementComponent } from './admin-search-results/admin-search-result-grid-element/collection-search-result/collection-admin-search-result-grid-element.component';
 import { ItemAdminSearchResultActionsComponent } from './admin-search-results/item-admin-search-result-actions.component';
+import { JournalEntitiesModule } from '../../entity-groups/journal-entities/journal-entities.module';
+import { ResearchEntitiesModule } from '../../entity-groups/research-entities/research-entities.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -23,6 +25,8 @@ const ENTRY_COMPONENTS = [
 @NgModule({
   imports: [
     SharedModule.withEntryComponents(),
+    JournalEntitiesModule.withEntryComponents(),
+    ResearchEntitiesModule.withEntryComponents()
   ],
   declarations: [
     AdminSearchPageComponent,
