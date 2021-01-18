@@ -1,5 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { LinkMenuItemModel } from './models/link.model';
+import { MenuItemType } from '../initial-menus-state';
+import { rendersMenuItemForType } from '../menu-item.decorator';
 import { isNotEmpty } from '../../empty.util';
 import { environment } from '../../../../environments/environment';
 
@@ -10,6 +12,7 @@ import { environment } from '../../../../environments/environment';
   selector: 'ds-link-menu-item',
   templateUrl: './link-menu-item.component.html'
 })
+@rendersMenuItemForType(MenuItemType.LINK)
 export class LinkMenuItemComponent implements OnInit {
   item: LinkMenuItemModel;
   hasLink: boolean;

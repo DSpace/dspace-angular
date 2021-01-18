@@ -8,6 +8,7 @@ import { MenuID } from '../../../shared/menu/initial-menus-state';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 
 /**
  * Represents a expandable section in the sidebar
@@ -19,6 +20,7 @@ import { map } from 'rxjs/operators';
   animations: [rotate, slide, bgColor]
 })
 
+@rendersSectionForMenu(MenuID.ADMIN, true)
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {
   /**
    * This section resides in the Admin Sidebar

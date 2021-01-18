@@ -1,4 +1,6 @@
 import { Component, Inject } from '@angular/core';
+import { MenuItemType } from '../initial-menus-state';
+import { rendersMenuItemForType } from '../menu-item.decorator';
 import { OnClickMenuItemModel } from './models/onclick.model';
 
 /**
@@ -9,6 +11,7 @@ import { OnClickMenuItemModel } from './models/onclick.model';
   styleUrls: ['./onclick-menu-item.component.scss'],
   templateUrl: './onclick-menu-item.component.html'
 })
+@rendersMenuItemForType(MenuItemType.ONCLICK)
 export class OnClickMenuItemComponent {
   item: OnClickMenuItemModel;
   constructor(@Inject('itemModelProvider') item: OnClickMenuItemModel) {
