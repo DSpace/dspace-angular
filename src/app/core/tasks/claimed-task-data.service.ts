@@ -20,6 +20,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { getFirstSucceededRemoteData } from '../shared/operators';
 
 /**
  * The service handling all REST requests for ClaimedTask
@@ -28,7 +29,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 @dataService(CLAIMED_TASK)
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
 
-  protected responseMsToLive = 10 * 1000;
+  protected responseMsToLive = 1000;
 
   /**
    * The endpoint link name
@@ -68,6 +69,8 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
    *    Emit the server response
    */
   public claimTask(scopeId: string, poolTaskHref: string): Observable<ProcessTaskResponse> {
+    console.log('==========================================');
+    console.log('User ClaimTask request for:', scopeId, poolTaskHref);
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
@@ -98,6 +101,8 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
    *    Emit the server response
    */
   public returnToPoolTask(scopeId: string): Observable<ProcessTaskResponse> {
+    console.log('==========================================');
+    console.log('User ReturnToPool request for:', scopeId);
     return this.deleteById(this.linkPath, scopeId, this.makeHttpOptions());
   }
 
@@ -109,11 +114,13 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
    *    The server response
    */
   public findByItem(uuid: string): Observable<RemoteData<ClaimedTask>> {
+    console.log('claimedTaskService findByItem', uuid);
     const options = new FindListOptions();
     options.searchParams = [
       new RequestParam('uuid', uuid)
     ];
-    return this.searchTask('findByItem', options, followLink('workflowitem'));
+    return this.searchTask('findByItem', options, followLink('workflowitem'))
+      .pipe(getFirstSucceededRemoteData());
   }
 
 }

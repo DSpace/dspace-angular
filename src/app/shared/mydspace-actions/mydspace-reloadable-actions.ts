@@ -18,6 +18,7 @@ import { ProcessTaskResponse } from '../../core/tasks/models/process-task-respon
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getSearchResultFor } from '../search/search-result-element-decorator';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
+import {Subscription} from 'rxjs/internal/Subscription';
 
 /**
  * Abstract class for all different representations of mydspace actions
@@ -49,6 +50,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
   ngOnInit() {
     this.initReloadAnchor();
     this.initObjects(this.object);
+    console.log('OnInit ReloadableAction', this.object, this);
   }
 
   /**

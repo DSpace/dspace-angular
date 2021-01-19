@@ -18,6 +18,7 @@ import { RemoteData } from '../data/remote-data';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
+import { getFirstSucceededRemoteData } from '../shared/operators';
 
 /**
  * The service handling all REST requests for PoolTask
@@ -31,7 +32,7 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
    */
   protected linkPath = 'pooltasks';
 
-  protected responseMsToLive = 10 * 1000;
+  protected responseMsToLive = 1000;
 
   /**
    * Initialize instance variables
@@ -70,7 +71,8 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
     options.searchParams = [
       new RequestParam('uuid', uuid)
     ];
-    return this.searchTask('findByItem', options, followLink('workflowitem'));
+    return this.searchTask('findByItem', options, followLink('workflowitem'))
+      .pipe(getFirstSucceededRemoteData());
   }
 
   /**

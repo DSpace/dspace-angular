@@ -1,4 +1,4 @@
-import { Injector } from '@angular/core';
+import {Injector, OnDestroy} from '@angular/core';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { DSpaceObject} from '../../../../core/shared/dspace-object.model';
@@ -10,7 +10,7 @@ import { RequestService} from '../../../../core/data/request.service';
 import { Observable} from 'rxjs';
 import { RemoteData} from '../../../../core/data/remote-data';
 import { WorkflowItem} from '../../../../core/submission/models/workflowitem.model';
-import { switchMap } from 'rxjs/operators';
+import {switchMap, take} from 'rxjs/operators';
 import { CLAIMED_TASK } from '../../../../core/tasks/models/claimed-task-object.resource-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
@@ -23,7 +23,7 @@ import { MyDSpaceReloadableActionsComponent } from '../../mydspace-reloadable-ac
  * - Add a @rendersWorkflowTaskOption annotation to your component providing the same enum value
  * - Optionally overwrite createBody if the request body requires more than just the option
  */
-export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReloadableActionsComponent<ClaimedTask, ClaimedTaskDataService> {
+export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReloadableActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnDestroy {
 
   /**
    * The workflow task option the child component represents
@@ -36,6 +36,8 @@ export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReload
    * Anchor used to reload the pool task.
    */
   itemUuid: string;
+
+  subs = [];
 
   protected constructor(protected injector: Injector,
                         protected router: Router,
@@ -50,7 +52,7 @@ export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReload
    * Submit the action on the claimed object.
    */
   submitTask() {
-    this.startActionExecution().subscribe();
+    this.subs.push(this.startActionExecution().pipe(take(1)).subscribe());
   }
 
   /**
@@ -82,13 +84,17 @@ export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReload
     if (!(this.object as any).workflowitem) {
       return;
     }
-    this.object.workflowitem.pipe(
+    this.subs.push(this.object.workflowitem.pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((workflowItem: WorkflowItem) => workflowItem.item.pipe(getFirstSucceededRemoteDataPayload())
       ))
       .subscribe((item: Item) => {
         this.itemUuid = item.uuid;
-      })
+      }));
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((sub) => sub.unsubscribe());
   }
 
 }

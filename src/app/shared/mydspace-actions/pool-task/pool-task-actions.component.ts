@@ -1,8 +1,8 @@
-import { Component, Injector, Input } from '@angular/core';
+import {Component, Injector, Input, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import {filter, map, switchMap, take} from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
@@ -19,6 +19,7 @@ import { Item } from '../../../core/shared/item.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+import { tap } from 'rxjs/internal/operators/tap';
 
 /**
  * This component represents mydspace actions related to PoolTask object.
@@ -28,7 +29,7 @@ import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-res
   styleUrls: ['./pool-task-actions.component.scss'],
   templateUrl: './pool-task-actions.component.html',
 })
-export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent<PoolTask, PoolTaskDataService> {
+export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent<PoolTask, PoolTaskDataService> implements OnDestroy {
 
   /**
    * The PoolTask object
@@ -44,6 +45,8 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
    * Anchor used to reload the pool task.
    */
   public itemUuid: string;
+
+  subs = [];
 
   /**
    * Initialize instance variables
@@ -69,7 +72,7 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
    * Claim the task.
    */
   claim() {
-    this.startActionExecution().subscribe();
+    this.subs.push(this.startActionExecution().pipe(take(1)).subscribe());
   }
 
   /**
@@ -81,7 +84,8 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
     this.object = object;
     this.workflowitem$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       filter((rd: RemoteData<WorkflowItem>) => ((!rd.isRequestPending) && isNotUndefined(rd.payload))),
-      map((rd: RemoteData<WorkflowItem>) => rd.payload));
+      map((rd: RemoteData<WorkflowItem>) => rd.payload),
+      take(1));
   }
 
   actionExecution(): Observable<ProcessTaskResponse> {
@@ -92,7 +96,9 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
   }
 
   reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {
-    return this.claimedTaskService.findByItem(this.itemUuid);
+    return this.claimedTaskService.findByItem(this.itemUuid).pipe(take(1), tap((value) => {
+      console.log('The new ClaimTask (found by item) is:', value);
+    }));
   }
 
   /**
@@ -106,6 +112,11 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
       .subscribe((item: Item) => {
       this.itemUuid = item.uuid;
     })
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((sub) => sub.unsubscribe());
+    console.log('Destroy of PoolTaskActionsComponent', this.object)
   }
 
 }

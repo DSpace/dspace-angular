@@ -13,7 +13,7 @@ import {
 } from '../data/request.models';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ProcessTaskResponse } from './models/process-task-response';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+import {getFirstCompletedRemoteData, getFirstSucceededRemoteData} from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -140,7 +140,11 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
     const hrefObs = this.getSearchByHref(searchMethod, options, ...linksToFollow);
     return hrefObs.pipe(
       find((href: string) => hasValue(href)),
-      switchMap((href) => this.findByHref(href))
+      switchMap((href) => this.findByHref(href).pipe(
+        getFirstSucceededRemoteData(),
+        tap(() => {
+        this.requestService.setStaleByHrefSubstring(searchMethod)
+      }))),
     );
   }
 }

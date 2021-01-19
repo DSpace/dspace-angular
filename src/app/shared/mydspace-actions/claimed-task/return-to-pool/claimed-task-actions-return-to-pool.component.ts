@@ -10,6 +10,8 @@ import { RequestService } from '../../../../core/data/request.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { take } from 'rxjs/operators';
+import { tap } from 'rxjs/internal/operators/tap';
 
 export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
 
@@ -39,7 +41,9 @@ export class ClaimedTaskActionsReturnToPoolComponent extends ClaimedTaskActionsA
   }
 
   reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {
-    return this.poolTaskService.findByItem(this.itemUuid);
+    return this.poolTaskService.findByItem(this.itemUuid).pipe(take(1), tap((value) => {
+      console.log('The new PoolTask (found by item) is:', value);
+    }));
   }
 
   actionExecution(): Observable<any> {

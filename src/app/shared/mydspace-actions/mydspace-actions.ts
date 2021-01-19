@@ -82,6 +82,8 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * Refresh current page
    */
   reload(): void {
+    debugger;
+
     this.router.navigated = false;
     const url = decodeURIComponent(this.router.url);
     // override the route reuse strategy
@@ -100,6 +102,8 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * Override the target object with a refreshed one
    */
   refresh(): void {
+    debugger;
+
     // find object by id
     this.objectDataService.findById(this.object.id).pipe(
       find((rd: RemoteData<T>) => rd.hasSucceeded)
@@ -115,6 +119,8 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    *    true on success, false otherwise
    */
   handleActionResponse(result: boolean): void {
+    debugger;
+
     if (result) {
       this.reload();
       this.notificationsService.success(null,

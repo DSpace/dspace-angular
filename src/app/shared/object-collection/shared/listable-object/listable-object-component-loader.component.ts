@@ -135,6 +135,8 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnDestroy
     if ((componentRef.instance as any).reloadedObject) {
       this.subs.push((componentRef.instance as any).reloadedObject.subscribe((reloadedObject: DSpaceObject) => {
         if (reloadedObject) {
+          console.log('Reloaded Object from/to', this.object, reloadedObject);
+          this.object = reloadedObject;
           this.instantiateComponent(reloadedObject);
         }
       }));
