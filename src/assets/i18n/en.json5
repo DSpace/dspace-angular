@@ -3886,7 +3886,11 @@
 
   "submission.import-external.search.source.hint": "Pick an external source",
 
+  "submission.import-external.source.ads": "NASA/ADS",
+
   "submission.import-external.source.arxiv": "arXiv",
+
+  "submission.import-external.source.cinii": "CiNii",
 
   "submission.import-external.source.crossref": "CrossRef",
 
@@ -3899,6 +3903,8 @@
   "submission.import-external.source.orcid": "ORCID",
 
   "submission.import-external.source.pubmed": "Pubmed",
+  
+  "submission.import-external.source.pubmedeu": "Pubmed Europe",
 
   "submission.import-external.source.lcname": "Library of Congress Names",
 
