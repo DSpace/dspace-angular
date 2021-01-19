@@ -46,7 +46,7 @@ export class DsoRedirectDataService extends DataService<any> {
     }
   }
 
-  getIDHref(endpoint, resourceID, ...linksToFollow: Array<FollowLinkConfig<any>>): string {
+  getIDHref(endpoint, resourceID, ...linksToFollow: FollowLinkConfig<any>[]): string {
     // Supporting both identifier (pid) and uuid (dso) endpoints
     return this.buildHrefFromFindOptions( endpoint.replace(/\{\?id\}/, `?id=${resourceID}`)
         .replace(/\{\?uuid\}/, `?uuid=${resourceID}`),
@@ -72,11 +72,11 @@ export class DsoRedirectDataService extends DataService<any> {
   getEndpointFromDSOType(dsoType: string): string {
     // Are there other types to consider?
     if (dsoType.startsWith('item')) {
-      return 'items'
+      return 'items';
     } else if (dsoType.startsWith('community')) {
       return 'communities';
     } else if (dsoType.startsWith('collection')) {
-      return 'collections'
+      return 'collections';
     } else {
       return '';
     }

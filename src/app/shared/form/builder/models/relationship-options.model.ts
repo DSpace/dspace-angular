@@ -10,6 +10,6 @@ export class RelationshipOptions {
   nameVariants: string;
 
   get metadataField() {
-    return RELATION_METADATA_PREFIX + this.relationshipType
+    return RELATION_METADATA_PREFIX + this.relationshipType;
   }
 }

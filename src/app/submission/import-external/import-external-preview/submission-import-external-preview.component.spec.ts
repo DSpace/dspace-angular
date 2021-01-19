@@ -1,11 +1,13 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
+
+import { TranslateModule } from '@ngx-translate/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { getTestScheduler } from 'jasmine-marbles';
+
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RouterStub } from '../../../shared/testing/router.stub';
@@ -18,6 +20,20 @@ import { Metadata } from '../../../core/shared/metadata.utils';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 
+const externalEntry = Object.assign(new ExternalSourceEntry(), {
+  id: '0001-0001-0001-0001',
+  display: 'John Doe',
+  value: 'John, Doe',
+  metadata: {
+    'dc.identifier.uri': [
+      {
+        value: 'https://orcid.org/0001-0001-0001-0001'
+      }
+    ]
+  },
+  _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
+});
+
 describe('SubmissionImportExternalPreviewComponent test suite', () => {
   let comp: SubmissionImportExternalPreviewComponent;
   let compAsAny: any;
@@ -26,21 +42,9 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
   let scheduler: TestScheduler;
   const ngbActiveModal = jasmine.createSpyObj('modal', ['close', 'dismiss']);
   const ngbModal = jasmine.createSpyObj('modal', ['open']);
-  const externalEntry = Object.assign(new ExternalSourceEntry(), {
-    id: '0001-0001-0001-0001',
-    display: 'John Doe',
-    value: 'John, Doe',
-    metadata: {
-      'dc.identifier.uri': [
-        {
-          value: 'https://orcid.org/0001-0001-0001-0001'
-        }
-      ]
-    },
-    _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
-  });
 
-  beforeEach(async(() => {
+
+  beforeEach(waitForAsync(() => {
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
       imports: [
@@ -70,7 +74,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       const html = `
-        <ds-submission-import-external-preview></ds-submission-import-external-preview>`;
+        <ds-submission-import-external-preview [externalSourceEntry]="externalSourceEntry"></ds-submission-import-external-preview>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
     });
@@ -89,7 +93,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionImportExternalPreviewComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
     });
 
     afterEach(() => {
@@ -162,4 +166,5 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
 })
 class TestComponent {
 
+  externalSourceEntry = externalEntry;
 }

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -15,10 +15,7 @@ import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { getMockLinkService } from '../mocks/link-service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList, createTestComponent } from '../testing/utils.test';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -170,8 +167,8 @@ describe('ResourcePoliciesComponent test suite', () => {
         policy: anotherResourcePolicy,
         checked: false
       })
-    ]
-  }
+    ];
+  };
 
   const resourcePolicySelectedEntries = [
     {
@@ -191,7 +188,7 @@ describe('ResourcePoliciesComponent test suite', () => {
   const paginatedList = buildPaginatedList(pageInfo, array);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -226,6 +223,9 @@ describe('ResourcePoliciesComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      resourcePolicyService.searchByResource.and.returnValue(hot('a|', {
+        a: paginatedListRD
+      }));
       const html = `
         <ds-resource-policies [resourceUUID]="resourceUUID" [resourceType]="resourceType"></ds-resource-policies>`;
 
@@ -322,7 +322,7 @@ describe('ResourcePoliciesComponent test suite', () => {
         }));
       });
 
-      it('should return true when al least is selected', () => {
+      it('should return true when at least one row is selected', () => {
         const checkbox = fixture.debugElement.query(By.css('table > tbody > tr:nth-child(1) input'));
         const event = { target: { checked: true } };
         checkbox.triggerEventHandler('change', event);

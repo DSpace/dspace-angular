@@ -135,7 +135,7 @@ export class ObjectGridComponent implements OnInit {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
-  columns$: Observable<ListableObject[]>
+  columns$: Observable<ListableObject[]>;
 
   constructor(private hostWindow: HostWindowService) {
     this._objects$ = new BehaviorSubject(undefined);

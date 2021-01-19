@@ -1,22 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { Community } from '../../../../core/shared/community.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
-import { map, switchMap } from 'rxjs/operators';
-import {
-  getFirstCompletedRemoteData,
-  getAllCompletedRemoteData
-} from '../../../../core/shared/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { RequestService } from '../../../../core/data/request.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { HALLink } from '../../../../core/shared/hal-link.model';
 import { getGroupEditRoute } from '../../../../+admin/admin-access-control/admin-access-control-routing-paths';
-import { hasValue, hasNoValue } from '../../../empty.util';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { hasNoValue, hasValue } from '../../../empty.util';
 import { NoContent } from '../../../../core/shared/NoContent.model';
-import { filter } from 'rxjs/internal/operators/filter';
 
 /**
  * Component for managing a community or collection role.
@@ -42,32 +37,32 @@ export class ComcolRoleComponent implements OnInit {
   /**
    * The group for this role, as an observable remote data.
    */
-  groupRD$: Observable<RemoteData<Group>>
+  groupRD$: Observable<RemoteData<Group>>;
 
   /**
    * The group for this role, as an observable.
    */
-  group$: Observable<Group>
+  group$: Observable<Group>;
 
   /**
    * The link to the group edit page as an observable.
    */
-  editGroupLink$: Observable<string>
+  editGroupLink$: Observable<string>;
 
   /**
    * True if there is no group for this ComcolRole.
    */
-  hasNoGroup$: Observable<boolean>
+  hasNoGroup$: Observable<boolean>;
 
   /**
    * Return true if the group for this ComcolRole is the Anonymous group, as an observable.
    */
-  hasAnonymousGroup$: Observable<boolean>
+  hasAnonymousGroup$: Observable<boolean>;
 
   /**
    * Return true if there is a group for this ComcolRole other than the Anonymous group, as an observable.
    */
-  hasCustomGroup$: Observable<boolean>
+  hasCustomGroup$: Observable<boolean>;
 
   constructor(
     protected requestService: RequestService,
@@ -131,12 +126,12 @@ export class ComcolRoleComponent implements OnInit {
       filter((role: HALLink) => hasValue(role)),
       switchMap((role: HALLink) => this.groupService.findByHref(role.href)),
       getAllCompletedRemoteData(),
-    )
+    );
 
     this.group$ = this.groupRD$.pipe(
       map((rd: RemoteData<Group>) => {
         if (hasValue(rd.payload)) {
-          return rd.payload
+          return rd.payload;
         } else {
           return undefined;
         }
@@ -157,6 +152,6 @@ export class ComcolRoleComponent implements OnInit {
 
     this.hasCustomGroup$ = this.group$.pipe(
       map((group: Group) => hasValue(group) && group.name !== 'Anonymous'),
-    )
+    );
   }
 }

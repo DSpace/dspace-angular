@@ -1,6 +1,6 @@
 import { filter, map, pairwise } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as fromRouter from '@ngrx/router-store';
 import { RouterNavigationAction } from '@ngrx/router-store';
 import { Router } from '@angular/router';

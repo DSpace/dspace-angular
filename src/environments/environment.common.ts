@@ -66,7 +66,10 @@ export const environment: GlobalConfig = {
     autosave: {
       // NOTE: which metadata trigger an autosave
       metadata: [],
-      // NOTE: every how many minutes submission is saved automatically
+      /**
+       * NOTE: after how many time (milliseconds) submission is saved automatically
+       * eg. timer: 5 * (1000 * 60); // 5 minutes
+       */
       timer: 0
     },
     icons: {

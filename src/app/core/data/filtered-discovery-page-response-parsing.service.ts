@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';

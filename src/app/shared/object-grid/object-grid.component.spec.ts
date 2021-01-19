@@ -132,11 +132,13 @@ describe('ObjectGridComponent', () => {
 
       comp.ngOnInit();
 
-      const expected = cold('c', { c: [
+      const expected = cold('c', {
+        c: [
           [testObjects[0], testObjects[3], testObjects[6], testObjects[9]],
           [testObjects[1], testObjects[4], testObjects[7]],
           [testObjects[2], testObjects[5], testObjects[8]]
-        ] });
+        ]
+      });
 
       const result = comp.columns$;
 
@@ -153,11 +155,13 @@ describe('ObjectGridComponent', () => {
 
       comp.ngOnInit();
 
-      const expected = cold('c', { c: [
+      const expected = cold('c', {
+        c: [
           [testObjects[0], testObjects[3], testObjects[6], testObjects[9]],
           [testObjects[1], testObjects[4], testObjects[7]],
           [testObjects[2], testObjects[5], testObjects[8]]
-        ] });
+        ]
+      });
 
       const result = comp.columns$;
 
@@ -174,10 +178,12 @@ describe('ObjectGridComponent', () => {
 
       comp.ngOnInit();
 
-      const expected = cold('c', { c: [
+      const expected = cold('c', {
+        c: [
           [testObjects[0], testObjects[2], testObjects[4], testObjects[6], testObjects[8]],
           [testObjects[1], testObjects[3], testObjects[5], testObjects[7], testObjects[9]],
-        ] });
+        ]
+      });
 
       const result = comp.columns$;
 
@@ -194,10 +200,12 @@ describe('ObjectGridComponent', () => {
 
       comp.ngOnInit();
 
-      const expected = cold('c', { c: [
+      const expected = cold('c', {
+        c: [
           [testObjects[0], testObjects[2], testObjects[4], testObjects[6], testObjects[8]],
           [testObjects[1], testObjects[3], testObjects[5], testObjects[7], testObjects[9]],
-        ] });
+        ]
+      });
 
       const result = comp.columns$;
 
@@ -214,7 +222,7 @@ describe('ObjectGridComponent', () => {
 
       comp.ngOnInit();
 
-      const expected = cold('c', { c: [ testObjects ] });
+      const expected = cold('c', { c: [testObjects] });
 
       const result = comp.columns$;
 

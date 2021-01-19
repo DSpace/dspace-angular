@@ -12,7 +12,7 @@ import { DefaultChangeAnalyzer } from '../default-change-analyzer.service';
 import { Process } from '../../../process-page/processes/process.model';
 import { dataService } from '../../cache/builders/build-decorators';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { GetRequest } from '../request.models';
 import { PaginatedList } from '../paginated-list.model';

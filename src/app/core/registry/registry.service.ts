@@ -20,7 +20,7 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
@@ -58,7 +58,7 @@ export class RegistryService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataSchemas(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
+  public getMetadataSchemas(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
     return this.metadataSchemaService.findAll(options, reRequestOnStale, ...linksToFollow);
   }
 
@@ -69,7 +69,7 @@ export class RegistryService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataSchemaByPrefix(prefix: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<MetadataSchema>>): Observable<RemoteData<MetadataSchema>> {
+  public getMetadataSchemaByPrefix(prefix: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<MetadataSchema>> {
     // Temporary options to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
     const options: FindListOptions = Object.assign(new FindListOptions(), {
       elementsPerPage: 10000
@@ -79,7 +79,7 @@ export class RegistryService {
       map((schemas: PaginatedList<MetadataSchema>) => schemas.page),
       isNotEmptyOperator(),
       map((schemas: MetadataSchema[]) => schemas.filter((schema) => schema.prefix === prefix)[0]),
-      flatMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, reRequestOnStale, ...linksToFollow))
+      mergeMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, reRequestOnStale, ...linksToFollow))
     );
   }
 
@@ -91,7 +91,7 @@ export class RegistryService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public getMetadataFieldsBySchema(schema: MetadataSchema, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+  public getMetadataFieldsBySchema(schema: MetadataSchema, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
     return this.metadataFieldService.findBySchema(schema, options, reRequestOnStale, ...linksToFollow);
   }
 
@@ -303,7 +303,7 @@ export class RegistryService {
    *                          should be automatically resolved
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
-  queryMetadataFields(query: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<MetadataField>>): Observable<RemoteData<PaginatedList<MetadataField>>> {
+  queryMetadataFields(query: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
     return this.metadataFieldService.searchByFieldNameParams(null, null, null, query, null, options, reRequestOnStale, ...linksToFollow);
   }
 }

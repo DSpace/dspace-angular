@@ -1,12 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router.stub';
-import * as communityRouterPaths from '../../../../+community-page/community-page-routing-paths';
 import { Community } from '../../../../core/shared/community.model';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
@@ -19,13 +16,18 @@ describe('CreateCommunityParentSelectorComponent', () => {
 
   const community = new Community();
   community.uuid = '1234-1234-1234-1234';
-  community.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Community title', language: undefined })] };
+  community.metadata = {
+    'dc.title': [Object.assign(new MetadataValue(), {
+      value: 'Community title',
+      language: undefined
+    })]
+  };
   const router = new RouterStub();
   const communityRD = createSuccessfulRemoteDataObject(community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
-  const createPath = 'testCreatePath';
+  const createPath = '/communities/create';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [CreateCommunityParentSelectorComponent],
@@ -53,10 +55,6 @@ describe('CreateCommunityParentSelectorComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOnProperty(communityRouterPaths, 'getCommunityCreateRoute').and.callFake(() => {
-      return () => createPath;
-    });
-
     fixture = TestBed.createComponent(CreateCommunityParentSelectorComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;

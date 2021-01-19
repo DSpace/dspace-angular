@@ -5,7 +5,7 @@ import { UnCacheableObject } from './uncacheable-object.model';
 
 @typedObject
 export class Registration implements UnCacheableObject {
-  static type = REGISTRATION
+  static type = REGISTRATION;
   /**
    * The object type
    */

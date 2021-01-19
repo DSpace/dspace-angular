@@ -7,16 +7,20 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DYNAMIC_FORM_CONTROL_TYPE_INPUT,
   DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
-  DynamicFormArrayModel, DynamicFormControlEvent,
+  DynamicFormArrayModel,
+  DynamicFormComponentService,
+  DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
-  DynamicFormService, DynamicFormValidationService,
-  DynamicPathable, parseReviver,
+  DynamicFormService,
+  DynamicFormValidationService,
+  DynamicPathable,
+  parseReviver,
 } from '@ng-dynamic-forms/core';
 import { isObject, isString, mergeWith } from 'lodash';
 
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
-import {DynamicQualdropModel} from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
@@ -32,10 +36,11 @@ import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/mo
 export class FormBuilderService extends DynamicFormService {
 
   constructor(
+    componentService: DynamicFormComponentService,
     validationService: DynamicFormValidationService,
     protected rowParser: RowParser
   ) {
-    super(validationService);
+    super(componentService, validationService);
   }
 
   findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
@@ -95,8 +100,8 @@ export class FormBuilderService extends DynamicFormService {
           continue;
         }
 
-        if (controlModel.hasOwnProperty('valueUpdates')) {
-          (controlModel as any).valueUpdates.next(undefined);
+        if (controlModel.hasOwnProperty('valueChanges')) {
+          (controlModel as any).value = undefined;
         }
       }
     };

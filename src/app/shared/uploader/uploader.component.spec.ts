@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -17,8 +17,8 @@ describe('Chips component', () => {
   let testFixture: ComponentFixture<TestComponent>;
   let html;
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
@@ -73,7 +73,7 @@ class TestComponent {
 
   /* tslint:disable:no-empty */
   public onBeforeUpload = () => {
-  };
+  }
 
   onCompleteItem(event) {
   }

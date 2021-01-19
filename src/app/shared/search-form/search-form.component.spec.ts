@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async, tick, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { SearchFormComponent } from './search-form.component';
@@ -15,7 +15,7 @@ describe('SearchFormComponent', () => {
   let de: DebugElement;
   let el: HTMLElement;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot()],
       providers: [

@@ -48,7 +48,7 @@ export class RemoteDataBuildService {
    *                        should be automatically resolved
    * @private
    */
-  private buildPayload<T>(requestEntry$: Observable<RequestEntry>, href$?: Observable<string>, ...linksToFollow: Array<FollowLinkConfig<any>>): Observable<T> {
+  private buildPayload<T>(requestEntry$: Observable<RequestEntry>, href$?: Observable<string>, ...linksToFollow: FollowLinkConfig<any>[]): Observable<T> {
     if (hasNoValue(href$)) {
       href$ = observableOf(undefined);
     }
@@ -94,11 +94,11 @@ export class RemoteDataBuildService {
   private plainObjectToInstance<T>(obj: any): T {
     const type: GenericConstructor<T> = getClassForType(obj.type);
     if (typeof type === 'function') {
-      return Object.assign(new type(), obj) as T
+      return Object.assign(new type(), obj) as T;
     } else {
       return Object.assign({}, obj) as T;
     }
-  };
+  }
 
   /**
    * Returns true if there is a match for the given self link and request entry in the object cache,
@@ -140,7 +140,7 @@ export class RemoteDataBuildService {
    * @param object          A plain object to be turned in to a {@link PaginatedList}
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  private buildPaginatedList<T>(object: any, ...linksToFollow: Array<FollowLinkConfig<any>>): Observable<T> {
+  private buildPaginatedList<T>(object: any, ...linksToFollow: FollowLinkConfig<any>[]): Observable<T> {
     const pageLink = linksToFollow.find((linkToFollow: FollowLinkConfig<any>) => linkToFollow.name === 'page');
     const otherLinks = linksToFollow.filter((linkToFollow: FollowLinkConfig<any>) => linkToFollow.name !== 'page');
 
@@ -181,7 +181,7 @@ export class RemoteDataBuildService {
    * @param requestUUID$      The UUID of the request we want to retrieve
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  buildFromRequestUUID<T>(requestUUID$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<any>>): Observable<RemoteData<T>> {
+  buildFromRequestUUID<T>(requestUUID$: string | Observable<string>, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<T>> {
     if (typeof requestUUID$ === 'string') {
       requestUUID$ = observableOf(requestUUID$);
     }
@@ -198,7 +198,7 @@ export class RemoteDataBuildService {
    * @param href$             self link of object we want to retrieve
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  buildFromHref<T>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<any>>): Observable<RemoteData<T>> {
+  buildFromHref<T>(href$: string | Observable<string>, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<T>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -228,7 +228,7 @@ export class RemoteDataBuildService {
    * @param href$             Observable href of object we want to retrieve
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  buildSingle<T>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<any>>): Observable<RemoteData<T>> {
+  buildSingle<T>(href$: string | Observable<string>, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<T>> {
     return this.buildFromHref(href$, ...linksToFollow);
   }
 
@@ -256,7 +256,7 @@ export class RemoteDataBuildService {
           response.errorMessage,
           payload,
           response.statusCode
-        )
+        );
       })
     );
   }
@@ -270,7 +270,7 @@ export class RemoteDataBuildService {
    * @param href$             Observable href of objects we want to retrieve
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  buildList<T extends HALResource>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
+  buildList<T extends HALResource>(href$: string | Observable<string>, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
     return this.buildFromHref<PaginatedList<T>>(href$, followLink('page', undefined, false, ...linksToFollow));
   }
 
@@ -284,7 +284,7 @@ export class RemoteDataBuildService {
    *
    * @param input     the array of RemoteData observables to start from
    */
-  aggregate<T>(input: Array<Observable<RemoteData<T>>>): Observable<RemoteData<T[]>> {
+  aggregate<T>(input: Observable<RemoteData<T>>[]): Observable<RemoteData<T[]>> {
 
     if (isEmpty(input)) {
       return createSuccessfulRemoteDataObject$([], new Date().getTime());
@@ -294,15 +294,15 @@ export class RemoteDataBuildService {
       map((arr) => {
         const timeCompleted = arr
           .map((d: RemoteData<T>) => d.timeCompleted)
-          .reduce((max: number, current: number) => current > max ? current : max)
+          .reduce((max: number, current: number) => current > max ? current : max);
 
         const msToLive = arr
           .map((d: RemoteData<T>) => d.msToLive)
-          .reduce((min: number, current: number) => current < min ? current : min)
+          .reduce((min: number, current: number) => current < min ? current : min);
 
         const lastUpdated = arr
           .map((d: RemoteData<T>) => d.lastUpdated)
-          .reduce((max: number, current: number) => current > max ? current : max)
+          .reduce((max: number, current: number) => current > max ? current : max);
 
         let state: RequestEntryState;
         if (arr.some((d: RemoteData<T>) => d.isRequestPending)) {
@@ -350,6 +350,6 @@ export class RemoteDataBuildService {
           payload,
           statusCode
         );
-      }))
+      }));
   }
 }

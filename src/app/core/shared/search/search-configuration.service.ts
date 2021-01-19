@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, merge as observableMerge, Observable, Subscription } from 'rxjs';
-import { filter, map, startWith, switchMap } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../../shared/search/search-options.model';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
@@ -67,7 +67,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * List of subscriptions to unsubscribe from on destroy
    */
-  protected subs: Subscription[] = new Array();
+  protected subs: Subscription[] = [];
 
   /**
    * Initialize the search options
@@ -93,7 +93,7 @@ export class SearchConfigurationService implements OnDestroy {
           this.subs.push(this.subscribeToSearchOptions(defs));
           this.subs.push(this.subscribeToPaginatedSearchOptions(defs));
         }
-      )
+      );
   }
 
   /**
@@ -164,7 +164,7 @@ export class SearchConfigurationService implements OnDestroy {
 
         const field = sortField || defaultSort.field;
         const direction = SortDirection[sortDirection] || defaultSort.direction;
-        return new SortOptions(field, direction)
+        return new SortOptions(field, direction);
       }
       )
     );
@@ -283,7 +283,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   private getConfigurationPart(defaultConfiguration: string): Observable<any> {
     return this.getCurrentConfiguration(defaultConfiguration).pipe(map((configuration) => {
-      return { configuration }
+      return { configuration };
     }));
   }
 
@@ -292,7 +292,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   private getScopePart(defaultScope: string): Observable<any> {
     return this.getCurrentScope(defaultScope).pipe(map((scope) => {
-      return { scope }
+      return { scope };
     }));
   }
 
@@ -301,7 +301,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   private getQueryPart(defaultQuery: string): Observable<any> {
     return this.getCurrentQuery(defaultQuery).pipe(map((query) => {
-      return { query }
+      return { query };
     }));
   }
 
@@ -310,7 +310,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   private getDSOTypePart(): Observable<any> {
     return this.getCurrentDSOType().pipe(map((dsoType) => {
-      return { dsoType }
+      return { dsoType };
     }));
   }
 
@@ -319,7 +319,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   private getPaginationPart(defaultPagination: PaginationComponentOptions): Observable<any> {
     return this.getCurrentPagination(defaultPagination).pipe(map((pagination) => {
-      return { pagination }
+      return { pagination };
     }));
   }
 
@@ -328,7 +328,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   private getSortPart(defaultSort: SortOptions): Observable<any> {
     return this.getCurrentSort(defaultSort).pipe(map((sort) => {
-      return { sort }
+      return { sort };
     }));
   }
 
@@ -337,7 +337,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   private getFiltersPart(): Observable<any> {
     return this.getCurrentFilters().pipe(map((filters) => {
-      return { filters }
+      return { filters };
     }));
   }
 
@@ -348,7 +348,7 @@ export class SearchConfigurationService implements OnDestroy {
     return this.getCurrentFixedFilter().pipe(
       isNotEmptyOperator(),
       map((fixedFilter) => {
-        return { fixedFilter }
+        return { fixedFilter };
       }),
     );
   }

@@ -46,4 +46,4 @@ export class EPeopleRegistryCancelEPersonAction implements Action {
  */
 export type EPeopleRegistryAction
   = EPeopleRegistryEditEPersonAction
-  | EPeopleRegistryCancelEPersonAction
+  | EPeopleRegistryCancelEPersonAction;

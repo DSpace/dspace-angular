@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Bundle } from '../../../../../core/shared/bundle.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,7 +9,7 @@ import { ObjectUpdatesService } from '../../../../../core/data/object-updates/ob
 import { BundleDataService } from '../../../../../core/data/bundle-data.service';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../../../core/shared/bitstream-format.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ResponsiveColumnSizes } from '../../../../../shared/responsive-table-sizes/responsive-column-sizes';
@@ -66,7 +66,7 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     changeType: undefined
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         getFieldUpdates: observableOf({

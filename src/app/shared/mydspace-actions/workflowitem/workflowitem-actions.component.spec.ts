@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { of as observableOf } from 'rxjs';
@@ -63,7 +63,7 @@ const rd = createSuccessfulRemoteDataObject(item);
 mockObject = Object.assign(new WorkflowItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
 
 describe('WorkflowitemActionsComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({

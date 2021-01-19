@@ -35,7 +35,7 @@ export class VocabularyTreeFlatDataSource<T, F> extends DataSource<F> {
   connect(collectionViewer: CollectionViewer): Observable<F[]> {
     const changes = [
       collectionViewer.viewChange,
-      this._treeControl.expansionModel.onChange,
+      this._treeControl.expansionModel.changed,
       this._flattenedData
     ];
     return merge(...changes).pipe(map(() => {

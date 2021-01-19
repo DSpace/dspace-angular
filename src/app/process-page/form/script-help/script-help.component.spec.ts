@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScriptHelpComponent } from './script-help.component';
 import { ScriptParameter } from '../../scripts/script-parameter.model';
@@ -26,7 +26,7 @@ describe('ScriptHelpComponent', () => {
     );
     script = Object.assign(new Script(), { parameters: [param1, param2] });
   }
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -60,6 +60,6 @@ describe('ScriptHelpComponent', () => {
     script.parameters.forEach((parameter, index) => {
       expect(rows[index].queryAll(By.css('td'))[0].nativeElement.textContent).toContain(parameter.name);
       expect(rows[index].queryAll(By.css('td'))[1].nativeElement.textContent.trim()).toEqual(parameter.description);
-    })
+    });
   });
 });

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
@@ -28,7 +28,7 @@ describe('ProfilePageSecurityFormComponent', () => {
     });
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [ProfilePageSecurityFormComponent, VarDirective],

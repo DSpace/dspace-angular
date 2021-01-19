@@ -2,9 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -22,7 +21,6 @@ import {
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RequestService } from '../../../core/data/request.service';
-import { filter } from 'rxjs/internal/operators/filter';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 
@@ -119,7 +117,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   onPageChange(event) {
     if (this.config.currentPage !== event) {
       this.config.currentPage = event;
-      this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery })
+      this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
     }
   }
 
@@ -163,7 +161,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
                   );
           })).pipe(map((dtos: EpersonDtoModel[]) => {
               return buildPaginatedList(epeople.pageInfo, dtos);
-          }))
+          }));
         })).subscribe((value) => {
           this.ePeopleDto$.next(value);
           this.pageInfoState$.next(value.pageInfo);
@@ -201,7 +199,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
         this.isEPersonFormShown = true;
       }
     });
-    this.scrollToTop()
+    this.scrollToTop();
   }
 
   /**
@@ -225,7 +223,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               } else {
                 this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + ePerson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
               }
-            })
+            });
           }}
       });
     }

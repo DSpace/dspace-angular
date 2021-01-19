@@ -1,5 +1,5 @@
 import { SearchService } from '../../../core/shared/search/search.service';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SearchSettingsComponent } from './search-settings.component';
 import { of as observableOf } from 'rxjs';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
@@ -15,6 +15,7 @@ import { VarDirective } from '../../utils/var.directive';
 import { take } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { SidebarService } from '../../sidebar/sidebar.service';
+import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
 
 describe('SearchSettingsComponent', () => {
 
@@ -33,9 +34,7 @@ describe('SearchSettingsComponent', () => {
 
   let activatedRouteStub;
 
-  let sidebarService;
-
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     pagination = new PaginationComponentOptions();
     pagination.id = 'search-results-pagination';
     pagination.currentPage = 1;
@@ -63,12 +62,6 @@ describe('SearchSettingsComponent', () => {
       }),
     };
 
-    sidebarService = {
-      isCollapsed: observableOf(true),
-      collapse: () => this.isCollapsed = observableOf(true),
-      expand: () => this.isCollapsed = observableOf(false),
-    };
-
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       declarations: [SearchSettingsComponent, EnumKeysPipe, VarDirective],
@@ -78,7 +71,7 @@ describe('SearchSettingsComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         {
           provide: SidebarService,
-          useValue: sidebarService,
+          useValue: SidebarServiceStub,
         },
         {
           provide: SearchFilterService,
@@ -126,7 +119,7 @@ describe('SearchSettingsComponent', () => {
         expect(pageSizeSetting).toBeDefined();
         done();
       }
-    )
+    );
   });
 
   it('should have the proper order value selected by default', (done) => {

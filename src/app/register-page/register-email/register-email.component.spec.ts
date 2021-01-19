@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ describe('RegisterEmailComponent', () => {
   let comp: RegisterEmailComponent;
   let fixture: ComponentFixture<RegisterEmailComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule],
       declarations: [RegisterEmailComponent],

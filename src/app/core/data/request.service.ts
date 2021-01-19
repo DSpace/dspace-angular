@@ -85,7 +85,7 @@ const getUuidsFromHrefSubstring = (state: IndexState, href: string): string[] =>
 const isValid = (entry: RequestEntry): boolean => {
   if (hasNoValue(entry)) {
     // undefined entries are invalid
-    return false
+    return false;
   } else {
     if (isLoading(entry.state)) {
       // entries that are still loading are always valid
@@ -103,7 +103,7 @@ const isValid = (entry: RequestEntry): boolean => {
       }
     }
   }
-}
+};
 
 /**
  * A service to interact with the request state in the store
@@ -138,7 +138,7 @@ export class RequestService {
     this.getByHref(request.href).pipe(
       take(1))
       .subscribe((re: RequestEntry) => {
-        isPending = (hasValue(re) && !hasCompleted(re.state))
+        isPending = (hasValue(re) && !hasCompleted(re.state));
       });
     return isPending;
   }
@@ -154,7 +154,7 @@ export class RequestService {
       this.store.pipe(
         select(originalRequestUUIDFromRequestUUIDSelector(uuid)),
         switchMap((originalUUID) => {
-            return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
+              return this.store.pipe(select(entryFromUUIDSelector(originalUUID)));
           },
         ),
       ),
@@ -165,7 +165,7 @@ export class RequestService {
         // Combining them with a new object fixes this issue
         if (hasValue(entry) && hasValue(entry.request) && hasValue(entry.request.options) && hasValue(entry.request.options.headers)) {
           entry = cloneDeep(entry);
-          entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers)
+          entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers);
         }
         return entry;
       }),
@@ -210,9 +210,9 @@ export class RequestService {
         filter((entry) => hasValue(entry)),
         take(1)
       ).subscribe((entry) => {
-          return this.store.dispatch(new AddToIndexAction(IndexName.UUID_MAPPING, request.uuid, entry.request.uuid))
+          return this.store.dispatch(new AddToIndexAction(IndexName.UUID_MAPPING, request.uuid, entry.request.uuid));
         }
-      )
+      );
     }
   }
 
@@ -234,7 +234,7 @@ export class RequestService {
         .forEach((param) => {
           const paramValue = `${param}=${body[param]}`;
           queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
-        })
+        });
     }
     return encodeURI(queryParams);
   }
@@ -319,7 +319,7 @@ export class RequestService {
       filter((re: RequestEntry) => hasValue(re)),
       take(1)
     ).subscribe((re: RequestEntry) => {
-      this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
+      this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href);
     });
   }
 
@@ -328,7 +328,7 @@ export class RequestService {
    * @param {RestRequestMethod} method RestRequestMethod for which the changes should be committed
    */
   commit(method?: RestRequestMethod) {
-    this.store.dispatch(new CommitSSBAction(method))
+    this.store.dispatch(new CommitSSBAction(method));
   }
 
   /**

@@ -4,13 +4,12 @@ import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
 import { distinctUntilChanged, first, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../../shared/empty.util';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-item-status',
@@ -118,7 +117,7 @@ export class ItemStatusComponent implements OnInit {
    * @returns {string}  url
    */
   getItemPage(item: Item): string {
-    return getItemPageRoute(item.id)
+    return getItemPageRoute(item.id);
   }
 
   /**

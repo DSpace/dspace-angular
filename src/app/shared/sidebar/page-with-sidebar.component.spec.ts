@@ -1,28 +1,25 @@
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+
 import { of as observableOf } from 'rxjs';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { PageWithSidebarComponent } from './page-with-sidebar.component';
 import { SidebarService } from './sidebar.service';
 import { HostWindowService } from '../host-window.service';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 
 describe('PageWithSidebarComponent', () => {
   let comp: PageWithSidebarComponent;
   let fixture: ComponentFixture<PageWithSidebarComponent>;
 
-  const sidebarService = {
-    isCollapsed: observableOf(true),
-    collapse: () => this.isCollapsed = observableOf(true),
-    expand: () => this.isCollapsed = observableOf(false)
-  };
-
-  beforeEach(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       providers: [
         {
           provide: SidebarService,
-          useValue: sidebarService
+          useClass: SidebarServiceStub
         },
         {
           provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
@@ -34,12 +31,13 @@ describe('PageWithSidebarComponent', () => {
         },
       ],
       declarations: [PageWithSidebarComponent]
-    }).compileComponents();
-    fixture = TestBed.createComponent(PageWithSidebarComponent);
-    comp = fixture.componentInstance;
-    comp.id = 'mock-id';
-    fixture.detectChanges();
-  });
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(PageWithSidebarComponent);
+      comp = fixture.componentInstance;
+      comp.id = 'mock-id';
+      fixture.detectChanges();
+    });
+  }));
 
   describe('when sidebarCollapsed is true in mobile view', () => {
     let menu: HTMLElement;

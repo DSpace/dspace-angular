@@ -37,6 +37,6 @@ export class SubmissionUploadsConfigService extends ConfigService {
   }
 
   findByHref(href: string, reRequestOnStale = true, ...linksToFollow): Observable<RemoteData<SubmissionUploadsModel>> {
-    return super.findByHref(href, reRequestOnStale, ...linksToFollow as Array<FollowLinkConfig<ConfigObject>>) as Observable<RemoteData<SubmissionUploadsModel>>;
+    return super.findByHref(href, reRequestOnStale, ...linksToFollow as FollowLinkConfig<ConfigObject>[]) as Observable<RemoteData<SubmissionUploadsModel>>;
   }
 }

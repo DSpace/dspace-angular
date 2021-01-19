@@ -1,6 +1,6 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -11,7 +11,6 @@ import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { environment } from '../../../../environments/environment';
-import { combineLatest as observableCombineLatest } from 'rxjs';
 
 @Component({
   selector: 'ds-abstract-item-update',
@@ -39,7 +38,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     public translateService: TranslateService,
     public route: ActivatedRoute
   ) {
-    super(objectUpdatesService, notificationsService, translateService)
+    super(objectUpdatesService, notificationsService, translateService);
   }
 
   /**

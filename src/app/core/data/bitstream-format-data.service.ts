@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
-import { map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,

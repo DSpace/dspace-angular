@@ -1,14 +1,14 @@
-import {Collection} from './collection.model';
+import { Collection } from './collection.model';
 
 describe('Collection', () => {
 
-  describe('Collection handle value',  () => {
+  describe('Collection handle value', () => {
 
     let metadataValue;
 
     beforeEach(() => {
-      metadataValue = {'dc.identifier.uri': [ { value: '123456789/1'}]};
-    })
+      metadataValue = { 'dc.identifier.uri': [{ value: '123456789/1' }] };
+    });
 
     it('should return the handle value from metadata', () => {
       const community = Object.assign(new Collection(), { metadata: metadataValue });
@@ -16,7 +16,7 @@ describe('Collection', () => {
     });
 
     it('should return undefined if the handle value from metadata is not present', () => {
-      const community = Object.assign(new Collection(), { });
+      const community = Object.assign(new Collection(), {});
       expect(community.handle).toEqual(undefined);
     });
   });

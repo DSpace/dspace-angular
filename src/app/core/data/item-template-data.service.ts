@@ -4,7 +4,7 @@ import { UpdateDataService } from './update-data.service';
 import { Item } from '../shared/item.model';
 import { RestRequestMethod } from './rest-request-method';
 import { RemoteData } from './remote-data';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -16,7 +16,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { BrowseService } from '../browse/browse.service';
 import { CollectionDataService } from './collection-data.service';
-import { switchMap, map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { BundleDataService } from './bundle-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { NoContent } from '../shared/NoContent.model';
@@ -104,7 +104,7 @@ class DataServiceImpl extends ItemDataService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByCollectionID(collectionID: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<Item>> {
+  findByCollectionID(collectionID: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
     this.setCollectionEndpoint(collectionID);
     return super.findById(collectionID, reRequestOnStale, ...linksToFollow);
   }
@@ -182,7 +182,7 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByCollectionID(collectionID: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<Item>> {
+  findByCollectionID(collectionID: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<Item>> {
     return this.dataService.findByCollectionID(collectionID, reRequestOnStale, ...linksToFollow);
   }
 

@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { ItemPageModule } from '../../+item-page/item-page.module';
 import { JournalComponent } from './item-pages/journal/journal.component';
 import { JournalIssueComponent } from './item-pages/journal-issue/journal-issue.component';
 import { JournalVolumeComponent } from './item-pages/journal-volume/journal-volume.component';
 import { JournalListElementComponent } from './item-list-elements/journal/journal-list-element.component';
 import { JournalIssueListElementComponent } from './item-list-elements/journal-issue/journal-issue-list-element.component';
 import { JournalVolumeListElementComponent } from './item-list-elements/journal-volume/journal-volume-list-element.component';
-import { TooltipModule } from 'ngx-bootstrap';
 import { JournalIssueGridElementComponent } from './item-grid-elements/journal-issue/journal-issue-grid-element.component';
 import { JournalVolumeGridElementComponent } from './item-grid-elements/journal-volume/journal-volume-grid-element.component';
 import { JournalGridElementComponent } from './item-grid-elements/journal/journal-grid-element.component';
@@ -23,6 +21,7 @@ import { JournalIssueSidebarSearchListElementComponent } from './item-list-eleme
 import { JournalSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal/journal-sidebar-search-list-element.component';
 
 const ENTRY_COMPONENTS = [
+  // put only entry components that use custom decorator
   JournalComponent,
   JournalIssueComponent,
   JournalVolumeComponent,
@@ -46,17 +45,22 @@ const ENTRY_COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
-    TooltipModule.forRoot(),
-    ItemPageModule
+    SharedModule
   ],
   declarations: [
-    ...ENTRY_COMPONENTS
-  ],
-  entryComponents: [
     ...ENTRY_COMPONENTS
   ]
 })
 export class JournalEntitiesModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: JournalEntitiesModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 
 }

@@ -38,7 +38,7 @@ export class DragClickDirective {
     const end: any = new Date();
     const clickTime = end - this.start;
     if (clickTime < 250) {
-      this.actualClick.emit(event)
+      this.actualClick.emit(event);
     }
   }
 }

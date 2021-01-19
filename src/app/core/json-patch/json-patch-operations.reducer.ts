@@ -241,7 +241,7 @@ function hasValidBody(state: JsonPatchOperationsState, resourceType: any, resour
   return (hasValue(state[ resourceType ])
     && hasValue(state[ resourceType ].children)
     && hasValue(state[ resourceType ].children[ resourceId ])
-    && isNotEmpty(state[ resourceType ].children[ resourceId ].body))
+    && isNotEmpty(state[ resourceType ].children[ resourceId ].body));
 }
 
 /**
@@ -281,7 +281,7 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
                 .filter((entry) => entry.timeCompleted > state[ action.payload.resourceType ].transactionStartTime)
             }
           });
-        })
+        });
     }
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {

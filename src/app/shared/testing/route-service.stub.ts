@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 
 export const routeServiceStub: any = {
   /* tslint:disable:no-empty */
@@ -17,19 +17,19 @@ export const routeServiceStub: any = {
     return observableOf({});
   },
   getQueryParamMap: () => {
-    return observableOf(new Map())
+    return observableOf(new Map());
   },
   getQueryParameterValue: () => {
-    return observableOf({})
+    return observableOf({});
   },
   getRouteParameterValue: (param) => {
-    return observableOf('')
+    return observableOf('');
   },
   getRouteDataValue: (param) => {
-    return observableOf({})
+    return observableOf({});
   },
   getHistory: () => {
-    return observableOf(['/home','/collection/123','/home'])
+    return observableOf(['/home','/collection/123','/home']);
   }
   /* tslint:enable:no-empty */
 };

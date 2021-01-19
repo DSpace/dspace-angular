@@ -11,7 +11,7 @@ import { HALLink } from '../../core/shared/hal-link.model';
  */
 @typedObject
 export class FacetConfigResponse implements CacheableObject {
-  static type = FACET_CONFIG_RESPONSE
+  static type = FACET_CONFIG_RESPONSE;
 
   /**
    * The object type,
@@ -31,5 +31,5 @@ export class FacetConfigResponse implements CacheableObject {
   @deserialize
   _links: {
     self: HALLink;
-  }
+  };
 }

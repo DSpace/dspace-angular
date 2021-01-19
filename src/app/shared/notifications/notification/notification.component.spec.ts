@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ChangeDetectorRef, DebugElement } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,7 +27,7 @@ describe('NotificationComponent', () => {
   let elContent: HTMLElement;
   let elType: HTMLElement;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     const store: Store<Notification> = jasmine.createSpyObj('store', {
       /* tslint:disable:no-empty */
       notifications: []
@@ -40,14 +40,14 @@ describe('NotificationComponent', () => {
         timeOut: 5000,
         clickToClose: true,
         animate: 'scale'
-      }as INotificationBoardOptions,
+      } as INotificationBoardOptions,
     } as any;
 
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        StoreModule.forRoot({notificationsReducer}, storeModuleConfig),
+        StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -60,12 +60,12 @@ describe('NotificationComponent', () => {
         ChangeDetectorRef,
         NotificationsService,
         TranslateService,
-        ]
+      ]
     }).compileComponents();  // compile template and css
 
   }));
 
-  beforeEach(()  => {
+  beforeEach(() => {
     fixture = TestBed.createComponent(NotificationComponent);
     comp = fixture.componentInstance;
     comp.notification = {
@@ -122,6 +122,6 @@ describe('NotificationComponent', () => {
     deContent = fixture.debugElement.query(By.css('.notification-html'));
     elContent = deContent.nativeElement;
     expect(elContent.innerHTML).toEqual(htmlContent);
-  })
+  });
 
 });

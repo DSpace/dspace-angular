@@ -12,6 +12,8 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 
 /**
  * This component renders workspace item object for the search result in the detail view.
@@ -35,11 +37,18 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
    */
   status = MyDspaceItemStatusType.WORKSPACE;
 
+  constructor(
+    protected linkService: LinkService
+  ) {
+    super();
+  }
+
   /**
    * Initialize all instance variables
    */
   ngOnInit() {
     super.ngOnInit();
+    this.linkService.resolveLink(this.dso, followLink('item'));
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 

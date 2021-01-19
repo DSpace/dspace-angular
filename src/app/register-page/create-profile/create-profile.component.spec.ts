@@ -1,5 +1,5 @@
 import { CreateProfileComponent } from './create-profile.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Registration } from '../../core/shared/registration.model';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,7 +11,6 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../../core/cache/response.models';
 import { By } from '@angular/platform-browser';
 import { CoreState } from '../../core/core.reducers';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -42,7 +41,7 @@ describe('CreateProfileComponent', () => {
   let valuesWithAgreement;
   let epersonWithAgreement: EPerson;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     values = {
       metadata: {
         'eperson.firstname': [

@@ -11,7 +11,7 @@ export interface TruncatableState {
  * Interface that represents the state of all truncatable
  */
 export interface TruncatablesState {
-  [id: string]: TruncatableState
+  [id: string]: TruncatableState;
 }
 
 const initialState: TruncatablesState = Object.create(null);

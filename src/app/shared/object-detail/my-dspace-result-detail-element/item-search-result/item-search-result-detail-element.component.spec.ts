@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -48,7 +48,7 @@ mockResultObject.indexableObject = Object.assign(new Item(), {
 });
 
 describe('ItemSearchResultDetailElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [ItemSearchResultDetailElementComponent],
@@ -58,7 +58,7 @@ describe('ItemSearchResultDetailElementComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ItemSearchResultDetailElementComponent);
     component = fixture.componentInstance;
   }));

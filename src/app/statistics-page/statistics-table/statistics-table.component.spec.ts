@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StatisticsTableComponent } from './statistics-table.component';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
@@ -14,7 +14,7 @@ describe('StatisticsTableComponent', () => {
   let de: DebugElement;
   let fixture: ComponentFixture<StatisticsTableComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),

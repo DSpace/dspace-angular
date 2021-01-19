@@ -1,9 +1,13 @@
 import {
   MetadataRegistryCancelFieldAction,
-  MetadataRegistryCancelSchemaAction, MetadataRegistryDeselectAllFieldAction,
-  MetadataRegistryDeselectAllSchemaAction, MetadataRegistryDeselectFieldAction,
-  MetadataRegistryDeselectSchemaAction, MetadataRegistryEditFieldAction,
-  MetadataRegistryEditSchemaAction, MetadataRegistrySelectFieldAction,
+  MetadataRegistryCancelSchemaAction,
+  MetadataRegistryDeselectAllFieldAction,
+  MetadataRegistryDeselectAllSchemaAction,
+  MetadataRegistryDeselectFieldAction,
+  MetadataRegistryDeselectSchemaAction,
+  MetadataRegistryEditFieldAction,
+  MetadataRegistryEditSchemaAction,
+  MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
 } from './metadata-registry.actions';
 import { metadataRegistryReducer, MetadataRegistryState } from './metadata-registry.reducers';
@@ -12,6 +16,7 @@ import { MetadataField } from '../../../core/metadata/metadata-field.model';
 
 class NullAction extends MetadataRegistryEditSchemaAction {
   type = null;
+
   constructor() {
     super(undefined);
   }

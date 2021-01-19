@@ -2,7 +2,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  forwardRef,
   Input,
   OnChanges,
   Output,
@@ -13,7 +12,7 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'ds-input-suggestions',
@@ -92,7 +91,7 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   /**
    * Reference to the input field component
    */
-  @ViewChild('inputField', {static: false}) queryInput: ElementRef;
+  @ViewChild('inputField') queryInput: ElementRef;
   /**
    * Reference to the suggestion components
    */
@@ -107,10 +106,10 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   @Input() disabled = false;
   propagateChange = (_: any) => {
     /* Empty implementation */
-  };
+  }
   propagateTouch = (_: any) => {
     /* Empty implementation */
-  };
+  }
 
   /**
    * When any of the inputs change, check if we should still show the suggestions

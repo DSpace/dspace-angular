@@ -6,15 +6,15 @@ export function getWorkflowItemPageRoute(wfiId: string) {
 }
 
 export function getWorkflowItemEditRoute(wfiId: string) {
-  return new URLCombiner(getWorkflowItemModuleRoute(), wfiId, WORKFLOW_ITEM_EDIT_PATH).toString()
+  return new URLCombiner(getWorkflowItemModuleRoute(), wfiId, WORKFLOW_ITEM_EDIT_PATH).toString();
 }
 
 export function getWorkflowItemDeleteRoute(wfiId: string) {
-  return new URLCombiner(getWorkflowItemModuleRoute(), wfiId, WORKFLOW_ITEM_DELETE_PATH).toString()
+  return new URLCombiner(getWorkflowItemModuleRoute(), wfiId, WORKFLOW_ITEM_DELETE_PATH).toString();
 }
 
 export function getWorkflowItemSendBackRoute(wfiId: string) {
-  return new URLCombiner(getWorkflowItemModuleRoute(), wfiId, WORKFLOW_ITEM_SEND_BACK_PATH).toString()
+  return new URLCombiner(getWorkflowItemModuleRoute(), wfiId, WORKFLOW_ITEM_SEND_BACK_PATH).toString();
 }
 
 export const WORKFLOW_ITEM_EDIT_PATH = 'edit';

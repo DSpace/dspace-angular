@@ -55,7 +55,7 @@ export class GroupSearchBoxComponent {
     const event: SearchEvent = {
       scope: '',
       query: data.query
-    }
-    this.search.emit(event)
+    };
+    this.search.emit(event);
   }
 }

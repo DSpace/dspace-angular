@@ -34,7 +34,7 @@ class DataServiceImpl extends DataService<DSpaceObject> {
     super();
   }
 
-  getIDHref(endpoint, resourceID,  ...linksToFollow: Array<FollowLinkConfig<DSpaceObject>>): string {
+  getIDHref(endpoint, resourceID,  ...linksToFollow: FollowLinkConfig<DSpaceObject>[]): string {
     return this.buildHrefFromFindOptions( endpoint.replace(/\{\?uuid\}/, `?uuid=${resourceID}`),
       {}, [], ...linksToFollow);
   }
@@ -65,7 +65,7 @@ export class DSpaceObjectDataService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findById(id: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<DSpaceObject>>): Observable<RemoteData<DSpaceObject>> {
+  findById(id: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<DSpaceObject>[]): Observable<RemoteData<DSpaceObject>> {
     return this.dataService.findById(id, reRequestOnStale, ...linksToFollow);
 
   }
@@ -77,7 +77,7 @@ export class DSpaceObjectDataService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<DSpaceObject>>): Observable<RemoteData<DSpaceObject>> {
+  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<DSpaceObject>[]): Observable<RemoteData<DSpaceObject>> {
     return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow);
   }
 
@@ -90,7 +90,7 @@ export class DSpaceObjectDataService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<DSpaceObject>>): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
+  findAllByHref(href: string, findListOptions: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<DSpaceObject>[]): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
     return this.dataService.findAllByHref(href, findListOptions, reRequestOnStale, ...linksToFollow);
   }
 

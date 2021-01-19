@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
 import { Community } from '../core/shared/community.model';
 import { PageInfo } from '../core/shared/page-info.model';

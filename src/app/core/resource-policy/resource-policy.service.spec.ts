@@ -15,8 +15,8 @@ import { ActionType } from './models/action-type.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PageInfo } from '../shared/page-info.model';
-import { PaginatedList, buildPaginatedList } from '../data/paginated-list.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { buildPaginatedList } from '../data/paginated-list.model';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RequestEntry } from '../data/request.reducer';
 import { RestResponse } from '../cache/response.models';
 

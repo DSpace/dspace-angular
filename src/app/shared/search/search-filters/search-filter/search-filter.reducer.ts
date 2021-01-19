@@ -4,15 +4,15 @@ import { SearchFilterAction, SearchFilterActionTypes, SearchFilterInitializeActi
  * Interface that represents the state for a single filters
  */
 export interface SearchFilterState {
-  filterCollapsed: boolean,
-  page: number
+  filterCollapsed: boolean;
+  page: number;
 }
 
 /**
  * Interface that represents the state for all available filters
  */
 export interface SearchFiltersState {
-  [name: string]: SearchFilterState
+  [name: string]: SearchFilterState;
 }
 
 const initialState: SearchFiltersState = Object.create(null);

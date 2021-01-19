@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -17,7 +17,8 @@ describe('LinkMenuItemComponent', () => {
     text = 'HELLO';
     link = 'http://google.com';
   }
-  beforeEach(async(() => {
+
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],

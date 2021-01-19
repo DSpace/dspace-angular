@@ -25,7 +25,7 @@ export class LinkService {
    * @param model the {@link HALResource} to resolve the links for
    * @param linksToFollow the {@link FollowLinkConfig}s to resolve
    */
-  public resolveLinks<T extends HALResource>(model: T, ...linksToFollow: Array<FollowLinkConfig<T>>): T {
+  public resolveLinks<T extends HALResource>(model: T, ...linksToFollow: FollowLinkConfig<T>[]): T {
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
         this.resolveLink(model, linkToFollow);
     });

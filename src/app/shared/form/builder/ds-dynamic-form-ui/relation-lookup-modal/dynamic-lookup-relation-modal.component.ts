@@ -154,7 +154,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * Select (a list of) objects and add them to the store
    * @param selectableObjects
    */
-  select(...selectableObjects: Array<SearchResult<Item>>) {
+  select(...selectableObjects: SearchResult<Item>[]) {
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = observableCombineLatest(...selectableObjects.map((sri: SearchResult<Item>) => {
@@ -166,9 +166,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
                   return {
                     item: sri.indexableObject,
                     nameVariant
-                  }
+                  };
                 })
-              )
+              );
           })
         );
         obs
@@ -178,7 +178,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
               this.store.dispatch(addRelationshipAction);
               }
             );
-          })
+          });
       });
   }
 
@@ -190,14 +190,14 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     const nameVariant$ = this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid);
     this.subMap[sri.indexableObject.uuid] = nameVariant$.pipe(
       skip(1),
-    ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipNameVariantAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, this.submissionId, nameVariant)))
+    ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipNameVariantAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, this.submissionId, nameVariant)));
   }
 
   /**
    * Deselect (a list of) objects and remove them from the store
    * @param selectableObjects
    */
-  deselect(...selectableObjects: Array<SearchResult<Item>>) {
+  deselect(...selectableObjects: SearchResult<Item>[]) {
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();

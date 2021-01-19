@@ -36,7 +36,8 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
           },
           {
             path: ITEM_EDIT_PATH,
-            loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
+            loadChildren: () => import('./edit-item-page/edit-item-page.module')
+              .then((m) => m.EditItemPageModule),
             canActivate: [ItemPageAdministratorGuard]
           },
           {

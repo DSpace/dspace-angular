@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -40,7 +40,7 @@ describe('LangSwitchComponent', () => {
     return jasmine.createSpyObj('LocaleService', {
       setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode'),
       refreshAfterChangeLanguage: jasmine.createSpy('refreshAfterChangeLanguage')
-    })
+    });
   }
 
   describe('with English and Deutsch activated, English as default', () => {
@@ -52,7 +52,7 @@ describe('LangSwitchComponent', () => {
     let translate: TranslateService;
     let http: HttpTestingController;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
       const mockConfig = {
         languages: [{
@@ -80,13 +80,13 @@ describe('LangSwitchComponent', () => {
         ]
       }).compileComponents()
         .then(() => {
-          translate = TestBed.get(TranslateService);
+          translate = TestBed.inject(TranslateService);
           translate.addLangs(mockConfig.languages.filter((langConfig: LangConfig) => langConfig.active === true).map((a) => a.code));
           translate.setDefaultLang('en');
           translate.use('en');
-          http = TestBed.get(HttpTestingController);
+          http = TestBed.inject(HttpTestingController);
           fixture = TestBed.createComponent(LangSwitchComponent);
-          localService = TestBed.get(LocaleService);
+          localService = TestBed.inject(LocaleService);
           component = fixture.componentInstance;
           de = fixture.debugElement;
           langSwitchElement = de.nativeElement;
@@ -98,12 +98,12 @@ describe('LangSwitchComponent', () => {
       expect(component).toBeDefined();
     });
 
-    it('should identify English as the label for the current active language in the component', async(() => {
+    it('should identify English as the label for the current active language in the component', waitForAsync(() => {
       fixture.detectChanges();
       expect(component.currentLangLabel()).toEqual('English');
     }));
 
-    it('should be initialized with more than one language active', async(() => {
+    it('should be initialized with more than one language active', waitForAsync(() => {
       fixture.detectChanges();
       expect(component.moreThanOneLanguage).toBeTruthy();
     }));
@@ -138,7 +138,7 @@ describe('LangSwitchComponent', () => {
     let translate: TranslateService;
     let http: HttpTestingController;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
       const mockConfig = {
         languages: [{
@@ -165,11 +165,11 @@ describe('LangSwitchComponent', () => {
           { provide: LocaleService, useValue: getMockLocaleService() }
         ]
       }).compileComponents();
-      translate = TestBed.get(TranslateService);
+      translate = TestBed.inject(TranslateService);
       translate.addLangs(mockConfig.languages.filter((MyLangConfig) => MyLangConfig.active === true).map((a) => a.code));
       translate.setDefaultLang('en');
       translate.use('en');
-      http = TestBed.get(HttpTestingController);
+      http = TestBed.inject(HttpTestingController);
     }));
 
     beforeEach(() => {

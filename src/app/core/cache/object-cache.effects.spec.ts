@@ -19,7 +19,7 @@ describe('ObjectCacheEffects', () => {
       ],
     });
 
-    cacheEffects = TestBed.get(ObjectCacheEffects);
+    cacheEffects = TestBed.inject(ObjectCacheEffects);
   });
 
   describe('fixTimestampsOnRehydrate$', () => {

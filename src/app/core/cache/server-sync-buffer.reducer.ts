@@ -42,7 +42,7 @@ export function serverSyncBufferReducer(state = initialState, action: ServerSync
   switch (action.type) {
 
     case ServerSyncBufferActionTypes.ADD: {
-      return addToServerSyncQueue(state, action as AddToSSBAction)
+      return addToServerSyncQueue(state, action as AddToSSBAction);
     }
 
     case ServerSyncBufferActionTypes.EMPTY: {

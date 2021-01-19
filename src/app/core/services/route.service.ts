@@ -149,7 +149,7 @@ export class RouteService {
         } else {
           return paramMap;
         }
-      }))
+      }));
   }
 
   public saveRouting(): void {
@@ -211,6 +211,6 @@ export class RouteService {
           this.store.dispatch(new SetParametersAction(params));
           this.store.dispatch(new SetQueryParametersAction(queryParams));
         }
-      )
+      );
   }
 }

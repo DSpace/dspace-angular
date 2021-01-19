@@ -21,12 +21,12 @@ export class CollectionRolesComponent implements OnInit {
   /**
    * The different roles for the collection, as an observable.
    */
-  comcolRoles$: Observable<HALLink[]>
+  comcolRoles$: Observable<HALLink[]>;
 
   /**
    * The collection to manage, as an observable.
    */
-  collection$: Observable<Collection>
+  collection$: Observable<Collection>;
 
   constructor(
     protected route: ActivatedRoute,

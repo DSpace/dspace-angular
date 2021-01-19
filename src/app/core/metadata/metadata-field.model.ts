@@ -82,7 +82,7 @@ export class MetadataField extends ListableObject implements HALResource {
   /**
    * Method that returns as which type of object this object should be rendered
    */
-  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+  getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     return [this.constructor as GenericConstructor<ListableObject>];
   }
 }

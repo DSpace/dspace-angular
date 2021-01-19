@@ -31,7 +31,7 @@ export class RelationGroupFieldParser extends FieldParser {
           } else {
             modelConfiguration.relationFields.push(field.selectableMetadata[0].metadata);
           }
-        })
+        });
       });
     } else {
       throw new Error(`Configuration not valid: ${modelConfiguration.name}`);
@@ -48,7 +48,7 @@ export class RelationGroupFieldParser extends FieldParser {
           item[fieldId] = isNotEmpty(value) ? value : PLACEHOLDER_PARENT_METADATA;
         });
         modelConfiguration.value.push(item);
-      })
+      });
     }
     const cls = {
       element: {

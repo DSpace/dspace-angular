@@ -1,7 +1,10 @@
-import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { getListableObjectComponent, listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import {
+  getListableObjectComponent,
+  listableObjectComponent
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { Context } from '../../../../../core/shared/context.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
@@ -60,6 +63,6 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(): GenericConstructor<Component> {
-    return getListableObjectComponent(this.object.getRenderTypes(), ViewMode.GridElement, undefined)
+    return getListableObjectComponent(this.object.getRenderTypes(), ViewMode.GridElement, undefined);
   }
 }

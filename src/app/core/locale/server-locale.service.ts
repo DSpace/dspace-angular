@@ -1,8 +1,8 @@
-import { LocaleService, LANG_ORIGIN } from './locale.service';
+import { LANG_ORIGIN, LocaleService } from './locale.service';
 import { Injectable } from '@angular/core';
-import { Observable, combineLatest, of as observableOf } from 'rxjs';
-import { take, flatMap, map } from 'rxjs/operators';
-import { isNotEmpty, isEmpty } from 'src/app/shared/empty.util';
+import { combineLatest, Observable, of as observableOf } from 'rxjs';
+import { map, mergeMap, take } from 'rxjs/operators';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 
 @Injectable()
 export class ServerLocaleService extends LocaleService {
@@ -20,7 +20,7 @@ export class ServerLocaleService extends LocaleService {
 
     return obs$.pipe(
       take(1),
-      flatMap(([isAuthenticated, isLoaded]) => {
+      mergeMap(([isAuthenticated, isLoaded]) => {
         let epersonLang$: Observable<string[]> = observableOf([]);
         if (isAuthenticated && isLoaded) {
           epersonLang$ = this.authService.getAuthenticatedUserFromStore().pipe(
@@ -52,7 +52,7 @@ export class ServerLocaleService extends LocaleService {
             }
             return languages;
           })
-        )
+        );
       })
     );
   }

@@ -1,5 +1,5 @@
 import { Store } from '@ngrx/store';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { SelectableListService } from './selectable-list.service';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { hasValue } from '../../empty.util';
@@ -43,7 +43,7 @@ describe('SelectableListService', () => {
     dispatch: {},
     /* tslint:enable:no-empty */
   });
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
 
       providers: [

@@ -10,7 +10,7 @@ describe('IDToUUIDSerializer', () => {
 
   describe('Serialize', () => {
     it('should return undefined', () => {
-      expect(serializer.Serialize('some-uuid')).toBeUndefined()
+      expect(serializer.Serialize('some-uuid')).toBeUndefined();
     });
   });
 

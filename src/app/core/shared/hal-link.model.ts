@@ -19,5 +19,5 @@ export class HALLink {
    * e.g. if href is "http://haltalk.herokuapp.com/docs/{rel}"
    * {rel} would be the template
    */
-  templated?: boolean
+  templated?: boolean;
 }

@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA, EventEmitter } from '@angular/core';
-import { async, TestBed, ComponentFixture, inject } from '@angular/core/testing';
+import { waitForAsync, TestBed, ComponentFixture, inject } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
@@ -11,7 +11,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalCollectionComponent>;
 
-  beforeEach(async (() => {
+  beforeEach(waitForAsync (() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),

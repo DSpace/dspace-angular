@@ -1,6 +1,6 @@
 import { Validator } from 'jsonschema';
 
-import schema from './dspace-rest.schema.json'
+import schema from './dspace-rest.schema.json';
 
 /**
  * Verifies a document is a valid response from

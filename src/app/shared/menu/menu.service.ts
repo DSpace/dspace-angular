@@ -77,7 +77,7 @@ export class MenuService {
       map((sections: MenuSections) => {
           return Object.values(sections)
             .filter((section: MenuSection) => hasNoValue(section.parentID))
-            .filter((section: MenuSection) => !mustBeVisible || section.visible)
+            .filter((section: MenuSection) => !mustBeVisible || section.visible);
         }
       )
     );

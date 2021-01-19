@@ -111,7 +111,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
         });
         return configurationOptions;
       })
-    )
+    );
   }
 
 }

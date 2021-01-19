@@ -1,6 +1,6 @@
-import { deserialize, autoserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { excludeFromEquals } from '../utilities/equals.decorators';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { Version } from './version.model';

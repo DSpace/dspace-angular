@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { Observable, of as observableOf, race as observableRace } from 'rxjs';
+import { Observable, of as observableOf, race as observableRace, Subscription } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import {
   DynamicDatePickerModel,
@@ -30,7 +30,6 @@ import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { FormService } from '../../form/form.service';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { RemoteData } from '../../../core/data/remote-data';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { dateToISOFormat, stringToNgbDateStruct } from '../../date.util';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
@@ -38,11 +37,11 @@ import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 
 export interface ResourcePolicyEvent {
-  object: ResourcePolicy,
+  object: ResourcePolicy;
   target: {
     type: string,
     uuid: string
-  }
+  };
 }
 
 @Component({
@@ -156,7 +155,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
         ).subscribe((dsoRD: RemoteData<DSpaceObject>) => {
           this.resourcePolicyGrant = dsoRD.payload;
         })
-      )
+      );
     }
   }
 
@@ -168,7 +167,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
   isFormValid(): Observable<boolean> {
     return this.formService.isValid(this.formId).pipe(
       map((isValid: boolean) => isValid && isNotEmpty(this.resourcePolicyGrant))
-    )
+    );
   }
 
   /**
@@ -206,7 +205,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     formModel.push(new DynamicFormGroupModel(dateGroupConfig, RESOURCE_POLICY_FORM_DATE_GROUP_LAYOUT));
 
     this.initModelsValue(formModel);
-    return formModel
+    return formModel;
   }
 
   /**
@@ -219,17 +218,17 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
       formModel.forEach((model: any) => {
         if (model.id === 'date') {
           if (hasValue(this.resourcePolicy.startDate)) {
-            model.get(0).valueUpdates.next(stringToNgbDateStruct(this.resourcePolicy.startDate));
+            model.get(0).value = stringToNgbDateStruct(this.resourcePolicy.startDate);
           }
           if (hasValue(this.resourcePolicy.endDate)) {
-            model.get(1).valueUpdates.next(stringToNgbDateStruct(this.resourcePolicy.endDate));
+            model.get(1).value = stringToNgbDateStruct(this.resourcePolicy.endDate);
           }
         } else {
           if (this.resourcePolicy.hasOwnProperty(model.id) && this.resourcePolicy[model.id]) {
-            model.valueUpdates.next(this.resourcePolicy[model.id]);
+            model.value = this.resourcePolicy[model.id];
           }
         }
-      })
+      });
     }
 
     return formModel;
@@ -283,7 +282,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
           uuid: this.resourcePolicyGrant.id
         };
         this.submit.emit(eventPayload);
-      })
+      });
   }
 
   /**
@@ -312,6 +311,6 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     this.formModel = null;
     this.subs
       .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe())
+      .forEach((subscription) => subscription.unsubscribe());
   }
 }

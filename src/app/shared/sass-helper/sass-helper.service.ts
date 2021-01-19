@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AppState, keySelector } from '../../app.reducer';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { AddCSSVariableAction } from './sass-helper.actions';

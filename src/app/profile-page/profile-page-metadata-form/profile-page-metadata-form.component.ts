@@ -125,7 +125,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
    */
   setFormValues() {
     this.formModel.forEach(
-      (fieldModel: DynamicInputModel | DynamicSelectModel<string>) => {
+      (fieldModel: any) => {
         if (fieldModel.name === 'email') {
           fieldModel.value = this.user.email;
         } else {
@@ -133,7 +133,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
         }
         if (fieldModel.id === 'language') {
           (fieldModel as DynamicSelectModel<string>).options =
-            this.activeLangs.map((langConfig) => Object.assign({ value: langConfig.code, label: langConfig.label }))
+            this.activeLangs.map((langConfig) => Object.assign({ value: langConfig.code, label: langConfig.label }));
         }
       }
     );
