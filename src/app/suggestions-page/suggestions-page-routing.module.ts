@@ -21,7 +21,7 @@ import { SiteAdministratorGuard } from '../core/data/feature-authorization/featu
           breadcrumbKey: 'admin.notifications.recitersuggestion',
           showBreadcrumbsFluid: false
         },
-        canActivate: [AuthenticatedGuard, SiteAdministratorGuard],
+        canActivate: [AuthenticatedGuard],
         runGuardsAndResolvers: 'always',
         component: SuggestionsPageComponent,
       },

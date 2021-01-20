@@ -51,11 +51,17 @@
                   <td>{{eventElement?.event?.trust}}
                   </td>
                   <td><a *ngIf="(eventElement?.event?.target|async)?.payload"
+                         target="_blank"
                          [routerLink]="['/items', (eventElement?.event?.target|async)?.payload?.id]">{{eventElement.title}}</a>
                   </td>
                   <td *ngIf="showTopic.indexOf('/PID') !== -1">
                     <p><span class="small">{{'openaire.broker.event.table.pidtype' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
-                    <p><span class="small">{{'openaire.broker.event.table.pidvalue' | translate}}</span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
+                    <p><span class="small">{{'openaire.broker.event.table.pidvalue' | translate}}</span><br>
+                      <a *ngIf="hasPIDHref(eventElement.event.message); else noPID" href="{{getPIDHref(eventElement.event.message)}}" target="_blank">
+                        {{eventElement.event.message.value}}
+                      </a>
+                      <ng-template #noPID><span class="badge badge-info">{{eventElement.event.message.value}}</span></ng-template>
+                    </p>
                   </td>
                   <td *ngIf="showTopic.indexOf('/SUBJECT') !== -1">
                     <p><span class="small">{{'openaire.broker.event.table.subjectValue' | translate}}</span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
@@ -77,7 +83,7 @@
                     </p>
                     <p>
                       <span class="small">{{'openaire.broker.event.table.project' | translate}}</span><br>
-                      {{eventElement.event.message.title}}
+                      <a href="https://explore.openaire.eu/search/project?projectId={{ eventElement.event.message.openaireId}}">{{eventElement.event.message.title}}</a>
                     </p>
                     <p>
                       <span *ngIf="eventElement.event.message.acronym"><span class="small">{{'openaire.broker.event.table.acronym' | translate}}</span> <span class="badge badge-info">{{eventElement.event.message.acronym}}</span><br></span>

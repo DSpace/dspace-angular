@@ -10,6 +10,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { SuggestionTargetsStateService } from './suggestion-targets.state.service';
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
 import { AdminNotificationsSuggestionTargetsPageParams } from '../../../+admin/admin-notifications/admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page-resolver.service';
+import { SuggestionsService } from '../suggestions.service';
 
 /**
  * Component to display the Suggestion Target list.
@@ -58,6 +59,7 @@ export class SuggestionTargetsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private suggestionTargetsStateService: SuggestionTargetsStateService,
+    private suggestionService: SuggestionsService,
     private router: Router
   ) {
   }
@@ -191,5 +193,9 @@ export class SuggestionTargetsComponent implements OnInit {
         this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
       }
     }
+  }
+
+  protected getTargetUuid(target: OpenaireSuggestionTarget) {
+    return this.suggestionService.getTargetUuid(target);
   }
 }

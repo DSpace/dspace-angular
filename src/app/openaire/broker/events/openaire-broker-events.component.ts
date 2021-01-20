@@ -10,7 +10,10 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import { FindListOptions } from '../../../core/data/request.models';
-import { OpenaireBrokerEventObject } from '../../../core/openaire/broker/models/openaire-broker-event.model';
+import {
+  OpenaireBrokerEventMessageObject,
+  OpenaireBrokerEventObject
+} from '../../../core/openaire/broker/models/openaire-broker-event.model';
 import { OpenaireBrokerEventRestService } from '../../../core/openaire/broker/events/openaire-broker-event-rest.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
@@ -441,6 +444,65 @@ export class OpenaireBrokerEventsComponent implements OnInit {
         this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
       }
     }
+  }
+
+  /**
+   * Check if the event has a valid href.
+   * @param event
+   */
+  public  hasPIDHref(event: OpenaireBrokerEventMessageObject): boolean {
+    return this.getPIDHref(event) !== null;
+  }
+
+  /**
+   * Get the event pid href.
+   * @param event
+   */
+  public getPIDHref(event: OpenaireBrokerEventMessageObject): string {
+    return this.computePIDHref(event);
+  }
+
+  protected computePIDHref(event: OpenaireBrokerEventMessageObject) {
+    const type = event.type.toLowerCase();
+    const pid = event.value;
+    let prefix = null;
+    switch (type) {
+      case 'arxiv': {
+        prefix = 'https://arxiv.org/abs/';
+        break;
+      }
+      case 'handle': {
+        prefix = 'https://hdl.handle.net/';
+        break;
+      }
+      case 'urn': {
+        prefix = '';
+        break;
+      }
+      case 'doi': {
+        prefix = 'https://doi.org/';
+        break;
+      }
+      case 'pmc': {
+        prefix = 'https://www.ncbi.nlm.nih.gov/pmc/articles/';
+        break;
+      }
+      case 'pmid': {
+        prefix = 'https://pubmed.ncbi.nlm.nih.gov/';
+        break;
+      }
+      case 'ncid': {
+        prefix = 'https://ci.nii.ac.jp/ncid/';
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    if (prefix === null) {
+      return null;
+    }
+    return prefix + pid;
   }
 
   /**

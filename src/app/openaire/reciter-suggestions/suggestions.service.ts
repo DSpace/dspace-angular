@@ -174,11 +174,6 @@ export class SuggestionsService {
         tap((res) => {
           console.log(res);
         }),
-        switchMap((res) => {
-          return this.deleteReviewedSuggestion(suggestion.id).pipe(
-            catchError((error) => of(null))
-          );
-        }),
         catchError((error) => of(null))
       );
     ;
@@ -225,6 +220,17 @@ export class SuggestionsService {
           fails: results.filter((result) => result == null).length
         }
       }), take(1));
+  }
+
+  /**
+   * Get the researcher uuid (for navigation purpose) from a target instance.
+   * TODO Find a better way
+   * @param target
+   * @return the researchUuid
+   */
+  public getTargetUuid(target: OpenaireSuggestionTarget): string {
+    const tokens = target.id.split(':');
+    return tokens.length === 2 ? tokens[1] : null;
   }
 
 }

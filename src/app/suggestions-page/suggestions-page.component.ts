@@ -51,6 +51,7 @@ export class SuggestionsPageComponent implements OnInit {
 
   suggestionId: any;
   researcherName: any;
+  researcherUuid: any;
 
   selectedSuggestions: { [id: string]: OpenaireSuggestion } = {};
   isBulkOperationPending = false;
@@ -87,6 +88,7 @@ export class SuggestionsPageComponent implements OnInit {
     ).subscribe((suggestionTarget: OpenaireSuggestionTarget) => {
       this.suggestionId = suggestionTarget.id;
       this.researcherName = suggestionTarget.display;
+      this.researcherUuid = this.suggestionService.getTargetUuid(suggestionTarget);
       this.updatePage();
     });
   }
@@ -156,6 +158,7 @@ export class SuggestionsPageComponent implements OnInit {
    * @param event contains the suggestion and the target collection
    */
   approveAndImport(event: SuggestionApproveAndImport) {
+    debugger;
     this.suggestionService.approveAndImport(this.itemService, event.suggestion, event.collectionId)
       .subscribe((response: any) => {
         this.notificationService.success('reciter.suggestion.approveAndImport.success');

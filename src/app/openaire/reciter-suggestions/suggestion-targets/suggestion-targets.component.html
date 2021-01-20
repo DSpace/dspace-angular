@@ -29,7 +29,9 @@
               </thead>
               <tbody>
                 <tr *ngFor="let targetElement of (targets$ | async); let i = index" class="text-center">
-                  <td>{{targetElement.display}}</td>
+                  <td>
+                    <a target="_blank" [routerLink]="['/items', getTargetUuid(targetElement)]">{{targetElement.display}}</a>
+                  </td>
                   <td>
                     <div class="btn-group edit-field">
                       <button (click)="redirectToSuggestions(targetElement.id, targetElement.display)"

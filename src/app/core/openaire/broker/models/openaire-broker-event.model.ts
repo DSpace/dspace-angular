@@ -150,6 +150,12 @@ export class OpenaireBrokerEventMessageObject {
    * The project title suggested by OpenAIRE
    */
   title: string;
+
+  /**
+   * The OpenAIRE ID.
+   */
+  openaireId: string;
+
 }
 
 /* tslint:enable:max-classes-per-file */
