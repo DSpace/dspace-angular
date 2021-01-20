@@ -2664,9 +2664,9 @@
 
   "mydspace.view-btn": "View",
 
-  "mydspace.notification.suggestion": "Reciter suggest to add to your profile <b>{{count}} publications</b><br> found in the {{source}}.<br> Please <a href='/suggestions/{{suggestionId}}'>review the suggestions</a>",
+  "mydspace.notification.suggestion": "We found <b>{{count}} publications</b><br> in the {{source}} that seems to be related to your profile.<br> Please <a href='/suggestions/{{suggestionId}}'>review the suggestions</a>",
 
-  "mydspace.notification.suggestion.page": "Reciter suggest to add to your profile <b>{{count}} publications</b> found in the {{source}}. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
+  "mydspace.notification.suggestion.page": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
 
   "nav.browse.header": "All of DSpace",
 
