@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, flatMap, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, first, flatMap, map, take } from 'rxjs/operators';
 
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { dataService } from '../../cache/builders/build-decorators';
@@ -22,7 +22,7 @@ import { PaginatedList } from '../../data/paginated-list.model';
 import { Vocabulary } from './models/vocabulary.model';
 import { VOCABULARY } from './models/vocabularies.resource-type';
 import { VocabularyEntry } from './models/vocabulary-entry.model';
-import { isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload
