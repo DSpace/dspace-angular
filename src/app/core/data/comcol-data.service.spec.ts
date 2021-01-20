@@ -13,11 +13,12 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindByIDRequest, FindListOptions } from './request.models';
+import { FindListOptions, GetRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import {
-  createFailedRemoteDataObject$, createNoContentRemoteDataObject$,
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { BitstreamDataService } from './bitstream-data.service';
@@ -147,18 +148,18 @@ describe('ComColDataService', () => {
       scheduler = getTestScheduler();
     });
 
-    it('should configure a new FindByIDRequest for the scope Community', () => {
+    it('should send a new FindByIDRequest for the scope Community', () => {
       cds = initMockCommunityDataService();
       requestService = getMockRequestService(getRequestEntry$(true));
       objectCache = initMockObjectCacheService();
       service = initTestService();
 
-      const expected = new FindByIDRequest(requestService.generateRequestId(), communityEndpoint, scopeID);
+      const expected = new GetRequest(requestService.generateRequestId(), communityEndpoint);
 
       scheduler.schedule(() => service.getBrowseEndpoint(options).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected, true);
     });
 
     describe('if the scope Community can\'t be found', () => {

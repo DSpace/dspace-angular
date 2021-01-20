@@ -81,10 +81,14 @@ describe('ItemCollectionMapperComponent', () => {
   const itemDataServiceStub = {
     mapToCollection: () => createSuccessfulRemoteDataObject$({}),
     removeMappingFromCollection: () => createSuccessfulRemoteDataObject$({}),
+    getMappedCollectionsEndpoint: () => of('rest/api/mappedCollectionsEndpoint'),
     getMappedCollections: () => of(mockCollectionsRD),
     /* tslint:disable:no-empty */
     clearMappedCollectionsRequests: () => {}
     /* tslint:enable:no-empty */
+  };
+  const collectionDataServiceStub = {
+    findAllByHref: () => of(mockCollectionsRD)
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => of(mockCollectionsRD),
@@ -114,7 +118,7 @@ describe('ItemCollectionMapperComponent', () => {
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: CollectionDataService, useValue: {} }
+        { provide: CollectionDataService, useValue: collectionDataServiceStub }
       ]
     }).compileComponents();
   }));

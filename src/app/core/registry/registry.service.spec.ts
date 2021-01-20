@@ -184,7 +184,7 @@ describe('RegistryService', () => {
 
     it('should call metadataSchemaService.findById with the correct ID', (done) => {
       result.subscribe(() => {
-        expect(metadataSchemaService.findById).toHaveBeenCalledWith(`${mockSchemasList[0].id}`, true);
+        expect(metadataSchemaService.findById).toHaveBeenCalledWith(`${mockSchemasList[0].id}`, true, true);
         done();
       });
     });

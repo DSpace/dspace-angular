@@ -148,7 +148,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
    * Initialize all instance variables and retrieve collection default access conditions
    */
   onSectionInit() {
-    const config$ = this.uploadsConfigService.findByHref(this.sectionData.config, false, followLink('metadata')).pipe(
+    const config$ = this.uploadsConfigService.findByHref(this.sectionData.config, true, false, followLink('metadata')).pipe(
       getFirstSucceededRemoteData(),
       map((config) => config.payload));
 

@@ -140,12 +140,10 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     this.formModel = this.buildResourcePolicyForm();
 
     if (!this.canSetGrant()) {
-      this.requestService.removeByHrefSubstring(this.resourcePolicy._links.eperson.href);
-      this.requestService.removeByHrefSubstring(this.resourcePolicy._links.group.href);
-      const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href).pipe(
+      const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href, false).pipe(
         getFirstSucceededRemoteData()
       );
-      const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href).pipe(
+      const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href, false).pipe(
         getFirstSucceededRemoteData()
       );
       const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableRace(epersonRD$, groupRD$);

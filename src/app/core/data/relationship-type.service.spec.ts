@@ -2,7 +2,10 @@ import { of as observableOf } from 'rxjs';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/remote-data.utils';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
@@ -92,17 +95,6 @@ describe('RelationshipTypeService', () => {
     init();
     requestService = getMockRequestService();
     service = initTestService();
-  });
-
-  describe('getAllRelationshipTypes', () => {
-
-    it('should return all relationshipTypes', (done) => {
-      const expected = service.getAllRelationshipTypes({});
-      expected.subscribe((e) => {
-        expect(e).toBe(buildList);
-        done();
-      });
-    });
   });
 
   describe('getRelationshipTypeByLabelAndTypes', () => {

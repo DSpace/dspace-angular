@@ -160,7 +160,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
         if (group != null) {
           return this.ePersonDataService.findAllByHref(group._links.epersons.href, {
             currentPage: 0,
-            elementsPerPage: Number.MAX_SAFE_INTEGER
+            elementsPerPage: 9999
           })
             .pipe(
               getFirstSucceededRemoteData(),
@@ -206,12 +206,11 @@ export class MembersListComponent implements OnInit, OnDestroy {
     if (ePersonToUpdate != null) {
       this.ePersonDataService.clearLinkRequests(ePersonToUpdate._links.groups.href);
     }
-    this.ePersonDataService.clearLinkRequests(activeGroup._links.epersons.href);
     this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(activeGroup));
     this.ePeopleMembersOfGroup = this.ePersonDataService.findAllByHref(activeGroup._links.epersons.href, {
       currentPage: this.configSearch.currentPage,
       elementsPerPage: this.configSearch.pageSize
-    });
+    }, false);
   }
 
   /**

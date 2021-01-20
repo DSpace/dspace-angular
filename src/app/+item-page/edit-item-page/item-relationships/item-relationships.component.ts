@@ -84,6 +84,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       switchMap(() => this.itemService.findById(
         this.item.uuid,
         true,
+        true,
         followLink('owningCollection'),
         followLink('bundles'),
         followLink('relationships')),
@@ -118,6 +119,8 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         switchMap((entityType) =>
           this.entityTypeService.getEntityTypeRelationships(
             entityType.id,
+            true,
+            true,
             followLink('leftType'),
             followLink('rightType'))
             .pipe(

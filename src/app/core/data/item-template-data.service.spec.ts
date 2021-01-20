@@ -28,7 +28,7 @@ describe('ItemTemplateDataService', () => {
     generateRequestId(): string {
       return scopeID;
     },
-    configure(request: RestRequest) {
+    send(request: RestRequest) {
       // Do nothing
     },
     getByHref(requestHref: string) {

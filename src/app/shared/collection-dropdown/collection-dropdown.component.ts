@@ -191,7 +191,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
       currentPage: page
     };
     this.searchListCollection$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, false, followLink('parentCommunity'))
+      .getAuthorizedCollection(query, findOptions, true, false, followLink('parentCommunity'))
       .pipe(
         getFirstSucceededRemoteWithNotEmptyData(),
         switchMap((collections: RemoteData<PaginatedList<Collection>>) => {

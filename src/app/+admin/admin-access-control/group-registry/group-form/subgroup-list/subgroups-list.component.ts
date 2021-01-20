@@ -125,7 +125,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
           } else {
             return this.groupDataService.findAllByHref(activeGroup._links.subgroups.href, {
               currentPage: 0,
-              elementsPerPage: Number.MAX_SAFE_INTEGER
+              elementsPerPage: 9999
             })
               .pipe(
                 getFirstSucceededRemoteData(),
@@ -212,12 +212,11 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * @param activeGroup   Group currently being edited
    */
   public forceUpdateGroups(activeGroup: Group) {
-    this.groupDataService.clearGroupLinkRequests(activeGroup._links.subgroups.href);
     this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(activeGroup));
     this.subgroupsOfGroup = this.groupDataService.findAllByHref(activeGroup._links.subgroups.href, {
       currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize
-    });
+    }, false);
   }
 
   /**

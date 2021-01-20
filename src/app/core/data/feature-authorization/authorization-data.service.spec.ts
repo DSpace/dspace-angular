@@ -68,7 +68,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should call searchBy with the site\'s url', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self), true);
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self), true, true);
       });
     });
 
@@ -78,7 +78,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should call searchBy with the site\'s url and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self, null, FeatureID.LoginOnBehalfOf), true);
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(site.self, null, FeatureID.LoginOnBehalfOf), true, true);
       });
     });
 
@@ -88,7 +88,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should call searchBy with the object\'s url and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, null, FeatureID.LoginOnBehalfOf), true);
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, null, FeatureID.LoginOnBehalfOf), true, true);
       });
     });
 
@@ -98,7 +98,7 @@ describe('AuthorizationDataService', () => {
       });
 
       it('should call searchBy with the object\'s url, user\'s uuid and the feature', () => {
-        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePersonUuid, FeatureID.LoginOnBehalfOf), true);
+        expect(service.searchBy).toHaveBeenCalledWith('object', createExpected(objectUrl, ePersonUuid, FeatureID.LoginOnBehalfOf), true, true);
       });
     });
   });

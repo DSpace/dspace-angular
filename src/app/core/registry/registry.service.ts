@@ -54,22 +54,28 @@ export class RegistryService {
   /**
    * Retrieves all metadata schemas
    * @param options           The options used to retrieve the schemas
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  public getMetadataSchemas(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
-    return this.metadataSchemaService.findAll(options, reRequestOnStale, ...linksToFollow);
+  public getMetadataSchemas(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
+    return this.metadataSchemaService.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
    * Retrieves a metadata schema by its prefix
-   * @param prefix The prefux of the schema to find
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param prefix                      The prefux of the schema to find
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  public getMetadataSchemaByPrefix(prefix: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<MetadataSchema>> {
+  public getMetadataSchemaByPrefix(prefix: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataSchema>[]): Observable<RemoteData<MetadataSchema>> {
     // Temporary options to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
     const options: FindListOptions = Object.assign(new FindListOptions(), {
       elementsPerPage: 10000
@@ -79,20 +85,23 @@ export class RegistryService {
       map((schemas: PaginatedList<MetadataSchema>) => schemas.page),
       isNotEmptyOperator(),
       map((schemas: MetadataSchema[]) => schemas.filter((schema) => schema.prefix === prefix)[0]),
-      mergeMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, reRequestOnStale, ...linksToFollow))
+      mergeMap((schema: MetadataSchema) => this.metadataSchemaService.findById(`${schema.id}`, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
     );
   }
 
   /**
    * retrieves all metadata fields that belong to a certain metadata schema
-   * @param schema            The schema to filter by
-   * @param options           The options info used to retrieve the fields
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * @param schema                      The schema to filter by
+   * @param options                     The options info used to retrieve the fields
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  public getMetadataFieldsBySchema(schema: MetadataSchema, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return this.metadataFieldService.findBySchema(schema, options, reRequestOnStale, ...linksToFollow);
+  public getMetadataFieldsBySchema(schema: MetadataSchema, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
+    return this.metadataFieldService.findBySchema(schema, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   public editMetadataSchema(schema: MetadataSchema) {
@@ -294,16 +303,19 @@ export class RegistryService {
 
   /**
    * Retrieve a filtered paginated list of metadata fields
-   * @param query {string}    The query to use for the metadata field name, can be part of the fully
-   *                          qualified field, should start with the start of the schema, element or
-   *                          qualifier (e.g. “dc.ti”, “contributor”, “auth”, “contributor.ot”)
-   * @param reRequestOnStale  Whether or not the request should automatically be re-requested after
-   *                          the response becomes stale
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
-   *                          should be automatically resolved
+   * @param query {string}              The query to use for the metadata field name, can be part of
+   *                                    the fully qualified field, should start with the start of
+   *                                    the schema, element or qualifier (e.g. “dc.ti”,
+   *                                    “contributor”, “auth”, “contributor.ot”)
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
-  queryMetadataFields(query: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    return this.metadataFieldService.searchByFieldNameParams(null, null, null, query, null, options, reRequestOnStale, ...linksToFollow);
+  queryMetadataFields(query: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<MetadataField>[]): Observable<RemoteData<PaginatedList<MetadataField>>> {
+    return this.metadataFieldService.searchByFieldNameParams(null, null, null, query, null, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }

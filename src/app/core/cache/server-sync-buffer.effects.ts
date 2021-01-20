@@ -94,14 +94,16 @@ export class ServerSyncBufferEffects {
    * @returns {Observable<Action>} ApplyPatchObjectCacheAction to be dispatched
    */
   private applyPatch(href: string): Observable<Action> {
-    const patchObject = this.objectCache.getByHref(href).pipe(take(1));
+    const patchObject = this.objectCache.getByHref(href).pipe(
+      take(1)
+    );
 
     return patchObject.pipe(
       map((entry: ObjectCacheEntry) => {
         if (isNotEmpty(entry.patches)) {
           const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
           if (isNotEmpty(flatPatch)) {
-            this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, flatPatch));
+            this.requestService.send(new PatchRequest(this.requestService.generateRequestId(), href, flatPatch));
           }
         }
         return new ApplyPatchObjectCacheAction(href);

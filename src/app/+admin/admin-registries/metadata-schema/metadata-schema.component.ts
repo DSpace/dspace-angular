@@ -89,8 +89,9 @@ export class MetadataSchemaComponent implements OnInit {
     this.metadataFields$ = combineLatest(this.metadataSchema$, this.needsUpdate$).pipe(
       switchMap(([schema, update]: [MetadataSchema, boolean]) => {
         if (update) {
-          return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), true, followLink('schema'));
+          this.needsUpdate$.next(false);
         }
+        return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), !update, false, followLink('schema'));
       })
     );
   }

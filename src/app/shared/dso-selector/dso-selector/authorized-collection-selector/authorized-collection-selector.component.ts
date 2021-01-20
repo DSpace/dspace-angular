@@ -9,6 +9,7 @@ import { CollectionSearchResult } from '../../../object-collection/shared/collec
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
+import { followLink } from '../../../utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-authorized-collection-selector',
@@ -40,7 +41,7 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
     return this.collectionDataService.getAuthorizedCollection(query, Object.assign({
       currentPage: page,
       elementsPerPage: this.defaultPagination.pageSize
-    })).pipe(
+    }),true, false, followLink('parentCommunity')).pipe(
       getFirstSucceededRemoteDataPayload(),
       map((list) => buildPaginatedList(list.pageInfo, list.page.map((col) => Object.assign(new CollectionSearchResult(), { indexableObject: col }))))
     );

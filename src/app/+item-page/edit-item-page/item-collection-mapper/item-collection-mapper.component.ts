@@ -11,7 +11,8 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
-  toDSpaceObjectListRD
+  toDSpaceObjectListRD,
+  getAllSucceededRemoteData
 } from '../../../core/shared/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, startWith, switchMap, take } from 'rxjs/operators';
@@ -101,14 +102,22 @@ export class ItemCollectionMapperComponent implements OnInit {
    * Load mappedCollectionsRD$ to only obtain collections that don't own this item
    */
   loadCollectionLists() {
+    console.log('loadCollectionLists');
     this.shouldUpdate$ = new BehaviorSubject<boolean>(true);
-    this.itemCollectionsRD$ = observableCombineLatest(this.itemRD$, this.shouldUpdate$).pipe(
-      map(([itemRD, shouldUpdate]) => {
-        if (shouldUpdate) {
-          return itemRD.payload;
+    this.itemCollectionsRD$ = observableCombineLatest(this.itemRD$.pipe(getFirstSucceededRemoteDataPayload()), this.shouldUpdate$).pipe(
+      switchMap(([item, shouldUpdate]) => {
+        if (shouldUpdate === true) {
+          this.shouldUpdate$.next(false);
         }
+        return this.collectionDataService.findAllByHref(
+          this.itemDataService.getMappedCollectionsEndpoint(item.id),
+          undefined,
+          !shouldUpdate,
+          false
+        ).pipe(
+          getAllSucceededRemoteData()
+        );
       }),
-      switchMap((item: Item) => this.itemDataService.getMappedCollections(item.id))
     );
 
     const owningCollectionRD$ = this.itemRD$.pipe(
@@ -141,13 +150,11 @@ export class ItemCollectionMapperComponent implements OnInit {
     const itemIdAndExcludingIds$ = observableCombineLatest([
       this.itemRD$.pipe(
         getFirstSucceededRemoteData(),
-        take(1),
         map((rd: RemoteData<Item>) => rd.payload),
         map((item: Item) => item.id)
       ),
       this.itemCollectionsRD$.pipe(
         getFirstSucceededRemoteData(),
-        take(1),
         map((rd: RemoteData<PaginatedList<Collection>>) => rd.payload.page),
         map((collections: Collection[]) => collections.map((collection: Collection) => collection.id))
       )
@@ -203,6 +210,7 @@ export class ItemCollectionMapperComponent implements OnInit {
         successMessages.subscribe(([head, content]) => {
           this.notificationsService.success(head, content);
         });
+        this.shouldUpdate$.next(true);
       }
       if (unsuccessful.length > 0) {
         const unsuccessMessages = observableCombineLatest([
@@ -214,8 +222,6 @@ export class ItemCollectionMapperComponent implements OnInit {
           this.notificationsService.error(head, content);
         });
       }
-      // Force an update on all lists and switch back to the first tab
-      this.shouldUpdate$.next(true);
       this.switchToFirstTab();
     });
   }

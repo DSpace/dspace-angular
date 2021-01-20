@@ -2,7 +2,11 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 
-import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormLayoutService,
+  DynamicFormService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
 
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
@@ -51,14 +55,12 @@ import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
-import { ItemTypeDataService } from './data/entity-type-data.service';
 import { EntityTypeService } from './data/entity-type.service';
 import { ExternalSourceService } from './data/external-source.service';
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
 import { FilteredDiscoveryPageResponseParsingService } from './data/filtered-discovery-page-response-parsing.service';
 import { ItemDataService } from './data/item-data.service';
-import { LicenseDataService } from './data/license-data.service';
 import { LookupRelationService } from './data/lookup-relation.service';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
@@ -263,8 +265,6 @@ const PROVIDERS = [
   LookupRelationService,
   VersionDataService,
   VersionHistoryDataService,
-  LicenseDataService,
-  ItemTypeDataService,
   WorkflowActionDataService,
   ProcessDataService,
   ScriptDataService,

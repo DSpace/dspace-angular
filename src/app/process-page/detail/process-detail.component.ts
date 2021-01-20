@@ -110,7 +110,7 @@ export class ProcessDetailComponent implements OnInit {
       const processOutputRD$: Observable<RemoteData<Bitstream>> = this.processRD$.pipe(
         getFirstSucceededRemoteDataPayload(),
         switchMap((process: Process) => {
-          return this.bitstreamDataService.findByHref(process._links.output.href);
+          return this.bitstreamDataService.findByHref(process._links.output.href, false);
         })
       );
       this.outputLogFileUrl$ = processOutputRD$.pipe(

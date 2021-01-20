@@ -76,7 +76,7 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.authService.getAuthenticatedUserFromStore().pipe(
       filter((user: EPerson) => hasValue(user.id)),
-      switchMap((user: EPerson) => this.epersonService.findById(user.id, true, followLink('groups'))),
+      switchMap((user: EPerson) => this.epersonService.findById(user.id, true, true, followLink('groups'))),
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       tap((user: EPerson) => this.currentUser = user)

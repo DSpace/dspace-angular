@@ -21,7 +21,6 @@ export enum IdentifierType {
 
 export abstract class RestRequest {
   public responseMsToLive =  environment.cache.msToLive.default;
-  public forceBypassCache = false;
   public isMultipart = false;
 
   constructor(
@@ -130,16 +129,6 @@ export class PatchRequest extends RestRequest {
   }
 }
 
-export class FindByIDRequest extends GetRequest {
-  constructor(
-    uuid: string,
-    href: string,
-    public resourceID: string
-  ) {
-    super(uuid, href);
-  }
-}
-
 export class FindListOptions {
   scopeID?: string;
   elementsPerPage?: number;
@@ -169,7 +158,6 @@ export class EndpointMapRequest extends GetRequest {
  * Class representing a submission HTTP GET request object
  */
 export class SubmissionRequest extends GetRequest {
-  forceBypassCache = true;
   constructor(uuid: string, href: string) {
     super(uuid, href);
   }

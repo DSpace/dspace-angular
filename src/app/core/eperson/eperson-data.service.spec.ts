@@ -96,33 +96,47 @@ describe('EPersonDataService', () => {
     it('search by default scope (byMetadata) and no query', () => {
       service.searchByScope(null, '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', ''))]
+        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
 
     it('search metadata scope and no query', () => {
       service.searchByScope('metadata', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', ''))]
+        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
 
     it('search metadata scope and with query', () => {
       service.searchByScope('metadata', 'test');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', 'test'))]
+        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('test')))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true);
+      expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
 
     it('search email scope and no query', () => {
+      spyOn(service, 'getSearchByHref').and.returnValue(epersonsEndpoint);
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(null));
       service.searchByScope('email', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('email', ''))]
+        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent('')))]
       });
-      expect(service.searchBy).toHaveBeenCalledWith('byEmail', options, true);
+      expect(service.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
+      expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
+    });
+
+    it('search email scope with a query', () => {
+      spyOn(service, 'getSearchByHref').and.returnValue(epersonsEndpoint);
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
+      service.searchByScope('email', EPersonMock.email);
+      const options = Object.assign(new FindListOptions(), {
+        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent(EPersonMock.email)))]
+      });
+      expect(service.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
+      expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
     });
   });
 
@@ -147,7 +161,7 @@ describe('EPersonDataService', () => {
       it('should send PatchRequest with replace email operation', () => {
         const operations = [{ op: 'replace', path: '/email', value: newEmail }];
         const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
       });
     });
 
@@ -166,7 +180,7 @@ describe('EPersonDataService', () => {
       it('should send PatchRequest with replace certificate operation', () => {
         const operations = [{ op: 'replace', path: '/certificate', value: !EPersonMock.requireCertificate }];
         const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
       });
     });
 
@@ -185,7 +199,7 @@ describe('EPersonDataService', () => {
       it('should send PatchRequest with replace canLogIn operation', () => {
         const operations = [{ op: 'replace', path: '/canLogIn', value: !EPersonMock.canLogIn }];
         const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
       });
     });
 
@@ -219,7 +233,7 @@ describe('EPersonDataService', () => {
           { op: 'replace', path: '/eperson.lastname/0/value', value: newLastName },
           { op: 'replace', path: '/eperson.firstname/0/value', value: newFirstName }];
         const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
       });
     });
   });
@@ -278,7 +292,7 @@ describe('EPersonDataService', () => {
 
     it('should send DeleteRequest', () => {
       const expected = new DeleteRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid);
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 
@@ -287,7 +301,7 @@ describe('EPersonDataService', () => {
       service.createEPersonForToken(EPersonMock, 'test-token');
 
       const expected = new PostRequest(requestService.generateRequestId(), epersonsEndpoint + '?token=test-token', EPersonMock);
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
   describe('patchPasswordWithToken', () => {
@@ -297,7 +311,7 @@ describe('EPersonDataService', () => {
       const operation = Object.assign({ op: 'add', path: '/password', value: 'test-password' });
       const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/test-uuid?token=test-token', [operation]);
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(expected);
     });
   });
 

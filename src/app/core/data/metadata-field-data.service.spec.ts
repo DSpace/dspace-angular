@@ -31,7 +31,7 @@ describe('MetadataFieldDataService', () => {
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
-      configure: {},
+      send: {},
       getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
       removeByHrefSubstring: {}
     });
@@ -59,7 +59,7 @@ describe('MetadataFieldDataService', () => {
       const expectedOptions = Object.assign(new FindListOptions(), {
         searchParams: [new RequestParam('schema', schema.prefix)]
       });
-      expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions, true);
+      expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions, true, true);
     });
   });
 

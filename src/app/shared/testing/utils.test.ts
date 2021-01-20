@@ -95,3 +95,16 @@ export function createRequestEntry$(unCacheableObject?: UnCacheableObject, statu
     lastUpdated: new Date().getTime()
   });
 }
+
+/**
+ * Get the argument (method parameter) a Spy method got called with first
+ * Example case:
+ * - We spy on method mock(testNumber: number)
+ * - During the tests, mock gets called 3 times with numbers 8, 5 and 7
+ * - This function will return 8, as it's the first number mock got called with
+ * @param spyMethod     The method that got spied on
+ * @param argumentIndex The index of the argument, only necessary if the spy method contains more than one parameter
+ */
+export function getFirstUsedArgumentOfSpyMethod(spyMethod: jasmine.Spy, argumentIndex: number = 0): any {
+  return spyMethod.calls.argsFor(0)[argumentIndex];
+}

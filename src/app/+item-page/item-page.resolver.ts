@@ -25,11 +25,12 @@ export class ItemPageResolver implements Resolve<RemoteData<Item>> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
     return this.itemService.findById(route.params.id,
+      true,
       false,
       followLink('owningCollection'),
-      followLink('bundles', new FindListOptions(), true, followLink('bitstreams')),
+      followLink('bundles', new FindListOptions(), true, true, true, followLink('bitstreams')),
       followLink('relationships'),
-      followLink('version', undefined, true, followLink('versionhistory')),
+      followLink('version', undefined, true, true, true, followLink('versionhistory')),
     ).pipe(
       getFirstCompletedRemoteData(),
     );
