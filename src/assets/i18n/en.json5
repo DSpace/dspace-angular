@@ -2666,7 +2666,7 @@
 
   "mydspace.notification.suggestion": "Reciter suggest to add to your profile <b>{{count}} publications</b><br> found in the {{source}}.<br> Please <a href='/suggestions/{{suggestionId}}'>review the suggestions</a>",
 
-
+  "mydspace.notification.suggestion.page": "Reciter suggest to add to your profile <b>{{count}} publications</b> found in the {{source}}. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
 
   "nav.browse.header": "All of DSpace",
 
@@ -3903,7 +3903,7 @@
   "submission.import-external.source.orcid": "ORCID",
 
   "submission.import-external.source.pubmed": "Pubmed",
-  
+
   "submission.import-external.source.pubmedeu": "Pubmed Europe",
 
   "submission.import-external.source.lcname": "Library of Congress Names",

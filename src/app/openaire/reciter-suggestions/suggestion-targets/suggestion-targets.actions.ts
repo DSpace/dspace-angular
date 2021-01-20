@@ -16,6 +16,7 @@ export const SuggestionTargetActionTypes = {
   RETRIEVE_TARGETS_BY_SOURCE: type('dspace/integration/openaire/suggestions/target/RETRIEVE_TARGETS_BY_SOURCE'),
   RETRIEVE_TARGETS_BY_SOURCE_ERROR: type('dspace/integration/openaire/suggestions/target/RETRIEVE_TARGETS_BY_SOURCE_ERROR'),
   ADD_USER_SUGGESTIONS: type('dspace/integration/openaire/suggestions/target/ADD_USER_SUGGESTIONS'),
+  REFRESH_USER_SUGGESTIONS: type('dspace/integration/openaire/suggestions/target/REFRESH_USER_SUGGESTIONS'),
   MARK_USER_SUGGESTIONS_AS_VISITED: type('dspace/integration/openaire/suggestions/target/MARK_USER_SUGGESTIONS_AS_VISITED')
 }
 
@@ -113,6 +114,14 @@ export class AddUserSuggestionsAction implements Action {
     this.payload = { suggestionTargets };
   }
 
+}
+
+/**
+ * An ngrx action to reload the user Suggestion Target object.
+ * Called by the ??? effect.
+ */
+export class RefreshUserSuggestionsAction implements Action {
+  type = SuggestionTargetActionTypes.REFRESH_USER_SUGGESTIONS;
 }
 
 /**

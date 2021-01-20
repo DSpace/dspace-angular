@@ -17,6 +17,7 @@ import { AuthService } from '../core/auth/auth.service';
 import { SuggestionApproveAndImport } from '../openaire/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
 
 @Component({
   selector: 'ds-suggestion-page',
@@ -61,6 +62,7 @@ export class SuggestionsPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private suggestionService: SuggestionsService,
+    private suggestionTargetsStateService: SuggestionTargetsStateService,
     private itemService: ItemDataService,
     private notificationService: NotificationsService,
     private translateService: TranslateService
@@ -125,6 +127,7 @@ export class SuggestionsPageComponent implements OnInit {
    */
   notMine(suggestionId) {
     this.suggestionService.notMine(suggestionId).subscribe((res) => {
+      this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
       this.updatePage();
     });
   }
@@ -137,6 +140,7 @@ export class SuggestionsPageComponent implements OnInit {
     this.suggestionService
       .notMineMultiple(Object.values(this.selectedSuggestions))
       .subscribe((results: SuggestionBulkResult) => {
+        this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
         this.updatePage();
         this.isBulkOperationPending = false;
         this.selectedSuggestions = {};
@@ -158,9 +162,9 @@ export class SuggestionsPageComponent implements OnInit {
    * @param event contains the suggestion and the target collection
    */
   approveAndImport(event: SuggestionApproveAndImport) {
-    debugger;
     this.suggestionService.approveAndImport(this.itemService, event.suggestion, event.collectionId)
       .subscribe((response: any) => {
+        this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
         this.notificationService.success('reciter.suggestion.approveAndImport.success');
         this.updatePage();
       });
@@ -175,6 +179,7 @@ export class SuggestionsPageComponent implements OnInit {
     this.suggestionService
       .approveAndImportMultiple(this.itemService, Object.values(this.selectedSuggestions), event.collectionId)
       .subscribe((results: SuggestionBulkResult) => {
+        this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
         this.updatePage();
         this.isBulkOperationPending = false;
         this.selectedSuggestions = {};

@@ -100,6 +100,11 @@ export class MyDSpacePageComponent implements OnInit {
    */
   context$: Observable<Context>;
 
+  /**
+   * The user suggestion targets.
+   */
+  suggestionsRD$: Observable<OpenaireSuggestionTarget[]>;
+
   constructor(private service: SearchService,
               private sidebarService: SidebarService,
               private windowService: HostWindowService,
@@ -161,6 +166,8 @@ export class MyDSpacePageComponent implements OnInit {
       }
     })
 
+    // used for notifications sticky panel
+    this.suggestionsRD$ = this.reciterSuggestionStateService.getCurrentUserSuggestionTargets();
   }
 
   /**
@@ -198,14 +205,22 @@ export class MyDSpacePageComponent implements OnInit {
    * @private
    */
   private showNotificationForNewSuggestions(suggestionTarget: OpenaireSuggestionTarget): void {
-    const sourceLabel = this.translateService.instant('reciter.suggestion.source.oaire');
-    const content = this.translateService.instant(this.labelPrefix + 'notification.suggestion', {
+    const content = this.translateService.instant(this.labelPrefix + 'notification.suggestion',
+      this.getNotificationSuggestionInterpolation(suggestionTarget));
+    this.notificationsService.success('', content, {timeOut:0}, true);
+  }
+
+  /**
+   * Interpolated params to build the notification suggestions notification.
+   * @param suggestionTarget
+   */
+  public getNotificationSuggestionInterpolation(suggestionTarget: OpenaireSuggestionTarget): any {
+    return {
       count: suggestionTarget.total,
-      source: sourceLabel,
+      source: this.translateService.instant('reciter.suggestion.source.oaire'),
       suggestionId: suggestionTarget.id,
       displayName: suggestionTarget.display
-    });
-    this.notificationsService.success('', content, {timeOut:0}, true);
+    }
   }
 
   /**

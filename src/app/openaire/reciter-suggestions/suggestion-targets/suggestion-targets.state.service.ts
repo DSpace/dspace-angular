@@ -16,7 +16,7 @@ import {
 import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import {
   ClearSuggestionTargetsAction,
-  MarkUserSuggestionsAsVisitedAction,
+  MarkUserSuggestionsAsVisitedAction, RefreshUserSuggestionsAction,
   RetrieveTargetsBySourceAction
 } from './suggestion-targets.actions';
 import { OpenaireState } from '../../openaire.reducer';
@@ -152,5 +152,12 @@ export class SuggestionTargetsStateService {
    */
   public dispatchClearSuggestionTargetsAction(): void {
     this.store.dispatch(new ClearSuggestionTargetsAction())
+  }
+
+  /**
+   * Dispatch an action to refresh the user suggestions.
+   */
+  public dispatchRefreshUserSuggestionsAction(): void {
+    this.store.dispatch(new RefreshUserSuggestionsAction())
   }
 }

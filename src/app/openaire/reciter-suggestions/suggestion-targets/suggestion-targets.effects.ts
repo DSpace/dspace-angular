@@ -8,7 +8,7 @@ import { of as observableOf } from 'rxjs';
 
 import {
   AddTargetAction,
-  AddUserSuggestionsAction,
+  AddUserSuggestionsAction, RefreshUserSuggestionsAction,
   RetrieveAllTargetsErrorAction,
   RetrieveTargetsBySourceAction,
   SuggestionTargetActionTypes,
@@ -18,6 +18,8 @@ import { SuggestionsService } from '../suggestions.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AuthActionTypes, RetrieveAuthenticatedEpersonSuccessAction } from '../../../core/auth/auth.actions';
 import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { of } from 'rxjs/internal/observable/of';
 
 /**
  * Provides effect methods for the Suggestion Targets actions.
@@ -68,6 +70,25 @@ export class SuggestionTargetsEffects {
       return this.suggestionsService.retrieveCurrentUserSuggestions(action.payload).pipe(
         map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets))
       )
+    }));
+
+  /**
+   * Fetch the current user suggestion
+   */
+  @Effect() refreshUserTargets$ = this.actions$.pipe(
+    ofType(SuggestionTargetActionTypes.REFRESH_USER_SUGGESTIONS),
+    switchMap((action: RefreshUserSuggestionsAction) => {
+      return this.store$.select((state: any) => state.core.auth.user)
+        .pipe(
+          switchMap((user: EPerson) => {
+            return this.suggestionsService.retrieveCurrentUserSuggestions(user)
+              .pipe(
+                map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
+                catchError((errors) => of(errors))
+            )
+          }),
+          catchError((errors) => of(errors))
+        )
     }));
 
   /**
