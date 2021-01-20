@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { Metric } from '../../../../../../core/shared/metric.model';
+import { Component } from '@angular/core';
 import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -12,14 +11,8 @@ declare var __dimensions_embed: any;
 })
 export class MetricDimensionsComponent extends BaseEmbeddedMetricComponent {
 
-  @Input() metric: Metric;
-
   constructor(protected sr: DomSanitizer) {
     super(sr);
-  }
-
-  scriptIsLoaded() {
-    return __dimensions_embed;
   }
 
   applyScript(): void {

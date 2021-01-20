@@ -32,10 +32,25 @@ export const metric1Mock = {
   rank: null,
   remark: null,
   startDate: null,
-  type: null
+  type: null,
+  _links: null
 };
 
 export const metric2Mock = { ...metric1Mock, metricType: 'downloads' };
+
+const googleExample = '<a target="_blank" title="" \n' +
+  'href="https://scholar.google.com/scholar?as_q=&amp;as_epq=A strong regioregularity effect in self-organizing conjugated polymer films and high-efficiency polythiophene: fullerene solar cells&amp;as_occt=any"\n' +
+  ' >Check</a>';
+
+const altMetricExample = '<div class=\'altmetric-embed\' data-badge-popover=\'bottom\' data-badge-type=\'donut\' data-doi="10.1038/nature.2012.9872"></div>';
+
+const dimensionsExample = '<div class=\'__dimensions_badge_embed__\' data-doi="10.1038/nature.2012.9872"></div>';
+
+export const metricGoogleScholarMock = {...metric1Mock, metricType: 'googleScholar', remark: googleExample};
+
+export const metricAltmetricMock = {...metric1Mock, metricType: 'altmetric', remark: altMetricExample};
+
+export const metricDimensionsMock = {...metric1Mock, metricType: 'dimensions', remark: dimensionsExample};
 
 export const metricRowsMock = [{
   metrics: [metric1Mock, metric2Mock]

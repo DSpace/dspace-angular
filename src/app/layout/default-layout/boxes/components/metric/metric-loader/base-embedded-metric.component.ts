@@ -1,9 +1,13 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { BaseMetricComponent } from './base-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { take, takeUntil } from 'rxjs/operators';
+import { interval } from 'rxjs';
+import { tap } from 'rxjs/internal/operators/tap';
+import { Subject } from 'rxjs/internal/Subject';
 
 export const METRIC_SCRIPT_TIMEOUT_MS = 500;
-export const METRIC_SCRIPT_MAX_ATTEMPT = 3;
+export const METRIC_SCRIPT_MAX_RETRY = 3;
 
 /**
  * The BaseEmbeddedMetricComponent enhance the basic metric component taking care to run the script required
@@ -14,6 +18,9 @@ export const METRIC_SCRIPT_MAX_ATTEMPT = 3;
 })
 export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent implements OnInit, AfterViewInit {
 
+  timeout = METRIC_SCRIPT_TIMEOUT_MS;
+  maxRetry = METRIC_SCRIPT_MAX_RETRY;
+
   /**
    * Give a context to the script (if supported) to target the metric initialization.
    */
@@ -21,14 +28,16 @@ export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent im
 
   sanitizedInnerHtml;
 
-  attempts = 0;
+  success = false;
 
   protected constructor(protected sr: DomSanitizer) {
     super();
   }
 
   ngOnInit() {
-    this.sanitizedInnerHtml = this.sr.bypassSecurityTrustHtml(this.metric.remark);
+    if (this.metric && this.metric.remark) {
+      this.sanitizedInnerHtml = this.sr.bypassSecurityTrustHtml(this.metric.remark);
+    }
   }
 
   /**
@@ -41,30 +50,38 @@ export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent im
   }
 
   /**
-   * Wait for the script to be loaded and then apply the script.
-   * If the script is not loaded yet waits and retries.
+   * Attempt to apply the script.
    * @protected
    */
-  protected initScript() {
-    if (this.attempts === METRIC_SCRIPT_MAX_ATTEMPT) {
-      console.warn('Script load retry count exceeded max');
-      return;
-    }
-    try {
-      this.scriptIsLoaded();
-    } catch (error) {
-      setTimeout(() => this.initScript(), METRIC_SCRIPT_TIMEOUT_MS);
-      return;
-    }
-
-    this.applyScript();
-    this.attempts++;
-  }
+  initScript() {
+    const successNotifier = new Subject<any>()
+    interval(this.timeout).pipe(
+      tap(() => this.applyScriptHandler(successNotifier)),
+      take(this.maxRetry),
+      takeUntil(successNotifier),
+      ).subscribe({
+        complete: () => {
+          if (!this.success) {
+            console.error('The script of type ' + this.metric.metricType + ' hasn\'t been initialized successfully');
+          }
+        }
+    });
+ }
 
   /**
-   * Check whether the script is loaded. Throws an Error if not.
+   * Apply the script and set success true when no error occurs.
+   * @param notifier emit and complete in case of success
    */
-  abstract scriptIsLoaded();
+  applyScriptHandler(notifier: Subject<any>) {
+    try {
+      this.applyScript();
+      this.success = true;
+      notifier.next();
+      notifier.complete();
+    } catch (error) {
+      console.log('Error applying script for ' + this.metric.metricType + '. Retry');
+    }
+  }
 
   /**
    * Apply the script.
