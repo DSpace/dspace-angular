@@ -21,6 +21,7 @@ import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { AuthService } from '../core/auth/auth.service';
+import {PaginationChangeEvent} from '../shared/pagination/paginationChangeEvent.interface';
 
 @Component({
   selector: 'ds-collection-page',
@@ -93,9 +94,8 @@ export class CollectionPageComponent implements OnInit {
       )
     );
 
-    this.route.queryParams.pipe(take(1)).subscribe((params) => {
+    this.route.queryParams.pipe(take(1)).subscribe((params: PaginationChangeEvent) => {
       this.metadata.processRemoteData(this.collectionRD$);
-      this.onPaginationChange(params);
     });
   }
 
@@ -103,7 +103,7 @@ export class CollectionPageComponent implements OnInit {
     return isNotEmpty(object);
   }
 
-  onPaginationChange(event) {
+  onPaginationChange(event: PaginationChangeEvent) {
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
       currentPage: event.pagination.currentPage || this.paginationConfig.currentPage,
       pageSize: event.pagination.pageSize || this.paginationConfig.pageSize,
