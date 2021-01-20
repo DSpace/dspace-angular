@@ -1,7 +1,7 @@
 import { MetadataRegistryComponent } from './metadata-registry.component';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -45,7 +45,7 @@ describe('MetadataRegistryComponent', () => {
       namespace: 'http://dspace.org/mockschema'
     }
   ];
-  const mockSchemas = createSuccessfulRemoteDataObject$(new PaginatedList(null, mockSchemasList));
+  const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
   /* tslint:disable:no-empty */
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,

@@ -7,11 +7,11 @@ import { BUNDLE } from './bundle.resource-type';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { Bitstream } from './bitstream.model';
-import {ITEM} from './item.resource-type';
-import {Item} from './item.model';
+import { ITEM } from './item.resource-type';
+import { Item } from './item.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)

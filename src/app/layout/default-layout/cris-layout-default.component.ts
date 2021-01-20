@@ -1,24 +1,18 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, mergeMap, startWith, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { Tab } from '../../core/layout/models/tab.model';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
 import { TabDataService } from '../../core/layout/tab-data.service';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
+import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getCrisLayoutTab } from '../decorators/cris-layout-tab.decorator';
 import { CrisLayoutPage } from '../decorators/cris-layout-page.decorator';
 import { CrisLayoutPage as CrisLayoutPageObj } from '../models/cris-layout-page.model';
 import { LayoutPage } from '../enums/layout-page.enum';
 import { isNotEmpty } from '../../shared/empty.util';
-import { EditItemDataService } from '../../core/submission/edititem-data.service';
-import { EditItem } from '../../core/submission/models/edititem.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { EditItemMode } from '../../core/submission/models/edititem-mode.model';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 import { AuthService } from '../../core/auth/auth.service';
 
 /**
@@ -38,12 +32,6 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
    * Reference of this Component
    */
   componentRef: ComponentRef<Component>;
-
-  /**
-   * List of Edit Modes available on this item
-   * for the current user
-   */
-  private editModes$: BehaviorSubject<EditItemMode[]> = new BehaviorSubject<EditItemMode[]>([]);
 
   /**
    * A boolean representing if to render or not the sidebar menu
@@ -68,9 +56,7 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
   constructor(
     private tabService: TabDataService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private editItemService: EditItemDataService,
-    private authService: AuthService,
-    private authorizationService: AuthorizationDataService
+    private authService: AuthService
   ) {
     super();
   }
@@ -89,17 +75,6 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     // Init the sidebar status
     this.hasSidebar$.pipe(take(1)).subscribe((status) => {
       this.sidebarStatus$.next(status)
-    });
-
-    // Retrieve edit modes
-    this.editItemService.findById(this.item.id + ':none', followLink('modes')).pipe(
-      getAllSucceededRemoteDataPayload(),
-      mergeMap((editItem: EditItem) => editItem.modes.pipe(
-        getFirstSucceededRemoteListPayload())
-      ),
-      startWith([])
-    ).subscribe((editModes: EditItemMode[]) => {
-      this.editModes$.next(editModes)
     });
   }
 
@@ -135,26 +110,10 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
   }
 
   /**
-   * Check if edit mode is available
-   */
-  getEditModes(): Observable<EditItemMode[]> {
-    return this.editModes$;
-  }
-
-  /**
    * Return list of tabs
    */
   getTabs(): Observable<Tab[]> {
     return this.tabs$;
-  }
-
-  /**
-   * Check if edit mode is available
-   */
-  isEditAvailable(): Observable<boolean> {
-    return this.editModes$.asObservable().pipe(
-      map((editModes) => isNotEmpty(editModes) && editModes.length === 1)
-    );
   }
 
   /**
@@ -171,13 +130,6 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
     return this.sidebarStatus$.asObservable().pipe(
       map((status: boolean) => !status)
     );
-  }
-
-  /**
-   * Return if the user is the administrator
-   */
-  isAdministrator() {
-    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
   }
 
   /**

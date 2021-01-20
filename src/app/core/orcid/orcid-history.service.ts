@@ -19,13 +19,12 @@ import { ItemDataService } from '../data/item-data.service';
 import { RemoteData } from '../data/remote-data';
 import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { configureRequest, getFinishedRemoteData, getResponseFromEntry } from '../shared/operators';
 import { OrcidHistory } from './model/orcid-history.model';
 import { ORCID_HISTORY } from './model/orcid-history.resource-type';
 import { OrcidQueue } from './model/orcid-queue.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 /**
  * A private DataService implementation to delegate specific methods to.

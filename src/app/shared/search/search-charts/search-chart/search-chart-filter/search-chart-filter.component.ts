@@ -10,7 +10,7 @@ import { ChartSeries } from '../../../../../charts/models/chart-series';
 import { FacetValue } from '../../../facet-value.model';
 import { isNotEmpty } from '../../../../empty.util';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 
 @Component({
   selector: 'ds-search-chart-filter',

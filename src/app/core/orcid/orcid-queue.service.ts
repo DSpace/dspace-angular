@@ -17,11 +17,12 @@ import { ORCID_QUEUE } from './model/orcid-queue.resource-type';
 import { ItemDataService } from '../data/item-data.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
 import { RestResponse } from '../cache/response.models';
 import { tap } from 'rxjs/operators';
+import { NoContent } from '../shared/NoContent.model';
 
 /**
  * A private DataService implementation to delegate specific methods to.
@@ -80,7 +81,7 @@ export class OrcidQueueService {
     }));
   }
 
-  deleteById(orcidQueueId: number): Observable<RestResponse> {
+  deleteById(orcidQueueId: number): Observable<RemoteData<NoContent>> {
     return this.dataService.delete(orcidQueueId + '');
   }
 

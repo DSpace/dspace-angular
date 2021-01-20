@@ -8,17 +8,21 @@ import { getMockTranslateService } from '../../shared/mocks/translate.service.mo
 import { fakeAsync, tick } from '@angular/core/testing';
 import { ContentSourceRequest, GetRequest, UpdateContentSourceRequest } from './request.models';
 import { ContentSource } from '../shared/content-source.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RequestEntry } from './request.reducer';
-import { ErrorResponse } from '../cache/response.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Collection } from '../shared/collection.model';
 import { PageInfo } from '../shared/page-info.model';
-import { PaginatedList } from './paginated-list';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
+import { buildPaginatedList } from './paginated-list.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from 'src/app/shared/remote-data.utils';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+import { Observable } from 'rxjs/internal/Observable';
+import { RemoteData } from './remote-data';
+import { hasNoValue } from '../../shared/empty.util';
 
 const url = 'fake-url';
 const collectionId = 'fake-collection-id';
@@ -68,17 +72,12 @@ describe('CollectionDataService', () => {
 
   const pageInfo = new PageInfo();
   const array = [mockCollection1, mockCollection2, mockCollection3];
-  const paginatedList = new PaginatedList(pageInfo, array);
+  const paginatedList = buildPaginatedList(pageInfo, array);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   describe('when the requests are successful', () => {
     beforeEach(() => {
-      createService(observableOf({
-        request: {
-          href: 'https://rest.api/request'
-        },
-        completed: true
-      }));
+      createService();
     });
 
     describe('when calling getContentSource', () => {
@@ -164,13 +163,7 @@ describe('CollectionDataService', () => {
 
   describe('when the requests are unsuccessful', () => {
     beforeEach(() => {
-      createService(observableOf(Object.assign(new RequestEntry(), {
-        response: new ErrorResponse(Object.assign({
-          statusCode: 422,
-          statusText: 'Unprocessable Entity',
-          message: 'Error message'
-        }))
-      })));
+      createService(createFailedRemoteDataObject$('Error', 500));
     });
 
     describe('when calling updateContentSource', () => {
@@ -198,14 +191,20 @@ describe('CollectionDataService', () => {
 
   /**
    * Create a CollectionDataService used for testing
-   * @param requestEntry$   Supply a requestEntry to be returned by the REST API (optional)
+   * @param reponse$   Supply a RemoteData to be returned by the REST API (optional)
    */
-  function createService(requestEntry$?) {
-    requestService = getMockRequestService(requestEntry$);
+  function createService(reponse$?: Observable<RemoteData<any>>) {
+    requestService = getMockRequestService();
+    let buildResponse$ = reponse$;
+    if (hasNoValue(reponse$)) {
+      buildResponse$ = createSuccessfulRemoteDataObject$({});
+    }
     rdbService = jasmine.createSpyObj('rdbService', {
       buildList: hot('a|', {
         a: paginatedListRD
-      })
+      }),
+      buildFromRequestUUID: buildResponse$,
+      buildSingle: buildResponse$
     });
     objectCache = jasmine.createSpyObj('objectCache', {
       remove: jasmine.createSpy('remove')
@@ -214,7 +213,7 @@ describe('CollectionDataService', () => {
     notificationsService = new NotificationsServiceStub();
     translate = getMockTranslateService();
 
-    service = new CollectionDataService(requestService, rdbService, null, null, objectCache, halService, notificationsService, null, null, translate);
+    service = new CollectionDataService(requestService, rdbService, null, null, objectCache, halService, notificationsService, null, null,null, translate);
   }
 
 });

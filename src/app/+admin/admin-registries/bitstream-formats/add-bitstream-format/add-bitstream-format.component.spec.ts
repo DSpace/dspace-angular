@@ -6,7 +6,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../../../../core/cache/response.models';
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
@@ -14,6 +13,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 
 describe('AddBitstreamFormatComponent', () => {
   let comp: AddBitstreamFormatComponent;
@@ -37,7 +37,7 @@ describe('AddBitstreamFormatComponent', () => {
     router = new RouterStub();
     notificationService = new NotificationsServiceStub();
     bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-      createBitstreamFormat: observableOf(new RestResponse(true, 200, 'Success')),
+      createBitstreamFormat: createSuccessfulRemoteDataObject$({}),
       clearBitStreamFormatRequests: observableOf(null)
     });
 
@@ -77,7 +77,7 @@ describe('AddBitstreamFormatComponent', () => {
       router = new RouterStub();
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-        createBitstreamFormat: observableOf(new RestResponse(false, 400, 'Bad Request')),
+        createBitstreamFormat: createFailedRemoteDataObject$('Error', 500),
         clearBitStreamFormatRequests: observableOf(null)
       });
 

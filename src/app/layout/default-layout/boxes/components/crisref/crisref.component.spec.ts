@@ -2,15 +2,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrisrefComponent } from './crisref.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { of } from 'rxjs';
-import { Item } from 'src/app/core/shared/item.model';
-import { LayoutField } from 'src/app/core/layout/models/metadata-component.model';
-import { createMockRDObs } from 'src/app/+item-page/edit-item-page/item-bitstreams/item-bitstreams.component.spec';
+import { Item } from '../../../../../core/shared/item.model';
+import { LayoutField } from '../../../../../core/layout/models/metadata-component.model';
 import { By } from '@angular/platform-browser';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 
 describe('CrisrefComponent', () => {
   let component: CrisrefComponent;
@@ -57,9 +57,9 @@ describe('CrisrefComponent', () => {
   itemService = Object.assign( {
     findById: (id: string) => {
       if (id === '1') {
-        return createMockRDObs(testPerson);
+        return createSuccessfulRemoteDataObject$(testPerson);
       } else {
-        return createMockRDObs(testOrgunit)
+        return createSuccessfulRemoteDataObject$(testOrgunit)
       }
     }
   });

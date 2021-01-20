@@ -9,7 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
 import { Community } from '../../core/shared/community.model';
-import { PaginatedList } from '../../core/data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SharedModule } from '../../shared/shared.module';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -106,7 +106,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
       if (endPageIndex > subCommList.length) {
         endPageIndex = subCommList.length;
       }
-      return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), subCommList.slice(startPageIndex, endPageIndex)));
+      return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), subCommList.slice(startPageIndex, endPageIndex)));
 
     }
   };

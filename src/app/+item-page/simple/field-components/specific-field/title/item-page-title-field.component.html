@@ -2,5 +2,8 @@
   <div *ngIf="item.firstMetadataValue('relationship.type') as type">
     {{ type.toLowerCase() + '.page.titleprefix' | translate }}
   </div>
-  <ds-metadata-values [mdValues]="item?.allMetadata(fields)"></ds-metadata-values>
+  <div class="d-flex justify-content-between">
+    <ds-metadata-values [mdValues]="item?.allMetadata(fields)"></ds-metadata-values>
+    <ds-context-menu [contextMenuObject]="item" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
+  </div>
 </h2>

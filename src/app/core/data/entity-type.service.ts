@@ -14,10 +14,10 @@ import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { PaginatedList } from './paginated-list';
 import { ItemType } from '../shared/item-relationships/item-type.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../shared/operators';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
+import { PaginatedList } from './paginated-list.model';
 
 /**
  * Service handling all ItemType requests
@@ -60,7 +60,7 @@ export class EntityTypeService extends DataService<ItemType> {
   isLeftType(relationshipType: RelationshipType, itemType: ItemType): Observable<boolean> {
 
     return relationshipType.leftType.pipe(
-      getSucceededRemoteData(),
+      getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((leftType) => leftType.uuid === itemType.uuid),
     );
@@ -153,30 +153,10 @@ export class EntityTypeService extends DataService<ItemType> {
    * @param label
    */
   getEntityTypeByLabel(label: string): Observable<RemoteData<ItemType>> {
-
-    // TODO: Remove mock data once REST API supports this
-    /*
-    href$.pipe(take(1)).subscribe((href) => {
-      const request = new GetRequest(this.requestService.generateRequestId(), href);
-      this.requestService.configure(request);
-    });
-
-    return this.rdbService.buildSingle<EntityType>(href$);
-    */
-
-    // Mock:
-    const index = [
-      'Publication',
-      'Person',
-      'Project',
-      'OrgUnit',
-      'Journal',
-      'JournalVolume',
-      'JournalIssue',
-      'DataPackage',
-      'DataFile',
-    ].indexOf(label);
-
-    return this.findById((index + 1) + '');
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      take(1),
+      switchMap((endPoint: string) =>
+        this.findByHref(endPoint + '/label/' + label))
+    );
   }
 }

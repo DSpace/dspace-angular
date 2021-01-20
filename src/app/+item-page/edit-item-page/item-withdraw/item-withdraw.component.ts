@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { first } from 'rxjs/operators';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { RestResponse } from '../../../core/cache/response.models';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-item-withdraw',
@@ -21,8 +20,8 @@ export class ItemWithdrawComponent extends AbstractSimpleItemActionComponent {
    * Perform the withdraw action to the item
    */
   performAction() {
-    this.itemDataService.setWithDrawn(this.item.id, true).pipe(first()).subscribe(
-      (response: RestResponse) => {
+    this.itemDataService.setWithDrawn(this.item, true).pipe(getFirstCompletedRemoteData()).subscribe(
+      (response: RemoteData<Item>) => {
         this.processRestResponse(response);
       }
     );

@@ -2,7 +2,7 @@ import { deserialize, autoserialize, inheritSerialization } from 'cerialize';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { Version } from './version.model';
 import { VERSION_HISTORY } from './version-history.resource-type';
 import { link, typedObject } from '../cache/builders/build-decorators';

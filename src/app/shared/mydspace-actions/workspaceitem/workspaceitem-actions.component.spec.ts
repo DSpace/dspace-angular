@@ -15,7 +15,11 @@ import { Item } from '../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../remote-data.utils';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockRequestService } from '../../mocks/request.service.mock';
 import { getMockSearchService } from '../../mocks/search-service.mock';
@@ -148,7 +152,7 @@ describe('WorkspaceitemActionsComponent', () => {
 
   it('should display a success notification on delete success', async(() => {
     spyOn((component as any).modalService, 'open').and.returnValue({result: Promise.resolve('ok')});
-    mockDataService.delete.and.returnValue(observableOf({ isSuccessful: true }));
+    mockDataService.delete.and.returnValue(createSuccessfulRemoteDataObject$({}));
     spyOn(component, 'reload');
 
     component.confirmDiscard('ok');
@@ -161,7 +165,7 @@ describe('WorkspaceitemActionsComponent', () => {
 
   it('should display an error notification on delete failure', async(() => {
     spyOn((component as any).modalService, 'open').and.returnValue({result: Promise.resolve('ok')});
-    mockDataService.delete.and.returnValue(observableOf(false));
+    mockDataService.delete.and.returnValue(createFailedRemoteDataObject$('Error', 500));
     spyOn(component, 'reload');
 
     component.confirmDiscard('ok');

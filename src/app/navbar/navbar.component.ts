@@ -3,12 +3,11 @@ import { slideMobileNav } from '../shared/animations/slide';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID, MenuItemType } from '../shared/menu/initial-menus-state';
-import { TextMenuItemModel } from '../shared/menu/menu-item/models/text.model';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { HostWindowService } from '../shared/host-window.service';
-import { environment } from '../../environments/environment';
 import { SectionDataService } from '../core/layout/section-data.service';
-import { getFirstSucceededRemoteListPayload, getPaginatedListPayload } from '../core/shared/operators';
+import { getFirstSucceededRemoteListPayload } from '../core/shared/operators';
+import { Section } from '../core/layout/models/section.model';
 
 /**
  * Component representing the public navbar
@@ -63,7 +62,7 @@ export class NavbarComponent extends MenuComponent {
 
     this.sectionDataService.findAll()
       .pipe( getFirstSucceededRemoteListPayload())
-      .subscribe( (sections) => {
+      .subscribe( (sections: Section[]) => {
         sections.forEach( (section) => {
           const menuSection = {
             id: `explore_${section.id}`,

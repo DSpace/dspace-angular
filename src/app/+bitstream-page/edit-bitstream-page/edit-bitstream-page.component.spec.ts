@@ -2,7 +2,6 @@ import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RemoteData } from '../../core/data/remote-data';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import {ActivatedRoute, Router} from '@angular/router';
 import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
@@ -17,16 +16,15 @@ import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { hasValue } from '../../shared/empty.util';
 import { FormControl, FormGroup } from '@angular/forms';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
-import { RestResponse } from '../../core/cache/response.models';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
+  createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import {RouterStub} from '../../shared/testing/router.stub';
 import { getItemEditRoute } from '../../+item-page/item-page-routing-paths';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -109,7 +107,7 @@ describe('EditBitstreamPageComponent', () => {
           }
         ]
       },
-      format: observableOf(new RemoteData(false, false, true, null, selectedFormat)),
+      format: createSuccessfulRemoteDataObject$(selectedFormat),
       _links: {
         self: 'bitstream-selflink'
       },
@@ -120,14 +118,14 @@ describe('EditBitstreamPageComponent', () => {
       })
     });
     bitstreamService = jasmine.createSpyObj('bitstreamService', {
-      findById: observableOf(new RemoteData(false, false, true, null, bitstream)),
-      update: observableOf(new RemoteData(false, false, true, null, bitstream)),
-      updateFormat: observableOf(new RestResponse(true, 200, 'OK')),
+      findById: createSuccessfulRemoteDataObject$(bitstream),
+      update: createSuccessfulRemoteDataObject$(bitstream),
+      updateFormat: createSuccessfulRemoteDataObject$(bitstream),
       commitUpdates: {},
       patch: {}
     });
     bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-      findAll: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), allFormats)))
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
     });
 
     const itemPageUrl = `fake-url/some-uuid`;
@@ -140,7 +138,7 @@ describe('EditBitstreamPageComponent', () => {
       providers: [
         { provide: NotificationsService, useValue: notificationsService },
         { provide: DynamicFormService, useValue: formService },
-        { provide: ActivatedRoute, useValue: { data: observableOf({ bitstream: new RemoteData(false, false, true, null, bitstream) }), snapshot: { queryParams: {} } } },
+        { provide: ActivatedRoute, useValue: { data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }), snapshot: { queryParams: {} } } },
         { provide: BitstreamDataService, useValue: bitstreamService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         { provide: Router, useValue: routerStub },

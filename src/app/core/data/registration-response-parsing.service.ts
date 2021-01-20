@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { RegistrationSuccessResponse, RestResponse } from '../cache/response.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import {
+  ParsedResponse
+} from '../cache/response.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { Registration } from '../shared/registration.model';
@@ -13,12 +15,12 @@ import { Registration } from '../shared/registration.model';
  */
 export class RegistrationResponseParsingService implements ResponseParsingService {
 
-  parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+  parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
     const payload = data.payload;
 
     const registration = Object.assign(new Registration(), payload);
 
-    return new RegistrationSuccessResponse(registration, data.statusCode, data.statusText);
+    return new ParsedResponse(data.statusCode, undefined, registration);
   }
 
 }

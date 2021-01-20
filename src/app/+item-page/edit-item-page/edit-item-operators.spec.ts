@@ -6,6 +6,7 @@ import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject
 } from '../../shared/remote-data.utils';
+import { isNotEmpty } from '../../shared/empty.util';
 
 describe('findSuccessfulAccordingTo', () => {
   let mockItem1;
@@ -19,12 +20,12 @@ describe('findSuccessfulAccordingTo', () => {
     mockItem2 = new Item();
     mockItem1.isWithdrawn = false;
 
-    predicate = (rd: RemoteData<Item>) => rd.payload.isWithdrawn;
+    predicate = (rd: RemoteData<Item>) => isNotEmpty(rd.payload) ? rd.payload.isWithdrawn : false;
   });
   it('should return first successful RemoteData Observable that complies to predicate', () => {
     const testRD = {
       a: createSuccessfulRemoteDataObject(undefined),
-      b: createFailedRemoteDataObject(mockItem1),
+      b: createFailedRemoteDataObject(),
       c: createSuccessfulRemoteDataObject(mockItem2),
       d: createSuccessfulRemoteDataObject(mockItem1),
       e: createSuccessfulRemoteDataObject(mockItem2),

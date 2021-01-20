@@ -53,7 +53,6 @@ export class GridThumbnailComponent implements OnInit, OnChanges {
       !hasValue(changes.thumbnail.previousValue) &&
       hasValue(changes.thumbnail.currentValue)
     ) {
-      console.log('this.thumbnail', changes.thumbnail.currentValue);
       this.checkThumbnail(changes.thumbnail.currentValue);
     }
   }

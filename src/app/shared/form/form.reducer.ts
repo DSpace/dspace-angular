@@ -4,9 +4,8 @@ import {
   FormAddError,
   FormChangeAction, FormClearErrorsAction,
   FormInitAction,
-  FormRemoveAction,
-  FormRemoveErrorAction,
-  FormStatusChangeAction
+  FormRemoveAction, FormRemoveErrorAction,
+  FormStatusChangeAction, FormAddTouchedAction
 } from './form.actions';
 import { hasValue } from '../empty.util';
 import { isEqual, uniqWith } from 'lodash';
@@ -17,10 +16,15 @@ export interface FormError {
   fieldIndex: number;
 }
 
+export interface FormTouchedState {
+  [key: string]: boolean
+}
+
 export interface FormEntry {
   data: any;
   valid: boolean;
   errors: FormError[];
+  touched: FormTouchedState;
 }
 
 export interface FormState {
@@ -38,6 +42,10 @@ export function formReducer(state = initialState, action: FormAction): FormState
 
     case FormActionTypes.FORM_CHANGE: {
       return changeDataForm(state, action as FormChangeAction);
+    }
+
+    case FormActionTypes.FORM_ADD_TOUCHED: {
+      return changeTouchedState(state, action as FormAddTouchedAction);
     }
 
     case FormActionTypes.FORM_REMOVE: {
@@ -127,7 +135,8 @@ function initForm(state: FormState, action: FormInitAction): FormState {
   const formState = {
     data: action.payload.formData,
     valid: action.payload.valid,
-    errors: []
+    touched: {},
+    errors: [],
   };
   if (!hasValue(state[action.payload.formId])) {
     return Object.assign({}, state, {
@@ -207,6 +216,27 @@ function removeForm(state: FormState, action: FormRemoveAction): FormState {
   if (hasValue(state[action.payload.formId])) {
     const newState = Object.assign({}, state);
     delete newState[action.payload.formId];
+    return newState;
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Compute the touched state of the form. New touched fields are merged with the previous ones.
+ * @param state
+ * @param action
+ */
+function changeTouchedState(state: FormState, action: FormAddTouchedAction): FormState {
+  if (hasValue(state[action.payload.formId])) {
+    const newState = Object.assign({}, state);
+
+    const newForm = Object.assign({}, newState[action.payload.formId]);
+    newState[action.payload.formId] = newForm;
+
+    newForm.touched = { ... newForm.touched};
+    action.payload.touched.forEach((field) => newForm.touched[field] = true);
+
     return newState;
   } else {
     return state;

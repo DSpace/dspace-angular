@@ -1,0 +1,4 @@
+<button *ngIf="isAuthorized$ | async" class="dropdown-item"
+        [routerLink]="['/' + getPageRoutePrefix(), contextMenuObject.id, 'edit']">
+  {{'context-menu.actions.dso-page-edit.'+ contextMenuObjectType +'.btn' | translate}}
+</button>

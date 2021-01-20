@@ -7,6 +7,7 @@ import { followLink } from '../shared/utils/follow-link-config.model';
 import { find } from 'rxjs/operators';
 import { hasValue } from '../shared/empty.util';
 import { Item } from '../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
@@ -27,13 +28,12 @@ export class CrisItemPageResolver implements Resolve<RemoteData<Item>> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
     return this.itemService.findById(route.params.id,
+      true,
       followLink('owningCollection'),
       followLink('bundles'),
       followLink('relationships'),
       followLink('version', undefined, true, followLink('versionhistory')),
-    ).pipe(
-      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
-    );
+    ).pipe(getFirstCompletedRemoteData());
   }
 
 }

@@ -29,6 +29,7 @@ import { ExternalSourceEntryListSubmissionElementComponent } from './submission/
 import { OrgUnitSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/org-unit/org-unit-sidebar-search-list-element.component';
 import { PersonSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/person/person-sidebar-search-list-element.component';
 import { ProjectSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/project/project-sidebar-search-list-element.component';
+import { ContextMenuModule } from '../../shared/context-menu/context-menu.module';
 
 const ENTRY_COMPONENTS = [
   OrgUnitComponent,
@@ -64,7 +65,8 @@ const ENTRY_COMPONENTS = [
     CommonModule,
     SharedModule,
     TooltipModule.forRoot(),
-    ItemPageModule
+    ItemPageModule,
+    ContextMenuModule
   ],
   declarations: [
     ...ENTRY_COMPONENTS,

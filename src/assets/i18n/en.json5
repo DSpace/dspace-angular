@@ -494,13 +494,9 @@
 
   "admin.search.item.move": "Move",
 
-  "admin.search.item.private": "Private",
-
   "admin.search.item.reinstate": "Reinstate",
 
   "admin.search.item.withdraw": "Withdraw",
-
-  "admin.search.item.withdrawn": "Withdrawn",
 
   "admin.search.title": "Administrative Search",
 
@@ -914,6 +910,8 @@
 
   "collection.form.rights": "Copyright text (HTML)",
 
+  "collection.form.sharedWorkspace": "Shared workspace",
+
   "collection.form.tableofcontents": "News (HTML)",
 
   "collection.form.title": "Name",
@@ -937,8 +935,6 @@
   "collection.page.browse.recent.empty": "No items to show",
 
   "collection.page.edit": "Edit this collection",
-
-  "collection.page.bulk-import": "Import items into this collection",
 
   "collection.page.export": "Export items from this collection",
 
@@ -1127,6 +1123,37 @@
 
   "community.sub-community-list.head": "Communities of this Community",
 
+  "context-menu.actions": "Actions",
+
+  "context-menu.actions.audit-item.btn": "Audit",
+
+  "context-menu.actions.bulk-import.btn": "Import items into collection",
+
+  "context-menu.actions.export-item.btn": "Export",
+
+  "context-menu.actions.label": "Options",
+
+  "context-menu.actions.edit-item.btn.FULL": "Edit item",
+
+  "context-menu.actions.request-correction.btn": "Request correction",
+
+  "context-menu.actions.request-correction.confirm.cancel": "Cancel",
+
+  "context-menu.actions.request-correction.confirm.submit": "Yes, I'm sure",
+
+  "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+
+  "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
+
+  "context-menu.actions.request-correction.info": "Are you sure you want to proceed with this operation?",
+
+  "context-menu.actions.request-correction.title": "Request correction",
+
+  "context-menu.actions.dso-page-edit.COMMUNITY.btn": "Administer",
+
+  "context-menu.actions.dso-page-edit.COLLECTION.btn": "Administer",
+
+  "context-menu.actions.dso-page-edit.ITEM.btn": "Administer",
 
   "datafile.listelement.badge": "Data File",
 
@@ -1634,9 +1661,21 @@
 
 
 
+  "item.alerts.private": "This item is private",
+
+  "item.alerts.withdrawn": "This item has been withdrawn",
+
+
+
   "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
 
   "item.edit.authorizations.title": "Edit item's Policies",
+
+
+
+  "item.badge.private": "Private",
+
+  "item.badge.withdrawn": "Withdrawn",
 
 
 
@@ -3355,6 +3394,14 @@
 
   "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
 
+  "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
+
+  "search.filters.applied.charts.graphpubldate.tab" : "Visualization by Date",
+
+  "search.filters.applied.charts.graphpubldateltr.tab" : "Visualization Demo LTR",
+
+  "search.filters.applied.charts.graphpubldatetrl.tab" : "Visualization Demo RTL",
+
   "search.filters.applied.charts.default.title": "Search Output",
 
   "search.filters.applied.charts.RELATION.Person.researchoutputs.title": "Research Output",
@@ -3559,6 +3606,10 @@
 
 
 
+  "sorting.ASC": "Ascending",
+
+  "sorting.DESC": "Descending",
+
   "sorting.dc.title.ASC": "Title Ascending",
 
   "sorting.dc.title.DESC": "Title Descending",
@@ -3652,7 +3703,11 @@
 
   "submission.import-external.search.source.hint": "Pick an external source",
 
+  "submission.import-external.source.ads": "Ads",
+
   "submission.import-external.source.arxiv": "arXiv",
+
+  "submission.import-external.source.cinii": "Cinii",
 
   "submission.import-external.source.crossref": "CrossRef",
 
@@ -3665,6 +3720,8 @@
   "submission.import-external.source.orcid": "ORCID",
 
   "submission.import-external.source.pubmed": "Pubmed",
+
+  "submission.import-external.source.pubmedeu": "Pubmed EU",
 
   "submission.import-external.source.lcname": "Library of Congress Names",
 

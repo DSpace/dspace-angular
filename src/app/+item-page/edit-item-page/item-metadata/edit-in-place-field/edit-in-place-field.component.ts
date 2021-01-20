@@ -1,10 +1,13 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { metadataFieldsToString } from '../../../../core/shared/operators';
+import {
+  metadataFieldsToString,
+  getFirstSucceededRemoteData
+} from '../../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { cloneDeep } from 'lodash';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -124,10 +127,10 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   findMetadataFieldSuggestions(query: string) {
     if (isNotEmpty(query)) {
-      return this.registryService.queryMetadataFields(query, null, followLink('schema')).pipe(
+      return this.registryService.queryMetadataFields(query, null, false, followLink('schema')).pipe(
+        getFirstSucceededRemoteData(),
         metadataFieldsToString(),
-        take(1))
-        .subscribe((fieldNames: string[]) => {
+      ).subscribe((fieldNames: string[]) => {
           this.setInputSuggestions(fieldNames);
         })
     } else {

@@ -4,7 +4,7 @@ import { concat, distinctUntilChanged, map, multicast, startWith, take, takeWhil
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list';
+import { PaginatedList } from './paginated-list.model';
 import { SearchResult } from '../../shared/search/search-result.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';

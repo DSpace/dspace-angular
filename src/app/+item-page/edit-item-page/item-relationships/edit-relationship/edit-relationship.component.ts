@@ -9,7 +9,7 @@ import {
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { Item } from '../../../../core/shared/item.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -81,12 +81,12 @@ export class EditRelationshipComponent implements OnChanges {
   ngOnChanges(): void {
     if (this.relationship) {
       this.leftItem$ = this.relationship.leftItem.pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
       );
       this.rightItem$ = this.relationship.rightItem.pipe(
-        getSucceededRemoteData(),
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
       );

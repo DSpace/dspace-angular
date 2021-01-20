@@ -12,7 +12,7 @@ import { CrisLayoutDefaultComponent } from './default-layout/cris-layout-default
 import { CrisLayoutLoaderDirective } from './directives/cris-layout-loader.directive';
 import { LayoutPage } from './enums/layout-page.enum';
 import { Item } from '../core/shared/item.model';
-import { spyOnExported } from '../shared/testing/utils.test';
+import { createPaginatedList, spyOnExported } from '../shared/testing/utils.test';
 import * as CrisLayoutDecorators from './decorators/cris-layout-page.decorator';
 import { TabDataService } from '../core/layout/tab-data.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
@@ -22,8 +22,6 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { AuthService } from '../core/auth/auth.service';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { tabs } from '../shared/testing/tab.mock';
-import { PageInfo } from '../core/shared/page-info.model';
-import { PaginatedList } from '../core/data/paginated-list';
 
 const testType = LayoutPage.DEFAULT;
 
@@ -105,9 +103,7 @@ describe('CrisPageLoaderComponent', () => {
     component.item = mockItem;
     spyOnExported(CrisLayoutDecorators, 'getCrisLayoutPage').and.returnValue(CrisLayoutDefaultComponent);
     tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
-      a: createSuccessfulRemoteDataObject(
-        new PaginatedList(new PageInfo(), tabs)
-      )
+      a: createSuccessfulRemoteDataObject(createPaginatedList(tabs))
     }));
     editItemDataServiceMock.findById.and.returnValue(cold('a|', {
       a: createSuccessfulRemoteDataObject(

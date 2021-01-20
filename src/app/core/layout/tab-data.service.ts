@@ -15,7 +15,7 @@ import { dataService } from '../cache/builders/build-decorators';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { PaginatedList } from '../data/paginated-list';
+import { PaginatedList } from '../data/paginated-list.model';
 import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';

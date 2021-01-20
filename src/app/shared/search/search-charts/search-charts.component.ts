@@ -5,10 +5,10 @@ import { map, switchMap, tap } from 'rxjs/operators';
 
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { RemoteData } from '../../../core/data/remote-data';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterConfig } from '../search-filter-config.model';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-charts',
@@ -62,11 +62,11 @@ export class SearchChartsComponent implements OnInit {
         switchMap((options) =>
           this.searchService
             .getConfig(options.scope, options.configuration)
-            .pipe(getSucceededRemoteData())
+            .pipe(getFirstSucceededRemoteData())
         ),
         map((rd: RemoteData<SearchFilterConfig[]>) => Object.assign(rd, {
           payload: rd.payload.filter((filter: SearchFilterConfig) =>
-            this.chartReg.test(filter.type)
+            this.chartReg.test(filter.filterType)
           )})
         ),
         tap((rd: RemoteData<SearchFilterConfig[]>) => {

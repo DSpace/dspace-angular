@@ -7,10 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../../../core/cache/response.models';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -18,6 +15,12 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemMoveComponent } from './item-move.component';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 describe('ItemMoveComponent', () => {
   let comp: ItemMoveComponent;
@@ -34,22 +37,6 @@ describe('ItemMoveComponent', () => {
     url: `${itemPageUrl}/edit`
   });
 
-  const mockItemDataService = jasmine.createSpyObj({
-    moveToCollection: observableOf(new RestResponse(true, 200, 'Success'))
-  });
-
-  const mockItemDataServiceFail = jasmine.createSpyObj({
-    moveToCollection: observableOf(new RestResponse(false, 500, 'Internal server error'))
-  });
-
-  const routeStub = {
-    data: observableOf({
-      dso: new RemoteData(false, false, true, null, {
-        id: 'item1'
-      })
-    })
-  };
-
   const collection1 = Object.assign(new Collection(), {
     uuid: 'collection-uuid-1',
     name: 'Test collection 1'
@@ -60,18 +47,33 @@ describe('ItemMoveComponent', () => {
     name: 'Test collection 2'
   });
 
+  const mockItemDataService = jasmine.createSpyObj({
+    moveToCollection: createSuccessfulRemoteDataObject$(collection1)
+  });
+
+  const mockItemDataServiceFail = jasmine.createSpyObj({
+    moveToCollection: createFailedRemoteDataObject$('Internal server error', 500)
+  });
+
+  const routeStub = {
+    data: observableOf({
+      dso: createSuccessfulRemoteDataObject({
+        id: 'item1'
+      })
+    })
+  };
+
   const mockSearchService = {
     search: () => {
-      return observableOf(new RemoteData(false, false, true, null,
-        new PaginatedList(null, [
-          {
-            indexableObject: collection1,
-            hitHighlights: {}
-          }, {
-            indexableObject: collection2,
-            hitHighlights: {}
-          }
-        ])));
+      return createSuccessfulRemoteDataObject$(createPaginatedList([
+        {
+          indexableObject: collection1,
+          hitHighlights: {}
+        }, {
+          indexableObject: collection2,
+          hitHighlights: {}
+        }
+      ]));
     }
   };
 

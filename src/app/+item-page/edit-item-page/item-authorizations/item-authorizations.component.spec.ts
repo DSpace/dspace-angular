@@ -2,21 +2,18 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-
 import { ItemAuthorizationsComponent } from './item-authorizations.component';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
-import { createMockRDPaginatedObs } from '../item-bitstreams/item-bitstreams.component.spec';
 import { Item } from '../../../core/shared/item.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createPaginatedList, createTestComponent } from '../../../shared/testing/utils.test';
+import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 
 describe('ItemAuthorizationsComponent test suite', () => {
@@ -49,7 +46,7 @@ describe('ItemAuthorizationsComponent test suite', () => {
     _links: {
       self: { href: 'bundle1-selflink' }
     },
-    bitstreams: createMockRDPaginatedObs([bitstream1, bitstream2])
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
   });
   const bundle2 = Object.assign(new Bundle(), {
     id: 'bundle2',
@@ -57,11 +54,11 @@ describe('ItemAuthorizationsComponent test suite', () => {
     _links: {
       self: { href: 'bundle2-selflink' }
     },
-    bitstreams: createMockRDPaginatedObs([bitstream3, bitstream4])
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4]))
   });
   const bundles = [bundle1, bundle2];
-  const bitstreamList1: PaginatedList<Bitstream> = new PaginatedList(new PageInfo(), [bitstream1, bitstream2]);
-  const bitstreamList2: PaginatedList<Bitstream> = new PaginatedList(new PageInfo(), [bitstream3, bitstream4]);
+  const bitstreamList1: PaginatedList<Bitstream> = buildPaginatedList(new PageInfo(), [bitstream1, bitstream2]);
+  const bitstreamList2: PaginatedList<Bitstream> = buildPaginatedList(new PageInfo(), [bitstream3, bitstream4]);
 
   const item = Object.assign(new Item(), {
     uuid: 'item',
@@ -69,7 +66,7 @@ describe('ItemAuthorizationsComponent test suite', () => {
     _links: {
       self: { href: 'item-selflink' }
     },
-    bundles: createMockRDPaginatedObs([bundle1, bundle2])
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle1, bundle2]))
   });
 
   const routeStub = {

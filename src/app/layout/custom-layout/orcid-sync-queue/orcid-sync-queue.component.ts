@@ -7,7 +7,7 @@ import { LayoutBox } from '../../enums/layout-box.enum';
 import { OrcidQueueService } from 'src/app/core/orcid/orcid-queue.service';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { PaginatedList } from 'src/app/core/data/paginated-list';
+import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { OrcidQueue } from 'src/app/core/orcid/model/orcid-queue.model';
 import { hasValue } from 'src/app/shared/empty.util';
 import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
@@ -100,7 +100,7 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
   deleteEntry(orcidQueue: OrcidQueue) {
     this.subs.push(this.orcidQueueService.deleteById(orcidQueue.id)
       .subscribe((restResponse) => {
-        if (restResponse.isSuccessful) {
+        if (restResponse.isSuccess) {
           this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.delete.success'));
           this.updateList();
         } else {

@@ -3,13 +3,12 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { of as observableOf } from 'rxjs';
 
 import { CollectionSelectorComponent } from './collection-selector.component';
-import { RemoteData } from '../../core/data/remote-data';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 const community: Community = Object.assign(new Community(), {
   id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
@@ -26,9 +25,7 @@ const collection: Collection = Object.assign(new Collection(), {
       language: 'en_US',
       value: 'Community 1-Collection 1'
     }],
-  parentCommunity: observableOf(
-    new RemoteData(false, false, true, undefined, community, 200)
-  )
+  parentCommunity: createSuccessfulRemoteDataObject$(community)
 });
 
 describe('CollectionSelectorComponent', () => {

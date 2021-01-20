@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { ErrorResponse, RestResponse } from '../../core/cache/response.models';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Observable } from 'rxjs';
@@ -10,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core/core.reducers';
+import { RemoteData } from '../../core/data/remote-data';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 
 @Component({
   selector: 'ds-forgot-password-form',
@@ -68,8 +69,8 @@ export class ForgotPasswordFormComponent {
    */
   submit() {
     if (!this.isInValid) {
-      this.ePersonDataService.patchPasswordWithToken(this.user, this.token, this.password).subscribe((response: RestResponse) => {
-        if (response.isSuccessful) {
+      this.ePersonDataService.patchPasswordWithToken(this.user, this.token, this.password).subscribe((response: RemoteData<EPerson>) => {
+        if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.title'),
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.content')
@@ -78,7 +79,7 @@ export class ForgotPasswordFormComponent {
           this.router.navigate(['/home']);
         } else {
           this.notificationsService.error(
-            this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.error.title'), (response as ErrorResponse).errorMessage
+            this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.error.title'), response.errorMessage
           );
         }
       });

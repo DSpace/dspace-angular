@@ -8,17 +8,20 @@ import { SharedModule } from '../../shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RequestService } from '../../../core/data/request.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
+import {
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$
+} from '../../remote-data.utils';
 
 describe('DeleteComColPageComponent', () => {
-  let comp: DeleteComColPageComponent<DSpaceObject>;
-  let fixture: ComponentFixture<DeleteComColPageComponent<DSpaceObject>>;
+  let comp: DeleteComColPageComponent<any>;
+  let fixture: ComponentFixture<DeleteComColPageComponent<any>>;
   let dsoDataService: CommunityDataService;
   let router: Router;
 
@@ -65,7 +68,7 @@ describe('DeleteComColPageComponent', () => {
     dsoDataService = jasmine.createSpyObj(
       'dsoDataService',
       {
-        delete: observableOf({ isSuccessful: true }),
+        delete: createNoContentRemoteDataObject$(),
         findByHref: jasmine.createSpy('findByHref'),
         refreshCache: jasmine.createSpy('refreshCache')
       });
@@ -151,7 +154,7 @@ describe('DeleteComColPageComponent', () => {
     });
 
     it('should show an error notification on failure', () => {
-      (dsoDataService.delete as any).and.returnValue(observableOf({ isSuccessful: false }));
+      (dsoDataService.delete as any).and.returnValue(createFailedRemoteDataObject$('Error', 500));
       spyOn(router, 'navigate');
       scheduler.schedule(() => comp.onConfirm(data2));
       scheduler.flush();

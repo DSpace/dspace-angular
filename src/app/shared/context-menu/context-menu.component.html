@@ -1,0 +1,9 @@
+<div *ngIf="(isAuthenticated | async) && contextMenuObject" ngbDropdown #itemOptions="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
+  <button class="btn btn-outline-primary" id="context-menu" ngbDropdownToggle><i class="fas fa-ellipsis-h" aria-hidden="true"></i></button>
+  <div id="itemOptionsDropdownMenu" aria-labelledby="context-menu" ngbDropdownMenu>
+    <h6 class="dropdown-header">{{'context-menu.actions.label' | translate}}</h6>
+    <ng-container *ngFor="let entry of getContextMenuEntries()">
+      <ng-container *ngComponentOutlet="entry; injector: objectInjector;"></ng-container>
+    </ng-container>
+  </div>
+</div>

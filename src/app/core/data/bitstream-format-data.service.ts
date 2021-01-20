@@ -3,31 +3,28 @@ import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
-import { find, map, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction
 } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { BitstreamFormatRegistryState } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
-import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { BITSTREAM_FORMAT } from '../shared/bitstream-format.resource-type';
 import { Bitstream } from '../shared/bitstream.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { configureRequest, getResponseFromEntry } from '../shared/operators';
+import { configureRequest } from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RemoteData } from './remote-data';
-import { DeleteByIDRequest, PostRequest, PutRequest } from './request.models';
-import { RequestEntry } from './request.reducer';
+import { PostRequest, PutRequest } from './request.models';
 import { RequestService } from './request.service';
 
 const bitstreamFormatsStateSelector = createSelector(
@@ -79,7 +76,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
    * Update an existing bitstreamFormat
    * @param bitstreamFormat
    */
-  updateBitstreamFormat(bitstreamFormat: BitstreamFormat): Observable<RestResponse> {
+  updateBitstreamFormat(bitstreamFormat: BitstreamFormat): Observable<RemoteData<BitstreamFormat>> {
     const requestId = this.requestService.generateRequestId();
 
     this.getUpdateEndpoint(bitstreamFormat.id).pipe(
@@ -88,9 +85,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
         new PutRequest(requestId, endpointURL, bitstreamFormat)),
       configureRequest(this.requestService)).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      getResponseFromEntry()
-    );
+    return this.rdbService.buildFromRequestUUID(requestId);
 
   }
 
@@ -98,7 +93,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
    * Create a new BitstreamFormat
    * @param {BitstreamFormat} bitstreamFormat
    */
-  public createBitstreamFormat(bitstreamFormat: BitstreamFormat): Observable<RestResponse> {
+  public createBitstreamFormat(bitstreamFormat: BitstreamFormat): Observable<RemoteData<BitstreamFormat>> {
     const requestId = this.requestService.generateRequestId();
 
     this.getCreateEndpoint().pipe(
@@ -108,9 +103,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
       configureRequest(this.requestService)
     ).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      getResponseFromEntry()
-    );
+    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
   /**
@@ -150,31 +143,6 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
    */
   public deselectAllBitstreamFormats() {
     this.store.dispatch(new BitstreamFormatsRegistryDeselectAllAction());
-  }
-
-  /**
-   * Delete an existing DSpace Object on the server
-   * @param formatID The DSpace Object'id to be removed
-   * @return the RestResponse as an Observable
-   */
-  delete(formatID: string): Observable<RestResponse> {
-    const requestId = this.requestService.generateRequestId();
-
-    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, formatID)));
-
-    hrefObs.pipe(
-      find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new DeleteByIDRequest(requestId, href, formatID);
-        this.requestService.configure(request);
-      })
-    ).subscribe();
-
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response)
-    );
   }
 
   findByBitstream(bitstream: Bitstream): Observable<RemoteData<BitstreamFormat>> {

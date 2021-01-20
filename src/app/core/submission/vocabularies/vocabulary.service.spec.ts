@@ -9,10 +9,9 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { RequestService } from '../../data/request.service';
-import { VocabularyEntriesRequest } from '../../data/request.models';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { PageInfo } from '../../shared/page-info.model';
-import { PaginatedList } from '../../data/paginated-list';
+import { PaginatedList, buildPaginatedList } from '../../data/paginated-list.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RequestEntry } from '../../data/request.reducer';
 import { RestResponse } from '../../cache/response.models';
@@ -21,6 +20,7 @@ import { getMockRequestService } from '../../../shared/mocks/request.service.moc
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { VocabularyOptions } from './models/vocabulary-options.model';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
+import { GetRequest } from '../../data/request.models';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;
@@ -183,9 +183,9 @@ describe('VocabularyService', () => {
   const array = [vocabulary, hierarchicalVocabulary];
   const arrayEntries = [vocabularyEntry, vocabularyEntry2, vocabularyEntry3];
   const childrenEntries = [vocabularyEntryChildDetail, vocabularyEntryChild2Detail];
-  const paginatedList = new PaginatedList(pageInfo, array);
-  const paginatedListEntries = new PaginatedList(pageInfo, arrayEntries);
-  const childrenPaginatedList = new PaginatedList(pageInfo, childrenEntries);
+  const paginatedList = buildPaginatedList(pageInfo, array);
+  const paginatedListEntries = buildPaginatedList(pageInfo, arrayEntries);
+  const childrenPaginatedList = buildPaginatedList(pageInfo, childrenEntries);
   const vocabularyRD = createSuccessfulRemoteDataObject(vocabulary);
   const vocabularyRD$ = createSuccessfulRemoteDataObject$(vocabulary);
   const vocabularyEntriesRD = createSuccessfulRemoteDataObject$(paginatedListEntries);
@@ -233,7 +233,6 @@ describe('VocabularyService', () => {
       beforeEach(() => {
         responseCacheEntry = new RequestEntry();
         responseCacheEntry.request = { href: 'https://rest.api/' } as any;
-        responseCacheEntry.completed = true;
         responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
         requestService = jasmine.createSpyObj('requestService', {
@@ -271,7 +270,7 @@ describe('VocabularyService', () => {
           scheduler.schedule(() => service.findVocabularyById(vocabularyId));
           scheduler.flush();
 
-          expect((service as any).vocabularyDataService.findById).toHaveBeenCalledWith(vocabularyId);
+          expect((service as any).vocabularyDataService.findById).toHaveBeenCalledWith(vocabularyId, true);
         });
 
         it('should return a RemoteData<Vocabulary> for the object with the given id', () => {
@@ -288,7 +287,7 @@ describe('VocabularyService', () => {
           scheduler.schedule(() => service.findVocabularyByHref(requestURL));
           scheduler.flush();
 
-          expect((service as any).vocabularyDataService.findByHref).toHaveBeenCalledWith(requestURL);
+          expect((service as any).vocabularyDataService.findByHref).toHaveBeenCalledWith(requestURL, true);
         });
 
         it('should return a RemoteData<Vocabulary> for the object with the given URL', () => {
@@ -341,7 +340,7 @@ describe('VocabularyService', () => {
       beforeEach(() => {
         requestService = getMockRequestService(getRequestEntries$(true));
         rdbService = getMockRemoteDataBuildService(undefined, vocabularyEntriesRD);
-        spyOn(rdbService, 'toRemoteDataObservable').and.callThrough();
+        spyOn(rdbService, 'buildList').and.callThrough();
         service = initTestService();
         spyOn(service, 'findVocabularyById').and.returnValue(vocabularyRD$);
       });
@@ -349,7 +348,7 @@ describe('VocabularyService', () => {
       describe('getVocabularyEntries', () => {
 
         it('should configure a new VocabularyEntriesRequest', () => {
-          const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesRequestURL);
+          const expected = new GetRequest(requestService.generateRequestId(), entriesRequestURL);
 
           scheduler.schedule(() => service.getVocabularyEntries(vocabularyOptions, pageInfo).subscribe());
           scheduler.flush();
@@ -361,14 +360,14 @@ describe('VocabularyService', () => {
           scheduler.schedule(() => service.getVocabularyEntries(vocabularyOptions, pageInfo));
           scheduler.flush();
 
-          expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
+          expect(rdbService.buildList).toHaveBeenCalled();
         });
       });
 
       describe('getVocabularyEntriesByValue', () => {
 
         it('should configure a new VocabularyEntriesRequest', () => {
-          const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entriesByValueRequestURL);
+          const expected = new GetRequest(requestService.generateRequestId(), entriesByValueRequestURL);
 
           scheduler.schedule(() => service.getVocabularyEntriesByValue('test', false, vocabularyOptions, pageInfo).subscribe());
           scheduler.flush();
@@ -380,7 +379,7 @@ describe('VocabularyService', () => {
           scheduler.schedule(() => service.getVocabularyEntriesByValue('test', false, vocabularyOptions, pageInfo));
           scheduler.flush();
 
-          expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
+          expect(rdbService.buildList).toHaveBeenCalled();
 
         });
       });
@@ -388,7 +387,7 @@ describe('VocabularyService', () => {
       describe('getVocabularyEntryByValue', () => {
 
         it('should configure a new VocabularyEntriesRequest', () => {
-          const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entryByValueRequestURL);
+          const expected = new GetRequest(requestService.generateRequestId(), entryByValueRequestURL);
 
           scheduler.schedule(() => service.getVocabularyEntryByValue('test', vocabularyOptions).subscribe());
           scheduler.flush();
@@ -400,14 +399,14 @@ describe('VocabularyService', () => {
           scheduler.schedule(() => service.getVocabularyEntryByValue('test', vocabularyOptions));
           scheduler.flush();
 
-          expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
+          expect(rdbService.buildList).toHaveBeenCalled();
 
         });
       });
 
       describe('getVocabularyEntryByID', () => {
         it('should configure a new VocabularyEntriesRequest', () => {
-          const expected = new VocabularyEntriesRequest(requestService.generateRequestId(), entryByIDRequestURL);
+          const expected = new GetRequest(requestService.generateRequestId(), entryByIDRequestURL);
 
           scheduler.schedule(() => service.getVocabularyEntryByID(entryID, vocabularyOptions).subscribe());
           scheduler.flush();
@@ -419,7 +418,7 @@ describe('VocabularyService', () => {
           scheduler.schedule(() => service.getVocabularyEntryByID('test', vocabularyOptions));
           scheduler.flush();
 
-          expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
+          expect(rdbService.buildList).toHaveBeenCalled();
 
         });
       });
@@ -438,7 +437,6 @@ describe('VocabularyService', () => {
 
       responseCacheEntry = new RequestEntry();
       responseCacheEntry.request = { href: 'https://rest.api/' } as any;
-      responseCacheEntry.completed = true;
       responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
       requestService = jasmine.createSpyObj('requestService', {
@@ -478,7 +476,7 @@ describe('VocabularyService', () => {
         scheduler.schedule(() => service.findEntryDetailByHref(entryDetailRequestURL));
         scheduler.flush();
 
-        expect((service as any).vocabularyEntryDetailDataService.findByHref).toHaveBeenCalledWith(entryDetailRequestURL);
+        expect((service as any).vocabularyEntryDetailDataService.findByHref).toHaveBeenCalledWith(entryDetailRequestURL, true);
       });
 
       it('should return a RemoteData<VocabularyEntryDetail> for the object with the given URL', () => {
@@ -495,7 +493,7 @@ describe('VocabularyService', () => {
         scheduler.schedule(() => service.findEntryDetailById('testValue', hierarchicalVocabulary.id));
         scheduler.flush();
         const expectedId = `${hierarchicalVocabulary.id}:testValue`
-        expect((service as any).vocabularyEntryDetailDataService.findById).toHaveBeenCalledWith(expectedId);
+        expect((service as any).vocabularyEntryDetailDataService.findById).toHaveBeenCalledWith(expectedId, true);
       });
 
       it('should return a RemoteData<VocabularyEntryDetail> for the object with the given id', () => {
@@ -512,7 +510,7 @@ describe('VocabularyService', () => {
         scheduler.schedule(() => service.getEntryDetailParent('testValue', hierarchicalVocabulary.id).subscribe());
         scheduler.flush();
 
-        expect((service as any).vocabularyEntryDetailDataService.findByHref).toHaveBeenCalledWith(entryDetailParentRequestURL);
+        expect((service as any).vocabularyEntryDetailDataService.findByHref).toHaveBeenCalledWith(entryDetailParentRequestURL, true);
       });
 
       it('should return a RemoteData<VocabularyEntryDetail> for the object with the given URL', () => {
@@ -539,7 +537,7 @@ describe('VocabularyService', () => {
         scheduler.schedule(() => service.getEntryDetailChildren('testValue', hierarchicalVocabulary.id, pageInfo).subscribe());
         scheduler.flush();
 
-        expect((service as any).vocabularyEntryDetailDataService.findAllByHref).toHaveBeenCalledWith(entryDetailChildrenRequestURL, options);
+        expect((service as any).vocabularyEntryDetailDataService.findAllByHref).toHaveBeenCalledWith(entryDetailChildrenRequestURL, options, true);
       });
 
       it('should return a RemoteData<PaginatedList<ResourcePolicy>> for the object with the given URL', () => {
@@ -567,7 +565,7 @@ describe('VocabularyService', () => {
         scheduler.schedule(() => service.searchTopEntries('srsc', pageInfo));
         scheduler.flush();
 
-        expect((service as any).vocabularyEntryDetailDataService.searchBy).toHaveBeenCalledWith((service as any).searchTopMethod, options);
+        expect((service as any).vocabularyEntryDetailDataService.searchBy).toHaveBeenCalledWith((service as any).searchTopMethod, options, true);
       });
 
       it('should return a RemoteData<PaginatedList<ResourcePolicy>> for the search', () => {

@@ -1,108 +1,78 @@
-import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { RequestService } from '../data/request.service';
-import { ConfigSuccessResponse } from '../cache/response.models';
-import { ConfigRequest, FindListOptions, RestRequest } from '../data/request.models';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ConfigData } from './config-data';
-import { getResponseFromEntry } from '../shared/operators';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ConfigObject } from './models/config.model';
+import { RemoteData } from '../data/remote-data';
+import { DataService } from '../data/data.service';
+import { Store } from '@ngrx/store';
+import { CoreState } from '../core.reducers';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { map } from 'rxjs/operators';
+import { FindListOptions } from '../data/request.models';
+import { PaginatedList } from '../data/paginated-list.model';
 
+class DataServiceImpl extends DataService<ConfigObject> {
+  constructor(
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DefaultChangeAnalyzer<ConfigObject>,
+    protected linkPath: string
+  ) {
+    super();
+  }
+}
+
+// tslint:disable-next-line:max-classes-per-file
 export abstract class ConfigService {
-  protected request: ConfigRequest;
-  protected abstract requestService: RequestService;
-  protected abstract linkPath: string;
-  protected abstract browseEndpoint: string;
-  protected abstract halService: HALEndpointService;
+  /**
+   * A private DataService instance to delegate specific methods to.
+   */
+  private dataService: DataServiceImpl;
 
-  protected getConfig(request: RestRequest): Observable<ConfigData> {
-    const responses = this.requestService.getByHref(request.href).pipe(
-      getResponseFromEntry()
+  constructor(
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DefaultChangeAnalyzer<ConfigObject>,
+    protected linkPath: string
+  ) {
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator, this.linkPath);
+  }
+
+  public findByHref(href: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ConfigObject>>): Observable<RemoteData<ConfigObject>> {
+    return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow).pipe(
+      getFirstCompletedRemoteData(),
+      map((rd: RemoteData<ConfigObject>) => {
+        if (rd.hasFailed) {
+          throw new Error(`Couldn't retrieve the config`);
+        } else {
+          return rd;
+        }
+      })
     );
-    const errorResponses = responses.pipe(
-      filter((response) => !response.isSuccessful),
-      mergeMap(() => observableThrowError(new Error(`Couldn't retrieve the config`)))
-    );
-    const successResponses = responses.pipe(
-      filter((response) => response.isSuccessful && isNotEmpty(response) && isNotEmpty((response as ConfigSuccessResponse).configDefinition)),
-      map((response: ConfigSuccessResponse) => new ConfigData(response.pageInfo, response.configDefinition))
-    );
-    return observableMerge(errorResponses, successResponses);
-
   }
 
-  protected getConfigByNameHref(endpoint, resourceName): string {
-    return `${endpoint}/${resourceName}`;
+  findAll(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ConfigObject>>): Observable<RemoteData<PaginatedList<ConfigObject>>> {
+    return this.dataService.findAll(options, reRequestOnStale, ...linksToFollow);
   }
 
-  protected getConfigSearchHref(endpoint, options: FindListOptions = {}): string {
-    let result;
-    const args = [];
-
-    if (hasValue(options.scopeID)) {
-      result = `${endpoint}/${this.browseEndpoint}`;
-      args.push(`uuid=${options.scopeID}`);
-    } else {
-      result = endpoint;
-    }
-
-    if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
-      /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
-      args.push(`page=${options.currentPage - 1}`);
-    }
-
-    if (hasValue(options.elementsPerPage)) {
-      args.push(`size=${options.elementsPerPage}`);
-    }
-
-    if (hasValue(options.sort)) {
-      args.push(`sort=${options.sort.field},${options.sort.direction}`);
-    }
-
-    if (isNotEmpty(args)) {
-      result = `${result}?${args.join('&')}`;
-    }
-    return result;
-  }
-
-  public getConfigAll(options: FindListOptions = {}): Observable<ConfigData> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      filter((href: string) => isNotEmpty(href)),
-      map((href: string) => this.getConfigSearchHref(href, options)),
-      distinctUntilChanged(),
-      map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL)),
-      tap((request: RestRequest) => this.requestService.configure(request)),
-      mergeMap((request: RestRequest) => this.getConfig(request)),
-      distinctUntilChanged());
-  }
-
-  public getConfigByHref(href: string): Observable<ConfigData> {
-    const request = new ConfigRequest(this.requestService.generateRequestId(), href);
-    this.requestService.configure(request);
-
-    return this.getConfig(request);
-  }
-
-  public getConfigByName(name: string): Observable<ConfigData> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getConfigByNameHref(endpoint, name)),
-      filter((href: string) => isNotEmpty(href)),
-      distinctUntilChanged(),
-      map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL)),
-      tap((request: RestRequest) => this.requestService.configure(request)),
-      mergeMap((request: RestRequest) => this.getConfig(request)),
-      distinctUntilChanged());
-  }
-
-  public getConfigBySearch(options: FindListOptions = {}): Observable<ConfigData> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getConfigSearchHref(endpoint, options)),
-      filter((href: string) => isNotEmpty(href)),
-      distinctUntilChanged(),
-      map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL)),
-      tap((request: RestRequest) => this.requestService.configure(request)),
-      mergeMap((request: RestRequest) => this.getConfig(request)),
-      distinctUntilChanged());
+  findByName(name: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ConfigObject>>): Observable<RemoteData<ConfigObject>> {
+    return this.dataService.findById(name, reRequestOnStale, ...linksToFollow);
   }
 
 }

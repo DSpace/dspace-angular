@@ -15,8 +15,8 @@ import { ActionType } from './models/action-type.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PageInfo } from '../shared/page-info.model';
-import { PaginatedList } from '../data/paginated-list';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { PaginatedList, buildPaginatedList } from '../data/paginated-list.model';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RequestEntry } from '../data/request.reducer';
 import { RestResponse } from '../cache/response.models';
 
@@ -84,7 +84,7 @@ describe('ResourcePolicyService', () => {
 
   const pageInfo = new PageInfo();
   const array = [resourcePolicy, anotherResourcePolicy];
-  const paginatedList = new PaginatedList(pageInfo, array);
+  const paginatedList = buildPaginatedList(pageInfo, array);
   const resourcePolicyRD = createSuccessfulRemoteDataObject(resourcePolicy);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
@@ -97,7 +97,6 @@ describe('ResourcePolicyService', () => {
 
     responseCacheEntry = new RequestEntry();
     responseCacheEntry.request = { href: 'https://rest.api/' } as any;
-    responseCacheEntry.completed = true;
     responseCacheEntry.response = new RestResponse(true, 200, 'Success');
 
     requestService = jasmine.createSpyObj('requestService', {
@@ -114,6 +113,9 @@ describe('ResourcePolicyService', () => {
       buildList: hot('a|', {
         a: paginatedListRD
       }),
+      buildFromRequestUUID: hot('a|', {
+        a: resourcePolicyRD
+      })
     });
     objectCache = {} as ObjectCacheService;
     const notificationsService = {} as NotificationsService;
@@ -194,7 +196,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.findById(resourcePolicyId));
       scheduler.flush();
 
-      expect((service as any).dataService.findById).toHaveBeenCalledWith(resourcePolicyId);
+      expect((service as any).dataService.findById).toHaveBeenCalledWith(resourcePolicyId, true);
     });
 
     it('should return a RemoteData<ResourcePolicy> for the object with the given id', () => {
@@ -211,7 +213,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.findByHref(requestURL));
       scheduler.flush();
 
-      expect((service as any).dataService.findByHref).toHaveBeenCalledWith(requestURL);
+      expect((service as any).dataService.findByHref).toHaveBeenCalledWith(requestURL, true);
     });
 
     it('should return a RemoteData<ResourcePolicy> for the object with the given URL', () => {
@@ -230,7 +232,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByEPerson(epersonUUID));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByEPersonMethod, options);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByEPersonMethod, options, true);
     });
 
     it('should proxy the call to dataservice.searchBy with additional search param', () => {
@@ -242,7 +244,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByEPerson(epersonUUID, resourceUUID));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByEPersonMethod, options);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByEPersonMethod, options, true);
     });
 
     it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {
@@ -262,7 +264,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByGroup(groupUUID));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByGroupMethod, options);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByGroupMethod, options, true);
     });
 
     it('should proxy the call to dataservice.searchBy with additional search param', () => {
@@ -274,7 +276,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByGroup(groupUUID, resourceUUID));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByGroupMethod, options);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByGroupMethod, options, true);
     });
 
     it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {
@@ -294,7 +296,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByResource(resourceUUID));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByResourceMethod, options);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByResourceMethod, options, true);
     });
 
     it('should proxy the call to dataservice.searchBy with additional search param', () => {
@@ -307,7 +309,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.searchByResource(resourceUUID, action));
       scheduler.flush();
 
-      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByResourceMethod, options);
+      expect((service as any).dataService.searchBy).toHaveBeenCalledWith((service as any).searchByResourceMethod, options, true);
     });
 
     it('should return a RemoteData<PaginatedList<ResourcePolicy>) for the search', () => {

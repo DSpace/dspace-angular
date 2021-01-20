@@ -5,13 +5,12 @@ import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+import { createPaginatedList, createTestComponent } from '../../../shared/testing/utils.test';
 import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown.component';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
 
@@ -38,7 +37,7 @@ export function getMockEntityTypeService(): EntityTypeService {
     type: new ResourceType('entitytype'),
     _links: undefined
   };
-  const rd$ = createSuccessfulRemoteDataObject$(new PaginatedList(pageInfo, [type1, type2, type3]));
+  const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1, type2, type3]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipTypeImport: rd$,
     hasMoreThanOneAuthorizedImport: observableOf(true)
@@ -54,7 +53,7 @@ export function getMockEmptyEntityTypeService(): EntityTypeService {
     type: new ResourceType('entitytype'),
     _links: undefined
   };
-  const rd$ = createSuccessfulRemoteDataObject$(new PaginatedList(pageInfo, [type1]));
+  const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipTypeImport: rd$,
     hasMoreThanOneAuthorizedImport: observableOf(false)
