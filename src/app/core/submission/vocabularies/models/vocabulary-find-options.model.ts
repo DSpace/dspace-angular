@@ -22,10 +22,10 @@ export class VocabularyFindOptions extends FindListOptions {
 
     const searchParams = [];
     if (isNotEmpty(metadata)) {
-      searchParams.push(new RequestParam('metadata', metadata))
+      searchParams.push(new RequestParam('metadata', metadata));
     }
     if (isNotEmpty(collection)) {
-      searchParams.push(new RequestParam('collection', collection))
+      searchParams.push(new RequestParam('collection', collection));
     }
     if (isNotEmpty(query)) {
       searchParams.push(new RequestParam('query', query));

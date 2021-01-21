@@ -42,8 +42,8 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
 
   protected getInitData(): Observable<ChartSeries[]|ChartData[]> {
     return this.filterValues$.pipe(
-      filter((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => isNotEmpty(rd.payload)),
-      map((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => rd.payload[0]),
+      filter((rd: RemoteData<PaginatedList<FacetValue>[]>) => isNotEmpty(rd.payload)),
+      map((rd: RemoteData<PaginatedList<FacetValue>[]>) => rd.payload[0]),
       map((values: PaginatedList<FacetValue>) => {
         return values.page.map((item) => ({
           name: item.value,

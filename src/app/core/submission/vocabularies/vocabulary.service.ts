@@ -271,13 +271,13 @@ export class VocabularyService {
    * @return {Observable<RemoteData<PaginatedList<Vocabulary>>>}
    *    Return an observable that emits object list
    */
-  searchVocabularyByMetadataAndCollection(vocabularyOptions: VocabularyOptions, ...linksToFollow: Array<FollowLinkConfig<Vocabulary>>): Observable<RemoteData<Vocabulary>> {
+  searchVocabularyByMetadataAndCollection(vocabularyOptions: VocabularyOptions, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<Vocabulary>> {
     const options: VocabularyFindOptions = new VocabularyFindOptions(vocabularyOptions.scope, vocabularyOptions.metadata);
 
     return this.vocabularyDataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options).pipe(
       first((href: string) => hasValue(href)),
-      flatMap((href: string) => this.vocabularyDataService.findByHref(href))
-    )
+      mergeMap((href: string) => this.vocabularyDataService.findByHref(href))
+    );
   }
 
   /**

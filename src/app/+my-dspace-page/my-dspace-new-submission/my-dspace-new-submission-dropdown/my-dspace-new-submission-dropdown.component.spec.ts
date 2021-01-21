@@ -121,11 +121,11 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
       const addDivElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.add'));
       const addDiv = addDivElement.nativeElement;
       expect(addDiv.innerHTML).toBeDefined();
-      const buttonElement: DebugElement = addDivElement.query(By.css('.btn'))
+      const buttonElement: DebugElement = addDivElement.query(By.css('.btn'));
       const button = buttonElement.nativeElement;
       expect(button.innerHTML).toBeDefined();
       const dropdownElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.dropdown-menu'));
-      expect(dropdownElement).toBeNull()
+      expect(dropdownElement).toBeNull();
     }));
   });
 

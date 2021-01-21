@@ -1,13 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { EntityTypeService } from '../../../core/data/entity-type.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { FindListOptions } from '../../../core/data/request.models';
 import { hasValue } from '../../../shared/empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateItemParentSelectorComponent } from 'src/app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { flatMap, map, take } from 'rxjs/operators';
+import { CreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { map, mergeMap, take } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 
@@ -63,7 +62,7 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy
     this.initialized$ = observableOf(false);
     this.moreThanOne$ = this.entityTypeService.hasMoreThanOneAuthorized();
     this.singleEntity$ = this.moreThanOne$.pipe(
-      flatMap((response: boolean) => {
+      mergeMap((response: boolean) => {
         if (!response) {
           const findListOptions: FindListOptions = {
             elementsPerPage: 1,

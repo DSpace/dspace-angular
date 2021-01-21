@@ -38,8 +38,8 @@ export class MetricComponent implements OnInit {
       if (this.metricTypeEnum === MetricTypeEnum.EMBEDDED) {
         this.sanitizedInnerHtml = this.sr.bypassSecurityTrustHtml(this.metric.remark);
         this.metricScriptLoaderService.loadMetricScript(this.metric.metricType).then(() => {
-          console.log('Completing initialization of', this.metric.metricType)
-        })
+          console.log('Completing initialization of', this.metric.metricType);
+        });
       }
     }
   }

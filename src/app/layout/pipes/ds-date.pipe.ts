@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { hasValue } from 'src/app/shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';

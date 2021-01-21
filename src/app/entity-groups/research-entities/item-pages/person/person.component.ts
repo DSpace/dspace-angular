@@ -19,9 +19,9 @@ export class PersonComponent extends ItemComponent {
   getPersonName(): MetadataValue[] {
     let personName: MetadataValue[] = [this.object.firstMetadata('dc.title')];
     if (isNotEmpty(this.object.firstMetadataValue('person.familyName')) && isNotEmpty(this.object.firstMetadataValue('person.givenName'))) {
-      personName = [this.object.firstMetadata('person.familyName'), this.object.firstMetadata('person.givenName')]
+      personName = [this.object.firstMetadata('person.familyName'), this.object.firstMetadata('person.givenName')];
     }
 
-    return personName
+    return personName;
   }
 }

@@ -3,11 +3,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { Subscription } from 'rxjs';
-import { ScriptDataService } from 'src/app/core/data/processes/script-data.service';
-import { SiteDataService } from 'src/app/core/data/site-data.service';
-import { Site } from 'src/app/core/shared/site.model';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { environment } from 'src/environments/environment';
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import { SiteDataService } from '../../core/data/site-data.service';
+import { Site } from '../../core/shared/site.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { environment } from '../../../environments/environment';
 
 /**
  * Component that represents the user agreement edit page for administrators.
@@ -42,8 +42,8 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
         this.userAgreementTexts.set( language.code, {
           languageLabel: language.label,
           text: ''
-        })
-      })
+        });
+      });
 
     this.subs.push(this.siteService.find().subscribe((site) => {
       this.site = site;
@@ -106,7 +106,7 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
           }
         });
       }
-    })
+    });
     return operations;
   }
 

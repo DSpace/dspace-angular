@@ -32,7 +32,7 @@ describe('ComcolPageBrowseByComponent', () => {
   beforeEach(async(() => {
 
     collectionServiceStub = {
-      findById(id: string, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<Collection>> {
+      findById(id: string, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<Collection>> {
         const relationshipTypeValue = new MetadataValue();
         relationshipTypeValue.value = id === orgUnitId ? 'OrgUnit' : 'Publication';
         const collection = Object.assign(new Collection(), {
@@ -42,7 +42,7 @@ describe('ComcolPageBrowseByComponent', () => {
         });
         return createSuccessfulRemoteDataObject$(collection);
       }
-    }
+    };
 
     configurationServiceStub = {
       findByPropertyName(name: string): Observable<RemoteData<ConfigurationProperty>> {
@@ -65,7 +65,7 @@ describe('ComcolPageBrowseByComponent', () => {
           }
         }
       }
-    }
+    };
 
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
@@ -176,4 +176,4 @@ describe('ComcolPageBrowseByComponent', () => {
     expect(navElement).toBeNull();
 
   });
-})
+});

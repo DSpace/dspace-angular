@@ -9,11 +9,13 @@ import { ResourceType } from '../../shared/resource-type';
 export interface Row {
   fields: LayoutField[];
 }
+
 export interface LayoutBitstream {
   bundle: string;
   metadataField: string;
   metadataValue: string;
 }
+
 export interface LayoutField {
   metadata?: string;
   bitstream?: LayoutBitstream;
@@ -53,6 +55,6 @@ export class MetadataComponent extends CacheableObject {
    */
   @deserialize
   _links: {
-      self: HALLink
+    self: HALLink
   };
 }

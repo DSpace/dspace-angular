@@ -1,18 +1,16 @@
 <ngb-accordion [activeIds]="activeIds">
-  <div class="card">
-    <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
-      <ng-template ngbPanelContent>
-        <div class="{{box.style}}">
-          <!-- PRINT ROWS -->
-          <div ds-row
-            *ngFor="let row of metadatacomponents?.rows"
-            [row]="row"
-            [item]="item"
-            [box]="box"
-            class="row">
-          </div>
+  <ngb-panel title="{{box.header | translate}}" id="{{box.shortname}}">
+    <ng-template ngbPanelContent>
+      <div class="{{box.style}}">
+        <!-- PRINT ROWS -->
+        <div ds-row
+          *ngFor="let row of metadatacomponents?.rows"
+          [row]="row"
+          [item]="item"
+          [box]="box"
+          class="row">
         </div>
-      </ng-template>
-    </ngb-panel>
-  </div>
+      </div>
+    </ng-template>
+  </ngb-panel>
 </ngb-accordion>

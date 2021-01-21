@@ -121,20 +121,20 @@ describe('CrisLayoutDefaultComponent', () => {
         editItem
       )
     }));
-    authorizationDataServiceMock.isAuthorized.and.returnValue(observableOf(true))
-    authServiceMock.isAuthenticated.and.returnValue(observableOf(true))
+    authorizationDataServiceMock.isAuthorized.and.returnValue(observableOf(true));
+    authServiceMock.isAuthenticated.and.returnValue(observableOf(true));
   });
 
   afterEach(() => {
     scheduler = null;
     component = null;
-  })
+  });
 
   describe('When the component is rendered with more then one tab', () => {
     beforeEach(() => {
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
         a: createSuccessfulRemoteDataObject(createPaginatedList(tabs))
-      }))
+      }));
     });
 
     it('should init component properly', (done) => {
@@ -189,7 +189,7 @@ describe('CrisLayoutDefaultComponent', () => {
     beforeEach(() => {
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
         a: createSuccessfulRemoteDataObject(createPaginatedList([tabPersonProfile]))
-      }))
+      }));
     });
 
     it('check if sidebar and its control are hidden', (done) => {

@@ -49,7 +49,7 @@ describe('AttachmentComponent', () => {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
     },
-    findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
       return createSuccessfulRemoteDataObject$(createPaginatedList([]));
     },
   };

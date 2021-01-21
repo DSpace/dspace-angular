@@ -34,6 +34,7 @@ export class CrisLayoutDefaultSidebarComponent implements OnChanges {
   constructor(private location: Location) { }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('CrisLayoutDefaultSidebarComponent', changes);
     if (changes.tabs && changes.tabs.currentValue) {
       // Check if the location contains a specific tab to show
       const tks = this.location.path().split('/');

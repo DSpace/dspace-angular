@@ -2,13 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IdentifierComponent } from './identifier.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Item } from 'src/app/core/shared/item.model';
+import { Item } from '../../../../../core/shared/item.model';
 import { of } from 'rxjs';
-import { LayoutField } from 'src/app/core/layout/models/metadata-component.model';
+import { LayoutField } from '../../../../../core/layout/models/metadata-component.model';
 import { By } from '@angular/platform-browser';
-import { ResolverStrategyService } from 'src/app/layout/services/resolver-strategy.service';
+import { ResolverStrategyService } from '../../../../services/resolver-strategy.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 
 describe('IdentifierComponent', () => {
   let component: IdentifierComponent;

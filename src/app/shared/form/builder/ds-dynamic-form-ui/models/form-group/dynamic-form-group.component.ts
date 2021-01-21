@@ -6,7 +6,9 @@ import {
   DynamicFormControlCustomEvent,
   DynamicFormControlEvent,
   DynamicFormControlLayout,
-  DynamicFormGroupModel, DynamicFormLayout,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicTemplateDirective

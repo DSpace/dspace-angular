@@ -8,7 +8,7 @@ import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { isNotEmpty } from '../../../../shared/empty.util';
 
 export interface VocabularyExternalSourceMap {
-  [metadata: string]: string
+  [metadata: string]: string;
 }
 
 /**

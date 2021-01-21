@@ -160,7 +160,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     this.vocabulary$ = this.vocabularyService.findVocabularyById(this.model.vocabularyOptions.name).pipe(
       getFirstSucceededRemoteDataPayload(),
       distinctUntilChanged(),
-    )
+    );
   }
 
   /**
@@ -197,7 +197,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     const currentValue: string = (this.model.value instanceof FormFieldMetadataValueObject
       || this.model.value instanceof VocabularyEntry) ? this.model.value.value : this.model.value;
     const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, authority);
-    this.model.valueUpdates.next(valueWithAuthority);
+    this.model.value = valueWithAuthority;
     this.change.emit(valueWithAuthority);
     setTimeout(() => {
       this.submissionService.dispatchSave(this.model.submissionId);

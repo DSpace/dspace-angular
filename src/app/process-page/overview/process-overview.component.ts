@@ -8,10 +8,10 @@ import { FindListOptions } from '../../core/data/request.models';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { flatMap, map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-process-overview',
@@ -74,14 +74,14 @@ export class ProcessOverviewComponent implements OnInit {
    */
   setProcesses() {
     this.processesRD$ = this.isCurrentUserAdmin().pipe(
-      flatMap((isAdmin) => {
+      mergeMap((isAdmin) => {
         if (isAdmin) {
           return this.processService.findAll(this.config);
         } else {
           return this.processService.searchBy('own', this.config);
         }
       })
-    )
+    );
   }
 
   isCurrentUserAdmin(): Observable<boolean> {

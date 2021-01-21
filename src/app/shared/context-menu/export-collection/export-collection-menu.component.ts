@@ -72,7 +72,7 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
         } else {
           this.notificationService.error(this.translationService.get('collection-export.error'));
         }
-      })
+      });
   }
 
   /**

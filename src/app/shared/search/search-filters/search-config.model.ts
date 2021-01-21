@@ -1,5 +1,5 @@
 import { autoserialize, deserialize } from 'cerialize';
-import { HALLink } from 'src/app/core/shared/hal-link.model';
+import { HALLink } from '../../../core/shared/hal-link.model';
 
 /**
  * The configuration for a search

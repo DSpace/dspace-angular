@@ -4,7 +4,7 @@ import { EditItemMode } from './models/edititem-mode.model';
 import { DataService } from '../data/data.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HttpClient } from '@angular/common/http';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -14,7 +14,7 @@ import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../data/paginated-list.model';
 
 /* tslint:disable:max-classes-per-file */
@@ -61,7 +61,7 @@ export class EditItemModeDataService {
     return this.dataService.findById(boxId.toString());
   }
 
-  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<EditItemMode>>): Observable<RemoteData<PaginatedList<EditItemMode>>> {
+  findByHref(href: string, ...linksToFollow: FollowLinkConfig<EditItemMode>[]): Observable<RemoteData<PaginatedList<EditItemMode>>> {
     return this.dataService.findAllByHref(href);
   }
 }

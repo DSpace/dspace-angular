@@ -36,7 +36,7 @@ export class SubmissionDefinitionsConfigService extends ConfigService {
     super(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator, 'submissiondefinitions');
   }
 
-  findAll(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ConfigObject>>): Observable<RemoteData<PaginatedList<ConfigObject>>> {
+  findAll(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ConfigObject>[]): Observable<RemoteData<PaginatedList<ConfigObject>>> {
     return super.findAll(options, reRequestOnStale, ...linksToFollow);
   }
 }

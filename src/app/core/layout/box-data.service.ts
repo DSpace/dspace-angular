@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { dataService } from '../cache/builders/build-decorators';
@@ -15,7 +15,7 @@ import { BOX } from './models/box.resource-type';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -37,6 +37,7 @@ class DataServiceImpl extends DataService<Box> {
     super();
   }
 }
+
 /**
  * A service responsible for fetching data from the REST API on the boxes endpoint
  */
@@ -55,8 +56,8 @@ export class BoxDataService {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<Box>) {
-      this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
-    }
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+  }
 
   /**
    * Provide detailed information about a specific box.
@@ -74,7 +75,7 @@ export class BoxDataService {
    * @param tabId id of tab
    * @param linkToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByItem(itemUuid: string, tabId: number, ...linksToFollow: Array<FollowLinkConfig<Box>>): Observable<RemoteData<PaginatedList<Box>>> {
+  findByItem(itemUuid: string, tabId: number, ...linksToFollow: FollowLinkConfig<Box>[]): Observable<RemoteData<PaginatedList<Box>>> {
     const options = new FindListOptions();
     options.searchParams = [
       new RequestParam('uuid', itemUuid),
@@ -89,9 +90,9 @@ export class BoxDataService {
    * @param entityType label of entity type
    * @param linkToFollow List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByEntityType(entityType: string, ...linksToFollow: Array<FollowLinkConfig<Box>>): Observable<RemoteData<PaginatedList<Box>>> {
+  findByEntityType(entityType: string, ...linksToFollow: FollowLinkConfig<Box>[]): Observable<RemoteData<PaginatedList<Box>>> {
     const options = new FindListOptions();
-    options.searchParams = [new RequestParam('type', entityType)]
+    options.searchParams = [new RequestParam('type', entityType)];
     return this.dataService.searchBy(this.searchFindByEntityType, options, true, ...linksToFollow);
   }
 }

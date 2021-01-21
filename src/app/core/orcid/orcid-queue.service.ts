@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { Injectable } from '@angular/core';
@@ -19,8 +19,7 @@ import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RequestParam } from '../cache/models/request-param.model';
-import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
-import { RestResponse } from '../cache/response.models';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { tap } from 'rxjs/operators';
 import { NoContent } from '../shared/NoContent.model';
 
@@ -77,7 +76,7 @@ export class OrcidQueueService {
       elementsPerPage: paginationOptions.pageSize,
       currentPage: paginationOptions.currentPage
     }).pipe(tap((result) => {
-      this.requestService.removeByHrefSubstring(this.dataService.linkPath + '/search/findByOwner')
+      this.requestService.removeByHrefSubstring(this.dataService.linkPath + '/search/findByOwner');
     }));
   }
 

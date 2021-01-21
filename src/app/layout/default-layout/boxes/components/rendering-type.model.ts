@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { hasValue } from '../../../../shared/empty.util';
 import { Item } from '../../../../core/shared/item.model';
@@ -8,7 +8,10 @@ import { LayoutField } from '../../../../core/layout/models/metadata-component.m
  * This class defines the basic model to extends for create a new
  * field render component
  */
-export class RenderingTypeModel {
+@Component({
+  template: ''
+})
+export abstract class RenderingTypeModelComponent {
 
   /**
    * Current DSpace item

@@ -145,7 +145,7 @@ describe('VocabularyExternalSourceComponent', () => {
     });
 
     it('should init component properly', () => {
-      const expectedMedata = Metadata.toViewModelList(externalEntry.metadata)
+      const expectedMedata = Metadata.toViewModelList(externalEntry.metadata);
       scheduler.schedule(() => component.ngOnInit());
       scheduler.flush();
 

@@ -76,7 +76,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
       ).subscribe((rd) => {
         this.object = rd.payload;
         this.setAudits();
-      })
+      });
 
     });
   }
@@ -101,7 +101,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
       flatMap((isAdmin) => {
         return this.auditService.findByObject(this.object.id, this.config);
       })
-    )
+    );
   }
 
   isCurrentUserAdmin(): Observable<boolean> {

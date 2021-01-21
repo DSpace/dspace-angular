@@ -59,7 +59,7 @@ describe('CrisrefComponent', () => {
       if (id === '1') {
         return createSuccessfulRemoteDataObject$(testPerson);
       } else {
-        return createSuccessfulRemoteDataObject$(testOrgunit)
+        return createSuccessfulRemoteDataObject$(testOrgunit);
       }
     }
   });

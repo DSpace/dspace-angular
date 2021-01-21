@@ -117,9 +117,9 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
   getPersonName(): string {
     let personName = this.dso.name;
     if (isNotEmpty(this.firstMetadataValue('person.familyName')) && isNotEmpty(this.firstMetadataValue('person.givenName'))) {
-      personName = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName')
+      personName = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
     }
 
-    return personName
+    return personName;
   }
 }

@@ -69,4 +69,4 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     id: 'license',
     name: 'dc.rights.license',
   })
-]
+];

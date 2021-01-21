@@ -110,8 +110,8 @@ describe('CrisPageLoaderComponent', () => {
         editItem
       )
     }));
-    authorizationDataServiceMock.isAuthorized.and.returnValue(observableOf(true))
-    authServiceMock.isAuthenticated.and.returnValue(observableOf(true))
+    authorizationDataServiceMock.isAuthorized.and.returnValue(observableOf(true));
+    authServiceMock.isAuthenticated.and.returnValue(observableOf(true));
     fixture.detectChanges();
   });
 
@@ -119,6 +119,6 @@ describe('CrisPageLoaderComponent', () => {
     it('should call the getCrisLayoutPage function with the right types', (done) => {
       expect(CrisLayoutDecorators.getCrisLayoutPage).toHaveBeenCalledWith(mockItem);
       done();
-    })
+    });
   });
 });

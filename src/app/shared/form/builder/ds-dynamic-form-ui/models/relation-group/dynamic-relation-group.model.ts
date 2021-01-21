@@ -40,8 +40,7 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
     this.scopeUUID = config.scopeUUID;
     this.submissionScope = config.submissionScope;
     this.isInlineGroup = config.isInlineGroup;
-    const value = config.value || [];
-    this.value = value;
+    this.value = config.value || [];
   }
 
 /*  get value() {

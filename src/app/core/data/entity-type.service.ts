@@ -136,7 +136,7 @@ export class EntityTypeService extends DataService<ItemType> {
    * @param entityTypeId
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  getEntityTypeRelationships(entityTypeId: string, ...linksToFollow: Array<FollowLinkConfig<RelationshipType>>): Observable<RemoteData<PaginatedList<RelationshipType>>> {
+  getEntityTypeRelationships(entityTypeId: string, ...linksToFollow: FollowLinkConfig<RelationshipType>[]): Observable<RemoteData<PaginatedList<RelationshipType>>> {
 
     const href$ = this.getRelationshipTypesEndpoint(entityTypeId);
 

@@ -161,7 +161,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (hasAuthMethodRendering(authMethodModel.authMethodType)) {
           authMethodModels.push(authMethodModel);
         }
-      })
+      });
 
       // make sure the email + password login component gets rendered first
       authMethodModels = this.sortAuthMethods(authMethodModels);

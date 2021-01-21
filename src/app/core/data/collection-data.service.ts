@@ -105,7 +105,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
     entityType: string,
     options: FindListOptions = {},
     reRequestOnStale = true,
-    ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
+    ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findSubmitAuthorizedByEntityType';
     options = Object.assign({}, options, {
       searchParams: [
@@ -156,7 +156,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
     entityType: string,
     options: FindListOptions = {},
     reRequestOnStale = true,
-    ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
+    ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findSubmitAuthorizedByCommunityAndEntityType';
     const searchParams = [
       new RequestParam('uuid', communityId),

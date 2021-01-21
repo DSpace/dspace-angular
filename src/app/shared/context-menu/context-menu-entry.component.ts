@@ -6,6 +6,9 @@ import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 /**
  * This component renders a context menu option that provides the links to edit item page.
  */
+@Component({
+  template: ''
+})
 export abstract class ContextMenuEntryComponent {
 
   /**
@@ -22,8 +25,8 @@ export abstract class ContextMenuEntryComponent {
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType
   ) {
-    this.contextMenuObject = injectedContextMenuObject
-    this.contextMenuObjectType = injectedContextMenuObjectType
+    this.contextMenuObject = injectedContextMenuObject;
+    this.contextMenuObjectType = injectedContextMenuObjectType;
   }
 
 }

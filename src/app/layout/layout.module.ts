@@ -30,6 +30,26 @@ import { MetricRowComponent } from './default-layout/boxes/components/metric-row
 import { MetricComponent } from './default-layout/boxes/components/metric/metric.component';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 
+const ENTRY_COMPONENTS = [
+  // put only entry components that use custom decorator
+  CrisLayoutDefaultComponent,
+  CrisLayoutDefaultTabComponent,
+  CrisLayoutMetadataBoxComponent,
+  CrisLayoutMetricsBoxComponent,
+  CrisLayoutSearchBoxComponent,
+  TextComponent,
+  HeadingComponent,
+  LongtextComponent,
+  DateComponent,
+  LinkComponent,
+  IdentifierComponent,
+  CrisrefComponent,
+  ThumbnailComponent,
+  AttachmentComponent,
+  OrcidSyncSettingsComponent,
+  OrcidSyncQueueComponent,
+  OrcidAuthorizationsComponent
+];
 @NgModule({
   declarations: [
     CrisLayoutLoaderDirective,
@@ -64,25 +84,6 @@ import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
     MyDSpacePageModule,
     ContextMenuModule
   ],
-  entryComponents: [
-    CrisLayoutDefaultComponent,
-    CrisLayoutDefaultTabComponent,
-    CrisLayoutMetadataBoxComponent,
-    CrisLayoutMetricsBoxComponent,
-    CrisLayoutSearchBoxComponent,
-    TextComponent,
-    HeadingComponent,
-    LongtextComponent,
-    DateComponent,
-    LinkComponent,
-    IdentifierComponent,
-    CrisrefComponent,
-    ThumbnailComponent,
-    AttachmentComponent,
-    OrcidSyncSettingsComponent,
-    OrcidSyncQueueComponent,
-    OrcidAuthorizationsComponent
-  ],
   exports: [
     CrisPageLoaderComponent,
     CrisLayoutDefaultComponent,
@@ -90,4 +91,15 @@ import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
     CrisLayoutMetadataBoxComponent
   ]
 })
-export class LayoutModule { }
+export class LayoutModule {
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: LayoutModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
+}

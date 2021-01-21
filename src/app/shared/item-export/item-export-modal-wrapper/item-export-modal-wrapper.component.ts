@@ -2,8 +2,8 @@ import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { ItemExportFormatMolteplicity } from 'src/app/core/itemexportformat/item-export.service';
-import { Item } from 'src/app/core/shared/item.model';
+import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export.service';
+import { Item } from '../../../core/shared/item.model';
 import { SearchOptions } from '../../search/search-options.model';
 import { ItemExportComponent } from '../item-export/item-export.component';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -28,7 +28,7 @@ export class ItemExportModalWrapperComponent implements OnInit {
   }
 
   getLabel() {
-    return this.item ? 'Export' : 'Bulk Export'
+    return this.item ? 'Export' : 'Bulk Export';
   }
 
   open() {

@@ -2,7 +2,7 @@ import { typedObject } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { SEARCH_COMPONENT } from './search-component.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { autoserialize, deserializeAs, deserialize } from 'cerialize';
+import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { ResourceType } from '../../shared/resource-type';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { HALLink } from '../../shared/hal-link.model';
@@ -43,6 +43,6 @@ export class SearchComponent extends CacheableObject {
    */
   @deserialize
   _links: {
-      self: HALLink,
+    self: HALLink,
   };
 }

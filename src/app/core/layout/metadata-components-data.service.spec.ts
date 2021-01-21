@@ -1,5 +1,3 @@
-import { TestBed } from '@angular/core/testing';
-
 import { MetadataComponentsDataService } from './metadata-components-data.service';
 import { RequestService } from '../data/request.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -8,12 +6,12 @@ import { TestScheduler } from 'rxjs/testing';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestEntry } from '../data/request.reducer';
 import { MetadataComponent } from './models/metadata-component.model';
-import { getTestScheduler, cold, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { RestResponse } from '../cache/response.models';
 import { METADATACOMPONENT } from './models/metadata-component.resource-type';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { of } from 'rxjs';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 
 describe('MetadataComponentsDataService', () => {

@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';

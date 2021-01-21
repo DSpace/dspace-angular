@@ -28,7 +28,6 @@ import { SubmissionModule } from '../submission/submission.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
-import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -66,7 +65,6 @@ const ENTRY_COMPONENTS = [
     UntypedItemComponent,
     ItemComponent,
     UploadBitstreamComponent,
-    TabbedRelatedEntitiesSearchComponent,
     AbstractIncrementalListComponent,
   ]
 })

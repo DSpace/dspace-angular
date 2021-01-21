@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { EPerson } from 'src/app/core/eperson/models/eperson.model';
-import { ResearcherProfile } from 'src/app/core/profile/model/researcher-profile.model';
-import { ResearcherProfileService } from 'src/app/core/profile/researcher-profile.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { ResearcherProfileService } from '../../core/profile/researcher-profile.service';
 
 @Component({
     selector: 'ds-profile-page-researcher-form',

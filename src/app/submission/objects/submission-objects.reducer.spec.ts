@@ -29,23 +29,23 @@ import {
   SaveSubmissionSectionFormAction,
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
-  SectionStatusChangeAction, SubmissionObjectAction,
-  UpdateSectionDataAction,
+  SectionStatusChangeAction,
   SetDuplicateDecisionAction,
-  SetDuplicateDecisionSuccessAction
+  SetDuplicateDecisionSuccessAction,
+  SubmissionObjectAction,
+  UpdateSectionDataAction
 } from './submission-objects.actions';
 import { SectionsType } from '../sections/sections-type';
 import {
+  mockDeduplicationMatches,
   mockSubmissionCollectionId,
   mockSubmissionDefinitionResponse,
   mockSubmissionId,
+  mockSubmissionObject,
   mockSubmissionSelfUrl,
-  mockSubmissionState,
-  mockDeduplicationMatches,
-  mockSubmissionObject
+  mockSubmissionState
 } from '../../shared/mocks/submission.mock';
 import { Item } from '../../core/shared/item.model';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
 describe('submissionReducer test suite', () => {
 
@@ -692,7 +692,7 @@ describe('submissionReducer test suite', () => {
           }
         }
       }
-    }
+    };
 
     const action = new SetDuplicateDecisionSuccessAction(submissionId, 'detect-duplicate', submissionObject as any);
     const newState = submissionObjectReducer(state, action);

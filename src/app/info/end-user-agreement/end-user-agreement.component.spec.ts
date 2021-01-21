@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { LogOutAction, RefreshTokenAndRedirectAction } from '../../core/auth/auth.actions';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { AuthTokenInfo } from 'src/app/core/auth/models/auth-token-info.model';
+import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;

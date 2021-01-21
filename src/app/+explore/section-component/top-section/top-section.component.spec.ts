@@ -65,8 +65,8 @@ describe('TopSectionComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TopSectionComponent);
     component = fixture.componentInstance;
-    searchServiceStub.searchEntries.and.returnValue(createSuccessfulRemoteDataObject$({ page: [firstSearchResult, secondSearchResult] }))
-    searchServiceStub.getSearchLink.and.returnValue('/search')
+    searchServiceStub.searchEntries.and.returnValue(createSuccessfulRemoteDataObject$({ page: [firstSearchResult, secondSearchResult] }));
+    searchServiceStub.getSearchLink.and.returnValue('/search');
     component.sectionId = 'publications';
     component.topSection = {
       discoveryConfigurationName: 'publication',
@@ -74,7 +74,7 @@ describe('TopSectionComponent', () => {
       style: 'col-md-6',
       order: 'desc',
       sortField: 'dc.date.accessioned'
-    }
+    };
 
     fixture.detectChanges();
   });

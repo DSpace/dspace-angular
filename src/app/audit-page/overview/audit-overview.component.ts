@@ -4,12 +4,12 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { FindListOptions } from '../../core/data/request.models';
-import { flatMap } from 'rxjs/operators';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { mergeMap } from 'rxjs/operators';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Audit } from '../../core/audit/model/audit.model';
-import { AuditDataService } from 'src/app/core/audit/audit-data.service';
-import { SortDirection } from 'src/app/core/cache/models/sort-options.model';
+import { AuditDataService } from '../../core/audit/audit-data.service';
+import { SortDirection } from '../../core/cache/models/sort-options.model';
 
 /**
  * Component displaying a list of all audit in a paginated table
@@ -74,12 +74,12 @@ export class AuditOverviewComponent implements OnInit {
    */
   setAudits() {
     this.auditsRD$ = this.isCurrentUserAdmin().pipe(
-      flatMap((isAdmin) => {
+      mergeMap((isAdmin) => {
         if (isAdmin) {
           return this.auditService.findAll(this.config);
         }
       })
-    )
+    );
   }
 
   isCurrentUserAdmin(): Observable<boolean> {

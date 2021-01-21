@@ -241,7 +241,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     const currentValue: string = (model.value instanceof FormFieldMetadataValueObject
       || model.value instanceof VocabularyEntry) ? model.value.value : model.value;
     const valueWithAuthority: any = new FormFieldMetadataValueObject(currentValue, null, authority);
-    model.valueUpdates.next(valueWithAuthority);
+    model.value = valueWithAuthority;
     this.modifyChip();
     setTimeout(() => {
       this.submissionService.dispatchSave(this.model.submissionId);
@@ -320,7 +320,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       // If authority
       this.subs.push(initChipsValue$.pipe(
         mergeMap((valueModel) => {
-          const returnList: Array<Observable<any>> = [];
+          const returnList: Observable<any>[] = [];
           valueModel.forEach((valueObj) => {
             const returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;

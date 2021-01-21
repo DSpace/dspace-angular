@@ -3,9 +3,9 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SearchSection } from 'src/app/core/layout/models/section.model';
-import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
-import { SearchService } from 'src/app/core/shared/search/search.service';
+import { SearchSection } from '../../../core/layout/models/section.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 /**
  * Component representing the Search component section.
@@ -87,7 +87,7 @@ export class SearchSectionComponent implements OnInit {
 
     get queryArray(): FormArray {
         return this.searchForm.get('queryArray') as FormArray;
-    };
+    }
 
     addQueryStatement(): void {
         this.queryArray.push(this.createFormGroup());

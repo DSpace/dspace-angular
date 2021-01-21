@@ -3429,4 +3429,4 @@ export const mockDeduplicationMatches = {
        type: 'item'
     }
   }
-}
+};

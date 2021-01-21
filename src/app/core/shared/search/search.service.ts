@@ -33,7 +33,7 @@ import {
 } from '../operators';
 import { RouteService } from '../../services/route.service';
 import { SearchConfigResponseParsingService } from '../../data/search-config-response-parsing.service';
-import { SearchConfig } from 'src/app/shared/search/search-filters/search-config.model';
+import { SearchConfig } from '../../../shared/search/search-filters/search-config.model';
 import { SearchResult } from '../../../shared/search/search-result.model';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';

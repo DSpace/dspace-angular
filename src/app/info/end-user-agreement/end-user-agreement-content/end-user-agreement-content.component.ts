@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { SiteDataService } from 'src/app/core/data/site-data.service';
-import { LocaleService } from 'src/app/core/locale/locale.service';
+import { SiteDataService } from '../../../core/data/site-data.service';
+import { LocaleService } from '../../../core/locale/locale.service';
 
 @Component({
   selector: 'ds-end-user-agreement-content',

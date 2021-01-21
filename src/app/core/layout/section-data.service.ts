@@ -2,7 +2,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -20,19 +20,19 @@ import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
 
 class DataServiceImpl extends DataService<Section> {
-    protected linkPath = 'sections';
+  protected linkPath = 'sections';
 
-    constructor(
-        protected requestService: RequestService,
-        protected rdbService: RemoteDataBuildService,
-        protected store: Store<CoreState>,
-        protected objectCache: ObjectCacheService,
-        protected halService: HALEndpointService,
-        protected notificationsService: NotificationsService,
-        protected http: HttpClient,
-        protected comparator: ChangeAnalyzer<Section>) {
-        super();
-    }
+  constructor(
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: ChangeAnalyzer<Section>) {
+    super();
+  }
 }
 
 /**
@@ -51,8 +51,8 @@ export class SectionDataService {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<Section>) {
-      this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
-    }
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
+  }
 
   /**
    * Provide detailed information about a specific section.
@@ -66,7 +66,7 @@ export class SectionDataService {
    * Find all the configured sections.
    */
   findAll(): Observable<RemoteData<PaginatedList<Section>>> {
-      return this.dataService.findAll();
+    return this.dataService.findAll();
   }
 
 }

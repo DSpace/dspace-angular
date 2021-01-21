@@ -2,25 +2,25 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrisLayoutMetadataBoxComponent } from './cris-layout-metadata-box.component';
 import { Observable, of } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { MetadataComponent } from 'src/app/core/layout/models/metadata-component.model';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
-import { medataComponent } from 'src/app/shared/testing/metadata-components.mock';
-import { Item } from 'src/app/core/shared/item.model';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { MetadataComponent } from '../../../../core/layout/models/metadata-component.model';
+import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
+import { medataComponent } from '../../../../shared/testing/metadata-components.mock';
+import { Item } from '../../../../core/shared/item.model';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CrisLayoutLoaderDirective } from 'src/app/layout/directives/cris-layout-loader.directive';
+import { CrisLayoutLoaderDirective } from '../../../directives/cris-layout-loader.directive';
 import { RowComponent } from '../components/row/row.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { LayoutPage } from 'src/app/layout/enums/layout-page.enum';
+import { LayoutPage } from '../../../enums/layout-page.enum';
 import { By } from '@angular/platform-browser';
-import { MetadataComponentsDataService } from 'src/app/core/layout/metadata-components-data.service';
-import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
-import { boxMetadata } from 'src/app/shared/testing/box.mock';
+import { MetadataComponentsDataService } from '../../../../core/layout/metadata-components-data.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { boxMetadata } from '../../../../shared/testing/box.mock';
 import { TextComponent } from '../components/text/text.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../../../../shared/shared.module';
 
 const testType = LayoutPage.DEFAULT;
 
@@ -93,6 +93,6 @@ describe('CrisLayoutMetadataBoxComponent', () => {
     const rowsFound = fixture.debugElement.queryAll(By.css('div[ds-row]'));
 
     expect(rowsFound.length).toEqual(2);
-    done()
+    done();
   });
 });

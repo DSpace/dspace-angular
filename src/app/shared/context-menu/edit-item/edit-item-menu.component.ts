@@ -70,7 +70,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
       ),
       startWith([])
     ).subscribe((editModes: EditItemMode[]) => {
-      this.editModes$.next(editModes)
+      this.editModes$.next(editModes);
     });
   }
 

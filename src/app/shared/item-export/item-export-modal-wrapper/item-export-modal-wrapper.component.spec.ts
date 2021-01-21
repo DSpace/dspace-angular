@@ -41,7 +41,7 @@ describe('ItemExportModalWrapperComponent', () => {
     fixture = TestBed.createComponent(ItemExportModalWrapperComponent);
     component = fixture.componentInstance;
     componentAsAny = fixture.componentInstance;
-    componentAsAny.authService.isAuthenticated.and.returnValue(observableOf(true))
+    componentAsAny.authService.isAuthenticated.and.returnValue(observableOf(true));
     fixture.detectChanges();
   });
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { RenderingTypeModel } from '../rendering-type.model';
+import { RenderingTypeModelComponent } from '../rendering-type.model';
 
 /**
  * This component renders the heading metadata fields
@@ -11,6 +11,6 @@ import { RenderingTypeModel } from '../rendering-type.model';
   styleUrls: ['./heading.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRendetingType.HEADING)
-export class HeadingComponent extends RenderingTypeModel {
+export class HeadingComponent extends RenderingTypeModelComponent {
 
 }

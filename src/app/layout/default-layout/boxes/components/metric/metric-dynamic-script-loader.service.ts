@@ -33,7 +33,7 @@ export class MetricDynamicScriptLoaderService {
   }
 
   protected loadScript(name: string): Promise<any> {
-    console.log('Loading script of', name)
+    console.log('Loading script of', name);
     return new Promise((resolve, reject) => {
       if (!this.scripts[name].loaded) {
         // load script

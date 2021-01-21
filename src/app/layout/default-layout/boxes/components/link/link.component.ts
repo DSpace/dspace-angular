@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { FieldRendetingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { RenderingTypeModel } from '../rendering-type.model';
+import { RenderingTypeModelComponent } from '../rendering-type.model';
 import { hasValue } from '../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../models/cris-layout-metadata-link-value.model';
 
@@ -25,7 +25,7 @@ enum TYPES {
   styleUrls: ['./link.component.scss']
 })
 @MetadataBoxFieldRendering(FieldRendetingType.LINK)
-export class LinkComponent extends RenderingTypeModel implements OnInit {
+export class LinkComponent extends RenderingTypeModelComponent implements OnInit {
 
   /**
    * list of identifier values
@@ -41,13 +41,13 @@ export class LinkComponent extends RenderingTypeModel implements OnInit {
     this.metadataValues.forEach((metadataValue) => {
       // If the component has label subtype get the text from translate service
       const linkText = (hasValue(this.subtype) &&
-        this.subtype.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.label) : metadataValue
+        this.subtype.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.label) : metadataValue;
       const link = {
         href: metadataValue,
         text: linkText
       };
       links.push(link);
-    })
+    });
     this.links = links;
   }
 

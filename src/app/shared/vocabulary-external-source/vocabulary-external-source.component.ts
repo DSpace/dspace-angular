@@ -78,7 +78,7 @@ export class VocabularyExternalSourceComponent implements OnInit {
         return this.externalSourceService.getExternalSourceEntryById(
           this.externalSourceIdentifier,
           externalSourceId
-        )
+        );
       }),
       getFinishedRemoteData(),
       catchError((err) => {
@@ -94,7 +94,7 @@ export class VocabularyExternalSourceComponent implements OnInit {
         this.metadataList = [];
       }
       this.loading$.next(false);
-    })
+    });
   }
 
   /**

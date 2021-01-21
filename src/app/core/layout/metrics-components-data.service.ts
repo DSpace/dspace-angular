@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { dataService } from '../cache/builders/build-decorators';
@@ -34,6 +34,7 @@ class DataServiceImpl extends DataService<MetricsComponent> {
     super();
   }
 }
+
 /**
  * A service responsible for fetching data from the REST API on the metadatacomponents endpoint
  */
@@ -51,9 +52,9 @@ export class MetricsComponentsDataService {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<MetricsComponent>) {
-      this.dataService = new DataServiceImpl(requestService, rdbService, null,
-        objectCache, halService, notificationsService, http, comparator);
-    }
+    this.dataService = new DataServiceImpl(requestService, rdbService, null,
+      objectCache, halService, notificationsService, http, comparator);
+  }
 
   /**
    * It provides the configuration for a box that visualize a list of
@@ -95,7 +96,7 @@ export class MetricsComponentsDataService {
     const metrics = itemMetrics
       .filter((metric) => typeMap[metric.metricType])
       .map((metric) => {
-       return { ...metric, position: typeMap[metric.metricType].position};
+        return { ...metric, position: typeMap[metric.metricType].position };
       })
       .sort((metric) => metric.position);
 
@@ -108,7 +109,7 @@ export class MetricsComponentsDataService {
         const i = row * maxColumn + j;
         metricsInRow.push(i < metrics.length ? metrics[i] : null);
       }
-      metricRows.push({metrics: metricsInRow});
+      metricRows.push({ metrics: metricsInRow });
     }
 
     // final result
@@ -132,7 +133,7 @@ const metricMock = {
   startDate: null,
   type: null,
   _links: null
-}
+};
 
 const googleExample = '<a target="_blank" title="" \n' +
   'href="https://scholar.google.com/scholar?as_q=&amp;as_epq=A strong regioregularity effect in self-organizing conjugated polymer films and high-efficiency polythiophene: fullerene solar cells&amp;as_occt=any"\n' +

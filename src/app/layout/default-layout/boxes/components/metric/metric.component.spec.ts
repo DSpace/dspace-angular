@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MetricComponent } from '../metric/metric.component';
+import { MetricComponent } from './metric.component';
 import { metric1Mock } from '../../metrics/cris-layout-metrics-box.component.spec';
 import { By } from '@angular/platform-browser';
 
@@ -39,7 +39,7 @@ describe('MetricComponent', () => {
       const rowsFound = fixture.debugElement.queryAll(By.css('.metric-container'));
 
       expect(rowsFound.length).toEqual(1);
-      done()
+      done();
     });
   });
 });

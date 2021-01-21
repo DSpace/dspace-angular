@@ -108,7 +108,7 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
         } else {
           this.notificationsService.error(this.translationService.get('bulk-import.error'));
         }
-      })
+      });
   }
 
   goBack(): void {

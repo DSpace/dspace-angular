@@ -40,7 +40,7 @@ export class ParserFactory {
           provide: FieldParser,
           useClass: CalendarFieldParser,
           deps: [...fieldParserDeps]
-        }
+        };
       }
       case ParserType.Date: {
         return {
@@ -104,7 +104,7 @@ export class ParserFactory {
           provide: FieldParser,
           useClass: NumberFieldParser,
           deps: [...fieldParserDeps]
-        }
+        };
       }
       case ParserType.Series: {
         return {

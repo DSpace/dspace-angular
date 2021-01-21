@@ -2,9 +2,9 @@ import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, 
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { hasValue } from '../empty.util';
 import { startWith, switchMap, reduce } from 'rxjs/operators';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { FindListOptions } from 'src/app/core/data/request.models';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { FindListOptions } from '../../core/data/request.models';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { EntityTypeService } from '../../core/data/entity-type.service';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
@@ -160,7 +160,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
           }
           return entityType.payload.page;
         }),
-        reduce((acc: any, value: any) => [...acc, ...value], []),
+        reduce((acc: any, value: any) => [...acc, value], []),
         startWith([])
     );
     this.subs.push(

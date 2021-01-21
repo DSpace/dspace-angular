@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { Audit } from 'src/app/core/audit/model/audit.model';
-import { AUDIT } from 'src/app/core/audit/model/audit.resource-type';
+import { Audit } from './model/audit.model';
+import { AUDIT } from './model/audit.resource-type';
 import { map } from 'rxjs/operators';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -25,7 +25,7 @@ import { getFinishedRemoteData, getFirstSucceededRemoteDataPayload } from '../sh
 
 /* tslint:disable:max-classes-per-file */
 
-export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a'
+export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
 
 export const AUDIT_FIND_BY_OBJECT_SEARCH_METHOD = 'findByObject';
 
@@ -85,11 +85,11 @@ export class AuditDataService {
     return this.dataService.searchBy(searchMethod, optionsWithObject, true, followLink('eperson'));
   }
 
-  findById(id: string, ...linksToFollow: Array<FollowLinkConfig<Audit>>): Observable<RemoteData<Audit>> {
+  findById(id: string, ...linksToFollow: FollowLinkConfig<Audit>[]): Observable<RemoteData<Audit>> {
     return this.dataService.findById(id, true, ...linksToFollow);
   }
 
-  findAll(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<Audit>>): Observable<RemoteData<PaginatedList<Audit>>> {
+  findAll(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Audit>[]): Observable<RemoteData<PaginatedList<Audit>>> {
     return this.dataService.findAll(options, true, ...linksToFollow);
   }
 

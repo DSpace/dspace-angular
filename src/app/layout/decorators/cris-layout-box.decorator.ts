@@ -1,8 +1,8 @@
 import { LayoutPage } from '../enums/layout-page.enum';
 import { LayoutTab } from '../enums/layout-tab.enum';
 import { LayoutBox } from '../enums/layout-box.enum';
-import { hasNoValue } from 'src/app/shared/empty.util';
-import { Item } from 'src/app/core/shared/item.model';
+import { hasNoValue } from '../../shared/empty.util';
+import { Item } from '../../core/shared/item.model';
 
 const layoutBoxesMap = new Map();
 const ITEM_METADATA_TYPE = 'relationship.type';
@@ -21,7 +21,7 @@ export function CrisLayoutBox(objectType: LayoutPage, tabName: LayoutTab, boxTyp
     if (hasNoValue(layoutBoxesMap.get(objectType).get(tabName).get(boxType))) {
       layoutBoxesMap.get(objectType).get(tabName).set(boxType, component);
     }
-  }
+  };
 }
 
 export function getCrisLayoutBox(item: Item, tabName: LayoutTab | string, boxType: LayoutBox | string) {

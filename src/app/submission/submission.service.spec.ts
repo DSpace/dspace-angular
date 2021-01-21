@@ -411,7 +411,7 @@ describe('SubmissionService test suite', () => {
     });
 
     it('should create a new submission with entity type', () => {
-      const entityType = 'Publication'
+      const entityType = 'Publication';
       const params = new HttpParams({fromObject: {entityType: entityType}});
       const options: HttpOptions = Object.create({});
       options.params = params;

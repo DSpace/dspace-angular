@@ -2,10 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeadingComponent } from './heading.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Item } from 'src/app/core/shared/item.model';
-import { medataComponent } from 'src/app/shared/testing/metadata-components.mock';
+import { Item } from '../../../../../core/shared/item.model';
+import { medataComponent } from '../../../../../shared/testing/metadata-components.mock';
 import { By } from '@angular/platform-browser';
 
 class TestItem {

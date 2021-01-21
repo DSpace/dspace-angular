@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MetricRowComponent } from './metric-row.component';
@@ -41,7 +41,7 @@ describe('MetricRowComponent', () => {
       const rowsFound = fixture.debugElement.queryAll(By.css('ds-metric'));
 
       expect(rowsFound.length).toEqual(2);
-      done()
+      done();
     });
   });
 });

@@ -94,6 +94,6 @@ describe('CrisLayoutDefaultTabComponent', () => {
     it('should call the getCrisLayoutBox function with the right types', () => {
       component.addBoxes([boxMetadata]);
       expect(CrisLayoutBoxDecorators.getCrisLayoutBox).toHaveBeenCalledWith(new TestItem() as Item, tabPersonTest.shortname, boxMetadata.boxType);
-    })
+    });
   });
 });

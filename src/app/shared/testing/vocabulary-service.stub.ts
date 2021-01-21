@@ -49,7 +49,7 @@ export class VocabularyServiceStub {
     return;
   }
 
-  findEntryDetailById(id: string, name: string, ...linksToFollow: Array<FollowLinkConfig<VocabularyEntryDetail>>): Observable<VocabularyEntry> {
+  findEntryDetailById(id: string, name: string, ...linksToFollow: FollowLinkConfig<VocabularyEntryDetail>[]): Observable<VocabularyEntry> {
     return observableOf(Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 }));
   }
 }

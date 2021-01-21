@@ -1,7 +1,15 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, ComponentRef } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { Box } from '../../../core/layout/models/box.model';
 import { CrisLayoutLoaderDirective } from '../../directives/cris-layout-loader.directive';
-import { CrisLayoutTab as CrisLayoutTabObj } from '../../models/cris-layout-tab.model';
+import { CrisLayoutTabModelComponent as CrisLayoutTabObj } from '../../models/cris-layout-tab.model';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { LayoutTab } from '../../enums/layout-tab.enum';
 import { BoxDataService } from '../../../core/layout/box-data.service';
@@ -12,13 +20,11 @@ import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { Subscription } from 'rxjs';
 import { hasValue } from '../../../shared/empty.util';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
  * This component can be overwritten for a specific Item type using
- * CrisLayoutTab decorator
+ * CrisLayoutTabModelComponent decorator
  */
 @Component({
   selector: 'ds-cris-layout-default-tab',
@@ -36,7 +42,7 @@ export class CrisLayoutDefaultTabComponent extends CrisLayoutTabObj implements O
 
   showLoader: boolean;
 
-  componentRef: Array<ComponentRef<Component>> = [];
+  componentRef: ComponentRef<Component>[] = [];
   /**
    * List of subscriptions
    */

@@ -106,7 +106,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
         map((result: PaginatedList<SubmissionDefinitionModel>) => result.page),
         catchError(() => observableOf([]))
       );
-    combineLatest([])
+    combineLatest([]);
 
     // retrieve all entity types and submission definitions to populate the dropdowns selection
     combineLatest([entities$, definitions$])

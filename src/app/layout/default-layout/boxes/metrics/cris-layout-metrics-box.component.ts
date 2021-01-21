@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { CrisLayoutBox as CrisLayoutBoxObj } from 'src/app/layout/models/cris-layout-box.model';
-import { CrisLayoutBox } from 'src/app/layout/decorators/cris-layout-box.decorator';
-import { LayoutTab } from 'src/app/layout/enums/layout-tab.enum';
-import { LayoutBox } from 'src/app/layout/enums/layout-box.enum';
-import { LayoutPage } from 'src/app/layout/enums/layout-page.enum';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
+import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../../models/cris-layout-box.model';
+import { CrisLayoutBox } from '../../../decorators/cris-layout-box.decorator';
+import { LayoutTab } from '../../../enums/layout-tab.enum';
+import { LayoutBox } from '../../../enums/layout-box.enum';
+import { LayoutPage } from '../../../enums/layout-page.enum';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { Subscription } from 'rxjs';
-import { hasValue } from 'src/app/shared/empty.util';
+import { hasValue } from '../../../../shared/empty.util';
 import { MetricsComponent } from '../../../../core/layout/models/metrics-component.model';
 import { MetricsComponentsDataService } from '../../../../core/layout/metrics-components-data.service';
 import { Metric } from '../../../../core/shared/metric.model';
@@ -26,7 +26,7 @@ export interface MetricRow {
 })
 /**
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and
- * add the CrisLayoutBox decorator indicating the type of box to overwrite
+ * add the CrisLayoutBoxModelComponent decorator indicating the type of box to overwrite
  */
 @CrisLayoutBox(LayoutPage.DEFAULT, LayoutTab.DEFAULT, LayoutBox.METRICS)
 export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements OnInit, OnDestroy {
@@ -70,7 +70,7 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxObj implements O
             this.metricRows = this.metricscomponentsService
               .getMatchingMetrics(result.page, this.box.maxColumns, this.metricscomponents.metrics);
             this.cd.markForCheck();
-          })
+          });
         }
       ));
   }

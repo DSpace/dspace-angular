@@ -280,7 +280,7 @@ export abstract class FieldParser {
     // Set label
     this.setLabel(controlModel, label);
     if (hint) {
-      controlModel.hint = this.configData.hints || '&nbsp;'
+      controlModel.hint = this.configData.hints || '&nbsp;';
     }
     controlModel.placeholder = this.configData.label;
 
@@ -303,7 +303,7 @@ export abstract class FieldParser {
         bindValues.push({
           id: 'dc_type',
           value: value
-        })
+        });
       });
       (controlModel as DsDynamicInputModel).typeBindRelations = [{
         match: MATCH_VISIBLE,

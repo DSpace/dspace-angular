@@ -7,12 +7,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
-import { ScriptDataService } from 'src/app/core/data/processes/script-data.service';
-import { SiteDataService } from 'src/app/core/data/site-data.service';
-import { Site } from 'src/app/core/shared/site.model';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-service.stub';
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import { SiteDataService } from '../../core/data/site-data.service';
+import { Site } from '../../core/shared/site.model';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement.component';
 
 describe('AdminEditUserAgreementComponent', () => {
@@ -45,7 +45,7 @@ describe('AdminEditUserAgreementComponent', () => {
       find(): Observable<Site> {
         return of(site);
       }
-    }
+    };
 
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,

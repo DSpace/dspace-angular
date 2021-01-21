@@ -8,7 +8,7 @@ export enum FieldRendetingType {
   CRISREF = 'CRISREF',
   THUMBNAIL = 'THUMBNAIL',
   ATTACHMENT = 'ATTACHMENT'
-};
+}
 
 const fieldType = new Map();
 
@@ -17,7 +17,7 @@ export function MetadataBoxFieldRendering(objectType: FieldRendetingType) {
     if (objectType) {
       fieldType.set(objectType, component);
     }
-  }
+  };
 }
 
 export function getMetadataBoxFieldRendering(objectType: string) {

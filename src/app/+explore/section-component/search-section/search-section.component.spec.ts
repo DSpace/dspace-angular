@@ -7,11 +7,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
-import { SearchConfig, FilterConfig } from 'src/app/shared/search/search-filters/search-config.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { SearchConfig, FilterConfig } from '../../../shared/search/search-filters/search-config.model';
 import { SearchSectionComponent } from './search-section.component';
 import { Router } from '@angular/router';
 
@@ -51,7 +51,7 @@ describe('SearchSectionComponent', () => {
       getSearchLink(): string {
         return '/search';
       }
-    }
+    };
 
     router = {
       navigate: jasmine.createSpy('navigate')
@@ -84,7 +84,7 @@ describe('SearchSectionComponent', () => {
       discoveryConfigurationName: 'publication',
       componentType: 'search',
       style: 'col-md-8'
-    }
+    };
 
     fixture.detectChanges();
   });

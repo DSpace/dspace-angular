@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { CrisLayoutBox } from 'src/app/layout/decorators/cris-layout-box.decorator';
-import { CrisLayoutBox as CrisLayoutBoxObj } from 'src/app/layout/models/cris-layout-box.model';
+import { CrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
+import { CrisLayoutBoxModelComponent as CrisLayoutBoxObj } from '../../models/cris-layout-box.model';
 import { LayoutPage } from '../../enums/layout-page.enum';
 import { LayoutTab } from '../../enums/layout-tab.enum';
 import { LayoutBox } from '../../enums/layout-box.enum';
-import { OrcidQueueService } from 'src/app/core/orcid/orcid-queue.service';
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { OrcidQueue } from 'src/app/core/orcid/model/orcid-queue.model';
-import { hasValue } from 'src/app/shared/empty.util';
-import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
+import { OrcidQueueService } from '../../../core/orcid/orcid-queue.service';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
+import { hasValue } from '../../../shared/empty.util';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { uniqueId } from 'lodash';
-import { catchError, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { RequestService } from 'src/app/core/data/request.service';
-import { RestResponse } from 'src/app/core/cache/response.models';
-import { OrcidHistoryService } from 'src/app/core/orcid/orcid-history.service';
-import { OrcidHistory } from 'src/app/core/orcid/model/orcid-history.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { OrcidHistoryService } from '../../../core/orcid/orcid-history.service';
+import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
 
 @Component({
   selector: 'ds-orcid-sync-queue.component',
@@ -93,7 +90,7 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
       case 'Project':
         return 'fa fa-folder';
       default:
-        return 'fa fa-book'
+        return 'fa fa-book';
     }
   }
 
@@ -143,6 +140,6 @@ export class OrcidSyncQueueComponent extends CrisLayoutBoxObj implements OnInit 
   ngOnDestroy(): void {
     this.list$ = null;
     this.subs.filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe())
+      .forEach((subscription) => subscription.unsubscribe());
   }
 }

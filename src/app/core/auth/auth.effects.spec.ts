@@ -37,7 +37,7 @@ import { EPersonMock } from '../../shared/testing/eperson.mock';
 import { AppState, storeModuleConfig } from '../../app.reducer';
 import { StoreActionTypes } from '../../store.actions';
 import { Router } from '@angular/router';
-import { RouterStub } from 'src/app/shared/testing/router.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
 import { take } from 'rxjs/operators';
 
 describe('AuthEffects', () => {
@@ -56,7 +56,7 @@ describe('AuthEffects', () => {
     authServiceStub = new AuthServiceStub();
     token = authServiceStub.getToken();
     redirectUrl = '/redirect-url';
-    authStatus = Object.assign(new AuthStatus(), {})
+    authStatus = Object.assign(new AuthStatus(), {});
     initialState = {
       core: {
         auth: {
@@ -577,5 +577,5 @@ describe('AuthEffects', () => {
       });
       done();
     });
-  })
+  });
 });

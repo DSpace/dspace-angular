@@ -188,7 +188,7 @@ export class AuthService {
       select(getAuthenticatedUser),
       map ((eperson) => Object.assign(new EPerson(), eperson)),
       take(1)
-    )
+    );
   }
 
   /**

@@ -3,11 +3,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import { isNotEmpty } from 'src/app/shared/empty.util';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+import { isNotEmpty } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -84,7 +84,7 @@ export class OrcidHistoryService {
         return new PostRequest(requestId, href, orcidQueue._links.self.href, options);
       }),
       configureRequest(this.requestService)
-    ).subscribe()
+    ).subscribe();
 
     return this.fetchCreateResponse(requestId).pipe(
       getFinishedRemoteData(),
@@ -112,7 +112,7 @@ export class OrcidHistoryService {
 
     return selfLink$.pipe(
       switchMap((selfLink: string) => this.dataService.findByHref(selfLink)),
-    )
+    );
   }
 
   getEndpoint() {

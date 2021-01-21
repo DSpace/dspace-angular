@@ -42,7 +42,7 @@ export class SearchChartsComponent implements OnInit {
   /**
    * For chart regular expression
    */
-  chartReg = new RegExp(/^chart./, 'i')
+  chartReg = new RegExp(/^chart./, 'i');
 
   /**
    * Initialize instance variables

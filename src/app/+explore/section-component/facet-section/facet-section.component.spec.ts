@@ -7,13 +7,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
-import { FacetValue } from 'src/app/shared/search/facet-value.model';
-import { FilterType } from 'src/app/shared/search/filter-type.model';
-import { SearchFilterConfig } from 'src/app/shared/search/search-filter-config.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { FacetValue } from '../../../shared/search/facet-value.model';
+import { FilterType } from '../../../shared/search/filter-type.model';
+import { SearchFilterConfig } from '../../../shared/search/search-filter-config.model';
 import { FacetSectionComponent } from './facet-section.component';
 
 describe('FacetSectionComponent', () => {
@@ -85,7 +85,7 @@ describe('FacetSectionComponent', () => {
       getSearchLink(): string {
         return '/search';
       }
-    }
+    };
 
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
@@ -113,7 +113,7 @@ describe('FacetSectionComponent', () => {
       discoveryConfigurationName: 'publication',
       componentType: 'facet',
       style: 'col-md-12'
-    }
+    };
 
     fixture.detectChanges();
   });

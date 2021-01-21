@@ -247,7 +247,7 @@ export class SectionFormOperationsService {
         fieldValue = new FormFieldMetadataValueObject(value, language);
       }
     } else if (isNgbDateStruct(value)) {
-      fieldValue = new FormFieldMetadataValueObject(dateToString(value))
+      fieldValue = new FormFieldMetadataValueObject(dateToString(value));
     } else if (value instanceof FormFieldLanguageValueObject || value instanceof VocabularyEntry
       || value instanceof VocabularyEntryDetail || isObject(value)) {
       fieldValue = value;

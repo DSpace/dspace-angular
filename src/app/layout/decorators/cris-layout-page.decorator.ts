@@ -1,5 +1,5 @@
-import { Item } from 'src/app/core/shared/item.model';
-import { hasNoValue } from 'src/app/shared/empty.util';
+import { Item } from '../../core/shared/item.model';
+import { hasNoValue } from '../../shared/empty.util';
 import { LayoutPage } from '../enums/layout-page.enum';
 
 const layoutPageMap = new Map();
@@ -13,7 +13,7 @@ export function CrisLayoutPage(objectType: LayoutPage) {
     if (hasNoValue(layoutPageMap.get(objectType))) {
       layoutPageMap.set(objectType, component);
     }
-  }
+  };
 }
 
 export function getCrisLayoutPage(item: Item): any {

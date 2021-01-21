@@ -15,7 +15,7 @@ import {
   getFinishedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
-} from 'src/app/core/shared/operators';
+} from '../../core/shared/operators';
 
 export interface ComColPageNavOption {
   id: string;

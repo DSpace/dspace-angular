@@ -74,7 +74,7 @@ describe('ItemExportComponent', () => {
     componentAsAny = fixture.componentInstance;
     component.item = mockItem;
     component.molteplicity = ItemExportFormatMolteplicity.SINGLE;
-    componentAsAny.itemExportFormatService.byEntityTypeAndMolteplicity.and.returnValue(observableOf({}))
+    componentAsAny.itemExportFormatService.byEntityTypeAndMolteplicity.and.returnValue(observableOf({}));
     fixture.detectChanges();
   });
 

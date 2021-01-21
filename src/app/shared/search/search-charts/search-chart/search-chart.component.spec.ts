@@ -34,7 +34,7 @@ xdescribe('SearchChartComponent', () => {
     initializeFilter: (filter) => {
     },
     getSelectedValuesForFilter: (filter) => {
-      return observableOf([filterName1, filterName2, filterName3])
+      return observableOf([filterName1, filterName2, filterName3]);
     },
     isFilterActive: (filter) => {
       return observableOf([filterName1, filterName2, filterName3].indexOf(filter) >= 0);
@@ -81,7 +81,7 @@ xdescribe('SearchChartComponent', () => {
     });
 
     it('should call initialCollapse with the correct filter configuration name', () => {
-      expect(filterService.initializeFilter).toHaveBeenCalledWith(mockFilterConfig)
+      expect(filterService.initializeFilter).toHaveBeenCalledWith(mockFilterConfig);
     });
   });
 

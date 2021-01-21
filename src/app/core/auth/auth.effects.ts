@@ -242,7 +242,7 @@ export class AuthEffects {
           .pipe(
             map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels, action.payload.blocking)),
             catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction(action.payload.blocking)))
-          )
+          );
       })
     );
 
@@ -254,7 +254,7 @@ export class AuthEffects {
         return this.authService.refreshAuthenticationToken(action.payload.token)
           .pipe(map((token: AuthTokenInfo) => new RefreshTokenAndRedirectSuccessAction(token, action.payload.redirectUrl)),
             catchError((error) => observableOf(new RefreshTokenAndRedirectErrorAction()))
-          )
+          );
       })
     );
 

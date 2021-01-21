@@ -58,7 +58,7 @@ describe('ExportItemMenuComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy()
+    expect(component).toBeTruthy();
   });
 
   it('should render a button', () => {
@@ -74,7 +74,7 @@ describe('ExportItemMenuComponent', () => {
       }
     });
     component.openExportModal();
-    expect(componentAsAny.modalService.open).toHaveBeenCalled()
+    expect(componentAsAny.modalService.open).toHaveBeenCalled();
   });
 
 });

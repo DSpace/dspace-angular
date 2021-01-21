@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MetadataBoxFieldRendering, FieldRendetingType } from '../metadata-box.decorator';
 import { BitstreamRenderingModel } from '../bitstream-rendering.model';
-import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { Observable } from 'rxjs';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { Bitstream } from '../../../../../core/shared/bitstream.model';
 
 @Component({
   selector: 'ds-attachment',

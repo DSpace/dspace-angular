@@ -14,7 +14,7 @@ import { fadeInOut } from '../../shared/animations/fade';
 import { redirectOn4xx } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
-import { Tab } from 'src/app/core/layout/models/tab.model';
+import { Tab } from '../../core/layout/models/tab.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 
 /**

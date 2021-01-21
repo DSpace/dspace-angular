@@ -4,7 +4,7 @@ import { RestResponse, SearchConfigSuccessResponse } from '../cache/response.mod
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
-import { SearchConfig } from 'src/app/shared/search/search-filters/search-config.model';
+import { SearchConfig } from '../../shared/search/search-filters/search-config.model';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 
 @Injectable()

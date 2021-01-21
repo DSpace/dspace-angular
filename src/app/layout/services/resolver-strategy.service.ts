@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from 'src/app/shared/empty.util';
-import { environment } from 'src/environments/environment';
+import { hasValue } from '../../shared/empty.util';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

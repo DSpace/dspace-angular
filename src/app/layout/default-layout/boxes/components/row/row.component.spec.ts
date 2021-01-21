@@ -2,15 +2,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RowComponent } from './row.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CrisLayoutLoaderDirective } from 'src/app/layout/directives/cris-layout-loader.directive';
+import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
 import { TextComponent } from '../text/text.component';
 import { NO_ERRORS_SCHEMA, ComponentFactoryResolver } from '@angular/core';
-import { Item } from 'src/app/core/shared/item.model';
-import { medataComponent } from 'src/app/shared/testing/metadata-components.mock';
+import { Item } from '../../../../../core/shared/item.model';
+import { medataComponent } from '../../../../../shared/testing/metadata-components.mock';
 import * as BoxDecorators from '../metadata-box.decorator';
-import { spyOnExported } from 'src/app/shared/testing/utils.test';
+import { spyOnExported } from '../../../../../shared/testing/utils.test';
 
 class TestItem {
   firstMetadataValue(key: string): string {
@@ -59,6 +59,6 @@ describe('RowComponent', () => {
     it('should call the getMetadataBoxFieldRendering function with the right types', () => {
       component.getComponent('text');
       expect(BoxDecorators.getMetadataBoxFieldRendering).toHaveBeenCalledWith('text');
-    })
+    });
   });
 });
