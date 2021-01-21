@@ -1751,6 +1751,7 @@ OpenaireStateService {
     getOpenaireBrokerTopicsCurrentPage: jasmine.createSpy('getOpenaireBrokerTopicsCurrentPage'),
     getOpenaireBrokerTopicsTotals: jasmine.createSpy('getOpenaireBrokerTopicsTotals'),
     dispatchRetrieveOpenaireBrokerTopics: jasmine.createSpy('dispatchRetrieveOpenaireBrokerTopics'),
+    dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction')
   });
 }
 
