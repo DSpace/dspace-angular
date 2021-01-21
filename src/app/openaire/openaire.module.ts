@@ -22,6 +22,8 @@ import { SuggestionTargetsComponent } from './reciter-suggestions/suggestion-tar
 import { SuggestionListElementComponent } from './reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionEvidencesComponent } from './reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import { SuggestionActionsComponent } from './reciter-suggestions/suggestion-actions/suggestion-actions.component';
+import { SuggestionsPopupComponent } from './reciter-suggestions/suggestions-popup/suggestions-popup.component';
+import { SuggestionsNotificationComponent } from './reciter-suggestions/suggestions-notification/suggestions-notification.component';
 
 const MODULES = [
   CommonModule,
@@ -37,7 +39,9 @@ const COMPONENTS = [
   SuggestionTargetsComponent,
   SuggestionActionsComponent,
   SuggestionListElementComponent,
-  SuggestionEvidencesComponent
+  SuggestionEvidencesComponent,
+  SuggestionsPopupComponent,
+  SuggestionsNotificationComponent
 ];
 
 const DIRECTIVES = [ ];

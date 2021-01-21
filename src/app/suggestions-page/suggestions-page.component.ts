@@ -100,6 +100,8 @@ export class SuggestionsPageComponent implements OnInit {
           this.updatePage();
         });
 
+        this.suggestionTargetsStateService.dispatchMarkUserSuggestionsAsVisitedAction();
+
       });
   }
 

@@ -24,6 +24,7 @@ import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/mode
 import { of } from 'rxjs/internal/observable/of';
 import { tap } from 'rxjs/internal/operators/tap';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface SuggestionBulkResult {
   success: number;
@@ -45,7 +46,8 @@ export class SuggestionsService {
   constructor(
     private authService: AuthService,
     private researcherProfileService: ResearcherProfileService,
-    private suggestionsDataService: OpenaireSuggestionsDataService
+    private suggestionsDataService: OpenaireSuggestionsDataService,
+    private translateService: TranslateService
   ) {
   }
 
@@ -234,6 +236,19 @@ export class SuggestionsService {
   public getTargetUuid(target: OpenaireSuggestionTarget): string {
     const tokens = target.id.split(':');
     return tokens.length === 2 ? tokens[1] : null;
+  }
+
+  /**
+   * Interpolated params to build the notification suggestions notification.
+   * @param suggestionTarget
+   */
+  public getNotificationSuggestionInterpolation(suggestionTarget: OpenaireSuggestionTarget): any {
+    return {
+      count: suggestionTarget.total,
+      source: this.translateService.instant('reciter.suggestion.source.oaire'),
+      suggestionId: suggestionTarget.id,
+      displayName: suggestionTarget.display
+    }
   }
 
 }

@@ -1,12 +1,5 @@
 <div class="container">
-  <ng-container *ngIf="(suggestionsRD$ | async) as suggestions">
-    <ng-container *ngFor="let suggestion of suggestions" class="alert alert-info">
-      <div class="alert alert-success" *ngIf="suggestion.total > 0">
-        <div [innerHTML]="'mydspace.notification.suggestion.page' | translate: getNotificationSuggestionInterpolation(suggestion)">
-        </div>
-      </div>
-    </ng-container>
-  </ng-container>
+  <ds-suggestions-notification></ds-suggestions-notification>
   <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]"></ds-my-dspace-new-submission>
   <div class="search-page row">
       <ds-search-sidebar *ngIf="!(isXsOrSm$ | async)" class="col-3 sidebar-md-sticky"

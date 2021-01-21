@@ -29,7 +29,7 @@ import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/s
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import {of} from 'rxjs/internal/observable/of';
 
-fdescribe('SuggestionPageComponent', () => {
+describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
   let fixture: ComponentFixture<SuggestionsPageComponent>;
   const mockSuggestionsService = getMockSuggestionsService();
