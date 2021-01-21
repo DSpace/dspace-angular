@@ -27,8 +27,9 @@ import { NotificationsServiceStub } from '../shared/testing/notifications-servic
 import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
 import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import {of} from 'rxjs/internal/observable/of';
 
-describe('SuggestionPageComponent', () => {
+fdescribe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
   let fixture: ComponentFixture<SuggestionsPageComponent>;
   const mockSuggestionsService = getMockSuggestionsService();
@@ -38,7 +39,8 @@ describe('SuggestionPageComponent', () => {
   const routeStub = {
     data: observableOf({
       suggestionTargets: new RemoteData(false, false, true, null, mockSuggestionTargetsObjectOne)
-    })
+    }),
+    queryParams: of({})
   };
   const workspaceitemServiceMock = jasmine.createSpyObj('WorkspaceitemDataService', {
     importExternalSourceEntry: jasmine.createSpy('importExternalSourceEntry')

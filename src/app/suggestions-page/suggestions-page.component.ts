@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { ActivatedRoute, Data, Params, Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { flatMap, map, take } from 'rxjs/operators';
@@ -69,29 +69,38 @@ export class SuggestionsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.config = new PaginationComponentOptions();
-    this.config.id = this.pageId;
-    this.config.pageSize = 10;
-    this.config.currentPage = 1;
-    this.sortConfig = new SortOptions('score', SortDirection.DESC);
 
-    this.targetRD$ = this.route.data.pipe(
-      map((data: Data) => data.suggestionTargets as RemoteData<OpenaireSuggestionTarget>),
-      redirectOn4xx(this.router, this.authService)
-    );
+    this.route.queryParams.pipe(take(1))
+      .subscribe((queryParams: Params) => {
 
-    this.targetId$ = this.targetRD$.pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((target: OpenaireSuggestionTarget) => target.id)
-    );
-    this.targetRD$.pipe(
-      getFirstSucceededRemoteDataPayload()
-    ).subscribe((suggestionTarget: OpenaireSuggestionTarget) => {
-      this.suggestionId = suggestionTarget.id;
-      this.researcherName = suggestionTarget.display;
-      this.researcherUuid = this.suggestionService.getTargetUuid(suggestionTarget);
-      this.updatePage();
-    });
+        this.config = new PaginationComponentOptions();
+        this.config.id = this.pageId;
+        this.config.pageSize = queryParams.pageSize ? queryParams.pageSize : 10;
+        this.config.currentPage = queryParams.currentPage ? queryParams.currentPage : 1;
+        this.sortConfig = new SortOptions('trust', SortDirection.DESC);
+        if (queryParams.sortDirection && queryParams.sortField) {
+          this.sortConfig = new SortOptions(queryParams.sortField, queryParams.sortDirection);
+        }
+
+        this.targetRD$ = this.route.data.pipe(
+          map((data: Data) => data.suggestionTargets as RemoteData<OpenaireSuggestionTarget>),
+          redirectOn4xx(this.router, this.authService)
+        );
+
+        this.targetId$ = this.targetRD$.pipe(
+          getFirstSucceededRemoteDataPayload(),
+          map((target: OpenaireSuggestionTarget) => target.id)
+        );
+        this.targetRD$.pipe(
+          getFirstSucceededRemoteDataPayload()
+        ).subscribe((suggestionTarget: OpenaireSuggestionTarget) => {
+          this.suggestionId = suggestionTarget.id;
+          this.researcherName = suggestionTarget.display;
+          this.researcherUuid = this.suggestionService.getTargetUuid(suggestionTarget);
+          this.updatePage();
+        });
+
+      });
   }
 
   /**
