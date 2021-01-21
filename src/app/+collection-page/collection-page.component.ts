@@ -2,8 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, flatMap, map, startWith, switchMap, take } from 'rxjs/operators';
-
+import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
@@ -66,7 +65,7 @@ export class CollectionPageComponent implements OnInit {
     this.logoRD$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => rd.payload),
       filter((collection: Collection) => hasValue(collection)),
-      flatMap((collection: Collection) => collection.logo)
+      mergeMap((collection: Collection) => collection.logo)
     );
 
     this.paginationChanges$ = new BehaviorSubject({
@@ -85,7 +84,7 @@ export class CollectionPageComponent implements OnInit {
                 pagination: dto.paginationConfig,
                 sort: dto.sortConfig,
                 dsoTypes: [DSpaceObjectType.ITEM]
-              })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>
+              })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
         }),
         startWith(undefined) // Make sure switching pages shows loading component
         )
@@ -95,7 +94,7 @@ export class CollectionPageComponent implements OnInit {
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.metadata.processRemoteData(this.collectionRD$);
       this.onPaginationChange(params);
-    })
+    });
   }
 
   isNotEmpty(object: any) {
@@ -113,5 +112,4 @@ export class CollectionPageComponent implements OnInit {
       sortConfig: this.sortConfig
     });
   }
-
 }

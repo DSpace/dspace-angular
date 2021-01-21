@@ -171,7 +171,7 @@ export class ItemDataService extends DataService<Item> {
     this.requestService.removeByHrefSubstring('/discover');
 
     return this.patch(item, [patchOperation]);
-;
+
   }
 
   /**

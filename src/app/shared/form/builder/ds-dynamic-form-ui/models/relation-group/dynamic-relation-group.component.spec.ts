@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -154,8 +154,8 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
   const vocabularyService: any = new VocabularyServiceStub();
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
     init();
 
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
@@ -276,7 +276,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         expect(groupComp.chips.getChipsItems()).toEqual(modelValue);
         groupComp.formCollapsed.subscribe((value) => {
           expect(value).toEqual(true);
-        })
+      });
       });
 
       it('should clear form inputs', () => {
@@ -358,7 +358,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         expect(groupComp.chips.getChipsItems()).toEqual(modelValue);
         groupComp.formCollapsed.subscribe((value) => {
           expect(value).toEqual(true);
-        })
+      });
       }));
 
       it('should delete existing chips item', () => {
@@ -372,7 +372,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         expect(groupComp.chips.getChipsItems()).toEqual([]);
         groupComp.formCollapsed.subscribe((value) => {
           expect(value).toEqual(false);
-        })
+      });
       });
     });
   });

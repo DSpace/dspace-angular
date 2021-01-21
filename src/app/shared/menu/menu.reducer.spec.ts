@@ -138,7 +138,7 @@ describe('menusReducer', () => {
           ]
         }
       }
-    }
+    };
   });
 
   it('should return the current state when no valid actions have been made', () => {
@@ -332,7 +332,7 @@ describe('menusReducer', () => {
     const state = dummyState;
     const action = new AddMenuSectionAction(menuID, visibleSection1);
     const newState = menusReducer(state, action);
-    expect(newState[menuID].sectionToSubsectionIndex[visibleSection1.parentID]).toContain(visibleSection1.id)
+    expect(newState[menuID].sectionToSubsectionIndex[visibleSection1.parentID]).toContain(visibleSection1.id);
   });
 
   it('should perform the ADD_SECTION action without affecting the previous state', () => {

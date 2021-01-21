@@ -30,7 +30,7 @@ describe('ConfigurationDataService', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', {a: configLink})
+      getEndpoint: cold('a', { a: configLink })
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,

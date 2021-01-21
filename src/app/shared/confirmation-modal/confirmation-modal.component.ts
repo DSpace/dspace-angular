@@ -1,6 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs/internal/Subject';
+import { Subject } from 'rxjs';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 @Component({

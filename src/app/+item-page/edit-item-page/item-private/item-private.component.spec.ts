@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Item } from '../../../core/shared/item.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { of as observableOf } from 'rxjs';
@@ -30,7 +30,7 @@ let successfulRestResponse;
 let failRestResponse;
 
 describe('ItemPrivateComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     mockItem = Object.assign(new Item(), {
       id: 'fake-id',

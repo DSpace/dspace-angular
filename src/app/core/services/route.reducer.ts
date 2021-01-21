@@ -35,7 +35,7 @@ const initialState: RouteState = {
 export function routeReducer(state = initialState, action: RouteActions): RouteState {
   switch (action.type) {
     case RouteActionTypes.RESET: {
-      return initialState
+      return initialState;
     }
     case RouteActionTypes.SET_PARAMETERS: {
       return setParameters(state, action as SetParametersAction, 'params');

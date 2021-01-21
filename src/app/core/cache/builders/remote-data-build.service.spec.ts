@@ -14,7 +14,7 @@ import { UnCacheableObject } from '../../shared/uncacheable-object.model';
 import { RemoteData } from '../../data/remote-data';
 import { Observable, of as observableOf } from 'rxjs';
 import { RequestEntry, RequestEntryState } from '../../data/request.reducer';
-import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { take } from 'rxjs/operators';
 import { HALLink } from '../../shared/hal-link.model';
 
@@ -38,7 +38,7 @@ describe('RemoteDataBuildService', () => {
   let entrySuccessUnCacheable: RequestEntry;
   let entrySuccessNoContent: RequestEntry;
   let entryError: RequestEntry;
-  let linksToFollow: Array<FollowLinkConfig<any>>;
+  let linksToFollow: FollowLinkConfig<any>[];
 
   beforeEach(() => {
     objectCache = getMockObjectCacheService();
@@ -46,14 +46,14 @@ describe('RemoteDataBuildService', () => {
     requestService = getMockRequestService();
     unCacheableObject = {
       foo: 'bar'
-    }
+    };
     pageInfo = new PageInfo();
     selfLink1 = 'https://rest.api/some/object';
     selfLink2 = 'https://rest.api/another/object';
     pageLinks = [
       { href: selfLink1 },
       { href: selfLink2 },
-    ]
+    ];
     array = [
       Object.assign(new Item(), {
         metadata: {
@@ -134,7 +134,7 @@ describe('RemoteDataBuildService', () => {
     linksToFollow = [
       followLink('a'),
       followLink('b'),
-    ]
+    ];
 
     service = new RemoteDataBuildService(objectCache, linkService, requestService);
   });
@@ -397,7 +397,7 @@ describe('RemoteDataBuildService', () => {
       });
 
       it(`should return false if the requestEntry's request has no id`, () => {
-        expect((service as any).hasExactMatchInObjectCache('href', { request: {}})).toEqual(false);
+        expect((service as any).hasExactMatchInObjectCache('href', { request: {} })).toEqual(false);
       });
     });
 
@@ -425,7 +425,7 @@ describe('RemoteDataBuildService', () => {
           response: {
             payloadLink: { href: 'payload-link' }
           }
-        }
+        };
       });
 
       it('should return true', () => {
@@ -439,7 +439,7 @@ describe('RemoteDataBuildService', () => {
           response: {
             payloadLink: undefined
           }
-        }
+        };
       });
 
       it('should return false', () => {
@@ -457,7 +457,7 @@ describe('RemoteDataBuildService', () => {
           response: {
             unCacheableObject: Object.assign({})
           }
-        }
+        };
       });
 
       it('should return true', () => {
@@ -469,7 +469,7 @@ describe('RemoteDataBuildService', () => {
       beforeEach(() => {
         entry = {
           response: {}
-        }
+        };
       });
 
       it('should return false', () => {
@@ -487,7 +487,7 @@ describe('RemoteDataBuildService', () => {
         };
 
         const result = (service as any).plainObjectToInstance(source);
-        result.foo = 'bar'
+        result.foo = 'bar';
 
         expect(result).toEqual(jasmine.any(Item));
         expect(result.uuid).toEqual('some-uuid');
@@ -503,7 +503,7 @@ describe('RemoteDataBuildService', () => {
         };
 
         const result = (service as any).plainObjectToInstance(source);
-        result.foo = 'bar'
+        result.foo = 'bar';
 
         expect(result).toEqual(jasmine.any(Object));
         expect(result.uuid).toEqual('some-uuid');
@@ -525,16 +525,16 @@ describe('RemoteDataBuildService', () => {
         paginatedLinksToFollow = [
           followLink('page', undefined, true, ...linksToFollow),
           ...linksToFollow
-        ]
+        ];
       });
       describe(`and the given list doesn't have a page property already`, () => {
         it(`should call objectCache.getList with the links in _links.page of the given object`, (done) => {
           (service as any).buildPaginatedList(normalizedPaginatedList, ...paginatedLinksToFollow)
             .pipe(take(1))
             .subscribe(() => {
-              expect(objectCache.getList).toHaveBeenCalledWith(pageLinks.map((link: HALLink) => link.href))
+              expect(objectCache.getList).toHaveBeenCalledWith(pageLinks.map((link: HALLink) => link.href));
               done();
-            })
+            });
         });
 
         it(`should call plainObjectToInstance for each of the page objects`, (done) => {
@@ -543,9 +543,9 @@ describe('RemoteDataBuildService', () => {
             .subscribe(() => {
               array.forEach((element) => {
                 expect((service as any).plainObjectToInstance).toHaveBeenCalledWith(element);
-              })
+              });
               done();
-            })
+            });
         });
 
         it(`should call linkService.resolveLinks for each of the page objects`, (done) => {
@@ -554,9 +554,9 @@ describe('RemoteDataBuildService', () => {
             .subscribe(() => {
               array.forEach((element) => {
                 expect(linkService.resolveLinks).toHaveBeenCalledWith(element, ...linksToFollow);
-              })
+              });
               done();
-            })
+            });
         });
 
         it(`should return a new PaginatedList instance based on the given object`, (done) => {
@@ -568,7 +568,7 @@ describe('RemoteDataBuildService', () => {
               expect(result).toEqual(jasmine.any(PaginatedList));
               expect(result).toEqual(paginatedList);
               done();
-            })
+            });
         });
 
         describe(`when there are other links as well`, () => {
@@ -578,7 +578,7 @@ describe('RemoteDataBuildService', () => {
               .subscribe(() => {
                 expect(linkService.resolveLinks).toHaveBeenCalledWith(paginatedList, ...linksToFollow);
                 done();
-              })
+              });
           });
         });
       });
@@ -590,9 +590,9 @@ describe('RemoteDataBuildService', () => {
             .subscribe(() => {
               array.forEach((element) => {
                 expect((service as any).plainObjectToInstance).toHaveBeenCalledWith(element);
-              })
+              });
               done();
-            })
+            });
         });
 
         it(`should call linkService.resolveLinks for each of the page objects`, (done) => {
@@ -601,9 +601,9 @@ describe('RemoteDataBuildService', () => {
             .subscribe(() => {
               array.forEach((element) => {
                 expect(linkService.resolveLinks).toHaveBeenCalledWith(element, ...linksToFollow);
-              })
+              });
               done();
-            })
+            });
         });
 
         it(`should return a new PaginatedList instance based on the given object`, (done) => {
@@ -615,7 +615,7 @@ describe('RemoteDataBuildService', () => {
               expect(result).toEqual(jasmine.any(PaginatedList));
               expect(result).toEqual(paginatedList);
               done();
-            })
+            });
         });
 
         describe(`when there are other links as well`, () => {
@@ -625,7 +625,7 @@ describe('RemoteDataBuildService', () => {
               .subscribe(() => {
                 expect(linkService.resolveLinks).toHaveBeenCalledWith(paginatedList, ...linksToFollow);
                 done();
-              })
+              });
           });
         });
       });
@@ -641,7 +641,7 @@ describe('RemoteDataBuildService', () => {
             expect(result).toEqual(jasmine.any(PaginatedList));
             expect(result).toEqual(paginatedList);
             done();
-          })
+          });
       });
     });
   });

@@ -26,7 +26,7 @@ export function isServerFormValue(obj: any): boolean {
     && obj.hasOwnProperty('value')
     && obj.hasOwnProperty('language')
     && obj.hasOwnProperty('authority')
-    && obj.hasOwnProperty('confidence'))
+    && obj.hasOwnProperty('confidence'));
 }
 
 /**

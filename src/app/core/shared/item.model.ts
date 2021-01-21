@@ -1,5 +1,5 @@
 import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { isEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { link, typedObject } from '../cache/builders/build-decorators';
@@ -113,7 +113,7 @@ export class Item extends DSpaceObject implements ChildHALResource {
   /**
    * Method that returns as which type of object this object should be rendered
    */
-  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+  getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     const entityType = this.firstMetadataValue('relationship.type');
     if (isEmpty(entityType)) {
       return super.getRenderTypes();

@@ -1,12 +1,12 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {of as observableOf} from 'rxjs/internal/observable/of';
-import {TranslateModule} from '@ngx-translate/core';
-import {DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {VirtualMetadataComponent} from './virtual-metadata.component';
-import {Item} from '../../../core/shared/item.model';
-import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
-import {VarDirective} from '../../../shared/utils/var.directive';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of as observableOf } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { VirtualMetadataComponent } from './virtual-metadata.component';
+import { Item } from '../../../core/shared/item.model';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { VarDirective } from '../../../shared/utils/var.directive';
 
 describe('VirtualMetadataComponent', () => {
 
@@ -45,7 +45,7 @@ describe('VirtualMetadataComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [VirtualMetadataComponent, VarDirective],
       providers: [
-        {provide: ObjectUpdatesService, useValue: objectUpdatesService},
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -98,5 +98,5 @@ describe('VirtualMetadataComponent', () => {
         true
       );
     });
-  })
+  });
 });

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -39,7 +39,12 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   let lookupRelationService;
 
   function init() {
-    relationship = Object.assign(new RelationshipOptions(), { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true, searchConfiguration: 'personConfig' });
+    relationship = Object.assign(new RelationshipOptions(), {
+      filter: 'filter',
+      relationshipType: 'isAuthorOfPublication',
+      nameVariants: true,
+      searchConfiguration: 'personConfig'
+    });
     pSearchOptions = new PaginatedSearchOptions({});
     item1 = Object.assign(new Item(), { uuid: 'e1c51c69-896d-42dc-8221-1d5f2ad5516e' });
     item2 = Object.assign(new Item(), { uuid: 'c8279647-1acc-41ae-b036-951d5f65649b' });
@@ -60,7 +65,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     lookupRelationService.searchConfig = {};
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [DsDynamicLookupRelationSearchTabComponent, VarDirective],

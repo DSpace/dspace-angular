@@ -25,7 +25,7 @@ describe('NavbarEffects', () => {
       ],
     });
 
-    navbarEffects = TestBed.get(NavbarEffects);
+    navbarEffects = TestBed.inject(NavbarEffects);
   });
 
   describe('resize$', () => {

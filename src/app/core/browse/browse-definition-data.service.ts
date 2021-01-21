@@ -70,7 +70,7 @@ export class BrowseDefinitionDataService {
    * @return {Observable<RemoteData<PaginatedList<BrowseDefinition>>>}
    *    Return an observable that emits object list
    */
-  findAll(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<BrowseDefinition>>): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+  findAll(options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
     return this.dataService.findAll(options, reRequestOnStale, ...linksToFollow);
   }
 
@@ -83,7 +83,7 @@ export class BrowseDefinitionDataService {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                          should be automatically resolved
    */
-  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<BrowseDefinition>>): Observable<RemoteData<BrowseDefinition>> {
+  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]): Observable<RemoteData<BrowseDefinition>> {
     return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow);
   }
 
@@ -97,7 +97,7 @@ export class BrowseDefinitionDataService {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                          should be automatically resolved
    */
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<BrowseDefinition>>): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
+  findAllByHref(href: string, findListOptions: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<BrowseDefinition>[]): Observable<RemoteData<PaginatedList<BrowseDefinition>>> {
     return this.dataService.findAllByHref(href, findListOptions, reRequestOnStale, ...linksToFollow);
   }
 }

@@ -1,6 +1,6 @@
 import { ObjectCollectionComponent } from './object-collection.component';
 import { By } from '@angular/platform-browser';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
@@ -19,18 +19,18 @@ describe('ObjectCollectionComponent', () => {
       scope: scopeParam
     })
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ObjectCollectionComponent ],
+      declarations: [ObjectCollectionComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useClass: RouterStub }
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();  // compile template and css
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ObjectCollectionComponent);
     objectCollectionComponent = fixture.componentInstance;
   }));
@@ -47,6 +47,6 @@ describe('ObjectCollectionComponent', () => {
 
     expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeDefined();
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeNull();
-  })
+  });
 
 });

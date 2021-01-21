@@ -41,7 +41,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('instance', { static: false }) instance: NgbTypeahead;
+  @ViewChild('instance') instance: NgbTypeahead;
 
   chips: Chips;
   hasAuthority: boolean;
@@ -95,7 +95,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
       }),
       map((list: PaginatedList<VocabularyEntry>) => list.page),
       tap(() => this.changeSearchingStatus(false)),
-      merge(this.hideSearchingWhenUnsubscribed));
+      merge(this.hideSearchingWhenUnsubscribed))
 
   /**
    * Initialize the component, setting up the init form value
@@ -104,7 +104,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
     this.hasAuthority = this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name);
 
     this.chips = new Chips(
-      this.model.value,
+      this.model.value as any[],
       'display',
       null,
       environment.submission.icons.metadata);

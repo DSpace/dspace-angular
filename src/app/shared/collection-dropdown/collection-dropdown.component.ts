@@ -1,8 +1,20 @@
-import { Component, OnInit, HostListener, ChangeDetectorRef, OnDestroy, Output, EventEmitter, ElementRef, Input } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap, take } from 'rxjs/operators';
+
 import { hasValue } from '../empty.util';
-import { map, mergeMap, startWith, debounceTime, distinctUntilChanged, switchMap, reduce, take } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { FindListOptions } from '../../core/data/request.models';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -28,8 +40,8 @@ interface CollectionListEntryItem {
  * An interface to represent an entry in the collection list
  */
 export interface CollectionListEntry {
-  communities: CollectionListEntryItem[],
-  collection: CollectionListEntryItem
+  communities: CollectionListEntryItem[];
+  collection: CollectionListEntryItem;
 }
 
 @Component({
@@ -201,11 +213,11 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
         query,
         this.entityType,
         findOptions,
-        true,
+        false,
         followLink('parentCommunity'));
     } else {
       searchListService$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, true, followLink('parentCommunity'));
+      .getAuthorizedCollection(query, findOptions, false, followLink('parentCommunity'));
     }
     this.searchListCollection$ = searchListService$.pipe(
         getFirstSucceededRemoteWithNotEmptyData(),
@@ -223,7 +235,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
             collection: { id: collection.id, uuid: collection.id, name: collection.name }
           })
         ))),
-        reduce((acc: any, value: any) => [...acc, ...value], []),
+        reduce((acc: any, value: any) => [...acc, value], []),
         startWith([])
         );
     this.subs.push(this.searchListCollection$.subscribe(
@@ -282,7 +294,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
         this.theOnlySelectable.emit({
           communities: [{ id: community.id, name: community.name, uuid: community.id }],
           collection: { id: collection.id, uuid: collection.id, name: collection.name }
-        })
+        });
       });
     }
   }

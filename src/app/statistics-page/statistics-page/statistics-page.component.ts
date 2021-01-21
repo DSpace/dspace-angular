@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { UsageReportService } from '../../core/statistics/usage-report-data.service';
 import { map, switchMap } from 'rxjs/operators';
@@ -17,6 +17,10 @@ import { AuthService } from '../../core/auth/auth.service';
 /**
  * Class representing an abstract statistics page component.
  */
+@Component({
+  selector: 'ds-statistics-page',
+  template: ''
+})
 export abstract class StatisticsPageComponent<T extends DSpaceObject> implements OnInit {
 
   /**

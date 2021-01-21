@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -18,11 +18,11 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
    * The types of relationships to fetch items for
    * e.g. 'isAuthorOfPublication'
    */
-  @Input() relationTypes: Array<{
+  @Input() relationTypes: {
     label: string,
     filter: string,
     configuration?: string
-  }>;
+  }[];
 
   /**
    * The item to render relationships for

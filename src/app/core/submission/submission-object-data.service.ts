@@ -61,7 +61,7 @@ export class SubmissionObjectDataService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findById(id: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<SubmissionObject>>): Observable<RemoteData<SubmissionObject>> {
+  findById(id: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<SubmissionObject>[]): Observable<RemoteData<SubmissionObject>> {
     switch (this.submissionService.getSubmissionScope()) {
       case SubmissionScopeType.WorkspaceItem:
         return this.workspaceitemDataService.findById(id, reRequestOnStale,...linksToFollow);

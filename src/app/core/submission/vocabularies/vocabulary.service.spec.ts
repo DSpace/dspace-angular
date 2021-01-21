@@ -11,7 +11,7 @@ import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { RequestService } from '../../data/request.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { PageInfo } from '../../shared/page-info.model';
-import { PaginatedList, buildPaginatedList } from '../../data/paginated-list.model';
+import { buildPaginatedList } from '../../data/paginated-list.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RequestEntry } from '../../data/request.reducer';
 import { RestResponse } from '../../cache/response.models';
@@ -178,7 +178,7 @@ describe('VocabularyService', () => {
     metadata: metadata,
     scope: collectionUUID,
     closed: false
-  }
+  };
   const pageInfo = new PageInfo();
   const array = [vocabulary, hierarchicalVocabulary];
   const arrayEntries = [vocabularyEntry, vocabularyEntry2, vocabularyEntry3];
@@ -195,7 +195,7 @@ describe('VocabularyService', () => {
   const getRequestEntries$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful, payload: arrayEntries } as any
-    } as RequestEntry)
+    } as RequestEntry);
   };
   objectCache = {} as ObjectCacheService;
   const notificationsService = {} as NotificationsService;
@@ -492,7 +492,7 @@ describe('VocabularyService', () => {
       it('should proxy the call to vocabularyDataService.findVocabularyById', () => {
         scheduler.schedule(() => service.findEntryDetailById('testValue', hierarchicalVocabulary.id));
         scheduler.flush();
-        const expectedId = `${hierarchicalVocabulary.id}:testValue`
+        const expectedId = `${hierarchicalVocabulary.id}:testValue`;
         expect((service as any).vocabularyEntryDetailDataService.findById).toHaveBeenCalledWith(expectedId, true);
       });
 

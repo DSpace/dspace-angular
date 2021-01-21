@@ -119,7 +119,7 @@ export abstract class FieldParser {
         this.configData.selectableMetadata[0].metadata,
         scope,
         this.configData.selectableMetadata[0].closed
-      )
+      );
     }
   }
 
@@ -230,7 +230,7 @@ export abstract class FieldParser {
       });
       fieldCount = counter;
     }
-    return (fieldCount === 0) ? 1 : fieldCount + 1
+    return (fieldCount === 0) ? 1 : fieldCount + 1;
   }
 
   protected getFieldId(): string {

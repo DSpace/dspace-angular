@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
-import { zip } from 'rxjs/internal/observable/zip';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
@@ -144,7 +142,7 @@ export class MetadataRegistryComponent {
             tasks$.push(this.registryService.deleteMetadataSchema(schema.id).pipe(getFirstCompletedRemoteData()));
           }
         }
-        zip(...tasks$).subscribe((responses: Array<RemoteData<NoContent>>) => {
+        zip(...tasks$).subscribe((responses: RemoteData<NoContent>[]) => {
           const successResponses = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
           const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
           if (successResponses.length > 0) {
@@ -158,7 +156,7 @@ export class MetadataRegistryComponent {
           this.forceUpdateSchemas();
         });
       }
-    )
+    );
   }
 
   /**
@@ -175,9 +173,9 @@ export class MetadataRegistryComponent {
     );
     messages.subscribe(([head, content]) => {
       if (success) {
-        this.notificationsService.success(head, content)
+        this.notificationsService.success(head, content);
       } else {
-        this.notificationsService.error(head, content)
+        this.notificationsService.error(head, content);
       }
     });
   }

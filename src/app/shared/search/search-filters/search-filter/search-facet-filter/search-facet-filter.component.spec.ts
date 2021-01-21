@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -86,7 +86,7 @@ describe('SearchFacetFilterComponent', () => {
   const page = observableOf(0);
 
   const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
       declarations: [SearchFacetFilterComponent],
@@ -135,7 +135,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call isFilterActiveWithValue on the filterService with the correct filter parameter name and the passed value', () => {
-      expect(filterService.isFilterActiveWithValue).toHaveBeenCalledWith(mockFilterConfig.paramName, values[1].value)
+      expect(filterService.isFilterActiveWithValue).toHaveBeenCalledWith(mockFilterConfig.paramName, values[1].value);
     });
   });
 
@@ -157,7 +157,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call incrementPage on the filterService with the correct filter parameter name', () => {
-      expect(filterService.incrementPage).toHaveBeenCalledWith(mockFilterConfig.name)
+      expect(filterService.incrementPage).toHaveBeenCalledWith(mockFilterConfig.name);
     });
   });
 
@@ -179,7 +179,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call getPage on the filterService with the correct filter parameter name', () => {
-      expect(filterService.getPage).toHaveBeenCalledWith(mockFilterConfig.name)
+      expect(filterService.getPage).toHaveBeenCalledWith(mockFilterConfig.name);
     });
   });
 
@@ -221,7 +221,7 @@ describe('SearchFacetFilterComponent', () => {
   describe('when updateFilterValueList is called', () => {
     beforeEach(() => {
       spyOn(comp, 'showFirstPageOnly');
-      comp.updateFilterValueList()
+      comp.updateFilterValueList();
     });
 
     it('should call showFirstPageOnly and empty the filter', () => {

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
 import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submission-cc-licence.resource-type';
 import { of as observableOf } from 'rxjs';
@@ -155,7 +155,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
     remove: undefined,
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         SharedModule,
@@ -170,7 +170,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         { provide: SectionsService, useValue: sectionService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
-        { provide: 'sectionDataProvider', useValue: sectionObject },
+        { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
       ],
     })

@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
@@ -6,7 +6,6 @@ import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
-import { currentPath } from '../../utils/route.utils';
 
 @Component({
   selector: 'ds-search-settings',

@@ -25,6 +25,10 @@ import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
+import {
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService
+} from '../../../../../testing/dynamic-form-mock-services';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
@@ -136,7 +140,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
     }
   });
 
-  // async beforeEach
+  // waitForAsync beforeEach
   beforeEach(() => {
     vocabularyServiceStub = new VocabularyServiceStub();
 
@@ -169,8 +173,8 @@ describe('DsDynamicOneboxComponent test suite', () => {
         ChangeDetectorRef,
         DsDynamicOneboxComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
-        { provide: DynamicFormLayoutService, useValue: {} },
-        { provide: DynamicFormValidationService, useValue: {} },
+        { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: NgbModal, useValue: modal },
         { provide: FormBuilderService },
         { provide: SubmissionService, useClass: SubmissionServiceStub }
@@ -178,7 +182,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 
-    });
+  });
 
   describe('', () => {
     // synchronous beforeEach
@@ -250,7 +254,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         inputElement.value = 'test value';
         inputElement.dispatchEvent(new Event('input'));
 
-        expect(oneboxComponent.inputValue).toEqual(new FormFieldMetadataValueObject('test value'))
+        expect(oneboxComponent.inputValue).toEqual(new FormFieldMetadataValueObject('test value'));
 
       });
 
@@ -409,7 +413,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
       spyOn(vocabularyServiceStub, 'findVocabularyById').and.returnValue(createSuccessfulRemoteDataObject$(hierarchicalVocabulary));
       oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
       oneboxComponent = oneboxCompFixture.componentInstance; // FormComponent test instance
-      modalService = TestBed.get(NgbModal);
+      modalService = TestBed.inject(NgbModal);
       modalService.open.and.returnValue(new MockNgbModalRef());
     });
 

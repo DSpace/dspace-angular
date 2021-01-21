@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { flatMap, take } from 'rxjs/operators';
+import { mergeMap, take } from 'rxjs/operators';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -80,11 +80,11 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
 
     this.parentUUID$.pipe(
       take(1),
-      flatMap((uuid: string) => {
+      mergeMap((uuid: string) => {
       const params = uuid ? [new RequestParam('parent', uuid)] : [];
       return this.dsoDataService.create(dso, ...params)
         .pipe(getFirstSucceededRemoteDataPayload()
-        )
+        );
       }))
       .subscribe((dsoRD: TDomain) => {
         if (isNotUndefined(dsoRD)) {

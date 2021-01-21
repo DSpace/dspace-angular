@@ -27,5 +27,5 @@ export class SearchObjects<T extends DSpaceObject> extends SearchQueryResponse<S
    * The results for this query
    */
   @autoserializeAs(SearchResult, 'objects')
-  page: Array<SearchResult<T>>;
+  page: SearchResult<T>[];
 }

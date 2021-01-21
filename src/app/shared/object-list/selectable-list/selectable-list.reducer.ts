@@ -133,5 +133,5 @@ function clearSelection(id: string) {
  * @param action The action to perform
  */
 function isObjectInSelection(selection: ListableObject[], object: ListableObject) {
-  return selection.findIndex((selected) => selected.equals(object)) >= 0
+  return selection.findIndex((selected) => selected.equals(object)) >= 0;
 }

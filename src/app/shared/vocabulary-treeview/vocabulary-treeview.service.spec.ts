@@ -1,4 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -8,12 +8,7 @@ import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import {
-  LOAD_MORE_NODE,
-  LOAD_MORE_ROOT_NODE,
-  TreeviewFlatNode,
-  TreeviewNode
-} from './vocabulary-treeview-node.model';
+import { LOAD_MORE_NODE, LOAD_MORE_ROOT_NODE, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
@@ -164,7 +159,7 @@ describe('VocabularyTreeviewService test suite', () => {
     vocabularyOptions = new VocabularyOptions('vocabularyTest', null, null,false);
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -183,7 +178,7 @@ describe('VocabularyTreeviewService test suite', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(VocabularyTreeviewService);
+    service = TestBed.inject(VocabularyTreeviewService);
     serviceAsAny = service;
     scheduler = getTestScheduler();
     init();

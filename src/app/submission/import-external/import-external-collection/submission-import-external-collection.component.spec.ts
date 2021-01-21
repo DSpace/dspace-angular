@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA, EventEmitter } from '@angular/core';
-import { async, TestBed, ComponentFixture, inject, fakeAsync } from '@angular/core/testing';
+import { waitForAsync, TestBed, ComponentFixture, inject, fakeAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
@@ -12,7 +12,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalCollectionComponent>;
 
-  beforeEach(async (() => {
+  beforeEach(waitForAsync (() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -93,17 +93,17 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       comp.hasChoice = null;
 
       comp.onHasChoice(true);
-      expect(comp.hasChoice).toBe(true)
+      expect(comp.hasChoice).toBe(true);
 
       comp.onHasChoice(false);
-      expect(comp.hasChoice).toBe(false)
+      expect(comp.hasChoice).toBe(false);
     });
 
     it('should emit theOnlySelectable', () => {
       spyOn(comp.selectedEvent, 'emit').and.callThrough();
 
       const selected: any = {};
-      comp.theOnlySelectable(selected)
+      comp.theOnlySelectable(selected);
 
       expect(comp.selectedEvent.emit).toHaveBeenCalledWith(selected);
     });

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { of as observableOf } from 'rxjs';
@@ -21,8 +21,8 @@ let fixture: ComponentFixture<NavbarComponent>;
 describe('NavbarComponent', () => {
   const menuService = new MenuServiceStub();
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -31,7 +31,7 @@ describe('NavbarComponent', () => {
         RouterTestingModule],
       declarations: [NavbarComponent],
       providers: [
-        { provide: Injector, useValue: {} },
+        Injector,
         { provide: MenuService, useValue: menuService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: ActivatedRoute, useValue: {} },

@@ -14,7 +14,7 @@ import { SEARCH_RESULT } from './search-result.resource-type';
  */
 @typedObject
 export class SearchResult<T extends DSpaceObject> extends ListableObject implements HALResource {
-  static type = SEARCH_RESULT
+  static type = SEARCH_RESULT;
 
   /**
    * Doesn't get a type in the rest response, so it's hardcoded
@@ -52,7 +52,7 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject impleme
   /**
    * Method that returns as which type of object this object should be rendered
    */
-  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+  getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     return [this.constructor as GenericConstructor<ListableObject>];
   }
 }

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -78,7 +78,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollection(query: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Collection>>): Observable<RemoteData<PaginatedList<Collection>>> {
+  getAuthorizedCollection(query: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findSubmitAuthorized';
     options = Object.assign({}, options, {
       searchParams: [new RequestParam('query', query)]
@@ -283,7 +283,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * @param searchOptions   Search options to sort or filter out items
    * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  getMappedItems(collectionId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
+  getMappedItems(collectionId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
     const requestUuid = this.requestService.generateRequestId();
 
     const href$ = this.getMappedItemsEndpoint(collectionId).pipe(

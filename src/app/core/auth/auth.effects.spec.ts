@@ -85,8 +85,8 @@ describe('AuthEffects', () => {
       ],
     });
 
-    authEffects = TestBed.get(AuthEffects);
-    store = TestBed.get(Store);
+    authEffects = TestBed.inject(AuthEffects);
+    store = TestBed.inject(Store as any);
   });
 
   describe('authenticate$', () => {
@@ -215,7 +215,7 @@ describe('AuthEffects', () => {
         expect(authEffects.checkToken$).toBeObservable(expected);
         done();
       });
-    })
+    });
   });
 
   describe('checkTokenCookie$', () => {
@@ -284,7 +284,7 @@ describe('AuthEffects', () => {
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
         done();
       });
-    })
+    });
   });
 
   describe('retrieveAuthenticatedEperson$', () => {
@@ -344,7 +344,7 @@ describe('AuthEffects', () => {
         expect(authEffects.refreshToken$).toBeObservable(expected);
         done();
       });
-    })
+    });
   });
 
   describe('retrieveToken$', () => {
@@ -406,7 +406,7 @@ describe('AuthEffects', () => {
         expect(authEffects.logOut$).toBeObservable(expected);
         done();
       });
-    })
+    });
   });
 
   describe('retrieveMethods$', () => {

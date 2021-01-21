@@ -205,6 +205,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() bindId = true;
   @Input() context: any | null = null;
   @Input() group: FormGroup;
+  @Input() hostClass: string[];
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
@@ -256,7 +257,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private formBuilderService: FormBuilderService,
     private submissionService: SubmissionService
   ) {
-    super(componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
+    super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
   }
 
   /**
@@ -304,9 +305,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               paginatedRelationsToItems(item.uuid),
               getFirstSucceededRemoteData(),
               map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((i) => Object.assign(new ItemSearchResult(), { indexableObject: i }))),
-            )
+            );
           })
-        ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
+        ).subscribe((relatedItems: SearchResult<Item>[]) => this.selectableListService.select(this.listId, relatedItems));
         this.subs.push(subscription);
       }
 
@@ -327,7 +328,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               getAllSucceededRemoteData(),
               getRemoteDataPayload(),
               map((leftItem: Item) => {
-                return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid, this.relationshipService, this.store, this.model.submissionId)
+                return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid, this.relationshipService, this.store, this.model.submissionId);
               }),
             )
           ),
@@ -401,7 +402,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   public hasResultsSelected(): Observable<boolean> {
-    return this.model.value.pipe(map((list: Array<SearchResult<DSpaceObject>>) => isNotEmpty(list)));
+    return this.model.value.pipe(map((list: SearchResult<DSpaceObject>[]) => isNotEmpty(list)));
   }
 
   /**

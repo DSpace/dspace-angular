@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { UUIDIndexEffects } from './index.effects';
 import { cold, hot } from 'jasmine-marbles';
@@ -36,7 +36,7 @@ describe('ObjectUpdatesEffects', () => {
     alternativeLink = 'rest.org/alternative-link/1234';
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       providers: [

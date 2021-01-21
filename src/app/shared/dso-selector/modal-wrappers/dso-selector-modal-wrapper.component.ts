@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -15,8 +15,10 @@ export enum SelectorActionType {
 /**
  * Abstract base class that represents a wrapper for modal content used to select a DSpace Object
  */
-
-@Injectable()
+@Component({
+  selector: 'ds-dso-selector-modal',
+  template: ''
+})
 export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   /**
    * The current page's DSO
@@ -79,7 +81,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
         .map((route: ActivatedRouteSnapshot) => route.children)
         .reduce((combined: ActivatedRouteSnapshot[], current: ActivatedRouteSnapshot[]) => [...combined, ...current]);
       if (isNotEmpty(nextLevelRoutes)) {
-        return this.findRouteData(predicate, ...nextLevelRoutes)
+        return this.findRouteData(predicate, ...nextLevelRoutes);
       } else {
         return undefined;
       }

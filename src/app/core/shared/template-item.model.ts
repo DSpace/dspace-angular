@@ -1,6 +1,6 @@
 import { inheritSerialization } from 'cerialize';
 import { Item } from './item.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { Collection } from './collection.model';
 import { ITEM_TEMPLATE } from './template-item.resource-type';

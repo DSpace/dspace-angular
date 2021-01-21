@@ -18,7 +18,7 @@ describe('SeriesFieldParser test suite', () => {
 
   beforeEach(() => {
     field = {
-      input: {type: 'series'},
+      input: { type: 'series' },
       label: 'Series/Report No.',
       mandatory: 'false',
       repeatable: false,

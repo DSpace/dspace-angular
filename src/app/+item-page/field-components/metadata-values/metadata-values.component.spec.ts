@@ -1,6 +1,6 @@
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { MetadataValuesComponent } from './metadata-values.component';
 import { By } from '@angular/platform-browser';
@@ -26,7 +26,7 @@ const mockSeperator = '<br/>';
 const mockLabel = 'fake.message';
 
 describe('MetadataValuesComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -41,7 +41,7 @@ describe('MetadataValuesComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(MetadataValuesComponent);
     comp = fixture.componentInstance;
     comp.mdValues = mockMetadata;

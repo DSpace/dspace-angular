@@ -1,35 +1,21 @@
 // Load the implementations that should be tested
 import { CommonModule } from '@angular/common';
 
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  DebugElement
-} from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 
-import {
-  async,
-  ComponentFixture,
-  inject,
-  TestBed, fakeAsync, tick
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
-import { Observable } from 'rxjs';
-
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import Spy = jasmine.Spy;
 
 import { PaginationComponent } from './pagination.component';
 import { PaginationComponentOptions } from './pagination-component-options.model';
@@ -122,8 +108,8 @@ describe('Pagination component', () => {
   // Define initial state and test state
   const _initialState = { width: 1600, height: 770 };
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
     activatedRouteStub = new MockActivatedRoute();
     routerStub = new RouterMock();
     hostWindowServiceStub = new HostWindowServiceMock(_initialState.width);
@@ -261,7 +247,15 @@ describe('Pagination component', () => {
 
     changePage(testFixture, 3);
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: '3', pageSize: 10, sortDirection: 'ASC', sortField: 'dc.title' }, queryParamsHandling: 'merge' });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], {
+      queryParams: {
+        pageId: 'test',
+        page: '3',
+        pageSize: 10,
+        sortDirection: 'ASC',
+        sortField: 'dc.title'
+      }, queryParamsHandling: 'merge'
+    });
 
   }));
 
@@ -272,7 +266,15 @@ describe('Pagination component', () => {
 
     changePageSize(testFixture, '20');
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 1, pageSize: 20, sortDirection: 'ASC', sortField: 'dc.title' } , queryParamsHandling: 'merge' });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], {
+      queryParams: {
+        pageId: 'test',
+        page: 1,
+        pageSize: 20,
+        sortDirection: 'ASC',
+        sortField: 'dc.title'
+      }, queryParamsHandling: 'merge'
+    });
   }));
 
   it('should set correct values', fakeAsync(() => {

@@ -82,7 +82,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.authorityValue.firstChange) {
-      this.previousClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.previousValue))
+      this.previousClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.previousValue));
     }
     this.newClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.currentValue));
 

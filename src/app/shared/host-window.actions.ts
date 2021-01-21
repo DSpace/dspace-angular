@@ -14,7 +14,7 @@ export class HostWindowResizeAction implements Action {
   };
 
   constructor(width: number, height: number) {
-    this.payload = { width, height }
+    this.payload = { width, height };
   }
 }
 

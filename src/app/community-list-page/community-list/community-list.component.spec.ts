@@ -1,12 +1,7 @@
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { CommunityListComponent } from './community-list.component';
-import {
-  CommunityListService,
-  FlatNode,
-  showMoreFlatNode,
-  toFlatNode
-} from '../community-list-service';
+import { CommunityListService, FlatNode, showMoreFlatNode, toFlatNode } from '../community-list-service';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
@@ -14,7 +9,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Community } from '../../core/shared/community.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { Collection } from '../../core/shared/collection.model';
 import { of as observableOf } from 'rxjs';
@@ -112,7 +107,7 @@ describe('CommunityListComponent', () => {
   ];
   let communityListServiceStub;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     communityListServiceStub = {
       pageSize: 2,
       expandedNodes: [],
@@ -288,7 +283,7 @@ describe('CommunityListComponent', () => {
           expect(allNodes.find((foundEl) => {
             return (foundEl.nativeElement.textContent.trim() === subcom.name);
           })).toBeTruthy();
-        })
+        });
       });
     });
   });

@@ -42,7 +42,7 @@ export class ThumbnailComponent implements OnInit {
     if (hasValue(this.thumbnail) && hasValue(this.thumbnail._links) && hasValue(this.thumbnail._links.content) && this.thumbnail._links.content.href) {
       this.src = this.thumbnail._links.content.href;
     } else {
-      this.src = this.defaultImage
+      this.src = this.defaultImage;
     }
   }
 

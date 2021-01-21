@@ -1,19 +1,19 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ProcessOverviewComponent } from './process-overview.component';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { Process } from '../processes/process.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { By } from '@angular/platform-browser';
+import { ProcessStatus } from '../processes/process-status.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { ProcessStatus } from '../processes/process-status.model';
-import { Process } from '../processes/process.model';
-import { ProcessOverviewComponent } from './process-overview.component';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
@@ -93,7 +93,7 @@ describe('ProcessOverviewComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [ProcessOverviewComponent, VarDirective],
@@ -181,7 +181,7 @@ describe('ProcessOverviewComponent', () => {
         expect(processService.findAll).toHaveBeenCalledWith(jasmine.objectContaining({ currentPage: toPage }));
       });
     });
-  })
+  });
 
   describe('if the current user is not an admin', () => {
 
@@ -258,5 +258,5 @@ describe('ProcessOverviewComponent', () => {
       });
 
     });
-  })
+  });
 });

@@ -1,9 +1,8 @@
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { GroupMock } from './group-mock';
 
 export const EPersonMock: EPerson = Object.assign(new EPerson(), {
   handle: null,
-  groups: [GroupMock],
+  groups: [],
   netid: 'test@test.com',
   lastActive: '2018-05-14T12:25:42.411+0000',
   canLogIn: true,

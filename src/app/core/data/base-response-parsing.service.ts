@@ -64,7 +64,7 @@ export abstract class BaseResponseParsingService {
                 } else if (isRestDataObject(data._embedded[property])) {
                   object[property] = this.retrieveObjectOrUrl(parsedObj);
                 } else if (Array.isArray(parsedObj)) {
-                  object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj))
+                    object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj));
                 }
               }
             });

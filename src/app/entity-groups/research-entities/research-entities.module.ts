@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { ItemPageModule } from '../../+item-page/item-page.module';
 import { OrgUnitComponent } from './item-pages/org-unit/org-unit.component';
 import { PersonComponent } from './item-pages/person/person.component';
 import { ProjectComponent } from './item-pages/project/project.component';
 import { OrgUnitListElementComponent } from './item-list-elements/org-unit/org-unit-list-element.component';
 import { PersonListElementComponent } from './item-list-elements/person/person-list-element.component';
 import { ProjectListElementComponent } from './item-list-elements/project/project-list-element.component';
-import { TooltipModule } from 'ngx-bootstrap';
 import { PersonGridElementComponent } from './item-grid-elements/person/person-grid-element.component';
 import { OrgUnitGridElementComponent } from './item-grid-elements/org-unit/org-unit-grid-element.component';
 import { ProjectGridElementComponent } from './item-grid-elements/project/project-grid-element.component';
@@ -32,6 +30,7 @@ import { ProjectSidebarSearchListElementComponent } from './item-list-elements/s
 import { ContextMenuModule } from '../../shared/context-menu/context-menu.module';
 
 const ENTRY_COMPONENTS = [
+// put only entry components that use custom decorator
   OrgUnitComponent,
   PersonComponent,
   ProjectComponent,
@@ -50,8 +49,6 @@ const ENTRY_COMPONENTS = [
   OrgUnitSearchResultGridElementComponent,
   ProjectSearchResultGridElementComponent,
   PersonSearchResultListSubmissionElementComponent,
-  PersonInputSuggestionsComponent,
-  NameVariantModalComponent,
   OrgUnitSearchResultListSubmissionElementComponent,
   OrgUnitInputSuggestionsComponent,
   ExternalSourceEntryListSubmissionElementComponent,
@@ -60,21 +57,31 @@ const ENTRY_COMPONENTS = [
   ProjectSidebarSearchListElementComponent,
 ];
 
+const COMPONENTS = [
+  NameVariantModalComponent,
+  PersonInputSuggestionsComponent,
+  ...ENTRY_COMPONENTS
+];
+
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    TooltipModule.forRoot(),
-    ItemPageModule,
     ContextMenuModule
   ],
   declarations: [
-    ...ENTRY_COMPONENTS,
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS
+    ...COMPONENTS,
   ]
 })
 export class ResearchEntitiesModule {
-
+  /**
+   * NOTE: this method allows to resolve issue with components that using a custom decorator
+   * which are not loaded during CSR otherwise
+   */
+  static withEntryComponents() {
+    return {
+      ngModule: ResearchEntitiesModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 }

@@ -1,22 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  fakeAsync,
-  flush,
-  inject,
-  TestBed,
-  tick
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { RestResponse } from '../../../../../core/cache/response.models';
-import { PaginatedList, buildPaginatedList } from '../../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
@@ -26,7 +18,6 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { GroupMock, GroupMock2 } from '../../../../../shared/testing/group-mock';
-import { of as observableOf } from 'rxjs';
 import { MembersListComponent } from './members-list.component';
 import { EPersonMock, EPersonMock2 } from '../../../../../shared/testing/eperson.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
@@ -49,7 +40,7 @@ describe('MembersListComponent', () => {
   let epersonMembers;
   let subgroupMembers;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     activeGroup = GroupMock;
     epersonMembers = [EPersonMock2];
     subgroupMembers = [GroupMock2];
@@ -60,13 +51,13 @@ describe('MembersListComponent', () => {
       epersonMembers: epersonMembers,
       subgroupMembers: subgroupMembers,
       findAllByHref(href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
-        return createSuccessfulRemoteDataObject$(buildPaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()));
       },
       searchByScope(scope: string, query: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allEPersons))
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allEPersons));
         }
-        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
       },
       clearEPersonRequests() {
         // empty
@@ -91,9 +82,9 @@ describe('MembersListComponent', () => {
       },
       searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), this.allGroups))
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), this.allGroups));
         }
-        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
       },
       addMemberToGroup(parentGroup, eperson: EPerson): Observable<RestResponse> {
         this.epersonMembers = [...this.epersonMembers, eperson];
@@ -115,7 +106,7 @@ describe('MembersListComponent', () => {
           }
         });
         if (this.epersonMembers === undefined) {
-          this.epersonMembers = []
+          this.epersonMembers = [];
         }
         return observableOf(new RestResponse(true, 200, 'Success'));
       }
@@ -198,8 +189,8 @@ describe('MembersListComponent', () => {
                   expect(addButton).toBeDefined();
                 }
               }
-            })
-          })
+            });
+          });
         });
       });
 
@@ -220,7 +211,7 @@ describe('MembersListComponent', () => {
               expect(addButton).toBeUndefined();
               expect(deleteButton).toBeDefined();
             }
-          })
+          });
         });
       });
 
@@ -240,7 +231,7 @@ describe('MembersListComponent', () => {
               expect(deleteButton).toBeUndefined();
               expect(addButton).toBeDefined();
             }
-          })
+          });
         });
       });
     });

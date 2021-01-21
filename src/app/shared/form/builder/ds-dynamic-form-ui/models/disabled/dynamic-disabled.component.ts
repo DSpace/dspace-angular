@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 import { DynamicFormControlComponent, DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { FormGroup } from '@angular/forms';
+
 import { DynamicDisabledModel } from './dynamic-disabled.model';
 
 /**

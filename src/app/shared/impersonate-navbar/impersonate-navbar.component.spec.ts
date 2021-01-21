@@ -1,58 +1,67 @@
-import { ImpersonateNavbarComponent } from './impersonate-navbar.component';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { VarDirective } from '../utils/var.directive';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { TranslateModule } from '@ngx-translate/core';
 import { Store, StoreModule } from '@ngrx/store';
-import { authReducer, AuthState } from '../../core/auth/auth.reducer';
+import { By } from '@angular/platform-browser';
+import { provideMockStore } from '@ngrx/store/testing';
+
+import { ImpersonateNavbarComponent } from './impersonate-navbar.component';
+import { VarDirective } from '../utils/var.directive';
+import { AuthService } from '../../core/auth/auth.service';
+import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPersonMock } from '../testing/eperson.mock';
-import { AppState } from '../../app.reducer';
-import { By } from '@angular/platform-browser';
+import { AppState, storeModuleConfig } from '../../app.reducer';
 
 describe('ImpersonateNavbarComponent', () => {
   let component: ImpersonateNavbarComponent;
   let fixture: ComponentFixture<ImpersonateNavbarComponent>;
   let authService: AuthService;
-  let authState: AuthState;
+  let initialState: any;
+  let store: Store<AppState>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isImpersonating: false,
       stopImpersonatingAndRefresh: {}
     });
-    authState = {
-      authenticated: true,
-      loaded: true,
-      blocking: false,
-      loading: false,
-      authToken: new AuthTokenInfo('test_token'),
-      user: EPersonMock
+    initialState = {
+      core: {
+        auth: {
+          authenticated: true,
+          loaded: true,
+          blocking: false,
+          loading: false,
+          authToken: new AuthTokenInfo('test_token'),
+          user: EPersonMock,
+          authMethods: []
+        }
+      }
     };
 
     TestBed.configureTestingModule({
       declarations: [ImpersonateNavbarComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), StoreModule.forRoot(authReducer)],
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
+      ],
       providers: [
-        { provide: AuthService, useValue: authService }
+        { provide: AuthService, useValue: authService },
+        provideMockStore({ initialState }),
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
-  beforeEach(inject([Store], (store: Store<AppState>) => {
-    store
-      .subscribe((state) => {
-        (state as any).core = Object.create({});
-        (state as any).core.auth = authState;
-      });
-
+  beforeEach(() => {
+    store = TestBed.inject(Store);
     fixture = TestBed.createComponent(ImpersonateNavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   describe('when the user is impersonating another user', () => {
     beforeEach(() => {

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NgZone, SimpleChange } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
@@ -39,7 +39,10 @@ import {
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn } from './ds-dynamic-form-control-container.component';
+import {
+  DsDynamicFormControlContainerComponent,
+  dsDynamicFormControlMapFn
+} from './ds-dynamic-form-control-container.component';
 import { SharedModule } from '../../../shared.module';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
@@ -112,7 +115,13 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicSwitchModel({ id: 'switch' }),
     new DynamicTextAreaModel({ id: 'textarea' }),
     new DynamicTimePickerModel({ id: 'timepicker' }),
-    new DynamicOneboxModel({ id: 'typeahead', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
+    new DynamicOneboxModel({
+      id: 'typeahead',
+      metadataFields: [],
+      repeatable: false,
+      submissionId: '1234',
+      hasSelectableMetadata: false
+    }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
       vocabularyOptions: vocabularyOptions,
@@ -121,7 +130,13 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       submissionId: '1234',
       hasSelectableMetadata: false
     }),
-    new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
+    new DynamicTagModel({
+      id: 'tag',
+      metadataFields: [],
+      repeatable: false,
+      submissionId: '1234',
+      hasSelectableMetadata: false
+    }),
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
       vocabularyOptions: vocabularyOptions,
@@ -161,8 +176,20 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       hasSelectableMetadata: false
     }),
     new DynamicDsDatePickerModel({ id: 'datepicker' }),
-    new DynamicLookupModel({ id: 'lookup', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false }),
-    new DynamicLookupNameModel({ id: 'lookupName', metadataFields: [], repeatable: false, submissionId: '1234', hasSelectableMetadata: false}),
+    new DynamicLookupModel({
+      id: 'lookup',
+      metadataFields: [],
+      repeatable: false,
+      submissionId: '1234',
+      hasSelectableMetadata: false
+    }),
+    new DynamicLookupNameModel({
+      id: 'lookupName',
+      metadataFields: [],
+      repeatable: false,
+      submissionId: '1234',
+      hasSelectableMetadata: false
+    }),
     new DynamicQualdropModel({ id: 'combobox', readOnly: false, required: false })
   ];
   const testModel = formModel[8];
@@ -174,7 +201,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   const testItem: Item = new Item();
   const testWSI: WorkspaceItem = new WorkspaceItem();
   testWSI.item = observableOf(createSuccessfulRemoteDataObject(testItem));
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     TestBed.overrideModule(BrowserDynamicTestingModule, {
 
@@ -220,7 +247,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
       fixture = TestBed.createComponent(DsDynamicFormControlContainerComponent);
 
-      const ngZone = TestBed.get(NgZone);
+      const ngZone = TestBed.inject(NgZone);
 
       // tslint:disable-next-line:ban-types
       spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
@@ -309,7 +336,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
     spyOn(component, 'onModelValueUpdates');
 
-    (testModel as DynamicInputModel).valueUpdates.next('test');
+    (testModel as DynamicInputModel).value = 'test';
 
     expect(component.onModelValueUpdates).toHaveBeenCalled();
   });
@@ -318,7 +345,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
     spyOn(component, 'onModelDisabledUpdates');
 
-    testModel.disabledUpdates.next(true);
+    testModel.disabled = true;
 
     expect(component.onModelDisabledUpdates).toHaveBeenCalled();
   });

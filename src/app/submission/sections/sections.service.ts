@@ -164,7 +164,7 @@ export class SectionsService {
     return this.store.select(submissionSectionDataFromIdSelector(submissionId, sectionId)).pipe(
       map((sectionData: WorkspaceitemSectionDataType) => {
         if (sectionType === SectionsType.SubmissionForm) {
-          return normalizeSectionData(sectionData)
+          return normalizeSectionData(sectionData);
         } else {
           return sectionData;
         }
@@ -208,7 +208,7 @@ export class SectionsService {
         if (hasValue(sectionState.data) && sectionType === SectionsType.SubmissionForm) {
           return Object.assign({}, sectionState, {
             data: normalizeSectionData(sectionState.data)
-          })
+          });
         } else {
           return sectionState;
         }
@@ -285,7 +285,7 @@ export class SectionsService {
       map((sectionObj: SubmissionSectionObject) => {
         return isNotEmpty(sectionObj.visibility)
           && sectionObj.visibility.other === 'READONLY'
-          && submissionScope !== SubmissionScopeType.WorkspaceItem
+          && submissionScope !== SubmissionScopeType.WorkspaceItem;
       }),
       distinctUntilChanged());
   }
@@ -336,7 +336,7 @@ export class SectionsService {
    *    The section id
    */
   public dispatchRemoveSection(submissionId: string, sectionId: string) {
-    this.store.dispatch(new DisableSectionAction(submissionId, sectionId))
+    this.store.dispatch(new DisableSectionAction(submissionId, sectionId));
   }
 
   /**
@@ -411,9 +411,9 @@ export class SectionsService {
                 if (!metadata.includes(selectableMetadata.metadata)) {
                   metadata.push(selectableMetadata.metadata);
                 }
-              })
+              });
             }
-          })
+          });
         }
       });
     }

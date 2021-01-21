@@ -1,5 +1,5 @@
 import { CollectionListElementComponent } from './collection-list-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
@@ -30,20 +30,20 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
 });
 
 describe('CollectionListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CollectionListElementComponent ],
+      declarations: [CollectionListElementComponent],
       providers: [
-        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract)}
+        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) }
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(CollectionListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(CollectionListElementComponent);
     collectionListElementComponent = fixture.componentInstance;
   }));

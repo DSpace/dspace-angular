@@ -25,7 +25,7 @@ export class CommunityRolesComponent implements OnInit {
     return this.dsoRD$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-    )
+    );
   }
 
   /**

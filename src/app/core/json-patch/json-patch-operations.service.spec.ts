@@ -3,6 +3,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
 import { SubmissionPatchRequest } from '../data/request.models';
@@ -21,7 +22,8 @@ import {
 } from './json-patch-operations.actions';
 import { RequestEntry } from '../data/request.reducer';
 import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { _deepClone } from 'fast-json-patch/lib/helpers';
+import { deepClone } from 'fast-json-patch';
+
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
@@ -85,7 +87,7 @@ describe('JsonPatchOperationsService test suite', () => {
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful, timeCompleted: timestampResponse } as any
-    } as RequestEntry)
+    } as RequestEntry);
   };
 
   function initTestService(): TestService {
@@ -209,7 +211,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
     it('should return false when there are not pending operations', () => {
 
-      const mockStateNoOp = _deepClone(mockState);
+      const mockStateNoOp = deepClone(mockState);
       mockStateNoOp['json/patch'][testJsonPatchResourceType].children = [];
       store.select.and.returnValue(observableOf(mockStateNoOp['json/patch'][testJsonPatchResourceType]));
 

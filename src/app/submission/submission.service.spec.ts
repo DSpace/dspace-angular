@@ -1,9 +1,9 @@
 import { StoreModule } from '@ngrx/store';
-import { async, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { waitForAsync, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { cold, getTestScheduler, hot, } from 'jasmine-marbles';
@@ -17,10 +17,7 @@ import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-ser
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import {
-  mockSubmissionDefinition,
-  mockSubmissionRestResponse
-} from '../shared/mocks/submission.mock';
+import { mockSubmissionDefinition, mockSubmissionRestResponse } from '../shared/mocks/submission.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import {
@@ -35,7 +32,6 @@ import {
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
-import { throwError as observableThrowError } from 'rxjs/internal/observable/throwError';
 import {
   createFailedRemoteDataObject,
 } from '../shared/remote-data.utils';
@@ -360,7 +356,7 @@ describe('SubmissionService test suite', () => {
 
   const requestServce = getMockRequestService();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
@@ -389,7 +385,7 @@ describe('SubmissionService test suite', () => {
   }));
 
   beforeEach(() => {
-    service = TestBed.get(SubmissionService);
+    service = TestBed.inject(SubmissionService);
     spyOn((service as any).store, 'dispatch').and.callThrough();
   });
 
@@ -1061,7 +1057,7 @@ describe('SubmissionService test suite', () => {
 
     afterEach(() => {
       environment.submission.autosave.timer = environmentAutoSaveTimerOriginalValue;
-    })
+    });
 
   });
 

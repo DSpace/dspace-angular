@@ -55,7 +55,7 @@ export class AuthServiceStub {
   }
 
   public buildAuthHeader(token?: AuthTokenInfo): string {
-    return `Bearer ${token.accessToken}`;
+    return `Bearer ${token ? token.accessToken : ''}`;
   }
 
   public getToken(): AuthTokenInfo {
@@ -78,14 +78,14 @@ export class AuthServiceStub {
    * This method is used to ease testing
    */
   public setTokenAsExpired() {
-    this._tokenExpired = true
+    this._tokenExpired = true;
   }
 
   /**
    * This method is used to ease testing
    */
   public setTokenAsNotExpired() {
-    this._tokenExpired = false
+    this._tokenExpired = false;
   }
 
   public isTokenExpiring(): Observable<boolean> {

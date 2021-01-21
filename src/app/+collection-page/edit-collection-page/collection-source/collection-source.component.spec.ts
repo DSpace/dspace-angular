@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionSourceComponent } from './collection-source.component';
 import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
@@ -42,7 +42,7 @@ describe('CollectionSourceComponent', () => {
   let comp: CollectionSourceComponent;
   let fixture: ComponentFixture<CollectionSourceComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     date = new Date();
     contentSource = Object.assign(new ContentSource(), {
       uuid: uuid,
@@ -175,7 +175,7 @@ describe('CollectionSourceComponent', () => {
     });
 
     it('should send a field update', () => {
-      expect(objectUpdatesService.saveAddFieldUpdate).toHaveBeenCalledWith(router.url, comp.contentSource)
+      expect(objectUpdatesService.saveAddFieldUpdate).toHaveBeenCalledWith(router.url, comp.contentSource);
     });
 
     it('should display the form', () => {

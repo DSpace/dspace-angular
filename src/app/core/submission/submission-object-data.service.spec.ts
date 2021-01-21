@@ -25,13 +25,13 @@ describe('SubmissionObjectDataService', () => {
     workspaceitemDataService = jasmine.createSpyObj('WorkspaceitemDataService', {
       findById: wsiResult
     });
-    workflowItemDataService  = jasmine.createSpyObj('WorkflowItemDataService', {
+    workflowItemDataService = jasmine.createSpyObj('WorkflowItemDataService', {
       findById: wfiResult
     });
     editItemDataService  = jasmine.createSpyObj('EditItemDataService', {
       findById: eiResult
     });
-    halService  = jasmine.createSpyObj('HALEndpointService', {
+    halService = jasmine.createSpyObj('HALEndpointService', {
       getEndpoint: '/workspaceItem'
     });
   });
@@ -96,7 +96,7 @@ describe('SubmissionObjectDataService', () => {
           expect(rd.hasFailed).toBe(true);
           expect(rd.errorMessage).toBeDefined();
           done();
-        })
+        });
       });
     });
 

@@ -1,5 +1,5 @@
 import { CommunitySearchResultListElementComponent } from './community-search-result-list-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -42,20 +42,20 @@ mockCommunityWithoutAbstract.indexableObject = Object.assign(new Community(), {
 });
 
 describe('CommunitySearchResultListElementComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommunitySearchResultListElementComponent, TruncatePipe ],
+      declarations: [CommunitySearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(CommunitySearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(CommunitySearchResultListElementComponent);
     communitySearchResultListElementComponent = fixture.componentInstance;
     communitySearchResultListElementComponent.object = mockCommunityWithAbstract;

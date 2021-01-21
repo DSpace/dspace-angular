@@ -1,8 +1,8 @@
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -40,7 +40,7 @@ let relationshipType;
 
 describe('EditRelationshipListComponent', () => {
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     entityType = Object.assign(new ItemType(), {
       id: 'Publication',

@@ -24,7 +24,6 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   @serializable() hiddenUpdates: Subject<boolean>;
   @serializable() typeBindRelations: DynamicFormControlRelation[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
-  valueUpdates: Subject<any>;
   malformedDate: boolean;
   hasLanguages = false;
   repeatable = false;

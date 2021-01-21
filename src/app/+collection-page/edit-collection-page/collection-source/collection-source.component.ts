@@ -18,22 +18,20 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { FormGroup } from '@angular/forms';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable, Subscription, throwError } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
-import { Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { MetadataConfig } from '../../../core/shared/metadata-config.model';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { RequestService } from '../../../core/data/request.service';
 import { environment } from '../../../../environments/environment';
 import { Operation } from 'fast-json-patch';
-import { throwError } from 'rxjs';
 
 /**
  * Component for managing the content source of the collection
@@ -517,12 +515,12 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
         op: 'replace',
         value: value,
         path: '/metadata/' + metadata
-      })
+      });
     } else if (collection.hasMetadata(metadata)) {
       operations.push({
         op: 'remove',
         path: '/metadata/' + metadata
-      })
+      });
     }
   }
 
@@ -560,7 +558,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   updateContentSource(updateHarvestType: boolean) {
     this.inputModels.forEach(
       (fieldModel: DynamicInputModel) => {
-        this.updateContentSourceField(fieldModel, updateHarvestType)
+        this.updateContentSourceField(fieldModel, updateHarvestType);
       }
     );
     this.saveFieldUpdate();

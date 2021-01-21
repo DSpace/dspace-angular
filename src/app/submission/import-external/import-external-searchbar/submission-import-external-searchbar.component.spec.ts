@@ -1,11 +1,19 @@
-import { Component, NO_ERRORS_SCHEMA, ChangeDetectorRef } from '@angular/core';
-import { async, TestBed, ComponentFixture, inject, fakeAsync, tick } from '@angular/core/testing';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { SubmissionImportExternalSearchbarComponent, SourceElement } from './submission-import-external-searchbar.component';
+import {
+  SourceElement,
+  SubmissionImportExternalSearchbarComponent
+} from './submission-import-external-searchbar.component';
 import { ExternalSourceService } from '../../../core/data/external-source.service';
 import { createTestComponent } from '../../../shared/testing/utils.test';
-import { getMockExternalSourceService, externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb } from '../../../shared/mocks/external-source.service.mock';
+import {
+  externalSourceCiencia,
+  externalSourceMyStaffDb,
+  externalSourceOrcid,
+  getMockExternalSourceService
+} from '../../../shared/mocks/external-source.service.mock';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { PaginatedList, buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
@@ -22,8 +30,14 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalSearchbarComponent>;
   let scheduler: TestScheduler;
+  let sourceList: SourceElement[];
+  let paginatedList: PaginatedList<ExternalSource>;
 
-  beforeEach(async (() => {
+  const mockExternalSourceService: any = getMockExternalSourceService();
+  paginatedList = buildPaginatedList(new PageInfo(), [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
+  let paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+
+  beforeEach(waitForAsync(() => {
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
       imports: [
@@ -34,7 +48,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
         TestComponent,
       ],
       providers: [
-        { provide: ExternalSourceService, useClass: getMockExternalSourceService },
+        { provide: ExternalSourceService, useValue: mockExternalSourceService },
         ChangeDetectorRef,
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         SubmissionImportExternalSearchbarComponent
@@ -50,6 +64,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      mockExternalSourceService.findAll.and.returnValue(observableOf(paginatedListRD));
       const html = `
         <ds-submission-import-external-searchbar></ds-submission-import-external-searchbar>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -66,8 +81,6 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   });
 
   describe('', () => {
-    let sourceList: SourceElement[];
-    let paginatedList: PaginatedList<ExternalSource>;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionImportExternalSearchbarComponent);
@@ -75,8 +88,8 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       compAsAny = comp;
       const pageInfo = new PageInfo();
       paginatedList = buildPaginatedList(pageInfo, [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
-      const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-      compAsAny.externalService.searchBy.and.returnValue(observableOf(paginatedListRD));
+      paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+      compAsAny.externalService.findAll.and.returnValue(observableOf(paginatedListRD));
       sourceList = [
         {id: 'orcid', name: 'orcid'},
         {id: 'ciencia', name: 'ciencia'},

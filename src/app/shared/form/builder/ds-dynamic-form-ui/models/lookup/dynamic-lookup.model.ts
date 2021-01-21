@@ -13,7 +13,6 @@ export class DynamicLookupModel extends DsDynamicInputModel {
 
   @serializable() maxOptions: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_LOOKUP;
-  @serializable() value: any;
   @serializable() submissionScope: string;
 
   constructor(config: DynamicLookupModelConfig, layout?: DynamicFormControlLayout) {
@@ -24,6 +23,6 @@ export class DynamicLookupModel extends DsDynamicInputModel {
     this.maxOptions = config.maxOptions || 10;
     this.submissionScope = config.submissionScope;
 
-    this.valueUpdates.next(config.value);
+    this.value = config.value;
   }
 }

@@ -2,7 +2,7 @@ import { Observable, of as observableOf } from 'rxjs';
 
 import { PageInfo } from '../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { RemoteData } from '../../core/data/remote-data';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
@@ -22,7 +22,7 @@ export class VocabularyServiceStub {
   }
 
   getList() {
-    return this._payload
+    return this._payload;
   }
 
   getVocabularyEntries(vocabularyOptions: VocabularyOptions, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<VocabularyEntry>>> {

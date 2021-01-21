@@ -1,10 +1,9 @@
-import * as ngrx from '@ngrx/store';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { Store, StoreModule } from '@ngrx/store';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Store, StoreModule } from '@ngrx/store';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 // Load the implementations that should be tested
@@ -16,7 +15,7 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
 import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
 import { MetadataServiceMock } from './shared/mocks/metadata-service.mock';
-import { AngularticsMock } from './shared/mocks/angulartics.service.mock';
+import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
 import { AuthServiceMock } from './shared/mocks/auth.service.mock';
 import { AuthService } from './core/auth/auth.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -32,22 +31,25 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import { storeModuleConfig } from './app.reducer';
 import { LocaleService } from './core/locale/locale.service';
 import { authReducer } from './core/auth/auth.reducer';
-import { cold } from 'jasmine-marbles';
+import { provideMockStore } from '@ngrx/store/testing';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
 const menuService = new MenuServiceStub();
+const initialState = {
+  core: { auth: { loading: false } }
+};
 
 describe('App component', () => {
 
   function getMockLocaleService(): LocaleService {
     return jasmine.createSpyObj('LocaleService', {
       setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode')
-    })
+    });
   }
 
-  // async beforeEach
-  beforeEach(async(() => {
+  // waitForAsync beforeEach
+  beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -63,8 +65,8 @@ describe('App component', () => {
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MetadataServiceMock() },
-        { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsMock() },
-        { provide: Angulartics2DSpace, useValue: new AngularticsMock() },
+        { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsProviderMock() },
+        { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
@@ -72,6 +74,7 @@ describe('App component', () => {
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: LocaleService, useValue: getMockLocaleService() },
+        provideMockStore({ initialState }),
         AppComponent,
         RouteService
       ],
@@ -81,16 +84,6 @@ describe('App component', () => {
 
   // synchronous beforeEach
   beforeEach(() => {
-    spyOnProperty(ngrx, 'select').and.callFake(() => {
-      return () => {
-        return () => cold('a', {
-          a: {
-            core: { auth: { loading: false } }
-          }
-        })
-      };
-    });
-
     fixture = TestBed.createComponent(AppComponent);
     comp = fixture.componentInstance; // component test instance
     fixture.detectChanges();

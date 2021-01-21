@@ -26,7 +26,7 @@ function equalsByFields(object1, object2, fieldList): boolean {
       return !object1[key].equals(object2[key]);
     }
     if (typeof object1[key] === 'object') {
-      return !equalsByFields(object1[key], object2[key], Object.keys(object1))
+      return !equalsByFields(object1[key], object2[key], Object.keys(object1));
     }
     return object1[key] !== object2[key];
   });

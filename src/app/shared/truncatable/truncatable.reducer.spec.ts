@@ -1,15 +1,14 @@
 import * as deepFreeze from 'deep-freeze';
 
 import { truncatableReducer } from './truncatable.reducer';
-import {
-  TruncatableCollapseAction, TruncatableExpandAction,
-  TruncatableToggleAction
-} from './truncatable.actions';
+import { TruncatableCollapseAction, TruncatableExpandAction, TruncatableToggleAction } from './truncatable.actions';
 
 const id1 = '123';
 const id2 = '456';
+
 class NullAction extends TruncatableCollapseAction {
   type = null;
+
   constructor() {
     super(undefined);
   }
@@ -36,7 +35,7 @@ describe('truncatableReducer', () => {
 
   it('should set collapsed to true in response to the COLLAPSE action', () => {
     const state = {};
-    state[id1] = { collapsed: false};
+    state[id1] = { collapsed: false };
     const action = new TruncatableCollapseAction(id1);
     const newState = truncatableReducer(state, action);
 
@@ -45,7 +44,7 @@ describe('truncatableReducer', () => {
 
   it('should perform the COLLAPSE action without affecting the previous state', () => {
     const state = {};
-    state[id1] = { collapsed: false};
+    state[id1] = { collapsed: false };
     deepFreeze([state]);
 
     const action = new TruncatableCollapseAction(id1);

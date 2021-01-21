@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, map, take } from 'rxjs/operators';

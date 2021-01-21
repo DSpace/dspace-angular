@@ -7,7 +7,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { PageInfo } from '../shared/page-info.model';
-import { PaginatedList, buildPaginatedList } from './paginated-list.model';
+import { buildPaginatedList } from './paginated-list.model';
 import { RelationshipTypeService } from './relationship-type.service';
 import { RequestService } from './request.service';
 
@@ -37,9 +37,9 @@ describe('RelationshipTypeService', () => {
     publicationTypeString = 'Publication';
     personTypeString = 'Person';
     orgUnitTypeString = 'OrgUnit';
-    publicationType = Object.assign(new ItemType(), {label: publicationTypeString});
-    personType = Object.assign(new ItemType(), {label: personTypeString});
-    orgUnitType = Object.assign(new ItemType(), {label: orgUnitTypeString});
+    publicationType = Object.assign(new ItemType(), { label: publicationTypeString });
+    personType = Object.assign(new ItemType(), { label: personTypeString });
+    orgUnitType = Object.assign(new ItemType(), { label: orgUnitTypeString });
 
     relationshipType1 = Object.assign(new RelationshipType(), {
       id: '1',
@@ -72,6 +72,7 @@ describe('RelationshipTypeService', () => {
     itemService = undefined;
 
   }
+
   function initTestService() {
     return new RelationshipTypeService(
       itemService,
@@ -100,7 +101,7 @@ describe('RelationshipTypeService', () => {
       expected.subscribe((e) => {
         expect(e).toBe(buildList);
         done();
-      })
+      });
     });
   });
 
@@ -111,7 +112,7 @@ describe('RelationshipTypeService', () => {
       expected.subscribe((e) => {
         expect(e).toBe(relationshipType1);
         done();
-      })
+      });
     });
   });
 

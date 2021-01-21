@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -19,7 +19,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
     submitTask: observableOf(new ProcessTaskResponse(true))
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -76,7 +76,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
     });
 
     it('should call claimedTaskService\'s submitTask with the expected body', () => {
-      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody)
+      expect(claimedTaskService.submitTask).toHaveBeenCalledWith(object.id, expectedBody);
     });
 
     it('should emit a successful processCompleted event', () => {

@@ -8,14 +8,14 @@ import {
  * Interface that represents the state for a single filters
  */
 export interface SidebarFilterState {
-  filterCollapsed: boolean,
+  filterCollapsed: boolean;
 }
 
 /**
  * Interface that represents the state for all available filters
  */
 export interface SidebarFiltersState {
-  [name: string]: SidebarFilterState
+  [name: string]: SidebarFilterState;
 }
 
 const initialState: SidebarFiltersState = Object.create(null);

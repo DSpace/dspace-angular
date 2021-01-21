@@ -1,7 +1,7 @@
 import { Bitstream } from '../../../core/shared/bitstream.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
+import { of as observableOf } from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,10 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
-import {
-  INotification,
-  Notification
-} from '../../../shared/notifications/models/notification.model';
+import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -26,10 +23,7 @@ import { RestResponse } from '../../../core/cache/response.models';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 let comp: ItemBitstreamsComponent;
@@ -84,7 +78,7 @@ let searchConfig: SearchConfigurationService;
 let bundleService: BundleDataService;
 
 describe('ItemBitstreamsComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         getFieldUpdates: observableOf({
@@ -125,7 +119,7 @@ describe('ItemBitstreamsComponent', () => {
       remove: jasmine.createSpy('remove')
     });
     requestService = getMockRequestService();
-    searchConfig = Object.assign( {
+    searchConfig = Object.assign({
       paginatedSearchOptions: observableOf({})
     });
 
@@ -138,7 +132,7 @@ describe('ItemBitstreamsComponent', () => {
       bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
       lastModified: date
     });
-    itemService = Object.assign( {
+    itemService = Object.assign({
       getBitstreams: () => createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
       findById: () => createSuccessfulRemoteDataObject$(item),
       getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
@@ -201,7 +195,8 @@ describe('ItemBitstreamsComponent', () => {
       fromIndex: 0,
       toIndex: 50,
       // tslint:disable-next-line:no-empty
-      finish: () => {}
+      finish: () => {
+      }
     };
 
     beforeEach(() => {
@@ -218,7 +213,7 @@ describe('ItemBitstreamsComponent', () => {
         finish: () => {
           done();
         }
-      })
+      });
     });
 
     it('should send out a patch for the move operation', () => {

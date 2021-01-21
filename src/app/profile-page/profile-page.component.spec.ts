@@ -1,12 +1,12 @@
 import { ProfilePageComponent } from './profile-page.component';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EPerson } from '../core/eperson/models/eperson.model';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from '../app.reducer';
+import { StoreModule } from '@ngrx/store';
+import { storeModuleConfig } from '../app.reducer';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -16,12 +16,13 @@ import { createPaginatedList } from '../shared/testing/utils.test';
 import { of as observableOf } from 'rxjs';
 import { AuthService } from '../core/auth/auth.service';
 import { RestResponse } from '../core/cache/response.models';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
   let fixture: ComponentFixture<ProfilePageComponent>;
   let user;
-  let authState;
+  let initialState: any;
 
   let authService;
   let epersonService;
@@ -32,12 +33,18 @@ describe('ProfilePageComponent', () => {
       id: 'userId',
       groups: createSuccessfulRemoteDataObject$(createPaginatedList([]))
     });
-    authState = {
-      authenticated: true,
-      loaded: true,
-      loading: false,
-      authToken: new AuthTokenInfo('test_token'),
-      userId: user.id
+    initialState = {
+      core: {
+        auth: {
+          authenticated: true,
+          loaded: true,
+          blocking: false,
+          loading: false,
+          authToken: new AuthTokenInfo('test_token'),
+          userId: user.id,
+          authMethods: []
+        }
+      }
     };
 
     authService = jasmine.createSpyObj('authService', {
@@ -54,31 +61,30 @@ describe('ProfilePageComponent', () => {
     });
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [ProfilePageComponent, VarDirective],
-      imports: [StoreModule.forRoot(authReducer), TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [
+        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([])
+      ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
         { provide: NotificationsService, useValue: notificationsService },
-        { provide: AuthService, useValue: authService }
+        { provide: AuthService, useValue: authService },
+        provideMockStore({ initialState }),
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
-  beforeEach(inject([Store], (store: Store<AppState>) => {
-    store
-      .subscribe((state) => {
-        (state as any).core = Object.create({});
-        (state as any).core.auth = authState;
-      });
-
+  beforeEach(() => {
     fixture = TestBed.createComponent(ProfilePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   describe('updateProfile', () => {
     describe('when the metadata form returns false and the security form returns true', () => {

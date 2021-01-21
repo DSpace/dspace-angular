@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -7,12 +7,14 @@ import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { CollectionDropdownComponent } from './collection-dropdown.component';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { PageInfo } from '../../core/shared/page-info.model';
 import { Collection } from '../../core/shared/collection.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { Community } from '../../core/shared/community.model';
-import { createPaginatedList } from '../testing/utils.test';
+import { MockElementRef } from '../testing/element-ref.mock';
 
 const community: Community = Object.assign(new Community(), {
   id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
@@ -97,23 +99,22 @@ describe('CollectionDropdownComponent', () => {
   let componentAsAny: any;
   let fixture: ComponentFixture<CollectionDropdownComponent>;
   let scheduler: TestScheduler;
-  const searchedCollection = 'TEXT';
 
   const collectionDataServiceMock: any = jasmine.createSpyObj('CollectionDataService', {
     getAuthorizedCollection: jasmine.createSpy('getAuthorizedCollection'),
     getAuthorizedCollectionByEntityType: jasmine.createSpy('getAuthorizedCollectionByEntityType')
   });
 
-  const paginatedCollection = createPaginatedList(collections);
+  const paginatedCollection = buildPaginatedList(new PageInfo(), collections);
   const paginatedCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedCollection);
 
-  const paginatedEmptyCollection = createPaginatedList([]);
+  const paginatedEmptyCollection = buildPaginatedList(new PageInfo(), []);
   const paginatedEmptyCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedEmptyCollection);
 
-  const paginatedOneElementCollection = createPaginatedList([collections[0]]);
+  const paginatedOneElementCollection = buildPaginatedList(new PageInfo(), [collections[0]]);
   const paginatedOneElementCollectionRD$ = createSuccessfulRemoteDataObject$(paginatedOneElementCollection);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -126,7 +127,7 @@ describe('CollectionDropdownComponent', () => {
       declarations: [CollectionDropdownComponent],
       providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceMock },
-        { provide: ElementRef, useValue: {} },
+        { provide: ElementRef, useClass: MockElementRef },
         ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -256,7 +257,7 @@ describe('CollectionDropdownComponent', () => {
     const expectedTheOnlySelectable = {
       communities: [ { id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', name: 'Community 1', uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88' } ],
       collection: { id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88', name: 'Collection 1' }
-    }
+    };
 
     expect(component.theOnlySelectable.emit).toHaveBeenCalledWith(expectedTheOnlySelectable);
   });

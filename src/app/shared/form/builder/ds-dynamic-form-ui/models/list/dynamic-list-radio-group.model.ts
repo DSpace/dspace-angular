@@ -27,7 +27,7 @@ export class DynamicListRadioGroupModel extends DynamicRadioGroupModel<any> {
     this.vocabularyOptions = config.vocabularyOptions;
     this.groupLength = config.groupLength || 5;
     this.repeatable = config.repeatable;
-    this.valueUpdates.next(config.value);
+    this.value = config.value;
   }
 
   get hasAuthority(): boolean {

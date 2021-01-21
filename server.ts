@@ -15,6 +15,7 @@
  * import for `ngExpressEngine`.
  */
 
+import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 import 'rxjs';
 
@@ -28,11 +29,12 @@ import * as compression from 'compression';
 import { join } from 'path';
 
 import { enableProdMode } from '@angular/core';
-
+import { existsSync } from 'fs';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasNoValue, hasValue } from './src/app/shared/empty.util';
+import { hasValue, hasNoValue } from './src/app/shared/empty.util';
+import { APP_BASE_HREF } from '@angular/common';
 import { UIServerConfig } from './src/config/ui-server-config.interface';
 
 /*
@@ -40,112 +42,111 @@ import { UIServerConfig } from './src/config/ui-server-config.interface';
  */
 const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 
+const indexHtml = existsSync(join(DIST_FOLDER, 'index.html')) ? 'index.html' : 'index';
+
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const { ServerAppModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap } = require('./dist/server/main');
+const { ServerAppModule, ngExpressEngine } = require('./dist/server/main');
 
-/*
- * Create a new express application
- */
-const app = express();
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 
-/*
- * If production mode is enabled in the environment file:
- * - Enable Angular's production mode
- * - Enable compression for response bodies. See [compression](https://github.com/expressjs/compression)
- */
-if (environment.production) {
-  enableProdMode();
-  app.use(compression());
+// The Express app is exported so that it can be used by serverless Functions.
+export function app() {
+
+  /*
+   * Create a new express application
+   */
+  const server = express();
+
+  /*
+   * If production mode is enabled in the environment file:
+   * - Enable Angular's production mode
+   * - Enable compression for response bodies. See [compression](https://github.com/expressjs/compression)
+   */
+  if (environment.production) {
+    enableProdMode();
+    server.use(compression());
+  }
+
+  /*
+   * Enable request logging
+   * See [morgan](https://github.com/expressjs/morgan)
+   */
+  server.use(morgan('dev'));
+
+  /*
+   * Add cookie parser middleware
+   * See [morgan](https://github.com/expressjs/cookie-parser)
+   */
+  server.use(cookieParser());
+
+  /*
+   * Add parser for request bodies
+   * See [morgan](https://github.com/expressjs/body-parser)
+   */
+  server.use(bodyParser.json());
+
+  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
+  server.engine('html', (_, options, callback) =>
+    ngExpressEngine({
+      bootstrap: ServerAppModule,
+      providers: [
+        {
+          provide: REQUEST,
+          useValue: (options as any).req,
+        },
+        {
+          provide: RESPONSE,
+          useValue: (options as any).req.res,
+        },
+      ],
+    })(_, (options as any), callback)
+  );
+
+  /*
+   * Register the view engines for html and ejs
+   */
+  server.set('view engine', 'html');
+
+  /*
+   * Set views folder path to directory where template files are stored
+   */
+  server.set('views', DIST_FOLDER);
+
+  /**
+   * Proxy the sitemaps
+   */
+  server.use('/sitemap**', createProxyMiddleware({ target: `${environment.rest.baseUrl}/sitemaps`, changeOrigin: true }));
+
+  /**
+   * Checks if the rateLimiter property is present
+   * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.
+   */
+  if (hasValue((environment.ui as UIServerConfig).rateLimiter)) {
+    const RateLimit = require('express-rate-limit');
+    const limiter = new RateLimit({
+      windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
+      max: (environment.ui as UIServerConfig).rateLimiter.max
+    });
+    server.use(limiter);
+  }
+
+  /*
+   * Serve static resources (images, i18n messages, …)
+   */
+  server.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
+
+  // Register the ngApp callback function to handle incoming requests
+  server.get('*', ngApp);
+
+  return server;
 }
-
-/*
- * Enable request logging
- * See [morgan](https://github.com/expressjs/morgan)
- */
-app.use(morgan('dev'));
-
-/*
- * Add cookie parser middleware
- * See [morgan](https://github.com/expressjs/cookie-parser)
- */
-app.use(cookieParser());
-
-/*
- * Add parser for request bodies
- * See [morgan](https://github.com/expressjs/body-parser)
- */
-app.use(bodyParser.json());
-
-/*
- * Render html pages by running angular server side
- */
-app.engine('html', (_, options, callback) =>
-  ngExpressEngine({
-    bootstrap: ServerAppModuleNgFactory,
-    providers: [
-      {
-        provide: REQUEST,
-        useValue: (options as any).req,
-      },
-      {
-        provide: RESPONSE,
-        useValue: (options as any).req.res,
-      },
-      provideModuleMap(LAZY_MODULE_MAP)
-    ],
-  })(_, (options as any), callback)
-);
-
-/*
- * Register the view engines for html and ejs
- */
-app.set('view engine', 'html');
-
-/*
- * Set views folder path to directory where template files are stored
- */
-app.set('views', DIST_FOLDER);
-
-/**
- * Proxy the sitemaps
- */
-app.use('/sitemap**', createProxyMiddleware({ target: `${environment.rest.baseUrl}/sitemaps`, changeOrigin: true }));
-
-/*
- * Adds a cache control header to the response
- * The cache control value can be configured in the environments file and defaults to max-age=60
- */
-function cacheControl(req, res, next) {
-  // instruct browser to revalidate
-  res.header('Cache-Control', environment.cache.control || 'max-age=60');
-  next();
-}
-
-/**
- * Checks if the rateLimiter property is present
- * When it is present, the rateLimiter will be enabled. When it is undefined, the rateLimiter will be disabled.
- */
-if (hasValue((environment.ui as UIServerConfig).rateLimiter)) {
-  const RateLimit = require('express-rate-limit');
-  const limiter = new RateLimit({
-    windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
-    max: (environment.ui as UIServerConfig).rateLimiter.max
-  });
-  app.use(limiter);
-}
-
-/*
- * Serve static resources (images, i18n messages, …)
- */
-app.get('*.*', cacheControl, express.static(DIST_FOLDER, { index: false }));
 
 /*
  * The callback function to serve server side angular
  */
 function ngApp(req, res) {
   if (environment.universal.preboot) {
-    res.render(DIST_FOLDER + '/index.html', {
+    res.render(indexHtml, {
       req,
       res,
       preboot: environment.universal.preboot,
@@ -153,7 +154,8 @@ function ngApp(req, res) {
       time: environment.universal.time,
       baseUrl: environment.ui.nameSpace,
       originUrl: environment.ui.baseUrl,
-      requestUrl: req.originalUrl
+      requestUrl: req.originalUrl,
+      providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }]
     }, (err, data) => {
       if (hasNoValue(err) && hasValue(data)) {
         res.send(data);
@@ -164,16 +166,23 @@ function ngApp(req, res) {
         }
         res.sendFile(DIST_FOLDER + '/index.html');
       }
-    })
+    });
   } else {
     // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct CSR');
-    res.sendFile(DIST_FOLDER + '/index.html');
+    res.sendFile(indexHtml);
   }
 }
 
-// Register the ngApp callback function to handle incoming requests
-app.get('*', ngApp);
+/*
+ * Adds a cache control header to the response
+ * The cache control value can be configured in the environments file and defaults to max-age=60
+ */
+function cacheControl(req, res, next) {
+  // instruct browser to revalidate
+  res.header('Cache-Control', environment.cache.control || 'max-age=60');
+  next();
+}
 
 /*
  * Callback function for when the server has started
@@ -191,6 +200,17 @@ function createHttpsServer(keys) {
     key: keys.serviceKey,
     cert: keys.certificate
   }, app).listen(environment.ui.port, environment.ui.host, () => {
+    serverStarted();
+  });
+}
+
+function run() {
+  const port = environment.ui.port || 4000;
+  const host = environment.ui.host || '/';
+
+  // Start up the Node server
+  const server = app();
+  server.listen(port, host, () => {
     serverStarted();
   });
 }
@@ -235,7 +255,7 @@ if (environment.ui.ssl) {
     });
   }
 } else {
-  app.listen(environment.ui.port, environment.ui.host, () => {
-    serverStarted();
-  });
+  run();
 }
+
+export * from './src/main.server';

@@ -19,7 +19,7 @@ describe('EndpointMockingRestService', () => {
     } as HttpResponse<any>;
 
     mockResponseMap = new Map([
-      [ '/foo', { bar: true } ]
+      ['/foo', { bar: true }]
     ]);
 
     const httpStub = jasmine.createSpyObj('http', {

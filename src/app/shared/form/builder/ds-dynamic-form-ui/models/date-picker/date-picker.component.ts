@@ -161,7 +161,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
       value += DS_DATE_PICKER_SEPARATOR + dd;
     }
 
-    this.model.valueUpdates.next(value);
+    this.model.value = value;
     this.change.emit(value);
   }
 

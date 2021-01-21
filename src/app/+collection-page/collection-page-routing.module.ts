@@ -41,7 +41,8 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
         children: [
           {
             path: COLLECTION_EDIT_PATH,
-            loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
+            loadChildren: () => import('./edit-collection-page/edit-collection-page.module')
+              .then((m) => m.EditCollectionPageModule),
             canActivate: [CollectionPageAdministratorGuard]
           },
           {

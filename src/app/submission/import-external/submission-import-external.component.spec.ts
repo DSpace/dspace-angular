@@ -1,5 +1,5 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 
 import { getTestScheduler } from 'jasmine-marbles';
 import { TranslateModule } from '@ngx-translate/core';
@@ -41,7 +41,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
   };
   const mockExternalSourceService: any = getMockExternalSourceService();
 
-  beforeEach(async (() => {
+  beforeEach(waitForAsync (() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot()
@@ -91,7 +91,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       scheduler = getTestScheduler();
-      mockExternalSourceService.getExternalSourceEntries.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])))
+      mockExternalSourceService.getExternalSourceEntries.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
     });
 
     afterEach(() => {
@@ -133,7 +133,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
     it('Should call \'router.navigate\'', () => {
       comp.routeData = {entity: 'Person', sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources').and.callFake(() => null);
-      compAsAny.router.navigate.and.returnValue( new Promise(() => {return;}))
+      compAsAny.router.navigate.and.returnValue( new Promise(() => {return;}));
       const event = {entity: 'Person', sourceId: 'orcidV2', query: 'dummy' };
 
       scheduler.schedule(() => comp.getExternalSourceData(event));

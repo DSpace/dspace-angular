@@ -126,7 +126,7 @@ export class ResourcePolicyService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<ResourcePolicy>> {
+  findByHref(href: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<ResourcePolicy>> {
     return this.dataService.findByHref(href, reRequestOnStale, ...linksToFollow);
   }
 
@@ -138,7 +138,7 @@ export class ResourcePolicyService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  findById(id: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<ResourcePolicy>> {
+  findById(id: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<ResourcePolicy>> {
     return this.dataService.findById(id, reRequestOnStale, ...linksToFollow);
   }
 
@@ -161,13 +161,13 @@ export class ResourcePolicyService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByEPerson(UUID: string, resourceUUID?: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+  searchByEPerson(UUID: string, resourceUUID?: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(resourceUUID)) {
-      options.searchParams.push(new RequestParam('resource', resourceUUID))
+      options.searchParams.push(new RequestParam('resource', resourceUUID));
     }
-    return this.dataService.searchBy(this.searchByEPersonMethod, options, reRequestOnStale, ...linksToFollow)
+    return this.dataService.searchBy(this.searchByEPersonMethod, options, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -179,13 +179,13 @@ export class ResourcePolicyService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByGroup(UUID: string, resourceUUID?: string, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+  searchByGroup(UUID: string, resourceUUID?: string, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(resourceUUID)) {
-      options.searchParams.push(new RequestParam('resource', resourceUUID))
+      options.searchParams.push(new RequestParam('resource', resourceUUID));
     }
-    return this.dataService.searchBy(this.searchByGroupMethod, options, reRequestOnStale, ...linksToFollow)
+    return this.dataService.searchBy(this.searchByGroupMethod, options, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -197,13 +197,13 @@ export class ResourcePolicyService {
    *                          the response becomes stale
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  searchByResource(UUID: string, action?: ActionType, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+  searchByResource(UUID: string, action?: ActionType, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<ResourcePolicy>[]): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', UUID)];
     if (isNotEmpty(action)) {
-      options.searchParams.push(new RequestParam('action', action))
+      options.searchParams.push(new RequestParam('action', action));
     }
-    return this.dataService.searchBy(this.searchByResourceMethod, options, reRequestOnStale, ...linksToFollow)
+    return this.dataService.searchBy(this.searchByResourceMethod, options, reRequestOnStale, ...linksToFollow);
   }
 
 }

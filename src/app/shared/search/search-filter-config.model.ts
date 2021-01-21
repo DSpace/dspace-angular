@@ -75,7 +75,7 @@ import { FacetValue } from './facet-value.model';
     @deserialize
     _links: {
       self: HALLink;
-    }
+    };
 
     /**
      * Name of this configuration that can be used in a url

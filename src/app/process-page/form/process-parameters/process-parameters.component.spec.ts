@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProcessParametersComponent } from './process-parameters.component';
 import { ProcessParameter } from '../../processes/process-parameter.model';
@@ -25,10 +25,10 @@ describe('ProcessParametersComponent', () => {
       Object.assign(new ProcessParameter(), { name: '-a', value: 'bla' }),
       Object.assign(new ProcessParameter(), { name: '-b', value: '123' }),
       Object.assign(new ProcessParameter(), { name: '-c', value: 'value' }),
-    ]
+    ];
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [

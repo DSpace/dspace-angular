@@ -92,7 +92,7 @@ export class RowParser {
             fieldModel.forEach((model) => {
               parsedResult = model;
               return;
-            })
+            });
           } else {
             setLayout(fieldModel, 'grid', 'host', layoutFieldClass);
             config.group.push(fieldModel);
@@ -110,7 +110,7 @@ export class RowParser {
       };
       const groupModel = new DynamicRowGroupModel(config, clsGroup);
       if (Array.isArray(parsedResult)) {
-        parsedResult.push(groupModel)
+        parsedResult.push(groupModel);
       } else {
         parsedResult = groupModel;
       }

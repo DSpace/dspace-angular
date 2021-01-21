@@ -12,14 +12,14 @@ export interface ObjectSelectionState {
  * Interface that represents the state for all selected items within a certain category defined by a key
  */
 export interface ObjectSelectionsState {
-  [id: string]: ObjectSelectionState
+  [id: string]: ObjectSelectionState;
 }
 
 /**
  * Interface that represents the state for all selected items
  */
 export interface ObjectSelectionListState {
-  [key: string]: ObjectSelectionsState
+  [key: string]: ObjectSelectionsState;
 }
 
 const initialState: ObjectSelectionListState = Object.create(null);

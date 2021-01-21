@@ -74,7 +74,7 @@ export class VirtualMetadataComponent implements OnInit {
             return {
               metadataField: key,
               metadataValue: metadata,
-            }
+            };
           })
       )
       .reduce((previous, current) => previous.concat(current), []);
@@ -115,6 +115,6 @@ export class VirtualMetadataComponent implements OnInit {
  * Represents a virtual metadata entry.
  */
 export interface VirtualMetadata {
-  metadataField: string,
-  metadataValue: MetadataValue,
+  metadataField: string;
+  metadataValue: MetadataValue;
 }

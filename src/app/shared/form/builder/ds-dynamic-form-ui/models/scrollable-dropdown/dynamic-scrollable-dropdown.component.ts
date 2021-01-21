@@ -58,7 +58,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
-    this.updatePageInfo(this.model.maxOptions, 1)
+    this.updatePageInfo(this.model.maxOptions, 1);
     this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo).pipe(
       getFirstSucceededRemoteDataPayload(),
       catchError(() => observableOf(buildPaginatedList(
@@ -132,7 +132,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
             list.pageInfo.totalPages
           );
           this.cdr.detectChanges();
-        })
+        });
     }
   }
 
@@ -164,7 +164,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       } else if (typeof value === 'string') {
         result = observableOf(value);
       } else {
-        result = observableOf(value.display)
+        result = observableOf(value.display);
       }
     }
 

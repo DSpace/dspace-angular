@@ -2,17 +2,13 @@ import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  DynamicCheckboxModel,
-  DynamicFormControlEvent,
-  DynamicFormControlEventType
-} from '@ng-dynamic-forms/core';
+import { DynamicCheckboxModel, DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
 
-import { createSuccessfulRemoteDataObject$} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
@@ -39,10 +35,23 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { Collection } from '../../../core/shared/collection.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { License } from '../../../core/shared/license.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { cold } from 'jasmine-marbles';
+
+const collectionId = mockSubmissionCollectionId;
+const licenseText = 'License text';
+const mockCollection = Object.assign(new Collection(), {
+  name: 'Community 1-Collection 1',
+  id: collectionId,
+  metadata: [
+    {
+      key: 'dc.title',
+      language: 'en_US',
+      value: 'Community 1-Collection 1'
+    }],
+  license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
+});
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -50,13 +59,6 @@ function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
     getConfigByName: jasmine.createSpy('getConfigByName'),
     getConfigBySearch: jasmine.createSpy('getConfigBySearch')
-  });
-}
-
-function getMockCollectionDataService(): CollectionDataService {
-  return jasmine.createSpyObj('CollectionDataService', {
-    findById: jasmine.createSpy('findById'),
-    findByHref: jasmine.createSpy('findByHref')
   });
 }
 
@@ -89,14 +91,13 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionLicenseComponent>;
   let submissionServiceStub: SubmissionServiceStub;
-  let sectionsServiceStub: SectionsServiceStub;
   let formService: any;
   let formOperationsService: any;
   let formBuilderService: any;
-  let collectionDataService: any;
 
+  const sectionsServiceStub: any = new SectionsServiceStub();
   const submissionId = mockSubmissionId;
-  const collectionId = mockSubmissionCollectionId;
+
   const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
   const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
     add: jasmine.createSpy('add'),
@@ -104,20 +105,12 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     remove: jasmine.createSpy('remove'),
   });
 
-  const licenseText = 'License text';
-  const mockCollection = Object.assign(new Collection(), {
-    name: 'Community 1-Collection 1',
-    id: collectionId,
-    metadata: [
-      {
-        key: 'dc.title',
-        language: 'en_US',
-        value: 'Community 1-Collection 1'
-      }],
-    license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
+  const mockCollectionDataService = jasmine.createSpyObj('CollectionDataService', {
+    findById: jasmine.createSpy('findById'),
+    findByHref: jasmine.createSpy('findByHref')
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -132,16 +125,16 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         TestComponent
       ],
       providers: [
-        { provide: CollectionDataService, useValue: getMockCollectionDataService() },
+        { provide: CollectionDataService, useValue: mockCollectionDataService },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: getMockFormService() },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SubmissionFormsConfigService, useValue: getMockSubmissionFormsConfigService() },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        { provide: SectionsService, useClass: SectionsServiceStub },
+        { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: 'collectionIdProvider', useValue: collectionId },
-        { provide: 'sectionDataProvider', useValue: sectionObject },
+        { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
         FormBuilderService,
@@ -157,6 +150,10 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      mockCollectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
+
       const html = `
         <ds-submission-section-license></ds-submission-section-license>`;
 
@@ -180,14 +177,13 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
       fixture = TestBed.createComponent(SubmissionSectionLicenseComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      sectionsServiceStub = TestBed.get(SectionsService);
-      formService = TestBed.get(FormService);
-      formBuilderService = TestBed.get(FormBuilderService);
-      formOperationsService = TestBed.get(SectionFormOperationsService);
-      collectionDataService = TestBed.get(CollectionDataService);
+      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      formService = TestBed.inject(FormService);
+      formBuilderService = TestBed.inject(FormBuilderService);
+      formOperationsService = TestBed.inject(SectionFormOperationsService);
 
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
+
     });
 
     afterEach(() => {
@@ -196,133 +192,132 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
       compAsAny = null;
     });
 
-    it('should init section properly', () => {
-      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      spyOn(compAsAny, 'getSectionStatus');
+    describe('', () => {
+      beforeEach(() => {
+        mockCollectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+        sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
+        sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      });
 
-      comp.onSectionInit();
+      it('should init section properly', () => {
 
-      const model = formBuilderService.findById('granted', comp.formModel);
+        spyOn(compAsAny, 'getSectionStatus');
 
-      expect(compAsAny.subs.length).toBe(2);
-      expect(comp.formModel).toBeDefined();
-      expect(model.value).toBeFalsy();
-      expect(comp.licenseText$).toBeObservable(cold('(ab|)', {
-        a: '',
-        b: licenseText
-      }));
-    });
+        comp.onSectionInit();
 
-    it('should set checkbox value to true', () => {
-      comp.sectionData.data = {
-        url: 'url',
-        acceptanceDate: Date.now(),
-        granted: true
-      } as any;
+        const model = formBuilderService.findById('granted', comp.formModel);
 
-      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      spyOn(compAsAny, 'getSectionStatus');
+        expect(compAsAny.subs.length).toBe(2);
+        expect(comp.formModel).toBeDefined();
+        expect(model.value).toBeFalsy();
+        expect(comp.licenseText$).toBeObservable(cold('(ab|)', {
+          a: '',
+          b: licenseText
+        }));
+      });
 
-      comp.onSectionInit();
+      it('should set checkbox value to true', () => {
+        comp.sectionData.data = {
+          url: 'url',
+          acceptanceDate: Date.now(),
+          granted: true
+        } as any;
 
-      const model = formBuilderService.findById('granted', comp.formModel);
+        spyOn(compAsAny, 'getSectionStatus');
 
-      expect(compAsAny.subs.length).toBe(2);
-      expect(comp.formModel).toBeDefined();
-      expect(model.value).toBeTruthy();
-      expect(comp.licenseText$).toBeObservable(cold('(ab|)', {
-        a: '',
-        b: licenseText
-      }));
-    });
+        comp.onSectionInit();
 
-    it('should set section errors properly', () => {
-      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(mockLicenseParsedErrors.license));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+        const model = formBuilderService.findById('granted', comp.formModel);
 
-      comp.onSectionInit();
-      const expectedErrors = mockLicenseParsedErrors.license;
+        expect(compAsAny.subs.length).toBe(2);
+        expect(comp.formModel).toBeDefined();
+        expect(model.value).toBeTruthy();
+        expect(comp.licenseText$).toBeObservable(cold('(ab|)', {
+          a: '',
+          b: licenseText
+        }));
+      });
 
-      expect(sectionsServiceStub.checkSectionErrors).toHaveBeenCalled();
-      expect(comp.sectionData.errors).toEqual(expectedErrors);
+      it('should have status true when checkbox is selected', () => {
+        fixture.detectChanges();
+        const model = formBuilderService.findById('granted', comp.formModel);
 
-    });
+        (model as DynamicCheckboxModel).value = true;
 
-    it('should remove any section\'s errors when checkbox is selected', () => {
-      comp.sectionData.data = {
-        url: 'url',
-        acceptanceDate: Date.now(),
-        granted: true
-      } as any;
+        compAsAny.getSectionStatus().subscribe((status) => {
+          expect(status).toBeTruthy();
+        });
+      });
 
-      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(mockLicenseParsedErrors.license));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      it('should have status false when checkbox is not selected', () => {
+        fixture.detectChanges();
+        const model = formBuilderService.findById('granted', comp.formModel);
 
-      comp.onSectionInit();
+        compAsAny.getSectionStatus().subscribe((status) => {
+          expect(status).toBeFalsy();
+        });
 
-      expect(sectionsServiceStub.dispatchRemoveSectionErrors).toHaveBeenCalled();
+        (model as DynamicCheckboxModel).value = false;
+      });
 
     });
 
-    it('should have status true when checkbox is selected', () => {
+    describe('', () => {
+      beforeEach(() => {
+        mockCollectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+        sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(mockLicenseParsedErrors.license));
+        sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      });
 
-      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      it('should set section errors properly', () => {
+        comp.onSectionInit();
+        const expectedErrors = mockLicenseParsedErrors.license;
 
-      fixture.detectChanges();
-      const model = formBuilderService.findById('granted', comp.formModel);
+        expect(sectionsServiceStub.checkSectionErrors).toHaveBeenCalled();
+        expect(comp.sectionData.errors).toEqual(expectedErrors);
 
-      (model as DynamicCheckboxModel).valueUpdates.next(true);
+      });
 
-      compAsAny.getSectionStatus().subscribe((status) => {
-        expect(status).toBeTruthy();
+      it('should remove any section\'s errors when checkbox is selected', () => {
+        comp.sectionData.data = {
+          url: 'url',
+          acceptanceDate: Date.now(),
+          granted: true
+        } as any;
+
+        comp.onSectionInit();
+
+        expect(sectionsServiceStub.dispatchRemoveSectionErrors).toHaveBeenCalled();
+
       });
     });
 
-    it('should have status false when checkbox is not selected', () => {
-
-      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-
-      fixture.detectChanges();
-      const model = formBuilderService.findById('granted', comp.formModel);
-
-      compAsAny.getSectionStatus().subscribe((status) => {
-        expect(status).toBeFalsy();
+    describe('', () => {
+      let event;
+      beforeEach(() => {
+        event = dynamicFormControlEvent;
+        formOperationsService.getFieldPathSegmentedFromChangeEvent.and.returnValue('granted');
       });
 
-      (model as DynamicCheckboxModel).valueUpdates.next(false);
+      it('should dispatch a json-path add operation when checkbox is selected', () => {
+
+        formOperationsService.getFieldValueFromChangeEvent.and.returnValue(new FormFieldMetadataValueObject(true));
+
+        comp.onChange(event);
+
+        expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(pathCombiner.getPath('granted'), 'true', false, true);
+        expect(sectionsServiceStub.dispatchRemoveSectionErrors).toHaveBeenCalled();
+      });
+
+      it('should dispatch a json-path remove operation when checkbox is not selected', () => {
+
+        formOperationsService.getFieldValueFromChangeEvent.and.returnValue(null);
+
+        comp.onChange(event);
+
+        expect(jsonPatchOpBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath('granted'));
+      });
     });
-
-    it('should dispatch a json-path add operation when checkbox is selected', () => {
-      const event = dynamicFormControlEvent;
-      formOperationsService.getFieldPathSegmentedFromChangeEvent.and.returnValue('granted');
-      formOperationsService.getFieldValueFromChangeEvent.and.returnValue(new FormFieldMetadataValueObject(true));
-
-      comp.onChange(event);
-
-      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(pathCombiner.getPath('granted'), 'true', false, true);
-      expect(sectionsServiceStub.dispatchRemoveSectionErrors).toHaveBeenCalled();
-    });
-
-    it('should dispatch a json-path remove operation when checkbox is not selected', () => {
-      const event = dynamicFormControlEvent;
-      formOperationsService.getFieldPathSegmentedFromChangeEvent.and.returnValue('granted');
-      formOperationsService.getFieldValueFromChangeEvent.and.returnValue(null);
-
-      comp.onChange(event);
-
-      expect(jsonPatchOpBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath('granted'));
-    });
-
   });
 });
 

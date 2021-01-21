@@ -61,7 +61,7 @@ export class SubmissionFormSectionAddComponent implements OnInit {
     this.sectionList$ = this.submissionService.getDisabledSectionsList(this.submissionId);
     this.hasSections$ = this.sectionList$.pipe(
       map((list: SectionDataObject[]) => list.length > 0)
-    )
+    );
   }
 
   /**

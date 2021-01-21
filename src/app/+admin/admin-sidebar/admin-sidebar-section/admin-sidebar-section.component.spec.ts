@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuServiceStub } from '../../../shared/testing/menu-service.stub';
@@ -17,7 +17,7 @@ describe('AdminSidebarSectionComponent', () => {
   const menuService = new MenuServiceStub();
   const iconString = 'test';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot()],
       declarations: [AdminSidebarSectionComponent, TestComponent],

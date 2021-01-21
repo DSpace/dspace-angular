@@ -16,9 +16,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FileUploader } from 'ng2-file-upload';
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
@@ -51,7 +49,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   /**
    * The logo uploader component
    */
-  @ViewChild(UploaderComponent, {static: false}) uploaderComponent: UploaderComponent;
+  @ViewChild(UploaderComponent) uploaderComponent: UploaderComponent;
 
   /**
    * DSpaceObject that the form represents

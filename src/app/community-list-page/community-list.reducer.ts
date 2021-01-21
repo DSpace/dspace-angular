@@ -27,7 +27,7 @@ export function CommunityListReducer(state = initialState, action: CommunityList
       return Object.assign({}, state, {
         expandedNodes: (action as CommunityListSaveAction).payload.expandedNodes,
         loadingNode: (action as CommunityListSaveAction).payload.loadingNode,
-      })
+      });
     }
     default: {
       return state;

@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -73,7 +73,7 @@ describe('ComColFormComponent', () => {
     remove: {}
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],
       declarations: [ComColFormComponent, VarDirective],
@@ -150,7 +150,7 @@ describe('ComColFormComponent', () => {
             operations: operations,
           }
         );
-      })
+      });
     });
 
     describe('onCancel', () => {
@@ -324,7 +324,7 @@ describe('ComColFormComponent', () => {
     comp.formModel = [];
     comp.dso = dso;
     (comp as any).type = Community.type;
-    comp.uploaderComponent = {uploader: {}} as any;
+    comp.uploaderComponent = { uploader: {} } as any;
 
     (comp as any).dsoService = dsoService;
     fixture.detectChanges();

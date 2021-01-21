@@ -52,7 +52,7 @@ export class LogInContainerComponent implements OnInit {
    * Find the correct component based on the AuthMethod's type
    */
   getAuthMethodContent(): string {
-      return rendersAuthMethodType(this.authMethod.authMethodType)
+      return rendersAuthMethodType(this.authMethod.authMethodType);
   }
 
 }

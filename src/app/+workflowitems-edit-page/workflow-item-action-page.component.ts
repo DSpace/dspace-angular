@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,6 +15,10 @@ import { isEmpty } from '../shared/empty.util';
 /**
  * Abstract component representing a page to perform an action on a workflow item
  */
+@Component({
+  selector: 'ds-workflowitem-action-page',
+  template: ''
+})
 export abstract class WorkflowItemActionPageComponent implements OnInit {
   public type;
   public wfi$: Observable<WorkflowItem>;
@@ -48,14 +52,14 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
       if (successful) {
         const title = this.translationService.get('workflow-item.' + this.type + '.notification.success.title');
         const content = this.translationService.get('workflow-item.' + this.type + '.notification.success.content');
-        this.notificationsService.success(title, content)
+        this.notificationsService.success(title, content);
       } else {
         const title = this.translationService.get('workflow-item.' + this.type + '.notification.error.title');
         const content = this.translationService.get('workflow-item.' + this.type + '.notification.error.content');
-        this.notificationsService.error(title, content)
+        this.notificationsService.error(title, content);
       }
       this.previousPage();
-    })
+    });
   }
 
   /**

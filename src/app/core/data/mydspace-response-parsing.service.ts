@@ -49,8 +49,8 @@ export class MyDSpaceResponseParsingService extends DspaceRestResponseParsingSer
         _embedded: this.filterEmbeddedObjects(object)
       }));
     payload.objects = objects;
-    const deserialized = new DSpaceSerializer(SearchObjects).deserialize(payload);
-    deserialized.pageInfo = this.processPageInfo(payload)
+    const deserialized: any = new DSpaceSerializer(SearchObjects).deserialize(payload);
+    deserialized.pageInfo = this.processPageInfo(payload);
     this.addToObjectCache(deserialized, request, data);
     return new ParsedResponse(data.statusCode, deserialized._links.self);
   }

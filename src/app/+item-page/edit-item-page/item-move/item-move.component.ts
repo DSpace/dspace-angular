@@ -87,8 +87,8 @@ export class ItemMoveComponent implements OnInit {
       first(),
       map((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
         return rd.payload.page.map((searchResult) => {
-          return searchResult.indexableObject
-        })
+          return searchResult.indexableObject;
+        });
       }) ,
     );
 

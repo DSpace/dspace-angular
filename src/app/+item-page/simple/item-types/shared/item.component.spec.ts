@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -43,7 +43,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
     let comp: any;
     let fixture: ComponentFixture<any>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       const mockBitstreamDataService = {
         getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
           return createSuccessfulRemoteDataObject$(new Bitstream());
@@ -80,7 +80,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
       }).compileComponents();
     }));
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       fixture = TestBed.createComponent(component);
       comp = fixture.componentInstance;
       comp.object = mockItem;
@@ -93,7 +93,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         expect(containsFieldInput(fields, key)).toBeTruthy();
       });
     }
-  }
+  };
 }
 
 /**

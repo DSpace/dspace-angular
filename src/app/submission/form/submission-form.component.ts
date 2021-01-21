@@ -132,7 +132,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           if (!isLoading) {
             return this.getSectionsList();
           } else {
-            return observableOf([])
+            return observableOf([]);
           }
         }));
 

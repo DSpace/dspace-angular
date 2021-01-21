@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Component, DebugElement, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
@@ -30,7 +30,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
   const itemRD = createSuccessfulRemoteDataObject(item);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [TestComponent, MockComponent(DSOSelectorComponent)],
@@ -76,6 +76,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
       spyOn(component, 'navigate');
       spyOn(component, 'close');
       spyOn(component.select, 'emit');
+      component.selectObject(item);
     });
 
     it('should call the close and navigate method on the component with the given DSO', () => {

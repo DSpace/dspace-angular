@@ -46,4 +46,4 @@ export class GroupRegistryCancelGroupAction implements Action {
  */
 export type GroupRegistryAction
   = GroupRegistryEditGroupAction
-  | GroupRegistryCancelGroupAction
+  | GroupRegistryCancelGroupAction;

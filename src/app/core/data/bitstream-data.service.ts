@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -26,7 +26,6 @@ import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { configureRequest } from '../shared/operators';
-import { combineLatest as observableCombineLatest } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PageInfo } from '../shared/page-info.model';
 import { RequestEntryState } from './request.reducer';
@@ -70,7 +69,7 @@ export class BitstreamDataService extends DataService<Bitstream> {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                          should be automatically resolved
    */
-  findAllByBundle(bundle: Bundle, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  findAllByBundle(bundle: Bundle, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.findAllByHref(bundle._links.bitstreams.href, options, reRequestOnStale, ...linksToFollow);
   }
 
@@ -174,13 +173,13 @@ export class BitstreamDataService extends DataService<Bitstream> {
    * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
    *                          should be automatically resolved
    */
-  public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bundleService.findByItemAndName(item, bundleName).pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {
         if (bundleRD.hasSucceeded && hasValue(bundleRD.payload)) {
           return this.findAllByBundle(bundleRD.payload, options, reRequestOnStale, ...linksToFollow);
         } else if (!bundleRD.hasSucceeded && bundleRD.statusCode === 404) {
-          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []), new Date().getTime())
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []), new Date().getTime());
         } else {
           return [bundleRD as any];
         }

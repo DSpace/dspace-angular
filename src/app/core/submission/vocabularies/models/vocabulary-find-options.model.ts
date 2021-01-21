@@ -28,16 +28,16 @@ export class VocabularyFindOptions extends FindListOptions {
       searchParams.push(new RequestParam('collection', collection))
     }
     if (isNotEmpty(query)) {
-      searchParams.push(new RequestParam('query', query))
+      searchParams.push(new RequestParam('query', query));
     }
     if (isNotEmpty(filter)) {
-      searchParams.push(new RequestParam('filter', filter))
+      searchParams.push(new RequestParam('filter', filter));
     }
     if (isNotEmpty(exact)) {
-      searchParams.push(new RequestParam('exact', exact.toString()))
+      searchParams.push(new RequestParam('exact', exact.toString()));
     }
     if (isNotEmpty(entryID)) {
-      searchParams.push(new RequestParam('entryID', entryID))
+      searchParams.push(new RequestParam('entryID', entryID));
     }
     this.searchParams = searchParams;
   }

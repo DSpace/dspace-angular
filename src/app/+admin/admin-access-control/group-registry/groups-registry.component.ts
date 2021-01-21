@@ -2,15 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Subscription,
-  Observable,
-  of as observableOf
-} from 'rxjs';
-import { filter } from 'rxjs/internal/operators/filter';
-import { ObservedValueOf } from 'rxjs/internal/types';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription, Observable, ObservedValueOf, of as observableOf } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -108,7 +101,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   onPageChange(event) {
     this.config.currentPage = event;
-    this.search({ query: this.currentSearchQuery })
+    this.search({ query: this.currentSearchQuery });
   }
 
   /**
@@ -145,10 +138,10 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               groupDtoModel.group = group;
               return groupDtoModel;
             }
-          )
+          );
         })).pipe(map((dtos: GroupDtoModel[]) => {
           return buildPaginatedList(groups.pageInfo, dtos);
-        }))
+        }));
       })).subscribe((value: PaginatedList<GroupDtoModel>) => {
       this.groupsDto$.next(value);
       this.pageInfoState$.next(value.pageInfo);
@@ -170,7 +163,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: group.name }),
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
-        })
+      });
     }
   }
 
@@ -210,13 +203,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   hasLinkedDSO(group: Group): Observable<boolean> {
     return this.dSpaceObjectDataService.findByHref(group._links.object.href).pipe(
-      map((rd: RemoteData<DSpaceObject>) => {
-        if (hasValue(rd) && hasValue(rd.payload)) {
-          return true;
-        } else {
-          return false
-        }
-      }),
+      map((rd: RemoteData<DSpaceObject>) => hasValue(rd) && hasValue(rd.payload)),
       catchError(() => observableOf(false)),
     );
   }

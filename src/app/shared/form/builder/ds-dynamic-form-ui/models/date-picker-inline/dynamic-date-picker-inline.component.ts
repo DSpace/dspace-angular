@@ -4,7 +4,7 @@ import { NgbDateParserFormatter, NgbDatepicker, NgbDatepickerConfig, NgbDateStru
 import {
   DynamicDatePickerModel,
   DynamicFormControlComponent,
-  DynamicFormLayout,
+  DynamicFormControlLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
@@ -18,14 +18,14 @@ export class DsDatePickerInlineComponent extends DynamicFormControlComponent {
 
   @Input() bindId = true;
   @Input() group: FormGroup;
-  @Input() layout: DynamicFormLayout;
+  @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicDatePickerModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter();
   @Output() change: EventEmitter<any> = new EventEmitter();
   @Output() focus: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild(NgbDatepicker, {static: false}) ngbDatePicker: NgbDatepicker;
+  @ViewChild(NgbDatepicker) ngbDatePicker: NgbDatepicker;
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,

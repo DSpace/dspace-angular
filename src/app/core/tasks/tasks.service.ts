@@ -1,15 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 
 import { DataService } from '../data/data.service';
-import {
-  DeleteRequest,
-  PostRequest,
-  TaskDeleteRequest,
-  TaskPostRequest
-} from '../data/request.models';
+import { DeleteRequest, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
 import { isNotEmpty } from '../../shared/empty.util';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { ProcessTaskResponse } from './models/process-task-response';
@@ -35,7 +30,7 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       getFirstCompletedRemoteData(),
       map((response: RemoteData<any>) => {
         if (response.hasFailed) {
-          return new ProcessTaskResponse(false, response.statusCode, response.errorMessage)
+          return new ProcessTaskResponse(false, response.statusCode, response.errorMessage);
         } else {
           return new ProcessTaskResponse(true, response.statusCode);
         }
@@ -77,7 +72,7 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       distinctUntilChanged(),
       map((endpointURL: string) => new TaskPostRequest(requestId, endpointURL, body, options)),
       tap((request: PostRequest) => this.requestService.configure(request)),
-      flatMap((request: PostRequest) => this.fetchRequest(requestId)),
+      mergeMap((request: PostRequest) => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
 
@@ -101,7 +96,7 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)),
       map((endpointURL: string) => new TaskDeleteRequest(requestId, endpointURL, null, options)),
       tap((request: DeleteRequest) => this.requestService.configure(request)),
-      flatMap((request: DeleteRequest) => this.fetchRequest(requestId)),
+      mergeMap((request: DeleteRequest) => this.fetchRequest(requestId)),
       distinctUntilChanged());
   }
 

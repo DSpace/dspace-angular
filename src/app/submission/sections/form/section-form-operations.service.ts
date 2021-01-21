@@ -187,7 +187,7 @@ export class SectionFormOperationsService {
         metadataValueMap.set(groupModel.qualdropId, metadataValueList);
       }
       if (index === fieldIndex) {
-        path = groupModel.qualdropId + '/' + (metadataValueList.length - 1)
+        path = groupModel.qualdropId + '/' + (metadataValueList.length - 1);
       }
     });
 
@@ -384,7 +384,7 @@ export class SectionFormOperationsService {
             this.operationsBuilder.move(
               moveTo,
               moveFrom.path
-            )
+            );
           }
         }
       } else if (!value.hasValue()) {

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Community } from '../../../core/shared/community.model';
 import { ActivatedRoute } from '@angular/router';
-import { map, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Observable } from 'rxjs';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { hasValue } from '../../../shared/empty.util';
-import { filter } from 'rxjs/internal/operators/filter';
 
 /**
  * Component for managing a community's curation tasks

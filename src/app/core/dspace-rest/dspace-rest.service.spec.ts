@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { DEFAULT_CONTENT_TYPE, DspaceRestService } from './dspace-rest.service';
@@ -22,8 +22,8 @@ describe('DspaceRestService', () => {
       providers: [DspaceRestService]
     });
 
-    dspaceRestService = TestBed.get(DspaceRestService);
-    httpMock = TestBed.get(HttpTestingController);
+    dspaceRestService = TestBed.inject(DspaceRestService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => httpMock.verify());

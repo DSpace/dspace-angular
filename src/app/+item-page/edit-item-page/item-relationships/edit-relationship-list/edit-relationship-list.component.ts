@@ -3,7 +3,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
 import {
   FieldUpdate,
   FieldUpdates,
@@ -11,7 +11,7 @@ import {
 } from '../../../../core/data/object-updates/object-updates.reducer';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { Item } from '../../../../core/shared/item.model';
-import { defaultIfEmpty, flatMap, map, switchMap, take, } from 'rxjs/operators';
+import { defaultIfEmpty, map, mergeMap, switchMap, take, } from 'rxjs/operators';
 import { hasValue, hasValueOperator } from '../../../../shared/empty.util';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
@@ -20,7 +20,6 @@ import {
   getRemoteDataPayload,
   getFirstSucceededRemoteData,
 } from '../../../../core/shared/operators';
-import { combineLatest as observableCombineLatest, of } from 'rxjs';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
@@ -99,9 +98,9 @@ export class EditRelationshipListComponent implements OnInit {
         if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
           const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
           if (relationshipLabel !== relatedEntityType.label) {
-            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`
+            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`;
           } else {
-            return `relationships.is${relationshipLabel}Of`
+            return `relationships.is${relationshipLabel}Of`;
           }
         } else {
           return label;
@@ -147,7 +146,7 @@ export class EditRelationshipListComponent implements OnInit {
     modalComp.repeatable = true;
     modalComp.listId = this.listId;
     modalComp.item = this.item;
-    modalComp.select = (...selectableObjects: Array<SearchResult<Item>>) => {
+    modalComp.select = (...selectableObjects: SearchResult<Item>[]) => {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;
         this.getFieldUpdatesForRelatedItem(relatedItem)
@@ -165,12 +164,12 @@ export class EditRelationshipListComponent implements OnInit {
                     relatedItem,
                   } as RelationshipIdentifiable;
                   this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
-                })
+                });
             }
           });
-      })
+      });
     };
-    modalComp.deselect = (...selectableObjects: Array<SearchResult<Item>>) => {
+    modalComp.deselect = (...selectableObjects: SearchResult<Item>[]) => {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;
         this.objectUpdatesService.removeSingleFieldUpdate(this.url, this.relationshipType.id + '-' + relatedItem.uuid);
@@ -180,7 +179,7 @@ export class EditRelationshipListComponent implements OnInit {
               this.objectUpdatesService.saveRemoveFieldUpdate(this.url, identifiable)
             )
           );
-      })
+      });
     };
     this.relatedEntityType$
       .pipe(take(1))
@@ -236,7 +235,7 @@ export class EditRelationshipListComponent implements OnInit {
         .map((update) => update.field as RelationshipIdentifiable)
         .filter((field) => field.relationship)
       ),
-      flatMap((identifiables) =>
+      mergeMap((identifiables) =>
         observableCombineLatest(
           identifiables.map((identifiable) => this.getRelatedItem(identifiable.relationship))
         ).pipe(
@@ -258,7 +257,7 @@ export class EditRelationshipListComponent implements OnInit {
       switchMap((isLeftItem) => isLeftItem ? relationship.rightItem : relationship.leftItem),
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-    ) as Observable<Item>
+    ) as Observable<Item>;
   }
 
   ngOnInit(): void {
@@ -295,7 +294,7 @@ export class EditRelationshipListComponent implements OnInit {
               type: this.relationshipType,
               relationship,
               nameVariant,
-            } as RelationshipIdentifiable
+            } as RelationshipIdentifiable;
           })),
         )),
       switchMap((initialFields) => this.objectUpdatesService.getFieldUpdates(this.url, initialFields).pipe(

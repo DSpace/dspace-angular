@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
@@ -23,11 +23,11 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
    * The external source entry
    */
-  public externalSourceEntry: ExternalSourceEntry;
+  @Input() public externalSourceEntry: ExternalSourceEntry;
   /**
    * The entry metadata list
    */
-  public metadataList: Array<{ key: string, value: MetadataValue }>;
+  public metadataList: { key: string, value: MetadataValue }[];
   /**
    * The label prefix to use to generate the translation label
    */
@@ -64,7 +64,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
         key: key,
         value: Metadata.first(this.externalSourceEntry.metadata, key)
       });
-    })
+    });
   }
 
   /**
@@ -89,7 +89,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
         return this.submissionService.createSubmissionFromExternalSource(this.externalSourceEntry._links.self.href, collectionListEntry.collection.id);
       })
     ).subscribe((submissionObjects: SubmissionObject[]) => {
-      let isValid = false
+      let isValid = false;
       if (submissionObjects.length === 1) {
         if (submissionObjects[0] !== null) {
           isValid = true;

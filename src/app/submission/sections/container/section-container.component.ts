@@ -73,7 +73,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
   /**
    * The SectionsDirective reference
    */
-  @ViewChild('sectionRef', {static: false}) sectionRef: SectionsDirective;
+  @ViewChild('sectionRef') sectionRef: SectionsDirective;
 
   /**
    * Initialize instance variables

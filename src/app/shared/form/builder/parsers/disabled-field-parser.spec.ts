@@ -54,7 +54,7 @@ describe('DisabledFieldParser test suite', () => {
         'test description',
       ],
     };
-    const expectedValue ='test description';
+    const expectedValue = 'test description';
 
     const parser = new DisabledFieldParser(submissionId, field, initFormValues, parserOptions);
 

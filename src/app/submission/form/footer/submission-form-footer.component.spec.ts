@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
-import { cold, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Store } from '@ngrx/store';
 
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
@@ -22,17 +22,13 @@ describe('SubmissionFormFooterComponent Component', () => {
   let comp: SubmissionFormFooterComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionFormFooterComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
   let submissionRestServiceStub: SubmissionRestServiceStub;
+  let scheduler: TestScheduler;
 
+  const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
   const submissionId = mockSubmissionId;
 
-  const store: any = jasmine.createSpyObj('store', {
-    dispatch: jasmine.createSpy('dispatch'),
-    select: jasmine.createSpy('select')
-  });
-
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
@@ -43,9 +39,8 @@ describe('SubmissionFormFooterComponent Component', () => {
         TestComponent
       ],
       providers: [
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SubmissionRestService, useClass: SubmissionRestServiceStub },
-        { provide: Store, useValue: store },
         ChangeDetectorRef,
         NgbModal,
         SubmissionFormFooterComponent
@@ -60,6 +55,7 @@ describe('SubmissionFormFooterComponent Component', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+      submissionServiceStub.getSubmissionStatus.and.returnValue(observableOf(true));
       const html = `
         <ds-submission-form-footer [submissionId]="submissionId"></ds-submission-form-footer>`;
 
@@ -81,11 +77,11 @@ describe('SubmissionFormFooterComponent Component', () => {
 
   describe('', () => {
     beforeEach(() => {
+      scheduler = getTestScheduler();
       fixture = TestBed.createComponent(SubmissionFormFooterComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
-      submissionRestServiceStub = TestBed.get(SubmissionRestService);
+      submissionRestServiceStub = TestBed.inject(SubmissionRestService as any);
       comp.submissionId = submissionId;
 
     });
@@ -94,8 +90,6 @@ describe('SubmissionFormFooterComponent Component', () => {
       comp = null;
       compAsAny = null;
       fixture = null;
-      submissionServiceStub = null;
-      submissionRestServiceStub = null;
     });
 
     describe('ngOnChanges', () => {
@@ -266,7 +260,7 @@ describe('SubmissionFormFooterComponent Component', () => {
         expect(comp.saveForLaterLabel()).toBe('submission.general.save-later');
 
       });
-    })
+    });
 
   });
 });

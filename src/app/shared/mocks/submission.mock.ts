@@ -1317,7 +1317,7 @@ export const mockUploadConfigResponseMetadata = {
   _links: {
     self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata' }
   },
-}
+};
 
 export const mockUploadConfigResponse = {
   accessConditionOptions: [

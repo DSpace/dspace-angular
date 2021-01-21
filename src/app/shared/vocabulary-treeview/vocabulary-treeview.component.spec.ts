@@ -1,28 +1,32 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CdkTreeModule } from '@angular/cdk/tree';
 
 import { of as observableOf } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { createTestComponent } from '../testing/utils.test';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
-import { CoreState } from '../../core/core.reducers';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { TreeviewFlatNode } from './vocabulary-treeview-node.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
+import { authReducer } from '../../core/auth/auth.reducer';
+import { storeModuleConfig } from '../../app.reducer';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 
   let comp: VocabularyTreeviewComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<VocabularyTreeviewComponent>;
+  let initialState;
 
   const item = new VocabularyEntryDetail();
   item.id = 'node1';
@@ -44,17 +48,25 @@ describe('VocabularyTreeviewComponent test suite', () => {
     cleanTree: jasmine.createSpy('cleanTree'),
   });
 
-  const store: Store<CoreState> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
-    dispatch: {},
-    /* tslint:enable:no-empty */
-    pipe: observableOf(true),
-  });
+  initialState = {
+    core: {
+      auth: {
+        authenticated: true,
+        loaded: true,
+        blocking: false,
+        loading: false,
+        authToken: new AuthTokenInfo('test_token'),
+        userId: 'testid',
+        authMethods: []
+      }
+    }
+  };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CdkTreeModule,
+        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot()
       ],
       declarations: [
@@ -64,12 +76,15 @@ describe('VocabularyTreeviewComponent test suite', () => {
       providers: [
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },
         { provide: NgbActiveModal, useValue: modalStub },
-        { provide: Store, useValue: store },
+        provideMockStore({ initialState }),
         ChangeDetectorRef,
         VocabularyTreeviewComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    }).compileComponents().then(() => {
+      vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([]));
+      vocabularyTreeviewServiceStub.isLoading.and.returnValue(observableOf(false));
+    });
   }));
 
   describe('', () => {
@@ -78,6 +93,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
+
       const html = `
         <ds-vocabulary-treeview [vocabularyOptions]="vocabularyOptions" [preloadLevel]="preloadLevel"></ds-vocabulary-treeview>`;
 
@@ -100,8 +116,6 @@ describe('VocabularyTreeviewComponent test suite', () => {
       fixture = TestBed.createComponent(VocabularyTreeviewComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([]));
-      vocabularyTreeviewServiceStub.isLoading.and.returnValue(observableOf(false));
       comp.vocabularyOptions = vocabularyOptions;
       comp.selectedItem = null;
     });

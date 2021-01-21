@@ -16,6 +16,6 @@ import { controlContainerFactory } from '../../../process-form.component';
 })
 export class BooleanValueInputComponent extends ValueInputComponent<boolean> implements OnInit {
   ngOnInit() {
-    this.updateValue.emit(true)
+    this.updateValue.emit(true);
   }
 }
