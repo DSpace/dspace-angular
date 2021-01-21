@@ -18,9 +18,22 @@ export class MetricRowComponent {
    */
   @Input() metricRow: MetricRow;
 
-  getMetricClass(metric: Metric): string {
+  /**
+   * CSS classes applied to the metric container.
+   * @param metric
+   */
+  getMetricClasses(metric: Metric): any {
     if (metric) {
-      return metric.metricType
+      const classes: any = {};
+      classes[metric.metricType] = true;
+      return {
+        ...classes,
+        'alert': true,
+        'alert-info': true,
+        'metric-container': true,
+      };
+    } else {
+      return {};
     }
   }
 }
