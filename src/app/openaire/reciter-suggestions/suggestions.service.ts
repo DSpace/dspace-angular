@@ -92,13 +92,13 @@ export class SuggestionsService {
    *    The number of the target per page
    * @param currentPage
    *    The page number to retrieve
+   * @param sortOptions
+   *    The sort options
    * @return Observable<RemoteData<PaginatedList<OpenaireSuggestion>>>
    *    The list of Suggestion.
    */
-  public getSuggestions(targetId: string, elementsPerPage, currentPage): Observable<PaginatedList<OpenaireSuggestion>> {
+  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<PaginatedList<OpenaireSuggestion>> {
     const [source, target] = targetId.split(':');
-
-    const sortOptions = new SortOptions('display', SortDirection.ASC);
 
     const findListOptions: FindListOptions = {
       elementsPerPage: elementsPerPage,

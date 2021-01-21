@@ -25,7 +25,7 @@
             <ds-pagination [paginationOptions]="config" [pageInfoState]="subCollectionsRD?.pageInfo"
               [collectionSize]="subCollectionsRD?.pageInfo?.totalElements" [sortOptions]="sortConfig" [hideGear]="false"
               [hidePagerWhenSinglePage]="false" [hidePaginationDetail]="false"
-              (pageChange)="onPaginationChange($event)">
+              (paginationChange)="onPaginationChange($event)">
               <ul class="list-unstyled">
                 <li *ngFor="let object of subCollectionsRD?.page; let i = index; let last = last" class="mt-4 mb-4">
                   <ds-suggestion-list-item

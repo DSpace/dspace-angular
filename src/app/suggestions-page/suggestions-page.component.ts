@@ -26,7 +26,6 @@ import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.
 })
 export class SuggestionsPageComponent implements OnInit {
 
-  paginationConfig: PaginationComponentOptions;
   /**
    * The pagination configuration
    */
@@ -74,7 +73,7 @@ export class SuggestionsPageComponent implements OnInit {
     this.config.id = this.pageId;
     this.config.pageSize = 10;
     this.config.currentPage = 1;
-    this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+    this.sortConfig = new SortOptions('score', SortDirection.DESC);
 
     this.targetRD$ = this.route.data.pipe(
       map((data: Data) => data.suggestionTargets as RemoteData<OpenaireSuggestionTarget>),
@@ -99,8 +98,9 @@ export class SuggestionsPageComponent implements OnInit {
    * Called when one of the pagination settings is changed
    * @param event The new pagination data
    */
-  onPaginationChange(event) {
-    this.config.currentPage = event;
+  onPaginationChange(event: {pagination: PaginationComponentOptions, sort: SortOptions}) {
+    this.config = event.pagination;
+    this.sortConfig = event.sort;
     this.updatePage();
   }
 
@@ -113,6 +113,7 @@ export class SuggestionsPageComponent implements OnInit {
         targetId,
         this.config.pageSize,
         this.config.currentPage,
+        this.sortConfig
       )),
       take(1)
     ).subscribe((results: PaginatedList<OpenaireSuggestion>) => {
