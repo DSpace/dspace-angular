@@ -94,7 +94,7 @@ export class CollectionPageComponent implements OnInit {
       )
     );
 
-    this.route.queryParams.pipe(take(1)).subscribe((params: PaginationChangeEvent) => {
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.metadata.processRemoteData(this.collectionRD$);
     });
   }
