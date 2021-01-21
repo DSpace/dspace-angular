@@ -120,7 +120,7 @@ describe('SubgroupsListComponent', () => {
   }));
 
   it('should show list of subgroups of current active group', () => {
-    const groupIdsFound = fixture.debugElement.queryAll(By.css('#subgroupsOfGroup tr td:first-child'));
+    const groupIdsFound = fixture.debugElement.queryAll(By.css('#subgroupsOfGroup$ tr td:first-child'));
     expect(groupIdsFound.length).toEqual(1);
     activeGroup.subgroups.map((group: Group) => {
       expect(groupIdsFound.find((foundEl) => {
@@ -132,7 +132,7 @@ describe('SubgroupsListComponent', () => {
   describe('if first group delete button is pressed', () => {
     let groupsFound;
     beforeEach(fakeAsync(() => {
-      const addButton = fixture.debugElement.query(By.css('#subgroupsOfGroup tbody .deleteButton'));
+      const addButton = fixture.debugElement.query(By.css('#subgroupsOfGroup$ tbody .deleteButton'));
       addButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
         }
@@ -141,7 +141,7 @@ describe('SubgroupsListComponent', () => {
       fixture.detectChanges();
     }));
     it('one less subgroup in list from 1 to 0 (of 2 total groups)', () => {
-      groupsFound = fixture.debugElement.queryAll(By.css('#subgroupsOfGroup tbody tr'));
+      groupsFound = fixture.debugElement.queryAll(By.css('#subgroupsOfGroup$ tbody tr'));
       expect(groupsFound.length).toEqual(0);
     });
   });
@@ -151,15 +151,15 @@ describe('SubgroupsListComponent', () => {
       let groupsFound;
       beforeEach(fakeAsync(() => {
         component.search({ query: '' });
-        groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
+        groupsFound = fixture.debugElement.queryAll(By.css('#searchResults$ tbody tr'));
       }));
 
       it('should display all groups', () => {
         fixture.detectChanges();
-        groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
+        groupsFound = fixture.debugElement.queryAll(By.css('#searchResults$ tbody tr'));
         expect(groupsFound.length).toEqual(2);
-        groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
-        const groupIdsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr td:first-child'));
+        groupsFound = fixture.debugElement.queryAll(By.css('#searchResults$ tbody tr'));
+        const groupIdsFound = fixture.debugElement.queryAll(By.css('#searchResults$ tbody tr td:first-child'));
         allGroups.map((group: Group) => {
           expect(groupIdsFound.find((foundEl) => {
             return (foundEl.nativeElement.textContent.trim() === group.uuid);
@@ -170,7 +170,7 @@ describe('SubgroupsListComponent', () => {
       describe('if group is already a subgroup', () => {
         it('should have delete button, else it should have add button', () => {
           fixture.detectChanges();
-          groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
+          groupsFound = fixture.debugElement.queryAll(By.css('#searchResults$ tbody tr'));
           const getSubgroups = groupsDataServiceStub.getSubgroups().subgroups;
           if (getSubgroups !== undefined && getSubgroups.length > 0) {
             groupsFound.map((foundGroupRowElement) => {

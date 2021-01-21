@@ -224,7 +224,7 @@ export class EPersonDataService extends DataService<EPerson> {
    * Method that clears a link's requests in cache
    */
   public clearLinkRequests(href: string): void {
-    this.requestService.removeByHrefSubstring(href);
+    this.requestService.setStaleByHrefSubstring(href);
   }
 
   /**

@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -13,9 +13,18 @@ import {
   getFirstSucceededRemoteData,
   getFirstCompletedRemoteData
 } from '../../../../../core/shared/operators';
-import { hasValue } from '../../../../../shared/empty.util';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
+import { EPerson } from '../../../../../core/eperson/models/eperson.model';
+
+/**
+ * Keys to keep track of specific subscriptions
+ */
+enum SubKey {
+  Members,
+  ActiveGroup,
+  SearchResults,
+}
 
 @Component({
   selector: 'ds-subgroups-list',
@@ -32,16 +41,16 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   /**
    * Result of search groups, initially all groups
    */
-  groupsSearch: Observable<RemoteData<PaginatedList<Group>>>;
+  searchResults$: BehaviorSubject<RemoteData<PaginatedList<Group>>> = new BehaviorSubject(undefined);
   /**
    * List of all subgroups of group being edited
    */
-  subgroupsOfGroup: Observable<RemoteData<PaginatedList<Group>>>;
+  subGroups$: BehaviorSubject<RemoteData<PaginatedList<Group>>> = new BehaviorSubject(undefined);
 
   /**
-   * List of subscriptions
+   * Map of active subscriptions
    */
-  subs: Subscription[] = [];
+  subs: Map<SubKey, Subscription> = new Map();
 
   /**
    * Pagination config used to display the list of groups that are result of groups search
@@ -84,10 +93,10 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.searchForm = this.formBuilder.group(({
       query: '',
     }));
-    this.subs.push(this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
+    this.subs.set(SubKey.ActiveGroup, this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
-        this.forceUpdateGroups(activeGroup);
+        this.retrieveSubGroups(this.config.currentPage);
       }
     }));
   }
@@ -106,10 +115,26 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * @param event
    */
   onPageChange(event) {
-    this.subgroupsOfGroup = this.groupDataService.findAllByHref(this.groupBeingEdited._links.subgroups.href, {
-      currentPage: event,
-      elementsPerPage: this.config.pageSize
-    });
+    this.retrieveSubGroups(event);
+  }
+
+  /**
+   * Retrieve the Subgroups that are members of the group
+   *
+   * @param page the number of the page to retrieve
+   * @private
+   */
+  private retrieveSubGroups(page: number) {
+    this.unsubFrom(SubKey.Members);
+    this.subs.set(
+      SubKey.Members,
+      this.groupDataService.findAllByHref(this.groupBeingEdited._links.subgroups.href, {
+          currentPage: page,
+          elementsPerPage: this.config.pageSize
+        }
+      ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
+        this.subGroups$.next(rd);
+      }));
   }
 
   /**
@@ -124,7 +149,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
             return observableOf(false);
           } else {
             return this.groupDataService.findAllByHref(activeGroup._links.subgroups.href, {
-              currentPage: 0,
+              currentPage: 1,
               elementsPerPage: 9999
             })
               .pipe(
@@ -162,7 +187,6 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteSubGroupFromGroup(activeGroup, subgroup);
         this.showNotifications('deleteSubgroup', response, subgroup.name, activeGroup);
-        this.forceUpdateGroups(activeGroup);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -186,7 +210,6 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
     });
-    this.forceUpdateGroups(this.groupBeingEdited);
   }
 
   /**
@@ -201,29 +224,37 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       this.configSearch.currentPage = 1;
     }
     this.searchDone = true;
-    this.groupsSearch = this.groupDataService.searchGroups(this.currentSearchQuery, {
+
+    this.unsubFrom(SubKey.SearchResults);
+    this.subs.set(SubKey.SearchResults, this.groupDataService.searchGroups(this.currentSearchQuery, {
       currentPage: this.configSearch.currentPage,
       elementsPerPage: this.configSearch.pageSize
-    });
+    }).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
+      this.searchResults$.next(rd);
+    }));
   }
 
   /**
-   * Force-update the list of groups by first clearing the cache of results of this active groups' subgroups, then performing a new REST call
-   * @param activeGroup   Group currently being edited
+   * Unsubscribe from a subscription if it's still subscribed, and remove it from the map of
+   * active subscriptions
+   *
+   * @param key The key of the subscription to unsubscribe from
+   * @private
    */
-  public forceUpdateGroups(activeGroup: Group) {
-    this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(activeGroup));
-    this.subgroupsOfGroup = this.groupDataService.findAllByHref(activeGroup._links.subgroups.href, {
-      currentPage: this.config.currentPage,
-      elementsPerPage: this.config.pageSize
-    }, false);
+  private unsubFrom(key: SubKey) {
+    if (this.subs.has(key)) {
+      this.subs.get(key).unsubscribe();
+      this.subs.delete(key);
+    }
   }
 
   /**
    * unsub all subscriptions
    */
   ngOnDestroy(): void {
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    for (const key of this.subs.keys()) {
+      this.unsubFrom(key);
+    }
   }
 
   /**
@@ -237,6 +268,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<Group>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.success.' + messageSuffix, { name: nameObject }));
+        this.groupDataService.clearGroupLinkRequests(activeGroup._links.subgroups.href);
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.' + messageSuffix, { name: nameObject }));
       }

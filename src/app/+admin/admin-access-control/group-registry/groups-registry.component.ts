@@ -2,9 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription, Observable, ObservedValueOf, of as observableOf } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Subscription,
+  Observable,
+  of as observableOf
+} from 'rxjs';
+import { filter, catchError, map, switchMap, take } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -20,7 +25,7 @@ import { RouteService } from '../../../core/services/route.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData
+  getFirstCompletedRemoteData, getAllSucceededRemoteData
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { hasValue } from '../../../shared/empty.util';
@@ -71,6 +76,11 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   currentSearchQuery: string;
 
   /**
+   * The subscription for the search method
+   */
+  searchSub: Subscription;
+
+  /**
    * List of subscriptions
    */
   subs: Subscription[] = [];
@@ -93,6 +103,30 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.search({ query: this.currentSearchQuery });
+
+    this.subs.push(this.groups$.pipe(
+      getAllSucceededRemoteDataPayload(),
+      switchMap((groups: PaginatedList<Group>) => {
+        return observableCombineLatest(groups.page.map((group: Group) => {
+          return observableCombineLatest([
+            this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
+            this.hasLinkedDSO(group)
+          ]).pipe(
+            map(([isAuthorized, hasLinkedDSO]: boolean[]) => {
+                const groupDtoModel: GroupDtoModel = new GroupDtoModel();
+                groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
+                groupDtoModel.group = group;
+                return groupDtoModel;
+              }
+            )
+          );
+        })).pipe(map((dtos: GroupDtoModel[]) => {
+          return buildPaginatedList(groups.pageInfo, dtos);
+        }));
+      })).subscribe((value: PaginatedList<GroupDtoModel>) => {
+      this.groupsDto$.next(value);
+      this.pageInfoState$.next(value.pageInfo);
+    }));
   }
 
   /**
@@ -115,37 +149,20 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       this.currentSearchQuery = query;
       this.config.currentPage = 1;
     }
-    this.subs.push(this.groupService.searchGroups(this.currentSearchQuery.trim(), {
+    if (hasValue(this.searchSub)) {
+      this.searchSub.unsubscribe();
+      this.subs = this.subs.filter((sub: Subscription) => sub !== this.searchSub);
+    }
+    this.searchSub = this.groupService.searchGroups(this.currentSearchQuery.trim(), {
       currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize
-    }).pipe(getFirstCompletedRemoteData())
-      .subscribe((groupsRD: RemoteData<PaginatedList<Group>>) => {
-        this.groups$.next(groupsRD);
-        this.pageInfoState$.next(groupsRD.payload.pageInfo);
-      }
-    ));
-
-    this.subs.push(this.groups$.pipe(
-      getAllSucceededRemoteDataPayload(),
-      switchMap((groups: PaginatedList<Group>) => {
-        return observableCombineLatest(...groups.page.map((group: Group) => {
-          return observableCombineLatest(
-            this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(group) ? group.self : undefined),
-            this.hasLinkedDSO(group),
-            (isAuthorized: ObservedValueOf<Observable<boolean>>, hasLinkedDSO: ObservedValueOf<Observable<boolean>>) => {
-              const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-              groupDtoModel.ableToDelete = isAuthorized && !hasLinkedDSO;
-              groupDtoModel.group = group;
-              return groupDtoModel;
-            }
-          );
-        })).pipe(map((dtos: GroupDtoModel[]) => {
-          return buildPaginatedList(groups.pageInfo, dtos);
-        }));
-      })).subscribe((value: PaginatedList<GroupDtoModel>) => {
-      this.groupsDto$.next(value);
-      this.pageInfoState$.next(value.pageInfo);
-    }));
+    }).pipe(
+      getAllSucceededRemoteData()
+    ).subscribe((groupsRD: RemoteData<PaginatedList<Group>>) => {
+      this.groups$.next(groupsRD);
+      this.pageInfoState$.next(groupsRD.payload.pageInfo);
+    });
+    this.subs.push(this.searchSub);
   }
 
   /**
@@ -168,16 +185,13 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * This method will ensure that the page gets reset and that the cache is cleared
+   * This method will set everything to stale, which will cause the lists on this page to update.
    */
   reset() {
     this.groupService.getBrowseEndpoint().pipe(
-      switchMap((href) => this.requestService.removeByHrefSubstring(href)),
-      filter((isCached) => isCached),
       take(1)
-    ).subscribe(() => {
-      this.cleanupSubscribes();
-      this.search({ query: this.currentSearchQuery });
+    ).subscribe((href: string) => {
+      this.requestService.setStaleByHrefSubstring(href);
     });
   }
 

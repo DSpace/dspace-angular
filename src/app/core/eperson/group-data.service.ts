@@ -205,7 +205,7 @@ export class GroupDataService extends DataService<Group> {
    * Method that clears a cached get subgroups of certain group request
    */
   public clearGroupLinkRequests(href: string): void {
-    this.requestService.removeByHrefSubstring(href);
+    this.requestService.setStaleByHrefSubstring(href);
   }
 
   public getGroupRegistryRouterLink(): string {

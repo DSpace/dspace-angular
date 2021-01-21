@@ -150,7 +150,7 @@ describe('MembersListComponent', () => {
   }));
 
   it('should show list of eperson members of current active group', () => {
-    const epersonIdsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tr td:first-child'));
+    const epersonIdsFound = fixture.debugElement.queryAll(By.css('#members$ tr td:first-child'));
     expect(epersonIdsFound.length).toEqual(1);
     epersonMembers.map((eperson: EPerson) => {
       expect(epersonIdsFound.find((foundEl) => {
