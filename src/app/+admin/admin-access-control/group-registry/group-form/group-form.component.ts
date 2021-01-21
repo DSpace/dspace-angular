@@ -229,10 +229,8 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           },
         };
         if (group === null) {
-          console.log('createNewGroup', values);
           this.createNewGroup(values);
         } else {
-          console.log('editGroup', group);
           this.editGroup(group);
         }
       }

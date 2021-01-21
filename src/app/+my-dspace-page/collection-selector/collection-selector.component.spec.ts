@@ -11,7 +11,10 @@ import { Observable } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { CollectionSelectorComponent } from './collection-selector.component';
-import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
+import {
+  CollectionDropdownComponent,
+  CollectionListEntry
+} from '../../shared/collection-dropdown/collection-dropdown.component';
 import { Collection } from '../../core/shared/collection.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
@@ -93,6 +96,11 @@ describe('CollectionSelectorComponent', () => {
     })
   ];
 
+  const entry: CollectionListEntry = {
+    communities: [community],
+    collection: collections[0]
+  };
+
   // tslint:disable-next-line: max-classes-per-file
   const collectionDataServiceMock = {
     getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
@@ -147,7 +155,7 @@ describe('CollectionSelectorComponent', () => {
   });
 
   it('should close the dialog with selected dso', () => {
-    component.selectObject(collections[0]);
+    component.selectObject(entry);
     expect((component as any).activeModal.close).toHaveBeenCalledWith(collections[0]);
   });
 

@@ -1,10 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { EntityDropdownComponent } from './entity-dropdown.component';
-import { PaginatedList } from '../../core/data/paginated-list.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { EntityTypeService } from '../../core/data/entity-type.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
@@ -62,7 +61,7 @@ describe('EntityDropdownComponent', () => {
   const paginatedEntities = createPaginatedList(entities);
   const paginatedEntitiesRD$ = createSuccessfulRemoteDataObject$(paginatedEntities);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -75,7 +74,6 @@ describe('EntityDropdownComponent', () => {
       declarations: [ EntityDropdownComponent ],
       providers: [
         {provide: EntityTypeService, useValue: entityTypeServiceMock},
-        {provide: ElementRef, userValue: {}},
         ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]

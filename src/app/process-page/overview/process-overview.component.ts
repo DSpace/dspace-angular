@@ -65,7 +65,6 @@ export class ProcessOverviewComponent implements OnInit {
       currentPage: event,
     });
     this.pageConfig.currentPage = event;
-    console.log('onPageChange', this.config);
     this.setProcesses();
   }
 

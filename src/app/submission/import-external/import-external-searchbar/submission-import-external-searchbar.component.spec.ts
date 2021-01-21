@@ -64,9 +64,9 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      mockExternalSourceService.findAll.and.returnValue(observableOf(paginatedListRD));
+      mockExternalSourceService.searchBy.and.returnValue(observableOf(paginatedListRD));
       const html = `
-        <ds-submission-import-external-searchbar></ds-submission-import-external-searchbar>`;
+        <ds-submission-import-external-searchbar [initExternalSourceData]="initExternalSourceData"></ds-submission-import-external-searchbar>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
     });
@@ -89,7 +89,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       const pageInfo = new PageInfo();
       paginatedList = buildPaginatedList(pageInfo, [externalSourceOrcid, externalSourceCiencia, externalSourceMyStaffDb]);
       paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
-      compAsAny.externalService.findAll.and.returnValue(observableOf(paginatedListRD));
+      compAsAny.externalService.searchBy.and.returnValue(observableOf(paginatedListRD));
       sourceList = [
         {id: 'orcid', name: 'orcid'},
         {id: 'ciencia', name: 'ciencia'},
@@ -173,5 +173,5 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   template: ``
 })
 class TestComponent {
-
+  initExternalSourceData = { entity: 'Publication', query: 'dummy', sourceId: 'ciencia' };
 }

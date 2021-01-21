@@ -1,7 +1,7 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { Tab } from '../../core/layout/models/tab.model';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
@@ -62,11 +62,9 @@ export class CrisLayoutDefaultComponent extends CrisLayoutPageObj implements OnI
   }
 
   ngOnInit() {
-    console.log('CrisLayoutDefaultComponent', this.item);
     // Retrieve tabs by UUID of item
     this.tabs$ = this.tabService.findByItem(this.item.id).pipe(
-      getFirstSucceededRemoteListPayload(),
-      tap((tabs) => console.log(tabs)),
+      getFirstSucceededRemoteListPayload()
     );
 
     // Check if to show sidebar

@@ -53,7 +53,6 @@ export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxObj implements 
       .pipe(getAllSucceededRemoteDataPayload())
       .subscribe(
         (next) => {
-          console.log('CrisLayoutMetadataBoxComponent', next);
           this.metadatacomponents = next;
           this.cd.markForCheck();
         }

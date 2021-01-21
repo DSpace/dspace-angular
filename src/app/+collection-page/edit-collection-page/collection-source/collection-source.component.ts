@@ -474,9 +474,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     // Update harvester
     this.collectionRD$.pipe(
       getFirstSucceededRemoteData(),
-      tap((c) => console.log('pre', c)),
       switchMap((coll) => this.updateCollection(coll.payload) as Observable<string>),
-      tap((c) => console.log('post', c)),
       take(1),
       switchMap((uuid) => this.collectionService.updateContentSource(uuid, this.contentSource)),
       take(1)

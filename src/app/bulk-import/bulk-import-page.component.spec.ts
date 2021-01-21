@@ -42,10 +42,10 @@ describe('BulkImportPageComponent', () => {
 
   const file: File = new File(['test'], 'test.xls');
 
-  const fileList: FileList = Object.assign({}, {
+  const fileList: any = {
     item: (index: number) => file,
     length: 10
-  });
+  };
 
   const authService = jasmine.createSpyObj('authService', {
     isAuthenticated: of(true),

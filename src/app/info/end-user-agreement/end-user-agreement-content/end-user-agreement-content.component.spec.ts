@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
-import { Site } from './../../core/shared/site.model';
+import { Site } from '../../../core/shared/site.model';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
 
 describe('EndUserAgreementContentComponent', () => {

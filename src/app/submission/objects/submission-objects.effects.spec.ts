@@ -701,7 +701,6 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       const errorsList = parseSectionErrors(mockSectionsErrors);
-      console.log(errorsList);
       const expected = cold('--(bcd)-', {
         b: new UpdateSectionDataAction(
           submissionId,

@@ -76,7 +76,6 @@ describe('DSOSelectorModalWrapperComponent', () => {
       spyOn(component, 'navigate');
       spyOn(component, 'close');
       spyOn(component.select, 'emit');
-      component.selectObject(item);
     });
 
     it('should call the close and navigate method on the component with the given DSO', () => {

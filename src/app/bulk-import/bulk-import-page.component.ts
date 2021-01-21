@@ -10,10 +10,9 @@ import { getCollectionPageRoute } from '../+collection-page/collection-page-rout
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { RemoteData } from '../core/data/remote-data';
-import { RequestEntry } from '../core/data/request.reducer';
 import { RequestService } from '../core/data/request.service';
 import { Collection } from '../core/shared/collection.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, redirectOn4xx } from '../core/shared/operators';
+import { getFirstCompletedRemoteData, redirectOn4xx } from '../core/shared/operators';
 import { ProcessParameter } from '../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { AuthService } from '../core/auth/auth.service';

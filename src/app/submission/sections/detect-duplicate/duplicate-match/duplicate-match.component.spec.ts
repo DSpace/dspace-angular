@@ -1,12 +1,11 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
 
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,12 +17,12 @@ import { SectionsServiceStub } from '../../../../shared/testing/sections-service
 import { DetectDuplicateService } from '../detect-duplicate.service';
 import { getMockDetectDuplicateService } from '../../../../shared/mocks/mock-detect-duplicate-service';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { StoreMock } from '../../../../shared/testing/store.mock';
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { DetectDuplicateMatch } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { DuplicateDecisionType } from '../models/duplicate-decision-type';
 import { DuplicateDecision } from '../models/duplicate-decision.model';
 import { createTestComponent } from '../../../../shared/testing/utils.test';
+import { provideMockStore } from '@ngrx/store/testing';
 
 const metadata = [
   {
@@ -286,12 +285,13 @@ describe('DuplicateMatchComponent test suite', () => {
   let comp: DuplicateMatchComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<DuplicateMatchComponent>;
-  let submissionServiceStub: SubmissionServiceStub;
+  let submissionServiceStub: any;
   let modalService: any;
   let formBuilder: FormBuilder;
   let operationsBuilder: JsonPatchOperationsBuilder;
+  const initialState = {};
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -309,7 +309,7 @@ describe('DuplicateMatchComponent test suite', () => {
         JsonPatchOperationsBuilder,
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
-        { provide: Store, useValue: StoreMock },
+        provideMockStore({ initialState }),
         DuplicateMatchComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -324,7 +324,7 @@ describe('DuplicateMatchComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       const html = `
-        <ds-duplicate-match></ds-duplicate-match>`;
+        <ds-duplicate-match [match]="match"></ds-duplicate-match>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
     });
@@ -343,14 +343,14 @@ describe('DuplicateMatchComponent test suite', () => {
       fixture = TestBed.createComponent(DuplicateMatchComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
-      submissionServiceStub = TestBed.get(SubmissionService);
+      submissionServiceStub = TestBed.inject(SubmissionService);
       comp.sectionId = 'dummy-section-id';
       comp.itemId = 'dummy-item-id';
       comp.submissionId = 'dumy-submission-id';
       comp.index = 'dummy-index';
-      modalService = TestBed.get(NgbModal);
-      formBuilder = TestBed.get(FormBuilder);
-      operationsBuilder = TestBed.get(JsonPatchOperationsBuilder);
+      modalService = TestBed.inject(NgbModal);
+      formBuilder = TestBed.inject(FormBuilder);
+      operationsBuilder = TestBed.inject(JsonPatchOperationsBuilder);
       compAsAny.sectionService.isSectionActive.and.returnValue(observableOf(true));
       spyOn(modalService, 'open').and.returnValue({ dismiss: () => true });
       spyOn(operationsBuilder, 'add');
@@ -468,5 +468,5 @@ describe('DuplicateMatchComponent test suite', () => {
   template: ``
 })
 class TestComponent {
-
+  match = matchWorkflowMock;
 }
