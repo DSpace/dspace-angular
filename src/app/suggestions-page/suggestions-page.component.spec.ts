@@ -21,12 +21,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../shared/testing/router.stub';
 import { RemoteData } from '../core/data/remote-data';
 import { mockSuggestionTargetsObjectOne } from '../shared/mocks/reciter-suggestion-targets.mock';
-import { ItemDataService } from '../core/data/item-data.service';
 import { AuthService } from '../core/auth/auth.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
 import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
+import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
@@ -40,7 +40,7 @@ describe('SuggestionPageComponent', () => {
       suggestionTargets: new RemoteData(false, false, true, null, mockSuggestionTargetsObjectOne)
     })
   };
-  const itemServiceMock = jasmine.createSpyObj('ItemDataService', {
+  const workspaceitemServiceMock = jasmine.createSpyObj('WorkspaceitemDataService', {
     importExternalSourceEntry: jasmine.createSpy('importExternalSourceEntry')
   });
 
@@ -66,7 +66,7 @@ describe('SuggestionPageComponent', () => {
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: ActivatedRoute, useValue: routeStub },
-        { provide: ItemDataService, useValue: itemServiceMock },
+        { provide: WorkspaceitemDataService, useValue: workspaceitemServiceMock },
         { provide: Router, useValue: router },
         { provide: SuggestionsService, useValue: mockSuggestionsService },
         { provide: SuggestionTargetsStateService, useValue: mockSuggestionsTargetStateService },

@@ -8,9 +8,8 @@ import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.m
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload, redirectOn4xx } from '../core/shared/operators';
-import {SuggestionBulkResult, SuggestionsService} from '../openaire/reciter-suggestions/suggestions.service';
+import { SuggestionBulkResult, SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { ItemDataService } from '../core/data/item-data.service';
 import { OpenaireSuggestion } from '../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { AuthService } from '../core/auth/auth.service';
@@ -18,6 +17,7 @@ import { SuggestionApproveAndImport } from '../openaire/reciter-suggestions/sugg
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SuggestionTargetsStateService } from '../openaire/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
+import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 
 @Component({
   selector: 'ds-suggestion-page',
@@ -63,7 +63,7 @@ export class SuggestionsPageComponent implements OnInit {
     private router: Router,
     private suggestionService: SuggestionsService,
     private suggestionTargetsStateService: SuggestionTargetsStateService,
-    private itemService: ItemDataService,
+    private workspaceItemService: WorkspaceitemDataService,
     private notificationService: NotificationsService,
     private translateService: TranslateService
   ) {
@@ -162,7 +162,7 @@ export class SuggestionsPageComponent implements OnInit {
    * @param event contains the suggestion and the target collection
    */
   approveAndImport(event: SuggestionApproveAndImport) {
-    this.suggestionService.approveAndImport(this.itemService, event.suggestion, event.collectionId)
+    this.suggestionService.approveAndImport(this.workspaceItemService, event.suggestion, event.collectionId)
       .subscribe((response: any) => {
         this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
         this.notificationService.success('reciter.suggestion.approveAndImport.success');
@@ -177,7 +177,7 @@ export class SuggestionsPageComponent implements OnInit {
   approveAndImportAllSelected(event: SuggestionApproveAndImport) {
     this.isBulkOperationPending = true;
     this.suggestionService
-      .approveAndImportMultiple(this.itemService, Object.values(this.selectedSuggestions), event.collectionId)
+      .approveAndImportMultiple(this.workspaceItemService, Object.values(this.selectedSuggestions), event.collectionId)
       .subscribe((results: SuggestionBulkResult) => {
         this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
         this.updatePage();

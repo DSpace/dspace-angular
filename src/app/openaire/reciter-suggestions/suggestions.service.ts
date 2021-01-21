@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { forkJoin, Observable, of as observableOf, throwError } from 'rxjs';
-import { catchError, flatMap, map, switchMap, take } from 'rxjs/operators';
+import { forkJoin, Observable, of as observableOf } from 'rxjs';
+import { catchError, flatMap, map, take } from 'rxjs/operators';
 
 import { OpenaireSuggestionsDataService } from '../../core/openaire/reciter-suggestions/openaire-suggestions-data.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
@@ -23,7 +23,7 @@ import { RestResponse } from '../../core/cache/response.models';
 import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
 import { of } from 'rxjs/internal/observable/of';
 import { tap } from 'rxjs/internal/operators/tap';
-import { ItemDataService } from '../../core/data/item-data.service';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 
 export interface SuggestionBulkResult {
   success: number;
@@ -164,11 +164,13 @@ export class SuggestionsService {
    * Perform the approve and import operation over a single suggestion
    * @param suggestion target suggestion
    * @param collectionId the collectionId
-   * @param itemService injected dependency
+   * @param workspaceitemService injected dependency
    * @private
    */
-  public approveAndImport(itemService: ItemDataService, suggestion: OpenaireSuggestion, collectionId: string): Observable<string> {
-    return itemService.importExternalSourceEntry(suggestion.externalSourceUri, collectionId)
+  public approveAndImport(workspaceitemService: WorkspaceitemDataService,
+                          suggestion: OpenaireSuggestion,
+                          collectionId: string): Observable<string> {
+    return workspaceitemService.importExternalSourceEntry(suggestion.externalSourceUri, collectionId)
       .pipe(
         getFirstSucceededRemoteDataPayload(),
         tap((res) => {
@@ -191,15 +193,16 @@ export class SuggestionsService {
 
   /**
    * Perform a bulk approve and import operation.
-   * @param itemService injected dependency
+   * @param workspaceitemService injected dependency
    * @param suggestions the array containing the suggestions
    * @param collectionId the collectionId
    */
-  public approveAndImportMultiple(itemService: ItemDataService,
+  public approveAndImportMultiple(workspaceitemService: WorkspaceitemDataService,
                                   suggestions: OpenaireSuggestion[],
                                   collectionId: string): Observable<SuggestionBulkResult> {
 
-    return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) => this.approveAndImport(itemService, suggestion, collectionId)))
+    return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) =>
+      this.approveAndImport(workspaceitemService, suggestion, collectionId)))
       .pipe(map((results: string[]) => {
         return {
           success: results.filter((result) => result != null).length,
