@@ -195,7 +195,7 @@ export class SuggestionTargetsComponent implements OnInit {
     }
   }
 
-  protected getTargetUuid(target: OpenaireSuggestionTarget) {
+  public getTargetUuid(target: OpenaireSuggestionTarget) {
     return this.suggestionService.getTargetUuid(target);
   }
 }
