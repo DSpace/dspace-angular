@@ -27,8 +27,12 @@ import { OrcidAuthorizationsComponent } from './custom-layout/orcid-authorizatio
 import { OrcidSyncSettingsComponent } from './custom-layout/orcid-sync-settings/orcid-sync-settings.component';
 import { CrisLayoutMetricsBoxComponent } from './default-layout/boxes/metrics/cris-layout-metrics-box.component';
 import { MetricRowComponent } from './default-layout/boxes/components/metric-row/metric-row.component';
-import { MetricComponent } from './default-layout/boxes/components/metric/metric.component';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
+import { MetricLoaderComponent } from './default-layout/boxes/components/metric/metric-loader/metric-loader.component';
+import { MetricAltmetricComponent } from './default-layout/boxes/components/metric/metric-altmetric/metric-altmetric.component';
+import { MetricDimensionsComponent } from './default-layout/boxes/components/metric/metric-dimensions/metric-dimensions.component';
+import { MetricDspacecrisComponent } from './default-layout/boxes/components/metric/metric-dspacecris/metric-dspacecris.component';
+import { MetricGooglescholarComponent } from './default-layout/boxes/components/metric/metric-googlescholar/metric-googlescholar.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -75,7 +79,11 @@ const ENTRY_COMPONENTS = [
     OrcidSyncQueueComponent,
     OrcidAuthorizationsComponent,
     MetricRowComponent,
-    MetricComponent
+    MetricLoaderComponent,
+    MetricAltmetricComponent,
+    MetricDimensionsComponent,
+    MetricDspacecrisComponent,
+    MetricGooglescholarComponent
   ],
   imports: [
     CommonModule,
