@@ -132,7 +132,7 @@ describe('DsoRedirectDataService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(router.navigate).toHaveBeenCalledWith(['/entities/Publication/' + remoteData.payload.uuid]);
+      expect(router.navigate).toHaveBeenCalledWith(['/entities/publication/' + remoteData.payload.uuid]);
     });
 
     it('should navigate to collections route', () => {

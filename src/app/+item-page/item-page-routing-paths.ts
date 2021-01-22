@@ -24,7 +24,7 @@ export function getItemEditRoute(item: Item) {
 
 export function getEntityPageRoute(entityType: string, itemId: string) {
   if (isNotEmpty(entityType)) {
-    return new URLCombiner('/entities', entityType, itemId).toString();
+    return new URLCombiner('/entities', encodeURIComponent(entityType.toLowerCase()), itemId).toString();
   } else {
     return new URLCombiner(getItemModuleRoute(), itemId).toString();
   }
