@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 import { MetricAltmetricComponent } from '../metric-altmetric/metric-altmetric.component';
 import { MetricDimensionsComponent } from '../metric-dimensions/metric-dimensions.component';
 import { MetricGooglescholarComponent } from '../metric-googlescholar/metric-googlescholar.component';
@@ -9,7 +9,7 @@ declare var document: any;
 
 interface Script {
   loaded: boolean;
-  src: string
+  src: string;
 }
 
 export interface MetricTypeConf {
@@ -82,7 +82,7 @@ export class MetricLoaderService {
   }
 
   protected loadScript(metricType: string, src: string): Promise<any> {
-    console.log('Loading script of', metricType)
+    console.log('Loading script of', metricType);
     return new Promise((resolve, reject) => {
       if (this.scripts[metricType] && this.scripts.loaded) {
         console.log('Resolving with status Already Loaded');
@@ -91,7 +91,7 @@ export class MetricLoaderService {
         // load script
         this.scripts[metricType] = {
           loaded: false, src
-        }
+        };
         const script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = src;

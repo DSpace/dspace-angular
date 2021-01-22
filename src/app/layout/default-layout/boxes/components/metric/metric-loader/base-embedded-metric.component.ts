@@ -1,10 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { BaseMetricComponent } from './base-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
-import { take, takeUntil } from 'rxjs/operators';
-import { interval } from 'rxjs';
-import { tap } from 'rxjs/internal/operators/tap';
-import { Subject } from 'rxjs/internal/Subject';
+import { take, takeUntil, tap } from 'rxjs/operators';
+import { interval, Subject } from 'rxjs';
 
 export const METRIC_SCRIPT_TIMEOUT_MS = 500;
 export const METRIC_SCRIPT_MAX_RETRY = 3;
@@ -51,7 +49,7 @@ export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent im
    * @protected
    */
   initScript() {
-    const successNotifier = new Subject<any>()
+    const successNotifier = new Subject<any>();
     interval(this.timeout).pipe(
       tap(() => this.applyScriptHandler(successNotifier)),
       take(this.maxRetry),

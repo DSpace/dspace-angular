@@ -27,7 +27,7 @@ export class MetricLoaderComponent implements OnInit {
     }
     this.metricLoaderService.loadMetricTypeComponent(metric.metricType).then((component) => {
       this.instantiateComponent(component, metric);
-    })
+    });
   }
 
   instantiateComponent(component: any, metric: Metric) {

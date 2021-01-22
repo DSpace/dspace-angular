@@ -1,8 +1,8 @@
-import { async, ComponentFixture, fakeAsync, TestBed, TestComponentRenderer, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { MetricLoaderComponent } from './metric-loader.component';
 import { MetricLoaderService } from './metric-loader.service';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 import { metric1Mock } from '../../../metrics/cris-layout-metrics-box.component.spec';
 import { Component } from '@angular/core';
 
@@ -41,7 +41,7 @@ describe('MetricLoaderComponent', () => {
 
     beforeEach(() => {
       spyOn(component, 'instantiateComponent').and.returnValue(null);
-    })
+    });
 
     it('should instantiate the component loaded from service', fakeAsync(() => {
 
