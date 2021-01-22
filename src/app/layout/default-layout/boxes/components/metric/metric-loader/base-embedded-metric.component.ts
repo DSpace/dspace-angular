@@ -1,4 +1,4 @@
-import { AfterViewInit, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { BaseMetricComponent } from './base-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { take, takeUntil, tap } from 'rxjs/operators';
@@ -11,6 +11,9 @@ export const METRIC_SCRIPT_MAX_RETRY = 3;
  * The BaseEmbeddedMetricComponent enhance the basic metric component taking care to run the script required
  * to initialize the dynamically added html snippet.
  */
+@Component({
+  template: ''
+})
 export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent implements OnInit, AfterViewInit {
 
   timeout = METRIC_SCRIPT_TIMEOUT_MS;
