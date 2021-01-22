@@ -39,7 +39,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() metadataValue: MetadataValue;
 
   isCustomGroup = true;
-  valueUpdates: Subject<string>;
+  valueChanges: Subject<string>;
 
   constructor(config: DynamicConcatModelConfig, layout?: DynamicFormControlLayout) {
 
@@ -53,8 +53,8 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.submissionId = config.submissionId;
     this.hasSelectableMetadata = config.hasSelectableMetadata;
     this.metadataValue = config.metadataValue;
-    this.valueUpdates = new Subject<string>();
-    this.valueUpdates.subscribe((value: string) => this.value = value);
+    this.valueChanges = new Subject<string>();
+    this.valueChanges.subscribe((value: string) => this.value = value);
   }
 
   get value() {

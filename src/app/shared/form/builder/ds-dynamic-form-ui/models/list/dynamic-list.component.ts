@@ -90,13 +90,13 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
       // Target tabindex coincide with the array index of the value into the authority list
       const entry: VocabularyEntry = this.optionsList[target.tabIndex];
       if (target.checked) {
-        this.model.valueUpdates.next(entry);
+        this.model.valueChanges.next(entry);
       } else {
         const newValue = [];
         this.model.value
           .filter((item) => item.value !== entry.value)
           .forEach((item) => newValue.push(item));
-        this.model.valueUpdates.next(newValue);
+        this.model.valueChanges.next(newValue);
       }
     } else {
       (this.model as DynamicListRadioGroupModel).value = this.optionsList[target.value];
