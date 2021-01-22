@@ -98,7 +98,7 @@ export class DsDynamicTypeBindRelationService {
 
       const initValue = (isUndefined(relatedModel.value) || typeof relatedModel.value === 'string') ? relatedModel.value : relatedModel.value.value;
 
-      const valueChanges = relatedModel.valueUpdates.pipe(
+      const valueChanges = relatedModel.valueChanges.pipe(
         startWith(initValue),
         distinctUntilChanged()
       );

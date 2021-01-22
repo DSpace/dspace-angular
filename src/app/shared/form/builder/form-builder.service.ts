@@ -374,7 +374,7 @@ export class FormBuilderService extends DynamicFormService {
     this.formModels.forEach( (model, formId) => {
       const fieldModel: any = this.findById(fieldId, model);
       if (hasValue(fieldModel)) {
-        fieldModel.valueUpdates.next(value);
+        fieldModel.value = value;
         return;
       }
     });
