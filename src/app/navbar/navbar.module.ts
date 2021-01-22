@@ -9,6 +9,8 @@ import { NavbarSectionComponent } from './navbar-section/navbar-section.componen
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section/expandable-navbar-section.component';
 import { NavbarComponent } from './navbar.component';
 import { MenuModule } from '../shared/menu/menu.module';
+import { SearchNavbarComponent } from '../search-navbar/search-navbar.component';
+import { SharedModule } from '../shared/shared.module';
 
 const effects = [
   NavbarEffects
@@ -23,6 +25,7 @@ const ENTRY_COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     MenuModule,
     EffectsModule.forFeature(effects),
     CoreModule.forRoot()
@@ -30,7 +33,8 @@ const ENTRY_COMPONENTS = [
   declarations: [
     NavbarComponent,
     NavbarSectionComponent,
-    ExpandableNavbarSectionComponent
+    ExpandableNavbarSectionComponent,
+    SearchNavbarComponent
   ],
   providers: [
 

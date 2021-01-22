@@ -1,6 +1,6 @@
-<nav [ngClass]="{'open': !(menuCollapsed | async)}"
+<!--<nav [ngClass]="{'open': !(menuCollapsed | async)}"
      [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
-     class="navbar navbar-light navbar-expand-md p-md-0 navbar-container">    <!-- TODO remove navbar-container class when https://github.com/twbs/bootstrap/issues/24726 is fixed -->
+     class="navbar navbar-light navbar-expand-md p-md-0 navbar-container">    &lt;!&ndash; TODO remove navbar-container class when https://github.com/twbs/bootstrap/issues/24726 is fixed &ndash;&gt;
     <div class="container">
         <div class="reset-padding-md w-100">
             <div id="collapsingNav">
@@ -13,5 +13,27 @@
             </div>
         </div>
     </div>
-</nav>
+</nav>-->
 
+<nav [ngClass]="{'open': !(menuCollapsed | async)}"
+     [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
+     class="navbar navbar-expand-lg navbar-light rounded" aria-label="Eleventh navbar example">
+  <div class="container-fluid">
+    <a class="navbar-brand my-2" routerLink="/home">
+      <img src="assets/images/dspace-logo.svg"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample09">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ng-container *ngFor="let section of (sections | async)">
+          <ng-container
+            *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+        </ng-container>
+      </ul>
+    </div>
+    <ds-search-navbar></ds-search-navbar>
+  </div>
+</nav>

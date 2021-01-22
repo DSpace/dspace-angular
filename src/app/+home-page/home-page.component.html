@@ -1,8 +1,21 @@
-<ds-home-news></ds-home-news>
+<!--<ds-home-news></ds-home-news>
 <div class="container">
   <ng-container *ngIf="(site$ | async) as site">
     <ds-view-tracker [object]="site"></ds-view-tracker>
   </ng-container>
   <ds-search-form [inPlaceSearch]="false"></ds-search-form>
+  <ds-top-level-community-list></ds-top-level-community-list>
+</div>-->
+<div class="background-image">
+  <div class="container">
+    <ng-container *ngIf="(site$ | async) as site">
+      <ds-view-tracker [object]="site"></ds-view-tracker>
+    </ng-container>
+    <ds-home-news></ds-home-news>
+    <ds-search-form class="d-block rounded-top p-3 bg-white" [inPlaceSearch]="false" [large]="true" [brandColor]="'success'"></ds-search-form>
+  </div>
+  <small class="credits">Photo by <a href="https://www.pexels.com/@inspiredimages">@inspiredimages</a></small>
+</div>
+<div class="container pt-3">
   <ds-top-level-community-list></ds-top-level-community-list>
 </div>

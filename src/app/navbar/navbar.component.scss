@@ -33,3 +33,12 @@ nav.navbar {
         padding: 0;
     }
 }
+
+nav.navbar {
+  border-bottom: 5px $green solid;
+
+}
+
+a.navbar-brand img {
+  max-height: 40px;
+}

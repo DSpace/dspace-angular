@@ -108,7 +108,6 @@ const DECLARATIONS = [
   PageNotFoundComponent,
   NotificationComponent,
   NotificationsBoardComponent,
-  SearchNavbarComponent,
   BreadcrumbsComponent,
   ForbiddenComponent,
 ];
