@@ -1,6 +1,15 @@
+@media screen and (min-width: map-get($grid-breakpoints, md)) {
+  a.navbar-brand {
+    display: none;
+  }
+  .navbar-search {
+    display: none;
+  }
+}
+
 .navbar-brand img {
     height: $header-logo-height;
-    @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+    @media screen and (max-width: map-get($grid-breakpoints, md)) {
         height: $header-logo-height-xs;
     }
 }

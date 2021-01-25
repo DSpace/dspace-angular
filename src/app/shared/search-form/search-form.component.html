@@ -6,7 +6,7 @@
   </select>
 </div>
     <div [ngClass]="{'col-sm-9': isNotEmpty(scopes)}" class="col-12">
-    <div class="form-group input-group">
+    <div class="form-group input-group m-0">
         <input type="text" [(ngModel)]="query" name="query" class="form-control" aria-label="Search input">
         <span class="input-group-append">
             <button type="submit" class="search-button btn btn-secondary">{{ ('search.form.search' | translate) }}</button>

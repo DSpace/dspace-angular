@@ -17,16 +17,13 @@
 
 <nav [ngClass]="{'open': !(menuCollapsed | async)}"
      [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
-     class="navbar navbar-expand-lg navbar-light rounded" aria-label="Eleventh navbar example">
+     class="navbar navbar-expand-md navbar-light p-0 navbar-container">
   <div class="container-fluid">
     <a class="navbar-brand my-2" routerLink="/home">
       <img src="assets/images/dspace-logo.svg"/>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExample09">
+    <div id="collapsingNav" class="w-100">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <ng-container *ngFor="let section of (sections | async)">
           <ng-container
@@ -34,6 +31,6 @@
         </ng-container>
       </ul>
     </div>
-    <ds-search-navbar></ds-search-navbar>
+    <ds-search-navbar class="navbar-search"></ds-search-navbar>
   </div>
 </nav>

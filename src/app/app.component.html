@@ -10,14 +10,12 @@
                 [options]="notificationOptions">
         </ds-notifications-board>
         <main class="main-content">
-            <div class="container">
-                <ds-breadcrumbs></ds-breadcrumbs>
-            </div>
+          <ds-breadcrumbs></ds-breadcrumbs>
 
-            <div class="container" *ngIf="isLoading$ | async">
-                <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
+            <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="isLoading$ | async">
+                <ds-loading [showMessage]="false"></ds-loading>
             </div>
-            <router-outlet></router-outlet>
+            <router-outlet *ngIf="!(isLoading$ | async)"></router-outlet>
         </main>
 
         <ds-footer></ds-footer>

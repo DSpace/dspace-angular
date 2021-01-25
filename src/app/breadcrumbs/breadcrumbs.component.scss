@@ -1,0 +1,18 @@
+.breadcrumb {
+  border-radius: 0;
+  margin-top: -$content-spacing;
+  padding-bottom: $content-spacing / 3;
+  padding-top: $content-spacing / 3;
+}
+
+
+/*.breadcrumb-item+.breadcrumb-item::before{
+  font: normal normal normal 14px/1 FontAwesome;
+  content: $breadcrumb-divider;
+}*/
+
+.breadcrumb-item + .breadcrumb-item::before {
+  font-family: "Font Awesome 5 Free";
+  content: $breadcrumb-divider;
+  font-weight: 900;
+}

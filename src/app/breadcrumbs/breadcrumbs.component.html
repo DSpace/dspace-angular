@@ -1,6 +1,6 @@
 <ng-container *ngVar="(breadcrumbs$ | async) as breadcrumbs">
     <nav *ngIf="showBreadcrumbs" aria-label="breadcrumb">
-        <ol class="breadcrumb">
+        <ol class="container-fluid breadcrumb">
             <ng-container
                     *ngTemplateOutlet="breadcrumbs?.length > 0 ? breadcrumb : activeBreadcrumb; context: {text: 'home.breadcrumbs', url: '/'}"></ng-container>
             <ng-container *ngFor="let bc of breadcrumbs; let last = last;">
@@ -17,4 +17,3 @@
         <li class="breadcrumb-item active" aria-current="page">{{text | translate}}</li>
     </ng-template>
 </ng-container>
-

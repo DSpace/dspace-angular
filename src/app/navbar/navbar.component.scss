@@ -1,5 +1,6 @@
 nav.navbar {
-    border-bottom: 1px $gray-400 solid;
+    border-top: 1px $gray-400 solid;
+    border-bottom: 5px $green solid;
     align-items: baseline;
 }
 
@@ -27,16 +28,17 @@ nav.navbar {
 /* TODO remove when https://github.com/twbs/bootstrap/issues/24726 is fixed */
 .navbar-expand-md.navbar-container {
     @media screen and (max-width: map-get($grid-breakpoints, md)) {
-        > .container {
+        > .container-fluid {
             padding: 0 $spacer;
+            a.navbar-brand {
+              display: none;
+            }
+            .navbar-search {
+              display: none;
+            }
         }
         padding: 0;
     }
-}
-
-nav.navbar {
-  border-bottom: 5px $green solid;
-
 }
 
 a.navbar-brand img {

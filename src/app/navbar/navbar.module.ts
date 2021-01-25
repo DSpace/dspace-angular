@@ -33,8 +33,7 @@ const ENTRY_COMPONENTS = [
   declarations: [
     NavbarComponent,
     NavbarSectionComponent,
-    ExpandableNavbarSectionComponent,
-    SearchNavbarComponent
+    ExpandableNavbarSectionComponent
   ],
   providers: [
 

@@ -7,15 +7,15 @@
   <ds-top-level-community-list></ds-top-level-community-list>
 </div>-->
 <div class="background-image">
-  <div class="container">
+  <div class="container-fluid">
     <ng-container *ngIf="(site$ | async) as site">
       <ds-view-tracker [object]="site"></ds-view-tracker>
     </ng-container>
     <ds-home-news></ds-home-news>
-    <ds-search-form class="d-block rounded-top p-3 bg-white" [inPlaceSearch]="false" [large]="true" [brandColor]="'success'"></ds-search-form>
+    <ds-search-form class="d-block rounded-top p-4 bg-white" [inPlaceSearch]="false" [large]="true" [brandColor]="'success'"></ds-search-form>
   </div>
-  <small class="credits">Photo by <a href="https://www.pexels.com/@inspiredimages">@inspiredimages</a></small>
+<!--  <small class="credits">Photo by <a href="https://www.pexels.com/@inspiredimages">@inspiredimages</a></small>-->
 </div>
-<div class="container pt-3">
+<div class="container-fluid pt-3">
   <ds-top-level-community-list></ds-top-level-community-list>
 </div>

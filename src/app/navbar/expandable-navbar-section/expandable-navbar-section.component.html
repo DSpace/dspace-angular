@@ -8,7 +8,7 @@
                 *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
     </a>
     <ul @slide *ngIf="(active | async)" (click)="deactivateSection($event)"
-        class="m-0 shadow-none border-top-0 dropdown-menu show">
+        class="m-0 expandable-menu shadow-none border-top-0 dropdown-menu show">
         <ng-container *ngFor="let subSection of (subSections$ | async)">
             <ng-container
                     *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
