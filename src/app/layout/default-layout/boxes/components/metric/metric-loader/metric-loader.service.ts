@@ -30,7 +30,7 @@ export const MetricTypesConfig: MetricTypeConf[] = [
     script: 'https://badge.dimensions.ai/badge.js'
   },
   {
-    id: 'googleScholar',
+    id: 'google-scholar',
     component: MetricGooglescholarComponent,
     script: null
   }
