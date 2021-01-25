@@ -284,13 +284,13 @@ describe('RequestService', () => {
 
       it('should track it on it\'s way to the store', () => {
         spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
-        spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(false);
+        spyOn(serviceAsAny, 'shouldDispatchRequest').and.returnValue(true);
         service.send(request);
         expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).toHaveBeenCalledWith(request);
       });
       describe('and it isn\'t cached or pending', () => {
         beforeEach(() => {
-          spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(false);
+          spyOn(serviceAsAny, 'shouldDispatchRequest').and.returnValue(true);
         });
 
         it('should dispatch the request', () => {
@@ -301,7 +301,7 @@ describe('RequestService', () => {
       });
       describe('and it is already cached or pending', () => {
         beforeEach(() => {
-          spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(true);
+          spyOn(serviceAsAny, 'shouldDispatchRequest').and.returnValue(false);
         });
 
         it('shouldn\'t dispatch the request', () => {
@@ -335,7 +335,7 @@ describe('RequestService', () => {
 
   });
 
-  describe('isCachedOrPending', () => {
+  describe('shouldDispatchRequest', () => {
     describe('when the request is cached', () => {
       describe('in the ObjectCache', () => {
         beforeEach(() => {
@@ -344,9 +344,9 @@ describe('RequestService', () => {
           spyOn(serviceAsAny, 'hasByUUID').and.returnValue(true);
         });
 
-        it('should return true for GetRequest', () => {
-          const result = serviceAsAny.isCachedOrPending(testGetRequest);
-          const expected = true;
+        it('should return false for GetRequest', () => {
+          const result = serviceAsAny.shouldDispatchRequest(testGetRequest, true);
+          const expected = false;
 
           expect(result).toEqual(expected);
         });
@@ -357,9 +357,9 @@ describe('RequestService', () => {
           spyOn(serviceAsAny, 'hasByHref').and.returnValues(true);
           spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
         });
-        it('should return true', () => {
-          const result = serviceAsAny.isCachedOrPending(testGetRequest);
-          const expected = true;
+        it('should return false', () => {
+          const result = serviceAsAny.shouldDispatchRequest(testGetRequest, true);
+          const expected = false;
 
           expect(result).toEqual(expected);
         });
@@ -371,9 +371,9 @@ describe('RequestService', () => {
         spyOn(service, 'isPending').and.returnValue(true);
       });
 
-      it('should return true', () => {
-        const result = serviceAsAny.isCachedOrPending(testGetRequest);
-        const expected = true;
+      it('should return false', () => {
+        const result = serviceAsAny.shouldDispatchRequest(testGetRequest, true);
+        const expected = false;
 
         expect(result).toEqual(expected);
       });
@@ -386,9 +386,9 @@ describe('RequestService', () => {
         spyOn(serviceAsAny, 'hasByUUID').and.returnValue(false);
       });
 
-      it('should return false', () => {
-        const result = serviceAsAny.isCachedOrPending(testGetRequest);
-        const expected = false;
+      it('should return true', () => {
+        const result = serviceAsAny.shouldDispatchRequest(testGetRequest, true);
+        const expected = true;
 
         expect(result).toEqual(expected);
       });

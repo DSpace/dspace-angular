@@ -142,10 +142,16 @@ export class RequestService {
   }
 
   /**
-   * Check if a request is currently pending
+   * Check if a GET request is currently pending
    */
   isPending(request: GetRequest): boolean {
-    // first check requests that haven't made it to the store yet
+    // If the request is not a GET request, it will never be considered pending, because you may
+    // want to execute the exact same e.g. POST multiple times
+    if (request.method !== RestRequestMethod.GET) {
+      return false;
+    }
+
+    // check requests that haven't made it to the store yet
     if (this.requestsOnTheirWayToTheStore.includes(request.href)) {
       return true;
     }
@@ -232,7 +238,7 @@ export class RequestService {
       console.warn(`${JSON.stringify(request, null, 2)} is not a GET request. In general only GET requests should reuse cached data.`);
     }
 
-    if (!useCachedVersionIfAvailable || !this.isCachedOrPending(request)) {
+    if (this.shouldDispatchRequest(request, useCachedVersionIfAvailable)) {
       this.dispatchRequest(request);
       if (request.method === RestRequestMethod.GET) {
         this.trackRequestsOnTheirWayToTheStore(request);
@@ -301,25 +307,38 @@ export class RequestService {
   }
 
   /**
-   * Check if a request is in the cache or if it's still pending
+   * Check if a GET request is in the cache or if it's still pending
    * @param {GetRequest} request The request to check
+   * @param {boolean} useCachedVersionIfAvailable Whether or not to allow the use of a cached version
    * @returns {boolean} True if the request is cached or still pending
    */
-  public isCachedOrPending(request: GetRequest): boolean {
-    if (this.isPending(request)) {
+  public shouldDispatchRequest(request: GetRequest, useCachedVersionIfAvailable: boolean): boolean {
+    // if it's not a GET request
+    if (request.method !== RestRequestMethod.GET) {
+      return true;
+    // if it is a GET request, check it isn't pending
+    } else if (this.isPending(request)) {
+      return false;
+    // if it is pending, check if we're allowed to use a cached version
+    } else if (!useCachedVersionIfAvailable) {
       return true;
     } else {
+      // if we are, check the request cache
       const urlWithoutEmbedParams = getUrlWithoutEmbedParams(request.href);
       if (this.hasByHref(urlWithoutEmbedParams) === true) {
-        return true;
+        return false;
       } else {
+        // if it isn't in the request cache, check the object cache
         let inObjCache = false;
         this.objectCache.getByHref(urlWithoutEmbedParams)
           .subscribe((entry: ObjectCacheEntry) => {
+            // if the object cache has a match, check if the request that the object came with is
+            // still valid
             inObjCache = this.hasByUUID(entry.requestUUID);
           }).unsubscribe();
 
-        return inObjCache;
+        // we should send the request if it isn't cached
+        return !inObjCache;
       }
     }
   }

@@ -15,7 +15,7 @@ import {
 } from '../../../../../core/shared/operators';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
-import { EPerson } from '../../../../../core/eperson/models/eperson.model';
+import { NoContent } from '../../../../../core/shared/NoContent.model';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -264,7 +264,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * @param nameObject      Object request was about
    * @param activeGroup     Group currently being edited
    */
-  showNotifications(messageSuffix: string, response: Observable<RemoteData<Group>>, nameObject: string, activeGroup: Group) {
+  showNotifications(messageSuffix: string, response: Observable<RemoteData<Group|NoContent>>, nameObject: string, activeGroup: Group) {
     response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<Group>) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.success.' + messageSuffix, { name: nameObject }));

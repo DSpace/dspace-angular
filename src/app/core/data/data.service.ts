@@ -339,7 +339,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
 
     this.createAndSendGetRequest(requestHref$, useCachedVersionIfAvailable);
 
-    return this.rdbService.buildSingle<T>(href$, ...linksToFollow).pipe(
+    return this.rdbService.buildSingle<T>(requestHref$, ...linksToFollow).pipe(
       reRequestStaleRemoteData(reRequestOnStale, () =>
         this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow))
     );

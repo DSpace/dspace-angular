@@ -132,7 +132,7 @@ export class GroupDataService extends DataService<Group> {
    * @param activeGroup   Group we want to delete subgroup from
    * @param subgroup      Subgroup we want to delete from activeGroup
    */
-  deleteSubGroupFromGroup(activeGroup: Group, subgroup: Group): Observable<RemoteData<Group>> {
+  deleteSubGroupFromGroup(activeGroup: Group, subgroup: Group): Observable<RemoteData<NoContent>> {
     const requestId = this.requestService.generateRequestId();
     const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.subgroupsEndpoint + '/' + subgroup.id);
     this.requestService.send(deleteRequest);
@@ -162,7 +162,7 @@ export class GroupDataService extends DataService<Group> {
    * @param activeGroup   Group we want to delete member from
    * @param ePerson       EPerson we want to delete from members of given activeGroup
    */
-  deleteMemberFromGroup(activeGroup: Group, ePerson: EPerson): Observable<RemoteData<Group>> {
+  deleteMemberFromGroup(activeGroup: Group, ePerson: EPerson): Observable<RemoteData<NoContent>> {
     const requestId = this.requestService.generateRequestId();
     const deleteRequest = new DeleteRequest(requestId, activeGroup.self + '/' + this.ePersonsEndpoint + '/' + ePerson.id);
     this.requestService.send(deleteRequest);
