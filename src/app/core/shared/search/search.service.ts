@@ -264,13 +264,21 @@ export class SearchService implements OnDestroy {
     return this.rdb.buildFromHref(href$).pipe(
       map((rd: RemoteData<FacetConfigResponse>) => {
         if (rd.hasSucceeded) {
+          let filters: SearchFilterConfig[];
+          if (isNotEmpty(rd.payload.filters)) {
+            filters = rd.payload.filters
+              .map((filter: any) => Object.assign(new SearchFilterConfig(), filter));
+          } else {
+            filters = [];
+          }
+
           return new RemoteData(
             rd.timeCompleted,
             rd.msToLive,
             rd.lastUpdated,
             rd.state,
             rd.errorMessage,
-            rd.payload.filters,
+            filters,
             rd.statusCode,
           );
         } else {
