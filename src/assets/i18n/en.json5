@@ -526,6 +526,10 @@
 
 
 
+  "bitstream.download.page": "Now downloading {{bitstream}}..." ,
+
+
+
   "bitstream.edit.bitstream": "Bitstream: ",
 
   "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
