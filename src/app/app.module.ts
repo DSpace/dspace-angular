@@ -1,5 +1,5 @@
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -40,6 +40,8 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { AuthInterceptor } from './core/auth/auth.interceptor';
+import { LocaleInterceptor } from './core/locale/locale.interceptor';
 
 export function getBase() {
   return environment.ui.nameSpace;
@@ -92,6 +94,18 @@ const PROVIDERS = [
       return () => store.dispatch(new CheckAuthenticationTokenAction());
     },
     deps: [ Store ],
+    multi: true
+  },
+  // register AuthInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },
+  // register LocaleInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LocaleInterceptor,
     multi: true
   },
   ...DYNAMIC_MATCHER_PROVIDERS,
