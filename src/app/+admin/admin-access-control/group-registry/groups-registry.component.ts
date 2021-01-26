@@ -9,7 +9,7 @@ import {
   Observable,
   of as observableOf
 } from 'rxjs';
-import { filter, catchError, map, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -25,7 +25,8 @@ import { RouteService } from '../../../core/services/route.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData, getAllSucceededRemoteData
+  getFirstCompletedRemoteData,
+  getAllSucceededRemoteData
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { hasValue } from '../../../shared/empty.util';
