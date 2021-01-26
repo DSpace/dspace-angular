@@ -162,11 +162,12 @@ describe('ComColDataService', () => {
     });
 
     describe('if the scope Community can\'t be found', () => {
-      it('should throw an error', () => {
+      it('should throw an error', (done) => {
         const result = service.getBrowseEndpoint(options);
         const expected = cold('--#-', undefined, new Error(`The Community with scope ${scopeID} couldn't be retrieved`));
 
         expect(result).toBeObservable(expected);
+        done();
       });
     });
 
