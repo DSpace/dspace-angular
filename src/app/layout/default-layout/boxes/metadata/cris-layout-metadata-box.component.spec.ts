@@ -12,7 +12,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrisLayoutLoaderDirective } from '../../../directives/cris-layout-loader.directive';
-import { RowComponent } from '../components/row/row.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { LayoutPage } from '../../../enums/layout-page.enum';
 import { By } from '@angular/platform-browser';
@@ -21,6 +20,7 @@ import { BitstreamDataService } from '../../../../core/data/bitstream-data.servi
 import { boxMetadata } from '../../../../shared/testing/box.mock';
 import { TextComponent } from '../components/text/text.component';
 import { SharedModule } from '../../../../shared/shared.module';
+import { RowComponent } from './row/row.component';
 
 const testType = LayoutPage.DEFAULT;
 

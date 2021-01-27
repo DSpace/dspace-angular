@@ -1,5 +1,5 @@
-import { LayoutPage } from '../enums/layout-page.enum';
-import { LayoutTab } from '../enums/layout-tab.enum';
+import { DEFAULT_LAYOUT_PAGE, LayoutPage } from '../enums/layout-page.enum';
+import { DEFAULT_LAYOUT_TAB, LayoutTab } from '../enums/layout-tab.enum';
 import { LayoutBox } from '../enums/layout-box.enum';
 import { hasNoValue } from '../../shared/empty.util';
 import { Item } from '../../core/shared/item.model';
@@ -28,12 +28,12 @@ export function getCrisLayoutBox(item: Item, tabName: LayoutTab | string, boxTyp
   const objectType = item.firstMetadataValue(ITEM_METADATA_TYPE);
   let currentMap;
   if (hasNoValue(objectType) || hasNoValue(layoutBoxesMap.get(objectType))) {
-    currentMap = layoutBoxesMap.get(LayoutPage.DEFAULT);
+    currentMap = layoutBoxesMap.get(DEFAULT_LAYOUT_PAGE);
   } else {
     currentMap = layoutBoxesMap.get(objectType);
   }
   if (hasNoValue(tabName) || hasNoValue(currentMap.get(tabName))) {
-    currentMap = currentMap.get(LayoutTab.DEFAULT);
+    currentMap = currentMap.get(DEFAULT_LAYOUT_TAB);
   } else {
     currentMap = currentMap.get(tabName);
   }

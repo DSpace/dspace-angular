@@ -7,7 +7,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrisLayoutLoaderDirective } from '../../../directives/cris-layout-loader.directive';
-import { RowComponent } from '../components/row/row.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { boxMetadata } from '../../../../shared/testing/box.mock';
@@ -94,7 +93,6 @@ describe('CrisLayoutMetricsBoxComponent', () => {
       declarations: [
         CrisLayoutMetricsBoxComponent,
         CrisLayoutLoaderDirective,
-        RowComponent,
         TextComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]

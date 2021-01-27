@@ -1,5 +1,5 @@
-import { LayoutPage } from '../enums/layout-page.enum';
-import { LayoutTab } from '../enums/layout-tab.enum';
+import { DEFAULT_LAYOUT_PAGE, LayoutPage } from '../enums/layout-page.enum';
+import { DEFAULT_LAYOUT_TAB, LayoutTab } from '../enums/layout-tab.enum';
 import { hasNoValue } from '../../shared/empty.util';
 import { Item } from '../../core/shared/item.model';
 
@@ -28,7 +28,7 @@ export function getCrisLayoutTab(item: Item, tabName: LayoutTab | string): any {
     hasNoValue(tabName) ||
     hasNoValue(layoutTabsMap.get(objectType)) ||
     hasNoValue(layoutTabsMap.get(objectType).get(tabName))) {
-    componentLayout = layoutTabsMap.get(LayoutPage.DEFAULT).get(LayoutTab.DEFAULT);
+    componentLayout = layoutTabsMap.get(DEFAULT_LAYOUT_PAGE).get(DEFAULT_LAYOUT_TAB);
   } else {
     componentLayout = layoutTabsMap.get(objectType).get(tabName);
   }

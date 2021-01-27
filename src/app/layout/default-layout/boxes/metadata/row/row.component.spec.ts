@@ -5,7 +5,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
-import { TextComponent } from '../text/text.component';
+import { TextComponent } from '../../components/text/text.component';
 import { ComponentFactoryResolver, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../../core/shared/item.model';
 import { medataComponent } from '../../../../../shared/testing/metadata-components.mock';
@@ -16,7 +16,7 @@ class TestItem {
   }
 }
 
-describe('RowComponent', () => {
+fdescribe('RowComponent', () => {
   let component: RowComponent;
   let fixture: ComponentFixture<RowComponent>;
 
