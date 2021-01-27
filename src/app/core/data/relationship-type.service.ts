@@ -88,7 +88,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
         map((types: RelationshipType[]) => {
           const match = types.find((type: RelationshipType) => hasValue(type));
           if (hasValue(match)) {
-            return match
+            return match;
           } else {
             return null;
           }
