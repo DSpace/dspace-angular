@@ -19,7 +19,7 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Observable } from 'rxjs';
-import { tap, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { RequestParam } from '../cache/models/request-param.model';
 
 /**
