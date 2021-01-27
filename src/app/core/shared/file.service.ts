@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { AuthService } from '../auth/auth.service';
-import { take, map } from 'rxjs/operators';
+import { take, map, tap } from 'rxjs/operators';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { hasValue } from '../../shared/empty.util';
@@ -23,10 +23,10 @@ export class FileService {
    * @param url
    *    file url
    */
-  downloadFile(url: string): Observable<string> {
-    return this.authService.getShortlivedToken().pipe(take(1), map((token) =>
-      hasValue(token) ? new URLCombiner(url, `?authentication-token=${token}`).toString() : url
-    ));
+  downloadFile(url: string) {
+    this.authService.getShortlivedToken().pipe(take(1)).subscribe((token) => {
+      this._window.nativeWindow.location.href = hasValue(token) ? new URLCombiner(url, `?authentication-token=${token}`).toString() : url;
+    });
   }
 
   /**
