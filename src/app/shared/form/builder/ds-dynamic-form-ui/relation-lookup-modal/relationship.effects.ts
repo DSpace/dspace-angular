@@ -33,7 +33,6 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { TranslateService } from '@ngx-translate/core';
-import { error } from 'util';
 
 const DEBOUNCE_TIME = 500;
 
