@@ -1,0 +1,9 @@
+<div class="card">
+  <div [ngClass] = "countersSection.style">
+    <div *ngFor="let counter of (counterData$ | async)" class="px-3 col-md-1 d-flex align-items-start flex-column justify-content-center column">
+      <div class="col d-flex justify-content-center"><i [ngClass]="counter.icon"></i></div>
+      <div class="col d-flex justify-content-center">{{'explore.counters-section.' + counter.label | translate}}</div>
+      <div class="col d-flex justify-content-center"><b>{{counter.count}}</b></div>
+    </div>
+  </div>
+</div>

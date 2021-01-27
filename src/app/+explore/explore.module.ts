@@ -1,3 +1,4 @@
+import { CountersSectionComponent } from './section-component/counters-section/counters-section.component';
 import { TextSectionComponent } from './section-component/text-section/text-section.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,8 @@ import { SearchSectionComponent } from './section-component/search-section/searc
         TopSectionComponent,
         FacetSectionComponent,
         SearchSectionComponent,
-        TextSectionComponent
+        TextSectionComponent,
+        CountersSectionComponent
     ],
     providers: [],
     entryComponents: [
@@ -30,7 +32,8 @@ import { SearchSectionComponent } from './section-component/search-section/searc
         TopSectionComponent,
         FacetSectionComponent,
         SearchSectionComponent,
-        TextSectionComponent
+        TextSectionComponent,
+        CountersSectionComponent
     ]
 })
 export class ExploreModule {
