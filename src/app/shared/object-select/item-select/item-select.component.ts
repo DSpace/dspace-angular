@@ -31,7 +31,7 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
    */
   itemPageRoutes$: Observable<{
     [itemId: string]: string
-  }>
+  }>;
 
   constructor(protected objectSelectService: ObjectSelectService) {
     super(objectSelectService);

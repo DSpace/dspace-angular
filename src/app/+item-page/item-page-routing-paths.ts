@@ -19,7 +19,7 @@ export function getItemPageRoute(item: Item) {
 }
 
 export function getItemEditRoute(item: Item) {
-  return new URLCombiner(getItemPageRoute(item), ITEM_EDIT_PATH).toString()
+  return new URLCombiner(getItemPageRoute(item), ITEM_EDIT_PATH).toString();
 }
 
 export function getEntityPageRoute(entityType: string, itemId: string) {

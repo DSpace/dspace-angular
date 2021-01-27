@@ -98,7 +98,7 @@ export class ItemVersionsComponent implements OnInit {
    */
   itemPageRoutes$: Observable<{
     [itemId: string]: string
-  }>
+  }>;
 
   constructor(private versionHistoryService: VersionHistoryDataService) {
   }
