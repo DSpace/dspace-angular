@@ -65,3 +65,14 @@ export interface FacetSection extends SectionComponent {
   discoveryConfigurationName: string;
   componentType: 'facet';
 }
+
+export interface TextRowSection extends SectionComponent {
+  content: string;
+  contentType: string;
+  componentType: 'text-row';
+}
+
+export interface TextBoxSection extends SectionComponent {
+  textRows: TextRowSection[];
+  componentType: 'text-box';
+}
