@@ -91,7 +91,7 @@ export class MetadataSchemaComponent implements OnInit {
         if (update) {
           this.needsUpdate$.next(false);
         }
-        return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), !update, false, followLink('schema'));
+        return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(this.config), !update, true);
       })
     );
   }
@@ -101,6 +101,7 @@ export class MetadataSchemaComponent implements OnInit {
    * a new REST call
    */
   public forceUpdateFields() {
+    this.registryService.clearMetadataFieldRequests();
     this.needsUpdate$.next(true);
   }
 
@@ -160,7 +161,6 @@ export class MetadataSchemaComponent implements OnInit {
    * Delete all the selected metadata fields
    */
   deleteFields() {
-    this.registryService.clearMetadataFieldRequests().subscribe();
     this.registryService.getSelectedMetadataFields().pipe(take(1)).subscribe(
       (fields) => {
         const tasks$ = [];
@@ -174,6 +174,8 @@ export class MetadataSchemaComponent implements OnInit {
           const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
           if (successResponses.length > 0) {
             this.showNotification(true, successResponses.length);
+            this.registryService.clearMetadataFieldRequests();
+
           }
           if (failedResponses.length > 0) {
             this.showNotification(false, failedResponses.length);
