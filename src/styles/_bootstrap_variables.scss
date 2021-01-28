@@ -1,3 +1,5 @@
+@import '_themed_bootstrap_variables';
+
 /** Help Variables **/
 $fa-fixed-width: 1.25rem !default;
 $icon-padding: 1rem !default;
@@ -56,5 +58,3 @@ $grid-breakpoints: (
 ) !default;
 
 $yiq-contrasted-threshold:  165 !default;
-
-@import '_themed_bootstrap_variables';
