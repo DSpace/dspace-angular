@@ -3,8 +3,12 @@
   margin-top: -$content-spacing;
   padding-bottom: $content-spacing / 3;
   padding-top: $content-spacing / 3;
+  border-bottom: 3px $gray-100 solid;
 }
 
+li.breadcrumb-item.active {
+  color: $navbar-menu-item-hover-color;
+}
 
 /*.breadcrumb-item+.breadcrumb-item::before{
   font: normal normal normal 14px/1 FontAwesome;
@@ -12,7 +16,5 @@
 }*/
 
 .breadcrumb-item + .breadcrumb-item::before {
-  font-family: "Font Awesome 5 Free";
   content: $breadcrumb-divider;
-  font-weight: 900;
 }

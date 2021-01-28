@@ -2,6 +2,14 @@ nav.navbar {
     border-top: 1px $gray-400 solid;
     border-bottom: 5px $green solid;
     align-items: baseline;
+    color: theme-color('primary');
+
+    a.nav-link:hover, li.nav-item:hover {
+        background-color: $navbar-menu-item-hover-color;
+    }
+    .nav-link {
+        color: theme-color('primary') !important;
+    }
 }
 
 /** Mobile menu styling **/
@@ -39,8 +47,16 @@ nav.navbar {
         }
         padding: 0;
     }
+  height: 80px;
 }
 
 a.navbar-brand img {
   max-height: 40px;
 }
+
+/*
+li.nav-item:hover {
+  background-color: $navbar-menu-item-hover-color;
+}
+*/
+

@@ -1,4 +1,7 @@
-<div class="facet-filter d-block mb-3 p-3" *ngIf="active$ | async">
+<div [class.first-filter]="isFirstFilter"
+     [class.last-filter]="isLastFilter"
+     [class.mb-3]="isLastFilter"
+     class="facet-filter d-block p-3" *ngIf="active$ | async">
   <div (click)="toggle()" class="filter-name">
     <h5 class="d-inline-block mb-0">
       {{'search.filters.filter.' + filter.name + '.head'| translate}}

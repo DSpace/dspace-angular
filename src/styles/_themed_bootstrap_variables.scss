@@ -2,18 +2,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
 $font-family-sans-serif: 'Roboto, Source Sans Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-$gray-100: #e8ebf3 !default; // #eee
+//$gray-100: #ebddd0 !default; // #eee
+$gray-100: #f3ebe3 !default; // #eee
 $gray-800: #444444 !default; // #444
 
 $navbar-dark-color: #FFFFFF;
 
 /* Reassign color vars to semantic color scheme */
-$blue: #43515f !default;
+$blue:  #526d80 !default;
 $green: #92C642 !default;
-$cyan: #2e80a3 !default;
+$cyan: #526d80 !default;
 $yellow: #ec9433 !default;
 $red: #CF4444 !default;
-$dark: #43515f !default;
+$dark: darken($blue, 17%) !default;
 
 $body-color: $gray-800 !default;
 

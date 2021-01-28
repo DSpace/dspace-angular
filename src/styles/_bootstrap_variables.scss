@@ -1,5 +1,3 @@
-@import '_themed_bootstrap_variables';
-
 /** Help Variables **/
 $fa-fixed-width: 1.25rem !default;
 $icon-padding: 1rem !default;
@@ -30,14 +28,14 @@ $red: #CF4444 !default;
 $dark: darken($blue, 17%) !default;
 
 $theme-colors: (
-        primary: $blue,
-        secondary: $gray-700,
-        success: $green,
-        info: $cyan,
-        warning: $yellow,
-        danger: $red,
-        light: $gray-100,
-        dark: $dark
+    "primary": $blue,
+    "secondary": $gray-700,
+    "success": $green,
+    "info": $cyan,
+    "warning": $yellow,
+    "danger": $red,
+    "light": $gray-100,
+    "dark": $dark
 ) !default;
 /* Fonts */
 $link-color: map-get($theme-colors, info) !default;
@@ -58,3 +56,5 @@ $grid-breakpoints: (
 ) !default;
 
 $yiq-contrasted-threshold:  165 !default;
+
+@import '_themed_bootstrap_variables';

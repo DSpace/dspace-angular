@@ -1,5 +1,6 @@
 :host .facet-filter {
     border: 1px solid map-get($theme-colors, light);
+    border-bottom: 0;
     cursor: pointer;
     .search-filter-wrapper.closed {
         overflow: hidden;
@@ -7,4 +8,15 @@
     .filter-toggle {
         line-height: $line-height-base;
     }
+}
+
+.first-filter {
+  border-top-left-radius: 0.5rem !important;
+  border-top-right-radius: 0.5rem !important;
+}
+
+.last-filter {
+  border-bottom-left-radius: 0.5rem !important;
+  border-bottom-right-radius: 0.5rem !important;
+  border-bottom: 1px solid map-get($theme-colors, light) !important;
 }

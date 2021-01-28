@@ -1,12 +1,12 @@
-<footer class="footer">
+<!--<footer class="footer text-white">
     <div class="container-fluid content-container-fluid">
         <img src="assets/images/dspace-logo.png"/>
         <p>
-            <a href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
+            <a class="text-white" href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
             {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
-            <a href="http://www.duraspace.org/">{{ 'footer.link.duraspace' | translate}}</a>
+            <a class="text-white" href="http://www.duraspace.org/">{{ 'footer.link.duraspace' | translate}}</a>
         </p>
-        <ul class="list-unstyled small d-flex justify-content-center mb-0 text-secondary">
+        <ul class="list-unstyled small d-flex justify-content-center mb-0 text-white">
             <li>
                 <a href="#" (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
             </li>
@@ -18,4 +18,98 @@
             </li>
         </ul>
     </div>
+</footer>-->
+
+<footer class="footer text-white text-lg-start">
+  <!-- Grid container -->
+<!--  <div class="container-fluid p-4">
+    &lt;!&ndash;Grid row&ndash;&gt;
+    <div class="row">
+
+      &lt;!&ndash;Grid column&ndash;&gt;
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase">ABOUT</h5>
+
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a href="#!" class="text-white">Information</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white">Terms of Use</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white">Frequently Asked Questions</a>
+          </li>
+        </ul>
+      </div>
+      &lt;!&ndash;Grid column&ndash;&gt;
+
+      &lt;!&ndash;Grid column&ndash;&gt;
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase">NEWS</h5>
+
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a href="#!" class="text-white">Updates and events</a>
+          </li>
+        </ul>
+      </div>
+      &lt;!&ndash;Grid column&ndash;&gt;
+
+      &lt;!&ndash;Grid column&ndash;&gt;
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase mb-0">SOCIAL MEDIA</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!" class="text-white"><i class="fab fa-facebook-f"></i> FACEBOOK</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white"><i class="fab fa-twitter"></i> TWITTER</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white"><i class="fab fa-linkedin-in"></i> LINKEDIN</a>
+          </li>
+        </ul>
+      </div>
+      &lt;!&ndash;Grid column&ndash;&gt;
+      &lt;!&ndash;Grid column&ndash;&gt;
+      <div class="col-lg-3 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Footer Content</h5>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+          molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+          voluptatem veniam, est atque cumque eum delectus sint!
+        </p>
+      </div>
+      &lt;!&ndash;Grid column&ndash;&gt;
+    </div>
+    &lt;!&ndash;Grid row&ndash;&gt;
+  </div>-->
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="p-1 d-flex justify-content-center align-items-center text-white" style="background-color: rgba(0, 0, 0, 0.2)">
+    <img class="mr-3" src="assets/images/dspace-logo.png"/>
+    <div class="content-container-fluid">
+      <p class="m-0">
+        <a class="text-white" href="http://www.dspace.org/">{{ 'footer.link.dspace' | translate}}</a>
+        {{ 'footer.copyright' | translate:{year: dateObj | date:'y'} }}
+        <a class="text-white" href="http://www.duraspace.org/">{{ 'footer.link.duraspace' | translate}}</a>
+      </p>
+      <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
+        <li>
+          <a class="text-white" href="#" (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
+        </li>
+        <li>
+          <a class="text-white" routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
+        </li>
+        <li>
+          <a class="text-white" routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Copyright -->
 </footer>

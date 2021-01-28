@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, ViewEncapsulation } from '@angular/core';
 import { slideMobileNav } from '../shared/animations/slide';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
@@ -15,6 +15,7 @@ import { environment } from '../../environments/environment';
   selector: 'ds-navbar',
   styleUrls: ['./navbar.component.scss'],
   templateUrl: './navbar.component.html',
+  encapsulation: ViewEncapsulation.ShadowDom,
   animations: [slideMobileNav]
 })
 export class NavbarComponent extends MenuComponent {
@@ -41,6 +42,17 @@ export class NavbarComponent extends MenuComponent {
    */
   createMenu() {
     const menuList: any[] = [
+      /* Communities & Collections tree */
+      {
+        id: `browse_global_communities_and_collections`,
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: `menu.section.browse_global_communities_and_collections`,
+          link: `/community-list`
+        } as LinkMenuItemModel
+      },
       /* News */
       {
         id: 'browse_global',
@@ -51,18 +63,6 @@ export class NavbarComponent extends MenuComponent {
           text: 'menu.section.browse_global'
         } as TextMenuItemModel,
         index: 0
-      },
-      /* Communities & Collections tree */
-      {
-        id: `browse_global_communities_and_collections`,
-        parentID: 'browse_global',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: `menu.section.browse_global_communities_and_collections`,
-          link: `/community-list`
-        } as LinkMenuItemModel
       },
     ];
     // Read the different Browse-By types from config and add them to the browse menu

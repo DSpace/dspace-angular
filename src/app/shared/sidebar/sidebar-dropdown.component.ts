@@ -12,5 +12,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SidebarDropdownComponent {
   @Input() id: string;
   @Input() label: string;
+  @Input() isFirstSetting = false;
+  @Input() isLastSetting = false;
   @Output() change: EventEmitter<any> = new EventEmitter<number>();
 }

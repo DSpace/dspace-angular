@@ -1,5 +1,3 @@
-@import '_themed_custom_variables.scss';
-
 $content-spacing: $spacer * 1.5 !default;
 
 $button-height: $input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2) !default;
@@ -23,7 +21,7 @@ $header-logo-height: 80px !default;
 $header-logo-height-xs: 50px !default;
 $header-icon-color: $link-color !default;
 
-$admin-sidebar-bg: darken(#2B4E72, 17%) !default;
+$admin-sidebar-bg: darken(#526d80, 17%) !default;
 $admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%) !default;
 $admin-sidebar-header-bg: darken($admin-sidebar-bg, 7%) !default;
 
@@ -41,3 +39,13 @@ $thumbnail-max-width: 175px !default;
 $dso-selector-list-max-height: 475px !default;
 $dso-selector-current-background-color: #eeeeee;
 $dso-selector-current-background-hover-color: darken($dso-selector-current-background-color, 10%);
+
+$footer-bg: $gray-100;
+$footer-border: 1px solid darken($footer-bg, 10%);
+$footer-padding: $spacer * 1.5;
+$footer-padding-bottom: $spacer;
+$footer-logo-height: 55px;
+
+$navbar-menu-item-hover-color: #8ac651;
+
+@import '_themed_custom_variables.scss';

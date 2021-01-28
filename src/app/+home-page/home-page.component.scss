@@ -3,6 +3,7 @@ div.background-image {
   background-color: $info;
   position: relative;
   background-position-y: -200px;
+  background-image: url('../../assets/images/background.jpg');
   background-size: cover;
   @media screen and (max-width: map-get($grid-breakpoints, lg)) {
     background-position-y: 0;
@@ -49,11 +50,17 @@ div.background-image {
 }
 
 .container-fluid {
-  padding-left: 3rem;
-  padding-right: 3rem;
+/*  padding-left: 3rem;
+  padding-right: 3rem;*/
 }
 
 .rounded-top {
   border-top-left-radius: 1rem !important;
   border-top-right-radius: 1rem !important;
+}
+
+.home-search-box {
+  padding: 2rem;
+  margin-left: -2rem;
+  margin-right: -2rem;
 }

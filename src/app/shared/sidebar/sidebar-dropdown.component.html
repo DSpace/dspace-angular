@@ -1,4 +1,6 @@
-<div class="setting-option mb-3 p-3">
+<div [class.first-setting]="isFirstSetting"
+     [class.last-setting]="isLastSetting"
+     class="setting-option p-3">
   <h5><label for="{{id}}">{{label | translate}}</label></h5>
   <select id="{{id}}" class="form-control" (change)="change.emit($event)">
     <ng-content></ng-content>

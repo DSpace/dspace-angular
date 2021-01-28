@@ -1,3 +1,4 @@
+/*
 $footer-bg: $gray-100;
 $footer-border: 1px solid darken($footer-bg, 10%);
 $footer-padding: $spacer * 1.5;
@@ -37,4 +38,39 @@ $footer-logo-height: 55px;
             }
         }
     }
+}
+*/
+
+.footer {
+  background-color: $footer-bg;
+  border-top: $footer-border;
+  text-align: center;
+  padding: $footer-padding;
+  padding-bottom: $spacer;
+
+  p {
+    margin: 0;
+  }
+
+  div > img {
+    height: $footer-logo-height;
+  }
+
+  ul {
+    li {
+      display: inline-flex;
+      a {
+        padding: 0 $spacer/2;
+        color: inherit
+      }
+
+      &:not(:last-child) {
+        &:after {
+          content: '';
+          border-right: 1px map-get($theme-colors, secondary) solid;
+        }
+
+      }
+    }
+  }
 }

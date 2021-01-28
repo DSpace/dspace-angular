@@ -18,13 +18,13 @@
 <nav [ngClass]="{'open': !(menuCollapsed | async)}"
      [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
      class="navbar navbar-expand-md navbar-light p-0 navbar-container">
-  <div class="container-fluid">
+  <div class="container-fluid h-100">
     <a class="navbar-brand my-2" routerLink="/home">
       <img src="assets/images/dspace-logo.svg"/>
     </a>
 
-    <div id="collapsingNav" class="w-100">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div id="collapsingNav" class="w-100 h-100">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100">
         <ng-container *ngFor="let section of (sections | async)">
           <ng-container
             *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>

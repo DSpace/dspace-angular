@@ -1,7 +1,7 @@
 <h3>{{"search.filters.head" | translate}}</h3>
 <div *ngIf="(filters | async)?.hasSucceeded">
-    <div *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate">
-        <ds-search-filter [filter]="filter" [inPlaceSearch]="inPlaceSearch"></ds-search-filter>
+    <div *ngFor="let filter of (filters | async)?.payload; let first = first; let last = last; trackBy: trackUpdate">
+        <ds-search-filter [filter]="filter" [inPlaceSearch]="inPlaceSearch" [isFirstFilter]="first" [isLastFilter]="last"></ds-search-filter>
     </div>
 </div>
 <a class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button">{{"search.filters.reset" | translate}}</a>

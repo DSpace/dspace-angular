@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
@@ -17,6 +17,9 @@ import { map } from 'rxjs/operators';
  * This component represents the part of the search sidebar that contains the page size settings.
  */
 export class PageSizeSelectorComponent implements OnInit {
+  @Input() isFirstSetting = false;
+  @Input() isLastSetting = false;
+
   /**
    * The configuration for the current paginated search results
    */

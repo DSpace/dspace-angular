@@ -17,11 +17,16 @@
       </div>
       <table class="table table-responsive table-striped">
         <tbody>
+          <tr>
+            <th>{{'item.edit.metadata.headers.field' | translate}}</th>
+            <th class="text-center">{{'item.edit.metadata.headers.language' | translate}}</th>
+            <th>{{'item.edit.metadata.headers.value' | translate}}</th>
+          </tr>
           <ng-container *ngFor="let mdEntry of (metadata$ | async) | keyvalue">
             <tr *ngFor="let mdValue of mdEntry.value">
               <td>{{mdEntry.key}}</td>
-              <td>{{mdValue.value}}</td>
               <td>{{mdValue.language}}</td>
+              <td>{{mdValue.value}}</td>
             </tr>
           </ng-container>
         </tbody>
