@@ -830,7 +830,7 @@
 
   "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
 
-  "collection.edit.tabs.source.form.adminEmail": "Admin's email",
+  "collection.edit.tabs.source.form.adminEmail": "Admin's address",
 
   "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
 
@@ -853,6 +853,14 @@
   "collection.edit.tabs.source.form.preTransform": "Pre transformation name",
 
   "collection.edit.tabs.source.form.postTransform": "Post transformation name",
+
+  "collection.edit.tabs.source.form.forceSynchronization": "Force Synchronization",
+
+  "collection.edit.tabs.source.form.recordValidationEnabled": "Record validation",
+
+  "collection.edit.tabs.source.form.itemValidationEnabled": "Item validation",
+
+  "collection.edit.tabs.source.form.ccAddresses": "CC's addresses",
 
   "collection.edit.tabs.source.head": "Content Source",
 
