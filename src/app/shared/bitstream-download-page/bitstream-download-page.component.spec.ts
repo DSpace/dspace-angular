@@ -35,7 +35,7 @@ describe('BitstreamDownloadPageComponent', () => {
     });
 
     fileService = jasmine.createSpyObj('fileService', {
-      downloadFile: observableOf('content-url-with-headers')
+      retrieveFileDownloadLink: observableOf('content-url-with-headers')
     });
 
     hardRedirectService = jasmine.createSpyObj('fileService', {
