@@ -62,7 +62,6 @@ export class BitstreamDownloadPageComponent implements OnInit {
             take(1),
             map((fileLink) => {
               return [isAuthorized, isLoggedIn, bitstream, fileLink];
-              // return [isAuthorized, isLoggedIn, bitstream];
             }));
         } else {
           return [[isAuthorized, isLoggedIn, bitstream, '']];
