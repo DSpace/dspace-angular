@@ -48,8 +48,15 @@ import { FacetValue } from './facet-value.model';
     /**
      * Defines if the item facet is collapsed by default or not on the search page
      */
-    @autoserialize
+    @autoserializeAs(Boolean, 'openByDefault')
     isOpenByDefault: boolean;
+
+    /**
+     * Defines the list of available operators
+     */
+    @autoserialize
+    operators: OperatorConfig[];
+
 
     /**
      * Minimum value possible for this facet in the repository
@@ -85,3 +92,17 @@ import { FacetValue } from './facet-value.model';
       return 'f.' + this.name;
     }
   }
+
+/**
+ * Interface to model sort option's configuration.
+ */
+export interface SortOption {
+  name: string;
+}
+
+/**
+ * Interface to model operator's configuration.
+ */
+export interface OperatorConfig {
+  operator: string;
+}

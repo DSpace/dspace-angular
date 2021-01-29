@@ -4,7 +4,6 @@ import { ConfigObject } from '../config/models/config.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALLink } from '../shared/hal-link.model';
 import { UnCacheableObject } from '../shared/uncacheable-object.model';
-import { SearchConfig } from '../../shared/search/search-filters/search-config.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -137,16 +136,6 @@ export class FilteredDiscoveryQueryResponse extends RestResponse {
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode, statusText);
-  }
-}
-
-export class SearchConfigSuccessResponse extends RestResponse {
-  constructor(
-    public results: SearchConfig,
-    public statusCode: number,
-    public statusText: string,
   ) {
     super(true, statusCode, statusText);
   }

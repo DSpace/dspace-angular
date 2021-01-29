@@ -32,8 +32,6 @@ import {
   getRemoteDataPayload
 } from '../operators';
 import { RouteService } from '../../services/route.service';
-import { SearchConfigResponseParsingService } from '../../data/search-config-response-parsing.service';
-import { SearchConfig } from '../../../shared/search/search-filters/search-config.model';
 import { SearchResult } from '../../../shared/search/search-result.model';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
@@ -412,46 +410,6 @@ export class SearchService implements OnDestroy {
 
         this.router.navigate(hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], navigationExtras);
       });
-  }
-
-  /**
-   * Request the search configuration for a given scope or the whole repository
-   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
-   * @param {string} configurationName the name of the configuration
-   * @returns {Observable<RemoteData<SearchConfig[]>>} The found configuration
-   */
-  getSearchConfigurationFor(scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
-    const href$ = this.halService.getEndpoint(this.configurationLinkPath).pipe(
-      map((url: string) => {
-        const args: string[] = [];
-
-        if (isNotEmpty(scope)) {
-          args.push(`scope=${scope}`);
-        }
-
-        if (isNotEmpty(configurationName)) {
-          args.push(`configuration=${configurationName}`);
-        }
-
-        if (isNotEmpty(args)) {
-          url = new URLCombiner(url, `?${args.join('&')}`).toString();
-        }
-
-        return url;
-      }),
-    );
-
-    href$.pipe(take(1)).subscribe((url: string) => {
-      let request = new this.request(this.requestService.generateRequestId(), url);
-      request = Object.assign(request, {
-        getResponseParser(): GenericConstructor<ResponseParsingService> {
-          return SearchConfigResponseParsingService;
-        }
-      });
-      this.requestService.configure(request);
-    });
-
-    return this.rdb.buildFromHref(href$);
   }
 
   /**

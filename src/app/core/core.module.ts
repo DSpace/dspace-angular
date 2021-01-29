@@ -174,7 +174,6 @@ import { ResearcherProfileService } from './profile/researcher-profile.service';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
 import { SectionDataService } from './layout/section-data.service';
 import { Section } from './layout/models/section.model';
-import { SearchConfigResponseParsingService } from './data/search-config-response-parsing.service';
 import { OrcidQueueService } from './orcid/orcid-queue.service';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidHistoryService } from './orcid/orcid-history.service';
@@ -245,7 +244,6 @@ const PROVIDERS = [
   EndpointMapResponseParsingService,
   FacetValueResponseParsingService,
   FacetConfigResponseParsingService,
-  SearchConfigResponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
   MyDSpaceResponseParsingService,
